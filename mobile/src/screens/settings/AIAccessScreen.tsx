@@ -1,7 +1,8 @@
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useEffect, useState } from 'react';
 import { Alert, Platform, Pressable, ScrollView, View } from 'react-native';
 
-import { ComingSoonSheet } from '../../components/ComingSoonSheet';
 import { AppText, Card, Row, Screen } from '../../components/primitives';
 import { SettingsRow, SettingsSection } from '../../components/SettingsRow';
 import { aiModeDisplayName, dailyLimit, hostedPlanDisplayName, type AIMode } from '../../domain/ai/hosted';
@@ -9,13 +10,14 @@ import { apiKeySecretName, resolveVisionSelection } from '../../domain/ai/settin
 import { refreshCustomerInfo, restorePurchases, setPreferences, usePreferences, usePurchases } from '../../state/appStores';
 import { secureSecretStore } from '../../state/persistence';
 import { useTheme } from '../../theme';
+import type { SettingsStackParamList } from '../../navigation/types';
 import { HostedPaywallSheet } from '../paywall/HostedPaywallSheet';
 
 const platform = Platform.OS === 'ios' ? 'ios' : 'android';
 
 /**
  * Settings → AI Access. Mode switch (BYOK / Hosted), current provider + model, key status, and
- * the hosted plan. Provider editing lives in "AI Providers & Fallbacks" (not yet ported).
+ * the hosted plan. Provider editing lives in Settings → AI Providers & Fallbacks.
  */
 export function AIAccessScreen() {
   const theme = useTheme();
@@ -23,9 +25,9 @@ export function AIAccessScreen() {
   const purchases = usePurchases((p) => p);
   const selection = resolveVisionSelection(platform, prefs.selectedAIProvider, prefs.selectedAIModel);
   const [hasKey, setHasKey] = useState<boolean | undefined>(undefined);
+  const navigation = useNavigation<NativeStackNavigationProp<SettingsStackParamList>>();
   const [paywallVisible, setPaywallVisible] = useState(false);
   const [isRestoring, setIsRestoring] = useState(false);
-  const [providersComingSoon, setProvidersComingSoon] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -109,7 +111,7 @@ export function AIAccessScreen() {
             icon="sparkles"
             title="AI Providers & Fallbacks"
             subtitle="Change provider, model, fallbacks"
-            onPress={() => setProvidersComingSoon(true)}
+            onPress={() => navigation.navigate('AIProviders')}
           />
         </SettingsSection>
 
@@ -135,13 +137,6 @@ export function AIAccessScreen() {
       </ScrollView>
 
       <HostedPaywallSheet visible={paywallVisible} onDismiss={() => setPaywallVisible(false)} onEntitled={() => setPreferences({ aiAccessMode: 'hosted' })} />
-      <ComingSoonSheet
-        visible={providersComingSoon}
-        title="AI Providers & Fallbacks"
-        icon="sparkles"
-        message="Provider, model and fallback editing is being ported to the shared app. Configure them in the native Fud AI app for now."
-        onDismiss={() => setProvidersComingSoon(false)}
-      />
     </Screen>
   );
 }

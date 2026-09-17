@@ -20,9 +20,9 @@ interface NativeMenuProps {
 }
 
 /**
- * System menu chrome. iOS development builds attach a real `UIMenu` to the child
- * (`UIButton.menu`). Android and Expo Go use an anchored glass dropdown with the same tree —
- * never `ActionListSheet`.
+ * System menu chrome. Development builds attach a real menu to the child: iOS `UIButton.menu`
+ * / `UIMenu`, Android `PopupMenu` anchored to the view. Expo Go uses `AnchoredMenu`. Never
+ * `ActionListSheet`.
  */
 export function NativeMenu({
   items,

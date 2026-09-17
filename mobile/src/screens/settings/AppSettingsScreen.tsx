@@ -1,7 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useState } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
 
+import { ComingSoonSheet } from '../../components/ComingSoonSheet';
 import { AppText, Card, Screen } from '../../components/primitives';
 import { SettingsRow, SettingsSection, SettingsToggleRow } from '../../components/SettingsRow';
 import type { AppearanceMode } from '../../domain/prefs/preferences';
@@ -21,6 +23,7 @@ export function AppSettingsScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<SettingsStackParamList>>();
   const prefs = usePreferences((p) => p);
   const accentId = appThemeColor(prefs.appThemeColor);
+  const [quickActions, setQuickActions] = useState(false);
 
   return (
     <Screen edges={['left', 'right']}>
@@ -70,10 +73,27 @@ export function AppSettingsScreen() {
           <SettingsToggleRow title="Week Starts on Monday" value={prefs.weekStartsOnMonday} onValueChange={(v) => setPreferences({ weekStartsOnMonday: v })} />
         </SettingsSection>
 
+        <SettingsSection header="Shortcuts">
+          <SettingsRow
+            icon="bolt.fill"
+            title="Quick Actions"
+            value="Customize"
+            onPress={() => setQuickActions(true)}
+          />
+          <SettingsRow icon="plus.circle.fill" title="+ Menu" value="Customize" onPress={() => navigation.navigate('AddMenu')} />
+        </SettingsSection>
+
         <SettingsSection header="AI Setup" footer="Change the provider, model, key or Hosted AI plan without repeating onboarding.">
           <SettingsRow title="Redo AI Setup" onPress={() => navigation.navigate('AIAccess')} />
         </SettingsSection>
       </ScrollView>
+      <ComingSoonSheet
+        visible={quickActions}
+        title="Quick Actions"
+        icon="bolt.fill"
+        message="App-icon shortcuts and Siri App Intents are native-only. Long-press the Fud AI icon on the home screen in the native app to customize them."
+        onDismiss={() => setQuickActions(false)}
+      />
     </Screen>
   );
 }

@@ -34,7 +34,7 @@ interface NativeMenuModule {
 }
 
 function loadNative(): { View: React.ComponentType<NativeProps>; module: NativeMenuModule } | undefined {
-  if (Platform.OS !== 'ios') return undefined;
+  if (Platform.OS !== 'ios' && Platform.OS !== 'android') return undefined;
   try {
     return {
       View: requireNativeViewManager<NativeProps>('NativeMenu'),
@@ -47,7 +47,7 @@ function loadNative(): { View: React.ComponentType<NativeProps>; module: NativeM
 
 const native = loadNative();
 
-/** True only when the iOS local module is linked (dev / store build, not Expo Go). */
+/** True when the local module is linked (dev / store build). Expo Go falls back to AnchoredMenu. */
 export const isNativeMenuAvailable: boolean = native?.module.isNativeMenuAvailable ?? false;
 
 export function NativeMenuHost({

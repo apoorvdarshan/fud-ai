@@ -42,10 +42,13 @@ import { ExerciseLibrary } from './ExerciseLibrary';
 type Mode = 'log' | 'library';
 
 export function WorkoutsScreen() {
+  const theme = useTheme();
   const insets = useSafeAreaInsets();
   const tabBarHeight = useContext(BottomTabBarHeightContext) ?? insets.bottom;
   const [mode, setMode] = useState<Mode>('log');
   const [picking, setPicking] = useState(false);
+  const [outdoor, setOutdoor] = useState<'walking' | 'running' | null>(null);
+  const walkRun = usePreferences((p) => p.walkRunQuickLogEnabled);
   const profile = useProfile((p) => p);
   const drafts = useWorkouts((s) => s.drafts);
   // An unfinished workout stays reachable after midnight: the log opens the most recent draft
@@ -95,15 +98,99 @@ export function WorkoutsScreen() {
       {picking || mode === 'library' ? (
         <ExerciseLibrary sex={profile.gender === 'female' ? 'female' : 'male'} onPick={pickExercise} bottomInset={tabBarHeight} />
       ) : (
-        <WorkoutLog dayKey={today} onAddExercise={() => setPicking(true)} bottomInset={tabBarHeight} />
+        <WorkoutLog
+          dayKey={today}
+          onAddExercise={() => setPicking(true)}
+          onOutdoor={walkRun ? setOutdoor : undefined}
+          bottomInset={tabBarHeight}
+        />
       )}
+      <BottomSheet visible={outdoor !== null} title={outdoor === 'running' ? 'Running' : 'Walking'} onDismiss={() => setOutdoor(null)} surface="card">
+        <AppText variant="subheadline" tone="secondary" align="center">
+          How long did you go?
+        </AppText>
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10, justifyContent: 'center' }}>
+          {[15, 30, 45, 60].map((minutes) => (
+            <Pressable
+              key={minutes}
+              accessibilityRole="button"
+              onPress={() => {
+                const name = outdoor === 'running' ? 'Running' : 'Walking';
+                const itemId = outdoor === 'running' ? 'Running_Outdoor' : 'Walking_Outdoor';
+                const exercise: DraftExercise = {
+                  id: newId(),
+                  itemID: itemId,
+                  name,
+                  targetMuscles: ['cardio'],
+                  equipment: 'body only',
+                  category: 'cardio',
+                  sets: [{ id: newId(), weight: '', reps: String(minutes), rpe: '' }],
+                };
+                workoutsStore.dispatch({ type: 'draft/addExercise', dayKey: today, exercise, startedAt: new Date().toISOString() });
+                setOutdoor(null);
+                setMode('log');
+              }}
+              style={{ minWidth: 72, paddingVertical: 12, borderRadius: 12, backgroundColor: theme.accentAlpha(0.12), alignItems: 'center' }}
+            >
+              <AppText variant="headline" tone="accent">
+                {minutes}
+              </AppText>
+              <AppText variant="caption" tone="secondary">
+                min
+              </AppText>
+            </Pressable>
+          ))}
+        </View>
+      </BottomSheet>
     </Screen>
   );
 }
 
 // MARK: - Log
 
-function WorkoutLog({ dayKey: today, onAddExercise, bottomInset }: { dayKey: string; onAddExercise: () => void; bottomInset: number }) {
+function AddExerciseControl({
+  title,
+  onAddExercise,
+  onOutdoor,
+  stretch,
+}: {
+  title: string;
+  onAddExercise: () => void;
+  onOutdoor?: (kind: 'walking' | 'running') => void;
+  stretch?: boolean;
+}) {
+  if (!onOutdoor) {
+    return stretch ? <PrimaryButton title={title} style={{ alignSelf: 'stretch' }} onPress={onAddExercise} /> : <SecondaryButton title={title} onPress={onAddExercise} />;
+  }
+  const button = stretch ? <PrimaryButton title={title} style={{ alignSelf: 'stretch' }} onPress={onAddExercise} /> : <SecondaryButton title={title} onPress={onAddExercise} />;
+  return (
+    <NativeMenu
+      items={[
+        { id: 'library', title: 'Add Exercise', systemImage: 'plus.circle.fill' },
+        { id: 'walking', title: 'Walking', systemImage: 'figure.walk' },
+        { id: 'running', title: 'Running', systemImage: 'figure.run' },
+      ]}
+      onSelect={(id) => {
+        if (id === 'walking' || id === 'running') onOutdoor(id);
+        else onAddExercise();
+      }}
+    >
+      {button}
+    </NativeMenu>
+  );
+}
+
+function WorkoutLog({
+  dayKey: today,
+  onAddExercise,
+  onOutdoor,
+  bottomInset,
+}: {
+  dayKey: string;
+  onAddExercise: () => void;
+  onOutdoor?: (kind: 'walking' | 'running') => void;
+  bottomInset: number;
+}) {
   const theme = useTheme();
   const workouts = useWorkouts((s) => s);
   const body = useBody((s) => s);
@@ -181,14 +268,14 @@ function WorkoutLog({ dayKey: today, onAddExercise, bottomInset }: { dayKey: str
             <AppText variant="subheadline" tone="secondary" align="center">
               Add exercises from the library, log weight, reps and RPE per set, then finish to save it to your diary.
             </AppText>
-            <PrimaryButton title="Add Exercise" style={{ alignSelf: 'stretch' }} onPress={onAddExercise} />
+            <AddExerciseControl title="Add Exercise" onAddExercise={onAddExercise} onOutdoor={onOutdoor} stretch />
           </Card>
         ) : (
           <>
             {draft.exercises.map((exercise) => (
               <DraftExerciseCard key={exercise.id} dayKey={today} exercise={exercise} weightUnit={prefs.weightUnit} rpeScale={workouts.preferences.rpeScale} />
             ))}
-            <SecondaryButton title="Add Exercise" onPress={onAddExercise} />
+            <AddExerciseControl title="Add Exercise" onAddExercise={onAddExercise} onOutdoor={onOutdoor} />
             <PrimaryButton title={performed > 0 ? `Finish Workout · ${performed} ${performed === 1 ? 'set' : 'sets'}` : 'Finish Workout'} disabled={performed === 0} onPress={finish} />
             <Pressable accessibilityRole="button" onPress={discard} style={{ alignSelf: 'center' }}>
               <AppText variant="footnoteSemibold" tone="destructive">

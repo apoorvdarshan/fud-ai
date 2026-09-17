@@ -25,20 +25,20 @@ const preferenceCategories: Category[] = [
   { id: 'trackingReminders', title: 'Tracking & Reminders', icon: 'timer', route: 'TrackingReminders' },
   { id: 'notifications', title: 'Notifications', icon: 'bell', route: 'Notifications' },
   { id: 'aiAccess', title: 'AI Access', icon: 'key.horizontal', route: 'AIAccess' },
-  { id: 'aiProviders', title: 'AI Providers & Fallbacks', icon: 'sparkles' },
+  { id: 'aiProviders', title: 'AI Providers & Fallbacks', icon: 'sparkles', route: 'AIProviders' },
   { id: 'speechToText', title: 'Speech-to-Text', icon: 'waveform', route: 'SpeechToText' },
   { id: 'appPreferences', title: 'App Settings', icon: 'slider.horizontal.3', route: 'AppSettings' },
-  { id: 'workout', title: 'Workout', icon: 'dumbbell' },
+  { id: 'workout', title: 'Workout', icon: 'dumbbell', route: 'Workout' },
   { id: 'healthData', title: 'Health & Data', icon: 'heart', route: 'HealthData' },
   { id: 'dataManagement', title: 'Data Management', icon: 'externaldrive', route: 'HealthData' },
 ];
 
 const appInfoCategories: Category[] = [
-  { id: 'appUpdates', title: 'App & Updates', icon: 'arrow.triangle.2.circlepath.circle.fill' },
-  { id: 'support', title: 'Support Fud AI', icon: 'heart.fill' },
-  { id: 'helpFeedback', title: 'Help & Feedback', icon: 'exclamationmark.bubble.fill' },
-  { id: 'community', title: 'Community', icon: 'person.3.fill' },
-  { id: 'legal', title: 'Legal', icon: 'lock.shield.fill' },
+  { id: 'appUpdates', title: 'App & Updates', icon: 'arrow.triangle.2.circlepath.circle.fill', route: 'AppUpdates' },
+  { id: 'support', title: 'Support Fud AI', icon: 'heart.fill', route: 'Support' },
+  { id: 'helpFeedback', title: 'Help & Feedback', icon: 'exclamationmark.bubble.fill', route: 'HelpFeedback' },
+  { id: 'community', title: 'Community', icon: 'person.3.fill', route: 'Community' },
+  { id: 'legal', title: 'Legal', icon: 'lock.shield.fill', route: 'Legal' },
 ];
 
 export function SettingsScreen() {

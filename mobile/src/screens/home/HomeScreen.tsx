@@ -23,7 +23,7 @@ import {
 } from '../../domain/diary/diaryState';
 import { displayedHomeNutrients, homeNutrientGoal, homeNutrients } from '../../domain/diary/homeNutrients';
 import { foodLogSortOrderDisplayName, homeDiaryMealGroups, type FoodLogSortOrder } from '../../domain/diary/mealGroups';
-import { buildHomeAddMenu, parseHomeAddMenuAction } from '../../domain/prefs/addMenu';
+import { addMenuConfigFromPrefs, buildHomeAddMenu, parseHomeAddMenuAction } from '../../domain/prefs/addMenu';
 import { makeFoodEntry, mealTypeDisplayName, type FoodEntry } from '../../domain/food/food';
 import { parseHomeTopNutrients } from '../../domain/prefs/preferences';
 import { dailyTargets } from '../../domain/profile/userProfile';
@@ -168,12 +168,13 @@ export function HomeScreen() {
   const addMenuItems = useMemo(
     () =>
       buildHomeAddMenu({
+        config: addMenuConfigFromPrefs(prefs.addMenuConfig),
         fastingTrackingEnabled: prefs.fastingTrackingEnabled,
         waterTrackingEnabled: prefs.waterTrackingEnabled,
         hasActiveFast: active !== undefined,
         waterUnit: prefs.waterUnit,
       }),
-    [prefs.fastingTrackingEnabled, prefs.waterTrackingEnabled, prefs.waterUnit, active],
+    [prefs.addMenuConfig, prefs.fastingTrackingEnabled, prefs.waterTrackingEnabled, prefs.waterUnit, active],
   );
 
   const sortMenuItems = useMemo(

@@ -123,6 +123,23 @@ export const sfSymbolToIonicon = {
   'calendar': 'calendar-outline',
   'chevron.down': 'chevron-down',
   'chevron.up': 'chevron-up',
+  'star.fill': 'star',
+  'square.and.arrow.up.fill': 'share',
+  'star.circle.fill': 'star-outline',
+  'hand.thumbsup.fill': 'thumbs-up',
+  'envelope.fill': 'mail',
+  'lightbulb.fill': 'bulb',
+  'briefcase.fill': 'briefcase',
+  at: 'at',
+  'doc.text.fill': 'document-text',
+  'building.2.fill': 'business',
+  'square.stack.3d.up.fill': 'layers',
+  'square.grid.2x2.fill': 'grid',
+  'chevron.left.forwardslash.chevron.right': 'code-slash',
+  'shield.checkered': 'shield-checkmark-outline',
+  'arrow.triangle.2.circlepath': 'refresh-outline',
+  'gauge.with.dots.needle.50percent': 'speedometer-outline',
+  'folder.fill': 'folder',
 } as const;
 
 export type SFSymbolName = keyof typeof sfSymbolToIonicon;

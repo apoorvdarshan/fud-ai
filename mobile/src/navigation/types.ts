@@ -11,9 +11,17 @@ export type SettingsStackParamList = {
   PersonalInfo: undefined;
   GoalsNutrition: undefined;
   AIAccess: undefined;
+  AIProviders: undefined;
   TrackingReminders: undefined;
   Notifications: undefined;
   AppSettings: undefined;
+  AddMenu: undefined;
+  Workout: undefined;
   HealthData: undefined;
   SpeechToText: undefined;
+  AppUpdates: undefined;
+  Support: undefined;
+  HelpFeedback: undefined;
+  Community: undefined;
+  Legal: undefined;
 };

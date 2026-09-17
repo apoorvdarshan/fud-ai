@@ -1,7 +1,7 @@
 import ExpoModulesCore
 
-/// iOS-only bridge for system `UIMenu` attached to a view. Android uses the shared JS
-/// anchored dropdown (`AnchoredMenu`) so layout stays the same without a Material menu.
+/// Bridge for a system menu attached to a view. iOS uses `UIButton.menu` / `UIMenu`.
+/// Android’s sibling module presents an anchored `PopupMenu` on the same view.
 public class NativeMenuModule: Module {
   public func definition() -> ModuleDefinition {
     Name("NativeMenu")

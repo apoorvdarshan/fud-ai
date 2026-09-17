@@ -37,6 +37,7 @@ export const nativePrefAliases: Record<string, keyof Preferences> = {
   maxResponseTokens: 'aiMaxResponseTokens',
   healthConnectEnabled: 'healthKitEnabled',
   aiAnalysisConsentGiven: 'aiConsentGiven',
+  'addMenu.config': 'addMenuConfig',
 };
 
 export interface PersistedDiary {
@@ -464,6 +465,9 @@ function mapPreferences(prefs: NativeStorageSnapshot['prefs'], blobs: Record<str
   if (blobs.adaptiveGoalsPreviousTargets && merged.adaptiveGoalsPreviousTargets === undefined) {
     merged.adaptiveGoalsPreviousTargets = blobs.adaptiveGoalsPreviousTargets;
   }
+  if (blobs['addMenu.config'] && merged['addMenu.config'] === undefined && merged.addMenuConfig === undefined) {
+    merged.addMenuConfig = blobs['addMenu.config'];
+  }
   for (const [rawKey, value] of Object.entries(merged)) {
     const key = (nativePrefAliases[rawKey] ?? rawKey) as keyof Preferences;
     assignPreference(patch, key, value);
@@ -488,6 +492,8 @@ function assignPreference(patch: Partial<Preferences>, key: keyof Preferences, v
     case 'acceptedTermsAndPrivacy':
     case 'separateTextProviderEnabled':
     case 'aiFallbackEnabled':
+    case 'textAIFallbackEnabled':
+    case 'walkRunQuickLogEnabled':
       if (typeof value === 'boolean') patch[key] = value;
       break;
     case 'appearanceMode':
@@ -534,6 +540,9 @@ function assignPreference(patch: Partial<Preferences>, key: keyof Preferences, v
     case 'aiUserContext':
     case 'selectedFallbackAIProvider':
     case 'selectedFallbackAIModel':
+    case 'selectedTextFallbackAIProvider':
+    case 'selectedTextFallbackAIModel':
+    case 'addMenuConfig':
       if (typeof value === 'string') (patch as Record<string, string>)[key] = value;
       break;
     default:

@@ -10,7 +10,10 @@ import { CoachScreen } from '../screens/coach/CoachScreen';
 import { HomeScreen } from '../screens/home/HomeScreen';
 import { ProgressScreen } from '../screens/progress/ProgressScreen';
 import { WorkoutsScreen } from '../screens/workouts/WorkoutsScreen';
+import { AddMenuSettingsScreen } from '../screens/settings/AddMenuSettingsScreen';
+import { AppUpdatesScreen, CommunityScreen, HelpFeedbackScreen, LegalScreen, SupportScreen } from '../screens/settings/AboutScreens';
 import { AIAccessScreen } from '../screens/settings/AIAccessScreen';
+import { AIProvidersScreen } from '../screens/settings/AIProvidersScreen';
 import { AppSettingsScreen } from '../screens/settings/AppSettingsScreen';
 import { GoalsNutritionScreen } from '../screens/settings/GoalsNutritionScreen';
 import { HealthDataScreen } from '../screens/settings/HealthDataScreen';
@@ -19,6 +22,7 @@ import { PersonalInfoScreen } from '../screens/settings/PersonalInfoScreen';
 import { SettingsScreen } from '../screens/settings/SettingsScreen';
 import { SpeechToTextScreen } from '../screens/settings/SpeechToTextScreen';
 import { TrackingRemindersScreen } from '../screens/settings/TrackingRemindersScreen';
+import { WorkoutSettingsScreen } from '../screens/settings/WorkoutSettingsScreen';
 import { useTheme } from '../theme';
 import type { RootTabParamList, SettingsStackParamList } from './types';
 
@@ -50,11 +54,19 @@ function SettingsStackScreen() {
       <SettingsStack.Screen name="PersonalInfo" component={PersonalInfoScreen} options={{ title: 'Personal Info' }} />
       <SettingsStack.Screen name="GoalsNutrition" component={GoalsNutritionScreen} options={{ title: 'Goals & Nutrition' }} />
       <SettingsStack.Screen name="AIAccess" component={AIAccessScreen} options={{ title: 'AI Access' }} />
+      <SettingsStack.Screen name="AIProviders" component={AIProvidersScreen} options={{ title: 'AI Providers & Fallbacks' }} />
       <SettingsStack.Screen name="TrackingReminders" component={TrackingRemindersScreen} options={{ title: 'Tracking & Reminders' }} />
       <SettingsStack.Screen name="Notifications" component={NotificationsScreen} options={{ title: 'Notifications' }} />
       <SettingsStack.Screen name="AppSettings" component={AppSettingsScreen} options={{ title: 'App Settings' }} />
+      <SettingsStack.Screen name="AddMenu" component={AddMenuSettingsScreen} options={{ title: '+ Menu' }} />
+      <SettingsStack.Screen name="Workout" component={WorkoutSettingsScreen} options={{ title: 'Workout' }} />
       <SettingsStack.Screen name="HealthData" component={HealthDataScreen} options={{ title: 'Health & Data' }} />
       <SettingsStack.Screen name="SpeechToText" component={SpeechToTextScreen} options={{ title: 'Speech-to-Text' }} />
+      <SettingsStack.Screen name="AppUpdates" component={AppUpdatesScreen} options={{ title: 'App & Updates' }} />
+      <SettingsStack.Screen name="Support" component={SupportScreen} options={{ title: 'Support Fud AI' }} />
+      <SettingsStack.Screen name="HelpFeedback" component={HelpFeedbackScreen} options={{ title: 'Help & Feedback' }} />
+      <SettingsStack.Screen name="Community" component={CommunityScreen} options={{ title: 'Community' }} />
+      <SettingsStack.Screen name="Legal" component={LegalScreen} options={{ title: 'Legal' }} />
     </SettingsStack.Navigator>
   );
 }

@@ -128,8 +128,16 @@ export interface Preferences {
   aiFallbackEnabled: boolean;
   selectedFallbackAIProvider?: string;
   selectedFallbackAIModel?: string;
+  textAIFallbackEnabled: boolean;
+  selectedTextFallbackAIProvider?: string;
+  selectedTextFallbackAIModel?: string;
   aiMaxResponseTokens?: number;
   aiRequestTimeoutSeconds?: number;
+
+  /** Home + food menu JSON (`AddMenuConfig.storageKey`). */
+  addMenuConfig?: string;
+  /** Outdoor Walking / Running in the Workouts + menu. */
+  walkRunQuickLogEnabled: boolean;
 }
 
 export const defaultPreferences: Preferences = {
@@ -170,6 +178,8 @@ export const defaultPreferences: Preferences = {
   separateTextProviderEnabled: false,
   aiUserContext: '',
   aiFallbackEnabled: false,
+  textAIFallbackEnabled: false,
+  walkRunQuickLogEnabled: false,
 };
 
 /**
@@ -218,8 +228,13 @@ export const preferenceKeys: { readonly [K in keyof Preferences]: K } = {
   aiFallbackEnabled: aiSettingsKeys.fallbackEnabled,
   selectedFallbackAIProvider: aiSettingsKeys.fallbackProvider,
   selectedFallbackAIModel: aiSettingsKeys.fallbackModel,
+  textAIFallbackEnabled: aiSettingsKeys.textFallbackEnabled,
+  selectedTextFallbackAIProvider: aiSettingsKeys.textFallbackProvider,
+  selectedTextFallbackAIModel: aiSettingsKeys.textFallbackModel,
   aiMaxResponseTokens: aiSettingsKeys.maxResponseTokens,
   aiRequestTimeoutSeconds: aiSettingsKeys.requestTimeoutSeconds,
+  addMenuConfig: 'addMenuConfig',
+  walkRunQuickLogEnabled: 'walkRunQuickLogEnabled',
 };
 
 export function mergePreferences(stored: unknown): Preferences {

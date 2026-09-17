@@ -1,12 +1,15 @@
 import { describe, expect, it } from 'vitest';
 
 import {
+  assignAddMenuMethod,
   buildHomeAddMenu,
+  hiddenAddMenuMethods,
   iosDefaultAddMenuConfig,
   parseAddMenuConfig,
   parseAddMenuConfigJson,
   parseHomeAddMenuAction,
   sanitizeAddMenuConfig,
+  setAddMenuGroupCount,
   visibleAddMenuMethods,
 } from '../src/domain/prefs/addMenu';
 
@@ -72,6 +75,24 @@ describe('buildHomeAddMenu', () => {
     });
     expect(items).toHaveLength(1);
     expect(items[0]?.children?.map((child) => child.id)).toEqual(['endFast', 'cancelFast']);
+  });
+
+  it('flattens to a method list when groups are set to zero', () => {
+    const flat = setAddMenuGroupCount(iosDefaultAddMenuConfig, 0);
+    expect(flat.groups).toEqual([]);
+    expect(flat.flatMethods).toEqual(visibleAddMenuMethods(iosDefaultAddMenuConfig));
+    expect(hiddenAddMenuMethods(flat)).toEqual([]);
+  });
+
+  it('assigns a hidden method into a group', () => {
+    const trimmed = sanitizeAddMenuConfig({
+      version: 1,
+      groups: [{ id: 'photo-scan', name: 'Photo & Scan', methods: ['camera'] }],
+      flatMethods: [],
+    });
+    const next = assignAddMenuMethod(trimmed, 'photos', 'photo-scan');
+    expect(next.groups[0]?.methods).toEqual(['camera', 'photos']);
+    expect(hiddenAddMenuMethods(next)).toContain('voice');
   });
 
   it('parses action ids used by the Home + menu', () => {

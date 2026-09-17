@@ -243,6 +243,106 @@ export function buildHomeAddMenu(input: {
   return items;
 }
 
+export function addMenuConfigFromPrefs(raw: string | undefined): AddMenuConfig {
+  return parseAddMenuConfigJson(raw);
+}
+
+export function serializeAddMenuConfig(config: AddMenuConfig): string {
+  return JSON.stringify(sanitizeAddMenuConfig(config));
+}
+
+export function hiddenAddMenuMethods(config: AddMenuConfig): FoodLogMethod[] {
+  const visible = new Set(visibleAddMenuMethods(config));
+  return addMenuFoodLogMethods.filter((method) => !visible.has(method));
+}
+
+export function renameAddMenuGroup(config: AddMenuConfig, groupId: string, name: string): AddMenuConfig {
+  return sanitizeAddMenuConfig({
+    ...config,
+    groups: config.groups.map((group) => (group.id === groupId ? { ...group, name } : group)),
+  });
+}
+
+export function moveAddMenuGroup(config: AddMenuConfig, fromIndex: number, toIndex: number): AddMenuConfig {
+  if (fromIndex === toIndex || fromIndex < 0 || toIndex < 0 || fromIndex >= config.groups.length || toIndex >= config.groups.length) {
+    return config;
+  }
+  const groups = [...config.groups];
+  const [moved] = groups.splice(fromIndex, 1);
+  if (!moved) return config;
+  groups.splice(toIndex, 0, moved);
+  return sanitizeAddMenuConfig({ ...config, groups });
+}
+
+export function moveAddMenuMethod(config: AddMenuConfig, list: 'flat' | string, fromIndex: number, toIndex: number): AddMenuConfig {
+  const move = <T,>(items: T[]): T[] => {
+    if (fromIndex === toIndex || fromIndex < 0 || toIndex < 0 || fromIndex >= items.length || toIndex >= items.length) return items;
+    const next = [...items];
+    const [moved] = next.splice(fromIndex, 1);
+    if (!moved) return items;
+    next.splice(toIndex, 0, moved);
+    return next;
+  };
+  if (list === 'flat') {
+    return sanitizeAddMenuConfig({ ...config, flatMethods: move(config.flatMethods) });
+  }
+  return sanitizeAddMenuConfig({
+    ...config,
+    groups: config.groups.map((group) => (group.id === list ? { ...group, methods: move(group.methods) } : group)),
+  });
+}
+
+export function removeAddMenuMethod(config: AddMenuConfig, list: 'flat' | string, method: FoodLogMethod): AddMenuConfig {
+  if (list === 'flat') {
+    return sanitizeAddMenuConfig({ ...config, flatMethods: config.flatMethods.filter((item) => item !== method) });
+  }
+  return sanitizeAddMenuConfig({
+    ...config,
+    groups: config.groups.map((group) => (group.id === list ? { ...group, methods: group.methods.filter((item) => item !== method) } : group)),
+  });
+}
+
+export function assignAddMenuMethod(config: AddMenuConfig, method: FoodLogMethod, groupId: string): AddMenuConfig {
+  const without = {
+    ...config,
+    flatMethods: config.flatMethods.filter((item) => item !== method),
+    groups: config.groups.map((group) => ({ ...group, methods: group.methods.filter((item) => item !== method) })),
+  };
+  return sanitizeAddMenuConfig({
+    ...without,
+    groups: without.groups.map((group) => (group.id === groupId ? { ...group, methods: [...group.methods, method] } : group)),
+  });
+}
+
+export function appendFlatAddMenuMethod(config: AddMenuConfig, method: FoodLogMethod): AddMenuConfig {
+  if (config.flatMethods.includes(method)) return config;
+  return sanitizeAddMenuConfig({ ...config, flatMethods: [...config.flatMethods, method] });
+}
+
+/** `AddMenuSettingsView.updateGroupCount` — 0 groups become a flat menu. */
+export function setAddMenuGroupCount(config: AddMenuConfig, count: number): AddMenuConfig {
+  const nextCount = Math.max(0, Math.min(3, Math.round(count)));
+  if (nextCount === 0) {
+    const visible = config.groups.length === 0 ? config.flatMethods : visibleAddMenuMethods(config);
+    return sanitizeAddMenuConfig({ version: ADD_MENU_CURRENT_VERSION, groups: [], flatMethods: visible });
+  }
+
+  let groups = [...config.groups];
+  if (groups.length === 0) {
+    const flat = config.flatMethods;
+    groups = flat.length === 0
+      ? iosDefaultAddMenuConfig.groups.map((group) => ({ ...group, methods: [...group.methods] }))
+      : [{ id: newGroupId(), name: 'New Group', methods: [...flat] }];
+  }
+  while (groups.length < nextCount) {
+    groups.push({ id: newGroupId(), name: 'New Group', methods: [] });
+  }
+  while (groups.length > nextCount) {
+    groups.pop();
+  }
+  return sanitizeAddMenuConfig({ version: ADD_MENU_CURRENT_VERSION, groups, flatMethods: [] });
+}
+
 export function parseHomeAddMenuAction(id: string): HomeAddMenuAction | undefined {
   if (id === 'startFast') return { kind: 'startFast' };
   if (id === 'endFast') return { kind: 'endFast' };

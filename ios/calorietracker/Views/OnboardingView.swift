@@ -1085,7 +1085,7 @@ struct OnboardingView: View {
     private var aiProviderContinueButton: some View {
         VStack(spacing: 10) {
             if hasAcceptedTerms, aiSubstep == .byok, !byokFieldsReady {
-                Text("Paste your API key in the field above. The hint text is not a key.")
+                Text("Paste your \(byokProvider.apiKeyBrandName) API key in the field above. The hint text is not a key.")
                     .font(.system(.footnote, design: .rounded, weight: .medium))
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
@@ -1116,10 +1116,10 @@ struct OnboardingView: View {
             .padding(.horizontal, 24)
             .padding(.bottom, 36)
         }
-        .alert("Paste your API key", isPresented: $showMissingAPIKeyAlert) {
+        .alert("Paste your \(byokProvider.apiKeyBrandName) API key", isPresented: $showMissingAPIKeyAlert) {
             Button("OK", role: .cancel) {}
         } message: {
-            Text("Accept & Continue needs a real key in the API Key field. The grey hint is not a key — paste the key from the provider you selected.")
+            Text("Accept & Continue needs a real key in the API Key field. The grey hint is not a key — paste your \(byokProvider.apiKeyBrandName) key.")
         }
     }
 

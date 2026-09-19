@@ -121,16 +121,16 @@
 
     <!-- AI Provider API key placeholders -->
     <string name="ai_key_placeholder_gemini">Paste Gemini API key</string>
-    <string name="ai_key_placeholder_openai">Paste API key</string>
-    <string name="ai_key_placeholder_anthropic">Paste API key</string>
-    <string name="ai_key_placeholder_xai">Paste API key</string>
-    <string name="ai_key_placeholder_openrouter">Paste API key</string>
-    <string name="ai_key_placeholder_together">…</string>
-    <string name="ai_key_placeholder_groq">Paste API key</string>
-    <string name="ai_key_placeholder_huggingface">Paste API key</string>
-    <string name="ai_key_placeholder_fireworks">Paste API key</string>
-    <string name="ai_key_placeholder_deepinfra">…</string>
-    <string name="ai_key_placeholder_mistral">…</string>
+    <string name="ai_key_placeholder_openai">Paste OpenAI API key</string>
+    <string name="ai_key_placeholder_anthropic">Paste Claude API key</string>
+    <string name="ai_key_placeholder_xai">Paste Grok API key</string>
+    <string name="ai_key_placeholder_openrouter">Paste OpenRouter API key</string>
+    <string name="ai_key_placeholder_together">Paste Together AI API key</string>
+    <string name="ai_key_placeholder_groq">Paste Groq API key</string>
+    <string name="ai_key_placeholder_huggingface">Paste Hugging Face API key</string>
+    <string name="ai_key_placeholder_fireworks">Paste Fireworks API key</string>
+    <string name="ai_key_placeholder_deepinfra">Paste DeepInfra API key</string>
+    <string name="ai_key_placeholder_mistral">Paste Mistral API key</string>
     <string name="ai_key_placeholder_ollama">Açar lazım deyil</string>
     <string name="ai_key_placeholder_custom">API açarı (və ya endpoint tələb etmirsə hər şey)</string>
 

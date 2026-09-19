@@ -150,18 +150,18 @@
 
     <!-- AI Provider API key placeholders -->
     <string name="ai_key_placeholder_gemini">Paste Gemini API key</string>
-    <string name="ai_key_placeholder_openai">Paste API key</string>
-    <string name="ai_key_placeholder_anthropic">Paste API key</string>
-    <string name="ai_key_placeholder_xai">Paste API key</string>
-    <string name="ai_key_placeholder_openrouter">Paste API key</string>
-    <string name="ai_key_placeholder_together">Paste API key</string>
-    <string name="ai_key_placeholder_groq">Paste API key</string>
-    <string name="ai_key_placeholder_huggingface">Paste API key</string>
-    <string name="ai_key_placeholder_fireworks">Paste API key</string>
-    <string name="ai_key_placeholder_deepinfra">Paste API key</string>
-    <string name="ai_key_placeholder_mistral">Paste API key</string>
-    <string name="ai_key_placeholder_deepseek">Paste API key</string>
-    <string name="ai_key_placeholder_cerebras">Paste API key</string>
+    <string name="ai_key_placeholder_openai">Paste OpenAI API key</string>
+    <string name="ai_key_placeholder_anthropic">Paste Claude API key</string>
+    <string name="ai_key_placeholder_xai">Paste Grok API key</string>
+    <string name="ai_key_placeholder_openrouter">Paste OpenRouter API key</string>
+    <string name="ai_key_placeholder_together">Paste Together AI API key</string>
+    <string name="ai_key_placeholder_groq">Paste Groq API key</string>
+    <string name="ai_key_placeholder_huggingface">Paste Hugging Face API key</string>
+    <string name="ai_key_placeholder_fireworks">Paste Fireworks API key</string>
+    <string name="ai_key_placeholder_deepinfra">Paste DeepInfra API key</string>
+    <string name="ai_key_placeholder_mistral">Paste Mistral API key</string>
+    <string name="ai_key_placeholder_deepseek">Paste DeepSeek API key</string>
+    <string name="ai_key_placeholder_cerebras">Paste Cerebras API key</string>
     <string name="ai_key_placeholder_local">No key needed</string>
     <string name="ai_key_placeholder_ollama">No key needed</string>
     <string name="ai_key_placeholder_custom">API key (or anything if endpoint doesn\'t need one)</string>
@@ -324,9 +324,9 @@
     <string name="onboarding_provider_step_2">Pick a provider and paste your key below</string>
     <string name="onboarding_provider_step_3">Paste your key — done</string>
     <string name="onboarding_provider_footer">13 providers supported. Your key stays on\nthis device, encrypted.</string>
-    <string name="onboarding_paste_api_key_helper">Paste your API key in the field above. The hint text is not a key.</string>
-    <string name="onboarding_missing_api_key_title">Paste your API key</string>
-    <string name="onboarding_missing_api_key_message">Continue needs a real key in the API Key field. The hint text is not a key — paste the key from the provider you selected.</string>
+    <string name="onboarding_paste_api_key_helper">Paste your %1$s API key in the field above. The hint text is not a key.</string>
+    <string name="onboarding_missing_api_key_title">Paste your %1$s API key</string>
+    <string name="onboarding_missing_api_key_message">Continue needs a real key in the API Key field. The hint text is not a key — paste your %1$s key.</string>
     <string name="onboarding_ai_notice_analysis_title">AI analysis</string>
     <string name="onboarding_ai_notice_analysis_body">Food photos, voice transcripts, and typed meals are sent directly to your selected AI provider.</string>
     <string name="onboarding_ai_notice_local_title">Local data</string>

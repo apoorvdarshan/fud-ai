@@ -1119,7 +1119,7 @@ struct OnboardingView: View {
         .alert("Paste your API key", isPresented: $showMissingAPIKeyAlert) {
             Button("OK", role: .cancel) {}
         } message: {
-            Text("Accept & Continue needs a real key in the API Key field. The grey hint is not a key — paste the Gemini key from App Review Information (Sign-In password).")
+            Text("Accept & Continue needs a real key in the API Key field. The grey hint is not a key — paste the key from the provider you selected.")
         }
     }
 

@@ -326,7 +326,7 @@
     <string name="onboarding_provider_footer">13 providers supported. Your key stays on\nthis device, encrypted.</string>
     <string name="onboarding_paste_api_key_helper">Paste your API key in the field above. The hint text is not a key.</string>
     <string name="onboarding_missing_api_key_title">Paste your API key</string>
-    <string name="onboarding_missing_api_key_message">Continue needs a real key in the API Key field. The hint text is not a key — paste a Gemini key from aistudio.google.com/apikey.</string>
+    <string name="onboarding_missing_api_key_message">Continue needs a real key in the API Key field. The hint text is not a key — paste the key from the provider you selected.</string>
     <string name="onboarding_ai_notice_analysis_title">AI analysis</string>
     <string name="onboarding_ai_notice_analysis_body">Food photos, voice transcripts, and typed meals are sent directly to your selected AI provider.</string>
     <string name="onboarding_ai_notice_local_title">Local data</string>

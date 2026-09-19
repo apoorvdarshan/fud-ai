@@ -39,12 +39,13 @@ Not a doctor — no medical advice or diagnoses. If unsure about the app, point 
 const STRUCTURE_PROMPT = `You turn a Discord user's freeform Fud AI report into a GitHub issue draft.
 
 Return ONLY JSON with this shape:
-{"title":"...","body":"..."}
+{"title":"...","body":"...","platform":"iOS"|"Android"|null}
 
 Rules:
 - title: concise and specific, at most 100 characters. No Bug:/Feature: prefix.
 - body: markdown that organizes what the user actually wrote. You may add headings.
-- Do not invent devices, OS versions, steps, or product behavior they did not mention.
+- platform: if kind is bug, "iOS" or "Android" only when the report clearly indicates one mobile platform (including device names such as iPhone, iPad, Pixel, Galaxy, OnePlus, Samsung). Use null if unknown, unspecified, or both platforms are mentioned. If kind is feature, use null.
+- Do not invent devices, OS versions, steps, product behavior, or a platform they did not mention.
 - Keep their facts; clean up structure and wording.
 - If kind is bug, emphasize what broke and how to reproduce.
 - If kind is feature, emphasize the request and why it would help.`;
@@ -184,13 +185,58 @@ function normalizeBugPlatform(value: string): BugPlatform {
   return "";
 }
 
-/** Prefer the `/bug platform` option; otherwise infer from the iOS/Android channels. */
-export function resolveBugPlatform(option: string, channelId: string): BugPlatform {
-  const fromOption = normalizeBugPlatform(option);
-  if (fromOption) return fromOption;
+function normalizeStructuredPlatform(value: unknown): BugPlatform | null {
+  if (typeof value !== "string") return null;
+  return normalizeBugPlatform(value) || null;
+}
+
+/** Word-boundary hints in freeform `/bug report` text (and Gemini drafts). */
+const IOS_PLATFORM_HINT = /\b(?:ios|iphone|ipad|ipod|ipados)\b/i;
+const ANDROID_PLATFORM_HINT =
+  /\b(?:android|pixel|galaxy|oneplus|one\s+plus|samsung)\b/i;
+
+export type BugPlatformSignals = { ios: boolean; android: boolean };
+
+export type StructuredIssue = {
+  title: string;
+  body: string;
+  platform: BugPlatform | null;
+};
+
+export function detectBugPlatformSignals(text: string): BugPlatformSignals {
+  return {
+    ios: IOS_PLATFORM_HINT.test(text),
+    android: ANDROID_PLATFORM_HINT.test(text),
+  };
+}
+
+export function platformFromBugChannel(channelId: string): BugPlatform {
   if (channelId === IOS_BUG_CHANNEL_ID) return "iOS";
   if (channelId === ANDROID_BUG_CHANNEL_ID) return "Android";
   return "";
+}
+
+/**
+ * Prefer a clear platform in the report (and/or Gemini draft). If both
+ * platforms are strongly mentioned, use the iOS/Android bug channel when
+ * known; otherwise omit. Channel is only a fallback when text is silent.
+ */
+export function resolveBugPlatform(
+  reportText: string,
+  channelId: string,
+  gemini?: Pick<StructuredIssue, "platform" | "title" | "body"> | null,
+): BugPlatform {
+  const haystack = [reportText, gemini?.title, gemini?.body]
+    .filter((part): part is string => Boolean(part?.trim()))
+    .join("\n");
+  const signals = detectBugPlatformSignals(haystack);
+  if (gemini?.platform === "iOS") signals.ios = true;
+  if (gemini?.platform === "Android") signals.android = true;
+
+  if (signals.ios && signals.android) return platformFromBugChannel(channelId);
+  if (signals.ios) return "iOS";
+  if (signals.android) return "Android";
+  return platformFromBugChannel(channelId);
 }
 
 export function labelsForBugPlatform(platform: BugPlatform): string[] {
@@ -352,17 +398,21 @@ async function askGemini(apiKey: string, question: string): Promise<string> {
   return text.length > MAX_REPLY_CHARS ? `${text.slice(0, MAX_REPLY_CHARS - 1)}…` : text;
 }
 
-export function parseStructuredIssue(text: string): { title: string; body: string } | null {
+export function parseStructuredIssue(text: string): StructuredIssue | null {
   const trimmed = text.trim();
   const fenced = trimmed.match(/```(?:json)?\s*([\s\S]*?)```/);
   const raw = (fenced?.[1] ?? trimmed).trim();
   try {
-    const parsed = JSON.parse(raw) as { title?: unknown; body?: unknown };
+    const parsed = JSON.parse(raw) as {
+      title?: unknown;
+      body?: unknown;
+      platform?: unknown;
+    };
     if (typeof parsed.title !== "string" || typeof parsed.body !== "string") return null;
     const title = parsed.title.trim();
     const body = parsed.body.trim();
     if (!title || !body) return null;
-    return { title, body };
+    return { title, body, platform: normalizeStructuredPlatform(parsed.platform) };
   } catch {
     return null;
   }
@@ -372,7 +422,7 @@ async function structureReportWithGemini(
   apiKey: string,
   kind: "bug" | "feature",
   report: string,
-): Promise<{ title: string; body: string } | null> {
+): Promise<StructuredIssue | null> {
   try {
     const text = await generateDiscordGeminiText(
       apiKey,
@@ -393,17 +443,22 @@ async function draftGitHubIssue(
   kind: "bug" | "feature",
   report: DiscordReporter & { report: string; platform?: string },
   footerIntro: string,
-): Promise<{ title: string; body: string }> {
+): Promise<{ title: string; body: string; platform: string }> {
   // Free-tier Discord key only — never GEMINI_API_KEY (hosted/billed).
   const apiKey = (env.DISCORD_GEMINI_API_KEY || "").trim();
   const structured = apiKey
     ? await structureReportWithGemini(apiKey, kind, report.report)
     : null;
+  const platform =
+    kind === "bug"
+      ? resolveBugPlatform(report.report, report.channelId, structured)
+      : (report.platform ?? "");
   const title = structured?.title || deriveIssueTitle(report.report);
   const main = structured?.body || report.report;
   return {
     title,
-    body: [main, "", formatDiscordIssueFooter(footerIntro, report)].join("\n"),
+    body: [main, "", formatDiscordIssueFooter(footerIntro, { ...report, platform })].join("\n"),
+    platform,
   };
 }
 
@@ -448,10 +503,12 @@ async function fulfillBug(
       report,
       "Reported via Discord `/bug`",
     );
+    const platform: BugPlatform =
+      draft.platform === "iOS" || draft.platform === "Android" ? draft.platform : "";
     const issue = await createGitHubIssue(token, {
       title: draft.title,
       body: draft.body,
-      labels: labelsForBugPlatform(report.platform),
+      labels: labelsForBugPlatform(platform),
       fallbackLabels: ["bug"],
       userAgent: "fud-ai-discord-bug",
     });
@@ -584,7 +641,7 @@ function handleBugCommand(
   const reporter = reporterFrom(interaction);
   const report: BugReport = {
     report: reportText,
-    platform: resolveBugPlatform(optionString(interaction, "platform"), channelId),
+    platform: "",
     channelId,
     guildId: interactionGuildId(interaction),
     userId: reporter.id,

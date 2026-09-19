@@ -843,16 +843,23 @@ struct GeminiService {
         guard primary.provider == .appleIntelligence else { return nil }
         #if canImport(FoundationModels)
         if #available(iOS 27.0, *) {
-            var analysis = try await OnDeviceFoodService.analyzeImages(
-                images: images,
-                description: description,
-                progressiveMeal: progressiveMeal
-            )
-            analysis.progressiveMeal = progressiveMeal
-            return analysis
+            do {
+                var analysis = try await OnDeviceFoodService.analyzeImages(
+                    images: images,
+                    description: description,
+                    progressiveMeal: progressiveMeal
+                )
+                analysis.progressiveMeal = progressiveMeal
+                return analysis
+            } catch is CancellationError {
+                throw CancellationError()
+            } catch {
+                // Let callAI retry / use the configured image fallback.
+                return nil
+            }
         }
         #endif
-        throw AnalysisError.requestFailed(.textOnly)
+        return nil
     }
 
     private static func dispatchFoodAnalysis(

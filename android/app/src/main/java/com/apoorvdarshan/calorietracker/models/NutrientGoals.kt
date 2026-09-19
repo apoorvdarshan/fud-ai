@@ -134,6 +134,10 @@ enum class HomeTopNutrient(
 
         fun normalized(selection: List<HomeTopNutrient>): List<HomeTopNutrient> =
             selection.distinct().take(4).ifEmpty { DefaultSelection }
+
+        /** Nutrient pillars on Home (water is a separate fixed card when tracking is on). */
+        fun displayedOnHome(selection: List<HomeTopNutrient>): List<HomeTopNutrient> =
+            normalized(selection)
     }
 }
 

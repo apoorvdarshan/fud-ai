@@ -85,7 +85,7 @@ fun MacroCard(
             MacroValueFormatter.string(current),
             style = TextStyle(
                 brush = Brush.verticalGradient(gradientColors),
-                fontSize = 20.sp,
+                fontSize = 18.sp,
                 fontWeight = FontWeight.Bold
             ),
             maxLines = 1
@@ -129,14 +129,14 @@ fun MacroCard(
         ) {
             Text(
                 label,
-                fontSize = 12.sp,
+                fontSize = 11.sp,
                 fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.onSurface,
                 maxLines = 1
             )
             Text(
                 statusText,
-                fontSize = 11.sp,
+                fontSize = 10.sp,
                 fontWeight = FontWeight.Medium,
                 color = if (goal > 0 && current > goal) {
                     AppColors.Calorie

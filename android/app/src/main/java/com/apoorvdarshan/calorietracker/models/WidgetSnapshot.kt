@@ -66,8 +66,8 @@ data class WidgetSnapshot(
     }
 
     /**
-     * The 4 nutrient bars to render, matching Home: the first 3 saved choices plus
-     * Water while tracking is enabled, otherwise all 4 saved choices.
+     * Nutrient bars to render, matching Home: up to 4 saved choices plus Water
+     * appended while tracking is enabled.
      */
     val displayedHomeNutrients: List<WidgetNutrient> get() {
         val selected = homeNutrients?.takeIf { it.isNotEmpty() } ?: listOf(
@@ -75,7 +75,7 @@ data class WidgetSnapshot(
             WidgetNutrient("carbs", "Carbs", "g", carbs, carbsGoal.toDouble()),
             WidgetNutrient("fat", "Fat", "g", fat, fatGoal.toDouble())
         )
-        val visible = selected.take(if (waterTrackingEnabled) 3 else 4)
+        val visible = selected.take(4)
         if (!waterTrackingEnabled) return visible
         val water = WidgetNutrient(
             id = "water",

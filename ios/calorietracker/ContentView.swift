@@ -1019,9 +1019,7 @@ struct HomeView: View {
     private var isToday: Bool { Calendar.current.isDateInToday(selectedDate) }
     private var foodLogSortOrder: FoodLogSortOrder { FoodLogSortOrder.order(for: foodLogSortOrderRaw) }
     private var homeTopNutrients: [HomeTopNutrient] { HomeTopNutrient.selection(from: homeTopNutrientsRaw) }
-    private var displayedHomeNutrients: [HomeTopNutrient] {
-        waterTrackingEnabled ? Array(homeTopNutrients.prefix(3)) : homeTopNutrients
-    }
+    private var displayedHomeNutrients: [HomeTopNutrient] { homeTopNutrients }
     private var optionalNutrientGoals: OptionalNutrientGoals { OptionalNutrientGoals.decoded(from: optionalNutrientGoalsData) }
     private var waterUnit: WaterUnit { WaterUnit(rawValue: waterUnitRaw) ?? .defaultUnit }
     private var waterPillarUnit: String { waterUnit == .fluidOunces ? " fl oz" : "ml" }
@@ -2785,8 +2783,7 @@ struct NutritionDetailView: View {
     private var homeTopNutrients: [HomeTopNutrient] { HomeTopNutrient.selection(from: homeTopNutrientsRaw) }
     private var waterUnit: WaterUnit { WaterUnit(rawValue: waterUnitRaw) ?? .defaultUnit }
     private var homeTopNutrientNames: String {
-        let nutrientNames = (waterTrackingEnabled ? Array(homeTopNutrients.prefix(3)) : homeTopNutrients)
-            .map(\.displayName)
+        let nutrientNames = homeTopNutrients.map(\.displayName)
         return (waterTrackingEnabled ? nutrientNames + ["Water"] : nutrientNames)
             .joined(separator: ", ")
     }

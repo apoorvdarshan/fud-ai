@@ -163,7 +163,7 @@ struct WatchWaterLogTests {
             themeEndHex: nil
         )
 
-        #expect(enabled.displayedHomeNutrients.map(\.id) == ["protein", "carbs", "fat", "water"])
+        #expect(enabled.displayedHomeNutrients.map(\.id) == ["protein", "carbs", "fat", "fiber", "water"])
         #expect(enabled.displayedHomeNutrients.last?.value == 750)
         #expect(enabled.displayedHomeNutrients.last?.goal == 2_000)
 

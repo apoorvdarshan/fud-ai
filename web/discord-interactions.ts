@@ -36,6 +36,19 @@ Facts:
 
 Not a doctor — no medical advice or diagnoses. If unsure about the app, point to GitHub issues or in-app Settings.`;
 
+const STRUCTURE_PROMPT = `You turn a Discord user's freeform Fud AI report into a GitHub issue draft.
+
+Return ONLY JSON with this shape:
+{"title":"...","body":"..."}
+
+Rules:
+- title: concise and specific, at most 100 characters. No Bug:/Feature: prefix.
+- body: markdown that organizes what the user actually wrote. You may add headings.
+- Do not invent devices, OS versions, steps, or product behavior they did not mention.
+- Keep their facts; clean up structure and wording.
+- If kind is bug, emphasize what broke and how to reproduce.
+- If kind is feature, emphasize the request and why it would help.`;
+
 type DiscordEnv = {
   DISCORD_PUBLIC_KEY: string;
   DISCORD_APPLICATION_ID?: string;
@@ -230,13 +243,6 @@ export function deriveIssueTitle(report: string): string {
   return `${clipped.trimEnd()}…`;
 }
 
-function formatReportIssueBody(
-  intro: string,
-  report: DiscordReporter & { report: string; platform?: string },
-): string {
-  return [report.report, "", formatDiscordIssueFooter(intro, report)].join("\n");
-}
-
 function formatDiscordIssueFooter(
   intro: string,
   report: DiscordReporter & { platform?: string },
@@ -301,7 +307,12 @@ async function createGitHubIssue(
   return { htmlUrl: data.html_url, number: data.number };
 }
 
-async function askGemini(apiKey: string, question: string): Promise<string> {
+async function generateDiscordGeminiText(
+  apiKey: string,
+  systemPrompt: string,
+  userText: string,
+  generationConfig: { temperature: number; maxOutputTokens: number },
+): Promise<string> {
   const url =
     `https://generativelanguage.googleapis.com/v1beta/models/` +
     `${GEMINI_MODEL}:generateContent?key=${apiKey}`;
@@ -310,9 +321,9 @@ async function askGemini(apiKey: string, question: string): Promise<string> {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify({
-      systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
-      contents: [{ role: "user", parts: [{ text: question }] }],
-      generationConfig: { temperature: 0.7, maxOutputTokens: 512 },
+      systemInstruction: { parts: [{ text: systemPrompt }] },
+      contents: [{ role: "user", parts: [{ text: userText }] }],
+      generationConfig,
     }),
   });
 
@@ -330,7 +341,70 @@ async function askGemini(apiKey: string, question: string): Promise<string> {
     .join("")
     .trim();
   if (!text) throw new Error("empty_gemini_reply");
+  return text;
+}
+
+async function askGemini(apiKey: string, question: string): Promise<string> {
+  const text = await generateDiscordGeminiText(apiKey, SYSTEM_PROMPT, question, {
+    temperature: 0.7,
+    maxOutputTokens: 512,
+  });
   return text.length > MAX_REPLY_CHARS ? `${text.slice(0, MAX_REPLY_CHARS - 1)}…` : text;
+}
+
+export function parseStructuredIssue(text: string): { title: string; body: string } | null {
+  const trimmed = text.trim();
+  const fenced = trimmed.match(/```(?:json)?\s*([\s\S]*?)```/);
+  const raw = (fenced?.[1] ?? trimmed).trim();
+  try {
+    const parsed = JSON.parse(raw) as { title?: unknown; body?: unknown };
+    if (typeof parsed.title !== "string" || typeof parsed.body !== "string") return null;
+    const title = parsed.title.trim();
+    const body = parsed.body.trim();
+    if (!title || !body) return null;
+    return { title, body };
+  } catch {
+    return null;
+  }
+}
+
+async function structureReportWithGemini(
+  apiKey: string,
+  kind: "bug" | "feature",
+  report: string,
+): Promise<{ title: string; body: string } | null> {
+  try {
+    const text = await generateDiscordGeminiText(
+      apiKey,
+      STRUCTURE_PROMPT,
+      `kind: ${kind}\n\nreport:\n${report}`,
+      { temperature: 0.2, maxOutputTokens: 1024 },
+    );
+    return parseStructuredIssue(text);
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : "unknown_error";
+    console.error("discord_report_gemini_failed", msg.slice(0, 200));
+    return null;
+  }
+}
+
+async function draftGitHubIssue(
+  env: DiscordEnv,
+  kind: "bug" | "feature",
+  report: DiscordReporter & { report: string; platform?: string },
+  footerIntro: string,
+): Promise<{ title: string; body: string }> {
+  // Free-tier Discord key only — never GEMINI_API_KEY (hosted/billed).
+  const apiKey = (env.DISCORD_GEMINI_API_KEY || "").trim();
+  const structured = apiKey
+    ? await structureReportWithGemini(apiKey, kind, report.report)
+    : null;
+  const title = structured?.title || deriveIssueTitle(report.report);
+  const main = structured?.body || report.report;
+  return {
+    title,
+    body: [main, "", formatDiscordIssueFooter(footerIntro, report)].join("\n"),
+  };
 }
 
 async function editInteractionReply(
@@ -368,9 +442,15 @@ async function fulfillBug(
   }
 
   try {
+    const draft = await draftGitHubIssue(
+      env,
+      "bug",
+      report,
+      "Reported via Discord `/bug`",
+    );
     const issue = await createGitHubIssue(token, {
-      title: deriveIssueTitle(report.report),
-      body: formatReportIssueBody("Reported via Discord `/bug`", report),
+      title: draft.title,
+      body: draft.body,
       labels: labelsForBugPlatform(report.platform),
       fallbackLabels: ["bug"],
       userAgent: "fud-ai-discord-bug",
@@ -408,9 +488,15 @@ async function fulfillFeature(
   }
 
   try {
+    const draft = await draftGitHubIssue(
+      env,
+      "feature",
+      report,
+      "Opened via Discord `/feature`",
+    );
     const issue = await createGitHubIssue(token, {
-      title: deriveIssueTitle(report.report),
-      body: formatReportIssueBody("Opened via Discord `/feature`", report),
+      title: draft.title,
+      body: draft.body,
       labels: labelsForFeatureRequest(),
       userAgent: "fud-ai-discord-feature",
     });

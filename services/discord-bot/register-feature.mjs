@@ -27,17 +27,6 @@ const body = {
       required: true,
       max_length: 4000,
     },
-    {
-      type: 3,
-      name: "platform",
-      description: "Where this should apply (optional — omit if none / unsure)",
-      required: false,
-      choices: [
-        { name: "iOS", value: "iOS" },
-        { name: "Android", value: "Android" },
-        { name: "Both", value: "both" },
-      ],
-    },
   ],
 };
 

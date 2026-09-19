@@ -9,6 +9,7 @@ import {
   IOS_BUG_CHANNEL_ID,
   labelsForBugPlatform,
   labelsForFeatureRequest,
+  parseStructuredIssue,
   resolveBugPlatform,
   resolveFeaturePlatform,
   verifyDiscordSignature,
@@ -89,6 +90,43 @@ function command(name: string, options: Array<{ name: string; value: string }>, 
   };
 }
 
+function geminiIssueResponse(title: string, body: string, fenced = false): Response {
+  const json = JSON.stringify({ title, body });
+  return Response.json({
+    candidates: [{ content: { parts: [{ text: fenced ? `\`\`\`json\n${json}\n\`\`\`` : json }] } }],
+  });
+}
+
+function issueFlowFetch(gemini: Response | "fail" | "skip" = geminiIssueResponse("Draft title", "Draft body")): MockFetch {
+  return async (url) => {
+    if (String(url).includes("generativelanguage")) {
+      if (gemini === "skip") throw new Error(`unexpected Gemini fetch ${url}`);
+      if (gemini === "fail") {
+        return Response.json({ error: { message: "boom" } }, { status: 500 });
+      }
+      return gemini;
+    }
+    if (String(url).includes("api.github.com")) {
+      return Response.json({ html_url: ISSUE_URL, number: 42 }, { status: 201 });
+    }
+    if (String(url).includes("discord.com")) return new Response(null, { status: 200 });
+    throw new Error(`unexpected fetch ${url}`);
+  };
+}
+
+function githubPayload(fetchMock: ReturnType<typeof vi.fn<MockFetch>>): {
+  title: string;
+  body: string;
+  labels: string[];
+} {
+  const githubCall = fetchMock.mock.calls.find(([url]) => String(url).includes("api.github.com"));
+  return JSON.parse(requestBody(githubCall?.[1])) as {
+    title: string;
+    body: string;
+    labels: string[];
+  };
+}
+
 afterEach(() => {
   vi.unstubAllGlobals();
   vi.restoreAllMocks();
@@ -152,6 +190,21 @@ describe("discord interactions", () => {
     expect(deriveIssueTitle(oneWord)).toBe(`${"x".repeat(100)}…`);
   });
 
+  it("parses Gemini JSON issue drafts, including fenced replies", () => {
+    expect(parseStructuredIssue('{"title":"Crash on save","body":"## Details\\nTap save."}')).toEqual({
+      title: "Crash on save",
+      body: "## Details\nTap save.",
+    });
+    expect(
+      parseStructuredIssue('```json\n{"title":"Widget calories","body":"Show leftovers."}\n```'),
+    ).toEqual({
+      title: "Widget calories",
+      body: "Show leftovers.",
+    });
+    expect(parseStructuredIssue("not json")).toBeNull();
+    expect(parseStructuredIssue('{"title":"","body":"x"}')).toBeNull();
+  });
+
   it("answers Discord PINGs", async () => {
     const { privateKey, publicKeyHex } = await ed25519Pair();
     const response = await handleDiscordInteractionsRequest(
@@ -189,6 +242,12 @@ describe("discord interactions", () => {
 
     expect(fetch.mock.calls.some(([url]) => String(url).includes("generativelanguage"))).toBe(true);
     expect(fetch.mock.calls.some(([url]) => String(url).includes("api.github.com"))).toBe(false);
+    const askGeminiBody = requestBody(
+      fetch.mock.calls.find(([url]) => String(url).includes("generativelanguage"))?.[1],
+    );
+    expect(askGeminiBody).toContain("You are the Fud AI Discord helper");
+    expect(askGeminiBody).toContain("\"temperature\":0.7");
+    expect(askGeminiBody).not.toContain("kind: bug");
     const discordCall = fetch.mock.calls.find(([url]) => String(url).includes("discord.com/api/v10/webhooks"));
     expect(discordCall?.[1]).toEqual({
       method: "PATCH",
@@ -197,38 +256,37 @@ describe("discord interactions", () => {
     });
   });
 
-  it("defers /bug, files a labeled GitHub issue, and replies with the URL", async () => {
+  it("defers /bug, files a Gemini-structured GitHub issue, and replies with the URL", async () => {
     const { privateKey, publicKeyHex } = await ed25519Pair();
-    const fetch = vi.fn<MockFetch>(async (url) => {
-      if (String(url).includes("api.github.com/repos/apoorvdarshan/fud-ai/issues")) {
-        return Response.json({ html_url: ISSUE_URL, number: 42 }, { status: 201 });
-      }
-      if (String(url).includes("discord.com")) return new Response(null, { status: 200 });
-      throw new Error(`unexpected fetch ${url}`);
-    });
+    const fetch = vi.fn<MockFetch>(
+      issueFlowFetch(
+        geminiIssueResponse(
+          "Crash on save",
+          "## Details\n\nTap save after logging a meal.\n\n- iPhone 15, 7.1 (38)",
+          true,
+        ),
+      ),
+    );
     vi.stubGlobal("fetch", fetch);
     const { ctx, flush } = waiters();
+    const report = "Crash on save\n\nTap save after logging a meal.\niPhone 15, 7.1 (38)";
 
     const response = await handleDiscordInteractionsRequest(
       await signedRequest(
         privateKey,
-        command(
-          "bug",
-          [
-            {
-              name: "report",
-              value: "Crash on save\n\nTap save after logging a meal.\niPhone 15, 7.1 (38)",
-            },
-            { name: "platform", value: "iOS" },
-          ],
-          { channel_id: ANDROID_BUG_CHANNEL_ID },
-        ),
+        command("bug", [{ name: "report", value: report }], { channel_id: IOS_BUG_CHANNEL_ID }),
       ),
       env(publicKeyHex),
       ctx,
     );
     expect(await response.json()).toEqual({ type: 5 });
     await flush();
+
+    const geminiCall = fetch.mock.calls.find(([url]) => String(url).includes("generativelanguage"));
+    expect(String(geminiCall?.[0])).toContain("key=test-gemini-key");
+    expect(requestBody(geminiCall?.[1])).toContain("kind: bug");
+    expect(requestBody(geminiCall?.[1])).toContain("Crash on save");
+    expect(requestBody(geminiCall?.[1])).toContain("Tap save after logging a meal.");
 
     const githubCall = fetch.mock.calls.find(([url]) => String(url).includes("api.github.com"));
     expect(githubCall?.[0]).toBe("https://api.github.com/repos/apoorvdarshan/fud-ai/issues");
@@ -238,24 +296,18 @@ describe("discord interactions", () => {
         Authorization: "Bearer test-github-token",
       }),
     });
-    const created = JSON.parse(requestBody(githubCall?.[1])) as {
-      title: string;
-      body: string;
-      labels: string[];
-    };
+    const created = githubPayload(fetch);
     expect(created.title).toBe("Crash on save");
     expect(created.labels).toEqual(["bug", "ios"]);
-    expect(created.body).toContain("Crash on save");
+    expect(created.body).toContain("## Details");
     expect(created.body).toContain("Tap save after logging a meal.");
     expect(created.body).toContain("iPhone 15, 7.1 (38)");
     expect(created.body).toContain("**Platform:** iOS");
     expect(created.body).toContain("Reported via Discord `/bug`");
     expect(created.body).toContain("Reporter");
     expect(created.body).toContain("`user-1`");
-    expect(created.body).toContain(ANDROID_BUG_CHANNEL_ID);
+    expect(created.body).toContain(IOS_BUG_CHANNEL_ID);
     expect(created.body).toContain(GUILD_ID);
-    expect(created.body).not.toContain("## Details");
-    expect(created.body).not.toContain("## Device");
 
     const discordCall = fetch.mock.calls.find(([url]) => String(url).includes("discord.com/api/v10/webhooks"));
     expect(requestBody(discordCall?.[1])).toBe(JSON.stringify({ content: `Opened ${ISSUE_URL}` }));
@@ -263,12 +315,7 @@ describe("discord interactions", () => {
 
   it("infers Android from the Android channel when platform is omitted", async () => {
     const { privateKey, publicKeyHex } = await ed25519Pair();
-    const fetch = vi.fn<MockFetch>(async (url) => {
-      if (String(url).includes("api.github.com")) {
-        return Response.json({ html_url: ISSUE_URL, number: 42 }, { status: 201 });
-      }
-      return new Response(null, { status: 200 });
-    });
+    const fetch = vi.fn<MockFetch>(issueFlowFetch("skip"));
     vi.stubGlobal("fetch", fetch);
     const { ctx, flush } = waiters();
 
@@ -281,13 +328,13 @@ describe("discord interactions", () => {
           { channel_id: ANDROID_BUG_CHANNEL_ID },
         ),
       ),
-      env(publicKeyHex),
+      env(publicKeyHex, { DISCORD_GEMINI_API_KEY: "" }),
       ctx,
     );
     expect(await response.json()).toEqual({ type: 5 });
     await flush();
-    const created = JSON.parse(requestBody(fetch.mock.calls[0]?.[1])) as { labels: string[] };
-    expect(created.labels).toEqual(["bug", "android"]);
+    expect(githubPayload(fetch).labels).toEqual(["bug", "android"]);
+    expect(fetch.mock.calls.some(([url]) => String(url).includes("generativelanguage"))).toBe(false);
   });
 
   it("retries with only the bug label when ios/android labels are missing on GitHub", async () => {
@@ -313,7 +360,7 @@ describe("discord interactions", () => {
           { channel_id: IOS_BUG_CHANNEL_ID },
         ),
       ),
-      env(publicKeyHex),
+      env(publicKeyHex, { DISCORD_GEMINI_API_KEY: "" }),
       ctx,
     );
     await flush();
@@ -347,38 +394,35 @@ describe("discord interactions", () => {
     expect(requestBody(fetch.mock.calls[0]?.[1])).toContain("GitHub isn’t configured");
   });
 
-  it("defers /feature, files an enhancement issue, and replies with the URL", async () => {
+  it("defers /feature, files a Gemini-structured enhancement issue, and replies with the URL", async () => {
     const { privateKey, publicKeyHex } = await ed25519Pair();
-    const fetch = vi.fn<MockFetch>(async (url) => {
-      if (String(url).includes("api.github.com/repos/apoorvdarshan/fud-ai/issues")) {
-        return Response.json({ html_url: ISSUE_URL, number: 42 }, { status: 201 });
-      }
-      if (String(url).includes("discord.com")) return new Response(null, { status: 200 });
-      throw new Error(`unexpected fetch ${url}`);
-    });
+    const fetch = vi.fn<MockFetch>(
+      issueFlowFetch(
+        geminiIssueResponse(
+          "Widget remaining calories",
+          "## Summary\n\nShow leftover calories on the home-screen widget.",
+        ),
+      ),
+    );
     vi.stubGlobal("fetch", fetch);
     const { ctx, flush } = waiters();
+    const report = "Widget remaining calories\n\nShow leftover calories on the home-screen widget.";
 
     const response = await handleDiscordInteractionsRequest(
       await signedRequest(
         privateKey,
-        command(
-          "feature",
-          [
-            {
-              name: "report",
-              value: "Widget remaining calories\n\nShow leftover calories on the home-screen widget.",
-            },
-            { name: "platform", value: "both" },
-          ],
-          { channel_id: IOS_BUG_CHANNEL_ID },
-        ),
+        command("feature", [{ name: "report", value: report }], { channel_id: IOS_BUG_CHANNEL_ID }),
       ),
       env(publicKeyHex),
       ctx,
     );
     expect(await response.json()).toEqual({ type: 5 });
     await flush();
+
+    const geminiCall = fetch.mock.calls.find(([url]) => String(url).includes("generativelanguage"));
+    expect(String(geminiCall?.[0])).toContain("key=test-gemini-key");
+    expect(requestBody(geminiCall?.[1])).toContain("kind: feature");
+    expect(requestBody(geminiCall?.[1])).toContain("Widget remaining calories");
 
     const githubCall = fetch.mock.calls.find(([url]) => String(url).includes("api.github.com"));
     expect(githubCall?.[0]).toBe("https://api.github.com/repos/apoorvdarshan/fud-ai/issues");
@@ -389,27 +433,21 @@ describe("discord interactions", () => {
         "User-Agent": "fud-ai-discord-feature",
       }),
     });
-    const created = JSON.parse(requestBody(githubCall?.[1])) as {
-      title: string;
-      body: string;
-      labels: string[];
-    };
+    const created = githubPayload(fetch);
     expect(created.title).toBe("Widget remaining calories");
     expect(created.labels).toEqual(["enhancement"]);
-    expect(created.body).toContain("Widget remaining calories");
+    expect(created.body).toContain("## Summary");
     expect(created.body).toContain("Show leftover calories on the home-screen widget.");
-    expect(created.body).toContain("**Platform:** both");
     expect(created.body).toContain("Opened via Discord `/feature`");
     expect(created.body).toContain("Reporter");
     expect(created.body).toContain("`user-1`");
     expect(created.body).toContain(IOS_BUG_CHANNEL_ID);
     expect(created.body).toContain(GUILD_ID);
-    expect(created.body).not.toContain("## Summary");
+    expect(created.body).not.toContain("**Platform:**");
     expect(created.body).not.toContain("ios");
 
     const discordCall = fetch.mock.calls.find(([url]) => String(url).includes("discord.com/api/v10/webhooks"));
     expect(requestBody(discordCall?.[1])).toBe(JSON.stringify({ content: `Opened ${ISSUE_URL}` }));
-    expect(fetch.mock.calls.some(([url]) => String(url).includes("generativelanguage"))).toBe(false);
   });
 
   it("leaves /feature platform unspecified when omitted, even in a platform channel", async () => {
@@ -432,15 +470,12 @@ describe("discord interactions", () => {
           { channel_id: ANDROID_BUG_CHANNEL_ID },
         ),
       ),
-      env(publicKeyHex),
+      env(publicKeyHex, { DISCORD_GEMINI_API_KEY: "" }),
       ctx,
     );
     expect(await response.json()).toEqual({ type: 5 });
     await flush();
-    const created = JSON.parse(requestBody(fetch.mock.calls[0]?.[1])) as {
-      labels: string[];
-      body: string;
-    };
+    const created = githubPayload(fetch);
     expect(created.labels).toEqual(["enhancement"]);
     expect(created.body).toContain("Dark mode for widgets");
     expect(created.body).toContain("Match system appearance.");
@@ -452,7 +487,7 @@ describe("discord interactions", () => {
   it("rejects /feature without report", async () => {
     const { privateKey, publicKeyHex } = await ed25519Pair();
     const response = await handleDiscordInteractionsRequest(
-      await signedRequest(privateKey, command("feature", [{ name: "platform", value: "iOS" }])),
+      await signedRequest(privateKey, command("feature", [])),
       env(publicKeyHex),
     );
     expect(await response.json()).toMatchObject({
@@ -464,7 +499,7 @@ describe("discord interactions", () => {
   it("rejects /bug without report", async () => {
     const { privateKey, publicKeyHex } = await ed25519Pair();
     const response = await handleDiscordInteractionsRequest(
-      await signedRequest(privateKey, command("bug", [{ name: "platform", value: "iOS" }])),
+      await signedRequest(privateKey, command("bug", [])),
       env(publicKeyHex),
     );
     expect(await response.json()).toMatchObject({
@@ -473,14 +508,9 @@ describe("discord interactions", () => {
     });
   });
 
-  it("files a /bug issue with a derived title from a long one-line report", async () => {
+  it("falls back to a heuristic title and raw report when Gemini fails", async () => {
     const { privateKey, publicKeyHex } = await ed25519Pair();
-    const fetch = vi.fn<MockFetch>(async (url) => {
-      if (String(url).includes("api.github.com")) {
-        return Response.json({ html_url: ISSUE_URL, number: 42 }, { status: 201 });
-      }
-      return new Response(null, { status: 200 });
-    });
+    const fetch = vi.fn<MockFetch>(issueFlowFetch("fail"));
     vi.stubGlobal("fetch", fetch);
     const { ctx, flush } = waiters();
     const report =
@@ -494,16 +524,15 @@ describe("discord interactions", () => {
     expect(await response.json()).toEqual({ type: 5 });
     await flush();
 
-    const created = JSON.parse(requestBody(fetch.mock.calls[0]?.[1])) as {
-      title: string;
-      body: string;
-      labels: string[];
-    };
+    expect(fetch.mock.calls.some(([url]) => String(url).includes("generativelanguage"))).toBe(true);
+    const created = githubPayload(fetch);
     expect(created.title).toBe(deriveIssueTitle(report));
     expect(created.title.endsWith("…")).toBe(true);
     expect(created.labels).toEqual(["bug"]);
     expect(created.body.startsWith(report)).toBe(true);
     expect(created.body).toContain("Reported via Discord `/bug`");
+    const discordCall = fetch.mock.calls.find(([url]) => String(url).includes("discord.com/api/v10/webhooks"));
+    expect(requestBody(discordCall?.[1])).toBe(JSON.stringify({ content: `Opened ${ISSUE_URL}` }));
   });
 
   it("routes the live interactions path on the Worker", async () => {

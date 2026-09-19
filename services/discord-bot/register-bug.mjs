@@ -27,16 +27,6 @@ const body = {
       required: true,
       max_length: 4000,
     },
-    {
-      type: 3,
-      name: "platform",
-      description: "Where you saw it (optional — inferred from iOS/Android channels)",
-      required: false,
-      choices: [
-        { name: "iOS", value: "iOS" },
-        { name: "Android", value: "Android" },
-      ],
-    },
   ],
 };
 

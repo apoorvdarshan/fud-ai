@@ -120,15 +120,15 @@
     <string name="ai_provider_custom">Пользовательский (OpenAI-совместимый)</string>
 
     <!-- AI Provider API key placeholders -->
-    <string name="ai_key_placeholder_gemini">AIza…</string>
-    <string name="ai_key_placeholder_openai">sk-…</string>
-    <string name="ai_key_placeholder_anthropic">sk-ant-…</string>
-    <string name="ai_key_placeholder_xai">xai-…</string>
-    <string name="ai_key_placeholder_openrouter">sk-or-…</string>
+    <string name="ai_key_placeholder_gemini">Paste Gemini API key</string>
+    <string name="ai_key_placeholder_openai">Paste API key</string>
+    <string name="ai_key_placeholder_anthropic">Paste API key</string>
+    <string name="ai_key_placeholder_xai">Paste API key</string>
+    <string name="ai_key_placeholder_openrouter">Paste API key</string>
     <string name="ai_key_placeholder_together">…</string>
-    <string name="ai_key_placeholder_groq">gsk_…</string>
-    <string name="ai_key_placeholder_huggingface">hf_…</string>
-    <string name="ai_key_placeholder_fireworks">fw_…</string>
+    <string name="ai_key_placeholder_groq">Paste API key</string>
+    <string name="ai_key_placeholder_huggingface">Paste API key</string>
+    <string name="ai_key_placeholder_fireworks">Paste API key</string>
     <string name="ai_key_placeholder_deepinfra">…</string>
     <string name="ai_key_placeholder_mistral">…</string>
     <string name="ai_key_placeholder_ollama">Ключ не нужен</string>
@@ -142,8 +142,8 @@
     <string name="speech_provider_assemblyai">AssemblyAI</string>
 
     <string name="speech_key_placeholder_native">Не требуется</string>
-    <string name="speech_key_placeholder_openai">sk-…</string>
-    <string name="speech_key_placeholder_groq">gsk_…</string>
+    <string name="speech_key_placeholder_openai">Paste API key</string>
+    <string name="speech_key_placeholder_groq">Paste API key</string>
     <string name="speech_key_placeholder_deepgram">Token your-deepgram-key</string>
     <string name="speech_key_placeholder_assemblyai">Ваш ключ AssemblyAI</string>
 
@@ -714,7 +714,7 @@
     <string name="action_info">Инфо</string>
     <string name="action_what_if">А что если?</string>
     <string name="speech_provider_gemini">Gemini Audio</string>
-    <string name="speech_key_placeholder_gemini">AIza…</string>
+    <string name="speech_key_placeholder_gemini">Paste Gemini API key</string>
     <string name="speech_description_gemini">Транскрипция аудио через Gemini API. Использует пакетное распознавание аудио, а не Speech-to-Text API Google Cloud в реальном времени.</string>
     <string name="what_if_title">А что если?</string>
     <string name="what_if_subtitle">Посмотрите, как это блюдо изменит сегодняшний день, прежде чем записать его.</string>

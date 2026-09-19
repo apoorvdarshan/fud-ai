@@ -327,6 +327,12 @@
     <string name="onboarding_paste_api_key_helper">Paste your API key in the field above. The hint text is not a key.</string>
     <string name="onboarding_missing_api_key_title">Paste your API key</string>
     <string name="onboarding_missing_api_key_message">Continue needs a real key in the API Key field. The hint text is not a key — paste a Gemini key from aistudio.google.com/apikey.</string>
+    <string name="onboarding_ai_notice_analysis_title">AI analysis</string>
+    <string name="onboarding_ai_notice_analysis_body">Food photos, voice transcripts, and typed meals are sent directly to your selected AI provider.</string>
+    <string name="onboarding_ai_notice_local_title">Local data</string>
+    <string name="onboarding_ai_notice_local_body">Your food log, weight history, body-fat history, and BYOK API keys stay on this device.</string>
+    <string name="onboarding_ai_terms_checkbox">I accept the Terms of Service and Privacy Policy, including AI provider data sharing described above.</string>
+    <string name="onboarding_ai_terms_and">and</string>
 
     <string name="onboarding_building_calories">Calories</string>
     <string name="onboarding_building_carbs">Carbs</string>

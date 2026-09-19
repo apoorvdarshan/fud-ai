@@ -143,28 +143,22 @@ private fun SheetToolbarPill(
         compact -> 10.dp
         else -> 16.dp
     }
-    val modifier = if (bold) {
-        Modifier
-            .clip(shape)
-            .background(Brush.linearGradient(listOf(AppColors.CalorieStart, AppColors.CalorieEnd)))
-    } else {
-        Modifier
-            .clip(shape)
-            .background(if (isDark) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.42f) else Color(0xFFEDE3DD).copy(alpha = 0.82f))
-            .background(
-                Brush.verticalGradient(
-                    listOf(
-                        Color.White.copy(alpha = if (isDark) 0.08f else 0.24f),
-                        Color.White.copy(alpha = if (isDark) 0.02f else 0.06f)
-                    )
+    val modifier = Modifier
+        .clip(shape)
+        .background(if (isDark) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.42f) else Color(0xFFEDE3DD).copy(alpha = 0.82f))
+        .background(
+            Brush.verticalGradient(
+                listOf(
+                    Color.White.copy(alpha = if (isDark) 0.08f else 0.24f),
+                    Color.White.copy(alpha = if (isDark) 0.02f else 0.06f)
                 )
             )
-            .border(
-                0.7.dp,
-                Color.White.copy(alpha = if (isDark) 0.10f else 0.48f),
-                shape
-            )
-    }
+        )
+        .border(
+            0.7.dp,
+            Color.White.copy(alpha = if (isDark) 0.10f else 0.48f),
+            shape
+        )
     Box(
         modifier
             .alpha(if (enabled) 1f else 0.55f)
@@ -173,7 +167,7 @@ private fun SheetToolbarPill(
     ) {
         Text(
             label,
-            color = if (bold) Color.White else AppColors.Calorie,
+            color = AppColors.Calorie,
             fontSize = if (compact) 15.sp else 16.sp,
             fontWeight = if (bold) FontWeight.SemiBold else FontWeight.Medium
         )

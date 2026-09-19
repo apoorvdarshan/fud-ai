@@ -777,6 +777,7 @@ viewModelScope.launch {
 
     private fun launchAnalysis(block: suspend CoroutineScope.(generation: Long) -> Unit): Job {
         analysisGeneration += 1
+        draftSaveGeneration += 1
         val generation = analysisGeneration
         return viewModelScope.launch {
             try {
@@ -835,6 +836,7 @@ viewModelScope.launch {
      * iOS RecentsView's `onReview` callback path.
      */
     fun reviewSavedMeal(template: FoodEntry) {
+        draftSaveGeneration += 1
         val analysis = template.toAnalysis()
         val bytesList = template.allImageFilenames.mapNotNull {
             runCatching { container.imageStore.file(it).readBytes() }.getOrNull()
@@ -1022,9 +1024,20 @@ viewModelScope.launch {
         }
     }
 
-    private fun restorePendingDraft(draft: PendingFoodAnalysisDraft) {
-        val bytesList = (listOfNotNull(draft.imageFilename) + draft.additionalImageFilenames).mapNotNull {
-            runCatching { container.imageStore.file(it).readBytes() }.getOrNull()
+    private suspend fun restorePendingDraft(draft: PendingFoodAnalysisDraft) {
+        val restoreDraftGeneration = draftSaveGeneration
+        val restoreAnalysisGeneration = analysisGeneration
+        val bytesList = withContext(Dispatchers.IO) {
+            (listOfNotNull(draft.imageFilename) + draft.additionalImageFilenames).mapNotNull {
+                runCatching { container.imageStore.file(it).readBytes() }.getOrNull()
+            }
+        }
+        if (restoreDraftGeneration != draftSaveGeneration ||
+            restoreAnalysisGeneration != analysisGeneration ||
+            _ui.value.analyzing ||
+            _ui.value.pendingAnalysis != null
+        ) {
+            return
         }
         _ui.value = _ui.value.copy(
             analyzing = false,

@@ -39,6 +39,7 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
@@ -126,7 +127,47 @@ private data class HomeDayFilterInputs(
     val favoriteKeys: Set<String>,
     val sortOrder: String?,
     val day: LocalDate
+) {
+    fun toDayData(): HomeDayData =
+        filterHomeDayData(profile, entries, favoriteKeys, sortOrder, day)
+}
+
+/** Food / date / profile slice only — never a full Home snapshot. */
+internal data class HomeDayData(
+    val date: LocalDate,
+    val profile: UserProfile?,
+    val todayEntries: List<FoodEntry>,
+    val foodLogSortOrder: FoodLogSortOrder,
+    val favoriteKeys: Set<String>
 )
+
+internal fun HomeUiState.withDayData(data: HomeDayData): HomeUiState = copy(
+    date = data.date,
+    profile = data.profile,
+    todayEntries = data.todayEntries,
+    foodLogSortOrder = data.foodLogSortOrder,
+    favoriteKeys = data.favoriteKeys
+)
+
+internal fun filterHomeDayData(
+    profile: UserProfile?,
+    entries: List<FoodEntry>,
+    favoriteKeys: Set<String>,
+    sortOrder: String?,
+    day: LocalDate,
+    zone: ZoneId = ZoneId.systemDefault()
+): HomeDayData {
+    val dayEntries = entries
+        .filter { it.timestamp.atZone(zone).toLocalDate() == day }
+        .sortedByDescending { it.timestamp }
+    return HomeDayData(
+        date = day,
+        profile = profile,
+        todayEntries = dayEntries,
+        foodLogSortOrder = FoodLogSortOrder.fromStorage(sortOrder),
+        favoriteKeys = favoriteKeys
+    )
+}
 
 internal class FoodSubmissionGate {
     private val active = AtomicBoolean(false)
@@ -169,36 +210,15 @@ private val _stepsRefreshEpoch = MutableStateFlow(0)
             container.foodRepository.entries,
             container.foodRepository.favoriteKeys,
             container.prefs.foodLogSortOrder,
-            _selectedDate
-        ) { p, entries, favKeys, sortOrder, day ->
-            HomeDayFilterInputs(p, entries, favKeys, sortOrder, day)
-        }
-            .map { (p, entries, favKeys, sortOrder, day) ->
-                val zone = ZoneId.systemDefault()
-                val dayEntries = entries
-                    .filter { it.timestamp.atZone(zone).toLocalDate() == day }
-                    .sortedByDescending { it.timestamp }
-                _ui.value.copy(
-                    profile = p,
-                    date = day,
-                    todayEntries = dayEntries,
-                    foodLogSortOrder = FoodLogSortOrder.fromStorage(sortOrder),
-                    favoriteKeys = favKeys
-                )
-            }
+            _selectedDate,
+            ::HomeDayFilterInputs
+        )
+            .distinctUntilChanged()
+            .map { it.toDayData() }
             .flowOn(Dispatchers.Default)
-            .onEach { state ->
-                _ui.value = state
-                val filenames = state.todayEntries
-                    .flatMap { it.allImageFilenames }
-                    .filter { it.isNotBlank() }
-                    .toSet()
-                if (filenames == lastPrefetchedFilenames) return@onEach
-                lastPrefetchedFilenames = filenames
-                thumbnailPrefetchJob?.cancel()
-                thumbnailPrefetchJob = viewModelScope.launch(Dispatchers.IO) {
-                    container.imageStore.warmThumbnails(filenames)
-                }
+            .onEach { data ->
+                _ui.update { it.withDayData(data) }
+                prefetchDayThumbnails(data.todayEntries)
             }
             .launchIn(viewModelScope)
 
@@ -314,6 +334,19 @@ viewModelScope.launch {
 
     fun refreshDailySteps() {
         _stepsRefreshEpoch.value += 1
+    }
+
+    private fun prefetchDayThumbnails(entries: List<FoodEntry>) {
+        val filenames = entries
+            .flatMap { it.allImageFilenames }
+            .filter { it.isNotBlank() }
+            .toSet()
+        if (filenames == lastPrefetchedFilenames) return
+        lastPrefetchedFilenames = filenames
+        thumbnailPrefetchJob?.cancel()
+        thumbnailPrefetchJob = viewModelScope.launch(Dispatchers.IO) {
+            container.imageStore.warmThumbnails(filenames)
+        }
     }
 
     private data class BurnRefreshInputs(

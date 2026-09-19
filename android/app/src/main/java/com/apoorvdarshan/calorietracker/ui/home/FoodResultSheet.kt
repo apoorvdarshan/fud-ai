@@ -70,6 +70,7 @@ import com.apoorvdarshan.calorietracker.models.FoodSource
 import com.apoorvdarshan.calorietracker.models.MacroValueFormatter
 import com.apoorvdarshan.calorietracker.models.MealType
 import com.apoorvdarshan.calorietracker.models.MealIngredient
+import com.apoorvdarshan.calorietracker.models.MealMicronutrientSnapshot
 import com.apoorvdarshan.calorietracker.models.ServingUnitOption
 import com.apoorvdarshan.calorietracker.models.ServingAmountExpression
 import com.apoorvdarshan.calorietracker.models.SupplementalNutrient
@@ -252,7 +253,61 @@ fun FoodResultSheet(
     fun baseDoubleFromText(text: String): Double = (decimalValue(text) ?: 0.0) / scale.coerceAtLeast(0.0001)
     fun baseOptionalFromText(text: String): Double? = decimalValue(text)?.let { it / scale.coerceAtLeast(0.0001) }
     fun scaledIngredients() = editableIngredients.map { it.scaled(scale) }
+    fun applyMicronutrients(snapshot: MealMicronutrientSnapshot) {
+        editableSugar = snapshot.sugar
+        editableAddedSugar = snapshot.addedSugar
+        editableFiber = snapshot.fiber
+        editableSaturatedFat = snapshot.saturatedFat
+        editableMonounsaturatedFat = snapshot.monounsaturatedFat
+        editablePolyunsaturatedFat = snapshot.polyunsaturatedFat
+        editableCholesterol = snapshot.cholesterol
+        editableCaffeine = snapshot.caffeine
+        editableSupplementalNutrients = snapshot.supplementalNutrients
+        editableSodium = snapshot.sodium
+        editablePotassium = snapshot.potassium
+        editableTransFat = snapshot.transFat
+        editableCalcium = snapshot.calcium
+        editableIron = snapshot.iron
+        editableMagnesium = snapshot.magnesium
+        editableZinc = snapshot.zinc
+        editableVitaminA = snapshot.vitaminA
+        editableVitaminC = snapshot.vitaminC
+        editableVitaminD = snapshot.vitaminD
+        editableVitaminB12 = snapshot.vitaminB12
+        editableVitaminE = snapshot.vitaminE
+        editableVitaminK = snapshot.vitaminK
+        editableFolate = snapshot.folate
+        editableOmega3 = snapshot.omega3
+    }
     fun applyIngredientChanges(displayedIngredients: List<MealIngredient>) {
+        applyMicronutrients(
+            MealMicronutrientSnapshot(
+                sugar = editableSugar,
+                addedSugar = editableAddedSugar,
+                fiber = editableFiber,
+                saturatedFat = editableSaturatedFat,
+                monounsaturatedFat = editableMonounsaturatedFat,
+                polyunsaturatedFat = editablePolyunsaturatedFat,
+                cholesterol = editableCholesterol,
+                caffeine = editableCaffeine,
+                supplementalNutrients = editableSupplementalNutrients,
+                sodium = editableSodium,
+                potassium = editablePotassium,
+                transFat = editableTransFat,
+                calcium = editableCalcium,
+                iron = editableIron,
+                magnesium = editableMagnesium,
+                zinc = editableZinc,
+                vitaminA = editableVitaminA,
+                vitaminC = editableVitaminC,
+                vitaminD = editableVitaminD,
+                vitaminB12 = editableVitaminB12,
+                vitaminE = editableVitaminE,
+                vitaminK = editableVitaminK,
+                folate = editableFolate,
+                omega3 = editableOmega3
+            ).stretched(editableIngredients.totals().grams, displayedIngredients.totals().grams)
+        )
         editableIngredients = displayedIngredients
         val totals = displayedIngredients.totals()
         editableCalories = totals.calories

@@ -65,6 +65,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.models.FoodEntry
+import com.apoorvdarshan.calorietracker.models.applyingIngredientChanges
 import com.apoorvdarshan.calorietracker.services.MealShare
 import com.apoorvdarshan.calorietracker.models.MacroValueFormatter
 import com.apoorvdarshan.calorietracker.models.MealType
@@ -72,7 +73,6 @@ import com.apoorvdarshan.calorietracker.models.MealIngredient
 import com.apoorvdarshan.calorietracker.models.ServingUnitOption
 import com.apoorvdarshan.calorietracker.models.ServingAmountExpression
 import com.apoorvdarshan.calorietracker.models.SupplementalNutrient
-import com.apoorvdarshan.calorietracker.models.totals
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialog
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialogActions
 import com.apoorvdarshan.calorietracker.ui.components.FullScreenImageViewer
@@ -186,18 +186,7 @@ fun EditFoodEntrySheet(
     fun scaledIngredients() = currentBaseEntry.withoutImages(removedImageFilenames)
         .ingredients.map { it.scaled(scale) }
     fun applyIngredientChanges(displayedIngredients: List<MealIngredient>) {
-        val totals = displayedIngredients.totals()
-        currentBaseEntry = currentBaseEntry.copy(
-            calories = totals.calories,
-            protein = totals.protein,
-            carbs = totals.carbs,
-            fat = totals.fat,
-            servingSizeGrams = totals.grams.takeIf { it > 0 } ?: currentBaseEntry.servingSizeGrams,
-            servingUnitOptions = emptyList(),
-            selectedServingUnit = null,
-            selectedServingQuantity = null,
-            ingredients = displayedIngredients
-        )
+        currentBaseEntry = currentBaseEntry.applyingIngredientChanges(displayedIngredients)
     }
 
     fun buildUpdated(): FoodEntry = currentBaseEntry.copy(

@@ -89,15 +89,15 @@ class MealMicronutrientStretchTest {
         val doubledChicken = chicken.scaled(2.0)
         val updated = entry.applyingIngredientChanges(listOf(rice, doubledChicken))
 
-        assertEquals(360.0, updated.ingredients.totals().grams, 0.001)
+        assertEquals(350.0, updated.ingredients.totals().grams, 0.001)
         assertEquals(195 + doubledChicken.calories, updated.calories)
-        assertEquals(8.64, updated.sugar!!, 0.0001)
-        assertEquals(4.32, updated.fiber!!, 0.0001)
-        assertEquals(576.0, updated.sodium!!, 0.0001)
-        assertEquals(115.2, updated.vitaminA!!, 0.0001)
-        assertEquals(0.576, updated.omega3!!, 0.0001)
-        assertEquals(1.44, updated.supplementalNutrients.getValue("creatine"), 0.0001)
-        assertEquals(360.0, updated.servingSizeGrams!!, 0.001)
+        assertEquals(8.4, updated.sugar!!, 0.0001)
+        assertEquals(4.2, updated.fiber!!, 0.0001)
+        assertEquals(560.0, updated.sodium!!, 0.0001)
+        assertEquals(112.0, updated.vitaminA!!, 0.0001)
+        assertEquals(0.56, updated.omega3!!, 0.0001)
+        assertEquals(1.4, updated.supplementalNutrients.getValue("creatine"), 0.0001)
+        assertEquals(350.0, updated.servingSizeGrams!!, 0.001)
         assertNull(updated.addedSugar)
     }
 

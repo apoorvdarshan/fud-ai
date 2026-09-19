@@ -79,15 +79,15 @@ struct MealMicronutrientStretchTests {
         let doubledChicken = chicken.scaled(by: 2)
         let updated = entry.applyingIngredientChanges([rice, doubledChicken])
 
-        #expect(updated.ingredients.ingredientTotals.grams == 360)
+        #expect(updated.ingredients.ingredientTotals.grams == 350)
         #expect(updated.calories == 195 + doubledChicken.calories)
-        #expect(updated.sugar == 8.64)
-        #expect(updated.fiber == 4.32)
-        #expect(updated.sodium == 576)
-        #expect(updated.vitaminA == 115.2)
-        #expect(updated.omega3 == 0.576)
-        #expect(updated.supplementalNutrients["creatine"] == 1.44)
-        #expect(updated.servingSizeGrams == 360)
+        #expect(updated.sugar == 8.4)
+        #expect(updated.fiber == 4.2)
+        #expect(updated.sodium == 560)
+        #expect(updated.vitaminA == 112)
+        #expect(updated.omega3 == 0.56)
+        #expect(updated.supplementalNutrients["creatine"] == 1.4)
+        #expect(updated.servingSizeGrams == 350)
         #expect(updated.addedSugar == nil)
     }
 

@@ -3501,6 +3501,7 @@ final class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOut
     private func installTapToFocusGestureIfNeeded() {
         guard view.gestureRecognizers?.contains(where: { $0 is UITapGestureRecognizer }) != true else { return }
         let tap = UITapGestureRecognizer(target: self, action: #selector(previewTapped(_:)))
+        tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
 
@@ -3509,6 +3510,7 @@ final class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOut
               let previewLayer,
               let camera = captureDevice else { return }
         let layerPoint = recognizer.location(in: view)
+        if view.hitTest(layerPoint, with: nil) is UIControl { return }
         let devicePoint = previewLayer.captureDevicePointConverted(fromLayerPoint: layerPoint)
         focusCamera(camera, at: devicePoint)
     }

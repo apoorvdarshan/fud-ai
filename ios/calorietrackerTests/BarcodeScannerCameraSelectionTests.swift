@@ -4,10 +4,12 @@ import Testing
 
 struct BarcodeScannerCameraSelectionTests {
     @Test func preferredDeviceTypesPrioritizeVirtualMultiCamerasBeforeWide() {
-        let types = BarcodeScannerCameraSelection.preferredBackVideoDeviceTypes
-        #expect(types.first == .builtInTripleCamera)
-        #expect(types.contains(.builtInDualWideCamera))
-        #expect(types.last == .builtInWideAngleCamera)
+        #expect(BarcodeScannerCameraSelection.preferredBackVideoDeviceTypes == [
+            .builtInTripleCamera,
+            .builtInDualWideCamera,
+            .builtInDualCamera,
+            .builtInWideAngleCamera
+        ])
     }
 
     @Test func preferredBackDeviceResolvesOnSimulatorOrDevice() {

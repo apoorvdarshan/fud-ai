@@ -108,25 +108,23 @@ struct ManualEntryView: View {
                         .foregroundStyle(.secondary)
                 }
                 .padding(20)
-                .frame(maxWidth: .infinity)
             }
             .scrollDismissesKeyboard(.interactively)
-            .background(AppColors.appBackground)
+            .scrollBounceBehavior(.basedOnSize)
+            .toolbar(.hidden, for: .navigationBar)
             .toolbar {
                 if focused != nil {
                     ToolbarItemGroup(placement: .keyboard) {
                         Spacer()
-                        Button("Done") { dismissKeyboard() }
+                        Button("Done") { focused = nil }
                     }
                 }
             }
-            .onAppear { focused = .name }
         }
-        .presentationDetents([.large])
-    }
-
-    private func dismissKeyboard() {
-        focused = nil
+        .frame(width: 340)
+        .frame(maxHeight: 460)
+        .presentationBackgroundInteraction(.disabled)
+        .interactiveDismissDisabled()
     }
 
     @ViewBuilder

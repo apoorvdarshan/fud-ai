@@ -995,8 +995,11 @@ struct GeminiService {
             if !imageDataList.isEmpty {
                 #if canImport(FoundationModels)
                 if #available(iOS 27.0, *) {
-                    let analysis = try await OnDeviceFoodService.analyzeImages(imageDataList: imageDataList)
-                    return try jsonString(forOnDeviceFoodAnalysis: analysis)
+                    return try await OnDeviceAIService.respond(
+                        to: prompt,
+                        imageDataList: imageDataList,
+                        instructions: AIProviderSettings.currentUserContext
+                    )
                 }
                 #endif
                 throw AnalysisError.requestFailed(.textOnly)
@@ -1359,37 +1362,6 @@ struct GeminiService {
     }
 
     // MARK: - Parsing (unchanged)
-
-    /// Minimal JSON for `parseFoodAnalysis` after on-device structured generation.
-    private static func jsonString(forOnDeviceFoodAnalysis analysis: FoodAnalysis) throws -> String {
-        var json: [String: Any] = [
-            "name": analysis.name,
-            "calories": analysis.calories,
-            "protein": analysis.protein,
-            "carbs": analysis.carbs,
-            "fat": analysis.fat,
-            "serving_size_grams": analysis.servingSizeGrams,
-        ]
-        if let emoji = analysis.emoji { json["emoji"] = emoji }
-        func put(_ key: String, _ value: Double?) {
-            if let value { json[key] = value }
-        }
-        put("sugar", analysis.sugar)
-        put("fiber", analysis.fiber)
-        put("saturated_fat", analysis.saturatedFat)
-        put("sodium", analysis.sodium)
-        if let option = analysis.servingUnitOptions.first {
-            json["serving_unit_options"] = [[
-                "unit": option.unit,
-                "grams_per_unit": option.gramsPerUnit,
-            ]]
-        }
-        let data = try JSONSerialization.data(withJSONObject: json)
-        guard let string = String(data: data, encoding: .utf8) else {
-            throw AnalysisError.invalidResponse
-        }
-        return string
-    }
 
     private static func extractJSON(from text: String) -> String {
         var cleaned = text.trimmingCharacters(in: .whitespacesAndNewlines)

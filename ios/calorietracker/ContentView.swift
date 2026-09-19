@@ -878,9 +878,24 @@ struct HomeView: View {
 
     enum ActiveSheet: String, Identifiable {
         case analyzing, foodResult, analyzingText, lookingUpBarcode, editFood, importSharedMeal
-        var id: String { rawValue }
+        /// Analyzing and Review Food share one identity so a fast model
+        /// response does not dismiss + re-present the sheet. SwiftUI drops
+        /// that swap on slower phones (iPhone 11 / #396).
+        var id: String {
+            switch self {
+            case .analyzing, .analyzingText, .lookingUpBarcode, .foodResult:
+                return "foodLog"
+            case .editFood, .importSharedMeal:
+                return rawValue
+            }
+        }
+    }
+    private enum FoodLogPhase: Hashable {
+        case analyzing, analyzingText, lookingUpBarcode, result
+        var isLoading: Bool { self != .result }
     }
     @State private var activeSheet: ActiveSheet?
+    @State private var foodLogPhase: FoodLogPhase = .result
     @State private var editingEntry: FoodEntry?
     @State private var pendingDiaryDeletion: DiaryDeletion?
 
@@ -1760,13 +1775,19 @@ private var dailyStepsTaskKey: String {
             }
             .sheet(item: $activeSheet) { sheet in
                 switch sheet {
-                case .analyzing:
-                    AnalyzingView(image: currentImage, onCancel: cancelAnalysis)
-                case .analyzingText:
-                    AnalyzingView(image: nil, message: "Looking up nutrition...", onCancel: cancelAnalysis)
-                case .lookingUpBarcode:
-                    AnalyzingView(image: nil, message: "Looking up barcode...", onCancel: cancelAnalysis)
-                case .foodResult:
+                case .analyzing, .analyzingText, .lookingUpBarcode, .foodResult:
+                    // Drive content from foodLogPhase, not the captured `sheet`
+                    // value — `.sheet(item:)` will not recreate the body when
+                    // identity stays `foodLog`.
+                    Group {
+                    switch foodLogPhase {
+                    case .analyzing:
+                        AnalyzingView(image: currentImage, onCancel: cancelAnalysis)
+                    case .analyzingText:
+                        AnalyzingView(image: nil, message: "Looking up nutrition...", onCancel: cancelAnalysis)
+                    case .lookingUpBarcode:
+                        AnalyzingView(image: nil, message: "Looking up barcode...", onCancel: cancelAnalysis)
+                    case .result:
                     if let result = currentFoodResult {
                         FoodResultView(
                             images: currentImages,
@@ -1818,6 +1839,9 @@ private var dailyStepsTaskKey: String {
                             }
                         )
                     }
+                    }
+                    }
+                    .id(foodLogPhase)
                 case .editFood:
                     if let editingEntry {
                         EditFoodEntryView(entry: editingEntry)
@@ -1883,6 +1907,7 @@ private var dailyStepsTaskKey: String {
                         ingredients: entry.ingredients,
                         productMetadata: entry.productMetadata
                     )
+                    foodLogPhase = .result
                     activeSheet = .foodResult
                 })
             })
@@ -1924,7 +1949,9 @@ private var dailyStepsTaskKey: String {
                         }
                 }
             }
-            .interactiveDismissDisabled(activeSheet == .analyzing || activeSheet == .analyzingText || activeSheet == .lookingUpBarcode)
+            .interactiveDismissDisabled(foodLogPhase.isLoading && (
+                activeSheet == .analyzing || activeSheet == .analyzingText || activeSheet == .lookingUpBarcode
+            ))
             .photosPicker(
                 isPresented: $showPhotoPicker,
                 selection: $selectedPhotoItems,
@@ -2238,7 +2265,7 @@ private var dailyStepsTaskKey: String {
             description: description,
             progressiveMeal: progressiveMeal
         )
-        activeSheet = .analyzing
+        presentFoodLogLoading(.analyzing)
 
         analysisTask?.cancel()
         analysisTask = Task {
@@ -2250,10 +2277,9 @@ private var dailyStepsTaskKey: String {
                         progressiveMeal: progressiveMeal
                     )
                     try Task.checkCancellation()
-                    currentFoodResult = result
                     currentFoodSource = .snapFood
                     retryRequest = nil
-                    activeSheet = .foodResult
+                    presentFoodResult(result)
 
                 case .snapFoodWithContext:
                     let result = try await GeminiService.analyzeFood(
@@ -2262,10 +2288,9 @@ private var dailyStepsTaskKey: String {
                         progressiveMeal: progressiveMeal
                     )
                     try Task.checkCancellation()
-                    currentFoodResult = result
                     currentFoodSource = .snapFood
                     retryRequest = nil
-                    activeSheet = .foodResult
+                    presentFoodResult(result)
 
                 }
             } catch is CancellationError {
@@ -2283,9 +2308,33 @@ private var dailyStepsTaskKey: String {
         analysisTask?.cancel()
         analysisTask = nil
         retryRequest = nil
-        if activeSheet == .analyzing || activeSheet == .analyzingText || activeSheet == .lookingUpBarcode {
+        if foodLogPhase.isLoading {
             activeSheet = nil
         }
+        foodLogPhase = .result
+    }
+
+    @MainActor
+    private func presentFoodLogLoading(_ phase: FoodLogPhase) {
+        currentFoodResult = nil
+        foodLogPhase = phase
+        switch phase {
+        case .analyzing:
+            activeSheet = .analyzing
+        case .analyzingText:
+            activeSheet = .analyzingText
+        case .lookingUpBarcode:
+            activeSheet = .lookingUpBarcode
+        case .result:
+            activeSheet = .foodResult
+        }
+    }
+
+    @MainActor
+    private func presentFoodResult(_ result: GeminiService.FoodAnalysis) {
+        currentFoodResult = result
+        foodLogPhase = .result
+        activeSheet = .foodResult
     }
 
     private func startBarcodeLookup(_ barcode: String) {
@@ -2297,7 +2346,7 @@ private var dailyStepsTaskKey: String {
         currentImages = []
         currentEmoji = nil
         currentFoodSource = .barcode
-        activeSheet = .lookingUpBarcode
+        presentFoodLogLoading(.lookingUpBarcode)
 
         analysisTask?.cancel()
         analysisTask = Task {
@@ -2305,7 +2354,6 @@ private var dailyStepsTaskKey: String {
                 let lookup = try await OpenFoodFactsService.lookupWithImage(barcode: trimmedBarcode)
                 try Task.checkCancellation()
                 let result = lookup.analysis
-                currentFoodResult = result
                 currentEmoji = result.emoji
                 if let imageData = lookup.productImageData,
                    let image = UIImage(data: imageData) {
@@ -2313,7 +2361,7 @@ private var dailyStepsTaskKey: String {
                     currentImages = [image]
                 }
                 retryRequest = nil
-                activeSheet = .foodResult
+                presentFoodResult(result)
             } catch is CancellationError {
                 // User tapped Cancel on the analyzing sheet; cancelAnalysis already reset the UI.
             } catch {
@@ -2325,16 +2373,15 @@ private var dailyStepsTaskKey: String {
 
     private func startTextAnalysis(_ description: String) {
         retryRequest = .text(description)
-        activeSheet = .analyzingText
+        presentFoodLogLoading(.analyzingText)
         analysisTask?.cancel()
         analysisTask = Task {
             do {
                 let result = try await GeminiService.analyzeTextInput(description: description)
                 try Task.checkCancellation()
-                currentFoodResult = result
                 currentEmoji = result.emoji
                 retryRequest = nil
-                activeSheet = .foodResult
+                presentFoodResult(result)
             } catch is CancellationError {
                 // User tapped Cancel on the analyzing sheet; cancelAnalysis already reset the UI.
             } catch {
@@ -2349,6 +2396,7 @@ private var dailyStepsTaskKey: String {
     /// or drop the alert.
     @MainActor
     private func presentAnalysisError(_ error: Error) {
+        foodLogPhase = .result
         activeSheet = nil
         if let quotaError = error as? HostedAIQuotaError {
             switch quotaError {
@@ -2390,6 +2438,7 @@ private var dailyStepsTaskKey: String {
             ?? OpenFoodFactsService.LookupError.invalidResponse.localizedDescription
         errorMessage = message
         // End the loading sheet first, then show only the system popup.
+        foodLogPhase = .result
         activeSheet = nil
         BarcodeLookupAlertPresenter.present(
             message: message,

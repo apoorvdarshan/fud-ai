@@ -36,9 +36,12 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -113,11 +116,15 @@ fun MultiPhotoCaptureSheet(
                 contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = 20.dp)
             ) {
                 itemsIndexed(imageBytesList, key = { index, bytes -> "$index-${bytes.size}" }) { index, bytes ->
-                    val bitmap = remember(bytes) { FoodImageDecoder.decode(bytes, 720) }
+                    val bitmap by produceState<android.graphics.Bitmap?>(initialValue = null, bytes) {
+                        value = withContext(Dispatchers.IO) {
+                            FoodImageDecoder.decode(bytes, 720)
+                        }
+                    }
                     Box {
                         if (bitmap != null) {
                             androidx.compose.foundation.Image(
-                                bitmap = bitmap.asImageBitmap(),
+                                bitmap = bitmap!!.asImageBitmap(),
                                 contentDescription = "Photo ${index + 1}",
                                 contentScale = ContentScale.Crop,
                                 modifier = Modifier

@@ -1022,9 +1022,11 @@ viewModelScope.launch {
         }
     }
 
-    private fun restorePendingDraft(draft: PendingFoodAnalysisDraft) {
-        val bytesList = (listOfNotNull(draft.imageFilename) + draft.additionalImageFilenames).mapNotNull {
-            runCatching { container.imageStore.file(it).readBytes() }.getOrNull()
+    private suspend fun restorePendingDraft(draft: PendingFoodAnalysisDraft) {
+        val bytesList = withContext(Dispatchers.IO) {
+            (listOfNotNull(draft.imageFilename) + draft.additionalImageFilenames).mapNotNull {
+                runCatching { container.imageStore.file(it).readBytes() }.getOrNull()
+            }
         }
         _ui.value = _ui.value.copy(
             analyzing = false,

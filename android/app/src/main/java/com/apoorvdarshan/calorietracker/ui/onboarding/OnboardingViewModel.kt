@@ -57,6 +57,7 @@ data class OnboardingState(
     val aiProvider: AIProvider = AIProvider.GEMINI,
     val aiModel: String = AIProvider.GEMINI.defaultModel,
     val apiKey: String = "",
+    val acceptedTerms: Boolean = false,
     val submitting: Boolean = false,
     /** Manual overrides applied on the Plan Ready step. Null = use formula default. */
     val customCalories: Int? = null,
@@ -165,6 +166,10 @@ class OnboardingViewModel(private val container: AppContainer) : ViewModel() {
         viewModelScope.launch {
             container.keyStore.setApiKey(_ui.value.aiProvider, key.trim().takeIf { it.isNotBlank() })
         }
+    }
+
+    fun setAcceptedTerms(accepted: Boolean) {
+        _ui.value = _ui.value.copy(acceptedTerms = accepted)
     }
 
     fun selectByokSetup() {

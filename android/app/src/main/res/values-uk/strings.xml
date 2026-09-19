@@ -149,19 +149,19 @@
     <string name="ai_provider_custom">Власний (сумісний з OpenAI)</string>
 
     <!-- AI Provider API key placeholders -->
-    <string name="ai_key_placeholder_gemini">AIza…</string>
-    <string name="ai_key_placeholder_openai">sk-…</string>
-    <string name="ai_key_placeholder_anthropic">sk-ant-…</string>
-    <string name="ai_key_placeholder_xai">xai-…</string>
-    <string name="ai_key_placeholder_openrouter">sk-or-…</string>
+    <string name="ai_key_placeholder_gemini">Paste Gemini API key</string>
+    <string name="ai_key_placeholder_openai">Paste API key</string>
+    <string name="ai_key_placeholder_anthropic">Paste API key</string>
+    <string name="ai_key_placeholder_xai">Paste API key</string>
+    <string name="ai_key_placeholder_openrouter">Paste API key</string>
     <string name="ai_key_placeholder_together">…</string>
-    <string name="ai_key_placeholder_groq">gsk_…</string>
-    <string name="ai_key_placeholder_huggingface">hf_…</string>
-    <string name="ai_key_placeholder_fireworks">fw_…</string>
+    <string name="ai_key_placeholder_groq">Paste API key</string>
+    <string name="ai_key_placeholder_huggingface">Paste API key</string>
+    <string name="ai_key_placeholder_fireworks">Paste API key</string>
     <string name="ai_key_placeholder_deepinfra">…</string>
     <string name="ai_key_placeholder_mistral">…</string>
-    <string name="ai_key_placeholder_deepseek">sk-…</string>
-    <string name="ai_key_placeholder_cerebras">csk-…</string>
+    <string name="ai_key_placeholder_deepseek">Paste API key</string>
+    <string name="ai_key_placeholder_cerebras">Paste API key</string>
     <string name="ai_key_placeholder_local">Ключ API не потрібен</string>
     <string name="ai_key_placeholder_ollama">Ключ не потрібен</string>
     <string name="ai_key_placeholder_custom">Ключ API (або будь-що, якщо кінцевій точці він не потрібен)</string>
@@ -178,9 +178,9 @@
 
     <string name="speech_key_placeholder_native">Не потрібен</string>
     <string name="speech_key_placeholder_local">Не потрібен</string>
-    <string name="speech_key_placeholder_gemini">AIza…</string>
-    <string name="speech_key_placeholder_openai">sk-…</string>
-    <string name="speech_key_placeholder_groq">gsk_…</string>
+    <string name="speech_key_placeholder_gemini">Paste Gemini API key</string>
+    <string name="speech_key_placeholder_openai">Paste API key</string>
+    <string name="speech_key_placeholder_groq">Paste API key</string>
     <string name="speech_key_placeholder_mistral">Ваш ключ API Mistral</string>
     <string name="speech_key_placeholder_deepgram">Токен your-deepgram-key</string>
     <string name="speech_key_placeholder_assemblyai">Ваш ключ AssemblyAI</string>

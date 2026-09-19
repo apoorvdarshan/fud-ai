@@ -22,27 +22,10 @@ const body = {
   options: [
     {
       type: 3,
-      name: "title",
-      description: "Short title for the bug",
+      name: "report",
+      description: "What happened — paste the whole report",
       required: true,
-    },
-    {
-      type: 3,
-      name: "details",
-      description: "What happened, including steps to reproduce",
-      required: true,
-    },
-    {
-      type: 3,
-      name: "device",
-      description: "Device and OS (optional)",
-      required: false,
-    },
-    {
-      type: 3,
-      name: "app_version",
-      description: "App version from Settings → About (optional)",
-      required: false,
+      max_length: 4000,
     },
     {
       type: 3,

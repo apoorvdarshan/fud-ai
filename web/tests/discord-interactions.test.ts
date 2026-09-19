@@ -2,6 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import worker from "../worker";
 import {
   ANDROID_BUG_CHANNEL_ID,
+  deriveIssueTitle,
   DISCORD_INTERACTIONS_PATH,
   FEATURE_ISSUE_LABEL,
   handleDiscordInteractionsRequest,
@@ -129,6 +130,28 @@ describe("discord interactions", () => {
     expect(FEATURE_ISSUE_LABEL).toBe("enhancement");
   });
 
+  it("derives a GitHub title from freeform report text", () => {
+    expect(deriveIssueTitle("Crash on save")).toBe("Crash on save");
+    expect(deriveIssueTitle("  Crash on save  \n\nTap save after logging a meal.")).toBe(
+      "Crash on save",
+    );
+    expect(deriveIssueTitle("\n\nWidget calories\nShow leftover calories.")).toBe("Widget calories");
+    expect(deriveIssueTitle("")).toBe("Discord report");
+
+    const longLine =
+      "This first line is deliberately longer than one hundred characters so it cannot be used as the issue title";
+    expect(longLine.length).toBeGreaterThan(100);
+    const clipped = deriveIssueTitle(`${longLine}\nMore details after the break.`);
+    expect(clipped.endsWith("…")).toBe(true);
+    expect(clipped.length).toBeLessThanOrEqual(101);
+    expect(clipped.includes("\n")).toBe(false);
+    expect(clipped.startsWith("This first line is deliberately")).toBe(true);
+    expect(clipped).not.toContain("More details");
+
+    const oneWord = "x".repeat(140);
+    expect(deriveIssueTitle(oneWord)).toBe(`${"x".repeat(100)}…`);
+  });
+
   it("answers Discord PINGs", async () => {
     const { privateKey, publicKeyHex } = await ed25519Pair();
     const response = await handleDiscordInteractionsRequest(
@@ -192,10 +215,10 @@ describe("discord interactions", () => {
         command(
           "bug",
           [
-            { name: "title", value: "Crash on save" },
-            { name: "details", value: "Tap save after logging a meal." },
-            { name: "device", value: "iPhone 15" },
-            { name: "app_version", value: "7.1 (38)" },
+            {
+              name: "report",
+              value: "Crash on save\n\nTap save after logging a meal.\niPhone 15, 7.1 (38)",
+            },
             { name: "platform", value: "iOS" },
           ],
           { channel_id: ANDROID_BUG_CHANNEL_ID },
@@ -222,14 +245,17 @@ describe("discord interactions", () => {
     };
     expect(created.title).toBe("Crash on save");
     expect(created.labels).toEqual(["bug", "ios"]);
+    expect(created.body).toContain("Crash on save");
     expect(created.body).toContain("Tap save after logging a meal.");
-    expect(created.body).toContain("iPhone 15");
-    expect(created.body).toContain("7.1 (38)");
-    expect(created.body).toContain("iOS");
+    expect(created.body).toContain("iPhone 15, 7.1 (38)");
+    expect(created.body).toContain("**Platform:** iOS");
+    expect(created.body).toContain("Reported via Discord `/bug`");
     expect(created.body).toContain("Reporter");
     expect(created.body).toContain("`user-1`");
     expect(created.body).toContain(ANDROID_BUG_CHANNEL_ID);
     expect(created.body).toContain(GUILD_ID);
+    expect(created.body).not.toContain("## Details");
+    expect(created.body).not.toContain("## Device");
 
     const discordCall = fetch.mock.calls.find(([url]) => String(url).includes("discord.com/api/v10/webhooks"));
     expect(requestBody(discordCall?.[1])).toBe(JSON.stringify({ content: `Opened ${ISSUE_URL}` }));
@@ -251,10 +277,7 @@ describe("discord interactions", () => {
         privateKey,
         command(
           "bug",
-          [
-            { name: "title", value: "Dark mode flicker" },
-            { name: "details", value: "Theme flips on resume." },
-          ],
+          [{ name: "report", value: "Dark mode flicker\nTheme flips on resume." }],
           { channel_id: ANDROID_BUG_CHANNEL_ID },
         ),
       ),
@@ -286,10 +309,7 @@ describe("discord interactions", () => {
         privateKey,
         command(
           "bug",
-          [
-            { name: "title", value: "Crash on save" },
-            { name: "details", value: "Steps" },
-          ],
+          [{ name: "report", value: "Crash on save\nSteps" }],
           { channel_id: IOS_BUG_CHANNEL_ID },
         ),
       ),
@@ -316,10 +336,7 @@ describe("discord interactions", () => {
     const response = await handleDiscordInteractionsRequest(
       await signedRequest(
         privateKey,
-        command("bug", [
-          { name: "title", value: "Crash on save" },
-          { name: "details", value: "Steps" },
-        ]),
+        command("bug", [{ name: "report", value: "Crash on save\nSteps" }]),
       ),
       env(publicKeyHex, { GITHUB_TOKEN: "" }),
       ctx,
@@ -348,8 +365,10 @@ describe("discord interactions", () => {
         command(
           "feature",
           [
-            { name: "title", value: "Widget remaining calories" },
-            { name: "details", value: "Show leftover calories on the home-screen widget." },
+            {
+              name: "report",
+              value: "Widget remaining calories\n\nShow leftover calories on the home-screen widget.",
+            },
             { name: "platform", value: "both" },
           ],
           { channel_id: IOS_BUG_CHANNEL_ID },
@@ -377,15 +396,15 @@ describe("discord interactions", () => {
     };
     expect(created.title).toBe("Widget remaining calories");
     expect(created.labels).toEqual(["enhancement"]);
-    expect(created.body).toContain("## Summary");
+    expect(created.body).toContain("Widget remaining calories");
     expect(created.body).toContain("Show leftover calories on the home-screen widget.");
-    expect(created.body).toContain("## Platform");
-    expect(created.body).toContain("both");
+    expect(created.body).toContain("**Platform:** both");
     expect(created.body).toContain("Opened via Discord `/feature`");
     expect(created.body).toContain("Reporter");
     expect(created.body).toContain("`user-1`");
     expect(created.body).toContain(IOS_BUG_CHANNEL_ID);
     expect(created.body).toContain(GUILD_ID);
+    expect(created.body).not.toContain("## Summary");
     expect(created.body).not.toContain("ios");
 
     const discordCall = fetch.mock.calls.find(([url]) => String(url).includes("discord.com/api/v10/webhooks"));
@@ -409,10 +428,7 @@ describe("discord interactions", () => {
         privateKey,
         command(
           "feature",
-          [
-            { name: "title", value: "Dark mode for widgets" },
-            { name: "details", value: "Match system appearance." },
-          ],
+          [{ name: "report", value: "Dark mode for widgets\nMatch system appearance." }],
           { channel_id: ANDROID_BUG_CHANNEL_ID },
         ),
       ),
@@ -426,15 +442,17 @@ describe("discord interactions", () => {
       body: string;
     };
     expect(created.labels).toEqual(["enhancement"]);
-    expect(created.body).toContain("_Not specified_");
+    expect(created.body).toContain("Dark mode for widgets");
+    expect(created.body).toContain("Match system appearance.");
     expect(created.body).toContain(ANDROID_BUG_CHANNEL_ID);
+    expect(created.body).not.toContain("**Platform:**");
     expect(created.body).not.toMatch(/## Platform\n\nAndroid/);
   });
 
-  it("rejects /feature without title or details", async () => {
+  it("rejects /feature without report", async () => {
     const { privateKey, publicKeyHex } = await ed25519Pair();
     const response = await handleDiscordInteractionsRequest(
-      await signedRequest(privateKey, command("feature", [{ name: "title", value: "Missing details" }])),
+      await signedRequest(privateKey, command("feature", [{ name: "platform", value: "iOS" }])),
       env(publicKeyHex),
     );
     expect(await response.json()).toMatchObject({
@@ -443,16 +461,49 @@ describe("discord interactions", () => {
     });
   });
 
-  it("rejects /bug without title or details", async () => {
+  it("rejects /bug without report", async () => {
     const { privateKey, publicKeyHex } = await ed25519Pair();
     const response = await handleDiscordInteractionsRequest(
-      await signedRequest(privateKey, command("bug", [{ name: "title", value: "Missing details" }])),
+      await signedRequest(privateKey, command("bug", [{ name: "platform", value: "iOS" }])),
       env(publicKeyHex),
     );
     expect(await response.json()).toMatchObject({
       type: 4,
       data: { flags: 64 },
     });
+  });
+
+  it("files a /bug issue with a derived title from a long one-line report", async () => {
+    const { privateKey, publicKeyHex } = await ed25519Pair();
+    const fetch = vi.fn<MockFetch>(async (url) => {
+      if (String(url).includes("api.github.com")) {
+        return Response.json({ html_url: ISSUE_URL, number: 42 }, { status: 201 });
+      }
+      return new Response(null, { status: 200 });
+    });
+    vi.stubGlobal("fetch", fetch);
+    const { ctx, flush } = waiters();
+    const report =
+      "The save button crashes every time I log a meal after coming back from the fasting timer on iPhone 15";
+
+    const response = await handleDiscordInteractionsRequest(
+      await signedRequest(privateKey, command("bug", [{ name: "report", value: report }])),
+      env(publicKeyHex),
+      ctx,
+    );
+    expect(await response.json()).toEqual({ type: 5 });
+    await flush();
+
+    const created = JSON.parse(requestBody(fetch.mock.calls[0]?.[1])) as {
+      title: string;
+      body: string;
+      labels: string[];
+    };
+    expect(created.title).toBe(deriveIssueTitle(report));
+    expect(created.title.endsWith("…")).toBe(true);
+    expect(created.labels).toEqual(["bug"]);
+    expect(created.body.startsWith(report)).toBe(true);
+    expect(created.body).toContain("Reported via Discord `/bug`");
   });
 
   it("routes the live interactions path on the Worker", async () => {

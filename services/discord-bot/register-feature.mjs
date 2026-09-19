@@ -22,15 +22,10 @@ const body = {
   options: [
     {
       type: 3,
-      name: "title",
-      description: "Short title for the request",
+      name: "report",
+      description: "What you want — paste the whole request",
       required: true,
-    },
-    {
-      type: 3,
-      name: "details",
-      description: "What you want and why it would help",
-      required: true,
+      max_length: 4000,
     },
     {
       type: 3,

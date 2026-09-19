@@ -14,9 +14,13 @@ const GITHUB_ISSUES_REPO = "apoorvdarshan/fud-ai";
 const GITHUB_ISSUES_URL = `https://api.github.com/repos/${GITHUB_ISSUES_REPO}/issues`;
 const GITHUB_API_VERSION = "2022-11-28";
 const GITHUB_TITLE_MAX = 256;
+const ISSUE_TITLE_LINE_MAX = 100;
+const ISSUE_TITLE_CLIP_MIN = 80;
+const ISSUE_TITLE_CLIP_MAX = 100;
 
 const GEMINI_MODEL = "gemini-3.5-flash-lite";
 const MAX_QUESTION_CHARS = 1_500;
+const MAX_REPORT_CHARS = 4_000;
 const MAX_REPLY_CHARS = 1_800;
 
 const SYSTEM_PROMPT = `You are the Fud AI Discord helper for the free, open-source calorie / fasting / workout tracker (iOS + Android).
@@ -78,16 +82,12 @@ type DiscordReporter = {
 };
 
 type BugReport = DiscordReporter & {
-  title: string;
-  details: string;
-  device: string;
-  appVersion: string;
+  report: string;
   platform: BugPlatform;
 };
 
 type FeatureReport = DiscordReporter & {
-  title: string;
-  details: string;
+  report: string;
   platform: FeaturePlatform;
 };
 
@@ -209,48 +209,39 @@ function clipGitHubTitle(title: string): string {
   return `${title.slice(0, GITHUB_TITLE_MAX - 1)}…`;
 }
 
-function formatBugIssueBody(report: BugReport): string {
-  const device = report.device || "_Not provided_";
-  const appVersion = report.appVersion || "_Not provided_";
-  const platform = report.platform || "_Unknown_";
-  return [
-    "## Details",
-    "",
-    report.details,
-    "",
-    "## Device",
-    "",
-    device,
-    "",
-    "## App version",
-    "",
-    appVersion,
-    "",
-    "## Platform",
-    "",
-    platform,
-    "",
-    formatDiscordIssueFooter("Reported via Discord `/bug`", report),
-  ].join("\n");
+/** First short line, else ~80–100 chars at a word boundary. */
+export function deriveIssueTitle(report: string): string {
+  const text = report.trim();
+  if (!text) return "Discord report";
+
+  const firstLine =
+    text
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .find((line) => line.length > 0) ?? "";
+  if (firstLine && firstLine.length <= ISSUE_TITLE_LINE_MAX) return firstLine;
+
+  const flattened = text.replace(/\s+/g, " ").trim();
+  if (flattened.length <= ISSUE_TITLE_CLIP_MAX) return flattened;
+
+  const window = flattened.slice(0, ISSUE_TITLE_CLIP_MAX);
+  const breakAt = window.lastIndexOf(" ");
+  const clipped = breakAt >= ISSUE_TITLE_CLIP_MIN ? window.slice(0, breakAt) : window;
+  return `${clipped.trimEnd()}…`;
 }
 
-function formatFeatureIssueBody(report: FeatureReport): string {
-  const platform = report.platform || "_Not specified_";
-  return [
-    "## Summary",
-    "",
-    report.details,
-    "",
-    "## Platform",
-    "",
-    platform,
-    "",
-    formatDiscordIssueFooter("Opened via Discord `/feature`", report),
-  ].join("\n");
+function formatReportIssueBody(
+  intro: string,
+  report: DiscordReporter & { report: string; platform?: string },
+): string {
+  return [report.report, "", formatDiscordIssueFooter(intro, report)].join("\n");
 }
 
-function formatDiscordIssueFooter(intro: string, report: DiscordReporter): string {
-  return [
+function formatDiscordIssueFooter(
+  intro: string,
+  report: DiscordReporter & { platform?: string },
+): string {
+  const lines = [
     "---",
     "",
     intro,
@@ -258,7 +249,11 @@ function formatDiscordIssueFooter(intro: string, report: DiscordReporter): strin
     `- **User:** ${report.username} (\`${report.userId}\`)`,
     `- **Channel:** \`${report.channelId || "unknown"}\``,
     `- **Guild:** \`${report.guildId || "unknown"}\``,
-  ].join("\n");
+  ];
+  if (report.platform) {
+    lines.push(`- **Platform:** ${report.platform}`);
+  }
+  return lines.join("\n");
 }
 
 async function createGitHubIssue(
@@ -374,8 +369,8 @@ async function fulfillBug(
 
   try {
     const issue = await createGitHubIssue(token, {
-      title: report.title,
-      body: formatBugIssueBody(report),
+      title: deriveIssueTitle(report.report),
+      body: formatReportIssueBody("Reported via Discord `/bug`", report),
       labels: labelsForBugPlatform(report.platform),
       fallbackLabels: ["bug"],
       userAgent: "fud-ai-discord-bug",
@@ -414,8 +409,8 @@ async function fulfillFeature(
 
   try {
     const issue = await createGitHubIssue(token, {
-      title: report.title,
-      body: formatFeatureIssueBody(report),
+      title: deriveIssueTitle(report.report),
+      body: formatReportIssueBody("Opened via Discord `/feature`", report),
       labels: labelsForFeatureRequest(),
       userAgent: "fud-ai-discord-feature",
     });
@@ -472,13 +467,21 @@ function handleBugCommand(
   applicationId: string,
   ctx?: { waitUntil: (promise: Promise<unknown>) => void },
 ): Response {
-  const title = optionString(interaction, "title");
-  const details = optionString(interaction, "details");
-  if (!title || !details) {
+  const reportText = optionString(interaction, "report");
+  if (!reportText) {
     return jsonResponse({
       type: 4,
       data: {
-        content: "Need both `title` and `details` — e.g. `/bug title: Crash on save details: Steps to reproduce…`",
+        content: "Paste the bug in `report` — e.g. `/bug report: Crash on save when I tap the checkmark.`",
+        flags: 64,
+      },
+    });
+  }
+  if (reportText.length > MAX_REPORT_CHARS) {
+    return jsonResponse({
+      type: 4,
+      data: {
+        content: `Keep reports under ${MAX_REPORT_CHARS} characters.`,
         flags: 64,
       },
     });
@@ -494,10 +497,7 @@ function handleBugCommand(
   const channelId = interactionChannelId(interaction);
   const reporter = reporterFrom(interaction);
   const report: BugReport = {
-    title,
-    details,
-    device: optionString(interaction, "device"),
-    appVersion: optionString(interaction, "app_version"),
+    report: reportText,
     platform: resolveBugPlatform(optionString(interaction, "platform"), channelId),
     channelId,
     guildId: interactionGuildId(interaction),
@@ -521,13 +521,21 @@ function handleFeatureCommand(
   applicationId: string,
   ctx?: { waitUntil: (promise: Promise<unknown>) => void },
 ): Response {
-  const title = optionString(interaction, "title");
-  const details = optionString(interaction, "details");
-  if (!title || !details) {
+  const reportText = optionString(interaction, "report");
+  if (!reportText) {
     return jsonResponse({
       type: 4,
       data: {
-        content: "Need both `title` and `details` — e.g. `/feature title: Widget calories details: Show remaining calories on the home screen widget.`",
+        content: "Paste the request in `report` — e.g. `/feature report: Show remaining calories on the home screen widget.`",
+        flags: 64,
+      },
+    });
+  }
+  if (reportText.length > MAX_REPORT_CHARS) {
+    return jsonResponse({
+      type: 4,
+      data: {
+        content: `Keep reports under ${MAX_REPORT_CHARS} characters.`,
         flags: 64,
       },
     });
@@ -542,8 +550,7 @@ function handleFeatureCommand(
 
   const reporter = reporterFrom(interaction);
   const report: FeatureReport = {
-    title,
-    details,
+    report: reportText,
     platform: resolveFeaturePlatform(optionString(interaction, "platform")),
     channelId: interactionChannelId(interaction),
     guildId: interactionGuildId(interaction),

@@ -32,8 +32,8 @@ node services/discord-bot/register-feature.mjs
 ```
 
 - **`/ask`** — `question` required.
-- **`/bug`** — `title`, `details` required; `device`, `app_version`, `platform` optional. Platform is inferred from the iOS (`1548481436129165353`) or Android (`1548481448024084540`) channel when omitted. Issues get labels `bug` plus `ios` or `android`.
-- **`/feature`** — `title`, `details` required; optional `platform` (`iOS` / `Android` / `both`). Platform is **not** inferred from channel. Issues get the `enhancement` label (same as the GitHub feature-request template). Works from any channel.
+- **`/bug`** — `report` required (freeform; title is derived from the first short line or a clipped excerpt). Optional `platform` (`iOS` / `Android`); inferred from the iOS (`1548481436129165353`) or Android (`1548481448024084540`) channel when omitted. Issues get labels `bug` plus `ios` or `android`.
+- **`/feature`** — `report` required (same title derivation). Optional `platform` (`iOS` / `Android` / `both`). Platform is **not** inferred from channel. Issues get the `enhancement` label (same as the GitHub feature-request template). Works from any channel.
 
 ### Deploy Worker secrets + code
 
@@ -48,9 +48,9 @@ npx wrangler deploy
 
 In Discord: `/ask question: How do I add my Gemini key?`
 
-In Discord: `/bug title: Crash on save details: Steps…` (optional `device`, `app_version`, `platform`).
+In Discord: `/bug report: Crash on save when I tap the checkmark.` (optional `platform`).
 
-In Discord: `/feature title: Widget calories details: Show remaining calories on the home widget.` (optional `platform`).
+In Discord: `/feature report: Show remaining calories on the home widget.` (optional `platform`).
 
 ## Optional local gateway bot (`@mention`)
 

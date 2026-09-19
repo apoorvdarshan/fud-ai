@@ -184,7 +184,69 @@ struct EditFoodEntryView: View {
         return String(format: "%.1f", value)
     }
 
+    private var currentMicros: MealMicronutrientSnapshot {
+        MealMicronutrientSnapshot(
+            sugar: baseSugar,
+            addedSugar: baseAddedSugar,
+            fiber: baseFiber,
+            saturatedFat: baseSaturatedFat,
+            monounsaturatedFat: baseMonounsaturatedFat,
+            polyunsaturatedFat: basePolyunsaturatedFat,
+            cholesterol: baseCholesterol,
+            caffeine: baseCaffeine,
+            supplementalNutrients: baseSupplementalNutrients,
+            sodium: baseSodium,
+            potassium: basePotassium,
+            transFat: baseTransFat,
+            calcium: baseCalcium,
+            iron: baseIron,
+            magnesium: baseMagnesium,
+            zinc: baseZinc,
+            vitaminA: baseVitaminA,
+            vitaminC: baseVitaminC,
+            vitaminD: baseVitaminD,
+            vitaminB12: baseVitaminB12,
+            vitaminE: baseVitaminE,
+            vitaminK: baseVitaminK,
+            folate: baseFolate,
+            omega3: baseOmega3
+        )
+    }
+
+    private func applyMicros(_ snapshot: MealMicronutrientSnapshot) {
+        baseSugar = snapshot.sugar
+        baseAddedSugar = snapshot.addedSugar
+        baseFiber = snapshot.fiber
+        baseSaturatedFat = snapshot.saturatedFat
+        baseMonounsaturatedFat = snapshot.monounsaturatedFat
+        basePolyunsaturatedFat = snapshot.polyunsaturatedFat
+        baseCholesterol = snapshot.cholesterol
+        baseCaffeine = snapshot.caffeine
+        baseSupplementalNutrients = snapshot.supplementalNutrients
+        baseSodium = snapshot.sodium
+        basePotassium = snapshot.potassium
+        baseTransFat = snapshot.transFat
+        baseCalcium = snapshot.calcium
+        baseIron = snapshot.iron
+        baseMagnesium = snapshot.magnesium
+        baseZinc = snapshot.zinc
+        baseVitaminA = snapshot.vitaminA
+        baseVitaminC = snapshot.vitaminC
+        baseVitaminD = snapshot.vitaminD
+        baseVitaminB12 = snapshot.vitaminB12
+        baseVitaminE = snapshot.vitaminE
+        baseVitaminK = snapshot.vitaminK
+        baseFolate = snapshot.folate
+        baseOmega3 = snapshot.omega3
+    }
+
     private func applyIngredientChanges(_ displayedIngredients: [MealIngredient]) {
+        applyMicros(
+            currentMicros.stretched(
+                oldGrams: baseIngredients.ingredientTotals.grams,
+                newGrams: displayedIngredients.ingredientTotals.grams
+            )
+        )
         baseIngredients = displayedIngredients
         let totals = displayedIngredients.ingredientTotals
         baseCalories = totals.calories

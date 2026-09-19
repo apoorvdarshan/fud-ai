@@ -3,8 +3,8 @@ package com.apoorvdarshan.calorietracker
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.enableEdgeToEdge
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -36,7 +36,8 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
-open class MainActivity : ComponentActivity() {
+// AppCompatActivity so AppCompatDelegate.setApplicationLocales applies on API 26–32 (#372).
+open class MainActivity : AppCompatActivity() {
     // Shared-meal deep link (issue #107). Non-empty -> the confirm sheet is shown over the app.
     private var pendingSharedMeals by mutableStateOf<List<FoodEntry>>(emptyList())
     private var pendingQuickAction by mutableStateOf<QuickActionRequest?>(null)

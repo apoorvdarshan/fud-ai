@@ -13,7 +13,10 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import com.apoorvdarshan.calorietracker.backup.DriveCloudBackupClient
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
+import androidx.core.os.LocaleListCompat
+import com.apoorvdarshan.calorietracker.models.AppLanguage
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -80,6 +83,7 @@ import androidx.compose.material.icons.outlined.Height
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Key
 import androidx.compose.material.icons.outlined.Language
+import androidx.compose.material.icons.outlined.Translate
 import androidx.compose.material.icons.outlined.Link
 import androidx.compose.material.icons.outlined.Numbers
 import androidx.compose.material.icons.filled.Lock
@@ -231,7 +235,26 @@ private enum class SettingsSheet {
     SPEECH_FALLBACK_PROVIDER, SPEECH_FALLBACK_LANGUAGE, SPEECH_FALLBACK_KEY,
     GENDER, BIRTHDAY, HEIGHT, WEIGHT, BODY_FAT, GOAL_BODY_FAT, ACTIVITY, GOAL, GOAL_WEIGHT, GOAL_SPEED,
     CALORIES, PROTEIN, CARBS, FAT, OPTIONAL_NUTRIENTS,
-    APPEARANCE, WEEK_START, MEAL_TIMES, WATER_GOAL, WATER_UNIT, FASTING_GOAL, WORKOUT_SPLIT, WORKOUT_RPE
+    APPEARANCE, APP_LANGUAGE, WEEK_START, MEAL_TIMES, WATER_GOAL, WATER_UNIT, FASTING_GOAL, WORKOUT_SPLIT, WORKOUT_RPE
+}
+
+/** First tag from the AndroidX per-app locale list, or null to follow the system. */
+private fun currentAppLanguageTag(): String? =
+    AppLanguage.matchSupported(
+        AppCompatDelegate.getApplicationLocales()
+            .toLanguageTags()
+            .substringBefore(',')
+            .ifBlank { null }
+    )
+
+private fun applyAppLanguage(tag: String?) {
+    AppCompatDelegate.setApplicationLocales(
+        if (tag.isNullOrBlank()) {
+            LocaleListCompat.getEmptyLocaleList()
+        } else {
+            LocaleListCompat.forLanguageTags(tag)
+        }
+    )
 }
 
 private enum class HealthConnectPermissionAction {
@@ -842,6 +865,14 @@ fun SettingsScreen(
                     },
                     icon = Icons.Outlined.Brightness6
                 ) { sheet = SettingsSheet.APPEARANCE }
+                HorizontalDivider()
+                val selectedAppLanguage = currentAppLanguageTag()
+                SettingRow(
+                    stringResource(R.string.settings_app_language),
+                    selectedAppLanguage?.let { AppLanguage.displayName(it) }
+                        ?: stringResource(R.string.settings_app_language_system),
+                    icon = Icons.Outlined.Translate
+                ) { sheet = SettingsSheet.APP_LANGUAGE }
                 HorizontalDivider()
                 var themeMenuExpanded by remember { mutableStateOf(false) }
                 Box {
@@ -3044,6 +3075,22 @@ private fun SettingsSheets(
                     onSelect = { vm.setAppearanceMode(it.first); onDismiss() },
                     icon = { appearanceIcon(it.first) }
                 )
+                SettingsSheet.APP_LANGUAGE -> {
+                    val selectedTag = currentAppLanguageTag()
+                    ListSheet(
+                        title = stringResource(R.string.sheet_app_language),
+                        items = listOf<String?>(null) + AppLanguage.supportedTags,
+                        label = { tag ->
+                            tag?.let { AppLanguage.displayName(it) }
+                                ?: stringResource(R.string.settings_app_language_system)
+                        },
+                        selected = { it == selectedTag },
+                        onSelect = { tag ->
+                            applyAppLanguage(tag)
+                            onDismiss()
+                        }
+                    )
+                }
                 SettingsSheet.WEEK_START -> ListSheet(
                     title = stringResource(R.string.sheet_week_starts),
                     items = listOf(

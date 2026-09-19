@@ -347,6 +347,11 @@ enum HomeTopNutrient: String, CaseIterable, Identifiable {
             .map(\.rawValue)
             .joined(separator: ",")
     }
+
+    /// Nutrient pillars on Home (water is a separate fixed card when tracking is on).
+    static func displayedOnHome(from rawValue: String) -> [HomeTopNutrient] {
+        selection(from: rawValue)
+    }
 }
 
 struct HomeNutrientPickerSheet: View {
@@ -354,20 +359,15 @@ struct HomeNutrientPickerSheet: View {
     @Binding var selectionRawValue: String
     @Environment(\.dismiss) private var dismiss
     @State private var draftSelection: [HomeTopNutrient]
-    @State private var hiddenFourthNutrient: HomeTopNutrient?
 
     init(selectionRawValue: Binding<String>, waterTrackingEnabled: Bool) {
         let storedSelection = HomeTopNutrient.selection(from: selectionRawValue.wrappedValue)
-        let visibleCount = waterTrackingEnabled ? 3 : 4
         self.waterTrackingEnabled = waterTrackingEnabled
         _selectionRawValue = selectionRawValue
-        _draftSelection = State(initialValue: Array(storedSelection.prefix(visibleCount)))
-        _hiddenFourthNutrient = State(
-            initialValue: waterTrackingEnabled ? storedSelection.dropFirst(3).first : nil
-        )
+        _draftSelection = State(initialValue: Array(storedSelection.prefix(4)))
     }
 
-    private var selectionLimit: Int { waterTrackingEnabled ? 3 : 4 }
+    private var selectionLimit: Int { 4 }
 
     var body: some View {
         NavigationStack {
@@ -422,14 +422,10 @@ struct HomeNutrientPickerSheet: View {
                         .buttonStyle(.plain)
                     }
                 } header: {
-                    if waterTrackingEnabled {
-                        Text("Choose 1–3 Nutrients")
-                    } else {
-                        Text("Choose 1–4 Nutrients")
-                    }
+                    Text("Choose 1–4 Nutrients")
                 } footer: {
                     if waterTrackingEnabled {
-                        Text("Pick one to three nutrients. Water is shown after them while tracking is enabled.")
+                        Text("Pick one to four nutrients. Water is shown after them while tracking is enabled.")
                     } else {
                         Text("Pick one to four nutrients for the Home summary row.")
                     }
@@ -448,14 +444,13 @@ struct HomeNutrientPickerSheet: View {
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Reset") {
                         draftSelection = Array(HomeTopNutrient.defaultSelection.prefix(selectionLimit))
-                        hiddenFourthNutrient = waterTrackingEnabled ? HomeTopNutrient.defaultSelection.last : nil
                     }
                     .tint(AppColors.calorie)
                 }
 
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Done") {
-                        selectionRawValue = HomeTopNutrient.storageValue(for: persistedSelection)
+                        selectionRawValue = HomeTopNutrient.storageValue(for: draftSelection)
                         dismiss()
                     }
                     .tint(AppColors.calorie)
@@ -475,14 +470,6 @@ struct HomeNutrientPickerSheet: View {
             draftSelection.removeLast()
             draftSelection.append(nutrient)
         }
-    }
-
-    private var persistedSelection: [HomeTopNutrient] {
-        // Preserve an existing fourth choice only while all three visible slots remain occupied.
-        guard waterTrackingEnabled, draftSelection.count == 3,
-              let hidden = hiddenFourthNutrient, !draftSelection.contains(hidden)
-        else { return draftSelection }
-        return draftSelection + [hidden]
     }
 }
 
@@ -709,7 +696,7 @@ struct MacroVerticalBar: View {
     var body: some View {
         VStack(spacing: 8) {
             Text(MacroValueFormatter.string(current))
-                .font(.system(.title3, design: .rounded, weight: .bold))
+                .font(.system(.callout, design: .rounded, weight: .bold))
                 .foregroundStyle(
                     LinearGradient(colors: gradient, startPoint: .top, endPoint: .bottom)
                 )

@@ -1120,7 +1120,7 @@
     <string name="nutrition_label_omega3">Омега-3</string>
     <string name="nutrition_section_home_cards">Картки на головній</string>
     <string name="home_nutrients_pick_four">Виберіть рівно чотири нутрієнти для рядка підсумків на Головній.</string>
-    <string name="home_nutrients_pick_three_water">Оберіть від одного до трьох нутрієнтів. При увімкненому відстеженні води вода відображається після них.</string>
+    <string name="home_nutrients_pick_three_water">Оберіть від одного до чотирьох нутрієнтів. При увімкненому відстеженні води вода відображається після них.</string>
     <string name="home_nutrients_water_fixed">При увімкненому відстеженні води вона відображається після обраних нутрієнтів.</string>
     <string name="home_nutrients_water_fixed_short">Після обраних нутрієнтів</string>
     <string name="nutrition_section_water">Вода</string>

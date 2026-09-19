@@ -31,4 +31,9 @@ struct OptionalNutrientGoalsTests {
         #expect(HomeTopNutrient.selection(from: "") == HomeTopNutrient.defaultSelection)
         #expect(HomeTopNutrient.selection(from: "unknown") == HomeTopNutrient.defaultSelection)
     }
+
+    @Test func displayedOnHomeShowsAllFourSavedNutrients() {
+        let raw = HomeTopNutrient.storageValue(for: HomeTopNutrient.defaultSelection)
+        #expect(HomeTopNutrient.displayedOnHome(from: raw).map(\.rawValue) == ["protein", "carbs", "fat", "fiber"])
+    }
 }

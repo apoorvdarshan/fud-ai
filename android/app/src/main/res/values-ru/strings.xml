@@ -907,7 +907,7 @@
     <string name="nutrition_label_omega3">Омега-3</string>
     <string name="nutrition_section_home_cards">Карточки на главной</string>
     <string name="home_nutrients_pick_four">Выберите от одного до четырёх нутриентов для сводки на главном экране.</string>
-    <string name="home_nutrients_pick_three_water">Выберите от одного до трёх нутриентов. При включённом учёте воды вода отображается после них.</string>
+    <string name="home_nutrients_pick_three_water">Выберите от одного до четырёх нутриентов. При включённом учёте воды вода отображается после них.</string>
     <string name="home_nutrients_water_fixed">При включённом учёте воды вода отображается после выбранных нутриентов.</string>
     <string name="home_nutrients_water_fixed_short">После выбранных нутриентов</string>
     <string name="nutrition_section_water">Вода</string>

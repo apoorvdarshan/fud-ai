@@ -44,6 +44,15 @@ class WidgetSnapshotWaterTest {
         assertEquals(HomeTopNutrient.DefaultSelection, HomeTopNutrient.fromStorage("unknown"))
     }
 
+    @Test
+    fun displayedOnHomeKeepsFourthNutrientWhenWaterWouldHaveHiddenIt() {
+        val selection = HomeTopNutrient.DefaultSelection
+        assertEquals(
+            listOf("protein", "carbs", "fat", "fiber"),
+            HomeTopNutrient.displayedOnHome(selection).map { it.storageKey }
+        )
+    }
+
     private fun snapshot(waterEnabled: Boolean) = WidgetSnapshot(
         date = Instant.EPOCH,
         dayStart = Instant.EPOCH,

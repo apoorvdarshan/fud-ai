@@ -38,6 +38,7 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.produceState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import androidx.compose.ui.window.Dialog
@@ -121,9 +122,14 @@ fun FoodResultSheet(
     ) -> Unit,
     onDismiss: () -> Unit
 ) {
-    val thumbnails = remember(imageBytesList) {
-        imageBytesList.mapIndexedNotNull { sourceIndex, bytes ->
-            FoodImageDecoder.decode(bytes, 720)?.let { sourceIndex to it }
+    val thumbnails by produceState<List<Pair<Int, android.graphics.Bitmap>>>(
+        initialValue = emptyList(),
+        imageBytesList
+    ) {
+        value = withContext(Dispatchers.IO) {
+            imageBytesList.mapIndexedNotNull { sourceIndex, bytes ->
+                FoodImageDecoder.decode(bytes, 720)?.let { sourceIndex to it }
+            }
         }
     }
     val state = rememberModalBottomSheetState(

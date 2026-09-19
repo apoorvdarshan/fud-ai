@@ -90,8 +90,13 @@ function command(name: string, options: Array<{ name: string; value: string }>, 
   };
 }
 
-function geminiIssueResponse(title: string, body: string, fenced = false): Response {
-  const json = JSON.stringify({ title, body });
+function geminiIssueResponse(
+  title: string,
+  body: string,
+  fenced = false,
+  platform: "iOS" | "Android" | null = null,
+): Response {
+  const json = JSON.stringify({ title, body, platform });
   return Response.json({
     candidates: [{ content: { parts: [{ text: fenced ? `\`\`\`json\n${json}\n\`\`\`` : json }] } }],
   });
@@ -147,12 +152,38 @@ describe("discord interactions", () => {
     expect(ok).toBe(false);
   });
 
-  it("infers platform from the iOS and Android channels when omitted", () => {
+  it("prefers report-text platform signals over the Discord bug channel", () => {
     expect(resolveBugPlatform("", IOS_BUG_CHANNEL_ID)).toBe("iOS");
     expect(resolveBugPlatform("", ANDROID_BUG_CHANNEL_ID)).toBe("Android");
     expect(resolveBugPlatform("Android", IOS_BUG_CHANNEL_ID)).toBe("Android");
     expect(resolveBugPlatform("ios", "other")).toBe("iOS");
     expect(resolveBugPlatform("", "other")).toBe("");
+    expect(resolveBugPlatform("Crash on my Pixel 8 after save", IOS_BUG_CHANNEL_ID)).toBe(
+      "Android",
+    );
+    expect(resolveBugPlatform("iPhone 15 crashes on save", ANDROID_BUG_CHANNEL_ID)).toBe("iOS");
+    expect(resolveBugPlatform("ipad widget is blank", ANDROID_BUG_CHANNEL_ID)).toBe("iOS");
+    expect(resolveBugPlatform("galaxy s24 overlay flicker", IOS_BUG_CHANNEL_ID)).toBe("Android");
+    expect(resolveBugPlatform("oneplus 12 can't log a meal", IOS_BUG_CHANNEL_ID)).toBe("Android");
+    expect(resolveBugPlatform("samsung fold theme flip", IOS_BUG_CHANNEL_ID)).toBe("Android");
+    expect(resolveBugPlatform("Dark mode flicker", ANDROID_BUG_CHANNEL_ID)).toBe("Android");
+    expect(resolveBugPlatform("Dark mode flicker", IOS_BUG_CHANNEL_ID)).toBe("iOS");
+    expect(resolveBugPlatform("Broken on iPhone and Android", IOS_BUG_CHANNEL_ID)).toBe("iOS");
+    expect(resolveBugPlatform("Broken on iOS and Android", ANDROID_BUG_CHANNEL_ID)).toBe(
+      "Android",
+    );
+    expect(resolveBugPlatform("Broken on iPhone and Android", "other")).toBe("");
+    expect(resolveBugPlatform("Something broke", "other")).toBe("");
+    expect(
+      resolveBugPlatform("", IOS_BUG_CHANNEL_ID, { title: "t", body: "b", platform: "Android" }),
+    ).toBe("Android");
+    expect(
+      resolveBugPlatform("no device", IOS_BUG_CHANNEL_ID, {
+        title: "Pixel overlay",
+        body: "Repro on Pixel 9.",
+        platform: null,
+      }),
+    ).toBe("Android");
     expect(labelsForBugPlatform("iOS")).toEqual(["bug", "ios"]);
     expect(labelsForBugPlatform("Android")).toEqual(["bug", "android"]);
     expect(labelsForBugPlatform("")).toEqual(["bug"]);
@@ -194,12 +225,35 @@ describe("discord interactions", () => {
     expect(parseStructuredIssue('{"title":"Crash on save","body":"## Details\\nTap save."}')).toEqual({
       title: "Crash on save",
       body: "## Details\nTap save.",
+      platform: null,
     });
     expect(
       parseStructuredIssue('```json\n{"title":"Widget calories","body":"Show leftovers."}\n```'),
     ).toEqual({
       title: "Widget calories",
       body: "Show leftovers.",
+      platform: null,
+    });
+    expect(
+      parseStructuredIssue(
+        '{"title":"Pixel overlay","body":"Flickers on resume.","platform":"Android"}',
+      ),
+    ).toEqual({
+      title: "Pixel overlay",
+      body: "Flickers on resume.",
+      platform: "Android",
+    });
+    expect(
+      parseStructuredIssue('{"title":"Crash","body":"Steps","platform":"iOS"}'),
+    ).toEqual({
+      title: "Crash",
+      body: "Steps",
+      platform: "iOS",
+    });
+    expect(parseStructuredIssue('{"title":"Crash","body":"Steps","platform":null}')).toEqual({
+      title: "Crash",
+      body: "Steps",
+      platform: null,
     });
     expect(parseStructuredIssue("not json")).toBeNull();
     expect(parseStructuredIssue('{"title":"","body":"x"}')).toBeNull();
@@ -285,6 +339,9 @@ describe("discord interactions", () => {
     const geminiCall = fetch.mock.calls.find(([url]) => String(url).includes("generativelanguage"));
     expect(String(geminiCall?.[0])).toContain("key=test-gemini-key");
     expect(requestBody(geminiCall?.[1])).toContain("kind: bug");
+    expect(requestBody(geminiCall?.[1])).toContain(
+      "only when the report clearly indicates one mobile platform",
+    );
     expect(requestBody(geminiCall?.[1])).toContain("Crash on save");
     expect(requestBody(geminiCall?.[1])).toContain("Tap save after logging a meal.");
 
@@ -311,6 +368,126 @@ describe("discord interactions", () => {
 
     const discordCall = fetch.mock.calls.find(([url]) => String(url).includes("discord.com/api/v10/webhooks"));
     expect(requestBody(discordCall?.[1])).toBe(JSON.stringify({ content: `Opened ${ISSUE_URL}` }));
+  });
+
+  it("labels Android when the report says Pixel even in the iOS bug channel", async () => {
+    const { privateKey, publicKeyHex } = await ed25519Pair();
+    const fetch = vi.fn<MockFetch>(issueFlowFetch("fail"));
+    vi.stubGlobal("fetch", fetch);
+    const { ctx, flush } = waiters();
+    const report = "Overlay flicker on Pixel 8 after I resume the app.";
+
+    const response = await handleDiscordInteractionsRequest(
+      await signedRequest(
+        privateKey,
+        command("bug", [{ name: "report", value: report }], { channel_id: IOS_BUG_CHANNEL_ID }),
+      ),
+      env(publicKeyHex),
+      ctx,
+    );
+    expect(await response.json()).toEqual({ type: 5 });
+    await flush();
+
+    const created = githubPayload(fetch);
+    expect(created.labels).toEqual(["bug", "android"]);
+    expect(created.body).toContain("**Platform:** Android");
+    expect(created.body).toContain(IOS_BUG_CHANNEL_ID);
+  });
+
+  it("labels iOS when the report says iPhone even in the Android bug channel", async () => {
+    const { privateKey, publicKeyHex } = await ed25519Pair();
+    const fetch = vi.fn<MockFetch>(issueFlowFetch("fail"));
+    vi.stubGlobal("fetch", fetch);
+    const { ctx, flush } = waiters();
+    const report = "Save crashes every time on iPhone 15.";
+
+    const response = await handleDiscordInteractionsRequest(
+      await signedRequest(
+        privateKey,
+        command("bug", [{ name: "report", value: report }], {
+          channel_id: ANDROID_BUG_CHANNEL_ID,
+        }),
+      ),
+      env(publicKeyHex),
+      ctx,
+    );
+    expect(await response.json()).toEqual({ type: 5 });
+    await flush();
+
+    const created = githubPayload(fetch);
+    expect(created.labels).toEqual(["bug", "ios"]);
+    expect(created.body).toContain("**Platform:** iOS");
+    expect(created.body).toContain(ANDROID_BUG_CHANNEL_ID);
+  });
+
+  it("uses the channel when the report mentions both platforms", async () => {
+    const { privateKey, publicKeyHex } = await ed25519Pair();
+    const fetch = vi.fn<MockFetch>(issueFlowFetch("skip"));
+    vi.stubGlobal("fetch", fetch);
+    const { ctx, flush } = waiters();
+
+    const response = await handleDiscordInteractionsRequest(
+      await signedRequest(
+        privateKey,
+        command(
+          "bug",
+          [{ name: "report", value: "Sync is broken on iPhone and Android." }],
+          { channel_id: IOS_BUG_CHANNEL_ID },
+        ),
+      ),
+      env(publicKeyHex, { DISCORD_GEMINI_API_KEY: "" }),
+      ctx,
+    );
+    expect(await response.json()).toEqual({ type: 5 });
+    await flush();
+    expect(githubPayload(fetch).labels).toEqual(["bug", "ios"]);
+  });
+
+  it("uses Gemini platform when the report text has no device words", async () => {
+    const { privateKey, publicKeyHex } = await ed25519Pair();
+    const fetch = vi.fn<MockFetch>(
+      issueFlowFetch(geminiIssueResponse("Overlay flicker", "Flickers after resume.", false, "Android")),
+    );
+    vi.stubGlobal("fetch", fetch);
+    const { ctx, flush } = waiters();
+
+    const response = await handleDiscordInteractionsRequest(
+      await signedRequest(
+        privateKey,
+        command("bug", [{ name: "report", value: "Overlay flicker after resume." }], {
+          channel_id: IOS_BUG_CHANNEL_ID,
+        }),
+      ),
+      env(publicKeyHex),
+      ctx,
+    );
+    expect(await response.json()).toEqual({ type: 5 });
+    await flush();
+    const created = githubPayload(fetch);
+    expect(created.labels).toEqual(["bug", "android"]);
+    expect(created.body).toContain("**Platform:** Android");
+    expect(created.body).toContain(IOS_BUG_CHANNEL_ID);
+  });
+
+  it("labels only bug when there is no channel and no platform signal", async () => {
+    const { privateKey, publicKeyHex } = await ed25519Pair();
+    const fetch = vi.fn<MockFetch>(issueFlowFetch("skip"));
+    vi.stubGlobal("fetch", fetch);
+    const { ctx, flush } = waiters();
+
+    const response = await handleDiscordInteractionsRequest(
+      await signedRequest(
+        privateKey,
+        command("bug", [{ name: "report", value: "Dark mode flicker\nTheme flips on resume." }]),
+      ),
+      env(publicKeyHex, { DISCORD_GEMINI_API_KEY: "" }),
+      ctx,
+    );
+    expect(await response.json()).toEqual({ type: 5 });
+    await flush();
+    const created = githubPayload(fetch);
+    expect(created.labels).toEqual(["bug"]);
+    expect(created.body).not.toContain("**Platform:**");
   });
 
   it("infers Android from the Android channel when platform is omitted", async () => {
@@ -528,8 +705,9 @@ describe("discord interactions", () => {
     const created = githubPayload(fetch);
     expect(created.title).toBe(deriveIssueTitle(report));
     expect(created.title.endsWith("…")).toBe(true);
-    expect(created.labels).toEqual(["bug"]);
+    expect(created.labels).toEqual(["bug", "ios"]);
     expect(created.body.startsWith(report)).toBe(true);
+    expect(created.body).toContain("**Platform:** iOS");
     expect(created.body).toContain("Reported via Discord `/bug`");
     const discordCall = fetch.mock.calls.find(([url]) => String(url).includes("discord.com/api/v10/webhooks"));
     expect(requestBody(discordCall?.[1])).toBe(JSON.stringify({ content: `Opened ${ISSUE_URL}` }));

@@ -1630,7 +1630,9 @@ private var dailyStepsTaskKey: String {
                                     currentImages = []
                                     currentEmoji = nil
                                     currentFoodSource = .textInput
-                                    startTextAnalysis(description)
+                                    afterLoggingPresentationDismisses {
+                                        startTextAnalysis(description)
+                                    }
                                 }
                             )
                             .presentationCompactAdaptation(.popover)
@@ -1646,7 +1648,9 @@ private var dailyStepsTaskKey: String {
                                     currentImages = []
                                     currentEmoji = nil
                                     currentFoodSource = .textInput
-                                    startTextAnalysis(description)
+                                    afterLoggingPresentationDismisses {
+                                        startTextAnalysis(description)
+                                    }
                                 }
                             )
                             .presentationCompactAdaptation(.popover)
@@ -1682,7 +1686,9 @@ private var dailyStepsTaskKey: String {
                 BarcodeScannerView(
                     onScan: { barcode in
                         showBarcodeScanner = false
-                        startBarcodeLookup(barcode)
+                        afterLoggingPresentationDismisses {
+                            startBarcodeLookup(barcode)
+                        }
                     },
                     onCancel: {
                         showBarcodeScanner = false
@@ -1863,52 +1869,54 @@ private var dailyStepsTaskKey: String {
             }
             .sheet(item: $savedMealsMode, content: { mode in
                 RecentsView(mode: mode, logDate: logDateForSelectedDay, onReview: { entry in
-                    currentImages = entry.allImageData.compactMap(UIImage.init(data:))
-                    currentImage = currentImages.first
-                    currentEmoji = entry.emoji
-                    currentFoodSource = entry.source
-                    currentFoodResult = GeminiService.FoodAnalysis(
-                        name: entry.name,
-                        calories: entry.calories,
-                        protein: entry.protein,
-                        carbs: entry.carbs,
-                        fat: entry.fat,
-                        servingSizeGrams: entry.reviewServingReference,
-                        emoji: entry.emoji,
-                        sugar: entry.sugar,
-                        addedSugar: entry.addedSugar,
-                        fiber: entry.fiber,
-                        saturatedFat: entry.saturatedFat,
-                        monounsaturatedFat: entry.monounsaturatedFat,
-                        polyunsaturatedFat: entry.polyunsaturatedFat,
-                        cholesterol: entry.cholesterol,
-                        caffeine: entry.caffeine,
-                        supplementalNutrients: entry.supplementalNutrients,
-                        sodium: entry.sodium,
-                        potassium: entry.potassium,
-                        transFat: entry.transFat,
-                        calcium: entry.calcium,
-                        iron: entry.iron,
-                        magnesium: entry.magnesium,
-                        zinc: entry.zinc,
-                        vitaminA: entry.vitaminA,
-                        vitaminC: entry.vitaminC,
-                        vitaminD: entry.vitaminD,
-                        vitaminB12: entry.vitaminB12,
-                        vitaminE: entry.vitaminE,
-                        vitaminK: entry.vitaminK,
-                        folate: entry.folate,
-                        omega3: entry.omega3,
-                        servingUnitOptions: entry.reviewServingUnitOptions,
-                        selectedServingUnit: entry.reviewSelectedServingUnit,
-                        selectedServingQuantity: entry.reviewSelectedServingQuantity,
-                        servingSizeIsKnown: entry.hasKnownServingSize,
-                        progressiveMeal: entry.progressiveMeal,
-                        ingredients: entry.ingredients,
-                        productMetadata: entry.productMetadata
-                    )
-                    foodLogPhase = .result
-                    activeSheet = .foodResult
+                    afterLoggingPresentationDismisses {
+                        currentImages = entry.allImageData.compactMap(UIImage.init(data:))
+                        currentImage = currentImages.first
+                        currentEmoji = entry.emoji
+                        currentFoodSource = entry.source
+                        currentFoodResult = GeminiService.FoodAnalysis(
+                            name: entry.name,
+                            calories: entry.calories,
+                            protein: entry.protein,
+                            carbs: entry.carbs,
+                            fat: entry.fat,
+                            servingSizeGrams: entry.reviewServingReference,
+                            emoji: entry.emoji,
+                            sugar: entry.sugar,
+                            addedSugar: entry.addedSugar,
+                            fiber: entry.fiber,
+                            saturatedFat: entry.saturatedFat,
+                            monounsaturatedFat: entry.monounsaturatedFat,
+                            polyunsaturatedFat: entry.polyunsaturatedFat,
+                            cholesterol: entry.cholesterol,
+                            caffeine: entry.caffeine,
+                            supplementalNutrients: entry.supplementalNutrients,
+                            sodium: entry.sodium,
+                            potassium: entry.potassium,
+                            transFat: entry.transFat,
+                            calcium: entry.calcium,
+                            iron: entry.iron,
+                            magnesium: entry.magnesium,
+                            zinc: entry.zinc,
+                            vitaminA: entry.vitaminA,
+                            vitaminC: entry.vitaminC,
+                            vitaminD: entry.vitaminD,
+                            vitaminB12: entry.vitaminB12,
+                            vitaminE: entry.vitaminE,
+                            vitaminK: entry.vitaminK,
+                            folate: entry.folate,
+                            omega3: entry.omega3,
+                            servingUnitOptions: entry.reviewServingUnitOptions,
+                            selectedServingUnit: entry.reviewSelectedServingUnit,
+                            selectedServingQuantity: entry.reviewSelectedServingQuantity,
+                            servingSizeIsKnown: entry.hasKnownServingSize,
+                            progressiveMeal: entry.progressiveMeal,
+                            ingredients: entry.ingredients,
+                            productMetadata: entry.productMetadata
+                        )
+                        foodLogPhase = .result
+                        activeSheet = .foodResult
+                    }
                 })
             })
             .sheet(isPresented: $showCopyFromDaySheet) {
@@ -2312,6 +2320,13 @@ private var dailyStepsTaskKey: String {
             activeSheet = nil
         }
         foodLogPhase = .result
+    }
+
+    /// Wait for a popover, full-screen cover, or saved-meals sheet to finish dismissing
+    /// before presenting the food-log sheet (Analyzing / Review Food).
+    @MainActor
+    private func afterLoggingPresentationDismisses(_ action: @escaping () -> Void) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4, execute: action)
     }
 
     @MainActor

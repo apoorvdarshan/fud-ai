@@ -896,6 +896,8 @@ struct HomeView: View {
     }
     @State private var activeSheet: ActiveSheet?
     @State private var foodLogPhase: FoodLogPhase = .result
+    /// Bumped to drop a delayed log handoff if another destination starts in the 0.4s gap.
+    @State private var loggingHandoffGeneration = 0
     @State private var editingEntry: FoodEntry?
     @State private var pendingDiaryDeletion: DiaryDeletion?
 
@@ -1211,6 +1213,7 @@ private var dailyStepsTaskKey: String {
     /// The first presentation skips animation so cold setup cannot stretch the handoff;
     /// later selections retain the short transition that already feels responsive.
     private func presentFoodDestination(_ updates: @escaping () -> Void) {
+        cancelPendingLoggingHandoff()
         let shouldAnimate = hasPresentedFoodDestination
         hasPresentedFoodDestination = true
 
@@ -2241,6 +2244,7 @@ private var dailyStepsTaskKey: String {
         guard canBeginFoodLogging() else { return }
         guard let image = ShareImportManager.consumeSharedImage() else { return }
         
+        cancelPendingLoggingHandoff()
         // Force dismiss any currently open sheets to prevent SwiftUI from swallowing the new presentation
         activeSheet = nil
         
@@ -2313,6 +2317,7 @@ private var dailyStepsTaskKey: String {
     /// Cancel button on the analyzing sheet. Cancels the task (which also cancels the underlying
     /// URLSession request), dismisses the sheet, and drops the retry request so no error alert follows.
     private func cancelAnalysis() {
+        cancelPendingLoggingHandoff()
         analysisTask?.cancel()
         analysisTask = nil
         retryRequest = nil
@@ -2326,7 +2331,17 @@ private var dailyStepsTaskKey: String {
     /// before presenting the food-log sheet (Analyzing / Review Food).
     @MainActor
     private func afterLoggingPresentationDismisses(_ action: @escaping () -> Void) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4, execute: action)
+        loggingHandoffGeneration += 1
+        let token = loggingHandoffGeneration
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            guard token == loggingHandoffGeneration else { return }
+            action()
+        }
+    }
+
+    @MainActor
+    private func cancelPendingLoggingHandoff() {
+        loggingHandoffGeneration += 1
     }
 
     @MainActor

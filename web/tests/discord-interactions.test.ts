@@ -19,9 +19,19 @@ function bytesToHex(bytes: Uint8Array): string {
 }
 
 async function ed25519Pair(): Promise<{ privateKey: CryptoKey; publicKeyHex: string }> {
-  const pair = await crypto.subtle.generateKey({ name: "Ed25519" }, true, ["sign", "verify"]);
-  const rawPub = new Uint8Array(await crypto.subtle.exportKey("raw", pair.publicKey));
-  return { privateKey: pair.privateKey, publicKeyHex: bytesToHex(rawPub) };
+  const pair = (await crypto.subtle.generateKey(
+    { name: "Ed25519" },
+    true,
+    ["sign", "verify"],
+  )) as CryptoKeyPair;
+  const raw = await crypto.subtle.exportKey("raw", pair.publicKey);
+  return { privateKey: pair.privateKey, publicKeyHex: bytesToHex(new Uint8Array(raw as ArrayBuffer)) };
+}
+
+type MockFetch = (input: string, init?: RequestInit) => Promise<Response>;
+
+function requestBody(init: RequestInit | undefined): string {
+  return String(init?.body ?? "");
 }
 
 async function signedRequest(
@@ -118,7 +128,7 @@ describe("discord interactions", () => {
 
   it("defers /ask and follows up with the Gemini reply", async () => {
     const { privateKey, publicKeyHex } = await ed25519Pair();
-    const fetch = vi.fn(async (url: string) => {
+    const fetch = vi.fn<MockFetch>(async (url) => {
       if (String(url).includes("generativelanguage")) {
         return Response.json({
           candidates: [{ content: { parts: [{ text: "Add your key in Settings → AI Access." }] } }],
@@ -153,7 +163,7 @@ describe("discord interactions", () => {
 
   it("defers /bug, files a labeled GitHub issue, and replies with the URL", async () => {
     const { privateKey, publicKeyHex } = await ed25519Pair();
-    const fetch = vi.fn(async (url: string) => {
+    const fetch = vi.fn<MockFetch>(async (url) => {
       if (String(url).includes("api.github.com/repos/apoorvdarshan/fud-ai/issues")) {
         return Response.json({ html_url: ISSUE_URL, number: 42 }, { status: 201 });
       }
@@ -192,7 +202,7 @@ describe("discord interactions", () => {
         Authorization: "Bearer test-github-token",
       }),
     });
-    const created = JSON.parse(String(githubCall?.[1].body)) as {
+    const created = JSON.parse(requestBody(githubCall?.[1])) as {
       title: string;
       body: string;
       labels: string[];
@@ -209,12 +219,12 @@ describe("discord interactions", () => {
     expect(created.body).toContain(GUILD_ID);
 
     const discordCall = fetch.mock.calls.find(([url]) => String(url).includes("discord.com/api/v10/webhooks"));
-    expect(discordCall?.[1].body).toBe(JSON.stringify({ content: `Opened ${ISSUE_URL}` }));
+    expect(requestBody(discordCall?.[1])).toBe(JSON.stringify({ content: `Opened ${ISSUE_URL}` }));
   });
 
   it("infers Android from the Android channel when platform is omitted", async () => {
     const { privateKey, publicKeyHex } = await ed25519Pair();
-    const fetch = vi.fn(async (url: string) => {
+    const fetch = vi.fn<MockFetch>(async (url) => {
       if (String(url).includes("api.github.com")) {
         return Response.json({ html_url: ISSUE_URL, number: 42 }, { status: 201 });
       }
@@ -240,13 +250,13 @@ describe("discord interactions", () => {
     );
     expect(await response.json()).toEqual({ type: 5 });
     await flush();
-    const created = JSON.parse(String(fetch.mock.calls[0][1].body)) as { labels: string[] };
+    const created = JSON.parse(requestBody(fetch.mock.calls[0]?.[1])) as { labels: string[] };
     expect(created.labels).toEqual(["bug", "android"]);
   });
 
   it("retries with only the bug label when ios/android labels are missing on GitHub", async () => {
     const { privateKey, publicKeyHex } = await ed25519Pair();
-    const fetch = vi.fn(async (url: string) => {
+    const fetch = vi.fn<MockFetch>(async (url) => {
       if (String(url).includes("api.github.com")) {
         if (fetch.mock.calls.filter(([called]) => String(called).includes("api.github.com")).length === 1) {
           return Response.json({ message: "Validation Failed" }, { status: 422 });
@@ -277,13 +287,13 @@ describe("discord interactions", () => {
 
     const githubBodies = fetch.mock.calls
       .filter(([url]) => String(url).includes("api.github.com"))
-      .map(([, options]) => JSON.parse(String((options as RequestInit).body)) as { labels: string[] });
+      .map(([, options]) => JSON.parse(requestBody(options)) as { labels: string[] });
     expect(githubBodies.map((body) => body.labels)).toEqual([["bug", "ios"], ["bug"]]);
   });
 
   it("follows up when GITHUB_TOKEN is missing", async () => {
     const { privateKey, publicKeyHex } = await ed25519Pair();
-    const fetch = vi.fn(async (url: string) => {
+    const fetch = vi.fn<MockFetch>(async (url) => {
       if (String(url).includes("discord.com")) return new Response(null, { status: 200 });
       throw new Error(`unexpected fetch ${url}`);
     });
@@ -304,7 +314,7 @@ describe("discord interactions", () => {
     expect(await response.json()).toEqual({ type: 5 });
     await flush();
     expect(fetch.mock.calls.some(([url]) => String(url).includes("api.github.com"))).toBe(false);
-    expect(String(fetch.mock.calls[0][1].body)).toContain("GitHub isn’t configured");
+    expect(requestBody(fetch.mock.calls[0]?.[1])).toContain("GitHub isn’t configured");
   });
 
   it("rejects /bug without title or details", async () => {

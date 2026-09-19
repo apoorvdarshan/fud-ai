@@ -366,8 +366,13 @@ class PreferencesStore(
         it[Keys.PENDING_NUTRITION_HEALTH_WRITES]?.split(",")?.filter { s -> s.isNotBlank() }?.toSet()
             ?: emptySet()
     }
-    override suspend fun setPendingNutritionHealthWrites(ids: Set<String>) {
-        ds.edit { it[Keys.PENDING_NUTRITION_HEALTH_WRITES] = ids.joinToString(",") }
+    override suspend fun updatePendingNutritionHealthWrites(transform: (Set<String>) -> Set<String>) {
+        ds.edit { prefs ->
+            val current = prefs[Keys.PENDING_NUTRITION_HEALTH_WRITES]
+                ?.split(",")?.filter { it.isNotBlank() }?.toSet() ?: emptySet()
+            val next = transform(current)
+            if (next != current) prefs[Keys.PENDING_NUTRITION_HEALTH_WRITES] = next.joinToString(",")
+        }
     }
 
     val cloudBackupEnabled: Flow<Boolean> = ds.data.map { it[Keys.CLOUD_BACKUP_ENABLED] ?: false }

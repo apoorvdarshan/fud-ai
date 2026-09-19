@@ -1,9 +1,16 @@
 package com.apoorvdarshan.calorietracker.data
 
 import com.apoorvdarshan.calorietracker.models.FoodEntry
+import android.util.Log
 import com.apoorvdarshan.calorietracker.services.health.NutritionWriteGate
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import java.util.UUID
@@ -32,7 +39,8 @@ interface NutritionSyncStore {
     val foodEntries: Flow<List<FoodEntry>>
     val healthConnectEnabled: Flow<Boolean>
     val pendingNutritionHealthWrites: Flow<Set<String>>
-    suspend fun setPendingNutritionHealthWrites(ids: Set<String>)
+    /** Atomic read-modify-write, so an enqueue outside the mutex cannot be overwritten. */
+    suspend fun updatePendingNutritionHealthWrites(transform: (Set<String>) -> Set<String>)
 }
 
 /**
@@ -48,7 +56,13 @@ interface NutritionSyncStore {
  */
 class NutritionHealthRetry(
     private val store: NutritionSyncStore,
-    private val health: NutritionHealthSync?
+    private val health: NutritionHealthSync?,
+    /** Outlives the screen that logged the food; Health Connect IPC has no upper bound. */
+    private val scope: CoroutineScope = CoroutineScope(
+        SupervisorJob() + Dispatchers.IO + CoroutineExceptionHandler { _, error ->
+            Log.w("FudAIHealth", "Background nutrition sync failed", error)
+        }
+    )
 ) {
     private val mutex = Mutex()
 
@@ -61,6 +75,21 @@ class NutritionHealthRetry(
      * the entry.
      */
     suspend fun sync(entry: FoodEntry, isUpdate: Boolean) = syncAll(listOf(entry), isUpdate)
+
+    /**
+     * Queue [entry] durably, then write it without making the caller wait: the probe and
+     * insert are binder calls that can stall indefinitely. The id is persisted before this
+     * returns, so a write the job never finishes is picked up by [retryPending].
+     */
+    suspend fun syncInBackground(entry: FoodEntry, isUpdate: Boolean): Job? {
+        val adapter = health ?: return null
+        if (!store.healthConnectEnabled.first()) return null
+        val keys = listOf(entry.id.toString())
+        store.updatePendingNutritionHealthWrites { it + keys }
+        return scope.launch {
+            mutex.withLock { syncAllLocked(adapter, listOf(entry), isUpdate, alreadyQueued = true) }
+        }
+    }
 
     /**
      * Push several entries in one pass. A diary import can carry hundreds of changed
@@ -95,13 +124,17 @@ class NutritionHealthRetry(
     private suspend fun syncAllLocked(
         adapter: NutritionHealthSync,
         entries: List<FoodEntry>,
-        isUpdate: Boolean
+        isUpdate: Boolean,
+        alreadyQueued: Boolean = false
     ) {
-        if (!store.healthConnectEnabled.first()) return
-        if (adapter.writeGate() == NutritionWriteGate.DENIED) return
-
         val keys = entries.map { it.id.toString() }
-        updateQueueLocked { it + keys }
+        if (!store.healthConnectEnabled.first() || adapter.writeGate() == NutritionWriteGate.DENIED) {
+            if (alreadyQueued) updateQueueLocked { it - keys }
+            return
+        }
+
+        // Re-adding a queued id would resurrect one that a delete forgot meanwhile.
+        if (!alreadyQueued) updateQueueLocked { it + keys }
 
         val written = mutableSetOf<String>()
         val failed = mutableSetOf<String>()
@@ -132,7 +165,7 @@ class NutritionHealthRetry(
             // Nutrition write was revoked. Nothing is retryable any more, and an
             // unbounded queue would otherwise outlive the permission forever.
             NutritionWriteGate.DENIED -> {
-                store.setPendingNutritionHealthWrites(emptySet())
+                store.updatePendingNutritionHealthWrites { emptySet() }
                 return
             }
             NutritionWriteGate.ALLOWED -> Unit
@@ -151,7 +184,8 @@ class NutritionHealthRetry(
                 else -> remaining += key
             }
         }
-        if (remaining != pending) store.setPendingNutritionHealthWrites(remaining)
+        val settled = pending - remaining
+        if (settled.isNotEmpty()) updateQueueLocked { it - settled }
     }
 
     private suspend fun isStillPending(key: String): Boolean =
@@ -166,8 +200,6 @@ class NutritionHealthRetry(
 
     /** Read-modify-write of the queue. Caller must hold [mutex]. */
     private suspend fun updateQueueLocked(transform: (Set<String>) -> Set<String>) {
-        val current = store.pendingNutritionHealthWrites.first()
-        val next = transform(current)
-        if (next != current) store.setPendingNutritionHealthWrites(next)
+        store.updatePendingNutritionHealthWrites(transform)
     }
 }

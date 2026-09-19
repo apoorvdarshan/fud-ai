@@ -10,7 +10,7 @@ class WidgetSnapshotWaterTest {
     }
 
     @Test
-    fun waterAppendsAfterFourthNutrientWhileTrackingIsEnabled() {
+    fun waterReplacesOnlyFourthNutrientWhileTrackingIsEnabled() {
         val enabled = snapshot(waterEnabled = true)
 
         assertEquals(listOf("protein", "carbs", "fat", "water"), enabled.displayedHomeNutrients.map { it.id })

@@ -1,6 +1,11 @@
 // Secrets are not emitted by `wrangler types`; only their names belong here.
 // Values are set with `wrangler secret put <NAME>` (never committed).
 interface Env {
+  /**
+   * GitHub token for star-history refresh and Discord `/bug` issue creation.
+   * Set with `npx wrangler secret put GITHUB_TOKEN` (never commit the value).
+   * `/bug` needs `issues:write` on `apoorvdarshan/fud-ai`.
+   */
   GITHUB_TOKEN: string;
   /** Google AI Studio key for the hosted Gemini path. Set at production time. */
   GEMINI_API_KEY?: string;

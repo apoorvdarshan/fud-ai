@@ -13,6 +13,11 @@ run_worker_first = ["/star-history.svg", "/star-history.json", "/api/challenge/v
 # Discord slash-command Interactions Endpoint (public; not a secret).
 # Set Interactions Endpoint URL in Discord Developer Portal to:
 #   https://fud-ai.app/api/discord/interactions
+#
+# Secrets (never commit values):
+#   npx wrangler secret put DISCORD_GEMINI_API_KEY   # /ask (free-tier Gemini only)
+#   npx wrangler secret put GITHUB_TOKEN             # star history + /bug issues
+# GITHUB_TOKEN must be able to create issues (issues:write) on apoorvdarshan/fud-ai.
 [vars]
 DISCORD_PUBLIC_KEY = "0ce6e6014282b489ce0930fad550e978c7d623cc71040d14250223110a9a9f57"
 DISCORD_APPLICATION_ID = "1548469419922038845"

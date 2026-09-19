@@ -61,6 +61,7 @@ struct OnboardingView: View {
     /// Step 11 sub-flow: pick Hosted vs BYOK, then complete the chosen path.
     @State private var aiSubstep: OnboardingAISubstep = .choice
     @State private var showHostedPaywall = false
+    @State private var showMissingAPIKeyAlert = false
     @State private var rc = RevenueCatManager.shared
 
     private enum OnboardingAISubstep {
@@ -1082,28 +1083,44 @@ struct OnboardingView: View {
 
     @ViewBuilder
     private var aiProviderContinueButton: some View {
-        Button {
-            if aiSubstep == .hosted, !rc.hasHostedEntitlement {
-                showHostedPaywall = true
-            } else {
-                completeAIChoiceAndAdvance()
+        VStack(spacing: 10) {
+            if hasAcceptedTerms, aiSubstep == .byok, !byokFieldsReady {
+                Text("Paste your API key in the field above. The hint text is not a key.")
+                    .font(.system(.footnote, design: .rounded, weight: .medium))
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 24)
             }
-        } label: {
-            Text(aiProviderContinueLabel)
-                .font(.system(.body, design: .rounded, weight: .semibold))
-                .foregroundStyle(.white)
-                .frame(maxWidth: .infinity)
-                .frame(height: 54)
-                .background(
-                    LinearGradient(colors: AppColors.calorieGradient, startPoint: .leading, endPoint: .trailing),
-                    in: RoundedRectangle(cornerRadius: 16)
-                )
-                .shadow(color: AppColors.calorie.opacity(0.3), radius: 8, y: 4)
+            Button {
+                if aiSubstep == .hosted, !rc.hasHostedEntitlement {
+                    showHostedPaywall = true
+                } else if aiSubstep == .byok, !byokFieldsReady {
+                    showMissingAPIKeyAlert = true
+                } else {
+                    completeAIChoiceAndAdvance()
+                }
+            } label: {
+                Text(aiProviderContinueLabel)
+                    .font(.system(.body, design: .rounded, weight: .semibold))
+                    .foregroundStyle(.white)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 54)
+                    .background(
+                        LinearGradient(colors: AppColors.calorieGradient, startPoint: .leading, endPoint: .trailing),
+                        in: RoundedRectangle(cornerRadius: 16)
+                    )
+                    .shadow(color: AppColors.calorie.opacity(0.3), radius: 8, y: 4)
+            }
+            .disabled(!hasAcceptedTerms)
+            .opacity(hasAcceptedTerms ? 1 : 0.45)
+            .padding(.horizontal, 24)
+            .padding(.bottom, 36)
         }
-        .disabled(!canAdvanceAI)
-        .opacity(canAdvanceAI ? 1 : 0.45)
-        .padding(.horizontal, 24)
-        .padding(.bottom, 36)
+        .alert("Paste your API key", isPresented: $showMissingAPIKeyAlert) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text("Accept & Continue needs a real key in the API Key field. The grey hint is not a key — paste the Gemini key from App Review Information (Sign-In password).")
+        }
     }
 
     private var aiProviderContinueLabel: String {
@@ -1114,22 +1131,13 @@ struct OnboardingView: View {
         }
     }
 
-    /// Step 11 primary CTA: terms required. Hosted stays tappable without an entitlement so it can
-    /// open the paywall; BYOK still needs a usable key/model. Advancement past the step is gated in
-    /// the button action / `completeAIChoiceAndAdvance`.
-    private var canAdvanceAI: Bool {
-        guard hasAcceptedTerms else { return false }
-        switch aiSubstep {
-        case .choice:
-            return false
-        case .hosted:
-            return true
-        case .byok:
-            let modelOK = !byokModel.trimmingCharacters(in: .whitespaces).isEmpty
-            let keyOK = !byokProvider.requiresAPIKey || !byokApiKey.trimmingCharacters(in: .whitespaces).isEmpty
-            let urlOK = !byokProvider.requiresCustomEndpoint || !byokBaseURL.trimmingCharacters(in: .whitespaces).isEmpty
-            return modelOK && keyOK && urlOK
-        }
+    /// BYOK fields that must be set before leaving the step. Terms-only is enough
+    /// for the CTA to look enabled so Review is not stuck on a grey button.
+    private var byokFieldsReady: Bool {
+        let modelOK = !byokModel.trimmingCharacters(in: .whitespaces).isEmpty
+        let keyOK = !byokProvider.requiresAPIKey || !byokApiKey.trimmingCharacters(in: .whitespaces).isEmpty
+        let urlOK = !byokProvider.requiresCustomEndpoint || !byokBaseURL.trimmingCharacters(in: .whitespaces).isEmpty
+        return modelOK && keyOK && urlOK
     }
 
     @ViewBuilder

@@ -129,6 +129,7 @@ import java.util.Locale
 fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
     val vm: OnboardingViewModel = viewModel(factory = OnboardingViewModel.Factory(container))
     val ui by vm.ui.collectAsState()
+    var showMissingApiKey by remember { mutableStateOf(false) }
 
     // Match the on-screen chevron: system back / gesture must use vm.back() so BYOK → choice
     // (and other nested steps) don't pop the whole onboarding destination.
@@ -318,25 +319,46 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
                 val showContinue = ui.step != OnboardingStep.PROVIDER ||
                     ui.aiPhase != OnboardingAiPhase.CHOICE
                 if (showContinue) {
-                    Button(
-                        onClick = { vm.next() },
-                        enabled = ui.canAdvance,
-                        shape = RoundedCornerShape(28.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.onBackground,
-                            contentColor = MaterialTheme.colorScheme.background
-                        ),
+                    val waitingForByokKey = ui.step == OnboardingStep.PROVIDER &&
+                        ui.aiPhase == OnboardingAiPhase.BYOK &&
+                        !ui.byokSetupComplete
+                    Column(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 24.dp)
-                            .padding(bottom = 36.dp)
-                            .height(54.dp)
+                            .padding(bottom = 36.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Text(
-                            stringResource(R.string.action_continue),
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.SemiBold
-                        )
+                        if (waitingForByokKey) {
+                            Text(
+                                stringResource(R.string.onboarding_paste_api_key_helper),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.55f),
+                                textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+                                modifier = Modifier.padding(bottom = 10.dp)
+                            )
+                        }
+                        Button(
+                            onClick = {
+                                if (waitingForByokKey) showMissingApiKey = true
+                                else vm.next()
+                            },
+                            enabled = ui.canAdvance || waitingForByokKey,
+                            shape = RoundedCornerShape(28.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = MaterialTheme.colorScheme.onBackground,
+                                contentColor = MaterialTheme.colorScheme.background
+                            ),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(54.dp)
+                        ) {
+                            Text(
+                                stringResource(R.string.action_continue),
+                                style = MaterialTheme.typography.titleMedium,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                        }
                     }
                 } else {
                     // Reserve footer height so the choice cards don't jump when BYOK opens.
@@ -344,6 +366,19 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
                 }
             }
         }
+    }
+
+    if (showMissingApiKey) {
+        AlertDialog(
+            onDismissRequest = { showMissingApiKey = false },
+            title = { Text(stringResource(R.string.onboarding_missing_api_key_title)) },
+            text = { Text(stringResource(R.string.onboarding_missing_api_key_message)) },
+            confirmButton = {
+                TextButton(onClick = { showMissingApiKey = false }) {
+                    Text(stringResource(R.string.action_ok), color = AppColors.Calorie)
+                }
+            }
+        )
     }
 }
 

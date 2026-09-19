@@ -157,15 +157,14 @@ struct WidgetSnapshot: Codable, Equatable {
         )
     }
 
-    /// The nutrient pillars to render, matching iPhone Home: up to 4 selected
-    /// nutrients, plus a locked Water pillar when Water Tracking is enabled.
+    /// Nutrient pillars on watch: 4 slots — all saved choices, or the first 3 plus Water.
     var displayedHomeNutrients: [WidgetNutrientValue] {
         let selected = homeNutrients?.filter { !$0.id.isEmpty && $0.id != "water" } ?? []
         var merged: [WidgetNutrientValue] = []
         for nutrient in selected.isEmpty ? defaultHomeNutrients : selected {
             guard !merged.contains(where: { $0.id == nutrient.id }) else { continue }
             merged.append(nutrient)
-            if merged.count == 4 { break }
+            if merged.count == (waterIsEnabled ? 3 : 4) { break }
         }
         if waterIsEnabled { merged.append(waterHomeNutrient) }
         return merged

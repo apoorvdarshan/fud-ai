@@ -13,7 +13,7 @@ class WidgetSnapshotWaterTest {
     fun waterAppendsAfterFourthNutrientWhileTrackingIsEnabled() {
         val enabled = snapshot(waterEnabled = true)
 
-        assertEquals(listOf("protein", "carbs", "fat", "fiber", "water"), enabled.displayedHomeNutrients.map { it.id })
+        assertEquals(listOf("protein", "carbs", "fat", "water"), enabled.displayedHomeNutrients.map { it.id })
         assertEquals(750.0, enabled.displayedHomeNutrients.last().value, 0.0)
         assertEquals(2_000.0, enabled.displayedHomeNutrients.last().goal, 0.0)
     }
@@ -34,7 +34,7 @@ class WidgetSnapshotWaterTest {
             val widgetNutrients = selected.map { WidgetNutrient(it.storageKey, it.displayName, it.unit, 1.0, 2.0) }
             for (waterEnabled in listOf(false, true)) {
                 val widget = snapshot(waterEnabled).copy(homeNutrients = widgetNutrients)
-                val expected = selected.take(4).map { it.storageKey } +
+                val expected = selected.take(if (waterEnabled) 3 else 4).map { it.storageKey } +
                     if (waterEnabled) listOf("water") else emptyList()
                 assertEquals(expected, widget.displayedHomeNutrients.map { it.id })
             }

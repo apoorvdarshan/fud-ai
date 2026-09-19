@@ -195,7 +195,7 @@ struct WidgetSnapshot: Codable, Equatable {
         for nutrient in selected.isEmpty ? defaultHomeNutrients : selected {
             guard !merged.contains(where: { $0.id == nutrient.id }) else { continue }
             merged.append(nutrient)
-            if merged.count == 4 { break }
+            if merged.count == (waterIsEnabled ? 3 : 4) { break }
         }
         if waterIsEnabled { merged.append(waterHomeNutrient) }
         return merged

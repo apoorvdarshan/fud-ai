@@ -178,6 +178,22 @@ struct FoodResultView: View {
             options: normalizedServingUnitOptions,
             defaultToGrams: servingSizeIsKnown && FoodMeasurementSettings.preferGramsByDefault
         )
+        let headerCalories: Int
+        let headerProtein: Double
+        let headerCarbs: Double
+        let headerFat: Double
+        if ingredients.isEmpty {
+            headerCalories = calories
+            headerProtein = protein
+            headerCarbs = carbs
+            headerFat = fat
+        } else {
+            let totals = ingredients.ingredientTotals
+            headerCalories = totals.calories
+            headerProtein = totals.protein
+            headerCarbs = totals.carbs
+            headerFat = totals.fat
+        }
         self.images = images
         self.emoji = emoji
         self.source = source
@@ -195,10 +211,10 @@ struct FoodResultView: View {
             options: normalizedServingUnitOptions
         ))
         self._selectedServingUnitID = State(initialValue: initialServingUnitID)
-        self._editableCalories = State(initialValue: calories)
-        self._editableProtein = State(initialValue: protein)
-        self._editableCarbs = State(initialValue: carbs)
-        self._editableFat = State(initialValue: fat)
+        self._editableCalories = State(initialValue: headerCalories)
+        self._editableProtein = State(initialValue: headerProtein)
+        self._editableCarbs = State(initialValue: headerCarbs)
+        self._editableFat = State(initialValue: headerFat)
         self._editableSugar = State(initialValue: sugar)
         self._editableAddedSugar = State(initialValue: addedSugar)
         self._editableFiber = State(initialValue: fiber)

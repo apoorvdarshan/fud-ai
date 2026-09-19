@@ -155,6 +155,18 @@ struct ServingUnitFallbackTests {
         #expect(analysis.ingredients.count == 2)
         #expect(analysis.ingredients.first?.name == "Greek yogurt")
         #expect(analysis.ingredients.first?.grams == 200)
+        #expect(analysis.calories == 200)
+        #expect(analysis.protein == 21)
+        #expect(analysis.carbs == 20)
+        #expect(analysis.fat == 2)
+    }
+
+    @Test func parseFoodKeepsMealMacrosWhenIngredientsAreMissing() throws {
+        let analysis = try GeminiService.parseFoodAnalysis(
+            from: #"{"name":"Banana","calories":105,"protein":1,"carbs":27,"fat":0.4,"serving_size_grams":118}"#
+        )
+        #expect(analysis.calories == 105)
+        #expect(analysis.ingredients.isEmpty)
     }
 
     @Test func ingredientScalingAndTotalsRecalculateMacros() {

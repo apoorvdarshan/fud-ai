@@ -45,6 +45,18 @@ struct GeminiService {
         var progressiveMeal = false
         var ingredients: [MealIngredient] = []
         var productMetadata: FoodProductMetadata? = nil
+
+        /// When the model also returned a breakdown, the header macros are the sum of that list.
+        func withIngredientMacroTotals() -> FoodAnalysis {
+            guard !ingredients.isEmpty else { return self }
+            let totals = ingredients.ingredientTotals
+            var next = self
+            next.calories = totals.calories
+            next.protein = totals.protein
+            next.carbs = totals.carbs
+            next.fat = totals.fat
+            return next
+        }
     }
 
     struct NutritionLabelAnalysis {
@@ -1422,7 +1434,7 @@ struct GeminiService {
             servingSizeIsKnown: responseServingSizeGrams != nil,
             requiresServingUnitFallback: parsedUnitOptions.requiresFallback,
             ingredients: ingredients
-        )
+        ).withIngredientMacroTotals()
     }
 
     static func parseAllergensFromLabReport(from text: String) throws -> [String] {

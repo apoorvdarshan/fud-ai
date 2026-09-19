@@ -32,82 +32,101 @@ struct ManualEntryView: View {
     }
 
     var body: some View {
-        VStack(spacing: 16) {
-            Text("Manual Entry")
-                .font(.headline)
-                .frame(maxWidth: .infinity, alignment: .leading)
+        NavigationStack {
+            ScrollView {
+                VStack(spacing: 16) {
+                    Text("Manual Entry")
+                        .font(.headline)
+                        .frame(maxWidth: .infinity, alignment: .leading)
 
-            field(label: "Name", text: $name, placeholder: "e.g. Homemade salad", keyboard: .default, focus: .name)
+                    field(label: "Name", text: $name, placeholder: "e.g. Homemade salad", keyboard: .default, focus: .name)
 
-            HStack(spacing: 10) {
-                numberField(label: "Calories", text: $calories, focus: .calories)
-                numberField(label: "Protein (g)", text: $protein, focus: .protein)
-            }
-
-            HStack(spacing: 10) {
-                numberField(label: "Carbs (g)", text: $carbs, focus: .carbs)
-                numberField(label: "Fat (g)", text: $fat, focus: .fat)
-            }
-
-            numberField(
-                label: "\(LocalizedDisplayText.text("Fiber", polish: "Błonnik")) (g)",
-                text: $fiber,
-                focus: .fiber
-            )
-
-            // Meal Type — same .menu picker style used by FoodResultView /
-            // EditFoodEntryView so manual logging assigns to a specific meal
-            // (defaults to whatever currentMeal returns for the time of day).
-            VStack(alignment: .leading, spacing: 4) {
-                Text("Meal")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-                HStack {
-                    Text("Meal Type")
-                    Spacer()
-                    Picker("Meal Type", selection: $mealType) {
-                        ForEach(MealType.allCases, id: \.self) { meal in
-                            Label(meal.displayName, systemImage: meal.icon).tag(meal)
-                        }
+                    HStack(spacing: 10) {
+                        numberField(label: "Calories", text: $calories, focus: .calories)
+                        numberField(label: "Protein (g)", text: $protein, focus: .protein)
                     }
-                    .pickerStyle(.menu)
+
+                    HStack(spacing: 10) {
+                        numberField(label: "Carbs (g)", text: $carbs, focus: .carbs)
+                        numberField(label: "Fat (g)", text: $fat, focus: .fat)
+                    }
+
+                    numberField(
+                        label: "\(LocalizedDisplayText.text("Fiber", polish: "Błonnik")) (g)",
+                        text: $fiber,
+                        focus: .fiber
+                    )
+
+                    // Meal Type — same .menu picker style used by FoodResultView /
+                    // EditFoodEntryView so manual logging assigns to a specific meal
+                    // (defaults to whatever currentMeal returns for the time of day).
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Meal")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                        HStack {
+                            Text("Meal Type")
+                            Spacer()
+                            Picker("Meal Type", selection: $mealType) {
+                                ForEach(MealType.allCases, id: \.self) { meal in
+                                    Label(meal.displayName, systemImage: meal.icon).tag(meal)
+                                }
+                            }
+                            .pickerStyle(.menu)
+                            .tint(AppColors.calorie)
+                            .labelsHidden()
+                        }
+                        .padding(10)
+                        .background(RoundedRectangle(cornerRadius: 10).fill(Color(.quaternarySystemFill)))
+                    }
+
+                    Button {
+                        guard submissionGate.begin() else { return }
+                        let entry = FoodEntry(
+                            name: name.trimmingCharacters(in: .whitespaces),
+                            calories: Int(calories) ?? 0,
+                            protein: ServingUnitEditor.parseDecimal(protein) ?? 0,
+                            carbs: ServingUnitEditor.parseDecimal(carbs) ?? 0,
+                            fat: ServingUnitEditor.parseDecimal(fat) ?? 0,
+                            timestamp: logDate,
+                            source: .manual,
+                            mealType: mealType,
+                            fiber: ManualEntryInput.optionalNutritionValue(fiber)
+                        )
+                        onSave(entry)
+                    } label: {
+                        Text("Save")
+                            .font(.headline)
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.borderedProminent)
                     .tint(AppColors.calorie)
-                    .labelsHidden()
+                    .controlSize(.large)
+                    .disabled(!canSave || submissionGate.isSubmitting)
+
+                    Button("Cancel") { onCancel() }
+                        .foregroundStyle(.secondary)
                 }
-                .padding(10)
-                .background(RoundedRectangle(cornerRadius: 10).fill(Color(.quaternarySystemFill)))
+                .padding(20)
+                .frame(maxWidth: .infinity)
             }
-
-            Button {
-                guard submissionGate.begin() else { return }
-                let entry = FoodEntry(
-                    name: name.trimmingCharacters(in: .whitespaces),
-                    calories: Int(calories) ?? 0,
-                    protein: ServingUnitEditor.parseDecimal(protein) ?? 0,
-                    carbs: ServingUnitEditor.parseDecimal(carbs) ?? 0,
-                    fat: ServingUnitEditor.parseDecimal(fat) ?? 0,
-                    timestamp: logDate,
-                    source: .manual,
-                    mealType: mealType,
-                    fiber: ManualEntryInput.optionalNutritionValue(fiber)
-                )
-                onSave(entry)
-            } label: {
-                Text("Save")
-                    .font(.headline)
-                    .frame(maxWidth: .infinity)
+            .scrollDismissesKeyboard(.interactively)
+            .background(AppColors.appBackground)
+            .toolbar {
+                if focused != nil {
+                    ToolbarItemGroup(placement: .keyboard) {
+                        Spacer()
+                        Button("Done") { dismissKeyboard() }
+                    }
+                }
             }
-            .buttonStyle(.borderedProminent)
-            .tint(AppColors.calorie)
-            .controlSize(.large)
-            .disabled(!canSave || submissionGate.isSubmitting)
-
-            Button("Cancel") { onCancel() }
-                .foregroundStyle(.secondary)
+            .onAppear { focused = .name }
         }
-        .padding(20)
-        .frame(width: 340)
-        .onAppear { focused = .name }
+        .presentationDetents([.large])
+    }
+
+    private func dismissKeyboard() {
+        focused = nil
     }
 
     @ViewBuilder

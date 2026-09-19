@@ -1638,7 +1638,7 @@ private var dailyStepsTaskKey: String {
                             )
                             .presentationCompactAdaptation(.popover)
                         }
-                        .popover(isPresented: $showManualPopover) {
+                        .sheet(isPresented: $showManualPopover) {
                             ManualEntryView(
                                 logDate: logDateForSelectedDay,
                                 onCancel: { showManualPopover = false },
@@ -1647,7 +1647,6 @@ private var dailyStepsTaskKey: String {
                                     if !foodStore.addEntry(entry) { showFoodLoggingBlocked = true }
                                 }
                             )
-                            .presentationCompactAdaptation(.popover)
                         }
                         .padding(24)
             }

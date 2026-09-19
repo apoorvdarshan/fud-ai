@@ -400,8 +400,8 @@ fun EditFoodEntrySheet(
                 val visibleFilenames = remember(currentBaseEntry.allImageFilenames, removedImageFilenames) {
                     currentBaseEntry.allImageFilenames.filter { it !in removedImageFilenames }
                 }
-                val photos by produceState<List<Pair<String, Bitmap>>>(
-                    initialValue = emptyList(),
+                val photos by produceState<List<Pair<String, Bitmap>>?>(
+                    initialValue = null,
                     visibleFilenames
                 ) {
                     value = withContext(Dispatchers.IO) {
@@ -428,9 +428,10 @@ fun EditFoodEntrySheet(
                     Modifier.fillMaxWidth().padding(vertical = 8.dp),
                     contentAlignment = Alignment.Center
                 ) {
-                    if (photos.isNotEmpty()) {
+                    val loadedPhotos = photos
+                    if (!loadedPhotos.isNullOrEmpty()) {
                         LazyRow(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                            itemsIndexed(photos, key = { _, photo -> photo.first }) { index, (filename, bitmap) ->
+                            itemsIndexed(loadedPhotos, key = { _, photo -> photo.first }) { index, (filename, bitmap) ->
                                 Box {
                                     androidx.compose.foundation.Image(
                                         bitmap = bitmap.asImageBitmap(),
@@ -456,9 +457,9 @@ fun EditFoodEntrySheet(
                                             tint = Color.White
                                         )
                                     }
-                                    if (photos.size > 1) {
+                                    if (loadedPhotos.size > 1) {
                                         Text(
-                                            "${index + 1}/${photos.size}",
+                                            "${index + 1}/${loadedPhotos.size}",
                                             color = Color.White,
                                             fontSize = 11.sp,
                                             fontWeight = FontWeight.SemiBold,
@@ -471,6 +472,16 @@ fun EditFoodEntrySheet(
                                     }
                                 }
                             }
+                        }
+                    } else if (visibleFilenames.isNotEmpty() && photos == null) {
+                        Box(
+                            Modifier.size(240.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            CircularProgressIndicator(
+                                color = AppColors.Calorie,
+                                modifier = Modifier.size(36.dp)
+                            )
                         }
                     } else {
                         Text(currentBaseEntry.emoji ?: "🍽", fontSize = 80.sp)

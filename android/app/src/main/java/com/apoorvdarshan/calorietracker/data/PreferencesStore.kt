@@ -1325,7 +1325,7 @@ class PreferencesStore(
         prefs[Keys.CHAT_HISTORY]?.let {
             runCatching { json.decodeFromString(ListSerializer(ChatMessage.serializer()), it) }.getOrNull()
         } ?: emptyList()
-    }.flowOn(Dispatchers.Default)
+    }
 
     suspend fun setChatHistory(history: List<ChatMessage>) {
         ds.edit { it[Keys.CHAT_HISTORY] = json.encodeToString(ListSerializer(ChatMessage.serializer()), history) }

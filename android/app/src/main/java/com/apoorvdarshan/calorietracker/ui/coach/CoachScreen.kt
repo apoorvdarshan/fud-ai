@@ -77,7 +77,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
@@ -123,10 +122,7 @@ import com.apoorvdarshan.calorietracker.ui.navigation.BottomNavDockedControlPadd
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
 import java.io.ByteArrayOutputStream
 import java.util.Base64
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 /**
  * Verbatim port of struct ChatView in
@@ -149,7 +145,6 @@ fun CoachScreen(container: AppContainer) {
     val listState = rememberLazyListState()
     var showResetConfirm by remember { mutableStateOf(false) }
     val ctx = LocalContext.current
-    val scope = rememberCoroutineScope()
     val focusManager = LocalFocusManager.current
     val keyboard = LocalSoftwareKeyboardController.current
 
@@ -173,12 +168,8 @@ fun CoachScreen(container: AppContainer) {
         ActivityResultContracts.PickVisualMedia()
     ) { uri: Uri? ->
         if (uri != null) {
-            scope.launch {
-                val bytes = withContext(Dispatchers.IO) {
-                    ctx.contentResolver.openInputStream(uri)?.use { it.readBytes() }
-                } ?: return@launch
-                attachedImageBytes = resizedJpeg(bytes, maxDimension = 1800, quality = 86) ?: bytes
-            }
+            val bytes = ctx.contentResolver.openInputStream(uri)?.use { it.readBytes() }
+            if (bytes != null) attachedImageBytes = resizedJpeg(bytes, maxDimension = 1800, quality = 86) ?: bytes
         }
     }
 
@@ -201,14 +192,12 @@ fun CoachScreen(container: AppContainer) {
         val trimmed = (textOverride ?: input).trim()
         if (trimmed.isEmpty() && image == null) return
         if (ui.sending) return
+        val imageForAi = image?.let { resizedJpeg(it, maxDimension = 1600, quality = 78) ?: it }
+        val thumbnail = image?.let { resizedJpeg(it, maxDimension = 700, quality = 68) ?: it }
         hideKeyboard()
         input = ""
         attachedImageBytes = null
-        scope.launch {
-            val imageForAi = image?.let { resizedJpeg(it, maxDimension = 1600, quality = 78) ?: it }
-            val thumbnail = image?.let { resizedJpeg(it, maxDimension = 700, quality = 68) ?: it }
-            vm.send(trimmed, imageBytes = imageForAi, thumbnailBytes = thumbnail)
-        }
+        vm.send(trimmed, imageBytes = imageForAi, thumbnailBytes = thumbnail)
     }
 
     // Inline (WhatsApp-style) voice recorder — records with whatever STT provider
@@ -347,9 +336,7 @@ fun CoachScreen(container: AppContainer) {
         InAppCameraCaptureDialog(
             onCapture = { bytes ->
                 showCameraCapture = false
-                scope.launch {
-                    attachedImageBytes = resizedJpeg(bytes, maxDimension = 1800, quality = 86) ?: bytes
-                }
+                attachedImageBytes = resizedJpeg(bytes, maxDimension = 1800, quality = 86) ?: bytes
             },
             onDismiss = { showCameraCapture = false }
         )
@@ -717,17 +704,15 @@ private fun Bubble(content: String, isUser: Boolean, attachmentImageBase64: Stri
         }
         Column(Modifier.padding(horizontal = 16.dp, vertical = 11.dp)) {
             attachmentImageBase64?.let { encoded ->
-                val bitmap by produceState<Bitmap?>(initialValue = null, encoded) {
-                    value = withContext(Dispatchers.IO) {
-                        runCatching {
-                            val bytes = Base64.getDecoder().decode(encoded)
-                            FoodImageDecoder.decode(bytes, COACH_BUBBLE_IMAGE_MAX_DIMENSION)
-                        }.getOrNull()
-                    }
+                val bitmap = remember(encoded) {
+                    runCatching {
+                        val bytes = Base64.getDecoder().decode(encoded)
+                        FoodImageDecoder.decode(bytes)
+                    }.getOrNull()
                 }
-                bitmap?.let { attachmentBitmap ->
+                if (bitmap != null) {
                     Image(
-                        bitmap = attachmentBitmap.asImageBitmap(),
+                        bitmap = bitmap.asImageBitmap(),
                         contentDescription = null,
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
@@ -866,12 +851,8 @@ private fun InputBar(
             .padding(start = 4.dp, end = 5.dp, top = 4.dp, bottom = 4.dp),
     ) {
         attachedImageBytes?.let { bytes ->
-            val previewBitmap by produceState<Bitmap?>(initialValue = null, bytes) {
-                this.value = withContext(Dispatchers.IO) {
-                    FoodImageDecoder.decode(bytes, COACH_COMPOSER_PREVIEW_MAX_DIMENSION)
-                }
-            }
-            previewBitmap?.let { attachmentBitmap ->
+            val bitmap = remember(bytes) { FoodImageDecoder.decode(bytes) }
+            if (bitmap != null) {
                 Box(
                     modifier = Modifier
                         .padding(start = 10.dp, end = 10.dp, top = 8.dp, bottom = 4.dp)
@@ -879,7 +860,7 @@ private fun InputBar(
                         .clip(RoundedCornerShape(16.dp))
                 ) {
                     Image(
-                        bitmap = attachmentBitmap.asImageBitmap(),
+                        bitmap = bitmap.asImageBitmap(),
                         contentDescription = null,
                         contentScale = ContentScale.Crop,
                         modifier = Modifier.fillMaxSize()
@@ -1055,17 +1036,13 @@ private fun SendButton(canSend: Boolean, onClick: () -> Unit) {
     }
 }
 
-private suspend fun resizedJpeg(bytes: ByteArray, maxDimension: Int, quality: Int): ByteArray? =
-    withContext(Dispatchers.Default) {
-        val scaled = FoodImageDecoder.decode(bytes, maxDimension) ?: return@withContext null
-        ByteArrayOutputStream().use { out ->
-            scaled.compress(Bitmap.CompressFormat.JPEG, quality.coerceIn(1, 100), out)
-            out.toByteArray()
-        }
+private fun resizedJpeg(bytes: ByteArray, maxDimension: Int, quality: Int): ByteArray? {
+    val scaled = FoodImageDecoder.decode(bytes, maxDimension) ?: return null
+    return ByteArrayOutputStream().use { out ->
+        scaled.compress(Bitmap.CompressFormat.JPEG, quality.coerceIn(1, 100), out)
+        out.toByteArray()
     }
-
-private const val COACH_BUBBLE_IMAGE_MAX_DIMENSION = 700
-private const val COACH_COMPOSER_PREVIEW_MAX_DIMENSION = 280
+}
 
 // ── Markdown rendering for Coach replies ────────────────────────────────
 // Lightweight renderer for the formatting the Coach actually emits: #/##/### headings,

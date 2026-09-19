@@ -199,8 +199,8 @@ class FoodImageStore private constructor(
 
     companion object {
         private const val DIR_NAME = "fudai-food-images"
-        private const val LEGACY_THUMBNAIL_DIR_NAME = "fudai-food-thumbnails"
         private const val THUMBNAIL_DIR_NAME = "fudai-food-thumbnails-v2"
+        private const val LEGACY_THUMBNAIL_DIR_NAME = "fudai-food-thumbnails"
         private const val THUMBNAIL_MAX_DIMENSION = 320
         const val VIEWER_MAX_DIMENSION = 2048
         private const val THUMBNAIL_CACHE_KB_DEFAULT = 12 * 1024

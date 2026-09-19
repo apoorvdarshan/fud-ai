@@ -191,10 +191,11 @@ fun FoodResultSheet(
     var showTimePicker by remember { mutableStateOf(false) }
     var moreNutritionExpanded by rememberSaveable { mutableStateOf(false) }
     var nutritionUnlocked by rememberSaveable { mutableStateOf(false) }
-    var editableCalories by rememberSaveable(analysis) { mutableStateOf(analysis.calories) }
-    var editableProtein by rememberSaveable(analysis) { mutableStateOf(analysis.protein) }
-    var editableCarbs by rememberSaveable(analysis) { mutableStateOf(analysis.carbs) }
-    var editableFat by rememberSaveable(analysis) { mutableStateOf(analysis.fat) }
+    val reviewMacros = remember(analysis) { analysis.withIngredientMacroTotals() }
+    var editableCalories by rememberSaveable(analysis) { mutableStateOf(reviewMacros.calories) }
+    var editableProtein by rememberSaveable(analysis) { mutableStateOf(reviewMacros.protein) }
+    var editableCarbs by rememberSaveable(analysis) { mutableStateOf(reviewMacros.carbs) }
+    var editableFat by rememberSaveable(analysis) { mutableStateOf(reviewMacros.fat) }
     var editableSugar by rememberSaveable(analysis) { mutableStateOf(analysis.sugar) }
     var editableAddedSugar by rememberSaveable(analysis) { mutableStateOf(analysis.addedSugar) }
     var editableFiber by rememberSaveable(analysis) { mutableStateOf(analysis.fiber) }

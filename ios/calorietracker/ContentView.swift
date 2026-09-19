@@ -3387,6 +3387,7 @@ final class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOut
     private let onCancel: () -> Void
     private var session: AVCaptureSession?
     private var previewLayer: AVCaptureVideoPreviewLayer?
+    private var captureDevice: AVCaptureDevice?
     private var didScan = false
 
     init(onScan: @escaping (String) -> Void, onCancel: @escaping () -> Void) {
@@ -3444,7 +3445,7 @@ final class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOut
         let session = AVCaptureSession()
         session.beginConfiguration()
 
-        guard let camera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back),
+        guard let camera = BarcodeScannerCameraSelection.preferredBackVideoCaptureDevice(),
               let input = try? AVCaptureDeviceInput(device: camera),
               session.canAddInput(input) else {
             session.commitConfiguration()
@@ -3452,6 +3453,7 @@ final class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOut
             return
         }
         session.addInput(input)
+        captureDevice = camera
         configureCameraForBarcodeScanning(camera)
 
         let output = AVCaptureMetadataOutput()
@@ -3489,9 +3491,52 @@ final class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOut
 
         self.session = session
         self.previewLayer = previewLayer
+        installTapToFocusGestureIfNeeded()
 
         DispatchQueue.global(qos: .userInitiated).async {
             session.startRunning()
+        }
+    }
+
+    private func installTapToFocusGestureIfNeeded() {
+        guard view.gestureRecognizers?.contains(where: { $0 is UITapGestureRecognizer }) != true else { return }
+        let tap = UITapGestureRecognizer(target: self, action: #selector(previewTapped(_:)))
+        view.addGestureRecognizer(tap)
+    }
+
+    @objc private func previewTapped(_ recognizer: UITapGestureRecognizer) {
+        guard recognizer.state == .ended,
+              let previewLayer,
+              let camera = captureDevice else { return }
+        let layerPoint = recognizer.location(in: view)
+        let devicePoint = previewLayer.captureDevicePointConverted(fromLayerPoint: layerPoint)
+        focusCamera(camera, at: devicePoint)
+    }
+
+    private func focusCamera(_ camera: AVCaptureDevice, at devicePoint: CGPoint) {
+        do {
+            try camera.lockForConfiguration()
+            defer { camera.unlockForConfiguration() }
+
+            if camera.isFocusPointOfInterestSupported {
+                camera.focusPointOfInterest = devicePoint
+                if camera.isFocusModeSupported(.autoFocus) {
+                    camera.focusMode = .autoFocus
+                } else if camera.isFocusModeSupported(.continuousAutoFocus) {
+                    camera.focusMode = .continuousAutoFocus
+                }
+            }
+
+            if camera.isExposurePointOfInterestSupported {
+                camera.exposurePointOfInterest = devicePoint
+                if camera.isExposureModeSupported(.continuousAutoExposure) {
+                    camera.exposureMode = .continuousAutoExposure
+                } else if camera.isExposureModeSupported(.autoExpose) {
+                    camera.exposureMode = .autoExpose
+                }
+            }
+        } catch {
+            // Keep scanning available even if tap-to-focus fails.
         }
     }
 

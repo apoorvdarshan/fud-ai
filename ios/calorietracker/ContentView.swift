@@ -5654,6 +5654,10 @@ struct ProfileView: View {
                                 selectFallbackProvider(newProvider)
                             }
 
+                            if selectedFallbackProvider == .appleIntelligence {
+                                appleIntelligenceAvailabilityRow
+                            }
+
                             if selectedFallbackProvider.supportsCustomModelName {
                                 // Free-form TextField + preset Menu, mirrors primary AI Provider section.
                                 // When fallback provider == primary, the preset menu hides the primary's model.

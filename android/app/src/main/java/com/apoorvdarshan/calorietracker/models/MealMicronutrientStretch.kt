@@ -3,7 +3,8 @@ package com.apoorvdarshan.calorietracker.models
 /** Meal-level micro stretch used when ingredients change but micros are not per-ingredient. */
 object MealMicronutrientStretch {
     fun factor(oldGrams: Double, newGrams: Double): Double? {
-        if (oldGrams <= 0.0 || newGrams <= 0.0) return null
+        if (oldGrams <= 0.0) return null
+        if (newGrams <= 0.0) return 0.0
         return newGrams / oldGrams
     }
 

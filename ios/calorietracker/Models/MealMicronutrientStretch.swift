@@ -3,7 +3,8 @@ import Foundation
 /// Meal-level micro stretch used when ingredients change but micros are not per-ingredient.
 enum MealMicronutrientStretch {
     static func factor(oldGrams: Double, newGrams: Double) -> Double? {
-        guard oldGrams > 0, newGrams > 0 else { return nil }
+        guard oldGrams > 0 else { return nil }
+        if newGrams <= 0 { return 0 }
         return newGrams / oldGrams
     }
 

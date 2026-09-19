@@ -7,11 +7,11 @@ struct MealMicronutrientStretchTests {
         #expect(MealMicronutrientStretch.factor(oldGrams: 200, newGrams: 100) == 0.5)
     }
 
-    @Test func factorIsNilWhenOldOrNewGramsAreNotPositive() {
+    @Test func factorIsNilWhenOldGramsAreNotPositiveAndZeroWhenNewGramsAreNot() {
         #expect(MealMicronutrientStretch.factor(oldGrams: 0, newGrams: 120) == nil)
-        #expect(MealMicronutrientStretch.factor(oldGrams: 120, newGrams: 0) == nil)
+        #expect(MealMicronutrientStretch.factor(oldGrams: 120, newGrams: 0) == 0)
         #expect(MealMicronutrientStretch.factor(oldGrams: -10, newGrams: 50) == nil)
-        #expect(MealMicronutrientStretch.factor(oldGrams: 50, newGrams: -10) == nil)
+        #expect(MealMicronutrientStretch.factor(oldGrams: 50, newGrams: -10) == 0)
     }
 
     @Test func scaleDoublesAndHalvesOptionalValuesAndLeavesNils() {
@@ -50,10 +50,13 @@ struct MealMicronutrientStretchTests {
         #expect(stretched.iron == nil)
     }
 
-    @Test func snapshotSkipsStretchWhenOldOrNewGramsAreZero() {
+    @Test func snapshotSkipsStretchWhenOldGramsAreZeroAndClearsWhenNewGramsAreZero() {
         let original = MealMicronutrientSnapshot(sugar: 8, sodium: 200)
         #expect(original.stretched(oldGrams: 0, newGrams: 150) == original)
-        #expect(original.stretched(oldGrams: 150, newGrams: 0) == original)
+        let cleared = original.stretched(oldGrams: 150, newGrams: 0)
+        #expect(cleared.sugar == 0)
+        #expect(cleared.sodium == 0)
+        #expect(cleared.fiber == nil)
     }
 
     @Test func applyingIngredientChangesRewritesBaseMicrosByIngredientGramsRatio() {
@@ -91,7 +94,7 @@ struct MealMicronutrientStretchTests {
         #expect(updated.addedSugar == nil)
     }
 
-    @Test func applyingIngredientChangesLeavesMicrosWhenOldOrNewGramsAreZero() {
+    @Test func applyingIngredientChangesLeavesMicrosWhenOldGramsAreZeroAndClearsWhenEmptied() {
         let chicken = MealIngredient(name: "Chicken", grams: 100, calories: 165, protein: 31, carbs: 0, fat: 3.6)
         let withoutIngredients = FoodEntry(
             name: "Bowl",
@@ -110,8 +113,8 @@ struct MealMicronutrientStretchTests {
         #expect(added.servingSizeGrams == 100)
 
         let emptied = added.applyingIngredientChanges([])
-        #expect(emptied.sugar == 6)
-        #expect(emptied.sodium == 400)
+        #expect(emptied.sugar == 0)
+        #expect(emptied.sodium == 0)
         #expect(emptied.servingSizeGrams == 100)
         #expect(emptied.calories == 0)
     }

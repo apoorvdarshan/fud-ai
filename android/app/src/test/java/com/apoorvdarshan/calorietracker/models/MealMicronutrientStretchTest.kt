@@ -12,11 +12,11 @@ class MealMicronutrientStretchTest {
     }
 
     @Test
-    fun factorIsNullWhenOldOrNewGramsAreNotPositive() {
+    fun factorIsNullWhenOldGramsAreNotPositiveAndZeroWhenNewGramsAreNot() {
         assertNull(MealMicronutrientStretch.factor(0.0, 120.0))
-        assertNull(MealMicronutrientStretch.factor(120.0, 0.0))
+        assertEquals(0.0, MealMicronutrientStretch.factor(120.0, 0.0)!!, 0.0)
         assertNull(MealMicronutrientStretch.factor(-10.0, 50.0))
-        assertNull(MealMicronutrientStretch.factor(50.0, -10.0))
+        assertEquals(0.0, MealMicronutrientStretch.factor(50.0, -10.0)!!, 0.0)
     }
 
     @Test
@@ -59,10 +59,13 @@ class MealMicronutrientStretchTest {
     }
 
     @Test
-    fun snapshotSkipsStretchWhenOldOrNewGramsAreZero() {
+    fun snapshotSkipsStretchWhenOldGramsAreZeroAndClearsWhenNewGramsAreZero() {
         val original = MealMicronutrientSnapshot(sugar = 8.0, sodium = 200.0)
         assertEquals(original, original.stretched(0.0, 150.0))
-        assertEquals(original, original.stretched(150.0, 0.0))
+        val cleared = original.stretched(150.0, 0.0)
+        assertEquals(0.0, cleared.sugar!!, 0.0)
+        assertEquals(0.0, cleared.sodium!!, 0.0)
+        assertNull(cleared.fiber)
     }
 
     @Test
@@ -102,7 +105,7 @@ class MealMicronutrientStretchTest {
     }
 
     @Test
-    fun applyingIngredientChangesLeavesMicrosWhenOldOrNewGramsAreZero() {
+    fun applyingIngredientChangesLeavesMicrosWhenOldGramsAreZeroAndClearsWhenEmptied() {
         val chicken = MealIngredient("Chicken", 100.0, 165, 31.0, 0.0, 3.6)
         val withoutIngredients = FoodEntry(
             name = "Bowl",
@@ -121,8 +124,8 @@ class MealMicronutrientStretchTest {
         assertEquals(100.0, added.servingSizeGrams!!, 0.0)
 
         val emptied = added.applyingIngredientChanges(emptyList())
-        assertEquals(6.0, emptied.sugar!!, 0.0)
-        assertEquals(400.0, emptied.sodium!!, 0.0)
+        assertEquals(0.0, emptied.sugar!!, 0.0)
+        assertEquals(0.0, emptied.sodium!!, 0.0)
         assertEquals(100.0, emptied.servingSizeGrams!!, 0.0)
         assertEquals(0, emptied.calories)
     }

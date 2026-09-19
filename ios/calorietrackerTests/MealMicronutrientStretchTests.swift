@@ -81,12 +81,12 @@ struct MealMicronutrientStretchTests {
 
         #expect(updated.ingredients.ingredientTotals.grams == 350)
         #expect(updated.calories == 195 + doubledChicken.calories)
-        #expect(updated.sugar == 8.4)
-        #expect(updated.fiber == 4.2)
+        expectApproximately(updated.sugar, 8.4)
+        expectApproximately(updated.fiber, 4.2)
         #expect(updated.sodium == 560)
         #expect(updated.vitaminA == 112)
-        #expect(updated.omega3 == 0.56)
-        #expect(updated.supplementalNutrients["creatine"] == 1.4)
+        expectApproximately(updated.omega3, 0.56)
+        expectApproximately(updated.supplementalNutrients["creatine"], 1.4)
         #expect(updated.servingSizeGrams == 350)
         #expect(updated.addedSugar == nil)
     }
@@ -115,4 +115,12 @@ struct MealMicronutrientStretchTests {
         #expect(emptied.servingSizeGrams == 100)
         #expect(emptied.calories == 0)
     }
+}
+
+private func expectApproximately(_ value: Double?, _ expected: Double, accuracy: Double = 0.0001) {
+    guard let value else {
+        Issue.record("expected \(expected), got nil")
+        return
+    }
+    #expect(abs(value - expected) < accuracy)
 }

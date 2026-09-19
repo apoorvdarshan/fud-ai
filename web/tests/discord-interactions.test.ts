@@ -3,10 +3,13 @@ import worker from "../worker";
 import {
   ANDROID_BUG_CHANNEL_ID,
   DISCORD_INTERACTIONS_PATH,
+  FEATURE_ISSUE_LABEL,
   handleDiscordInteractionsRequest,
   IOS_BUG_CHANNEL_ID,
   labelsForBugPlatform,
+  labelsForFeatureRequest,
   resolveBugPlatform,
+  resolveFeaturePlatform,
   verifyDiscordSignature,
 } from "../discord-interactions";
 
@@ -114,6 +117,16 @@ describe("discord interactions", () => {
     expect(labelsForBugPlatform("iOS")).toEqual(["bug", "ios"]);
     expect(labelsForBugPlatform("Android")).toEqual(["bug", "android"]);
     expect(labelsForBugPlatform("")).toEqual(["bug"]);
+  });
+
+  it("does not infer /feature platform from Discord channels", () => {
+    expect(resolveFeaturePlatform("")).toBe("");
+    expect(resolveFeaturePlatform("iOS")).toBe("iOS");
+    expect(resolveFeaturePlatform("android")).toBe("Android");
+    expect(resolveFeaturePlatform("both")).toBe("both");
+    expect(resolveFeaturePlatform("none")).toBe("");
+    expect(labelsForFeatureRequest()).toEqual([FEATURE_ISSUE_LABEL]);
+    expect(FEATURE_ISSUE_LABEL).toBe("enhancement");
   });
 
   it("answers Discord PINGs", async () => {
@@ -315,6 +328,119 @@ describe("discord interactions", () => {
     await flush();
     expect(fetch.mock.calls.some(([url]) => String(url).includes("api.github.com"))).toBe(false);
     expect(requestBody(fetch.mock.calls[0]?.[1])).toContain("GitHub isn’t configured");
+  });
+
+  it("defers /feature, files an enhancement issue, and replies with the URL", async () => {
+    const { privateKey, publicKeyHex } = await ed25519Pair();
+    const fetch = vi.fn<MockFetch>(async (url) => {
+      if (String(url).includes("api.github.com/repos/apoorvdarshan/fud-ai/issues")) {
+        return Response.json({ html_url: ISSUE_URL, number: 42 }, { status: 201 });
+      }
+      if (String(url).includes("discord.com")) return new Response(null, { status: 200 });
+      throw new Error(`unexpected fetch ${url}`);
+    });
+    vi.stubGlobal("fetch", fetch);
+    const { ctx, flush } = waiters();
+
+    const response = await handleDiscordInteractionsRequest(
+      await signedRequest(
+        privateKey,
+        command(
+          "feature",
+          [
+            { name: "title", value: "Widget remaining calories" },
+            { name: "details", value: "Show leftover calories on the home-screen widget." },
+            { name: "platform", value: "both" },
+          ],
+          { channel_id: IOS_BUG_CHANNEL_ID },
+        ),
+      ),
+      env(publicKeyHex),
+      ctx,
+    );
+    expect(await response.json()).toEqual({ type: 5 });
+    await flush();
+
+    const githubCall = fetch.mock.calls.find(([url]) => String(url).includes("api.github.com"));
+    expect(githubCall?.[0]).toBe("https://api.github.com/repos/apoorvdarshan/fud-ai/issues");
+    expect(githubCall?.[1]).toMatchObject({
+      method: "POST",
+      headers: expect.objectContaining({
+        Authorization: "Bearer test-github-token",
+        "User-Agent": "fud-ai-discord-feature",
+      }),
+    });
+    const created = JSON.parse(requestBody(githubCall?.[1])) as {
+      title: string;
+      body: string;
+      labels: string[];
+    };
+    expect(created.title).toBe("Widget remaining calories");
+    expect(created.labels).toEqual(["enhancement"]);
+    expect(created.body).toContain("## Summary");
+    expect(created.body).toContain("Show leftover calories on the home-screen widget.");
+    expect(created.body).toContain("## Platform");
+    expect(created.body).toContain("both");
+    expect(created.body).toContain("Opened via Discord `/feature`");
+    expect(created.body).toContain("Reporter");
+    expect(created.body).toContain("`user-1`");
+    expect(created.body).toContain(IOS_BUG_CHANNEL_ID);
+    expect(created.body).toContain(GUILD_ID);
+    expect(created.body).not.toContain("ios");
+
+    const discordCall = fetch.mock.calls.find(([url]) => String(url).includes("discord.com/api/v10/webhooks"));
+    expect(requestBody(discordCall?.[1])).toBe(JSON.stringify({ content: `Opened ${ISSUE_URL}` }));
+    expect(fetch.mock.calls.some(([url]) => String(url).includes("generativelanguage"))).toBe(false);
+  });
+
+  it("leaves /feature platform unspecified when omitted, even in a platform channel", async () => {
+    const { privateKey, publicKeyHex } = await ed25519Pair();
+    const fetch = vi.fn<MockFetch>(async (url) => {
+      if (String(url).includes("api.github.com")) {
+        return Response.json({ html_url: ISSUE_URL, number: 42 }, { status: 201 });
+      }
+      return new Response(null, { status: 200 });
+    });
+    vi.stubGlobal("fetch", fetch);
+    const { ctx, flush } = waiters();
+
+    const response = await handleDiscordInteractionsRequest(
+      await signedRequest(
+        privateKey,
+        command(
+          "feature",
+          [
+            { name: "title", value: "Dark mode for widgets" },
+            { name: "details", value: "Match system appearance." },
+          ],
+          { channel_id: ANDROID_BUG_CHANNEL_ID },
+        ),
+      ),
+      env(publicKeyHex),
+      ctx,
+    );
+    expect(await response.json()).toEqual({ type: 5 });
+    await flush();
+    const created = JSON.parse(requestBody(fetch.mock.calls[0]?.[1])) as {
+      labels: string[];
+      body: string;
+    };
+    expect(created.labels).toEqual(["enhancement"]);
+    expect(created.body).toContain("_Not specified_");
+    expect(created.body).toContain(ANDROID_BUG_CHANNEL_ID);
+    expect(created.body).not.toMatch(/## Platform\n\nAndroid/);
+  });
+
+  it("rejects /feature without title or details", async () => {
+    const { privateKey, publicKeyHex } = await ed25519Pair();
+    const response = await handleDiscordInteractionsRequest(
+      await signedRequest(privateKey, command("feature", [{ name: "title", value: "Missing details" }])),
+      env(publicKeyHex),
+    );
+    expect(await response.json()).toMatchObject({
+      type: 4,
+      data: { flags: 64 },
+    });
   });
 
   it("rejects /bug without title or details", async () => {

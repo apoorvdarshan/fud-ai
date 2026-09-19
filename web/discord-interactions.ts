@@ -1,5 +1,5 @@
 /**
- * Discord HTTP interactions for `/ask` and `/bug` (Cloudflare Worker).
+ * Discord HTTP interactions for `/ask`, `/bug`, and `/feature` (Cloudflare Worker).
  *
  * Slash commands are delivered to the Interactions Endpoint URL — no Discord
  * gateway / always-on VM. Mentions (@Fud AI) are not handled here.
@@ -37,7 +37,7 @@ type DiscordEnv = {
   DISCORD_APPLICATION_ID?: string;
   /** Free-tier Gemini key for Discord `/ask` only (never use hosted GEMINI_API_KEY). */
   DISCORD_GEMINI_API_KEY?: string;
-  /** Shared with star history; `/bug` needs `issues:write` on apoorvdarshan/fud-ai. */
+  /** Shared with star history; `/bug` and `/feature` need `issues:write` on apoorvdarshan/fud-ai. */
   GITHUB_TOKEN?: string;
 };
 
@@ -65,17 +65,38 @@ type Interaction = {
 };
 
 export type BugPlatform = "iOS" | "Android" | "";
+export type FeaturePlatform = "iOS" | "Android" | "both" | "";
 
-type BugReport = {
+/** Matches `.github/ISSUE_TEMPLATE/feature_request.yml` (`enhancement` exists on the repo). */
+export const FEATURE_ISSUE_LABEL = "enhancement";
+
+type DiscordReporter = {
+  channelId: string;
+  guildId: string;
+  userId: string;
+  username: string;
+};
+
+type BugReport = DiscordReporter & {
   title: string;
   details: string;
   device: string;
   appVersion: string;
   platform: BugPlatform;
-  channelId: string;
-  guildId: string;
-  userId: string;
-  username: string;
+};
+
+type FeatureReport = DiscordReporter & {
+  title: string;
+  details: string;
+  platform: FeaturePlatform;
+};
+
+type GitHubIssueDraft = {
+  title: string;
+  body: string;
+  labels: string[];
+  fallbackLabels?: string[];
+  userAgent: string;
 };
 
 function hexToBytes(hex: string): Uint8Array {
@@ -166,6 +187,23 @@ export function labelsForBugPlatform(platform: BugPlatform): string[] {
   return labels;
 }
 
+function normalizeFeaturePlatform(value: string): FeaturePlatform {
+  const lowered = value.trim().toLowerCase();
+  if (lowered === "ios") return "iOS";
+  if (lowered === "android") return "Android";
+  if (lowered === "both") return "both";
+  return "";
+}
+
+/** Optional `/feature platform` only — never inferred from channel. */
+export function resolveFeaturePlatform(option: string): FeaturePlatform {
+  return normalizeFeaturePlatform(option);
+}
+
+export function labelsForFeatureRequest(): string[] {
+  return [FEATURE_ISSUE_LABEL];
+}
+
 function clipGitHubTitle(title: string): string {
   if (title.length <= GITHUB_TITLE_MAX) return title;
   return `${title.slice(0, GITHUB_TITLE_MAX - 1)}…`;
@@ -192,9 +230,30 @@ function formatBugIssueBody(report: BugReport): string {
     "",
     platform,
     "",
+    formatDiscordIssueFooter("Reported via Discord `/bug`", report),
+  ].join("\n");
+}
+
+function formatFeatureIssueBody(report: FeatureReport): string {
+  const platform = report.platform || "_Not specified_";
+  return [
+    "## Summary",
+    "",
+    report.details,
+    "",
+    "## Platform",
+    "",
+    platform,
+    "",
+    formatDiscordIssueFooter("Opened via Discord `/feature`", report),
+  ].join("\n");
+}
+
+function formatDiscordIssueFooter(intro: string, report: DiscordReporter): string {
+  return [
     "---",
     "",
-    "Reported via Discord `/bug`",
+    intro,
     "",
     `- **User:** ${report.username} (\`${report.userId}\`)`,
     `- **Channel:** \`${report.channelId || "unknown"}\``,
@@ -204,12 +263,12 @@ function formatBugIssueBody(report: BugReport): string {
 
 async function createGitHubIssue(
   token: string,
-  report: BugReport,
+  draft: GitHubIssueDraft,
 ): Promise<{ htmlUrl: string; number: number }> {
   const payload = {
-    title: clipGitHubTitle(report.title),
-    body: formatBugIssueBody(report),
-    labels: labelsForBugPlatform(report.platform),
+    title: clipGitHubTitle(draft.title),
+    body: draft.body,
+    labels: draft.labels,
   };
 
   const respond = async (labels: string[]): Promise<Response> =>
@@ -219,16 +278,21 @@ async function createGitHubIssue(
         Accept: "application/vnd.github+json",
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
-        "User-Agent": "fud-ai-discord-bug",
+        "User-Agent": draft.userAgent,
         "X-GitHub-Api-Version": GITHUB_API_VERSION,
       },
       body: JSON.stringify({ ...payload, labels }),
     });
 
   let resp = await respond(payload.labels);
-  if (resp.status === 422 && payload.labels.length > 1) {
-    // Repo may not have `ios` / `android` yet — still file the report.
-    resp = await respond(["bug"]);
+  const fallback = draft.fallbackLabels;
+  if (
+    resp.status === 422 &&
+    fallback &&
+    fallback.join("\0") !== payload.labels.join("\0")
+  ) {
+    // Repo may not have extra labels (e.g. `ios` / `android`) yet — still file.
+    resp = await respond(fallback);
   }
 
   const data = (await resp.json()) as {
@@ -309,7 +373,13 @@ async function fulfillBug(
   }
 
   try {
-    const issue = await createGitHubIssue(token, report);
+    const issue = await createGitHubIssue(token, {
+      title: report.title,
+      body: formatBugIssueBody(report),
+      labels: labelsForBugPlatform(report.platform),
+      fallbackLabels: ["bug"],
+      userAgent: "fud-ai-discord-bug",
+    });
     await editInteractionReply(
       applicationId,
       interactionToken,
@@ -322,6 +392,45 @@ async function fulfillBug(
       applicationId,
       interactionToken,
       "I couldn’t create the GitHub issue just now. Try again in a bit, or file it at https://github.com/apoorvdarshan/fud-ai/issues/new?template=bug_report.yml",
+    );
+  }
+}
+
+async function fulfillFeature(
+  env: DiscordEnv,
+  applicationId: string,
+  interactionToken: string,
+  report: FeatureReport,
+): Promise<void> {
+  const token = (env.GITHUB_TOKEN || "").trim();
+  if (!token) {
+    await editInteractionReply(
+      applicationId,
+      interactionToken,
+      "GitHub isn’t configured on the server yet. Please try again later.",
+    );
+    return;
+  }
+
+  try {
+    const issue = await createGitHubIssue(token, {
+      title: report.title,
+      body: formatFeatureIssueBody(report),
+      labels: labelsForFeatureRequest(),
+      userAgent: "fud-ai-discord-feature",
+    });
+    await editInteractionReply(
+      applicationId,
+      interactionToken,
+      `Opened ${issue.htmlUrl}`,
+    );
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : "unknown_error";
+    console.error("discord_feature_github_failed", msg.slice(0, 200));
+    await editInteractionReply(
+      applicationId,
+      interactionToken,
+      "I couldn’t create the GitHub issue just now. Try again in a bit, or file it at https://github.com/apoorvdarshan/fud-ai/issues/new?template=feature_request.yml",
     );
   }
 }
@@ -406,6 +515,52 @@ function handleBugCommand(
   return jsonResponse({ type: 5 });
 }
 
+function handleFeatureCommand(
+  env: DiscordEnv,
+  interaction: Interaction,
+  applicationId: string,
+  ctx?: { waitUntil: (promise: Promise<unknown>) => void },
+): Response {
+  const title = optionString(interaction, "title");
+  const details = optionString(interaction, "details");
+  if (!title || !details) {
+    return jsonResponse({
+      type: 4,
+      data: {
+        content: "Need both `title` and `details` — e.g. `/feature title: Widget calories details: Show remaining calories on the home screen widget.`",
+        flags: 64,
+      },
+    });
+  }
+
+  if (!applicationId) {
+    return jsonResponse({
+      type: 4,
+      data: { content: "Bot application id isn’t configured.", flags: 64 },
+    });
+  }
+
+  const reporter = reporterFrom(interaction);
+  const report: FeatureReport = {
+    title,
+    details,
+    platform: resolveFeaturePlatform(optionString(interaction, "platform")),
+    channelId: interactionChannelId(interaction),
+    guildId: interactionGuildId(interaction),
+    userId: reporter.id,
+    username: reporter.username,
+  };
+
+  if (ctx?.waitUntil) {
+    ctx.waitUntil(fulfillFeature(env, applicationId, interaction.token, report));
+  } else {
+    void fulfillFeature(env, applicationId, interaction.token, report);
+  }
+
+  // 5 = DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE (shows “thinking…”)
+  return jsonResponse({ type: 5 });
+}
+
 export async function handleDiscordInteractionsRequest(
   request: Request,
   env: DiscordEnv,
@@ -449,6 +604,10 @@ export async function handleDiscordInteractionsRequest(
 
     if (name === "bug") {
       return handleBugCommand(env, interaction, applicationId, ctx);
+    }
+
+    if (name === "feature") {
+      return handleFeatureCommand(env, interaction, applicationId, ctx);
     }
 
     if (name !== "ask") {

@@ -1,4 +1,8 @@
 import Foundation
+import UIKit
+#if canImport(FoundationModels)
+import FoundationModels
+#endif
 
 /// Routes a multi-turn chat (system context + user/assistant message history + new user message)
 /// to the currently-selected LLM provider, with **tool calling** so the model can fetch any
@@ -190,12 +194,9 @@ struct ChatService {
         newUserMessage: String,
         imageData: Data?
     ) async throws -> String {
-        guard imageData == nil else {
-            throw ChatError.apiError("Apple Intelligence is available for text-only conversations.")
-        }
-
         #if canImport(FoundationModels)
         if #available(iOS 26.0, *) {
+            try OnDeviceAIService.requireAvailable()
             let conversation = history.suffix(8).map { message in
                 "\(message.role.rawValue.capitalized): \(message.content)"
             }.joined(separator: "\n")
@@ -209,6 +210,26 @@ struct ChatService {
             ON-DEVICE MODE
             You cannot call data tools in this mode. Answer only from the profile, forecast, and data summary above. If the question requires unavailable detailed history, say that briefly instead of inventing facts.
             """
+            if let imageData {
+                if #available(iOS 27.0, *) {
+                    guard let image = UIImage(data: imageData) else {
+                        throw ChatError.apiError("Could not read the attached photo.")
+                    }
+                    let session = LanguageModelSession(instructions: onDeviceInstructions)
+                    let response = try await session.respond {
+                        prompt
+                        if let cgImage = image.cgImage {
+                            Attachment(cgImage)
+                                .label("coach-image")
+                        } else {
+                            Attachment(image)
+                                .label("coach-image")
+                        }
+                    }
+                    return response.content.trimmingCharacters(in: .whitespacesAndNewlines)
+                }
+                throw ChatError.apiError("Apple Intelligence photo messages require iOS 27 or later.")
+            }
             return try await OnDeviceAIService.respond(
                 to: prompt,
                 instructions: onDeviceInstructions

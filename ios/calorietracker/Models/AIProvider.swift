@@ -107,7 +107,12 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
 
     var supportsVision: Bool {
         switch self {
-        case .appleIntelligence, .deepseek, .cerebras:
+        case .appleIntelligence:
+            if #available(iOS 27.0, *) {
+                return true
+            }
+            return false
+        case .deepseek, .cerebras:
             false
         default:
             true
@@ -185,7 +190,11 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
     /// Lineups verified against provider docs on 2026-09-07.
     var models: [String] {
         switch self {
-        case .appleIntelligence: [] // text-only system model; never offered for image requests
+        case .appleIntelligence:
+            if #available(iOS 27.0, *) {
+                return ["System Language Model"]
+            }
+            return []
         case .gemma4Local: [Gemma4LocalModelManager.modelID]
         case .gemini: [
             "gemini-3.5-flash-lite",         // vision, cheapest current stable model (default)

@@ -5232,6 +5232,10 @@ struct ProfileView: View {
                             customBaseURL = AIProviderSettings.customBaseURL(for: newProvider) ?? ""
                         }
 
+                        if selectedProvider == .appleIntelligence {
+                            appleIntelligenceAvailabilityRow
+                        }
+
                         if selectedProvider.supportsCustomModelName {
                             // Free-form TextField for any model ID, with optional preset suggestions menu
                             // (e.g., OpenRouter has presets but lets user type any of openrouter.ai/models).

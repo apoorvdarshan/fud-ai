@@ -371,6 +371,12 @@ struct GeminiService {
         }
 
         return try await runWithHostedQuota(.photoFood, skip: skipHostedMetering) {
+            if let onDevice = try await analyzeFoodWithAppleIntelligenceIfSelected(
+                images: [image],
+                description: description
+            ) {
+                return await addingFallbackServingUnits(to: onDevice, image: image, description: description)
+            }
             let text = try await callAI(prompt: prompt, image: image)
             let analysis = try parseFoodAnalysis(from: text)
             return await addingFallbackServingUnits(to: analysis, image: image, description: description)
@@ -428,6 +434,15 @@ struct GeminiService {
         let prompt = multiPhotoAnalysisPrompt(progressiveMeal: progressiveMeal, description: description)
 
         return try await runWithHostedQuota(.photoFood, skip: skipHostedMetering) {
+            if let onDevice = try await analyzeFoodWithAppleIntelligenceIfSelected(
+                images: images,
+                description: description,
+                progressiveMeal: progressiveMeal
+            ) {
+                var result = await addingFallbackServingUnits(to: onDevice, image: images[0], description: description)
+                result.progressiveMeal = progressiveMeal
+                return result
+            }
             let text = try await callAI(prompt: prompt, images: images)
             let analysis = try parseFoodAnalysis(from: text)
             var result = await addingFallbackServingUnits(to: analysis, image: images[0], description: description)
@@ -818,6 +833,28 @@ struct GeminiService {
         }
     }
 
+    private static func analyzeFoodWithAppleIntelligenceIfSelected(
+        images: [UIImage],
+        description: String?,
+        progressiveMeal: Bool = false
+    ) async throws -> FoodAnalysis? {
+        guard !AIModeSettings.isHosted else { return nil }
+        let primary = AIProviderSettings.currentConfig(requiresVision: true)
+        guard primary.provider == .appleIntelligence else { return nil }
+        #if canImport(FoundationModels)
+        if #available(iOS 27.0, *) {
+            var analysis = try await OnDeviceFoodService.analyzeImages(
+                images: images,
+                description: description,
+                progressiveMeal: progressiveMeal
+            )
+            analysis.progressiveMeal = progressiveMeal
+            return analysis
+        }
+        #endif
+        throw AnalysisError.requestFailed(.textOnly)
+    }
+
     private static func dispatchFoodAnalysis(
         provider: AIProvider,
         model: String,
@@ -955,7 +992,13 @@ struct GeminiService {
     private static func dispatch(provider: AIProvider, model: String, baseURL: String, apiKey: String?, prompt: String, imageDataList: [Data], jsonResponse: Bool = true) async throws -> String {
         switch provider.apiFormat {
         case .onDevice:
-            guard imageDataList.isEmpty else {
+            if !imageDataList.isEmpty {
+                #if canImport(FoundationModels)
+                if #available(iOS 27.0, *) {
+                    let analysis = try await OnDeviceFoodService.analyzeImages(imageDataList: imageDataList)
+                    return try jsonString(forOnDeviceFoodAnalysis: analysis)
+                }
+                #endif
                 throw AnalysisError.requestFailed(.textOnly)
             }
             #if canImport(FoundationModels)
@@ -1316,6 +1359,37 @@ struct GeminiService {
     }
 
     // MARK: - Parsing (unchanged)
+
+    /// Minimal JSON for `parseFoodAnalysis` after on-device structured generation.
+    private static func jsonString(forOnDeviceFoodAnalysis analysis: FoodAnalysis) throws -> String {
+        var json: [String: Any] = [
+            "name": analysis.name,
+            "calories": analysis.calories,
+            "protein": analysis.protein,
+            "carbs": analysis.carbs,
+            "fat": analysis.fat,
+            "serving_size_grams": analysis.servingSizeGrams,
+        ]
+        if let emoji = analysis.emoji { json["emoji"] = emoji }
+        func put(_ key: String, _ value: Double?) {
+            if let value { json[key] = value }
+        }
+        put("sugar", analysis.sugar)
+        put("fiber", analysis.fiber)
+        put("saturated_fat", analysis.saturatedFat)
+        put("sodium", analysis.sodium)
+        if let option = analysis.servingUnitOptions.first {
+            json["serving_unit_options"] = [[
+                "unit": option.unit,
+                "grams_per_unit": option.gramsPerUnit,
+            ]]
+        }
+        let data = try JSONSerialization.data(withJSONObject: json)
+        guard let string = String(data: data, encoding: .utf8) else {
+            throw AnalysisError.invalidResponse
+        }
+        return string
+    }
 
     private static func extractJSON(from text: String) -> String {
         var cleaned = text.trimmingCharacters(in: .whitespacesAndNewlines)

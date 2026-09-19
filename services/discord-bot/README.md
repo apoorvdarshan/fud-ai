@@ -9,7 +9,7 @@ Slash commands **`/ask`**, **`/bug`**, and **`/feature`** are handled by the mai
 - Endpoint: `https://fud-ai.app/api/discord/interactions`
 - Code: `web/discord-interactions.ts`
 - Secrets:
-  - `DISCORD_GEMINI_API_KEY` for `/ask` only (free-tier). Does **not** use `GEMINI_API_KEY` (hosted/billed).
+  - `DISCORD_GEMINI_API_KEY` for `/ask` replies and `/bug`/`/feature` issue drafting (free-tier). Does **not** use `GEMINI_API_KEY` (hosted/billed).
   - `GITHUB_TOKEN` for `/bug` and `/feature` issue creation (same Worker secret as star-history; needs `issues:write` on `apoorvdarshan/fud-ai`).
 - Vars in `web/wrangler.toml`: `DISCORD_PUBLIC_KEY`, `DISCORD_APPLICATION_ID`
 
@@ -32,8 +32,8 @@ node services/discord-bot/register-feature.mjs
 ```
 
 - **`/ask`** — `question` required.
-- **`/bug`** — `title`, `details` required; `device`, `app_version`, `platform` optional. Platform is inferred from the iOS (`1548481436129165353`) or Android (`1548481448024084540`) channel when omitted. Issues get labels `bug` plus `ios` or `android`.
-- **`/feature`** — `title`, `details` required; optional `platform` (`iOS` / `Android` / `both`). Platform is **not** inferred from channel. Issues get the `enhancement` label (same as the GitHub feature-request template). Works from any channel.
+- **`/bug`** — `report` required (one freeform field, same UX as `/ask`). The Worker uses `DISCORD_GEMINI_API_KEY` (free-tier, never `GEMINI_API_KEY`) to draft a title + body; if Gemini fails it still files using the first short line / clipped excerpt and the raw report. Platform is inferred from the iOS (`1548481436129165353`) or Android (`1548481448024084540`) channel. Issues get labels `bug` plus `ios` or `android`.
+- **`/feature`** — `report` required (same Gemini-then-fallback drafting). Platform is **not** inferred from channel. Issues get the `enhancement` label (same as the GitHub feature-request template). Works from any channel.
 
 ### Deploy Worker secrets + code
 
@@ -48,9 +48,9 @@ npx wrangler deploy
 
 In Discord: `/ask question: How do I add my Gemini key?`
 
-In Discord: `/bug title: Crash on save details: Steps…` (optional `device`, `app_version`, `platform`).
+In Discord: `/bug report: Crash on save when I tap the checkmark.`
 
-In Discord: `/feature title: Widget calories details: Show remaining calories on the home widget.` (optional `platform`).
+In Discord: `/feature report: Show remaining calories on the home widget.`
 
 ## Optional local gateway bot (`@mention`)
 

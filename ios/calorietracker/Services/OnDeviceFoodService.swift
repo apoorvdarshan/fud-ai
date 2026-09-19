@@ -50,6 +50,49 @@ struct OnDeviceAIService {
         let response = try await session.respond(to: prompt)
         return response.content.trimmingCharacters(in: .whitespacesAndNewlines)
     }
+
+    /// Free-form multimodal prompt. Used for nutrition labels, lab reports, and other
+    /// image workflows that must keep the caller's JSON shape.
+    @available(iOS 27.0, *)
+    static func respond(
+        to prompt: String,
+        images: [UIImage],
+        instructions: String? = nil
+    ) async throws -> String {
+        try requireAvailable()
+        guard !images.isEmpty else {
+            return try await respond(to: prompt, instructions: instructions)
+        }
+        let session = LanguageModelSession(instructions: instructions)
+        let response = try await session.respond {
+            prompt
+            for (index, image) in images.enumerated() {
+                if let cgImage = image.cgImage {
+                    Attachment(cgImage)
+                        .label("image-\(index)")
+                } else {
+                    Attachment(image)
+                        .label("image-\(index)")
+                }
+            }
+        }
+        return response.content.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
+    @available(iOS 27.0, *)
+    static func respond(
+        to prompt: String,
+        imageDataList: [Data],
+        instructions: String? = nil
+    ) async throws -> String {
+        let images = try imageDataList.map { data -> UIImage in
+            guard let image = UIImage(data: data) else {
+                throw OnDeviceAIError.unavailable("Could not read one of the photos.")
+            }
+            return image
+        }
+        return try await respond(to: prompt, images: images, instructions: instructions)
+    }
 }
 
 /// On-device food analysis using Apple Intelligence (iOS 26+, iPhone 15 Pro / iPhone 16+).

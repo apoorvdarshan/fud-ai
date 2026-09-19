@@ -162,6 +162,7 @@ struct WidgetSnapshot: Codable, Equatable {
                 WidgetNutrientValue(id: "protein", label: "Protein", shortLabel: "P", unit: "g", iconName: "fork.knife", value: 84, goal: 150),
                 WidgetNutrientValue(id: "carbs", label: "Carbs", shortLabel: "C", unit: "g", iconName: "leaf", value: 132, goal: 220),
                 WidgetNutrientValue(id: "fat", label: "Fat", shortLabel: "F", unit: "g", iconName: "drop.fill", value: 42, goal: 70),
+                WidgetNutrientValue(id: "fiber", label: "Fiber", shortLabel: "Fi", unit: "g", iconName: "leaf.fill", value: 18, goal: 30),
             ],
             waterTrackingEnabled: true,
             waterCurrentMl: 1_250,
@@ -182,6 +183,7 @@ struct WidgetSnapshot: Codable, Equatable {
                 WidgetNutrientValue(id: "protein", label: "Protein", shortLabel: "P", unit: "g", iconName: "fork.knife", value: 0, goal: 150),
                 WidgetNutrientValue(id: "carbs", label: "Carbs", shortLabel: "C", unit: "g", iconName: "leaf", value: 0, goal: 220),
                 WidgetNutrientValue(id: "fat", label: "Fat", shortLabel: "F", unit: "g", iconName: "drop.fill", value: 0, goal: 70),
+                WidgetNutrientValue(id: "fiber", label: "Fiber", shortLabel: "Fi", unit: "g", iconName: "leaf.fill", value: 0, goal: 30),
             ],
             waterTrackingEnabled: false,
             waterCurrentMl: 0,
@@ -272,6 +274,7 @@ struct WidgetSnapshot: Codable, Equatable {
             WidgetNutrientValue(id: "protein", label: "Protein", shortLabel: "P", unit: "g", iconName: "fork.knife", value: protein, goal: Double(proteinGoal)),
             WidgetNutrientValue(id: "carbs", label: "Carbs", shortLabel: "C", unit: "g", iconName: "leaf", value: carbs, goal: Double(carbsGoal)),
             WidgetNutrientValue(id: "fat", label: "Fat", shortLabel: "F", unit: "g", iconName: "drop.fill", value: fat, goal: Double(fatGoal)),
+            WidgetNutrientValue(id: "fiber", label: "Fiber", shortLabel: "Fi", unit: "g", iconName: "leaf.fill", value: 0, goal: 30),
         ]
     }
 

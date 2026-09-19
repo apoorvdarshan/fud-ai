@@ -19,6 +19,15 @@ class WidgetSnapshotWaterTest {
     }
 
     @Test
+    fun emptySnapshotWithoutSavedPicksIncludesFiber() {
+        val empty = WidgetSnapshot.empty()
+        assertEquals(listOf("protein", "carbs", "fat", "fiber"), empty.displayedHomeNutrients.map { it.id })
+
+        val stale = empty.copy(homeNutrients = null, waterTrackingEnabled = true, waterCurrentMl = 750)
+        assertEquals(listOf("protein", "carbs", "fat", "water"), stale.displayedHomeNutrients.map { it.id })
+    }
+
+    @Test
     fun savedFourthNutrientReturnsWhenTrackingIsDisabled() {
         val disabled = snapshot(waterEnabled = false)
 

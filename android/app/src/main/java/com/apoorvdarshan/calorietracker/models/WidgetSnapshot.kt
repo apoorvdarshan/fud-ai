@@ -70,22 +70,28 @@ data class WidgetSnapshot(
      * when tracking is enabled (widgets stay on a 4-slot layout).
      */
     val displayedHomeNutrients: List<WidgetNutrient> get() {
-        val selected = homeNutrients?.takeIf { it.isNotEmpty() } ?: listOf(
-            WidgetNutrient("protein", "Protein", "g", protein, proteinGoal.toDouble()),
-            WidgetNutrient("carbs", "Carbs", "g", carbs, carbsGoal.toDouble()),
-            WidgetNutrient("fat", "Fat", "g", fat, fatGoal.toDouble())
-        )
+        val selected = homeNutrients?.takeIf { it.isNotEmpty() } ?: defaultHomeNutrients
         val visible = selected.take(if (waterTrackingEnabled) 3 else 4)
         if (!waterTrackingEnabled) return visible
-        val water = WidgetNutrient(
+        return visible + waterHomeNutrient
+    }
+
+    private val defaultHomeNutrients: List<WidgetNutrient>
+        get() = listOf(
+            WidgetNutrient("protein", "Protein", "g", protein, proteinGoal.toDouble()),
+            WidgetNutrient("carbs", "Carbs", "g", carbs, carbsGoal.toDouble()),
+            WidgetNutrient("fat", "Fat", "g", fat, fatGoal.toDouble()),
+            WidgetNutrient("fiber", "Fiber", "g", 0.0, OptionalNutrientGoals.Default.fiber.toDouble())
+        )
+
+    private val waterHomeNutrient: WidgetNutrient
+        get() = WidgetNutrient(
             id = "water",
             label = "Water",
             unit = if (waterUnit == WaterUnit.FLUID_OUNCES) " fl oz" else "ml",
             value = waterUnit.displayAmount(waterCurrentMl),
             goal = waterUnit.displayAmount(waterGoalMl)
         )
-        return visible + water
-    }
 
     /** First selected nutrient — what the "Protein" widget actually tracks. */
     val primaryHomeNutrient: WidgetNutrient get() = displayedHomeNutrients.first()

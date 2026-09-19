@@ -336,7 +336,10 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
                     ) {
                         if (waitingForByokKey) {
                             Text(
-                                stringResource(R.string.onboarding_paste_api_key_helper),
+                                stringResource(
+                                    R.string.onboarding_paste_api_key_helper,
+                                    ui.aiProvider.apiKeyBrandName
+                                ),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.55f),
                                 textAlign = androidx.compose.ui.text.style.TextAlign.Center,
@@ -376,8 +379,8 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
     if (showMissingApiKey) {
         AlertDialog(
             onDismissRequest = { showMissingApiKey = false },
-            title = { Text(stringResource(R.string.onboarding_missing_api_key_title)) },
-            text = { Text(stringResource(R.string.onboarding_missing_api_key_message)) },
+            title = { Text(stringResource(R.string.onboarding_missing_api_key_title, ui.aiProvider.apiKeyBrandName)) },
+            text = { Text(stringResource(R.string.onboarding_missing_api_key_message, ui.aiProvider.apiKeyBrandName)) },
             confirmButton = {
                 TextButton(onClick = { showMissingApiKey = false }) {
                     Text(stringResource(R.string.action_ok), color = AppColors.Calorie)

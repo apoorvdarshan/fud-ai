@@ -366,12 +366,32 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
         }
     }
 
+    /// Short name used in “Paste X API key” hints (not the full picker label).
+    var apiKeyBrandName: String {
+        switch self {
+        case .gemini: "Gemini"
+        case .openai: "OpenAI"
+        case .anthropic: "Claude"
+        case .xai: "Grok"
+        case .openrouter: "OpenRouter"
+        case .togetherai: "Together AI"
+        case .groq: "Groq"
+        case .huggingface: "Hugging Face"
+        case .fireworks: "Fireworks"
+        case .deepinfra: "DeepInfra"
+        case .mistral: "Mistral"
+        case .deepseek: "DeepSeek"
+        case .cerebras: "Cerebras"
+        case .customOpenAI: "API"
+        case .appleIntelligence, .gemma4Local, .ollama: "API"
+        }
+    }
+
     var apiKeyPlaceholder: String {
         switch self {
         case .appleIntelligence, .gemma4Local, .ollama: "No key needed"
-        case .gemini: "Paste Gemini API key"
         case .customOpenAI: "API key (or anything if endpoint doesn't need one)"
-        default: "Paste API key"
+        default: "Paste \(apiKeyBrandName) API key"
         }
     }
 }

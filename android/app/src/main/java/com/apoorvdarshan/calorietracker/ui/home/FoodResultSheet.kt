@@ -122,8 +122,8 @@ fun FoodResultSheet(
     ) -> Unit,
     onDismiss: () -> Unit
 ) {
-    val thumbnails by produceState<List<Pair<Int, android.graphics.Bitmap>>>(
-        initialValue = emptyList(),
+    val thumbnails by produceState<List<Pair<Int, android.graphics.Bitmap>>?>(
+        initialValue = null,
         imageBytesList
     ) {
         value = withContext(Dispatchers.IO) {
@@ -230,7 +230,7 @@ fun FoodResultSheet(
             return@LaunchedEffect
         }
         viewerBitmaps = withContext(Dispatchers.IO) {
-            thumbnails.map { (sourceIndex, thumb) ->
+            (thumbnails ?: emptyList()).map { (sourceIndex, thumb) ->
                 FoodImageDecoder.decode(imageBytesList[sourceIndex], FoodImageStore.VIEWER_MAX_DIMENSION)
                     ?: thumb
             }
@@ -416,12 +416,13 @@ fun FoodResultSheet(
                     Modifier.fillMaxWidth().padding(vertical = 8.dp),
                     contentAlignment = Alignment.Center
                 ) {
-                    if (thumbnails.isNotEmpty()) {
+                    val loadedThumbs = thumbnails
+                    if (!loadedThumbs.isNullOrEmpty()) {
                         LazyRow(
                             horizontalArrangement = Arrangement.spacedBy(12.dp),
                             contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = 8.dp)
                         ) {
-                            itemsIndexed(thumbnails, key = { _, thumb -> thumb.first }) { index, (_, bitmap) ->
+                            itemsIndexed(loadedThumbs, key = { _, thumb -> thumb.first }) { index, (_, bitmap) ->
                                 Box {
                                     androidx.compose.foundation.Image(
                                         bitmap = bitmap.asImageBitmap(),
@@ -432,9 +433,9 @@ fun FoodResultSheet(
                                             .clip(RoundedCornerShape(20.dp))
                                             .clickable { previewPhotoIndex = index }
                                     )
-                                    if (thumbnails.size > 1) {
+                                    if (loadedThumbs.size > 1) {
                                         Text(
-                                            "${index + 1}/${thumbnails.size}",
+                                            "${index + 1}/${loadedThumbs.size}",
                                             color = Color.White,
                                             fontSize = 11.sp,
                                             fontWeight = FontWeight.SemiBold,
@@ -447,6 +448,16 @@ fun FoodResultSheet(
                                     }
                                 }
                             }
+                        }
+                    } else if (imageBytesList.isNotEmpty() && thumbnails == null) {
+                        Box(
+                            Modifier.size(240.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            CircularProgressIndicator(
+                                color = AppColors.Calorie,
+                                modifier = Modifier.size(36.dp)
+                            )
                         }
                     } else {
                         Text(analysis.emoji ?: "🍽", fontSize = 80.sp)

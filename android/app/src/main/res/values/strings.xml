@@ -149,19 +149,19 @@
     <string name="ai_provider_custom">Custom (OpenAI-compatible)</string>
 
     <!-- AI Provider API key placeholders -->
-    <string name="ai_key_placeholder_gemini">AIza…</string>
-    <string name="ai_key_placeholder_openai">sk-…</string>
-    <string name="ai_key_placeholder_anthropic">sk-ant-…</string>
-    <string name="ai_key_placeholder_xai">xai-…</string>
-    <string name="ai_key_placeholder_openrouter">sk-or-…</string>
-    <string name="ai_key_placeholder_together">…</string>
-    <string name="ai_key_placeholder_groq">gsk_…</string>
-    <string name="ai_key_placeholder_huggingface">hf_…</string>
-    <string name="ai_key_placeholder_fireworks">fw_…</string>
-    <string name="ai_key_placeholder_deepinfra">…</string>
-    <string name="ai_key_placeholder_mistral">…</string>
-    <string name="ai_key_placeholder_deepseek">sk-…</string>
-    <string name="ai_key_placeholder_cerebras">csk-…</string>
+    <string name="ai_key_placeholder_gemini">Paste Gemini API key</string>
+    <string name="ai_key_placeholder_openai">Paste API key</string>
+    <string name="ai_key_placeholder_anthropic">Paste API key</string>
+    <string name="ai_key_placeholder_xai">Paste API key</string>
+    <string name="ai_key_placeholder_openrouter">Paste API key</string>
+    <string name="ai_key_placeholder_together">Paste API key</string>
+    <string name="ai_key_placeholder_groq">Paste API key</string>
+    <string name="ai_key_placeholder_huggingface">Paste API key</string>
+    <string name="ai_key_placeholder_fireworks">Paste API key</string>
+    <string name="ai_key_placeholder_deepinfra">Paste API key</string>
+    <string name="ai_key_placeholder_mistral">Paste API key</string>
+    <string name="ai_key_placeholder_deepseek">Paste API key</string>
+    <string name="ai_key_placeholder_cerebras">Paste API key</string>
     <string name="ai_key_placeholder_local">No key needed</string>
     <string name="ai_key_placeholder_ollama">No key needed</string>
     <string name="ai_key_placeholder_custom">API key (or anything if endpoint doesn\'t need one)</string>
@@ -178,9 +178,9 @@
 
     <string name="speech_key_placeholder_native">Not needed</string>
     <string name="speech_key_placeholder_local">Not needed</string>
-    <string name="speech_key_placeholder_gemini">AIza…</string>
-    <string name="speech_key_placeholder_openai">sk-…</string>
-    <string name="speech_key_placeholder_groq">gsk_…</string>
+    <string name="speech_key_placeholder_gemini">Paste Gemini API key</string>
+    <string name="speech_key_placeholder_openai">Paste API key</string>
+    <string name="speech_key_placeholder_groq">Paste API key</string>
     <string name="speech_key_placeholder_mistral">Your Mistral API key</string>
     <string name="speech_key_placeholder_deepgram">Token your-deepgram-key</string>
     <string name="speech_key_placeholder_assemblyai">Your AssemblyAI key</string>
@@ -324,6 +324,9 @@
     <string name="onboarding_provider_step_2">Pick a provider and paste your key below</string>
     <string name="onboarding_provider_step_3">Paste your key — done</string>
     <string name="onboarding_provider_footer">13 providers supported. Your key stays on\nthis device, encrypted.</string>
+    <string name="onboarding_paste_api_key_helper">Paste your API key in the field above. The hint text is not a key.</string>
+    <string name="onboarding_missing_api_key_title">Paste your API key</string>
+    <string name="onboarding_missing_api_key_message">Continue needs a real key in the API Key field. The hint text is not a key — paste a Gemini key from aistudio.google.com/apikey.</string>
 
     <string name="onboarding_building_calories">Calories</string>
     <string name="onboarding_building_carbs">Carbs</string>

@@ -368,22 +368,10 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
 
     var apiKeyPlaceholder: String {
         switch self {
-        case .appleIntelligence, .gemma4Local: "No key needed"
-        case .gemini: "AIza..."
-        case .openai: "sk-..."
-        case .anthropic: "sk-ant-..."
-        case .xai: "xai-..."
-        case .openrouter: "sk-or-..."
-        case .togetherai: "..."
-        case .groq: "gsk_..."
-        case .huggingface: "hf_..."
-        case .fireworks: "fw_..."
-        case .deepinfra: "..."
-        case .mistral: "..."
-        case .deepseek: "sk-..."
-        case .cerebras: "csk-..."
-        case .ollama: "No key needed"
+        case .appleIntelligence, .gemma4Local, .ollama: "No key needed"
+        case .gemini: "Paste Gemini API key"
         case .customOpenAI: "API key (or anything if endpoint doesn't need one)"
+        default: "Paste API key"
         }
     }
 }

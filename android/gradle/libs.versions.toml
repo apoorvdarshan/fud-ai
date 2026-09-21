@@ -1,5 +1,5 @@
 [versions]
-agp = "9.4.0"
+agp = "9.4.1"
 kotlin = "2.4.10"
 coreKtx = "1.19.0"
 junit = "4.13.2"
@@ -27,7 +27,7 @@ mlkitBarcode = "17.3.0"
 vico = "3.3.1"
 splashscreen = "1.2.0"
 browser = "1.10.0"
-litertLm = "0.17.0"
+litertLm = "0.17.1"
 whisperAndroid = "1.0.0"
 
 [libraries]

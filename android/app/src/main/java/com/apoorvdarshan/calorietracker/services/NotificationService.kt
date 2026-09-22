@@ -405,13 +405,13 @@ class NotificationService(private val context: Context) {
 
 /**
  * When to remind users that Fud AI is live on Product Hunt: at the launch moment
- * (Sept 22, 2026, 12:01 AM Pacific), immediately if the user updates during launch
+ * (Sept 27, 2026, 12:01 AM Pacific), immediately if the user updates during launch
  * day, and never once that day has passed. Pure so the window logic is testable.
  */
 object ProductHuntLaunchReminder {
     val LAUNCH_ZONE: ZoneId = ZoneId.of("America/Los_Angeles")
     val LAUNCH_AT_MILLIS: Long =
-        ZonedDateTime.of(2026, 9, 22, 0, 1, 0, 0, LAUNCH_ZONE).toInstant().toEpochMilli()
+        ZonedDateTime.of(2026, 9, 27, 0, 1, 0, 0, LAUNCH_ZONE).toInstant().toEpochMilli()
     private const val LAUNCH_DAY_MILLIS = 24L * 60 * 60 * 1000
 
     sealed interface Plan {

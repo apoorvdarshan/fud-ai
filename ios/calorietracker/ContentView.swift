@@ -896,6 +896,8 @@ struct HomeView: View {
     }
     @State private var activeSheet: ActiveSheet?
     @State private var foodLogPhase: FoodLogPhase = .result
+    /// Bumped to drop a delayed log handoff if another destination starts in the 0.4s gap.
+    @State private var loggingHandoffGeneration = 0
     @State private var editingEntry: FoodEntry?
     @State private var pendingDiaryDeletion: DiaryDeletion?
 
@@ -1211,6 +1213,7 @@ private var dailyStepsTaskKey: String {
     /// The first presentation skips animation so cold setup cannot stretch the handoff;
     /// later selections retain the short transition that already feels responsive.
     private func presentFoodDestination(_ updates: @escaping () -> Void) {
+        cancelPendingLoggingHandoff()
         let shouldAnimate = hasPresentedFoodDestination
         hasPresentedFoodDestination = true
 
@@ -1630,7 +1633,9 @@ private var dailyStepsTaskKey: String {
                                     currentImages = []
                                     currentEmoji = nil
                                     currentFoodSource = .textInput
-                                    startTextAnalysis(description)
+                                    afterLoggingPresentationDismisses {
+                                        startTextAnalysis(description)
+                                    }
                                 }
                             )
                             .presentationCompactAdaptation(.popover)
@@ -1646,7 +1651,9 @@ private var dailyStepsTaskKey: String {
                                     currentImages = []
                                     currentEmoji = nil
                                     currentFoodSource = .textInput
-                                    startTextAnalysis(description)
+                                    afterLoggingPresentationDismisses {
+                                        startTextAnalysis(description)
+                                    }
                                 }
                             )
                             .presentationCompactAdaptation(.popover)
@@ -1682,7 +1689,9 @@ private var dailyStepsTaskKey: String {
                 BarcodeScannerView(
                     onScan: { barcode in
                         showBarcodeScanner = false
-                        startBarcodeLookup(barcode)
+                        afterLoggingPresentationDismisses {
+                            startBarcodeLookup(barcode)
+                        }
                     },
                     onCancel: {
                         showBarcodeScanner = false
@@ -1863,52 +1872,54 @@ private var dailyStepsTaskKey: String {
             }
             .sheet(item: $savedMealsMode, content: { mode in
                 RecentsView(mode: mode, logDate: logDateForSelectedDay, onReview: { entry in
-                    currentImages = entry.allImageData.compactMap(UIImage.init(data:))
-                    currentImage = currentImages.first
-                    currentEmoji = entry.emoji
-                    currentFoodSource = entry.source
-                    currentFoodResult = GeminiService.FoodAnalysis(
-                        name: entry.name,
-                        calories: entry.calories,
-                        protein: entry.protein,
-                        carbs: entry.carbs,
-                        fat: entry.fat,
-                        servingSizeGrams: entry.reviewServingReference,
-                        emoji: entry.emoji,
-                        sugar: entry.sugar,
-                        addedSugar: entry.addedSugar,
-                        fiber: entry.fiber,
-                        saturatedFat: entry.saturatedFat,
-                        monounsaturatedFat: entry.monounsaturatedFat,
-                        polyunsaturatedFat: entry.polyunsaturatedFat,
-                        cholesterol: entry.cholesterol,
-                        caffeine: entry.caffeine,
-                        supplementalNutrients: entry.supplementalNutrients,
-                        sodium: entry.sodium,
-                        potassium: entry.potassium,
-                        transFat: entry.transFat,
-                        calcium: entry.calcium,
-                        iron: entry.iron,
-                        magnesium: entry.magnesium,
-                        zinc: entry.zinc,
-                        vitaminA: entry.vitaminA,
-                        vitaminC: entry.vitaminC,
-                        vitaminD: entry.vitaminD,
-                        vitaminB12: entry.vitaminB12,
-                        vitaminE: entry.vitaminE,
-                        vitaminK: entry.vitaminK,
-                        folate: entry.folate,
-                        omega3: entry.omega3,
-                        servingUnitOptions: entry.reviewServingUnitOptions,
-                        selectedServingUnit: entry.reviewSelectedServingUnit,
-                        selectedServingQuantity: entry.reviewSelectedServingQuantity,
-                        servingSizeIsKnown: entry.hasKnownServingSize,
-                        progressiveMeal: entry.progressiveMeal,
-                        ingredients: entry.ingredients,
-                        productMetadata: entry.productMetadata
-                    )
-                    foodLogPhase = .result
-                    activeSheet = .foodResult
+                    afterLoggingPresentationDismisses {
+                        currentImages = entry.allImageData.compactMap(UIImage.init(data:))
+                        currentImage = currentImages.first
+                        currentEmoji = entry.emoji
+                        currentFoodSource = entry.source
+                        currentFoodResult = GeminiService.FoodAnalysis(
+                            name: entry.name,
+                            calories: entry.calories,
+                            protein: entry.protein,
+                            carbs: entry.carbs,
+                            fat: entry.fat,
+                            servingSizeGrams: entry.reviewServingReference,
+                            emoji: entry.emoji,
+                            sugar: entry.sugar,
+                            addedSugar: entry.addedSugar,
+                            fiber: entry.fiber,
+                            saturatedFat: entry.saturatedFat,
+                            monounsaturatedFat: entry.monounsaturatedFat,
+                            polyunsaturatedFat: entry.polyunsaturatedFat,
+                            cholesterol: entry.cholesterol,
+                            caffeine: entry.caffeine,
+                            supplementalNutrients: entry.supplementalNutrients,
+                            sodium: entry.sodium,
+                            potassium: entry.potassium,
+                            transFat: entry.transFat,
+                            calcium: entry.calcium,
+                            iron: entry.iron,
+                            magnesium: entry.magnesium,
+                            zinc: entry.zinc,
+                            vitaminA: entry.vitaminA,
+                            vitaminC: entry.vitaminC,
+                            vitaminD: entry.vitaminD,
+                            vitaminB12: entry.vitaminB12,
+                            vitaminE: entry.vitaminE,
+                            vitaminK: entry.vitaminK,
+                            folate: entry.folate,
+                            omega3: entry.omega3,
+                            servingUnitOptions: entry.reviewServingUnitOptions,
+                            selectedServingUnit: entry.reviewSelectedServingUnit,
+                            selectedServingQuantity: entry.reviewSelectedServingQuantity,
+                            servingSizeIsKnown: entry.hasKnownServingSize,
+                            progressiveMeal: entry.progressiveMeal,
+                            ingredients: entry.ingredients,
+                            productMetadata: entry.productMetadata
+                        )
+                        foodLogPhase = .result
+                        activeSheet = .foodResult
+                    }
                 })
             })
             .sheet(isPresented: $showCopyFromDaySheet) {
@@ -2233,6 +2244,7 @@ private var dailyStepsTaskKey: String {
         guard canBeginFoodLogging() else { return }
         guard let image = ShareImportManager.consumeSharedImage() else { return }
         
+        cancelPendingLoggingHandoff()
         // Force dismiss any currently open sheets to prevent SwiftUI from swallowing the new presentation
         activeSheet = nil
         
@@ -2305,6 +2317,7 @@ private var dailyStepsTaskKey: String {
     /// Cancel button on the analyzing sheet. Cancels the task (which also cancels the underlying
     /// URLSession request), dismisses the sheet, and drops the retry request so no error alert follows.
     private func cancelAnalysis() {
+        cancelPendingLoggingHandoff()
         analysisTask?.cancel()
         analysisTask = nil
         retryRequest = nil
@@ -2312,6 +2325,23 @@ private var dailyStepsTaskKey: String {
             activeSheet = nil
         }
         foodLogPhase = .result
+    }
+
+    /// Wait for a popover, full-screen cover, or saved-meals sheet to finish dismissing
+    /// before presenting the food-log sheet (Analyzing / Review Food).
+    @MainActor
+    private func afterLoggingPresentationDismisses(_ action: @escaping () -> Void) {
+        loggingHandoffGeneration += 1
+        let token = loggingHandoffGeneration
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            guard token == loggingHandoffGeneration else { return }
+            action()
+        }
+    }
+
+    @MainActor
+    private func cancelPendingLoggingHandoff() {
+        loggingHandoffGeneration += 1
     }
 
     @MainActor
@@ -5202,6 +5232,10 @@ struct ProfileView: View {
                             customBaseURL = AIProviderSettings.customBaseURL(for: newProvider) ?? ""
                         }
 
+                        if selectedProvider == .appleIntelligence {
+                            appleIntelligenceAvailabilityRow
+                        }
+
                         if selectedProvider.supportsCustomModelName {
                             // Free-form TextField for any model ID, with optional preset suggestions menu
                             // (e.g., OpenRouter has presets but lets user type any of openrouter.ai/models).
@@ -5618,6 +5652,10 @@ struct ProfileView: View {
                             .id("image-fallback-provider-\(localModelAvailabilityRevision)")
                             .onChange(of: selectedFallbackProvider) { _, newProvider in
                                 selectFallbackProvider(newProvider)
+                            }
+
+                            if selectedFallbackProvider == .appleIntelligence {
+                                appleIntelligenceAvailabilityRow
                             }
 
                             if selectedFallbackProvider.supportsCustomModelName {

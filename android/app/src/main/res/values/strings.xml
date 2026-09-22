@@ -683,6 +683,9 @@
     <string name="settings_appearance_system">System</string>
     <string name="settings_appearance_light">Light</string>
     <string name="settings_appearance_dark">Dark</string>
+    <string name="settings_app_language">Language</string>
+    <string name="settings_app_language_system">System default</string>
+    <string name="sheet_app_language">Language</string>
     <string name="settings_theme_color">Theme Color</string>
     <string name="sheet_theme_color">Theme Color</string>
     <string name="sheet_theme_color_footer">Changes the main app color used for tabs, buttons, icons, charts, and progress rings.</string>
@@ -1318,6 +1321,7 @@
     <string name="settings_add_menu_reset">Reset to Default</string>
     <string name="settings_add_menu_footer">Customize the Home + button food menu. Water and fasting stay separate when enabled. This does not change app-icon Quick Actions.</string>
     <string name="settings_add_menu_add_method">Add Method</string>
+    <string name="settings_add_menu_restore_a11y">Restore %1$s</string>
     <string name="settings_add_menu_group_name">Group Name</string>
     <string name="settings_add_menu_new_group">New Group</string>
     <string name="settings_quick_actions">Quick Actions</string>

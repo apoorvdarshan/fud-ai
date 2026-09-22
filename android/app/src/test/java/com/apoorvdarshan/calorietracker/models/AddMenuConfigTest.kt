@@ -77,4 +77,59 @@ class AddMenuConfigTest {
         val config = AddMenuConfig.decode(raw)
         assertEquals(listOf("camera", "voice"), config.groups.single().methods)
     }
+
+    @Test
+    fun restoreHiddenMethodAppendsToFlatLayout() {
+        val config = AddMenuConfig(
+            groups = emptyList(),
+            flatMethods = listOf("camera", "text")
+        )
+        val restored = config.withRestoredMethod(FoodLogMethod.VOICE)
+        assertTrue(restored.usesFlatLayout)
+        assertEquals(
+            listOf(FoodLogMethod.CAMERA, FoodLogMethod.TEXT, FoodLogMethod.VOICE),
+            restored.resolvedFlatMethods()
+        )
+    }
+
+    @Test
+    fun restoreHiddenMethodAddsToLastGroup() {
+        val config = AddMenuConfig(
+            groups = listOf(
+                AddMenuGroupConfig(id = "g1", name = "Scan", methods = listOf("camera")),
+                AddMenuGroupConfig(id = "g2", name = "Type", methods = listOf("text"))
+            )
+        )
+        val restored = config.withRestoredMethod(FoodLogMethod.VOICE)
+        assertEquals(listOf("camera"), restored.groups[0].methods)
+        assertEquals(listOf("text", "voice"), restored.groups[1].methods)
+        assertEquals("g1", restored.groups[0].id)
+        assertEquals("g2", restored.groups[1].id)
+    }
+
+    @Test
+    fun restoreHiddenMethodAddsToFirstNonEmptyGroupWhenLastIsEmpty() {
+        val config = AddMenuConfig(
+            groups = listOf(
+                AddMenuGroupConfig(id = "g1", name = "Scan", methods = listOf("camera")),
+                AddMenuGroupConfig(id = "g2", name = "Empty", methods = emptyList())
+            )
+        )
+        val restored = config.withRestoredMethod(FoodLogMethod.VOICE)
+        assertEquals(listOf("camera", "voice"), restored.groups.single().methods)
+        assertEquals("g1", restored.groups.single().id)
+    }
+
+    @Test
+    fun restoreHiddenMethodHonorsExplicitGroupIndex() {
+        val config = AddMenuConfig(
+            groups = listOf(
+                AddMenuGroupConfig(id = "g1", name = "Scan", methods = listOf("camera")),
+                AddMenuGroupConfig(id = "g2", name = "Type", methods = listOf("text"))
+            )
+        )
+        val restored = config.withRestoredMethod(FoodLogMethod.VOICE, groupIndex = 0)
+        assertEquals(listOf("camera", "voice"), restored.groups[0].methods)
+        assertEquals(listOf("text"), restored.groups[1].methods)
+    }
 }

@@ -109,9 +109,10 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
         switch self {
         case .appleIntelligence:
             if #available(iOS 27.0, *) {
-                return true
+                true
+            } else {
+                false
             }
-            return false
         case .deepseek, .cerebras:
             false
         default:
@@ -192,9 +193,10 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
         switch self {
         case .appleIntelligence:
             if #available(iOS 27.0, *) {
-                return ["System Language Model"]
+                ["System Language Model"]
+            } else {
+                [String]()
             }
-            return []
         case .gemma4Local: [Gemma4LocalModelManager.modelID]
         case .gemini: [
             "gemini-3.5-flash-lite",         // vision, cheapest current stable model (default)

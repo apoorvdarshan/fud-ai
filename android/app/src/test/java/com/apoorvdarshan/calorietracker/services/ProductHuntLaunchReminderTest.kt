@@ -9,8 +9,8 @@ class ProductHuntLaunchReminderTest {
     private val hour = 60L * 60 * 1000
 
     @Test
-    fun `launch moment is Sept 22 2026 12 01 AM Pacific`() {
-        val expected = ZonedDateTime.of(2026, 9, 22, 0, 1, 0, 0, ProductHuntLaunchReminder.LAUNCH_ZONE)
+    fun `launch moment is Sept 27 2026 12 01 AM Pacific`() {
+        val expected = ZonedDateTime.of(2026, 9, 27, 0, 1, 0, 0, ProductHuntLaunchReminder.LAUNCH_ZONE)
         assertEquals(expected.toInstant().toEpochMilli(), launch)
     }
 

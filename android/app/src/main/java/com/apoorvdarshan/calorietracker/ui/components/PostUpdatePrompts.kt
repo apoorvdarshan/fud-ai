@@ -42,6 +42,7 @@ import androidx.compose.ui.unit.dp
 import com.apoorvdarshan.calorietracker.AppContainer
 import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.models.FudAILinks
+import com.apoorvdarshan.calorietracker.services.ProductHuntLaunchReminder
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
@@ -49,16 +50,19 @@ import kotlinx.coroutines.launch
 
 /**
  * One-time prompts for *existing* users the first time they open the app after
- * updating. Android shows Meet the developer, then arms the Product Hunt launch
- * reminder. Hosted Plus/Pro upsell stays iOS-only (billing is iPhone-first).
+ * updating. Android shows Meet the developer, then a Product Hunt vote sheet
+ * during the launch day, then arms the launch reminder. Hosted Plus/Pro upsell
+ * stays iOS-only (billing is iPhone-first).
  * Fresh installs never qualify — onboarding marks prompts as seen
  * (see PreferencesStore.setOnboardingCompleted).
  */
 @Composable
 fun PostUpdatePromptsHost(container: AppContainer, enabled: Boolean) {
     val prefs = container.prefs
+    val context = LocalContext.current
     val scope = rememberCoroutineScope()
     var showMeetDeveloper by remember { mutableStateOf(false) }
+    var showProductHuntLaunch by remember { mutableStateOf(false) }
 
     suspend fun armProductHuntReminder(): Boolean =
         container.notifications.scheduleProductHuntLaunchReminderIfNeeded(prefs)
@@ -83,9 +87,20 @@ fun PostUpdatePromptsHost(container: AppContainer, enabled: Boolean) {
         }
     }
 
+    suspend fun continueToProductHuntLaunch() {
+        if (prefs.hasSeenProductHuntLaunchPrompt.first() ||
+            ProductHuntLaunchReminder.plan(System.currentTimeMillis()) != ProductHuntLaunchReminder.Plan.FireNow
+        ) {
+            finishFlow()
+            return
+        }
+        delay(400)
+        showProductHuntLaunch = true
+    }
+
     suspend fun continueToMeetDeveloper(delayMillis: Long) {
         if (prefs.hasSeenMeetDeveloperPrompt.first()) {
-            finishFlow()
+            continueToProductHuntLaunch()
             return
         }
         delay(delayMillis)
@@ -112,9 +127,50 @@ fun PostUpdatePromptsHost(container: AppContainer, enabled: Boolean) {
                 showMeetDeveloper = false
                 scope.launch {
                     prefs.setHasSeenMeetDeveloperPrompt(true)
+                    continueToProductHuntLaunch()
+                }
+            }
+        )
+    }
+    if (showProductHuntLaunch) {
+        ProductHuntLaunchDialog(
+            onVote = {
+                showProductHuntLaunch = false
+                scope.launch {
+                    prefs.setHasSeenProductHuntLaunchPrompt(true)
+                    context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(FudAILinks.PRODUCT_HUNT)))
+                    finishFlow()
+                }
+            },
+            onNotNow = {
+                showProductHuntLaunch = false
+                scope.launch {
+                    prefs.setHasSeenProductHuntLaunchPrompt(true)
                     finishFlow()
                 }
             }
+        )
+    }
+}
+
+@Composable
+private fun ProductHuntLaunchDialog(onVote: () -> Unit, onNotNow: () -> Unit) {
+    FudGlassDialog(onDismissRequest = {}) {
+        Text(
+            text = stringResource(R.string.post_update_product_hunt_title),
+            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.Bold
+        )
+        Text(
+            text = stringResource(R.string.post_update_product_hunt_body),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f)
+        )
+        FudGlassDialogActions(
+            primaryText = stringResource(R.string.about_vote_ph),
+            onPrimary = onVote,
+            dismissText = stringResource(R.string.post_update_product_hunt_not_now),
+            onDismiss = onNotNow
         )
     }
 }

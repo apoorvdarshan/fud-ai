@@ -17,6 +17,8 @@ enum PostUpdatePrompts {
     static let hostedUpsellSeenKey = "hasSeenHostedUpsellPrompt"
     /// Named "completed" (not "seen") so only Done counts — opening Instagram must not consume it.
     static let meetDeveloperSeenKey = "hasCompletedMeetDeveloperPrompt"
+    /// Separate from Meet the developer so people who already tapped Done still get the launch-day sheet.
+    static let productHuntLaunchPromptSeenKey = "hasSeenProductHuntLaunchPrompt.2026-09-27"
 
     static var hasSeenHostedUpsell: Bool {
         get { UserDefaults.standard.bool(forKey: hostedUpsellSeenKey) }
@@ -26,6 +28,11 @@ enum PostUpdatePrompts {
     static var hasSeenMeetDeveloper: Bool {
         get { UserDefaults.standard.bool(forKey: meetDeveloperSeenKey) }
         set { UserDefaults.standard.set(newValue, forKey: meetDeveloperSeenKey) }
+    }
+
+    static var hasSeenProductHuntLaunchPrompt: Bool {
+        get { UserDefaults.standard.bool(forKey: productHuntLaunchPromptSeenKey) }
+        set { UserDefaults.standard.set(newValue, forKey: productHuntLaunchPromptSeenKey) }
     }
 
     /// Called when onboarding completes so a brand-new user is never treated as
@@ -108,5 +115,46 @@ struct MeetDeveloperSheet: View {
             }
         }
         .tint(.primary)
+    }
+}
+
+/// One-time launch-day sheet. Shows during the Product Hunt window even if Meet the developer was already dismissed.
+struct ProductHuntLaunchSheet: View {
+    var onVote: () -> Void
+    var onNotNow: () -> Void
+    @Environment(\.openURL) private var openURL
+
+    var body: some View {
+        VStack(spacing: 16) {
+            Image("onboardingLogo")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 56, height: 56)
+                .accessibilityHidden(true)
+            Text("Fud AI is live on Product Hunt")
+                .font(.system(.title3, design: .rounded, weight: .bold))
+                .multilineTextAlignment(.center)
+            Text("We just launched. A vote helps more people find Fud AI.")
+                .font(.system(.subheadline, design: .rounded))
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+            Button {
+                openURL(FudAILinks.productHunt)
+                onVote()
+            } label: {
+                Text("Vote on Product Hunt")
+                    .font(.system(.body, design: .rounded, weight: .semibold))
+                    .foregroundStyle(.white)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 50)
+                    .background(AppColors.calorie, in: RoundedRectangle(cornerRadius: 14))
+            }
+            Button("Not now", action: onNotNow)
+                .font(.system(.body, design: .rounded, weight: .semibold))
+                .foregroundStyle(.secondary)
+        }
+        .padding(24)
+        .presentationDetents([.medium])
+        .interactiveDismissDisabled()
     }
 }

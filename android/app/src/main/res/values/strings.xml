@@ -1247,6 +1247,9 @@
     <string name="post_update_hosted_android_title">Hosted AI is coming to Android</string>
     <string name="post_update_hosted_android_body">Plus and Pro hosted plans are live on iPhone first; Android is next. Until then nothing changes here — BYOK stays free forever, and you can keep using your own keys exactly as you do today.</string>
     <string name="post_update_hosted_android_got_it">Got it</string>
+    <string name="post_update_product_hunt_title">Fud AI is live on Product Hunt</string>
+    <string name="post_update_product_hunt_body">We just launched. A vote helps more people find Fud AI.</string>
+    <string name="post_update_product_hunt_not_now">Not now</string>
     <string name="post_update_meet_dev_title">Meet the developer</string>
     <string name="post_update_meet_dev_greeting">Hi, I\'m Apoorv 👋</string>
     <string name="post_update_meet_dev_body">I build Fud AI on my own, in the open. Come say hi, share feedback, or just follow along — it genuinely helps.</string>

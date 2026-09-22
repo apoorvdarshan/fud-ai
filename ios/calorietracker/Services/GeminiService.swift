@@ -371,6 +371,12 @@ struct GeminiService {
         }
 
         return try await runWithHostedQuota(.photoFood, skip: skipHostedMetering) {
+            if let onDevice = try await analyzeFoodWithAppleIntelligenceIfSelected(
+                images: [image],
+                description: description
+            ) {
+                return await addingFallbackServingUnits(to: onDevice, image: image, description: description)
+            }
             let text = try await callAI(prompt: prompt, image: image)
             let analysis = try parseFoodAnalysis(from: text)
             return await addingFallbackServingUnits(to: analysis, image: image, description: description)
@@ -428,6 +434,15 @@ struct GeminiService {
         let prompt = multiPhotoAnalysisPrompt(progressiveMeal: progressiveMeal, description: description)
 
         return try await runWithHostedQuota(.photoFood, skip: skipHostedMetering) {
+            if let onDevice = try await analyzeFoodWithAppleIntelligenceIfSelected(
+                images: images,
+                description: description,
+                progressiveMeal: progressiveMeal
+            ) {
+                var result = await addingFallbackServingUnits(to: onDevice, image: images[0], description: description)
+                result.progressiveMeal = progressiveMeal
+                return result
+            }
             let text = try await callAI(prompt: prompt, images: images)
             let analysis = try parseFoodAnalysis(from: text)
             var result = await addingFallbackServingUnits(to: analysis, image: images[0], description: description)
@@ -818,6 +833,35 @@ struct GeminiService {
         }
     }
 
+    private static func analyzeFoodWithAppleIntelligenceIfSelected(
+        images: [UIImage],
+        description: String?,
+        progressiveMeal: Bool = false
+    ) async throws -> FoodAnalysis? {
+        guard !AIModeSettings.isHosted else { return nil }
+        let primary = AIProviderSettings.currentConfig(requiresVision: true)
+        guard primary.provider == .appleIntelligence else { return nil }
+        #if canImport(FoundationModels)
+        if #available(iOS 27.0, *) {
+            do {
+                var analysis = try await OnDeviceFoodService.analyzeImages(
+                    images: images,
+                    description: description,
+                    progressiveMeal: progressiveMeal
+                )
+                analysis.progressiveMeal = progressiveMeal
+                return analysis
+            } catch is CancellationError {
+                throw CancellationError()
+            } catch {
+                // Let callAI retry / use the configured image fallback.
+                return nil
+            }
+        }
+        #endif
+        return nil
+    }
+
     private static func dispatchFoodAnalysis(
         provider: AIProvider,
         model: String,
@@ -955,7 +999,16 @@ struct GeminiService {
     private static func dispatch(provider: AIProvider, model: String, baseURL: String, apiKey: String?, prompt: String, imageDataList: [Data], jsonResponse: Bool = true) async throws -> String {
         switch provider.apiFormat {
         case .onDevice:
-            guard imageDataList.isEmpty else {
+            if !imageDataList.isEmpty {
+                #if canImport(FoundationModels)
+                if #available(iOS 27.0, *) {
+                    return try await OnDeviceAIService.respond(
+                        to: prompt,
+                        imageDataList: imageDataList,
+                        instructions: AIProviderSettings.currentUserContext
+                    )
+                }
+                #endif
                 throw AnalysisError.requestFailed(.textOnly)
             }
             #if canImport(FoundationModels)

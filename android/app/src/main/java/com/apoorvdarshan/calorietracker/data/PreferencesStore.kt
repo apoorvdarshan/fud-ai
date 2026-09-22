@@ -228,6 +228,12 @@ class PreferencesStore(
     val hasSeenMeetDeveloperPrompt: Flow<Boolean> = ds.data.map { it[Keys.HAS_SEEN_MEET_DEVELOPER_PROMPT] ?: false }
     suspend fun setHasSeenMeetDeveloperPrompt(v: Boolean) { ds.edit { it[Keys.HAS_SEEN_MEET_DEVELOPER_PROMPT] = v } }
 
+    val hasSeenProductHuntLaunchPrompt: Flow<Boolean> =
+        ds.data.map { it[Keys.HAS_SEEN_PRODUCT_HUNT_LAUNCH_PROMPT] ?: false }
+    suspend fun setHasSeenProductHuntLaunchPrompt(v: Boolean) {
+        ds.edit { it[Keys.HAS_SEEN_PRODUCT_HUNT_LAUNCH_PROMPT] = v }
+    }
+
     val productHuntLaunchNotificationScheduled: Flow<Boolean> =
         ds.data.map { it[Keys.PRODUCT_HUNT_LAUNCH_NOTIFICATION_SCHEDULED] ?: false }
     suspend fun setProductHuntLaunchNotificationScheduled(v: Boolean) {
@@ -1397,6 +1403,7 @@ class PreferencesStore(
         val REVIEW_PROMPTED_AFTER_FIRST_LOG = booleanPreferencesKey("reviewPromptedAfterFirstLog")
         val HAS_SEEN_HOSTED_UPSELL_PROMPT = booleanPreferencesKey("hasSeenHostedUpsellPrompt")
         val HAS_SEEN_MEET_DEVELOPER_PROMPT = booleanPreferencesKey("hasCompletedMeetDeveloperPrompt")
+        val HAS_SEEN_PRODUCT_HUNT_LAUNCH_PROMPT = booleanPreferencesKey("hasSeenProductHuntLaunchPrompt.2026-09-27")
         val PRODUCT_HUNT_LAUNCH_NOTIFICATION_SCHEDULED = booleanPreferencesKey("productHuntLaunchNotificationScheduled.2026-09-27")
         val ADAPTIVE_GOALS_PREVIOUS_TARGETS = stringPreferencesKey("adaptiveGoalsPreviousTargets")
         val ADAPTIVE_GOALS_LAST_CHECK_DAY = stringPreferencesKey("adaptiveGoalsLastCheckDay")

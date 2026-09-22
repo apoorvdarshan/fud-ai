@@ -125,6 +125,7 @@ struct ContentView: View {
     @State private var showHostedUpsellPrompt = false
     @State private var showHostedUpsellPaywall = false
     @State private var showMeetDeveloperPrompt = false
+    @State private var showProductHuntLaunchPrompt = false
 
     private var workoutsTabIcon: String {
         WorkoutTabMode.mode(for: workoutTabModeRaw).tabIcon
@@ -155,7 +156,7 @@ struct ContentView: View {
                 // Done marks the prompt seen before dismiss. Anything else (system
                 // tear-down after opening Instagram, etc.) must bring it back.
                 if PostUpdatePrompts.hasSeenMeetDeveloper {
-                    scheduleProductHuntLaunchReminder()
+                    continueToProductHuntLaunchPrompt()
                 } else {
                     DispatchQueue.main.async {
                         showMeetDeveloperPrompt = true
@@ -166,6 +167,18 @@ struct ContentView: View {
                     PostUpdatePrompts.hasSeenMeetDeveloper = true
                     showMeetDeveloperPrompt = false
                 }
+            }
+            .sheet(isPresented: $showProductHuntLaunchPrompt) {
+                ProductHuntLaunchSheet(
+                    onVote: {
+                        PostUpdatePrompts.hasSeenProductHuntLaunchPrompt = true
+                        showProductHuntLaunchPrompt = false
+                    },
+                    onNotNow: {
+                        PostUpdatePrompts.hasSeenProductHuntLaunchPrompt = true
+                        showProductHuntLaunchPrompt = false
+                    }
+                )
             }
             .onReceive(NotificationCenter.default.publisher(for: .quickActionRequested)) { _ in
                 consumePendingLaunchRoutes()
@@ -272,10 +285,9 @@ struct ContentView: View {
 
     // MARK: - Post-update prompts (existing users, one-time)
 
-    /// Sequence: hosted upsell (if eligible) → meet the developer → arm the Product Hunt
-    /// launch reminder. Never stacks two dialogs; each step advances from the previous one's
-    /// dismiss handler. Hosted upsell is marked seen when shown; meet-the-developer is marked
-    /// seen only on Done so opening Instagram/X and coming back keeps the sheet up.
+    /// Sequence: hosted upsell (if eligible) → meet the developer → Product Hunt launch sheet
+    /// (only during the launch day) → arm the launch reminder. Never stacks two dialogs.
+    /// Hosted upsell is marked seen when shown; meet-the-developer is marked seen only on Done.
     @MainActor
     private func runPostUpdatePromptsIfNeeded() async {
         // Let the first frame and any launch route (quick action / deep link) settle first.
@@ -309,7 +321,7 @@ struct ContentView: View {
 
     private func continueToMeetDeveloperPrompt(delay: Double) {
         guard !PostUpdatePrompts.hasSeenMeetDeveloper else {
-            scheduleProductHuntLaunchReminder()
+            continueToProductHuntLaunchPrompt()
             return
         }
         Task { @MainActor in
@@ -320,6 +332,18 @@ struct ContentView: View {
 
     private func scheduleProductHuntLaunchReminder() {
         Task { await notificationManager.scheduleProductHuntLaunchReminderIfNeeded() }
+    }
+
+    /// Shows the vote sheet once during the 24-hour launch window, then arms the notification.
+    /// Before or after that window it only arms the notification.
+    private func continueToProductHuntLaunchPrompt() {
+        scheduleProductHuntLaunchReminder()
+        guard !PostUpdatePrompts.hasSeenProductHuntLaunchPrompt else { return }
+        guard NotificationManager.productHuntLaunchPlan(now: .now) == .fireNow else { return }
+        Task { @MainActor in
+            try? await Task.sleep(for: .milliseconds(400))
+            showProductHuntLaunchPrompt = true
+        }
     }
 }
 

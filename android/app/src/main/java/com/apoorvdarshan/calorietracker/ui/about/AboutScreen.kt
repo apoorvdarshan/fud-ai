@@ -225,12 +225,20 @@ fun AboutSettingsRows(category: AboutSettingsCategory) {
             }
 
             AboutSettingsCategory.HELP_FEEDBACK -> {
-                AboutRow(Icons.Filled.BugReport, stringResource(R.string.about_report_issue)) {
+                AboutRow(Icons.Filled.BugReport, stringResource(R.string.about_report_issue_github)) {
                     openGithubIssueForm("https://github.com/apoorvdarshan/fud-ai/issues/new?template=bug_report.yml")
                 }
                 Hairline()
-                AboutRow(Icons.Filled.Lightbulb, stringResource(R.string.about_request_feature)) {
+                AboutRow(Icons.Filled.Forum, stringResource(R.string.about_report_issue_discord)) {
+                    open(FudAILinks.DISCORD)
+                }
+                Hairline()
+                AboutRow(Icons.Filled.Lightbulb, stringResource(R.string.about_request_feature_github)) {
                     openGithubIssueForm("https://github.com/apoorvdarshan/fud-ai/issues/new?template=feature_request.yml")
+                }
+                Hairline()
+                AboutRow(Icons.Filled.Forum, stringResource(R.string.about_request_feature_discord)) {
+                    open(FudAILinks.DISCORD)
                 }
                 Hairline()
                 AboutRow(Icons.Filled.Email, stringResource(R.string.about_contact), onClick = ::email)

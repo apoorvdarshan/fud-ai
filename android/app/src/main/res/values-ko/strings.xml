@@ -622,6 +622,10 @@
     <string name="about_category_help_feedback">도움말 및 피드백</string>
     <string name="about_category_community">커뮤니티</string>
     <string name="about_category_legal">법률</string>
+    <string name="about_category_join_beta">베타 참여</string>
+    <string name="about_beta_intro">Play 스토어에 나오기 전에 새 Fud AI를 써 보세요. 베타 빌드는 아직 미완성일 수 있습니다.</string>
+    <string name="about_beta_steps">Fud AI Discord에 참여하고 #beta-android를 여세요. Play 테스트 링크가 올라오면 참여한 뒤 Play 스토어에서 Fud AI를 업데이트하세요. 문제가 있으면 /bug를 쓰고 설정의 버전을 적어 주세요.</string>
+    <string name="about_beta_not_open">Play 테스트는 아직 열리지 않았습니다. 링크는 #beta-android에 올라옵니다.</string>
     <string name="about_made_by">Apoorv Darshan 제작</string>
     <string name="about_with_care">모두를 위해, 세심하게</string>
     <string name="about_share_message">Fud AI로 식단을 기록하고 있어요 — 사진을 찍거나 말하거나 입력하면 AI가 칼로리를 기록해 줍니다. 무료에 오픈소스이고, 데이터는 모두 기기 안에만 저장돼요.\n\n다운로드: https://fud-ai.app</string>

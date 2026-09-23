@@ -945,7 +945,11 @@
     <string name="about_category_support">Support Fud AI</string>
     <string name="about_category_help_feedback">Help &amp; Feedback</string>
     <string name="about_category_community">Community</string>
+    <string name="about_category_join_beta">Join Beta</string>
     <string name="about_category_legal">Legal</string>
+    <string name="about_beta_intro">Try new Fud AI changes before they reach the Play Store. Beta builds can be unfinished.</string>
+    <string name="about_beta_steps">Join the Fud AI Discord and open #beta-android. When a Play testing link is posted there, opt in and update Fud AI from the Play Store. If something breaks, use /bug and include the version from Settings.</string>
+    <string name="about_beta_not_open">Play testing is not open yet. The link will be posted in #beta-android.</string>
     <string name="about_made_by">Made by Apoorv Darshan</string>
     <string name="about_with_care">with care, for everyone</string>
     <string name="about_share_message">I\'ve been tracking my meals with Fud AI — snap a photo, speak it, or type it, and the AI logs the calories. It\'s free, open source, and your data stays on your device.\n\nDownload: https://fud-ai.app</string>

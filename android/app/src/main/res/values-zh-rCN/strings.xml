@@ -622,6 +622,10 @@
     <string name="about_category_help_feedback">帮助与反馈</string>
     <string name="about_category_community">社区</string>
     <string name="about_category_legal">法律信息</string>
+    <string name="about_category_join_beta">加入测试版</string>
+    <string name="about_beta_intro">在上架 Play 商店之前试用 Fud AI 的新变化。测试版可能还不完整。</string>
+    <string name="about_beta_steps">加入 Fud AI 的 Discord 并打开 #beta-android。那里发布 Play 测试链接后，选择加入，再从 Play 商店更新 Fud AI。如果出问题，用 /bug，并写上设置里的版本。</string>
+    <string name="about_beta_not_open">Play 测试尚未开放。链接会发在 #beta-android。</string>
     <string name="about_made_by">由 Apoorv Darshan 制作</string>
     <string name="about_with_care">用心为每个人</string>
     <string name="about_share_message">我用 Fud AI 记录每一餐——拍照、说话或输入，AI 自动记录卡路里。完全免费、开源，所有数据都保存在你的设备上。\n\n下载：https://fud-ai.app</string>

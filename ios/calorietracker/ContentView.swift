@@ -353,6 +353,7 @@ enum AboutSettingsCategory: String, CaseIterable, Identifiable, Hashable {
     case support
     case helpFeedback
     case community
+    case joinBeta
     case legal
 
     var id: Self { self }
@@ -363,6 +364,7 @@ enum AboutSettingsCategory: String, CaseIterable, Identifiable, Hashable {
         case .support: "Support Fud AI"
         case .helpFeedback: "Help & Feedback"
         case .community: "Community"
+        case .joinBeta: "Join Beta"
         case .legal: "Legal"
         }
     }
@@ -373,6 +375,7 @@ enum AboutSettingsCategory: String, CaseIterable, Identifiable, Hashable {
         case .support: "heart.fill"
         case .helpFeedback: "exclamationmark.bubble.fill"
         case .community: "person.3.fill"
+        case .joinBeta: "testtube.2"
         case .legal: "lock.shield.fill"
         }
     }
@@ -642,6 +645,28 @@ private struct AboutSettingsSections: View {
                     }
                 }
                 .tint(.primary)
+                }
+                .listRowBackground(AppColors.appCard)
+
+            case .joinBeta:
+                Section {
+                    Text("Try new Fud AI changes before they reach the App Store. Beta builds can be unfinished.")
+                        .font(.system(.subheadline, design: .rounded))
+                        .foregroundStyle(.secondary)
+                    Text("Join the Fud AI Discord and open #beta-ios. When a TestFlight link is posted there, install Apple’s TestFlight app and accept the invite. If something breaks, use /bug and include the build number from Settings.")
+                        .font(.system(.subheadline, design: .rounded))
+                    Text("TestFlight is not open yet. The invite will be posted in #beta-ios.")
+                        .font(.system(.footnote, design: .rounded))
+                        .foregroundStyle(.secondary)
+                    Link(destination: FudAILinks.discord) {
+                        Label {
+                            Text("Join Discord")
+                        } icon: {
+                            Image(systemName: "bubble.left.and.bubble.right.fill")
+                                .foregroundStyle(AppColors.calorie)
+                        }
+                    }
+                    .tint(.primary)
                 }
                 .listRowBackground(AppColors.appCard)
 
@@ -4330,6 +4355,7 @@ enum ProfileSettingsCategory: String, CaseIterable, Identifiable, Hashable {
     case support
     case helpFeedback
     case community
+    case joinBeta
     case legal
 
     static let preferenceCases: [Self] = [
@@ -4351,6 +4377,7 @@ enum ProfileSettingsCategory: String, CaseIterable, Identifiable, Hashable {
         .support,
         .helpFeedback,
         .community,
+        .joinBeta,
         .legal
     ]
 
@@ -4373,6 +4400,7 @@ enum ProfileSettingsCategory: String, CaseIterable, Identifiable, Hashable {
         case .support: "Support Fud AI"
         case .helpFeedback: "Help & Feedback"
         case .community: "Community"
+        case .joinBeta: "Join Beta"
         case .legal: "Legal"
         }
     }
@@ -4394,6 +4422,7 @@ enum ProfileSettingsCategory: String, CaseIterable, Identifiable, Hashable {
         case .support: "heart.fill"
         case .helpFeedback: "exclamationmark.bubble.fill"
         case .community: "person.3.fill"
+        case .joinBeta: "testtube.2"
         case .legal: "lock.shield.fill"
         }
     }
@@ -4404,6 +4433,7 @@ enum ProfileSettingsCategory: String, CaseIterable, Identifiable, Hashable {
         case .support: .support
         case .helpFeedback: .helpFeedback
         case .community: .community
+        case .joinBeta: .joinBeta
         case .legal: .legal
         default: nil
         }

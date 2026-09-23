@@ -613,8 +613,10 @@
     <string name="about_star_github">Поставить звезду на GitHub</string>
     <string name="about_vote_ph">Проголосовать на Product Hunt</string>
     <string name="about_leave_tip_kofi">Оставить чаевые на Ko-fi</string>
-    <string name="about_report_issue">Сообщить о проблеме</string>
-    <string name="about_request_feature">Предложить функцию</string>
+    <string name="about_report_issue">Сообщить о проблеме на GitHub</string>
+    <string name="about_report_issue_discord">Сообщить о проблеме в Discord</string>
+    <string name="about_request_feature">Предложить функцию на GitHub</string>
+    <string name="about_request_feature_discord">Предложить функцию в Discord</string>
     <string name="about_contact">Связаться с нами</string>
         <string name="about_join_discord">Присоединиться к Discord</string>
 <string name="about_follow_x">Подписаться в X</string>

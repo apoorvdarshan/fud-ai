@@ -610,8 +610,10 @@
     <string name="about_star_github">Dă stea pe GitHub</string>
     <string name="about_vote_ph">Votează pe Product Hunt</string>
     <string name="about_leave_tip_kofi">Lasă un bacșiș pe Ko-fi</string>
-    <string name="about_report_issue">Raportează o problemă</string>
-    <string name="about_request_feature">Solicită o funcție</string>
+    <string name="about_report_issue">Raportează o problemă pe GitHub</string>
+    <string name="about_report_issue_discord">Raportează o problemă pe Discord</string>
+    <string name="about_request_feature">Solicită o funcție pe GitHub</string>
+    <string name="about_request_feature_discord">Solicită o funcție pe Discord</string>
     <string name="about_contact">Contactează-ne</string>
         <string name="about_join_discord">Alătură-te pe Discord</string>
 <string name="about_follow_x">Urmărește pe X</string>

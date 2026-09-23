@@ -606,8 +606,10 @@
     <string name="about_star_github">在 GitHub 上加星</string>
     <string name="about_vote_ph">在 Product Hunt 上投票</string>
     <string name="about_leave_tip_kofi">在 Ko-fi 上留个小费</string>
-    <string name="about_report_issue">报告问题</string>
-    <string name="about_request_feature">请求功能</string>
+    <string name="about_report_issue">在 GitHub 上报告问题</string>
+    <string name="about_report_issue_discord">在 Discord 上报告问题</string>
+    <string name="about_request_feature">在 GitHub 上请求功能</string>
+    <string name="about_request_feature_discord">在 Discord 上请求功能</string>
     <string name="about_contact">联系我们</string>
         <string name="about_join_discord">加入 Discord</string>
 <string name="about_follow_x">在 X 上关注</string>

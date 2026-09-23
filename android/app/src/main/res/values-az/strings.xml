@@ -607,8 +607,10 @@
     <string name="about_star_github">GitHub-da Ulduz Ver</string>
     <string name="about_vote_ph">Product Hunt-da Səs Ver</string>
     <string name="about_leave_tip_kofi">Ko-fi-də bəxşiş burax</string>
-    <string name="about_report_issue">Problemi Bildir</string>
-    <string name="about_request_feature">Funksiya Tələb Et</string>
+    <string name="about_report_issue">Problemi GitHub-da bildirin</string>
+    <string name="about_report_issue_discord">Problemi Discord-da bildirin</string>
+    <string name="about_request_feature">GitHub-da funksiya istəyin</string>
+    <string name="about_request_feature_discord">Discord-da funksiya istəyin</string>
     <string name="about_contact">Bizimlə Əlaqə</string>
         <string name="about_join_discord">Discord-a qoşul</string>
 <string name="about_follow_x">X-də İzlə</string>

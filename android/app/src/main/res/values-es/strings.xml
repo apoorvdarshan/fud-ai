@@ -608,8 +608,10 @@
     <string name="about_star_github">Destacar en GitHub</string>
     <string name="about_vote_ph">Votar en Product Hunt</string>
     <string name="about_leave_tip_kofi">Dejar una propina en Ko-fi</string>
-    <string name="about_report_issue">Informar de un problema</string>
-    <string name="about_request_feature">Solicitar una función</string>
+    <string name="about_report_issue">Informar de un problema en GitHub</string>
+    <string name="about_report_issue_discord">Informar de un problema en Discord</string>
+    <string name="about_request_feature">Solicitar una función en GitHub</string>
+    <string name="about_request_feature_discord">Solicitar una función en Discord</string>
     <string name="about_contact">Contáctanos</string>
         <string name="about_join_discord">Unirse a Discord</string>
 <string name="about_follow_x">Seguir en X</string>

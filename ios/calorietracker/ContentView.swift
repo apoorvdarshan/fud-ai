@@ -549,9 +549,19 @@ private struct AboutSettingsSections: View {
                     githubFormURL = Self.bugReportURL
                 } label: {
                     Label {
-                        Text("Report an Issue")
+                        Text("Report an Issue on GitHub")
                     } icon: {
                         Image(systemName: "exclamationmark.bubble.fill")
+                            .foregroundStyle(AppColors.calorie)
+                    }
+                }
+                .tint(.primary)
+
+                Link(destination: FudAILinks.discord) {
+                    Label {
+                        Text("Report an Issue on Discord")
+                    } icon: {
+                        Image(systemName: "bubble.left.and.bubble.right.fill")
                             .foregroundStyle(AppColors.calorie)
                     }
                 }
@@ -561,9 +571,19 @@ private struct AboutSettingsSections: View {
                     githubFormURL = Self.featureRequestURL
                 } label: {
                     Label {
-                        Text("Request a Feature")
+                        Text("Request a Feature on GitHub")
                     } icon: {
                         Image(systemName: "lightbulb.fill")
+                            .foregroundStyle(AppColors.calorie)
+                    }
+                }
+                .tint(.primary)
+
+                Link(destination: FudAILinks.discord) {
+                    Label {
+                        Text("Request a Feature on Discord")
+                    } icon: {
+                        Image(systemName: "bubble.left.and.bubble.right.fill")
                             .foregroundStyle(AppColors.calorie)
                     }
                 }

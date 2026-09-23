@@ -619,8 +619,10 @@
     <string name="about_star_github">ضع نجمة على GitHub</string>
     <string name="about_vote_ph">صوّت على Product Hunt</string>
     <string name="about_leave_tip_kofi">اترك إكرامية على Ko-fi</string>
-    <string name="about_report_issue">الإبلاغ عن مشكلة</string>
-    <string name="about_request_feature">طلب ميزة</string>
+    <string name="about_report_issue">الإبلاغ عن مشكلة على GitHub</string>
+    <string name="about_report_issue_discord">الإبلاغ عن مشكلة على Discord</string>
+    <string name="about_request_feature">طلب ميزة على GitHub</string>
+    <string name="about_request_feature_discord">طلب ميزة على Discord</string>
     <string name="about_contact">اتصل بنا</string>
         <string name="about_join_discord">انضم إلى Discord</string>
 <string name="about_follow_x">تابعنا على X</string>

@@ -606,8 +606,10 @@
     <string name="about_star_github">GitHubでスターを付ける</string>
     <string name="about_vote_ph">Product Huntで投票</string>
     <string name="about_leave_tip_kofi">Ko-fiでチップを送る</string>
-    <string name="about_report_issue">問題を報告</string>
-    <string name="about_request_feature">機能をリクエスト</string>
+    <string name="about_report_issue">GitHubで問題を報告</string>
+    <string name="about_report_issue_discord">Discordで問題を報告</string>
+    <string name="about_request_feature">GitHubで機能をリクエスト</string>
+    <string name="about_request_feature_discord">Discordで機能をリクエスト</string>
     <string name="about_contact">お問い合わせ</string>
         <string name="about_join_discord">Discordに参加</string>
 <string name="about_follow_x">Xでフォロー</string>

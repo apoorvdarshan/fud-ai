@@ -607,8 +607,10 @@
     <string name="about_star_github">GitHub पर स्टार करें</string>
     <string name="about_vote_ph">Product Hunt पर वोट करें</string>
     <string name="about_leave_tip_kofi">Ko-fi पर टिप दें</string>
-    <string name="about_report_issue">समस्या की रिपोर्ट करें</string>
-    <string name="about_request_feature">फीचर का अनुरोध करें</string>
+    <string name="about_report_issue">GitHub पर समस्या रिपोर्ट करें</string>
+    <string name="about_report_issue_discord">Discord पर समस्या रिपोर्ट करें</string>
+    <string name="about_request_feature">GitHub पर फीचर का अनुरोध करें</string>
+    <string name="about_request_feature_discord">Discord पर फीचर का अनुरोध करें</string>
     <string name="about_contact">संपर्क करें</string>
         <string name="about_join_discord">Discord से जुड़ें</string>
 <string name="about_follow_x">X पर फॉलो करें</string>

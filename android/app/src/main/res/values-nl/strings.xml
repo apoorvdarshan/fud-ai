@@ -607,8 +607,10 @@
     <string name="about_star_github">Ster op GitHub</string>
     <string name="about_vote_ph">Stem op Product Hunt</string>
     <string name="about_leave_tip_kofi">Geef een fooi via Ko-fi</string>
-    <string name="about_report_issue">Probleem melden</string>
-    <string name="about_request_feature">Functie aanvragen</string>
+    <string name="about_report_issue">Probleem melden op GitHub</string>
+    <string name="about_report_issue_discord">Probleem melden op Discord</string>
+    <string name="about_request_feature">Functie aanvragen op GitHub</string>
+    <string name="about_request_feature_discord">Functie aanvragen op Discord</string>
     <string name="about_contact">Neem contact op</string>
         <string name="about_join_discord">Join Discord</string>
 <string name="about_follow_x">Volg op X</string>

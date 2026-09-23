@@ -915,8 +915,10 @@
     <string name="about_star_github">Поставити зірку на GitHub</string>
     <string name="about_vote_ph">Проголосувати на Product Hunt</string>
     <string name="about_leave_tip_kofi">Залишити чайові на Ko-fi</string>
-    <string name="about_report_issue">Повідомити про проблему</string>
-    <string name="about_request_feature">Запропонувати функцію</string>
+    <string name="about_report_issue">Повідомити про проблему на GitHub</string>
+    <string name="about_report_issue_discord">Повідомити про проблему в Discord</string>
+    <string name="about_request_feature">Запропонувати функцію на GitHub</string>
+    <string name="about_request_feature_discord">Запропонувати функцію в Discord</string>
     <string name="about_contact">Зв\'язатися з нами</string>
         <string name="about_join_discord">Приєднатися до Discord</string>
 <string name="about_follow_x">Стежити в X</string>

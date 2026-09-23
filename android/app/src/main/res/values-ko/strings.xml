@@ -606,8 +606,10 @@
     <string name="about_star_github">GitHub에 별 주기</string>
     <string name="about_vote_ph">Product Hunt에서 투표</string>
     <string name="about_leave_tip_kofi">Ko-fi에서 팁 남기기</string>
-    <string name="about_report_issue">문제 신고</string>
-    <string name="about_request_feature">기능 요청</string>
+    <string name="about_report_issue">GitHub에 문제 신고</string>
+    <string name="about_report_issue_discord">Discord에 문제 신고</string>
+    <string name="about_request_feature">GitHub에 기능 요청</string>
+    <string name="about_request_feature_discord">Discord에 기능 요청</string>
     <string name="about_contact">문의하기</string>
         <string name="about_join_discord">Discord 참여</string>
 <string name="about_follow_x">X에서 팔로우</string>

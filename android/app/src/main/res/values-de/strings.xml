@@ -607,8 +607,10 @@
     <string name="about_star_github">Auf GitHub bewerten</string>
     <string name="about_vote_ph">Auf Product Hunt abstimmen</string>
     <string name="about_leave_tip_kofi">Trinkgeld auf Ko-fi geben</string>
-    <string name="about_report_issue">Problem melden</string>
-    <string name="about_request_feature">Funktion vorschlagen</string>
+    <string name="about_report_issue">Problem auf GitHub melden</string>
+    <string name="about_report_issue_discord">Problem auf Discord melden</string>
+    <string name="about_request_feature">Funktion auf GitHub vorschlagen</string>
+    <string name="about_request_feature_discord">Funktion auf Discord vorschlagen</string>
     <string name="about_contact">Kontakt</string>
         <string name="about_join_discord">Discord beitreten</string>
 <string name="about_follow_x">Auf X folgen</string>

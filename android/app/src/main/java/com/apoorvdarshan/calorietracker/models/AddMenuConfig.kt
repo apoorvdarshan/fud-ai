@@ -163,6 +163,16 @@ data class AddMenuConfig(
         fun encode(config: AddMenuConfig): String =
             json.encodeToString(serializer(), config.sanitized())
 
+        /**
+         * Settings startup reads the menu, then later replaces the whole screen state.
+         * If the user already edited during that gap, keep the menu on screen.
+         */
+        fun afterSettingsSnapshot(
+            alreadyLoaded: Boolean,
+            onScreen: AddMenuConfig,
+            diskRead: AddMenuConfig,
+        ): AddMenuConfig = if (alreadyLoaded) onScreen else diskRead
+
         private val json = kotlinx.serialization.json.Json {
             ignoreUnknownKeys = true
             encodeDefaults = true

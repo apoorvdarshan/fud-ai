@@ -132,4 +132,22 @@ class AddMenuConfigTest {
         assertEquals(listOf("camera", "voice"), restored.groups[0].methods)
         assertEquals(listOf("text"), restored.groups[1].methods)
     }
+
+    @Test
+    fun settingsSnapshotKeepsAnEditThatLandedWhileStartupWasReading() {
+        val diskRead = AddMenuConfig.Default
+        val edited = AddMenuConfig(
+            groups = listOf(
+                AddMenuGroupConfig(id = "g1", name = "Scan", methods = listOf("camera"))
+            )
+        )
+        assertEquals(
+            edited,
+            AddMenuConfig.afterSettingsSnapshot(alreadyLoaded = true, onScreen = edited, diskRead = diskRead)
+        )
+        assertEquals(
+            diskRead,
+            AddMenuConfig.afterSettingsSnapshot(alreadyLoaded = false, onScreen = edited, diskRead = diskRead)
+        )
+    }
 }

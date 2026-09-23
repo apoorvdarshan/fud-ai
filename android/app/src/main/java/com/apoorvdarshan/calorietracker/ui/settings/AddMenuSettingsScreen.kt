@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -46,6 +47,7 @@ import com.apoorvdarshan.calorietracker.models.AddMenuGroupConfig
 import com.apoorvdarshan.calorietracker.models.FoodLogMethod
 import com.apoorvdarshan.calorietracker.models.defaultGroupNameRes
 import com.apoorvdarshan.calorietracker.models.displayName
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialog
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialogActions
@@ -64,6 +66,7 @@ fun AddMenuSettingsScreen(
     var addMethodTarget by remember { mutableStateOf<Int?>(null) }
 
     fun persist(updated: AddMenuConfig) {
+        if (!ui.addMenuLoaded) return
         draft = updated.sanitized()
         vm.setAddMenuConfig(draft)
     }
@@ -78,6 +81,39 @@ fun AddMenuSettingsScreen(
     }
 
     androidx.compose.material3.Scaffold(containerColor = MaterialTheme.colorScheme.background) { padding ->
+        if (!ui.addMenuLoaded) {
+            Column(
+                Modifier
+                    .fillMaxSize()
+                    .padding(padding)
+                    .padding(horizontal = 16.dp)
+            ) {
+                Row(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(16.dp))
+                        .clickable { onBack() }
+                        .padding(horizontal = 2.dp, vertical = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = null,
+                        tint = AppColors.Calorie,
+                        modifier = Modifier.size(22.dp)
+                    )
+                    Spacer(Modifier.width(6.dp))
+                    Text(
+                        stringResource(R.string.nav_settings),
+                        color = AppColors.Calorie,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                }
+                Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    CircularProgressIndicator(color = AppColors.Calorie)
+                }
+            }
+            return@Scaffold
+        }
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()

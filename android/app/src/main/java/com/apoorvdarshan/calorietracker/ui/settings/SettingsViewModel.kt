@@ -104,6 +104,8 @@ data class SettingsUiState(
     val optionalNutrientGoals: OptionalNutrientGoals = OptionalNutrientGoals.Default,
     val quickActions: List<QuickAction> = QuickAction.Defaults,
     val addMenuConfig: AddMenuConfig = AddMenuConfig.Default,
+    /** False until DataStore has delivered the menu, so the editor cannot save the factory default over a real layout. */
+    val addMenuLoaded: Boolean = false,
     val localModelStates: Map<LocalModelId, LocalModelState> = emptyMap(),
     /** A goal-relevant input changed since the last Recalculate. Drives a soft nudge on the
      *  Recalculate row; the button stays tappable at all times — this never disables it. */
@@ -169,7 +171,7 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
 
         viewModelScope.launch {
             container.prefs.addMenuConfig.collect { config ->
-                _ui.value = _ui.value.copy(addMenuConfig = config)
+                _ui.value = _ui.value.copy(addMenuConfig = config, addMenuLoaded = true)
             }
         }
 
@@ -258,6 +260,8 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
             if (storedSignature == null && profile != null) {
                 container.prefs.setLastRecalcGoalSignature(profile.goalInputSignature)
             }
+            val openRouterReasoningEffort = container.prefs.openRouterReasoningEffort.first()
+            val menuOnScreen = _ui.value
             _ui.value = SettingsUiState(
                 selectedAI = provider,
                 selectedModel = model,
@@ -266,7 +270,7 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
                 selectedTextModel = textModel,
                 textApiKeyMasked = textMasked,
                 maxResponseTokens = maxTokens,
-                openRouterReasoningEffort = container.prefs.openRouterReasoningEffort.first(),
+                openRouterReasoningEffort = openRouterReasoningEffort,
                 aiRequestTimeoutSeconds = requestTimeoutSeconds,
                 selectedSpeech = speech,
                 selectedSpeechLanguage = speechLanguage,
@@ -315,7 +319,12 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
                 textFallbackApiKeyMasked = textFbMasked,
                 optionalNutrientGoals = optionalGoals,
                 quickActions = quickActions,
-                addMenuConfig = addMenuConfig,
+                addMenuConfig = AddMenuConfig.afterSettingsSnapshot(
+                    alreadyLoaded = menuOnScreen.addMenuLoaded,
+                    onScreen = menuOnScreen.addMenuConfig,
+                    diskRead = addMenuConfig,
+                ),
+                addMenuLoaded = menuOnScreen.addMenuLoaded,
                 workoutSplit = workoutPreferences.split,
                 workoutRpeScale = workoutPreferences.rpeScale,
                 localModelStates = container.localModels.states.value,
@@ -551,16 +560,19 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
     }
 
     fun setAddMenuConfig(config: AddMenuConfig) {
+        if (!_ui.value.addMenuLoaded) return
+        val sanitized = config.sanitized()
+        _ui.value = _ui.value.copy(addMenuConfig = sanitized, addMenuLoaded = true)
         viewModelScope.launch {
-            container.prefs.setAddMenuConfig(config)
-            _ui.value = _ui.value.copy(addMenuConfig = config.sanitized())
+            container.prefs.setAddMenuConfig(sanitized)
         }
     }
 
     fun resetAddMenuConfig() {
+        if (!_ui.value.addMenuLoaded) return
+        _ui.value = _ui.value.copy(addMenuConfig = AddMenuConfig.Default, addMenuLoaded = true)
         viewModelScope.launch {
             container.prefs.resetAddMenuConfig()
-            _ui.value = _ui.value.copy(addMenuConfig = AddMenuConfig.Default)
         }
     }
 

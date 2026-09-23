@@ -624,6 +624,10 @@
     <string name="about_category_help_feedback">Aiuto e feedback</string>
     <string name="about_category_community">Community</string>
     <string name="about_category_legal">Note legali</string>
+    <string name="about_category_join_beta">Unisciti alla beta</string>
+    <string name="about_beta_intro">Prova le novità di Fud AI prima che arrivino sul Play Store. Le beta possono essere incomplete.</string>
+    <string name="about_beta_steps">Entra nel Discord di Fud AI e apri #beta-android. Quando viene pubblicato un link di test Play, iscriviti e aggiorna Fud AI dal Play Store. Se qualcosa si rompe, usa /bug e indica la versione in Impostazioni.</string>
+    <string name="about_beta_not_open">Il test Play non è ancora aperto. Il link sarà pubblicato in #beta-android.</string>
     <string name="about_made_by">Realizzato da Apoorv Darshan</string>
     <string name="about_with_care">con cura, per tutti</string>
     <string name="about_share_message">Sto monitorando i miei pasti con Fud AI — scatta una foto, parla o digita, e l\'IA registra le calorie. È gratis, open source e i tuoi dati restano sul tuo dispositivo.\n\nScarica: https://fud-ai.app</string>

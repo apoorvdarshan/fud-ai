@@ -626,6 +626,10 @@
     <string name="about_category_help_feedback">Ajutor și feedback</string>
     <string name="about_category_community">Comunitate</string>
     <string name="about_category_legal">Informații juridice</string>
+    <string name="about_category_join_beta">Intră în beta</string>
+    <string name="about_beta_intro">Încearcă noutățile Fud AI înainte să ajungă în Play Store. Versiunile beta pot fi neterminate.</string>
+    <string name="about_beta_steps">Intră pe Discordul Fud AI și deschide #beta-android. Când apare un link de test Play, înscrie-te și actualizează Fud AI din Play Store. Dacă ceva se strică, folosește /bug și include versiunea din Setări.</string>
+    <string name="about_beta_not_open">Testul Play nu este încă deschis. Linkul va fi publicat în #beta-android.</string>
     <string name="about_made_by">Realizat de Apoorv Darshan</string>
     <string name="about_with_care">cu grijă, pentru toată lumea</string>
     <string name="about_share_message">Îmi urmăresc mesele cu Fud AI — fă o poză, spune-o sau tasteaz-o, iar AI înregistrează caloriile. E gratuit, open source, iar datele rămân pe dispozitivul tău.\n\nDescarcă: https://fud-ai.app</string>

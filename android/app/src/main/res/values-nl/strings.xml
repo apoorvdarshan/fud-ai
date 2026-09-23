@@ -623,6 +623,10 @@
     <string name="about_category_help_feedback">Hulp &amp; feedback</string>
     <string name="about_category_community">Community</string>
     <string name="about_category_legal">Juridisch</string>
+    <string name="about_category_join_beta">Doe mee aan de bèta</string>
+    <string name="about_beta_intro">Probeer nieuwe Fud AI-wijzigingen voordat ze in de Play Store staan. Bètaversies kunnen onaf zijn.</string>
+    <string name="about_beta_steps">Word lid van de Fud AI-Discord en open #beta-android. Als daar een Play-testlink staat, doe mee en werk Fud AI bij via de Play Store. Gaat er iets mis, gebruik /bug en noem de versie uit Instellingen.</string>
+    <string name="about_beta_not_open">De Play-test is nog niet open. De link komt in #beta-android.</string>
     <string name="about_made_by">Gemaakt door Apoorv Darshan</string>
     <string name="about_with_care">met zorg, voor iedereen</string>
     <string name="about_share_message">Ik houd mijn maaltijden bij met Fud AI — maak een foto, spreek het in of typ het, en de AI logt de calorieën. Het is gratis, open source, en je gegevens blijven op je apparaat.\n\nDownload: https://fud-ai.app</string>

@@ -623,6 +623,10 @@
     <string name="about_category_help_feedback">Kömək və Rəy</string>
     <string name="about_category_community">İcma</string>
     <string name="about_category_legal">Hüquqi</string>
+    <string name="about_category_join_beta">Betaya qoşul</string>
+    <string name="about_beta_intro">Fud AI yeniliklərini Play Store-a düşməzdən əvvəl sınayın. Beta qurmalar yarımçıq ola bilər.</string>
+    <string name="about_beta_steps">Fud AI Discorduna qoşulun və #beta-android açın. Play test linki paylaşılınca qoşulun və Fud AI-ı Play Store-dan yeniləyin. Nəsə xarab olsa, /bug yazın və Ayarlardakı versiyanı qeyd edin.</string>
+    <string name="about_beta_not_open">Play testi hələ açıq deyil. Link #beta-android kanalında paylaşılacaq.</string>
     <string name="about_made_by">Apoorv Darshan tərəfindən hazırlanıb</string>
     <string name="about_with_care">hər kəs üçün, qayğı ilə</string>
     <string name="about_share_message">Yeməklərimi Fud AI ilə izləyirəm — şəkil çək, danış və ya yaz, süni zəka kaloriləri qeyd etsin. Pulsuz, açıq mənbəlidir və məlumatların cihazında qalır.\n\nEndir: https://fud-ai.app</string>

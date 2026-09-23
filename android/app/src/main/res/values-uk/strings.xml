@@ -933,6 +933,10 @@
     <string name="about_category_help_feedback">Допомога та зворотний зв\'язок</string>
     <string name="about_category_community">Спільнота</string>
     <string name="about_category_legal">Правова інформація</string>
+    <string name="about_category_join_beta">Приєднатися до бети</string>
+    <string name="about_beta_intro">Спробуйте нові зміни Fud AI до появи в Play Store. Бета-збірки можуть бути незавершеними.</string>
+    <string name="about_beta_steps">Приєднайтеся до Discord Fud AI і відкрийте #beta-android. Коли там з’явиться посилання на тест Play, приєднайтеся й оновіть Fud AI з Play Store. Якщо щось зламається, напишіть /bug і вкажіть версію з налаштувань.</string>
+    <string name="about_beta_not_open">Тест Play ще не відкрито. Посилання з’явиться в #beta-android.</string>
     <string name="about_made_by">Автор: Apoorv Darshan</string>
     <string name="about_with_care">з турботою, для кожного</string>
     <string name="about_share_message">Я відстежую своє харчування з Fud AI — роблю фото, кажу голосом або пишу текст, а ШІ рахує калорії. Це безкоштовно, з відкритим кодом, а ваші дані залишаються на пристрої.\n\nЗавантажити: https://fud-ai.app</string>

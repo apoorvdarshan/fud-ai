@@ -623,6 +623,10 @@
     <string name="about_category_help_feedback">सहायता और प्रतिक्रिया</string>
     <string name="about_category_community">समुदाय</string>
     <string name="about_category_legal">कानूनी</string>
+    <string name="about_category_join_beta">बीटा में शामिल हों</string>
+    <string name="about_beta_intro">Play Store पर आने से पहले Fud AI के नए बदलाव आज़माएँ। बीटा बिल्ड अधूरे हो सकते हैं।</string>
+    <string name="about_beta_steps">Fud AI Discord में शामिल हों और #beta-android खोलें। जब वहाँ Play परीक्षण लिंक आए, शामिल हों और Play Store से Fud AI अपडेट करें। कुछ टूटे तो /bug लिखें और सेटिंग्स वाला संस्करण बताएँ।</string>
+    <string name="about_beta_not_open">Play परीक्षण अभी खुला नहीं है। लिंक #beta-android में आएगा।</string>
     <string name="about_made_by">Apoorv Darshan द्वारा निर्मित</string>
     <string name="about_with_care">देखभाल के साथ, सभी के लिए</string>
     <string name="about_share_message">मैं Fud AI से अपने भोजन ट्रैक कर रहा हूँ — एक तस्वीर खींचें, बोलें, या टाइप करें, और AI कैलोरी लॉग कर देता है। यह मुफ़्त है, ओपन सोर्स है, और आपका डेटा आपके डिवाइस पर ही रहता है।\n\nडाउनलोड: https://fud-ai.app</string>

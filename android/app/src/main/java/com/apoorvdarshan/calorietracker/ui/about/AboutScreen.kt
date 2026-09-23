@@ -225,7 +225,7 @@ fun AboutSettingsRows(category: AboutSettingsCategory) {
             }
 
             AboutSettingsCategory.HELP_FEEDBACK -> {
-                AboutRow(Icons.Filled.BugReport, stringResource(R.string.about_report_issue_github)) {
+                AboutRow(Icons.Filled.BugReport, stringResource(R.string.about_report_issue)) {
                     openGithubIssueForm("https://github.com/apoorvdarshan/fud-ai/issues/new?template=bug_report.yml")
                 }
                 Hairline()
@@ -233,7 +233,7 @@ fun AboutSettingsRows(category: AboutSettingsCategory) {
                     open(FudAILinks.DISCORD)
                 }
                 Hairline()
-                AboutRow(Icons.Filled.Lightbulb, stringResource(R.string.about_request_feature_github)) {
+                AboutRow(Icons.Filled.Lightbulb, stringResource(R.string.about_request_feature)) {
                     openGithubIssueForm("https://github.com/apoorvdarshan/fud-ai/issues/new?template=feature_request.yml")
                 }
                 Hairline()

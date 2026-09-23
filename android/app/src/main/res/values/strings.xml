@@ -928,9 +928,9 @@
     <string name="about_star_github">Star on GitHub</string>
     <string name="about_vote_ph">Vote on Product Hunt</string>
     <string name="about_leave_tip_kofi">Leave a Tip on Ko-fi</string>
-    <string name="about_report_issue_github">Report an Issue on GitHub</string>
+    <string name="about_report_issue">Report an Issue on GitHub</string>
     <string name="about_report_issue_discord">Report an Issue on Discord</string>
-    <string name="about_request_feature_github">Request a Feature on GitHub</string>
+    <string name="about_request_feature">Request a Feature on GitHub</string>
     <string name="about_request_feature_discord">Request a Feature on Discord</string>
     <string name="about_contact">Contact Us</string>
     <string name="about_join_discord">Join Discord</string>

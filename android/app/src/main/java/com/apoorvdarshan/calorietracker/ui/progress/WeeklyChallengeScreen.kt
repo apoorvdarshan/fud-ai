@@ -60,6 +60,9 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.key
+import androidx.compose.foundation.relocation.BringIntoViewRequester
+import androidx.compose.foundation.relocation.bringIntoViewRequester
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.draw.clip
@@ -793,6 +796,15 @@ private fun RankingsBoard(
     onManageBlocked: (() -> Unit)?
 ) {
     var page by remember(category, weekStart) { mutableStateOf(0) }
+    val bringRankingsIntoView = remember { BringIntoViewRequester() }
+    var skipFirstPageScroll by remember(category, weekStart) { mutableStateOf(true) }
+    LaunchedEffect(page) {
+        if (skipFirstPageScroll) {
+            skipFirstPageScroll = false
+            return@LaunchedEffect
+        }
+        bringRankingsIntoView.bringIntoView()
+    }
     val podium = podiumSlots(rankings)
     FudGlassSurface(modifier = Modifier.fillMaxWidth(), cornerRadius = 22.dp, padding = 6.dp) {
         Column {
@@ -806,7 +818,9 @@ private fun RankingsBoard(
                     text = stringResource(R.string.challenge_leaderboard_title),
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier
+                        .weight(1f)
+                        .bringIntoViewRequester(bringRankingsIntoView)
                 )
                 if (onManageBlocked != null) {
                     TextButton(onClick = onManageBlocked) {

@@ -269,14 +269,16 @@ struct WeeklyChallengeView: View {
     }
 
     private var joinedView: some View {
-        ScrollView {
-            LazyVStack(spacing: 14) {
-                challengeHeader
-                categorySelector
+        ScrollViewReader { proxy in
+            ScrollView {
+                LazyVStack(spacing: 14) {
+                    challengeHeader
+                    categorySelector
 
-                if let response = displayedLeaderboard {
-                    leaderboardRows(response)
-                } else if store.isRefreshing {
+                    if let response = displayedLeaderboard {
+                        leaderboardRows(response)
+                            .id("challengeRankings")
+                    } else if store.isRefreshing {
                     ProgressView()
                         .padding(.vertical, 32)
                         .accessibilityLabel(WeeklyChallengeL10n.text("Loading leaderboard"))
@@ -311,9 +313,15 @@ struct WeeklyChallengeView: View {
             }
             .padding(.horizontal)
             .padding(.vertical, 12)
-        }
-        .refreshable {
-            await store.refresh(category: category, score: localScore)
+            }
+            .refreshable {
+                await store.refresh(category: category, score: localScore)
+            }
+            .onChange(of: rankingPage) { _, _ in
+                withAnimation(.easeOut(duration: 0.2)) {
+                    proxy.scrollTo("challengeRankings", anchor: .top)
+                }
+            }
         }
     }
 
@@ -531,8 +539,15 @@ struct WeeklyChallengeView: View {
                 in: Capsule()
             )
         }
-        .buttonStyle(.plain)
+        .buttonStyle(QuietPressButtonStyle())
         .disabled(!enabled)
+    }
+
+    private struct QuietPressButtonStyle: ButtonStyle {
+        func makeBody(configuration: Configuration) -> some View {
+            configuration.label
+                .opacity(configuration.isPressed ? 0.85 : 1)
+        }
     }
 
     private var pageButtonForeground: Color {

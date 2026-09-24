@@ -770,24 +770,29 @@ private struct WeeklyChallengePodium: View {
 private struct WeekCalendarStrip: View {
     let weekStart: Date
 
-    private var filled: Int {
+    var body: some View {
         let calendar = Calendar.current
         let start = calendar.startOfDay(for: weekStart)
         let today = calendar.startOfDay(for: Date())
-        let day = calendar.dateComponents([.day], from: start, to: today).day ?? 0
-        return min(max(day + 1, 0), 7)
-    }
-
-    var body: some View {
         HStack(spacing: 4) {
             ForEach(0..<7, id: \.self) { index in
-                Capsule()
-                    .fill(index < filled ? AppColors.calorie : Color.primary.opacity(0.12))
-                    .frame(height: 6)
+                let day = calendar.date(byAdding: .day, value: index, to: start) ?? start
+                let isToday = calendar.isDate(day, inSameDayAs: today)
+                let passed = day <= today
+                VStack(spacing: 4) {
+                    Text(day.formatted(.dateTime.weekday(.narrow)))
+                        .font(.system(.caption2, design: .rounded, weight: isToday ? .bold : .medium))
+                        .foregroundStyle(isToday ? AppColors.calorie : Color.secondary)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.7)
+                    Capsule()
+                        .fill(passed ? AppColors.calorie : Color.primary.opacity(0.12))
+                        .frame(height: isToday ? 8 : 6)
+                }
+                .frame(maxWidth: .infinity)
             }
         }
-        .padding(.top, 8)
-        .accessibilityHidden(true)
+        .padding(.top, 10)
     }
 }
 
@@ -813,11 +818,14 @@ private struct WeeklyChallengeParticipantRow: View {
             Spacer(minLength: 4)
 
             Text(WeeklyChallengeParticipantScore.text(for: participant, category: category))
-                .font(.system(.subheadline, design: .rounded, weight: .bold))
+                .font(.system(.caption, design: .rounded, weight: .bold))
                 .foregroundStyle(AppColors.calorie)
                 .multilineTextAlignment(.trailing)
                 .lineLimit(2)
-                .frame(maxWidth: 112, alignment: .trailing)
+                .padding(.horizontal, 8)
+                .padding(.vertical, 4)
+                .frame(maxWidth: 120, alignment: .trailing)
+                .background(AppColors.calorie.opacity(0.12), in: Capsule())
 
             if !isViewer {
                 Menu {

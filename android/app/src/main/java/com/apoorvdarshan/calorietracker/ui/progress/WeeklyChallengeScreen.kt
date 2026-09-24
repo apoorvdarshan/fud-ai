@@ -101,7 +101,6 @@ import com.apoorvdarshan.calorietracker.ui.navigation.BottomNavScrollPadding
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
 import java.text.DateFormat
 import java.time.LocalDate
-import java.time.temporal.ChronoUnit
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.Date
@@ -371,25 +370,42 @@ private fun ChallengeHeader(
 
 @Composable
 private fun WeekCalendarStrip(weekStart: LocalDate) {
-    val filled = (ChronoUnit.DAYS.between(weekStart, LocalDate.now()).toInt() + 1).coerceIn(0, 7)
+    val locale = LocalConfiguration.current.locales[0]
+    val formatter = remember(locale) { DateTimeFormatter.ofPattern("EEEEE", locale) }
+    val today = LocalDate.now()
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 8.dp)
-            .height(6.dp),
+            .padding(top = 10.dp),
         horizontalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         repeat(7) { index ->
-            Box(
-                Modifier
-                    .weight(1f)
-                    .fillMaxHeight()
-                    .clip(RoundedCornerShape(50))
-                    .background(
-                        if (index < filled) AppColors.Calorie
-                        else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f)
-                    )
-            )
+            val day = weekStart.plusDays(index.toLong())
+            val isToday = day == today
+            val passed = !day.isAfter(today)
+            Column(
+                modifier = Modifier.weight(1f),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = day.format(formatter),
+                    style = MaterialTheme.typography.labelSmall,
+                    fontWeight = if (isToday) FontWeight.Bold else FontWeight.Medium,
+                    color = if (isToday) AppColors.Calorie else MaterialTheme.colorScheme.onSurfaceVariant,
+                    maxLines = 1
+                )
+                Box(
+                    Modifier
+                        .padding(top = 4.dp)
+                        .fillMaxWidth()
+                        .height(if (isToday) 8.dp else 6.dp)
+                        .clip(RoundedCornerShape(50))
+                        .background(
+                            if (passed) AppColors.Calorie
+                            else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f)
+                        )
+                )
+            }
         }
     }
 }
@@ -1053,7 +1069,10 @@ private fun RankingRow(
             text = leaderboardScoreText(category, row),
             modifier = Modifier
                 .padding(start = 8.dp)
-                .widthIn(max = 112.dp),
+                .widthIn(max = 112.dp)
+                .clip(RoundedCornerShape(50))
+                .background(AppColors.Calorie.copy(alpha = 0.12f))
+                .padding(horizontal = 8.dp, vertical = 4.dp),
             fontWeight = FontWeight.Bold,
             color = AppColors.Calorie,
             textAlign = TextAlign.End,

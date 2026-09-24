@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -27,6 +28,8 @@ import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
@@ -60,6 +63,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
@@ -210,9 +214,15 @@ internal fun WeeklyChallengeScreen(container: AppContainer) {
                             vm.dismissError()
                             reportTarget = row
                         },
-                        onBlock = { row -> blockTarget = row },
-                        onManageBlocked = { showBlocked = true }
+                        onBlock = { row -> blockTarget = row }
                     )
+                }
+                if (ui.blockedParticipants.isNotEmpty()) {
+                    item {
+                        TextButton(onClick = { showBlocked = true }) {
+                            Text(stringResource(R.string.challenge_manage_blocked))
+                        }
+                    }
                 }
                 item {
                     ViewerPositionCard(
@@ -358,40 +368,55 @@ private fun ChallengeHeader(
 
 @Composable
 private fun ChallengeIntroduction(onJoin: () -> Unit) {
-    FudGlassSurface(modifier = Modifier.fillMaxWidth(), cornerRadius = 20.dp, padding = 18.dp) {
-        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            Text(
-                text = stringResource(R.string.challenge_intro_title),
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
-            )
-            Text(
-                text = stringResource(R.string.challenge_intro_body),
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-            Text(
-                text = stringResource(R.string.challenge_privacy_disclosure),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-            Text(
-                text = stringResource(R.string.challenge_public_profile_disclosure),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-            Text(
-                text = stringResource(R.string.challenge_points_title),
-                style = MaterialTheme.typography.labelLarge,
-                fontWeight = FontWeight.SemiBold
-            )
-            Text(
-                text = stringResource(R.string.challenge_points_explanation),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-            Button(onClick = onJoin, modifier = Modifier.fillMaxWidth()) {
-                Text(stringResource(R.string.challenge_join_action))
+    Column(verticalArrangement = Arrangement.spacedBy(14.dp)) {
+        FudGlassSurface(modifier = Modifier.fillMaxWidth(), cornerRadius = 22.dp, padding = 22.dp) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.EmojiEvents,
+                    contentDescription = null,
+                    modifier = Modifier.size(48.dp),
+                    tint = AppColors.Calorie
+                )
+                Text(
+                    text = stringResource(R.string.challenge_intro_title),
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center
+                )
+                Text(
+                    text = stringResource(R.string.challenge_intro_body),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    textAlign = TextAlign.Center
+                )
             }
+        }
+        IntroFact(Icons.Filled.Lock, stringResource(R.string.challenge_privacy_disclosure))
+        IntroFact(Icons.Filled.Person, stringResource(R.string.challenge_public_profile_disclosure))
+        ChallengePointsExplanation()
+        Button(onClick = onJoin, modifier = Modifier.fillMaxWidth()) {
+            Text(stringResource(R.string.challenge_join_action))
+        }
+    }
+}
+
+@Composable
+private fun IntroFact(icon: ImageVector, text: String) {
+    FudGlassSurface(modifier = Modifier.fillMaxWidth(), cornerRadius = 18.dp, padding = 14.dp) {
+        Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                modifier = Modifier.size(22.dp),
+                tint = AppColors.Calorie
+            )
+            Text(
+                text = text,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
         }
     }
 }
@@ -502,6 +527,8 @@ private fun ViewerPositionCard(
     FudGlassSurface(modifier = Modifier.fillMaxWidth(), cornerRadius = 20.dp, padding = 18.dp) {
         Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
+                RankBadge(viewer?.rank, diameter = 56.dp)
+                Spacer(Modifier.width(14.dp))
                 Column(Modifier.weight(1f)) {
                     Text(
                         text = stringResource(R.string.challenge_my_position),
@@ -516,24 +543,18 @@ private fun ViewerPositionCard(
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
-                    SocialHandle(profile.socialPlatform, profile.socialHandle)
-                }
-                Column(horizontalAlignment = Alignment.End) {
-                    Text(
-                        text = viewer?.rank?.let { stringResource(R.string.challenge_rank_format, it) }
-                            ?: stringResource(R.string.challenge_unranked),
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold
-                    )
                     Text(
                         text = scoreText(category, viewer, aggregate),
                         style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis
                     )
+                    SocialHandle(profile.socialPlatform, profile.socialHandle)
                 }
             }
             HorizontalDivider()
-            AggregateBreakdown(viewer = viewer, aggregate = aggregate)
+            AggregateBreakdown(viewer = viewer, aggregate = aggregate, selected = category)
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 TextButton(onClick = onEdit, enabled = !isSaving) {
                     Text(stringResource(R.string.challenge_edit_profile))
@@ -552,7 +573,8 @@ private fun ViewerPositionCard(
 @Composable
 private fun AggregateBreakdown(
     viewer: WeeklyChallengeLeaderboardRow?,
-    aggregate: WeeklyChallengeAggregate
+    aggregate: WeeklyChallengeAggregate,
+    selected: WeeklyChallengeCategory
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Text(
@@ -566,44 +588,57 @@ private fun AggregateBreakdown(
                 R.string.challenge_points_format,
                 viewer?.overallPoints ?: aggregate.overallPoints
             ),
-            fraction = (viewer?.overallPoints ?: aggregate.overallPoints) / 28f
+            fraction = (viewer?.overallPoints ?: aggregate.overallPoints) / 28f,
+            emphasized = selected == WeeklyChallengeCategory.OVERALL
         )
         WeekDayTrack(
             stringResource(R.string.challenge_category_activity),
-            viewer?.activityDays ?: aggregate.activityDays
+            viewer?.activityDays ?: aggregate.activityDays,
+            emphasized = selected == WeeklyChallengeCategory.ACTIVITY
         )
         WeekDayTrack(
             stringResource(R.string.challenge_category_nutrition),
-            viewer?.nutritionDays ?: aggregate.nutritionDays
+            viewer?.nutritionDays ?: aggregate.nutritionDays,
+            emphasized = selected == WeeklyChallengeCategory.NUTRITION
         )
         WeekDayTrack(
             stringResource(R.string.challenge_category_consistency),
-            viewer?.consistencyDays ?: aggregate.consistencyDays
+            viewer?.consistencyDays ?: aggregate.consistencyDays,
+            emphasized = selected == WeeklyChallengeCategory.CONSISTENCY
         )
         WeekDayTrack(
             stringResource(R.string.challenge_category_hydration),
-            viewer?.hydrationDays ?: aggregate.hydrationDays
+            viewer?.hydrationDays ?: aggregate.hydrationDays,
+            emphasized = selected == WeeklyChallengeCategory.HYDRATION
         )
     }
 }
 
 @Composable
-private fun WeekScoreBar(label: String, valueText: String, fraction: Float) {
+private fun WeekScoreBar(
+    label: String,
+    valueText: String,
+    fraction: Float,
+    emphasized: Boolean
+) {
+    val bar = if (emphasized) AppColors.Calorie else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
     Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             Text(
                 text = label,
                 modifier = Modifier.weight(1f),
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                color = if (emphasized) MaterialTheme.colorScheme.onSurface
+                else MaterialTheme.colorScheme.onSurfaceVariant,
+                fontWeight = if (emphasized) FontWeight.Bold else FontWeight.Normal,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
-            Text(valueText, fontWeight = FontWeight.Bold, color = AppColors.Calorie)
+            Text(valueText, fontWeight = FontWeight.Bold, color = bar)
         }
         Box(
             Modifier
                 .fillMaxWidth()
-                .height(8.dp)
+                .height(if (emphasized) 10.dp else 8.dp)
                 .clip(RoundedCornerShape(50))
                 .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f))
         ) {
@@ -611,31 +646,35 @@ private fun WeekScoreBar(label: String, valueText: String, fraction: Float) {
                 Modifier
                     .fillMaxWidth(fraction.coerceIn(0f, 1f))
                     .fillMaxHeight()
-                    .background(AppColors.Calorie)
+                    .background(bar)
             )
         }
     }
 }
 
 @Composable
-private fun WeekDayTrack(label: String, days: Int) {
+private fun WeekDayTrack(label: String, days: Int, emphasized: Boolean) {
     val filled = days.coerceIn(0, 7)
+    val bar = if (emphasized) AppColors.Calorie else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
     Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             Text(
                 text = label,
                 modifier = Modifier.weight(1f),
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                color = if (emphasized) MaterialTheme.colorScheme.onSurface
+                else MaterialTheme.colorScheme.onSurfaceVariant,
+                fontWeight = if (emphasized) FontWeight.Bold else FontWeight.Normal,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
             Text(
                 text = stringResource(R.string.challenge_days_format, filled),
-                fontWeight = FontWeight.Medium
+                fontWeight = FontWeight.Medium,
+                color = if (emphasized) bar else MaterialTheme.colorScheme.onSurface
             )
         }
         Row(
-            modifier = Modifier.fillMaxWidth().height(8.dp),
+            modifier = Modifier.fillMaxWidth().height(if (emphasized) 10.dp else 8.dp),
             horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             repeat(7) { index ->
@@ -645,7 +684,7 @@ private fun WeekDayTrack(label: String, days: Int) {
                         .fillMaxHeight()
                         .clip(RoundedCornerShape(50))
                         .background(
-                            if (index < filled) AppColors.Calorie
+                            if (index < filled) bar
                             else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f)
                         )
                 )
@@ -659,27 +698,16 @@ private fun RankingsBoard(
     rankings: List<WeeklyChallengeLeaderboardRow>,
     category: WeeklyChallengeCategory,
     onReport: (WeeklyChallengeLeaderboardRow) -> Unit,
-    onBlock: (WeeklyChallengeLeaderboardRow) -> Unit,
-    onManageBlocked: () -> Unit
+    onBlock: (WeeklyChallengeLeaderboardRow) -> Unit
 ) {
     FudGlassSurface(modifier = Modifier.fillMaxWidth(), cornerRadius = 22.dp, padding = 6.dp) {
         Column {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 12.dp, end = 4.dp, top = 8.dp, bottom = 4.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = stringResource(R.string.challenge_leaderboard_title),
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.weight(1f)
-                )
-                TextButton(onClick = onManageBlocked) {
-                    Text(stringResource(R.string.challenge_manage_blocked))
-                }
-            }
+            Text(
+                text = stringResource(R.string.challenge_leaderboard_title),
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(start = 12.dp, end = 12.dp, top = 12.dp, bottom = 4.dp)
+            )
             if (rankings.isEmpty()) {
                 Text(
                     text = stringResource(R.string.challenge_leaderboard_empty),
@@ -963,8 +991,15 @@ private fun RankingRow(
         }
         Text(
             text = leaderboardScoreText(category, row),
+            modifier = Modifier
+                .padding(start = 8.dp)
+                .widthIn(max = 112.dp),
             fontWeight = FontWeight.Bold,
-            color = AppColors.Calorie
+            color = AppColors.Calorie,
+            textAlign = TextAlign.End,
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis,
+            style = MaterialTheme.typography.labelLarge
         )
         if (!row.isViewer) {
             ParticipantActions(
@@ -986,11 +1021,11 @@ private fun RankingRow(
 }
 
 @Composable
-private fun RankBadge(place: Int?, modifier: Modifier = Modifier) {
+private fun RankBadge(place: Int?, modifier: Modifier = Modifier, diameter: Dp = 36.dp) {
     val (fill, labelColor) = rankMedalColors(place)
     Box(
         modifier = modifier
-            .size(36.dp)
+            .size(diameter)
             .clip(CircleShape)
             .background(fill),
         contentAlignment = Alignment.Center

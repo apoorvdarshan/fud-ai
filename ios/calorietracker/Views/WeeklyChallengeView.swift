@@ -540,22 +540,19 @@ private struct WeeklyChallengeViewerCard: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            HStack {
-                Label(
-                    WeeklyChallengeL10n.text("My Position"),
-                    systemImage: "person.crop.circle.fill"
-                )
-                .font(.system(.headline, design: .rounded, weight: .bold))
-                Spacer()
-                Text(WeeklyChallengeL10n.format("#%1$@", participant.rank.formatted()))
-                    .font(.system(.title3, design: .rounded, weight: .bold))
-                    .foregroundStyle(AppColors.calorie)
+            HStack(alignment: .center, spacing: 14) {
+                WeeklyChallengeRankBadge(place: participant.rank, diameter: 56)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(WeeklyChallengeL10n.text("My Position"))
+                        .font(.system(.subheadline, design: .rounded, weight: .bold))
+                        .foregroundStyle(AppColors.calorie)
+                    WeeklyChallengeParticipantIdentity(participant: participant)
+                    Text(WeeklyChallengeParticipantScore.text(for: participant, category: category))
+                        .font(.system(.subheadline, design: .rounded, weight: .semibold))
+                        .foregroundStyle(.secondary)
+                        .lineLimit(2)
+                }
             }
-
-            WeeklyChallengeParticipantIdentity(participant: participant)
-
-            Text(WeeklyChallengeParticipantScore.text(for: participant, category: category))
-                .font(.system(.title3, design: .rounded, weight: .bold))
 
             WeeklyChallengeWeekTrack(
                 label: WeeklyChallengeL10n.text("Overall"),
@@ -563,23 +560,28 @@ private struct WeeklyChallengeViewerCard: View {
                     "%1$@ / 28 pts",
                     participant.overallPoints.formatted()
                 ),
-                fraction: Double(participant.overallPoints) / 28
+                fraction: Double(participant.overallPoints) / 28,
+                emphasized: category == .overall
             )
             WeeklyChallengeDayTrack(
                 label: WeeklyChallengeL10n.text("Activity"),
-                days: participant.activityDays
+                days: participant.activityDays,
+                emphasized: category == .activity
             )
             WeeklyChallengeDayTrack(
                 label: WeeklyChallengeL10n.text("Nutrition"),
-                days: participant.nutritionDays
+                days: participant.nutritionDays,
+                emphasized: category == .nutrition
             )
             WeeklyChallengeDayTrack(
                 label: WeeklyChallengeL10n.text("Consistency"),
-                days: participant.consistencyDays
+                days: participant.consistencyDays,
+                emphasized: category == .consistency
             )
             WeeklyChallengeDayTrack(
                 label: WeeklyChallengeL10n.text("Hydration"),
-                days: participant.hydrationDays
+                days: participant.hydrationDays,
+                emphasized: category == .hydration
             )
 
             HStack {
@@ -611,28 +613,30 @@ private struct WeeklyChallengeWeekTrack: View {
     let label: String
     let value: String
     let fraction: Double
+    var emphasized: Bool = false
 
     var body: some View {
+        let bar = emphasized ? AppColors.calorie : Color.primary.opacity(0.38)
         VStack(alignment: .leading, spacing: 6) {
             HStack {
                 Text(label)
-                    .font(.system(.subheadline, design: .rounded))
-                    .foregroundStyle(.secondary)
+                    .font(.system(.subheadline, design: .rounded, weight: emphasized ? .bold : .regular))
+                    .foregroundStyle(emphasized ? Color.primary : Color.secondary)
                     .lineLimit(1)
                 Spacer(minLength: 8)
                 Text(value)
                     .font(.system(.subheadline, design: .rounded, weight: .bold))
-                    .foregroundStyle(AppColors.calorie)
+                    .foregroundStyle(bar)
             }
             GeometryReader { proxy in
                 ZStack(alignment: .leading) {
                     Capsule().fill(Color.primary.opacity(0.12))
                     Capsule()
-                        .fill(AppColors.calorie)
+                        .fill(bar)
                         .frame(width: proxy.size.width * min(max(fraction, 0), 1))
                 }
             }
-            .frame(height: 8)
+            .frame(height: emphasized ? 10 : 8)
         }
     }
 }
@@ -640,25 +644,28 @@ private struct WeeklyChallengeWeekTrack: View {
 private struct WeeklyChallengeDayTrack: View {
     let label: String
     let days: Int
+    var emphasized: Bool = false
 
     private var filled: Int { min(max(days, 0), 7) }
 
     var body: some View {
+        let bar = emphasized ? AppColors.calorie : Color.primary.opacity(0.38)
         VStack(alignment: .leading, spacing: 6) {
             HStack {
                 Text(label)
-                    .font(.system(.subheadline, design: .rounded))
-                    .foregroundStyle(.secondary)
+                    .font(.system(.subheadline, design: .rounded, weight: emphasized ? .bold : .regular))
+                    .foregroundStyle(emphasized ? Color.primary : Color.secondary)
                     .lineLimit(1)
                 Spacer(minLength: 8)
                 Text(WeeklyChallengeL10n.format("%1$@ / 7 days", filled.formatted()))
                     .font(.system(.subheadline, design: .rounded, weight: .semibold))
+                    .foregroundStyle(emphasized ? bar : Color.primary)
             }
             HStack(spacing: 4) {
                 ForEach(0..<7, id: \.self) { index in
                     Capsule()
-                        .fill(index < filled ? AppColors.calorie : Color.primary.opacity(0.12))
-                        .frame(height: 8)
+                        .fill(index < filled ? bar : Color.primary.opacity(0.12))
+                        .frame(height: emphasized ? 10 : 8)
                 }
             }
         }
@@ -773,6 +780,8 @@ private struct WeeklyChallengeParticipantRow: View {
                 .font(.system(.subheadline, design: .rounded, weight: .bold))
                 .foregroundStyle(AppColors.calorie)
                 .multilineTextAlignment(.trailing)
+                .lineLimit(2)
+                .frame(maxWidth: 112, alignment: .trailing)
 
             if !isViewer {
                 Menu {
@@ -800,12 +809,13 @@ private struct WeeklyChallengeParticipantRow: View {
 
 private struct WeeklyChallengeRankBadge: View {
     let place: Int
+    var diameter: CGFloat = 36
 
     var body: some View {
         Text("\(place)")
-            .font(.system(.subheadline, design: .rounded, weight: .bold))
+            .font(.system(diameter > 40 ? .title3 : .subheadline, design: .rounded, weight: .bold))
             .foregroundStyle(foreground)
-            .frame(width: 36, height: 36)
+            .frame(width: diameter, height: diameter)
             .background(fill, in: Circle())
     }
 

@@ -264,21 +264,8 @@ struct WeeklyChallengeView: View {
     private var joinedView: some View {
         ScrollView {
             LazyVStack(spacing: 14) {
-                categorySelector
                 challengeHeader
-                WeeklyChallengePointsExplanationView()
-
-                if let viewer = displayedViewer {
-                    WeeklyChallengeViewerCard(
-                        participant: viewer,
-                        category: category,
-                        onEditProfile: {
-                            store.clearError()
-                            profileSheetMode = .edit
-                        },
-                        onLeave: { showLeaveConfirmation = true }
-                    )
-                }
+                categorySelector
 
                 if let response = displayedLeaderboard {
                     leaderboardRows(response)
@@ -292,6 +279,20 @@ struct WeeklyChallengeView: View {
                         .foregroundStyle(.secondary)
                         .padding(.vertical, 28)
                 }
+
+                if let viewer = displayedViewer {
+                    WeeklyChallengeViewerCard(
+                        participant: viewer,
+                        category: category,
+                        onEditProfile: {
+                            store.clearError()
+                            profileSheetMode = .edit
+                        },
+                        onLeave: { showLeaveConfirmation = true }
+                    )
+                }
+
+                WeeklyChallengePointsExplanationView()
 
                 if !store.blockedParticipantIDs.isEmpty {
                     Button(WeeklyChallengeL10n.text("Manage Blocked Participants")) {
@@ -386,30 +387,47 @@ struct WeeklyChallengeView: View {
     @ViewBuilder
     private func leaderboardRows(_ response: WeeklyChallengeLeaderboardResponse) -> some View {
         let viewerID = displayedViewer?.participantId ?? store.participantID
-        let rows = response.rankings.filter {
-            !$0.isViewer
-                && $0.participantId != viewerID
-                && !store.isBlocked(participantID: $0.participantId)
+        var rows = response.rankings.filter {
+            !store.isBlocked(participantID: $0.participantId)
         }
+        if let viewer = response.viewer ?? displayedViewer,
+           !rows.contains(where: { $0.participantId == viewer.participantId }),
+           !store.isBlocked(participantID: viewer.participantId) {
+            rows.append(viewer)
+        }
+        rows.sort { $0.rank < $1.rank }
 
-        if rows.isEmpty {
-            Text(WeeklyChallengeL10n.text("No other participants are ranked yet."))
-                .font(.system(.body, design: .rounded))
-                .foregroundStyle(.secondary)
-                .padding(.vertical, 24)
-        } else {
-            ForEach(rows) { participant in
-                WeeklyChallengeParticipantRow(
-                    participant: participant,
-                    category: category,
-                    onReport: {
-                        store.clearError()
-                        reportTarget = participant
-                    },
-                    onBlock: { store.block(participant) }
-                )
+        VStack(alignment: .leading, spacing: 0) {
+            Text(WeeklyChallengeL10n.text("Rankings"))
+                .font(.system(.title3, design: .rounded, weight: .bold))
+                .padding(.horizontal, 14)
+                .padding(.top, 14)
+                .padding(.bottom, 6)
+
+            if rows.isEmpty {
+                Text(WeeklyChallengeL10n.text("No other participants are ranked yet."))
+                    .font(.system(.body, design: .rounded))
+                    .foregroundStyle(.secondary)
+                    .padding(16)
+            } else {
+                ForEach(Array(rows.enumerated()), id: \.element.id) { index, participant in
+                    if index > 0 {
+                        Divider().padding(.leading, 62)
+                    }
+                    WeeklyChallengeParticipantRow(
+                        participant: participant,
+                        category: category,
+                        isViewer: participant.isViewer || participant.participantId == viewerID,
+                        onReport: {
+                            store.clearError()
+                            reportTarget = participant
+                        },
+                        onBlock: { store.block(participant) }
+                    )
+                }
             }
         }
+        .background(AppColors.appCard, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
     }
 
     private func disclosureCard(score: WeeklyChallengeScore) -> some View {
@@ -581,52 +599,93 @@ private struct WeeklyChallengeMiniStat: View {
 private struct WeeklyChallengeParticipantRow: View {
     let participant: WeeklyChallengeParticipant
     let category: WeeklyChallengeCategory
+    let isViewer: Bool
     let onReport: () -> Void
     let onBlock: () -> Void
 
     var body: some View {
         HStack(spacing: 12) {
-            Text(WeeklyChallengeL10n.format("#%1$@", participant.rank.formatted()))
-                .font(.system(.headline, design: .rounded, weight: .bold))
-                .frame(width: 42, alignment: .leading)
+            WeeklyChallengeRankBadge(place: participant.rank)
 
-            WeeklyChallengeParticipantIdentity(participant: participant)
+            WeeklyChallengeParticipantIdentity(participant: participant, isViewer: isViewer)
 
             Spacer(minLength: 4)
 
             Text(WeeklyChallengeParticipantScore.text(for: participant, category: category))
                 .font(.system(.subheadline, design: .rounded, weight: .bold))
+                .foregroundStyle(AppColors.calorie)
                 .multilineTextAlignment(.trailing)
 
-            Menu {
-                Button(WeeklyChallengeL10n.text("Report"), action: onReport)
-                Button(
-                    WeeklyChallengeL10n.text("Block"),
-                    role: .destructive,
-                    action: onBlock
+            if !isViewer {
+                Menu {
+                    Button(WeeklyChallengeL10n.text("Report"), action: onReport)
+                    Button(
+                        WeeklyChallengeL10n.text("Block"),
+                        role: .destructive,
+                        action: onBlock
+                    )
+                } label: {
+                    Image(systemName: "ellipsis.circle")
+                        .font(.title3)
+                        .frame(width: 32, height: 44)
+                }
+                .accessibilityLabel(
+                    WeeklyChallengeL10n.format("More actions for %1$@", participant.displayName)
                 )
-            } label: {
-                Image(systemName: "ellipsis.circle")
-                    .font(.title3)
-                    .frame(width: 32, height: 44)
             }
-            .accessibilityLabel(
-                WeeklyChallengeL10n.format("More actions for %1$@", participant.displayName)
-            )
         }
-        .padding(14)
-        .background(AppColors.appCard, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .padding(.horizontal, 12)
+        .padding(.vertical, 10)
+        .background(isViewer ? AppColors.calorie.opacity(0.12) : Color.clear)
+    }
+}
+
+private struct WeeklyChallengeRankBadge: View {
+    let place: Int
+
+    var body: some View {
+        Text("\(place)")
+            .font(.system(.subheadline, design: .rounded, weight: .bold))
+            .foregroundStyle(foreground)
+            .frame(width: 36, height: 36)
+            .background(fill, in: Circle())
+    }
+
+    private var fill: Color {
+        switch place {
+        case 1: Color(red: 1, green: 0.76, blue: 0.03)
+        case 2: Color(red: 0.84, green: 0.84, blue: 0.84)
+        case 3: Color(red: 0.88, green: 0.63, blue: 0.35)
+        default: Color.primary.opacity(0.08)
+        }
+    }
+
+    private var foreground: Color {
+        switch place {
+        case 1: Color(red: 0.23, green: 0.16, blue: 0)
+        case 2: Color(red: 0.17, green: 0.17, blue: 0.17)
+        case 3: Color(red: 0.23, green: 0.13, blue: 0.03)
+        default: Color.primary
+        }
     }
 }
 
 private struct WeeklyChallengeParticipantIdentity: View {
     let participant: WeeklyChallengeParticipant
+    var isViewer: Bool = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 3) {
-            Text(participant.displayName)
-                .font(.system(.body, design: .rounded, weight: .semibold))
-                .lineLimit(1)
+            HStack(spacing: 6) {
+                Text(participant.displayName)
+                    .font(.system(.body, design: .rounded, weight: .semibold))
+                    .lineLimit(1)
+                if isViewer {
+                    Text(WeeklyChallengeL10n.text("You"))
+                        .font(.system(.caption2, design: .rounded, weight: .bold))
+                        .foregroundStyle(AppColors.calorie)
+                }
+            }
 
             if let platform = participant.socialPlatform,
                let handle = participant.socialHandle,

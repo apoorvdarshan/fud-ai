@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker.ui.progress
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
@@ -17,6 +18,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -44,6 +47,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
@@ -116,13 +121,16 @@ internal fun WeeklyChallengeScreen(container: AppContainer) {
 
     val viewer = ui.leaderboard?.viewer
         ?: ui.leaderboard?.rankings?.firstOrNull { it.isViewer }
-    val viewerId = viewer?.participantId ?: ui.profile?.participantId
-    val rankings = ui.leaderboard?.rankings.orEmpty()
-        .asSequence()
+    val rankings = buildList {
+        addAll(ui.leaderboard?.rankings.orEmpty())
+        val viewerRow = ui.leaderboard?.viewer
+        if (viewerRow != null && none { it.participantId == viewerRow.participantId }) {
+            add(viewerRow)
+        }
+    }
         .distinctBy { it.participantId }
-        .filterNot { it.participantId == viewerId }
         .filterNot { it.participantId in ui.blockedParticipants }
-        .toList()
+        .sortedWith(compareBy({ it.rank ?: Int.MAX_VALUE }, { it.displayName }))
 
     PullToRefreshBox(
         isRefreshing = ui.isRefreshing,
@@ -180,6 +188,18 @@ internal fun WeeklyChallengeScreen(container: AppContainer) {
                         onSelect = vm::selectCategory
                     )
                 }
+                item {
+                    RankingsBoard(
+                        rankings = rankings,
+                        category = ui.category,
+                        onReport = { row ->
+                            vm.dismissError()
+                            reportTarget = row
+                        },
+                        onBlock = { row -> blockTarget = row },
+                        onManageBlocked = { showBlocked = true }
+                    )
+                }
                 item { ChallengePointsExplanation() }
                 item {
                     ViewerPositionCard(
@@ -194,37 +214,6 @@ internal fun WeeklyChallengeScreen(container: AppContainer) {
                         },
                         onLeave = { showLeave = true }
                     )
-                }
-                item {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = stringResource(R.string.challenge_leaderboard_title),
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.SemiBold
-                        )
-                        Spacer(Modifier.weight(1f))
-                        TextButton(onClick = { showBlocked = true }) {
-                            Text(stringResource(R.string.challenge_manage_blocked))
-                        }
-                    }
-                }
-                if (rankings.isEmpty()) {
-                    item { ChallengeEmptyLeaderboard() }
-                } else {
-                    items(rankings, key = { it.participantId }) { row ->
-                        LeaderboardRowCard(
-                            row = row,
-                            category = ui.category,
-                            onReport = {
-                                vm.dismissError()
-                                reportTarget = row
-                            },
-                            onBlock = { blockTarget = row }
-                        )
-                    }
                 }
             }
         }
@@ -558,47 +547,104 @@ private fun MetricLine(label: String, value: String) {
 }
 
 @Composable
-private fun ChallengeEmptyLeaderboard() {
-    FudGlassSurface(modifier = Modifier.fillMaxWidth(), cornerRadius = 18.dp, padding = 18.dp) {
-        Text(
-            text = stringResource(R.string.challenge_leaderboard_empty),
-            modifier = Modifier.fillMaxWidth(),
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
+private fun RankingsBoard(
+    rankings: List<WeeklyChallengeLeaderboardRow>,
+    category: WeeklyChallengeCategory,
+    onReport: (WeeklyChallengeLeaderboardRow) -> Unit,
+    onBlock: (WeeklyChallengeLeaderboardRow) -> Unit,
+    onManageBlocked: () -> Unit
+) {
+    FudGlassSurface(modifier = Modifier.fillMaxWidth(), cornerRadius = 22.dp, padding = 6.dp) {
+        Column {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 12.dp, end = 4.dp, top = 8.dp, bottom = 4.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = stringResource(R.string.challenge_leaderboard_title),
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.weight(1f)
+                )
+                TextButton(onClick = onManageBlocked) {
+                    Text(stringResource(R.string.challenge_manage_blocked))
+                }
+            }
+            if (rankings.isEmpty()) {
+                Text(
+                    text = stringResource(R.string.challenge_leaderboard_empty),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 18.dp),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            } else {
+                rankings.forEachIndexed { index, row ->
+                    if (index > 0) {
+                        HorizontalDivider(Modifier.padding(start = 64.dp, end = 12.dp))
+                    }
+                    RankingRow(
+                        row = row,
+                        category = category,
+                        onReport = { onReport(row) },
+                        onBlock = { onBlock(row) }
+                    )
+                }
+            }
+        }
     }
 }
 
 @Composable
-private fun LeaderboardRowCard(
+private fun RankingRow(
     row: WeeklyChallengeLeaderboardRow,
     category: WeeklyChallengeCategory,
     onReport: () -> Unit,
     onBlock: () -> Unit
 ) {
     var menuOpen by remember { mutableStateOf(false) }
-    FudGlassSurface(modifier = Modifier.fillMaxWidth(), cornerRadius = 18.dp, padding = 14.dp) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Text(
-                text = row.rank?.let { stringResource(R.string.challenge_rank_format, it) }
-                    ?: stringResource(R.string.challenge_unranked),
-                modifier = Modifier.width(54.dp),
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold
+    val place = row.rank
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(16.dp))
+            .background(
+                if (row.isViewer) AppColors.Calorie.copy(alpha = 0.12f) else Color.Transparent
             )
-            Column(Modifier.weight(1f)) {
+            .padding(horizontal = 8.dp, vertical = 10.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        RankBadge(place)
+        Spacer(Modifier.width(12.dp))
+        Column(Modifier.weight(1f)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     text = row.displayName,
                     fontWeight = FontWeight.SemiBold,
                     maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.weight(1f, fill = false)
                 )
-                SocialHandle(row.socialPlatform, row.socialHandle)
+                if (row.isViewer) {
+                    Text(
+                        text = stringResource(R.string.challenge_you),
+                        modifier = Modifier.padding(start = 8.dp),
+                        style = MaterialTheme.typography.labelSmall,
+                        fontWeight = FontWeight.Bold,
+                        color = AppColors.Calorie
+                    )
+                }
             }
-            Text(
-                text = leaderboardScoreText(category, row),
-                fontWeight = FontWeight.Bold,
-                color = AppColors.Calorie
-            )
+            SocialHandle(row.socialPlatform, row.socialHandle)
+        }
+        Text(
+            text = leaderboardScoreText(category, row),
+            fontWeight = FontWeight.Bold,
+            color = AppColors.Calorie
+        )
+        if (!row.isViewer) {
             Box {
                 val description = stringResource(R.string.challenge_more_actions, row.displayName)
                 IconButton(
@@ -625,6 +671,30 @@ private fun LeaderboardRowCard(
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun RankBadge(place: Int?) {
+    val (fill, labelColor) = when (place) {
+        1 -> Color(0xFFFFC107) to Color(0xFF3A2A00)
+        2 -> Color(0xFFD7D7D7) to Color(0xFF2C2C2C)
+        3 -> Color(0xFFE0A15A) to Color(0xFF3A2208)
+        else -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f) to
+            MaterialTheme.colorScheme.onSurface
+    }
+    Box(
+        modifier = Modifier
+            .size(36.dp)
+            .clip(CircleShape)
+            .background(fill),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = place?.toString() ?: "–",
+            fontWeight = FontWeight.Bold,
+            color = labelColor
+        )
     }
 }
 

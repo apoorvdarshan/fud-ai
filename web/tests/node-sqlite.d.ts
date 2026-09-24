@@ -4,7 +4,7 @@ declare module "node:sqlite" {
     exec(sql: string): void;
     prepare(sql: string): {
       run(...values: Array<string | number>): void;
-      all(): Array<{ participant_id: string; rank: number }>;
+      all(...values: Array<string | number>): Array<Record<string, string | number>>;
     };
     close(): void;
   }

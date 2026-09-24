@@ -1,7 +1,7 @@
 import { DatabaseSync } from "node:sqlite";
 import { describe, expect, it } from "vitest";
 
-import { handleChallengeRequest, leaderboardOrder } from "../challenge-api";
+import { REACHED_AT_ASSIGNMENT, handleChallengeRequest, leaderboardRankingSelect } from "../challenge-api";
 
 function testEnvironment(participant: unknown = null): Env {
   const session = {
@@ -127,7 +127,7 @@ describe("leaderboard places", () => {
     }
     const rows = database.prepare(`
       SELECT p.participant_id AS participant_id,
-             ROW_NUMBER() OVER (ORDER BY ${leaderboardOrder(category)}) AS rank
+             ${leaderboardRankingSelect(category)}
       FROM p
       LEFT JOIN s ON s.participant_id = p.participant_id
       ORDER BY rank ASC
@@ -157,5 +157,74 @@ describe("leaderboard places", () => {
       "higher-overall",
     ]);
     expect(rows.map((row) => row.rank)).toEqual([1, 2, 3, 4]);
+  });
+
+  it("keeps the original time when the same totals are saved again", () => {
+    const database = new DatabaseSync(":memory:");
+    database.exec(`
+      CREATE TABLE challenge_weekly_scores (
+        participant_id TEXT NOT NULL,
+        week_start TEXT NOT NULL,
+        overall_points INTEGER NOT NULL,
+        activity_days INTEGER NOT NULL,
+        nutrition_days INTEGER NOT NULL,
+        consistency_days INTEGER NOT NULL,
+        hydration_days INTEGER NOT NULL,
+        activity_kcal INTEGER NOT NULL,
+        updated_at TEXT NOT NULL,
+        PRIMARY KEY (participant_id, week_start)
+      );
+    `);
+    database.prepare(
+      `INSERT INTO challenge_weekly_scores (
+        participant_id, week_start, overall_points, activity_days, nutrition_days,
+        consistency_days, hydration_days, activity_kcal, updated_at
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+      ON CONFLICT(participant_id, week_start) DO UPDATE SET
+        overall_points = excluded.overall_points,
+        activity_days = excluded.activity_days,
+        nutrition_days = excluded.nutrition_days,
+        consistency_days = excluded.consistency_days,
+        hydration_days = excluded.hydration_days,
+        activity_kcal = excluded.activity_kcal,
+        updated_at = ${REACHED_AT_ASSIGNMENT}`,
+    ).run("runner", "2026-09-21", 10, 3, 3, 2, 2, 400, "2026-09-22T00:00:00Z");
+    database.prepare(
+      `INSERT INTO challenge_weekly_scores (
+        participant_id, week_start, overall_points, activity_days, nutrition_days,
+        consistency_days, hydration_days, activity_kcal, updated_at
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+      ON CONFLICT(participant_id, week_start) DO UPDATE SET
+        overall_points = excluded.overall_points,
+        activity_days = excluded.activity_days,
+        nutrition_days = excluded.nutrition_days,
+        consistency_days = excluded.consistency_days,
+        hydration_days = excluded.hydration_days,
+        activity_kcal = excluded.activity_kcal,
+        updated_at = ${REACHED_AT_ASSIGNMENT}`,
+    ).run("runner", "2026-09-21", 10, 3, 3, 2, 2, 400, "2026-09-24T00:00:00Z");
+    const same = database.prepare(
+      "SELECT updated_at FROM challenge_weekly_scores WHERE participant_id = ?",
+    ).all("runner") as Array<{ updated_at: string }>;
+    database.prepare(
+      `INSERT INTO challenge_weekly_scores (
+        participant_id, week_start, overall_points, activity_days, nutrition_days,
+        consistency_days, hydration_days, activity_kcal, updated_at
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+      ON CONFLICT(participant_id, week_start) DO UPDATE SET
+        overall_points = excluded.overall_points,
+        activity_days = excluded.activity_days,
+        nutrition_days = excluded.nutrition_days,
+        consistency_days = excluded.consistency_days,
+        hydration_days = excluded.hydration_days,
+        activity_kcal = excluded.activity_kcal,
+        updated_at = ${REACHED_AT_ASSIGNMENT}`,
+    ).run("runner", "2026-09-21", 11, 4, 3, 2, 2, 400, "2026-09-25T00:00:00Z");
+    const improved = database.prepare(
+      "SELECT updated_at FROM challenge_weekly_scores WHERE participant_id = ?",
+    ).all("runner") as Array<{ updated_at: string }>;
+    database.close();
+    expect(same[0]?.updated_at).toBe("2026-09-22T00:00:00Z");
+    expect(improved[0]?.updated_at).toBe("2026-09-25T00:00:00Z");
   });
 });

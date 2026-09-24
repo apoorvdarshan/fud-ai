@@ -319,7 +319,7 @@ async function putWeeklyScore(
           consistency_days = excluded.consistency_days,
           hydration_days = excluded.hydration_days,
           activity_kcal = excluded.activity_kcal,
-          updated_at = excluded.updated_at`,
+          updated_at = ${REACHED_AT_ASSIGNMENT}`,
       )
       .bind(
         participant.participant_id,
@@ -363,7 +363,7 @@ async function getLeaderboard(
       COALESCE(s.activity_kcal, 0) AS activity_kcal,
       COALESCE(s.updated_at, p.updated_at) AS updated_at,
       ${ranking.scoreExpression} AS score,
-      ROW_NUMBER() OVER (ORDER BY ${ranking.orderExpression}) AS rank
+      ${leaderboardRankingSelect(query.category)}
     FROM challenge_participants p
     LEFT JOIN challenge_weekly_scores s
       ON s.participant_id = p.participant_id AND s.week_start = ?
@@ -606,6 +606,18 @@ const ACTIVITY_KCAL = "COALESCE(s.activity_kcal, 0)";
 const REACHED_SCORE_FIRST = "COALESCE(s.updated_at, p.updated_at) ASC";
 const STABLE_PARTICIPANT = "p.participant_id ASC";
 
+/** Keep the time the current totals were first reached. A repeat save does not move it. */
+export const REACHED_AT_ASSIGNMENT = `CASE
+  WHEN challenge_weekly_scores.overall_points = excluded.overall_points
+   AND challenge_weekly_scores.activity_days = excluded.activity_days
+   AND challenge_weekly_scores.nutrition_days = excluded.nutrition_days
+   AND challenge_weekly_scores.consistency_days = excluded.consistency_days
+   AND challenge_weekly_scores.hydration_days = excluded.hydration_days
+   AND challenge_weekly_scores.activity_kcal = excluded.activity_kcal
+  THEN challenge_weekly_scores.updated_at
+  ELSE excluded.updated_at
+END`;
+
 /** Category score, then the other day counts, calories, then who got there first. */
 export function leaderboardOrder(category: ChallengeCategory): string {
   const days = {
@@ -626,6 +638,10 @@ export function leaderboardOrder(category: ChallengeCategory): string {
           `${ACTIVITY_KCAL} DESC`,
         ];
   return [...primary, REACHED_SCORE_FIRST, STABLE_PARTICIPANT].join(", ");
+}
+
+export function leaderboardRankingSelect(category: ChallengeCategory): string {
+  return `ROW_NUMBER() OVER (ORDER BY ${leaderboardOrder(category)}) AS rank`;
 }
 
 function rankingSpecification(category: ChallengeCategory): {

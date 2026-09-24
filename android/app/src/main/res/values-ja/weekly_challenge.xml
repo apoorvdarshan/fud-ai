@@ -32,6 +32,7 @@
     <string name="challenge_edit_profile">プロフィールを編集</string>
     <string name="challenge_leave_action">退出</string>
     <string name="challenge_leaderboard_title">ランキング</string>
+    <string name="challenge_you">あなた</string>
     <string name="challenge_manage_blocked">ブロックを管理</string>
     <string name="challenge_leaderboard_empty">ほかのランク入り参加者はまだいません。下に引いて更新してください。</string>
     <string name="challenge_more_actions">%1$sのその他の操作</string>

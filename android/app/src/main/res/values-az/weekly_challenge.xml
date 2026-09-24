@@ -32,6 +32,7 @@
     <string name="challenge_edit_profile">Profili redaktə et</string>
     <string name="challenge_leave_action">Ayrıl</string>
     <string name="challenge_leaderboard_title">Reytinq</string>
+    <string name="challenge_you">Sən</string>
     <string name="challenge_manage_blocked">Bloklananları idarə et</string>
     <string name="challenge_leaderboard_empty">Hələ başqa sıralanmış iştirakçı yoxdur. Yeniləmək üçün aşağı çəkin.</string>
     <string name="challenge_more_actions">%1$s üçün digər əməliyyatlar</string>

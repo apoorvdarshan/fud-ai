@@ -32,6 +32,7 @@
     <string name="challenge_edit_profile">Editar perfil</string>
     <string name="challenge_leave_action">Salir</string>
     <string name="challenge_leaderboard_title">Clasificación</string>
+    <string name="challenge_you">Tú</string>
     <string name="challenge_manage_blocked">Gestionar bloqueados</string>
     <string name="challenge_leaderboard_empty">Todavía no hay otros participantes clasificados. Desliza hacia abajo para actualizar.</string>
     <string name="challenge_more_actions">Más acciones para %1$s</string>

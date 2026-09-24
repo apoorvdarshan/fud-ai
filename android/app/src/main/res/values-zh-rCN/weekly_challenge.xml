@@ -32,6 +32,7 @@
     <string name="challenge_edit_profile">编辑个人资料</string>
     <string name="challenge_leave_action">退出</string>
     <string name="challenge_leaderboard_title">排名</string>
+    <string name="challenge_you">你</string>
     <string name="challenge_manage_blocked">管理已屏蔽用户</string>
     <string name="challenge_leaderboard_empty">目前还没有其他上榜参与者。下拉即可刷新。</string>
     <string name="challenge_more_actions">%1$s 的更多操作</string>

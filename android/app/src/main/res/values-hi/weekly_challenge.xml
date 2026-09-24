@@ -32,6 +32,7 @@
     <string name="challenge_edit_profile">प्रोफ़ाइल बदलें</string>
     <string name="challenge_leave_action">छोड़ें</string>
     <string name="challenge_leaderboard_title">रैंकिंग</string>
+    <string name="challenge_you">आप</string>
     <string name="challenge_manage_blocked">ब्लॉक किए गए लोगों को मैनेज करें</string>
     <string name="challenge_leaderboard_empty">अभी कोई अन्य रैंक वाला प्रतिभागी नहीं है। रीफ़्रेश करने के लिए नीचे खींचें।</string>
     <string name="challenge_more_actions">%1$s के लिए और कार्रवाइयाँ</string>

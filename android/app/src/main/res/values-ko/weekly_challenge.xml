@@ -32,6 +32,7 @@
     <string name="challenge_edit_profile">프로필 수정</string>
     <string name="challenge_leave_action">나가기</string>
     <string name="challenge_leaderboard_title">순위</string>
+    <string name="challenge_you">나</string>
     <string name="challenge_manage_blocked">차단 관리</string>
     <string name="challenge_leaderboard_empty">아직 순위에 오른 다른 참가자가 없습니다. 아래로 당겨 새로고침하세요.</string>
     <string name="challenge_more_actions">%1$s 추가 작업</string>

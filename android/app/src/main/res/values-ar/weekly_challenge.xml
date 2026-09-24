@@ -32,6 +32,7 @@
     <string name="challenge_edit_profile">تعديل الملف</string>
     <string name="challenge_leave_action">مغادرة</string>
     <string name="challenge_leaderboard_title">الترتيب</string>
+    <string name="challenge_you">أنت</string>
     <string name="challenge_manage_blocked">إدارة المحظورين</string>
     <string name="challenge_leaderboard_empty">لا يوجد مشاركون آخرون في الترتيب بعد. اسحب لأسفل للتحديث.</string>
     <string name="challenge_more_actions">إجراءات إضافية لـ %1$s</string>

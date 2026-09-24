@@ -32,6 +32,7 @@
     <string name="challenge_edit_profile">Editează profilul</string>
     <string name="challenge_leave_action">Ieși</string>
     <string name="challenge_leaderboard_title">Clasament</string>
+    <string name="challenge_you">Tu</string>
     <string name="challenge_manage_blocked">Gestionează persoanele blocate</string>
     <string name="challenge_leaderboard_empty">Încă nu există alți participanți clasați. Trage în jos pentru actualizare.</string>
     <string name="challenge_more_actions">Mai multe acțiuni pentru %1$s</string>

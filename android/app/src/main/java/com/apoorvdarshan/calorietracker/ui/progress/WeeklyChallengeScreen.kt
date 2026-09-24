@@ -1049,7 +1049,9 @@ private fun RankingRow(
             Spacer(Modifier.width(8.dp))
         }
         RankBadge(place)
-        Spacer(Modifier.width(12.dp))
+        Spacer(Modifier.width(10.dp))
+        NameMark(row.displayName)
+        Spacer(Modifier.width(10.dp))
         Column(Modifier.weight(1f)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
@@ -1096,6 +1098,35 @@ private fun RankingRow(
                 }
             )
         }
+    }
+}
+
+private val nameMarkColors = listOf(
+    Color(0xFFE85D75),
+    Color(0xFF5B8DEF),
+    Color(0xFF3CB89A),
+    Color(0xFFF0A202),
+    Color(0xFF9B6BFF),
+    Color(0xFF2BB0C9)
+)
+
+@Composable
+private fun NameMark(name: String) {
+    val letter = name.trim().firstOrNull()?.uppercaseChar()?.toString() ?: "?"
+    val color = nameMarkColors[name.hashCode().mod(nameMarkColors.size)]
+    Box(
+        modifier = Modifier
+            .size(32.dp)
+            .clip(CircleShape)
+            .background(color),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = letter,
+            color = Color.White,
+            fontWeight = FontWeight.Bold,
+            style = MaterialTheme.typography.labelLarge
+        )
     }
 }
 

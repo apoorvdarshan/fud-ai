@@ -813,6 +813,8 @@ private struct WeeklyChallengeParticipantRow: View {
             }
             WeeklyChallengeRankBadge(place: participant.rank)
 
+            WeeklyChallengeNameMark(name: participant.displayName)
+
             WeeklyChallengeParticipantIdentity(participant: participant, isViewer: isViewer)
 
             Spacer(minLength: 4)
@@ -852,6 +854,43 @@ private struct WeeklyChallengeParticipantRow: View {
                 ? AppColors.calorie.opacity(0.12)
                 : (striped ? Color.primary.opacity(0.05) : Color.clear)
         )
+    }
+}
+
+private struct WeeklyChallengeNameMark: View {
+    let name: String
+
+    private static let colors: [Color] = [
+        Color(red: 0.91, green: 0.36, blue: 0.46),
+        Color(red: 0.36, green: 0.55, blue: 0.94),
+        Color(red: 0.24, green: 0.72, blue: 0.60),
+        Color(red: 0.94, green: 0.64, blue: 0.01),
+        Color(red: 0.61, green: 0.42, blue: 1),
+        Color(red: 0.17, green: 0.69, blue: 0.79)
+    ]
+
+    private var letter: String {
+        let trimmed = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard let first = trimmed.first else { return "?" }
+        return String(first).uppercased()
+    }
+
+    private var color: Color {
+        var hash = 0
+        for scalar in name.unicodeScalars {
+            hash = (hash &* 31) &+ Int(scalar.value)
+        }
+        let index = abs(hash) % Self.colors.count
+        return Self.colors[index]
+    }
+
+    var body: some View {
+        Text(letter)
+            .font(.system(.subheadline, design: .rounded, weight: .bold))
+            .foregroundStyle(Color.white)
+            .frame(width: 32, height: 32)
+            .background(color, in: Circle())
+            .accessibilityHidden(true)
     }
 }
 

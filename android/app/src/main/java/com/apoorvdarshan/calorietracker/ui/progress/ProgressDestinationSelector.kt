@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ShowChart
 import androidx.compose.material.icons.filled.EmojiEvents
@@ -28,7 +29,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.apoorvdarshan.calorietracker.R
@@ -81,7 +81,7 @@ internal fun ProgressDestinationSelector(
                         onClick = { onSelect(destination) },
                         role = Role.Tab
                     )
-                    .padding(horizontal = 10.dp, vertical = 10.dp),
+                    .padding(horizontal = 8.dp, vertical = 10.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
@@ -96,11 +96,15 @@ internal fun ProgressDestinationSelector(
                     text = stringResource(destination.labelRes),
                     modifier = Modifier
                         .padding(start = 6.dp)
-                        .weight(1f, fill = false),
-                    fontSize = 15.sp,
+                        .weight(1f),
                     fontWeight = FontWeight.SemiBold,
                     maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
+                    softWrap = false,
+                    autoSize = TextAutoSize.StepBased(
+                        minFontSize = 11.sp,
+                        maxFontSize = 15.sp,
+                        stepSize = 0.5.sp
+                    ),
                     color = if (isSelected) Color.White
                     else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f)
                 )

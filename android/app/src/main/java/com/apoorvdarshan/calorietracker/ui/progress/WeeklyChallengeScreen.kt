@@ -1022,6 +1022,16 @@ private fun RankingRow(
             .padding(horizontal = 8.dp, vertical = 10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
+        if (row.isViewer) {
+            Box(
+                Modifier
+                    .width(4.dp)
+                    .height(36.dp)
+                    .clip(RoundedCornerShape(50))
+                    .background(AppColors.Calorie)
+            )
+            Spacer(Modifier.width(8.dp))
+        }
         RankBadge(place)
         Spacer(Modifier.width(12.dp))
         Column(Modifier.weight(1f)) {

@@ -801,6 +801,11 @@ private struct WeeklyChallengeParticipantRow: View {
 
     var body: some View {
         HStack(spacing: 12) {
+            if isViewer {
+                Capsule()
+                    .fill(AppColors.calorie)
+                    .frame(width: 4, height: 36)
+            }
             WeeklyChallengeRankBadge(place: participant.rank)
 
             WeeklyChallengeParticipantIdentity(participant: participant, isViewer: isViewer)

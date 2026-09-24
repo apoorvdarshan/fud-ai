@@ -1,6 +1,7 @@
+import { DatabaseSync } from "node:sqlite";
 import { describe, expect, it } from "vitest";
 
-import { handleChallengeRequest } from "../challenge-api";
+import { handleChallengeRequest, leaderboardOrder } from "../challenge-api";
 
 function testEnvironment(participant: unknown = null): Env {
   const session = {
@@ -82,5 +83,79 @@ describe("challenge API error responses", () => {
         fields: ["acceptedRules"],
       },
     });
+  });
+});
+
+describe("leaderboard places", () => {
+  const people = [
+    ["tied-late", 14, 7, 7, 0, 0, 100, "2026-09-02T00:00:00Z"],
+    ["tied-early", 14, 7, 7, 0, 0, 100, "2026-09-01T00:00:00Z"],
+    ["more-activity", 14, 7, 0, 7, 0, 50, "2026-09-03T00:00:00Z"],
+    ["higher-overall", 16, 4, 4, 4, 4, 10, "2026-09-04T00:00:00Z"],
+  ] as const;
+
+  function places(category: "overall" | "activity" | "nutrition" | "consistency" | "hydration") {
+    const database = new DatabaseSync(":memory:");
+    database.exec(`
+      CREATE TABLE p (
+        participant_id TEXT PRIMARY KEY,
+        updated_at TEXT NOT NULL
+      );
+      CREATE TABLE s (
+        participant_id TEXT PRIMARY KEY,
+        overall_points INTEGER NOT NULL,
+        activity_days INTEGER NOT NULL,
+        nutrition_days INTEGER NOT NULL,
+        consistency_days INTEGER NOT NULL,
+        hydration_days INTEGER NOT NULL,
+        activity_kcal INTEGER NOT NULL,
+        updated_at TEXT NOT NULL
+      );
+    `);
+    const insertParticipant = database.prepare(
+      "INSERT INTO p (participant_id, updated_at) VALUES (?, ?)",
+    );
+    const insertScore = database.prepare(
+      `INSERT INTO s (
+        participant_id, overall_points, activity_days, nutrition_days,
+        consistency_days, hydration_days, activity_kcal, updated_at
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+    );
+    for (const [id, overall, activity, nutrition, consistency, hydration, kcal, updated] of people) {
+      insertParticipant.run(id, updated);
+      insertScore.run(id, overall, activity, nutrition, consistency, hydration, kcal, updated);
+    }
+    const rows = database.prepare(`
+      SELECT p.participant_id AS participant_id,
+             ROW_NUMBER() OVER (ORDER BY ${leaderboardOrder(category)}) AS rank
+      FROM p
+      LEFT JOIN s ON s.participant_id = p.participant_id
+      ORDER BY rank ASC
+    `).all() as Array<{ participant_id: string; rank: number }>;
+    database.close();
+    return rows;
+  }
+
+  it("gives every person their own place on overall", () => {
+    const rows = places("overall");
+    expect(rows.map((row) => row.rank)).toEqual([1, 2, 3, 4]);
+    expect(new Set(rows.map((row) => row.rank)).size).toBe(rows.length);
+    expect(rows.map((row) => row.participant_id)).toEqual([
+      "higher-overall",
+      "tied-early",
+      "tied-late",
+      "more-activity",
+    ]);
+  });
+
+  it("keeps activity days ahead of calories, then the other counts", () => {
+    const rows = places("activity");
+    expect(rows.map((row) => row.participant_id)).toEqual([
+      "tied-early",
+      "tied-late",
+      "more-activity",
+      "higher-overall",
+    ]);
+    expect(rows.map((row) => row.rank)).toEqual([1, 2, 3, 4]);
   });
 });

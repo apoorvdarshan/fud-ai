@@ -88,7 +88,7 @@ Authenticated. Query parameters are `category`, `weekStart`, and optional `limit
 (default 50, maximum 100). Categories are `overall`, `activity`, `nutrition`,
 `consistency`, or `hydration`; the same week window applies. Overall ranks by
 `overallPoints`; activity ranks by `activityDays` then `activityKcal`; the other
-categories rank by their corresponding day metric. Ties use SQL `RANK()`.
+categories rank by their corresponding day metric. When that score matches, the other day counts break the tie, then workout calories, then who reached the score first. `ROW_NUMBER()` gives every participant a distinct place.
 
 ```json
 {

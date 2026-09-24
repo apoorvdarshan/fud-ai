@@ -363,7 +363,7 @@ async function getLeaderboard(
       COALESCE(s.activity_kcal, 0) AS activity_kcal,
       COALESCE(s.updated_at, p.updated_at) AS updated_at,
       ${ranking.scoreExpression} AS score,
-      RANK() OVER (ORDER BY ${ranking.orderExpression}) AS rank
+      ROW_NUMBER() OVER (ORDER BY ${ranking.orderExpression}) AS rank
     FROM challenge_participants p
     LEFT JOIN challenge_weekly_scores s
       ON s.participant_id = p.participant_id AND s.week_start = ?
@@ -597,38 +597,51 @@ function rankingResponse(row: RankingDatabaseRow): Record<string, unknown> {
   };
 }
 
+const OVERALL_POINTS = "COALESCE(s.overall_points, 0)";
+const ACTIVITY_DAYS = "COALESCE(s.activity_days, 0)";
+const NUTRITION_DAYS = "COALESCE(s.nutrition_days, 0)";
+const CONSISTENCY_DAYS = "COALESCE(s.consistency_days, 0)";
+const HYDRATION_DAYS = "COALESCE(s.hydration_days, 0)";
+const ACTIVITY_KCAL = "COALESCE(s.activity_kcal, 0)";
+const REACHED_SCORE_FIRST = "COALESCE(s.updated_at, p.updated_at) ASC";
+const STABLE_PARTICIPANT = "p.participant_id ASC";
+
+/** Category score, then the other day counts, calories, then who got there first. */
+export function leaderboardOrder(category: ChallengeCategory): string {
+  const days = {
+    activity: `${ACTIVITY_DAYS} DESC`,
+    nutrition: `${NUTRITION_DAYS} DESC`,
+    consistency: `${CONSISTENCY_DAYS} DESC`,
+    hydration: `${HYDRATION_DAYS} DESC`,
+  };
+  const primary = category === "overall"
+    ? [`${OVERALL_POINTS} DESC`, days.activity, days.nutrition, days.consistency, days.hydration, `${ACTIVITY_KCAL} DESC`]
+    : category === "activity"
+      ? [days.activity, `${ACTIVITY_KCAL} DESC`, days.nutrition, days.consistency, days.hydration]
+      : [
+          days[category],
+          ...(["activity", "nutrition", "consistency", "hydration"] as const)
+            .filter((name) => name !== category)
+            .map((name) => days[name]),
+          `${ACTIVITY_KCAL} DESC`,
+        ];
+  return [...primary, REACHED_SCORE_FIRST, STABLE_PARTICIPANT].join(", ");
+}
+
 function rankingSpecification(category: ChallengeCategory): {
   scoreExpression: string;
   orderExpression: string;
 } {
-  switch (category) {
-    case "overall":
-      return {
-        scoreExpression: "COALESCE(s.overall_points, 0)",
-        orderExpression: "COALESCE(s.overall_points, 0) DESC",
-      };
-    case "activity":
-      return {
-        scoreExpression: "COALESCE(s.activity_days, 0)",
-        orderExpression:
-          "COALESCE(s.activity_days, 0) DESC, COALESCE(s.activity_kcal, 0) DESC",
-      };
-    case "nutrition":
-      return {
-        scoreExpression: "COALESCE(s.nutrition_days, 0)",
-        orderExpression: "COALESCE(s.nutrition_days, 0) DESC",
-      };
-    case "consistency":
-      return {
-        scoreExpression: "COALESCE(s.consistency_days, 0)",
-        orderExpression: "COALESCE(s.consistency_days, 0) DESC",
-      };
-    case "hydration":
-      return {
-        scoreExpression: "COALESCE(s.hydration_days, 0)",
-        orderExpression: "COALESCE(s.hydration_days, 0) DESC",
-      };
-  }
+  const scoreExpression = category === "overall"
+    ? OVERALL_POINTS
+    : category === "activity"
+      ? ACTIVITY_DAYS
+      : category === "nutrition"
+        ? NUTRITION_DAYS
+        : category === "consistency"
+          ? CONSISTENCY_DAYS
+          : HYDRATION_DAYS;
+  return { scoreExpression, orderExpression: leaderboardOrder(category) };
 }
 
 function createBearerToken(): string {

@@ -473,28 +473,66 @@ struct WeeklyChallengeView: View {
                     )
                 }
                 if maxRank > 20 {
-                    HStack {
-                        Button(WeeklyChallengeL10n.text("Previous")) {
-                            rankingPage = max(currentPage - 1, 0)
-                        }
-                        .disabled(currentPage == 0)
-                        Spacer()
+                    VStack(spacing: 10) {
                         Text("#\(startRank)–#\(endRank)")
                             .font(.system(.subheadline, design: .rounded, weight: .semibold))
                             .foregroundStyle(.secondary)
-                        Spacer()
-                        Button(WeeklyChallengeL10n.text("Next")) {
-                            rankingPage = min(currentPage + 1, pageCount - 1)
+                        HStack(spacing: 10) {
+                            rankingPageButton(
+                                title: WeeklyChallengeL10n.text("Previous"),
+                                systemImage: "chevron.left",
+                                imageFirst: true,
+                                enabled: currentPage > 0
+                            ) {
+                                rankingPage = max(currentPage - 1, 0)
+                            }
+                            rankingPageButton(
+                                title: WeeklyChallengeL10n.text("Next"),
+                                systemImage: "chevron.right",
+                                imageFirst: false,
+                                enabled: currentPage < pageCount - 1
+                            ) {
+                                rankingPage = min(currentPage + 1, pageCount - 1)
+                            }
                         }
-                        .disabled(currentPage >= pageCount - 1)
                     }
-                    .font(.system(.subheadline, design: .rounded, weight: .semibold))
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 6)
+                    .padding(.horizontal, 12)
+                    .padding(.top, 8)
+                    .padding(.bottom, 14)
                 }
             }
         }
         .background(AppColors.appCard, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
+    }
+
+    private func rankingPageButton(
+        title: String,
+        systemImage: String,
+        imageFirst: Bool,
+        enabled: Bool,
+        action: @escaping () -> Void
+    ) -> some View {
+        Button(action: action) {
+            HStack(spacing: 6) {
+                if imageFirst {
+                    Image(systemName: systemImage)
+                }
+                Text(title)
+                if !imageFirst {
+                    Image(systemName: systemImage)
+                }
+            }
+            .font(.system(.body, design: .rounded, weight: .semibold))
+            .frame(maxWidth: .infinity)
+            .frame(minHeight: 48)
+            .foregroundStyle(enabled ? Color.white : Color.secondary)
+            .background(
+                enabled ? AppColors.calorie : Color.primary.opacity(0.08),
+                in: Capsule()
+            )
+        }
+        .buttonStyle(.plain)
+        .disabled(!enabled)
     }
 
     private func disclosureCard(score: WeeklyChallengeScore) -> some View {

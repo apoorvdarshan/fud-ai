@@ -859,30 +859,37 @@ private fun RankingsBoard(
                     }
                 }
                 if (maxRank > 20) {
-                    Row(
+                    Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 4.dp, vertical = 2.dp),
-                        verticalAlignment = Alignment.CenterVertically
+                            .padding(start = 12.dp, end = 12.dp, top = 8.dp, bottom = 14.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
-                        TextButton(
-                            onClick = { page = (currentPage - 1).coerceAtLeast(0) },
-                            enabled = currentPage > 0
-                        ) {
-                            Text(stringResource(R.string.challenge_page_previous))
-                        }
                         Text(
                             text = "#$startRank–#$endRank",
-                            modifier = Modifier.weight(1f),
+                            modifier = Modifier.fillMaxWidth(),
                             textAlign = TextAlign.Center,
-                            style = MaterialTheme.typography.labelLarge,
+                            style = MaterialTheme.typography.titleSmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
-                        TextButton(
-                            onClick = { page = (currentPage + 1).coerceAtMost(pageCount - 1) },
-                            enabled = currentPage < pageCount - 1
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(10.dp)
                         ) {
-                            Text(stringResource(R.string.challenge_page_next))
+                            Button(
+                                onClick = { page = (currentPage - 1).coerceAtLeast(0) },
+                                enabled = currentPage > 0,
+                                modifier = Modifier.weight(1f).height(48.dp)
+                            ) {
+                                Text(stringResource(R.string.challenge_page_previous))
+                            }
+                            Button(
+                                onClick = { page = (currentPage + 1).coerceAtMost(pageCount - 1) },
+                                enabled = currentPage < pageCount - 1,
+                                modifier = Modifier.weight(1f).height(48.dp)
+                            ) {
+                                Text(stringResource(R.string.challenge_page_next))
+                            }
                         }
                     }
                 }

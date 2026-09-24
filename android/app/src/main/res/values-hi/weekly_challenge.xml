@@ -13,6 +13,9 @@
     <string name="challenge_public_profile_disclosure">प्रतिभागियों को केवल आपका डिस्प्ले नाम और वैकल्पिक रूप से X या Instagram का कोई एक यूज़रनेम दिखाई देता है। वज़न और वज़न घटाने की कभी रैंकिंग नहीं होती।</string>
     <string name="challenge_points_title">अंक कैसे मिलते हैं</string>
     <string name="challenge_points_explanation" formatted="false">गतिविधि: ऐसा दिन जिसमें वर्कआउट की सकारात्मक कैलोरी दर्ज हो। पोषण: दैनिक कैलोरी आपके लक्ष्य के 85–115% के भीतर हो। निरंतरता: उस दिन कोई भी भोजन दर्ज हो। जल सेवन: ट्रैकिंग चालू होने पर पानी का लक्ष्य पूरा हो। कुल: चारों दिन की गिनती का योग, अधिकतम 28।</string>
+    <string name="challenge_rank_order">आप जो श्रेणी देख रहे हैं, वह पहले आती है। अगर वह समान हो, तो अन्य दिनों की गिनती तय करती है। उसके बाद कसरत की कैलोरी आती है। गतिविधि में कैलोरी अन्य दिनों से पहले आती है। अगर सप्ताह फिर भी समान हो, तो जो व्यक्ति उन योगों तक पहले पहुँचा, वह आगे रहता है। वही योग दोबारा सहेजने से वह समय नहीं बदलता।</string>
+    <string name="challenge_page_previous">पिछला</string>
+    <string name="challenge_page_next">अगला</string>
     <string name="challenge_join_action">चुनौती में शामिल हों</string>
     <string name="challenge_pending_delete_title">डिलीट करने के लिए कनेक्शन की प्रतीक्षा</string>
     <string name="challenge_pending_delete_message">इस डिवाइस पर आपकी चुनौती प्रोफ़ाइल छिपा दी गई है। ऑनलाइन होने पर Fud AI रिमोट प्रोफ़ाइल और साप्ताहिक स्कोर डिलीट करने की फिर कोशिश करेगा।</string>

@@ -5725,6 +5725,112 @@
         }
       }
     },
+    "Next": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "التالي"
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Növbəti"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Weiter"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Next"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Siguiente"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suivant"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "अगला"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avanti"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "次へ"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "다음"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Volgende"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dalej"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Próxima"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Înainte"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Далее"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Далі"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "下一页"
+          }
+        }
+      }
+    },
     "No Blocked Participants": {
       "localizations": {
         "ar": {
@@ -7417,6 +7523,112 @@
           "stringUnit": {
             "state": "translated",
             "value": "我的排名"
+          }
+        }
+      }
+    },
+    "Previous": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "السابق"
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Əvvəlki"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zurück"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Previous"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anterior"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Précédent"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "पिछला"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Indietro"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "前へ"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이전"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vorige"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wstecz"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anterior"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Înapoi"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Назад"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Назад"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "上一页"
           }
         }
       }
@@ -9431,6 +9643,112 @@
           "stringUnit": {
             "state": "translated",
             "value": "举报已发送"
+          }
+        }
+      }
+    },
+    "The category you are viewing comes first. If that matches, the other day counts decide it. Workout calories come next, except in Activity, where calories come before the other days. If the week is still identical, the person who reached those totals first stays ahead. Saving the same totals again does not move that time.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الفئة التي تعرضها تأتي أولاً. إذا تساوت، تحسم أعداد الأيام الأخرى الترتيب. ثم تأتي سعرات التمرين. في النشاط، تأتي السعرات قبل الأيام الأخرى. إذا بقي الأسبوع متطابقًا، يبقى في المقدمة من بلغ هذه المجاميع أولاً. حفظ المجاميع نفسها مرة أخرى لا يغيّر ذلك الوقت."
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Baxdığınız kateqoriya birinci gəlir. Eyni olsa, digər gün sayları həll edir. Sonra məşq kaloriləri gəlir. Fəaliyyətdə kalorilər digər günlərdən əvvəl gəlir. Həftə yenə eyni qalsa, həmin yekunlara ilk çatan öndə qalır. Eyni yekunları yenidən saxlamaq həmin vaxtı dəyişmir."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Kategorie, die du ansiehst, zählt zuerst. Bei Gleichstand entscheiden die anderen Tageszahlen. Danach kommen die Trainingskalorien. Bei Aktivität kommen die Kalorien vor den anderen Tagen. Ist die Woche danach noch gleich, bleibt die Person vorn, die diese Werte zuerst erreicht hat. Dieselben Werte noch einmal zu speichern ändert die Zeit nicht."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The category you are viewing comes first. If that matches, the other day counts decide it. Workout calories come next, except in Activity, where calories come before the other days. If the week is still identical, the person who reached those totals first stays ahead. Saving the same totals again does not move that time."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La categoría que estás viendo va primero. Si coincide, deciden los otros recuentos de días. Después van las calorías de entrenamiento. En Actividad, las calorías van antes que los otros días. Si la semana sigue siendo idéntica, se queda por delante quien alcanzó esos totales primero. Guardar los mismos totales otra vez no cambia ese momento."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La catégorie affichée compte en premier. Si elle est égale, les autres nombres de jours décident. Les calories d’entraînement viennent ensuite. Dans Activité, les calories passent avant les autres jours. Si la semaine est encore identique, la personne qui a atteint ces totaux en premier reste devant. Enregistrer à nouveau les mêmes totaux ne change pas ce moment."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "आप जो श्रेणी देख रहे हैं, वह पहले आती है। अगर वह समान हो, तो अन्य दिनों की गिनती तय करती है। उसके बाद कसरत की कैलोरी आती है। गतिविधि में कैलोरी अन्य दिनों से पहले आती है। अगर सप्ताह फिर भी समान हो, तो जो व्यक्ति उन योगों तक पहले पहुँचा, वह आगे रहता है। वही योग दोबारा सहेजने से वह समय नहीं बदलता।"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La categoria che stai guardando viene per prima. Se coincide, decidono gli altri conteggi di giorni. Poi arrivano le calorie di allenamento. In Attività, le calorie vengono prima degli altri giorni. Se la settimana è ancora identica, resta avanti chi ha raggiunto quei totali per primo. Salvare di nuovo gli stessi totali non cambia quel momento."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "見ているカテゴリが最初に使われます。同じ場合は、ほかの日数が順位を決めます。その次がワークアウトの消費カロリーです。運動では、カロリーがほかの日数より先です。それでも同じ週なら、その合計に先に達した人が上になります。同じ合計を保存し直しても、その時刻は変わりません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "보고 있는 항목이 먼저 적용됩니다. 같으면 다른 일수가 순서를 정합니다. 그다음이 운동 칼로리입니다. 활동에서는 칼로리가 다른 일수보다 먼저입니다. 그래도 한 주가 같으면, 그 합계에 먼저 도달한 사람이 앞에 있습니다. 같은 합계를 다시 저장해도 그 시각은 바뀌지 않습니다."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De categorie die je bekijkt telt eerst. Bij een gelijke stand beslissen de andere dagaantallen. Daarna komen de trainingscalorieën. Bij Activiteit komen de calorieën vóór de andere dagen. Als de week daarna nog gelijk is, blijft degene voor die die totalen het eerst haalde. Dezelfde totalen opnieuw opslaan verandert dat moment niet."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Najpierw liczy się kategoria, którą oglądasz. Przy remisie decydują pozostałe liczby dni. Potem są kalorie treningu. W Aktywności kalorie są przed innymi dniami. Jeśli tydzień nadal jest taki sam, wyżej zostaje osoba, która pierwsza osiągnęła te sumy. Ponowny zapis tych samych sum nie zmienia tego czasu."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A categoria que você está vendo vem primeiro. Se empatar, os outros números de dias decidem. Depois vêm as calorias de treino. Em Atividade, as calorias vêm antes dos outros dias. Se a semana continuar igual, fica na frente quem alcançou esses totais primeiro. Salvar os mesmos totais de novo não muda esse momento."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Categoria pe care o vezi contează prima. Dacă este egală, decid celelalte numărători de zile. Apoi vin caloriile de antrenament. La Activitate, caloriile vin înaintea celorlalte zile. Dacă săptămâna rămâne identică, rămâne în față cine a atins acele totaluri primul. Salvarea din nou a acelorași totaluri nu schimbă momentul."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сначала учитывается категория, которую вы смотрите. Если она совпадает, решают остальные числа дней. Затем идут калории тренировок. В «Активности» калории идут раньше остальных дней. Если неделя всё ещё одинаковая, выше остаётся тот, кто первым набрал эти итоги. Повторное сохранение тех же итогов это время не меняет."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Спочатку враховується категорія, яку ви переглядаєте. Якщо вона збігається, вирішують інші кількості днів. Далі йдуть калорії тренувань. В «Активності» калорії йдуть перед іншими днями. Якщо тиждень усе ще однаковий, попереду лишається той, хто першим досяг цих підсумків. Повторне збереження тих самих підсумків цей час не змінює."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你正在查看的类别优先。如果相同，其他天数决定名次，然后是锻炼卡路里。在活动中，卡路里排在其他天数之前。如果整周仍然相同，先达到这些总数的人排在前面。再次保存相同的总数不会改变这个时间。"
           }
         }
       }

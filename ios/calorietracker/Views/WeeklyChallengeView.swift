@@ -11,6 +11,7 @@ struct WeeklyChallengeView: View {
     @AppStorage(WaterSettings.dailyGoalKey) private var waterDailyGoal = WaterSettings.defaultDailyGoalMl
 
     @State private var category: WeeklyChallengeCategory = .overall
+    @State private var rankingPage = 0
     @State private var profileSheetMode: WeeklyChallengeProfileSheetMode?
     @State private var reportTarget: WeeklyChallengeParticipant?
     @State private var showBlockedParticipants = false
@@ -85,6 +86,9 @@ struct WeeklyChallengeView: View {
                     await store.refresh(category: category, score: localScore)
                 }
             }
+        }
+        .onChange(of: category) { _, _ in
+            rankingPage = 0
         }
         .onChange(of: scenePhase) { _, phase in
             guard phase == .active else { return }
@@ -428,6 +432,9 @@ struct WeeklyChallengeView: View {
                 let showPodium = first != nil && second != nil
                 let podiumIDs = Set([first?.participantId, second?.participantId, third?.participantId].compactMap { $0 })
                 let listRows = showPodium ? rows.filter { !podiumIDs.contains($0.participantId) } : rows
+                let pageCount = max(1, (listRows.count + 9) / 10)
+                let currentPage = min(rankingPage, pageCount - 1)
+                let pageRows = Array(listRows.dropFirst(currentPage * 10).prefix(10))
                 if let first, let second {
                     WeeklyChallengePodium(
                         first: first,
@@ -442,7 +449,7 @@ struct WeeklyChallengeView: View {
                         onBlock: { store.block($0) }
                     )
                 }
-                ForEach(Array(listRows.enumerated()), id: \.element.id) { index, participant in
+                ForEach(Array(pageRows.enumerated()), id: \.element.id) { index, participant in
                     if index > 0 || showPodium {
                         Divider().padding(.leading, 62)
                     }
@@ -457,6 +464,26 @@ struct WeeklyChallengeView: View {
                         },
                         onBlock: { store.block(participant) }
                     )
+                }
+                if listRows.count > 10 {
+                    HStack {
+                        Button(WeeklyChallengeL10n.text("Previous")) {
+                            rankingPage = max(currentPage - 1, 0)
+                        }
+                        .disabled(currentPage == 0)
+                        Spacer()
+                        Text("\(currentPage * 10 + 1)–\(min((currentPage + 1) * 10, listRows.count))")
+                            .font(.system(.subheadline, design: .rounded, weight: .semibold))
+                            .foregroundStyle(.secondary)
+                        Spacer()
+                        Button(WeeklyChallengeL10n.text("Next")) {
+                            rankingPage = min(currentPage + 1, pageCount - 1)
+                        }
+                        .disabled(currentPage >= pageCount - 1)
+                    }
+                    .font(.system(.subheadline, design: .rounded, weight: .semibold))
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 6)
                 }
             }
         }
@@ -530,6 +557,11 @@ private struct WeeklyChallengePointsExplanationView: View {
                 .foregroundStyle(.secondary)
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.top, 10)
+            Text(WeeklyChallengeL10n.text("The category you are viewing comes first. If that matches, the other day counts decide it. Workout calories come next, except in Activity, where calories come before the other days. If the week is still identical, the person who reached those totals first stays ahead. Saving the same totals again does not move that time."))
+                .font(.system(.footnote, design: .rounded))
+                .foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+                .padding(.top, 8)
         } label: {
             Label(
                 WeeklyChallengeL10n.text("How points work"),

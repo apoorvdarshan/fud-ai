@@ -13,6 +13,9 @@
     <string name="challenge_public_profile_disclosure">参加者に表示されるのは表示名と、任意で選択した X または Instagram のどちらか1つのユーザー名だけです。体重や減量を順位付けすることはありません。</string>
     <string name="challenge_points_title">ポイントの仕組み</string>
     <string name="challenge_points_explanation" formatted="false">運動：消費カロリーが正のワークアウトを記録した日。栄養：1日のカロリーが目標の85～115%以内。継続：その日に食品を1つ以上記録。水分補給：記録が有効なときに水分目標を達成。総合：4つの日数の合計で、最大28です。</string>
+    <string name="challenge_rank_order">見ているカテゴリが最初に使われます。同じ場合は、ほかの日数が順位を決めます。その次がワークアウトの消費カロリーです。運動では、カロリーがほかの日数より先です。それでも同じ週なら、その合計に先に達した人が上になります。同じ合計を保存し直しても、その時刻は変わりません。</string>
+    <string name="challenge_page_previous">前へ</string>
+    <string name="challenge_page_next">次へ</string>
     <string name="challenge_join_action">チャレンジに参加</string>
     <string name="challenge_pending_delete_title">接続後に削除します</string>
     <string name="challenge_pending_delete_message">この端末ではチャレンジプロフィールを非表示にしました。オンラインになったとき、Fud AI がリモートプロフィールと週間スコアの削除を再試行します。</string>

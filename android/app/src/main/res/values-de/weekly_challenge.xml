@@ -13,6 +13,9 @@
     <string name="challenge_public_profile_disclosure">Nur dein Anzeigename und optional genau ein X- oder Instagram-Handle sind für Teilnehmende sichtbar. Gewicht und Gewichtsverlust werden nie bewertet.</string>
     <string name="challenge_points_title">So funktionieren Punkte</string>
     <string name="challenge_points_explanation" formatted="false">Aktivität: ein Tag mit positivem protokolliertem Trainingsverbrauch. Ernährung: Tageskalorien zwischen 85–115 % deines Ziels. Regelmäßigkeit: an diesem Tag wurde ein Lebensmittel protokolliert. Flüssigkeit: Wasserziel bei aktivierter Aufzeichnung erreicht. Gesamt: Summe der vier Tageszahlen, maximal 28.</string>
+    <string name="challenge_rank_order">Die Kategorie, die du ansiehst, zählt zuerst. Bei Gleichstand entscheiden die anderen Tageszahlen. Danach kommen die Trainingskalorien. Bei Aktivität kommen die Kalorien vor den anderen Tagen. Ist die Woche danach noch gleich, bleibt die Person vorn, die diese Werte zuerst erreicht hat. Dieselben Werte noch einmal zu speichern ändert die Zeit nicht.</string>
+    <string name="challenge_page_previous">Zurück</string>
+    <string name="challenge_page_next">Weiter</string>
     <string name="challenge_join_action">Challenge beitreten</string>
     <string name="challenge_pending_delete_title">Löschung wartet auf eine Verbindung</string>
     <string name="challenge_pending_delete_message">Dein Challenge-Profil ist auf diesem Gerät ausgeblendet. Fud AI versucht erneut, das Remote-Profil und die Wochenergebnisse zu löschen, sobald du online bist.</string>

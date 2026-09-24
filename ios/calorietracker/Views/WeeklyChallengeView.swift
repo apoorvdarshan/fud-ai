@@ -90,6 +90,9 @@ struct WeeklyChallengeView: View {
         .onChange(of: category) { _, _ in
             rankingPage = 0
         }
+        .onChange(of: localScore.weekStart) { _, _ in
+            rankingPage = 0
+        }
         .onChange(of: scenePhase) { _, phase in
             guard phase == .active else { return }
             Task {
@@ -472,7 +475,7 @@ struct WeeklyChallengeView: View {
                         }
                         .disabled(currentPage == 0)
                         Spacer()
-                        Text("\(currentPage * 10 + 1)–\(min((currentPage + 1) * 10, listRows.count))")
+                        Text("#\(pageRows.first?.rank ?? 0)–#\(pageRows.last?.rank ?? 0)")
                             .font(.system(.subheadline, design: .rounded, weight: .semibold))
                             .foregroundStyle(.secondary)
                         Spacer()

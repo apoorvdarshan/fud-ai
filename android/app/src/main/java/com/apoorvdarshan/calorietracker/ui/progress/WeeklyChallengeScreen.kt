@@ -217,6 +217,7 @@ internal fun WeeklyChallengeScreen(container: AppContainer) {
                     RankingsBoard(
                         rankings = rankings,
                         category = ui.category,
+                        weekStart = ui.weekStart,
                         onReport = { row ->
                             vm.dismissError()
                             reportTarget = row
@@ -786,11 +787,12 @@ private fun WeekDayTrack(
 private fun RankingsBoard(
     rankings: List<WeeklyChallengeLeaderboardRow>,
     category: WeeklyChallengeCategory,
+    weekStart: LocalDate,
     onReport: (WeeklyChallengeLeaderboardRow) -> Unit,
     onBlock: (WeeklyChallengeLeaderboardRow) -> Unit,
     onManageBlocked: (() -> Unit)?
 ) {
-    var page by remember(category) { mutableStateOf(0) }
+    var page by remember(category, weekStart) { mutableStateOf(0) }
     val podium = podiumSlots(rankings)
     FudGlassSurface(modifier = Modifier.fillMaxWidth(), cornerRadius = 22.dp, padding = 6.dp) {
         Column {
@@ -866,7 +868,7 @@ private fun RankingsBoard(
                             Text(stringResource(R.string.challenge_page_previous))
                         }
                         Text(
-                            text = "${currentPage * 10 + 1}–${minOf((currentPage + 1) * 10, listRows.size)}",
+                            text = "#${pageRows.firstOrNull()?.rank ?: 0}–#${pageRows.lastOrNull()?.rank ?: 0}",
                             modifier = Modifier.weight(1f),
                             textAlign = TextAlign.Center,
                             style = MaterialTheme.typography.labelLarge,

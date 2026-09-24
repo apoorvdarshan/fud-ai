@@ -435,10 +435,15 @@ struct WeeklyChallengeView: View {
                 let showPodium = first != nil && second != nil
                 let podiumIDs = Set([first?.participantId, second?.participantId, third?.participantId].compactMap { $0 })
                 let listRows = showPodium ? rows.filter { !podiumIDs.contains($0.participantId) } : rows
-                let pageCount = max(1, (listRows.count + 19) / 20)
+                let podiumCount = showPodium ? podiumIDs.count : 0
+                let totalPlaces = podiumCount + listRows.count
+                let pageCount = max(1, (totalPlaces + 19) / 20)
                 let currentPage = min(rankingPage, pageCount - 1)
-                let pageRows = Array(listRows.dropFirst(currentPage * 20).prefix(20))
-                if let first, let second {
+                let listSkip = currentPage == 0 ? 0 : (20 - podiumCount) + (currentPage - 1) * 20
+                let listTake = currentPage == 0 ? max(20 - podiumCount, 0) : 20
+                let pageRows = Array(listRows.dropFirst(listSkip).prefix(listTake))
+                let showPodiumNow = showPodium && currentPage == 0
+                if showPodiumNow, let first, let second {
                     WeeklyChallengePodium(
                         first: first,
                         second: second,
@@ -453,7 +458,7 @@ struct WeeklyChallengeView: View {
                     )
                 }
                 ForEach(Array(pageRows.enumerated()), id: \.element.id) { index, participant in
-                    if index > 0 || showPodium {
+                    if index > 0 || showPodiumNow {
                         Divider().padding(.leading, 62)
                     }
                     WeeklyChallengeParticipantRow(
@@ -468,14 +473,16 @@ struct WeeklyChallengeView: View {
                         onBlock: { store.block(participant) }
                     )
                 }
-                if listRows.count > 20 {
+                if totalPlaces > 20 {
+                    let firstPlace = showPodiumNow ? (first?.rank ?? pageRows.first?.rank ?? 0) : (pageRows.first?.rank ?? 0)
+                    let lastPlace = pageRows.last?.rank ?? firstPlace
                     HStack {
                         Button(WeeklyChallengeL10n.text("Previous")) {
                             rankingPage = max(currentPage - 1, 0)
                         }
                         .disabled(currentPage == 0)
                         Spacer()
-                        Text("#\(pageRows.first?.rank ?? 0)–#\(pageRows.last?.rank ?? 0)")
+                        Text("#\(firstPlace)–#\(lastPlace)")
                             .font(.system(.subheadline, design: .rounded, weight: .semibold))
                             .foregroundStyle(.secondary)
                         Spacer()

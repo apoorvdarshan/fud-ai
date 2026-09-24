@@ -823,7 +823,19 @@ private fun RankingsBoard(
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             } else {
-                if (podium != null) {
+                val podiumIds = listOfNotNull(podium?.first, podium?.second, podium?.third)
+                    .map { it.participantId }
+                    .toSet()
+                val listRows = if (podium == null) rankings else rankings.filter { it.participantId !in podiumIds }
+                val podiumCount = podiumIds.size
+                val totalPlaces = podiumCount + listRows.size
+                val pageCount = if (totalPlaces == 0) 1 else (totalPlaces + 19) / 20
+                val currentPage = page.coerceIn(0, pageCount - 1)
+                val showPodiumNow = podium != null && currentPage == 0
+                val listSkip = if (currentPage == 0) 0 else (20 - podiumCount) + (currentPage - 1) * 20
+                val listTake = if (currentPage == 0) (20 - podiumCount).coerceAtLeast(0) else 20
+                val pageRows = listRows.drop(listSkip).take(listTake)
+                if (showPodiumNow && podium != null) {
                     RankingsPodium(
                         second = podium.second,
                         first = podium.first,
@@ -833,16 +845,9 @@ private fun RankingsBoard(
                         onBlock = onBlock
                     )
                 }
-                val podiumIds = listOfNotNull(podium?.first, podium?.second, podium?.third)
-                    .map { it.participantId }
-                    .toSet()
-                val listRows = if (podium == null) rankings else rankings.filter { it.participantId !in podiumIds }
-                val pageCount = (listRows.size + 19) / 20
-                val currentPage = if (pageCount == 0) 0 else page.coerceIn(0, pageCount - 1)
-                val pageRows = listRows.drop(currentPage * 20).take(20)
                 pageRows.forEachIndexed { index, row ->
                     key(row.participantId) {
-                        if (index > 0 || podium != null) {
+                        if (index > 0 || showPodiumNow) {
                             HorizontalDivider(Modifier.padding(start = 64.dp, end = 12.dp))
                         }
                         RankingRow(
@@ -854,7 +859,10 @@ private fun RankingsBoard(
                         )
                     }
                 }
-                if (listRows.size > 20) {
+                if (totalPlaces > 20) {
+                    val firstPlace = if (showPodiumNow) podium?.first?.rank ?: pageRows.firstOrNull()?.rank ?: 0
+                    else pageRows.firstOrNull()?.rank ?: 0
+                    val lastPlace = pageRows.lastOrNull()?.rank ?: firstPlace
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -868,7 +876,7 @@ private fun RankingsBoard(
                             Text(stringResource(R.string.challenge_page_previous))
                         }
                         Text(
-                            text = "#${pageRows.firstOrNull()?.rank ?: 0}–#${pageRows.lastOrNull()?.rank ?: 0}",
+                            text = "#$firstPlace–#$lastPlace",
                             modifier = Modifier.weight(1f),
                             textAlign = TextAlign.Center,
                             style = MaterialTheme.typography.labelLarge,

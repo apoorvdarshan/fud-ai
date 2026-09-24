@@ -38,7 +38,7 @@ Snap, speak, or type a meal. AI logs the calories. Open source.
 ```
 Fud AI makes calorie tracking effortless with AI-powered food recognition. Snap a photo, scan a barcode, speak it, or type it — get instant nutrition: calories, protein, carbs, fats, vitamins, minerals, and more.
 
-NEW in v7.1: Weekly Challenge places with a podium and 20 per page; Help & Feedback on GitHub or Discord; Join Beta in Settings; in-app language. Still includes v7.0: daily steps and burn/deficit on Home; Walk/Run; custom exercises; meal date/time; pinch-zoom photos; Czech and Ukrainian (18 languages).
+NEW in v7.1: Weekly Challenge places, Discord help, Join Beta, and in-app language. Also includes steps, Walk/Run, custom exercises, meal time, and 18 languages.
 
 Nutrition adds custom goals plus caffeine, creatine, and other performance compounds. Optional fasting adds timers, editable history, goals, alerts, and Coach context. Android includes a daily calorie summary and clearer Health Connect guidance.
 

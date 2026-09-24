@@ -424,12 +424,15 @@ struct WeeklyChallengeView: View {
             } else {
                 let first = rows.first { $0.rank == 1 }
                 let second = rows.first { $0.rank == 2 }
+                let third = rows.first { $0.rank == 3 }
                 let showPodium = first != nil && second != nil
+                let podiumIDs = Set([first?.participantId, second?.participantId, third?.participantId].compactMap { $0 })
+                let listRows = showPodium ? rows.filter { !podiumIDs.contains($0.participantId) } : rows
                 if let first, let second {
                     WeeklyChallengePodium(
                         first: first,
                         second: second,
-                        third: rows.first { $0.rank == 3 },
+                        third: third,
                         category: category,
                         viewerID: viewerID,
                         onReport: { participant in
@@ -439,7 +442,7 @@ struct WeeklyChallengeView: View {
                         onBlock: { store.block($0) }
                     )
                 }
-                ForEach(Array(rows.enumerated()), id: \.element.id) { index, participant in
+                ForEach(Array(listRows.enumerated()), id: \.element.id) { index, participant in
                     if index > 0 || showPodium {
                         Divider().padding(.leading, 62)
                     }
@@ -711,27 +714,27 @@ private struct WeeklyChallengePodium: View {
         if let participant {
             let isViewer = participant.isViewer || participant.participantId == viewerID
             VStack(spacing: 4) {
-                ZStack {
-                    WeeklyChallengeRankBadge(place: participant.rank)
+                HStack {
+                    Spacer(minLength: 0)
                     if !isViewer {
-                        HStack {
-                            Spacer()
-                            Menu {
-                                Button(WeeklyChallengeL10n.text("Report")) { onReport(participant) }
-                                Button(WeeklyChallengeL10n.text("Block"), role: .destructive) {
-                                    onBlock(participant)
-                                }
-                            } label: {
-                                Image(systemName: "ellipsis")
-                                    .font(.body.weight(.semibold))
-                                    .frame(width: 28, height: 28)
+                        Menu {
+                            Button(WeeklyChallengeL10n.text("Report")) { onReport(participant) }
+                            Button(WeeklyChallengeL10n.text("Block"), role: .destructive) {
+                                onBlock(participant)
                             }
-                            .accessibilityLabel(
-                                WeeklyChallengeL10n.format("More actions for %1$@", participant.displayName)
-                            )
+                        } label: {
+                            Image(systemName: "ellipsis")
+                                .font(.body.weight(.semibold))
+                                .frame(width: 28, height: 28)
                         }
+                        .accessibilityLabel(
+                            WeeklyChallengeL10n.format("More actions for %1$@", participant.displayName)
+                        )
+                    } else {
+                        Color.clear.frame(width: 28, height: 28)
                     }
                 }
+                WeeklyChallengeRankBadge(place: participant.rank)
                 Text(participant.displayName)
                     .font(.system(.subheadline, design: .rounded, weight: .semibold))
                     .lineLimit(1)

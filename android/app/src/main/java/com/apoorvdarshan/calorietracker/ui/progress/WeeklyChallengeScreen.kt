@@ -825,7 +825,11 @@ private fun RankingsBoard(
                         onBlock = onBlock
                     )
                 }
-                rankings.forEachIndexed { index, row ->
+                val podiumIds = listOfNotNull(podium?.first, podium?.second, podium?.third)
+                    .map { it.participantId }
+                    .toSet()
+                val listRows = if (podium == null) rankings else rankings.filter { it.participantId !in podiumIds }
+                listRows.forEachIndexed { index, row ->
                     key(row.participantId) {
                         if (index > 0 || podium != null) {
                             HorizontalDivider(Modifier.padding(start = 64.dp, end = 12.dp))
@@ -919,8 +923,7 @@ private fun RowScope.PodiumColumn(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Bottom
         ) {
-            Box(Modifier.fillMaxWidth()) {
-                RankBadge(row.rank, modifier = Modifier.align(Alignment.Center))
+            Box(Modifier.fillMaxWidth().height(32.dp)) {
                 if (!row.isViewer) {
                     ParticipantActions(
                         displayName = row.displayName,
@@ -940,6 +943,7 @@ private fun RowScope.PodiumColumn(
                     )
                 }
             }
+            RankBadge(row.rank)
             Text(
                 text = row.displayName,
                 modifier = Modifier

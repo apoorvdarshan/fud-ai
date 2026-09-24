@@ -8,9 +8,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -45,6 +47,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.draw.clip
@@ -59,7 +62,9 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -130,7 +135,7 @@ internal fun WeeklyChallengeScreen(container: AppContainer) {
     }
         .distinctBy { it.participantId }
         .filterNot { it.participantId in ui.blockedParticipants }
-        .sortedWith(compareBy({ it.rank ?: Int.MAX_VALUE }, { it.displayName }))
+        .sortedWith(compareBy({ it.rank ?: Int.MAX_VALUE }, { it.participantId }))
 
     PullToRefreshBox(
         isRefreshing = ui.isRefreshing,
@@ -581,19 +586,239 @@ private fun RankingsBoard(
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             } else {
-                rankings.forEachIndexed { index, row ->
-                    if (index > 0) {
-                        HorizontalDivider(Modifier.padding(start = 64.dp, end = 12.dp))
-                    }
-                    RankingRow(
-                        row = row,
+                val showPodium = rankings.size >= 2
+                val listRows = if (showPodium) rankings.drop(3) else rankings
+                if (showPodium) {
+                    RankingsPodium(
+                        rankings = rankings.take(3),
                         category = category,
-                        onReport = { onReport(row) },
-                        onBlock = { onBlock(row) }
+                        onReport = onReport,
+                        onBlock = onBlock
                     )
+                }
+                listRows.forEachIndexed { index, row ->
+                    key(row.participantId) {
+                        if (index > 0 || showPodium) {
+                            HorizontalDivider(Modifier.padding(start = 64.dp, end = 12.dp))
+                        }
+                        RankingRow(
+                            row = row,
+                            category = category,
+                            onReport = { onReport(row) },
+                            onBlock = { onBlock(row) }
+                        )
+                    }
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun RankingsPodium(
+    rankings: List<WeeklyChallengeLeaderboardRow>,
+    category: WeeklyChallengeCategory,
+    onReport: (WeeklyChallengeLeaderboardRow) -> Unit,
+    onBlock: (WeeklyChallengeLeaderboardRow) -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 8.dp, end = 8.dp, top = 4.dp),
+        verticalAlignment = Alignment.Bottom
+    ) {
+        PodiumColumn(
+            row = rankings.getOrNull(1),
+            category = category,
+            pedestalHeight = 64.dp,
+            onReport = onReport,
+            onBlock = onBlock
+        )
+        PodiumColumn(
+            row = rankings.getOrNull(0),
+            category = category,
+            pedestalHeight = 96.dp,
+            onReport = onReport,
+            onBlock = onBlock
+        )
+        PodiumColumn(
+            row = rankings.getOrNull(2),
+            category = category,
+            pedestalHeight = 52.dp,
+            onReport = onReport,
+            onBlock = onBlock
+        )
+    }
+}
+
+@Composable
+private fun RowScope.PodiumColumn(
+    row: WeeklyChallengeLeaderboardRow?,
+    category: WeeklyChallengeCategory,
+    pedestalHeight: Dp,
+    onReport: (WeeklyChallengeLeaderboardRow) -> Unit,
+    onBlock: (WeeklyChallengeLeaderboardRow) -> Unit
+) {
+    Column(
+        modifier = Modifier.weight(1f),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Bottom
+    ) {
+        if (row == null) {
+            Spacer(Modifier.height(pedestalHeight))
+            return@Column
+        }
+        key(row.participantId) {
+        var menuOpen by remember(row.participantId) { mutableStateOf(false) }
+        val (fill, labelColor) = rankMedalColors(row.rank)
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Bottom
+        ) {
+            Box(Modifier.fillMaxWidth()) {
+                RankBadge(row.rank, modifier = Modifier.align(Alignment.Center))
+                if (!row.isViewer) {
+                    ParticipantActions(
+                        displayName = row.displayName,
+                        menuOpen = menuOpen,
+                        onOpen = { menuOpen = true },
+                        onDismiss = { menuOpen = false },
+                        onReport = {
+                            menuOpen = false
+                            onReport(row)
+                        },
+                        onBlock = {
+                            menuOpen = false
+                            onBlock(row)
+                        },
+                        modifier = Modifier.align(Alignment.CenterEnd),
+                        compact = true
+                    )
+                }
+            }
+            Text(
+                text = row.displayName,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 6.dp, start = 2.dp, end = 2.dp),
+                fontWeight = FontWeight.SemiBold,
+                textAlign = TextAlign.Center,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                style = MaterialTheme.typography.bodyMedium
+            )
+            if (row.isViewer) {
+                YouChip(Modifier.padding(top = 4.dp))
+            }
+            PodiumHandle(row.socialPlatform, row.socialHandle)
+            Box(
+                modifier = Modifier
+                    .padding(top = 8.dp, start = 4.dp, end = 4.dp)
+                    .fillMaxWidth()
+                    .height(pedestalHeight)
+                    .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
+                    .background(fill),
+                contentAlignment = Alignment.TopCenter
+            ) {
+                Text(
+                    text = leaderboardScoreText(category, row),
+                    modifier = Modifier.padding(top = 8.dp, start = 4.dp, end = 4.dp),
+                    color = labelColor,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
+                    style = MaterialTheme.typography.labelMedium
+                )
+            }
+        }
+        }
+    }
+}
+
+@Composable
+private fun YouChip(modifier: Modifier = Modifier) {
+    Text(
+        text = stringResource(R.string.challenge_you),
+        modifier = modifier
+            .clip(RoundedCornerShape(50))
+            .background(AppColors.Calorie.copy(alpha = 0.16f))
+            .padding(horizontal = 6.dp, vertical = 2.dp),
+        style = MaterialTheme.typography.labelSmall,
+        fontWeight = FontWeight.Bold,
+        color = AppColors.Calorie
+    )
+}
+
+@Composable
+private fun PodiumHandle(
+    platform: WeeklyChallengeSocialPlatform?,
+    handle: String?
+) {
+    if (platform == null || handle.isNullOrBlank()) return
+    val uriHandler = LocalUriHandler.current
+    val platformName = stringResource(platform.labelRes())
+    val description = stringResource(R.string.challenge_open_social, handle, platformName)
+    val url = when (platform) {
+        WeeklyChallengeSocialPlatform.X -> "https://x.com/$handle"
+        WeeklyChallengeSocialPlatform.INSTAGRAM -> "https://www.instagram.com/$handle/"
+    }
+    Text(
+        text = stringResource(R.string.challenge_social_display, handle, platformName),
+        style = MaterialTheme.typography.labelSmall,
+        color = AppColors.Calorie,
+        textAlign = TextAlign.Center,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis,
+        modifier = Modifier
+            .padding(top = 2.dp, start = 2.dp, end = 2.dp)
+            .semantics { contentDescription = description }
+            .clickable(role = Role.Button) { uriHandler.openUri(url) }
+    )
+}
+
+@Composable
+private fun ParticipantActions(
+    displayName: String,
+    menuOpen: Boolean,
+    onOpen: () -> Unit,
+    onDismiss: () -> Unit,
+    onReport: () -> Unit,
+    onBlock: () -> Unit,
+    modifier: Modifier = Modifier,
+    compact: Boolean = false
+) {
+    val description = stringResource(R.string.challenge_more_actions, displayName)
+    Box(modifier) {
+        IconButton(
+            onClick = onOpen,
+            modifier = Modifier
+                .then(if (compact) Modifier.size(32.dp) else Modifier)
+                .semantics { contentDescription = description }
+        ) {
+            Icon(Icons.Filled.MoreVert, contentDescription = null)
+        }
+        DropdownMenu(expanded = menuOpen, onDismissRequest = onDismiss) {
+            DropdownMenuItem(
+                text = { Text(stringResource(R.string.challenge_report_action)) },
+                onClick = onReport
+            )
+            DropdownMenuItem(
+                text = { Text(stringResource(R.string.challenge_block_action)) },
+                onClick = onBlock
+            )
+        }
+    }
+}
+
+@Composable
+private fun rankMedalColors(place: Int?): Pair<Color, Color> {
+    val onSurface = MaterialTheme.colorScheme.onSurface
+    return when (place) {
+        1 -> Color(0xFFFFC107) to Color(0xFF3A2A00)
+        2 -> Color(0xFFD7D7D7) to Color(0xFF2C2C2C)
+        3 -> Color(0xFFE0A15A) to Color(0xFF3A2208)
+        else -> onSurface.copy(alpha = 0.08f) to onSurface
     }
 }
 
@@ -604,7 +829,7 @@ private fun RankingRow(
     onReport: () -> Unit,
     onBlock: () -> Unit
 ) {
-    var menuOpen by remember { mutableStateOf(false) }
+    var menuOpen by remember(row.participantId) { mutableStateOf(false) }
     val place = row.rank
     Row(
         modifier = Modifier
@@ -628,13 +853,7 @@ private fun RankingRow(
                     modifier = Modifier.weight(1f, fill = false)
                 )
                 if (row.isViewer) {
-                    Text(
-                        text = stringResource(R.string.challenge_you),
-                        modifier = Modifier.padding(start = 8.dp),
-                        style = MaterialTheme.typography.labelSmall,
-                        fontWeight = FontWeight.Bold,
-                        color = AppColors.Calorie
-                    )
+                    YouChip(Modifier.padding(start = 8.dp))
                 }
             }
             SocialHandle(row.socialPlatform, row.socialHandle)
@@ -645,46 +864,29 @@ private fun RankingRow(
             color = AppColors.Calorie
         )
         if (!row.isViewer) {
-            Box {
-                val description = stringResource(R.string.challenge_more_actions, row.displayName)
-                IconButton(
-                    onClick = { menuOpen = true },
-                    modifier = Modifier.semantics { contentDescription = description }
-                ) {
-                    Icon(Icons.Filled.MoreVert, contentDescription = null)
+            ParticipantActions(
+                displayName = row.displayName,
+                menuOpen = menuOpen,
+                onOpen = { menuOpen = true },
+                onDismiss = { menuOpen = false },
+                onReport = {
+                    menuOpen = false
+                    onReport()
+                },
+                onBlock = {
+                    menuOpen = false
+                    onBlock()
                 }
-                DropdownMenu(expanded = menuOpen, onDismissRequest = { menuOpen = false }) {
-                    DropdownMenuItem(
-                        text = { Text(stringResource(R.string.challenge_report_action)) },
-                        onClick = {
-                            menuOpen = false
-                            onReport()
-                        }
-                    )
-                    DropdownMenuItem(
-                        text = { Text(stringResource(R.string.challenge_block_action)) },
-                        onClick = {
-                            menuOpen = false
-                            onBlock()
-                        }
-                    )
-                }
-            }
+            )
         }
     }
 }
 
 @Composable
-private fun RankBadge(place: Int?) {
-    val (fill, labelColor) = when (place) {
-        1 -> Color(0xFFFFC107) to Color(0xFF3A2A00)
-        2 -> Color(0xFFD7D7D7) to Color(0xFF2C2C2C)
-        3 -> Color(0xFFE0A15A) to Color(0xFF3A2208)
-        else -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f) to
-            MaterialTheme.colorScheme.onSurface
-    }
+private fun RankBadge(place: Int?, modifier: Modifier = Modifier) {
+    val (fill, labelColor) = rankMedalColors(place)
     Box(
-        modifier = Modifier
+        modifier = modifier
             .size(36.dp)
             .clip(CircleShape)
             .background(fill),

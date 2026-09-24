@@ -32,6 +32,7 @@
     <string name="challenge_edit_profile">Редагувати профіль</string>
     <string name="challenge_leave_action">Вийти</string>
     <string name="challenge_leaderboard_title">Рейтинг</string>
+    <string name="challenge_you">Ви</string>
     <string name="challenge_manage_blocked">Керування блокуваннями</string>
     <string name="challenge_leaderboard_empty">Інших учасників у рейтингу поки немає. Потягніть вниз, щоб оновити.</string>
     <string name="challenge_more_actions">Інші дії для %1$s</string>

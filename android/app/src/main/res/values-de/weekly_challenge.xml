@@ -32,6 +32,7 @@
     <string name="challenge_edit_profile">Profil bearbeiten</string>
     <string name="challenge_leave_action">Verlassen</string>
     <string name="challenge_leaderboard_title">Rangliste</string>
+    <string name="challenge_you">Du</string>
     <string name="challenge_manage_blocked">Blockierte verwalten</string>
     <string name="challenge_leaderboard_empty">Noch keine weiteren platzierten Teilnehmenden. Zum Aktualisieren nach unten ziehen.</string>
     <string name="challenge_more_actions">Weitere Aktionen für %1$s</string>

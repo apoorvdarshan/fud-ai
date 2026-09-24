@@ -32,6 +32,7 @@
     <string name="challenge_edit_profile">Profiel bewerken</string>
     <string name="challenge_leave_action">Verlaten</string>
     <string name="challenge_leaderboard_title">Klassement</string>
+    <string name="challenge_you">Jij</string>
     <string name="challenge_manage_blocked">Geblokkeerden beheren</string>
     <string name="challenge_leaderboard_empty">Er zijn nog geen andere gerangschikte deelnemers. Trek omlaag om te vernieuwen.</string>
     <string name="challenge_more_actions">Meer acties voor %1$s</string>

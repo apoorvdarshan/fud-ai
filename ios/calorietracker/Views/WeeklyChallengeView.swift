@@ -384,8 +384,7 @@ struct WeeklyChallengeView: View {
         )
     }
 
-    @ViewBuilder
-    private func leaderboardRows(_ response: WeeklyChallengeLeaderboardResponse) -> some View {
+    private func orderedRankings(_ response: WeeklyChallengeLeaderboardResponse) -> [WeeklyChallengeParticipant] {
         let viewerID = displayedViewer?.participantId ?? store.participantID
         var rows = response.rankings.filter {
             !store.isBlocked(participantID: $0.participantId)
@@ -396,6 +395,13 @@ struct WeeklyChallengeView: View {
             rows.append(viewer)
         }
         rows.sort { $0.rank < $1.rank }
+        return rows
+    }
+
+    @ViewBuilder
+    private func leaderboardRows(_ response: WeeklyChallengeLeaderboardResponse) -> some View {
+        let viewerID = displayedViewer?.participantId ?? store.participantID
+        let rows = orderedRankings(response)
 
         VStack(alignment: .leading, spacing: 0) {
             Text(WeeklyChallengeL10n.text("Rankings"))

@@ -29,9 +29,9 @@
 
 ---
 
-Open-source, privacy-first calorie tracker for iOS and Android. Bring your own AI provider — 13 supported including Gemini, OpenAI, Claude, Grok, Groq, Hugging Face, Fireworks AI, DeepInfra, Mistral, and any custom OpenAI-compatible endpoint — or, on iPhone, optionally use Plus/Pro hosted AI. Capture or import up to 10 food photos with an optional note, scan a barcode, ask your AI coach how to hit your goal, speak your lunch, or use Siri Shortcuts on iOS to log food and weight. On supported iPhones, food-description analysis for text, voice-transcribed, and Siri food logs can use Apple Intelligence on-device as the final fallback after BYOK provider/fallback attempts fail. The core tracker has no required account, general cloud sync, tracking, or ads. Its sole first-party sync exception for scores and profiles is an optional 18+ Weekly Challenge that shares only a pseudonymous display profile and weekly aggregate scores with other enrolled participants — never raw logs.
+Open-source, privacy-first calorie tracker for iOS and Android. Bring your own AI provider — 13 supported including Gemini, OpenAI, Claude, Grok, Groq, Hugging Face, Fireworks AI, DeepInfra, Mistral, and any custom OpenAI-compatible endpoint — or, on iPhone, optionally use Plus/Pro hosted AI. Capture or import up to 10 food photos with an optional note, scan a barcode, ask your AI coach how to hit your goal, speak your lunch, or use Siri Shortcuts on iOS to log food and weight. On supported iPhones, food-description analysis for text, voice-transcribed, and Siri food logs can use Apple Intelligence on-device as the final fallback after BYOK provider/fallback attempts fail. On iOS 27, Apple Intelligence can also analyze food photos on-device when you select it. The core tracker has no required account, general cloud sync, tracking, or ads. Its sole first-party sync exception for scores and profiles is an optional 18+ Weekly Challenge that shares only a pseudonymous display profile and weekly aggregate scores with other enrolled participants — never raw logs.
 
-iOS and Android 7.0 (build/versionCode 35) add optional Plus/Pro hosted AI on iPhone, daily steps and burn/deficit on Home, Walk/Run logging, custom exercises with set autofill, meal date/time on review, configurable Home + actions, the iOS Log Food widget, pinch-zoom meal photos, Czech and Ukrainian (18 languages), and reliability improvements across Health Connect, workouts, and diary safety.
+iOS and Android 7.1 (build/versionCode 38) add Weekly Challenge places with a podium and 20 places per page, Help & Feedback on GitHub or Discord, a Join Beta page in Settings, an Android in-app language picker, and on-device food-photo analysis with Apple Intelligence on iOS 27. 7.0 remains the release that added optional Plus/Pro hosted AI on iPhone, daily steps, Walk/Run logging, custom exercises, meal date/time, the Log Food widget, pinch-zoom photos, and Czech and Ukrainian.
 
 Normal updates preserve existing local and Health data.
 
@@ -274,8 +274,8 @@ All values can be manually overridden in Settings, with a **Recalculate Goals** 
 
 ```
 fud-ai/
-├── ios/          # SwiftUI iOS app (v7.0 build 35)
-├── android/      # Kotlin + Jetpack Compose app (min SDK 26 / Android 8.0, v7.0 / versionCode 35)
+├── ios/          # SwiftUI iOS app (v7.1 build 38)
+├── android/      # Kotlin + Jetpack Compose app (min SDK 26 / Android 8.0, v7.1 / versionCode 38)
 ├── web/          # Marketing site — https://fud-ai.app (static HTML/CSS, Cloudflare Workers)
 ├── APPSTORE.md   # App Store Connect listing copy (iOS)
 ├── PLAYSTORE.md  # Google Play Console listing copy (Android)

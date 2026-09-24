@@ -1,6 +1,6 @@
 # Play Store Listing
 
-Google Play Console listing copy for Fud AI Android v7.0.1 / versionCode 37. Each field is in a code block for easy copy-paste. Char counts are tracked because Play Console enforces hard caps and silently truncates anything over.
+Google Play Console listing copy for Fud AI Android v7.1 / versionCode 38. Each field is in a code block for easy copy-paste. Char counts are tracked because Play Console enforces hard caps and silently truncates anything over. This file is prepared for the 7.1 release and has not been submitted.
 
 **Where to paste each field in Play Console:**
 - App name / Short description / Full description → Grow → Store presence → **Main store listing** (default English) and Grow → Store presence → **Custom store listings** → Manage translations (per-language overrides)
@@ -38,7 +38,7 @@ Snap, speak, or type a meal. AI logs the calories. Open source.
 ```
 Fud AI makes calorie tracking effortless with AI-powered food recognition. Snap a photo, scan a barcode, speak it, or type it — get instant nutrition: calories, protein, carbs, fats, vitamins, minerals, and more.
 
-NEW in v7.0: daily steps and burn/deficit on Home; Adaptive Goals on by default; Walk/Run quick log; custom exercises with set autofill; meal date/time on review; configurable Home + actions; pinch-zoom photos with optional gallery save; Czech and Ukrainian (18 languages).
+NEW in v7.1: Weekly Challenge places, Discord help, Join Beta, and in-app language. Also includes steps, Walk/Run, custom exercises, meal time, and 18 languages.
 
 Nutrition adds custom goals plus caffeine, creatine, and other performance compounds. Optional fasting adds timers, editable history, goals, alerts, and Coach context. Android includes a daily calorie summary and clearer Health Connect guidance.
 
@@ -106,17 +106,18 @@ English-only on Play Console — non-English Play Store browsers (ar, az-AZ, cs-
 
 ---
 
-## 4. What's New (v7.0.1 / versionCode 37)
+## 4. What's New (v7.1 / versionCode 38 — not submitted)
 
-**500 char hard cap per language.** Paste the entire block below into Play Console's "Release notes" field — it auto-routes each `<lang-tag>` block to the matching locale.
+**500 char hard cap per language.** Paste only the `<en-US>` block for the 7.1 release. The other language blocks below are still the 7.0.1 notes and must not be submitted as 7.1 release notes.
 
 ```
 <en-US>
-• Fixed food scan hanging on analyzing after open (Gemini / first scan).
-• Progress tabs no longer leave empty space on Weekly Challenge.
-• Still includes v7.0: steps, Walk/Run, custom exercises, meal date/time.
-• Pinch-zoom photos; Czech & Ukrainian (18 languages); Drive backup.
-• Faster Workouts, Health Connect retry, and reliability fixes.
+Fud AI 7.1
+• Weekly Challenge places: podium, your own rank, 20 places per page.
+• How points work explains why matching scores are not a tie.
+• Help & Feedback on GitHub or Discord. Join Beta is in Settings.
+• Pick the app language in Settings. Onboarding names your AI provider.
+• Logs, goals, and Health data stay on the device.
 </en-US>
 
 <ar>

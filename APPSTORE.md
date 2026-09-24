@@ -1,6 +1,6 @@
 # App Store Listing
 
-App Store Connect submission details for Fud AI v7.0 build 35. Each field is in a code block for easy copy-paste.
+App Store Connect submission details for Fud AI v7.1 build 38. Each field is in a code block for easy copy-paste. Not submitted.
 
 ## App Name
 ```
@@ -14,7 +14,7 @@ Macros, AI Coach & Workouts
 
 ## Promotional Text (170 chars max)
 ```
-New in 7.0: optional Plus/Pro hosted AI, daily steps, Walk/Run logging, custom exercises, meal date/time, Log Food widget, Czech & Ukrainian.
+New in 7.1: Weekly Challenge places, Help on Discord, Join Beta, and on-device food photos with Apple Intelligence on iOS 27.
 ```
 
 ## Keywords (100 chars max)
@@ -32,7 +32,7 @@ Secondary: Food & Drink
 ```
 Effortless calorie tracking with AI-powered food recognition. Snap, scan, speak, or type a meal — get instant calories, macros, and nutrients.
 
-NEW in v7.0: optional Plus/Pro hosted AI or Bring Your Own Key; daily steps and burn/deficit on Home; Walk/Run logging; custom exercises with set autofill; meal date/time on review; configurable Home + and Log Food widget; pinch-zoom photos; Czech and Ukrainian (18 languages).
+NEW in v7.1: Weekly Challenge places with a podium and 20 per page; Help & Feedback on GitHub or Discord; Join Beta in Settings; on-device food photos with Apple Intelligence on iOS 27. Still includes v7.0: optional Plus/Pro hosted AI or Bring Your Own Key; daily steps; Walk/Run; custom exercises; meal date/time; Log Food widget; Czech and Ukrainian (18 languages).
 
 Nutrition includes custom goals plus caffeine, creatine, and other performance compounds. Optional fasting adds timers, editable history, goals, alerts, and Coach context. Apple Watch can log water; import Watch workouts from HealthKit when Health is enabled.
 
@@ -85,25 +85,19 @@ Source: https://github.com/apoorvdarshan/fud-ai
 
 ```
 
-## What's New (v7.0)
+## What's New (v7.1, build 38 — not submitted)
 ```
-Fud AI 7.0 brings optional hosted AI on iPhone, richer workouts and Health insights, and two new languages.
+Fud AI 7.1 makes the Weekly Challenge easier to follow and adds clearer ways to get help.
 
 NEW
-• Choose Bring Your Own Key or optional Plus/Pro hosted AI during onboarding. Hosted uses a daily action pool plus credit packs; free forever stays fully usable with your own keys.
-• See daily steps from Apple Health on Home, plus a clearer burn/deficit line. Adaptive Goals is on by default for new setups.
-• Import Apple Watch workouts from HealthKit into Workouts and Progress.
-• Log Walk/Run from the Workouts menu; create custom exercises; smarter search; set autofill from lift history with Coach-aware training context.
-• Set meal log date and time on the review sheet; configure which actions appear in Home +; add the Log Food widget.
-• Pinch-zoom meal photos and optionally save them to Photos after a successful log.
-• Czech and Ukrainian join the app — 18 languages.
-• Optional iCloud backup gains clearer restore guidance.
+• Weekly Challenge standings show 1st–3rd on a podium, then 20 places per page. Everyone gets their own place. How points work explains how a tie is broken.
+• Report a bug or request a feature on GitHub or Discord from Help & Feedback.
+• Join Beta in Settings explains TestFlight. The beta is announced in Discord and is not open yet.
+• On iOS 27, Apple Intelligence can analyze food photos on-device when you select it.
 
 IMPROVED
-• Faster Workouts open and smoother meal and Coach photo thumbnails.
-• More reliable Health writes, diary safety guards, and exercise demos that load on demand.
-• Community links for Discord and Instagram in Settings.
-• Reliability, privacy-documentation, and security updates.
+• Onboarding names the API key for the provider you choose and asks you to accept Terms.
+• Home can keep fiber visible, and Review Food uses the ingredient totals.
 
 Existing logs, goals, Health data, widgets, workout history, and BYOK settings are preserved during a normal update.
 ```

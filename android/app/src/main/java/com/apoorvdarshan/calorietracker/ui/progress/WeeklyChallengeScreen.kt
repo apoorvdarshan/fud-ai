@@ -217,6 +217,7 @@ internal fun WeeklyChallengeScreen(container: AppContainer) {
                     RankingsBoard(
                         rankings = rankings,
                         category = ui.category,
+                        weekStart = ui.weekStart,
                         onReport = { row ->
                             vm.dismissError()
                             reportTarget = row
@@ -504,6 +505,11 @@ private fun ChallengePointsExplanation() {
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
+                Text(
+                    text = stringResource(R.string.challenge_rank_order),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
             }
         }
     }
@@ -781,10 +787,12 @@ private fun WeekDayTrack(
 private fun RankingsBoard(
     rankings: List<WeeklyChallengeLeaderboardRow>,
     category: WeeklyChallengeCategory,
+    weekStart: LocalDate,
     onReport: (WeeklyChallengeLeaderboardRow) -> Unit,
     onBlock: (WeeklyChallengeLeaderboardRow) -> Unit,
     onManageBlocked: (() -> Unit)?
 ) {
+    var page by remember(category, weekStart) { mutableStateOf(0) }
     val podium = podiumSlots(rankings)
     FudGlassSurface(modifier = Modifier.fillMaxWidth(), cornerRadius = 22.dp, padding = 6.dp) {
         Column {
@@ -829,7 +837,10 @@ private fun RankingsBoard(
                     .map { it.participantId }
                     .toSet()
                 val listRows = if (podium == null) rankings else rankings.filter { it.participantId !in podiumIds }
-                listRows.forEachIndexed { index, row ->
+                val pageCount = (listRows.size + 9) / 10
+                val currentPage = if (pageCount == 0) 0 else page.coerceIn(0, pageCount - 1)
+                val pageRows = listRows.drop(currentPage * 10).take(10)
+                pageRows.forEachIndexed { index, row ->
                     key(row.participantId) {
                         if (index > 0 || podium != null) {
                             HorizontalDivider(Modifier.padding(start = 64.dp, end = 12.dp))
@@ -841,6 +852,34 @@ private fun RankingsBoard(
                             onReport = { onReport(row) },
                             onBlock = { onBlock(row) }
                         )
+                    }
+                }
+                if (listRows.size > 10) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 4.dp, vertical = 2.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        TextButton(
+                            onClick = { page = (currentPage - 1).coerceAtLeast(0) },
+                            enabled = currentPage > 0
+                        ) {
+                            Text(stringResource(R.string.challenge_page_previous))
+                        }
+                        Text(
+                            text = "#${pageRows.firstOrNull()?.rank ?: 0}–#${pageRows.lastOrNull()?.rank ?: 0}",
+                            modifier = Modifier.weight(1f),
+                            textAlign = TextAlign.Center,
+                            style = MaterialTheme.typography.labelLarge,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        TextButton(
+                            onClick = { page = (currentPage + 1).coerceAtMost(pageCount - 1) },
+                            enabled = currentPage < pageCount - 1
+                        ) {
+                            Text(stringResource(R.string.challenge_page_next))
+                        }
                     }
                 }
             }

@@ -13,6 +13,9 @@
     <string name="challenge_public_profile_disclosure">Solo los participantes ven tu nombre público y, opcionalmente, un único usuario de X o Instagram. El peso y la pérdida de peso nunca se clasifican.</string>
     <string name="challenge_points_title">Cómo funcionan los puntos</string>
     <string name="challenge_points_explanation" formatted="false">Actividad: un día con calorías de entrenamiento positivas registradas. Nutrición: calorías diarias entre el 85 y el 115 % de tu objetivo. Constancia: cualquier alimento registrado ese día. Hidratación: objetivo de agua cumplido cuando el seguimiento está activo. General: suma de los cuatro recuentos de días, hasta 28.</string>
+    <string name="challenge_rank_order">La categoría que estás viendo va primero. Si coincide, deciden los otros recuentos de días. Después van las calorías de entrenamiento. En Actividad, las calorías van antes que los otros días. Si la semana sigue siendo idéntica, se queda por delante quien alcanzó esos totales primero. Guardar los mismos totales otra vez no cambia ese momento.</string>
+    <string name="challenge_page_previous">Anterior</string>
+    <string name="challenge_page_next">Siguiente</string>
     <string name="challenge_join_action">Unirme al reto</string>
     <string name="challenge_pending_delete_title">El borrado espera una conexión</string>
     <string name="challenge_pending_delete_message">Tu perfil del reto está oculto en este dispositivo. Fud AI volverá a intentar borrar el perfil remoto y las puntuaciones semanales cuando tengas conexión.</string>

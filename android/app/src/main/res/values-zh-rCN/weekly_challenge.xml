@@ -13,6 +13,9 @@
     <string name="challenge_public_profile_disclosure">参与者只能看到您的显示名称，以及可选的一个 X 或 Instagram 用户名。体重和减重情况绝不会用于排名。</string>
     <string name="challenge_points_title">积分计算方式</string>
     <string name="challenge_points_explanation" formatted="false">活动：记录了正数锻炼消耗的日期。营养：每日卡路里在目标的 85–115% 以内。坚持：当天记录了任何食物。饮水：启用跟踪时达到饮水目标。综合：四项天数之和，最高 28 分。</string>
+    <string name="challenge_rank_order">你正在查看的类别优先。如果相同，其他天数决定名次，然后是锻炼卡路里。在活动中，卡路里排在其他天数之前。如果整周仍然相同，先达到这些总数的人排在前面。再次保存相同的总数不会改变这个时间。</string>
+    <string name="challenge_page_previous">上一页</string>
+    <string name="challenge_page_next">下一页</string>
     <string name="challenge_join_action">加入挑战</string>
     <string name="challenge_pending_delete_title">连接后将删除</string>
     <string name="challenge_pending_delete_message">此设备上已隐藏您的挑战个人资料。联网后，Fud AI 将再次尝试删除远程个人资料和每周得分。</string>

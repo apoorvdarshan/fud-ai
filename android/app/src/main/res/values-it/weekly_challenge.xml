@@ -13,6 +13,9 @@
     <string name="challenge_public_profile_disclosure">Solo il nome visualizzato e, facoltativamente, un unico profilo X o Instagram sono visibili ai partecipanti. Il peso e la perdita di peso non entrano mai in classifica.</string>
     <string name="challenge_points_title">Come funzionano i punti</string>
     <string name="challenge_points_explanation" formatted="false">Attività: un giorno con calorie di allenamento positive registrate. Alimentazione: calorie giornaliere tra l’85 e il 115% dell’obiettivo. Costanza: qualsiasi alimento registrato quel giorno. Idratazione: obiettivo d’acqua raggiunto con il monitoraggio attivo. Generale: somma dei quattro conteggi di giorni, fino a 28.</string>
+    <string name="challenge_rank_order">La categoria che stai guardando viene per prima. Se coincide, decidono gli altri conteggi di giorni. Poi arrivano le calorie di allenamento. In Attività, le calorie vengono prima degli altri giorni. Se la settimana è ancora identica, resta avanti chi ha raggiunto quei totali per primo. Salvare di nuovo gli stessi totali non cambia quel momento.</string>
+    <string name="challenge_page_previous">Indietro</string>
+    <string name="challenge_page_next">Avanti</string>
     <string name="challenge_join_action">Partecipa alla sfida</string>
     <string name="challenge_pending_delete_title">Eliminazione in attesa di connessione</string>
     <string name="challenge_pending_delete_message">Il tuo profilo della sfida è nascosto su questo dispositivo. Fud AI riproverà a eliminare il profilo remoto e i punteggi settimanali quando sarai online.</string>

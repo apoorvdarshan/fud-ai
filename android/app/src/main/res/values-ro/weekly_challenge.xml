@@ -13,6 +13,9 @@
     <string name="challenge_public_profile_disclosure">Doar numele afișat și, opțional, un singur identificator X sau Instagram sunt vizibile participanților. Greutatea și scăderea în greutate nu sunt clasificate niciodată.</string>
     <string name="challenge_points_title">Cum funcționează punctele</string>
     <string name="challenge_points_explanation" formatted="false">Activitate: o zi cu calorii pozitive de antrenament înregistrate. Nutriție: caloriile zilnice între 85 și 115% din obiectiv. Consecvență: orice aliment înregistrat în ziua respectivă. Hidratare: obiectivul de apă atins când urmărirea este activă. General: suma celor patru numere de zile, până la 28.</string>
+    <string name="challenge_rank_order">Categoria pe care o vezi contează prima. Dacă este egală, decid celelalte numărători de zile. Apoi vin caloriile de antrenament. La Activitate, caloriile vin înaintea celorlalte zile. Dacă săptămâna rămâne identică, rămâne în față cine a atins acele totaluri primul. Salvarea din nou a acelorași totaluri nu schimbă momentul.</string>
+    <string name="challenge_page_previous">Înapoi</string>
+    <string name="challenge_page_next">Înainte</string>
     <string name="challenge_join_action">Participă la provocare</string>
     <string name="challenge_pending_delete_title">Ștergerea așteaptă conexiunea</string>
     <string name="challenge_pending_delete_message">Profilul provocării este ascuns pe acest dispozitiv. Fud AI va încerca din nou să șteargă profilul la distanță și scorurile săptămânale când ești online.</string>

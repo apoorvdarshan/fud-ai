@@ -435,13 +435,12 @@ struct WeeklyChallengeView: View {
                 let showPodium = first != nil && second != nil
                 let podiumIDs = Set([first?.participantId, second?.participantId, third?.participantId].compactMap { $0 })
                 let listRows = showPodium ? rows.filter { !podiumIDs.contains($0.participantId) } : rows
-                let podiumCount = showPodium ? podiumIDs.count : 0
-                let totalPlaces = podiumCount + listRows.count
-                let pageCount = max(1, (totalPlaces + 19) / 20)
+                let maxRank = rows.map(\.rank).max() ?? 1
+                let pageCount = max(1, (maxRank + 19) / 20)
                 let currentPage = min(rankingPage, pageCount - 1)
-                let listSkip = currentPage == 0 ? 0 : (20 - podiumCount) + (currentPage - 1) * 20
-                let listTake = currentPage == 0 ? max(20 - podiumCount, 0) : 20
-                let pageRows = Array(listRows.dropFirst(listSkip).prefix(listTake))
+                let startRank = currentPage * 20 + 1
+                let endRank = min(startRank + 19, maxRank)
+                let pageRows = listRows.filter { $0.rank >= startRank && $0.rank <= endRank }
                 let showPodiumNow = showPodium && currentPage == 0
                 if showPodiumNow, let first, let second {
                     WeeklyChallengePodium(
@@ -473,16 +472,14 @@ struct WeeklyChallengeView: View {
                         onBlock: { store.block(participant) }
                     )
                 }
-                if totalPlaces > 20 {
-                    let firstPlace = showPodiumNow ? (first?.rank ?? pageRows.first?.rank ?? 0) : (pageRows.first?.rank ?? 0)
-                    let lastPlace = pageRows.last?.rank ?? firstPlace
+                if maxRank > 20 {
                     HStack {
                         Button(WeeklyChallengeL10n.text("Previous")) {
                             rankingPage = max(currentPage - 1, 0)
                         }
                         .disabled(currentPage == 0)
                         Spacer()
-                        Text("#\(firstPlace)–#\(lastPlace)")
+                        Text("#\(startRank)–#\(endRank)")
                             .font(.system(.subheadline, design: .rounded, weight: .semibold))
                             .foregroundStyle(.secondary)
                         Spacer()

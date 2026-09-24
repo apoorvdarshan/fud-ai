@@ -827,14 +827,13 @@ private fun RankingsBoard(
                     .map { it.participantId }
                     .toSet()
                 val listRows = if (podium == null) rankings else rankings.filter { it.participantId !in podiumIds }
-                val podiumCount = podiumIds.size
-                val totalPlaces = podiumCount + listRows.size
-                val pageCount = if (totalPlaces == 0) 1 else (totalPlaces + 19) / 20
-                val currentPage = page.coerceIn(0, pageCount - 1)
+                val maxRank = rankings.maxOf { it.rank ?: 1 }
+                val pageCount = (maxRank + 19) / 20
+                val currentPage = page.coerceIn(0, (pageCount - 1).coerceAtLeast(0))
+                val startRank = currentPage * 20 + 1
+                val endRank = minOf(startRank + 19, maxRank)
                 val showPodiumNow = podium != null && currentPage == 0
-                val listSkip = if (currentPage == 0) 0 else (20 - podiumCount) + (currentPage - 1) * 20
-                val listTake = if (currentPage == 0) (20 - podiumCount).coerceAtLeast(0) else 20
-                val pageRows = listRows.drop(listSkip).take(listTake)
+                val pageRows = listRows.filter { (it.rank ?: 0) in startRank..endRank }
                 if (showPodiumNow && podium != null) {
                     RankingsPodium(
                         second = podium.second,
@@ -859,10 +858,7 @@ private fun RankingsBoard(
                         )
                     }
                 }
-                if (totalPlaces > 20) {
-                    val firstPlace = if (showPodiumNow) podium?.first?.rank ?: pageRows.firstOrNull()?.rank ?: 0
-                    else pageRows.firstOrNull()?.rank ?: 0
-                    val lastPlace = pageRows.lastOrNull()?.rank ?: firstPlace
+                if (maxRank > 20) {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -876,7 +872,7 @@ private fun RankingsBoard(
                             Text(stringResource(R.string.challenge_page_previous))
                         }
                         Text(
-                            text = "#$firstPlace–#$lastPlace",
+                            text = "#$startRank–#$endRank",
                             modifier = Modifier.weight(1f),
                             textAlign = TextAlign.Center,
                             style = MaterialTheme.typography.labelLarge,

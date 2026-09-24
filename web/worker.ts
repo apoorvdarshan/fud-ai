@@ -11,6 +11,8 @@ import {
   handleDiscordInteractionsRequest,
 } from "./discord-interactions";
 
+const CANONICAL_ORIGIN = "https://www.fud-ai.app";
+
 const REPOSITORY = "apoorvdarshan/fud-ai";
 const HISTORY_KEY = "github-star-history-v1";
 const HISTORY_MAX_AGE_MS = 60 * 60 * 1000;
@@ -36,6 +38,9 @@ interface StarHistory {
 
 export default {
   async fetch(request: Request, env: Env, context?: ExecutionContext): Promise<Response> {
+    const redirect = canonicalRedirect(request);
+    if (redirect) return redirect;
+
     const url = new URL(request.url);
 
     if (url.pathname === MEAL_SHARE_API || url.pathname.startsWith("/m/")) {
@@ -90,6 +95,36 @@ export default {
     context.waitUntil(runScheduledMaintenance(env));
   },
 } satisfies ExportedHandler<Env>;
+
+/** Permanent redirect onto https://www.fud-ai.app without the .html or trailing-slash aliases. */
+export function canonicalRedirect(request: Request): Response | null {
+  if (request.method !== "GET" && request.method !== "HEAD") return null;
+  const url = new URL(request.url);
+  if (keepsRequestHost(url.pathname)) return null;
+
+  const path = canonicalPath(url.pathname);
+  const canonical = `${CANONICAL_ORIGIN}${path}${url.search}`;
+  if (`${url.origin}${url.pathname}${url.search}` === canonical) return null;
+  return Response.redirect(canonical, 301);
+}
+
+function keepsRequestHost(pathname: string): boolean {
+  return pathname === "/api"
+    || pathname.startsWith("/api/")
+    || pathname === "/m"
+    || pathname.startsWith("/m/")
+    || pathname.startsWith("/.well-known/")
+    || pathname === "/star-history.json"
+    || pathname === "/star-history.svg";
+}
+
+function canonicalPath(pathname: string): string {
+  let path = pathname;
+  if (path.length > 1 && path.endsWith("/")) path = path.slice(0, -1);
+  if (path.endsWith("/index.html")) path = path.slice(0, -"/index.html".length) || "/";
+  else if (path.endsWith(".html")) path = path.slice(0, -".html".length);
+  return path || "/";
+}
 
 async function runScheduledMaintenance(env: Env): Promise<void> {
   const tasks = [

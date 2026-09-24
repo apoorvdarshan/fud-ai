@@ -435,10 +435,14 @@ struct WeeklyChallengeView: View {
                 let showPodium = first != nil && second != nil
                 let podiumIDs = Set([first?.participantId, second?.participantId, third?.participantId].compactMap { $0 })
                 let listRows = showPodium ? rows.filter { !podiumIDs.contains($0.participantId) } : rows
-                let pageCount = max(1, (listRows.count + 19) / 20)
+                let maxRank = rows.map(\.rank).max() ?? 1
+                let pageCount = max(1, (maxRank + 19) / 20)
                 let currentPage = min(rankingPage, pageCount - 1)
-                let pageRows = Array(listRows.dropFirst(currentPage * 20).prefix(20))
-                if let first, let second {
+                let startRank = currentPage * 20 + 1
+                let endRank = min(startRank + 19, maxRank)
+                let pageRows = listRows.filter { $0.rank >= startRank && $0.rank <= endRank }
+                let showPodiumNow = showPodium && currentPage == 0
+                if showPodiumNow, let first, let second {
                     WeeklyChallengePodium(
                         first: first,
                         second: second,
@@ -453,7 +457,7 @@ struct WeeklyChallengeView: View {
                     )
                 }
                 ForEach(Array(pageRows.enumerated()), id: \.element.id) { index, participant in
-                    if index > 0 || showPodium {
+                    if index > 0 || showPodiumNow {
                         Divider().padding(.leading, 62)
                     }
                     WeeklyChallengeParticipantRow(
@@ -468,14 +472,14 @@ struct WeeklyChallengeView: View {
                         onBlock: { store.block(participant) }
                     )
                 }
-                if listRows.count > 20 {
+                if maxRank > 20 {
                     HStack {
                         Button(WeeklyChallengeL10n.text("Previous")) {
                             rankingPage = max(currentPage - 1, 0)
                         }
                         .disabled(currentPage == 0)
                         Spacer()
-                        Text("#\(pageRows.first?.rank ?? 0)–#\(pageRows.last?.rank ?? 0)")
+                        Text("#\(startRank)–#\(endRank)")
                             .font(.system(.subheadline, design: .rounded, weight: .semibold))
                             .foregroundStyle(.secondary)
                         Spacer()

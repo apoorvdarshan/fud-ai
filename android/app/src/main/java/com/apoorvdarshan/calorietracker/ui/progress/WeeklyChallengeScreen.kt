@@ -823,7 +823,18 @@ private fun RankingsBoard(
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             } else {
-                if (podium != null) {
+                val podiumIds = listOfNotNull(podium?.first, podium?.second, podium?.third)
+                    .map { it.participantId }
+                    .toSet()
+                val listRows = if (podium == null) rankings else rankings.filter { it.participantId !in podiumIds }
+                val maxRank = rankings.maxOf { it.rank ?: 1 }
+                val pageCount = (maxRank + 19) / 20
+                val currentPage = page.coerceIn(0, (pageCount - 1).coerceAtLeast(0))
+                val startRank = currentPage * 20 + 1
+                val endRank = minOf(startRank + 19, maxRank)
+                val showPodiumNow = podium != null && currentPage == 0
+                val pageRows = listRows.filter { (it.rank ?: 0) in startRank..endRank }
+                if (showPodiumNow && podium != null) {
                     RankingsPodium(
                         second = podium.second,
                         first = podium.first,
@@ -833,16 +844,9 @@ private fun RankingsBoard(
                         onBlock = onBlock
                     )
                 }
-                val podiumIds = listOfNotNull(podium?.first, podium?.second, podium?.third)
-                    .map { it.participantId }
-                    .toSet()
-                val listRows = if (podium == null) rankings else rankings.filter { it.participantId !in podiumIds }
-                val pageCount = (listRows.size + 19) / 20
-                val currentPage = if (pageCount == 0) 0 else page.coerceIn(0, pageCount - 1)
-                val pageRows = listRows.drop(currentPage * 20).take(20)
                 pageRows.forEachIndexed { index, row ->
                     key(row.participantId) {
-                        if (index > 0 || podium != null) {
+                        if (index > 0 || showPodiumNow) {
                             HorizontalDivider(Modifier.padding(start = 64.dp, end = 12.dp))
                         }
                         RankingRow(
@@ -854,7 +858,7 @@ private fun RankingsBoard(
                         )
                     }
                 }
-                if (listRows.size > 20) {
+                if (maxRank > 20) {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -868,7 +872,7 @@ private fun RankingsBoard(
                             Text(stringResource(R.string.challenge_page_previous))
                         }
                         Text(
-                            text = "#${pageRows.firstOrNull()?.rank ?: 0}–#${pageRows.lastOrNull()?.rank ?: 0}",
+                            text = "#$startRank–#$endRank",
                             modifier = Modifier.weight(1f),
                             textAlign = TextAlign.Center,
                             style = MaterialTheme.typography.labelLarge,

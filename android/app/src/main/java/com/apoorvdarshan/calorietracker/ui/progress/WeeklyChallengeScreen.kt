@@ -837,9 +837,9 @@ private fun RankingsBoard(
                     .map { it.participantId }
                     .toSet()
                 val listRows = if (podium == null) rankings else rankings.filter { it.participantId !in podiumIds }
-                val pageCount = (listRows.size + 9) / 10
+                val pageCount = (listRows.size + 19) / 20
                 val currentPage = if (pageCount == 0) 0 else page.coerceIn(0, pageCount - 1)
-                val pageRows = listRows.drop(currentPage * 10).take(10)
+                val pageRows = listRows.drop(currentPage * 20).take(20)
                 pageRows.forEachIndexed { index, row ->
                     key(row.participantId) {
                         if (index > 0 || podium != null) {
@@ -854,7 +854,7 @@ private fun RankingsBoard(
                         )
                     }
                 }
-                if (listRows.size > 10) {
+                if (listRows.size > 20) {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()

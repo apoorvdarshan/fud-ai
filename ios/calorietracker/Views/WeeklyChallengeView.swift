@@ -435,9 +435,9 @@ struct WeeklyChallengeView: View {
                 let showPodium = first != nil && second != nil
                 let podiumIDs = Set([first?.participantId, second?.participantId, third?.participantId].compactMap { $0 })
                 let listRows = showPodium ? rows.filter { !podiumIDs.contains($0.participantId) } : rows
-                let pageCount = max(1, (listRows.count + 9) / 10)
+                let pageCount = max(1, (listRows.count + 19) / 20)
                 let currentPage = min(rankingPage, pageCount - 1)
-                let pageRows = Array(listRows.dropFirst(currentPage * 10).prefix(10))
+                let pageRows = Array(listRows.dropFirst(currentPage * 20).prefix(20))
                 if let first, let second {
                     WeeklyChallengePodium(
                         first: first,
@@ -468,7 +468,7 @@ struct WeeklyChallengeView: View {
                         onBlock: { store.block(participant) }
                     )
                 }
-                if listRows.count > 10 {
+                if listRows.count > 20 {
                     HStack {
                         Button(WeeklyChallengeL10n.text("Previous")) {
                             rankingPage = max(currentPage - 1, 0)

@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -26,7 +27,12 @@ import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.EmojiEvents
+import androidx.compose.material.icons.filled.LocalFireDepartment
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Restaurant
+import androidx.compose.material.icons.filled.WaterDrop
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
@@ -59,6 +65,7 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -205,7 +212,6 @@ internal fun WeeklyChallengeScreen(container: AppContainer) {
                         onManageBlocked = { showBlocked = true }
                     )
                 }
-                item { ChallengePointsExplanation() }
                 item {
                     ViewerPositionCard(
                         profile = requireNotNull(ui.profile),
@@ -220,6 +226,7 @@ internal fun WeeklyChallengeScreen(container: AppContainer) {
                         onLeave = { showLeave = true }
                     )
                 }
+                item { ChallengePointsExplanation() }
             }
         }
     }
@@ -433,11 +440,32 @@ private fun ChallengeCategorySelector(
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         WeeklyChallengeCategory.entries.forEach { category ->
-            FilterChip(
-                selected = selected == category,
-                onClick = { onSelect(category) },
-                label = { Text(stringResource(category.labelRes())) }
-            )
+            val on = selected == category
+            val foreground = if (on) Color.White else MaterialTheme.colorScheme.onSurface
+            Row(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(50))
+                    .background(if (on) AppColors.Calorie else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f))
+                    .clickable { onSelect(category) }
+                    .semantics { this.selected = on }
+                    .padding(horizontal = 14.dp, vertical = 9.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(6.dp)
+            ) {
+                Icon(
+                    imageVector = category.chipIcon(),
+                    contentDescription = null,
+                    modifier = Modifier.size(16.dp),
+                    tint = foreground
+                )
+                Text(
+                    text = stringResource(category.labelRes()),
+                    color = foreground,
+                    fontWeight = FontWeight.SemiBold,
+                    maxLines = 1,
+                    softWrap = false
+                )
+            }
         }
     }
 }
@@ -507,47 +535,103 @@ private fun AggregateBreakdown(
     viewer: WeeklyChallengeLeaderboardRow?,
     aggregate: WeeklyChallengeAggregate
 ) {
-    Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Text(
             text = stringResource(R.string.challenge_weekly_breakdown),
             style = MaterialTheme.typography.labelLarge,
             fontWeight = FontWeight.SemiBold
         )
-        MetricLine(
-            stringResource(R.string.challenge_category_overall),
-            stringResource(
+        WeekScoreBar(
+            label = stringResource(R.string.challenge_category_overall),
+            valueText = stringResource(
                 R.string.challenge_points_format,
                 viewer?.overallPoints ?: aggregate.overallPoints
-            )
+            ),
+            fraction = (viewer?.overallPoints ?: aggregate.overallPoints) / 28f
         )
-        MetricLine(
+        WeekDayTrack(
             stringResource(R.string.challenge_category_activity),
-            stringResource(
-                R.string.challenge_days_kcal_format,
-                viewer?.activityDays ?: aggregate.activityDays,
-                viewer?.activityKcal ?: aggregate.activityKcal
-            )
+            viewer?.activityDays ?: aggregate.activityDays
         )
-        MetricLine(
+        WeekDayTrack(
             stringResource(R.string.challenge_category_nutrition),
-            stringResource(R.string.challenge_days_format, viewer?.nutritionDays ?: aggregate.nutritionDays)
+            viewer?.nutritionDays ?: aggregate.nutritionDays
         )
-        MetricLine(
+        WeekDayTrack(
             stringResource(R.string.challenge_category_consistency),
-            stringResource(R.string.challenge_days_format, viewer?.consistencyDays ?: aggregate.consistencyDays)
+            viewer?.consistencyDays ?: aggregate.consistencyDays
         )
-        MetricLine(
+        WeekDayTrack(
             stringResource(R.string.challenge_category_hydration),
-            stringResource(R.string.challenge_days_format, viewer?.hydrationDays ?: aggregate.hydrationDays)
+            viewer?.hydrationDays ?: aggregate.hydrationDays
         )
     }
 }
 
 @Composable
-private fun MetricLine(label: String, value: String) {
-    Row(Modifier.fillMaxWidth()) {
-        Text(label, modifier = Modifier.weight(1f), color = MaterialTheme.colorScheme.onSurfaceVariant)
-        Text(value, fontWeight = FontWeight.Medium)
+private fun WeekScoreBar(label: String, valueText: String, fraction: Float) {
+    Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            Text(
+                text = label,
+                modifier = Modifier.weight(1f),
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+            Text(valueText, fontWeight = FontWeight.Bold, color = AppColors.Calorie)
+        }
+        Box(
+            Modifier
+                .fillMaxWidth()
+                .height(8.dp)
+                .clip(RoundedCornerShape(50))
+                .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f))
+        ) {
+            Box(
+                Modifier
+                    .fillMaxWidth(fraction.coerceIn(0f, 1f))
+                    .fillMaxHeight()
+                    .background(AppColors.Calorie)
+            )
+        }
+    }
+}
+
+@Composable
+private fun WeekDayTrack(label: String, days: Int) {
+    val filled = days.coerceIn(0, 7)
+    Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            Text(
+                text = label,
+                modifier = Modifier.weight(1f),
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+            Text(
+                text = stringResource(R.string.challenge_days_format, filled),
+                fontWeight = FontWeight.Medium
+            )
+        }
+        Row(
+            modifier = Modifier.fillMaxWidth().height(8.dp),
+            horizontalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
+            repeat(7) { index ->
+                Box(
+                    Modifier
+                        .weight(1f)
+                        .fillMaxHeight()
+                        .clip(RoundedCornerShape(50))
+                        .background(
+                            if (index < filled) AppColors.Calorie
+                            else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f)
+                        )
+                )
+            }
+        }
     }
 }
 
@@ -1393,6 +1477,14 @@ private fun rowValue(
     WeeklyChallengeCategory.NUTRITION -> row.nutritionDays
     WeeklyChallengeCategory.CONSISTENCY -> row.consistencyDays
     WeeklyChallengeCategory.HYDRATION -> row.hydrationDays
+}
+
+private fun WeeklyChallengeCategory.chipIcon() = when (this) {
+    WeeklyChallengeCategory.OVERALL -> Icons.Filled.EmojiEvents
+    WeeklyChallengeCategory.ACTIVITY -> Icons.Filled.LocalFireDepartment
+    WeeklyChallengeCategory.NUTRITION -> Icons.Filled.Restaurant
+    WeeklyChallengeCategory.CONSISTENCY -> Icons.Filled.CheckCircle
+    WeeklyChallengeCategory.HYDRATION -> Icons.Filled.WaterDrop
 }
 
 private fun WeeklyChallengeCategory.labelRes(): Int = when (this) {

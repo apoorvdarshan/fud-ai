@@ -557,24 +557,30 @@ private struct WeeklyChallengeViewerCard: View {
             Text(WeeklyChallengeParticipantScore.text(for: participant, category: category))
                 .font(.system(.title3, design: .rounded, weight: .bold))
 
-            HStack(spacing: 12) {
-                WeeklyChallengeMiniStat(
-                    title: WeeklyChallengeL10n.text("Activity"),
-                    value: participant.activityDays
-                )
-                WeeklyChallengeMiniStat(
-                    title: WeeklyChallengeL10n.text("Nutrition"),
-                    value: participant.nutritionDays
-                )
-                WeeklyChallengeMiniStat(
-                    title: WeeklyChallengeL10n.text("Consistency"),
-                    value: participant.consistencyDays
-                )
-                WeeklyChallengeMiniStat(
-                    title: WeeklyChallengeL10n.text("Hydration"),
-                    value: participant.hydrationDays
-                )
-            }
+            WeeklyChallengeWeekTrack(
+                label: WeeklyChallengeL10n.text("Overall"),
+                value: WeeklyChallengeL10n.format(
+                    "%1$@ / 28 pts",
+                    participant.overallPoints.formatted()
+                ),
+                fraction: Double(participant.overallPoints) / 28
+            )
+            WeeklyChallengeDayTrack(
+                label: WeeklyChallengeL10n.text("Activity"),
+                days: participant.activityDays
+            )
+            WeeklyChallengeDayTrack(
+                label: WeeklyChallengeL10n.text("Nutrition"),
+                days: participant.nutritionDays
+            )
+            WeeklyChallengeDayTrack(
+                label: WeeklyChallengeL10n.text("Consistency"),
+                days: participant.consistencyDays
+            )
+            WeeklyChallengeDayTrack(
+                label: WeeklyChallengeL10n.text("Hydration"),
+                days: participant.hydrationDays
+            )
 
             HStack {
                 Button(WeeklyChallengeL10n.text("Edit Public Profile"), action: onEditProfile)
@@ -601,21 +607,61 @@ private struct WeeklyChallengeViewerCard: View {
     }
 }
 
-private struct WeeklyChallengeMiniStat: View {
-    let title: String
-    let value: Int
+private struct WeeklyChallengeWeekTrack: View {
+    let label: String
+    let value: String
+    let fraction: Double
 
     var body: some View {
-        VStack(spacing: 2) {
-            Text("\(value)/7")
-                .font(.system(.subheadline, design: .rounded, weight: .bold))
-            Text(title)
-                .font(.system(.caption2, design: .rounded))
-                .foregroundStyle(.secondary)
-                .lineLimit(1)
-                .minimumScaleFactor(0.65)
+        VStack(alignment: .leading, spacing: 6) {
+            HStack {
+                Text(label)
+                    .font(.system(.subheadline, design: .rounded))
+                    .foregroundStyle(.secondary)
+                    .lineLimit(1)
+                Spacer(minLength: 8)
+                Text(value)
+                    .font(.system(.subheadline, design: .rounded, weight: .bold))
+                    .foregroundStyle(AppColors.calorie)
+            }
+            GeometryReader { proxy in
+                ZStack(alignment: .leading) {
+                    Capsule().fill(Color.primary.opacity(0.12))
+                    Capsule()
+                        .fill(AppColors.calorie)
+                        .frame(width: proxy.size.width * min(max(fraction, 0), 1))
+                }
+            }
+            .frame(height: 8)
         }
-        .frame(maxWidth: .infinity)
+    }
+}
+
+private struct WeeklyChallengeDayTrack: View {
+    let label: String
+    let days: Int
+
+    private var filled: Int { min(max(days, 0), 7) }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack {
+                Text(label)
+                    .font(.system(.subheadline, design: .rounded))
+                    .foregroundStyle(.secondary)
+                    .lineLimit(1)
+                Spacer(minLength: 8)
+                Text(WeeklyChallengeL10n.format("%1$@ / 7 days", filled.formatted()))
+                    .font(.system(.subheadline, design: .rounded, weight: .semibold))
+            }
+            HStack(spacing: 4) {
+                ForEach(0..<7, id: \.self) { index in
+                    Capsule()
+                        .fill(index < filled ? AppColors.calorie : Color.primary.opacity(0.12))
+                        .frame(height: 8)
+                }
+            }
+        }
     }
 }
 

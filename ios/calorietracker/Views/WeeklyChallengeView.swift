@@ -525,7 +525,7 @@ struct WeeklyChallengeView: View {
             .font(.system(.body, design: .rounded, weight: .semibold))
             .frame(maxWidth: .infinity)
             .frame(minHeight: 48)
-            .foregroundStyle(enabled ? Color.white : Color.secondary)
+            .foregroundStyle(enabled ? pageButtonForeground : Color.secondary)
             .background(
                 enabled ? AppColors.calorie : Color.primary.opacity(0.08),
                 in: Capsule()
@@ -533,6 +533,15 @@ struct WeeklyChallengeView: View {
         }
         .buttonStyle(.plain)
         .disabled(!enabled)
+    }
+
+    private var pageButtonForeground: Color {
+        switch AppThemeColor.current {
+        case .yellow, .lime, .skyCyan, .babyPink, .lavender, .mint:
+            Color.black.opacity(0.88)
+        default:
+            Color.white
+        }
     }
 
     private func disclosureCard(score: WeeklyChallengeScore) -> some View {

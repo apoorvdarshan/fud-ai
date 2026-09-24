@@ -879,14 +879,14 @@ private fun RankingsBoard(
                             Button(
                                 onClick = { page = (currentPage - 1).coerceAtLeast(0) },
                                 enabled = currentPage > 0,
-                                modifier = Modifier.weight(1f).height(48.dp)
+                                modifier = Modifier.weight(1f).heightIn(min = 48.dp)
                             ) {
                                 Text(stringResource(R.string.challenge_page_previous))
                             }
                             Button(
                                 onClick = { page = (currentPage + 1).coerceAtMost(pageCount - 1) },
                                 enabled = currentPage < pageCount - 1,
-                                modifier = Modifier.weight(1f).height(48.dp)
+                                modifier = Modifier.weight(1f).heightIn(min = 48.dp)
                             ) {
                                 Text(stringResource(R.string.challenge_page_next))
                             }

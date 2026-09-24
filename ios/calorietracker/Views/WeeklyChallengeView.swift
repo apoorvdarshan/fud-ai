@@ -422,11 +422,14 @@ struct WeeklyChallengeView: View {
                     .foregroundStyle(.secondary)
                     .padding(16)
             } else {
-                let showPodium = rows.count >= 2
-                let listRows = showPodium ? Array(rows.dropFirst(3)) : rows
-                if showPodium {
+                let first = rows.first { $0.rank == 1 }
+                let second = rows.first { $0.rank == 2 }
+                let showPodium = first != nil && second != nil
+                if let first, let second {
                     WeeklyChallengePodium(
-                        rankings: Array(rows.prefix(3)),
+                        first: first,
+                        second: second,
+                        third: rows.first { $0.rank == 3 },
                         category: category,
                         viewerID: viewerID,
                         onReport: { participant in
@@ -436,7 +439,7 @@ struct WeeklyChallengeView: View {
                         onBlock: { store.block($0) }
                     )
                 }
-                ForEach(Array(listRows.enumerated()), id: \.element.id) { index, participant in
+                ForEach(Array(rows.enumerated()), id: \.element.id) { index, participant in
                     if index > 0 || showPodium {
                         Divider().padding(.leading, 62)
                     }
@@ -570,7 +573,12 @@ private struct WeeklyChallengeViewerCard: View {
             WeeklyChallengeDayTrack(
                 label: WeeklyChallengeL10n.text("Activity"),
                 days: participant.activityDays,
-                emphasized: category == .activity
+                emphasized: category == .activity,
+                value: WeeklyChallengeL10n.format(
+                    "%1$@ / 7 days\n%2$@ kcal",
+                    participant.activityDays.formatted(),
+                    participant.activityKcal.formatted()
+                )
             )
             WeeklyChallengeDayTrack(
                 label: WeeklyChallengeL10n.text("Nutrition"),
@@ -651,6 +659,7 @@ private struct WeeklyChallengeDayTrack: View {
     let label: String
     let days: Int
     var emphasized: Bool = false
+    var value: String? = nil
 
     private var filled: Int { min(max(days, 0), 7) }
 
@@ -663,7 +672,7 @@ private struct WeeklyChallengeDayTrack: View {
                     .foregroundStyle(emphasized ? Color.primary : Color.secondary)
                     .lineLimit(1)
                 Spacer(minLength: 8)
-                Text(WeeklyChallengeL10n.format("%1$@ / 7 days", filled.formatted()))
+                Text(value ?? WeeklyChallengeL10n.format("%1$@ / 7 days", filled.formatted()))
                     .font(.system(.subheadline, design: .rounded, weight: .semibold))
                     .foregroundStyle(emphasized ? bar : Color.primary)
             }
@@ -679,7 +688,9 @@ private struct WeeklyChallengeDayTrack: View {
 }
 
 private struct WeeklyChallengePodium: View {
-    let rankings: [WeeklyChallengeParticipant]
+    let first: WeeklyChallengeParticipant
+    let second: WeeklyChallengeParticipant
+    let third: WeeklyChallengeParticipant?
     let category: WeeklyChallengeCategory
     let viewerID: String?
     let onReport: (WeeklyChallengeParticipant) -> Void
@@ -687,9 +698,9 @@ private struct WeeklyChallengePodium: View {
 
     var body: some View {
         HStack(alignment: .bottom, spacing: 6) {
-            podiumColumn(rankings.count > 1 ? rankings[1] : nil, height: 64)
-            podiumColumn(rankings.first, height: 96)
-            podiumColumn(rankings.count > 2 ? rankings[2] : nil, height: 52)
+            podiumColumn(second, height: 64)
+            podiumColumn(first, height: 96)
+            podiumColumn(third, height: 52)
         }
         .padding(.horizontal, 8)
         .padding(.top, 4)
@@ -823,11 +834,10 @@ private struct WeeklyChallengeParticipantRow: View {
                 .font(.system(.caption, design: .rounded, weight: .bold))
                 .foregroundStyle(AppColors.calorie)
                 .multilineTextAlignment(.trailing)
-                .lineLimit(2)
                 .padding(.horizontal, 8)
                 .padding(.vertical, 4)
-                .frame(maxWidth: 120, alignment: .trailing)
-                .background(AppColors.calorie.opacity(0.12), in: Capsule())
+                .frame(maxWidth: 148, alignment: .trailing)
+                .background(AppColors.calorie.opacity(0.12), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
 
             if !isViewer {
                 Menu {

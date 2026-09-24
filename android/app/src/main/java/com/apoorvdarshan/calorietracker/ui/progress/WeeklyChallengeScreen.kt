@@ -71,7 +71,10 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.collapse
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.expand
+import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
@@ -149,6 +152,9 @@ internal fun WeeklyChallengeScreen(container: AppContainer) {
     }
         .distinctBy { it.participantId }
         .filterNot { it.participantId in ui.blockedParticipants }
+        .map { row ->
+            if (viewer?.participantId == row.participantId) row.copy(isViewer = true) else row
+        }
         .sortedWith(compareBy({ it.rank ?: Int.MAX_VALUE }, { it.participantId }))
 
     PullToRefreshBox(
@@ -215,15 +221,13 @@ internal fun WeeklyChallengeScreen(container: AppContainer) {
                             vm.dismissError()
                             reportTarget = row
                         },
-                        onBlock = { row -> blockTarget = row }
-                    )
-                }
-                if (ui.blockedParticipants.isNotEmpty()) {
-                    item {
-                        TextButton(onClick = { showBlocked = true }) {
-                            Text(stringResource(R.string.challenge_manage_blocked))
+                        onBlock = { row -> blockTarget = row },
+                        onManageBlocked = if (ui.blockedParticipants.isNotEmpty()) {
+                            { showBlocked = true }
+                        } else {
+                            null
                         }
-                    }
+                    )
                 }
                 item {
                     ViewerPositionCard(
@@ -473,7 +477,14 @@ private fun ChallengePointsExplanation() {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable { open = !open },
+                    .clickable { open = !open }
+                    .semantics {
+                        if (open) {
+                            collapse { open = false; true }
+                        } else {
+                            expand { open = true; true }
+                        }
+                    },
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
@@ -535,7 +546,10 @@ private fun ChallengeCategorySelector(
                     .clip(RoundedCornerShape(50))
                     .background(if (on) AppColors.Calorie else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f))
                     .clickable { onSelect(category) }
-                    .semantics { this.selected = on }
+                    .semantics {
+                        role = Role.Tab
+                        this.selected = on
+                    }
                     .padding(horizontal = 14.dp, vertical = 9.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(6.dp)
@@ -610,8 +624,7 @@ private fun ViewerPositionCard(
                 ) {
                     Text(
                         stringResource(R.string.challenge_edit_profile),
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
+                        textAlign = TextAlign.Center
                     )
                 }
                 OutlinedButton(
@@ -622,8 +635,7 @@ private fun ViewerPositionCard(
                     Text(
                         stringResource(R.string.challenge_leave_action),
                         color = MaterialTheme.colorScheme.error,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
+                        textAlign = TextAlign.Center
                     )
                 }
             }
@@ -655,7 +667,12 @@ private fun AggregateBreakdown(
         WeekDayTrack(
             stringResource(R.string.challenge_category_activity),
             viewer?.activityDays ?: aggregate.activityDays,
-            emphasized = selected == WeeklyChallengeCategory.ACTIVITY
+            emphasized = selected == WeeklyChallengeCategory.ACTIVITY,
+            valueText = stringResource(
+                R.string.challenge_days_kcal_format,
+                viewer?.activityDays ?: aggregate.activityDays,
+                viewer?.activityKcal ?: aggregate.activityKcal
+            )
         )
         WeekDayTrack(
             stringResource(R.string.challenge_category_nutrition),
@@ -714,7 +731,12 @@ private fun WeekScoreBar(
 }
 
 @Composable
-private fun WeekDayTrack(label: String, days: Int, emphasized: Boolean) {
+private fun WeekDayTrack(
+    label: String,
+    days: Int,
+    emphasized: Boolean,
+    valueText: String? = null
+) {
     val filled = days.coerceIn(0, 7)
     val bar = if (emphasized) AppColors.Calorie else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
     Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
@@ -729,9 +751,10 @@ private fun WeekDayTrack(label: String, days: Int, emphasized: Boolean) {
                 overflow = TextOverflow.Ellipsis
             )
             Text(
-                text = stringResource(R.string.challenge_days_format, filled),
+                text = valueText ?: stringResource(R.string.challenge_days_format, filled),
                 fontWeight = FontWeight.Medium,
-                color = if (emphasized) bar else MaterialTheme.colorScheme.onSurface
+                color = if (emphasized) bar else MaterialTheme.colorScheme.onSurface,
+                textAlign = TextAlign.End
             )
         }
         Row(
@@ -759,16 +782,30 @@ private fun RankingsBoard(
     rankings: List<WeeklyChallengeLeaderboardRow>,
     category: WeeklyChallengeCategory,
     onReport: (WeeklyChallengeLeaderboardRow) -> Unit,
-    onBlock: (WeeklyChallengeLeaderboardRow) -> Unit
+    onBlock: (WeeklyChallengeLeaderboardRow) -> Unit,
+    onManageBlocked: (() -> Unit)?
 ) {
+    val podium = podiumSlots(rankings)
     FudGlassSurface(modifier = Modifier.fillMaxWidth(), cornerRadius = 22.dp, padding = 6.dp) {
         Column {
-            Text(
-                text = stringResource(R.string.challenge_leaderboard_title),
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(start = 12.dp, end = 12.dp, top = 12.dp, bottom = 4.dp)
-            )
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 12.dp, end = 4.dp, top = 8.dp, bottom = 4.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = stringResource(R.string.challenge_leaderboard_title),
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.weight(1f)
+                )
+                if (onManageBlocked != null) {
+                    TextButton(onClick = onManageBlocked) {
+                        Text(stringResource(R.string.challenge_manage_blocked))
+                    }
+                }
+            }
             if (rankings.isEmpty()) {
                 Text(
                     text = stringResource(R.string.challenge_leaderboard_empty),
@@ -778,19 +815,19 @@ private fun RankingsBoard(
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             } else {
-                val showPodium = rankings.size >= 2
-                val listRows = if (showPodium) rankings.drop(3) else rankings
-                if (showPodium) {
+                if (podium != null) {
                     RankingsPodium(
-                        rankings = rankings.take(3),
+                        second = podium.second,
+                        first = podium.first,
+                        third = podium.third,
                         category = category,
                         onReport = onReport,
                         onBlock = onBlock
                     )
                 }
-                listRows.forEachIndexed { index, row ->
+                rankings.forEachIndexed { index, row ->
                     key(row.participantId) {
-                        if (index > 0 || showPodium) {
+                        if (index > 0 || podium != null) {
                             HorizontalDivider(Modifier.padding(start = 64.dp, end = 12.dp))
                         }
                         RankingRow(
@@ -807,9 +844,23 @@ private fun RankingsBoard(
     }
 }
 
+private data class PodiumSlots(
+    val first: WeeklyChallengeLeaderboardRow,
+    val second: WeeklyChallengeLeaderboardRow,
+    val third: WeeklyChallengeLeaderboardRow?
+)
+
+private fun podiumSlots(rankings: List<WeeklyChallengeLeaderboardRow>): PodiumSlots? {
+    val first = rankings.firstOrNull { it.rank == 1 } ?: return null
+    val second = rankings.firstOrNull { it.rank == 2 } ?: return null
+    return PodiumSlots(first, second, rankings.firstOrNull { it.rank == 3 })
+}
+
 @Composable
 private fun RankingsPodium(
-    rankings: List<WeeklyChallengeLeaderboardRow>,
+    second: WeeklyChallengeLeaderboardRow,
+    first: WeeklyChallengeLeaderboardRow,
+    third: WeeklyChallengeLeaderboardRow?,
     category: WeeklyChallengeCategory,
     onReport: (WeeklyChallengeLeaderboardRow) -> Unit,
     onBlock: (WeeklyChallengeLeaderboardRow) -> Unit
@@ -821,21 +872,21 @@ private fun RankingsPodium(
         verticalAlignment = Alignment.Bottom
     ) {
         PodiumColumn(
-            row = rankings.getOrNull(1),
+            row = second,
             category = category,
             pedestalHeight = 64.dp,
             onReport = onReport,
             onBlock = onBlock
         )
         PodiumColumn(
-            row = rankings.getOrNull(0),
+            row = first,
             category = category,
             pedestalHeight = 96.dp,
             onReport = onReport,
             onBlock = onBlock
         )
         PodiumColumn(
-            row = rankings.getOrNull(2),
+            row = third,
             category = category,
             pedestalHeight = 52.dp,
             onReport = onReport,
@@ -1071,15 +1122,13 @@ private fun RankingRow(
             text = leaderboardScoreText(category, row),
             modifier = Modifier
                 .padding(start = 8.dp)
-                .widthIn(max = 112.dp)
-                .clip(RoundedCornerShape(50))
+                .widthIn(max = 148.dp)
+                .clip(RoundedCornerShape(12.dp))
                 .background(AppColors.Calorie.copy(alpha = 0.12f))
                 .padding(horizontal = 8.dp, vertical = 4.dp),
             fontWeight = FontWeight.Bold,
             color = AppColors.Calorie,
             textAlign = TextAlign.End,
-            maxLines = 2,
-            overflow = TextOverflow.Ellipsis,
             style = MaterialTheme.typography.labelLarge
         )
         if (!row.isViewer) {

@@ -8,7 +8,9 @@ preview_urls = false
 directory = "."
 binding = "ASSETS"
 not_found_handling = "404-page"
-run_worker_first = ["/star-history.svg", "/star-history.json", "/api/challenge/v1/*", "/api/hosted-ai/v1/*", "/api/discord/interactions", "/api/meal-shares", "/m/*"]
+# Every request hits the worker first so apex, HTTP, .html, and trailing-slash
+# URLs can 301 to the www canonical before the asset layer's temporary redirects.
+run_worker_first = true
 
 # Discord slash-command Interactions Endpoint (public; not a secret).
 # Set Interactions Endpoint URL in Discord Developer Portal to:

@@ -336,20 +336,23 @@ struct WeeklyChallengeView: View {
     }
 
     private var challengeHeader: some View {
-        HStack(alignment: .firstTextBaseline) {
-            VStack(alignment: .leading, spacing: 4) {
-                Text(weekRangeText)
-                    .font(.system(.headline, design: .rounded, weight: .bold))
-                Text(statusText)
-                    .font(.system(.caption, design: .rounded))
-                    .foregroundStyle(store.isOffline ? .orange : .secondary)
+        VStack(alignment: .leading, spacing: 0) {
+            HStack(alignment: .firstTextBaseline) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(weekRangeText)
+                        .font(.system(.headline, design: .rounded, weight: .bold))
+                    Text(statusText)
+                        .font(.system(.caption, design: .rounded))
+                        .foregroundStyle(store.isOffline ? .orange : .secondary)
+                }
+                Spacer()
+                if store.isRefreshing {
+                    ProgressView()
+                        .controlSize(.small)
+                        .accessibilityLabel(WeeklyChallengeL10n.text("Updating leaderboard"))
+                }
             }
-            Spacer()
-            if store.isRefreshing {
-                ProgressView()
-                    .controlSize(.small)
-                    .accessibilityLabel(WeeklyChallengeL10n.text("Updating leaderboard"))
-            }
+            WeekCalendarStrip(weekStart: currentWeek.start)
         }
         .padding(14)
         .background(AppColors.appCard, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
@@ -441,6 +444,7 @@ struct WeeklyChallengeView: View {
                         participant: participant,
                         category: category,
                         isViewer: participant.isViewer || participant.participantId == viewerID,
+                        striped: index % 2 == 1,
                         onReport: {
                             store.clearError()
                             reportTarget = participant
@@ -584,16 +588,18 @@ private struct WeeklyChallengeViewerCard: View {
                 emphasized: category == .hydration
             )
 
-            HStack {
+            HStack(spacing: 8) {
                 Button(WeeklyChallengeL10n.text("Edit Public Profile"), action: onEditProfile)
-                    .buttonStyle(.bordered)
-                Spacer()
+                    .buttonStyle(.borderedProminent)
+                    .tint(AppColors.calorie)
+                    .frame(maxWidth: .infinity)
                 Button(
                     WeeklyChallengeL10n.text("Leave Challenge"),
                     role: .destructive,
                     action: onLeave
                 )
                 .buttonStyle(.bordered)
+                .frame(maxWidth: .infinity)
             }
             .font(.system(.subheadline, design: .rounded, weight: .semibold))
         }
@@ -761,10 +767,35 @@ private struct WeeklyChallengePodium: View {
     }
 }
 
+private struct WeekCalendarStrip: View {
+    let weekStart: Date
+
+    private var filled: Int {
+        let calendar = Calendar.current
+        let start = calendar.startOfDay(for: weekStart)
+        let today = calendar.startOfDay(for: Date())
+        let day = calendar.dateComponents([.day], from: start, to: today).day ?? 0
+        return min(max(day + 1, 0), 7)
+    }
+
+    var body: some View {
+        HStack(spacing: 4) {
+            ForEach(0..<7, id: \.self) { index in
+                Capsule()
+                    .fill(index < filled ? AppColors.calorie : Color.primary.opacity(0.12))
+                    .frame(height: 6)
+            }
+        }
+        .padding(.top, 8)
+        .accessibilityHidden(true)
+    }
+}
+
 private struct WeeklyChallengeParticipantRow: View {
     let participant: WeeklyChallengeParticipant
     let category: WeeklyChallengeCategory
     let isViewer: Bool
+    var striped: Bool = false
     let onReport: () -> Void
     let onBlock: () -> Void
 
@@ -803,7 +834,11 @@ private struct WeeklyChallengeParticipantRow: View {
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 10)
-        .background(isViewer ? AppColors.calorie.opacity(0.12) : Color.clear)
+        .background(
+            isViewer
+                ? AppColors.calorie.opacity(0.12)
+                : (striped ? Color.primary.opacity(0.05) : Color.clear)
+        )
     }
 }
 

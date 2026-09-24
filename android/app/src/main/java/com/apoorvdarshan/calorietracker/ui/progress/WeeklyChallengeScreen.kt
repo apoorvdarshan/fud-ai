@@ -50,6 +50,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -100,6 +101,7 @@ import com.apoorvdarshan.calorietracker.ui.navigation.BottomNavScrollPadding
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
 import java.text.DateFormat
 import java.time.LocalDate
+import java.time.temporal.ChronoUnit
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.Date
@@ -362,7 +364,33 @@ private fun ChallengeHeader(
             color = if (isOffline) MaterialTheme.colorScheme.error
             else MaterialTheme.colorScheme.onSurfaceVariant
         )
+        WeekCalendarStrip(weekStart)
     }
+    }
+}
+
+@Composable
+private fun WeekCalendarStrip(weekStart: LocalDate) {
+    val filled = (ChronoUnit.DAYS.between(weekStart, LocalDate.now()).toInt() + 1).coerceIn(0, 7)
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 8.dp)
+            .height(6.dp),
+        horizontalArrangement = Arrangement.spacedBy(4.dp)
+    ) {
+        repeat(7) { index ->
+            Box(
+                Modifier
+                    .weight(1f)
+                    .fillMaxHeight()
+                    .clip(RoundedCornerShape(50))
+                    .background(
+                        if (index < filled) AppColors.Calorie
+                        else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f)
+                    )
+            )
+        }
     }
 }
 
@@ -555,14 +583,31 @@ private fun ViewerPositionCard(
             }
             HorizontalDivider()
             AggregateBreakdown(viewer = viewer, aggregate = aggregate, selected = category)
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                TextButton(onClick = onEdit, enabled = !isSaving) {
-                    Text(stringResource(R.string.challenge_edit_profile))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Button(
+                    onClick = onEdit,
+                    enabled = !isSaving,
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Text(
+                        stringResource(R.string.challenge_edit_profile),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
                 }
-                TextButton(onClick = onLeave, enabled = !isSaving) {
+                OutlinedButton(
+                    onClick = onLeave,
+                    enabled = !isSaving,
+                    modifier = Modifier.weight(1f)
+                ) {
                     Text(
                         stringResource(R.string.challenge_leave_action),
-                        color = MaterialTheme.colorScheme.error
+                        color = MaterialTheme.colorScheme.error,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
                     )
                 }
             }
@@ -735,6 +780,7 @@ private fun RankingsBoard(
                         RankingRow(
                             row = row,
                             category = category,
+                            striped = index % 2 == 1,
                             onReport = { onReport(row) },
                             onBlock = { onBlock(row) }
                         )
@@ -957,18 +1003,22 @@ private fun rankMedalColors(place: Int?): Pair<Color, Color> {
 private fun RankingRow(
     row: WeeklyChallengeLeaderboardRow,
     category: WeeklyChallengeCategory,
+    striped: Boolean,
     onReport: () -> Unit,
     onBlock: () -> Unit
 ) {
     var menuOpen by remember(row.participantId) { mutableStateOf(false) }
     val place = row.rank
+    val rowColor = when {
+        row.isViewer -> AppColors.Calorie.copy(alpha = 0.12f)
+        striped -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.05f)
+        else -> Color.Transparent
+    }
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(16.dp))
-            .background(
-                if (row.isViewer) AppColors.Calorie.copy(alpha = 0.12f) else Color.Transparent
-            )
+            .background(rowColor)
             .padding(horizontal = 8.dp, vertical = 10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {

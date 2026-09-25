@@ -54,6 +54,12 @@ function memoryEnv(stored: string | null, serviceAccount: string): PlayAnnounceE
   };
 }
 
+function requestUrl(input: RequestInfo | URL): URL {
+  if (typeof input === "string") return new URL(input);
+  if (input instanceof URL) return input;
+  return new URL(input.url);
+}
+
 describe("play announcements", () => {
   it("stays quiet the first time it sees the current tracks", () => {
     expect(releasesToAnnounce(null, [beta, production])).toEqual([]);
@@ -75,14 +81,14 @@ describe("play announcements", () => {
   it("posts a new open-testing build only to announcements", async () => {
     const env = memoryEnv(JSON.stringify({ beta: "38", production: "38" }), await serviceAccountJson());
     const fetchImpl = vi.fn(async (input: RequestInfo | URL) => {
-      const url = String(input);
-      if (url.includes("oauth2.googleapis.com")) {
+      const url = requestUrl(input);
+      if (url.hostname === "oauth2.googleapis.com" && url.pathname === "/token") {
         return Response.json({ access_token: "play-token" });
       }
-      if (url.endsWith("/edits")) {
+      if (url.hostname === "androidpublisher.googleapis.com" && url.pathname.endsWith("/edits")) {
         return Response.json({ id: "edit-1" });
       }
-      if (url.endsWith("/tracks")) {
+      if (url.hostname === "androidpublisher.googleapis.com" && url.pathname.endsWith("/tracks")) {
         return Response.json({
           tracks: [
             { track: "beta", releases: [{ name: "7.2", status: "completed", versionCodes: ["39"], releaseNotes: [{ language: "en-US", text: "Weekly Challenge pages." }] }] },
@@ -90,7 +96,7 @@ describe("play announcements", () => {
           ],
         });
       }
-      if (url.includes(`/channels/${ANNOUNCEMENTS_CHANNEL_ID}/messages`)) {
+      if (url.hostname === "discord.com" && url.pathname === `/api/v10/channels/${ANNOUNCEMENTS_CHANNEL_ID}/messages`) {
         return new Response(null, { status: 200 });
       }
       return new Response(null, { status: 404 });
@@ -98,19 +104,24 @@ describe("play announcements", () => {
 
     await announceAndroidPlayReleases(env, fetchImpl as typeof fetch);
 
-    const discordCall = fetchImpl.mock.calls.find(([url]) => String(url).includes("discord.com"));
-    expect(String(discordCall?.[0])).toContain(ANNOUNCEMENTS_CHANNEL_ID);
-    expect(String(discordCall?.[0])).not.toContain("1550766948755710083");
+    const discordCall = fetchImpl.mock.calls.find(([url]) => requestUrl(url).hostname === "discord.com");
+    expect(requestUrl(discordCall?.[0] ?? "https://example.com").pathname).toBe(
+      `/api/v10/channels/${ANNOUNCEMENTS_CHANNEL_ID}/messages`,
+    );
     expect(env.saved.at(-1)).toBe(JSON.stringify({ beta: "39", production: "38" }));
   });
 
   it("records the current tracks without posting when nothing was stored", async () => {
     const env = memoryEnv(null, await serviceAccountJson());
     const fetchImpl = vi.fn(async (input: RequestInfo | URL) => {
-      const url = String(input);
-      if (url.includes("oauth2.googleapis.com")) return Response.json({ access_token: "play-token" });
-      if (url.endsWith("/edits") && !url.includes("/tracks")) return Response.json({ id: "edit-1" });
-      if (url.endsWith("/tracks")) {
+      const url = requestUrl(input);
+      if (url.hostname === "oauth2.googleapis.com" && url.pathname === "/token") {
+        return Response.json({ access_token: "play-token" });
+      }
+      if (url.hostname === "androidpublisher.googleapis.com" && url.pathname.endsWith("/edits")) {
+        return Response.json({ id: "edit-1" });
+      }
+      if (url.hostname === "androidpublisher.googleapis.com" && url.pathname.endsWith("/tracks")) {
         return Response.json({
           tracks: [
             { track: "beta", releases: [{ name: "7.1", status: "completed", versionCodes: ["38"] }] },
@@ -118,7 +129,10 @@ describe("play announcements", () => {
           ],
         });
       }
-      throw new Error(`unexpected ${url}`);
+      if (url.hostname === "androidpublisher.googleapis.com" && url.pathname.endsWith("/edits/edit-1")) {
+        return new Response(null, { status: 200 });
+      }
+      throw new Error(`unexpected ${url.pathname}`);
     });
 
     await announceAndroidPlayReleases(env, fetchImpl as typeof fetch);

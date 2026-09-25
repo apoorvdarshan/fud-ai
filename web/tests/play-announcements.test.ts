@@ -8,12 +8,6 @@ import {
   type PlayRelease,
 } from "../play-announcements";
 
-const beta: PlayRelease = {
-  track: "beta",
-  versionCode: "39",
-  name: "7.2",
-  whatsNew: "Weekly Challenge pages.",
-};
 const production: PlayRelease = {
   track: "production",
   versionCode: "38",
@@ -62,31 +56,32 @@ function requestUrl(input: RequestInfo | URL): URL {
 
 describe("play announcements", () => {
   it("stays quiet the first time it sees the current tracks", () => {
-    expect(releasesToAnnounce(null, [beta, production])).toEqual([]);
+    expect(releasesToAnnounce(null, [production])).toEqual([]);
   });
 
   it("does not announce a track that has no version code", () => {
     expect(releasesToAnnounce(
-      { beta: "38", production: "38" },
-      [{ ...beta, versionCode: "" }, production],
+      { production: "38" },
+      [{ ...production, versionCode: "" }],
     )).toEqual([]);
   });
 
   it("announces only a track whose version code changed", () => {
-    expect(releasesToAnnounce({ beta: "38", production: "38" }, [beta, production])).toEqual([beta]);
+    expect(releasesToAnnounce(
+      { production: "37" },
+      [production],
+    )).toEqual([production]);
   });
 
-  it("includes what's new and keeps bugs in the beta channel", () => {
-    const text = announcementText(beta);
-    expect(text).toContain("Android 7.2 (39) is ready for testers.");
-    expect(text).toContain("What's new:\nWeekly Challenge pages.");
-    expect(text).toContain("#beta-android");
-    expect(announcementText(production)).toContain("is on the Play Store.");
-    expect(announcementText(production)).not.toContain("#beta-android");
+  it("includes what's new for production", () => {
+    const text = announcementText(production);
+    expect(text).toContain("Android 7.1 (38) is on the Play Store.");
+    expect(text).toContain("What's new:\nPlay Store notes.");
+    expect(text).not.toContain("#beta-android");
   });
 
-  it("posts a new open-testing build only to announcements", async () => {
-    const env = memoryEnv(JSON.stringify({ beta: "38", production: "38" }), await serviceAccountJson());
+  it("posts a new production build only to announcements", async () => {
+    const env = memoryEnv(JSON.stringify({ production: "37" }), await serviceAccountJson());
     const fetchImpl = vi.fn(async (input: RequestInfo | URL) => {
       const url = requestUrl(input);
       if (url.hostname === "oauth2.googleapis.com" && url.pathname === "/token") {
@@ -98,7 +93,6 @@ describe("play announcements", () => {
       if (url.hostname === "androidpublisher.googleapis.com" && url.pathname.endsWith("/tracks")) {
         return Response.json({
           tracks: [
-            { track: "beta", releases: [{ name: "7.2", status: "completed", versionCodes: ["39"], releaseNotes: [{ language: "en-US", text: "Weekly Challenge pages." }] }] },
             { track: "production", releases: [{ name: "7.1", status: "completed", versionCodes: ["38"], releaseNotes: [{ language: "en-US", text: "Play Store notes." }] }] },
           ],
         });
@@ -115,7 +109,7 @@ describe("play announcements", () => {
     expect(requestUrl(discordCall?.[0] ?? "https://example.com").pathname).toBe(
       `/api/v10/channels/${ANNOUNCEMENTS_CHANNEL_ID}/messages`,
     );
-    expect(env.saved.at(-1)).toBe(JSON.stringify({ beta: "39", production: "38" }));
+    expect(env.saved.at(-1)).toBe(JSON.stringify({ production: "38" }));
   });
 
   it("records the current tracks without posting when nothing was stored", async () => {
@@ -131,7 +125,6 @@ describe("play announcements", () => {
       if (url.hostname === "androidpublisher.googleapis.com" && url.pathname.endsWith("/tracks")) {
         return Response.json({
           tracks: [
-            { track: "beta", releases: [{ name: "7.1", status: "completed", versionCodes: ["38"] }] },
             { track: "production", releases: [{ name: "7.1", status: "completed", versionCodes: ["38"] }] },
           ],
         });
@@ -143,6 +136,6 @@ describe("play announcements", () => {
     });
 
     await announceAndroidPlayReleases(env, fetchImpl as typeof fetch);
-    expect(env.saved).toEqual([JSON.stringify({ beta: "38", production: "38" })]);
+    expect(env.saved).toEqual([JSON.stringify({ production: "38" })]);
   });
 });

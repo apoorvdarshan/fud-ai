@@ -6,16 +6,16 @@ import UIKit
 @Suite(.serialized)
 struct AIRequestConfigurationTests {
     @Test func settingsHubKeepsEveryFocusedCategory() {
-        #expect(ProfileSettingsCategory.allCases.count == 17)
-        #expect(Set(ProfileSettingsCategory.allCases.map(\.rawValue)).count == 17)
+        #expect(ProfileSettingsCategory.allCases.count == 16)
+        #expect(Set(ProfileSettingsCategory.allCases.map(\.rawValue)).count == 16)
         #expect(ProfileSettingsCategory.preferenceCases.count == 11)
-        #expect(ProfileSettingsCategory.appInfoCases.count == 6)
-        #expect(ProfileSettingsCategory.allCases.compactMap(\.aboutCategory).count == 6)
+        #expect(ProfileSettingsCategory.appInfoCases.count == 5)
+        #expect(ProfileSettingsCategory.allCases.compactMap(\.aboutCategory).count == 5)
     }
 
     @Test func appInfoKeepsEveryFocusedCategory() {
-        #expect(AboutSettingsCategory.allCases.count == 6)
-        #expect(Set(AboutSettingsCategory.allCases.map(\.rawValue)).count == 6)
+        #expect(AboutSettingsCategory.allCases.count == 5)
+        #expect(Set(AboutSettingsCategory.allCases.map(\.rawValue)).count == 5)
     }
 
     @Test func geminiUsesCurrentModelsAndFallsBackFromRetiredChoices() {

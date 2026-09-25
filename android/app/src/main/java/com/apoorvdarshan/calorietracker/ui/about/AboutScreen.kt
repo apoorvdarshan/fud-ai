@@ -39,7 +39,6 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Forum
 import androidx.compose.material.icons.filled.Lightbulb
 import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material.icons.filled.Science
 import androidx.compose.material.icons.filled.Security
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.Star
@@ -85,7 +84,6 @@ enum class AboutSettingsCategory(val titleRes: Int, val icon: ImageVector) {
     SUPPORT(R.string.about_category_support, Icons.Filled.Favorite),
     HELP_FEEDBACK(R.string.about_category_help_feedback, Icons.Filled.BugReport),
     COMMUNITY(R.string.about_category_community, Icons.Filled.AlternateEmail),
-    JOIN_BETA(R.string.about_category_join_beta, Icons.Filled.Science),
     LEGAL(R.string.about_category_legal, Icons.Filled.Lock)
 }
 
@@ -261,34 +259,6 @@ fun AboutSettingsRows(category: AboutSettingsCategory) {
                 Hairline()
                 AboutRow(Icons.Filled.CameraAlt, stringResource(R.string.about_follow_instagram)) {
                     open(FudAILinks.INSTAGRAM)
-                }
-            }
-
-            AboutSettingsCategory.JOIN_BETA -> {
-                Column(
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp, vertical = 14.dp),
-                    verticalArrangement = Arrangement.spacedBy(10.dp)
-                ) {
-                    Text(
-                        stringResource(R.string.about_beta_intro),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f)
-                    )
-                    Text(
-                        stringResource(R.string.about_beta_steps),
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                    Text(
-                        stringResource(R.string.about_beta_not_open),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
-                    )
-                }
-                Hairline()
-                AboutRow(Icons.Filled.Forum, stringResource(R.string.about_join_discord)) {
-                    open(FudAILinks.DISCORD)
                 }
             }
 

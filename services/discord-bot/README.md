@@ -35,7 +35,7 @@ node services/discord-bot/register-feature.mjs
 - **`/bug`** — `report` required (one freeform field, same UX as `/ask`). The Worker uses `DISCORD_GEMINI_API_KEY` (free-tier, never `GEMINI_API_KEY`) to draft a title + body; if Gemini fails it still files using the first short line / clipped excerpt and the raw report. Platform labels prefer clear signals in the report (and Gemini’s optional `platform` field), then the iOS (`1548481436129165353`) or Android (`1548481448024084540`) channel. If both platforms are mentioned, the channel is used when available; otherwise the issue is labeled `bug` only. Issues get `bug` plus `ios` or `android` when a platform is known.
 - **`/feature`** — `report` required (same Gemini-then-fallback drafting). Platform is **not** inferred from channel. Issues get the `enhancement` label (same as the GitHub feature-request template). Works from any channel.
 
-The same Worker wakes hourly and reads the Play Open testing and production tracks. A new version code is posted once in **#announcements**, with the English What's New. The first run only records the versions already live, so it does not announce them again. **#beta-android** stays for `/bug`. Secrets: `DISCORD_BOT_TOKEN` and `PLAY_SERVICE_ACCOUNT_JSON`.
+The same Worker wakes hourly and reads the Play production track. A new version code is posted once in **#announcements**, with the English What's New. The first run only records the versions already live, so it does not announce them again. **#beta-android** stays for `/bug`. Secrets: `DISCORD_BOT_TOKEN` and `PLAY_SERVICE_ACCOUNT_JSON`.
 
 ### Deploy Worker secrets + code
 

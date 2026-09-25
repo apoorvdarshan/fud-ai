@@ -298,7 +298,6 @@
     <string name="onboarding_plan_field_carbs">Węglowodany</string>
     <string name="onboarding_plan_field_fat">Tłuszcz</string>
 
-
     <!-- Home -->
     <plurals name="home_daily_steps">
         <item quantity="one">%1$s krok</item>
@@ -629,10 +628,6 @@
     <string name="about_category_help_feedback">Pomoc i opinie</string>
     <string name="about_category_community">Społeczność</string>
     <string name="about_category_legal">Informacje prawne</string>
-    <string name="about_category_join_beta">Dołącz do bety</string>
-    <string name="about_beta_intro">Wypróbuj nowości Fud AI, zanim trafią do Sklepu Play. Wersje beta mogą być niedokończone.</string>
-    <string name="about_beta_steps">Dołącz do Discorda Fud AI i otwórz #beta-android. Gdy pojawi się tam link do testu Play, dołącz i zaktualizuj Fud AI ze Sklepu Play. Jeśli coś się zepsuje, użyj /bug i podaj wersję z Ustawień.</string>
-    <string name="about_beta_not_open">Test Play nie jest jeszcze otwarty. Link pojawi się w #beta-android.</string>
     <string name="about_made_by">Autor: Apoorv Darshan</string>
     <string name="about_with_care">z troską, dla wszystkich</string>
     <string name="about_share_message">Śledzę posiłki z Fud AI — zrób zdjęcie, powiedz albo wpisz posiłek, a AI zapisze kalorie. To darmowa aplikacja open source, a Twoje dane zostają na urządzeniu.\n\nPobierz: https://fud-ai.app</string>

@@ -14,7 +14,7 @@ Macros, AI Coach & Workouts
 
 ## Promotional Text (170 chars max)
 ```
-New in 7.1: Weekly Challenge places, Help on Discord, Join Beta, and on-device food photos with Apple Intelligence on iOS 27.
+New in 7.1: Weekly Challenge places, Help on Discord, and on-device food photos with Apple Intelligence on iOS 27.
 ```
 
 ## Keywords (100 chars max)
@@ -32,7 +32,7 @@ Secondary: Food & Drink
 ```
 Effortless calorie tracking with AI-powered food recognition. Snap, scan, speak, or type a meal — get instant calories, macros, and nutrients.
 
-NEW in v7.1: Weekly Challenge places with a podium and 20 per page; Help & Feedback on GitHub or Discord; Join Beta in Settings; on-device food photos with Apple Intelligence on iOS 27. Still includes v7.0: optional Plus/Pro hosted AI or Bring Your Own Key; daily steps; Walk/Run; custom exercises; meal date/time; Log Food widget; Czech and Ukrainian (18 languages).
+NEW in v7.1: Weekly Challenge places with a podium and 20 per page; Help & Feedback on GitHub or Discord; on-device food photos with Apple Intelligence on iOS 27. Still includes v7.0: optional Plus/Pro hosted AI or Bring Your Own Key; daily steps; Walk/Run; custom exercises; meal date/time; Log Food widget; Czech and Ukrainian (18 languages).
 
 Nutrition includes custom goals plus caffeine, creatine, and other performance compounds. Optional fasting adds timers, editable history, goals, alerts, and Coach context. Apple Watch can log water; import Watch workouts from HealthKit when Health is enabled.
 
@@ -92,7 +92,6 @@ Fud AI 7.1 makes the Weekly Challenge easier to follow and adds clearer ways to 
 NEW
 • Weekly Challenge standings show 1st–3rd on a podium, then 20 places per page. Everyone gets their own place. How points work explains how a tie is broken.
 • Report a bug or request a feature on GitHub or Discord from Help & Feedback.
-• Join Beta in Settings explains TestFlight. The beta is announced in Discord and is not open yet.
 • On iOS 27, Apple Intelligence can analyze food photos on-device when you select it.
 
 IMPROVED

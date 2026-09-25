@@ -1,6 +1,6 @@
 /**
- * Hourly Play track check. Posts once in #announcements when Android Open
- * testing or production serves a new version code. #beta-android is not used.
+ * Hourly Play track check. Posts once in #announcements when Android
+ * production serves a new version code. #beta-android stays for /bug.
  */
 
 export const ANNOUNCEMENTS_CHANNEL_ID = "1548481417728495678";
@@ -9,7 +9,7 @@ const STATE_KEY = "android-play-announcements-v1";
 const PLAY_SCOPE = "https://www.googleapis.com/auth/androidpublisher";
 const TOKEN_URL = "https://oauth2.googleapis.com/token";
 
-export type PlayTrackName = "beta" | "production";
+export type PlayTrackName = "production";
 
 export type PlayRelease = {
   track: PlayTrackName;
@@ -36,15 +36,10 @@ export type PlayAnnounceEnv = {
 
 export function announcementText(release: PlayRelease): string {
   const title = release.name || `build ${release.versionCode}`;
-  const lead = release.track === "beta"
-    ? `Android ${title} (${release.versionCode}) is ready for testers.`
-    : `Android ${title} (${release.versionCode}) is on the Play Store.`;
+  const lead = `Android ${title} (${release.versionCode}) is on the Play Store.`;
   const notes = release.whatsNew.trim();
   const whatsNew = notes ? `\n\nWhat's new:\n${notes}` : "";
-  const footer = release.track === "beta"
-    ? "\n\nReport bugs in #beta-android with /bug and the version code."
-    : "";
-  const text = `${lead}${whatsNew}${footer}`;
+  const text = `${lead}${whatsNew}`;
   return text.length <= 2000 ? text : `${text.slice(0, 1997)}...`;
 }
 
@@ -82,19 +77,19 @@ export async function announceAndroidPlayReleases(
 async function readState(env: PlayAnnounceEnv): Promise<StoredReleases | null> {
   const raw = await env.STAR_HISTORY.get(STATE_KEY);
   if (!raw) return null;
-  const parsed = JSON.parse(raw) as Partial<StoredReleases>;
-  if (typeof parsed.beta !== "string" || typeof parsed.production !== "string") return null;
-  return { beta: parsed.beta, production: parsed.production };
+  const parsed = JSON.parse(raw) as Partial<StoredReleases> & { beta?: string };
+  if (typeof parsed.production !== "string") return null;
+  return { production: parsed.production };
 }
 
 async function writeState(env: PlayAnnounceEnv, releases: PlayRelease[]): Promise<void> {
-  const state: StoredReleases = { beta: "", production: "" };
+  const state: StoredReleases = { production: "" };
   for (const release of releases) state[release.track] = release.versionCode;
   await writeStateFromMap(env, state);
 }
 
 async function writeStateFromMap(env: PlayAnnounceEnv, state: StoredReleases): Promise<void> {
-  await env.STAR_HISTORY.put(STATE_KEY, JSON.stringify(state));
+  await env.STAR_HISTORY.put(STATE_KEY, JSON.stringify({ production: state.production }));
 }
 
 async function postAnnouncement(
@@ -134,7 +129,7 @@ async function fetchPlayReleases(
     const tracksResponse = await fetchImpl(`${root}/edits/${edit.id}/tracks`, { headers });
     if (!tracksResponse.ok) throw new Error(`play_tracks_failed_${tracksResponse.status}`);
     const body = await tracksResponse.json() as { tracks?: RawTrack[] };
-    return [pickRelease(body.tracks, "beta"), pickRelease(body.tracks, "production")];
+    return [pickRelease(body.tracks, "production")];
   } finally {
     await fetchImpl(`${root}/edits/${edit.id}`, { method: "DELETE", headers }).catch(() => undefined);
   }

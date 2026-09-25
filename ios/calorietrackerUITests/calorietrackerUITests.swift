@@ -116,7 +116,6 @@ final class calorietrackerUITests: XCTestCase {
             ("support", "Support Fud AI", "Rate the App"),
             ("helpFeedback", "Help & Feedback", "Report an Issue on GitHub"),
             ("community", "Community", "Join Discord"),
-            ("joinBeta", "Join Beta", "Join Discord"),
             ("legal", "Legal", "Privacy Policy"),
         ]
 

@@ -116,7 +116,10 @@ describe("play announcements", () => {
     expect(requestUrl(discordCall?.[0] ?? "https://example.com").pathname).toBe(
       `/api/v10/channels/${ANNOUNCEMENTS_CHANNEL_ID}/messages`,
     );
-    expect(env.saved.at(-1)).toBe(JSON.stringify({ production: "38" }));
+    expect(env.saved.at(-1)).toBe(JSON.stringify({
+      production: "38",
+      liveNotes: "what's new play store notes.",
+    }));
   });
 
   it("waits while the Play listing still shows the old version", async () => {
@@ -161,6 +164,16 @@ describe("play announcements", () => {
     expect(playStoreShowsRelease(live, { track: "production", versionCode: "39", name: "7.1.1", whatsNew: "" })).toBe(false);
   });
 
+  it("decodes the encoded apostrophe in the listing notes", () => {
+    const live = "<html>What&rsquo;s new Fud AI 7.1.1 • It&rsquo;s ready. flag Flag as inappropriate</html>";
+    expect(playStoreShowsRelease(live, {
+      track: "production",
+      versionCode: "39",
+      name: "7.1.1",
+      whatsNew: "Fud AI 7.1.1 • It’s ready.",
+    })).toBe(true);
+  });
+
   it("records the current tracks without posting when nothing was stored", async () => {
     const env = memoryEnv(null, await serviceAccountJson());
     const fetchImpl = vi.fn(async (input: RequestInfo | URL) => {
@@ -191,7 +204,10 @@ describe("play announcements", () => {
     });
 
     await announceAndroidPlayReleases(env, fetchImpl as typeof fetch);
-    expect(env.saved).toEqual([JSON.stringify({ production: "38" })]);
+    expect(env.saved).toEqual([JSON.stringify({
+      production: "38",
+      liveNotes: "what's new play store notes.",
+    })]);
   });
 
   it("leaves a first-run release pending while the listing shows an older one", async () => {
@@ -224,7 +240,46 @@ describe("play announcements", () => {
     });
 
     await announceAndroidPlayReleases(env, fetchImpl as typeof fetch);
-    expect(env.saved).toEqual([JSON.stringify({ production: "" })]);
+    expect(env.saved).toEqual([JSON.stringify({
+      production: "",
+      liveNotes: "what's new fud ai 7.1 • old notes.",
+    })]);
+  });
+
+  it("does not announce when the listing has not moved, even if notes repeat", async () => {
+    const env = memoryEnv(JSON.stringify({
+      production: "37",
+      liveNotes: "what's new shared notes.",
+    }), await serviceAccountJson());
+    const fetchImpl = vi.fn(async (input: RequestInfo | URL) => {
+      const url = requestUrl(input);
+      if (url.hostname === "oauth2.googleapis.com" && url.pathname === "/token") {
+        return Response.json({ access_token: "play-token" });
+      }
+      if (url.hostname === "androidpublisher.googleapis.com" && url.pathname.endsWith("/edits")) {
+        return Response.json({ id: "edit-1" });
+      }
+      if (url.hostname === "androidpublisher.googleapis.com" && url.pathname.endsWith("/tracks")) {
+        return Response.json({
+          tracks: [
+            { track: "production", releases: [{ name: "7.1", status: "completed", versionCodes: ["38"], releaseNotes: [{ language: "en-US", text: "Shared notes." }] }] },
+          ],
+        });
+      }
+      if (url.hostname === "play.google.com") {
+        return new Response(
+          "<html>What's new Shared notes. flag Flag as inappropriate</html>",
+          { status: 200 },
+        );
+      }
+      if (url.hostname === "discord.com") {
+        throw new Error("should not announce a repeated listing");
+      }
+      return new Response(null, { status: 404 });
+    });
+
+    await announceAndroidPlayReleases(env, fetchImpl as typeof fetch);
+    expect(env.saved).toEqual([]);
   });
 
   it("rejects when the public listing cannot be read", async () => {

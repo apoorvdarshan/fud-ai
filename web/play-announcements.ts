@@ -25,7 +25,11 @@ export type PlayRelease = {
   whatsNew: string;
 };
 
-type StoredReleases = Record<PlayTrackName, string>;
+type StoredState = {
+  production: string;
+  /** Normalized "What's new" text of the listing the last announcement saw. */
+  liveNotes?: string | undefined;
+};
 
 type ServiceAccount = {
   client_email: string;
@@ -53,22 +57,24 @@ export function announcementText(release: PlayRelease): string {
 
 /** Releases whose version code differs from the last recorded one. */
 export function releasesToAnnounce(
-  previous: StoredReleases | null,
+  previous: StoredState | null,
   current: PlayRelease[],
 ): PlayRelease[] {
   if (!previous) return [];
-  return current.filter((release) => release.versionCode !== "" && previous[release.track] !== release.versionCode);
+  return current.filter((release) => release.versionCode !== "" && previous.production !== release.versionCode);
 }
 
 const HTML_ENTITIES: Record<string, string> = {
   "&amp;": "&",
   "&#39;": "'",
+  "&rsquo;": "’",
+  "&#8217;": "’",
   "&quot;": '"',
   "&nbsp;": " ",
 };
 
 function decodeEntities(text: string): string {
-  return text.replace(/&(?:amp|#39|quot|nbsp);/g, (match) => HTML_ENTITIES[match] ?? match);
+  return text.replace(/&(?:amp|#39|rsquo|#8217|quot|nbsp);/g, (match) => HTML_ENTITIES[match] ?? match);
 }
 
 function collapse(text: string): string {
@@ -121,7 +127,9 @@ async function fetchPlayStoreHtml(fetchImpl: typeof fetch): Promise<string> {
 
 /**
  * Announces a new completed production release once its notes are visible on
- * the public listing. Returns early when nothing new is pending.
+ * the public listing, and only after that listing has actually moved off the
+ * last announced copy — so an update that reuses the previous notes is not
+ * announced while it is still in review.
  */
 export async function announceAndroidPlayReleases(
   env: PlayAnnounceEnv,
@@ -133,16 +141,19 @@ export async function announceAndroidPlayReleases(
 
   const current = await fetchPlayReleases(serviceAccountJson, fetchImpl);
   const previous = await readState(env);
+  if (previous && releasesToAnnounce(previous, current).length === 0) return;
+
+  const storeHtml = await fetchPlayStoreHtml(fetchImpl);
+  const liveNotes = collapse(playStoreWhatsNew(storeHtml));
 
   if (previous) {
-    const pending = releasesToAnnounce(previous, current);
-    if (pending.length === 0) return;
-    const storeHtml = await fetchPlayStoreHtml(fetchImpl);
-    const next: StoredReleases = { ...previous };
-    for (const release of pending) {
+    const next: StoredState = { ...previous };
+    for (const release of releasesToAnnounce(previous, current)) {
+      if (previous.liveNotes === liveNotes) break;
       if (!playStoreShowsRelease(storeHtml, release)) continue;
       await postAnnouncement(token, announcementText(release), fetchImpl);
-      next[release.track] = release.versionCode;
+      next.production = release.versionCode;
+      next.liveNotes = liveNotes;
       await writeStateFromMap(env, next);
     }
     return;
@@ -150,21 +161,26 @@ export async function announceAndroidPlayReleases(
 
   // First run: seed only what the public listing already serves. A release
   // still in Google review stays unseeded so it is announced once it is live.
-  const storeHtml = await fetchPlayStoreHtml(fetchImpl);
   const live = current.find((release) => playStoreShowsRelease(storeHtml, release));
-  await writeStateFromMap(env, { production: live?.versionCode ?? "" });
+  await writeStateFromMap(env, { production: live?.versionCode ?? "", liveNotes });
 }
 
-async function readState(env: PlayAnnounceEnv): Promise<StoredReleases | null> {
+async function readState(env: PlayAnnounceEnv): Promise<StoredState | null> {
   const raw = await env.STAR_HISTORY.get(STATE_KEY);
   if (!raw) return null;
-  const parsed = JSON.parse(raw) as Partial<StoredReleases> & { beta?: string };
+  const parsed = JSON.parse(raw) as { production?: unknown; liveNotes?: unknown };
   if (typeof parsed.production !== "string") return null;
-  return { production: parsed.production };
+  return {
+    production: parsed.production,
+    liveNotes: typeof parsed.liveNotes === "string" ? parsed.liveNotes : undefined,
+  };
 }
 
-async function writeStateFromMap(env: PlayAnnounceEnv, state: StoredReleases): Promise<void> {
-  await env.STAR_HISTORY.put(STATE_KEY, JSON.stringify({ production: state.production }));
+async function writeStateFromMap(env: PlayAnnounceEnv, state: StoredState): Promise<void> {
+  await env.STAR_HISTORY.put(STATE_KEY, JSON.stringify({
+    production: state.production,
+    liveNotes: state.liveNotes,
+  }));
 }
 
 async function fetchPlayReleases(

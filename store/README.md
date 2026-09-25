@@ -4,17 +4,17 @@ GitHub Actions plumbing for App Store + Play Store releases, including listing
 copy, What's New, screenshots, and the IAP / subscription / tip / credit catalog
 (RevenueCat).
 
-**An `android-v*` tag publishes to Play Open testing.** Testers can install that build. Production is left alone unless `STORE_PRODUCTION_ROLLOUT` is on, and that switch is off. When it is on, the same upload also publishes production for real. There is no production draft. Create the Open testing track in Play Console once before the first tag. iOS still only creates a GitHub Release; Xcode Cloud uploads the binary. Listing, screenshots, and App Review stay off unless you enable those variables.
+**An `android-v*` tag does not publish to Play.** It builds the app and makes a GitHub Release. Open testing and production are separate switches, and both are off. `STORE_OPEN_TESTING_ROLLOUT` publishes only Open testing. `STORE_PRODUCTION_ROLLOUT` publishes only production, live, with no draft. Create the Open testing track in Play Console before turning that switch on. iOS still only creates a GitHub Release; Xcode Cloud uploads the binary. Listing, screenshots, and App Review stay off unless you enable those variables.
 
 ## Current vs planned
 
 | Step | iOS today | Android today | Automation (gates OFF) |
 |------|-----------|---------------|------------------------|
-| Tag → quality | `v*` → GitHub Release | `android-v*` → Open testing | unchanged |
-| Binary upload | Xcode Cloud → ASC | GHA → Play Open testing (`beta`), live | unchanged for iOS |
+| Tag → quality | `v*` → GitHub Release | `android-v*` → GitHub Release | unchanged |
+| Binary upload | Xcode Cloud → ASC | Play only if a rollout switch is on | unchanged for iOS |
 | What's New | manual paste | optional via `STORE_UPLOAD_WHATS_NEW` on the Play upload | prepared locally every tag |
 | Listing / screenshots | manual | manual | **wired** (`asc_release.py`, `play_listing.py`) |
-| Submit for review / production | manual | off unless `STORE_PRODUCTION_ROLLOUT` | **wired, OFF** (`STORE_SUBMIT_IOS_REVIEW`, `STORE_PRODUCTION_ROLLOUT`) |
+| Submit for review / production | manual | off unless that Android switch is on | **wired, OFF** (`STORE_SUBMIT_IOS_REVIEW`, `STORE_OPEN_TESTING_ROLLOUT`, `STORE_PRODUCTION_ROLLOUT`) |
 | IAP / subs / tips / credits | ASC + RevenueCat console | not shipped yet | versioned `store/catalog/` + validate CI |
 | RevenueCat sync | manual | n/a | dry-run in CI; `STORE_SYNC_REVENUECAT=true` **fails closed** |
 
@@ -27,7 +27,8 @@ Repository **Variables** (Settings → Secrets and variables → Actions → Var
 | `STORE_UPLOAD_WHATS_NEW` | unset / false | Attach English What's New on the Play upload |
 | `STORE_UPLOAD_LISTING` | unset / false | Upload title/description (Play + ASC listing + iOS What's New) |
 | `STORE_UPLOAD_SCREENSHOTS` | unset / false | Upload phone / 6.7" screenshots (see below) |
-| `STORE_PRODUCTION_ROLLOUT` | unset / false | Also publish the Play production track, live |
+| `STORE_OPEN_TESTING_ROLLOUT` | unset / false | Publish this Android build to Play Open testing |
+| `STORE_PRODUCTION_ROLLOUT` | unset / false | Publish this Android build to Play production, live |
 | `STORE_SUBMIT_IOS_REVIEW` | unset / false | Submit the editable ASC version for review |
 | `STORE_SYNC_REVENUECAT` | unset / false | **Fails the workflow** — RevenueCat write/sync is not implemented yet |
 
@@ -99,8 +100,8 @@ them with store-tailored exports.
 1. Keep `APPSTORE.md` / `PLAYSTORE.md` / `RELEASE_NOTES.md` in sync; run the prepare scripts locally if needed.
 2. Confirm ASC + Play secrets are present.
 3. Flip only the variables you want (e.g. start with `STORE_UPLOAD_LISTING`).
-4. Tag as usual (`vX.Y` / `android-vX.Y`). Do **not** set `STORE_PRODUCTION_ROLLOUT` or
-   `STORE_SUBMIT_IOS_REVIEW` until you intend a real store submission.
+4. Tag as usual (`vX.Y` / `android-vX.Y`). Leave `STORE_OPEN_TESTING_ROLLOUT`,
+   `STORE_PRODUCTION_ROLLOUT`, and `STORE_SUBMIT_IOS_REVIEW` off until you intend that release.
 
 ## Dry-run
 

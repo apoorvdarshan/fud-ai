@@ -10,7 +10,7 @@ copy, What's New, screenshots, and the IAP / subscription / tip / credit catalog
 
 | Step | iOS today | Android today | Automation (gates OFF) |
 |------|-----------|---------------|------------------------|
-| Tag → quality | `v*` → GitHub Release | `android-v*` → GitHub Release | unchanged |
+| Tag → quality | `ios-v*` → GitHub Release | `android-v*` → GitHub Release | unchanged |
 | Binary upload | Xcode Cloud → ASC | Play only if a rollout switch is on | unchanged for iOS |
 | What's New | manual paste | optional via `STORE_UPLOAD_WHATS_NEW` on the Play upload | prepared locally every tag |
 | Listing / screenshots | manual | manual | **wired** (`asc_release.py`, `play_listing.py`) |
@@ -100,7 +100,7 @@ them with store-tailored exports.
 1. Keep `APPSTORE.md` / `PLAYSTORE.md` / `RELEASE_NOTES.md` in sync; run the prepare scripts locally if needed.
 2. Confirm ASC + Play secrets are present.
 3. Flip only the variables you want (e.g. start with `STORE_UPLOAD_LISTING`).
-4. Tag as usual (`vX.Y` / `android-vX.Y`). Leave `STORE_OPEN_TESTING_ROLLOUT`,
+4. Tag as usual (`ios-vX.Y` / `android-vX.Y`). Leave `STORE_OPEN_TESTING_ROLLOUT`,
    `STORE_PRODUCTION_ROLLOUT`, and `STORE_SUBMIT_IOS_REVIEW` off until you intend that release.
 
 ## Dry-run

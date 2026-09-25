@@ -10,6 +10,7 @@ import {
   DISCORD_INTERACTIONS_PATH,
   handleDiscordInteractionsRequest,
 } from "./discord-interactions";
+import { announceAndroidPlayReleases } from "./play-announcements";
 
 const CANONICAL_ORIGIN = "https://www.fud-ai.app";
 
@@ -131,6 +132,7 @@ async function runScheduledMaintenance(env: Env): Promise<void> {
     { name: "star_history", promise: refreshHistory(env) },
     { name: "challenge_cleanup", promise: cleanupChallengeData(env.CHALLENGE_DB) },
     { name: "hosted_ai_ledger_cleanup", promise: cleanupHostedAILedger(env.CHALLENGE_DB) },
+    { name: "android_play_announcements", promise: announceAndroidPlayReleases(env) },
   ];
   const results = await Promise.allSettled(tasks.map((task) => task.promise));
   for (const [index, result] of results.entries()) {

@@ -301,11 +301,6 @@ internal enum class SettingsCategory(
         AboutSettingsCategory.COMMUNITY.icon,
         AboutSettingsCategory.COMMUNITY
     ),
-    JOIN_BETA(
-        R.string.about_category_join_beta,
-        AboutSettingsCategory.JOIN_BETA.icon,
-        AboutSettingsCategory.JOIN_BETA
-    ),
     LEGAL(
         R.string.about_category_legal,
         AboutSettingsCategory.LEGAL.icon,

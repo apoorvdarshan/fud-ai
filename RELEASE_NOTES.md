@@ -16,7 +16,6 @@ Fud AI 7.1 — clearer Weekly Challenge places, easier feedback, and an in-app l
 NEW
 • Weekly Challenge standings show a podium for 1st–3rd, your week as progress bars, and 20 places per page (#1–#20, then #21–#40). Everyone gets their own place. Matching scores are decided by the other day counts, then workout calories, then who reached those totals first. How points work explains that order.
 • Help & Feedback can open a bug or feature request on GitHub or Discord.
-• Settings includes Join Beta. The beta is announced in Discord and is not open in the stores yet.
 • Android can use the in-app language picker.
 
 IMPROVED
@@ -34,7 +33,6 @@ Fud AI 7.1 — clearer Weekly Challenge places, easier feedback, and on-device f
 NEW
 • Weekly Challenge standings show a podium for 1st–3rd, your week as progress bars, and 20 places per page (#1–#20, then #21–#40). Everyone gets their own place. Matching scores are decided by the other day counts, then workout calories, then who reached those totals first. How points work explains that order.
 • Help & Feedback can open a bug or feature request on GitHub or Discord.
-• Settings includes Join Beta, with separate steps for TestFlight on iPhone and Play testing on Android. The beta is announced in Discord and is not open in the stores yet.
 • On iOS 27, Apple Intelligence can analyze food photos on-device when you select it. Text, voice, and Siri food descriptions can still use it as the final on-device fallback.
 • Android can use the in-app language picker.
 

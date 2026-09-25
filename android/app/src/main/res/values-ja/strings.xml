@@ -295,7 +295,6 @@
     <string name="onboarding_plan_field_carbs">炭水化物</string>
     <string name="onboarding_plan_field_fat">脂質</string>
 
-
     <!-- Home -->
     <plurals name="home_daily_steps">
         <item quantity="one">%1$s 歩</item>
@@ -622,10 +621,6 @@
     <string name="about_category_help_feedback">ヘルプとフィードバック</string>
     <string name="about_category_community">コミュニティ</string>
     <string name="about_category_legal">法的情報</string>
-    <string name="about_category_join_beta">ベータに参加</string>
-    <string name="about_beta_intro">Play ストアに出る前の Fud AI を試せます。ベータ版は未完成のことがあります。</string>
-    <string name="about_beta_steps">Fud AI の Discord に参加し、#beta-android を開いてください。Play テストのリンクが投稿されたら参加し、Play ストアから Fud AI を更新します。不具合は /bug で、設定に表示されるバージョンも書いてください。</string>
-    <string name="about_beta_not_open">Play テストはまだ公開されていません。リンクは #beta-android に投稿されます。</string>
     <string name="about_made_by">Apoorv Darshan 制作</string>
     <string name="about_with_care">すべての人へ、心を込めて</string>
     <string name="about_share_message">食事の記録は Fud AI で。写真を撮るか話すか入力するだけで、AI がカロリーを記録します。無料・オープンソースで、データは端末内に残ります。\n\nダウンロード: https://fud-ai.app</string>

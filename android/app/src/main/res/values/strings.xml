@@ -356,7 +356,6 @@
     <string name="onboarding_plan_field_carbs">Carbs</string>
     <string name="onboarding_plan_field_fat">Fat</string>
 
-
     <!-- Home -->
     <plurals name="home_daily_steps">
         <item quantity="one">%1$s step</item>
@@ -571,7 +570,6 @@
     <string name="progress_workout_stat_days">Days</string>
     <string name="progress_workout_no_range">No calculated workout burns in this range</string>
     <string name="progress_workout_chart_description">Workout burn chart from %1$s to %2$s. Total %3$d kilocalories; latest %4$d kilocalories.</string>
-
 
     <string name="progress_calories_section">Calories</string>
     <string name="progress_avg_format">Avg: %1$,d kcal</string>
@@ -945,11 +943,7 @@
     <string name="about_category_support">Support Fud AI</string>
     <string name="about_category_help_feedback">Help &amp; Feedback</string>
     <string name="about_category_community">Community</string>
-    <string name="about_category_join_beta">Join Beta</string>
     <string name="about_category_legal">Legal</string>
-    <string name="about_beta_intro">Try new Fud AI changes before they reach the Play Store. Beta builds can be unfinished.</string>
-    <string name="about_beta_steps">Join the Fud AI Discord and open #beta-android. When a Play testing link is posted there, opt in and update Fud AI from the Play Store. If something breaks, use /bug and include the version from Settings.</string>
-    <string name="about_beta_not_open">Play testing is not open yet. The link will be posted in #beta-android.</string>
     <string name="about_made_by">Made by Apoorv Darshan</string>
     <string name="about_with_care">with care, for everyone</string>
     <string name="about_share_message">I\'ve been tracking my meals with Fud AI — snap a photo, speak it, or type it, and the AI logs the calories. It\'s free, open source, and your data stays on your device.\n\nDownload: https://fud-ai.app</string>

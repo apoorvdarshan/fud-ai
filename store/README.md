@@ -4,17 +4,17 @@ GitHub Actions plumbing for App Store + Play Store releases, including listing
 copy, What's New, screenshots, and the IAP / subscription / tip / credit catalog
 (RevenueCat).
 
-**An `android-v*` tag does not publish to Play.** It builds the app and makes a GitHub Release. Open testing and production are separate switches, and both are off. `STORE_OPEN_TESTING_ROLLOUT` publishes only Open testing. `STORE_PRODUCTION_ROLLOUT` publishes only production, live, with no draft. Create the Open testing track in Play Console before turning that switch on. iOS still only creates a GitHub Release; Xcode Cloud uploads the binary. Listing, screenshots, and App Review stay off unless you enable those variables.
+**An `android-v*` tag does not publish to Play.** It builds the app and makes a GitHub Release. `STORE_PRODUCTION_ROLLOUT` is off by default; when on, it publishes only production, live, with no draft. iOS still only creates a GitHub Release; Xcode Cloud uploads the binary. Listing, screenshots, and App Review stay off unless you enable those variables.
 
 ## Current vs planned
 
 | Step | iOS today | Android today | Automation (gates OFF) |
 |------|-----------|---------------|------------------------|
 | Tag → quality | `ios-v*` → GitHub Release | `android-v*` → GitHub Release | unchanged |
-| Binary upload | Xcode Cloud → ASC | Play only if a rollout switch is on | unchanged for iOS |
+| Binary upload | Xcode Cloud → ASC | Play only if `STORE_PRODUCTION_ROLLOUT` is on | unchanged for iOS |
 | What's New | manual paste | optional via `STORE_UPLOAD_WHATS_NEW` on the Play upload | prepared locally every tag |
 | Listing / screenshots | manual | manual | **wired** (`asc_release.py`, `play_listing.py`) |
-| Submit for review / production | manual | off unless that Android switch is on | **wired, OFF** (`STORE_SUBMIT_IOS_REVIEW`, `STORE_OPEN_TESTING_ROLLOUT`, `STORE_PRODUCTION_ROLLOUT`) |
+| Submit for review / production | manual | off unless `STORE_PRODUCTION_ROLLOUT` is on | **wired, OFF** (`STORE_SUBMIT_IOS_REVIEW`, `STORE_PRODUCTION_ROLLOUT`) |
 | IAP / subs / tips / credits | ASC + RevenueCat console | not shipped yet | versioned `store/catalog/` + validate CI |
 | RevenueCat sync | manual | n/a | dry-run in CI; `STORE_SYNC_REVENUECAT=true` **fails closed** |
 
@@ -27,10 +27,8 @@ Repository **Variables** (Settings → Secrets and variables → Actions → Var
 | `STORE_UPLOAD_WHATS_NEW` | unset / false | Attach English What's New on the Play upload |
 | `STORE_UPLOAD_LISTING` | unset / false | Upload title/description (Play + ASC listing + iOS What's New) |
 | `STORE_UPLOAD_SCREENSHOTS` | unset / false | Upload phone / 6.7" screenshots (see below) |
-| `STORE_OPEN_TESTING_ROLLOUT` | unset / false | Publish this Android build to Play Open testing |
 | `STORE_PRODUCTION_ROLLOUT` | unset / false | Publish this Android build to Play production, live |
 | `STORE_SUBMIT_IOS_REVIEW` | unset / false | Submit the editable ASC version for review |
-| `STORE_TESTFLIGHT` | unset / false | Add the processed iPhone build to the External TestFlight group and send beta review when Apple requires it |
 | `STORE_SYNC_REVENUECAT` | unset / false | **Fails the workflow** — RevenueCat write/sync is not implemented yet |
 
 Copy names from [`gates.env.example`](gates.env.example). Leave unset or `false`
@@ -101,8 +99,8 @@ them with store-tailored exports.
 1. Keep `APPSTORE.md` / `PLAYSTORE.md` / `RELEASE_NOTES.md` in sync; run the prepare scripts locally if needed.
 2. Confirm ASC + Play secrets are present.
 3. Flip only the variables you want (e.g. start with `STORE_UPLOAD_LISTING`).
-4. Tag as usual (`ios-vX.Y` / `android-vX.Y`). Leave `STORE_OPEN_TESTING_ROLLOUT`,
-   `STORE_PRODUCTION_ROLLOUT`, and `STORE_SUBMIT_IOS_REVIEW` off until you intend that release.
+4. Tag as usual (`ios-vX.Y` / `android-vX.Y`). Leave `STORE_PRODUCTION_ROLLOUT`
+   and `STORE_SUBMIT_IOS_REVIEW` off until you intend that release.
 
 ## Dry-run
 
@@ -117,7 +115,3 @@ UPLOAD_LISTING=true python3 scripts/store/asc_release.py --dry-run --metadata-di
 UPLOAD_LISTING=true python3 scripts/store/play_listing.py --dry-run --metadata-dir store/metadata
 STORE_SYNC_REVENUECAT=false python3 scripts/store/sync_revenuecat_catalog.py
 ```
-
-The **Store automation (dry-run)** workflow (`workflow_dispatch` or PR paths) validates
-the catalog, prepares metadata, runs `--dry-run` on publisher scripts, and **never**
-calls App Store Connect or Play APIs.

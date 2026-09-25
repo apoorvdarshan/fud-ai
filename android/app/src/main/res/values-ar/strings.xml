@@ -300,7 +300,6 @@
     <string name="onboarding_plan_field_carbs">الكربوهيدرات</string>
     <string name="onboarding_plan_field_fat">الدهون</string>
 
-
     <!-- Home -->
     <plurals name="home_daily_steps">
         <item quantity="zero">لا خطوات (%1$s)</item>
@@ -635,10 +634,6 @@
     <string name="about_category_help_feedback">المساعدة والملاحظات</string>
     <string name="about_category_community">المجتمع</string>
     <string name="about_category_legal">القانونية</string>
-    <string name="about_category_join_beta">انضم إلى النسخة التجريبية</string>
-    <string name="about_beta_intro">جرّب تغييرات Fud AI قبل وصولها إلى متجر Play. قد تكون نسخ التجربة غير مكتملة.</string>
-    <string name="about_beta_steps">انضم إلى Discord الخاص بـ Fud AI وافتح #beta-android. عند نشر رابط اختبار Play، اشترك وحدّث Fud AI من متجر Play. إذا تعطل شيء، استخدم /bug واذكر الإصدار من الإعدادات.</string>
-    <string name="about_beta_not_open">اختبار Play غير مفتوح بعد. سيُنشر الرابط في #beta-android.</string>
     <string name="about_made_by">صنع بواسطة Apoorv Darshan</string>
     <string name="about_with_care">بعناية، للجميع</string>
     <string name="about_share_message">أتتبّع وجباتي مع Fud AI — التقط صورة أو تحدّث أو اكتب، والذكاء الاصطناعي يسجّل السعرات الحرارية. التطبيق مجاني ومفتوح المصدر، وتبقى بياناتك على جهازك.\n\nنزّله: https://fud-ai.app</string>

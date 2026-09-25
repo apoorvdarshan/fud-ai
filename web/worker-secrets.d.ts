@@ -31,7 +31,7 @@ interface Env {
    */
   DISCORD_BOT_TOKEN?: string;
   /**
-   * Play service-account JSON. The hourly job reads Open testing and production.
+   * Play service-account JSON. The hourly job reads production.
    * Set with `npx wrangler secret put PLAY_SERVICE_ACCOUNT_JSON`.
    */
   PLAY_SERVICE_ACCOUNT_JSON?: string;

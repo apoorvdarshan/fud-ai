@@ -297,7 +297,6 @@
     <string name="onboarding_plan_field_carbs">Carboidratos</string>
     <string name="onboarding_plan_field_fat">Gordura</string>
 
-
     <!-- Home -->
     <plurals name="home_daily_steps">
         <item quantity="one">%1$s passo</item>
@@ -624,10 +623,6 @@
     <string name="about_category_help_feedback">Ajuda e feedback</string>
     <string name="about_category_community">Comunidade</string>
     <string name="about_category_legal">Informações legais</string>
-    <string name="about_category_join_beta">Entrar no beta</string>
-    <string name="about_beta_intro">Experimente as novidades do Fud AI antes da Play Store. Versões beta podem estar incompletas.</string>
-    <string name="about_beta_steps">Entre no Discord do Fud AI e abra #beta-android. Quando um link de teste da Play for publicado, aceite e atualize o Fud AI pela Play Store. Se algo quebrar, use /bug e inclua a versão em Ajustes.</string>
-    <string name="about_beta_not_open">O teste da Play ainda não está aberto. O link será publicado em #beta-android.</string>
     <string name="about_made_by">Feito por Apoorv Darshan</string>
     <string name="about_with_care">com cuidado, para todos</string>
     <string name="about_share_message">Eu acompanho minhas refeições com o Fud AI — tire uma foto, fale ou digite, e a IA registra as calorias. É grátis, código aberto, e seus dados ficam no seu dispositivo.\n\nBaixar: https://fud-ai.app</string>

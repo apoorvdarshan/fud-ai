@@ -5,7 +5,6 @@
 #
 # Future-proof store gates (repo Variables; all default OFF — see store/README.md):
 #   STORE_SUBMIT_IOS_REVIEW   submit ASC build for review (requires ASC API secrets)
-#   STORE_TESTFLIGHT         add the processed build to the External TestFlight group
 #   STORE_UPLOAD_LISTING / STORE_UPLOAD_SCREENSHOTS
 #   STORE_UPLOAD_WHATS_NEW    Play-only (What's New on Play upload); not an iOS gate
 #   STORE_SYNC_REVENUECAT     IAP/subscription catalog sync (write path not implemented)
@@ -52,10 +51,8 @@ jobs:
           STORE_UPLOAD_WHATS_NEW: ${{ vars.STORE_UPLOAD_WHATS_NEW }}
           STORE_UPLOAD_LISTING: ${{ vars.STORE_UPLOAD_LISTING }}
           STORE_UPLOAD_SCREENSHOTS: ${{ vars.STORE_UPLOAD_SCREENSHOTS }}
-          STORE_OPEN_TESTING_ROLLOUT: ${{ vars.STORE_OPEN_TESTING_ROLLOUT }}
           STORE_PRODUCTION_ROLLOUT: ${{ vars.STORE_PRODUCTION_ROLLOUT }}
           STORE_SUBMIT_IOS_REVIEW: ${{ vars.STORE_SUBMIT_IOS_REVIEW }}
-          STORE_TESTFLIGHT: ${{ vars.STORE_TESTFLIGHT }}
           STORE_SYNC_REVENUECAT: ${{ vars.STORE_SYNC_REVENUECAT }}
         run: |
           python3 scripts/store/print_gates.py
@@ -65,7 +62,6 @@ jobs:
         id: gates
         env:
           STORE_SUBMIT_IOS_REVIEW: ${{ vars.STORE_SUBMIT_IOS_REVIEW }}
-          STORE_TESTFLIGHT: ${{ vars.STORE_TESTFLIGHT }}
           STORE_UPLOAD_LISTING: ${{ vars.STORE_UPLOAD_LISTING }}
           STORE_UPLOAD_SCREENSHOTS: ${{ vars.STORE_UPLOAD_SCREENSHOTS }}
         run: |
@@ -77,7 +73,6 @@ jobs:
           }
           {
             echo "submit_ios_review=$(normalize "$STORE_SUBMIT_IOS_REVIEW")"
-            echo "testflight=$(normalize "$STORE_TESTFLIGHT")"
             echo "upload_listing=$(normalize "$STORE_UPLOAD_LISTING")"
             echo "upload_screenshots=$(normalize "$STORE_UPLOAD_SCREENSHOTS")"
           } >> "$GITHUB_OUTPUT"
@@ -135,19 +130,3 @@ jobs:
           gh release create "$GITHUB_REF_NAME" \
             --title "iOS ${VERSION} (build ${BUILD})" \
             --notes-file "$RUNNER_TEMP/release-notes.md" --latest
-
-      - name: External TestFlight (gated)
-        if: steps.gates.outputs.testflight == 'true'
-        env:
-          APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
-          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
-          APP_STORE_CONNECT_API_KEY_P8: ${{ secrets.APP_STORE_CONNECT_API_KEY_P8 }}
-        run: |
-          python3 -m pip install --disable-pip-version-check --require-hashes -r requirements-store.txt
-          python3 scripts/store/testflight_external.py \
-            --version "${GITHUB_REF_NAME#ios-v}" \
-            --commit "$GITHUB_SHA"
-
-      - name: External TestFlight (skipped)
-        if: steps.gates.outputs.testflight != 'true'
-        run: echo "External TestFlight skipped (STORE_TESTFLIGHT is off)"

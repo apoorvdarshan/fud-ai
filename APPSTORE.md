@@ -85,7 +85,7 @@ Source: https://github.com/apoorvdarshan/fud-ai
 
 ```
 
-## What's New (v7.1, build 38 — not submitted)
+## What's New (v7.1.1 — being submitted)
 ```
 Fud AI 7.1 makes the Weekly Challenge easier to follow and adds clearer ways to get help.
 

@@ -9,6 +9,16 @@ same marketing version can share a feature summary while identifying different b
 
 No iPhone release tag yet. The ios-v7.1 notes below are the prepared store copy for iOS build 38.
 
+## android-v7.1.1
+
+Fud AI 7.1.1 for Android removes the beta signup and keeps the 7.1 update.
+
+IMPROVED
+• Removed Join Beta from Settings.
+• Weekly Challenge places, the language picker, and Help & Feedback from 7.1 are included.
+
+Existing logs, goals, Health data, widgets, workout history, and BYOK settings are preserved during a normal update.
+
 ## android-v7.1
 
 Fud AI 7.1 — clearer Weekly Challenge places, easier feedback, and an in-app language picker.

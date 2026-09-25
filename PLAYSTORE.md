@@ -106,18 +106,15 @@ English-only on Play Console — non-English Play Store browsers (ar, az-AZ, cs-
 
 ---
 
-## 4. What's New (v7.1 / versionCode 38 — not submitted)
+## 4. What's New (v7.1.1 / versionCode 39 — being released)
 
-**500 char hard cap per language.** Paste only the `<en-US>` block for the 7.1 release. The other language blocks below are still the 7.0.1 notes and must not be submitted as 7.1 release notes.
+**500 char hard cap per language.** Paste only the `<en-US>` block for the 7.1.1 release. The other language blocks below are still the 7.0.1 notes and must not be submitted as 7.1.1 release notes.
 
 ```
 <en-US>
-Fud AI 7.1
-• Weekly Challenge places: podium, your own rank, 20 places per page.
-• How points work explains why matching scores are not a tie.
-• Help & Feedback on GitHub or Discord.
-• Pick the app language in Settings. Onboarding names your AI provider.
-• Logs, goals, and Health data stay on the device.
+Fud AI 7.1.1
+• Removed the beta signup from Settings.
+• Weekly Challenge places, the language picker, and Help & Feedback from 7.1 are included.
 </en-US>
 
 <ar>

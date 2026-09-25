@@ -1,6 +1,6 @@
 /**
  * Hourly Play track check. Posts once in #announcements when Android
- * production serves a new version code. #beta-android stays for /bug.
+ * production serves a new version code. Open testing is not announced.
  */
 
 export const ANNOUNCEMENTS_CHANNEL_ID = "1548481417728495678";

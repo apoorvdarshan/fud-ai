@@ -383,36 +383,72 @@ def upload_screenshots(
 
 
 def submit_for_review(client: AscClient, app_id: str, version_id: str) -> None:
-    submission = client.post(
-        "/reviewSubmissions",
-        {
+    # Reuse a draft submission when one already exists (an earlier attempt can
+    # leave a READY_FOR_REVIEW submission that was never submitted).
+    submission_id: str | None = None
+    existing = client.get(
+        f"/apps/{app_id}/reviewSubmissions?"
+        + urllib.parse.urlencode({"filter[state]": "READY_FOR_REVIEW", "limit": "5"})
+    )
+    for row in existing.get("data") or []:
+        submission_id = row["id"]
+        break
+    if submission_id is None:
+        submission = client.post(
+            "/reviewSubmissions",
+            {
+                "data": {
+                    "type": "reviewSubmissions",
+                    "relationships": {
+                        "app": {"data": {"type": "apps", "id": app_id}}
+                    },
+                }
+            },
+        )
+        submission_id = submission["data"]["id"]
+
+    items = client.get(f"/reviewSubmissions/{submission_id}/items?limit=50")
+    item_version_ids = set()
+    for item in items.get("data") or []:
+        related = ((item.get("relationships") or {}).get("appStoreVersion") or {}).get(
+            "data"
+        ) or {}
+        if related.get("id"):
+            item_version_ids.add(related["id"])
+    if version_id not in item_version_ids:
+        client.post(
+            "/reviewSubmissionItems",
+            {
+                "data": {
+                    "type": "reviewSubmissionItems",
+                    "relationships": {
+                        "reviewSubmission": {
+                            "data": {"type": "reviewSubmissions", "id": submission_id}
+                        },
+                        "appStoreVersion": {
+                            "data": {"type": "appStoreVersions", "id": version_id}
+                        },
+                    },
+                }
+            },
+        )
+
+    # Submitting is a PATCH with submitted=true; there is no /submit action.
+    client.request(
+        "PATCH",
+        f"/reviewSubmissions/{submission_id}",
+        body={
             "data": {
                 "type": "reviewSubmissions",
-                "relationships": {
-                    "app": {"data": {"type": "apps", "id": app_id}}
-                },
+                "id": submission_id,
+                "attributes": {"submitted": True},
             }
         },
     )
-    submission_id = submission["data"]["id"]
-    client.post(
-        "/reviewSubmissionItems",
-        {
-            "data": {
-                "type": "reviewSubmissionItems",
-                "relationships": {
-                    "reviewSubmission": {
-                        "data": {"type": "reviewSubmissions", "id": submission_id}
-                    },
-                    "appStoreVersion": {
-                        "data": {"type": "appStoreVersions", "id": version_id}
-                    },
-                },
-            }
-        },
+    print(
+        f"  submitted App Store version {version_id} for review "
+        f"(submission {submission_id})"
     )
-    client.request("POST", f"/reviewSubmissions/{submission_id}/submit")
-    print(f"  submitted App Store version {version_id} for review")
 
 
 def validate_local_inputs(

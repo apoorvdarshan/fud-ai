@@ -65,6 +65,13 @@ describe("play announcements", () => {
     expect(releasesToAnnounce(null, [beta, production])).toEqual([]);
   });
 
+  it("does not announce a track that has no version code", () => {
+    expect(releasesToAnnounce(
+      { beta: "38", production: "38" },
+      [{ ...beta, versionCode: "" }, production],
+    )).toEqual([]);
+  });
+
   it("announces only a track whose version code changed", () => {
     expect(releasesToAnnounce({ beta: "38", production: "38" }, [beta, production])).toEqual([beta]);
   });

@@ -53,7 +53,7 @@ export function releasesToAnnounce(
   current: PlayRelease[],
 ): PlayRelease[] {
   if (!previous) return [];
-  return current.filter((release) => previous[release.track] !== release.versionCode);
+  return current.filter((release) => release.versionCode !== "" && previous[release.track] !== release.versionCode);
 }
 
 export async function announceAndroidPlayReleases(
@@ -83,7 +83,7 @@ async function readState(env: PlayAnnounceEnv): Promise<StoredReleases | null> {
   const raw = await env.STAR_HISTORY.get(STATE_KEY);
   if (!raw) return null;
   const parsed = JSON.parse(raw) as Partial<StoredReleases>;
-  if (!parsed.beta || !parsed.production) return null;
+  if (typeof parsed.beta !== "string" || typeof parsed.production !== "string") return null;
   return { beta: parsed.beta, production: parsed.production };
 }
 
@@ -111,7 +111,7 @@ async function postAnnouncement(
         "Content-Type": "application/json",
         "User-Agent": "fud-ai-play-announce",
       },
-      body: JSON.stringify({ content }),
+      body: JSON.stringify({ content, allowed_mentions: { parse: [] } }),
     },
   );
   if (!response.ok) {
@@ -151,17 +151,23 @@ type RawTrack = {
 };
 
 function pickRelease(tracks: RawTrack[] | undefined, track: PlayTrackName): PlayRelease {
-  const found = (tracks ?? []).find((item) => item.track === track);
-  const release = (found?.releases ?? []).find((item) => item.status === "completed") ?? found?.releases?.[0];
-  const versionCode = release?.versionCodes?.[0] ?? "";
-  const notes = release?.releaseNotes ?? [];
-  const english = notes.find((note) => note.language === "en-US") ?? notes.find((note) => note.language?.startsWith("en"));
-  return {
-    track,
-    versionCode,
-    name: (release?.name || "").trim(),
-    whatsNew: (english?.text || "").trim(),
-  };
+  let versionCode = "";
+  let name = "";
+  let whatsNew = "";
+  for (const release of (tracks ?? []).find((item) => item.track === track)?.releases ?? []) {
+    if (release.status !== "completed") continue;
+    for (const code of release.versionCodes ?? []) {
+      if (!/^\d+$/.test(code)) continue;
+      if (versionCode !== "" && Number(code) <= Number(versionCode)) continue;
+      versionCode = code;
+      name = (release.name || "").trim();
+      const notes = release.releaseNotes ?? [];
+      const english = notes.find((note) => note.language === "en-US")
+        ?? notes.find((note) => note.language?.startsWith("en"));
+      whatsNew = (english?.text || "").trim();
+    }
+  }
+  return { track, versionCode, name, whatsNew };
 }
 
 async function googleAccessToken(account: ServiceAccount, fetchImpl: typeof fetch): Promise<string> {

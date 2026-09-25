@@ -34,18 +34,28 @@ ALREADY_IN_REVIEW = {
 }
 
 
+def pages(client: AscClient, path: str):
+    seen = 0
+    while path and seen < 10:
+        payload = client.get(path)
+        yield payload
+        path = (payload.get("links") or {}).get("next")
+        seen += 1
+
+
 def ci_build_number(client: AscClient, app_id: str, commit: str) -> str | None:
     product = client.get(f"/apps/{app_id}/ciProduct")
     product_id = (product.get("data") or {}).get("id")
     if not product_id:
         fail("no Xcode Cloud product for this app")
-    runs = client.get(f"/ciProducts/{product_id}/buildRuns?limit=20")
-    for run in runs.get("data") or []:
-        attrs = run.get("attributes") or {}
-        sha = ((attrs.get("sourceCommit") or {}).get("commitSha") or "")
-        if sha == commit and attrs.get("completionStatus") == "SUCCEEDED":
-            number = attrs.get("number")
-            return str(number) if number is not None else None
+    path = f"/ciProducts/{product_id}/buildRuns?limit=20"
+    for runs in pages(client, path):
+        for run in runs.get("data") or []:
+            attrs = run.get("attributes") or {}
+            sha = ((attrs.get("sourceCommit") or {}).get("commitSha") or "")
+            if sha == commit and attrs.get("completionStatus") == "SUCCEEDED":
+                number = attrs.get("number")
+                return str(number) if number is not None else None
     return None
 
 
@@ -72,8 +82,22 @@ def ensure_beta_description(client: AscClient, app_id: str) -> None:
     locs = client.get(f"/apps/{app_id}/betaAppLocalizations")
     for loc in locs.get("data") or []:
         attrs = loc.get("attributes") or {}
-        if attrs.get("locale") == "en-US" and (attrs.get("description") or "").strip():
+        if attrs.get("locale") != "en-US":
+            continue
+        if (attrs.get("description") or "").strip():
             return
+        client.patch(
+            f"/betaAppLocalizations/{loc['id']}",
+            {
+                "data": {
+                    "type": "betaAppLocalizations",
+                    "id": loc["id"],
+                    "attributes": {"description": BETA_DESCRIPTION},
+                }
+            },
+        )
+        print("filled the existing TestFlight beta description")
+        return
     client.post(
         "/betaAppLocalizations",
         {
@@ -92,11 +116,11 @@ def ensure_beta_description(client: AscClient, app_id: str) -> None:
 
 
 def external_group_id(client: AscClient, app_id: str) -> str:
-    groups = client.get(f"/apps/{app_id}/betaGroups?limit=20")
-    for group in groups.get("data") or []:
-        attrs = group.get("attributes") or {}
-        if attrs.get("name") == EXTERNAL_GROUP_NAME and not attrs.get("isInternalGroup"):
-            return group["id"]
+    for groups in pages(client, f"/apps/{app_id}/betaGroups?limit=20"):
+        for group in groups.get("data") or []:
+            attrs = group.get("attributes") or {}
+            if attrs.get("name") == EXTERNAL_GROUP_NAME and not attrs.get("isInternalGroup"):
+                return group["id"]
     fail(
         f"TestFlight group {EXTERNAL_GROUP_NAME!r} was not found. "
         "Create that external group in App Store Connect first."
@@ -116,17 +140,7 @@ def assign_build(client: AscClient, group_id: str, build_id: str) -> None:
     print(f"added build {build_id} to {EXTERNAL_GROUP_NAME}")
 
 
-def submit_if_needed(client: AscClient, app_id: str, build_id: str) -> None:
-    detail = client.get(
-        f"/builds/{build_id}/buildBetaDetail"
-        "?fields[buildBetaDetails]=externalBuildState"
-    )
-    state = ((detail.get("data") or {}).get("attributes") or {}).get("externalBuildState")
-    print(f"external TestFlight state: {state}")
-    if state in ALREADY_IN_REVIEW:
-        return
-    if state != "READY_FOR_BETA_SUBMISSION":
-        fail(f"build is not ready for external TestFlight ({state})")
+def declare_exempt_encryption(client: AscClient, build_id: str) -> None:
     build = client.get(f"/builds/{build_id}?fields[builds]=usesNonExemptEncryption")
     uses = ((build.get("data") or {}).get("attributes") or {}).get("usesNonExemptEncryption")
     if uses is None:
@@ -140,6 +154,27 @@ def submit_if_needed(client: AscClient, app_id: str, build_id: str) -> None:
                 }
             },
         )
+
+
+def external_state(client: AscClient, build_id: str) -> str | None:
+    detail = client.get(
+        f"/builds/{build_id}/buildBetaDetail"
+        "?fields[buildBetaDetails]=externalBuildState"
+    )
+    return ((detail.get("data") or {}).get("attributes") or {}).get("externalBuildState")
+
+
+def submit_if_needed(client: AscClient, app_id: str, build_id: str) -> None:
+    declare_exempt_encryption(client, build_id)
+    state = external_state(client, build_id)
+    if state == "MISSING_EXPORT_COMPLIANCE":
+        declare_exempt_encryption(client, build_id)
+        state = external_state(client, build_id)
+    print(f"external TestFlight state: {state}")
+    if state in ALREADY_IN_REVIEW:
+        return
+    if state != "READY_FOR_BETA_SUBMISSION":
+        fail(f"build is not ready for external TestFlight ({state})")
     ensure_beta_description(client, app_id)
     created = client.post(
         "/betaAppReviewSubmissions",
@@ -154,9 +189,10 @@ def submit_if_needed(client: AscClient, app_id: str, build_id: str) -> None:
     print(f"submitted external TestFlight review ({review})")
 
 
-def wait_for_build(client: AscClient, app_id: str, marketing: str, commit: str) -> str:
+def wait_for_build(new_client, app_id: str, marketing: str, commit: str) -> str:
     deadline = time.time() + 50 * 60
     while True:
+        client = new_client()
         number = ci_build_number(client, app_id, commit)
         build_id = processed_build(client, app_id, marketing, number) if number else None
         if build_id:
@@ -184,9 +220,14 @@ def main() -> None:
         fail("--commit is required")
 
     key_id, issuer_id, key_p8 = load_credentials()
-    client = AscClient(make_asc_token(key_id, issuer_id, key_p8))
+
+    def new_client() -> AscClient:
+        return AscClient(make_asc_token(key_id, issuer_id, key_p8))
+
+    client = new_client()
     app_id = find_app(client, BUNDLE_ID)
-    build_id = wait_for_build(client, app_id, args.version, args.commit)
+    build_id = wait_for_build(new_client, app_id, args.version, args.commit)
+    client = new_client()
     group_id = external_group_id(client, app_id)
     assign_build(client, group_id, build_id)
     submit_if_needed(client, app_id, build_id)

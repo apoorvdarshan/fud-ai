@@ -25,4 +25,14 @@ interface Env {
   DISCORD_PUBLIC_KEY: string;
   /** Discord application id (also set via wrangler `[vars]`). */
   DISCORD_APPLICATION_ID?: string;
+  /**
+   * Bot token used only to post Android release announcements.
+   * Set with `npx wrangler secret put DISCORD_BOT_TOKEN`.
+   */
+  DISCORD_BOT_TOKEN?: string;
+  /**
+   * Play service-account JSON. The hourly job reads Open testing and production.
+   * Set with `npx wrangler secret put PLAY_SERVICE_ACCOUNT_JSON`.
+   */
+  PLAY_SERVICE_ACCOUNT_JSON?: string;
 }

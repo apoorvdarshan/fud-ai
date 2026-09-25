@@ -3,6 +3,7 @@ import {
   ANNOUNCEMENTS_CHANNEL_ID,
   announcementText,
   announceAndroidPlayReleases,
+  playStoreShowsRelease,
   releasesToAnnounce,
   type PlayAnnounceEnv,
   type PlayRelease,
@@ -97,6 +98,12 @@ describe("play announcements", () => {
           ],
         });
       }
+      if (url.hostname === "play.google.com") {
+        return new Response(
+          "<html>What's new Play Store notes. flag Flag as inappropriate</html>",
+          { status: 200 },
+        );
+      }
       if (url.hostname === "discord.com" && url.pathname === `/api/v10/channels/${ANNOUNCEMENTS_CHANNEL_ID}/messages`) {
         return new Response(null, { status: 200 });
       }
@@ -110,6 +117,46 @@ describe("play announcements", () => {
       `/api/v10/channels/${ANNOUNCEMENTS_CHANNEL_ID}/messages`,
     );
     expect(env.saved.at(-1)).toBe(JSON.stringify({ production: "38" }));
+  });
+
+  it("waits while the Play listing still shows the old version", async () => {
+    const env = memoryEnv(JSON.stringify({ production: "37" }), await serviceAccountJson());
+    const fetchImpl = vi.fn(async (input: RequestInfo | URL) => {
+      const url = requestUrl(input);
+      if (url.hostname === "oauth2.googleapis.com" && url.pathname === "/token") {
+        return Response.json({ access_token: "play-token" });
+      }
+      if (url.hostname === "androidpublisher.googleapis.com" && url.pathname.endsWith("/edits")) {
+        return Response.json({ id: "edit-1" });
+      }
+      if (url.hostname === "androidpublisher.googleapis.com" && url.pathname.endsWith("/tracks")) {
+        return Response.json({
+          tracks: [
+            { track: "production", releases: [{ name: "7.1", status: "completed", versionCodes: ["38"], releaseNotes: [{ language: "en-US", text: "Play Store notes." }] }] },
+          ],
+        });
+      }
+      if (url.hostname === "play.google.com") {
+        return new Response(
+          "<html>What's new Fud AI 7.0.1 • Older notes. flag Flag as inappropriate</html>",
+          { status: 200 },
+        );
+      }
+      if (url.hostname === "discord.com") {
+        throw new Error("should not announce while in review");
+      }
+      return new Response(null, { status: 404 });
+    });
+
+    await announceAndroidPlayReleases(env, fetchImpl as typeof fetch);
+    expect(env.saved).toEqual([]);
+  });
+
+  it("matches the live listing against a release's notes or version name", () => {
+    const live = "<html>What's new Fud AI 7.1.1 • Removed the beta signup. flag Flag as inappropriate</html>";
+    expect(playStoreShowsRelease(live, { track: "production", versionCode: "39", name: "7.1.1", whatsNew: "Fud AI 7.1.1 • Removed the beta signup." })).toBe(true);
+    expect(playStoreShowsRelease(live, { track: "production", versionCode: "39", name: "7.1.1", whatsNew: "Something totally different." })).toBe(true);
+    expect(playStoreShowsRelease(live, { track: "production", versionCode: "39", name: "7.2", whatsNew: "Something totally different." })).toBe(false);
   });
 
   it("records the current tracks without posting when nothing was stored", async () => {

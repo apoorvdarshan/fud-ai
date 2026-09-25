@@ -1,10 +1,14 @@
 /**
- * Hourly Play track check. Posts once in #announcements when Android
- * production serves a new version code. Open testing is not announced.
+ * Hourly Play track check. Posts once in #announcements when a new Android
+ * production build is actually live on the Play Store page — the track API
+ * reports "completed" while Google is still reviewing, so the public listing
+ * is checked before announcing. Open testing is not announced.
  */
 
 export const ANNOUNCEMENTS_CHANNEL_ID = "1548481417728495678";
 const PACKAGE_NAME = "com.apoorvdarshan.calorietracker";
+const PLAY_DETAILS_URL =
+  `https://play.google.com/store/apps/details?id=${PACKAGE_NAME}&hl=en&gl=US`;
 const STATE_KEY = "android-play-announcements-v1";
 const PLAY_SCOPE = "https://www.googleapis.com/auth/androidpublisher";
 const TOKEN_URL = "https://oauth2.googleapis.com/token";
@@ -51,6 +55,56 @@ export function releasesToAnnounce(
   return current.filter((release) => release.versionCode !== "" && previous[release.track] !== release.versionCode);
 }
 
+function collapse(text: string): string {
+  return text
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&#39;/g, "'")
+    .replace(/&quot;/g, '"')
+    .replace(/&nbsp;/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLowerCase();
+}
+
+/** The live store listing's "What's new" block, or "" when absent. */
+export function playStoreWhatsNew(html: string): string {
+  const start = html.search(/What.s new/i);
+  if (start < 0) return "";
+  const slice = html.slice(start, start + 6000);
+  const end = slice.search(/flag Flag as inappropriate|Data safety|You might also like/i);
+  return end > 0 ? slice.slice(0, end) : slice;
+}
+
+/**
+ * True only when the public Play listing carries this release's notes (or its
+ * version name). Google keeps the store page on the old copy while an update is
+ * in review, so this distinguishes "submitted" from "live".
+ */
+export function playStoreShowsRelease(html: string, release: PlayRelease): boolean {
+  const live = collapse(playStoreWhatsNew(html));
+  if (!live) return false;
+  const notes = collapse(release.whatsNew);
+  if (notes.length > 0 && live.includes(notes)) return true;
+  const name = collapse(release.name);
+  return name.length > 0 && live.includes(name);
+}
+
+async function fetchPlayStoreHtml(fetchImpl: typeof fetch): Promise<string | null> {
+  try {
+    const response = await fetchImpl(PLAY_DETAILS_URL, {
+      headers: {
+        "User-Agent": "Mozilla/5.0 (compatible; fud-ai-play-announce/1.0)",
+        "Accept-Language": "en-US,en;q=0.9",
+      },
+    });
+    if (!response.ok) return null;
+    return await response.text();
+  } catch {
+    return null;
+  }
+}
+
 export async function announceAndroidPlayReleases(
   env: PlayAnnounceEnv,
   fetchImpl: typeof fetch = fetch,
@@ -66,8 +120,14 @@ export async function announceAndroidPlayReleases(
     return;
   }
   const pending = releasesToAnnounce(previous, current);
+  if (pending.length === 0) return;
+
+  const storeHtml = await fetchPlayStoreHtml(fetchImpl);
+  if (!storeHtml) return;
+
   const next: StoredReleases = { ...previous };
   for (const release of pending) {
+    if (!playStoreShowsRelease(storeHtml, release)) continue;
     await postAnnouncement(token, announcementText(release), fetchImpl);
     next[release.track] = release.versionCode;
     await writeStateFromMap(env, next);

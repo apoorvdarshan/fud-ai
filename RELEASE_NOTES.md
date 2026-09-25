@@ -7,9 +7,9 @@ same marketing version can share a feature summary while identifying different b
 
 ## Unreleased
 
-No release tag yet. The v7.1 notes below are the prepared store copy for iOS build 38 and Android versionCode 38.
+No release tag yet. The ios-v7.1 notes below are the prepared store copy for iOS build 38. Android uses a separate `android-v7.1` heading when that tag is created.
 
-## v7.1
+## ios-v7.1
 
 Fud AI 7.1 — clearer Weekly Challenge places, easier feedback, and on-device food photos on iOS 27.
 

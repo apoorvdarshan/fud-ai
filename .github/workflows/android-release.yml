@@ -1,7 +1,7 @@
 # Android release CI — the Play-side sibling of the Xcode Cloud "Release" workflow.
 #
 # Trigger:  push a tag starting with "android-v" (e.g. android-v3.0). iOS uses
-#           plain v* tags for Xcode Cloud, so the two pipelines never collide.
+#           ios-v* tags for Xcode Cloud, so the two pipelines never collide.
 # Output:   a signed AAB and APK on the GitHub Release. Play is not touched
 #           unless you turn a rollout switch on. Both are off by default:
 #             STORE_OPEN_TESTING_ROLLOUT  -> Play Open testing (track "beta"), live

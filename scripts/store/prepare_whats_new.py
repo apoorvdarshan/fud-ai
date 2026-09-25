@@ -63,7 +63,7 @@ def main() -> None:
     parser.add_argument(
         "--tag",
         required=True,
-        help="Release tag, e.g. android-v6.1 or v6.1 (used for logging only)",
+        help="Release tag, e.g. android-v6.1 or ios-v6.1 (used for logging only)",
     )
     parser.add_argument("--out", required=True, type=Path, help="Output directory")
     parser.add_argument(

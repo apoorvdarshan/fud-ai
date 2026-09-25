@@ -1,6 +1,7 @@
 # iOS release bookkeeping — the GitHub-Releases sibling of the Xcode Cloud
 # "Release" workflow. Xcode Cloud does the real work (archive + upload to App
-# Store Connect); this creates the GitHub Release entry from the same v* tag.
+# Store Connect); this creates the GitHub Release entry from the same ios-v* tag.
+# Xcode Cloud's start condition must also be tag ios-v*, or the IPA will not upload.
 #
 # Future-proof store gates (repo Variables; all default OFF — see store/README.md):
 #   STORE_SUBMIT_IOS_REVIEW   submit ASC build for review (requires ASC API secrets)
@@ -21,7 +22,7 @@ name: iOS Release (GitHub entry)
 on:
   push:
     tags:
-      - "v*"
+      - "ios-v*"
 
 permissions:
   contents: read
@@ -104,7 +105,7 @@ jobs:
           APP_STORE_CONNECT_API_KEY_P8: ${{ secrets.APP_STORE_CONNECT_API_KEY_P8 }}
         run: |
           python3 -m pip install --disable-pip-version-check --require-hashes -r requirements-store.txt
-          MARKETING_VERSION="${GITHUB_REF_NAME#v}"
+          MARKETING_VERSION="${GITHUB_REF_NAME#ios-v}"
           python3 scripts/store/asc_release.py \
             --metadata-dir "$RUNNER_TEMP/store-meta" \
             --version "$MARKETING_VERSION"

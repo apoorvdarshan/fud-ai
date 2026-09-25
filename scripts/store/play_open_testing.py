@@ -84,15 +84,15 @@ def main() -> None:
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
 
+    if not args.version_code or args.version_code < 1:
+        fail("--version-code is required")
     notes = release_notes(args.whats_new_dir)
     if args.dry_run:
         print(
             "dry-run: would set Play open testing (beta) to completed "
-            f"for versionCode {args.version_code or '<from gradle>'}"
+            f"for versionCode {args.version_code}"
         )
         return
-    if not args.version_code or args.version_code < 1:
-        fail("--version-code is required")
 
     from google.oauth2 import service_account
     from googleapiclient.discovery import build

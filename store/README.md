@@ -4,7 +4,7 @@ GitHub Actions plumbing for App Store + Play Store releases, including listing
 copy, What's New, screenshots, and the IAP / subscription / tip / credit catalog
 (RevenueCat).
 
-**Production stays a draft unless you roll it out.** An `android-v*` tag also publishes that same build to Play **Open testing** so testers can install it. iOS still only creates a GitHub Release; Xcode Cloud uploads the binary. Listing, screenshots, and App Review stay off unless you enable those variables.
+**Production stays a draft unless you roll it out.** An `android-v*` tag also publishes that same build to Play **Open testing** so testers can install it. Create the Open testing track in Play Console once before the first tag; the job stops if that track is missing, after the GitHub Release is already published. iOS still only creates a GitHub Release; Xcode Cloud uploads the binary. Listing, screenshots, and App Review stay off unless you enable those variables.
 
 ## Current vs planned
 

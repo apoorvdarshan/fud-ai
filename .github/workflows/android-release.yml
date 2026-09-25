@@ -208,19 +208,6 @@ jobs:
           status: ${{ steps.gates.outputs.play_status }}
           whatsNewDirectory: ${{ runner.temp }}/store-meta/play
 
-      - name: Publish the same build to Play open testing
-        env:
-          PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
-          UPLOAD_WHATS_NEW: ${{ steps.gates.outputs.upload_whats_new }}
-        run: |
-          python3 -m pip install --disable-pip-version-check --require-hashes -r requirements-store.txt
-          VCODE=$(grep -m1 'versionCode = ' android/app/build.gradle.kts | tr -dc '0-9')
-          ARGS=(--version-code "$VCODE")
-          if [ "$UPLOAD_WHATS_NEW" = "true" ]; then
-            ARGS+=(--whats-new-dir "$RUNNER_TEMP/store-meta/play")
-          fi
-          python3 scripts/store/play_open_testing.py "${ARGS[@]}"
-
       - name: Create GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
@@ -234,3 +221,16 @@ jobs:
             "$RUNNER_TEMP/dist/fudai-v${VERSION}.aab.sigstore.json" \
             "$RUNNER_TEMP/dist/fudai-v${VERSION}.apk" \
             "$RUNNER_TEMP/dist/fudai-v${VERSION}.apk.sigstore.json"
+
+      - name: Publish the same build to Play open testing
+        env:
+          PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+          UPLOAD_WHATS_NEW: ${{ steps.gates.outputs.upload_whats_new }}
+        run: |
+          python3 -m pip install --disable-pip-version-check --require-hashes -r requirements-store.txt
+          VCODE=$(grep -m1 'versionCode = ' android/app/build.gradle.kts | tr -dc '0-9')
+          ARGS=(--version-code "$VCODE")
+          if [ "$UPLOAD_WHATS_NEW" = "true" ]; then
+            ARGS+=(--whats-new-dir "$RUNNER_TEMP/store-meta/play")
+          fi
+          python3 scripts/store/play_open_testing.py "${ARGS[@]}"

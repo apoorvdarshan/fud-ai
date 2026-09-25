@@ -105,7 +105,7 @@ jobs:
           APP_STORE_CONNECT_API_KEY_P8: ${{ secrets.APP_STORE_CONNECT_API_KEY_P8 }}
         run: |
           python3 -m pip install --disable-pip-version-check --require-hashes -r requirements-store.txt
-          MARKETING_VERSION="${GITHUB_REF_NAME#v}"
+          MARKETING_VERSION="${GITHUB_REF_NAME#ios-v}"
           python3 scripts/store/asc_release.py \
             --metadata-dir "$RUNNER_TEMP/store-meta" \
             --version "$MARKETING_VERSION"

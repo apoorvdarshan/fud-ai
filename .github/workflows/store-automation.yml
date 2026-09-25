@@ -75,6 +75,8 @@ jobs:
       - name: Validate ASC / Play publisher scripts (import + --dry-run, no network)
         run: |
           python3 scripts/store/asc_release.py --help
+          VCODE=$(grep -m1 'versionCode = ' android/app/build.gradle.kts | tr -dc '0-9')
+          python3 scripts/store/play_open_testing.py --dry-run --version-code "$VCODE"
           python3 scripts/store/play_listing.py --help
           UPLOAD_LISTING=true SUBMIT_IOS_REVIEW=true \
             python3 scripts/store/asc_release.py --dry-run --metadata-dir store/metadata

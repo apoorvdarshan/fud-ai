@@ -44,6 +44,23 @@ IMPROVED
 
 Existing logs, goals, Health data, widgets, workout history, and BYOK settings are preserved during a normal update.
 
+## ios-v7.1.1
+
+Fud AI 7.1.1 — the 7.1 update with the beta signup removed, ready for the App Store.
+
+NEW
+• Weekly Challenge standings show a podium for 1st–3rd, your week as progress bars, and 20 places per page (#1–#20, then #21–#40). Everyone gets their own place. Matching scores are decided by the other day counts, then workout calories, then who reached those totals first. How points work explains that order.
+• Help & Feedback can open a bug or feature request on GitHub or Discord.
+• On iOS 27, Apple Intelligence can analyze food photos on-device when you select it. Text, voice, and Siri food descriptions can still use it as the final on-device fallback.
+
+IMPROVED
+• Onboarding names the API key after the provider you choose and asks you to accept Terms before continuing.
+• Home can keep fiber visible next to water, and Review Food uses the ingredient-list totals.
+• The one-time Product Hunt reminder is September 29, 2026, with a vote sheet on that day.
+• Reliability fixes for the Home + menu, barcode focus, and food-scan sheets.
+
+Existing logs, goals, Health data, widgets, workout history, and BYOK settings are preserved during a normal update.
+
 ## android-v7.0.1
 
 Fud AI 7.0.1 — food-scan reliability for Gemini BYOK on Android.

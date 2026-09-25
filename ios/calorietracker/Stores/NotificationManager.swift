@@ -337,15 +337,15 @@ class NotificationManager {
     /// Identifier used so the delegate can show the launch banner in the foreground.
     static let productHuntLaunchNotificationID = "producthunt.launch"
     /// Bumped when the launch day moves so a phone that already armed the old date schedules again.
-    static let productHuntLaunchScheduledKey = "productHuntLaunchNotificationScheduled.2026-09-27"
+    static let productHuntLaunchScheduledKey = "productHuntLaunchNotificationScheduled.2026-09-29"
     nonisolated static let productHuntLaunchTimeZone = TimeZone(identifier: "America/Los_Angeles")!
 
-    /// Fud AI goes live on Product Hunt on Sept 27, 2026 at 12:01 AM Pacific.
+    /// Fud AI goes live on Product Hunt on Sept 29, 2026 at 12:01 AM Pacific.
     nonisolated static var productHuntLaunchDate: Date {
         var components = DateComponents()
         components.year = 2026
         components.month = 9
-        components.day = 27
+        components.day = 29
         components.hour = 0
         components.minute = 1
         components.timeZone = productHuntLaunchTimeZone

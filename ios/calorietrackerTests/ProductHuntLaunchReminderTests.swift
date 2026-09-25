@@ -5,13 +5,13 @@ import Testing
 struct ProductHuntLaunchReminderTests {
     private let launch = NotificationManager.productHuntLaunchDate
 
-    @Test func launchDateIsMidnightPacificOnSept27() {
+    @Test func launchDateIsMidnightPacificOnSept29() {
         var calendar = Calendar(identifier: .gregorian)
         calendar.timeZone = NotificationManager.productHuntLaunchTimeZone
         let parts = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: launch)
         #expect(parts.year == 2026)
         #expect(parts.month == 9)
-        #expect(parts.day == 27)
+        #expect(parts.day == 29)
         #expect(parts.hour == 0)
         #expect(parts.minute == 1)
     }

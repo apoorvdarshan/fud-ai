@@ -18,7 +18,7 @@ enum PostUpdatePrompts {
     /// Named "completed" (not "seen") so only Done counts — opening Instagram must not consume it.
     static let meetDeveloperSeenKey = "hasCompletedMeetDeveloperPrompt"
     /// Separate from Meet the developer so people who already tapped Done still get the launch-day sheet.
-    static let productHuntLaunchPromptSeenKey = "hasSeenProductHuntLaunchPrompt.2026-09-27"
+    static let productHuntLaunchPromptSeenKey = "hasSeenProductHuntLaunchPrompt.2026-09-29"
 
     static var hasSeenHostedUpsell: Bool {
         get { UserDefaults.standard.bool(forKey: hostedUpsellSeenKey) }

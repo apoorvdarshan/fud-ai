@@ -30,6 +30,7 @@ Repository **Variables** (Settings → Secrets and variables → Actions → Var
 | `STORE_OPEN_TESTING_ROLLOUT` | unset / false | Publish this Android build to Play Open testing |
 | `STORE_PRODUCTION_ROLLOUT` | unset / false | Publish this Android build to Play production, live |
 | `STORE_SUBMIT_IOS_REVIEW` | unset / false | Submit the editable ASC version for review |
+| `STORE_TESTFLIGHT` | unset / false | Add the processed iPhone build to the External TestFlight group and send beta review when Apple requires it |
 | `STORE_SYNC_REVENUECAT` | unset / false | **Fails the workflow** — RevenueCat write/sync is not implemented yet |
 
 Copy names from [`gates.env.example`](gates.env.example). Leave unset or `false`

@@ -5,7 +5,10 @@
  * is checked before announcing. Open testing is not announced.
  */
 
-export const ANNOUNCEMENTS_CHANNEL_ID = "1548481417728495678";
+import { ANNOUNCEMENTS_CHANNEL_ID, postAnnouncement } from "./discord-announce";
+
+export { ANNOUNCEMENTS_CHANNEL_ID };
+
 const PACKAGE_NAME = "com.apoorvdarshan.calorietracker";
 const PLAY_DETAILS_URL =
   `https://play.google.com/store/apps/details?id=${PACKAGE_NAME}&hl=en&gl=US`;
@@ -156,28 +159,6 @@ async function writeState(env: PlayAnnounceEnv, releases: PlayRelease[]): Promis
 
 async function writeStateFromMap(env: PlayAnnounceEnv, state: StoredReleases): Promise<void> {
   await env.STAR_HISTORY.put(STATE_KEY, JSON.stringify({ production: state.production }));
-}
-
-async function postAnnouncement(
-  token: string,
-  content: string,
-  fetchImpl: typeof fetch,
-): Promise<void> {
-  const response = await fetchImpl(
-    `https://discord.com/api/v10/channels/${ANNOUNCEMENTS_CHANNEL_ID}/messages`,
-    {
-      method: "POST",
-      headers: {
-        Authorization: `Bot ${token}`,
-        "Content-Type": "application/json",
-        "User-Agent": "fud-ai-play-announce",
-      },
-      body: JSON.stringify({ content, allowed_mentions: { parse: [] } }),
-    },
-  );
-  if (!response.ok) {
-    throw new Error(`discord_announce_failed_${response.status}`);
-  }
 }
 
 async function fetchPlayReleases(

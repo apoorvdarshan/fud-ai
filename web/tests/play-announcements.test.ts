@@ -152,11 +152,14 @@ describe("play announcements", () => {
     expect(env.saved).toEqual([]);
   });
 
-  it("matches the live listing against a release's notes or version name", () => {
-    const live = "<html>What's new Fud AI 7.1.1 • Removed the beta signup. flag Flag as inappropriate</html>";
+  it("matches notes, and only falls back to the name without notes", () => {
+    const live = "<html>What’s new Fud AI 7.1.1 • Removed the beta signup. flag Flag as inappropriate</html>";
     expect(playStoreShowsRelease(live, { track: "production", versionCode: "39", name: "7.1.1", whatsNew: "Fud AI 7.1.1 • Removed the beta signup." })).toBe(true);
-    expect(playStoreShowsRelease(live, { track: "production", versionCode: "39", name: "7.1.1", whatsNew: "Something totally different." })).toBe(true);
-    expect(playStoreShowsRelease(live, { track: "production", versionCode: "39", name: "7.2", whatsNew: "Something totally different." })).toBe(false);
+    // A reused name must not identify a different build whose notes do not match.
+    expect(playStoreShowsRelease(live, { track: "production", versionCode: "39", name: "7.1.1", whatsNew: "Something totally different." })).toBe(false);
+    // Without notes, the name is the only signal available.
+    expect(playStoreShowsRelease(live, { track: "production", versionCode: "39", name: "7.1.1", whatsNew: "" })).toBe(true);
+    expect(playStoreShowsRelease(live, { track: "production", versionCode: "39", name: "7.2", whatsNew: "" })).toBe(false);
   });
 
   it("records the current tracks without posting when nothing was stored", async () => {
@@ -172,9 +175,15 @@ describe("play announcements", () => {
       if (url.hostname === "androidpublisher.googleapis.com" && url.pathname.endsWith("/tracks")) {
         return Response.json({
           tracks: [
-            { track: "production", releases: [{ name: "7.1", status: "completed", versionCodes: ["38"] }] },
+            { track: "production", releases: [{ name: "7.1", status: "completed", versionCodes: ["38"], releaseNotes: [{ language: "en-US", text: "Play Store notes." }] }] },
           ],
         });
+      }
+      if (url.hostname === "play.google.com") {
+        return new Response(
+          "<html>What's new Play Store notes. flag Flag as inappropriate</html>",
+          { status: 200 },
+        );
       }
       if (url.hostname === "androidpublisher.googleapis.com" && url.pathname.endsWith("/edits/edit-1")) {
         return new Response(null, { status: 200 });
@@ -184,5 +193,63 @@ describe("play announcements", () => {
 
     await announceAndroidPlayReleases(env, fetchImpl as typeof fetch);
     expect(env.saved).toEqual([JSON.stringify({ production: "38" })]);
+  });
+
+  it("leaves a first-run release pending while the listing shows an older one", async () => {
+    const env = memoryEnv(null, await serviceAccountJson());
+    const fetchImpl = vi.fn(async (input: RequestInfo | URL) => {
+      const url = requestUrl(input);
+      if (url.hostname === "oauth2.googleapis.com" && url.pathname === "/token") {
+        return Response.json({ access_token: "play-token" });
+      }
+      if (url.hostname === "androidpublisher.googleapis.com" && url.pathname.endsWith("/edits")) {
+        return Response.json({ id: "edit-1" });
+      }
+      if (url.hostname === "androidpublisher.googleapis.com" && url.pathname.endsWith("/tracks")) {
+        return Response.json({
+          tracks: [
+            { track: "production", releases: [{ name: "7.1.1", status: "completed", versionCodes: ["39"], releaseNotes: [{ language: "en-US", text: "Fud AI 7.1.1 notes." }] }] },
+          ],
+        });
+      }
+      if (url.hostname === "play.google.com") {
+        return new Response(
+          "<html>What's new Fud AI 7.1 • Old notes. flag Flag as inappropriate</html>",
+          { status: 200 },
+        );
+      }
+      if (url.hostname === "androidpublisher.googleapis.com" && url.pathname.endsWith("/edits/edit-1")) {
+        return new Response(null, { status: 200 });
+      }
+      throw new Error(`unexpected ${url.pathname}`);
+    });
+
+    await announceAndroidPlayReleases(env, fetchImpl as typeof fetch);
+    expect(env.saved).toEqual([JSON.stringify({ production: "" })]);
+  });
+
+  it("rejects when the public listing cannot be read", async () => {
+    const env = memoryEnv(JSON.stringify({ production: "37" }), await serviceAccountJson());
+    const fetchImpl = vi.fn(async (input: RequestInfo | URL) => {
+      const url = requestUrl(input);
+      if (url.hostname === "oauth2.googleapis.com" && url.pathname === "/token") {
+        return Response.json({ access_token: "play-token" });
+      }
+      if (url.hostname === "androidpublisher.googleapis.com" && url.pathname.endsWith("/edits")) {
+        return Response.json({ id: "edit-1" });
+      }
+      if (url.hostname === "androidpublisher.googleapis.com" && url.pathname.endsWith("/tracks")) {
+        return Response.json({
+          tracks: [
+            { track: "production", releases: [{ name: "7.1", status: "completed", versionCodes: ["38"], releaseNotes: [{ language: "en-US", text: "Play Store notes." }] }] },
+          ],
+        });
+      }
+      if (url.hostname === "play.google.com") return new Response(null, { status: 503 });
+      return new Response(null, { status: 404 });
+    });
+
+    await expect(announceAndroidPlayReleases(env, fetchImpl as typeof fetch)).rejects.toThrow("play_listing_failed_503");
+    expect(env.saved).toEqual([]);
   });
 });

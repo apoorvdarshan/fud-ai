@@ -83,12 +83,25 @@ describe("app store announcements", () => {
     expect(env.saved).toEqual([]);
   });
 
-  it("stays quiet when the lookup fails", async () => {
+  it("rejects when the lookup fails so the job is reported", async () => {
     const env = memoryEnv(JSON.stringify({ version: "6.1" }));
     const fetchImpl = vi.fn(async () => new Response(null, { status: 503 }));
 
-    await announceIOSAppStoreRelease(env, fetchImpl as typeof fetch);
+    await expect(announceIOSAppStoreRelease(env, fetchImpl as typeof fetch)).rejects.toThrow(
+      "appstore_lookup_failed_503",
+    );
     expect(env.saved).toEqual([]);
+  });
+
+  it("keeps the App Store link when the notes are long", () => {
+    const url = "https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726?uo=4";
+    const text = appStoreAnnouncementText({
+      version: "7.1.1",
+      whatsNew: "N".repeat(2500),
+      url,
+    });
+    expect(text.length).toBeLessThanOrEqual(2000);
+    expect(text.endsWith(url)).toBe(true);
   });
 
   it("reads the released version from the lookup payload", async () => {

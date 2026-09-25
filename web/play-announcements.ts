@@ -41,6 +41,7 @@ export type PlayAnnounceEnv = {
   };
 };
 
+/** The Discord message for a live Android release, within Discord's limit. */
 export function announcementText(release: PlayRelease): string {
   const title = release.name || `build ${release.versionCode}`;
   const lead = `Android ${title} (${release.versionCode}) is on the Play Store.`;
@@ -50,6 +51,7 @@ export function announcementText(release: PlayRelease): string {
   return text.length <= 2000 ? text : `${text.slice(0, 1997)}...`;
 }
 
+/** Releases whose version code differs from the last recorded one. */
 export function releasesToAnnounce(
   previous: StoredReleases | null,
   current: PlayRelease[],
@@ -78,7 +80,7 @@ function collapse(text: string): string {
 
 /** The live store listing's "What's new" block, or "" when absent. */
 export function playStoreWhatsNew(html: string): string {
-  const start = html.search(/What.s new/i);
+  const start = html.search(/What(?:'|’|&#39;|&rsquo;)s new/i);
   if (start < 0) return "";
   const slice = html.slice(start, start + 6000);
   const end = slice.search(/flag Flag as inappropriate|Data safety|You might also like/i);
@@ -86,34 +88,42 @@ export function playStoreWhatsNew(html: string): string {
 }
 
 /**
- * True only when the public Play listing carries this release's notes (or its
- * version name). Google keeps the store page on the old copy while an update is
- * in review, so this distinguishes "submitted" from "live".
+ * True only when the public Play listing carries this release's own notes.
+ * A reused marketing version name is not proof of a new build, so the name is
+ * only consulted for releases that ship without notes. Google keeps the store
+ * page on the old copy while an update is in review, so this distinguishes
+ * "submitted" from "live".
  */
 export function playStoreShowsRelease(html: string, release: PlayRelease): boolean {
   const live = collapse(playStoreWhatsNew(html));
   if (!live) return false;
   const notes = collapse(release.whatsNew);
-  if (notes.length > 0 && live.includes(notes)) return true;
+  if (notes.length > 0) return live.includes(notes);
   const name = collapse(release.name);
   return name.length > 0 && live.includes(name);
 }
 
-async function fetchPlayStoreHtml(fetchImpl: typeof fetch): Promise<string | null> {
+/** The public listing HTML. Throws so the hourly job reports the failure. */
+async function fetchPlayStoreHtml(fetchImpl: typeof fetch): Promise<string> {
+  let response: Response;
   try {
-    const response = await fetchImpl(PLAY_DETAILS_URL, {
+    response = await fetchImpl(PLAY_DETAILS_URL, {
       headers: {
         "User-Agent": "Mozilla/5.0 (compatible; fud-ai-play-announce/1.0)",
         "Accept-Language": "en-US,en;q=0.9",
       },
     });
-    if (!response.ok) return null;
-    return await response.text();
   } catch {
-    return null;
+    throw new Error("play_listing_request_failed");
   }
+  if (!response.ok) throw new Error(`play_listing_failed_${response.status}`);
+  return await response.text();
 }
 
+/**
+ * Announces a new completed production release once its notes are visible on
+ * the public listing. Returns early when nothing new is pending.
+ */
 export async function announceAndroidPlayReleases(
   env: PlayAnnounceEnv,
   fetchImpl: typeof fetch = fetch,
@@ -124,23 +134,26 @@ export async function announceAndroidPlayReleases(
 
   const current = await fetchPlayReleases(serviceAccountJson, fetchImpl);
   const previous = await readState(env);
-  if (!previous) {
-    await writeState(env, current);
+
+  if (previous) {
+    const pending = releasesToAnnounce(previous, current);
+    if (pending.length === 0) return;
+    const storeHtml = await fetchPlayStoreHtml(fetchImpl);
+    const next: StoredReleases = { ...previous };
+    for (const release of pending) {
+      if (!playStoreShowsRelease(storeHtml, release)) continue;
+      await postAnnouncement(token, announcementText(release), fetchImpl);
+      next[release.track] = release.versionCode;
+      await writeStateFromMap(env, next);
+    }
     return;
   }
-  const pending = releasesToAnnounce(previous, current);
-  if (pending.length === 0) return;
 
+  // First run: seed only what the public listing already serves. A release
+  // still in Google review stays unseeded so it is announced once it is live.
   const storeHtml = await fetchPlayStoreHtml(fetchImpl);
-  if (!storeHtml) return;
-
-  const next: StoredReleases = { ...previous };
-  for (const release of pending) {
-    if (!playStoreShowsRelease(storeHtml, release)) continue;
-    await postAnnouncement(token, announcementText(release), fetchImpl);
-    next[release.track] = release.versionCode;
-    await writeStateFromMap(env, next);
-  }
+  const live = current.find((release) => playStoreShowsRelease(storeHtml, release));
+  await writeStateFromMap(env, { production: live?.versionCode ?? "" });
 }
 
 async function readState(env: PlayAnnounceEnv): Promise<StoredReleases | null> {
@@ -149,12 +162,6 @@ async function readState(env: PlayAnnounceEnv): Promise<StoredReleases | null> {
   const parsed = JSON.parse(raw) as Partial<StoredReleases> & { beta?: string };
   if (typeof parsed.production !== "string") return null;
   return { production: parsed.production };
-}
-
-async function writeState(env: PlayAnnounceEnv, releases: PlayRelease[]): Promise<void> {
-  const state: StoredReleases = { production: "" };
-  for (const release of releases) state[release.track] = release.versionCode;
-  await writeStateFromMap(env, state);
 }
 
 async function writeStateFromMap(env: PlayAnnounceEnv, state: StoredReleases): Promise<void> {

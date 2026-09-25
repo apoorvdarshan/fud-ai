@@ -29,6 +29,8 @@ object CloudBackupPolicy {
         "productHuntLaunchNotificationScheduled",
         "productHuntLaunchNotificationScheduled.2026-09-27",
         "hasSeenProductHuntLaunchPrompt.2026-09-27",
+        "productHuntLaunchNotificationScheduled.2026-09-29",
+        "hasSeenProductHuntLaunchPrompt.2026-09-29",
     )
 
     private val photoName = Regex("^[A-Za-z0-9._-]+\\.(jpg|jpeg|png|webp)$", RegexOption.IGNORE_CASE)

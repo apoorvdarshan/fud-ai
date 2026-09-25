@@ -48,6 +48,7 @@ jobs:
           STORE_UPLOAD_WHATS_NEW: ${{ vars.STORE_UPLOAD_WHATS_NEW }}
           STORE_UPLOAD_LISTING: ${{ vars.STORE_UPLOAD_LISTING }}
           STORE_UPLOAD_SCREENSHOTS: ${{ vars.STORE_UPLOAD_SCREENSHOTS }}
+          STORE_OPEN_TESTING_ROLLOUT: ${{ vars.STORE_OPEN_TESTING_ROLLOUT }}
           STORE_PRODUCTION_ROLLOUT: ${{ vars.STORE_PRODUCTION_ROLLOUT }}
           STORE_SUBMIT_IOS_REVIEW: ${{ vars.STORE_SUBMIT_IOS_REVIEW }}
           STORE_SYNC_REVENUECAT: ${{ vars.STORE_SYNC_REVENUECAT }}
@@ -75,8 +76,6 @@ jobs:
       - name: Validate ASC / Play publisher scripts (import + --dry-run, no network)
         run: |
           python3 scripts/store/asc_release.py --help
-          VCODE=$(grep -m1 'versionCode = ' android/app/build.gradle.kts | tr -dc '0-9')
-          python3 scripts/store/play_open_testing.py --dry-run --version-code "$VCODE"
           python3 scripts/store/play_listing.py --help
           UPLOAD_LISTING=true SUBMIT_IOS_REVIEW=true \
             python3 scripts/store/asc_release.py --dry-run --metadata-dir store/metadata

@@ -23,7 +23,7 @@ NEW
 IMPROVED
 • Onboarding names the API key after the provider you choose and asks you to accept Terms before continuing.
 • Home can keep fiber visible next to water, and Review Food uses the ingredient-list totals.
-• The one-time Product Hunt reminder is September 27, 2026, with a vote sheet on that day.
+• The one-time Product Hunt reminder is September 29, 2026, with a vote sheet on that day.
 • Reliability fixes for the Home + menu, barcode focus, and food-scan sheets.
 
 Existing logs, goals, Health data, widgets, workout history, and BYOK settings are preserved during a normal update.

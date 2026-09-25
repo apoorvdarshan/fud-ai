@@ -89,18 +89,17 @@ export function playStoreWhatsNew(html: string): string {
 
 /**
  * True only when the public Play listing carries this release's own notes.
- * A reused marketing version name is not proof of a new build, so the name is
- * only consulted for releases that ship without notes. Google keeps the store
+ * There is no unique signal for a note-free release, and a reused marketing
+ * version name is not proof of a new build, so such releases are never treated
+ * as live (the store upload always includes What's New). Google keeps the store
  * page on the old copy while an update is in review, so this distinguishes
  * "submitted" from "live".
  */
 export function playStoreShowsRelease(html: string, release: PlayRelease): boolean {
-  const live = collapse(playStoreWhatsNew(html));
-  if (!live) return false;
   const notes = collapse(release.whatsNew);
-  if (notes.length > 0) return live.includes(notes);
-  const name = collapse(release.name);
-  return name.length > 0 && live.includes(name);
+  if (notes.length === 0) return false;
+  const live = collapse(playStoreWhatsNew(html));
+  return live.length > 0 && live.includes(notes);
 }
 
 /** The public listing HTML. Throws so the hourly job reports the failure. */

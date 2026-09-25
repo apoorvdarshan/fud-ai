@@ -144,6 +144,7 @@ async function runScheduledMaintenance(env: Env): Promise<void> {
           event: "scheduled_task_error",
           task: tasks[index]?.name ?? "unknown",
           errorType: result.reason instanceof Error ? result.reason.name : typeof result.reason,
+          errorMessage: result.reason instanceof Error ? result.reason.message.slice(0, 300) : undefined,
         }),
       );
     }

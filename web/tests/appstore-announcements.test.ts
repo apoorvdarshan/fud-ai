@@ -104,6 +104,17 @@ describe("app store announcements", () => {
     expect(text.endsWith(url)).toBe(true);
   });
 
+  it("keeps the App Store link even with oversized metadata", () => {
+    const url = "https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726?uo=4";
+    const text = appStoreAnnouncementText({
+      version: "9".repeat(3000),
+      whatsNew: "N".repeat(3000),
+      url,
+    });
+    expect(text.length).toBeLessThanOrEqual(2000);
+    expect(text.endsWith(url)).toBe(true);
+  });
+
   it("reads the released version from the lookup payload", async () => {
     const fetchImpl = vi.fn(async () => lookupResponse("7.1.1", "Live notes."));
     const release = await fetchAppStoreRelease(fetchImpl as typeof fetch);

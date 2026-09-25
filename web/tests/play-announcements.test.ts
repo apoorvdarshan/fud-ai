@@ -152,14 +152,13 @@ describe("play announcements", () => {
     expect(env.saved).toEqual([]);
   });
 
-  it("matches notes, and only falls back to the name without notes", () => {
+  it("matches only the release's own notes", () => {
     const live = "<html>What’s new Fud AI 7.1.1 • Removed the beta signup. flag Flag as inappropriate</html>";
     expect(playStoreShowsRelease(live, { track: "production", versionCode: "39", name: "7.1.1", whatsNew: "Fud AI 7.1.1 • Removed the beta signup." })).toBe(true);
-    // A reused name must not identify a different build whose notes do not match.
+    // A reused name must not identify a different build, and a note-free
+    // release has nothing unique to match on.
     expect(playStoreShowsRelease(live, { track: "production", versionCode: "39", name: "7.1.1", whatsNew: "Something totally different." })).toBe(false);
-    // Without notes, the name is the only signal available.
-    expect(playStoreShowsRelease(live, { track: "production", versionCode: "39", name: "7.1.1", whatsNew: "" })).toBe(true);
-    expect(playStoreShowsRelease(live, { track: "production", versionCode: "39", name: "7.2", whatsNew: "" })).toBe(false);
+    expect(playStoreShowsRelease(live, { track: "production", versionCode: "39", name: "7.1.1", whatsNew: "" })).toBe(false);
   });
 
   it("records the current tracks without posting when nothing was stored", async () => {

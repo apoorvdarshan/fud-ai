@@ -26,7 +26,9 @@ EDITABLE_VERSION_STATES = {
     "METADATA_REJECTED",
     "INVALID_BINARY",
 }
-SUBMITTABLE_VERSION_STATES = EDITABLE_VERSION_STATES
+# READY_FOR_REVIEW means the version already sits in a draft review submission
+# (for example after a failed submit); it can still be submitted.
+SUBMITTABLE_VERSION_STATES = EDITABLE_VERSION_STATES | {"READY_FOR_REVIEW"}
 
 
 def fail(msg: str) -> None:
@@ -382,7 +384,9 @@ def upload_screenshots(
         print(f"  removed {len(pending_old_ids)} previous ASC screenshot(s)")
 
 
-def submit_for_review(client: AscClient, app_id: str, version_id: str) -> None:
+def submit_for_review(
+    client: AscClient, app_id: str, version_id: str, version_state: str = ""
+) -> None:
     # Reuse a draft submission when one already exists (an earlier attempt can
     # leave a READY_FOR_REVIEW submission that was never submitted).
     submission_id: str | None = None
@@ -415,7 +419,9 @@ def submit_for_review(client: AscClient, app_id: str, version_id: str) -> None:
         ) or {}
         if related.get("id"):
             item_version_ids.add(related["id"])
-    if version_id not in item_version_ids:
+    # READY_FOR_REVIEW means the version is already held by this draft submission.
+    already_added = version_state == "READY_FOR_REVIEW" or version_id in item_version_ids
+    if not already_added:
         client.post(
             "/reviewSubmissionItems",
             {
@@ -585,7 +591,7 @@ def main() -> None:
 
     if do_submit:
         print("submitting for App Store review…")
-        submit_for_review(client, app_id, version_id)
+        submit_for_review(client, app_id, version_id, state)
 
     print("ASC release step finished")
 

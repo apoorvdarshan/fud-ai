@@ -55,13 +55,19 @@ export function releasesToAnnounce(
   return current.filter((release) => release.versionCode !== "" && previous[release.track] !== release.versionCode);
 }
 
+const HTML_ENTITIES: Record<string, string> = {
+  "&amp;": "&",
+  "&#39;": "'",
+  "&quot;": '"',
+  "&nbsp;": " ",
+};
+
+function decodeEntities(text: string): string {
+  return text.replace(/&(?:amp|#39|quot|nbsp);/g, (match) => HTML_ENTITIES[match] ?? match);
+}
+
 function collapse(text: string): string {
-  return text
-    .replace(/<[^>]*>/g, " ")
-    .replace(/&amp;/g, "&")
-    .replace(/&#39;/g, "'")
-    .replace(/&quot;/g, '"')
-    .replace(/&nbsp;/g, " ")
+  return decodeEntities(text.replace(/<[^>]*>/g, " "))
     .replace(/\s+/g, " ")
     .trim()
     .toLowerCase();

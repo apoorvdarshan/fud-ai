@@ -7,7 +7,25 @@ same marketing version can share a feature summary while identifying different b
 
 ## Unreleased
 
-No release tag yet. The ios-v7.1 notes below are the prepared store copy for iOS build 38. Android uses a separate `android-v7.1` heading when that tag is created.
+No iPhone release tag yet. The ios-v7.1 notes below are the prepared store copy for iOS build 38.
+
+## android-v7.1
+
+Fud AI 7.1 — clearer Weekly Challenge places, easier feedback, and an in-app language picker.
+
+NEW
+• Weekly Challenge standings show a podium for 1st–3rd, your week as progress bars, and 20 places per page (#1–#20, then #21–#40). Everyone gets their own place. Matching scores are decided by the other day counts, then workout calories, then who reached those totals first. How points work explains that order.
+• Help & Feedback can open a bug or feature request on GitHub or Discord.
+• Settings includes Join Beta. The beta is announced in Discord and is not open in the stores yet.
+• Android can use the in-app language picker.
+
+IMPROVED
+• Onboarding names the API key after the provider you choose and asks you to accept Terms before continuing.
+• Home can keep fiber visible next to water, and Review Food uses the ingredient-list totals.
+• The one-time Product Hunt reminder is September 29, 2026, with a vote sheet on that day.
+• Reliability fixes for the Home + menu, barcode focus, and food-scan sheets.
+
+Existing logs, goals, Health data, widgets, workout history, and BYOK settings are preserved during a normal update.
 
 ## ios-v7.1
 

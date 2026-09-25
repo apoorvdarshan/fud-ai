@@ -2,14 +2,14 @@
 #
 # Trigger:  push a tag starting with "android-v" (e.g. android-v3.0). iOS uses
 #           plain v* tags for Xcode Cloud, so the two pipelines never collide.
-# Output:   a signed AAB uploaded to Play production as a DRAFT, and the same
-#           version assigned to Open testing (Play track "beta") as completed
-#           so testers can install it. Production stays a draft until you press
-#           "Roll out" (or flip STORE_PRODUCTION_ROLLOUT — see store/README.md).
+# Output:   a signed AAB published to Play Open testing (track "beta") so testers
+#           can install it. Production is not touched unless STORE_PRODUCTION_ROLLOUT
+#           is on. That switch is off by default. When it is on, the same upload
+#           also publishes production for real (no draft). See store/README.md.
 #
 # Future-proof gates (repo Variables; all default OFF — see store/gates.env.example):
 #   STORE_UPLOAD_WHATS_NEW / STORE_UPLOAD_LISTING / STORE_UPLOAD_SCREENSHOTS
-#   STORE_PRODUCTION_ROLLOUT  (completed instead of draft — do NOT enable yet)
+#   STORE_PRODUCTION_ROLLOUT  (also publish the Play production track — do NOT enable yet)
 #   STORE_SYNC_REVENUECAT     (IAP catalog sync — write path not implemented)
 #
 # Required repository secrets (Settings → Secrets and variables → Actions):
@@ -101,10 +101,10 @@ jobs:
             echo "production_rollout=$(normalize "$STORE_PRODUCTION_ROLLOUT")"
           } >> "$GITHUB_OUTPUT"
           if [ "$(normalize "$STORE_PRODUCTION_ROLLOUT")" = "true" ]; then
-            echo "play_status=completed" >> "$GITHUB_OUTPUT"
-            echo "WARNING: STORE_PRODUCTION_ROLLOUT is on — Play will go beyond draft"
+            echo "play_tracks=beta,production" >> "$GITHUB_OUTPUT"
+            echo "WARNING: STORE_PRODUCTION_ROLLOUT is on — this build will go live on Play production"
           else
-            echo "play_status=draft" >> "$GITHUB_OUTPUT"
+            echo "play_tracks=beta" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Prepare What's New + listing text (local only)
@@ -187,27 +187,6 @@ jobs:
           STORE_SYNC_REVENUECAT: ${{ vars.STORE_SYNC_REVENUECAT }}
         run: python3 scripts/store/sync_revenuecat_catalog.py
 
-      - name: Upload to Play Console (production track, draft/default)
-        if: steps.gates.outputs.upload_whats_new != 'true'
-        uses: r0adkll/upload-google-play@e738b9dd8f2476ea806d921b64aacd24f34515a5 # v1.1.5
-        with:
-          serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
-          packageName: com.apoorvdarshan.calorietracker
-          releaseFiles: android/app/build/outputs/bundle/release/app-release.aab
-          track: production
-          status: ${{ steps.gates.outputs.play_status }}
-
-      - name: Upload to Play Console (with What's New)
-        if: steps.gates.outputs.upload_whats_new == 'true'
-        uses: r0adkll/upload-google-play@e738b9dd8f2476ea806d921b64aacd24f34515a5 # v1.1.5
-        with:
-          serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
-          packageName: com.apoorvdarshan.calorietracker
-          releaseFiles: android/app/build/outputs/bundle/release/app-release.aab
-          track: production
-          status: ${{ steps.gates.outputs.play_status }}
-          whatsNewDirectory: ${{ runner.temp }}/store-meta/play
-
       - name: Create GitHub Release
         id: github_release
         continue-on-error: true
@@ -224,18 +203,30 @@ jobs:
             "$RUNNER_TEMP/dist/fudai-v${VERSION}.apk" \
             "$RUNNER_TEMP/dist/fudai-v${VERSION}.apk.sigstore.json"
 
-      - name: Publish the same build to Play open testing
-        env:
-          PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
-          UPLOAD_WHATS_NEW: ${{ steps.gates.outputs.upload_whats_new }}
-        run: |
-          python3 -m pip install --disable-pip-version-check --require-hashes -r requirements-store.txt
-          VCODE=$(grep -m1 'versionCode = ' android/app/build.gradle.kts | tr -dc '0-9')
-          ARGS=(--version-code "$VCODE")
-          if [ "$UPLOAD_WHATS_NEW" = "true" ]; then
-            ARGS+=(--whats-new-dir "$RUNNER_TEMP/store-meta/play")
-          fi
-          python3 scripts/store/play_open_testing.py "${ARGS[@]}"
+      - name: Keep English What's New only
+        if: steps.gates.outputs.upload_whats_new == 'true'
+        run: find "$RUNNER_TEMP/store-meta/play" -name 'whatsnew-*' ! -name 'whatsnew-en-US' -delete
+
+      - name: Upload to Play
+        if: steps.gates.outputs.upload_whats_new != 'true'
+        uses: r0adkll/upload-google-play@e738b9dd8f2476ea806d921b64aacd24f34515a5 # v1.1.5
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+          packageName: com.apoorvdarshan.calorietracker
+          releaseFiles: android/app/build/outputs/bundle/release/app-release.aab
+          tracks: ${{ steps.gates.outputs.play_tracks }}
+          status: completed
+
+      - name: Upload to Play (with What's New)
+        if: steps.gates.outputs.upload_whats_new == 'true'
+        uses: r0adkll/upload-google-play@e738b9dd8f2476ea806d921b64aacd24f34515a5 # v1.1.5
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+          packageName: com.apoorvdarshan.calorietracker
+          releaseFiles: android/app/build/outputs/bundle/release/app-release.aab
+          tracks: ${{ steps.gates.outputs.play_tracks }}
+          status: completed
+          whatsNewDirectory: ${{ runner.temp }}/store-meta/play
 
       - name: Require the GitHub Release
         if: always() && steps.github_release.outcome == 'failure'

@@ -46,8 +46,6 @@ IMPROVED
 
 Existing logs, goals, Health data, widgets, workout history, and BYOK settings are preserved during a normal update.
 
-Not tagged or submitted. Do not publish this section as a GitHub Release until the store binaries are ready.
-
 ## android-v7.0.1
 
 Fud AI 7.0.1 — food-scan reliability for Gemini BYOK on Android.

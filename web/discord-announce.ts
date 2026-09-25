@@ -2,6 +2,7 @@
 
 export const ANNOUNCEMENTS_CHANNEL_ID = "1548481417728495678";
 
+/** Posts one message to #announcements, or throws with the HTTP status. */
 export async function postAnnouncement(
   token: string,
   content: string,

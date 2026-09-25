@@ -27,14 +27,22 @@ export type AppStoreAnnounceEnv = {
   };
 };
 
+/** The Discord message for a live App Store release; keeps the link within Discord's limit. */
 export function appStoreAnnouncementText(release: AppStoreRelease): string {
-  const title = release.version || "the latest version";
-  const lead = `iOS ${title} is on the App Store.`;
-  const notes = release.whatsNew.trim();
-  const whatsNew = notes ? `\n\nWhat's new:\n${notes}` : "";
+  const max = 2000;
+  const lead = `iOS ${release.version || "the latest version"} is on the App Store.`;
   const link = release.url ? `\n\n${release.url}` : "";
-  const text = `${lead}${whatsNew}${link}`;
-  return text.length <= 2000 ? text : `${text.slice(0, 1997)}...`;
+  const notes = release.whatsNew.trim();
+  const heading = notes ? "\n\nWhat's new:\n" : "";
+  const budget = max - lead.length - heading.length - link.length;
+  const fitted = notes.length <= budget
+    ? notes
+    : `${notes.slice(0, Math.max(0, budget - 1)).trimEnd()}…`;
+  const text = `${lead}${heading}${fitted}${link}`;
+  if (text.length <= max) return text;
+  // Pathological metadata: drop the notes and clip the lead, but always keep
+  // the link so the post points somewhere useful.
+  return `${text.slice(0, Math.max(0, max - link.length))}${link}`;
 }
 
 type RawLookupResult = {
@@ -43,30 +51,41 @@ type RawLookupResult = {
   trackViewUrl?: string;
 };
 
-/** The version currently downloadable from the App Store, or null. */
+/**
+ * The version currently downloadable from the App Store, or null when the
+ * lookup is valid but carries no release. Throws on transport, HTTP, or JSON
+ * failures so the hourly job reports them.
+ */
 export async function fetchAppStoreRelease(
   fetchImpl: typeof fetch,
 ): Promise<AppStoreRelease | null> {
+  let response: Response;
   try {
-    const response = await fetchImpl(LOOKUP_URL, {
+    response = await fetchImpl(LOOKUP_URL, {
       headers: {
         "User-Agent": "fud-ai-appstore-announce/1.0",
         "Accept-Language": "en-US,en;q=0.9",
       },
     });
-    if (!response.ok) return null;
-    const body = await response.json() as { results?: RawLookupResult[] };
-    const result = body.results?.[0];
-    const version = (result?.version || "").trim();
-    if (!version) return null;
-    return {
-      version,
-      whatsNew: (result?.releaseNotes || "").trim(),
-      url: (result?.trackViewUrl || "").trim(),
-    };
   } catch {
-    return null;
+    throw new Error("appstore_lookup_request_failed");
   }
+  if (!response.ok) throw new Error(`appstore_lookup_failed_${response.status}`);
+
+  let body: { results?: RawLookupResult[] };
+  try {
+    body = await response.json() as { results?: RawLookupResult[] };
+  } catch {
+    throw new Error("appstore_lookup_invalid_json");
+  }
+  const result = body.results?.[0];
+  const version = (result?.version || "").trim();
+  if (!version) return null;
+  return {
+    version,
+    whatsNew: (result?.releaseNotes || "").trim(),
+    url: (result?.trackViewUrl || "").trim(),
+  };
 }
 
 async function readState(env: AppStoreAnnounceEnv): Promise<string | null> {

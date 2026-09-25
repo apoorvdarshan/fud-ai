@@ -16,7 +16,6 @@ const STATE_KEY = "ios-appstore-announcements-v1";
 export type AppStoreRelease = {
   version: string;
   whatsNew: string;
-  url: string;
 };
 
 export type AppStoreAnnounceEnv = {
@@ -27,28 +26,23 @@ export type AppStoreAnnounceEnv = {
   };
 };
 
-/** The Discord message for a live App Store release; keeps the link within Discord's limit. */
+/** The Discord message for a live App Store release, within Discord's limit. */
 export function appStoreAnnouncementText(release: AppStoreRelease): string {
   const max = 2000;
   const lead = `iOS ${release.version || "the latest version"} is on the App Store.`;
-  const link = release.url ? `\n\n${release.url}` : "";
   const notes = release.whatsNew.trim();
   const heading = notes ? "\n\nWhat's new:\n" : "";
-  const budget = max - lead.length - heading.length - link.length;
+  const budget = max - lead.length - heading.length;
   const fitted = notes.length <= budget
     ? notes
     : `${notes.slice(0, Math.max(0, budget - 1)).trimEnd()}…`;
-  const text = `${lead}${heading}${fitted}${link}`;
-  if (text.length <= max) return text;
-  // Pathological metadata: drop the notes and clip the lead, but always keep
-  // the link so the post points somewhere useful.
-  return `${text.slice(0, Math.max(0, max - link.length))}${link}`;
+  const text = `${lead}${heading}${fitted}`;
+  return text.length <= max ? text : text.slice(0, max);
 }
 
 type RawLookupResult = {
   version?: string;
   releaseNotes?: string;
-  trackViewUrl?: string;
 };
 
 /**
@@ -84,7 +78,6 @@ export async function fetchAppStoreRelease(
   return {
     version,
     whatsNew: (result?.releaseNotes || "").trim(),
-    url: (result?.trackViewUrl || "").trim(),
   };
 }
 

@@ -29,20 +29,18 @@ function requestUrl(input: RequestInfo | URL): URL {
 function lookupResponse(version: string, notes = "Notes."): Response {
   return Response.json({
     resultCount: 1,
-    results: [{ version, releaseNotes: notes, trackViewUrl: "https://apps.apple.com/app/id1" }],
+    results: [{ version, releaseNotes: notes }],
   });
 }
 
 describe("app store announcements", () => {
-  it("formats the version, notes, and link", () => {
+  it("formats the version and notes", () => {
     const text = appStoreAnnouncementText({
       version: "7.1.1",
       whatsNew: "Removed the beta signup.",
-      url: "https://apps.apple.com/app/id1",
     });
     expect(text).toContain("iOS 7.1.1 is on the App Store.");
     expect(text).toContain("What's new:\nRemoved the beta signup.");
-    expect(text).toContain("https://apps.apple.com/app/id1");
   });
 
   it("records the live version on the first run without announcing", async () => {
@@ -93,26 +91,13 @@ describe("app store announcements", () => {
     expect(env.saved).toEqual([]);
   });
 
-  it("keeps the App Store link when the notes are long", () => {
-    const url = "https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726?uo=4";
+  it("clips long notes within Discord's limit", () => {
     const text = appStoreAnnouncementText({
       version: "7.1.1",
       whatsNew: "N".repeat(2500),
-      url,
     });
     expect(text.length).toBeLessThanOrEqual(2000);
-    expect(text.endsWith(url)).toBe(true);
-  });
-
-  it("keeps the App Store link even with oversized metadata", () => {
-    const url = "https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726?uo=4";
-    const text = appStoreAnnouncementText({
-      version: "9".repeat(3000),
-      whatsNew: "N".repeat(3000),
-      url,
-    });
-    expect(text.length).toBeLessThanOrEqual(2000);
-    expect(text.endsWith(url)).toBe(true);
+    expect(text.startsWith("iOS 7.1.1 is on the App Store.")).toBe(true);
   });
 
   it("reads the released version from the lookup payload", async () => {
@@ -121,7 +106,6 @@ describe("app store announcements", () => {
     expect(release).toEqual({
       version: "7.1.1",
       whatsNew: "Live notes.",
-      url: "https://apps.apple.com/app/id1",
     });
   });
 });

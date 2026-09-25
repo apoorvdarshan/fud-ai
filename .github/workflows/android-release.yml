@@ -209,6 +209,8 @@ jobs:
           whatsNewDirectory: ${{ runner.temp }}/store-meta/play
 
       - name: Create GitHub Release
+        id: github_release
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -234,3 +236,7 @@ jobs:
             ARGS+=(--whats-new-dir "$RUNNER_TEMP/store-meta/play")
           fi
           python3 scripts/store/play_open_testing.py "${ARGS[@]}"
+
+      - name: Require the GitHub Release
+        if: always() && steps.github_release.outcome == 'failure'
+        run: exit 1

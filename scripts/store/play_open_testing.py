@@ -33,15 +33,21 @@ def load_service_account_info() -> dict:
 
 
 def release_notes(whats_new_dir: Path | None) -> list[dict[str, str]]:
-    if whats_new_dir is None or not whats_new_dir.is_dir():
+    """English notes only. Other Play locales in PLAYSTORE.md are still 7.0.1."""
+    if whats_new_dir is None:
         return []
-    notes: list[dict[str, str]] = []
-    for path in sorted(whats_new_dir.glob("whatsnew-*")):
-        text = path.read_text(encoding="utf-8").strip()
-        if not text:
-            continue
-        notes.append({"language": path.name.removeprefix("whatsnew-"), "text": text})
-    return notes
+    path = whats_new_dir / "whatsnew-en-US"
+    text = path.read_text(encoding="utf-8").strip() if path.is_file() else ""
+    if not text:
+        fail(f"missing English What's New at {path}")
+    return [{"language": "en-US", "text": text}]
+
+
+def discard_edit(service, package_name: str, edit_id: str) -> None:
+    try:
+        service.edits().delete(packageName=package_name, editId=edit_id).execute()
+    except Exception:
+        pass
 
 
 def assign_open_testing(
@@ -53,26 +59,31 @@ def assign_open_testing(
 ) -> None:
     edit = service.edits().insert(packageName=package_name, body={}).execute()
     edit_id = edit["id"]
-    listed = service.edits().tracks().list(packageName=package_name, editId=edit_id).execute()
-    names = [track.get("track") for track in listed.get("tracks", [])]
-    if OPEN_TESTING_TRACK not in names:
-        fail(
-            "Play open testing track 'beta' was not found. "
-            f"Create Open testing in Play Console first. Available tracks: {', '.join(str(name) for name in names)}"
-        )
-    release: dict = {
-        "versionCodes": [str(version_code)],
-        "status": "completed",
-    }
-    if notes:
-        release["releaseNotes"] = notes
-    service.edits().tracks().update(
-        packageName=package_name,
-        editId=edit_id,
-        track=OPEN_TESTING_TRACK,
-        body={"track": OPEN_TESTING_TRACK, "releases": [release]},
-    ).execute()
-    service.edits().commit(packageName=package_name, editId=edit_id).execute()
+    try:
+        listed = service.edits().tracks().list(packageName=package_name, editId=edit_id).execute()
+        names = [track.get("track") for track in listed.get("tracks", [])]
+        if OPEN_TESTING_TRACK not in names:
+            raise RuntimeError(
+                "Play open testing track 'beta' was not found. "
+                "Create Open testing in Play Console first. "
+                f"Available tracks: {', '.join(str(name) for name in names)}"
+            )
+        release: dict = {
+            "versionCodes": [str(version_code)],
+            "status": "completed",
+        }
+        if notes:
+            release["releaseNotes"] = notes
+        service.edits().tracks().update(
+            packageName=package_name,
+            editId=edit_id,
+            track=OPEN_TESTING_TRACK,
+            body={"track": OPEN_TESTING_TRACK, "releases": [release]},
+        ).execute()
+        service.edits().commit(packageName=package_name, editId=edit_id).execute()
+    except Exception as exc:
+        discard_edit(service, package_name, edit_id)
+        fail(str(exc))
     print(f"Open testing now serves versionCode {version_code}")
 
 

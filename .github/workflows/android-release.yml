@@ -219,7 +219,13 @@ jobs:
 
       - name: Keep English What's New only
         if: steps.gates.outputs.play_upload == 'true' && steps.gates.outputs.upload_whats_new == 'true'
-        run: find "$RUNNER_TEMP/store-meta/play" -name 'whatsnew-*' ! -name 'whatsnew-en-US' -delete
+        run: |
+          NOTES="$RUNNER_TEMP/store-meta/play/whatsnew-en-US"
+          if [ ! -s "$NOTES" ]; then
+            echo "error: STORE_UPLOAD_WHATS_NEW is on, but whatsnew-en-US is missing" >&2
+            exit 1
+          fi
+          find "$RUNNER_TEMP/store-meta/play" -name 'whatsnew-*' ! -name 'whatsnew-en-US' -delete
 
       - name: Upload to Play
         if: steps.gates.outputs.play_upload == 'true' && steps.gates.outputs.upload_whats_new != 'true'

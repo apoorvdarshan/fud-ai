@@ -35,7 +35,12 @@ node services/discord-bot/register-feature.mjs
 - **`/bug`** — `report` required (one freeform field, same UX as `/ask`). The Worker uses `DISCORD_GEMINI_API_KEY` (free-tier, never `GEMINI_API_KEY`) to draft a title + body; if Gemini fails it still files using the first short line / clipped excerpt and the raw report. Platform labels prefer clear signals in the report (and Gemini’s optional `platform` field), then the iOS (`1548481436129165353`) or Android (`1548481448024084540`) channel. If both platforms are mentioned, the channel is used when available; otherwise the issue is labeled `bug` only. Issues get `bug` plus `ios` or `android` when a platform is known.
 - **`/feature`** — `report` required (same Gemini-then-fallback drafting). Platform is **not** inferred from channel. Issues get the `enhancement` label (same as the GitHub feature-request template). Works from any channel.
 
-The same Worker wakes hourly and reads the Play production track. A new version code is posted once in **#announcements**, with the English What's New, but only after the public Play listing shows it — the track API reports a release as `completed` while Google is still reviewing, so the store page is the source of truth. The first run only records the versions already live, so it does not announce them again. Open testing is not announced. Secrets: `DISCORD_BOT_TOKEN` and `PLAY_SERVICE_ACCOUNT_JSON`.
+The same Worker wakes hourly and posts new store releases once in **#announcements**, each with its What's new notes.
+
+- **Android** — reads the Play production track, but only after the public Play listing shows the release: the track API reports a version as `completed` while Google is still reviewing, so the store page is the source of truth. Open testing is not announced.
+- **iOS** — reads the public iTunes lookup API, which only returns the version users can actually download (and its release notes), so it is already a liveness signal. The App Store link is included.
+
+The first run only records the versions already live, so it does not announce them again. Secrets: `DISCORD_BOT_TOKEN` and `PLAY_SERVICE_ACCOUNT_JSON`.
 
 ### Deploy Worker secrets + code
 

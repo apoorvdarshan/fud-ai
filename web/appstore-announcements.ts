@@ -12,6 +12,10 @@ import { postAnnouncement } from "./discord-announce";
 const BUNDLE_ID = "com.apoorvdarshan.calorietracker";
 const LOOKUP_URL = `https://itunes.apple.com/lookup?bundleId=${BUNDLE_ID}&country=us`;
 const STATE_KEY = "ios-appstore-announcements-v1";
+// Apple often answers a bot user agent with an HTML block page. A browser
+// header is what the lookup accepts from Cloudflare.
+const LOOKUP_USER_AGENT =
+  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.6 Safari/605.1.15";
 
 export type AppStoreRelease = {
   version: string;
@@ -57,7 +61,8 @@ export async function fetchAppStoreRelease(
   try {
     response = await fetchImpl(LOOKUP_URL, {
       headers: {
-        "User-Agent": "fud-ai-appstore-announce/1.0",
+        "User-Agent": LOOKUP_USER_AGENT,
+        Accept: "application/json",
         "Accept-Language": "en-US,en;q=0.9",
       },
     });
@@ -70,7 +75,8 @@ export async function fetchAppStoreRelease(
   try {
     body = await response.json() as { results?: RawLookupResult[] };
   } catch {
-    throw new Error("appstore_lookup_invalid_json");
+    const contentType = (response.headers.get("content-type") || "none").split(";")[0]?.trim() || "none";
+    throw new Error(`appstore_lookup_invalid_json_${response.status}_${contentType}`);
   }
   const result = body.results?.[0];
   const version = (result?.version || "").trim();

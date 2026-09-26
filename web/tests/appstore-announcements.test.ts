@@ -91,6 +91,22 @@ describe("app store announcements", () => {
     expect(env.saved).toEqual([]);
   });
 
+  it("reports the status when Apple returns a non-JSON body", async () => {
+    const fetchImpl = vi.fn(async (_input: RequestInfo | URL, init?: RequestInit) => {
+      const headers = new Headers(init?.headers);
+      expect(headers.get("user-agent")).toContain("Mozilla/5.0");
+      expect(headers.get("accept")).toBe("application/json");
+      return new Response("<html>blocked</html>", {
+        status: 200,
+        headers: { "content-type": "text/html; charset=utf-8" },
+      });
+    });
+
+    await expect(fetchAppStoreRelease(fetchImpl as typeof fetch)).rejects.toThrow(
+      "appstore_lookup_invalid_json_200_text/html",
+    );
+  });
+
   it("clips long notes within Discord's limit", () => {
     const text = appStoreAnnouncementText({
       version: "7.1.1",

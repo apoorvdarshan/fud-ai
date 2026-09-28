@@ -305,12 +305,20 @@ struct ContentView: View {
                 continueToMeetDeveloperPrompt(delay: 0)
                 return
             }
+            // Offerings gate the upsell: while the IAPs aren't live (empty offerings) we
+            // skip silently and leave the prompt unconsumed, so a later update that ships
+            // the plans shows it. Load them here since nothing else does at launch.
+            await RevenueCatManager.shared.loadOfferings()
             if PostUpdatePrompts.isHostedUpsellEligible {
                 PostUpdatePrompts.hasSeenHostedUpsell = true
                 showHostedUpsellPrompt = true
                 return
             }
-            PostUpdatePrompts.hasSeenHostedUpsell = true
+            if RevenueCatManager.shared.hasHostedEntitlement {
+                // Already a subscriber — nothing to upsell, consume it.
+                PostUpdatePrompts.hasSeenHostedUpsell = true
+            }
+            // Otherwise leave it unconsumed: plans aren't purchasable yet.
         }
         continueToMeetDeveloperPrompt(delay: 0)
     }

@@ -21,6 +21,26 @@ final class RevenueCatManager: NSObject {
 
     var hasHostedEntitlement: Bool { activePlan != .none }
 
+    /// True when RevenueCat resolves at least one Plus/Pro subscription package we can
+    /// actually sell (the paywall keys offerings by plan id `plus` / `pro`). False while
+    /// offerings are empty (IAPs not live, network failure, or still loading), so callers
+    /// can avoid presenting an upsell that would dead-end on the paywall's
+    /// "Plans are unavailable right now." card.
+    var hasPurchasableHostedPlans: Bool {
+        guard let offerings else { return false }
+        for plan in [HostedPlan.plus, .pro] {
+            guard let packages = offerings.offering(identifier: plan.rawValue)?.availablePackages else { continue }
+            if packages.contains(where: { package in
+                let product = package.storeProduct
+                return product.productCategory == .subscription
+                    || HostedAIConstants.subscriptionProductIDs.contains(product.productIdentifier)
+            }) {
+                return true
+            }
+        }
+        return false
+    }
+
     private override init() {
         super.init()
     }

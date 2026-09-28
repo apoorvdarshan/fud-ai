@@ -14,7 +14,10 @@ enum FudAILinks {
 /// as seen right before it flips `hasCompletedOnboarding`, so only users whose
 /// defaults predate these keys qualify. Same once-only pattern as ReviewPrompter.
 enum PostUpdatePrompts {
-    static let hostedUpsellSeenKey = "hasSeenHostedUpsellPrompt"
+    /// Versioned so the Hosted AI upsell is deliberately re-armed once for users who already
+    /// dismissed it (the previous unversioned key was consumed the moment the alert was shown).
+    /// Bump the suffix only when the upsell should fire again.
+    static let hostedUpsellSeenKey = "hasSeenHostedUpsellPrompt.2026-09-28"
     /// Named "completed" (not "seen") so only Done counts — opening Instagram must not consume it.
     static let meetDeveloperSeenKey = "hasCompletedMeetDeveloperPrompt"
     /// Separate from Meet the developer so people who already tapped Done still get the launch-day sheet.
@@ -44,9 +47,16 @@ enum PostUpdatePrompts {
 
     /// The hosted upsell is only relevant to BYOK users without an active Plus/Pro
     /// entitlement. Anyone already on hosted has nothing to be upsold.
+    ///
+    /// Also gated on RevenueCat actually resolving purchasable Plus/Pro packages: while the
+    /// IAPs are not live the offerings come back empty, and showing the alert would only
+    /// dead-end on "Plans are unavailable right now." In that case the prompt is left
+    /// unconsumed so it appears once the plans go live.
     @MainActor
     static var isHostedUpsellEligible: Bool {
-        AIModeSettings.mode == .byok && !RevenueCatManager.shared.hasHostedEntitlement
+        AIModeSettings.mode == .byok
+            && !RevenueCatManager.shared.hasHostedEntitlement
+            && RevenueCatManager.shared.hasPurchasableHostedPlans
     }
 }
 

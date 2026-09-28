@@ -458,12 +458,37 @@ def get_or_create_draft_submission(client: AscClient, app_id: str) -> str:
     return submission["data"]["id"]
 
 
+def draft_item_version_ids(client: AscClient, submission_id: str) -> set[str]:
+    """Return the subscription/app version ids already attached to a draft."""
+    ids: set[str] = set()
+    for item in iter_collection(client, f"/reviewSubmissions/{submission_id}/items"):
+        relationships = item.get("relationships") or {}
+        for name in ("subscriptionVersion", "appStoreVersion", "inAppPurchaseVersion"):
+            related = (relationships.get(name) or {}).get("data") or {}
+            if related.get("id"):
+                ids.add(related["id"])
+    return ids
+
+
+def draft_holds_app_version(client: AscClient, submission_id: str) -> bool:
+    """Return True if any item in the draft references an app store version."""
+    for item in iter_collection(client, f"/reviewSubmissions/{submission_id}/items"):
+        related = (
+            ((item.get("relationships") or {}).get("appStoreVersion") or {}).get("data")
+            or {}
+        )
+        if related.get("id"):
+            return True
+    return False
+
+
 def submit_product_draft(client: AscClient, submission_id: str) -> None:
-    """Submit a draft review submission that holds only products.
+    """Submit a draft review submission.
 
     Used on the catch-up path when the app version is already under review and a
     late Ready-to-Submit product was attached to a new draft: the draft is
-    submitted on its own so the product actually reaches review.
+    submitted on its own so the product actually reaches review. Callers must
+    ensure the draft holds only products intended for this release.
     """
     client.request(
         "PATCH",
@@ -525,6 +550,10 @@ def submit_in_app_purchases(
     if submission_id is None:
         submission_id = get_or_create_draft_submission(client, app_id)
 
+    # Idempotency: a retry reuses the same draft, so skip anything already
+    # attached instead of posting a duplicate that App Store Connect rejects.
+    already_attached = draft_item_version_ids(client, submission_id)
+
     submitted = 0
     added_items = False
     failures: list[str] = []
@@ -545,6 +574,10 @@ def submit_in_app_purchases(
             version_id = current_subscription_version(client, sub["id"])
             if not version_id:
                 failures.append(f"subscription {name} ({pid}): no version to submit")
+                continue
+            if version_id in already_attached:
+                submitted += 1
+                print(f"  subscription {name}: already attached (idempotent)")
                 continue
             try:
                 client.post(
@@ -788,6 +821,45 @@ def dry_run_self_check() -> None:
     assert (
         iap_posts[0]["data"]["relationships"]["inAppPurchaseV2"]["data"]["id"] == "IAP1"
     ), "wrong IAP submitted (approved products must be skipped)"
+
+    # Retry: the same draft already holds one subscription version, so the rerun
+    # must not post it again (App Store Connect rejects duplicates).
+    collections[f"/reviewSubmissions/SUB1/items"] = [
+        {
+            "id": "ITEM0",
+            "relationships": {
+                "subscriptionVersion": {
+                    "data": {"type": "subscriptionVersions", "id": "V0b"}
+                }
+            },
+        }
+    ]
+    retry = _RecordingClient(collections)
+    result2 = submit_in_app_purchases(retry, app_id, intended_ids=intended)
+    assert result2.submitted == 5, f"expected 5 products on retry, got {result2.submitted}"
+    assert result2.added_items, "retry should still add the missing subscriptions"
+    retry_items = [body for path, body in retry.posts if path == "/reviewSubmissionItems"]
+    retry_versions = {
+        body["data"]["relationships"]["subscriptionVersion"]["data"]["id"]
+        for body in retry_items
+    }
+    assert "V0b" not in retry_versions, "already-attached version was posted again"
+    assert retry_versions == {f"V{i}b" for i in range(1, 4)}, (
+        f"retry attached the wrong versions: {retry_versions}"
+    )
+    assert draft_holds_app_version(retry, "SUB1") is False, "false app-version detection"
+    assert draft_holds_app_version(fake, "SUB1") is False
+    collections["/reviewSubmissions/SUB1/items"] = [
+        {
+            "id": "ITEMV",
+            "relationships": {
+                "appStoreVersion": {"data": {"type": "appStoreVersions", "id": "AV1"}}
+            },
+        }
+    ]
+    assert draft_holds_app_version(_RecordingClient(collections), "SUB1") is True, (
+        "app-version items must be detected and refused"
+    )
     print("  dry-run self-check: product submission selection OK")
 
 
@@ -894,7 +966,14 @@ def main() -> None:
             # Attaching a product to a fresh draft does not submit it. If the
             # version is already under review, the draft holding the late
             # products must be submitted on its own or they never reach review.
+            # Only submit a product-only draft: refuse if it holds an app
+            # version (e.g. another release's) so unrelated items never ship.
             if result.added_items and result.submission_id:
+                if draft_holds_app_version(client, result.submission_id):
+                    fail(
+                        "refusing to submit a draft that contains an app "
+                        "version; remove it in App Store Connect and rerun"
+                    )
                 submit_product_draft(client, result.submission_id)
             print("ASC release step finished")
             return

@@ -89,7 +89,10 @@ submission clears it, so no manual step is required; only products listed in
 submitting the version (non-zero exit) if a required product cannot be added.
 
 If the app version is already `WAITING_FOR_REVIEW`, a product attached to a
-newly created draft is submitted on its own so it still reaches review.
+newly created draft is submitted on its own so it still reaches review. A retry
+reuses the same draft but skips anything already attached, and the catch-up path
+refuses to submit a draft that contains an app version, so a rerun can never
+duplicate products or ship unrelated items.
 
 ## Canonical catalog
 

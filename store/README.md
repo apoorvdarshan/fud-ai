@@ -74,21 +74,17 @@ variables): `UPLOAD_LISTING`, `UPLOAD_SCREENSHOTS`, `SUBMIT_IOS_REVIEW`.
 ### iOS subscription submission caveat
 
 `STORE_SUBMIT_IOS_REVIEW` submits the App Store version and every
-`READY_TO_SUBMIT` subscription / in-app purchase in one step. Since the 2026
-App Store Connect workflow change, subscriptions go through
-`/v1/subscriptionSubmissions` (the Review Submission Item list no longer accepts
-them), so a first-time subscription must ship with the version.
+`READY_TO_SUBMIT` (or `DEVELOPER_REJECTED`) subscription in one step. As of the
+2026 App Store Connect workflow, subscriptions attach to the review submission
+through the `subscriptionVersion` relationship on Review Submission Items (the
+`subscription` relationship is rejected by the API), so a first-time
+subscription must ship with the version.
 
 A subscription whose in-flight version was **removed** from an earlier
-submission sits in `DEVELOPER_REJECTED`, and the API then reports "no pending
-version for submission". The public API has no way to reset that state — it must
-be cleared in App Store Connect (re-create the subscription version or re-attach
-it) before the submission will carry the subscriptions. Because a first-time
-subscription must ship with the version, the script stops before submitting the
-version and exits non-zero when a required product cannot be added; clear the
-blocker and rerun. Only products listed in `store/catalog/products.json` are
-submitted, so an unrelated Ready-to-Submit plan, credit pack, or tip is not
-pulled into the release.
+submission sits in `DEVELOPER_REJECTED`. Attaching that version to the new
+submission clears it, so no manual step is required; only products listed in
+`store/catalog/products.json` are submitted, and the script stops before
+submitting the version (non-zero exit) if a required product cannot be added.
 
 ## Canonical catalog
 

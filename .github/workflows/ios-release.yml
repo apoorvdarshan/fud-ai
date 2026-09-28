@@ -4,7 +4,8 @@
 # Xcode Cloud's start condition must also be tag ios-v*, or the IPA will not upload.
 #
 # Future-proof store gates (repo Variables; all default OFF — see store/README.md):
-#   STORE_SUBMIT_IOS_REVIEW   submit ASC build for review (requires ASC API secrets)
+#   STORE_SUBMIT_IOS_REVIEW   submit ASC build (and Ready-to-Submit IAPs /
+#                             subscriptions) for review (requires ASC API secrets)
 #   STORE_UPLOAD_LISTING / STORE_UPLOAD_SCREENSHOTS
 #   STORE_UPLOAD_WHATS_NEW    Play-only (What's New on Play upload); not an iOS gate
 #   STORE_SYNC_REVENUECAT     IAP/subscription catalog sync (write path not implemented)

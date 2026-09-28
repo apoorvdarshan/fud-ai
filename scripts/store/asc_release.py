@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""App Store Connect metadata, screenshots, and submit-for-review (gated in CI)."""
+"""App Store Connect metadata, screenshots, and submit-for-review (gated in CI).
+
+Submitting for review covers both the App Store version and any Ready-to-Submit
+in-app purchases / auto-renewable subscriptions. Since the 2026 workflow change
+these live on separate resources (`/v1/subscriptionSubmissions`,
+`/v1/inAppPurchaseSubmissions`); they must go out with the version for a
+first-time subscription submission or App Review rejects the build."""
 from __future__ import annotations
 
 import argparse
@@ -384,6 +390,105 @@ def upload_screenshots(
         print(f"  removed {len(pending_old_ids)} previous ASC screenshot(s)")
 
 
+def submit_in_app_purchases(
+    client: AscClient, app_id: str, *, include_subscriptions: bool = True
+) -> None:
+    """Attach Ready-to-Submit subscriptions / IAPs to App Review.
+
+    Since the 2026 App Store Connect submission workflow, in-app purchases and
+    auto-renewable subscriptions are submitted through dedicated resources
+    (`/v1/subscriptionSubmissions`, `/v1/inAppPurchaseSubmissions`) rather than
+    the Review Submission Item list, which only accepts the App Store version,
+    version experiments, custom product pages, and app events. A first-time
+    subscription submission must therefore be created here in the same release
+    as the version, or App Review rejects the build.
+
+    Items already in review or already approved are skipped. A subscription
+    whose in-flight version was removed from a prior submission stays in
+    `DEVELOPER_REJECTED` and produces "no pending version for submission" here;
+    that state can only be cleared in App Store Connect, so it is reported
+    rather than failing the whole release.
+    """
+    submitted = 0
+
+    if include_subscriptions:
+        groups = client.get(
+            f"/apps/{app_id}/subscriptionGroups?limit=50"
+        ).get("data") or []
+        for group in groups:
+            subs = client.get(
+                f"/subscriptionGroups/{group['id']}/subscriptions?limit=50"
+            ).get("data") or []
+            for sub in subs:
+                attrs = sub.get("attributes") or {}
+                state = attrs.get("state") or ""
+                name = attrs.get("name") or sub["id"]
+                if state != "READY_TO_SUBMIT":
+                    print(f"  subscription {name}: {state} — skipped")
+                    continue
+                try:
+                    client.post(
+                        "/subscriptionSubmissions",
+                        {
+                            "data": {
+                                "type": "subscriptionSubmissions",
+                                "relationships": {
+                                    "subscription": {
+                                        "data": {
+                                            "type": "subscriptions",
+                                            "id": sub["id"],
+                                        }
+                                    }
+                                },
+                            }
+                        },
+                    )
+                    submitted += 1
+                    print(f"  subscription {name}: submitted for review")
+                except SystemExit as exc:  # fail() raises SystemExit(1)
+                    print(
+                        f"  subscription {name}: could not submit — {exc.code or ''}; "
+                        "resolve in App Store Connect (often a submitted-version "
+                        "state issue) and resubmit"
+                    )
+
+    iaps = client.get(
+        f"/apps/{app_id}/inAppPurchasesV2?limit=50"
+    ).get("data") or []
+    for iap in iaps:
+        attrs = iap.get("attributes") or {}
+        state = attrs.get("state") or ""
+        name = attrs.get("name") or iap["id"]
+        if state != "READY_TO_SUBMIT":
+            continue
+        try:
+            client.post(
+                "/inAppPurchaseSubmissions",
+                {
+                    "data": {
+                        "type": "inAppPurchaseSubmissions",
+                        "relationships": {
+                            "inAppPurchaseV2": {
+                                "data": {
+                                    "type": "inAppPurchases",
+                                    "id": iap["id"],
+                                }
+                            }
+                        },
+                    }
+                },
+            )
+            submitted += 1
+            print(f"  in-app purchase {name}: submitted for review")
+        except SystemExit as exc:
+            print(
+                f"  in-app purchase {name}: could not submit — {exc.code or ''}; "
+                "resolve in App Store Connect"
+            )
+
+    print(f"  in-app purchases / subscriptions submitted: {submitted}")
+
+
 def submit_for_review(
     client: AscClient, app_id: str, version_id: str, version_state: str = ""
 ) -> None:
@@ -590,6 +695,8 @@ def main() -> None:
         )
 
     if do_submit:
+        print("submitting in-app purchases / subscriptions for review…")
+        submit_in_app_purchases(client, app_id)
         print("submitting for App Store review…")
         submit_for_review(client, app_id, version_id, state)
 

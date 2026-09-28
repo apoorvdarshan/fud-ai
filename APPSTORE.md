@@ -1,6 +1,8 @@
 # App Store Listing
 
-App Store Connect submission details for Fud AI v7.1 build 38. Each field is in a code block for easy copy-paste. Not submitted.
+App Store Connect submission details for Fud AI v7.1.2 build 39 (iOS only). Each field is in a code block for easy copy-paste. Not submitted.
+
+7.1.2 is an iOS-only release that ships alongside the first submission of the optional Plus/Pro hosted AI subscriptions. It re-arms the one-time hosted AI prompt for existing users and hides it until the plans are actually purchasable. Android stays on 7.1.1.
 
 ## App Name
 ```
@@ -85,18 +87,16 @@ Source: https://github.com/apoorvdarshan/fud-ai
 
 ```
 
-## What's New (v7.1.1 — being submitted)
+## What's New (v7.1.2 — iOS only, submitting with the Plus/Pro subscriptions)
 ```
-Fud AI 7.1 makes the Weekly Challenge easier to follow and adds clearer ways to get help.
+Fud AI 7.1.2 keeps the 7.1 update and makes the optional Plus/Pro hosted AI easier to find.
 
 NEW
-• Weekly Challenge standings show 1st–3rd on a podium, then 20 places per page. Everyone gets their own place. How points work explains how a tie is broken.
-• Report a bug or request a feature on GitHub or Discord from Help & Feedback.
-• On iOS 27, Apple Intelligence can analyze food photos on-device when you select it.
+• Plus and Pro plans, if you want Fud AI to run the AI for you with no API keys to manage. Totally optional — Bring Your Own Key stays free forever.
 
 IMPROVED
-• Onboarding names the API key for the provider you choose and asks you to accept Terms.
-• Home can keep fiber visible, and Review Food uses the ingredient totals.
+• Weekly Challenge standings, Help & Feedback on GitHub or Discord, and on-device food photos with Apple Intelligence on iOS 27 carry over from 7.1.
+• If you use your own API keys, Fud AI now offers the hosted plans once so it is easy to switch when juggling keys feels like a chore.
 
 Existing logs, goals, Health data, widgets, workout history, and BYOK settings are preserved during a normal update.
 ```

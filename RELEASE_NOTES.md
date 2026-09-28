@@ -7,7 +7,21 @@ same marketing version can share a feature summary while identifying different b
 
 ## Unreleased
 
-No iPhone release tag yet. The ios-v7.1 notes below are the prepared store copy for iOS build 38.
+No iPhone release tag yet. The ios-v7.1.2 notes below are the prepared store copy for the iOS-only 7.1.2 build 39 that ships with the first Plus/Pro hosted AI submission.
+
+## ios-v7.1.2
+
+Fud AI 7.1.2 is an iOS-only release that keeps the 7.1 update and makes the optional Plus/Pro hosted AI easier to find.
+
+NEW
+• Optional Plus and Pro plans, if you want Fud AI to run the AI for you with no API keys to manage. Bring Your Own Key stays free forever.
+• Existing users see the hosted plan offer once after updating, so it is easy to switch when juggling keys feels like a chore.
+
+IMPROVED
+• Weekly Challenge standings, Help & Feedback on GitHub or Discord, and on-device food photos with Apple Intelligence on iOS 27 carry over from 7.1.
+• The hosted plan offer only appears when the plans are purchasable, so it never dead-ends on an unavailable screen.
+
+Existing logs, goals, Health data, widgets, workout history, and BYOK settings are preserved during a normal update.
 
 ## android-v7.1.1
 

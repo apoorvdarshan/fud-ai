@@ -14,7 +14,7 @@ copy, What's New, screenshots, and the IAP / subscription / tip / credit catalog
 | Binary upload | Xcode Cloud → ASC | Play only if `STORE_PRODUCTION_ROLLOUT` is on | unchanged for iOS |
 | What's New | manual paste | optional via `STORE_UPLOAD_WHATS_NEW` on the Play upload | prepared locally every tag |
 | Listing / screenshots | manual | manual | **wired** (`asc_release.py`, `play_listing.py`) |
-| Submit for review / production | manual | off unless `STORE_PRODUCTION_ROLLOUT` is on | **wired, OFF** (`STORE_SUBMIT_IOS_REVIEW`, `STORE_PRODUCTION_ROLLOUT`) |
+| Submit for review / production | manual | off unless `STORE_PRODUCTION_ROLLOUT` is on | **wired, OFF** (`STORE_SUBMIT_IOS_REVIEW`, `STORE_PRODUCTION_ROLLOUT`); includes Ready-to-Submit IAPs / subscriptions |
 | IAP / subs / tips / credits | ASC + RevenueCat console | not shipped yet | versioned `store/catalog/` + validate CI |
 | RevenueCat sync | manual | n/a | dry-run in CI; `STORE_SYNC_REVENUECAT=true` **fails closed** |
 
@@ -28,7 +28,7 @@ Repository **Variables** (Settings → Secrets and variables → Actions → Var
 | `STORE_UPLOAD_LISTING` | unset / false | Upload title/description (Play + ASC listing + iOS What's New) |
 | `STORE_UPLOAD_SCREENSHOTS` | unset / false | Upload phone / 6.7" screenshots (see below) |
 | `STORE_PRODUCTION_ROLLOUT` | unset / false | Publish this Android build to Play production, live |
-| `STORE_SUBMIT_IOS_REVIEW` | unset / false | Submit the editable ASC version for review |
+| `STORE_SUBMIT_IOS_REVIEW` | unset / false | Submit the editable ASC version **and** any Ready-to-Submit IAPs / subscriptions for review |
 | `STORE_SYNC_REVENUECAT` | unset / false | **Fails the workflow** — RevenueCat write/sync is not implemented yet |
 
 Copy names from [`gates.env.example`](gates.env.example). Leave unset or `false`
@@ -70,6 +70,21 @@ When any live iOS or Play listing gate is on, release workflows install
 
 Environment flags consumed by the publisher scripts (set by workflows from repo
 variables): `UPLOAD_LISTING`, `UPLOAD_SCREENSHOTS`, `SUBMIT_IOS_REVIEW`.
+
+### iOS subscription submission caveat
+
+`STORE_SUBMIT_IOS_REVIEW` submits the App Store version and every
+`READY_TO_SUBMIT` subscription / in-app purchase in one step. Since the 2026
+App Store Connect workflow change, subscriptions go through
+`/v1/subscriptionSubmissions` (the Review Submission Item list no longer accepts
+them), so a first-time subscription must ship with the version.
+
+A subscription whose in-flight version was **removed** from an earlier
+submission sits in `DEVELOPER_REJECTED`, and the API then reports "no pending
+version for submission". The public API has no way to reset that state — it must
+be cleared in App Store Connect (re-create the subscription version or re-attach
+it) before the submission will carry the subscriptions. The script reports the
+offender and continues, so the version still submits and the gap is visible.
 
 ## Canonical catalog
 

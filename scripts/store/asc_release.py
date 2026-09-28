@@ -390,9 +390,43 @@ def upload_screenshots(
         print(f"  removed {len(pending_old_ids)} previous ASC screenshot(s)")
 
 
+def iter_collection(client: AscClient, path: str) -> list[dict[str, Any]]:
+    """Return every record in an ASC collection, following links.next."""
+    rows: list[dict[str, Any]] = []
+    while path:
+        payload = client.get(path)
+        rows.extend(payload.get("data") or [])
+        next_url = (payload.get("links") or {}).get("next")
+        if not next_url:
+            break
+        path = next_url
+    return rows
+
+
+def intended_product_ids() -> set[str]:
+    """Product IDs the release is allowed to submit, from the canonical catalog."""
+    catalog = json.loads(
+        (ROOT / "store" / "catalog" / "products.json").read_text(encoding="utf-8")
+    )
+    ids: set[str] = set()
+    for group in ("subscriptions", "consumables", "tips"):
+        for item in catalog.get(group) or []:
+            pid = item.get("id")
+            if isinstance(pid, str) and pid:
+                ids.add(pid)
+    return ids
+
+
+class ProductSubmitError(Exception):
+    """A Ready-to-Submit product could not be added to App Review."""
+
+
 def submit_in_app_purchases(
-    client: AscClient, app_id: str, *, include_subscriptions: bool = True
-) -> None:
+    client: AscClient,
+    app_id: str,
+    *,
+    intended_ids: set[str] | None = None,
+) -> int:
     """Attach Ready-to-Submit subscriptions / IAPs to App Review.
 
     Since the 2026 App Store Connect submission workflow, in-app purchases and
@@ -400,67 +434,63 @@ def submit_in_app_purchases(
     (`/v1/subscriptionSubmissions`, `/v1/inAppPurchaseSubmissions`) rather than
     the Review Submission Item list, which only accepts the App Store version,
     version experiments, custom product pages, and app events. A first-time
-    subscription submission must therefore be created here in the same release
-    as the version, or App Review rejects the build.
+    subscription submission must therefore be created in the same release as the
+    version, or App Review rejects the build.
 
-    Items already in review or already approved are skipped. A subscription
-    whose in-flight version was removed from a prior submission stays in
-    `DEVELOPER_REJECTED` and produces "no pending version for submission" here;
-    that state can only be cleared in App Store Connect, so it is reported
-    rather than failing the whole release.
+    Only products listed in `store/catalog/products.json` are considered, so an
+    unrelated Ready-to-Submit plan, credit pack, or tip is not dragged into this
+    release. Returns the number of products submitted for review.
     """
+    if intended_ids is None:
+        intended_ids = intended_product_ids()
+
     submitted = 0
+    failures: list[str] = []
+    if not intended_ids:
+        print("  catalog has no products to submit")
+        return 0
 
-    if include_subscriptions:
-        groups = client.get(
-            f"/apps/{app_id}/subscriptionGroups?limit=50"
-        ).get("data") or []
-        for group in groups:
-            subs = client.get(
-                f"/subscriptionGroups/{group['id']}/subscriptions?limit=50"
-            ).get("data") or []
-            for sub in subs:
-                attrs = sub.get("attributes") or {}
-                state = attrs.get("state") or ""
-                name = attrs.get("name") or sub["id"]
-                if state != "READY_TO_SUBMIT":
-                    print(f"  subscription {name}: {state} — skipped")
-                    continue
-                try:
-                    client.post(
-                        "/subscriptionSubmissions",
-                        {
-                            "data": {
-                                "type": "subscriptionSubmissions",
-                                "relationships": {
-                                    "subscription": {
-                                        "data": {
-                                            "type": "subscriptions",
-                                            "id": sub["id"],
-                                        }
-                                    }
-                                },
-                            }
-                        },
-                    )
-                    submitted += 1
-                    print(f"  subscription {name}: submitted for review")
-                except SystemExit as exc:  # fail() raises SystemExit(1)
-                    print(
-                        f"  subscription {name}: could not submit — {exc.code or ''}; "
-                        "resolve in App Store Connect (often a submitted-version "
-                        "state issue) and resubmit"
-                    )
+    for group in iter_collection(
+        client, f"/apps/{app_id}/subscriptionGroups?limit=200"
+    ):
+        for sub in iter_collection(
+            client, f"/subscriptionGroups/{group['id']}/subscriptions?limit=200"
+        ):
+            attrs = sub.get("attributes") or {}
+            pid = attrs.get("productId") or ""
+            if pid not in intended_ids:
+                continue
+            name = attrs.get("name") or sub["id"]
+            if attrs.get("state") != "READY_TO_SUBMIT":
+                continue
+            try:
+                client.post(
+                    "/subscriptionSubmissions",
+                    {
+                        "data": {
+                            "type": "subscriptionSubmissions",
+                            "relationships": {
+                                "subscription": {
+                                    "data": {"type": "subscriptions", "id": sub["id"]}
+                                }
+                            },
+                        }
+                    },
+                )
+            except SystemExit:
+                failures.append(f"subscription {name} ({pid})")
+                continue
+            submitted += 1
+            print(f"  subscription {name}: submitted for review")
 
-    iaps = client.get(
-        f"/apps/{app_id}/inAppPurchasesV2?limit=50"
-    ).get("data") or []
-    for iap in iaps:
+    for iap in iter_collection(client, f"/apps/{app_id}/inAppPurchasesV2?limit=200"):
         attrs = iap.get("attributes") or {}
-        state = attrs.get("state") or ""
-        name = attrs.get("name") or iap["id"]
-        if state != "READY_TO_SUBMIT":
+        pid = attrs.get("productId") or ""
+        if pid not in intended_ids:
             continue
+        if attrs.get("state") != "READY_TO_SUBMIT":
+            continue
+        name = attrs.get("name") or iap["id"]
         try:
             client.post(
                 "/inAppPurchaseSubmissions",
@@ -469,24 +499,27 @@ def submit_in_app_purchases(
                         "type": "inAppPurchaseSubmissions",
                         "relationships": {
                             "inAppPurchaseV2": {
-                                "data": {
-                                    "type": "inAppPurchases",
-                                    "id": iap["id"],
-                                }
+                                "data": {"type": "inAppPurchases", "id": iap["id"]}
                             }
                         },
                     }
                 },
             )
-            submitted += 1
-            print(f"  in-app purchase {name}: submitted for review")
-        except SystemExit as exc:
-            print(
-                f"  in-app purchase {name}: could not submit — {exc.code or ''}; "
-                "resolve in App Store Connect"
-            )
+        except SystemExit:
+            failures.append(f"in-app purchase {name} ({pid})")
+            continue
+        submitted += 1
+        print(f"  in-app purchase {name}: submitted for review")
 
     print(f"  in-app purchases / subscriptions submitted: {submitted}")
+    if failures:
+        raise ProductSubmitError(
+            "these Ready-to-Submit products were not added to App Review: "
+            + "; ".join(failures)
+            + ". Clear the blocker in App Store Connect (a removed subscription "
+            "version stays DEVELOPER_REJECTED) and rerun the release."
+        )
+    return submitted
 
 
 def submit_for_review(
@@ -562,6 +595,78 @@ def submit_for_review(
     )
 
 
+class _RecordingClient:
+    """Offline AscClient stand-in for the dry-run self-check."""
+
+    def __init__(self, collections: dict[str, list[dict[str, Any]]]) -> None:
+        self._collections = collections
+        self.posts: list[tuple[str, dict[str, Any]]] = []
+
+    def get(self, path: str) -> dict[str, Any]:
+        return {"data": self._collections.get(path, [])}
+
+    def post(self, path: str, body: dict[str, Any]) -> dict[str, Any]:
+        self.posts.append((path, body))
+        return {"data": {"id": "fake"}}
+
+    def patch(self, path: str, body: dict[str, Any]) -> dict[str, Any]:  # pragma: no cover
+        raise AssertionError(f"unexpected PATCH {path}")
+
+    def request(self, *args: Any, **kwargs: Any) -> Any:  # pragma: no cover
+        raise AssertionError("unexpected request")
+
+
+def dry_run_self_check() -> None:
+    """Exercise the product-submission path offline so dry-run covers it."""
+    app_id = "APP"
+    groups_path = f"/apps/{app_id}/subscriptionGroups?limit=200"
+    subs_path = "/subscriptionGroups/G1/subscriptions?limit=200"
+    iaps_path = f"/apps/{app_id}/inAppPurchasesV2?limit=200"
+    ids = {
+        "plus.monthly": "com.apoorvdarshan.calorietracker.plus.monthly",
+        "plus.yearly": "com.apoorvdarshan.calorietracker.plus.yearly",
+        "pro.monthly": "com.apoorvdarshan.calorietracker.pro.monthly",
+        "pro.yearly": "com.apoorvdarshan.calorietracker.pro.yearly",
+    }
+    fake = _RecordingClient(
+        {
+            groups_path: [{"id": "G1"}],
+            subs_path: [
+                {
+                    "id": "S1",
+                    "attributes": {
+                        "name": name,
+                        "productId": pid,
+                        "state": "READY_TO_SUBMIT",
+                    },
+                }
+                for name, pid in ids.items()
+            ]
+            + [
+                {
+                    "id": "S0",
+                    "attributes": {
+                        "name": "Legacy",
+                        "productId": "com.apoorvdarshan.calorietracker.legacy",
+                        "state": "READY_TO_SUBMIT",
+                    },
+                }
+            ],
+            iaps_path: [],
+        }
+    )
+    submitted = submit_in_app_purchases(fake, app_id, intended_ids=set(ids.values()))
+    assert submitted == 4, f"expected 4 subscriptions, got {submitted}"
+    submitted_ids = {
+        body["data"]["relationships"]["subscription"]["data"]["id"] for _, body in fake.posts
+    }
+    assert submitted_ids == {"S1"}, f"unexpected submitted products: {submitted_ids}"
+    assert all(
+        body["data"]["type"] == "subscriptionSubmissions" for _, body in fake.posts
+    ), "wrong request type"
+    print("  dry-run self-check: product submission selection OK")
+
+
 def validate_local_inputs(
     *,
     upload_listing: bool,
@@ -632,6 +737,8 @@ def main() -> None:
             f"  bundle={args.bundle_id} listing={do_listing} "
             f"screenshots={do_screenshots} submit={do_submit}"
         )
+        if do_submit:
+            dry_run_self_check()
         return
 
     key_id, issuer_id, key_p8 = load_credentials()
@@ -651,9 +758,15 @@ def main() -> None:
 
     if state == "WAITING_FOR_REVIEW":
         if do_submit and not (do_listing or do_screenshots):
+            # The version is already held by a live submission; still make sure
+            # no Ready-to-Submit product was left behind by an earlier partial run.
             print(
                 "ASC submit skipped — version already WAITING_FOR_REVIEW (idempotent)"
             )
+            try:
+                submit_in_app_purchases(client, app_id)
+            except ProductSubmitError as exc:
+                fail(str(exc))
             print("ASC release step finished")
             return
         if do_listing or do_screenshots:
@@ -696,9 +809,22 @@ def main() -> None:
 
     if do_submit:
         print("submitting in-app purchases / subscriptions for review…")
-        submit_in_app_purchases(client, app_id)
+        products_submitted = 0
+        product_error: str | None = None
+        try:
+            products_submitted = submit_in_app_purchases(client, app_id)
+        except ProductSubmitError as exc:
+            product_error = str(exc)
+        # The App Store version submits independently of the products, so it is
+        # safe to proceed; a product failure is reported as a hard error below
+        # so the release is retried once the blocker is cleared.
         print("submitting for App Store review…")
         submit_for_review(client, app_id, version_id, state)
+        if product_error:
+            fail(
+                f"{product_error} (the app version was submitted; "
+                f"{products_submitted} product(s) went out with it)"
+            )
 
     print("ASC release step finished")
 

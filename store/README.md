@@ -78,13 +78,18 @@ variables): `UPLOAD_LISTING`, `UPLOAD_SCREENSHOTS`, `SUBMIT_IOS_REVIEW`.
 2026 App Store Connect workflow, subscriptions attach to the review submission
 through the `subscriptionVersion` relationship on Review Submission Items (the
 `subscription` relationship is rejected by the API), so a first-time
-subscription must ship with the version.
+subscription must ship with the version. Subscriptions that are still
+`READY_TO_SUBMIT` attach to the current in-flight version; consumable and tip
+IAPs go through the dedicated `inAppPurchaseSubmissions` endpoint.
 
 A subscription whose in-flight version was **removed** from an earlier
 submission sits in `DEVELOPER_REJECTED`. Attaching that version to the new
 submission clears it, so no manual step is required; only products listed in
 `store/catalog/products.json` are submitted, and the script stops before
 submitting the version (non-zero exit) if a required product cannot be added.
+
+If the app version is already `WAITING_FOR_REVIEW`, a product attached to a
+newly created draft is submitted on its own so it still reaches review.
 
 ## Canonical catalog
 

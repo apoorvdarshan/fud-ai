@@ -458,10 +458,24 @@ def get_or_create_draft_submission(client: AscClient, app_id: str) -> str:
     return submission["data"]["id"]
 
 
+def draft_item_relationships(client: AscClient, submission_id: str) -> list[dict[str, Any]]:
+    """Return the draft's items with their version relationships populated.
+
+    App Store Connect omits `relationships` from Review Submission Items unless
+    they are requested with `include`, so both relationship readers must ask for
+    the version relationships explicitly.
+    """
+    return iter_collection(
+        client,
+        f"/reviewSubmissions/{submission_id}/items"
+        "?limit=50&include=subscriptionVersion,appStoreVersion",
+    )
+
+
 def draft_item_version_ids(client: AscClient, submission_id: str) -> set[str]:
     """Return the subscription/app version ids already attached to a draft."""
     ids: set[str] = set()
-    for item in iter_collection(client, f"/reviewSubmissions/{submission_id}/items"):
+    for item in draft_item_relationships(client, submission_id):
         relationships = item.get("relationships") or {}
         for name in ("subscriptionVersion", "appStoreVersion", "inAppPurchaseVersion"):
             related = (relationships.get(name) or {}).get("data") or {}
@@ -472,7 +486,7 @@ def draft_item_version_ids(client: AscClient, submission_id: str) -> set[str]:
 
 def draft_holds_app_version(client: AscClient, submission_id: str) -> bool:
     """Return True if any item in the draft references an app store version."""
-    for item in iter_collection(client, f"/reviewSubmissions/{submission_id}/items"):
+    for item in draft_item_relationships(client, submission_id):
         related = (
             ((item.get("relationships") or {}).get("appStoreVersion") or {}).get("data")
             or {}
@@ -660,16 +674,9 @@ def submit_for_review(
     if submission_id is None:
         submission_id = get_or_create_draft_submission(client, app_id)
 
-    items = client.get(f"/reviewSubmissions/{submission_id}/items?limit=50")
-    item_version_ids = set()
-    for item in items.get("data") or []:
-        related = ((item.get("relationships") or {}).get("appStoreVersion") or {}).get(
-            "data"
-        ) or {}
-        if related.get("id"):
-            item_version_ids.add(related["id"])
+    items_versions = draft_item_version_ids(client, submission_id)
     # READY_FOR_REVIEW means the version is already held by this draft submission.
-    already_added = version_state == "READY_FOR_REVIEW" or version_id in item_version_ids
+    already_added = version_state == "READY_FOR_REVIEW" or version_id in items_versions
     if not already_added:
         client.post(
             "/reviewSubmissionItems",
@@ -824,13 +831,16 @@ def dry_run_self_check() -> None:
 
     # Retry: the same draft already holds one subscription version, so the rerun
     # must not post it again (App Store Connect rejects duplicates).
-    collections[f"/reviewSubmissions/SUB1/items"] = [
+    collections[
+        "/reviewSubmissions/SUB1/items?limit=50&include=subscriptionVersion,appStoreVersion"
+    ] = [
         {
             "id": "ITEM0",
             "relationships": {
                 "subscriptionVersion": {
                     "data": {"type": "subscriptionVersions", "id": "V0b"}
-                }
+                },
+                "appStoreVersion": {"data": None},
             },
         }
     ]
@@ -849,11 +859,14 @@ def dry_run_self_check() -> None:
     )
     assert draft_holds_app_version(retry, "SUB1") is False, "false app-version detection"
     assert draft_holds_app_version(fake, "SUB1") is False
-    collections["/reviewSubmissions/SUB1/items"] = [
+    collections[
+        "/reviewSubmissions/SUB1/items?limit=50&include=subscriptionVersion,appStoreVersion"
+    ] = [
         {
             "id": "ITEMV",
             "relationships": {
-                "appStoreVersion": {"data": {"type": "appStoreVersions", "id": "AV1"}}
+                "appStoreVersion": {"data": {"type": "appStoreVersions", "id": "AV1"}},
+                "subscriptionVersion": {"data": None},
             },
         }
     ]

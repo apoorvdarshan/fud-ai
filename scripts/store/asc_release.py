@@ -935,8 +935,11 @@ def dry_run_self_check() -> None:
         path for path, _ in review.posts if path == "/reviewSubmissionItems"
     ], "app version was posted again on retry"
     assert any(
-        method == "PATCH" and f"/reviewSubmissions/SUB1" in path
-        for method, path, _ in review.requests
+        method == "PATCH"
+        and path == "/reviewSubmissions/SUB1"
+        and body is not None
+        and body["data"]["attributes"]["submitted"] is True
+        for method, path, body in review.requests
     ), "submission was not PATCHed to submitted=true"
     print("  dry-run self-check: product submission selection OK")
 

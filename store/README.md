@@ -83,11 +83,12 @@ A subscription whose in-flight version was **removed** from an earlier
 submission sits in `DEVELOPER_REJECTED`, and the API then reports "no pending
 version for submission". The public API has no way to reset that state — it must
 be cleared in App Store Connect (re-create the subscription version or re-attach
-it) before the submission will carry the subscriptions. The script reports the
-offending products and exits non-zero after submitting the version, so the
-release is retried once the blocker is cleared. Only products listed in
-`store/catalog/products.json` are submitted, so an unrelated Ready-to-Submit
-plan, credit pack, or tip is not pulled into the release.
+it) before the submission will carry the subscriptions. Because a first-time
+subscription must ship with the version, the script stops before submitting the
+version and exits non-zero when a required product cannot be added; clear the
+blocker and rerun. Only products listed in `store/catalog/products.json` are
+submitted, so an unrelated Ready-to-Submit plan, credit pack, or tip is not
+pulled into the release.
 
 ## Canonical catalog
 

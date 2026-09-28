@@ -514,10 +514,11 @@ def submit_in_app_purchases(
     print(f"  in-app purchases / subscriptions submitted: {submitted}")
     if failures:
         raise ProductSubmitError(
-            "these Ready-to-Submit products were not added to App Review: "
+            "these required Ready-to-Submit products were not added to "
+            "App Review: "
             + "; ".join(failures)
-            + ". Clear the blocker in App Store Connect (a removed subscription "
-            "version stays DEVELOPER_REJECTED) and rerun the release."
+            + " (a removed subscription version stays DEVELOPER_REJECTED in "
+            "App Store Connect and must be cleared before resubmitting)"
         )
     return submitted
 
@@ -809,22 +810,16 @@ def main() -> None:
 
     if do_submit:
         print("submitting in-app purchases / subscriptions for review…")
-        products_submitted = 0
-        product_error: str | None = None
         try:
             products_submitted = submit_in_app_purchases(client, app_id)
         except ProductSubmitError as exc:
-            product_error = str(exc)
-        # The App Store version submits independently of the products, so it is
-        # safe to proceed; a product failure is reported as a hard error below
-        # so the release is retried once the blocker is cleared.
+            # A first-time subscription must ship with the version, so a failed
+            # required product blocks the whole submission rather than letting
+            # the version enter review without it.
+            fail(f"{exc} Not submitting the app version.")
         print("submitting for App Store review…")
         submit_for_review(client, app_id, version_id, state)
-        if product_error:
-            fail(
-                f"{product_error} (the app version was submitted; "
-                f"{products_submitted} product(s) went out with it)"
-            )
+        print(f"  {products_submitted} product(s) went out with the version")
 
     print("ASC release step finished")
 

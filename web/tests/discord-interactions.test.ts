@@ -59,20 +59,25 @@ async function signedRequest(
 }
 
 function env(publicKeyHex: string, extra: Record<string, string> = {}) {
-  const state = new Map<string, { value: string; expiresAt: number }>();
+  const state = new Map<string, { value: string; expiresAt: number; metadata: { owner: string } | undefined }>();
   return {
     DISCORD_PUBLIC_KEY: publicKeyHex,
     DISCORD_APPLICATION_ID: APP_ID,
     DISCORD_GEMINI_API_KEY: "test-gemini-key",
     GITHUB_TOKEN: "test-github-token",
     DISCORD_STATE: {
-      async delete(key: string): Promise<void> { state.delete(key); },
+      async getWithMetadata(key: string): Promise<{ value: string | null; metadata: unknown }> {
+        const entry = state.get(key);
+        return entry && entry.expiresAt > Date.now()
+          ? { value: entry.value, metadata: entry.metadata ?? null }
+          : { value: null, metadata: null };
+      },
       async get(key: string): Promise<string | null> {
         const entry = state.get(key);
         return entry && entry.expiresAt > Date.now() ? entry.value : null;
       },
-      async put(key: string, value: string, options: { expirationTtl: number }): Promise<void> {
-        state.set(key, { value, expiresAt: Date.now() + options.expirationTtl * 1000 });
+      async put(key: string, value: string, options: { expirationTtl: number; metadata?: { owner: string } }): Promise<void> {
+        state.set(key, { value, metadata: options.metadata, expiresAt: Date.now() + options.expirationTtl * 1000 });
       },
     },
     ...extra,
@@ -783,6 +788,15 @@ describe("Discord command reservations", () => {
     expect(h.aiCalls()).toHaveLength(2);
   });
 
+  it("keeps cooldown values readable by the deployed numeric reader", async () => {
+    const h = await setup();
+    const writes = vi.spyOn(h.bindings.DISCORD_STATE, "put");
+    await (await h.send()).flush();
+    const cooldown = writes.mock.calls.find(([key]) => key.includes(":cooldown:"));
+    expect(Number(cooldown?.[1])).toBeGreaterThan(Date.now());
+    expect(cooldown?.[2].metadata?.owner).toBeTruthy();
+  });
+
   it("shares the report cooldown across bug/feature and channels, but scopes by user and server", async () => {
     const h = await setup();
     await (await h.send("bug")).flush();
@@ -803,7 +817,7 @@ describe("Discord command reservations", () => {
     const blocked = new Promise<void>((resolve) => { unblock = resolve; });
     const reads = vi.spyOn(state, "get").mockImplementation(async (key) => { await blocked; return get(key); });
     const first = await h.send();
-    await vi.waitFor(() => expect(reads).toHaveBeenCalledTimes(2));
+    await vi.waitFor(() => expect(reads).toHaveBeenCalledTimes(1));
     await (await h.send("ask", "second")).flush();
     expect(h.aiCalls()).toHaveLength(0);
     expect(h.replies().at(-1)).toContain("wait a minute");
@@ -839,11 +853,10 @@ describe("Discord command reservations", () => {
       if (key.includes(`:${failedKey}:`)) throw new Error("write failed");
       await put(key, value, options);
     });
-    const deletes = vi.spyOn(state, "delete");
     await (await h.send()).flush();
     expect(h.aiCalls()).toHaveLength(0);
     expect(h.replies().at(-1)).toContain("unavailable");
-    expect(deletes).toHaveBeenCalledTimes(1);
+    expect(writes.mock.calls.some(([key]) => key.startsWith("fuddy:aborted:"))).toBe(true);
     expect(h.warnings).toHaveBeenCalledWith("discord_cooldown_state_unavailable", {
       stage: "write", reason: "operation_failed",
     });
@@ -860,7 +873,7 @@ describe("Discord command reservations", () => {
     const put = state.put.bind(state);
     const writes = vi.spyOn(state, "put").mockImplementation(async (...args) => {
       await put(...args);
-      throw new Error("acknowledgement lost");
+      if (!args[0].startsWith("fuddy:aborted:")) throw new Error("acknowledgement lost");
     });
     await (await h.send()).flush();
     writes.mockRestore();
@@ -873,13 +886,16 @@ describe("Discord command reservations", () => {
     const h = await setup();
     const state = h.bindings.DISCORD_STATE;
     const put = state.put.bind(state);
-    const deletes = vi.spyOn(state, "delete");
     const writes = vi.spyOn(state, "put").mockImplementation(async (key, value, options) => {
       if (key.includes(":interaction:")) throw new Error("failed");
-      await put(key, `${Date.now() + 60_000}:another-owner`, options);
+      if (key.includes(":cooldown:")) {
+        await put(key, String(Date.now() + 60_000), { ...options, metadata: { owner: "another-owner" } });
+      } else {
+        await put(key, value, options);
+      }
     });
     await (await h.send()).flush();
-    expect(deletes).not.toHaveBeenCalled();
+    expect(writes.mock.calls.some(([key]) => key.startsWith("fuddy:aborted:"))).toBe(true);
     writes.mockRestore();
     await (await h.send("ask", "fresh")).flush();
     expect(h.replies().at(-1)).toContain("wait a minute");
@@ -888,7 +904,11 @@ describe("Discord command reservations", () => {
 
   it("releases local reservations after write cleanup for a fresh command", async () => {
     const h = await setup();
-    const writes = vi.spyOn(h.bindings.DISCORD_STATE, "put").mockRejectedValue(new Error("failed"));
+    const put = h.bindings.DISCORD_STATE.put.bind(h.bindings.DISCORD_STATE);
+    const writes = vi.spyOn(h.bindings.DISCORD_STATE, "put").mockImplementation(async (...args) => {
+      if (args[0].startsWith("fuddy:aborted:")) return put(...args);
+      throw new Error("failed");
+    });
     await (await h.send("bug")).flush();
     writes.mockRestore();
     await (await h.send("feature", "retry")).flush();
@@ -922,7 +942,9 @@ describe("Discord command reservations", () => {
     expect(h.warnings).toHaveBeenCalledWith("discord_cooldown_state_unavailable", {
       stage: "write", reason: "timeout",
     });
+    const clock = vi.spyOn(Date, "now").mockReturnValue(Date.now() + 31_000);
     await (await h.send("ask", "during-cleanup")).flush();
+    clock.mockRestore();
     expect(h.replies().at(-1)).toContain("unavailable");
     unblock();
     await first.flush();

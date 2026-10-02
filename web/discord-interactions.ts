@@ -28,8 +28,8 @@ const INTERACTION_RETENTION_SECONDS = 900;
 
 type DiscordState = {
   get(key: string): Promise<string | null>;
-  delete(key: string): Promise<void>;
-  put(key: string, value: string, options: { expirationTtl: number }): Promise<void>;
+  getWithMetadata(key: string): Promise<{ value: string | null; metadata: unknown }>;
+  put(key: string, value: string, options: { expirationTtl: number; metadata?: { owner: string } }): Promise<void>;
 };
 
 // Isolate-local reservations close concurrent-request races while KV persists across restarts.
@@ -677,8 +677,8 @@ async function reserveCommand(
     if ((local.get(interactionKey)?.until ?? 0) > now) return "duplicate";
     if ((local.get(cooldownKey)?.until ?? 0) > now) return "cooldown";
     while (local.size > 2_046) {
-      const oldest = local.keys().next().value;
-      if (oldest === undefined) break;
+      const oldest = [...local].find(([, reservation]) => !reservation.unavailable)?.[0];
+      if (oldest === undefined) return "unavailable";
       local.delete(oldest);
     }
     // Reserve before the first KV await so simultaneous commands in this isolate cannot pass.
@@ -692,16 +692,25 @@ async function reserveCommand(
       if (local.get(cooldownKey) === cooldownReservation) local.delete(cooldownKey);
     };
     stage = "read";
-    const [seen, coolingUntil] = await stateOperation(Promise.all([
+    const [seen, cooling] = await stateOperation(Promise.all([
       state.get(interactionKey),
-      state.get(cooldownKey),
+      state.getWithMetadata(cooldownKey),
     ]));
-    if (seen) {
+    const metadata = cooling.metadata;
+    const coolingOwner = metadata && typeof metadata === "object" && "owner" in metadata
+      && typeof metadata.owner === "string" ? metadata.owner : undefined;
+    // Failed attempts are invalidated by an immutable, attempt-specific marker.
+    // Never delete shared keys: KV has no atomic compare-and-delete operation.
+    const [replayAborted, cooldownAborted] = await stateOperation(Promise.all([
+      seen && seen !== "accepted" ? state.get(`fuddy:aborted:${seen}`) : Promise.resolve(null),
+      coolingOwner ? state.get(`fuddy:aborted:${coolingOwner}`) : Promise.resolve(null),
+    ]));
+    if (seen && !replayAborted) {
       local.delete(cooldownKey);
       return "duplicate";
     }
-    const storedUntil = Number.parseFloat(coolingUntil ?? "");
-    if (storedUntil > Date.now()) {
+    const storedUntil = Number(cooling.value);
+    if (!cooldownAborted && storedUntil > Date.now()) {
       cooldownReservation.until = storedUntil;
       return "cooldown";
     }
@@ -710,26 +719,23 @@ async function reserveCommand(
     const owner = crypto.randomUUID();
     const records = [
       { key: interactionKey, value: owner, ttl: INTERACTION_RETENTION_SECONDS },
-      { key: cooldownKey, value: `${until}:${owner}`, ttl: cooldown },
+      { key: cooldownKey, value: String(until), ttl: cooldown },
     ];
     stage = "write";
     // Observe every write, including one that completes after our response deadline.
     const writes = records.map(({ key, value, ttl }) =>
-      Promise.resolve().then(() => state.put(key, value, { expirationTtl: ttl })));
+      Promise.resolve().then(() => state.put(key, value, { expirationTtl: ttl, metadata: { owner } })));
     const settled = Promise.allSettled(writes);
     rollback = async () => {
-      // Do not let a late put recreate a key after cleanup or admit another local
-      // reservation while these writes are still in flight.
-      // Bound the local guard if the runtime ends background work or KV never settles.
-      interactionReservation.until = cooldownReservation.until = Date.now() + 30_000;
+      // Keep unresolved writes serialized locally; a late write must not overwrite
+      // a newer local reservation. Pending guards are never evicted for capacity.
+      interactionReservation.until = cooldownReservation.until = Infinity;
       interactionReservation.unavailable = cooldownReservation.unavailable = true;
       try {
         await settled;
-        await Promise.all(records.map(async ({ key, value }) => {
-          // Never intentionally delete a different isolate's newer reservation.
-          // Like the limiter itself, this ownership check is best effort on KV.
-          if (await state.get(key) === value) await state.delete(key);
-        }));
+        // Longer than either reservation TTL, starting only after all puts finish.
+        // This key belongs solely to this attempt and cannot erase another owner.
+        await state.put(`fuddy:aborted:${owner}`, "1", { expirationTtl: INTERACTION_RETENTION_SECONDS });
       } finally {
         release?.();
       }

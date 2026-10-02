@@ -66,6 +66,7 @@ function env(publicKeyHex: string, extra: Record<string, string> = {}) {
     DISCORD_GEMINI_API_KEY: "test-gemini-key",
     GITHUB_TOKEN: "test-github-token",
     DISCORD_STATE: {
+      async delete(key: string): Promise<void> { state.delete(key); },
       async get(key: string): Promise<string | null> {
         const entry = state.get(key);
         return entry && entry.expiresAt > Date.now() ? entry.value : null;
@@ -82,7 +83,10 @@ function waiters() {
   const pending: Promise<unknown>[] = [];
   return {
     ctx: { waitUntil: (promise: Promise<unknown>) => pending.push(promise) },
-    flush: () => Promise.all(pending),
+    flush: async () => {
+      // Background rollback work may register another waiter while commands run.
+      for (let i = 0; i < pending.length; i++) await pending[i];
+    },
   };
 }
 
@@ -143,6 +147,7 @@ function githubPayload(fetchMock: ReturnType<typeof vi.fn<MockFetch>>): {
 }
 
 afterEach(() => {
+  vi.useRealTimers();
   vi.unstubAllGlobals();
   vi.restoreAllMocks();
 });
@@ -729,5 +734,201 @@ describe("discord interactions", () => {
       { DISCORD_PUBLIC_KEY: "abc", GITHUB_TOKEN: "token" } as unknown as Env,
     );
     expect(response.status).toBe(405);
+  });
+});
+
+
+describe("Discord command reservations", () => {
+  async function setup() {
+    const { privateKey, publicKeyHex } = await ed25519Pair();
+    const bindings = env(publicKeyHex);
+    const fetch = vi.fn<MockFetch>(async (url) => {
+      if (String(url).includes("generativelanguage")) return geminiIssueResponse("Title", "Body");
+      if (String(url).includes("api.github.com")) return Response.json({ html_url: ISSUE_URL, number: 42 });
+      return new Response(null, { status: 200 });
+    });
+    vi.stubGlobal("fetch", fetch);
+    const warnings = vi.spyOn(console, "warn").mockImplementation(() => {});
+    async function send(name = "ask", id = "first", extra: Record<string, unknown> = {}) {
+      const waiter = waiters();
+      const response = await handleDiscordInteractionsRequest(
+        await signedRequest(privateKey, command(name, [
+          { name: name === "ask" ? "question" : "report", value: "Help with food logging" },
+        ], { id, ...extra })), bindings, waiter.ctx,
+      );
+      expect(await response.json()).toEqual({ type: 5 });
+      return waiter;
+    }
+    const aiCalls = () => fetch.mock.calls.filter(([url]) => String(url).includes("generativelanguage"));
+    const replies = () => fetch.mock.calls.filter(([url]) => String(url).includes("discord.com"))
+      .map(([, init]) => JSON.parse(requestBody(init)).content as string);
+    return { bindings, fetch, warnings, send, aiCalls, replies };
+  }
+
+  it("suppresses replays and blocks new questions without extending cooldown", async () => {
+    const h = await setup();
+    const now = Date.now();
+    vi.spyOn(Date, "now").mockReturnValue(now);
+    await (await h.send()).flush();
+    await (await h.send()).flush();
+    expect(h.replies()).toHaveLength(1);
+    vi.spyOn(Date, "now").mockReturnValue(now + 30_000);
+    await (await h.send("ask", "second")).flush();
+    expect(h.replies().at(-1)).toContain("wait a minute");
+    expect(h.aiCalls()).toHaveLength(1);
+    vi.spyOn(Date, "now").mockReturnValue(now + 60_001);
+    await (await h.send("ask", "third")).flush();
+    expect(h.aiCalls()).toHaveLength(2);
+    await (await h.send()).flush();
+    expect(h.aiCalls()).toHaveLength(2);
+  });
+
+  it("shares the report cooldown across bug/feature and channels, but scopes by user and server", async () => {
+    const h = await setup();
+    await (await h.send("bug")).flush();
+    await (await h.send("feature", "second", { channel_id: "different" })).flush();
+    expect(h.replies().at(-1)).toContain("five minutes");
+    expect(h.aiCalls()).toHaveLength(1);
+    await (await h.send("ask", "question")).flush();
+    await (await h.send("feature", "other-user", { member: { user: { id: "user-2" } } })).flush();
+    await (await h.send("feature", "other-server", { guild_id: "server-2" })).flush();
+    expect(h.aiCalls()).toHaveLength(4);
+  });
+
+  it("reserves locally before concurrent KV reads complete", async () => {
+    const h = await setup();
+    const state = h.bindings.DISCORD_STATE;
+    const get = state.get.bind(state);
+    let unblock!: () => void;
+    const blocked = new Promise<void>((resolve) => { unblock = resolve; });
+    const reads = vi.spyOn(state, "get").mockImplementation(async (key) => { await blocked; return get(key); });
+    const first = await h.send();
+    await vi.waitFor(() => expect(reads).toHaveBeenCalledTimes(2));
+    await (await h.send("ask", "second")).flush();
+    expect(h.aiCalls()).toHaveLength(0);
+    expect(h.replies().at(-1)).toContain("wait a minute");
+    unblock();
+    await first.flush();
+    expect(h.aiCalls()).toHaveLength(1);
+  });
+
+  it("releases failed reads so both the same interaction and fresh commands can retry", async () => {
+    const h = await setup();
+    const get = vi.spyOn(h.bindings.DISCORD_STATE, "get");
+    get.mockRejectedValueOnce(new Error("secret-bearing error"));
+    await (await h.send()).flush();
+    expect(h.aiCalls()).toHaveLength(0);
+    expect(h.replies().at(-1)).toContain("unavailable");
+    expect(h.warnings).toHaveBeenCalledWith("discord_cooldown_state_unavailable", {
+      stage: "read", reason: "operation_failed",
+    });
+    expect(JSON.stringify(h.warnings.mock.calls)).not.toContain("secret-bearing");
+    await (await h.send()).flush();
+    expect(h.aiCalls()).toHaveLength(1);
+    get.mockRejectedValueOnce(new Error("outage"));
+    await (await h.send("bug", "failed-report")).flush();
+    await (await h.send("feature", "fresh-report")).flush();
+    expect(h.aiCalls()).toHaveLength(2);
+  });
+
+  it.each(["interaction", "cooldown"])("rolls back a partial %s write failure before retry", async (failedKey) => {
+    const h = await setup();
+    const state = h.bindings.DISCORD_STATE;
+    const put = state.put.bind(state);
+    const writes = vi.spyOn(state, "put").mockImplementation(async (key, value, options) => {
+      if (key.includes(`:${failedKey}:`)) throw new Error("write failed");
+      await put(key, value, options);
+    });
+    const deletes = vi.spyOn(state, "delete");
+    await (await h.send()).flush();
+    expect(h.aiCalls()).toHaveLength(0);
+    expect(h.replies().at(-1)).toContain("unavailable");
+    expect(deletes).toHaveBeenCalledTimes(1);
+    expect(h.warnings).toHaveBeenCalledWith("discord_cooldown_state_unavailable", {
+      stage: "write", reason: "operation_failed",
+    });
+    writes.mockRestore();
+    // A fresh binding simulates another isolate reading the surviving KV data.
+    h.bindings.DISCORD_STATE = { ...state };
+    await (await h.send()).flush();
+    expect(h.aiCalls()).toHaveLength(1);
+  });
+
+  it("cleans writes that commit and then reject", async () => {
+    const h = await setup();
+    const state = h.bindings.DISCORD_STATE;
+    const put = state.put.bind(state);
+    const writes = vi.spyOn(state, "put").mockImplementation(async (...args) => {
+      await put(...args);
+      throw new Error("acknowledgement lost");
+    });
+    await (await h.send()).flush();
+    writes.mockRestore();
+    h.bindings.DISCORD_STATE = { ...state };
+    await (await h.send()).flush();
+    expect(h.aiCalls()).toHaveLength(1);
+  });
+
+  it("preserves another owner's reservation during failed-write cleanup", async () => {
+    const h = await setup();
+    const state = h.bindings.DISCORD_STATE;
+    const put = state.put.bind(state);
+    const deletes = vi.spyOn(state, "delete");
+    const writes = vi.spyOn(state, "put").mockImplementation(async (key, value, options) => {
+      if (key.includes(":interaction:")) throw new Error("failed");
+      await put(key, `${Date.now() + 60_000}:another-owner`, options);
+    });
+    await (await h.send()).flush();
+    expect(deletes).not.toHaveBeenCalled();
+    writes.mockRestore();
+    await (await h.send("ask", "fresh")).flush();
+    expect(h.replies().at(-1)).toContain("wait a minute");
+    expect(h.aiCalls()).toHaveLength(0);
+  });
+
+  it("releases local reservations after write cleanup for a fresh command", async () => {
+    const h = await setup();
+    const writes = vi.spyOn(h.bindings.DISCORD_STATE, "put").mockRejectedValue(new Error("failed"));
+    await (await h.send("bug")).flush();
+    writes.mockRestore();
+    await (await h.send("feature", "retry")).flush();
+    expect(h.aiCalls()).toHaveLength(1);
+  });
+
+  it("releases a read timeout without logging raw errors", async () => {
+    const h = await setup();
+    vi.spyOn(h.bindings.DISCORD_STATE, "get").mockImplementationOnce(() => new Promise(() => {}));
+    await (await h.send()).flush();
+    expect(h.warnings).toHaveBeenCalledWith("discord_cooldown_state_unavailable", {
+      stage: "read", reason: "timeout",
+    });
+    await (await h.send()).flush();
+    expect(h.aiCalls()).toHaveLength(1);
+  });
+
+  it("waits for late writes before rollback so they cannot resurrect failed reservations", async () => {
+    const h = await setup();
+    const state = h.bindings.DISCORD_STATE;
+    const put = state.put.bind(state);
+    let unblock!: () => void;
+    const blocked = new Promise<void>((resolve) => { unblock = resolve; });
+    const writes = vi.spyOn(state, "put").mockImplementation(async (...args) => {
+      await blocked;
+      await put(...args);
+    });
+    const first = await h.send();
+    await vi.waitFor(() => expect(h.replies().at(-1)).toContain("unavailable"), { timeout: 2500 });
+    expect(h.aiCalls()).toHaveLength(0);
+    expect(h.warnings).toHaveBeenCalledWith("discord_cooldown_state_unavailable", {
+      stage: "write", reason: "timeout",
+    });
+    await (await h.send("ask", "during-cleanup")).flush();
+    expect(h.replies().at(-1)).toContain("unavailable");
+    unblock();
+    await first.flush();
+    writes.mockRestore();
+    h.bindings.DISCORD_STATE = { ...state };
+    await (await h.send()).flush();
+    expect(h.aiCalls()).toHaveLength(1);
   });
 });

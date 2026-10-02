@@ -28,11 +28,13 @@ const INTERACTION_RETENTION_SECONDS = 900;
 
 type DiscordState = {
   get(key: string): Promise<string | null>;
+  delete(key: string): Promise<void>;
   put(key: string, value: string, options: { expirationTtl: number }): Promise<void>;
 };
 
 // Isolate-local reservations close concurrent-request races while KV persists across restarts.
-const localReservations = new WeakMap<DiscordState, Map<string, number>>();
+type LocalReservation = { until: number; unavailable?: boolean };
+const localReservations = new WeakMap<DiscordState, Map<string, LocalReservation>>();
 
 const SYSTEM_PROMPT = `You are the Fud AI Discord helper for the free, open-source calorie / fasting / workout tracker (iOS + Android).
 
@@ -622,13 +624,15 @@ async function digestKey(value: string): Promise<string> {
   return Array.from(new Uint8Array(bytes), (byte) => byte.toString(16).padStart(2, "0")).join("");
 }
 
+class DiscordStateTimeout extends Error {}
+
 async function stateOperation<T>(operation: Promise<T>): Promise<T> {
   let timer: ReturnType<typeof setTimeout> | undefined;
   try {
     return await Promise.race([
       operation,
       new Promise<never>((_, reject) => {
-        timer = setTimeout(() => reject(new Error("discord_state_timeout")), 1_500);
+        timer = setTimeout(() => reject(new DiscordStateTimeout("discord_state_timeout")), 1_500);
       }),
     ]);
   } finally {
@@ -642,7 +646,11 @@ async function reserveCommand(
   interaction: Interaction,
   applicationId: string,
   command: "ask" | "bug" | "feature",
+  waitUntil: (promise: Promise<unknown>) => void,
 ): Promise<"accepted" | "duplicate" | "cooldown" | "unavailable"> {
+  let stage: "hash" | "read" | "write" = "hash";
+  let release: (() => void) | undefined;
+  let rollback: (() => Promise<void>) | undefined;
   try {
     const userId = reporterFrom(interaction).id;
     const scope = interactionGuildId(interaction) || "dm";
@@ -660,19 +668,30 @@ async function reserveCommand(
       localReservations.set(state, local);
     }
     const now = Date.now();
-    for (const [key, until] of local) {
-      if (until <= now) local.delete(key);
+    for (const [key, reservation] of local) {
+      if (reservation.until <= now) local.delete(key);
     }
-    if ((local.get(interactionKey) ?? 0) > now) return "duplicate";
-    if ((local.get(cooldownKey) ?? 0) > now) return "cooldown";
+    if (local.get(interactionKey)?.unavailable || local.get(cooldownKey)?.unavailable) {
+      return "unavailable";
+    }
+    if ((local.get(interactionKey)?.until ?? 0) > now) return "duplicate";
+    if ((local.get(cooldownKey)?.until ?? 0) > now) return "cooldown";
     while (local.size > 2_046) {
       const oldest = local.keys().next().value;
       if (oldest === undefined) break;
       local.delete(oldest);
     }
     // Reserve before the first KV await so simultaneous commands in this isolate cannot pass.
-    local.set(interactionKey, now + INTERACTION_RETENTION_SECONDS * 1000);
-    local.set(cooldownKey, now + cooldown * 1000);
+    const interactionReservation: LocalReservation = { until: now + INTERACTION_RETENTION_SECONDS * 1000 };
+    const cooldownReservation: LocalReservation = { until: now + cooldown * 1000 };
+    local.set(interactionKey, interactionReservation);
+    local.set(cooldownKey, cooldownReservation);
+    release = () => {
+      // An evicted/expired attempt must not clear a later local reservation.
+      if (local.get(interactionKey) === interactionReservation) local.delete(interactionKey);
+      if (local.get(cooldownKey) === cooldownReservation) local.delete(cooldownKey);
+    };
+    stage = "read";
     const [seen, coolingUntil] = await stateOperation(Promise.all([
       state.get(interactionKey),
       state.get(cooldownKey),
@@ -681,19 +700,56 @@ async function reserveCommand(
       local.delete(cooldownKey);
       return "duplicate";
     }
-    if (Number(coolingUntil) > Date.now()) {
-      local.set(cooldownKey, Number(coolingUntil));
+    const storedUntil = Number.parseFloat(coolingUntil ?? "");
+    if (storedUntil > Date.now()) {
+      cooldownReservation.until = storedUntil;
       return "cooldown";
     }
     const until = Date.now() + cooldown * 1000;
-    local.set(cooldownKey, until);
-    await stateOperation(Promise.all([
-      state.put(interactionKey, "accepted", { expirationTtl: INTERACTION_RETENTION_SECONDS }),
-      state.put(cooldownKey, String(until), { expirationTtl: cooldown }),
-    ]));
+    cooldownReservation.until = until;
+    const owner = crypto.randomUUID();
+    const records = [
+      { key: interactionKey, value: owner, ttl: INTERACTION_RETENTION_SECONDS },
+      { key: cooldownKey, value: `${until}:${owner}`, ttl: cooldown },
+    ];
+    stage = "write";
+    // Observe every write, including one that completes after our response deadline.
+    const writes = records.map(({ key, value, ttl }) =>
+      Promise.resolve().then(() => state.put(key, value, { expirationTtl: ttl })));
+    const settled = Promise.allSettled(writes);
+    rollback = async () => {
+      // Do not let a late put recreate a key after cleanup or admit another local
+      // reservation while these writes are still in flight.
+      // Bound the local guard if the runtime ends background work or KV never settles.
+      interactionReservation.until = cooldownReservation.until = Date.now() + 30_000;
+      interactionReservation.unavailable = cooldownReservation.unavailable = true;
+      try {
+        await settled;
+        await Promise.all(records.map(async ({ key, value }) => {
+          // Never intentionally delete a different isolate's newer reservation.
+          // Like the limiter itself, this ownership check is best effort on KV.
+          if (await state.get(key) === value) await state.delete(key);
+        }));
+      } finally {
+        release?.();
+      }
+    };
+    await stateOperation(Promise.all(writes));
     return "accepted";
-  } catch {
-    console.warn("discord_cooldown_state_unavailable");
+  } catch (error) {
+    console.warn("discord_cooldown_state_unavailable", {
+      stage,
+      reason: error instanceof DiscordStateTimeout ? "timeout" : "operation_failed",
+    });
+    if (rollback) {
+      const cleanup = rollback().catch(() => {
+        console.warn("discord_cooldown_cleanup_failed", { stage: "rollback", reason: "operation_failed" });
+      });
+      // Keep cleanup alive after returning the unavailable reply, including late puts.
+      waitUntil(cleanup);
+    } else {
+      release?.();
+    }
     return "unavailable";
   }
 }
@@ -720,7 +776,7 @@ function deferCommand(
     });
   }
   ctx.waitUntil((async () => {
-    const reservation = await reserveCommand(state, interaction, applicationId, command);
+    const reservation = await reserveCommand(state, interaction, applicationId, command, (promise) => ctx.waitUntil(promise));
     if (reservation === "duplicate") return;
     if (reservation === "accepted") {
       await fulfill();

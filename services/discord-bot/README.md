@@ -21,7 +21,9 @@ Slash commands **`/ask`**, **`/bug`**, and **`/feature`** are handled by the mai
 - Cooldowns apply across channels within the same server, including admins. Direct messages use a separate scope for each user.
 - Only valid commands start a cooldown. Once a command is accepted, upstream AI/GitHub failures still consume the cooldown; blocked attempts do not extend the stored timer.
 - Blocked commands receive a wait message without calling Gemini or GitHub. If cooldown storage is unavailable, Fuddy asks users to try again later instead of processing an unmetered command.
-- KV stores hashed identifiers and expiry timestamps: 60 seconds for questions, 300 seconds for reports, and 15 minutes for interaction replay markers. No prompts, API keys, or interaction tokens are stored there.
+- Failed reads release provisional local reservations. Failed or timed-out writes trigger ownership-checked cleanup after all writes settle, including late writes; pending cleanup returns unavailable rather than a normal cooldown. Cleanup is best effort during KV outages and propagation delays, with KV TTLs as the final fallback. Local cleanup guards expire after 30 seconds if background work cannot finish.
+- Storage warnings identify the failing stage and timeout/operation-failure category without logging raw errors or credentials.
+- KV stores hashed identifiers, random reservation ownership tokens, and expiry timestamps: 60 seconds for questions, 300 seconds for reports, and 15 minutes for interaction replay markers. No prompts, API keys, or interaction tokens are stored there.
 - Local reservations guard concurrent requests in one Worker instance. KV is eventually consistent, so cooldowns and replay protection across instances are best effort.
 
 ### One-time Discord portal steps

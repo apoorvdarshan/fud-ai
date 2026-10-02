@@ -18,7 +18,7 @@
   <img src="https://img.shields.io/badge/privacy-local--first-brightgreen" alt="Local-first privacy">
   <img src="https://img.shields.io/badge/languages-iOS%2018%20%2F%20Android%2018-blue" alt="iOS 18 languages / Android 18 languages">
   <img src="https://img.shields.io/badge/license-MIT-green" alt="License">
-  <a href="#credits"><img src="docs/assets/code-reviews.svg" alt="Code reviews by Qodo, GitHub Copilot, and Greptile"></a>
+  <a href="#credits"><img src="docs/assets/code-reviews.svg" alt="Code reviews by Qodo and Greptile"></a>
   <a href="https://www.bestpractices.dev/projects/14553"><img src="https://www.bestpractices.dev/projects/14553/badge" alt="OpenSSF Best Practices Passing"></a>
   <a href="https://scorecard.dev/viewer/?uri=github.com/apoorvdarshan/fud-ai"><img src="https://api.scorecard.dev/projects/github.com/apoorvdarshan/fud-ai/badge" alt="OpenSSF Scorecard"></a>
   <img src="https://img.shields.io/badge/Udyam-Registered-green" alt="Udyam Registered">
@@ -421,7 +421,7 @@ Thanks to everyone who has contributed to making Fud AI better:
 
 ## Credits
 
-Automated code reviews by [Qodo](https://www.qodo.ai/solutions/open-source/), [GitHub Copilot](https://github.com/features/copilot), and [Greptile](https://www.greptile.com/).
+Automated code reviews by [Qodo](https://www.qodo.ai/solutions/open-source/) and [Greptile](https://www.greptile.com/).
 
 Thanks to [Qodo](https://www.qodo.ai/solutions/open-source/) for providing free AI code reviews through its open-source program.
 

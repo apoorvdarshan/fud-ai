@@ -743,8 +743,8 @@ describe("Discord command reservations", () => {
     const { privateKey, publicKeyHex } = await ed25519Pair();
     const bindings = env(publicKeyHex);
     const fetch = vi.fn<MockFetch>(async (url) => {
-      if (String(url).includes("generativelanguage")) return geminiIssueResponse("Title", "Body");
-      if (String(url).includes("api.github.com")) return Response.json({ html_url: ISSUE_URL, number: 42 });
+      if (new URL(String(url)).hostname === "generativelanguage.googleapis.com") return geminiIssueResponse("Title", "Body");
+      if (new URL(String(url)).hostname === "api.github.com") return Response.json({ html_url: ISSUE_URL, number: 42 });
       return new Response(null, { status: 200 });
     });
     vi.stubGlobal("fetch", fetch);
@@ -759,8 +759,8 @@ describe("Discord command reservations", () => {
       expect(await response.json()).toEqual({ type: 5 });
       return waiter;
     }
-    const aiCalls = () => fetch.mock.calls.filter(([url]) => String(url).includes("generativelanguage"));
-    const replies = () => fetch.mock.calls.filter(([url]) => String(url).includes("discord.com"))
+    const aiCalls = () => fetch.mock.calls.filter(([url]) => new URL(String(url)).hostname === "generativelanguage.googleapis.com");
+    const replies = () => fetch.mock.calls.filter(([url]) => new URL(String(url)).hostname === "discord.com")
       .map(([, init]) => JSON.parse(requestBody(init)).content as string);
     return { bindings, fetch, warnings, send, aiCalls, replies };
   }

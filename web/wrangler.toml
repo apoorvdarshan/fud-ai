@@ -38,6 +38,11 @@ run_worker_first = true
 DISCORD_PUBLIC_KEY = "0ce6e6014282b489ce0930fad550e978c7d623cc71040d14250223110a9a9f57"
 DISCORD_APPLICATION_ID = "1548469419922038845"
 
+# Fuddy-only cooldown and interaction replay state; separate from Vercie's namespace.
+[[kv_namespaces]]
+binding = "DISCORD_STATE"
+id = "801f5ccc428944c4a3b736615c2d19aa"
+
 [[kv_namespaces]]
 binding = "STAR_HISTORY"
 id = "3576eb63eadf40f2b7f55afb75e3cd85"

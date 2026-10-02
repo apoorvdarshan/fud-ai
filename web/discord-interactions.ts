@@ -22,6 +22,17 @@ const GEMINI_MODEL = "gemini-3.5-flash-lite";
 const MAX_QUESTION_CHARS = 1_500;
 const MAX_REPORT_CHARS = 4_000;
 const MAX_REPLY_CHARS = 1_800;
+const ASK_COOLDOWN_SECONDS = 60;
+const REPORT_COOLDOWN_SECONDS = 300;
+const INTERACTION_RETENTION_SECONDS = 900;
+
+type DiscordState = {
+  get(key: string): Promise<string | null>;
+  put(key: string, value: string, options: { expirationTtl: number }): Promise<void>;
+};
+
+// Isolate-local reservations close concurrent-request races while KV persists across restarts.
+const localReservations = new WeakMap<DiscordState, Map<string, number>>();
 
 const SYSTEM_PROMPT = `You are the Fud AI Discord helper for the free, open-source calorie / fasting / workout tracker (iOS + Android).
 
@@ -57,6 +68,8 @@ type DiscordEnv = {
   DISCORD_GEMINI_API_KEY?: string;
   /** Shared with star history; `/bug` and `/feature` need `issues:write` on apoorvdarshan/fud-ai. */
   GITHUB_TOKEN?: string;
+  /** Dedicated short-lived cooldown/replay state; never store prompts or credentials. */
+  DISCORD_STATE?: DiscordState;
 };
 
 type DiscordUser = {
@@ -604,6 +617,129 @@ async function fulfillAsk(
   }
 }
 
+async function digestKey(value: string): Promise<string> {
+  const bytes = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(value));
+  return Array.from(new Uint8Array(bytes), (byte) => byte.toString(16).padStart(2, "0")).join("");
+}
+
+async function stateOperation<T>(operation: Promise<T>): Promise<T> {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  try {
+    return await Promise.race([
+      operation,
+      new Promise<never>((_, reject) => {
+        timer = setTimeout(() => reject(new Error("discord_state_timeout")), 1_500);
+      }),
+    ]);
+  } finally {
+    if (timer !== undefined) clearTimeout(timer);
+  }
+}
+
+/** Best-effort cross-isolate limits: KV is eventually consistent, not an atomic lock. */
+async function reserveCommand(
+  state: DiscordState,
+  interaction: Interaction,
+  applicationId: string,
+  command: "ask" | "bug" | "feature",
+): Promise<"accepted" | "duplicate" | "cooldown" | "unavailable"> {
+  try {
+    const userId = reporterFrom(interaction).id;
+    const scope = interactionGuildId(interaction) || "dm";
+    const bucket = command === "ask" ? "ask" : "report";
+    const cooldown = command === "ask" ? ASK_COOLDOWN_SECONDS : REPORT_COOLDOWN_SECONDS;
+    const [interactionHash, cooldownHash] = await Promise.all([
+      digestKey(`${applicationId}:${interaction.id}`),
+      digestKey(`${applicationId}:${scope}:${userId}:${bucket}`),
+    ]);
+    const interactionKey = `fuddy:interaction:${interactionHash}`;
+    const cooldownKey = `fuddy:cooldown:${cooldownHash}`;
+    let local = localReservations.get(state);
+    if (!local) {
+      local = new Map();
+      localReservations.set(state, local);
+    }
+    const now = Date.now();
+    for (const [key, until] of local) {
+      if (until <= now) local.delete(key);
+    }
+    if ((local.get(interactionKey) ?? 0) > now) return "duplicate";
+    if ((local.get(cooldownKey) ?? 0) > now) return "cooldown";
+    while (local.size > 2_046) {
+      const oldest = local.keys().next().value;
+      if (oldest === undefined) break;
+      local.delete(oldest);
+    }
+    // Reserve before the first KV await so simultaneous commands in this isolate cannot pass.
+    local.set(interactionKey, now + INTERACTION_RETENTION_SECONDS * 1000);
+    local.set(cooldownKey, now + cooldown * 1000);
+    const [seen, coolingUntil] = await stateOperation(Promise.all([
+      state.get(interactionKey),
+      state.get(cooldownKey),
+    ]));
+    if (seen) {
+      local.delete(cooldownKey);
+      return "duplicate";
+    }
+    if (Number(coolingUntil) > Date.now()) {
+      local.set(cooldownKey, Number(coolingUntil));
+      return "cooldown";
+    }
+    const until = Date.now() + cooldown * 1000;
+    local.set(cooldownKey, until);
+    await stateOperation(Promise.all([
+      state.put(interactionKey, "accepted", { expirationTtl: INTERACTION_RETENTION_SECONDS }),
+      state.put(cooldownKey, String(until), { expirationTtl: cooldown }),
+    ]));
+    return "accepted";
+  } catch {
+    console.warn("discord_cooldown_state_unavailable");
+    return "unavailable";
+  }
+}
+
+function deferCommand(
+  env: DiscordEnv,
+  interaction: Interaction,
+  applicationId: string,
+  command: "ask" | "bug" | "feature",
+  fulfill: () => Promise<void>,
+  ctx?: { waitUntil: (promise: Promise<unknown>) => void },
+): Response {
+  const state = env.DISCORD_STATE;
+  if (!state || !ctx?.waitUntil) {
+    return jsonResponse({
+      type: 4,
+      data: { content: "Fuddy’s command service is temporarily unavailable. Please try again later.", flags: 64 },
+    });
+  }
+  if (!interaction.id || reporterFrom(interaction).id === "unknown") {
+    return jsonResponse({
+      type: 4,
+      data: { content: "I couldn’t identify this command’s sender. Please try again.", flags: 64 },
+    });
+  }
+  ctx.waitUntil((async () => {
+    const reservation = await reserveCommand(state, interaction, applicationId, command);
+    if (reservation === "duplicate") return;
+    if (reservation === "accepted") {
+      await fulfill();
+      return;
+    }
+    const content = reservation === "cooldown"
+      ? command === "ask"
+        ? "Please wait a minute between questions."
+        : "Please wait five minutes between reports. /bug and /feature share this cooldown. Your reports become public GitHub issues."
+      : "Fuddy’s command service is temporarily unavailable. Please try again later.";
+    await editInteractionReply(applicationId, interaction.token, content);
+  })().catch(() => {
+    // Do not log raw errors: Gemini request URLs include an API key.
+    console.warn("discord_command_delivery_failed");
+  }));
+  // Defer before KV/AI/GitHub work so Discord receives its acknowledgement promptly.
+  return jsonResponse({ type: 5 });
+}
+
 function handleBugCommand(
   env: DiscordEnv,
   interaction: Interaction,
@@ -648,14 +784,8 @@ function handleBugCommand(
     username: reporter.username,
   };
 
-  if (ctx?.waitUntil) {
-    ctx.waitUntil(fulfillBug(env, applicationId, interaction.token, report));
-  } else {
-    void fulfillBug(env, applicationId, interaction.token, report);
-  }
-
-  // 5 = DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE (shows “thinking…”)
-  return jsonResponse({ type: 5 });
+  return deferCommand(env, interaction, applicationId, "bug",
+    () => fulfillBug(env, applicationId, interaction.token, report), ctx);
 }
 
 function handleFeatureCommand(
@@ -701,14 +831,8 @@ function handleFeatureCommand(
     username: reporter.username,
   };
 
-  if (ctx?.waitUntil) {
-    ctx.waitUntil(fulfillFeature(env, applicationId, interaction.token, report));
-  } else {
-    void fulfillFeature(env, applicationId, interaction.token, report);
-  }
-
-  // 5 = DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE (shows “thinking…”)
-  return jsonResponse({ type: 5 });
+  return deferCommand(env, interaction, applicationId, "feature",
+    () => fulfillFeature(env, applicationId, interaction.token, report), ctx);
 }
 
 export async function handleDiscordInteractionsRequest(
@@ -794,15 +918,8 @@ export async function handleDiscordInteractionsRequest(
       });
     }
 
-    if (ctx?.waitUntil) {
-      ctx.waitUntil(fulfillAsk(env, applicationId, interaction.token, question));
-    } else {
-      // Local/tests without ExecutionContext — still defer then await.
-      void fulfillAsk(env, applicationId, interaction.token, question);
-    }
-
-    // 5 = DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE (shows “thinking…”)
-    return jsonResponse({ type: 5 });
+    return deferCommand(env, interaction, applicationId, "ask",
+      () => fulfillAsk(env, applicationId, interaction.token, question), ctx);
   }
 
   return jsonResponse({ error: "unhandled_interaction_type" }, 400);

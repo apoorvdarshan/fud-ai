@@ -12,6 +12,17 @@ Slash commands **`/ask`**, **`/bug`**, and **`/feature`** are handled by the mai
   - `DISCORD_GEMINI_API_KEY` for `/ask` replies and `/bug`/`/feature` issue drafting (free-tier). Does **not** use `GEMINI_API_KEY` (hosted/billed).
   - `GITHUB_TOKEN` for `/bug` and `/feature` issue creation (same Worker secret as star-history; needs `issues:write` on `apoorvdarshan/fud-ai`).
 - Vars in `web/wrangler.toml`: `DISCORD_PUBLIC_KEY`, `DISCORD_APPLICATION_ID`
+- KV binding: `DISCORD_STATE`, backed by the dedicated `FUDDY_DISCORD_STATE` namespace.
+
+### Command cooldowns
+
+- **`/ask`: one question per minute per user.**
+- **`/bug` and `/feature`: one report per five minutes per user, shared between both commands.** A bug report also starts the feature-request cooldown, and vice versa.
+- Cooldowns apply across channels within the same server, including admins. Direct messages use a separate scope for each user.
+- Only valid commands start a cooldown. Once a command is accepted, upstream AI/GitHub failures still consume the cooldown; blocked attempts do not extend the stored timer.
+- Blocked commands receive a wait message without calling Gemini or GitHub. If cooldown storage is unavailable, Fuddy asks users to try again later instead of processing an unmetered command.
+- KV stores hashed identifiers and expiry timestamps: 60 seconds for questions, 300 seconds for reports, and 15 minutes for interaction replay markers. No prompts, API keys, or interaction tokens are stored there.
+- Local reservations guard concurrent requests in one Worker instance. KV is eventually consistent, so cooldowns and replay protection across instances are best effort.
 
 ### One-time Discord portal steps
 
@@ -43,6 +54,8 @@ The same Worker wakes hourly and posts new store releases once in **#announcemen
 The first run only records the versions already live, so it does not announce them again. Secrets: `DISCORD_BOT_TOKEN` and `PLAY_SERVICE_ACCOUNT_JSON`.
 
 ### Deploy Worker secrets + code
+
+The production `DISCORD_STATE` binding is already in `web/wrangler.toml`. For a separate deployment, create a dedicated namespace with `npx wrangler kv namespace create FUDDY_DISCORD_STATE`, then bind its ID as `DISCORD_STATE`. No Discord command re-registration is needed for cooldown changes.
 
 ```bash
 cd web

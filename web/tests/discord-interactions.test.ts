@@ -59,11 +59,21 @@ async function signedRequest(
 }
 
 function env(publicKeyHex: string, extra: Record<string, string> = {}) {
+  const state = new Map<string, { value: string; expiresAt: number }>();
   return {
     DISCORD_PUBLIC_KEY: publicKeyHex,
     DISCORD_APPLICATION_ID: APP_ID,
     DISCORD_GEMINI_API_KEY: "test-gemini-key",
     GITHUB_TOKEN: "test-github-token",
+    DISCORD_STATE: {
+      async get(key: string): Promise<string | null> {
+        const entry = state.get(key);
+        return entry && entry.expiresAt > Date.now() ? entry.value : null;
+      },
+      async put(key: string, value: string, options: { expirationTtl: number }): Promise<void> {
+        state.set(key, { value, expiresAt: Date.now() + options.expirationTtl * 1000 });
+      },
+    },
     ...extra,
   };
 }

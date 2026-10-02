@@ -425,8 +425,6 @@ Automated code reviews by [Qodo](https://www.qodo.ai/solutions/open-source/) and
 
 Thanks to [Qodo](https://www.qodo.ai/solutions/open-source/) for providing free AI code reviews through its open-source program.
 
-Thanks to [GitHub Education](https://github.com/education) for providing Copilot access through the GitHub Copilot Student plan.
-
 Thanks to [Greptile](https://www.greptile.com/open-source) for providing free review credits through its open-source program.
 
 [![Greptile: The War on Bugs](https://www.greptile.com/badge.svg)](https://www.greptile.com/?utm_source=oss_badge&utm_medium=readme&utm_campaign=greptile_for_open_source)

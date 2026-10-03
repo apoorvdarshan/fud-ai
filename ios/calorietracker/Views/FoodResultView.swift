@@ -920,7 +920,7 @@ struct IngredientEditorSheet: View {
             }
             .scrollContentBackground(.hidden)
             .background(AppColors.appBackground)
-            .navigationTitle(target.index == nil ? "Add Ingredient" : "Edit Ingredient")
+            .navigationTitle(target.index == nil ? String(localized: "Add Ingredient") : String(localized: "Edit Ingredient"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -961,7 +961,7 @@ struct IngredientEditorSheet: View {
 
     private func valueRow(_ label: String, text: Binding<String>, unit: String) -> some View {
         HStack {
-            Text(label)
+            Text(LocalizedDisplayText.text(label))
             Spacer()
             TextField("0", text: text)
                 .keyboardType(.decimalPad)
@@ -1114,17 +1114,17 @@ private struct WhatIfMealImpactSheet: View {
     private var remainingCaloriesText: String {
         let remaining = goals.calories - afterTotals.calories
         if remaining >= 0 {
-            return "\(remaining) kcal left"
+            return String(localized: "\(remaining) kcal left")
         }
-        return "\(abs(remaining)) kcal over"
+        return String(localized: "\(abs(remaining)) kcal over")
     }
 
     private func remainingMacroText(_ value: Double, goal: Double) -> String {
         let remaining = goal - value
         if remaining >= 0 {
-            return "\(MacroValueFormatter.string(remaining))g left"
+            return String(localized: "\(MacroValueFormatter.string(remaining))g left")
         }
-        return "\(MacroValueFormatter.string(abs(remaining)))g over"
+        return String(localized: "\(MacroValueFormatter.string(abs(remaining)))g over")
     }
 
     @MainActor

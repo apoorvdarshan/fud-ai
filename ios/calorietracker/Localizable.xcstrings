@@ -29235,6 +29235,465 @@
         }
       }
     },
+    "%@ left": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ restantes"
+          }
+        }
+      }
+    },
+    "%@ over": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ de más"
+          }
+        }
+      }
+    },
+    "%@%@ over": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@%2$@ de más"
+          }
+        }
+      }
+    },
+    "%@g left": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ g restantes"
+          }
+        }
+      }
+    },
+    "%@g over": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ g de más"
+          }
+        }
+      }
+    },
+    "%lld kcal left": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld kcal restantes"
+          }
+        }
+      }
+    },
+    "%lld kcal over": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld kcal de más"
+          }
+        }
+      }
+    },
+    "1M": {
+      "comment": "Progress time range: one month.",
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1M"
+          }
+        }
+      }
+    },
+    "1W": {
+      "comment": "Progress time range: one week.",
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1S"
+          }
+        }
+      }
+    },
+    "1Y": {
+      "comment": "Progress time range: one year.",
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1A"
+          }
+        }
+      }
+    },
+    "3M": {
+      "comment": "Progress time range: three months.",
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3M"
+          }
+        }
+      }
+    },
+    "6M": {
+      "comment": "Progress time range: six months.",
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "6M"
+          }
+        }
+      }
+    },
+    "All": {
+      "comment": "Progress time range: all time.",
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todo"
+          }
+        }
+      }
+    },
+    "C": {
+      "comment": "Abbreviation for carbs.",
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "C"
+          }
+        }
+      }
+    },
+    "Do you know your\nbody fat %?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Conoces tu\n% de grasa corporal?"
+          }
+        }
+      }
+    },
+    "F": {
+      "comment": "Abbreviation for fat.",
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "G"
+          }
+        }
+      }
+    },
+    "Goal reached": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Objetivo alcanzado"
+          }
+        }
+      }
+    },
+    "Height & Weight": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Altura y peso"
+          }
+        }
+      }
+    },
+    "Helps us calculate your metabolism more accurately": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nos ayuda a calcular tu metabolismo con más precisión"
+          }
+        }
+      }
+    },
+    "How active are you?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Cuál es tu nivel de actividad?"
+          }
+        }
+      }
+    },
+    "How fast do you want\nto reach your goal?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿A qué ritmo quieres\nalcanzar tu objetivo?"
+          }
+        }
+      }
+    },
+    "Log your first weight to see trends": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registra tu primer peso para ver tendencias"
+          }
+        }
+      }
+    },
+    "Looking up barcode...": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buscando código de barras..."
+          }
+        }
+      }
+    },
+    "Looking up nutrition...": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buscando información nutricional..."
+          }
+        }
+      }
+    },
+    "No": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No"
+          }
+        }
+      }
+    },
+    "No favorites yet\nSwipe left on any food to add it": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aún no tienes favoritos\nDesliza a la izquierda en cualquier alimento para añadirlo"
+          }
+        }
+      }
+    },
+    "No food logged yet": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aún no has registrado alimentos"
+          }
+        }
+      }
+    },
+    "No foods logged yet": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aún no has registrado alimentos"
+          }
+        }
+      }
+    },
+    "No goal": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin objetivo"
+          }
+        }
+      }
+    },
+    "P": {
+      "comment": "Abbreviation for protein.",
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "P"
+          }
+        }
+      }
+    },
+    "Tap any value to adjust": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toca cualquier valor para ajustarlo"
+          }
+        }
+      }
+    },
+    "This helps us calculate your metabolism": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esto nos ayuda a calcular tu metabolismo"
+          }
+        }
+      }
+    },
+    "Used to calculate your daily needs": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se usa para calcular tus necesidades diarias"
+          }
+        }
+      }
+    },
+    "We'll keep this private": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lo mantendremos en privado"
+          }
+        }
+      }
+    },
+    "We'll set a balanced plan": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prepararemos un plan equilibrado"
+          }
+        }
+      }
+    },
+    "Weight gain speed per week": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ritmo de aumento de peso por semana"
+          }
+        }
+      }
+    },
+    "Weight loss speed per week": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ritmo de pérdida de peso por semana"
+          }
+        }
+      }
+    },
+    "What's your\ndesired weight?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Cuál es tu\npeso deseado?"
+          }
+        }
+      }
+    },
+    "What's your gender?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Cuál es tu sexo?"
+          }
+        }
+      }
+    },
+    "What's your goal?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Cuál es tu objetivo?"
+          }
+        }
+      }
+    },
+    "When's your birthday?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Cuándo es tu cumpleaños?"
+          }
+        }
+      }
+    },
+    "Yes": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sí"
+          }
+        }
+      }
+    },
+    "You can change this anytime": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Puedes cambiarlo cuando quieras"
+          }
+        }
+      }
+    },
+    "Your Plan": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu plan"
+          }
+        }
+      }
+    },
+    "Your pace": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu ritmo"
+          }
+        }
+      }
+    },
     "Meal": {
       "extractionState": "manual",
       "localizations": {

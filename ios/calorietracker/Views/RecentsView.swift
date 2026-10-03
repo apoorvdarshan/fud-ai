@@ -6,6 +6,14 @@ enum SavedMealsMode: String, Identifiable {
     case favorites = "Favorites"
 
     var id: String { rawValue }
+
+    var title: String {
+        switch self {
+        case .recent: String(localized: "Recent")
+        case .frequent: String(localized: "Frequent")
+        case .favorites: String(localized: "Favorites")
+        }
+    }
 }
 
 struct RecentsView: View {
@@ -54,7 +62,7 @@ struct RecentsView: View {
                     if recentItems.isEmpty {
                         emptySection(
                             icon: isSearching ? "magnifyingglass" : "clock",
-                            message: isSearching ? "No matching foods" : "No foods logged yet"
+                            message: isSearching ? String(localized: "No matching foods") : String(localized: "No foods logged yet")
                         )
                     } else {
                         Section {
@@ -79,7 +87,7 @@ struct RecentsView: View {
                     if frequentItems.isEmpty {
                         emptySection(
                             icon: isSearching ? "magnifyingglass" : "repeat",
-                            message: isSearching ? "No matching foods" : "No foods logged yet"
+                            message: isSearching ? String(localized: "No matching foods") : String(localized: "No foods logged yet")
                         )
                     } else {
                         Section {
@@ -104,7 +112,7 @@ struct RecentsView: View {
                     if favoriteItems.isEmpty {
                         emptySection(
                             icon: isSearching ? "magnifyingglass" : "heart",
-                            message: isSearching ? "No matching favorites" : "No favorites yet\nSwipe left on any food to add it"
+                            message: isSearching ? String(localized: "No matching favorites") : String(localized: "No favorites yet\nSwipe left on any food to add it")
                         )
                     } else {
                         Section {
@@ -134,7 +142,7 @@ struct RecentsView: View {
             }
             .scrollContentBackground(.hidden)
             .background(AppColors.appBackground)
-            .navigationTitle(mode.rawValue)
+            .navigationTitle(mode.title)
             .navigationBarTitleDisplayMode(.inline)
             .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: Text("Search saved foods"))
             .toolbar {
@@ -239,9 +247,9 @@ private struct SavedMealRow: View {
                 }
 
                 HStack(spacing: 8) {
-                    MacroTag(label: "P", value: entry.protein)
-                    MacroTag(label: "C", value: entry.carbs)
-                    MacroTag(label: "F", value: entry.fat)
+                    MacroTag(label: String(localized: "P", comment: "Abbreviation for protein."), value: entry.protein)
+                    MacroTag(label: String(localized: "C", comment: "Abbreviation for carbs."), value: entry.carbs)
+                    MacroTag(label: String(localized: "F", comment: "Abbreviation for fat."), value: entry.fat)
                 }
             }
 

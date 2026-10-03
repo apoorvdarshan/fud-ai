@@ -179,7 +179,7 @@ struct OnboardingView: View {
 
     // MARK: - Continue Button
 
-    private func continueButton(_ title: String = "Continue", action: @escaping () -> Void = {}) -> some View {
+    private func continueButton(_ title: String = String(localized: "Continue"), action: @escaping () -> Void = {}) -> some View {
         Button {
             action()
             withAnimation(.snappy) { step += 1 }
@@ -253,7 +253,7 @@ struct OnboardingView: View {
 
     private var genderStep: some View {
         VStack(alignment: .leading, spacing: 0) {
-            stepHeader(title: "What's your gender?", subtitle: "This helps us calculate your metabolism")
+            stepHeader(title: String(localized: "What's your gender?"), subtitle: String(localized: "This helps us calculate your metabolism"))
             Spacer()
             VStack(spacing: 12) {
                 ForEach(Gender.allCases, id: \.self) { g in
@@ -272,7 +272,7 @@ struct OnboardingView: View {
 
     private var birthdayStep: some View {
         VStack(alignment: .leading, spacing: 0) {
-            stepHeader(title: "When's your birthday?", subtitle: "Used to calculate your daily needs")
+            stepHeader(title: String(localized: "When's your birthday?"), subtitle: String(localized: "Used to calculate your daily needs"))
             Spacer()
             DatePicker("Birthday", selection: $birthday, in: ...Date(), displayedComponents: .date)
                 .datePickerStyle(.wheel)
@@ -287,7 +287,7 @@ struct OnboardingView: View {
 
     private var heightWeightStep: some View {
         VStack(alignment: .leading, spacing: 0) {
-            stepHeader(title: "Height & Weight", subtitle: "We'll keep this private")
+            stepHeader(title: String(localized: "Height & Weight"), subtitle: String(localized: "We'll keep this private"))
             Picker("Unit", selection: $isMetric) {
                 Text("Imperial").tag(false)
                 Text("Metric").tag(true)
@@ -352,13 +352,13 @@ struct OnboardingView: View {
 
     private var bodyFatStep: some View {
         VStack(alignment: .leading, spacing: 0) {
-            stepHeader(title: "Do you know your\nbody fat %?", subtitle: "Helps us calculate your metabolism more accurately")
+            stepHeader(title: String(localized: "Do you know your\nbody fat %?"), subtitle: String(localized: "Helps us calculate your metabolism more accurately"))
             Spacer()
             VStack(spacing: 12) {
-                selectionCard(icon: "checkmark.circle", title: "Yes", isSelected: knowsBodyFat) {
+                selectionCard(icon: "checkmark.circle", title: String(localized: "Yes"), isSelected: knowsBodyFat) {
                     withAnimation(.spring(response: 0.3)) { knowsBodyFat = true }
                 }
-                selectionCard(icon: "xmark.circle", title: "No", isSelected: !knowsBodyFat) {
+                selectionCard(icon: "xmark.circle", title: String(localized: "No"), isSelected: !knowsBodyFat) {
                     withAnimation(.spring(response: 0.3)) { knowsBodyFat = false }
                 }
             }
@@ -454,7 +454,7 @@ struct OnboardingView: View {
     private var activityStep: some View {
         VStack(alignment: .leading, spacing: 0) {
             stepHeader(
-                title: "How active are you?",
+                title: String(localized: "How active are you?"),
                 subtitle: LocalizedDisplayText.text(
                     "Choose based on your average week, including work and exercise.",
                     polish: "Wybierz na podstawie typowego tygodnia, uwzględniając pracę i ćwiczenia."
@@ -479,7 +479,7 @@ struct OnboardingView: View {
 
     private var goalStep: some View {
         VStack(alignment: .leading, spacing: 0) {
-            stepHeader(title: "What's your goal?", subtitle: "You can change this anytime")
+            stepHeader(title: String(localized: "What's your goal?"), subtitle: String(localized: "You can change this anytime"))
             Spacer()
             VStack(spacing: 12) {
                 ForEach(WeightGoal.allCases, id: \.self) { g in
@@ -518,7 +518,7 @@ struct OnboardingView: View {
 
     private var desiredWeightStep: some View {
         VStack(alignment: .leading, spacing: 0) {
-            stepHeader(title: "What's your\ndesired weight?", subtitle: goal.displayName)
+            stepHeader(title: String(localized: "What's your\ndesired weight?"), subtitle: goal.displayName)
             Spacer()
             if isWeightMetric {
                 decimalWeightWheel(whole: $targetWeightKgWhole, tenth: $targetWeightKgTenth, range: 30...250, unit: "kg")
@@ -575,11 +575,19 @@ struct OnboardingView: View {
         return Int(weightDiffKg / weeklyChangeKg * 7)
     }
 
+    private var goalSpeedSubtitle: String {
+        switch goal {
+        case .lose: String(localized: "Weight loss speed per week")
+        case .maintain: String(localized: "We'll set a balanced plan")
+        case .gain: String(localized: "Weight gain speed per week")
+        }
+    }
+
     private var goalSpeedStep: some View {
         VStack(alignment: .leading, spacing: 0) {
             stepHeader(
-                title: goal == .maintain ? "Your pace" : "How fast do you want\nto reach your goal?",
-                subtitle: goal == .maintain ? "We'll set a balanced plan" : "\(goal == .lose ? "Weight loss" : "Weight gain") speed per week"
+                title: goal == .maintain ? String(localized: "Your pace") : String(localized: "How fast do you want\nto reach your goal?"),
+                subtitle: goalSpeedSubtitle
             )
             if goal == .maintain {
                 Spacer()
@@ -1333,7 +1341,7 @@ struct OnboardingView: View {
 
     private var planReadyStep: some View {
         VStack(spacing: 0) {
-            stepHeader(title: "Your Plan", subtitle: "Tap any value to adjust")
+            stepHeader(title: String(localized: "Your Plan"), subtitle: String(localized: "Tap any value to adjust"))
 
             ScrollView {
                 VStack(spacing: 20) {
@@ -1636,11 +1644,11 @@ struct BuildingPlanStepView: View {
     @State private var animationDone = false
 
     private let items = [
-        ("Calories", "flame.fill"),
-        ("Carbs", "leaf.fill"),
-        ("Protein", "fish.fill"),
-        ("Fats", "drop.fill"),
-        ("Health Score", "heart.fill")
+        (String(localized: "Calories"), "flame.fill"),
+        (String(localized: "Carbs"), "leaf.fill"),
+        (String(localized: "Protein"), "fish.fill"),
+        (String(localized: "Fats"), "drop.fill"),
+        (String(localized: "Health Score"), "heart.fill")
     ]
 
     var body: some View {

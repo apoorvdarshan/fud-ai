@@ -11,6 +11,17 @@ enum TimeRange: String, CaseIterable {
     case year = "1Y"
     case allTime = "All"
 
+    var title: String {
+        switch self {
+        case .week: String(localized: "1W", comment: "Progress time range: one week.")
+        case .month: String(localized: "1M", comment: "Progress time range: one month.")
+        case .threeMonths: String(localized: "3M", comment: "Progress time range: three months.")
+        case .sixMonths: String(localized: "6M", comment: "Progress time range: six months.")
+        case .year: String(localized: "1Y", comment: "Progress time range: one year.")
+        case .allTime: String(localized: "All", comment: "Progress time range: all time.")
+        }
+    }
+
     var days: Int {
         switch self {
         case .week: 7
@@ -165,7 +176,7 @@ struct WeightChartSection: View {
             }
 
             if weightEntries.isEmpty {
-                emptyState("Log your first weight to see trends")
+                emptyState(String(localized: "Log your first weight to see trends"))
             } else {
                 let chartPoints = plottedPoints
 
@@ -408,7 +419,7 @@ struct CalorieChartSection: View {
             }
 
             if dailyCalories.isEmpty {
-                emptyState("No food logged yet")
+                emptyState(String(localized: "No food logged yet"))
             } else {
                 Chart {
                     ForEach(dailyCalories, id: \.date) { item in
@@ -1218,7 +1229,7 @@ struct BodyFatChartSection: View {
             }
 
             if entries.isEmpty {
-                emptyState("Log your first body fat % to see trends")
+                emptyState(String(localized: "Log your first body fat % to see trends"))
             } else {
                 HStack(spacing: 8) {
                     if let current = currentBodyFatFraction {

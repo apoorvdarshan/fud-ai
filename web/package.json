@@ -9,11 +9,11 @@
     "types": "wrangler types worker-configuration.d.ts --include-runtime false"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "5.20260924.1",
+    "@cloudflare/workers-types": "5.20261001.1",
     "fast-check": "4.10.2",
     "typescript": "7.0.2",
-    "vitest": "5.0.1",
-    "wrangler": "4.139.0"
+    "vitest": "5.0.3",
+    "wrangler": "4.146.0"
   },
   "overrides": {
     "undici": "7.29.0",

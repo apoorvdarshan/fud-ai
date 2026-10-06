@@ -1249,7 +1249,7 @@
     <string name="settings_calc_mifflin_used">Dinlenme metabolizması için varsayılan formül. Vücut yağı mevcut olmadığında kullanılır.</string>
     <string name="settings_calc_mifflin_formula">Erkek: 10×kilo(kg) + 6,25×boy(cm) − 5×yaş + 5\nKadın: 10×kilo(kg) + 6,25×boy(cm) − 5×yaş − 161</string>
     <string name="settings_calc_katch_name">Katch-McArdle denklemi</string>
-    <string name="settings_calc_katch_used">Bir vücut yağ % girdiğinizde kullanılır. BMR\'yi toplam kilo yerine yağsız vücut kütlesinden türetir.</string>
+    <string name="settings_calc_katch_used">Vücut yağ oranınızı girdiğinizde kullanılır. BMR\'yi toplam kilo yerine yağsız vücut kütlesinden türetir.</string>
     <string name="settings_calc_katch_formula">BMR = 370 + 21,6 × LBM(kg)\nLBM = kilo × (1 − vücutYağı%)</string>
     <string name="settings_calc_tdee_name">Aktivite çarpanı yöntemi</string>
     <string name="settings_calc_tdee_used">TDEE = BMR × aktivite çarpanı. Çarpan, seçtiğiniz aktivite seviyesine karşılık gelir. Bu, formül bakım referansıdır. Enerji Yakımı açıkken, hesaplama bunun yerine Health Connect\'in son ölçülen enerji penceresini kullanır: yeterli gün varsa ölçülen toplam enerji; aksi halde ortalama ölçülen aktif enerji + formül BMR.</string>

@@ -1,6 +1,7 @@
 package com.apoorvdarshan.calorietracker.ui.coach
 
 import android.Manifest
+import android.content.res.Configuration
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
@@ -100,6 +101,7 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -123,6 +125,7 @@ import com.apoorvdarshan.calorietracker.ui.navigation.BottomNavDockedControlPadd
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
 import java.io.ByteArrayOutputStream
 import java.util.Base64
+import java.util.Locale
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -149,6 +152,7 @@ fun CoachScreen(container: AppContainer) {
     val listState = rememberLazyListState()
     var showResetConfirm by remember { mutableStateOf(false) }
     val ctx = LocalContext.current
+    val configuration = LocalConfiguration.current
     val scope = rememberCoroutineScope()
     val focusManager = LocalFocusManager.current
     val keyboard = LocalSoftwareKeyboardController.current
@@ -282,12 +286,16 @@ fun CoachScreen(container: AppContainer) {
                         .only(WindowInsetsSides.Bottom)
                 )
         ) {
-            val resolvedChips = ui.suggestions.map { stringResource(it) }
-            val onPromptTap: (String) -> Unit = { chip ->
+            val resolvedChips = ui.suggestions.map { ResolvedPrompt(it, stringResource(it)) }
+            val onPromptTap: (Int) -> Unit = { promptResourceId ->
                 hideKeyboard()
                 input = ""
                 attachedImageBytes = null
-                vm.send(chip)
+                val englishConfiguration = Configuration(configuration).apply {
+                    setLocale(Locale.ENGLISH)
+                }
+                val englishContext = ctx.createConfigurationContext(englishConfiguration)
+                vm.send(englishContext.getString(promptResourceId))
             }
 
             // Top region — empty state OR message list
@@ -381,9 +389,9 @@ fun CoachScreen(container: AppContainer) {
  */
 @Composable
 private fun EmptyState(
-    prompts: List<String>,
+    prompts: List<ResolvedPrompt>,
     enabled: Boolean,
-    onPromptTap: (String) -> Unit,
+    onPromptTap: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -446,9 +454,9 @@ private fun EmptyState(
                 ) {
                     rowPrompts.forEach { prompt ->
                         EmptyPromptCard(
-                            text = prompt,
+                            text = prompt.label,
                             enabled = enabled,
-                            onTap = { onPromptTap(prompt) },
+                            onTap = { onPromptTap(prompt.resourceId) },
                             modifier = Modifier.weight(1f)
                         )
                     }
@@ -458,6 +466,8 @@ private fun EmptyState(
         }
     }
 }
+
+private data class ResolvedPrompt(val resourceId: Int, val label: String)
 
 @Composable
 private fun EmptyPromptCard(
@@ -762,7 +772,7 @@ private fun Bubble(content: String, isUser: Boolean, attachmentImageBase64: Stri
  *     padding 14h × 9v, footnote rounded medium, calorie text
  */
 @Composable
-private fun PromptChipRow(chips: List<String>, enabled: Boolean, onTap: (String) -> Unit) {
+private fun PromptChipRow(chips: List<ResolvedPrompt>, enabled: Boolean, onTap: (Int) -> Unit) {
     if (chips.isEmpty()) return
     LazyRow(
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 6.dp),
@@ -794,7 +804,7 @@ private fun PromptChipRow(chips: List<String>, enabled: Boolean, onTap: (String)
 }
 
 @Composable
-private fun PromptChip(text: String, enabled: Boolean, onTap: (String) -> Unit) {
+private fun PromptChip(prompt: ResolvedPrompt, enabled: Boolean, onTap: (Int) -> Unit) {
     val shape = RoundedCornerShape(20.dp)
     val strokeBrush = Brush.linearGradient(
         listOf(
@@ -808,13 +818,13 @@ private fun PromptChip(text: String, enabled: Boolean, onTap: (String) -> Unit) 
             .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.85f))
             .background(AppColors.Calorie.copy(alpha = 0.10f))
             .border(0.6.dp, strokeBrush, shape)
-            .clickable(enabled = enabled) { onTap(text) }
+            .clickable(enabled = enabled) { onTap(prompt.resourceId) }
             .heightIn(min = 44.dp)
             .padding(horizontal = 14.dp),
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text,
+            prompt.label,
             fontSize = 13.sp,
             fontWeight = FontWeight.Medium,
             color = AppColors.Calorie

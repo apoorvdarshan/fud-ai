@@ -817,7 +817,7 @@
     <string name="settings_macro_locked">Kilitli</string>
     <string name="settings_macro_unlocked">Kilitsiz</string>
     <string name="settings_rebalance_blocked_title">Yeniden Dengelenemiyor</string>
-    <string name="settings_rebalance_blocked_message">Kalori kilitli ve diğer iki makro da kilitli, bu yüzden bu değişikliği karşılayacak bir şey kalmadı. Kaloriyi veya başka bir makroyu kilitleyin, sonra tekrar deneyin.</string>
+    <string name="settings_rebalance_blocked_message">Kalori kilitli ve diğer iki makro da kilitli, bu yüzden bu değişikliği karşılayacak bir şey kalmadı. Kaloriyi veya başka bir makronun kilidini açın, sonra tekrar deneyin.</string>
     <string name="settings_adaptive_locks_title">Uyarlanabilir Hedefler Açık</string>
     <string name="settings_adaptive_locks_message">Kendi kalori ve makrolarınızı kilitlemek veya ayarlamak için Uyarlanabilir Hedefleri kapatın. Açıkken, Fud AI bunları sizin için her hafta yeniden hesaplar.</string>
     <string name="settings_recalc_title">Hedefler yeniden hesaplansın mı?</string>

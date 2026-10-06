@@ -902,7 +902,7 @@ struct WeightHistoryLink: View {
                     Text("Weight History")
                         .font(.system(.body, design: .rounded, weight: .medium))
                         .foregroundStyle(.primary)
-                    Text("\(totalCount) \(totalCount == 1 ? "entry" : "entries") · tap to view or delete")
+                    Text(ProgressHistoryCountText.localized(totalCount))
                         .font(.system(.caption, design: .rounded))
                         .foregroundStyle(.secondary)
                 }
@@ -1016,7 +1016,7 @@ struct BodyFatHistoryLink: View {
                     Text("Body Fat History")
                         .font(.system(.body, design: .rounded, weight: .medium))
                         .foregroundStyle(.primary)
-                    Text("\(totalCount) \(totalCount == 1 ? "entry" : "entries") · tap to view or delete")
+                    Text(ProgressHistoryCountText.localized(totalCount))
                         .font(.system(.caption, design: .rounded))
                         .foregroundStyle(.secondary)
                 }
@@ -1512,7 +1512,7 @@ struct LogBodyFatSheet: View {
 
 // MARK: - Helpers
 
-private func emptyState(_ message: String) -> some View {
+private func emptyState(_ message: LocalizedStringKey) -> some View {
     Text(message)
         .font(.system(.subheadline, design: .rounded))
         .foregroundStyle(.secondary)

@@ -100,18 +100,22 @@ struct LogFoodWidgetView: View {
 
     private var title: String {
         switch method {
-        case .camera: "Camera + Note"
-        case .photos: "Photos"
-        case .barcode: "Barcode"
-        case .text: "Text Input"
-        case .voice: "Voice"
-        case .manual: "Manual Entry"
-        case .siriPhrases: "Siri Phrases"
-        case .recent: "Recent"
-        case .frequent: "Frequent"
-        case .favorites: "Favorites"
-        case .copyFromDay: "Copy from Day"
+        case .camera: Self.localized("Camera + Note")
+        case .photos: Self.localized("Photos")
+        case .barcode: Self.localized("Barcode")
+        case .text: Self.localized("Text Input")
+        case .voice: Self.localized("Voice")
+        case .manual: Self.localized("Manual Entry")
+        case .siriPhrases: Self.localized("Siri Phrases")
+        case .recent: Self.localized("Recent")
+        case .frequent: Self.localized("Frequent")
+        case .favorites: Self.localized("Favorites")
+        case .copyFromDay: Self.localized("Copy from Day")
         }
+    }
+
+    private static func localized(_ key: String) -> String {
+        NSLocalizedString(key, bundle: .main, comment: "Food logging method")
     }
 
     private var iconName: String {

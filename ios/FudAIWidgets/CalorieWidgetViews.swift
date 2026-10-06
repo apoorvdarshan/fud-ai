@@ -238,7 +238,12 @@ private struct LargeCalorieView: View {
     let snapshot: WidgetSnapshot
 
     private var remainingText: String {
-        snapshot.caloriesRemaining > 0 ? "\(snapshot.caloriesRemaining) kcal left" : "Goal reached"
+        snapshot.caloriesRemaining > 0
+            ? String.localizedStringWithFormat(
+                NSLocalizedString("%lld kcal left", bundle: .main, comment: "Calories remaining"),
+                Int64(snapshot.caloriesRemaining)
+            )
+            : NSLocalizedString("Goal reached", bundle: .main, comment: "Calorie goal status")
     }
 
     var body: some View {

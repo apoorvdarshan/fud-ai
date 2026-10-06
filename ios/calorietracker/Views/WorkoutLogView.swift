@@ -355,7 +355,7 @@ struct WorkoutLogView: View {
                         HStack(alignment: .center) {
                             Label(selectedDateTitle, systemImage: "dumbbell.fill")
                             Spacer()
-                            Text("\(selectedExercises.count) workout\(selectedExercises.count == 1 ? "" : "s")")
+                            Text(workoutCountText(selectedExercises.count))
                                 .font(.caption.weight(.bold))
                         }
                         .textCase(nil)
@@ -569,10 +569,14 @@ struct WorkoutLogView: View {
     }
 
     private var selectedDateTitle: String {
-        if Calendar.current.isDateInToday(selectedDate) { return "Today" }
-        if Calendar.current.isDateInTomorrow(selectedDate) { return "Tomorrow" }
-        if Calendar.current.isDateInYesterday(selectedDate) { return "Yesterday" }
+        if Calendar.current.isDateInToday(selectedDate) { return String(localized: "Today") }
+        if Calendar.current.isDateInTomorrow(selectedDate) { return String(localized: "Tomorrow") }
+        if Calendar.current.isDateInYesterday(selectedDate) { return String(localized: "Yesterday") }
         return selectedDate.formatted(.dateTime.weekday(.wide).month(.abbreviated).day())
+    }
+
+    private func workoutCountText(_ count: Int) -> String {
+        String(localized: "\(count) workouts")
     }
 
     private func changeDay(by delta: Int) {
@@ -776,7 +780,16 @@ private struct WorkoutLogWeekStrip: View {
         .buttonStyle(.plain)
         .frame(maxWidth: .infinity)
         .accessibilityLabel(date.formatted(date: .complete, time: .omitted))
-        .accessibilityValue("\(workoutCount) workout\(workoutCount == 1 ? "" : "s")\(isSelected ? ", selected" : "")")
+        .accessibilityValue(calendarAccessibilityValue(workoutCount: workoutCount, isSelected: isSelected))
+    }
+
+    private func calendarAccessibilityValue(workoutCount: Int, isSelected: Bool) -> String {
+        let count = String(localized: "\(workoutCount) workouts")
+        guard isSelected else { return count }
+        return String.localizedStringWithFormat(
+            String(localized: String.LocalizationValue("%@, selected")),
+            count
+        )
     }
 
     private func weekDates(for weekIndex: Int) -> [Date] {
@@ -862,7 +875,7 @@ private struct WorkoutLogBurnButton: View {
                 }
                 .frame(height: 32)
 
-                Text(isCalculating ? "Calculating…" : "Calculate")
+                Text(isCalculating ? String(localized: "Calculating…") : String(localized: "Calculate"))
                     .font(.system(size: isCalculating ? 18 : 22, weight: .black, design: .rounded))
                     .foregroundStyle(Color.white)
                     .contentTransition(.opacity)
@@ -889,7 +902,7 @@ private struct WorkoutLogBurnButton: View {
         .buttonStyle(WorkoutLogBurnButtonStyle())
         .disabled(isCalculating)
         .accessibilityLabel("Calculate calorie burn")
-        .accessibilityValue(isCalculating ? "Calculating" : "Ready")
+        .accessibilityValue(isCalculating ? String(localized: "Calculating") : String(localized: "Ready"))
         .accessibilityHint("Uses saved exercise duration and intensity, or strength sets, repetitions and load, with current body weight")
     }
 }
@@ -949,13 +962,14 @@ private struct WorkoutLogStatsStrip: View {
     }
 
     private func metric(label: String, value: String, systemImage: String, active: Bool) -> some View {
-        VStack(alignment: .leading, spacing: 6) {
+        let localizedLabel = LocalizedDisplayText.text(label)
+        return VStack(alignment: .leading, spacing: 6) {
             HStack(spacing: 4) {
                 Image(systemName: systemImage)
                     .font(.system(size: 11, weight: .heavy))
                     .foregroundStyle(active ? Color.workoutAccent : Color.workoutMutedText.opacity(0.72))
                     .frame(width: 14, height: 14)
-                Text(label)
+                Text(localizedLabel)
                     .font(.system(size: 10, weight: .heavy, design: .rounded))
                     .foregroundStyle(Color.workoutMutedText)
                     .lineLimit(1)
@@ -972,7 +986,7 @@ private struct WorkoutLogStatsStrip: View {
         .frame(maxWidth: .infinity, minHeight: 58, alignment: .leading)
         .padding(.horizontal, 7)
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(label)
+        .accessibilityLabel(localizedLabel)
         .accessibilityValue(value)
     }
 }
@@ -1386,7 +1400,10 @@ private struct WorkoutLogEmptyRoutineRow: View {
                 Text("No workouts logged")
                     .font(.headline.weight(.semibold))
                     .foregroundStyle(Color.workoutCharcoal)
-                Text("Use + to pick \(splitTitle) workouts for this day")
+                Text(String.localizedStringWithFormat(
+                    String(localized: String.LocalizationValue("Use + to pick %@ workouts for this day")),
+                    LocalizedDisplayText.text(splitTitle)
+                ))
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(Color.workoutMutedText)
             }

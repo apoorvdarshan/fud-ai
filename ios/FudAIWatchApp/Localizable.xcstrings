@@ -1,0 +1,115 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "%@ of %@%@" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%@ of %@%@" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "%@ / %@%@" } }
+      },
+      "substitutions" : {
+        "currentValue" : { "argNum" : 1, "formatSpecifier" : "@", "variations" : { } },
+        "goalValue" : { "argNum" : 2, "formatSpecifier" : "@", "variations" : { } },
+        "unit" : { "argNum" : 3, "formatSpecifier" : "@", "variations" : { } }
+      }
+    },
+    "/%@%@" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "/%@%@" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "/%@%@" } }
+      },
+      "substitutions" : {
+        "goalValue" : { "argNum" : 1, "formatSpecifier" : "@", "variations" : { } },
+        "unit" : { "argNum" : 2, "formatSpecifier" : "@", "variations" : { } }
+      }
+    },
+    "~%@ %@" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "~%@ %@" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "~%@ %@" } }
+      },
+      "substitutions" : {
+        "amount" : { "argNum" : 1, "formatSpecifier" : "@", "variations" : { } },
+        "unit" : { "argNum" : 2, "formatSpecifier" : "@", "variations" : { } }
+      }
+    },
+    "%lld left" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%lld left" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "%lld kaldı" } }
+      },
+      "substitutions" : {
+        "remaining" : { "argNum" : 1, "formatSpecifier" : "lld", "variations" : { } }
+      }
+    },
+    "1 glass" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "1 glass" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "1 bardak" } }
+      }
+    },
+    "2 glasses" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "2 glasses" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "2 bardak" } }
+      }
+    },
+    "3 glasses" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "3 glasses" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "3 bardak" } }
+      }
+    },
+    "Add water" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Add water" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Su ekle" } }
+      }
+    },
+    "Add %@ of water" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Add %@ of water" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "%@ su ekle" } }
+      },
+      "substitutions" : {
+        "presetLabel" : { "argNum" : 1, "formatSpecifier" : "@", "variations" : { } }
+      }
+    },
+    "Carbs" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Carbs" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Karbonhidrat" } }
+      }
+    },
+    "Fat" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Fat" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Yağ" } }
+      }
+    },
+    "Fiber" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Fiber" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Lif" } }
+      }
+    },
+    "Opens quick water amounts" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Opens quick water amounts" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Hızlı su miktarlarını açar" } }
+      }
+    },
+    "Protein" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Protein" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Protein" } }
+      }
+    },
+    "Water" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Water" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Su" } }
+      }
+    }
+  },
+  "version" : "1.1"
+}

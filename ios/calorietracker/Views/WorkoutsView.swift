@@ -581,8 +581,8 @@ private struct ExerciseLibraryBrowserView: View {
     }
 
     private func selectionTitle(_ selection: Set<String>) -> String {
-        if selection.isEmpty { return "All" }
-        if selection.count == 1 { return selection.first ?? "All" }
+        if selection.isEmpty { return String(localized: "All") }
+        if selection.count == 1 { return selection.first ?? String(localized: "All") }
         return String(localized: "\(selection.count) selected")
     }
 
@@ -731,10 +731,21 @@ private struct ResultsHeader: View {
     let canReset: Bool
     let onReset: () -> Void
 
+    private var exerciseCountTitle: String {
+        let exercise = String(localized: "exercise")
+        let isTurkish = Bundle.main.preferredLocalizations.first
+            .flatMap { Locale(identifier: $0).language.languageCode?.identifier } == "tr"
+        let noun = isTurkish || count == 1
+            ? exercise
+            : String(localized: "\(exercise)s")
+
+        return "\(count) \(noun)"
+    }
+
     var body: some View {
         HStack(alignment: .firstTextBaseline) {
             VStack(alignment: .leading, spacing: 2) {
-                Text("\(count) \(count == 1 ? noun : String(localized: "\(noun)s"))")
+                Text(exerciseCountTitle)
                     .font(.headline.weight(.semibold))
                     .foregroundStyle(Color.workoutCharcoal)
                     .textCase(nil)

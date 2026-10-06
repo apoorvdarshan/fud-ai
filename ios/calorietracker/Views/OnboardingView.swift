@@ -183,7 +183,7 @@ struct OnboardingView: View {
             action()
             withAnimation(.snappy) { step += 1 }
         } label: {
-            Text(title)
+            Text(LocalizedDisplayText.text(title))
                 .font(.system(.body, design: .rounded, weight: .semibold))
                 .foregroundStyle(Color(.systemBackground))
                 .frame(maxWidth: .infinity)
@@ -632,9 +632,9 @@ struct OnboardingView: View {
                                 .font(.system(.subheadline, design: .rounded, weight: .bold))
                                 .foregroundStyle(AppColors.calorie)
                         }
-                        Text(goalSpeed == 1 ? "The most balanced pace, motivating and sustainable."
+                        Text(LocalizedDisplayText.text(goalSpeed == 1 ? "The most balanced pace, motivating and sustainable."
                              : goalSpeed == 0 ? "Gentle and sustainable. Great for long-term habits."
-                             : "Aggressive but doable. Requires strong discipline.")
+                             : "Aggressive but doable. Requires strong discipline."))
                             .font(.system(.caption, design: .rounded)).foregroundStyle(.secondary)
                     }
                     .padding(16).frame(maxWidth: .infinity, alignment: .leading)
@@ -1228,7 +1228,9 @@ struct OnboardingView: View {
             if byokProvider == .ollama || byokProvider.requiresCustomEndpoint {
                 Divider()
                 HStack {
-                    Label { Text(byokProvider.requiresCustomEndpoint ? "Base URL" : "Server URL") } icon: {
+                    Label { Text(byokProvider.requiresCustomEndpoint
+                        ? String(localized: "Base URL")
+                        : String(localized: "Server URL")) } icon: {
                         Image(systemName: "link").foregroundStyle(AppColors.calorie)
                     }
                     Spacer()
@@ -1557,9 +1559,9 @@ struct OnboardingView: View {
 
     private func stepHeader(title: String, subtitle: String) -> some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text(title).font(.system(size: 28, weight: .bold, design: .rounded))
+            Text(LocalizedDisplayText.text(title)).font(.system(size: 28, weight: .bold, design: .rounded))
             if !subtitle.isEmpty {
-                Text(subtitle).font(.system(.callout, design: .rounded)).foregroundStyle(.secondary)
+                Text(LocalizedDisplayText.text(subtitle)).font(.system(.callout, design: .rounded)).foregroundStyle(.secondary)
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -1572,9 +1574,9 @@ struct OnboardingView: View {
                 Image(systemName: icon).font(.system(size: 22))
                     .foregroundStyle(isSelected ? Color.primary : .secondary).frame(width: 40)
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(title).font(.system(.body, design: .rounded, weight: .semibold)).foregroundStyle(.primary)
+                    Text(LocalizedDisplayText.text(title)).font(.system(.body, design: .rounded, weight: .semibold)).foregroundStyle(.primary)
                     if let subtitle {
-                        Text(subtitle).font(.system(.caption, design: .rounded)).foregroundStyle(.secondary)
+                        Text(LocalizedDisplayText.text(subtitle)).font(.system(.caption, design: .rounded)).foregroundStyle(.secondary)
                     }
                 }
                 Spacer()
@@ -1682,7 +1684,7 @@ struct BuildingPlanStepView: View {
                     HStack(spacing: 10) {
                         Text("\u{2022}")
                             .foregroundStyle(.secondary)
-                        Text(items[index].0)
+                        Text(LocalizedDisplayText.text(items[index].0))
                             .font(.system(.body, design: .rounded))
                         Spacer()
                         if index < checkItem {

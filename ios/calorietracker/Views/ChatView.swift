@@ -319,7 +319,7 @@ struct ChatView: View {
                             .foregroundStyle(AppColors.calorie)
                             .padding(.top, 2)
                             .accessibilityHidden(true)
-                        Text(prompt)
+                        Text(LocalizedDisplayText.text(prompt))
                             .font(.system(.footnote, design: .rounded, weight: .medium))
                             .foregroundStyle(.primary)
                             .multilineTextAlignment(.leading)
@@ -362,7 +362,7 @@ struct ChatView: View {
                         draft = chip
                         send()
                     } label: {
-                        Text(chip)
+                        Text(LocalizedDisplayText.text(chip))
                             .font(.system(.footnote, design: .rounded, weight: .medium))
                             .padding(.horizontal, 14)
                             .frame(minHeight: 44)

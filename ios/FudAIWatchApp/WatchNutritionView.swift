@@ -33,7 +33,7 @@ struct WatchNutritionView: View {
                         }
                         .buttonStyle(.plain)
                         .accessibilityLabel("Add water")
-                        .accessibilityValue("\(nutrient.displayValue) of \(nutrient.displayGoal)\(nutrient.unit)")
+                        .accessibilityValue(String(localized: "\(nutrient.displayValue) of \(nutrient.displayGoal)\(nutrient.unit)"))
                         .accessibilityHint("Opens quick water amounts")
                     } else {
                         WatchNutrientBar(nutrient: nutrient, gradient: themeGradient)
@@ -65,9 +65,9 @@ private struct WatchWaterLogView: View {
     let gradient: [Color]
 
     private let presets = [
-        Preset(milliliters: 250, label: "1 glass"),
-        Preset(milliliters: 500, label: "2 glasses"),
-        Preset(milliliters: 750, label: "3 glasses"),
+        Preset(milliliters: 250, label: String(localized: "1 glass")),
+        Preset(milliliters: 500, label: String(localized: "2 glasses")),
+        Preset(milliliters: 750, label: String(localized: "3 glasses")),
     ]
 
     var body: some View {
@@ -115,7 +115,7 @@ private struct WatchWaterLogView: View {
                         }
                     }
                     .buttonStyle(.plain)
-                    .accessibilityLabel("Add \(preset.label) of water")
+                    .accessibilityLabel(String(localized: "Add \(preset.label) of water"))
                     .accessibilityValue("\(receiver.snapshot.waterDisplayValue(preset.milliliters)) \(receiver.snapshot.waterUnitSymbol)")
                 }
             }

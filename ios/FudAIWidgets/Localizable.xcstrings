@@ -181,6 +181,16 @@
         }
       }
     },
+    "Fiber" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lif"
+          }
+        }
+      }
+    },
     "Frequent" : {
       "localizations" : {
         "tr" : {

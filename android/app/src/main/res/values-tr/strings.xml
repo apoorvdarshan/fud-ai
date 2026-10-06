@@ -1269,7 +1269,7 @@
     <string name="settings_calc_split_citation">Morton RW, ve ark. (2018). “Direnç antrenmanı kaynaklı kas kütlesi ve güç kazanımlarında protein takviyesinin etkisine dair sistematik derleme, meta-analiz ve meta-regresyon.” Br J Sports Med 52(6):376–384.</string>
     <string name="settings_calc_micro_citation">Tahminler, temel yapay zeka modelinin eğitim verilerine (USDA FoodData Central, üretici tabloları, bilimsel literatür) dayanır. Doğruluk, yiyeceğe, porsiyon boyutu görünürlüğüne ve sağlayıcı modeline göre değişir. Sık kaydettiğiniz yiyecekler için her zaman etiketleri kontrol edin.</string>
     <string name="settings_not_medical_title">Tıbbi tavsiye değildir</string>
-    <string name="settings_not_medical_body">Fud AI bir tahmin aracıdır, klinik bir cihaz değildir. Tahmin denklemleri doğal bir hataya sahiptir (BMR için genellikle ±%%10). Önemli diyet değişikliklerinden önce — özellikle bir sağlık durumunuz varsa, hamile ya da emziriyorsanız, 18 yaşın altındaysanız veya bir yeme bozukluğunu yönetiyorsanız — kayıtlı bir diyetisyene, doktora veya spor hekimliği uzmanına danışın.</string>
+    <string name="settings_not_medical_body">Fud AI bir tahmin aracıdır, klinik bir cihaz değildir. Tahmin denklemleri doğal bir hataya sahiptir (BMR için genellikle ±%10). Önemli diyet değişikliklerinden önce — özellikle bir sağlık durumunuz varsa, hamile ya da emziriyorsanız, 18 yaşın altındaysanız veya bir yeme bozukluğunu yönetiyorsanız — kayıtlı bir diyetisyene, doktora veya spor hekimliği uzmanına danışın.</string>
     <string name="settings_waist_cm_format">Bel %1$.0f cm</string>
     <string name="settings_waist_in_format">Bel %1$.0f in</string>
     <string name="export_range_today">Bugün</string>

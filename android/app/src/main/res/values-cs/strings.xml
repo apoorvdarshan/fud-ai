@@ -665,8 +665,10 @@
     <string name="about_star_github">Dát hvězdu na GitHubu</string>
     <string name="about_vote_ph">Hlasovat na Product Huntu</string>
     <string name="about_leave_tip_kofi">Nechej spropitné na Ko-fi</string>
-    <string name="about_report_issue">Nahlásit chybu</string>
-    <string name="about_request_feature">Navrhnout funkci</string>
+    <string name="about_report_issue">Nahlásit chybu na GitHubu</string>
+    <string name="about_report_issue_discord">Nahlásit chybu na Discordu</string>
+    <string name="about_request_feature">Navrhnout funkci na GitHubu</string>
+    <string name="about_request_feature_discord">Navrhnout funkci na Discordu</string>
     <string name="about_contact">Kontaktuj nás</string>
         <string name="about_join_discord">Připojit se na Discord</string>
 <string name="about_follow_x">Sledovat na X</string>

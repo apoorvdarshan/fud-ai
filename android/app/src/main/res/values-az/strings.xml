@@ -120,17 +120,17 @@
     <string name="ai_provider_custom">Fərdi (OpenAI uyğun)</string>
 
     <!-- AI Provider API key placeholders -->
-    <string name="ai_key_placeholder_gemini">AIza…</string>
-    <string name="ai_key_placeholder_openai">sk-…</string>
-    <string name="ai_key_placeholder_anthropic">sk-ant-…</string>
-    <string name="ai_key_placeholder_xai">xai-…</string>
-    <string name="ai_key_placeholder_openrouter">sk-or-…</string>
-    <string name="ai_key_placeholder_together">…</string>
-    <string name="ai_key_placeholder_groq">gsk_…</string>
-    <string name="ai_key_placeholder_huggingface">hf_…</string>
-    <string name="ai_key_placeholder_fireworks">fw_…</string>
-    <string name="ai_key_placeholder_deepinfra">…</string>
-    <string name="ai_key_placeholder_mistral">…</string>
+    <string name="ai_key_placeholder_gemini">Paste Gemini API key</string>
+    <string name="ai_key_placeholder_openai">Paste OpenAI API key</string>
+    <string name="ai_key_placeholder_anthropic">Paste Claude API key</string>
+    <string name="ai_key_placeholder_xai">Paste Grok API key</string>
+    <string name="ai_key_placeholder_openrouter">Paste OpenRouter API key</string>
+    <string name="ai_key_placeholder_together">Paste Together AI API key</string>
+    <string name="ai_key_placeholder_groq">Paste Groq API key</string>
+    <string name="ai_key_placeholder_huggingface">Paste Hugging Face API key</string>
+    <string name="ai_key_placeholder_fireworks">Paste Fireworks API key</string>
+    <string name="ai_key_placeholder_deepinfra">Paste DeepInfra API key</string>
+    <string name="ai_key_placeholder_mistral">Paste Mistral API key</string>
     <string name="ai_key_placeholder_ollama">Açar lazım deyil</string>
     <string name="ai_key_placeholder_custom">API açarı (və ya endpoint tələb etmirsə hər şey)</string>
 
@@ -142,8 +142,8 @@
     <string name="speech_provider_assemblyai">AssemblyAI</string>
 
     <string name="speech_key_placeholder_native">Lazım deyil</string>
-    <string name="speech_key_placeholder_openai">sk-…</string>
-    <string name="speech_key_placeholder_groq">gsk_…</string>
+    <string name="speech_key_placeholder_openai">Paste API key</string>
+    <string name="speech_key_placeholder_groq">Paste API key</string>
     <string name="speech_key_placeholder_deepgram">Token deepgram-açarınız</string>
     <string name="speech_key_placeholder_assemblyai">AssemblyAI açarınız</string>
 
@@ -295,7 +295,6 @@
     <string name="onboarding_plan_field_protein">Protein</string>
     <string name="onboarding_plan_field_carbs">Karbohidrat</string>
     <string name="onboarding_plan_field_fat">Yağ</string>
-
 
     <!-- Home -->
     <plurals name="home_daily_steps">
@@ -607,8 +606,10 @@
     <string name="about_star_github">GitHub-da Ulduz Ver</string>
     <string name="about_vote_ph">Product Hunt-da Səs Ver</string>
     <string name="about_leave_tip_kofi">Ko-fi-də bəxşiş burax</string>
-    <string name="about_report_issue">Problemi Bildir</string>
-    <string name="about_request_feature">Funksiya Tələb Et</string>
+    <string name="about_report_issue">Problemi GitHub-da bildirin</string>
+    <string name="about_report_issue_discord">Problemi Discord-da bildirin</string>
+    <string name="about_request_feature">GitHub-da funksiya istəyin</string>
+    <string name="about_request_feature_discord">Discord-da funksiya istəyin</string>
     <string name="about_contact">Bizimlə Əlaqə</string>
         <string name="about_join_discord">Discord-a qoşul</string>
 <string name="about_follow_x">X-də İzlə</string>

@@ -17,6 +17,20 @@ class OnboardingStateTest {
     }
 
     @Test
+    fun byokTermsDoNotSkipTheKey() {
+        val state = OnboardingState(
+            step = OnboardingStep.PROVIDER,
+            aiPhase = OnboardingAiPhase.BYOK,
+            aiProvider = AIProvider.GEMINI,
+            apiKey = "",
+            acceptedTerms = true
+        )
+        assertTrue(state.acceptedTerms)
+        assertFalse(state.byokSetupComplete)
+        assertFalse(state.canAdvance)
+    }
+
+    @Test
     fun byokWithoutKeyBlocksContinueForGemini() {
         val state = OnboardingState(
             step = OnboardingStep.PROVIDER,

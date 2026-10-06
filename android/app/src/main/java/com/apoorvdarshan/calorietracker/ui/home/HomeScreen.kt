@@ -554,7 +554,7 @@ CalorieHero(
                             .padding(horizontal = 16.dp),
                         horizontalArrangement = Arrangement.spacedBy(4.dp)
                     ) {
-                        ui.homeTopNutrients.take(if (ui.waterTrackingEnabled) 3 else 4).forEach { nutrient ->
+                        ui.homeTopNutrients.take(4).forEach { nutrient ->
                             MacroCard(
                                 label = stringResource(nutrient.displayNameRes),
                                 current = nutrient.current(ui.todayEntries),

@@ -4,6 +4,7 @@ import com.apoorvdarshan.calorietracker.models.ServingUnitOption
 import com.apoorvdarshan.calorietracker.models.OptionalNutrientGoals
 import com.apoorvdarshan.calorietracker.models.MealIngredient
 import com.apoorvdarshan.calorietracker.models.FoodProductMetadata
+import com.apoorvdarshan.calorietracker.models.totals
 import com.apoorvdarshan.calorietracker.models.SupplementalNutrient
 import com.apoorvdarshan.calorietracker.models.UserProfile
 import kotlinx.serialization.Serializable
@@ -61,7 +62,19 @@ data class FoodAnalysis(
     val progressiveMeal: Boolean = false,
     val ingredients: List<MealIngredient> = emptyList(),
     val productMetadata: FoodProductMetadata? = null
-)
+) {
+    /** When the model also returned a breakdown, the header macros are the sum of that list. */
+    fun withIngredientMacroTotals(): FoodAnalysis {
+        if (ingredients.isEmpty()) return this
+        val totals = ingredients.totals()
+        return copy(
+            calories = totals.calories,
+            protein = totals.protein,
+            carbs = totals.carbs,
+            fat = totals.fat
+        )
+    }
+}
 
 /** Per-100g nutrition-label reading. Scaled to a real serving via [scaled]. */
 data class NutritionLabelAnalysis(
@@ -260,7 +273,7 @@ internal object FoodJsonParser {
             selectedServingUnit = if (responseServingSizeGrams == null) "serving" else selectedOption?.unit,
             selectedServingQuantity = if (responseServingSizeGrams == null) 1.0 else selectedOption?.quantityFor(servingSizeGrams),
             servingSizeIsKnown = responseServingSizeGrams != null
-        )
+        ).withIngredientMacroTotals()
         return ParsedFoodResponse(
             analysis = analysis,
             shouldRequestServingUnitFallback = unitOptionsResult.shouldRequestFallback

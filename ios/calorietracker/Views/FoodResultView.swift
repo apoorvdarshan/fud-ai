@@ -178,6 +178,22 @@ struct FoodResultView: View {
             options: normalizedServingUnitOptions,
             defaultToGrams: servingSizeIsKnown && FoodMeasurementSettings.preferGramsByDefault
         )
+        let headerCalories: Int
+        let headerProtein: Double
+        let headerCarbs: Double
+        let headerFat: Double
+        if ingredients.isEmpty {
+            headerCalories = calories
+            headerProtein = protein
+            headerCarbs = carbs
+            headerFat = fat
+        } else {
+            let totals = ingredients.ingredientTotals
+            headerCalories = totals.calories
+            headerProtein = totals.protein
+            headerCarbs = totals.carbs
+            headerFat = totals.fat
+        }
         self.images = images
         self.emoji = emoji
         self.source = source
@@ -195,10 +211,10 @@ struct FoodResultView: View {
             options: normalizedServingUnitOptions
         ))
         self._selectedServingUnitID = State(initialValue: initialServingUnitID)
-        self._editableCalories = State(initialValue: calories)
-        self._editableProtein = State(initialValue: protein)
-        self._editableCarbs = State(initialValue: carbs)
-        self._editableFat = State(initialValue: fat)
+        self._editableCalories = State(initialValue: headerCalories)
+        self._editableProtein = State(initialValue: headerProtein)
+        self._editableCarbs = State(initialValue: headerCarbs)
+        self._editableFat = State(initialValue: headerFat)
         self._editableSugar = State(initialValue: sugar)
         self._editableAddedSugar = State(initialValue: addedSugar)
         self._editableFiber = State(initialValue: fiber)
@@ -287,7 +303,69 @@ struct FoodResultView: View {
         editableIngredients.map { $0.scaled(by: scale) }
     }
 
+    private var currentMicros: MealMicronutrientSnapshot {
+        MealMicronutrientSnapshot(
+            sugar: editableSugar,
+            addedSugar: editableAddedSugar,
+            fiber: editableFiber,
+            saturatedFat: editableSaturatedFat,
+            monounsaturatedFat: editableMonounsaturatedFat,
+            polyunsaturatedFat: editablePolyunsaturatedFat,
+            cholesterol: editableCholesterol,
+            caffeine: editableCaffeine,
+            supplementalNutrients: editableSupplementalNutrients,
+            sodium: editableSodium,
+            potassium: editablePotassium,
+            transFat: editableTransFat,
+            calcium: editableCalcium,
+            iron: editableIron,
+            magnesium: editableMagnesium,
+            zinc: editableZinc,
+            vitaminA: editableVitaminA,
+            vitaminC: editableVitaminC,
+            vitaminD: editableVitaminD,
+            vitaminB12: editableVitaminB12,
+            vitaminE: editableVitaminE,
+            vitaminK: editableVitaminK,
+            folate: editableFolate,
+            omega3: editableOmega3
+        )
+    }
+
+    private func applyMicros(_ snapshot: MealMicronutrientSnapshot) {
+        editableSugar = snapshot.sugar
+        editableAddedSugar = snapshot.addedSugar
+        editableFiber = snapshot.fiber
+        editableSaturatedFat = snapshot.saturatedFat
+        editableMonounsaturatedFat = snapshot.monounsaturatedFat
+        editablePolyunsaturatedFat = snapshot.polyunsaturatedFat
+        editableCholesterol = snapshot.cholesterol
+        editableCaffeine = snapshot.caffeine
+        editableSupplementalNutrients = snapshot.supplementalNutrients
+        editableSodium = snapshot.sodium
+        editablePotassium = snapshot.potassium
+        editableTransFat = snapshot.transFat
+        editableCalcium = snapshot.calcium
+        editableIron = snapshot.iron
+        editableMagnesium = snapshot.magnesium
+        editableZinc = snapshot.zinc
+        editableVitaminA = snapshot.vitaminA
+        editableVitaminC = snapshot.vitaminC
+        editableVitaminD = snapshot.vitaminD
+        editableVitaminB12 = snapshot.vitaminB12
+        editableVitaminE = snapshot.vitaminE
+        editableVitaminK = snapshot.vitaminK
+        editableFolate = snapshot.folate
+        editableOmega3 = snapshot.omega3
+    }
+
     private func applyIngredientChanges(_ displayedIngredients: [MealIngredient]) {
+        applyMicros(
+            currentMicros.stretched(
+                oldGrams: editableIngredients.ingredientTotals.grams,
+                newGrams: displayedIngredients.ingredientTotals.grams
+            )
+        )
         editableIngredients = displayedIngredients
         let totals = displayedIngredients.ingredientTotals
         editableCalories = totals.calories

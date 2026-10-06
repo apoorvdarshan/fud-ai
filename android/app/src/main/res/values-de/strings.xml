@@ -120,17 +120,17 @@
     <string name="ai_provider_custom">Benutzerdefiniert (OpenAI-kompatibel)</string>
 
     <!-- AI Provider API key placeholders -->
-    <string name="ai_key_placeholder_gemini">AIza…</string>
-    <string name="ai_key_placeholder_openai">sk-…</string>
-    <string name="ai_key_placeholder_anthropic">sk-ant-…</string>
-    <string name="ai_key_placeholder_xai">xai-…</string>
-    <string name="ai_key_placeholder_openrouter">sk-or-…</string>
-    <string name="ai_key_placeholder_together">…</string>
-    <string name="ai_key_placeholder_groq">gsk_…</string>
-    <string name="ai_key_placeholder_huggingface">hf_…</string>
-    <string name="ai_key_placeholder_fireworks">fw_…</string>
-    <string name="ai_key_placeholder_deepinfra">…</string>
-    <string name="ai_key_placeholder_mistral">…</string>
+    <string name="ai_key_placeholder_gemini">Paste Gemini API key</string>
+    <string name="ai_key_placeholder_openai">Paste OpenAI API key</string>
+    <string name="ai_key_placeholder_anthropic">Paste Claude API key</string>
+    <string name="ai_key_placeholder_xai">Paste Grok API key</string>
+    <string name="ai_key_placeholder_openrouter">Paste OpenRouter API key</string>
+    <string name="ai_key_placeholder_together">Paste Together AI API key</string>
+    <string name="ai_key_placeholder_groq">Paste Groq API key</string>
+    <string name="ai_key_placeholder_huggingface">Paste Hugging Face API key</string>
+    <string name="ai_key_placeholder_fireworks">Paste Fireworks API key</string>
+    <string name="ai_key_placeholder_deepinfra">Paste DeepInfra API key</string>
+    <string name="ai_key_placeholder_mistral">Paste Mistral API key</string>
     <string name="ai_key_placeholder_ollama">Kein Schlüssel nötig</string>
     <string name="ai_key_placeholder_custom">API-Schlüssel (oder beliebig, falls Endpunkt keinen braucht)</string>
 
@@ -142,8 +142,8 @@
     <string name="speech_provider_assemblyai">AssemblyAI</string>
 
     <string name="speech_key_placeholder_native">Nicht erforderlich</string>
-    <string name="speech_key_placeholder_openai">sk-…</string>
-    <string name="speech_key_placeholder_groq">gsk_…</string>
+    <string name="speech_key_placeholder_openai">Paste API key</string>
+    <string name="speech_key_placeholder_groq">Paste API key</string>
     <string name="speech_key_placeholder_deepgram">Token dein-deepgram-key</string>
     <string name="speech_key_placeholder_assemblyai">Dein AssemblyAI-Schlüssel</string>
 
@@ -295,7 +295,6 @@
     <string name="onboarding_plan_field_protein">Protein</string>
     <string name="onboarding_plan_field_carbs">Kohlenhydrate</string>
     <string name="onboarding_plan_field_fat">Fett</string>
-
 
     <!-- Home -->
     <plurals name="home_daily_steps">
@@ -607,8 +606,10 @@
     <string name="about_star_github">Auf GitHub bewerten</string>
     <string name="about_vote_ph">Auf Product Hunt abstimmen</string>
     <string name="about_leave_tip_kofi">Trinkgeld auf Ko-fi geben</string>
-    <string name="about_report_issue">Problem melden</string>
-    <string name="about_request_feature">Funktion vorschlagen</string>
+    <string name="about_report_issue">Problem auf GitHub melden</string>
+    <string name="about_report_issue_discord">Problem auf Discord melden</string>
+    <string name="about_request_feature">Funktion auf GitHub vorschlagen</string>
+    <string name="about_request_feature_discord">Funktion auf Discord vorschlagen</string>
     <string name="about_contact">Kontakt</string>
         <string name="about_join_discord">Discord beitreten</string>
 <string name="about_follow_x">Auf X folgen</string>

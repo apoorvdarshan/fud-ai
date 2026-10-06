@@ -149,19 +149,19 @@
     <string name="ai_provider_custom">Custom (OpenAI-compatible)</string>
 
     <!-- AI Provider API key placeholders -->
-    <string name="ai_key_placeholder_gemini">AIza…</string>
-    <string name="ai_key_placeholder_openai">sk-…</string>
-    <string name="ai_key_placeholder_anthropic">sk-ant-…</string>
-    <string name="ai_key_placeholder_xai">xai-…</string>
-    <string name="ai_key_placeholder_openrouter">sk-or-…</string>
-    <string name="ai_key_placeholder_together">…</string>
-    <string name="ai_key_placeholder_groq">gsk_…</string>
-    <string name="ai_key_placeholder_huggingface">hf_…</string>
-    <string name="ai_key_placeholder_fireworks">fw_…</string>
-    <string name="ai_key_placeholder_deepinfra">…</string>
-    <string name="ai_key_placeholder_mistral">…</string>
-    <string name="ai_key_placeholder_deepseek">sk-…</string>
-    <string name="ai_key_placeholder_cerebras">csk-…</string>
+    <string name="ai_key_placeholder_gemini">Paste Gemini API key</string>
+    <string name="ai_key_placeholder_openai">Paste OpenAI API key</string>
+    <string name="ai_key_placeholder_anthropic">Paste Claude API key</string>
+    <string name="ai_key_placeholder_xai">Paste Grok API key</string>
+    <string name="ai_key_placeholder_openrouter">Paste OpenRouter API key</string>
+    <string name="ai_key_placeholder_together">Paste Together AI API key</string>
+    <string name="ai_key_placeholder_groq">Paste Groq API key</string>
+    <string name="ai_key_placeholder_huggingface">Paste Hugging Face API key</string>
+    <string name="ai_key_placeholder_fireworks">Paste Fireworks API key</string>
+    <string name="ai_key_placeholder_deepinfra">Paste DeepInfra API key</string>
+    <string name="ai_key_placeholder_mistral">Paste Mistral API key</string>
+    <string name="ai_key_placeholder_deepseek">Paste DeepSeek API key</string>
+    <string name="ai_key_placeholder_cerebras">Paste Cerebras API key</string>
     <string name="ai_key_placeholder_local">No key needed</string>
     <string name="ai_key_placeholder_ollama">No key needed</string>
     <string name="ai_key_placeholder_custom">API key (or anything if endpoint doesn\'t need one)</string>
@@ -178,9 +178,9 @@
 
     <string name="speech_key_placeholder_native">Not needed</string>
     <string name="speech_key_placeholder_local">Not needed</string>
-    <string name="speech_key_placeholder_gemini">AIza…</string>
-    <string name="speech_key_placeholder_openai">sk-…</string>
-    <string name="speech_key_placeholder_groq">gsk_…</string>
+    <string name="speech_key_placeholder_gemini">Paste Gemini API key</string>
+    <string name="speech_key_placeholder_openai">Paste API key</string>
+    <string name="speech_key_placeholder_groq">Paste API key</string>
     <string name="speech_key_placeholder_mistral">Your Mistral API key</string>
     <string name="speech_key_placeholder_deepgram">Token your-deepgram-key</string>
     <string name="speech_key_placeholder_assemblyai">Your AssemblyAI key</string>
@@ -324,6 +324,15 @@
     <string name="onboarding_provider_step_2">Pick a provider and paste your key below</string>
     <string name="onboarding_provider_step_3">Paste your key — done</string>
     <string name="onboarding_provider_footer">13 providers supported. Your key stays on\nthis device, encrypted.</string>
+    <string name="onboarding_paste_api_key_helper">Paste your %1$s API key in the field above. The hint text is not a key.</string>
+    <string name="onboarding_missing_api_key_title">Paste your %1$s API key</string>
+    <string name="onboarding_missing_api_key_message">Continue needs a real key in the API Key field. The hint text is not a key — paste your %1$s key.</string>
+    <string name="onboarding_ai_notice_analysis_title">AI analysis</string>
+    <string name="onboarding_ai_notice_analysis_body">Food photos, voice transcripts, and typed meals are sent directly to your selected AI provider.</string>
+    <string name="onboarding_ai_notice_local_title">Local data</string>
+    <string name="onboarding_ai_notice_local_body">Your food log, weight history, body-fat history, and BYOK API keys stay on this device.</string>
+    <string name="onboarding_ai_terms_checkbox">I accept the Terms of Service and Privacy Policy, including AI provider data sharing described above.</string>
+    <string name="onboarding_ai_terms_and">and</string>
 
     <string name="onboarding_building_calories">Calories</string>
     <string name="onboarding_building_carbs">Carbs</string>
@@ -346,7 +355,6 @@
     <string name="onboarding_plan_field_protein">Protein</string>
     <string name="onboarding_plan_field_carbs">Carbs</string>
     <string name="onboarding_plan_field_fat">Fat</string>
-
 
     <!-- Home -->
     <plurals name="home_daily_steps">
@@ -567,7 +575,6 @@
     <string name="progress_workout_no_range">No calculated workout burns in this range</string>
     <string name="progress_workout_chart_description">Workout burn chart from %1$s to %2$s. Total %3$d kilocalories; latest %4$d kilocalories.</string>
 
-
     <string name="progress_calories_section">Calories</string>
     <string name="progress_avg_format">Avg: %1$,d kcal</string>
     <string name="progress_no_food">No food logged yet</string>
@@ -678,6 +685,9 @@
     <string name="settings_appearance_system">System</string>
     <string name="settings_appearance_light">Light</string>
     <string name="settings_appearance_dark">Dark</string>
+    <string name="settings_app_language">Language</string>
+    <string name="settings_app_language_system">System default</string>
+    <string name="sheet_app_language">Language</string>
     <string name="settings_theme_color">Theme Color</string>
     <string name="sheet_theme_color">Theme Color</string>
     <string name="sheet_theme_color_footer">Changes the main app color used for tabs, buttons, icons, charts, and progress rings.</string>
@@ -920,8 +930,10 @@
     <string name="about_star_github">Star on GitHub</string>
     <string name="about_vote_ph">Vote on Product Hunt</string>
     <string name="about_leave_tip_kofi">Leave a Tip on Ko-fi</string>
-    <string name="about_report_issue">Report an Issue</string>
-    <string name="about_request_feature">Request a Feature</string>
+    <string name="about_report_issue">Report an Issue on GitHub</string>
+    <string name="about_report_issue_discord">Report an Issue on Discord</string>
+    <string name="about_request_feature">Request a Feature on GitHub</string>
+    <string name="about_request_feature_discord">Request a Feature on Discord</string>
     <string name="about_contact">Contact Us</string>
     <string name="about_join_discord">Join Discord</string>
     <string name="about_follow_x">Follow on X</string>
@@ -1124,7 +1136,7 @@
     <string name="nutrition_label_omega3">Omega-3</string>
     <string name="nutrition_section_home_cards">Home Cards</string>
     <string name="home_nutrients_pick_four">Pick one to four nutrients for the Home summary row.</string>
-    <string name="home_nutrients_pick_three_water">Pick one to three nutrients. Water is shown after them while tracking is enabled.</string>
+    <string name="home_nutrients_pick_three_water">Pick one to four nutrients. Water is shown after them while tracking is enabled.</string>
     <string name="home_nutrients_water_fixed">Water is shown after your selected nutrients while Water Tracking is enabled.</string>
     <string name="home_nutrients_water_fixed_short">Shown after selected nutrients</string>
     <string name="nutrition_section_water">Water</string>
@@ -1239,6 +1251,9 @@
     <string name="post_update_hosted_android_title">Hosted AI is coming to Android</string>
     <string name="post_update_hosted_android_body">Plus and Pro hosted plans are live on iPhone first; Android is next. Until then nothing changes here — BYOK stays free forever, and you can keep using your own keys exactly as you do today.</string>
     <string name="post_update_hosted_android_got_it">Got it</string>
+    <string name="post_update_product_hunt_title">Fud AI is live on Product Hunt</string>
+    <string name="post_update_product_hunt_body">We just launched. A vote helps more people find Fud AI.</string>
+    <string name="post_update_product_hunt_not_now">Not now</string>
     <string name="post_update_meet_dev_title">Meet the developer</string>
     <string name="post_update_meet_dev_greeting">Hi, I\'m Apoorv 👋</string>
     <string name="post_update_meet_dev_body">I build Fud AI on my own, in the open. Come say hi, share feedback, or just follow along — it genuinely helps.</string>
@@ -1313,6 +1328,7 @@
     <string name="settings_add_menu_reset">Reset to Default</string>
     <string name="settings_add_menu_footer">Customize the Home + button food menu. Water and fasting stay separate when enabled. This does not change app-icon Quick Actions.</string>
     <string name="settings_add_menu_add_method">Add Method</string>
+    <string name="settings_add_menu_restore_a11y">Restore %1$s</string>
     <string name="settings_add_menu_group_name">Group Name</string>
     <string name="settings_add_menu_new_group">New Group</string>
     <string name="settings_quick_actions">Quick Actions</string>

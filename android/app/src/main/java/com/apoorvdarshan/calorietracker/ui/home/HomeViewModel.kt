@@ -26,9 +26,6 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.withContext
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -39,6 +36,7 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
@@ -120,14 +118,6 @@ data class HomeUiState(
     fun isFavorite(entry: FoodEntry): Boolean = entry.favoriteKey in favoriteKeys
 }
 
-private data class HomeDayFilterInputs(
-    val profile: UserProfile?,
-    val entries: List<FoodEntry>,
-    val favoriteKeys: Set<String>,
-    val sortOrder: String?,
-    val day: LocalDate
-)
-
 internal class FoodSubmissionGate {
     private val active = AtomicBoolean(false)
 
@@ -171,22 +161,18 @@ private val _stepsRefreshEpoch = MutableStateFlow(0)
             container.prefs.foodLogSortOrder,
             _selectedDate
         ) { p, entries, favKeys, sortOrder, day ->
-            HomeDayFilterInputs(p, entries, favKeys, sortOrder, day)
+            val zone = ZoneId.systemDefault()
+            val dayEntries = entries
+                .filter { it.timestamp.atZone(zone).toLocalDate() == day }
+                .sortedByDescending { it.timestamp }
+            _ui.value.copy(
+                profile = p,
+                date = day,
+                todayEntries = dayEntries,
+                foodLogSortOrder = FoodLogSortOrder.fromStorage(sortOrder),
+                favoriteKeys = favKeys
+            )
         }
-            .map { (p, entries, favKeys, sortOrder, day) ->
-                val zone = ZoneId.systemDefault()
-                val dayEntries = entries
-                    .filter { it.timestamp.atZone(zone).toLocalDate() == day }
-                    .sortedByDescending { it.timestamp }
-                _ui.value.copy(
-                    profile = p,
-                    date = day,
-                    todayEntries = dayEntries,
-                    foodLogSortOrder = FoodLogSortOrder.fromStorage(sortOrder),
-                    favoriteKeys = favKeys
-                )
-            }
-            .flowOn(Dispatchers.Default)
             .onEach { state ->
                 _ui.value = state
                 val filenames = state.todayEntries
@@ -791,6 +777,7 @@ viewModelScope.launch {
 
     private fun launchAnalysis(block: suspend CoroutineScope.(generation: Long) -> Unit): Job {
         analysisGeneration += 1
+        draftSaveGeneration += 1
         val generation = analysisGeneration
         return viewModelScope.launch {
             try {
@@ -849,6 +836,7 @@ viewModelScope.launch {
      * iOS RecentsView's `onReview` callback path.
      */
     fun reviewSavedMeal(template: FoodEntry) {
+        draftSaveGeneration += 1
         val analysis = template.toAnalysis()
         val bytesList = template.allImageFilenames.mapNotNull {
             runCatching { container.imageStore.file(it).readBytes() }.getOrNull()
@@ -1037,10 +1025,19 @@ viewModelScope.launch {
     }
 
     private suspend fun restorePendingDraft(draft: PendingFoodAnalysisDraft) {
+        val restoreDraftGeneration = draftSaveGeneration
+        val restoreAnalysisGeneration = analysisGeneration
         val bytesList = withContext(Dispatchers.IO) {
             (listOfNotNull(draft.imageFilename) + draft.additionalImageFilenames).mapNotNull {
                 runCatching { container.imageStore.file(it).readBytes() }.getOrNull()
             }
+        }
+        if (restoreDraftGeneration != draftSaveGeneration ||
+            restoreAnalysisGeneration != analysisGeneration ||
+            _ui.value.analyzing ||
+            _ui.value.pendingAnalysis != null
+        ) {
+            return
         }
         _ui.value = _ui.value.copy(
             analyzing = false,

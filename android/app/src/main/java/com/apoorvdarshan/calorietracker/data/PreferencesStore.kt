@@ -228,6 +228,12 @@ class PreferencesStore(
     val hasSeenMeetDeveloperPrompt: Flow<Boolean> = ds.data.map { it[Keys.HAS_SEEN_MEET_DEVELOPER_PROMPT] ?: false }
     suspend fun setHasSeenMeetDeveloperPrompt(v: Boolean) { ds.edit { it[Keys.HAS_SEEN_MEET_DEVELOPER_PROMPT] = v } }
 
+    val hasSeenProductHuntLaunchPrompt: Flow<Boolean> =
+        ds.data.map { it[Keys.HAS_SEEN_PRODUCT_HUNT_LAUNCH_PROMPT] ?: false }
+    suspend fun setHasSeenProductHuntLaunchPrompt(v: Boolean) {
+        ds.edit { it[Keys.HAS_SEEN_PRODUCT_HUNT_LAUNCH_PROMPT] = v }
+    }
+
     val productHuntLaunchNotificationScheduled: Flow<Boolean> =
         ds.data.map { it[Keys.PRODUCT_HUNT_LAUNCH_NOTIFICATION_SCHEDULED] ?: false }
     suspend fun setProductHuntLaunchNotificationScheduled(v: Boolean) {
@@ -366,8 +372,13 @@ class PreferencesStore(
         it[Keys.PENDING_NUTRITION_HEALTH_WRITES]?.split(",")?.filter { s -> s.isNotBlank() }?.toSet()
             ?: emptySet()
     }
-    override suspend fun setPendingNutritionHealthWrites(ids: Set<String>) {
-        ds.edit { it[Keys.PENDING_NUTRITION_HEALTH_WRITES] = ids.joinToString(",") }
+    override suspend fun updatePendingNutritionHealthWrites(transform: (Set<String>) -> Set<String>) {
+        ds.edit { prefs ->
+            val current = prefs[Keys.PENDING_NUTRITION_HEALTH_WRITES]
+                ?.split(",")?.filter { it.isNotBlank() }?.toSet() ?: emptySet()
+            val next = transform(current)
+            if (next != current) prefs[Keys.PENDING_NUTRITION_HEALTH_WRITES] = next.joinToString(",")
+        }
     }
 
     val cloudBackupEnabled: Flow<Boolean> = ds.data.map { it[Keys.CLOUD_BACKUP_ENABLED] ?: false }
@@ -1392,7 +1403,8 @@ class PreferencesStore(
         val REVIEW_PROMPTED_AFTER_FIRST_LOG = booleanPreferencesKey("reviewPromptedAfterFirstLog")
         val HAS_SEEN_HOSTED_UPSELL_PROMPT = booleanPreferencesKey("hasSeenHostedUpsellPrompt")
         val HAS_SEEN_MEET_DEVELOPER_PROMPT = booleanPreferencesKey("hasCompletedMeetDeveloperPrompt")
-        val PRODUCT_HUNT_LAUNCH_NOTIFICATION_SCHEDULED = booleanPreferencesKey("productHuntLaunchNotificationScheduled")
+        val HAS_SEEN_PRODUCT_HUNT_LAUNCH_PROMPT = booleanPreferencesKey("hasSeenProductHuntLaunchPrompt.2026-09-29")
+        val PRODUCT_HUNT_LAUNCH_NOTIFICATION_SCHEDULED = booleanPreferencesKey("productHuntLaunchNotificationScheduled.2026-09-29")
         val ADAPTIVE_GOALS_PREVIOUS_TARGETS = stringPreferencesKey("adaptiveGoalsPreviousTargets")
         val ADAPTIVE_GOALS_LAST_CHECK_DAY = stringPreferencesKey("adaptiveGoalsLastCheckDay")
         val USE_METRIC = booleanPreferencesKey("useMetric")

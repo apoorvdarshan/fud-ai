@@ -84,9 +84,8 @@ enum SpeechProvider: String, CaseIterable, Codable, Identifiable {
     var apiKeyPlaceholder: String {
         switch self {
         case .nativeIOS, .whisperBase: "Not needed"
-        case .gemini: "AIza..."
-        case .openai: "sk-..."
-        case .groq: "gsk_..."
+        case .gemini: "Paste Gemini API key"
+        case .openai, .groq: "Paste API key"
         case .mistral: "Your Mistral API key"
         case .deepgram: "Token your-deepgram-key"
         case .assemblyai: "Your AssemblyAI key"

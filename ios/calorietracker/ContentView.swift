@@ -125,6 +125,7 @@ struct ContentView: View {
     @State private var showHostedUpsellPrompt = false
     @State private var showHostedUpsellPaywall = false
     @State private var showMeetDeveloperPrompt = false
+    @State private var showProductHuntLaunchPrompt = false
 
     private var workoutsTabIcon: String {
         WorkoutTabMode.mode(for: workoutTabModeRaw).tabIcon
@@ -155,7 +156,7 @@ struct ContentView: View {
                 // Done marks the prompt seen before dismiss. Anything else (system
                 // tear-down after opening Instagram, etc.) must bring it back.
                 if PostUpdatePrompts.hasSeenMeetDeveloper {
-                    scheduleProductHuntLaunchReminder()
+                    continueToProductHuntLaunchPrompt()
                 } else {
                     DispatchQueue.main.async {
                         showMeetDeveloperPrompt = true
@@ -166,6 +167,18 @@ struct ContentView: View {
                     PostUpdatePrompts.hasSeenMeetDeveloper = true
                     showMeetDeveloperPrompt = false
                 }
+            }
+            .sheet(isPresented: $showProductHuntLaunchPrompt) {
+                ProductHuntLaunchSheet(
+                    onVote: {
+                        PostUpdatePrompts.hasSeenProductHuntLaunchPrompt = true
+                        showProductHuntLaunchPrompt = false
+                    },
+                    onNotNow: {
+                        PostUpdatePrompts.hasSeenProductHuntLaunchPrompt = true
+                        showProductHuntLaunchPrompt = false
+                    }
+                )
             }
             .onReceive(NotificationCenter.default.publisher(for: .quickActionRequested)) { _ in
                 consumePendingLaunchRoutes()
@@ -272,10 +285,9 @@ struct ContentView: View {
 
     // MARK: - Post-update prompts (existing users, one-time)
 
-    /// Sequence: hosted upsell (if eligible) → meet the developer → arm the Product Hunt
-    /// launch reminder. Never stacks two dialogs; each step advances from the previous one's
-    /// dismiss handler. Hosted upsell is marked seen when shown; meet-the-developer is marked
-    /// seen only on Done so opening Instagram/X and coming back keeps the sheet up.
+    /// Sequence: hosted upsell (if eligible) → meet the developer → Product Hunt launch sheet
+    /// (only during the launch day) → arm the launch reminder. Never stacks two dialogs.
+    /// Hosted upsell is marked seen when shown; meet-the-developer is marked seen only on Done.
     @MainActor
     private func runPostUpdatePromptsIfNeeded() async {
         // Let the first frame and any launch route (quick action / deep link) settle first.
@@ -293,12 +305,28 @@ struct ContentView: View {
                 continueToMeetDeveloperPrompt(delay: 0)
                 return
             }
-            if PostUpdatePrompts.isHostedUpsellEligible {
+            if RevenueCatManager.shared.hasHostedEntitlement {
+                // Already a subscriber — nothing to upsell, so consume it and don't
+                // block the later prompts on an unrelated offerings request.
                 PostUpdatePrompts.hasSeenHostedUpsell = true
-                showHostedUpsellPrompt = true
-                return
+            } else {
+                // Offerings gate the upsell: while the IAPs aren't live (empty offerings) we
+                // skip silently and leave the prompt unconsumed, so a later update that ships
+                // the plans shows it. Load them here since nothing else does at launch.
+                await RevenueCatManager.shared.loadOfferings()
+                // A launch route (quick action / deep link) may have arrived during the
+                // request; if so, let it win instead of stacking a prompt on top.
+                guard quickActionRequest == nil, foodLogMethodRequest == nil else {
+                    scheduleProductHuntLaunchReminder()
+                    return
+                }
+                if PostUpdatePrompts.isHostedUpsellEligible {
+                    PostUpdatePrompts.hasSeenHostedUpsell = true
+                    showHostedUpsellPrompt = true
+                    return
+                }
+                // Otherwise leave it unconsumed: plans aren't purchasable yet.
             }
-            PostUpdatePrompts.hasSeenHostedUpsell = true
         }
         continueToMeetDeveloperPrompt(delay: 0)
     }
@@ -309,7 +337,7 @@ struct ContentView: View {
 
     private func continueToMeetDeveloperPrompt(delay: Double) {
         guard !PostUpdatePrompts.hasSeenMeetDeveloper else {
-            scheduleProductHuntLaunchReminder()
+            continueToProductHuntLaunchPrompt()
             return
         }
         Task { @MainActor in
@@ -320,6 +348,18 @@ struct ContentView: View {
 
     private func scheduleProductHuntLaunchReminder() {
         Task { await notificationManager.scheduleProductHuntLaunchReminderIfNeeded() }
+    }
+
+    /// Shows the vote sheet once during the 24-hour launch window, then arms the notification.
+    /// Before or after that window it only arms the notification.
+    private func continueToProductHuntLaunchPrompt() {
+        scheduleProductHuntLaunchReminder()
+        guard !PostUpdatePrompts.hasSeenProductHuntLaunchPrompt else { return }
+        guard NotificationManager.productHuntLaunchPlan(now: .now) == .fireNow else { return }
+        Task { @MainActor in
+            try? await Task.sleep(for: .milliseconds(400))
+            showProductHuntLaunchPrompt = true
+        }
     }
 }
 
@@ -525,9 +565,19 @@ private struct AboutSettingsSections: View {
                     githubFormURL = Self.bugReportURL
                 } label: {
                     Label {
-                        Text("Report an Issue")
+                        Text("Report an Issue on GitHub")
                     } icon: {
                         Image(systemName: "exclamationmark.bubble.fill")
+                            .foregroundStyle(AppColors.calorie)
+                    }
+                }
+                .tint(.primary)
+
+                Link(destination: FudAILinks.discord) {
+                    Label {
+                        Text("Report an Issue on Discord")
+                    } icon: {
+                        Image(systemName: "bubble.left.and.bubble.right.fill")
                             .foregroundStyle(AppColors.calorie)
                     }
                 }
@@ -537,9 +587,19 @@ private struct AboutSettingsSections: View {
                     githubFormURL = Self.featureRequestURL
                 } label: {
                     Label {
-                        Text("Request a Feature")
+                        Text("Request a Feature on GitHub")
                     } icon: {
                         Image(systemName: "lightbulb.fill")
+                            .foregroundStyle(AppColors.calorie)
+                    }
+                }
+                .tint(.primary)
+
+                Link(destination: FudAILinks.discord) {
+                    Label {
+                        Text("Request a Feature on Discord")
+                    } icon: {
+                        Image(systemName: "bubble.left.and.bubble.right.fill")
                             .foregroundStyle(AppColors.calorie)
                     }
                 }
@@ -878,9 +938,26 @@ struct HomeView: View {
 
     enum ActiveSheet: String, Identifiable {
         case analyzing, foodResult, analyzingText, lookingUpBarcode, editFood, importSharedMeal
-        var id: String { rawValue }
+        /// Analyzing and Review Food share one identity so a fast model
+        /// response does not dismiss + re-present the sheet. SwiftUI drops
+        /// that swap on slower phones (iPhone 11 / #396).
+        var id: String {
+            switch self {
+            case .analyzing, .analyzingText, .lookingUpBarcode, .foodResult:
+                return "foodLog"
+            case .editFood, .importSharedMeal:
+                return rawValue
+            }
+        }
+    }
+    private enum FoodLogPhase: Hashable {
+        case analyzing, analyzingText, lookingUpBarcode, result
+        var isLoading: Bool { self != .result }
     }
     @State private var activeSheet: ActiveSheet?
+    @State private var foodLogPhase: FoodLogPhase = .result
+    /// Bumped to drop a delayed log handoff if another destination starts in the 0.4s gap.
+    @State private var loggingHandoffGeneration = 0
     @State private var editingEntry: FoodEntry?
     @State private var pendingDiaryDeletion: DiaryDeletion?
 
@@ -1019,9 +1096,7 @@ struct HomeView: View {
     private var isToday: Bool { Calendar.current.isDateInToday(selectedDate) }
     private var foodLogSortOrder: FoodLogSortOrder { FoodLogSortOrder.order(for: foodLogSortOrderRaw) }
     private var homeTopNutrients: [HomeTopNutrient] { HomeTopNutrient.selection(from: homeTopNutrientsRaw) }
-    private var displayedHomeNutrients: [HomeTopNutrient] {
-        waterTrackingEnabled ? Array(homeTopNutrients.prefix(3)) : homeTopNutrients
-    }
+    private var displayedHomeNutrients: [HomeTopNutrient] { homeTopNutrients }
     private var optionalNutrientGoals: OptionalNutrientGoals { OptionalNutrientGoals.decoded(from: optionalNutrientGoalsData) }
     private var waterUnit: WaterUnit { WaterUnit(rawValue: waterUnitRaw) ?? .defaultUnit }
     private var waterPillarUnit: String { waterUnit == .fluidOunces ? " fl oz" : "ml" }
@@ -1198,6 +1273,7 @@ private var dailyStepsTaskKey: String {
     /// The first presentation skips animation so cold setup cannot stretch the handoff;
     /// later selections retain the short transition that already feels responsive.
     private func presentFoodDestination(_ updates: @escaping () -> Void) {
+        cancelPendingLoggingHandoff()
         let shouldAnimate = hasPresentedFoodDestination
         hasPresentedFoodDestination = true
 
@@ -1617,7 +1693,9 @@ private var dailyStepsTaskKey: String {
                                     currentImages = []
                                     currentEmoji = nil
                                     currentFoodSource = .textInput
-                                    startTextAnalysis(description)
+                                    afterLoggingPresentationDismisses {
+                                        startTextAnalysis(description)
+                                    }
                                 }
                             )
                             .presentationCompactAdaptation(.popover)
@@ -1633,7 +1711,9 @@ private var dailyStepsTaskKey: String {
                                     currentImages = []
                                     currentEmoji = nil
                                     currentFoodSource = .textInput
-                                    startTextAnalysis(description)
+                                    afterLoggingPresentationDismisses {
+                                        startTextAnalysis(description)
+                                    }
                                 }
                             )
                             .presentationCompactAdaptation(.popover)
@@ -1669,7 +1749,9 @@ private var dailyStepsTaskKey: String {
                 BarcodeScannerView(
                     onScan: { barcode in
                         showBarcodeScanner = false
-                        startBarcodeLookup(barcode)
+                        afterLoggingPresentationDismisses {
+                            startBarcodeLookup(barcode)
+                        }
                     },
                     onCancel: {
                         showBarcodeScanner = false
@@ -1762,13 +1844,19 @@ private var dailyStepsTaskKey: String {
             }
             .sheet(item: $activeSheet) { sheet in
                 switch sheet {
-                case .analyzing:
-                    AnalyzingView(image: currentImage, onCancel: cancelAnalysis)
-                case .analyzingText:
-                    AnalyzingView(image: nil, message: "Looking up nutrition...", onCancel: cancelAnalysis)
-                case .lookingUpBarcode:
-                    AnalyzingView(image: nil, message: "Looking up barcode...", onCancel: cancelAnalysis)
-                case .foodResult:
+                case .analyzing, .analyzingText, .lookingUpBarcode, .foodResult:
+                    // Drive content from foodLogPhase, not the captured `sheet`
+                    // value — `.sheet(item:)` will not recreate the body when
+                    // identity stays `foodLog`.
+                    Group {
+                    switch foodLogPhase {
+                    case .analyzing:
+                        AnalyzingView(image: currentImage, onCancel: cancelAnalysis)
+                    case .analyzingText:
+                        AnalyzingView(image: nil, message: "Looking up nutrition...", onCancel: cancelAnalysis)
+                    case .lookingUpBarcode:
+                        AnalyzingView(image: nil, message: "Looking up barcode...", onCancel: cancelAnalysis)
+                    case .result:
                     if let result = currentFoodResult {
                         FoodResultView(
                             images: currentImages,
@@ -1820,6 +1908,9 @@ private var dailyStepsTaskKey: String {
                             }
                         )
                     }
+                    }
+                    }
+                    .id(foodLogPhase)
                 case .editFood:
                     if let editingEntry {
                         EditFoodEntryView(entry: editingEntry)
@@ -1841,51 +1932,54 @@ private var dailyStepsTaskKey: String {
             }
             .sheet(item: $savedMealsMode, content: { mode in
                 RecentsView(mode: mode, logDate: logDateForSelectedDay, onReview: { entry in
-                    currentImages = entry.allImageData.compactMap(UIImage.init(data:))
-                    currentImage = currentImages.first
-                    currentEmoji = entry.emoji
-                    currentFoodSource = entry.source
-                    currentFoodResult = GeminiService.FoodAnalysis(
-                        name: entry.name,
-                        calories: entry.calories,
-                        protein: entry.protein,
-                        carbs: entry.carbs,
-                        fat: entry.fat,
-                        servingSizeGrams: entry.reviewServingReference,
-                        emoji: entry.emoji,
-                        sugar: entry.sugar,
-                        addedSugar: entry.addedSugar,
-                        fiber: entry.fiber,
-                        saturatedFat: entry.saturatedFat,
-                        monounsaturatedFat: entry.monounsaturatedFat,
-                        polyunsaturatedFat: entry.polyunsaturatedFat,
-                        cholesterol: entry.cholesterol,
-                        caffeine: entry.caffeine,
-                        supplementalNutrients: entry.supplementalNutrients,
-                        sodium: entry.sodium,
-                        potassium: entry.potassium,
-                        transFat: entry.transFat,
-                        calcium: entry.calcium,
-                        iron: entry.iron,
-                        magnesium: entry.magnesium,
-                        zinc: entry.zinc,
-                        vitaminA: entry.vitaminA,
-                        vitaminC: entry.vitaminC,
-                        vitaminD: entry.vitaminD,
-                        vitaminB12: entry.vitaminB12,
-                        vitaminE: entry.vitaminE,
-                        vitaminK: entry.vitaminK,
-                        folate: entry.folate,
-                        omega3: entry.omega3,
-                        servingUnitOptions: entry.reviewServingUnitOptions,
-                        selectedServingUnit: entry.reviewSelectedServingUnit,
-                        selectedServingQuantity: entry.reviewSelectedServingQuantity,
-                        servingSizeIsKnown: entry.hasKnownServingSize,
-                        progressiveMeal: entry.progressiveMeal,
-                        ingredients: entry.ingredients,
-                        productMetadata: entry.productMetadata
-                    )
-                    activeSheet = .foodResult
+                    afterLoggingPresentationDismisses {
+                        currentImages = entry.allImageData.compactMap(UIImage.init(data:))
+                        currentImage = currentImages.first
+                        currentEmoji = entry.emoji
+                        currentFoodSource = entry.source
+                        currentFoodResult = GeminiService.FoodAnalysis(
+                            name: entry.name,
+                            calories: entry.calories,
+                            protein: entry.protein,
+                            carbs: entry.carbs,
+                            fat: entry.fat,
+                            servingSizeGrams: entry.reviewServingReference,
+                            emoji: entry.emoji,
+                            sugar: entry.sugar,
+                            addedSugar: entry.addedSugar,
+                            fiber: entry.fiber,
+                            saturatedFat: entry.saturatedFat,
+                            monounsaturatedFat: entry.monounsaturatedFat,
+                            polyunsaturatedFat: entry.polyunsaturatedFat,
+                            cholesterol: entry.cholesterol,
+                            caffeine: entry.caffeine,
+                            supplementalNutrients: entry.supplementalNutrients,
+                            sodium: entry.sodium,
+                            potassium: entry.potassium,
+                            transFat: entry.transFat,
+                            calcium: entry.calcium,
+                            iron: entry.iron,
+                            magnesium: entry.magnesium,
+                            zinc: entry.zinc,
+                            vitaminA: entry.vitaminA,
+                            vitaminC: entry.vitaminC,
+                            vitaminD: entry.vitaminD,
+                            vitaminB12: entry.vitaminB12,
+                            vitaminE: entry.vitaminE,
+                            vitaminK: entry.vitaminK,
+                            folate: entry.folate,
+                            omega3: entry.omega3,
+                            servingUnitOptions: entry.reviewServingUnitOptions,
+                            selectedServingUnit: entry.reviewSelectedServingUnit,
+                            selectedServingQuantity: entry.reviewSelectedServingQuantity,
+                            servingSizeIsKnown: entry.hasKnownServingSize,
+                            progressiveMeal: entry.progressiveMeal,
+                            ingredients: entry.ingredients,
+                            productMetadata: entry.productMetadata
+                        )
+                        foodLogPhase = .result
+                        activeSheet = .foodResult
+                    }
                 })
             })
             .sheet(isPresented: $showCopyFromDaySheet) {
@@ -1926,7 +2020,9 @@ private var dailyStepsTaskKey: String {
                         }
                 }
             }
-            .interactiveDismissDisabled(activeSheet == .analyzing || activeSheet == .analyzingText || activeSheet == .lookingUpBarcode)
+            .interactiveDismissDisabled(foodLogPhase.isLoading && (
+                activeSheet == .analyzing || activeSheet == .analyzingText || activeSheet == .lookingUpBarcode
+            ))
             .photosPicker(
                 isPresented: $showPhotoPicker,
                 selection: $selectedPhotoItems,
@@ -2208,6 +2304,7 @@ private var dailyStepsTaskKey: String {
         guard canBeginFoodLogging() else { return }
         guard let image = ShareImportManager.consumeSharedImage() else { return }
         
+        cancelPendingLoggingHandoff()
         // Force dismiss any currently open sheets to prevent SwiftUI from swallowing the new presentation
         activeSheet = nil
         
@@ -2240,7 +2337,7 @@ private var dailyStepsTaskKey: String {
             description: description,
             progressiveMeal: progressiveMeal
         )
-        activeSheet = .analyzing
+        presentFoodLogLoading(.analyzing)
 
         analysisTask?.cancel()
         analysisTask = Task {
@@ -2252,10 +2349,9 @@ private var dailyStepsTaskKey: String {
                         progressiveMeal: progressiveMeal
                     )
                     try Task.checkCancellation()
-                    currentFoodResult = result
                     currentFoodSource = .snapFood
                     retryRequest = nil
-                    activeSheet = .foodResult
+                    presentFoodResult(result)
 
                 case .snapFoodWithContext:
                     let result = try await GeminiService.analyzeFood(
@@ -2264,10 +2360,9 @@ private var dailyStepsTaskKey: String {
                         progressiveMeal: progressiveMeal
                     )
                     try Task.checkCancellation()
-                    currentFoodResult = result
                     currentFoodSource = .snapFood
                     retryRequest = nil
-                    activeSheet = .foodResult
+                    presentFoodResult(result)
 
                 }
             } catch is CancellationError {
@@ -2282,12 +2377,54 @@ private var dailyStepsTaskKey: String {
     /// Cancel button on the analyzing sheet. Cancels the task (which also cancels the underlying
     /// URLSession request), dismisses the sheet, and drops the retry request so no error alert follows.
     private func cancelAnalysis() {
+        cancelPendingLoggingHandoff()
         analysisTask?.cancel()
         analysisTask = nil
         retryRequest = nil
-        if activeSheet == .analyzing || activeSheet == .analyzingText || activeSheet == .lookingUpBarcode {
+        if foodLogPhase.isLoading {
             activeSheet = nil
         }
+        foodLogPhase = .result
+    }
+
+    /// Wait for a popover, full-screen cover, or saved-meals sheet to finish dismissing
+    /// before presenting the food-log sheet (Analyzing / Review Food).
+    @MainActor
+    private func afterLoggingPresentationDismisses(_ action: @escaping () -> Void) {
+        loggingHandoffGeneration += 1
+        let token = loggingHandoffGeneration
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            guard token == loggingHandoffGeneration else { return }
+            action()
+        }
+    }
+
+    @MainActor
+    private func cancelPendingLoggingHandoff() {
+        loggingHandoffGeneration += 1
+    }
+
+    @MainActor
+    private func presentFoodLogLoading(_ phase: FoodLogPhase) {
+        currentFoodResult = nil
+        foodLogPhase = phase
+        switch phase {
+        case .analyzing:
+            activeSheet = .analyzing
+        case .analyzingText:
+            activeSheet = .analyzingText
+        case .lookingUpBarcode:
+            activeSheet = .lookingUpBarcode
+        case .result:
+            activeSheet = .foodResult
+        }
+    }
+
+    @MainActor
+    private func presentFoodResult(_ result: GeminiService.FoodAnalysis) {
+        currentFoodResult = result
+        foodLogPhase = .result
+        activeSheet = .foodResult
     }
 
     private func startBarcodeLookup(_ barcode: String) {
@@ -2299,7 +2436,7 @@ private var dailyStepsTaskKey: String {
         currentImages = []
         currentEmoji = nil
         currentFoodSource = .barcode
-        activeSheet = .lookingUpBarcode
+        presentFoodLogLoading(.lookingUpBarcode)
 
         analysisTask?.cancel()
         analysisTask = Task {
@@ -2307,7 +2444,6 @@ private var dailyStepsTaskKey: String {
                 let lookup = try await OpenFoodFactsService.lookupWithImage(barcode: trimmedBarcode)
                 try Task.checkCancellation()
                 let result = lookup.analysis
-                currentFoodResult = result
                 currentEmoji = result.emoji
                 if let imageData = lookup.productImageData,
                    let image = UIImage(data: imageData) {
@@ -2315,7 +2451,7 @@ private var dailyStepsTaskKey: String {
                     currentImages = [image]
                 }
                 retryRequest = nil
-                activeSheet = .foodResult
+                presentFoodResult(result)
             } catch is CancellationError {
                 // User tapped Cancel on the analyzing sheet; cancelAnalysis already reset the UI.
             } catch {
@@ -2327,16 +2463,15 @@ private var dailyStepsTaskKey: String {
 
     private func startTextAnalysis(_ description: String) {
         retryRequest = .text(description)
-        activeSheet = .analyzingText
+        presentFoodLogLoading(.analyzingText)
         analysisTask?.cancel()
         analysisTask = Task {
             do {
                 let result = try await GeminiService.analyzeTextInput(description: description)
                 try Task.checkCancellation()
-                currentFoodResult = result
                 currentEmoji = result.emoji
                 retryRequest = nil
-                activeSheet = .foodResult
+                presentFoodResult(result)
             } catch is CancellationError {
                 // User tapped Cancel on the analyzing sheet; cancelAnalysis already reset the UI.
             } catch {
@@ -2351,6 +2486,7 @@ private var dailyStepsTaskKey: String {
     /// or drop the alert.
     @MainActor
     private func presentAnalysisError(_ error: Error) {
+        foodLogPhase = .result
         activeSheet = nil
         if let quotaError = error as? HostedAIQuotaError {
             switch quotaError {
@@ -2392,6 +2528,7 @@ private var dailyStepsTaskKey: String {
             ?? OpenFoodFactsService.LookupError.invalidResponse.localizedDescription
         errorMessage = message
         // End the loading sheet first, then show only the system popup.
+        foodLogPhase = .result
         activeSheet = nil
         BarcodeLookupAlertPresenter.present(
             message: message,
@@ -2785,8 +2922,7 @@ struct NutritionDetailView: View {
     private var homeTopNutrients: [HomeTopNutrient] { HomeTopNutrient.selection(from: homeTopNutrientsRaw) }
     private var waterUnit: WaterUnit { WaterUnit(rawValue: waterUnitRaw) ?? .defaultUnit }
     private var homeTopNutrientNames: String {
-        let nutrientNames = (waterTrackingEnabled ? Array(homeTopNutrients.prefix(3)) : homeTopNutrients)
-            .map(\.displayName)
+        let nutrientNames = homeTopNutrients.map(\.displayName)
         return (waterTrackingEnabled ? nutrientNames + ["Water"] : nutrientNames)
             .joined(separator: ", ")
     }
@@ -3390,6 +3526,7 @@ final class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOut
     private let onCancel: () -> Void
     private var session: AVCaptureSession?
     private var previewLayer: AVCaptureVideoPreviewLayer?
+    private var captureDevice: AVCaptureDevice?
     private var didScan = false
 
     init(onScan: @escaping (String) -> Void, onCancel: @escaping () -> Void) {
@@ -3447,7 +3584,7 @@ final class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOut
         let session = AVCaptureSession()
         session.beginConfiguration()
 
-        guard let camera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back),
+        guard let camera = BarcodeScannerCameraSelection.preferredBackVideoCaptureDevice(),
               let input = try? AVCaptureDeviceInput(device: camera),
               session.canAddInput(input) else {
             session.commitConfiguration()
@@ -3455,6 +3592,7 @@ final class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOut
             return
         }
         session.addInput(input)
+        captureDevice = camera
         configureCameraForBarcodeScanning(camera)
 
         let output = AVCaptureMetadataOutput()
@@ -3492,9 +3630,54 @@ final class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOut
 
         self.session = session
         self.previewLayer = previewLayer
+        installTapToFocusGestureIfNeeded()
 
         DispatchQueue.global(qos: .userInitiated).async {
             session.startRunning()
+        }
+    }
+
+    private func installTapToFocusGestureIfNeeded() {
+        guard view.gestureRecognizers?.contains(where: { $0 is UITapGestureRecognizer }) != true else { return }
+        let tap = UITapGestureRecognizer(target: self, action: #selector(previewTapped(_:)))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+
+    @objc private func previewTapped(_ recognizer: UITapGestureRecognizer) {
+        guard recognizer.state == .ended,
+              let previewLayer,
+              let camera = captureDevice else { return }
+        let layerPoint = recognizer.location(in: view)
+        if view.hitTest(layerPoint, with: nil) is UIControl { return }
+        let devicePoint = previewLayer.captureDevicePointConverted(fromLayerPoint: layerPoint)
+        focusCamera(camera, at: devicePoint)
+    }
+
+    private func focusCamera(_ camera: AVCaptureDevice, at devicePoint: CGPoint) {
+        do {
+            try camera.lockForConfiguration()
+            defer { camera.unlockForConfiguration() }
+
+            if camera.isFocusPointOfInterestSupported {
+                camera.focusPointOfInterest = devicePoint
+                if camera.isFocusModeSupported(.autoFocus) {
+                    camera.focusMode = .autoFocus
+                } else if camera.isFocusModeSupported(.continuousAutoFocus) {
+                    camera.focusMode = .continuousAutoFocus
+                }
+            }
+
+            if camera.isExposurePointOfInterestSupported {
+                camera.exposurePointOfInterest = devicePoint
+                if camera.isExposureModeSupported(.continuousAutoExposure) {
+                    camera.exposureMode = .continuousAutoExposure
+                } else if camera.isExposureModeSupported(.autoExpose) {
+                    camera.exposureMode = .autoExpose
+                }
+            }
+        } catch {
+            // Keep scanning available even if tap-to-focus fails.
         }
     }
 
@@ -5109,6 +5292,10 @@ struct ProfileView: View {
                             customBaseURL = AIProviderSettings.customBaseURL(for: newProvider) ?? ""
                         }
 
+                        if selectedProvider == .appleIntelligence {
+                            appleIntelligenceAvailabilityRow
+                        }
+
                         if selectedProvider.supportsCustomModelName {
                             // Free-form TextField for any model ID, with optional preset suggestions menu
                             // (e.g., OpenRouter has presets but lets user type any of openrouter.ai/models).
@@ -5525,6 +5712,10 @@ struct ProfileView: View {
                             .id("image-fallback-provider-\(localModelAvailabilityRevision)")
                             .onChange(of: selectedFallbackProvider) { _, newProvider in
                                 selectFallbackProvider(newProvider)
+                            }
+
+                            if selectedFallbackProvider == .appleIntelligence {
+                                appleIntelligenceAvailabilityRow
                             }
 
                             if selectedFallbackProvider.supportsCustomModelName {

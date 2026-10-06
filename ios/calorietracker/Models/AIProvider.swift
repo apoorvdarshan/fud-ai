@@ -107,7 +107,13 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
 
     var supportsVision: Bool {
         switch self {
-        case .appleIntelligence, .deepseek, .cerebras:
+        case .appleIntelligence:
+            if #available(iOS 27.0, *) {
+                true
+            } else {
+                false
+            }
+        case .deepseek, .cerebras:
             false
         default:
             true
@@ -185,7 +191,12 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
     /// Lineups verified against provider docs on 2026-09-07.
     var models: [String] {
         switch self {
-        case .appleIntelligence: [] // text-only system model; never offered for image requests
+        case .appleIntelligence:
+            if #available(iOS 27.0, *) {
+                ["System Language Model"]
+            } else {
+                [String]()
+            }
         case .gemma4Local: [Gemma4LocalModelManager.modelID]
         case .gemini: [
             "gemini-3.5-flash-lite",         // vision, cheapest current stable model (default)
@@ -366,24 +377,32 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
         }
     }
 
+    /// Short name used in “Paste X API key” hints (not the full picker label).
+    var apiKeyBrandName: String {
+        switch self {
+        case .gemini: "Gemini"
+        case .openai: "OpenAI"
+        case .anthropic: "Claude"
+        case .xai: "Grok"
+        case .openrouter: "OpenRouter"
+        case .togetherai: "Together AI"
+        case .groq: "Groq"
+        case .huggingface: "Hugging Face"
+        case .fireworks: "Fireworks"
+        case .deepinfra: "DeepInfra"
+        case .mistral: "Mistral"
+        case .deepseek: "DeepSeek"
+        case .cerebras: "Cerebras"
+        case .customOpenAI: "API"
+        case .appleIntelligence, .gemma4Local, .ollama: "API"
+        }
+    }
+
     var apiKeyPlaceholder: String {
         switch self {
-        case .appleIntelligence, .gemma4Local: "No key needed"
-        case .gemini: "AIza..."
-        case .openai: "sk-..."
-        case .anthropic: "sk-ant-..."
-        case .xai: "xai-..."
-        case .openrouter: "sk-or-..."
-        case .togetherai: "..."
-        case .groq: "gsk_..."
-        case .huggingface: "hf_..."
-        case .fireworks: "fw_..."
-        case .deepinfra: "..."
-        case .mistral: "..."
-        case .deepseek: "sk-..."
-        case .cerebras: "csk-..."
-        case .ollama: "No key needed"
+        case .appleIntelligence, .gemma4Local, .ollama: "No key needed"
         case .customOpenAI: "API key (or anything if endpoint doesn't need one)"
+        default: "Paste \(apiKeyBrandName) API key"
         }
     }
 }

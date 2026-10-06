@@ -71,6 +71,7 @@ import com.apoorvdarshan.calorietracker.models.FoodSource
 import com.apoorvdarshan.calorietracker.models.MacroValueFormatter
 import com.apoorvdarshan.calorietracker.models.MealType
 import com.apoorvdarshan.calorietracker.models.MealIngredient
+import com.apoorvdarshan.calorietracker.models.MealMicronutrientSnapshot
 import com.apoorvdarshan.calorietracker.models.ServingUnitOption
 import com.apoorvdarshan.calorietracker.models.ServingAmountExpression
 import com.apoorvdarshan.calorietracker.models.SupplementalNutrient
@@ -122,8 +123,8 @@ fun FoodResultSheet(
     ) -> Unit,
     onDismiss: () -> Unit
 ) {
-    val thumbnails by produceState<List<Pair<Int, android.graphics.Bitmap>>>(
-        initialValue = emptyList(),
+    val thumbnails by produceState<List<Pair<Int, android.graphics.Bitmap>>?>(
+        initialValue = null,
         imageBytesList
     ) {
         value = withContext(Dispatchers.IO) {
@@ -190,10 +191,11 @@ fun FoodResultSheet(
     var showTimePicker by remember { mutableStateOf(false) }
     var moreNutritionExpanded by rememberSaveable { mutableStateOf(false) }
     var nutritionUnlocked by rememberSaveable { mutableStateOf(false) }
-    var editableCalories by rememberSaveable(analysis) { mutableStateOf(analysis.calories) }
-    var editableProtein by rememberSaveable(analysis) { mutableStateOf(analysis.protein) }
-    var editableCarbs by rememberSaveable(analysis) { mutableStateOf(analysis.carbs) }
-    var editableFat by rememberSaveable(analysis) { mutableStateOf(analysis.fat) }
+    val reviewMacros = remember(analysis) { analysis.withIngredientMacroTotals() }
+    var editableCalories by rememberSaveable(analysis) { mutableStateOf(reviewMacros.calories) }
+    var editableProtein by rememberSaveable(analysis) { mutableStateOf(reviewMacros.protein) }
+    var editableCarbs by rememberSaveable(analysis) { mutableStateOf(reviewMacros.carbs) }
+    var editableFat by rememberSaveable(analysis) { mutableStateOf(reviewMacros.fat) }
     var editableSugar by rememberSaveable(analysis) { mutableStateOf(analysis.sugar) }
     var editableAddedSugar by rememberSaveable(analysis) { mutableStateOf(analysis.addedSugar) }
     var editableFiber by rememberSaveable(analysis) { mutableStateOf(analysis.fiber) }
@@ -230,7 +232,7 @@ fun FoodResultSheet(
             return@LaunchedEffect
         }
         viewerBitmaps = withContext(Dispatchers.IO) {
-            thumbnails.map { (sourceIndex, thumb) ->
+            (thumbnails ?: emptyList()).map { (sourceIndex, thumb) ->
                 FoodImageDecoder.decode(imageBytesList[sourceIndex], FoodImageStore.VIEWER_MAX_DIMENSION)
                     ?: thumb
             }
@@ -258,7 +260,61 @@ fun FoodResultSheet(
     fun baseDoubleFromText(text: String): Double = (decimalValue(text) ?: 0.0) / scale.coerceAtLeast(0.0001)
     fun baseOptionalFromText(text: String): Double? = decimalValue(text)?.let { it / scale.coerceAtLeast(0.0001) }
     fun scaledIngredients() = editableIngredients.map { it.scaled(scale) }
+    fun applyMicronutrients(snapshot: MealMicronutrientSnapshot) {
+        editableSugar = snapshot.sugar
+        editableAddedSugar = snapshot.addedSugar
+        editableFiber = snapshot.fiber
+        editableSaturatedFat = snapshot.saturatedFat
+        editableMonounsaturatedFat = snapshot.monounsaturatedFat
+        editablePolyunsaturatedFat = snapshot.polyunsaturatedFat
+        editableCholesterol = snapshot.cholesterol
+        editableCaffeine = snapshot.caffeine
+        editableSupplementalNutrients = snapshot.supplementalNutrients
+        editableSodium = snapshot.sodium
+        editablePotassium = snapshot.potassium
+        editableTransFat = snapshot.transFat
+        editableCalcium = snapshot.calcium
+        editableIron = snapshot.iron
+        editableMagnesium = snapshot.magnesium
+        editableZinc = snapshot.zinc
+        editableVitaminA = snapshot.vitaminA
+        editableVitaminC = snapshot.vitaminC
+        editableVitaminD = snapshot.vitaminD
+        editableVitaminB12 = snapshot.vitaminB12
+        editableVitaminE = snapshot.vitaminE
+        editableVitaminK = snapshot.vitaminK
+        editableFolate = snapshot.folate
+        editableOmega3 = snapshot.omega3
+    }
     fun applyIngredientChanges(displayedIngredients: List<MealIngredient>) {
+        applyMicronutrients(
+            MealMicronutrientSnapshot(
+                sugar = editableSugar,
+                addedSugar = editableAddedSugar,
+                fiber = editableFiber,
+                saturatedFat = editableSaturatedFat,
+                monounsaturatedFat = editableMonounsaturatedFat,
+                polyunsaturatedFat = editablePolyunsaturatedFat,
+                cholesterol = editableCholesterol,
+                caffeine = editableCaffeine,
+                supplementalNutrients = editableSupplementalNutrients,
+                sodium = editableSodium,
+                potassium = editablePotassium,
+                transFat = editableTransFat,
+                calcium = editableCalcium,
+                iron = editableIron,
+                magnesium = editableMagnesium,
+                zinc = editableZinc,
+                vitaminA = editableVitaminA,
+                vitaminC = editableVitaminC,
+                vitaminD = editableVitaminD,
+                vitaminB12 = editableVitaminB12,
+                vitaminE = editableVitaminE,
+                vitaminK = editableVitaminK,
+                folate = editableFolate,
+                omega3 = editableOmega3
+            ).stretched(editableIngredients.totals().grams, displayedIngredients.totals().grams)
+        )
         editableIngredients = displayedIngredients
         val totals = displayedIngredients.totals()
         editableCalories = totals.calories
@@ -416,12 +472,13 @@ fun FoodResultSheet(
                     Modifier.fillMaxWidth().padding(vertical = 8.dp),
                     contentAlignment = Alignment.Center
                 ) {
-                    if (thumbnails.isNotEmpty()) {
+                    val loadedThumbs = thumbnails
+                    if (!loadedThumbs.isNullOrEmpty()) {
                         LazyRow(
                             horizontalArrangement = Arrangement.spacedBy(12.dp),
                             contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = 8.dp)
                         ) {
-                            itemsIndexed(thumbnails, key = { _, thumb -> thumb.first }) { index, (_, bitmap) ->
+                            itemsIndexed(loadedThumbs, key = { _, thumb -> thumb.first }) { index, (_, bitmap) ->
                                 Box {
                                     androidx.compose.foundation.Image(
                                         bitmap = bitmap.asImageBitmap(),
@@ -432,9 +489,9 @@ fun FoodResultSheet(
                                             .clip(RoundedCornerShape(20.dp))
                                             .clickable { previewPhotoIndex = index }
                                     )
-                                    if (thumbnails.size > 1) {
+                                    if (loadedThumbs.size > 1) {
                                         Text(
-                                            "${index + 1}/${thumbnails.size}",
+                                            "${index + 1}/${loadedThumbs.size}",
                                             color = Color.White,
                                             fontSize = 11.sp,
                                             fontWeight = FontWeight.SemiBold,
@@ -447,6 +504,16 @@ fun FoodResultSheet(
                                     }
                                 }
                             }
+                        }
+                    } else if (imageBytesList.isNotEmpty() && thumbnails == null) {
+                        Box(
+                            Modifier.size(240.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            CircularProgressIndicator(
+                                color = AppColors.Calorie,
+                                modifier = Modifier.size(36.dp)
+                            )
                         }
                     } else {
                         Text(analysis.emoji ?: "🍽", fontSize = 80.sp)

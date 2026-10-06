@@ -15,6 +15,43 @@ import org.junit.Test
 
 class MealIngredientTest {
     @Test
+    fun ingredientListReplacesDisagreedMealMacros() {
+        val analysis = FoodAnalysis(
+            name = "Plate",
+            calories = 820,
+            protein = 40.0,
+            carbs = 90.0,
+            fat = 30.0,
+            servingSizeGrams = 500.0,
+            ingredients = listOf(
+                MealIngredient("Chicken", 150.0, 250, 40.0, 0.0, 8.0),
+                MealIngredient("Rice", 200.0, 300, 6.0, 66.0, 1.0),
+                MealIngredient("Sauce", 40.0, 90, 1.0, 4.0, 8.0)
+            )
+        ).withIngredientMacroTotals()
+
+        assertEquals(640, analysis.calories)
+        assertEquals(47.0, analysis.protein, 0.001)
+        assertEquals(70.0, analysis.carbs, 0.001)
+        assertEquals(17.0, analysis.fat, 0.001)
+    }
+
+    @Test
+    fun emptyIngredientListKeepsMealMacros() {
+        val analysis = FoodAnalysis(
+            name = "Banana",
+            calories = 105,
+            protein = 1.0,
+            carbs = 27.0,
+            fat = 0.0,
+            servingSizeGrams = 118.0
+        ).withIngredientMacroTotals()
+
+        assertEquals(105, analysis.calories)
+        assertEquals(1.0, analysis.protein, 0.001)
+    }
+
+    @Test
     fun scalingAndTotalsRecalculateMealMacros() {
         val ingredients = listOf(
             MealIngredient("Rice", 150.0, 195, 4.0, 42.0, 0.5),

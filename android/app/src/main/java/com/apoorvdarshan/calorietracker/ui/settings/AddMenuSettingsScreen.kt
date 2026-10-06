@@ -2,10 +2,10 @@ package com.apoorvdarshan.calorietracker.ui.settings
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -13,7 +13,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
@@ -21,8 +23,6 @@ import androidx.compose.material.icons.filled.ArrowDownward
 import androidx.compose.material.icons.filled.ArrowUpward
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Remove
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -31,7 +31,6 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -48,7 +47,10 @@ import com.apoorvdarshan.calorietracker.models.AddMenuGroupConfig
 import com.apoorvdarshan.calorietracker.models.FoodLogMethod
 import com.apoorvdarshan.calorietracker.models.defaultGroupNameRes
 import com.apoorvdarshan.calorietracker.models.displayName
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
+import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialog
+import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialogActions
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassSurface
 import com.apoorvdarshan.calorietracker.ui.navigation.BottomNavScrollPadding
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
@@ -60,9 +62,11 @@ fun AddMenuSettingsScreen(
 ) {
     val ui by vm.ui.collectAsState()
     var draft by remember(ui.addMenuConfig) { mutableStateOf(ui.addMenuConfig) }
-    var addMethodGroupIndex by remember { mutableIntStateOf(-1) }
+    // null = closed; -1 = flat menu; >= 0 = that group.
+    var addMethodTarget by remember { mutableStateOf<Int?>(null) }
 
     fun persist(updated: AddMenuConfig) {
+        if (!ui.addMenuLoaded) return
         draft = updated.sanitized()
         vm.setAddMenuConfig(draft)
     }
@@ -77,6 +81,39 @@ fun AddMenuSettingsScreen(
     }
 
     androidx.compose.material3.Scaffold(containerColor = MaterialTheme.colorScheme.background) { padding ->
+        if (!ui.addMenuLoaded) {
+            Column(
+                Modifier
+                    .fillMaxSize()
+                    .padding(padding)
+                    .padding(horizontal = 16.dp)
+            ) {
+                Row(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(16.dp))
+                        .clickable { onBack() }
+                        .padding(horizontal = 2.dp, vertical = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = null,
+                        tint = AppColors.Calorie,
+                        modifier = Modifier.size(22.dp)
+                    )
+                    Spacer(Modifier.width(6.dp))
+                    Text(
+                        stringResource(R.string.nav_settings),
+                        color = AppColors.Calorie,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                }
+                Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    CircularProgressIndicator(color = AppColors.Calorie)
+                }
+            }
+            return@Scaffold
+        }
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
@@ -188,13 +225,7 @@ fun AddMenuSettingsScreen(
                                 )
                             )
                         },
-                        onAdd = { method ->
-                            persist(
-                                draft.copy(
-                                    flatMethods = draft.flatMethods + method.storageKey
-                                )
-                            )
-                        }
+                        onAddMethodClick = { addMethodTarget = -1 }
                     )
                 }
             } else {
@@ -236,7 +267,7 @@ fun AddMenuSettingsScreen(
                             )
                             persist(draft.copy(groups = groups))
                         },
-                        onAddMethodClick = { addMethodGroupIndex = index }
+                        onAddMethodClick = { addMethodTarget = index }
                     )
                 }
             }
@@ -245,15 +276,32 @@ fun AddMenuSettingsScreen(
                 item {
                     AddMenuSectionCard(title = stringResource(R.string.settings_add_menu_hidden)) {
                         hiddenMethods.forEachIndexed { idx, method ->
+                            val label = stringResource(method.titleRes)
                             Row(
                                 Modifier
                                     .fillMaxWidth()
+                                    .clickable {
+                                        persist(draft.withRestoredMethod(method))
+                                    }
                                     .padding(horizontal = 16.dp, vertical = 12.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Icon(method.icon, contentDescription = null, tint = AppColors.Calorie)
                                 Spacer(Modifier.width(12.dp))
-                                Text(stringResource(method.titleRes), color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.62f))
+                                Text(
+                                    label,
+                                    modifier = Modifier.weight(1f),
+                                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.78f)
+                                )
+                                Icon(
+                                    Icons.Filled.Add,
+                                    contentDescription = stringResource(
+                                        R.string.settings_add_menu_restore_a11y,
+                                        label
+                                    ),
+                                    tint = AppColors.Calorie,
+                                    modifier = Modifier.size(22.dp)
+                                )
                             }
                             if (idx < hiddenMethods.lastIndex) HorizontalDivider()
                         }
@@ -284,34 +332,44 @@ fun AddMenuSettingsScreen(
         }
     }
 
-    if (addMethodGroupIndex >= 0) {
-        val groupIndex = addMethodGroupIndex
-        DropdownMenu(
-            expanded = true,
-            onDismissRequest = { addMethodGroupIndex = -1 }
-        ) {
-            hiddenMethods.forEach { method ->
-                DropdownMenuItem(
-                    text = { Text(stringResource(method.titleRes)) },
-                    onClick = {
-                        val groups = draft.groups.toMutableList()
-                        val cleaned = groups.mapIndexed { idx, group ->
-                            if (idx == groupIndex) {
-                                group.copy(methods = group.methods + method.storageKey)
-                            } else {
-                                group.copy(methods = group.methods.filterNot { it == method.storageKey })
+    val addTarget = addMethodTarget
+    if (addTarget != null && hiddenMethods.isNotEmpty()) {
+        FudGlassDialog(onDismissRequest = { addMethodTarget = null }) {
+            Text(
+                stringResource(R.string.settings_add_menu_add_method),
+                fontSize = 21.sp,
+                fontWeight = FontWeight.Bold
+            )
+            Column(
+                Modifier
+                    .fillMaxWidth()
+                    .verticalScroll(rememberScrollState())
+            ) {
+                hiddenMethods.forEachIndexed { idx, method ->
+                    val label = stringResource(method.titleRes)
+                    Row(
+                        Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(14.dp))
+                            .clickable {
+                                val groupIndex = addTarget.takeIf { it >= 0 }
+                                persist(draft.withRestoredMethod(method, groupIndex))
+                                addMethodTarget = null
                             }
-                        }
-                        persist(
-                            draft.copy(
-                                groups = cleaned,
-                                flatMethods = draft.flatMethods.filterNot { it == method.storageKey }
-                            )
-                        )
-                        addMethodGroupIndex = -1
+                            .padding(horizontal = 8.dp, vertical = 12.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(method.icon, contentDescription = null, tint = AppColors.Calorie)
+                        Spacer(Modifier.width(12.dp))
+                        Text(label, modifier = Modifier.weight(1f))
                     }
-                )
+                    if (idx < hiddenMethods.lastIndex) HorizontalDivider()
+                }
             }
+            FudGlassDialogActions(
+                primaryText = stringResource(R.string.action_cancel),
+                onPrimary = { addMethodTarget = null }
+            )
         }
     }
 }
@@ -322,7 +380,7 @@ private fun FlatMethodsEditor(
     hiddenMethods: List<FoodLogMethod>,
     onReorder: (Int, Int) -> Unit,
     onRemove: (FoodLogMethod) -> Unit,
-    onAdd: (FoodLogMethod) -> Unit
+    onAddMethodClick: () -> Unit
 ) {
     AddMenuSectionCard(title = stringResource(R.string.settings_add_menu_flat)) {
         methods.forEachIndexed { index, method ->
@@ -339,7 +397,7 @@ private fun FlatMethodsEditor(
         }
         if (hiddenMethods.isNotEmpty()) {
             HorizontalDivider()
-            TextButton(onClick = { hiddenMethods.firstOrNull()?.let(onAdd) }, modifier = Modifier.fillMaxWidth()) {
+            TextButton(onClick = onAddMethodClick, modifier = Modifier.fillMaxWidth()) {
                 Text(stringResource(R.string.settings_add_menu_add_method))
             }
         }

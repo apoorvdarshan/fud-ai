@@ -305,7 +305,7 @@ private fun HomeCardsRow(
         Column(Modifier.weight(1f)) {
             Text(stringResource(R.string.home_nutrient_cards), fontSize = 17.sp)
             val nutrientNames = selected
-                .take(if (waterTrackingEnabled) 3 else 4)
+                .take(4)
                 .map { stringResource(it.displayNameRes) }
             val displayedNames = if (waterTrackingEnabled) {
                 nutrientNames + stringResource(R.string.water)
@@ -335,12 +335,9 @@ private fun HomeTopNutrientPickerDialog(
     onDismiss: () -> Unit
 ) {
     val normalizedSelection = remember(selected) { HomeTopNutrient.normalized(selected) }
-    val selectionLimit = if (waterTrackingEnabled) 3 else 4
-    var draft by remember(selected, waterTrackingEnabled) {
+    val selectionLimit = 4
+    var draft by remember(selected) {
         mutableStateOf(normalizedSelection.take(selectionLimit))
-    }
-    val hiddenFourthNutrient = remember(selected, waterTrackingEnabled) {
-        if (waterTrackingEnabled) normalizedSelection.getOrNull(3) else null
     }
 
     fun toggle(nutrient: HomeTopNutrient) {
@@ -485,11 +482,7 @@ private fun HomeTopNutrientPickerDialog(
         FudGlassDialogActions(
             primaryText = stringResource(R.string.action_done),
             onPrimary = {
-                // Keep an existing hidden choice only when all three visible slots are used.
-                val savedSelection = if (waterTrackingEnabled && draft.size == 3 &&
-                    hiddenFourthNutrient != null && hiddenFourthNutrient !in draft
-                ) draft + hiddenFourthNutrient else draft
-                onSave(HomeTopNutrient.normalized(savedSelection))
+                onSave(HomeTopNutrient.normalized(draft))
                 onDismiss()
             },
             dismissText = stringResource(R.string.action_cancel),

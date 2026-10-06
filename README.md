@@ -18,7 +18,7 @@
   <img src="https://img.shields.io/badge/privacy-local--first-brightgreen" alt="Local-first privacy">
   <img src="https://img.shields.io/badge/languages-iOS%2018%20%2F%20Android%2018-blue" alt="iOS 18 languages / Android 18 languages">
   <img src="https://img.shields.io/badge/license-MIT-green" alt="License">
-  <a href="#credits"><img src="docs/assets/code-reviews.svg" alt="Code reviews by Qodo, GitHub Copilot, CodeRabbit, and Greptile"></a>
+  <a href="#credits"><img src="docs/assets/code-reviews.svg" alt="Code reviews by Qodo and Greptile"></a>
   <a href="https://www.bestpractices.dev/projects/14553"><img src="https://www.bestpractices.dev/projects/14553/badge" alt="OpenSSF Best Practices Passing"></a>
   <a href="https://scorecard.dev/viewer/?uri=github.com/apoorvdarshan/fud-ai"><img src="https://api.scorecard.dev/projects/github.com/apoorvdarshan/fud-ai/badge" alt="OpenSSF Scorecard"></a>
   <img src="https://img.shields.io/badge/Udyam-Registered-green" alt="Udyam Registered">
@@ -29,9 +29,9 @@
 
 ---
 
-Open-source, privacy-first calorie tracker for iOS and Android. Bring your own AI provider — 13 supported including Gemini, OpenAI, Claude, Grok, Groq, Hugging Face, Fireworks AI, DeepInfra, Mistral, and any custom OpenAI-compatible endpoint — or, on iPhone, optionally use Plus/Pro hosted AI. Capture or import up to 10 food photos with an optional note, scan a barcode, ask your AI coach how to hit your goal, speak your lunch, or use Siri Shortcuts on iOS to log food and weight. On supported iPhones, food-description analysis for text, voice-transcribed, and Siri food logs can use Apple Intelligence on-device as the final fallback after BYOK provider/fallback attempts fail. The core tracker has no required account, general cloud sync, tracking, or ads. Its sole first-party sync exception for scores and profiles is an optional 18+ Weekly Challenge that shares only a pseudonymous display profile and weekly aggregate scores with other enrolled participants — never raw logs.
+Open-source, privacy-first calorie tracker for iOS and Android. Bring your own AI provider — 13 supported including Gemini, OpenAI, Claude, Grok, Groq, Hugging Face, Fireworks AI, DeepInfra, Mistral, and any custom OpenAI-compatible endpoint — or, on iPhone, optionally use Plus/Pro hosted AI. Capture or import up to 10 food photos with an optional note, scan a barcode, ask your AI coach how to hit your goal, speak your lunch, or use Siri Shortcuts on iOS to log food and weight. On supported iPhones, food-description analysis for text, voice-transcribed, and Siri food logs can use Apple Intelligence on-device as the final fallback after BYOK provider/fallback attempts fail. On iOS 27, Apple Intelligence can also analyze food photos on-device when you select it. The core tracker has no required account, general cloud sync, tracking, or ads. Its sole first-party sync exception for scores and profiles is an optional 18+ Weekly Challenge that shares only a pseudonymous display profile and weekly aggregate scores with other enrolled participants — never raw logs.
 
-iOS and Android 7.0 (build/versionCode 35) add optional Plus/Pro hosted AI on iPhone, daily steps and burn/deficit on Home, Walk/Run logging, custom exercises with set autofill, meal date/time on review, configurable Home + actions, the iOS Log Food widget, pinch-zoom meal photos, Czech and Ukrainian (18 languages), and reliability improvements across Health Connect, workouts, and diary safety.
+iOS and Android 7.1 add Weekly Challenge places with a podium and 20 places per page, Help & Feedback on GitHub or Discord, an Android in-app language picker, and on-device food-photo analysis with Apple Intelligence on iOS 27. iOS 7.1.2 keeps that update and makes the optional Plus/Pro hosted AI easier to find, shipping alongside the first subscription submission. 7.0 remains the release that added optional Plus/Pro hosted AI on iPhone, daily steps, Walk/Run logging, custom exercises, meal date/time, the Log Food widget, pinch-zoom photos, and Czech and Ukrainian.
 
 Normal updates preserve existing local and Health data.
 
@@ -274,9 +274,8 @@ All values can be manually overridden in Settings, with a **Recalculate Goals** 
 
 ```
 fud-ai/
-├── ios/          # SwiftUI iOS app (v7.1 build 38)
-├── android/      # Kotlin + Jetpack Compose app (min SDK 26 / Android 8.0, v7.1 / versionCode 38)
-├── mobile/       # Shared React Native (Expo) app for iOS + Android — iOS-matching UI, in progress (see mobile/README.md)
+├── ios/          # SwiftUI iOS app (v7.1.2 build 39)
+├── android/      # Kotlin + Jetpack Compose app (min SDK 26 / Android 8.0, v7.1.1 / versionCode 39)
 ├── web/          # Marketing site — https://fud-ai.app (static HTML/CSS, Cloudflare Workers)
 ├── APPSTORE.md   # App Store Connect listing copy (iOS)
 ├── PLAYSTORE.md  # Google Play Console listing copy (Android)
@@ -358,17 +357,6 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 adb shell am start -n com.apoorvdarshan.calorietracker/.MainActivity
 ```
 
-### Shared mobile app (React Native / Expo, in progress)
-
-```bash
-cd mobile
-npm ci
-npm run check   # typecheck + domain tests
-npm start       # Metro; press i / a, or open in Expo Go
-```
-
-See [`mobile/README.md`](mobile/README.md) for the UI-parity rule and what has been ported so far.
-
 First launch walks you through onboarding (gender, birthday, height/weight with metric/imperial toggle, body fat %, one of six activity levels with a protein-target preview, goal, goal speed, notifications, Apple Health / Health Connect, AI access setup, and review). A free Gemini key is available at [aistudio.google.com/apikey](https://aistudio.google.com/apikey). You can change provider anytime in **Settings → AI Access**.
 
 ## Contributing
@@ -433,16 +421,12 @@ Thanks to everyone who has contributed to making Fud AI better:
 
 ## Credits
 
-Automated code reviews by [Qodo](https://www.qodo.ai/solutions/open-source/), [GitHub Copilot](https://github.com/features/copilot), [Greptile](https://www.greptile.com/), and [CodeRabbit](https://www.coderabbit.ai/oss).
+Automated code reviews by [Qodo](https://www.qodo.ai/solutions/open-source/) and [Greptile](https://www.greptile.com/).
 
 Thanks to [Qodo](https://www.qodo.ai/solutions/open-source/) for providing free AI code reviews through its open-source program.
-
-Thanks to [GitHub Education](https://github.com/education) for providing Copilot access through the GitHub Copilot Student plan.
 
 Thanks to [Greptile](https://www.greptile.com/open-source) for providing free review credits through its open-source program.
 
 [![Greptile: The War on Bugs](https://www.greptile.com/badge.svg)](https://www.greptile.com/?utm_source=oss_badge&utm_medium=readme&utm_campaign=greptile_for_open_source)
-
-Thanks to [CodeRabbit](https://www.coderabbit.ai/oss) for providing free AI code reviews for public open-source repositories.
 
 Exercise data, muscle glyphs, and barcode nutrition data come from open projects — see [ASSET_CREDITS.md](ASSET_CREDITS.md).

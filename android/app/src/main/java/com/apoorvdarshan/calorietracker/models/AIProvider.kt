@@ -228,6 +228,25 @@ enum class AIProvider {
         FIREWORKS, DEEP_INFRA, MISTRAL, DEEPSEEK, CEREBRAS, OLLAMA, CUSTOM_OPENAI -> ApiFormat.OPENAI_COMPATIBLE
     }
 
+    /** Short name used in “Paste X API key” hints (not the full picker label). */
+    val apiKeyBrandName: String get() = when (this) {
+        GEMINI -> "Gemini"
+        OPENAI -> "OpenAI"
+        ANTHROPIC -> "Claude"
+        XAI -> "Grok"
+        OPENROUTER -> "OpenRouter"
+        TOGETHER_AI -> "Together AI"
+        GROQ -> "Groq"
+        HUGGING_FACE -> "Hugging Face"
+        FIREWORKS -> "Fireworks"
+        DEEP_INFRA -> "DeepInfra"
+        MISTRAL -> "Mistral"
+        DEEPSEEK -> "DeepSeek"
+        CEREBRAS -> "Cerebras"
+        CUSTOM_OPENAI -> "API"
+        LOCAL_GEMMA, OLLAMA -> "API"
+    }
+
     @get:StringRes
     val apiKeyPlaceholderRes: Int get() = when (this) {
         GEMINI -> R.string.ai_key_placeholder_gemini

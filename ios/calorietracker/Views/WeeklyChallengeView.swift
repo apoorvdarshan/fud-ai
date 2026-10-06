@@ -11,6 +11,7 @@ struct WeeklyChallengeView: View {
     @AppStorage(WaterSettings.dailyGoalKey) private var waterDailyGoal = WaterSettings.defaultDailyGoalMl
 
     @State private var category: WeeklyChallengeCategory = .overall
+    @State private var rankingPage = 0
     @State private var profileSheetMode: WeeklyChallengeProfileSheetMode?
     @State private var reportTarget: WeeklyChallengeParticipant?
     @State private var showBlockedParticipants = false
@@ -85,6 +86,12 @@ struct WeeklyChallengeView: View {
                     await store.refresh(category: category, score: localScore)
                 }
             }
+        }
+        .onChange(of: category) { _, _ in
+            rankingPage = 0
+        }
+        .onChange(of: localScore.weekStart) { _, _ in
+            rankingPage = 0
         }
         .onChange(of: scenePhase) { _, phase in
             guard phase == .active else { return }
@@ -262,11 +269,25 @@ struct WeeklyChallengeView: View {
     }
 
     private var joinedView: some View {
-        ScrollView {
-            LazyVStack(spacing: 14) {
-                categorySelector
-                challengeHeader
-                WeeklyChallengePointsExplanationView()
+        ScrollViewReader { proxy in
+            ScrollView {
+                LazyVStack(spacing: 14) {
+                    challengeHeader
+                    categorySelector
+
+                    if let response = displayedLeaderboard {
+                        leaderboardRows(response)
+                            .id("challengeRankings")
+                    } else if store.isRefreshing {
+                    ProgressView()
+                        .padding(.vertical, 32)
+                        .accessibilityLabel(WeeklyChallengeL10n.text("Loading leaderboard"))
+                } else {
+                    Text(WeeklyChallengeL10n.text("No leaderboard results are available yet."))
+                        .font(.system(.body, design: .rounded))
+                        .foregroundStyle(.secondary)
+                        .padding(.vertical, 28)
+                }
 
                 if let viewer = displayedViewer {
                     WeeklyChallengeViewerCard(
@@ -280,18 +301,7 @@ struct WeeklyChallengeView: View {
                     )
                 }
 
-                if let response = displayedLeaderboard {
-                    leaderboardRows(response)
-                } else if store.isRefreshing {
-                    ProgressView()
-                        .padding(.vertical, 32)
-                        .accessibilityLabel(WeeklyChallengeL10n.text("Loading leaderboard"))
-                } else {
-                    Text(WeeklyChallengeL10n.text("No leaderboard results are available yet."))
-                        .font(.system(.body, design: .rounded))
-                        .foregroundStyle(.secondary)
-                        .padding(.vertical, 28)
-                }
+                WeeklyChallengePointsExplanationView()
 
                 if !store.blockedParticipantIDs.isEmpty {
                     Button(WeeklyChallengeL10n.text("Manage Blocked Participants")) {
@@ -303,9 +313,15 @@ struct WeeklyChallengeView: View {
             }
             .padding(.horizontal)
             .padding(.vertical, 12)
-        }
-        .refreshable {
-            await store.refresh(category: category, score: localScore)
+            }
+            .refreshable {
+                await store.refresh(category: category, score: localScore)
+            }
+            .onChange(of: rankingPage) { _, _ in
+                withAnimation(.easeOut(duration: 0.2)) {
+                    proxy.scrollTo("challengeRankings", anchor: .top)
+                }
+            }
         }
     }
 
@@ -335,20 +351,23 @@ struct WeeklyChallengeView: View {
     }
 
     private var challengeHeader: some View {
-        HStack(alignment: .firstTextBaseline) {
-            VStack(alignment: .leading, spacing: 4) {
-                Text(weekRangeText)
-                    .font(.system(.headline, design: .rounded, weight: .bold))
-                Text(statusText)
-                    .font(.system(.caption, design: .rounded))
-                    .foregroundStyle(store.isOffline ? .orange : .secondary)
+        VStack(alignment: .leading, spacing: 0) {
+            HStack(alignment: .firstTextBaseline) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(weekRangeText)
+                        .font(.system(.headline, design: .rounded, weight: .bold))
+                    Text(statusText)
+                        .font(.system(.caption, design: .rounded))
+                        .foregroundStyle(store.isOffline ? .orange : .secondary)
+                }
+                Spacer()
+                if store.isRefreshing {
+                    ProgressView()
+                        .controlSize(.small)
+                        .accessibilityLabel(WeeklyChallengeL10n.text("Updating leaderboard"))
+                }
             }
-            Spacer()
-            if store.isRefreshing {
-                ProgressView()
-                    .controlSize(.small)
-                    .accessibilityLabel(WeeklyChallengeL10n.text("Updating leaderboard"))
-            }
+            WeekCalendarStrip(weekStart: currentWeek.start)
         }
         .padding(14)
         .background(AppColors.appCard, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
@@ -383,32 +402,160 @@ struct WeeklyChallengeView: View {
         )
     }
 
+    private func orderedRankings(_ response: WeeklyChallengeLeaderboardResponse) -> [WeeklyChallengeParticipant] {
+        let viewerID = displayedViewer?.participantId ?? store.participantID
+        var rows = response.rankings.filter {
+            !store.isBlocked(participantID: $0.participantId)
+        }
+        if let viewer = response.viewer ?? displayedViewer,
+           !rows.contains(where: { $0.participantId == viewer.participantId }),
+           !store.isBlocked(participantID: viewer.participantId) {
+            rows.append(viewer)
+        }
+        rows.sort { lhs, rhs in
+            if lhs.rank != rhs.rank { return lhs.rank < rhs.rank }
+            return lhs.participantId < rhs.participantId
+        }
+        return rows
+    }
+
     @ViewBuilder
     private func leaderboardRows(_ response: WeeklyChallengeLeaderboardResponse) -> some View {
         let viewerID = displayedViewer?.participantId ?? store.participantID
-        let rows = response.rankings.filter {
-            !$0.isViewer
-                && $0.participantId != viewerID
-                && !store.isBlocked(participantID: $0.participantId)
-        }
+        let rows = orderedRankings(response)
 
-        if rows.isEmpty {
-            Text(WeeklyChallengeL10n.text("No other participants are ranked yet."))
-                .font(.system(.body, design: .rounded))
-                .foregroundStyle(.secondary)
-                .padding(.vertical, 24)
-        } else {
-            ForEach(rows) { participant in
-                WeeklyChallengeParticipantRow(
-                    participant: participant,
-                    category: category,
-                    onReport: {
-                        store.clearError()
-                        reportTarget = participant
-                    },
-                    onBlock: { store.block(participant) }
-                )
+        VStack(alignment: .leading, spacing: 0) {
+            Text(WeeklyChallengeL10n.text("Rankings"))
+                .font(.system(.title3, design: .rounded, weight: .bold))
+                .padding(.horizontal, 14)
+                .padding(.top, 14)
+                .padding(.bottom, 6)
+
+            if rows.isEmpty {
+                Text(WeeklyChallengeL10n.text("No other participants are ranked yet."))
+                    .font(.system(.body, design: .rounded))
+                    .foregroundStyle(.secondary)
+                    .padding(16)
+            } else {
+                let first = rows.first { $0.rank == 1 }
+                let second = rows.first { $0.rank == 2 }
+                let third = rows.first { $0.rank == 3 }
+                let showPodium = first != nil && second != nil
+                let podiumIDs = Set([first?.participantId, second?.participantId, third?.participantId].compactMap { $0 })
+                let listRows = showPodium ? rows.filter { !podiumIDs.contains($0.participantId) } : rows
+                let maxRank = rows.map(\.rank).max() ?? 1
+                let pageCount = max(1, (maxRank + 19) / 20)
+                let currentPage = min(rankingPage, pageCount - 1)
+                let startRank = currentPage * 20 + 1
+                let endRank = min(startRank + 19, maxRank)
+                let pageRows = listRows.filter { $0.rank >= startRank && $0.rank <= endRank }
+                let showPodiumNow = showPodium && currentPage == 0
+                if showPodiumNow, let first, let second {
+                    WeeklyChallengePodium(
+                        first: first,
+                        second: second,
+                        third: third,
+                        category: category,
+                        viewerID: viewerID,
+                        onReport: { participant in
+                            store.clearError()
+                            reportTarget = participant
+                        },
+                        onBlock: { store.block($0) }
+                    )
+                }
+                ForEach(Array(pageRows.enumerated()), id: \.element.id) { index, participant in
+                    if index > 0 || showPodiumNow {
+                        Divider().padding(.leading, 62)
+                    }
+                    WeeklyChallengeParticipantRow(
+                        participant: participant,
+                        category: category,
+                        isViewer: participant.isViewer || participant.participantId == viewerID,
+                        striped: index % 2 == 1,
+                        onReport: {
+                            store.clearError()
+                            reportTarget = participant
+                        },
+                        onBlock: { store.block(participant) }
+                    )
+                }
+                if maxRank > 20 {
+                    VStack(spacing: 10) {
+                        Text("#\(startRank)–#\(endRank)")
+                            .font(.system(.subheadline, design: .rounded, weight: .semibold))
+                            .foregroundStyle(.secondary)
+                        HStack(spacing: 10) {
+                            rankingPageButton(
+                                title: WeeklyChallengeL10n.text("Previous"),
+                                systemImage: "chevron.left",
+                                imageFirst: true,
+                                enabled: currentPage > 0
+                            ) {
+                                rankingPage = max(currentPage - 1, 0)
+                            }
+                            rankingPageButton(
+                                title: WeeklyChallengeL10n.text("Next"),
+                                systemImage: "chevron.right",
+                                imageFirst: false,
+                                enabled: currentPage < pageCount - 1
+                            ) {
+                                rankingPage = min(currentPage + 1, pageCount - 1)
+                            }
+                        }
+                    }
+                    .padding(.horizontal, 12)
+                    .padding(.top, 8)
+                    .padding(.bottom, 14)
+                }
             }
+        }
+        .background(AppColors.appCard, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
+    }
+
+    private func rankingPageButton(
+        title: String,
+        systemImage: String,
+        imageFirst: Bool,
+        enabled: Bool,
+        action: @escaping () -> Void
+    ) -> some View {
+        Button(action: action) {
+            HStack(spacing: 6) {
+                if imageFirst {
+                    Image(systemName: systemImage)
+                }
+                Text(title)
+                if !imageFirst {
+                    Image(systemName: systemImage)
+                }
+            }
+            .font(.system(.body, design: .rounded, weight: .semibold))
+            .frame(maxWidth: .infinity)
+            .frame(minHeight: 48)
+            .foregroundStyle(enabled ? pageButtonForeground : Color.secondary)
+            .background(
+                enabled ? AppColors.calorie : Color.primary.opacity(0.08),
+                in: Capsule()
+            )
+        }
+        .buttonStyle(QuietPressButtonStyle())
+        .disabled(!enabled)
+    }
+
+    private struct QuietPressButtonStyle: ButtonStyle {
+        func makeBody(configuration: Configuration) -> some View {
+            configuration.label
+                .opacity(configuration.isPressed ? 0.85 : 1)
+        }
+    }
+
+    private var pageButtonForeground: Color {
+        switch AppThemeColor.current {
+        case .yellow, .lime, .skyCyan, .babyPink, .lavender, .mint:
+            Color.black.opacity(0.88)
+        default:
+            Color.white
         }
     }
 
@@ -479,6 +626,11 @@ private struct WeeklyChallengePointsExplanationView: View {
                 .foregroundStyle(.secondary)
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.top, 10)
+            Text(WeeklyChallengeL10n.text("The category you are viewing comes first. If that matches, the other day counts decide it. Workout calories come next, except in Activity, where calories come before the other days. If the week is still identical, the person who reached those totals first stays ahead. Saving the same totals again does not move that time."))
+                .font(.system(.footnote, design: .rounded))
+                .foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+                .padding(.top, 8)
         } label: {
             Label(
                 WeeklyChallengeL10n.text("How points work"),
@@ -499,52 +651,67 @@ private struct WeeklyChallengeViewerCard: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            HStack {
-                Label(
-                    WeeklyChallengeL10n.text("My Position"),
-                    systemImage: "person.crop.circle.fill"
-                )
-                .font(.system(.headline, design: .rounded, weight: .bold))
-                Spacer()
-                Text(WeeklyChallengeL10n.format("#%1$@", participant.rank.formatted()))
-                    .font(.system(.title3, design: .rounded, weight: .bold))
-                    .foregroundStyle(AppColors.calorie)
+            HStack(alignment: .center, spacing: 14) {
+                WeeklyChallengeRankBadge(place: participant.rank, diameter: 56)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(WeeklyChallengeL10n.text("My Position"))
+                        .font(.system(.subheadline, design: .rounded, weight: .bold))
+                        .foregroundStyle(AppColors.calorie)
+                    WeeklyChallengeParticipantIdentity(participant: participant)
+                    Text(WeeklyChallengeParticipantScore.text(for: participant, category: category))
+                        .font(.system(.subheadline, design: .rounded, weight: .semibold))
+                        .foregroundStyle(.secondary)
+                        .lineLimit(2)
+                }
             }
 
-            WeeklyChallengeParticipantIdentity(participant: participant)
+            WeeklyChallengeWeekTrack(
+                label: WeeklyChallengeL10n.text("Overall"),
+                value: WeeklyChallengeL10n.format(
+                    "%1$@ / 28 pts",
+                    participant.overallPoints.formatted()
+                ),
+                fraction: Double(participant.overallPoints) / 28,
+                emphasized: category == .overall
+            )
+            WeeklyChallengeDayTrack(
+                label: WeeklyChallengeL10n.text("Activity"),
+                days: participant.activityDays,
+                emphasized: category == .activity,
+                value: WeeklyChallengeL10n.format(
+                    "%1$@ / 7 days\n%2$@ kcal",
+                    participant.activityDays.formatted(),
+                    participant.activityKcal.formatted()
+                )
+            )
+            WeeklyChallengeDayTrack(
+                label: WeeklyChallengeL10n.text("Nutrition"),
+                days: participant.nutritionDays,
+                emphasized: category == .nutrition
+            )
+            WeeklyChallengeDayTrack(
+                label: WeeklyChallengeL10n.text("Consistency"),
+                days: participant.consistencyDays,
+                emphasized: category == .consistency
+            )
+            WeeklyChallengeDayTrack(
+                label: WeeklyChallengeL10n.text("Hydration"),
+                days: participant.hydrationDays,
+                emphasized: category == .hydration
+            )
 
-            Text(WeeklyChallengeParticipantScore.text(for: participant, category: category))
-                .font(.system(.title3, design: .rounded, weight: .bold))
-
-            HStack(spacing: 12) {
-                WeeklyChallengeMiniStat(
-                    title: WeeklyChallengeL10n.text("Activity"),
-                    value: participant.activityDays
-                )
-                WeeklyChallengeMiniStat(
-                    title: WeeklyChallengeL10n.text("Nutrition"),
-                    value: participant.nutritionDays
-                )
-                WeeklyChallengeMiniStat(
-                    title: WeeklyChallengeL10n.text("Consistency"),
-                    value: participant.consistencyDays
-                )
-                WeeklyChallengeMiniStat(
-                    title: WeeklyChallengeL10n.text("Hydration"),
-                    value: participant.hydrationDays
-                )
-            }
-
-            HStack {
+            HStack(spacing: 8) {
                 Button(WeeklyChallengeL10n.text("Edit Public Profile"), action: onEditProfile)
-                    .buttonStyle(.bordered)
-                Spacer()
+                    .buttonStyle(.borderedProminent)
+                    .tint(AppColors.calorie)
+                    .frame(maxWidth: .infinity)
                 Button(
                     WeeklyChallengeL10n.text("Leave Challenge"),
                     role: .destructive,
                     action: onLeave
                 )
                 .buttonStyle(.bordered)
+                .frame(maxWidth: .infinity)
             }
             .font(.system(.subheadline, design: .rounded, weight: .semibold))
         }
@@ -560,73 +727,341 @@ private struct WeeklyChallengeViewerCard: View {
     }
 }
 
-private struct WeeklyChallengeMiniStat: View {
-    let title: String
-    let value: Int
+private struct WeeklyChallengeWeekTrack: View {
+    let label: String
+    let value: String
+    let fraction: Double
+    var emphasized: Bool = false
 
     var body: some View {
-        VStack(spacing: 2) {
-            Text("\(value)/7")
-                .font(.system(.subheadline, design: .rounded, weight: .bold))
-            Text(title)
-                .font(.system(.caption2, design: .rounded))
-                .foregroundStyle(.secondary)
-                .lineLimit(1)
-                .minimumScaleFactor(0.65)
+        let bar = emphasized ? AppColors.calorie : Color.primary.opacity(0.38)
+        VStack(alignment: .leading, spacing: 6) {
+            HStack {
+                Text(label)
+                    .font(.system(.subheadline, design: .rounded, weight: emphasized ? .bold : .regular))
+                    .foregroundStyle(emphasized ? Color.primary : Color.secondary)
+                    .lineLimit(1)
+                Spacer(minLength: 8)
+                Text(value)
+                    .font(.system(.subheadline, design: .rounded, weight: .bold))
+                    .foregroundStyle(bar)
+            }
+            GeometryReader { proxy in
+                ZStack(alignment: .leading) {
+                    Capsule().fill(Color.primary.opacity(0.12))
+                    Capsule()
+                        .fill(bar)
+                        .frame(width: proxy.size.width * min(max(fraction, 0), 1))
+                }
+            }
+            .frame(height: emphasized ? 10 : 8)
         }
-        .frame(maxWidth: .infinity)
+    }
+}
+
+private struct WeeklyChallengeDayTrack: View {
+    let label: String
+    let days: Int
+    var emphasized: Bool = false
+    var value: String? = nil
+
+    private var filled: Int { min(max(days, 0), 7) }
+
+    var body: some View {
+        let bar = emphasized ? AppColors.calorie : Color.primary.opacity(0.38)
+        VStack(alignment: .leading, spacing: 6) {
+            HStack {
+                Text(label)
+                    .font(.system(.subheadline, design: .rounded, weight: emphasized ? .bold : .regular))
+                    .foregroundStyle(emphasized ? Color.primary : Color.secondary)
+                    .lineLimit(1)
+                Spacer(minLength: 8)
+                Text(value ?? WeeklyChallengeL10n.format("%1$@ / 7 days", filled.formatted()))
+                    .font(.system(.subheadline, design: .rounded, weight: .semibold))
+                    .foregroundStyle(emphasized ? bar : Color.primary)
+            }
+            HStack(spacing: 4) {
+                ForEach(0..<7, id: \.self) { index in
+                    Capsule()
+                        .fill(index < filled ? bar : Color.primary.opacity(0.12))
+                        .frame(height: emphasized ? 10 : 8)
+                }
+            }
+        }
+    }
+}
+
+private struct WeeklyChallengePodium: View {
+    let first: WeeklyChallengeParticipant
+    let second: WeeklyChallengeParticipant
+    let third: WeeklyChallengeParticipant?
+    let category: WeeklyChallengeCategory
+    let viewerID: String?
+    let onReport: (WeeklyChallengeParticipant) -> Void
+    let onBlock: (WeeklyChallengeParticipant) -> Void
+
+    var body: some View {
+        HStack(alignment: .bottom, spacing: 6) {
+            podiumColumn(second, height: 64)
+            podiumColumn(first, height: 96)
+            podiumColumn(third, height: 52)
+        }
+        .padding(.horizontal, 8)
+        .padding(.top, 4)
+    }
+
+    @ViewBuilder
+    private func podiumColumn(_ participant: WeeklyChallengeParticipant?, height: CGFloat) -> some View {
+        if let participant {
+            let isViewer = participant.isViewer || participant.participantId == viewerID
+            VStack(spacing: 4) {
+                HStack {
+                    Spacer(minLength: 0)
+                    if !isViewer {
+                        Menu {
+                            Button(WeeklyChallengeL10n.text("Report")) { onReport(participant) }
+                            Button(WeeklyChallengeL10n.text("Block"), role: .destructive) {
+                                onBlock(participant)
+                            }
+                        } label: {
+                            Image(systemName: "ellipsis")
+                                .font(.body.weight(.semibold))
+                                .frame(width: 28, height: 28)
+                        }
+                        .accessibilityLabel(
+                            WeeklyChallengeL10n.format("More actions for %1$@", participant.displayName)
+                        )
+                    } else {
+                        Color.clear.frame(width: 28, height: 28)
+                    }
+                }
+                WeeklyChallengeRankBadge(place: participant.rank)
+                Text(participant.displayName)
+                    .font(.system(.subheadline, design: .rounded, weight: .semibold))
+                    .lineLimit(1)
+                    .multilineTextAlignment(.center)
+                if isViewer {
+                    Text(WeeklyChallengeL10n.text("You"))
+                        .font(.system(.caption2, design: .rounded, weight: .bold))
+                        .foregroundStyle(AppColors.calorie)
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 2)
+                        .background(AppColors.calorie.opacity(0.16), in: Capsule())
+                }
+                if let platform = participant.socialPlatform,
+                   let handle = participant.socialHandle,
+                   let url = platform.profileURL(handle: handle) {
+                    Link(destination: url) {
+                        Text(WeeklyChallengeL10n.format("@%1$@ · %2$@", handle, platform.title))
+                            .font(.system(.caption2, design: .rounded))
+                            .foregroundStyle(AppColors.calorie)
+                            .lineLimit(1)
+                    }
+                }
+                Text(WeeklyChallengeParticipantScore.text(for: participant, category: category))
+                    .font(.system(.caption, design: .rounded, weight: .bold))
+                    .foregroundStyle(WeeklyChallengeRankBadge.foreground(for: participant.rank))
+                    .multilineTextAlignment(.center)
+                    .lineLimit(2)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: height, alignment: .top)
+                    .padding(.top, 8)
+                    .background(
+                        WeeklyChallengeRankBadge.fill(for: participant.rank),
+                        in: UnevenRoundedRectangle(
+                            topLeadingRadius: 16,
+                            topTrailingRadius: 16
+                        )
+                    )
+                    .padding(.horizontal, 4)
+            }
+            .frame(maxWidth: .infinity, alignment: .bottom)
+        } else {
+            Color.clear.frame(maxWidth: .infinity).frame(height: height)
+        }
+    }
+}
+
+private struct WeekCalendarStrip: View {
+    let weekStart: Date
+
+    var body: some View {
+        let calendar = Calendar.current
+        let start = calendar.startOfDay(for: weekStart)
+        let today = calendar.startOfDay(for: Date())
+        HStack(spacing: 4) {
+            ForEach(0..<7, id: \.self) { index in
+                let day = calendar.date(byAdding: .day, value: index, to: start) ?? start
+                let isToday = calendar.isDate(day, inSameDayAs: today)
+                let passed = day <= today
+                VStack(spacing: 4) {
+                    Text(day.formatted(.dateTime.weekday(.narrow)))
+                        .font(.system(.caption2, design: .rounded, weight: isToday ? .bold : .medium))
+                        .foregroundStyle(isToday ? AppColors.calorie : Color.secondary)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.7)
+                    Capsule()
+                        .fill(passed ? AppColors.calorie : Color.primary.opacity(0.12))
+                        .frame(height: isToday ? 8 : 6)
+                }
+                .frame(maxWidth: .infinity)
+            }
+        }
+        .padding(.top, 10)
     }
 }
 
 private struct WeeklyChallengeParticipantRow: View {
     let participant: WeeklyChallengeParticipant
     let category: WeeklyChallengeCategory
+    let isViewer: Bool
+    var striped: Bool = false
     let onReport: () -> Void
     let onBlock: () -> Void
 
     var body: some View {
         HStack(spacing: 12) {
-            Text(WeeklyChallengeL10n.format("#%1$@", participant.rank.formatted()))
-                .font(.system(.headline, design: .rounded, weight: .bold))
-                .frame(width: 42, alignment: .leading)
+            if isViewer {
+                Capsule()
+                    .fill(AppColors.calorie)
+                    .frame(width: 4, height: 36)
+            }
+            WeeklyChallengeRankBadge(place: participant.rank)
 
-            WeeklyChallengeParticipantIdentity(participant: participant)
+            WeeklyChallengeNameMark(name: participant.displayName)
+
+            WeeklyChallengeParticipantIdentity(participant: participant, isViewer: isViewer)
 
             Spacer(minLength: 4)
 
             Text(WeeklyChallengeParticipantScore.text(for: participant, category: category))
-                .font(.system(.subheadline, design: .rounded, weight: .bold))
+                .font(.system(.caption, design: .rounded, weight: .bold))
+                .foregroundStyle(AppColors.calorie)
                 .multilineTextAlignment(.trailing)
+                .padding(.horizontal, 8)
+                .padding(.vertical, 4)
+                .frame(maxWidth: 148, alignment: .trailing)
+                .background(AppColors.calorie.opacity(0.12), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
 
-            Menu {
-                Button(WeeklyChallengeL10n.text("Report"), action: onReport)
-                Button(
-                    WeeklyChallengeL10n.text("Block"),
-                    role: .destructive,
-                    action: onBlock
+            if !isViewer {
+                Menu {
+                    Button(WeeklyChallengeL10n.text("Report"), action: onReport)
+                    Button(
+                        WeeklyChallengeL10n.text("Block"),
+                        role: .destructive,
+                        action: onBlock
+                    )
+                } label: {
+                    Image(systemName: "ellipsis.circle")
+                        .font(.title3)
+                        .frame(width: 32, height: 44)
+                }
+                .accessibilityLabel(
+                    WeeklyChallengeL10n.format("More actions for %1$@", participant.displayName)
                 )
-            } label: {
-                Image(systemName: "ellipsis.circle")
-                    .font(.title3)
-                    .frame(width: 32, height: 44)
             }
-            .accessibilityLabel(
-                WeeklyChallengeL10n.format("More actions for %1$@", participant.displayName)
-            )
         }
-        .padding(14)
-        .background(AppColors.appCard, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .padding(.horizontal, 12)
+        .padding(.vertical, 10)
+        .background(
+            isViewer
+                ? AppColors.calorie.opacity(0.12)
+                : (striped ? Color.primary.opacity(0.05) : Color.clear)
+        )
+    }
+}
+
+private struct WeeklyChallengeNameMark: View {
+    let name: String
+
+    private static let colors: [Color] = [
+        Color(red: 0.91, green: 0.36, blue: 0.46),
+        Color(red: 0.36, green: 0.55, blue: 0.94),
+        Color(red: 0.24, green: 0.72, blue: 0.60),
+        Color(red: 0.94, green: 0.64, blue: 0.01),
+        Color(red: 0.61, green: 0.42, blue: 1),
+        Color(red: 0.17, green: 0.69, blue: 0.79)
+    ]
+
+    private var letter: String {
+        let trimmed = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard let first = trimmed.first else { return "?" }
+        return String(first).uppercased()
+    }
+
+    private var color: Color {
+        var hash = 0
+        for scalar in name.unicodeScalars {
+            hash = (hash &* 31) &+ Int(scalar.value)
+        }
+        let index = abs(hash) % Self.colors.count
+        return Self.colors[index]
+    }
+
+    var body: some View {
+        Text(letter)
+            .font(.system(.subheadline, design: .rounded, weight: .bold))
+            .foregroundStyle(Color.white)
+            .frame(width: 32, height: 32)
+            .background(color, in: Circle())
+            .accessibilityHidden(true)
+    }
+}
+
+private struct WeeklyChallengeRankBadge: View {
+    let place: Int
+    var diameter: CGFloat = 36
+
+    var body: some View {
+        Text("\(place)")
+            .font(.system(diameter > 40 ? .title3 : .subheadline, design: .rounded, weight: .bold))
+            .foregroundStyle(foreground)
+            .frame(width: diameter, height: diameter)
+            .background(fill, in: Circle())
+    }
+
+    private var fill: Color { Self.fill(for: place) }
+
+    private var foreground: Color { Self.foreground(for: place) }
+
+    static func fill(for place: Int) -> Color {
+        switch place {
+        case 1: Color(red: 1, green: 0.76, blue: 0.03)
+        case 2: Color(red: 0.84, green: 0.84, blue: 0.84)
+        case 3: Color(red: 0.88, green: 0.63, blue: 0.35)
+        default: Color.primary.opacity(0.08)
+        }
+    }
+
+    static func foreground(for place: Int) -> Color {
+        switch place {
+        case 1: Color(red: 0.23, green: 0.16, blue: 0)
+        case 2: Color(red: 0.17, green: 0.17, blue: 0.17)
+        case 3: Color(red: 0.23, green: 0.13, blue: 0.03)
+        default: Color.primary
+        }
     }
 }
 
 private struct WeeklyChallengeParticipantIdentity: View {
     let participant: WeeklyChallengeParticipant
+    var isViewer: Bool = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 3) {
-            Text(participant.displayName)
-                .font(.system(.body, design: .rounded, weight: .semibold))
-                .lineLimit(1)
+            HStack(spacing: 6) {
+                Text(participant.displayName)
+                    .font(.system(.body, design: .rounded, weight: .semibold))
+                    .lineLimit(1)
+                if isViewer {
+                    Text(WeeklyChallengeL10n.text("You"))
+                        .font(.system(.caption2, design: .rounded, weight: .bold))
+                        .foregroundStyle(AppColors.calorie)
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 2)
+                        .background(AppColors.calorie.opacity(0.16), in: Capsule())
+                }
+            }
 
             if let platform = participant.socialPlatform,
                let handle = participant.socialHandle,

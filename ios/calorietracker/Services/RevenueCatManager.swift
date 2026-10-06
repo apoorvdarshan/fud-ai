@@ -21,6 +21,29 @@ final class RevenueCatManager: NSObject {
 
     var hasHostedEntitlement: Bool { activePlan != .none }
 
+    /// True when RevenueCat resolves at least one Plus/Pro subscription package the paywall
+    /// can actually render a plan card for. Mirrors the paywall's own resolution: the offering
+    /// must key by plan id `plus` / `pro`, the package must be a subscription, and
+    /// `HostedBillingPeriod(package:)` must map it to a monthly/yearly term. False while
+    /// offerings are empty (IAPs not live, network failure, or still loading), so callers can
+    /// avoid presenting an upsell that would dead-end on the paywall's
+    /// "Plans are unavailable right now." card.
+    var hasPurchasableHostedPlans: Bool {
+        guard let offerings else { return false }
+        for plan in [HostedPlan.plus, .pro] {
+            guard let packages = offerings.offering(identifier: plan.rawValue)?.availablePackages else { continue }
+            if packages.contains(where: { package in
+                let product = package.storeProduct
+                let isSubscription = product.productCategory == .subscription
+                    || HostedAIConstants.subscriptionProductIDs.contains(product.productIdentifier)
+                return isSubscription && HostedBillingPeriod(package: package) != nil
+            }) {
+                return true
+            }
+        }
+        return false
+    }
+
     private override init() {
         super.init()
     }

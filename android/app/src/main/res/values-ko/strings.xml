@@ -120,17 +120,17 @@
     <string name="ai_provider_custom">사용자 지정 (OpenAI 호환)</string>
 
     <!-- AI Provider API key placeholders -->
-    <string name="ai_key_placeholder_gemini">AIza…</string>
-    <string name="ai_key_placeholder_openai">sk-…</string>
-    <string name="ai_key_placeholder_anthropic">sk-ant-…</string>
-    <string name="ai_key_placeholder_xai">xai-…</string>
-    <string name="ai_key_placeholder_openrouter">sk-or-…</string>
-    <string name="ai_key_placeholder_together">…</string>
-    <string name="ai_key_placeholder_groq">gsk_…</string>
-    <string name="ai_key_placeholder_huggingface">hf_…</string>
-    <string name="ai_key_placeholder_fireworks">fw_…</string>
-    <string name="ai_key_placeholder_deepinfra">…</string>
-    <string name="ai_key_placeholder_mistral">…</string>
+    <string name="ai_key_placeholder_gemini">Paste Gemini API key</string>
+    <string name="ai_key_placeholder_openai">Paste OpenAI API key</string>
+    <string name="ai_key_placeholder_anthropic">Paste Claude API key</string>
+    <string name="ai_key_placeholder_xai">Paste Grok API key</string>
+    <string name="ai_key_placeholder_openrouter">Paste OpenRouter API key</string>
+    <string name="ai_key_placeholder_together">Paste Together AI API key</string>
+    <string name="ai_key_placeholder_groq">Paste Groq API key</string>
+    <string name="ai_key_placeholder_huggingface">Paste Hugging Face API key</string>
+    <string name="ai_key_placeholder_fireworks">Paste Fireworks API key</string>
+    <string name="ai_key_placeholder_deepinfra">Paste DeepInfra API key</string>
+    <string name="ai_key_placeholder_mistral">Paste Mistral API key</string>
     <string name="ai_key_placeholder_ollama">키 필요 없음</string>
     <string name="ai_key_placeholder_custom">API 키 (엔드포인트가 키를 요구하지 않으면 아무 값)</string>
 
@@ -142,8 +142,8 @@
     <string name="speech_provider_assemblyai">AssemblyAI</string>
 
     <string name="speech_key_placeholder_native">필요 없음</string>
-    <string name="speech_key_placeholder_openai">sk-…</string>
-    <string name="speech_key_placeholder_groq">gsk_…</string>
+    <string name="speech_key_placeholder_openai">Paste API key</string>
+    <string name="speech_key_placeholder_groq">Paste API key</string>
     <string name="speech_key_placeholder_deepgram">Token your-deepgram-key</string>
     <string name="speech_key_placeholder_assemblyai">AssemblyAI 키</string>
 
@@ -294,7 +294,6 @@
     <string name="onboarding_plan_field_protein">단백질</string>
     <string name="onboarding_plan_field_carbs">탄수화물</string>
     <string name="onboarding_plan_field_fat">지방</string>
-
 
     <!-- Home -->
     <plurals name="home_daily_steps">
@@ -606,8 +605,10 @@
     <string name="about_star_github">GitHub에 별 주기</string>
     <string name="about_vote_ph">Product Hunt에서 투표</string>
     <string name="about_leave_tip_kofi">Ko-fi에서 팁 남기기</string>
-    <string name="about_report_issue">문제 신고</string>
-    <string name="about_request_feature">기능 요청</string>
+    <string name="about_report_issue">GitHub에 문제 신고</string>
+    <string name="about_report_issue_discord">Discord에 문제 신고</string>
+    <string name="about_request_feature">GitHub에 기능 요청</string>
+    <string name="about_request_feature_discord">Discord에 기능 요청</string>
     <string name="about_contact">문의하기</string>
         <string name="about_join_discord">Discord 참여</string>
 <string name="about_follow_x">X에서 팔로우</string>

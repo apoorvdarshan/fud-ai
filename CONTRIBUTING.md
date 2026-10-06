@@ -136,7 +136,7 @@ findings require explicit triage and remediation, not a blanket lint baseline.
 
 ## Release notes
 
-Before creating a release tag, add a matching `## <tag>` section to
+iPhone release tags are `ios-vX.Y`. Android release tags are `android-vX.Y`. Before creating one, add a matching `## <tag>` section to
 [`RELEASE_NOTES.md`](RELEASE_NOTES.md). Summarize user-visible changes, upgrade
 impact and publicly known security fixes, including identifiers when available.
 Do not substitute raw commit logs for release notes. Keep App Store and Google

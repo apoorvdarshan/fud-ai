@@ -114,9 +114,12 @@ describe("short meal shares", () => {
     readLimit.mockRejectedValue(new Error("binding unavailable"));
     expect((await worker.fetch(preview(), env)).status).toBe(503);
   });
-  it("continues serving old long-link pages through static assets", async () => {
+  it("continues serving old long-link pages on the canonical host", async () => {
     const { env, assets } = setup();
-    const request = new Request("https://fud-ai.app/add-meal?d=legacy");
+    const redirected = await worker.fetch(new Request("https://fud-ai.app/add-meal?d=legacy"), env);
+    expect(redirected.status).toBe(301);
+    expect(redirected.headers.get("Location")).toBe("https://www.fud-ai.app/add-meal?d=legacy");
+    const request = new Request("https://www.fud-ai.app/add-meal?d=legacy");
     expect(await (await worker.fetch(request, env)).text()).toBe("static");
     expect(assets).toHaveBeenCalledWith(request);
   });

@@ -1,15 +1,30 @@
 # Fud AI Discord bot
 
-Community help lives in the [Fud AI Discord server](https://discord.gg/Py4VrFctP3). Use the **`/ask`** slash command (Fud AI bot) with your question — the bot replies in-channel via Cloudflare (always online; no Mac required).
+Community help lives in the [Fud AI Discord server](https://discord.gg/Py4VrFctP3). Use **`/ask`** for help from the Fud AI bot, **`/bug`** to file a bug, or **`/feature`** to request an enhancement — all reply in-channel via Cloudflare (always online; no Mac required).
 
 ## Production (Cloudflare — no Mac required)
 
-Slash command **`/ask`** is handled by the main `fud-ai.app` Worker:
+Slash commands **`/ask`**, **`/bug`**, and **`/feature`** are handled by the main `fud-ai.app` Worker:
 
 - Endpoint: `https://fud-ai.app/api/discord/interactions`
 - Code: `web/discord-interactions.ts`
-- Secrets: `DISCORD_GEMINI_API_KEY` only (free-tier). Does **not** use `GEMINI_API_KEY` (hosted/billed).
+- Secrets:
+  - `DISCORD_GEMINI_API_KEY` for `/ask` replies and `/bug`/`/feature` issue drafting (free-tier). Does **not** use `GEMINI_API_KEY` (hosted/billed).
+  - `GITHUB_TOKEN` for `/bug` and `/feature` issue creation (same Worker secret as star-history; needs `issues:write` on `apoorvdarshan/fud-ai`).
 - Vars in `web/wrangler.toml`: `DISCORD_PUBLIC_KEY`, `DISCORD_APPLICATION_ID`
+- KV binding: `DISCORD_STATE`, backed by the dedicated `FUDDY_DISCORD_STATE` namespace.
+
+### Command cooldowns
+
+- **`/ask`: one question per minute per user.**
+- **`/bug` and `/feature`: one report per five minutes per user, shared between both commands.** A bug report also starts the feature-request cooldown, and vice versa.
+- Cooldowns apply across channels within the same server, including admins. Direct messages use a separate scope for each user.
+- Only valid commands start a cooldown. Once a command is accepted, upstream AI/GitHub failures still consume the cooldown; blocked attempts do not extend the stored timer.
+- Blocked commands receive a wait message without calling Gemini or GitHub. If cooldown storage is unavailable, Fuddy asks users to try again later instead of processing an unmetered command.
+- Failed reads release provisional local reservations. Failed or timed-out writes trigger attempt-specific cancellation after all writes settle, including late writes; pending cleanup returns unavailable rather than a normal cooldown. Cleanup is best effort during KV outages and propagation delays, with KV TTLs as the final fallback. Pending local guards remain until write settlement and cancellation finish; they are not evicted to admit new commands. Cancellation writes an immutable per-attempt marker instead of deleting shared keys. Cooldown values stay numeric for older deployed readers, with ownership stored in KV metadata.
+- Storage warnings identify the failing stage and timeout/operation-failure category without logging raw errors or credentials.
+- KV stores hashed identifiers, random reservation ownership tokens, and expiry timestamps: 60 seconds for questions, 300 seconds for reports, and 15 minutes for interaction replay markers. No prompts, API keys, or interaction tokens are stored there.
+- Local reservations guard concurrent requests in one Worker instance. KV is eventually consistent, so cooldowns and replay protection across instances are best effort.
 
 ### One-time Discord portal steps
 
@@ -18,24 +33,46 @@ Slash command **`/ask`** is handled by the main `fud-ai.app` Worker:
    `https://fud-ai.app/api/discord/interactions`
 3. Save (Discord sends a PING; Worker must answer with type `1`)
 
-### Register `/ask` (guild — instant)
+### Register guild commands (instant)
 
 ```bash
 export DISCORD_BOT_TOKEN='…'   # from Discord portal; never commit
 export DISCORD_APPLICATION_ID=1548469419922038845
 export DISCORD_GUILD_ID=1548469034570354709
 node services/discord-bot/register-ask.mjs
+node services/discord-bot/register-bug.mjs
+node services/discord-bot/register-feature.mjs
 ```
 
+- **`/ask`** — `question` required.
+- **`/bug`** — `report` required (one freeform field, same UX as `/ask`). The Worker uses `DISCORD_GEMINI_API_KEY` (free-tier, never `GEMINI_API_KEY`) to draft a title + body; if Gemini fails it still files using the first short line / clipped excerpt and the raw report. Platform labels prefer clear signals in the report (and Gemini’s optional `platform` field), then the iOS (`1548481436129165353`) or Android (`1548481448024084540`) channel. If both platforms are mentioned, the channel is used when available; otherwise the issue is labeled `bug` only. Issues get `bug` plus `ios` or `android` when a platform is known.
+- **`/feature`** — `report` required (same Gemini-then-fallback drafting). Platform is **not** inferred from channel. Issues get the `enhancement` label (same as the GitHub feature-request template). Works from any channel.
+
+The same Worker wakes hourly and posts new store releases once in **#announcements**, each with its What's new notes.
+
+- **Android** — reads the Play production track, but only after the public Play listing shows the release: the track API reports a version as `completed` while Google is still reviewing, so the store page is the source of truth. Open testing is not announced.
+- **iOS** — reads the public iTunes lookup API, which only returns the version users can actually download (and its release notes), so it is already a liveness signal. The App Store link is included.
+
+The first run only records the versions already live, so it does not announce them again. Secrets: `DISCORD_BOT_TOKEN` and `PLAY_SERVICE_ACCOUNT_JSON`.
+
 ### Deploy Worker secrets + code
+
+The production `DISCORD_STATE` binding is already in `web/wrangler.toml`. For a separate deployment, create a dedicated namespace with `npx wrangler kv namespace create FUDDY_DISCORD_STATE`, then bind its ID as `DISCORD_STATE`. No Discord command re-registration is needed for cooldown changes.
 
 ```bash
 cd web
 echo 'YOUR_FREE_GEMINI_KEY' | npx wrangler secret put DISCORD_GEMINI_API_KEY
+npx wrangler secret put GITHUB_TOKEN
 npx wrangler deploy
 ```
 
+`GITHUB_TOKEN` is the existing star-history secret. For `/bug` and `/feature` it must also be allowed to create issues on `apoorvdarshan/fud-ai` (`issues:write`). `/bug` also uses the `ios` / `android` labels when a platform is known.
+
 In Discord: `/ask question: How do I add my Gemini key?`
+
+In Discord: `/bug report: Crash on save when I tap the checkmark.`
+
+In Discord: `/feature report: Show remaining calories on the home widget.`
 
 ## Optional local gateway bot (`@mention`)
 

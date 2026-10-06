@@ -75,7 +75,8 @@ class FoodRepository(
         // Decode + append + encode in one transaction: a diary that fails to
         // decode is preserved, never replaced by `[entry]`.
         prefs.updateFoodEntries { current -> current + entry }
-        healthRetry.sync(entry, isUpdate = false)
+        // Don't hold Log on Health Connect: a stalled binder call froze the Review Food sheet.
+        healthRetry.syncInBackground(entry, isUpdate = false)
         // One-time organic review moment: the first successful food log (iOS parity).
         if (!prefs.reviewPromptedAfterFirstLog.first()) {
             prefs.setReviewPromptedAfterFirstLog(true)
@@ -188,7 +189,11 @@ class FoodRepository(
             healthRetry.syncAll(changed, isUpdate = true)
         } else {
             // Prevent stale records written by an earlier sync-enabled session
-            // from restoring pre-import values later.
+            // from restoring pre-import values later. Forgetting under the retry mutex
+            // first waits out an in-flight background write, so it cannot land after
+            // the delete with pre-import values.
+            val staleIds = removedIds + changed.map { it.id }.filter { it in previousById }
+            healthRetry.forgetAll(staleIds)
             removedIds.forEach { health?.deleteNutrition(it) }
             changed.filter { it.id in previousById }.forEach { health?.deleteNutrition(it.id) }
         }

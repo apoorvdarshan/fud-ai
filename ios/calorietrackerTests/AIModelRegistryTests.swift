@@ -95,8 +95,15 @@ struct AIModelRegistryTests {
             (.customOpenAI, []),
         ]
 
+        var visionInsertIndex = 0
+        if #available(iOS 27.0, *) {
+            if AIProvider.appleIntelligence.supportsVision {
+                registries.insert((.appleIntelligence, ["System Language Model"]), at: visionInsertIndex)
+                visionInsertIndex += 1
+            }
+        }
         if Gemma4LocalModelManager.isCurrentDeviceSelectable {
-            registries.insert((.gemma4Local, [Gemma4LocalModelManager.modelID]), at: 0)
+            registries.insert((.gemma4Local, [Gemma4LocalModelManager.modelID]), at: visionInsertIndex)
         }
 
         #expect(registries.map(\.provider) == AIProvider.visionProviders)
@@ -108,7 +115,17 @@ struct AIModelRegistryTests {
 
     @Test func textProvidersExposeCurrentTextOnlyChoicesWithoutEnteringVisionRegistry() {
         #expect(AIProvider.textProviders == AIProvider.allCases.filter(\.isAvailableOnCurrentDevice))
-        #expect(!AIProvider.visionProviders.contains(.appleIntelligence))
+        if #available(iOS 27.0, *) {
+            if AIProvider.appleIntelligence.supportsVision {
+                #expect(AIProvider.visionProviders.contains(.appleIntelligence))
+                #expect(AIProvider.appleIntelligence.models == ["System Language Model"])
+            } else {
+                #expect(!AIProvider.visionProviders.contains(.appleIntelligence))
+            }
+        } else {
+            #expect(!AIProvider.visionProviders.contains(.appleIntelligence))
+            #expect(!AIProvider.appleIntelligence.supportsVision)
+        }
         #expect(!AIProvider.visionProviders.contains(.deepseek))
         #expect(!AIProvider.visionProviders.contains(.cerebras))
         #expect(AIProvider.appleIntelligence.textModels == ["System Language Model"])
@@ -312,6 +329,16 @@ struct AIModelRegistryTests {
         #expect(body["speech_models"] as? [String] == ["universal-3-pro", "universal-2"])
         #expect(body["language_code"] as? String == "hi")
         #expect(body["language_detection"] == nil)
+    }
+
+    @Test func appleIntelligenceVisionSupportIsGatedToIOS27() {
+        if #available(iOS 27.0, *) {
+            #expect(AIProvider.appleIntelligence.supportsVision)
+            #expect(AIProvider.appleIntelligence.defaultModel == "System Language Model")
+        } else {
+            #expect(!AIProvider.appleIntelligence.supportsVision)
+            #expect(AIProvider.appleIntelligence.models.isEmpty)
+        }
     }
 
     @Test func geminiFunctionResponsesEchoCallIdentifiers() throws {

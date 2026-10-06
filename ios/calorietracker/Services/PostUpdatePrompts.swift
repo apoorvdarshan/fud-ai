@@ -14,9 +14,14 @@ enum FudAILinks {
 /// as seen right before it flips `hasCompletedOnboarding`, so only users whose
 /// defaults predate these keys qualify. Same once-only pattern as ReviewPrompter.
 enum PostUpdatePrompts {
-    static let hostedUpsellSeenKey = "hasSeenHostedUpsellPrompt"
+    /// Versioned so the Hosted AI upsell is deliberately re-armed once for users who already
+    /// dismissed it (the previous unversioned key was consumed the moment the alert was shown).
+    /// Bump the suffix only when the upsell should fire again.
+    static let hostedUpsellSeenKey = "hasSeenHostedUpsellPrompt.2026-09-28"
     /// Named "completed" (not "seen") so only Done counts — opening Instagram must not consume it.
     static let meetDeveloperSeenKey = "hasCompletedMeetDeveloperPrompt"
+    /// Separate from Meet the developer so people who already tapped Done still get the launch-day sheet.
+    static let productHuntLaunchPromptSeenKey = "hasSeenProductHuntLaunchPrompt.2026-09-29"
 
     static var hasSeenHostedUpsell: Bool {
         get { UserDefaults.standard.bool(forKey: hostedUpsellSeenKey) }
@@ -28,6 +33,11 @@ enum PostUpdatePrompts {
         set { UserDefaults.standard.set(newValue, forKey: meetDeveloperSeenKey) }
     }
 
+    static var hasSeenProductHuntLaunchPrompt: Bool {
+        get { UserDefaults.standard.bool(forKey: productHuntLaunchPromptSeenKey) }
+        set { UserDefaults.standard.set(newValue, forKey: productHuntLaunchPromptSeenKey) }
+    }
+
     /// Called when onboarding completes so a brand-new user is never treated as
     /// an "existing user who just updated".
     static func markAllSeenForFreshInstall() {
@@ -37,9 +47,16 @@ enum PostUpdatePrompts {
 
     /// The hosted upsell is only relevant to BYOK users without an active Plus/Pro
     /// entitlement. Anyone already on hosted has nothing to be upsold.
+    ///
+    /// Also gated on RevenueCat actually resolving purchasable Plus/Pro packages: while the
+    /// IAPs are not live the offerings come back empty, and showing the alert would only
+    /// dead-end on "Plans are unavailable right now." In that case the prompt is left
+    /// unconsumed so it appears once the plans go live.
     @MainActor
     static var isHostedUpsellEligible: Bool {
-        AIModeSettings.mode == .byok && !RevenueCatManager.shared.hasHostedEntitlement
+        AIModeSettings.mode == .byok
+            && !RevenueCatManager.shared.hasHostedEntitlement
+            && RevenueCatManager.shared.hasPurchasableHostedPlans
     }
 }
 
@@ -108,5 +125,46 @@ struct MeetDeveloperSheet: View {
             }
         }
         .tint(.primary)
+    }
+}
+
+/// One-time launch-day sheet. Shows during the Product Hunt window even if Meet the developer was already dismissed.
+struct ProductHuntLaunchSheet: View {
+    var onVote: () -> Void
+    var onNotNow: () -> Void
+    @Environment(\.openURL) private var openURL
+
+    var body: some View {
+        VStack(spacing: 16) {
+            Image("onboardingLogo")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 56, height: 56)
+                .accessibilityHidden(true)
+            Text("Fud AI is live on Product Hunt")
+                .font(.system(.title3, design: .rounded, weight: .bold))
+                .multilineTextAlignment(.center)
+            Text("We just launched. A vote helps more people find Fud AI.")
+                .font(.system(.subheadline, design: .rounded))
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+            Button {
+                openURL(FudAILinks.productHunt)
+                onVote()
+            } label: {
+                Text("Vote on Product Hunt")
+                    .font(.system(.body, design: .rounded, weight: .semibold))
+                    .foregroundStyle(.white)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 50)
+                    .background(AppColors.calorie, in: RoundedRectangle(cornerRadius: 14))
+            }
+            Button("Not now", action: onNotNow)
+                .font(.system(.body, design: .rounded, weight: .semibold))
+                .foregroundStyle(.secondary)
+        }
+        .padding(24)
+        .presentationDetents([.medium])
+        .interactiveDismissDisabled()
     }
 }

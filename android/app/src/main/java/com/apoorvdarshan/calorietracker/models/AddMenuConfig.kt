@@ -67,6 +67,43 @@ data class AddMenuConfig(
     fun resolvedFlatMethods(): List<FoodLogMethod> =
         flatMethods.mapNotNull(FoodLogMethod::fromStorage)
 
+    /**
+     * Puts a hidden method back on the menu.
+     *
+     * - [groupIndex] set: add to that group (and drop the key from every other group).
+     * - Flat layout: append to [flatMethods].
+     * - Grouped layout with no index: last group, or the first group that already
+     *   has methods if the last one is empty.
+     */
+    fun withRestoredMethod(
+        method: FoodLogMethod,
+        groupIndex: Int? = null
+    ): AddMenuConfig {
+        val key = method.storageKey
+        val targetIndex = when {
+            groupIndex != null && groupIndex in groups.indices -> groupIndex
+            usesFlatLayout -> null
+            groups.isEmpty() -> null
+            groups.last().methods.isNotEmpty() -> groups.lastIndex
+            else -> groups.indexOfFirst { it.methods.isNotEmpty() }.takeIf { it >= 0 }
+                ?: groups.lastIndex
+        }
+        if (targetIndex == null) {
+            return copy(flatMethods = flatMethods + key).sanitized()
+        }
+        val nextGroups = groups.mapIndexed { idx, group ->
+            if (idx == targetIndex) {
+                group.copy(methods = group.methods + key)
+            } else {
+                group.copy(methods = group.methods.filterNot { it == key })
+            }
+        }
+        return copy(
+            groups = nextGroups,
+            flatMethods = flatMethods.filterNot { it == key }
+        ).sanitized()
+    }
+
     companion object {
         const val CURRENT_VERSION = 1
         const val STORAGE_KEY = "addMenu.config"
@@ -125,6 +162,16 @@ data class AddMenuConfig(
 
         fun encode(config: AddMenuConfig): String =
             json.encodeToString(serializer(), config.sanitized())
+
+        /**
+         * Settings startup reads the menu, then later replaces the whole screen state.
+         * If the user already edited during that gap, keep the menu on screen.
+         */
+        fun afterSettingsSnapshot(
+            alreadyLoaded: Boolean,
+            onScreen: AddMenuConfig,
+            diskRead: AddMenuConfig,
+        ): AddMenuConfig = if (alreadyLoaded) onScreen else diskRead
 
         private val json = kotlinx.serialization.json.Json {
             ignoreUnknownKeys = true

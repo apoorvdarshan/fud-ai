@@ -120,17 +120,17 @@
     <string name="ai_provider_custom">Пользовательский (OpenAI-совместимый)</string>
 
     <!-- AI Provider API key placeholders -->
-    <string name="ai_key_placeholder_gemini">AIza…</string>
-    <string name="ai_key_placeholder_openai">sk-…</string>
-    <string name="ai_key_placeholder_anthropic">sk-ant-…</string>
-    <string name="ai_key_placeholder_xai">xai-…</string>
-    <string name="ai_key_placeholder_openrouter">sk-or-…</string>
-    <string name="ai_key_placeholder_together">…</string>
-    <string name="ai_key_placeholder_groq">gsk_…</string>
-    <string name="ai_key_placeholder_huggingface">hf_…</string>
-    <string name="ai_key_placeholder_fireworks">fw_…</string>
-    <string name="ai_key_placeholder_deepinfra">…</string>
-    <string name="ai_key_placeholder_mistral">…</string>
+    <string name="ai_key_placeholder_gemini">Paste Gemini API key</string>
+    <string name="ai_key_placeholder_openai">Paste OpenAI API key</string>
+    <string name="ai_key_placeholder_anthropic">Paste Claude API key</string>
+    <string name="ai_key_placeholder_xai">Paste Grok API key</string>
+    <string name="ai_key_placeholder_openrouter">Paste OpenRouter API key</string>
+    <string name="ai_key_placeholder_together">Paste Together AI API key</string>
+    <string name="ai_key_placeholder_groq">Paste Groq API key</string>
+    <string name="ai_key_placeholder_huggingface">Paste Hugging Face API key</string>
+    <string name="ai_key_placeholder_fireworks">Paste Fireworks API key</string>
+    <string name="ai_key_placeholder_deepinfra">Paste DeepInfra API key</string>
+    <string name="ai_key_placeholder_mistral">Paste Mistral API key</string>
     <string name="ai_key_placeholder_ollama">Ключ не нужен</string>
     <string name="ai_key_placeholder_custom">Ключ API (или что угодно, если эндпоинт его не требует)</string>
 
@@ -142,8 +142,8 @@
     <string name="speech_provider_assemblyai">AssemblyAI</string>
 
     <string name="speech_key_placeholder_native">Не требуется</string>
-    <string name="speech_key_placeholder_openai">sk-…</string>
-    <string name="speech_key_placeholder_groq">gsk_…</string>
+    <string name="speech_key_placeholder_openai">Paste API key</string>
+    <string name="speech_key_placeholder_groq">Paste API key</string>
     <string name="speech_key_placeholder_deepgram">Token your-deepgram-key</string>
     <string name="speech_key_placeholder_assemblyai">Ваш ключ AssemblyAI</string>
 
@@ -297,7 +297,6 @@
     <string name="onboarding_plan_field_protein">Белок</string>
     <string name="onboarding_plan_field_carbs">Углеводы</string>
     <string name="onboarding_plan_field_fat">Жиры</string>
-
 
     <!-- Home -->
     <plurals name="home_daily_steps">
@@ -613,8 +612,10 @@
     <string name="about_star_github">Поставить звезду на GitHub</string>
     <string name="about_vote_ph">Проголосовать на Product Hunt</string>
     <string name="about_leave_tip_kofi">Оставить чаевые на Ko-fi</string>
-    <string name="about_report_issue">Сообщить о проблеме</string>
-    <string name="about_request_feature">Предложить функцию</string>
+    <string name="about_report_issue">Сообщить о проблеме на GitHub</string>
+    <string name="about_report_issue_discord">Сообщить о проблеме в Discord</string>
+    <string name="about_request_feature">Предложить функцию на GitHub</string>
+    <string name="about_request_feature_discord">Предложить функцию в Discord</string>
     <string name="about_contact">Связаться с нами</string>
         <string name="about_join_discord">Присоединиться к Discord</string>
 <string name="about_follow_x">Подписаться в X</string>
@@ -714,7 +715,7 @@
     <string name="action_info">Инфо</string>
     <string name="action_what_if">А что если?</string>
     <string name="speech_provider_gemini">Gemini Audio</string>
-    <string name="speech_key_placeholder_gemini">AIza…</string>
+    <string name="speech_key_placeholder_gemini">Paste Gemini API key</string>
     <string name="speech_description_gemini">Транскрипция аудио через Gemini API. Использует пакетное распознавание аудио, а не Speech-to-Text API Google Cloud в реальном времени.</string>
     <string name="what_if_title">А что если?</string>
     <string name="what_if_subtitle">Посмотрите, как это блюдо изменит сегодняшний день, прежде чем записать его.</string>
@@ -907,7 +908,7 @@
     <string name="nutrition_label_omega3">Омега-3</string>
     <string name="nutrition_section_home_cards">Карточки на главной</string>
     <string name="home_nutrients_pick_four">Выберите от одного до четырёх нутриентов для сводки на главном экране.</string>
-    <string name="home_nutrients_pick_three_water">Выберите от одного до трёх нутриентов. При включённом учёте воды вода отображается после них.</string>
+    <string name="home_nutrients_pick_three_water">Выберите от одного до четырёх нутриентов. При включённом учёте воды вода отображается после них.</string>
     <string name="home_nutrients_water_fixed">При включённом учёте воды вода отображается после выбранных нутриентов.</string>
     <string name="home_nutrients_water_fixed_short">После выбранных нутриентов</string>
     <string name="nutrition_section_water">Вода</string>

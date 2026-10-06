@@ -125,12 +125,11 @@ struct WidgetSnapshot: Codable, Equatable {
             protein: 84, proteinGoal: 150,
             carbs: 132, carbsGoal: 220,
             fat: 42, fatGoal: 70,
-            // Match iPhone Home: up to 3 selectable nutrients; water is injected
-            // as the locked 4th pillar when tracking is enabled.
             homeNutrients: [
                 WidgetNutrientValue(id: "protein", label: String(localized: "Protein"), shortLabel: "P", unit: "g", iconName: "fork.knife", value: 84, goal: 150),
                 WidgetNutrientValue(id: "carbs", label: String(localized: "Carbs"), shortLabel: "C", unit: "g", iconName: "leaf", value: 132, goal: 220),
                 WidgetNutrientValue(id: "fat", label: String(localized: "Fat"), shortLabel: "F", unit: "g", iconName: "drop.fill", value: 42, goal: 70),
+                WidgetNutrientValue(id: "fiber", label: String(localized: "Fiber"), shortLabel: "Fi", unit: "g", iconName: "leaf.fill", value: 18, goal: 30),
             ],
             waterTrackingEnabled: true,
             waterCurrentMl: 1_250,
@@ -152,13 +151,12 @@ struct WidgetSnapshot: Codable, Equatable {
                 WidgetNutrientValue(id: "protein", label: String(localized: "Protein"), shortLabel: "P", unit: "g", iconName: "fork.knife", value: 0, goal: 150),
                 WidgetNutrientValue(id: "carbs", label: String(localized: "Carbs"), shortLabel: "C", unit: "g", iconName: "leaf", value: 0, goal: 220),
                 WidgetNutrientValue(id: "fat", label: String(localized: "Fat"), shortLabel: "F", unit: "g", iconName: "drop.fill", value: 0, goal: 70),
-                WidgetNutrientValue(id: "fiber", label: String(localized: "Fiber"), shortLabel: "Fi", unit: "g", iconName: "leaf.fill", value: 0, goal: 34),
+                WidgetNutrientValue(id: "fiber", label: String(localized: "Fiber"), shortLabel: "Fi", unit: "g", iconName: "leaf.fill", value: 0, goal: 30),
             ]
         )
     }
 
-    /// The nutrient pillars to render, matching iPhone Home: up to 4 selected
-    /// nutrients, or 3 + a locked Water pillar when Water Tracking is enabled.
+    /// Nutrient pillars on watch: 4 slots — all saved choices, or the first 3 plus Water.
     var displayedHomeNutrients: [WidgetNutrientValue] {
         let selected = homeNutrients?.filter { !$0.id.isEmpty && $0.id != "water" } ?? []
         var merged: [WidgetNutrientValue] = []
@@ -176,7 +174,7 @@ struct WidgetSnapshot: Codable, Equatable {
             WidgetNutrientValue(id: "protein", label: String(localized: "Protein"), shortLabel: "P", unit: "g", iconName: "fork.knife", value: protein, goal: Double(proteinGoal)),
             WidgetNutrientValue(id: "carbs", label: String(localized: "Carbs"), shortLabel: "C", unit: "g", iconName: "leaf", value: carbs, goal: Double(carbsGoal)),
             WidgetNutrientValue(id: "fat", label: String(localized: "Fat"), shortLabel: "F", unit: "g", iconName: "drop.fill", value: fat, goal: Double(fatGoal)),
-            WidgetNutrientValue(id: "fiber", label: String(localized: "Fiber"), shortLabel: "Fi", unit: "g", iconName: "leaf.fill", value: 0, goal: 34),
+            WidgetNutrientValue(id: "fiber", label: String(localized: "Fiber"), shortLabel: "Fi", unit: "g", iconName: "leaf.fill", value: 0, goal: 30),
         ]
     }
 

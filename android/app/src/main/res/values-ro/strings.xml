@@ -120,17 +120,17 @@
     <string name="ai_provider_custom">Personalizat (compatibil OpenAI)</string>
 
     <!-- AI Provider API key placeholders -->
-    <string name="ai_key_placeholder_gemini">AIza…</string>
-    <string name="ai_key_placeholder_openai">sk-…</string>
-    <string name="ai_key_placeholder_anthropic">sk-ant-…</string>
-    <string name="ai_key_placeholder_xai">xai-…</string>
-    <string name="ai_key_placeholder_openrouter">sk-or-…</string>
-    <string name="ai_key_placeholder_together">…</string>
-    <string name="ai_key_placeholder_groq">gsk_…</string>
-    <string name="ai_key_placeholder_huggingface">hf_…</string>
-    <string name="ai_key_placeholder_fireworks">fw_…</string>
-    <string name="ai_key_placeholder_deepinfra">…</string>
-    <string name="ai_key_placeholder_mistral">…</string>
+    <string name="ai_key_placeholder_gemini">Paste Gemini API key</string>
+    <string name="ai_key_placeholder_openai">Paste OpenAI API key</string>
+    <string name="ai_key_placeholder_anthropic">Paste Claude API key</string>
+    <string name="ai_key_placeholder_xai">Paste Grok API key</string>
+    <string name="ai_key_placeholder_openrouter">Paste OpenRouter API key</string>
+    <string name="ai_key_placeholder_together">Paste Together AI API key</string>
+    <string name="ai_key_placeholder_groq">Paste Groq API key</string>
+    <string name="ai_key_placeholder_huggingface">Paste Hugging Face API key</string>
+    <string name="ai_key_placeholder_fireworks">Paste Fireworks API key</string>
+    <string name="ai_key_placeholder_deepinfra">Paste DeepInfra API key</string>
+    <string name="ai_key_placeholder_mistral">Paste Mistral API key</string>
     <string name="ai_key_placeholder_ollama">Nu e nevoie de cheie</string>
     <string name="ai_key_placeholder_custom">Cheie API (sau orice dacă endpoint-ul nu cere)</string>
 
@@ -142,8 +142,8 @@
     <string name="speech_provider_assemblyai">AssemblyAI</string>
 
     <string name="speech_key_placeholder_native">Nu e necesar</string>
-    <string name="speech_key_placeholder_openai">sk-…</string>
-    <string name="speech_key_placeholder_groq">gsk_…</string>
+    <string name="speech_key_placeholder_openai">Paste API key</string>
+    <string name="speech_key_placeholder_groq">Paste API key</string>
     <string name="speech_key_placeholder_deepgram">Token cheia-ta-deepgram</string>
     <string name="speech_key_placeholder_assemblyai">Cheia ta AssemblyAI</string>
 
@@ -296,7 +296,6 @@
     <string name="onboarding_plan_field_protein">Proteine</string>
     <string name="onboarding_plan_field_carbs">Carbohidrați</string>
     <string name="onboarding_plan_field_fat">Grăsimi</string>
-
 
     <!-- Home -->
     <plurals name="home_daily_steps">
@@ -610,8 +609,10 @@
     <string name="about_star_github">Dă stea pe GitHub</string>
     <string name="about_vote_ph">Votează pe Product Hunt</string>
     <string name="about_leave_tip_kofi">Lasă un bacșiș pe Ko-fi</string>
-    <string name="about_report_issue">Raportează o problemă</string>
-    <string name="about_request_feature">Solicită o funcție</string>
+    <string name="about_report_issue">Raportează o problemă pe GitHub</string>
+    <string name="about_report_issue_discord">Raportează o problemă pe Discord</string>
+    <string name="about_request_feature">Solicită o funcție pe GitHub</string>
+    <string name="about_request_feature_discord">Solicită o funcție pe Discord</string>
     <string name="about_contact">Contactează-ne</string>
         <string name="about_join_discord">Alătură-te pe Discord</string>
 <string name="about_follow_x">Urmărește pe X</string>

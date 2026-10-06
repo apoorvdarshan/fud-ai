@@ -31,7 +31,10 @@ import androidx.compose.material.icons.automirrored.outlined.DirectionsWalk
 import androidx.compose.material.icons.automirrored.outlined.TrendingDown
 import androidx.compose.material.icons.automirrored.outlined.TrendingFlat
 import androidx.compose.material.icons.automirrored.outlined.TrendingUp
+import androidx.compose.material.icons.filled.CheckBox
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.outlined.CheckBoxOutlineBlank
+import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.AutoAwesome
@@ -129,6 +132,7 @@ import java.util.Locale
 fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
     val vm: OnboardingViewModel = viewModel(factory = OnboardingViewModel.Factory(container))
     val ui by vm.ui.collectAsState()
+    var showMissingApiKey by remember { mutableStateOf(false) }
 
     // Match the on-screen chevron: system back / gesture must use vm.back() so BYOK → choice
     // (and other nested steps) don't pop the whole onboarding destination.
@@ -241,10 +245,12 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
                     provider = ui.aiProvider,
                     model = ui.aiModel,
                     apiKey = ui.apiKey,
+                    acceptedTerms = ui.acceptedTerms,
                     onSelectByok = vm::selectByokSetup,
                     onProviderChange = vm::setAiProvider,
                     onModelChange = vm::setAiModel,
-                    onKeyChange = vm::setApiKey
+                    onKeyChange = vm::setApiKey,
+                    onAcceptedTermsChange = vm::setAcceptedTerms
                 )
                 OnboardingStep.BUILDING_PLAN -> BuildingPlanStep(vm = vm, onComplete = vm::next)
                 OnboardingStep.PLAN_READY -> PlanReadyStep(state = ui, vm = vm)
@@ -318,25 +324,49 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
                 val showContinue = ui.step != OnboardingStep.PROVIDER ||
                     ui.aiPhase != OnboardingAiPhase.CHOICE
                 if (showContinue) {
-                    Button(
-                        onClick = { vm.next() },
-                        enabled = ui.canAdvance,
-                        shape = RoundedCornerShape(28.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.onBackground,
-                            contentColor = MaterialTheme.colorScheme.background
-                        ),
+                    val onByok = ui.step == OnboardingStep.PROVIDER &&
+                        ui.aiPhase == OnboardingAiPhase.BYOK
+                    val waitingForByokKey = onByok && ui.acceptedTerms && !ui.byokSetupComplete
+                    Column(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 24.dp)
-                            .padding(bottom = 36.dp)
-                            .height(54.dp)
+                            .padding(bottom = 36.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Text(
-                            stringResource(R.string.action_continue),
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.SemiBold
-                        )
+                        if (waitingForByokKey) {
+                            Text(
+                                stringResource(
+                                    R.string.onboarding_paste_api_key_helper,
+                                    ui.aiProvider.apiKeyBrandName
+                                ),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.55f),
+                                textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+                                modifier = Modifier.padding(bottom = 10.dp)
+                            )
+                        }
+                        Button(
+                            onClick = {
+                                if (waitingForByokKey) showMissingApiKey = true
+                                else vm.next()
+                            },
+                            enabled = if (onByok) ui.acceptedTerms else ui.canAdvance,
+                            shape = RoundedCornerShape(28.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = MaterialTheme.colorScheme.onBackground,
+                                contentColor = MaterialTheme.colorScheme.background
+                            ),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(54.dp)
+                        ) {
+                            Text(
+                                stringResource(R.string.action_continue),
+                                style = MaterialTheme.typography.titleMedium,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                        }
                     }
                 } else {
                     // Reserve footer height so the choice cards don't jump when BYOK opens.
@@ -344,6 +374,19 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
                 }
             }
         }
+    }
+
+    if (showMissingApiKey) {
+        AlertDialog(
+            onDismissRequest = { showMissingApiKey = false },
+            title = { Text(stringResource(R.string.onboarding_missing_api_key_title, ui.aiProvider.apiKeyBrandName)) },
+            text = { Text(stringResource(R.string.onboarding_missing_api_key_message, ui.aiProvider.apiKeyBrandName)) },
+            confirmButton = {
+                TextButton(onClick = { showMissingApiKey = false }) {
+                    Text(stringResource(R.string.action_ok), color = AppColors.Calorie)
+                }
+            }
+        )
     }
 }
 
@@ -1204,10 +1247,12 @@ private fun ProviderStep(
     provider: AIProvider,
     model: String,
     apiKey: String,
+    acceptedTerms: Boolean,
     onSelectByok: () -> Unit,
     onProviderChange: (AIProvider) -> Unit,
     onModelChange: (String) -> Unit,
-    onKeyChange: (String) -> Unit
+    onKeyChange: (String) -> Unit,
+    onAcceptedTermsChange: (Boolean) -> Unit
 ) {
     var selectorSheet by remember { mutableStateOf<ProviderSelectorSheet?>(null) }
     Column(
@@ -1226,9 +1271,11 @@ private fun ProviderStep(
                 provider = provider,
                 model = model,
                 apiKey = apiKey,
+                acceptedTerms = acceptedTerms,
                 onProviderClick = { selectorSheet = ProviderSelectorSheet.PROVIDER },
                 onModelClick = { selectorSheet = ProviderSelectorSheet.MODEL },
-                onKeyChange = onKeyChange
+                onKeyChange = onKeyChange,
+                onAcceptedTermsChange = onAcceptedTermsChange
             )
         }
     }
@@ -1422,9 +1469,11 @@ private fun ByokSetupSection(
     provider: AIProvider,
     model: String,
     apiKey: String,
+    acceptedTerms: Boolean,
     onProviderClick: () -> Unit,
     onModelClick: () -> Unit,
-    onKeyChange: (String) -> Unit
+    onKeyChange: (String) -> Unit,
+    onAcceptedTermsChange: (Boolean) -> Unit
 ) {
     Card(
         shape = RoundedCornerShape(16.dp),
@@ -1518,6 +1567,103 @@ private fun ByokSetupSection(
         color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f),
         textAlign = androidx.compose.ui.text.style.TextAlign.Center
     )
+    Spacer(Modifier.height(14.dp))
+    AiPrivacyNoticeCard()
+    Spacer(Modifier.height(10.dp))
+    AiTermsCard(accepted = acceptedTerms, onToggle = { onAcceptedTermsChange(!acceptedTerms) })
+}
+
+@Composable
+private fun AiPrivacyNoticeCard() {
+    Card(
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            AiNoticeRow(
+                icon = Icons.Outlined.PhotoCamera,
+                title = stringResource(R.string.onboarding_ai_notice_analysis_title),
+                text = stringResource(R.string.onboarding_ai_notice_analysis_body)
+            )
+            AiNoticeRow(
+                icon = Icons.Outlined.Lock,
+                title = stringResource(R.string.onboarding_ai_notice_local_title),
+                text = stringResource(R.string.onboarding_ai_notice_local_body)
+            )
+        }
+    }
+}
+
+@Composable
+private fun AiNoticeRow(icon: androidx.compose.ui.graphics.vector.ImageVector, title: String, text: String) {
+    Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+        Icon(icon, contentDescription = null, tint = AppColors.Calorie, modifier = Modifier.size(20.dp))
+        Column {
+            Text(title, style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold)
+            Text(
+                text,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
+            )
+        }
+    }
+}
+
+@Composable
+private fun AiTermsCard(accepted: Boolean, onToggle: () -> Unit) {
+    val context = LocalContext.current
+    Card(
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable(onClick = onToggle),
+                horizontalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                Icon(
+                    if (accepted) Icons.Filled.CheckBox else Icons.Outlined.CheckBoxOutlineBlank,
+                    contentDescription = null,
+                    tint = if (accepted) AppColors.Calorie else MaterialTheme.colorScheme.onBackground.copy(alpha = 0.45f),
+                    modifier = Modifier.size(22.dp)
+                )
+                Text(
+                    stringResource(R.string.onboarding_ai_terms_checkbox),
+                    style = MaterialTheme.typography.bodySmall,
+                    fontWeight = FontWeight.Medium
+                )
+            }
+            Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                Text(
+                    stringResource(R.string.about_privacy),
+                    color = AppColors.Calorie,
+                    style = MaterialTheme.typography.bodySmall,
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier.clickable {
+                        context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://fud-ai.app/privacy.html")))
+                    }
+                )
+                Text(
+                    stringResource(R.string.onboarding_ai_terms_and),
+                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.55f),
+                    style = MaterialTheme.typography.bodySmall
+                )
+                Text(
+                    stringResource(R.string.about_terms),
+                    color = AppColors.Calorie,
+                    style = MaterialTheme.typography.bodySmall,
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier.clickable {
+                        context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://fud-ai.app/terms.html")))
+                    }
+                )
+            }
+        }
+    }
 }
 
 /** Which onboarding BYOK picker sheet is open. */

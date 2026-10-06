@@ -2,6 +2,7 @@ package com.apoorvdarshan.calorietracker
 
 import android.app.Application
 import android.util.Log
+import androidx.appcompat.app.AppCompatDelegate
 import com.apoorvdarshan.calorietracker.data.BodyFatRepository
 import com.apoorvdarshan.calorietracker.data.BodyMeasurementRepository
 import com.apoorvdarshan.calorietracker.data.ChatRepository
@@ -71,6 +72,9 @@ class FudAIApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        // Re-apply the AndroidX per-app locale list on API 32 and below, where
+        // AppCompat stores it. Empty list = follow the system language.
+        AppCompatDelegate.setApplicationLocales(AppCompatDelegate.getApplicationLocales())
         container = AppContainer(this)
         container.notifications.createChannels()
         WidgetRefreshScheduler.onAppStarted(this)

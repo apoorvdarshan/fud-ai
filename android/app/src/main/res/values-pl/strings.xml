@@ -120,17 +120,17 @@
     <string name="ai_provider_custom">Własny (kompatybilny z OpenAI)</string>
 
     <!-- AI Provider API key placeholders -->
-    <string name="ai_key_placeholder_gemini">AIza…</string>
-    <string name="ai_key_placeholder_openai">sk-…</string>
-    <string name="ai_key_placeholder_anthropic">sk-ant-…</string>
-    <string name="ai_key_placeholder_xai">xai-…</string>
-    <string name="ai_key_placeholder_openrouter">sk-or-…</string>
-    <string name="ai_key_placeholder_together">…</string>
-    <string name="ai_key_placeholder_groq">gsk_…</string>
-    <string name="ai_key_placeholder_huggingface">hf_…</string>
-    <string name="ai_key_placeholder_fireworks">fw_…</string>
-    <string name="ai_key_placeholder_deepinfra">…</string>
-    <string name="ai_key_placeholder_mistral">…</string>
+    <string name="ai_key_placeholder_gemini">Paste Gemini API key</string>
+    <string name="ai_key_placeholder_openai">Paste OpenAI API key</string>
+    <string name="ai_key_placeholder_anthropic">Paste Claude API key</string>
+    <string name="ai_key_placeholder_xai">Paste Grok API key</string>
+    <string name="ai_key_placeholder_openrouter">Paste OpenRouter API key</string>
+    <string name="ai_key_placeholder_together">Paste Together AI API key</string>
+    <string name="ai_key_placeholder_groq">Paste Groq API key</string>
+    <string name="ai_key_placeholder_huggingface">Paste Hugging Face API key</string>
+    <string name="ai_key_placeholder_fireworks">Paste Fireworks API key</string>
+    <string name="ai_key_placeholder_deepinfra">Paste DeepInfra API key</string>
+    <string name="ai_key_placeholder_mistral">Paste Mistral API key</string>
     <string name="ai_key_placeholder_ollama">Klucz niepotrzebny</string>
     <string name="ai_key_placeholder_custom">Klucz API (lub cokolwiek, jeśli endpoint go nie wymaga)</string>
 
@@ -142,8 +142,8 @@
     <string name="speech_provider_assemblyai">AssemblyAI</string>
 
     <string name="speech_key_placeholder_native">Niepotrzebne</string>
-    <string name="speech_key_placeholder_openai">sk-…</string>
-    <string name="speech_key_placeholder_groq">gsk_…</string>
+    <string name="speech_key_placeholder_openai">Paste API key</string>
+    <string name="speech_key_placeholder_groq">Paste API key</string>
     <string name="speech_key_placeholder_deepgram">Token your-deepgram-key</string>
     <string name="speech_key_placeholder_assemblyai">Twój klucz AssemblyAI</string>
 
@@ -297,7 +297,6 @@
     <string name="onboarding_plan_field_protein">Białko</string>
     <string name="onboarding_plan_field_carbs">Węglowodany</string>
     <string name="onboarding_plan_field_fat">Tłuszcz</string>
-
 
     <!-- Home -->
     <plurals name="home_daily_steps">
@@ -613,8 +612,10 @@
     <string name="about_star_github">Dodaj gwiazdkę na GitHubie</string>
     <string name="about_vote_ph">Zagłosuj na Product Hunt</string>
     <string name="about_leave_tip_kofi">Zostaw napiwek na Ko-fi</string>
-    <string name="about_report_issue">Zgłoś problem</string>
-    <string name="about_request_feature">Poproś o funkcję</string>
+    <string name="about_report_issue">Zgłoś problem na GitHubie</string>
+    <string name="about_report_issue_discord">Zgłoś problem na Discordzie</string>
+    <string name="about_request_feature">Poproś o funkcję na GitHubie</string>
+    <string name="about_request_feature_discord">Poproś o funkcję na Discordzie</string>
     <string name="about_contact">Kontakt</string>
         <string name="about_join_discord">Dołącz do Discorda</string>
 <string name="about_follow_x">Obserwuj na X</string>

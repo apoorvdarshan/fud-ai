@@ -1,6 +1,11 @@
 // Secrets are not emitted by `wrangler types`; only their names belong here.
 // Values are set with `wrangler secret put <NAME>` (never committed).
 interface Env {
+  /**
+   * GitHub token for star-history refresh and Discord `/bug` / `/feature` issues.
+   * Set with `npx wrangler secret put GITHUB_TOKEN` (never commit the value).
+   * `/bug` and `/feature` need `issues:write` on `apoorvdarshan/fud-ai`.
+   */
   GITHUB_TOKEN: string;
   /** Google AI Studio key for the hosted Gemini path. Set at production time. */
   GEMINI_API_KEY?: string;
@@ -20,4 +25,14 @@ interface Env {
   DISCORD_PUBLIC_KEY: string;
   /** Discord application id (also set via wrangler `[vars]`). */
   DISCORD_APPLICATION_ID?: string;
+  /**
+   * Bot token used only to post Android release announcements.
+   * Set with `npx wrangler secret put DISCORD_BOT_TOKEN`.
+   */
+  DISCORD_BOT_TOKEN?: string;
+  /**
+   * Play service-account JSON. The hourly job reads production.
+   * Set with `npx wrangler secret put PLAY_SERVICE_ACCOUNT_JSON`.
+   */
+  PLAY_SERVICE_ACCOUNT_JSON?: string;
 }

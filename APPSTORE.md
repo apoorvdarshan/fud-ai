@@ -1,6 +1,8 @@
 # App Store Listing
 
-App Store Connect submission details for Fud AI v7.0 build 35. Each field is in a code block for easy copy-paste.
+App Store Connect submission details for Fud AI v7.1.2 build 39 (iOS only). Each field is in a code block for easy copy-paste. Not submitted.
+
+7.1.2 is an iOS-only release that ships alongside the first submission of the optional Plus/Pro hosted AI subscriptions. It re-arms the one-time hosted AI prompt for existing users and hides it until the plans are actually purchasable. Android stays on 7.1.1.
 
 ## App Name
 ```
@@ -14,7 +16,7 @@ Macros, AI Coach & Workouts
 
 ## Promotional Text (170 chars max)
 ```
-New in 7.0: optional Plus/Pro hosted AI, daily steps, Walk/Run logging, custom exercises, meal date/time, Log Food widget, Czech & Ukrainian.
+New in 7.1: Weekly Challenge places, Help on Discord, and on-device food photos with Apple Intelligence on iOS 27.
 ```
 
 ## Keywords (100 chars max)
@@ -32,7 +34,7 @@ Secondary: Food & Drink
 ```
 Effortless calorie tracking with AI-powered food recognition. Snap, scan, speak, or type a meal — get instant calories, macros, and nutrients.
 
-NEW in v7.0: optional Plus/Pro hosted AI or Bring Your Own Key; daily steps and burn/deficit on Home; Walk/Run logging; custom exercises with set autofill; meal date/time on review; configurable Home + and Log Food widget; pinch-zoom photos; Czech and Ukrainian (18 languages).
+NEW in v7.1: Weekly Challenge places with a podium and 20 per page; Help & Feedback on GitHub or Discord; on-device food photos with Apple Intelligence on iOS 27. Still includes v7.0: optional Plus/Pro hosted AI or Bring Your Own Key; daily steps; Walk/Run; custom exercises; meal date/time; Log Food widget; Czech and Ukrainian (18 languages).
 
 Nutrition includes custom goals plus caffeine, creatine, and other performance compounds. Optional fasting adds timers, editable history, goals, alerts, and Coach context. Apple Watch can log water; import Watch workouts from HealthKit when Health is enabled.
 
@@ -85,25 +87,16 @@ Source: https://github.com/apoorvdarshan/fud-ai
 
 ```
 
-## What's New (v7.0)
+## What's New (v7.1.2 — iOS only, submitting with the Plus/Pro subscriptions)
 ```
-Fud AI 7.0 brings optional hosted AI on iPhone, richer workouts and Health insights, and two new languages.
+Fud AI 7.1.2 keeps the 7.1 update and makes the optional Plus/Pro hosted AI easier to find.
 
 NEW
-• Choose Bring Your Own Key or optional Plus/Pro hosted AI during onboarding. Hosted uses a daily action pool plus credit packs; free forever stays fully usable with your own keys.
-• See daily steps from Apple Health on Home, plus a clearer burn/deficit line. Adaptive Goals is on by default for new setups.
-• Import Apple Watch workouts from HealthKit into Workouts and Progress.
-• Log Walk/Run from the Workouts menu; create custom exercises; smarter search; set autofill from lift history with Coach-aware training context.
-• Set meal log date and time on the review sheet; configure which actions appear in Home +; add the Log Food widget.
-• Pinch-zoom meal photos and optionally save them to Photos after a successful log.
-• Czech and Ukrainian join the app — 18 languages.
-• Optional iCloud backup gains clearer restore guidance.
+• Plus and Pro plans, if you want Fud AI to run the AI for you with no API keys to manage. Totally optional — Bring Your Own Key stays free forever.
 
 IMPROVED
-• Faster Workouts open and smoother meal and Coach photo thumbnails.
-• More reliable Health writes, diary safety guards, and exercise demos that load on demand.
-• Community links for Discord and Instagram in Settings.
-• Reliability, privacy-documentation, and security updates.
+• Weekly Challenge standings, Help & Feedback on GitHub or Discord, and on-device food photos with Apple Intelligence on iOS 27 carry over from 7.1.
+• If you use your own API keys, Fud AI now offers the hosted plans once so it is easy to switch when juggling keys feels like a chore.
 
 Existing logs, goals, Health data, widgets, workout history, and BYOK settings are preserved during a normal update.
 ```
@@ -166,7 +159,7 @@ Free forever = full app + BYOK. Hosted AI is optional on iOS; no free hosted quo
 ## Reviewer Notes
 ```
 1) iPhone only — not optimized for iPad. Please review on iPhone.
-2) There is no conventional user account or sign-in — the app is privacy-first and local-first. AI features use a "bring your own key" (BYOK) provider key. For review, a working Google Gemini API key is provided in App Review Information (entered in the Sign-In password field). To enable all AI features: on the "Set Up Your AI" onboarding step (or Settings → AI Access), Provider = Google Gemini, Model = gemini-3.5-flash-lite (the default), paste the provided key into API Key, then Accept & Continue.
+2) There is no conventional user account or sign-in — the app is privacy-first and local-first. AI features use a "bring your own key" (BYOK) provider key. For review, a working Google Gemini API key is provided in App Review Information (entered in the Sign-In password field). To enable all AI features: on the "Set Up Your AI" onboarding step (or Settings → AI Access), Provider = Google Gemini, Model = gemini-3.5-flash-lite (the default), paste the provided key into API Key, then Accept & Continue. The API Key field hint ("Paste Gemini API key") is placeholder text only — it is not a filled key. After accepting Terms, Accept & Continue is tappable; if the key field is still empty it explains that a real key must be pasted.
 3) With the key set, all AI features work immediately — Camera/Photos multi-image analysis, Text/Voice logging, "What if?" preview, and AI Coach chat. Logging any meal fills the food log, Home dashboard, and Progress charts; no account or Fud AI server data is needed. (A free Gemini key can also be created at https://aistudio.google.com/apikey.)
 4) The legacy Fud AI Premium subscription from v4.4 remains discontinued. Core tracking is free forever with Bring Your Own Key — there is no required paywall.
 5) Optional monetization on iOS (StoreKit via RevenueCat; sandbox testing available):

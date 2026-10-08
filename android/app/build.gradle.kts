@@ -42,7 +42,12 @@ fun revenueCatKey(property: String, env: String, default: String = ""): String =
         ?.trim()
         ?.takeIf { it.matches(Regex("[A-Za-z0-9_]+")) }
         ?: default
-val revenueCatGoogleApiKey = revenueCatKey("revenuecat.google.api.key", "REVENUECAT_GOOGLE_API_KEY")
+// Public Google Play SDK key for the "Fud AI Android" app in the RevenueCat project.
+val revenueCatGoogleApiKey = revenueCatKey(
+    "revenuecat.google.api.key",
+    "REVENUECAT_GOOGLE_API_KEY",
+    default = "goog_yiwkMRbEjbviKpXHLKdaKdJJfMo"
+)
 val revenueCatTestStoreApiKey = revenueCatKey("revenuecat.test.store.api.key", "REVENUECAT_TEST_STORE_API_KEY")
 
 android {
@@ -58,7 +63,7 @@ android {
         applicationId = "com.apoorvdarshan.calorietracker"
         minSdk = 26
         targetSdk = 36
-        versionCode = 40
+        versionCode = 41
         versionName = "7.2"
         // Release uses localized @string/app_name; debug overrides to "Fud AI Debug".
         manifestPlaceholders["launcherAppName"] = "@string/app_name"

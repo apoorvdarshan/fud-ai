@@ -144,10 +144,11 @@ private fun Context.openUrl(url: String) {
     runCatching { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url))) }
 }
 
+/** Opaque: the full-height paywall must not show the screen behind it. */
 @Composable
 private fun sheetContainerColor(): Color {
     val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
-    return if (isDark) Color(0xF2141416) else Color(0xFFFAF3EE)
+    return if (isDark) Color(0xFF141416) else Color(0xFFFAF3EE)
 }
 
 @Composable

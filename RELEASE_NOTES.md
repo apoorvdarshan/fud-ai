@@ -7,7 +7,7 @@ same marketing version can share a feature summary while identifying different b
 
 ## Unreleased
 
-No Android 7.2 tag yet. The android-v7.2 notes below are the prepared store copy for versionCode 40, the first Android build with Google Play billing. iOS 7.1.2 build 39 is live on the App Store.
+No Android 7.2 tag yet. The android-v7.2 notes below are the prepared store copy for versionCode 41, the first Android build with Google Play billing (internal testing only so far). iOS is bumped to 7.2 build 40 locally; 7.1.2 build 39 is the live App Store version and 7.2 iOS notes are not written yet.
 
 ## android-v7.2
 

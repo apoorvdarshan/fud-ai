@@ -15,9 +15,13 @@
  *     ledger is charged, so only genuine upstream failures need a refund.
  *   - Upstream error bodies are never echoed to callers and never logged
  *     verbatim; only structured status/code fields reach the logs.
+ *   - Per-action cost is bounded: output tokens are capped, transcription
+ *     audio is limited by measured duration, and upstream calls the provider
+ *     may still bill (timeouts, empty 200s) are not refunded.
  */
 
-import { sanitizeGeminiRequestBody } from "./hosted-ai-gemini-request";
+import { audioContainerForMimeType, measureAudioDurationSeconds } from "./hosted-ai-audio";
+import { GEMINI_REQUEST_LIMITS, sanitizeGeminiRequestBody } from "./hosted-ai-gemini-request";
 import {
   D1LedgerStore,
   fetchRevenueCatEntitlement,
@@ -45,26 +49,18 @@ const MAX_REQUEST_BODY_BYTES = 16 * 1024 * 1024;
 const MAX_GEMINI_PASSTHROUGH_BYTES = 8 * 1024 * 1024;
 const UPSTREAM_TIMEOUT_MS = 30_000;
 const MAX_TRANSCRIBE_LANGUAGE_CHARS = 16;
-
-const ALLOWED_AUDIO_MIME_TYPES = new Set([
-  "audio/wav",
-  "audio/x-wav",
-  "audio/wave",
-  "audio/mp4",
-  "audio/m4a",
-  "audio/x-m4a",
-  "audio/aac",
-  "audio/mpeg",
-  "audio/webm",
-  "audio/ogg",
-  "audio/flac",
-]);
+/** Longest clip one `/transcribe` action may send to Deepgram (billed per minute). */
+export const MAX_TRANSCRIBE_AUDIO_SECONDS = 120;
+/** Output cap applied to every hosted Gemini call that does not set a lower one. */
+const HOSTED_MAX_OUTPUT_TOKENS = GEMINI_REQUEST_LIMITS.maxOutputTokens;
+const ALLOWED_GENERATE_RESPONSE_MIME_TYPES = new Set(["application/json", "text/plain"]);
 
 /**
  * The subscriber id is the caller's only credential, so it must be
- * unguessable. RevenueCat anonymous ids (`$RCAnonymousID:` + 128 random bits)
- * are the only ids the iOS app uses (it never calls `Purchases.logIn`), and
- * they are the only shape accepted here. Custom ids (emails, usernames, …)
+ * unguessable. RevenueCat anonymous ids (`$RCAnonymousID:` + a random UUIDv4,
+ * 122 random bits) are the only ids the iOS and Android apps use (neither
+ * calls `Purchases.logIn`; both SDKs emit the same 32-hex shape), and they are
+ * the only shape accepted here. Custom ids (emails, usernames, …)
  * would be guessable and must not be enabled until requests carry a
  * device-bound proof of identity (App Attest) — see services/hosted-ai/README.md.
  */
@@ -200,12 +196,27 @@ export async function handleHostedAIRequest(
       }
       return response;
     } catch (error) {
-      await refundSafely(ledger, client.userIdHash, spend.receipt, deps);
+      if (isUnbilledUpstreamFailure(error)) {
+        await refundSafely(ledger, client.userIdHash, spend.receipt, deps);
+      }
       throw error;
     }
   } catch (error) {
     return errorResponse(error, client, env);
   }
+}
+
+/**
+ * Only failures the provider does not bill are refunded: an HTTP error status
+ * from Gemini/Deepgram, or a request that never reached it. A timeout (the
+ * provider keeps generating after the Worker aborts) or a 200 with no usable
+ * output (safety block, output exhausted) is still billed upstream, so it keeps
+ * its action — otherwise those calls would be free and unmetered.
+ */
+function isUnbilledUpstreamFailure(error: unknown): boolean {
+  if (error instanceof UpstreamError) return error.upstreamStatus !== 200;
+  const name = error instanceof Error ? error.name : "";
+  return name !== "TimeoutError" && name !== "AbortError";
 }
 
 function buildLedgerContext(
@@ -381,7 +392,15 @@ async function prepareGenerate(request: Request, env: HostedAIEnv): Promise<Prep
   }));
   parts.push({ text: prompt });
 
-  const geminiBody: Record<string, unknown> = { contents: [{ parts }] };
+  const generationConfig: Record<string, unknown> = { maxOutputTokens: HOSTED_MAX_OUTPUT_TOKENS };
+  if (body.responseMimeType !== undefined) {
+    if (typeof body.responseMimeType !== "string" || !ALLOWED_GENERATE_RESPONSE_MIME_TYPES.has(body.responseMimeType)) {
+      throw new HostedAIError(400, "unsupported_response_mime_type");
+    }
+    generationConfig.responseMimeType = body.responseMimeType;
+  }
+
+  const geminiBody: Record<string, unknown> = { contents: [{ parts }], generationConfig };
   if (systemInstruction) {
     geminiBody.systemInstruction = { parts: [{ text: systemInstruction }] };
   }
@@ -409,6 +428,10 @@ async function prepareGeminiPassthrough(request: Request, env: HostedAIEnv): Pro
   if (!sanitized.ok) {
     throw new HostedAIError(400, "invalid_request_body", { detail: sanitized.error });
   }
+  const config = (sanitized.body.generationConfig as Record<string, unknown> | undefined) ?? {};
+  if (config.maxOutputTokens === undefined) {
+    sanitized.body.generationConfig = { ...config, maxOutputTokens: HOSTED_MAX_OUTPUT_TOKENS };
+  }
 
   return {
     execute: async (fetchImpl) => json(await fetchGemini(geminiKey, sanitized.body, fetchImpl)),
@@ -432,13 +455,21 @@ async function prepareTranscribe(request: Request, env: HostedAIEnv): Promise<Pr
   if (audioBytes.byteLength > MAX_AUDIO_BYTES) throw new HostedAIError(400, "audio_too_large");
 
   const mimeType = typeof body.mimeType === "string" && body.mimeType.trim() ? body.mimeType.trim() : "audio/wav";
-  if (!ALLOWED_AUDIO_MIME_TYPES.has(mimeType)) throw new HostedAIError(400, "unsupported_audio_type");
+  const container = audioContainerForMimeType(mimeType);
+  if (!container) throw new HostedAIError(400, "unsupported_audio_type");
 
   const language = typeof body.language === "string" ? body.language.trim() : "";
   if (language && !/^[a-z]{2,3}(-[A-Za-z0-9]{2,8})?$/.test(language)) {
     throw new HostedAIError(400, "invalid_language");
   }
   if (language.length > MAX_TRANSCRIBE_LANGUAGE_CHARS) throw new HostedAIError(400, "invalid_language");
+
+  // Deepgram bills per minute; bound the measured duration, not just the bytes.
+  const seconds = measureAudioDurationSeconds(audioBytes, container);
+  if (seconds === null) throw new HostedAIError(400, "unreadable_audio");
+  if (seconds > MAX_TRANSCRIBE_AUDIO_SECONDS) {
+    throw new HostedAIError(400, "audio_too_long", { maxSeconds: MAX_TRANSCRIBE_AUDIO_SECONDS });
+  }
 
   const params = new URLSearchParams({ model: "nova-2", smart_format: "true" });
   if (language) params.set("language", language);

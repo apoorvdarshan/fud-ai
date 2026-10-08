@@ -217,7 +217,10 @@ fun HostedPaywallSheet(
                     container.prefs.setAiAccessMode(AiAccessMode.HOSTED)
                     HostedMessage(successTitle, successBody, closeOnOk = true)
                 }
-                PurchaseOutcome.Pending -> HostedMessage(null, pendingText, closeOnOk = true)
+                PurchaseOutcome.Pending -> {
+                    container.prefs.setPendingHostedSwitch(true)
+                    HostedMessage(null, pendingText, closeOnOk = true)
+                }
                 PurchaseOutcome.AlreadyOwned -> HostedMessage(null, ownedText, closeOnOk = false)
                 PurchaseOutcome.Failed -> HostedMessage(null, failedText, closeOnOk = false)
                 PurchaseOutcome.Cancelled, PurchaseOutcome.Busy -> null

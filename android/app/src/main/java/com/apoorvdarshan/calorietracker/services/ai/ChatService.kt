@@ -20,6 +20,7 @@ import com.apoorvdarshan.calorietracker.services.WeightAnalysisService
 import com.apoorvdarshan.calorietracker.services.WeightForecast
 import com.apoorvdarshan.calorietracker.services.hosted.AiAccessMode
 import com.apoorvdarshan.calorietracker.services.hosted.HostedAiAccess
+import com.apoorvdarshan.calorietracker.services.hosted.HostedAiConstants
 import com.apoorvdarshan.calorietracker.services.ondevice.LocalGemmaRuntime
 import kotlinx.coroutines.flow.first
 import okhttp3.MediaType.Companion.toMediaType
@@ -101,7 +102,10 @@ class ChatService(
             // Hosted Coach: same Gemini tool loop, sent through the Worker's /gemini
             // allow-list. Every round is one metered action; no BYOK fallback.
             hosted.requireEntitlement()
-            return runGeminiToolLoop(systemPrompt, history, newUserMessage, tools, imageBytes) { body ->
+            return runGeminiToolLoop(
+                systemPrompt, history, newUserMessage, tools, imageBytes,
+                maxToolResultChars = HostedAiConstants.MAX_TOOL_RESULT_CHARS
+            ) { body ->
                 hosted.client.gemini(body.toString())
             }
         }
@@ -549,13 +553,17 @@ class ChatService(
 
     // MARK: - Gemini tool loop
 
-    /** [send] posts one `generateContent` body (BYOK Gemini or the hosted proxy) and returns its raw JSON. */
+    /**
+     * [send] posts one `generateContent` body (BYOK Gemini or the hosted proxy) and returns its raw JSON.
+     * [maxToolResultChars] trims oversized tool results (the hosted proxy rejects them).
+     */
     private suspend fun runGeminiToolLoop(
         systemPrompt: String,
         history: List<ChatMessage>,
         newUserMessage: String,
         tools: CoachTools,
         imageBytes: ByteArray?,
+        maxToolResultChars: Int? = null,
         send: suspend (JSONObject) -> String
     ): String {
         // Gemini tool schema: tools=[{functionDeclarations:[{name,description,parameters}]}]
@@ -609,7 +617,9 @@ class ChatService(
                 for (call in functionCalls) {
                     val name = call.optString("name").takeIf { it.isNotEmpty() } ?: continue
                     val args = call.optJSONObject("args") ?: JSONObject()
-                    val resultStr = tools.execute(name, args)
+                    val resultStr = tools.execute(name, args).let { result ->
+                        maxToolResultChars?.let { ToolResultLimiter.fit(result, it) } ?: result
+                    }
                     val resultObj = runCatching { JSONObject(resultStr) }.getOrNull() ?: JSONObject()
                     responseParts.put(JSONObject().apply {
                         put("functionResponse", JSONObject().apply {

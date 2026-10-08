@@ -234,6 +234,10 @@ class PreferencesStore(
     val aiAccessMode: Flow<AiAccessMode> = ds.data.map { AiAccessMode.fromStorage(it[Keys.AI_ACCESS_MODE]) }
     suspend fun setAiAccessMode(mode: AiAccessMode) { ds.edit { it[Keys.AI_ACCESS_MODE] = mode.storageValue } }
 
+    /** A plan purchase is waiting on Google Play; switch to Hosted once the plan is active. */
+    val pendingHostedSwitch: Flow<Boolean> = ds.data.map { it[Keys.PENDING_HOSTED_SWITCH] ?: false }
+    suspend fun setPendingHostedSwitch(v: Boolean) { ds.edit { it[Keys.PENDING_HOSTED_SWITCH] = v } }
+
     val hasSeenMeetDeveloperPrompt: Flow<Boolean> = ds.data.map { it[Keys.HAS_SEEN_MEET_DEVELOPER_PROMPT] ?: false }
     suspend fun setHasSeenMeetDeveloperPrompt(v: Boolean) { ds.edit { it[Keys.HAS_SEEN_MEET_DEVELOPER_PROMPT] = v } }
 
@@ -1414,6 +1418,7 @@ class PreferencesStore(
         val HAS_SEEN_HOSTED_UPSELL_PROMPT = booleanPreferencesKey("hasSeenHostedUpsellPrompt")
         val HAS_SEEN_HOSTED_UPSELL_PROMPT_V2 = booleanPreferencesKey("hasSeenHostedUpsellPrompt.android-7.2")
         val AI_ACCESS_MODE = stringPreferencesKey("aiAccessMode")
+        val PENDING_HOSTED_SWITCH = booleanPreferencesKey("pendingHostedSwitch")
         val HAS_SEEN_MEET_DEVELOPER_PROMPT = booleanPreferencesKey("hasCompletedMeetDeveloperPrompt")
         val HAS_SEEN_PRODUCT_HUNT_LAUNCH_PROMPT = booleanPreferencesKey("hasSeenProductHuntLaunchPrompt.2026-09-29")
         val PRODUCT_HUNT_LAUNCH_NOTIFICATION_SCHEDULED = booleanPreferencesKey("productHuntLaunchNotificationScheduled.2026-09-29")

@@ -31,6 +31,7 @@ import com.apoorvdarshan.calorietracker.models.WorkoutSession
 import com.apoorvdarshan.calorietracker.services.ai.ChatService
 import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysisService
 import com.apoorvdarshan.calorietracker.services.health.HealthConnectManager
+import com.apoorvdarshan.calorietracker.services.hosted.AiAccessMode
 import com.apoorvdarshan.calorietracker.services.hosted.BillingManager
 import com.apoorvdarshan.calorietracker.services.hosted.HostedAiAccess
 import com.apoorvdarshan.calorietracker.services.hosted.HostedAiClient
@@ -86,6 +87,15 @@ class FudAIApp : Application() {
             .onFailure { Log.e("FudAIApp", "RevenueCat configure failed", it) }
         container = AppContainer(this)
         container.billing.start()
+        // A pending plan purchase (e.g. a slow UPI payment) turns Hosted on once Play confirms it.
+        container.billing.entitlement
+            .onEach { entitlement ->
+                if (entitlement.isEntitled && container.prefs.pendingHostedSwitch.first()) {
+                    container.prefs.setAiAccessMode(AiAccessMode.HOSTED)
+                    container.prefs.setPendingHostedSwitch(false)
+                }
+            }
+            .launchIn(appScope)
         container.notifications.createChannels()
         WidgetRefreshScheduler.onAppStarted(this)
         container.widgetSnapshotWriter.observe().launchIn(appScope)

@@ -12,6 +12,9 @@ object HostedAiConstants {
     /** The Worker rejects more than this many images per request. */
     const val MAX_IMAGES = 3
 
+    /** The Worker caps each Coach tool result at 64 KiB of JSON; stay under it with room for the wrapper. */
+    const val MAX_TOOL_RESULT_CHARS = 60_000
+
     const val PLUS_ENTITLEMENT = "plus"
     const val PRO_ENTITLEMENT = "pro"
     const val PLUS_OFFERING = "plus"

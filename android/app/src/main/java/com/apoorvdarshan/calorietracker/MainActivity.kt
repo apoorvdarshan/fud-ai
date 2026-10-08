@@ -74,9 +74,12 @@ open class MainActivity : AppCompatActivity() {
             // Adaptive Goals auto-runs the full goal calculation about once a week (Energy Burn,
             // when on, supplies the measured-burn anchor it consumes — separate toggle).
             val container = (application as FudAIApp).container
-            // Keep the Hosted AI plan current (renewals, cancellations, pending purchases).
-            if (container.billing.refreshCustomerInfo() && container.billing.entitlement.value.isEntitled) {
-                container.hostedQuota.refresh()
+            // Keep the Hosted AI plan current (renewals, cancellations, pending purchases),
+            // in parallel so a slow network does not hold up the syncs below.
+            launch {
+                if (container.billing.refreshCustomerInfo() && container.billing.entitlement.value.isEntitled) {
+                    container.hostedQuota.refresh()
+                }
             }
             container.refreshAdaptiveGoalsIfNeeded()
             // Pull any new external weight / body-fat readings (e.g. a Withings scale)

@@ -24,7 +24,7 @@ struct WidgetNutrientValue: Codable, Equatable, Identifiable {
     var displayPair: String { "\(displayCurrentWithUnit) / \(displayGoalWithUnit)" }
     var displayRemaining: String {
         String.localizedStringWithFormat(
-            NSLocalizedString("%lld %@ left", bundle: .main, comment: "Nutrient amount remaining"),
+            NSLocalizedString("%lld%@ left", bundle: .main, comment: "Nutrient amount remaining"),
             Int64(max(0, (goal - value).rounded())),
             unit
         )

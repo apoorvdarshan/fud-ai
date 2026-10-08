@@ -1523,7 +1523,7 @@ struct LogBodyFatSheet: View {
 
 // MARK: - Helpers
 
-private func emptyState(_ message: LocalizedStringKey) -> some View {
+private func emptyState(_ message: String) -> some View {
     Text(message)
         .font(.system(.subheadline, design: .rounded))
         .foregroundStyle(.secondary)

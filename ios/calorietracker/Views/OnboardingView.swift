@@ -184,7 +184,7 @@ struct OnboardingView: View {
             action()
             withAnimation(.snappy) { step += 1 }
         } label: {
-            Text(LocalizedDisplayText.text(title))
+            Text(title)
                 .font(.system(.body, design: .rounded, weight: .semibold))
                 .foregroundStyle(Color(.systemBackground))
                 .frame(maxWidth: .infinity)
@@ -1575,9 +1575,9 @@ struct OnboardingView: View {
 
     private func stepHeader(title: String, subtitle: String) -> some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text(LocalizedDisplayText.text(title)).font(.system(size: 28, weight: .bold, design: .rounded))
+            Text(title).font(.system(size: 28, weight: .bold, design: .rounded))
             if !subtitle.isEmpty {
-                Text(LocalizedDisplayText.text(subtitle)).font(.system(.callout, design: .rounded)).foregroundStyle(.secondary)
+                Text(subtitle).font(.system(.callout, design: .rounded)).foregroundStyle(.secondary)
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -1590,9 +1590,9 @@ struct OnboardingView: View {
                 Image(systemName: icon).font(.system(size: 22))
                     .foregroundStyle(isSelected ? Color.primary : .secondary).frame(width: 40)
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(LocalizedDisplayText.text(title)).font(.system(.body, design: .rounded, weight: .semibold)).foregroundStyle(.primary)
+                    Text(title).font(.system(.body, design: .rounded, weight: .semibold)).foregroundStyle(.primary)
                     if let subtitle {
-                        Text(LocalizedDisplayText.text(subtitle)).font(.system(.caption, design: .rounded)).foregroundStyle(.secondary)
+                        Text(subtitle).font(.system(.caption, design: .rounded)).foregroundStyle(.secondary)
                     }
                 }
                 Spacer()
@@ -1700,7 +1700,7 @@ struct BuildingPlanStepView: View {
                     HStack(spacing: 10) {
                         Text("\u{2022}")
                             .foregroundStyle(.secondary)
-                        Text(LocalizedDisplayText.text(items[index].0))
+                        Text(items[index].0)
                             .font(.system(.body, design: .rounded))
                         Spacer()
                         if index < checkItem {

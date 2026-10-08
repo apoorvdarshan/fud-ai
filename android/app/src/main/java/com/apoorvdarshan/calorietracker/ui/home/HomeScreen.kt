@@ -145,6 +145,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
 import com.apoorvdarshan.calorietracker.ui.util.clockTimePattern
 import com.apoorvdarshan.calorietracker.ui.util.formattedWholeNumber
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -1638,10 +1639,10 @@ private fun CalorieHero(
         }
     }
     val statusText = when {
-        goal <= 0 -> "No goal"
+        goal <= 0 -> stringResource(R.string.home_macro_no_goal)
         current < goal -> stringResource(R.string.home_kcal_left_format, (goal - current).formattedWholeNumber())
-        current > goal -> "${(current - goal).formattedWholeNumber()} over"
-        else -> "Goal reached"
+        current > goal -> stringResource(R.string.home_macro_over_format, (current - goal).formattedWholeNumber())
+        else -> stringResource(R.string.home_macro_goal_reached)
     }
     val gradientColors = listOf(AppColors.CalorieStart, AppColors.CalorieEnd)
     val trackColor = AppColors.Calorie.copy(alpha = 0.12f)
@@ -1692,7 +1693,7 @@ private fun CalorieHero(
             verticalArrangement = Arrangement.spacedBy(2.dp)
         ) {
             Text(
-                stringResource(R.string.widget_calories),
+                stringResource(R.string.widget_calories).uppercase(LocalConfiguration.current.locales[0]),
                 fontSize = 12.sp,
                 fontWeight = FontWeight.SemiBold,
                 letterSpacing = 0.5.sp,

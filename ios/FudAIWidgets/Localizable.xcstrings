@@ -11,12 +11,12 @@
         }
       }
     },
-    "%lld %@ left" : {
+    "%lld%@ left" : {
       "localizations" : {
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%lld %@ kaldı"
+            "value" : "%lld%@ kaldı"
           }
         }
       }

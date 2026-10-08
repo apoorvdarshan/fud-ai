@@ -1,8 +1,10 @@
 name: Quality checks
 
 on:
+  # PR branches are checked by pull_request; push covers main only, so a PR's
+  # checks do not run twice.
   push:
-    branches: ['**']
+    branches: [main]
   pull_request:
   schedule:
     - cron: '23 3 * * *'
@@ -13,7 +15,39 @@ permissions:
   contents: read
 
 jobs:
+  # Pull requests run only the jobs their files can affect (skipped jobs still
+  # satisfy the required checks). Pushes, schedules, and callers run everything.
+  changes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      android: ${{ steps.filter.outputs.android }}
+      web: ${{ steps.filter.outputs.web }}
+    steps:
+      # Trees only (no file contents): enough for git diff --name-only.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        if: github.event_name == 'pull_request'
+        with:
+          fetch-depth: 2
+          filter: blob:none
+          sparse-checkout: .github
+          persist-credentials: false
+      - id: filter
+        env:
+          EVENT: ${{ github.event_name }}
+        run: |
+          all() { echo "android=true" >> "$GITHUB_OUTPUT"; echo "web=true" >> "$GITHUB_OUTPUT"; }
+          [ "$EVENT" = "pull_request" ] || { all; exit 0; }
+          # pull_request checks out the PR merged into its base, so parent 1 is the base.
+          files=$(git diff --name-only HEAD^1 HEAD) || { all; exit 0; }
+          printf '%s\n' "$files"
+          match() { printf '%s\n' "$files" | grep -qE "$1" && echo true || echo false; }
+          echo "android=$(match '^(android/|shared/|\.github/)')" >> "$GITHUB_OUTPUT"
+          echo "web=$(match '^(web/|store/catalog/|\.github/)')" >> "$GITHUB_OUTPUT"
+
   web:
+    needs: changes
+    if: needs.changes.outputs.web == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -35,6 +69,8 @@ jobs:
         working-directory: web
 
   android:
+    needs: changes
+    if: needs.changes.outputs.android == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 40
     steps:

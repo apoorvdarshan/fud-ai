@@ -46,7 +46,7 @@ jobs:
           persist-credentials: false
       # Verifies the checksum of android/gradle/wrapper/gradle-wrapper.jar against
       # Gradle's published releases, so a tampered wrapper binary fails CI.
-      - uses: gradle/actions/wrapper-validation@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
+      - uses: gradle/actions/wrapper-validation@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
       - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
         with:
           distribution: temurin
@@ -55,7 +55,7 @@ jobs:
       - uses: android-actions/setup-android@be39fa834029ff78f1a44aa3bb0819b8fc2bd8fd # v4.0.4
         with:
           packages: platform-tools
-      - uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
+      - uses: gradle/actions/setup-gradle@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
       # -PworkoutVectors=none: release parity (manifest only). Store builds never bundle
       # the ~7,000-frame / 1.2 GB workout corpus (shared/workout-vectors); frames come
       # from the CDN at runtime. Debug builds default to the small sample pack, which

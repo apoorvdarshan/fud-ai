@@ -1,0 +1,1324 @@
+<resources>
+    <string name="app_name">Fud AI</string>
+
+    <!-- Widgets -->
+    <string name="widget_calorie_label">Fud AI Kalori</string>
+    <string name="widget_calorie_description">Bugünün kalori ve makrolarına tek bakışta göz atın.</string>
+    <string name="widget_protein_label">Fud AI Protein</string>
+    <string name="widget_protein_description">Bugünün protein ilerlemesine tek bakışta göz atın.</string>
+    <string name="widget_water_label">Fud AI Su</string>
+    <string name="widget_water_description">Bugünün su ilerlemesine tek bakışta göz atın.</string>
+    <string name="widget_water_disabled">Fud AI\'da Su Takibini etkinleştirin</string>
+    <string name="widget_open_to_refresh">Yenilemek için uygulamayı açın</string>
+    <string name="widget_refresh_needed_description">Fud AI widget\'ının yenilenmesi gerekiyor. Fud AI\'yı açın.</string>
+    <string name="widget_today">Bugün</string>
+    <string name="widget_protein">Protein</string>
+    <string name="widget_calories">Kaloriler</string>
+    <string name="widget_carbs">Karbonhidrat</string>
+    <string name="widget_fat">Yağ</string>
+    <string name="widget_water">Su</string>
+    <string name="widget_kcal_left_format">%1$d kcal kaldı</string>
+    <string name="widget_g_left_format">%1$dg kaldı</string>
+    <string name="widget_kcal">kcal</string>
+    <string name="widget_protein_g">protein g</string>
+    <string name="widget_value_unit_format">%1$d%2$s / %3$d%4$s</string>
+    <string name="widget_center_small_format">/ %1$d</string>
+    <string name="widget_center_small_g_format">/ %1$dg</string>
+    <string name="widget_center_large_g_format">%1$dg</string>
+
+    <!-- Common buttons / actions -->
+    <string name="action_save">Kaydet</string>
+    <string name="action_cancel">İptal</string>
+    <string name="action_retry">Tekrar Dene</string>
+    <string name="action_scan_label">Etiketi Tara</string>
+    <string name="action_done">Bitti</string>
+    <string name="action_ok">Tamam</string>
+    <string name="action_info">Bilgi</string>
+    <string name="action_clear">Temizle</string>
+    <string name="action_delete">Sil</string>
+    <string name="action_remove">Kaldır</string>
+    <string name="action_download">İndir</string>
+    <string name="action_continue">Devam Et</string>
+    <string name="action_get_started">Başla</string>
+    <string name="action_log">Kaydet</string>
+    <string name="action_what_if">Ya olursa?</string>
+    <string name="action_analyze">Analiz Et</string>
+    <string name="action_discard">Vazgeç</string>
+    <string name="action_reset">Sıfırla</string>
+    <string name="action_keep_going">Devam Et</string>
+    <string name="action_send">Gönder</string>
+    <string name="action_pin">Sabitle</string>
+
+    <!-- Generic units / labels -->
+    <string name="unit_kcal">kcal</string>
+    <string name="unit_g">g</string>
+    <string name="unit_mg">mg</string>
+    <string name="unit_percent">%</string>
+    <string name="unit_cm">cm</string>
+    <string name="unit_kg">kg</string>
+    <string name="unit_lbs">lbs</string>
+    <string name="unit_ft">ft</string>
+    <string name="unit_in">in</string>
+    <string name="unit_ft_in">ft / in</string>
+    <string name="kcal_value_format">%1$,d kcal</string>
+    <string name="grams_value_format">%1$dg</string>
+    <string name="grams_value_decimal_format">%1$.1fg</string>
+    <string name="kg_value_format">%1$.1f kg</string>
+    <string name="lbs_value_format">%1$.1f lbs</string>
+    <string name="kg_per_week_format">%1$.2f kg/hf</string>
+    <string name="lbs_per_week_format">%1$.2f lbs/hf</string>
+    <string name="height_cm_format">%1$d cm</string>
+    <string name="feet_inches_format">%1$d\' %2$d\"</string>
+    <string name="value_unit_format">%1$d %2$s</string>
+    <string name="ft_label_format">%1$d ft</string>
+    <string name="in_label_format">%1$d in</string>
+    <string name="bullet">·</string>
+
+    <!-- Open Food Facts product metadata -->
+    <string name="product_information">Ürün bilgisi</string>
+    <string name="product_barcode">Barkod</string>
+    <string name="product_package">Paket</string>
+    <string name="product_nutri_score">Nutri-Score</string>
+    <string name="product_nova_group">NOVA grubu</string>
+    <string name="product_eco_score">Eco-Score</string>
+    <string name="product_allergens">Alerjenler</string>
+    <string name="product_may_contain">İçerebilir</string>
+    <string name="product_allergen_check">Alerjen kontrolü</string>
+    <string name="product_labels">Etiketler</string>
+    <string name="product_categories">Kategoriler</string>
+    <string name="product_ingredient_label">İçindekiler etiketi</string>
+
+    <!-- Macros / Goal labels -->
+    <string name="macro_protein">Protein</string>
+    <string name="macro_carbs">Karbonhidrat</string>
+    <string name="macro_fat">Yağ</string>
+    <string name="macro_calories">Kalori</string>
+
+    <!-- Gender -->
+    <string name="gender_male">Erkek</string>
+    <string name="gender_female">Kadın</string>
+    <string name="gender_other">Diğer</string>
+
+    <!-- Activity Level -->
+    <string name="activity_sedentary">Hareketsiz</string>
+    <string name="activity_light">Hafif</string>
+    <string name="activity_moderate">Orta</string>
+    <string name="activity_active">Aktif</string>
+    <string name="activity_very_active">Çok Aktif</string>
+    <string name="activity_extra_active">Aşırı Aktif</string>
+    <string name="activity_sedentary_subtitle">Çoğunlukla iş ve evde oturarak geçirir; planlı egzersiz azdır veya yoktur.\nYaklaşık adım rehberi: günde 5.000 adımın altı.</string>
+    <string name="activity_light_subtitle">Çoğunlukla oturarak geçirir; haftada 1-3 gün hafif egzersiz veya sıradan aktivite.\nYaklaşık adım rehberi: günde 5.000-7.499 adım.</string>
+    <string name="activity_moderate_subtitle">Haftada 3-5 gün düzenli spor salonu, kardiyo, tırmanış, bisiklet veya spor.\nYaklaşık adım rehberi: günde 7.500-9.999 adım.</string>
+    <string name="activity_active_subtitle">Çoğu gün antrenman yapar veya çok ayakta kalma, hareket ya da kaldırma gerektiren bir iş.\nYaklaşık adım rehberi: günde 10.000-12.499 adım.</string>
+    <string name="activity_very_active_subtitle">Haftada 6-7 gün ağır antrenman, dayanıklılık antrenmanı veya yoğun fiziksel iş.\nYaklaşık adım rehberi: günde 12.500-14.999 adım.</string>
+    <string name="activity_extra_active_subtitle">Yarışmacı/yüksek hacimli sporcu, günde iki antrenman veya ağır el işçiliği artı sık antrenman.\nYaklaşık adım rehberi: günde 15.000+ adım.</string>
+
+    <!-- Weight Goal -->
+    <string name="goal_lose">Kilo Ver / Kesme Dönemi</string>
+    <string name="goal_maintain">Kilo Koru / Rekompozisyon</string>
+    <string name="goal_gain">Kilo Al / Kas İnşası</string>
+
+    <!-- Meal Type -->
+    <string name="meal_breakfast">Kahvaltı</string>
+    <string name="meal_lunch">Öğle Yemeği</string>
+    <string name="meal_dinner">Akşam Yemeği</string>
+    <string name="meal_snack">Atıştırmalık</string>
+    <string name="meal_other">Diğer</string>
+
+    <!-- AutoBalance Macro -->
+    <string name="autobalance_protein">Protein</string>
+    <string name="autobalance_carbs">Karbonhidrat</string>
+    <string name="autobalance_fat">Yağ</string>
+
+    <!-- AI Provider names -->
+    <string name="ai_provider_gemini">Google Gemini</string>
+    <string name="ai_provider_openai">OpenAI</string>
+    <string name="ai_provider_anthropic">Anthropic Claude</string>
+    <string name="ai_provider_xai">xAI Grok</string>
+    <string name="ai_provider_openrouter">OpenRouter</string>
+    <string name="ai_provider_together">Together AI</string>
+    <string name="ai_provider_groq">Groq</string>
+    <string name="ai_provider_huggingface">Hugging Face</string>
+    <string name="ai_provider_fireworks">Fireworks AI</string>
+    <string name="ai_provider_deepinfra">DeepInfra</string>
+    <string name="ai_provider_mistral">Mistral</string>
+    <string name="ai_provider_deepseek">DeepSeek</string>
+    <string name="ai_provider_cerebras">Cerebras</string>
+    <string name="ai_provider_local_gemma">Gemma 4 E2B (Cihaz Üzerinde)</string>
+    <string name="ai_provider_ollama">Ollama (Yerel)</string>
+    <string name="ai_provider_custom">Özel (OpenAI uyumlu)</string>
+
+    <!-- AI Provider API key placeholders -->
+    <string name="ai_key_placeholder_gemini">AIza…</string>
+    <string name="ai_key_placeholder_openai">sk-…</string>
+    <string name="ai_key_placeholder_anthropic">sk-ant-…</string>
+    <string name="ai_key_placeholder_xai">xai-…</string>
+    <string name="ai_key_placeholder_openrouter">sk-or-…</string>
+    <string name="ai_key_placeholder_together">…</string>
+    <string name="ai_key_placeholder_groq">gsk_…</string>
+    <string name="ai_key_placeholder_huggingface">hf_…</string>
+    <string name="ai_key_placeholder_fireworks">fw_…</string>
+    <string name="ai_key_placeholder_deepinfra">…</string>
+    <string name="ai_key_placeholder_mistral">…</string>
+    <string name="ai_key_placeholder_deepseek">sk-…</string>
+    <string name="ai_key_placeholder_cerebras">csk-…</string>
+    <string name="ai_key_placeholder_local">Anahtar gerekmez</string>
+    <string name="ai_key_placeholder_ollama">Anahtar gerekmez</string>
+    <string name="ai_key_placeholder_custom">API anahtarı (uç nokta gerektirmiyorsa herhangi bir şey)</string>
+
+    <!-- Speech Provider -->
+    <string name="speech_provider_native">Yerel (Cihaz Üzerinde)</string>
+    <string name="speech_provider_local_whisper">Whisper Base (Cihaz Üzerinde)</string>
+    <string name="speech_provider_gemini">Gemini Ses</string>
+    <string name="speech_provider_openai">OpenAI GPT-Transcribe</string>
+    <string name="speech_provider_groq">Groq (Whisper)</string>
+    <string name="speech_provider_mistral">Mistral Voxtral</string>
+    <string name="speech_provider_deepgram">Deepgram</string>
+    <string name="speech_provider_assemblyai">AssemblyAI</string>
+
+    <string name="speech_key_placeholder_native">Gerekmez</string>
+    <string name="speech_key_placeholder_local">Gerekmez</string>
+    <string name="speech_key_placeholder_gemini">AIza…</string>
+    <string name="speech_key_placeholder_openai">sk-…</string>
+    <string name="speech_key_placeholder_groq">gsk_…</string>
+    <string name="speech_key_placeholder_mistral">Mistral API anahtarınız</string>
+    <string name="speech_key_placeholder_deepgram">Token your-deepgram-key</string>
+    <string name="speech_key_placeholder_assemblyai">AssemblyAI anahtarınız</string>
+
+    <string name="speech_description_native">Android\'in cihaz üzerinde konuşma tanıma özelliği. Ücretsizdir, çoğu telefonda çevrimdışı çalışır, gerçek zamanlı kısmi sonuçlar sunar. Önerilen varsayılan.</string>
+    <string name="speech_description_local_whisper">İndirilen çok dilli Whisper Base. Ses bu cihazda kalır, API anahtarı gerekmez.</string>
+    <string name="speech_description_gemini">Otomatik dil algılamalı doğru toplu deşifre için Gemini 3.5 Transcribe.</string>
+    <string name="speech_description_openai">Kaydedilmiş ses için mevcut yüksek doğruluklu model olan OpenAI GPT-Transcribe.</string>
+    <string name="speech_description_groq">Groq üzerinde barındırılan Whisper Large v3. Çok hızlı çıkarım, ücretsiz katmanı var.</string>
+    <string name="speech_description_mistral">Doğru çok dilli toplu deşifre için Voxtral Mini Transcribe 2.</string>
+    <string name="speech_description_deepgram">Deepgram Nova. Gerçek zamanlı ve toplu modlar, hızlı ve doğru.</string>
+    <string name="speech_description_assemblyai">AssemblyAI Universal modeli. Güçlü doğruluk, ücretsiz katman mevcut.</string>
+
+    <!-- Bottom navigation -->
+    <string name="nav_home">Ana Sayfa</string>
+    <string name="nav_progress">İlerleme</string>
+    <string name="nav_coach">Koç</string>
+    <string name="nav_settings">Ayarlar</string>
+    <string name="nav_about">Hakkında</string>
+
+    <!-- Day-of-week narrow letters (for week strip) -->
+    <string name="dow_narrow_monday">P</string>
+    <string name="dow_narrow_tuesday">S</string>
+    <string name="dow_narrow_wednesday">Ç</string>
+    <string name="dow_narrow_thursday">P</string>
+    <string name="dow_narrow_friday">C</string>
+    <string name="dow_narrow_saturday">C</string>
+    <string name="dow_narrow_sunday">P</string>
+
+    <!-- Months (full) -->
+    <string name="month_january">Ocak</string>
+    <string name="month_february">Şubat</string>
+    <string name="month_march">Mart</string>
+    <string name="month_april">Nisan</string>
+    <string name="month_may">Mayıs</string>
+    <string name="month_june">Haziran</string>
+    <string name="month_july">Temmuz</string>
+    <string name="month_august">Ağustos</string>
+    <string name="month_september">Eylül</string>
+    <string name="month_october">Ekim</string>
+    <string name="month_november">Kasım</string>
+    <string name="month_december">Aralık</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_back">Geri</string>
+    <string name="onboarding_logo_description">Fud AI logosu</string>
+    <string name="onboarding_welcome_line1">Akıllı Ye,</string>
+    <string name="onboarding_welcome_line2">Daha İyi Yaşa</string>
+    <string name="onboarding_welcome_subtitle">Sadece çek, kaydet ve gelişimini gör.\nBeslenmen, basitleşti.</string>
+
+    <string name="onboarding_gender_title">Cinsiyetiniz nedir?</string>
+    <string name="onboarding_gender_subtitle">Bu, metabolizmanızı hesaplamamıza yardımcı olur</string>
+
+    <string name="onboarding_birthday_title">Doğum gününüz ne zaman?</string>
+    <string name="onboarding_birthday_subtitle">Günlük ihtiyaçlarınızı hesaplamak için kullanılır</string>
+
+    <string name="onboarding_height_weight_title">Boy ve Kilo</string>
+    <string name="onboarding_height_weight_subtitle">Bunu gizli tutacağız</string>
+    <string name="onboarding_imperial">İngiliz Birimi</string>
+    <string name="onboarding_metric">Metrik</string>
+    <string name="onboarding_height">Boy</string>
+    <string name="onboarding_weight">Kilo</string>
+    <string name="onboarding_feet">Feet</string>
+    <string name="onboarding_inches">İnç</string>
+
+    <string name="onboarding_activity_title">Ne kadar aktifsiniz?</string>
+    <string name="onboarding_activity_subtitle">İş ve egzersiz dahil ortalama haftanıza göre seçin.</string>
+
+    <string name="onboarding_goal_title">Hedefiniz nedir?</string>
+    <string name="onboarding_goal_subtitle">Bunu istediğiniz zaman değiştirebilirsiniz</string>
+
+    <string name="onboarding_desired_weight_title">İstediğiniz\nkilo nedir?</string>
+
+    <string name="onboarding_body_fat_title">Vücut yağ oranınızı\nbiliyor musunuz?</string>
+    <string name="onboarding_body_fat_subtitle">Metabolizmanızı daha doğru hesaplamamıza yardımcı olur</string>
+    <string name="onboarding_yes">Evet</string>
+    <string name="onboarding_no">Hayır</string>
+    <string name="onboarding_body_fat_ranges">Yaygın aralıklar: Erkekler %10-25, Kadınlar %18-35</string>
+    <string name="onboarding_body_fat_no_worries">Sorun değil! Boy, kilo ve yaşınıza dayalı\nstandart bir formül kullanacağız.</string>
+    <string name="onboarding_goal_optional">Hedef (isteğe bağlı)</string>
+    <string name="onboarding_goal_set_later">Bunu daha sonra Ayarlar\'dan belirleyebilirsiniz.</string>
+    <string name="progress_metric_weight">Kilo</string>
+    <string name="progress_metric_body_fat">Vücut Yağı</string>
+    <string name="progress_metric_workouts">Antrenmanlar</string>
+    <string name="progress_log_body_fat">Vücut Yağı Kaydet</string>
+    <string name="progress_log_first_body_fat">Trendleri görmek için ilk vücut yağ oranınızı kaydedin</string>
+    <string name="progress_log_body_fat_title">Vücut Yağı Kaydet</string>
+    <string name="saved_meals_search_placeholder">Kayıtlı yiyecekleri ara</string>
+    <string name="saved_meals_no_match">Eşleşen yiyecek yok</string>
+
+    <string name="onboarding_pace_title_maintain">Hızınız</string>
+    <string name="onboarding_pace_subtitle_maintain">Dengeli bir plan ayarlayacağız</string>
+    <string name="onboarding_pace_title_change">Hedefinize ne kadar hızlı\nulaşmak istiyorsunuz?</string>
+    <string name="onboarding_pace_subtitle_lose">Haftalık kilo verme hızı</string>
+    <string name="onboarding_pace_subtitle_gain">Haftalık kilo alma hızı</string>
+    <string name="onboarding_pace_balanced_set">Dengeli hız ayarlandı</string>
+    <string name="onboarding_pace_balanced_subtitle">Mevcut kilonuzu korumak için\nkalorilerinizi sabit tutacağız.</string>
+    <string name="onboarding_pace_per_week">haftada</string>
+    <string name="onboarding_pace_slow">Yavaş</string>
+    <string name="onboarding_pace_recommended">Önerilen</string>
+    <string name="onboarding_pace_fast">Hızlı</string>
+    <string name="onboarding_pace_reach_prefix">Hedefinize şu sürede ulaşacaksınız: </string>
+    <plurals name="onboarding_pace_days_format">
+        <item quantity="one">%1$d gün</item>
+        <item quantity="other">%1$d gün</item>
+    </plurals>
+    <string name="onboarding_pace_caption_slow">Yumuşak ve sürdürülebilir. Uzun vadeli alışkanlıklar için harika.</string>
+    <string name="onboarding_pace_caption_fast">Agresif ama uygulanabilir. Güçlü disiplin gerektirir.</string>
+    <string name="onboarding_pace_caption_recommended">En dengeli hız, motive edici ve sürdürülebilir.</string>
+
+    <string name="onboarding_notifications_title">Öğün kaydetmeniz\niçin hatırlatılın</string>
+    <string name="onboarding_notifications_subtitle">Öğün saatlerinde nazik hatırlatmalar alın,\nböylece kaydetmeyi asla unutmazsınız.</string>
+    <string name="onboarding_notifications_enabled">Hatırlatmalar etkin</string>
+    <string name="onboarding_notifications_allow">Bildirimlere İzin Ver</string>
+    <string name="onboarding_notifications_change_anytime">Bunu istediğiniz zaman Ayarlar\'dan değiştirebilirsiniz.</string>
+
+    <string name="onboarding_health_title">Health Connect\'e\nbağlan</string>
+    <string name="onboarding_health_subtitle">Beslenme, adım ve vücut ölçümlerinizi\notomatik olarak senkronize edin.</string>
+    <string name="onboarding_health_feature_nutrition">Beslenme Verisi</string>
+    <string name="onboarding_health_feature_weight">Kilo Senkronu</string>
+    <string name="onboarding_health_feature_body">Vücut Ölçümleri</string>
+    <string name="onboarding_health_feature_steps">Günlük Adım</string>
+    <string name="onboarding_health_unavailable">Health Connect kullanılamıyor</string>
+    <string name="onboarding_health_connected">Bağlandı</string>
+    <string name="onboarding_health_connect">Bağlan</string>
+
+    <string name="onboarding_ai_choice_title">Yapay Zekanızı Kurun</string>
+    <string name="onboarding_ai_choice_subtitle">Fud AI\'da yapay zekayı nasıl güçlendirmek istediğinizi seçin. Uygulama her iki durumda da ücretsiz kalır.</string>
+    <string name="onboarding_ai_byok_subtitle">Kendi yapay zeka sağlayıcı anahtarınızı ekleyin — Gemini, OpenAI, Groq ve daha fazlası desteklenir.</string>
+    <string name="onboarding_ai_byok_card_title">Kendi Anahtarınızı Getirin</string>
+    <string name="onboarding_ai_byok_card_subtitle">Sonsuza dek ücretsiz — kendi anahtarınızla sınırsız. Gemini, OpenAI, Groq ve daha fazlası.</string>
+    <string name="onboarding_ai_byok_badge">Önerilen</string>
+    <string name="onboarding_ai_hosted_card_title">Barındırılan Yapay Zeka</string>
+    <string name="onboarding_ai_hosted_card_subtitle">Günlük yapay zeka krediyle Plus veya Pro planları — API anahtarı gerekmez.</string>
+    <string name="onboarding_ai_hosted_badge">Yakında</string>
+    <string name="onboarding_provider_title">Yapay Zekanızı Kurun</string>
+    <string name="onboarding_provider_subtitle">Kendi yapay zeka sağlayıcı anahtarınızı ekleyin — uygulama ücretsiz kalır.</string>
+    <string name="onboarding_provider_recommended_title">Önerilen: Google Gemini</string>
+    <string name="onboarding_provider_recommended_subtitle">Ücretsiz katman mevcut, hızlı ve doğru</string>
+    <string name="onboarding_provider_step_1">aistudio.google.com/apikey adresinden ücretsiz bir anahtar alın</string>
+    <string name="onboarding_provider_step_2">Bir sağlayıcı seçin ve anahtarınızı aşağıya yapıştırın</string>
+    <string name="onboarding_provider_step_3">Anahtarınızı yapıştırın — bu kadar</string>
+    <string name="onboarding_provider_footer">13 sağlayıcı destekleniyor. Anahtarınız şifrelenmiş\nolarak bu cihazda kalır.</string>
+
+    <string name="onboarding_building_calories">Kalori</string>
+    <string name="onboarding_building_carbs">Karbonhidrat</string>
+    <string name="onboarding_building_protein">Protein</string>
+    <string name="onboarding_building_fats">Yağ</string>
+    <string name="onboarding_building_health_score">Sağlık Skoru</string>
+    <string name="onboarding_building_percent_format">%1$d%%</string>
+    <string name="onboarding_building_setting_up">Sizin için her şeyi\nhazırlıyoruz</string>
+    <string name="onboarding_building_finalizing">Sonuçlar tamamlanıyor…</string>
+    <string name="onboarding_building_recommendation">Günlük öneri:</string>
+    <string name="onboarding_building_bullet">•</string>
+
+    <string name="onboarding_plan_title">Planınız</string>
+    <string name="onboarding_plan_subtitle">Düzenlemek için herhangi bir değere dokunun</string>
+    <string name="onboarding_plan_daily_calories">günlük kalori</string>
+    <string name="onboarding_plan_doctor_title">Lütfen bir doktora danışın</string>
+    <string name="onboarding_plan_doctor_message">Minimum önerilen değer günde 1.200 kaloridir.</string>
+
+    <string name="onboarding_plan_field_calories">Günlük kalori</string>
+    <string name="onboarding_plan_field_protein">Protein</string>
+    <string name="onboarding_plan_field_carbs">Karbonhidrat</string>
+    <string name="onboarding_plan_field_fat">Yağ</string>
+
+
+    <!-- Home -->
+    <plurals name="home_daily_steps">
+        <item quantity="one">%1$s adım</item>
+        <item quantity="other">%1$s adım</item>
+    </plurals>
+
+    <string name="home_add_food">Yiyecek ekle</string>
+    <string name="home_menu_camera">Kamera</string>
+    <string name="home_menu_barcode">Barkod</string>
+    <string name="home_menu_camera_note">Kamera + Not</string>
+    <string name="home_menu_nutrition_label">Besin Etiketi</string>
+    <string name="home_menu_from_photos">Fotoğraflardan</string>
+    <string name="home_menu_text_input">Metin Girişi</string>
+    <string name="home_menu_voice">Ses</string>
+    <string name="home_menu_manual_entry">Manuel Giriş</string>
+    <string name="home_menu_saved_meals">Kayıtlı Öğünler</string>
+    <string name="home_kcal_of_format">%1$s kcal içinden</string>
+    <string name="home_kcal_left_format">%1$s kaldı</string>
+    <string name="home_macro_left_format">%1$s kaldı</string>
+    <string name="home_macro_over_format">%1$s fazla</string>
+    <string name="home_macro_no_goal">Hedef yok</string>
+    <string name="home_macro_goal_reached">Hedefe ulaşıldı</string>
+    <string name="home_view_more">Daha Fazla Gör</string>
+    <string name="home_burn_deficit">%1$s yakıldı · %2$s açık</string>
+    <string name="home_burn_surplus">%1$s yakıldı · %2$s fazla</string>
+    <string name="home_burn_balanced">%1$s yakıldı · dengeli</string>
+    <string name="home_todays_food">Bugünün Yiyecekleri</string>
+    <string name="home_no_foods_logged">Kaydedilen yiyecek yok</string>
+    <string name="home_swipe_delete">Sil</string>
+    <string name="home_swipe_favorite">Favorile</string>
+    <string name="home_swipe_unfavorite">Favoriden Çıkar</string>
+    <string name="home_favorited">Favorilere eklendi</string>
+    <string name="home_macro_chip_format">%1$s %2$dg</string>
+    <string name="home_analyzing_food">Yiyeceğiniz analiz ediliyor…</string>
+    <string name="home_looking_up_nutrition">Besin değerleri aranıyor…</string>
+    <string name="home_fiber_format">Lif: %1$.1fg</string>
+    <string name="home_sugar_format">Şeker: %1$.1fg</string>
+    <string name="home_sat_fat_format">Doymuş yağ: %1$.1fg</string>
+    <string name="home_sodium_format">Sodyum: %1$.1fmg</string>
+    <string name="home_potassium_format">Potasyum: %1$.1fmg</string>
+    <string name="home_cholesterol_format">Kolesterol: %1$.1fmg</string>
+    <string name="home_serving_format">Porsiyon: ~%1$dg</string>
+    <string name="home_protein_value">Protein: %1$dg</string>
+    <string name="home_carbs_value">Karbonhidrat: %1$dg</string>
+    <string name="home_fat_value">Yağ: %1$dg</string>
+
+    <string name="text_input_placeholder_1">2 yumurta, tereyağlı tost ve bir kahve</string>
+    <string name="text_input_placeholder_2">Tavuklu ve pirinçli Chipotle burrito kase</string>
+    <string name="text_input_placeholder_3">Domino\'s pepperoni pizza, 2 dilim</string>
+    <string name="text_input_placeholder_4">Granola ve yaban mersinli Yunan yoğurdu</string>
+
+    <string name="manual_title">Manuel Giriş</string>
+    <string name="manual_name">Ad</string>
+    <string name="manual_name_placeholder">örn. ev yapımı salata</string>
+    <string name="manual_calories">Kalori</string>
+    <string name="manual_protein">Protein (g)</string>
+    <string name="manual_carbs">Karbonhidrat (g)</string>
+    <string name="manual_fat">Yağ (g)</string>
+    <string name="manual_zero_placeholder">0</string>
+    <string name="manual_meal_type">Öğün Türü</string>
+
+    <string name="error_title">Bir şeyler ters gitti</string>
+    <string name="error_barcode_title">Bu barkod kullanılamadı</string>
+
+    <!-- Food sheets shared primitives -->
+    <string name="sheet_food_details">Yiyecek Detayları</string>
+    <string name="sheet_serving">Porsiyon</string>
+    <string name="sheet_nutrition">Beslenme</string>
+    <string name="sheet_meal">Öğün</string>
+    <string name="sheet_more_nutrition">Daha Fazla Beslenme</string>
+    <string name="sheet_name">Ad</string>
+    <string name="sheet_quantity">Miktar</string>
+    <string name="sheet_meal_type">Öğün Türü</string>
+    <string name="sheet_review_food">Yiyeceği Gözden Geçir</string>
+    <string name="sheet_edit_food">Yiyeceği Düzenle</string>
+    <string name="what_if_title">Ya olursa?</string>
+    <string name="what_if_subtitle">Kaydetmeden önce bu öğünün bugünü nasıl değiştireceğini önizleyin.</string>
+    <string name="what_if_ai_suggestion">Yapay zeka önerisi</string>
+    <string name="what_if_loading">Etki kontrol ediliyor…</string>
+    <string name="what_if_no_suggestion">Öneri bulunamadı.</string>
+    <string name="nutrition_unlock_editing">Beslenme düzenlemeyi aç</string>
+    <string name="nutrition_lock_editing">Beslenme düzenlemeyi kilitle</string>
+
+    <string name="sheet_micro_sugar">Şeker</string>
+    <string name="sheet_micro_added_sugar">Eklenmiş Şeker</string>
+    <string name="sheet_micro_fiber">Lif</string>
+    <string name="sheet_micro_saturated_fat">Doymuş Yağ</string>
+    <string name="sheet_micro_mono_fat">Tekli Doymamış Yağ</string>
+    <string name="sheet_micro_poly_fat">Çoklu Doymamış Yağ</string>
+    <string name="sheet_micro_cholesterol">Kolesterol</string>
+    <string name="sheet_micro_sodium">Sodyum</string>
+    <string name="sheet_micro_potassium">Potasyum</string>
+
+    <!-- Context note sheet -->
+    <string name="context_note_title">Not Ekle</string>
+    <string name="context_note_section">Bir not ekle (isteğe bağlı)</string>
+    <string name="context_note_placeholder">örn. yağsız, ekstra peynirli, büyük porsiyon</string>
+
+    <!-- Voice input sheet -->
+    <string name="voice_listening">Dinleniyor…</string>
+    <string name="voice_tap_to_start">Başlamak için mikrofona dokunun</string>
+    <string name="voice_recording_saved">Kayıt kaydedildi. Devam etmek için deşifre edin.</string>
+    <string name="voice_transcribe">Deşifre Et</string>
+    <string name="voice_transcribing_format">%1$s üzerinden deşifre ediliyor…</string>
+    <string name="voice_mic_permission_denied">Mikrofon izni reddedildi.</string>
+    <string name="voice_mic_start_failed">Mikrofon başlatılamadı. İzinleri kontrol edin.</string>
+    <string name="voice_transcription_failed">Deşifre başarısız oldu</string>
+    <string name="voice_stop">Durdur</string>
+    <string name="voice_record">Kaydet</string>
+
+    <!-- Saved Meals sheet -->
+    <string name="saved_meals_title">Kayıtlı Öğünler</string>
+    <string name="saved_meals_tab_recents">Son Kullanılanlar</string>
+    <string name="saved_meals_tab_frequent">Sık Kullanılanlar</string>
+    <string name="saved_meals_tab_favorites">Favoriler</string>
+    <string name="saved_meals_no_logs">Henüz kaydedilen yiyecek yok</string>
+    <string name="saved_meals_no_favorites">Henüz favori yok\nEklemek için herhangi bir yiyeceği sola kaydırın</string>
+    <string name="saved_meals_count_format">%1$d× kaydedildi</string>
+    <string name="saved_meals_log_action">Kaydet</string>
+    <string name="saved_meals_remove_favorite">Favoriden kaldır</string>
+    <string name="saved_meals_move_up">Yukarı taşı</string>
+    <string name="saved_meals_move_down">Aşağı taşı</string>
+
+    <!-- Nutrition detail sheet -->
+    <string name="nutrition_details_title">Beslenme Detayları</string>
+    <string name="nutrition_section_macros">Makrolar</string>
+    <string name="nutrition_section_detailed">Ayrıntılı Beslenme</string>
+    <string name="nutrition_label_calories">Kalori</string>
+    <string name="nutrition_label_protein">Protein</string>
+    <string name="nutrition_label_carbs">Karbonhidrat</string>
+    <string name="nutrition_label_fat">Yağ</string>
+    <string name="nutrition_label_sugar">Şeker</string>
+    <string name="nutrition_label_added_sugar">Eklenmiş Şeker</string>
+    <string name="nutrition_label_fiber">Lif</string>
+    <string name="nutrition_label_saturated_fat">Doymuş Yağ</string>
+    <string name="nutrition_label_mono_fat">Tekli Doymamış Yağ</string>
+    <string name="nutrition_label_poly_fat">Çoklu Doymamış Yağ</string>
+    <string name="nutrition_label_cholesterol">Kolesterol</string>
+    <string name="nutrition_label_caffeine">Kafein</string>
+    <string name="nutrition_label_creatine">Kreatin</string>
+    <string name="nutrition_label_beta_alanine">Beta-Alanin</string>
+    <string name="nutrition_label_l_citrulline">L-Sitrülin</string>
+    <string name="nutrition_label_l_carnitine">L-Karnitin</string>
+    <string name="nutrition_label_l_arginine">L-Arjinin</string>
+    <string name="nutrition_label_taurine">Taurin</string>
+    <string name="nutrition_label_betaine">Betain</string>
+    <string name="nutrition_label_hmb">HMB</string>
+    <string name="nutrition_label_sodium">Sodyum</string>
+    <string name="nutrition_label_potassium">Potasyum</string>
+    <string name="nutrition_em_dash">—</string>
+
+    <!-- Coach -->
+    <string name="coach_title">Koç</string>
+    <string name="coach_reset_chat_a11y">Sohbeti sıfırla</string>
+    <string name="coach_send_a11y">Gönder</string>
+    <string name="coach_input_voice_a11y">Sesli giriş</string>
+    <string name="coach_input_placeholder">Koça sor…</string>
+    <string name="coach_empty_title">Koçuna sor</string>
+    <string name="coach_empty_subtitle">Koçun kilo geçmişini, kalori kaydını ve hedeflerini görebilir. Beklenen kilonu, ne yemen gerektiğini veya hedefine nasıl ulaşacağını sorabilirsin.</string>
+    <string name="coach_reset_dialog_title">Sohbeti Sıfırla</string>
+    <string name="coach_reset_dialog_message">Tüm mesajlar temizlensin ve yeniden başlansın mı? Bu geri alınamaz.</string>
+    <string name="coach_reset_confirm">Sıfırla</string>
+    <string name="coach_no_profile_error">Henüz profil yok. Önce ilk kurulumu tamamlayın.</string>
+    <string name="coach_chat_failed">Sohbet başarısız oldu</string>
+
+    <string name="coach_chip_predict_30_days">30 gün içindeki beklenen kilom ne olacak?</string>
+    <string name="coach_chip_lose_faster">Nasıl daha hızlı ve güvenli kilo verebilirim?</string>
+    <string name="coach_chip_eating_too_much">Fazla mı yiyorum?</string>
+    <string name="coach_chip_what_dinner">Akşam yemeğinde ne yemeliyim?</string>
+    <string name="coach_chip_gain_healthy">Sağlıklı şekilde nasıl kilo alabilirim?</string>
+    <string name="coach_chip_eating_enough">Yeterince mi yiyorum?</string>
+    <string name="coach_chip_high_protein">Ekleyebileceğim yüksek proteinli yiyecekler?</string>
+    <string name="coach_chip_holding_weight">Kilomu koruyor muyum?</string>
+    <string name="coach_chip_average_intake">Ortalama alımım nedir?</string>
+    <string name="coach_chip_macro_suggestions">Makro önerileri?</string>
+    <string name="coach_chip_trend">Trendim nasıl?</string>
+    <string name="coach_chip_doing_this_week">Bu hafta nasıl gidiyorum?</string>
+    <string name="coach_chip_log_advice">Kaydıma göre bir tavsiyen var mı?</string>
+    <string name="coach_chip_training" translatable="false">How is my recent training?</string>
+
+    <!-- Progress -->
+    <string name="progress_range_week">1H</string>
+    <string name="progress_range_month">1A</string>
+    <string name="progress_range_3m">3A</string>
+    <string name="progress_range_6m">6A</string>
+    <string name="progress_range_year">1Y</string>
+    <string name="progress_range_all">Tümü</string>
+
+    <string name="progress_weight_section">Kilo</string>
+    <string name="progress_log_weight">Kilo Kaydet</string>
+    <string name="progress_stat_current">Mevcut</string>
+    <string name="progress_stat_goal">Hedef</string>
+    <string name="progress_stat_net_change">Net Değişim</string>
+    <string name="progress_stat_average">Ortalama</string>
+    <string name="progress_log_first_weight">Trendleri görmek için ilk kilonuzu kaydedin</string>
+
+    <string name="progress_weight_history">Kilo Geçmişi</string>
+    <string name="progress_body_fat_history">Vücut Yağı Geçmişi</string>
+    <string name="progress_workout_history">Antrenman Geçmişi</string>
+    <plurals name="progress_workout_history_count_format">
+        <item quantity="one">%1$d hesaplanan yakım · görüntülemek veya silmek için dokunun</item>
+        <item quantity="other">%1$d hesaplanan yakım · görüntülemek veya silmek için dokunun</item>
+    </plurals>
+    <string name="progress_workout_delete_title">Antrenman yakımı silinsin mi?</string>
+    <string name="progress_workout_delete_message">Bu, hesaplanan yakımı Fud AI ve Health Connect\'ten kaldırır. Antrenman günlüğü planınız kayıtlı kalır.</string>
+    <plurals name="progress_history_count_format">
+        <item quantity="one">%1$d kayıt · görüntülemek veya silmek için dokunun</item>
+        <item quantity="other">%1$d kayıt · görüntülemek veya silmek için dokunun</item>
+    </plurals>
+
+    <string name="progress_workout_section">Antrenman Etkinliği</string>
+    <string name="progress_workout_stat_workouts">Antrenmanlar</string>
+    <string name="progress_workout_stat_total">Toplam Yakım</string>
+    <string name="progress_workout_stat_average">Ort. Yakım</string>
+    <string name="progress_workout_stat_latest">Son</string>
+    <string name="progress_workout_stat_days">Gün</string>
+    <string name="progress_workout_no_range">Bu aralıkta hesaplanan antrenman yakımı yok</string>
+    <string name="progress_workout_chart_description">%1$s ile %2$s arasındaki antrenman yakım grafiği. Toplam %3$d kilokalori; en son %4$d kilokalori.</string>
+
+
+    <string name="progress_calories_section">Kalori</string>
+    <string name="progress_avg_format">Ort: %1$,d kcal</string>
+    <string name="progress_no_food">Henüz yiyecek kaydedilmedi</string>
+
+    <string name="progress_macro_averages">Makro Ortalamaları</string>
+    <string name="progress_nutrient_averages">Besin Ortalamaları</string>
+    <string name="progress_loading_nutrition">Beslenme yükleniyor…</string>
+    <string name="progress_macro_progress_format">%1$dg / %2$dg</string>
+
+    <string name="progress_log_weight_title">Kilo Kaydet</string>
+
+    <string name="progress_goal_reached_title">Tebrikler! 🎉</string>
+    <string name="progress_goal_reached_message">Hedef kilonuza ulaştınız! Hedefinizi değiştirmek için Ayarlar\'a gidin ve hedeflerinizi yenilemek için Hedefleri Yeniden Hesapla\'ya dokunun.</string>
+
+    <!-- Settings -->
+    <string name="settings_section_personal">Kişisel Bilgiler</string>
+    <string name="settings_allergen_sensitivities">Alerjen hassasiyetleri</string>
+    <string name="settings_allergen_add_placeholder">Bir alerjen yazın</string>
+    <string name="settings_allergen_add_section">Hassasiyet ekle</string>
+    <string name="settings_allergen_add_hint">Eklemek için Bitti\'ye basın. Kaldırmak için bir satırı sola kaydırın. Değişiklikler otomatik kaydedilir.</string>
+    <string name="settings_allergen_empty">Eklenmiş hassasiyet yok</string>
+    <string name="settings_allergen_remove_title">Alerjen Silinsin mi?</string>
+    <string name="settings_allergen_remove_message">\"%1$s\" hassasiyetlerinizden kaldırılsın mı?</string>
+    <string name="settings_allergen_disclaimer">Yerel etiket kontrolleri için kullanılır. Sonuçlar hiçbir zaman bir yiyeceğin güvenli olduğunu göstermez.</string>
+    <string name="settings_allergen_import_section">Laboratuvar raporu</string>
+    <string name="settings_allergen_import_button">Laboratuvar raporundan içe aktar</string>
+    <string name="settings_allergen_import_disclaimer">ISAC/ALEX tarzı bir alerji kan testi raporundan olası hassasiyetleri yalnızca yerel kontroller için çıkarır. Tıbbi bir teşhis değildir — eklemeden önce her adı doğrulayın.</string>
+    <string name="settings_allergen_import_source_message">Alerji kan testi raporunuzun bir fotoğrafını veya PDF\'ini seçin.</string>
+    <string name="settings_allergen_import_choose_photo">Fotoğraf Seç</string>
+    <string name="settings_allergen_import_choose_file">Dosya Seç</string>
+    <string name="settings_allergen_import_loading">Laboratuvar raporu okunuyor…</string>
+    <string name="settings_allergen_import_confirm_title">Alerjenleri onayla</string>
+    <string name="settings_allergen_import_confirm_message">Hangi adların ekleneceğini onaylayın. Bu tıbbi bir teşhis değildir ve bir yiyeceğin güvenli olduğu anlamına asla gelmez.</string>
+    <string name="settings_allergen_import_select_all">Tümünü Seç</string>
+    <string name="settings_allergen_import_deselect_all">Tüm Seçimi Kaldır</string>
+    <string name="settings_allergen_import_add_selected">Seçilenleri Ekle</string>
+    <string name="settings_allergen_import_error_title">İçe Aktarılamadı</string>
+    <string name="settings_allergen_import_none_found">Bu raporda açıkça pozitif veya yüksek hassasiyet bulunamadı.</string>
+    <string name="settings_allergen_import_failed">Laboratuvar raporu okunamadı.</string>
+    <string name="settings_allergen_import_read_failed">Seçilen dosya okunamadı.</string>
+    <string name="settings_section_goals">Hedefler ve Beslenme</string>
+    <string name="settings_section_daily_targets">Günlük Hedefler</string>
+    <string name="settings_section_app">Uygulama Ayarları</string>
+    <string name="settings_section_tracking_reminders">Takip ve Hatırlatmalar</string>
+    <string name="settings_category_ai_providers">Yapay Zeka Sağlayıcıları ve Yedekler</string>
+    <string name="settings_section_ai_voice">Yapay Zeka ve Ses</string>
+    <string name="settings_section_ai">Birincil Yapay Zeka</string>
+    <string name="settings_on_device_models">Cihaz üzerindeki modeller</string>
+    <string name="settings_on_device_models_info">Modeller özel uygulama deposuna indirilir ve fotoğraf, prompt veya ses sunucuya gönderilmeden çalışır. İndirme boyutu ve model lisans koşulları geçerlidir.</string>
+    <string name="settings_local_model_not_downloaded_format">%1$s · İndirilmedi</string>
+    <string name="settings_local_model_downloading_format">İndiriliyor · %1$d%%</string>
+    <string name="settings_local_model_installed">Yüklendi · Çevrimdışı hazır</string>
+    <string name="settings_view_model_license">Model lisansını görüntüle</string>
+    <string name="settings_model_source">Model kaynağı</string>
+    <string name="settings_model_license_format">%1$s lisansı</string>
+    <string name="settings_model_requires_8gb">8 GB RAM\'li bir cihaz gerekir</string>
+    <string name="settings_model_low_ram_unsupported">Düşük RAM\'li cihazlarda desteklenmez</string>
+    <string name="settings_model_processor_unsupported">Bu cihazın işlemcisi desteklenmiyor</string>
+    <string name="settings_section_text_ai">Metin Yapay Zekası</string>
+    <string name="settings_info_about_format">%1$s hakkında</string>
+    <string name="settings_info_primary_ai">Fotoğraf içeren her isteği yönetir. Ayrı Metin Sağlayıcı Kullan açık değilken metin tabanlı istekleri de yönetir. Bu anahtar açıkken Text Metin sağlayıcısı devreye girer.</string>
+    <string name="settings_info_text_ai">Fotoğrafsız istekler için isteğe bağlı bir sağlayıcı: yazılı yemek kaydı, Koç sohbeti, sesli deşifre, hedefler ve tavsiyeler. Ayrı Metin Sağlayıcı Kullan açık değilken bu istekleri Birincil Yapay Zekâ yönetir.</string>
+    <string name="settings_info_text_fallback">Başarısız bir metin isteğini bir kez daha dener. Ayrı sağlayıcı açıkken Text Metin sağlayıcısının yedeğidir; aksi halde metin işlerinde Birincil Yapay Zekâ için yedirilir. Fotoğraf almaz.</string>
+    <string name="settings_info_image_fallback">Bir veya birden fazla fotoğraf içeren başarısız bir isteği tekrar dener. İlk deneme her zaman Birincil Yapay Zekâ tarafından yapılır. Bu yedek metin isteklerinde kullanılmaz. Aynı sağlayıcıyı farklı bir modelle kullanabilirsiniz.</string>
+    <string name="settings_info_speech_to_text">Mikrofon sesini yalnızca metne çevirir. Dönüşüm normal metin rotasını takip eder: Text Metin açıksa onu, aksi halde Birincil Yapay Zekâyı kullanır. Eşleşen sağlayıcı API anahtarları ayrı bir STT anahtarı kaydetmediğiniz sürece yeniden kullanılır.</string>
+    <string name="settings_info_speech_fallback">Seçilen kaydedilmiş ses STT sağlayıcısı başarısız olduğunda deşifreyi tekrar dener. Sadece bir metin çıkarır; bu metin normal metin yapay zeka rotasını izler. Yerel Android konuşma tanıma zaten kendi kurtarma mekanizmasına sahiptir.</string>
+    <string name="settings_use_separate_text_provider">Ayrı Metin Sağlayıcısı Kullan</string>
+    <string name="settings_text_provider_footer">Etkinleştirildiğinde, yazılan yiyecek, ses transkriptleri, Koç sohbeti, hedefler ve tavsiyeler dahil görsel içermeyen istekler bu sağlayıcıyı kullanır. Fotoğraf istekleri yukarıdaki Yapay Zeka Sağlayıcısını kullanmaya devam eder. API anahtarları sağlayıcı bazında paylaşılır.</string>
+    <string name="settings_section_text_fallback">Metin Yapay Zekası Yedeği</string>
+    <string name="settings_text_fallback_footer">Yalnızca metin tabanlı bir yapay zeka isteği başarısız olduğunda kullanılır. Fotoğrafları hiçbir zaman işlemez.</string>
+    <string name="settings_section_speech">Konuşmadan Metne</string>
+    <string name="settings_section_speech_fallback">STT Yedeği</string>
+    <string name="settings_speech_fallback_footer">Yalnızca seçilen kaydedilmiş ses sağlayıcısı başarısız olduğunda kullanılır. Yerel konuşma zaten cihaz üzerindeki ve çevrimiçi tanıma modlarını tekrar dener.</string>
+    <string name="settings_native_speech_fallback_footer">Yerel konuşma zaten Android\'in cihaz üzerindeki, çevrimiçi ve otomatik tanıma modları arasında otomatik olarak kurtarma sağlar. Ayrı bir sağlayıcı yedeği yapılandırmak için yukarıdan uzak bir konuşma sağlayıcısı seçin.</string>
+    <string name="settings_section_workout">Antrenman</string>
+    <string name="settings_training_split" translatable="false">Training Split</string>
+    <string name="settings_rpe_scale" translatable="false">RPE Scale</string>
+    <string name="settings_rpe_guide" translatable="false">Strength 1–10: 1 is very easy and 10 is maximum effort.\nCR10 0–10: perceived exertion with decimals allowed.\nBorg 6–20: classic whole-number exertion scale.</string>
+    <string name="settings_workout_health_access" translatable="false">Workout Burn Sync</string>
+    <string name="settings_grant_permission" translatable="false">Grant permission</string>
+    <string name="settings_section_health">Sağlık ve Veri</string>
+    <string name="settings_section_data_management">Veri Yönetimi</string>
+
+    <string name="settings_gender">Cinsiyet</string>
+    <string name="settings_birthday">Doğum günü</string>
+    <string name="settings_height">Boy</string>
+    <string name="settings_weight">Kilo</string>
+    <string name="settings_body_fat">Vücut Yağı</string>
+    <string name="settings_goal_body_fat">Hedef Vücut Yağı</string>
+    <string name="settings_use_body_fat_bmr">BMR için Vücut Yağını Kullan</string>
+    <string name="settings_use_body_fat_bmr_subtitle">Açık = Katch-McArdle (daha doğru bir BMR için yağsız kütleyi kullanır). Kapalı = Mifflin-St Jeor (sadece boy/kilo/yaş). Vücut yağı ölçümünüz güncel değilse kapatın.</string>
+    <string name="settings_not_set">Ayarlanmadı</string>
+    <string name="settings_birthday_age_format">%1$s (yaş %2$d)</string>
+
+    <string name="settings_weight_goal">Kilo Hedefi</string>
+    <string name="settings_activity_level">Aktivite Seviyesi</string>
+    <string name="settings_weekly_change">Haftalık Değişim</string>
+    <string name="settings_weekly_default">0,50 kg/hf</string>
+    <string name="settings_goal_weight">Hedef Kilo</string>
+    <string name="settings_calories">Kalori</string>
+    <string name="settings_recalculate_goals">Hedefleri Yeniden Hesapla</string>
+    <string name="settings_macro_pinned_format">%1$dg</string>
+    <string name="settings_macro_auto_format">%1$dg · otomatik</string>
+    <string name="settings_macro_pinned_a11y">Sabitlendi</string>
+    <string name="settings_macro_auto_a11y">Otomatik</string>
+
+    <string name="settings_appearance">Görünüm</string>
+    <string name="settings_appearance_system">Sistem</string>
+    <string name="settings_appearance_light">Açık</string>
+    <string name="settings_appearance_dark">Koyu</string>
+    <string name="settings_theme_color">Tema Rengi</string>
+    <string name="sheet_theme_color">Tema Rengi</string>
+    <string name="sheet_theme_color_footer">Sekmeler, düğmeler, simgeler, grafikler ve ilerleme halkaları için kullanılan ana uygulama rengini değiştirir.</string>
+    <string name="theme_color_fud_pink">Fud Pembe</string>
+    <string name="theme_color_red">Kırmızı</string>
+    <string name="theme_color_orange">Turuncu</string>
+    <string name="theme_color_green">Yeşil</string>
+    <string name="theme_color_mint">Nane Yeşili</string>
+    <string name="theme_color_teal">Camgöbeği</string>
+    <string name="theme_color_blue">Mavi</string>
+    <string name="theme_color_purple">Mor</string>
+    <string name="theme_color_yellow">Sarı</string>
+    <string name="theme_color_coral">Mercan</string>
+    <string name="theme_color_rose_gold">Rose Gold</string>
+    <string name="theme_color_mocha_brown">Moka Kahve</string>
+    <string name="theme_color_indigo">Çivit</string>
+    <string name="theme_color_lavender">Lavanta</string>
+    <string name="theme_color_sky_cyan">Gök Camgöbeği</string>
+    <string name="theme_color_graphite">Grafit</string>
+    <string name="theme_color_baby_pink">Bebek Pembesi</string>
+    <string name="theme_color_lime">Limon Yeşili</string>
+    <string name="settings_metric_units">Metrik Birimler</string>
+    <string name="settings_height_unit">Boy Birimi</string>
+    <string name="settings_weight_unit">Kilo Birimi</string>
+    <string name="settings_default_to_grams">Varsayılan Gram</string>
+    <string name="settings_default_to_grams_info">Yeni yiyecek gözden geçirme sayfaları önce gram seçili olarak açılır. Kaydetmeden önce porsiyon, dilim, bardak veya algılanan başka bir birime geçebilirsiniz.</string>
+    <string name="settings_save_photos_to_gallery">Fotoğraflara Kaydet</string>
+    <string name="settings_save_photos_to_gallery_subtitle">Kaydederken öğün fotoğraflarını galerinize de kaydedin</string>
+    <string name="settings_week_starts">Hafta Başlangıcı</string>
+    <string name="settings_meal_times">Öğün Saatleri</string>
+    <string name="settings_meal_times_customize">Özelleştir</string>
+    <string name="settings_meal_times_description">Otomatik öğün seçiminin bir sonraki öğüne ne zaman geçeceğini ayarlayın.</string>
+    <string name="settings_breakfast_starts">Kahvaltı başlangıcı</string>
+    <string name="settings_lunch_starts">Öğle yemeği başlangıcı</string>
+    <string name="settings_dinner_starts">Akşam yemeği başlangıcı</string>
+    <string name="settings_late_snack_starts">Geç Atıştırmalık başlangıcı</string>
+    <string name="settings_meal_times_help">Her öğün bir sonraki başlayana kadar devam eder. Geç Atıştırmalık, Kahvaltı başlayana kadar gece boyunca devam eder. Kaydetmeden önce öğünü manuel olarak yine de değiştirebilirsiniz.</string>
+    <string name="settings_restore_default_times">Varsayılan Saatleri Geri Yükle</string>
+    <string name="settings_meal_time_edit_format">%1$s ayarla</string>
+    <string name="settings_week_monday">Pazartesi</string>
+    <string name="settings_week_sunday">Pazar</string>
+    <string name="settings_notifications">Bildirimler</string>
+    <string name="settings_water_tracking">Su Takibi</string>
+    <string name="settings_water_goal">Günlük Su Hedefi</string>
+    <string name="settings_water_goal_summary">%1$d ml</string>
+    <string name="settings_water_goal_wheel_help">50 ile 10.000 ml arasında günlük bir hedef seçmek için 50 ml adımlarla kaydırın.</string>
+    <string name="settings_water_goal_wheel_help_fl_oz">2 ile 338 fl oz arasında günlük bir hedef seçmek için 1 fl oz adımlarla kaydırın.</string>
+    <string name="settings_water_unit">Su Birimi</string>
+    <string name="settings_water_unit_ml">Mililitre (ml)</string>
+    <string name="settings_water_unit_fl_oz">Sıvı Ons (fl oz)</string>
+    <string name="settings_fasting_tracking">Oruç Takibi</string>
+    <string name="settings_walk_run_quick_log">Yürüyüş ve Koşu</string>
+    <string name="settings_walk_run_quick_log_footer">Varsayılan olarak kapalıdır. Etkinleştirildiğinde, hızlı açık hava kaydı için Yürüyüş ve Koşu Antrenmanlar + menüsünde görünür.</string>
+    <string name="outdoor_activity_walking">Yürüyüş</string>
+    <string name="outdoor_activity_running">Koşu</string>
+    <string name="outdoor_activity_how_long">Ne kadar sürdü?</string>
+    <string name="outdoor_activity_minutes">%1$d dk</string>
+    <string name="outdoor_activity_custom_minutes">Özel dakika</string>
+    <string name="outdoor_activity_min_suffix">dk</string>
+    <string name="outdoor_activity_log">%1$s Kaydet</string>
+    <string name="settings_fasting_goal">Varsayılan Oruç Hedefi</string>
+    <string name="settings_fasting_goal_value">%1$d saat</string>
+    <string name="settings_notif_fasting_goal">Oruç Hedefine Ulaşıldı</string>
+    <string name="fasting">Oruç</string>
+    <string name="fasting_start">Oruca Başla</string>
+    <string name="fasting_end">Orucu Bitir</string>
+    <string name="fasting_cancel">Orucu İptal Et</string>
+    <string name="fasting_in_progress">Oruç devam ediyor</string>
+    <string name="fasting_completed_format">%1$s oruç</string>
+    <string name="fasting_goal_format">%1$s hedef</string>
+    <string name="fasting_started_format">%1$s başladı</string>
+    <string name="fasting_choose_goal">Bir oruç hedefi seçin</string>
+    <string name="fasting_hours">saat</string>
+    <string name="fasting_edit">Orucu Düzenle</string>
+    <string name="fasting_active">Aktif Oruç</string>
+    <string name="fasting_started">Başladı</string>
+    <string name="fasting_ended">Bitti</string>
+    <string name="fasting_delete">Orucu Sil</string>
+    <string name="fasting_overlap_title">Oruç başka bir oturumla çakışıyor</string>
+    <string name="fasting_overlap_message">Oruç oturumlarının çakışmaması için başlangıç veya bitiş saatini ayarlayın.</string>
+    <string name="food_logging_paused">Yiyecek kaydı duraklatıldı</string>
+    <string name="food_blocked_by_active_fast">Yiyecek kaydetmeden önce aktif orucunuzu bitirin veya iptal edin.</string>
+    <string name="fasting_quick_action_disabled_title">Oruç Takibi kapalı</string>
+    <string name="fasting_quick_action_disabled_message">Bu kısayolu kullanmak için Ayarlar\'dan Oruç Takibini etkinleştirin.</string>
+    <string name="home_todays_diary">Bugünün Günlüğü</string>
+    <string name="home_diary">Günlük</string>
+    <string name="home_no_diary_entries">Günlük kaydı yok</string>
+    <string name="home_menu_photo_scan">Fotoğraf ve Tarama</string>
+    <string name="home_menu_describe_meal">Öğünü Tarif Et</string>
+    <string name="home_menu_reuse_meal">Öğünü Tekrar Kullan</string>
+    <string name="settings_notif_water_reminder">Su Hatırlatması</string>
+    <string name="settings_battery_opt">Pil Optimizasyonu</string>
+    <string name="settings_battery_opt_value">Fud AI\'yı Beyaz Listeye Ekle</string>
+
+    <string name="settings_ai_provider">Sağlayıcı</string>
+    <string name="settings_ai_model">Model</string>
+    <string name="settings_speech_language">Dil</string>
+    <string name="settings_ai_model_unset">(aşağıdan birini ayarlayın)</string>
+    <string name="settings_api_key">API Anahtarı</string>
+    <string name="settings_base_url">Temel URL</string>
+    <string name="settings_server_url">Sunucu URL\'si</string>
+    <string name="settings_tap_to_edit">Düzenlemek için dokunun</string>
+    <string name="settings_custom_url_placeholder">https://your-endpoint.com/v1</string>
+    <string name="settings_custom_url_title">Özel temel URL</string>
+    <string name="settings_clear_key">Anahtarı temizle</string>
+
+    <!-- Custom AI Instructions + Fallback Provider (v1.0.6) -->
+    <string name="settings_section_custom_instructions">Özel Yapay Zeka Talimatları</string>
+    <string name="settings_custom_instructions_placeholder">örn. Almanya\'da yaşıyorum, Avrupa porsiyon boyutlarını varsay, ALDI/REWE markalarını tercih et. Vücut geliştirme kesimindeyim.</string>
+    <string name="settings_custom_instructions_footer">Her yapay zeka isteğiyle gönderilen isteğe bağlı bağlam — bölge, diyet, atletik hedefler, her seferinde tekrarlayacağınız her şey. Devre dışı bırakmak için boş bırakın.</string>
+    <string name="settings_save">Kaydet</string>
+    <string name="settings_saved">Kaydedildi</string>
+
+    <string name="settings_section_fallback">Görsel Yapay Zeka Yedeği</string>
+    <string name="settings_enable_fallback">Yedeği Etkinleştir</string>
+    <string name="settings_fallback_footer">Yalnızca bir yapay zeka isteği fotoğraf içerdiğinde kullanılır. Birincil ile aynı sağlayıcıya izin verilir — sadece farklı bir model seçin.</string>
+
+    <string name="settings_health_connect">Health Connect</string>
+    <string name="settings_manage_health_access">Health Connect Erişimini Yönet</string>
+    <string name="settings_permissions">İzinler</string>
+    <string name="settings_energy_goals">Enerji Yakım Hedefleri</string>
+    <string name="settings_needs_health_connect">Health Connect Gerekir</string>
+    <string name="settings_energy_goals_info">Açıldığında, Fud AI hedefleri hesaplarken formül tahmini yerine bakım referansı olarak Health Connect\'in son ölçülen enerji penceresini kullanır: yeterli gün varsa ölçülen toplam enerji; aksi halde ortalama ölçülen aktif enerji + formül BMR. Yakımınızı okumak için yapay zeka kullanılmaz. Health Connect gerektirir. Yeniden Hesapla düğmesi ve Uyarlanabilir Hedefler ile çalışır.</string>
+    <string name="settings_adaptive_goals">Uyarlanabilir Hedefler</string>
+    <string name="settings_adaptive_goals_info">Uygulamayı açtığınızda yaklaşık haftada bir kez, Fud AI profilinizden, son kaydedilen yiyeceklerden ve kilo trendinden — Yeniden Hesapla düğmesinin kullandığı aynı hesaplamayı — otomatik olarak yeniden çalıştırır. Enerji Yakımı açıksa, bakım referansı olarak ölçülen yakımınızı kullanır. Yapay zeka kullanılamıyorsa sessizce atlar. Bunu kapatmak, hedefleri Uyarlanabilir Hedefler ilk değiştirmeden önceki haline geri getirir. Bu tıbbi tavsiye değildir.</string>
+    <string name="settings_refresh_energy_goals">Enerji Yakım Hedeflerini Yenile</string>
+    <string name="settings_clear_food_log">Yiyecek Günlüğünü Temizle</string>
+    <string name="settings_delete_all_data">Tüm Verileri Sil</string>
+
+    <!-- Settings dialogs -->
+    <string name="settings_clear_food_title">Yiyecek günlüğü temizlensin mi?</string>
+    <string name="settings_clear_food_message">Tüm yiyecek kayıtlarını ve fotoğrafları siler. Profil, kilolar ve ayarlar kalır.</string>
+    <string name="settings_delete_all_title">Tüm yerel veriler silinsin mi?</string>
+    <string name="settings_delete_all_message">Profili, yiyecek günlüğünü, kilo geçmişini, sohbeti ve API anahtarlarını siler, ardından sizi ilk kuruluma geri götürür. Health Connect verileri değişmeden kalır.</string>
+    <string name="settings_max_pinned_title">En Fazla 2 Makro Kilitli</string>
+    <string name="settings_max_pinned_message">Aynı anda en fazla 2 makro kilitlenebilir, böylece biri dengelemek için serbest kalır. Önce başka bir makronun kilidini açın (kilit simgesine dokunun).</string>
+    <string name="settings_macro_locked">Kilitli</string>
+    <string name="settings_macro_unlocked">Kilitsiz</string>
+    <string name="settings_rebalance_blocked_title">Yeniden Dengelenemiyor</string>
+    <string name="settings_rebalance_blocked_message">Kalori kilitli ve diğer iki makro da kilitli, bu yüzden bu değişikliği karşılayacak bir şey kalmadı. Kaloriyi veya başka bir makronun kilidini açın, sonra tekrar deneyin.</string>
+    <string name="settings_adaptive_locks_title">Uyarlanabilir Hedefler Açık</string>
+    <string name="settings_adaptive_locks_message">Kendi kalori ve makrolarınızı kilitlemek veya ayarlamak için Uyarlanabilir Hedefleri kapatın. Açıkken, Fud AI bunları sizin için her hafta yeniden hesaplar.</string>
+    <string name="settings_recalc_title">Hedefler yeniden hesaplansın mı?</string>
+    <string name="settings_recalc_message">Kalori ve makroları boy/kilo/aktivite/hedefinize göre formül varsayılanlarına sıfırlar. Sabitlenmiş makrolar temizlenir.</string>
+    <string name="settings_recalc_confirm">Yeniden Hesapla</string>
+    <string name="settings_invalid_goal_title">Hedef kilo, hedefinizle eşleşmiyor</string>
+    <string name="settings_invalid_goal_lose">Kilo Verme hedefi, mevcut kilonuzun altında bir hedef gerektirir.</string>
+    <string name="settings_invalid_goal_gain">Kilo Alma hedefi, mevcut kilonuzun üzerinde bir hedef gerektirir.</string>
+    <string name="settings_permission_title">İzin gerekli</string>
+
+    <string name="settings_notifications_denied">Bildirim izni reddedildi. Hatırlatma almak için Sistem Ayarları → Uygulamalar → Fud AI → Bildirimler\'den etkinleştirin.</string>
+
+    <!-- Notification copy -->
+    <string name="notif_weight_log_title">Tartılma zamanı</string>
+    <string name="notif_weight_log_text">İlerleme grafiğinizin doğru kalması için bugünkü kilonuzu kaydedin.</string>
+    <string name="notif_body_fat_log_title">Vücut yağı kontrolü</string>
+    <string name="notif_body_fat_log_text">Vücut kompozisyon trendinizi takip etmek için bugünkü vücut yağ oranınızı kaydedin.</string>
+    <string name="settings_health_denied">Health Connect erişim vermedi. Health Connect\'i açın ve Fud AI\'nın senkronize etmesini istediğiniz veri türlerine izin verin. Enerji tabanlı hedefler hem Aktif hem de Toplam Kalorileri gerektirir.</string>
+    <string name="settings_health_unavailable">Play Store\'dan Health Connect\'i yükleyin veya güncelleyin, ardından anahtara tekrar dokunun.</string>
+    <string name="settings_health_profile_unsupported">Health Connect, Fud AI\'yı onaylı olarak gösterebilir ancak Android, İş Profili, Özel Alan veya klonlanmış bir uygulama profilinden Health Connect\'e izin vermez. Fud AI\'yı telefonunuzun ana profilinde yükleyip açın.</string>
+    <string name="settings_health_system_unavailable">Health Connect\'in sistem hizmeti kullanılamıyor. Android 9 veya üzeri gerektirir; daha yeni bir telefonda Android ve Google Play sistem güncellemelerini yükleyin, yeniden başlatın, sonra tekrar deneyin.</string>
+    <string name="settings_get_health_connect">Health Connect\'i Al</string>
+
+    <!-- Settings sheets / pickers -->
+    <string name="sheet_ai_provider">Yapay Zeka Sağlayıcısı</string>
+    <string name="sheet_model">Model</string>
+    <string name="sheet_model_footer">Veya aşağıya herhangi bir özel model kimliği yazın.</string>
+    <string name="sheet_any_model_id">Herhangi bir model kimliği</string>
+    <string name="sheet_api_key_format">API Anahtarı — %1$s</string>
+    <string name="sheet_speech_api_key_format">Konuşma API Anahtarı — %1$s</string>
+    <string name="sheet_speech_engine">Konuşma Motoru</string>
+    <string name="sheet_gender">Cinsiyet</string>
+    <string name="sheet_activity_level">Aktivite seviyesi</string>
+    <string name="sheet_goal">Hedef</string>
+    <string name="sheet_target_weight">Hedef kilo</string>
+    <string name="sheet_weight">Kilo</string>
+    <string name="sheet_birthday">Doğum günü</string>
+    <string name="sheet_appearance">Görünüm</string>
+    <string name="sheet_week_starts">Hafta Başlangıcı</string>
+    <string name="sheet_height">Boy</string>
+    <string name="sheet_body_fat_percent">Vücut yağ %</string>
+    <string name="sheet_goal_body_fat">Vücut Yağı Hedefi</string>
+    <string name="sheet_goal_body_fat_currently">Şu anda %%%1$d</string>
+    <string name="action_remove_goal">Hedefi Kaldır</string>
+    <string name="sheet_weekly_change">Haftalık Değişim</string>
+    <string name="sheet_weekly_change_format">%1$.1f %2$s/hafta %3$s</string>
+    <string name="sheet_weekly_change_loss">kayıp</string>
+    <string name="sheet_weekly_change_gain">kazanç</string>
+    <string name="sheet_pace_slow">Yavaş</string>
+    <string name="sheet_pace_recommended">Önerilen</string>
+    <string name="sheet_pace_fast">Hızlı</string>
+    <string name="sheet_selected_a11y">Seçildi</string>
+    <string name="sheet_reset_to_auto">Otomatik Dengeye Sıfırla</string>
+
+    <string name="sheet_macros">Makrolar</string>
+    <string name="sheet_macros_subtitle">En fazla 2 makroyu tam grama sabitleyin. Sabitlenmemiş olanlar kalan kalorilerden otomatik dengelenir.</string>
+    <string name="sheet_macro_pinned">sabitlendi</string>
+    <string name="sheet_macro_auto">otomatik</string>
+    <string name="sheet_macro_label_format">%1$s (%2$s)</string>
+    <string name="sheet_speech_language">Konuşma Dili</string>
+    <string name="speech_language_provider_auto">Sağlayıcı Otomatik</string>
+    <string name="speech_language_provider_auto_subtitle">Sağlayıcının dili algılamasına izin ver.</string>
+    <string name="speech_language_device">Cihaz Dilini Kullan</string>
+    <string name="speech_language_device_subtitle">Bu telefonun mevcut dilini kullan.</string>
+    <string name="speech_language_english">İngilizce</string>
+    <string name="speech_language_german">Almanca</string>
+    <string name="speech_language_spanish">İspanyolca</string>
+    <string name="speech_language_french">Fransızca</string>
+    <string name="speech_language_italian">İtalyanca</string>
+    <string name="speech_language_portuguese">Portekizce</string>
+    <string name="speech_language_dutch">Felemenkçe</string>
+    <string name="speech_language_hindi">Hintçe</string>
+    <string name="speech_language_japanese">Japonca</string>
+    <string name="speech_language_chinese">Çince</string>
+    <string name="speech_language_korean">Korece</string>
+    <string name="speech_language_czech">Çekçe</string>
+
+    <!-- About -->
+    <string name="about_update_checking">Güncellemeler Kontrol Ediliyor</string>
+    <string name="about_update_available">Güncelleme Mevcut</string>
+    <string name="about_update_details_format">Mevcut %1$s -&gt; En Son %2$s</string>
+    <string name="about_update_action">Güncelle</string>
+    <string name="about_check_updates">Güncellemeleri Kontrol Et</string>
+    <string name="about_app_version">Uygulama Sürümü</string>
+    <string name="about_version_format">Sürüm %1$s</string>
+    <string name="about_whats_new">Yenilikler</string>
+    <string name="about_whats_new_version_format">Sürüm %1$s</string>
+    <string name="about_whats_new_android_summary">Bu güncellemedeki Android değişiklikleri:</string>
+    <string name="about_rate">Uygulamayı Değerlendir</string>
+    <string name="about_share">Uygulamayı Paylaş</string>
+    <string name="about_open_source">Açık Kaynak (MIT)</string>
+    <string name="about_openssf_best_practices">OpenSSF En İyi Uygulamalar</string>
+    <string name="about_openssf_best_practices_desc">Geçti · proje 14553</string>
+    <string name="about_openssf_scorecard">OpenSSF Puan Kartı</string>
+    <string name="about_openssf_scorecard_desc">Güvenlik sağlık puanı</string>
+    <string name="about_udyam">Udyam Kayıtlı</string>
+    <string name="about_udyam_desc">UDYAM-DL-06-0225072 · Mikro işletme</string>
+    <string name="about_ace">ACE Sertifikalı</string>
+    <string name="about_ace_desc">Kişisel Antrenör · NCCA onaylı</string>
+    <string name="about_star_github">GitHub\'da Yıldızla</string>
+    <string name="about_vote_ph">Product Hunt\'ta Oy Ver</string>
+    <string name="about_report_issue">Sorun Bildir</string>
+    <string name="about_request_feature">Özellik Talep Et</string>
+    <string name="about_contact">Bize Ulaşın</string>
+    <string name="about_join_discord">Discord\'a Katıl</string>
+    <string name="about_follow_x">X\'te Takip Et</string>
+    <string name="about_follow_linkedin">LinkedIn\'de Takip Et</string>
+    <string name="about_follow_instagram">Instagram\'da Takip Et</string>
+    <string name="about_privacy">Gizlilik Politikası</string>
+    <string name="about_terms">Kullanım Şartları</string>
+    <string name="about_litert_notices">LiteRT-LM üçüncü taraf bildirimleri</string>
+    <string name="about_litert_notices_load_error">LiteRT-LM üçüncü taraf bildirimleri yüklenemedi.</string>
+    <string name="about_category_app_updates">Uygulama ve Güncellemeler</string>
+    <string name="about_category_support">Fud AI\'yı Destekle</string>
+    <string name="about_category_help_feedback">Yardım ve Geri Bildirim</string>
+    <string name="about_category_community">Topluluk</string>
+    <string name="about_category_legal">Yasal</string>
+    <string name="about_made_by">Apoorv Darshan tarafından yapıldı</string>
+    <string name="about_with_care">özenle, herkes için</string>
+    <string name="about_share_message">Öğünlerimi Fud AI ile takip ediyorum — fotoğraf çek, söyle ya da yaz, yapay zeka kalorileri kaydeder. Ücretsiz, açık kaynak ve verileriniz cihazınızda kalır.\n\nİndir: https://fud-ai.app</string>
+    <string name="about_share_chooser">Fud AI\'yı Paylaş</string>
+
+    <!-- Notifications -->
+    <string name="notif_channel_streak">Seri Hatırlatması</string>
+    <string name="notif_channel_streak_desc">Bir öğün kaydetmek ve serinizi korumak için günlük hatırlatma.</string>
+    <string name="notif_channel_daily">Günlük Özet</string>
+    <string name="notif_channel_daily_desc">Kalori ve makrolarınızın gün sonu özeti.</string>
+    <string name="notif_channel_weight_goal">Kilo Hedefi</string>
+    <string name="notif_channel_weight_goal_desc">Hedef kilonuza ulaştığınızda kutlama.</string>
+    <string name="notif_streak_title">Öğünlerinizi kaydetmeyi unutmayın</string>
+    <string name="notif_streak_text">Serinizi sürdürün — bugünden bir şey kaydedin.</string>
+    <string name="notif_summary_title">Bugünün özeti hazır</string>
+    <string name="notif_summary_text">Bugünün makrolarının nasıl gittiğini görmek için dokunun.</string>
+    <string name="notif_summary_deficit">%1$d kcal yenildi · %2$d yakıldı · %3$d kcal tahmini açık</string>
+    <string name="notif_summary_surplus">%1$d kcal yenildi · %2$d yakıldı · %3$d kcal tahmini fazla</string>
+    <string name="notif_summary_balanced">%1$d kcal yenildi · %2$d yakıldı · tahmini denge</string>
+
+    <string name="widget_all_metrics_label">Fud AI Bugün</string>
+    <string name="widget_all_metrics_description">Bugünün kalori, protein, karbonhidrat ve yağını tek widget\'ta görün.</string>
+
+    <!-- Workouts tab (exercise library ported from Delts) -->
+    <string name="nav_workouts">Antrenmanlar</string>
+    <string name="back">Geri</string>
+    <string name="clear_search">Aramayı temizle</string>
+    <string name="empty_subtitle">Farklı bir kas, ekipman veya arama deneyin — ya da yukarıdaki filtreleri sıfırlayın.</string>
+    <string name="empty_title">Eşleşen egzersiz yok</string>
+    <string name="workout_empty_subtitle">Farklı filtreler deneyin — veya kendi egzersizinizi oluşturun.</string>
+    <string name="workout_create_exercise">Egzersiz oluştur</string>
+    <string name="filter_all">Tümü</string>
+    <string name="filter_all_count">Tümü %d</string>
+    <string name="hide_details">Detayları gizle</string>
+    <string name="instructions">Talimatlar</string>
+    <string name="watch_on_youtube">YouTube\'da İzle</string>
+    <string name="watch_on_youtube_hint">YouTube araması açılır — resmi bir Fud AI videosu değildir</string>
+    <string name="label_category">Kategori</string>
+    <string name="label_equipment">Ekipman</string>
+    <string name="label_force">Kuvvet</string>
+    <string name="label_level">Seviye</string>
+    <string name="label_mechanic">Mekanik</string>
+    <string name="label_name">Ad</string>
+    <string name="label_primary">Birincil</string>
+    <string name="label_secondary">İkincil</string>
+    <string name="reset">Sıfırla</string>
+    <string name="search">Ara</string>
+    <string name="show_details">Detayları göster</string>
+    <string name="sort">Sırala</string>
+    <plurals name="exercises_count">
+        <item quantity="one">%d egzersiz</item>
+        <item quantity="other">%d egzersiz</item>
+    </plurals>
+    <string name="ad_label">Reklam</string>
+    <string name="onboarding_plan_adaptive_note">Planınız kaydettikçe haftalık otomatik ayarlanır — sabit tutmak için Ayarlar\'dan Uyarlanabilir Hedefleri kapatın.</string>
+    <string name="onboarding_feature_snap">Fotoğraf çek — yapay zeka kaydetsin</string>
+    <string name="onboarding_feature_coach">Verilerinizi bilen koç</string>
+    <string name="onboarding_feature_library">870+ egzersiz kütüphanesi</string>
+    <string name="onboarding_feature_widgets">Ana ekran widget\'ları</string>
+    <string name="whats_new_v30_workouts">Yeni Antrenmanlar sekmesi — fotoğraflar, kas ve ekipman filtreleri, arama ve detay sayfalarıyla 873 egzersize göz atın.</string>
+    <string name="whats_new_v30_home">Ana sayfa yenilendi: hız göstergesi kalori göstergesi, dikey makro çubukları, dört besin kartı ve yüzen ekleme düğmesi.</string>
+    <string name="whats_new_v30_coach_voice">Yeni satır içi kayıt cihazıyla Koç\'a sesli sorun.</string>
+    <string name="whats_new_v30_share">Herhangi bir öğünü iPhone veya Android\'de doğrudan Fud AI\'da açılan bir bağlantı olarak paylaşın.</string>
+    <string name="whats_new_v30_export">Ayarlar\'dan yiyecek günlüğünüzü JSON, Markdown veya CSV olarak dışa aktarın.</string>
+    <string name="whats_new_v30_reprocess">Kaydedilmiş bir öğünü yapay zekayla yeniden işleyin — adını, porsiyonunu veya notunu ayarlayıp yeniden analiz edin.</string>
+    <string name="whats_new_v30_camera">Kamera + Kamera her iki çekimi de korur, yan yana birleştirir.</string>
+    <string name="whats_new_v30_colors">10 yeni tema rengi, artık Ayarlar\'da satır içinde seçiliyor.</string>
+    <string name="whats_new_v30_bodyfat">Vücut yağı geçmişi: tıpkı kilo gibi tek tek kayıtları gözden geçirin ve silin.</string>
+    <string name="whats_new_v30_units">Boy ve kilo birimleri artık bağımsız olarak ayarlanabilir.</string>
+    <string name="whats_new_v30_adaptive">Uyarlanabilir Hedefler ve Enerji Yakımı deneysellikten çıktı ve yeni kurulumlarda varsayılan olarak açık.</string>
+    <string name="whats_new_v30_widgets">Widget\'lar yenilendi: her widget\'ın gerçek boyutunda çizilen Ana Sayfa hız göstergesi stili.</string>
+    <string name="whats_new_v30_restore">Yeniden mi kurdunuz veya telefon mu değiştirdiniz? Yiyecek günlüğünüz, kilonuz ve vücut yağınız artık Health Connect\'ten otomatik olarak geri yükleniyor.</string>
+    <string name="cloud_backup_title">Google Drive Yedekleme</string>
+    <string name="cloud_backup_footer">Siz açana kadar kapalıdır. Oturum açma yalnızca bu yedekleme içindir. API anahtarları telefonda kalır. Kademeli olarak sunuluyor — uygulama doğrulanana kadar Google ekstra bir uyarı gösterebilir.</string>
+    <string name="cloud_backup_enable_message">Günlüğünüzü, antrenmanlarınızı, orucunuzu, fotoğraflarınızı ve ayarlarınızı Google Drive\'ınıza yükler. API anahtarları telefonda kalır.\n\nGoogle Drive yedekleme kademeli olarak sunuluyor. Uygulama doğrulanana kadar oturum açma ekstra bir Google uyarısı gösterebilir.</string>
+    <string name="cloud_backup_restore_title">Yedek geri yüklensin mi?</string>
+    <string name="cloud_backup_restore_message">Geri yükleyin veya bu telefonu koruyun.</string>
+    <string name="cloud_backup_restore">Geri Yükle</string>
+    <string name="cloud_backup_keep">Bu telefonu koru</string>
+    <string name="cloud_backup_now">Şimdi yedekle</string>
+    <string name="cloud_backup_restore_now">Şimdi geri yükle</string>
+    <string name="cloud_backup_delete">Bulut yedeğini sil</string>
+    <string name="cloud_backup_delete_message">Fud AI dosyasını Google Drive\'ınızdan kaldırır. Bu telefon değişmez.</string>
+    <string name="cloud_backup_last">Son yedekleme: %1$s</string>
+    <string name="cloud_backup_signed_in">%1$s olarak oturum açıldı</string>
+    <string name="cloud_backup_sign_out">Oturumu kapat</string>
+    <string name="cloud_backup_switch_account">Google hesabını değiştir</string>
+    <string name="cloud_backup_turn_on">Aç</string>
+    <string name="cloud_backup_sign_in_failed">Google oturum açma açılamadı.</string>
+    <string name="export_diary_title">Yiyecek Günlüğünü Dışa Aktar</string>
+    <string name="import_diary_title">Yiyecek Günlüğünü İçe Aktar</string>
+    <string name="import_entries">Yiyecek kayıtları</string>
+    <string name="import_date_range">Tarih aralığı</string>
+    <string name="import_replace_explanation">Değiştir, yalnızca bu dışa aktarılan tarih aralığındaki mevcut yiyecek günlüklerini kaldırır, ardından o aralığı seçilen dosyadan yeniden oluşturur. Eşleşen kayıtlar fotoğraflarını korur. Ekle, mevcut günlüğü korur ve kopyaları yeni kayıtlar olarak oluşturur.</string>
+    <string name="import_replace_action">Bu Tarih Aralığını Değiştir</string>
+    <string name="import_add_action">Yeni Kayıt Olarak Ekle</string>
+    <string name="import_success">%1$d yiyecek kaydı içe aktarıldı.</string>
+    <string name="import_read_failed">Seçilen dosya okunamadı.</string>
+    <string name="export_range">Aralık</string>
+    <string name="export_format">Biçim</string>
+    <string name="export_action">Dışa Aktar</string>
+    <string name="settings_other_nutrients">Diğer Besinler</string>
+    <string name="settings_other_nutrient_goals">Diğer Besin Hedefleri</string>
+    <string name="settings_other_nutrients_note">Kalori, protein, karbonhidrat ve yağ hedeflerinden ayrıdır.</string>
+    <string name="settings_reset_defaults">Varsayılanlara Sıfırla</string>
+    <string name="copy_from">Şuradan Kopyala</string>
+    <string name="macro_protein_format">Protein: %1$s</string>
+    <string name="macro_carbs_format">Karbonhidrat: %1$s</string>
+    <string name="macro_fat_format">Yağ: %1$s</string>
+    <string name="nutrient_fiber_format">Lif: %1$sg</string>
+    <string name="nutrient_sugar_format">Şeker: %1$sg</string>
+    <string name="nutrient_sat_fat_format">Doymuş yağ: %1$sg</string>
+    <string name="nutrient_sodium_format">Sodyum: %1$smg</string>
+    <string name="nutrient_potassium_format">Potasyum: %1$smg</string>
+    <string name="nutrient_cholesterol_format">Kolesterol: %1$smg</string>
+    <string name="label_date">Tarih</string>
+    <string name="label_time">Saat</string>
+    <string name="share_meal">Öğünü Paylaş</string>
+    <string name="label_total">Toplam</string>
+    <string name="home_nutrient_cards">Ana Sayfa Besin Kartları</string>
+    <string name="home_nutrients">Ana Sayfa Besinleri</string>
+    <string name="measurement_history">Ölçüm Geçmişi</string>
+    <string name="body_measurements_title">Vücut Ölçümleri</string>
+    <string name="label_derived">Türetilmiş</string>
+    <string name="notif_goal_weight_title">Tebrikler! 🎉</string>
+    <string name="notif_goal_weight_text">Hedef kilonuza ulaştınız.</string>
+    <string name="cd_selected">Seçildi</string>
+    <string name="cd_add_food">Yiyecek ekle</string>
+    <string name="cd_share_meal">Öğünü paylaş</string>
+    <string name="cd_favorited">Favorilere eklendi</string>
+    <string name="cd_move_up">Yukarı taşı</string>
+    <string name="cd_move_down">Aşağı taşı</string>
+    <string name="cd_unfavorite">Favoriden çıkar</string>
+    <string name="cd_log">Kaydet</string>
+    <string name="cd_close">Kapat</string>
+    <string name="cd_clear_quantity">Miktarı temizle</string>
+    <string name="cd_hold_to_record">Kaydetmek için basılı tutun, kilitlemek için dokunun</string>
+    <string name="cd_cancel_recording">Kaydı iptal et</string>
+    <string name="cd_remove_image">Görseli kaldır</string>
+    <string name="cd_meal_photo">Fotoğraf %1$d</string>
+    <string name="cd_view_full_photo">Fotoğrafın tamamını gör</string>
+    <string name="cd_add_image">Görsel ekle</string>
+    <string name="cd_open_camera">Kamerayı aç</string>
+    <string name="cd_close_camera">Kamerayı kapat</string>
+    <string name="cd_save_photo">Fotoğrafı kaydet</string>
+    <string name="gallery_folder_name">Fud AI</string>
+    <string name="photo_saved_to_gallery">Fotoğraf kaydedildi</string>
+    <string name="photo_save_failed">Fotoğraf kaydedilemedi</string>
+    <string name="photo_save_permission_denied">Fotoğraf erişimi reddedildi</string>
+
+    <!-- Localization pass: previously hardcoded UI strings -->
+    <string name="unit_mcg">mcg</string>
+    <string name="home_food_log">Yiyecek Günlüğü</string>
+    <string name="home_menu_copy_from_day">Günden Kopyala</string>
+    <string name="home_menu_from_photos_note">Fotoğraflardan + Not</string>
+    <string name="copy_all">Tümünü Kopyala</string>
+    <string name="section_source">Kaynak</string>
+    <string name="copy_no_foods_on_day">Bu günde kaydedilmiş yiyecek yok</string>
+    <plurals name="copy_foods_to">
+        <item quantity="one">%1$d yiyeceği %2$s\'e kopyala</item>
+        <item quantity="other">%1$d yiyeceği %2$s\'e kopyala</item>
+    </plurals>
+    <string name="home_first_photo_saved">İlk fotoğraf kaydedildi</string>
+    <string name="home_take_second_shot">İkinci çekimi yapın</string>
+    <string name="edit_reprocess_section">Yapay Zeka ile Yeniden İşle</string>
+    <string name="edit_reprocess_hint">Bu kaydı geliştirmek için bir not ekleyin — örn. büyük kase, ekstra zeytinyağı — sonra Yeniden İşle\'ye dokunun</string>
+    <string name="edit_reprocess">Yeniden İşle</string>
+    <string name="edit_reprocessing">Yeniden işleniyor…</string>
+    <string name="edit_reprocessing_failed">Yeniden işleme başarısız oldu</string>
+    <string name="section_date_time">Tarih ve Saat</string>
+    <string name="section_share">Paylaş</string>
+    <string name="placeholder_hour">Saat</string>
+    <string name="placeholder_minute">Dakika</string>
+    <string name="nutrition_label_trans_fat">Trans Yağ</string>
+    <string name="nutrition_label_calcium">Kalsiyum</string>
+    <string name="nutrition_label_iron">Demir</string>
+    <string name="nutrition_label_magnesium">Magnezyum</string>
+    <string name="nutrition_label_zinc">Çinko</string>
+    <string name="nutrition_label_vitamin_a">A Vitamini</string>
+    <string name="nutrition_label_vitamin_c">C Vitamini</string>
+    <string name="nutrition_label_vitamin_d">D Vitamini</string>
+    <string name="nutrition_label_vitamin_b12">B12 Vitamini</string>
+    <string name="nutrition_label_vitamin_e">E Vitamini</string>
+    <string name="nutrition_label_vitamin_k">K Vitamini</string>
+    <string name="nutrition_label_folate">Folat</string>
+    <string name="nutrition_label_omega3">Omega-3</string>
+    <string name="nutrition_section_home_cards">Ana Sayfa Kartları</string>
+    <string name="home_nutrients_pick_four">Ana Sayfa özet satırı için bir ile dört arasında besin seçin.</string>
+    <string name="home_nutrients_pick_three_water">Bir ile üç arasında besin seçin. Su takibi etkinken bunlardan sonra gösterilir.</string>
+    <string name="home_nutrients_water_fixed">Su takibi etkinken su, seçili besinlerinizden sonra gösterilir.</string>
+    <string name="home_nutrients_water_fixed_short">Seçili besinlerden sonra gösterilir</string>
+    <string name="nutrition_section_water">Su</string>
+    <string name="error_analysis_failed">Analiz başarısız oldu</string>
+    <string name="error_barcode_lookup_failed">Barkod arama başarısız oldu</string>
+    <string name="error_ai_suggestion">Yapay zeka önerisi yüklenemedi.</string>
+    <string name="finish_onboarding_hint">Bu öğünü günlük hedeflerinizle karşılaştırmak için önce ilk kurulumu tamamlayın.</string>
+    <string name="export_from">Başlangıç</string>
+    <string name="export_to">Bitiş</string>
+    <string name="export_no_meals">Seçilen aralıkta kaydedilmiş öğün yok.</string>
+    <string name="export_failed">Dışa aktarma başarısız oldu.</string>
+    <string name="settings_tap_to_update">Güncellemek için dokunun</string>
+    <string name="settings_calc_methods">Hesaplama Yöntemleri</string>
+    <string name="settings_max_tokens">Maksimum yanıt token sayısı</string>
+    <string name="settings_request_timeout">İstek zaman aşımı</string>
+    <string name="settings_seconds_format">%1$d sn</string>
+    <string name="settings_notification_types">Bildirim türleri</string>
+    <string name="settings_notif_food_reminders">Yiyecek günlüğü hatırlatmaları</string>
+    <string name="settings_notif_daily_summary">Günlük özet</string>
+    <string name="settings_notif_weight_reminder">Kilo kaydı hatırlatması</string>
+    <string name="settings_notif_body_fat_reminder">Vücut yağı hatırlatması</string>
+    <string name="settings_notif_goal_alerts">Hedefe ulaşma uyarıları</string>
+    <string name="settings_notif_app_updates">Uygulama güncellemeleri</string>
+    <string name="settings_notif_none_selected">Hiçbir bildirim türü seçilmedi. Bildirimlere izin verip her uygulama hatırlatmasını kapalı bırakabilirsiniz.</string>
+    <string name="settings_calc_calorie_target">Hedef için kalori hedefi</string>
+    <string name="settings_calc_maintenance">Bakım ve hedef ayarlaması</string>
+    <string name="settings_calc_macro_split">Makro besin dağılımı</string>
+    <string name="settings_calc_micro_values">Mikro besin değerleri</string>
+    <string name="settings_not_medical_advice">Tıbbi tavsiye değildir</string>
+    <string name="settings_reset_autobalance">Otomatik Dengeye Sıfırla</string>
+    <string name="settings_pace_loss_format">%1$s/hafta kayıp</string>
+    <string name="settings_pace_gain_format">%1$s/hafta kazanç</string>
+    <string name="settings_macro_pin_hint">En fazla 2 makroyu tam grama sabitleyin. Sabitlenmemiş olanlar kalan kalorilerden otomatik dengelenir.</string>
+    <string name="settings_macro_pinned_label_format">%1$s (sabitlendi)</string>
+    <string name="settings_macro_auto_label_format">%1$s (otomatik)</string>
+    <string name="vm_health_connect_needed">Health Connect Gerekli</string>
+    <string name="vm_not_enough_energy">Yeterli Enerji Verisi Yok</string>
+    <string name="vm_adaptive_on_message">Uyarlanabilir Hedefler açık. Fud AI, yeterli yiyecek ve kilo verisi olduğunda haftada bir kez kontrol edecek.</string>
+    <string name="vm_goals_recalculated">Hedefler Yeniden Hesaplandı</string>
+    <plurals name="import_add_meals_title">
+        <item quantity="one">Paylaşılan öğünü ekle</item>
+        <item quantity="other">%1$d paylaşılan öğün ekle</item>
+    </plurals>
+    <string name="import_note">Gönderenin tam besin değerleriyle günlüğünüze ekler. Fotoğraf dahil değildir.</string>
+    <string name="import_add_to_log">Günlüğe Ekle</string>
+    <string name="import_add_to_log_many_format">%1$d\'i Günlüğe Ekle · %2$d kcal</string>
+    <string name="voice_release_to_cancel">İptal etmek için bırakın</string>
+    <string name="voice_slide_to_cancel">‹ iptal etmek için kaydırın</string>
+    <string name="camera_error_open">Kamera açılamadı</string>
+    <string name="camera_error_save">Fotoğraf kaydedilemedi</string>
+    <string name="camera_error_capture">Fotoğraf çekilemedi</string>
+    <string name="barcode_hint">Kamerayı barkoda doğrultun</string>
+    <string name="barcode_off_note">Paketli yiyecekler mevcut olduğunda Open Food Facts kullanır.</string>
+    <string name="measure_neck">Boyun</string>
+    <string name="measure_waist">Bel</string>
+    <string name="measure_hips">Kalça</string>
+    <string name="measure_chest">Göğüs</string>
+    <string name="measure_upper_arm">Üst Kol</string>
+    <string name="measure_thigh">Uyluk</string>
+    <string name="measure_calf">Baldır</string>
+    <string name="measure_wrist">Bilek</string>
+    <string name="derived_waist_to_hip">Bel-kalça oranı</string>
+    <string name="derived_waist_to_height">Bel-boy oranı</string>
+    <string name="derived_body_fat">Vücut yağı</string>
+    <string name="derived_frame">İskelet yapısı</string>
+    <string name="frame_small">Küçük</string>
+    <string name="frame_medium">Orta</string>
+    <string name="frame_large">Büyük</string>
+    <string name="notif_channel_weight_log">Kilo Kaydı Hatırlatması</string>
+    <string name="notif_channel_weight_log_desc">Tartılmak ve kilonuzu kaydetmek için günlük hatırlatma.</string>
+    <string name="notif_channel_body_fat">Vücut Yağı Kaydı Hatırlatması</string>
+    <string name="notif_channel_body_fat_desc">Vücut yağı okuması kaydetmek için günlük hatırlatma.</string>
+    <string name="notif_channel_updates">Uygulama Güncellemeleri</string>
+    <string name="notif_channel_updates_desc">Fud AI\'nın yeni bir sürümü Play Store\'da mevcut.</string>
+    <string name="notif_channel_water">Su Hatırlatması</string>
+    <string name="notif_channel_water_desc">Su içmek ve kaydetmek için günlük hatırlatma.</string>
+    <string name="notif_water_title">Su İçme Zamanı</string>
+    <string name="notif_water_text">Biraz su için ve Fud AI\'da kaydedin.</string>
+    <string name="notif_channel_fasting">Oruç</string>
+    <string name="notif_channel_fasting_desc">Aktif bir oruç hedefine ulaştığında uyarılar.</string>
+    <string name="notif_fasting_goal_title">Oruç Hedefine Ulaşıldı</string>
+    <string name="notif_fasting_goal_text">%1$s oruç hedefinize ulaştınız. Hazır olduğunuzda orucu bitirin.</string>
+    <string name="water">Su</string>
+    <string name="water_log_title">Su Kaydet</string>
+    <string name="water_how_much">Ne kadar su?</string>
+    <string name="water_one_glass_amount">1 bardak (~250 ml)</string>
+    <string name="water_two_glasses_amount">2 bardak (~500 ml)</string>
+    <string name="water_three_glasses_amount">3 bardak (~750 ml)</string>
+    <string name="water_one_glass_dynamic">1 bardak (~%1$s)</string>
+    <string name="water_two_glasses_dynamic">2 bardak (~%1$s)</string>
+    <string name="water_three_glasses_dynamic">3 bardak (~%1$s)</string>
+    <string name="water_custom_amount">Özel miktar</string>
+    <string name="nutrient_custom_amount">Özel miktar</string>
+    <string name="nutrient_use_preset_wheel">Önayarlı çarkı kullan</string>
+    <string name="nutrient_custom_invalid">0 ile 999.999 arasında tam sayı girin.</string>
+    <string name="nutrient_custom_upper_warning">Genel yetişkin üst alım seviyesinin üzerinde. Yalnızca bir sağlık uzmanı tarafından önerildiğinde kullanın.</string>
+    <string name="water_add">Su Ekle</string>
+    <string name="water_progress">%1$d / %2$d ml</string>
+    <string name="unit_ml">ml</string>
+    <string name="notif_update_title">Güncelleme mevcut</string>
+    <string name="notif_update_text">Fud AI\'nın yeni bir sürümü hazır. Güncellemek için dokunun.</string>
+    <string name="notif_channel_announcements">Duyurular</string>
+    <string name="notif_channel_announcements_desc">Fud AI\'dan Product Hunt lansmanı gibi zaman zaman gelen tek seferlik haberler.</string>
+    <string name="notif_product_hunt_title">Fud AI, Product Hunt\'ta yayında 🚀</string>
+    <string name="notif_product_hunt_text">Az önce yayınlandık! Oy vermek ve daha fazla kişinin Fud AI\'yı bulmasına yardım etmek için dokunun.</string>
+
+    <!-- One-time post-update prompts (existing users only) -->
+    <string name="post_update_meet_dev_title">Geliştiriciyle tanışın</string>
+    <string name="post_update_meet_dev_greeting">Merhaba, ben Apoorv 👋</string>
+    <string name="post_update_meet_dev_body">Fud AI\'yı kendi başıma, açık bir şekilde geliştiriyorum. Gelin merhaba deyin, geri bildirim paylaşın veya takip edin — gerçekten yardımcı oluyor.</string>
+    <string name="settings_calc_intro">Günlük kalori ve makro hedefleriniz yapay zeka tarafından belirlenir. Hedefleri Yeniden Hesapla\'ya dokunduğunuzda — veya Uyarlanabilir Hedefler açıksa haftada bir kez otomatik olarak — Fud AI profilinizi, aşağıdaki referans denklemleri, gizlilik dostu günlük beslenme toplamlarını, tarihli kilo, vücut yağı ve mezura ölçümlerini, toplam antrenman sayısı, süre, set ve tekrarları ve isteğe bağlı Health Connect enerjisini yapay zeka sağlayıcınıza gönderir. Yiyecek adları, notlar, fotoğraflar, malzemeler ve egzersiz adları bu hesaplama için gönderilmez. Bu hakemli formüllerden başlar, ardından gerçek bakım ve hedeflerinizi tahmin etmek için gerçek verilerinize göre ayarlar.</string>
+    <string name="settings_calc_sec_bmr">Dinlenme metabolizması (BMR)</string>
+    <string name="settings_calc_sec_tdee">Günlük enerji harcaması (TDEE)</string>
+    <string name="settings_calc_mifflin_name">Mifflin-St Jeor denklemi</string>
+    <string name="settings_calc_mifflin_used">Dinlenme metabolizması için varsayılan formül. Vücut yağı mevcut olmadığında kullanılır.</string>
+    <string name="settings_calc_mifflin_formula">Erkek: 10×kilo(kg) + 6,25×boy(cm) − 5×yaş + 5\nKadın: 10×kilo(kg) + 6,25×boy(cm) − 5×yaş − 161</string>
+    <string name="settings_calc_katch_name">Katch-McArdle denklemi</string>
+    <string name="settings_calc_katch_used">Vücut yağ oranınızı girdiğinizde kullanılır. BMR\'yi toplam kilo yerine yağsız vücut kütlesinden türetir.</string>
+    <string name="settings_calc_katch_formula">BMR = 370 + 21,6 × LBM(kg)\nLBM = kilo × (1 − vücutYağı%)</string>
+    <string name="settings_calc_tdee_name">Aktivite çarpanı yöntemi</string>
+    <string name="settings_calc_tdee_used">TDEE = BMR × aktivite çarpanı. Çarpan, seçtiğiniz aktivite seviyesine karşılık gelir. Bu, formül bakım referansıdır. Enerji Yakımı açıkken, hesaplama bunun yerine Health Connect\'in son ölçülen enerji penceresini kullanır: yeterli gün varsa ölçülen toplam enerji; aksi halde ortalama ölçülen aktif enerji + formül BMR.</string>
+    <string name="settings_calc_tdee_formula">Hareketsiz: 1,2 · Hafif: 1,375 · Orta: 1,465 · Aktif: 1,55 · Çok Aktif: 1,725 · Aşırı Aktif: 1,9</string>
+    <string name="settings_calc_target_name">Bakım ve hedef ayarlaması</string>
+    <string name="settings_calc_target_used">Bakım, TDEE\'nizden başlar — veya Enerji Yakımı açıkken, formül tahmini yerine Health Connect\'in son ölçülen enerji penceresinden: yeterli gün varsa ölçülen toplam enerji; aksi halde ortalama ölçülen aktif enerji + formül BMR. Yapay zeka bakımı kaydedilen alımınıza ve kilo trendinize göre iyileştirir, ardından hedefinizi uygular: haftalık kilo değişim oranı günlük bir kalori açığına (Kayıp) veya fazlasına (Kazanç) dönüşür.</string>
+    <string name="settings_calc_target_formula">1 lb vücut yağı ≈ 3.500 kcal · 1 kg ≈ 7.700 kcal\nHaftalık oranınız ÷ 7, bakımdan çıkarılır (Kayıp) veya eklenir (Kazanç) ve günlük kalori hedefini belirler.</string>
+    <string name="settings_calc_split_name">Protein, karbonhidrat, yağ hedefleri</string>
+    <string name="settings_calc_split_used">Yapay zeka, bu referansları rehber olarak kullanarak proteini, karbonhidratı ve yağı kalori hedefinize uydurur. Protein aktiviteye dayalı tam vücut ağırlığı oranlarını kullanır; yağ vücut ağırlığından belirlenir; karbonhidrat gerisini doldurur. Herhangi bir değeri kilitleyebilir veya Ayarlar\'da kendiniz düzenleyebilirsiniz.</string>
+    <string name="settings_calc_split_formula">Protein: aktivite seviyesine göre kg başına ~0,8-2,2 g (kilo verirken hafifçe artırılır)\nYağ: vücut ağırlığı başına ~0,6 g/kg\nKarbonhidrat: kalan kalori ÷ 4 kcal/g</string>
+    <string name="settings_calc_micro_name">Öğün başına tahminler</string>
+    <string name="settings_calc_micro_used">Öğün başına döndürülen kalori, makro, lif, şeker, doymuş yağ, kolesterol, kafein, sodyum, potasyum ve diğer ayrıntılı beslenme değerleri, seçtiğiniz yapay zeka sağlayıcısını kullanarak yiyecek fotoğrafı, ses transkripti veya metin açıklamasından yapay zeka tarafından üretilen tahminlerdir.</string>
+    <string name="settings_calc_mifflin_citation">Mifflin MD, St Jeor ST, ve ark. (1990). “Sağlıklı bireylerde dinlenme enerji harcaması için yeni bir tahmin denklemi.” Am J Clin Nutr 51(2):241–247.</string>
+    <string name="settings_calc_katch_citation">McArdle WD, Katch FI, Katch VL. Exercise Physiology: Nutrition, Energy, and Human Performance, 7. baskı. Lippincott Williams &amp; Wilkins, 2010.</string>
+    <string name="settings_calc_tdee_citation">FAO/WHO/UNU insan enerji ihtiyaçları ortak uzman danışması (2001)\'ndan standart PAL (Fiziksel Aktivite Seviyesi) katsayıları. ACSM ve USDA Beslenme Rehberleri tarafından da yaygın olarak kullanılır.</string>
+    <string name="settings_calc_target_citation">Hall KD, ve ark. (2011). “Enerji dengesizliğinin vücut ağırlığına etkisinin nicelendirilmesi.” Lancet 378(9793):826–837. Klasik 3.500 kcal/pound kuralı Wishnofsky M (1958), Am J Clin Nutr 6:542–546\'dan gelir.</string>
+    <string name="settings_calc_split_citation">Morton RW, ve ark. (2018). “Direnç antrenmanı kaynaklı kas kütlesi ve güç kazanımlarında protein takviyesinin etkisine dair sistematik derleme, meta-analiz ve meta-regresyon.” Br J Sports Med 52(6):376–384.</string>
+    <string name="settings_calc_micro_citation">Tahminler, temel yapay zeka modelinin eğitim verilerine (USDA FoodData Central, üretici tabloları, bilimsel literatür) dayanır. Doğruluk, yiyeceğe, porsiyon boyutu görünürlüğüne ve sağlayıcı modeline göre değişir. Sık kaydettiğiniz yiyecekler için her zaman etiketleri kontrol edin.</string>
+    <string name="settings_not_medical_title">Tıbbi tavsiye değildir</string>
+    <string name="settings_not_medical_body">Fud AI bir tahmin aracıdır, klinik bir cihaz değildir. Tahmin denklemleri doğal bir hataya sahiptir (BMR için genellikle ±%10). Önemli diyet değişikliklerinden önce — özellikle bir sağlık durumunuz varsa, hamile ya da emziriyorsanız, 18 yaşın altındaysanız veya bir yeme bozukluğunu yönetiyorsanız — kayıtlı bir diyetisyene, doktora veya spor hekimliği uzmanına danışın.</string>
+    <string name="settings_waist_cm_format">Bel %1$.0f cm</string>
+    <string name="settings_waist_in_format">Bel %1$.0f in</string>
+    <string name="export_range_today">Bugün</string>
+    <string name="export_range_week">Bu hafta</string>
+    <string name="export_range_month">Bu ay</string>
+    <string name="export_range_all">Tüm zamanlar</string>
+    <string name="export_range_custom">Özel</string>
+    <string name="vm_health_connect_needed_msg">Fud AI\'nın Health Connect\'teki Aktif ve Toplam Kalorilerinizi okumasına izin verin, sonra Enerji Yakımını tekrar açın.</string>
+    <string name="vm_not_enough_energy_msg">Fud AI, ölçülen yakımınızı kullanabilmek için en az 3 günlük yakın Health Connect enerji verisine ihtiyaç duyar.</string>
+    <string name="nutrient_short_sat_fat">Doymuş Yağ</string>
+    <string name="nutrient_short_vit_a">A Vit</string>
+    <string name="nutrient_short_vit_c">C Vit</string>
+    <string name="nutrient_short_vit_d">D Vit</string>
+    <string name="nutrient_short_b12">B12</string>
+    <string name="nutrient_short_vit_e">E Vit</string>
+    <string name="nutrient_short_vit_k">K Vit</string>
+    <string name="nutrient_short_omega">Omega</string>
+    <string name="sort_standard">Kahvaltı → Öğle → Akşam</string>
+    <string name="sort_latest_first">Önce Son Öğünler</string>
+    <string name="copy_meal_format">%1$s Kopyala</string>
+    <string name="ingredients_title">Malzemeler</string>
+    <string name="ingredients_empty">Henüz malzeme dökümü yok</string>
+    <string name="ingredients_add">Malzeme Ekle</string>
+    <string name="ingredients_edit">Malzemeyi Düzenle</string>
+    <string name="ingredients_remove">Kaldır</string>
+    <string name="ingredients_weight">Ağırlık</string>
+    <string name="ingredients_footer">Malzeme değişiklikleri, öğünün kalori ve makro toplamlarını otomatik olarak günceller.</string>
+    <string name="combine_action">Birleştir</string>
+    <string name="combine_into_meal">Öğün Olarak Birleştir</string>
+    <string name="combine_selected_count">%1$d seçildi</string>
+    <string name="ingredients_add_menu_title">Malzeme Ekle</string>
+    <string name="progressive_meal_title">Aşamalı Öğün</string>
+    <string name="progressive_meal_description">1 → 2 → 3 numaralı fotoğraflar aynı tabağa eklenen her malzemeyi takip eder. Görünür ölçek farkları malzeme ağırlıklarına dönüşür.</string>
+    <string name="progressive_meal_info_title">Aşamalı Öğün nasıl çalışır</string>
+    <string name="progressive_meal_info_body">Her fotoğraf başka bir malzeme eklendikten sonra aynı tabağı gösteriyorsa bunu kullanın. Fotoğrafları sırayla tutun ve tartı ekranını görünür yapın. Fud AI, her yeni malzemeyi tahmin etmek için ardışık tartı toplamları arasındaki farkı kullanır. Fotoğraflar sadece aynı öğünün farklı açıları ise bunu kapalı bırakın.</string>
+    <string name="settings_add_menu_title">+ Menüsü</string>
+    <string name="settings_add_menu_food_section">Yiyecek Ekleme Menüsü</string>
+    <string name="settings_add_menu_groups">Gruplar</string>
+    <string name="settings_add_menu_flat">Düz Menü</string>
+    <string name="settings_add_menu_hidden">Gizli Yöntemler</string>
+    <string name="settings_add_menu_reset">Varsayılana Sıfırla</string>
+    <string name="settings_add_menu_footer">Ana Sayfa + düğmesi yiyecek menüsünü özelleştirin. Su ve oruç etkinleştirildiğinde ayrı kalır. Bu, uygulama simgesi Hızlı İşlemlerini değiştirmez.</string>
+    <string name="settings_add_menu_add_method">Yöntem Ekle</string>
+    <string name="settings_add_menu_group_name">Grup Adı</string>
+    <string name="settings_add_menu_new_group">Yeni Grup</string>
+    <string name="settings_quick_actions">Hızlı İşlemler</string>
+    <string name="settings_app_icon_shortcuts">Uygulama Simgesi Kısayolları</string>
+    <string name="settings_quick_action_number">Hızlı İşlem %1$d</string>
+    <string name="settings_quick_actions_footer">Bu kısayolları kullanmak için Fud AI uygulama simgesini basılı tutun. Her yuva doğrudan seçilen işlemi açar.</string>
+    <string name="about_whisper_notices">Whisper Base üçüncü taraf bildirimleri</string>
+    <string name="about_whisper_notices_load_error">Whisper Base üçüncü taraf bildirimleri yüklenemedi.</string>
+    <string name="import_water_entries">Su kayıtları</string>
+    <string name="import_diary_success">%1$d günlük kaydı içe aktarıldı.</string>
+    <string name="import_replace_with_water_explanation">Değiştir, dışa aktarılan tarih aralığındaki yiyecek günlüklerini kaldırır ve bu dosyadan geri yükler. Dosya su verisi içeriyorsa o aralıktaki su kayıtları da değiştirilir. Yalnızca yiyecek içeren eski dosyalar su kayıtlarını değiştirmeden bırakır. Eşleşen yiyecek kayıtları fotoğraflarını korur. Ekle, mevcut günlüğü korur ve kopyaları yeni kayıtlar olarak oluşturur.</string>
+    <string name="export_empty_diary">Seçilen aralıkta yiyecek veya su kaydı yok.</string>
+    <string name="workout_rpe_label">Efor (RPE)</string>
+    <string name="workout_rpe_help_strength">İsteğe bağlı — bu set ne kadar zor hissettirdi. Güç ölçeği: 1 = çok kolay; 10 = maksimum efor. Ondalık değerlere izin verilir. Emin değilseniz boş bırakın.</string>
+    <string name="workout_rpe_help_cr10">İsteğe bağlı — bu set ne kadar zor hissettirdi. CR10 ölçeği: 0 = efor yok; 10 = maksimum efor. Ondalık değerlere izin verilir. Emin değilseniz boş bırakın.</string>
+    <string name="workout_rpe_help_borg">İsteğe bağlı — bu set ne kadar zor hissettirdi. Borg ölçeği: 6 = efor yok; 20 = maksimum efor. Tam sayı kullanın. Emin değilseniz boş bırakın.</string>
+</resources>

@@ -533,7 +533,7 @@ struct MacroCard: View {
                 .font(.system(.caption, design: .rounded, weight: .medium))
                 .foregroundStyle(.secondary)
 
-            Text("\(formatted(max(goal - current, 0)))\(unit) left")
+            Text(String(format: LocalizedDisplayText.text("%@ left"), "\(formatted(max(goal - current, 0)))\(unit)"))
                 .font(.system(.caption2, design: .rounded))
                 .foregroundStyle(.tertiary)
         }
@@ -610,7 +610,7 @@ struct CalorieGauge: View {
 
             // Readout, lifted up into the dome so nothing is cropped at the bottom.
             VStack(spacing: 2) {
-                Text("Calories")
+                Text(LocalizedDisplayText.text("Calories"))
                     .font(.system(.caption, design: .rounded, weight: .semibold))
                     .textCase(.uppercase)
                     .tracking(0.5)

@@ -913,7 +913,7 @@ struct WeightHistoryLink: View {
                     Text("Weight History")
                         .font(.system(.body, design: .rounded, weight: .medium))
                         .foregroundStyle(.primary)
-                    Text("\(totalCount) \(totalCount == 1 ? "entry" : "entries") · tap to view or delete")
+                    Text(ProgressHistoryCountText.localized(totalCount))
                         .font(.system(.caption, design: .rounded))
                         .foregroundStyle(.secondary)
                 }
@@ -1027,7 +1027,7 @@ struct BodyFatHistoryLink: View {
                     Text("Body Fat History")
                         .font(.system(.body, design: .rounded, weight: .medium))
                         .foregroundStyle(.primary)
-                    Text("\(totalCount) \(totalCount == 1 ? "entry" : "entries") · tap to view or delete")
+                    Text(ProgressHistoryCountText.localized(totalCount))
                         .font(.system(.caption, design: .rounded))
                         .foregroundStyle(.secondary)
                 }

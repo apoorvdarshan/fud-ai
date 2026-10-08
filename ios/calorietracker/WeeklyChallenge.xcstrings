@@ -104,6 +104,12 @@
             "state": "translated",
             "value": "第 %1$@ 名"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "#%1$@"
+          }
         }
       }
     },
@@ -206,6 +212,12 @@
           }
         },
         "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ / 300"
+          }
+        },
+        "tr": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ / 300"
@@ -316,6 +328,12 @@
             "state": "translated",
             "value": "%1$@/28 分"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ / 28 puan"
+          }
         }
       }
     },
@@ -421,6 +439,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$@/7 天"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ / 7 gün"
           }
         }
       }
@@ -528,6 +552,12 @@
             "state": "translated",
             "value": "%1$@/7 天\n%2$@ 千卡"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ / 7 gün\n%2$@ kcal"
+          }
         }
       }
     },
@@ -634,6 +664,12 @@
             "state": "translated",
             "value": "%1$@至%2$@"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ – %2$@"
+          }
         }
       }
     },
@@ -736,6 +772,12 @@
           }
         },
         "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "@%1$@ · %2$@"
+          }
+        },
+        "tr": {
           "stringUnit": {
             "state": "translated",
             "value": "@%1$@ · %2$@"
@@ -846,6 +888,12 @@
             "state": "translated",
             "value": "的更多操作"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Şunun için işlemler:"
+          }
         }
       }
     },
@@ -951,6 +999,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "活动"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktivite"
           }
         }
       }
@@ -1058,6 +1112,12 @@
             "state": "translated",
             "value": "活动：记录了正数锻炼消耗的日期。营养：每日卡路里在目标的 85–115% 以内。坚持：当天记录了任何食物。饮水：启用跟踪时达到饮水目标。综合：四项天数之和，最高 28 分。"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktivite: pozitif kaydedilmiş bir antrenman yakımı olan bir gün. Beslenme: hedefinizin %85-115'i arasında günlük kalori. Tutarlılık: o gün kaydedilen herhangi bir yiyecek. Su: takip etkinken karşılanan su hedefi. Genel: dört günlük sayının toplamı, en fazla 28."
+          }
         }
       }
     },
@@ -1163,6 +1223,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "屏蔽"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Engelle"
           }
         }
       }
@@ -1270,6 +1336,12 @@
             "state": "translated",
             "value": "已屏蔽的参与者"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Engellenen Katılımcılar"
+          }
         }
       }
     },
@@ -1375,6 +1447,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Fud AI 在您的设备上完成所有计算。仅上传周开始日期、总分、达到要求的活动、营养、坚持和饮水天数，以及活动总卡路里。绝不会上传食物名称、餐食、体重、锻炼详情或 Apple Health 记录。"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yerel olarak hesaplanır. Ham yiyecek, su, antrenman, Sağlık, vücut ağırlığı veya kilo kaybı verisi yüklenmez."
           }
         }
       }
@@ -1482,6 +1560,12 @@
             "state": "translated",
             "value": "取消"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İptal"
+          }
         }
       }
     },
@@ -1587,6 +1671,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "连接后将删除"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yarışma Silme Bekliyor"
           }
         }
       }
@@ -1694,6 +1784,12 @@
             "state": "translated",
             "value": "每周挑战"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yarışma kategorisi"
+          }
         }
       }
     },
@@ -1799,6 +1895,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "此设备上已隐藏您的挑战个人资料。联网后，Fud AI 将再次尝试删除远程个人资料和每周得分。"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yarışma silme işlemi beklemede ve Fud AI çevrimiçi olduğunda otomatik olarak yeniden denenecek."
           }
         }
       }
@@ -1906,6 +2008,12 @@
             "state": "translated",
             "value": "请选择一个符合社区规则的其他显示名称。"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Topluluk Kurallarına uyan farklı bir görünen ad seçin."
+          }
         }
       }
     },
@@ -2011,6 +2119,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "坚持"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tutarlılık"
           }
         }
       }
@@ -2118,6 +2232,12 @@
             "state": "translated",
             "value": "显示名称"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Görünen ad"
+          }
         }
       }
     },
@@ -2223,6 +2343,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "完成"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bitti"
           }
         }
       }
@@ -2330,6 +2456,12 @@
             "state": "translated",
             "value": "编辑个人资料"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Genel Profili Düzenle"
+          }
         }
       }
     },
@@ -2435,6 +2567,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "每周挑战"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uygunluk ve Topluluk"
           }
         }
       }
@@ -2542,6 +2680,12 @@
             "state": "translated",
             "value": "仅输入用户名，不要包含 @ 或链接。"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yalnızca bir kullanıcı adı girin — @, boşluk veya profil URL'si olmadan."
+          }
         }
       }
     },
@@ -2647,6 +2791,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "仅输入用户名，不要包含 @ 或链接。"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "URL değil, bir kullanıcı adı girin."
           }
         }
       }
@@ -2754,6 +2904,12 @@
             "state": "translated",
             "value": "仅输入用户名，不要包含 @ 或链接。"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seçilen sosyal medya kullanıcı adını girin veya Sosyal bağlantı yok seçin."
+          }
         }
       }
     },
@@ -2859,6 +3015,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "错误"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hata"
           }
         }
       }
@@ -2966,6 +3128,12 @@
             "state": "translated",
             "value": "错误： %1$@"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hata: %1$@"
+          }
         }
       }
     },
@@ -3071,6 +3239,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "本周"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tam haftalık toplu veri"
           }
         }
       }
@@ -3178,6 +3352,12 @@
             "state": "translated",
             "value": "Fud AI 在您的设备上完成所有计算。仅上传周开始日期、总分、达到要求的活动、营养、坚持和饮水天数，以及活动总卡路里。绝不会上传食物名称、餐食、体重、锻炼详情或 Apple Health 记录。"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI bu toplamları bu cihazda hesaplar. Yiyecek adlarını, öğünleri, zaman damgalarını, su kayıtlarını, antrenman detaylarını, Sağlık kayıtlarını, vücut ağırlığını veya kilo kaybını asla yüklemez."
+          }
         }
       }
     },
@@ -3283,6 +3463,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "无法更新每周挑战，请稍后重试。"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI yarışmaya katılamadı. Tekrar deneyin."
           }
         }
       }
@@ -3390,6 +3576,12 @@
             "state": "translated",
             "value": "我确认已年满 18 岁。Fud AI 不会访问或上传我的出生日期。"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI bu onay için doğum tarihinizi okumaz veya yüklemez."
+          }
         }
       }
     },
@@ -3495,6 +3687,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "此设备上已隐藏您的挑战个人资料。联网后，Fud AI 将再次尝试删除远程个人资料和每周得分。"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI yalnızca güvenli silme kimlik bilgisini tuttu ve çevrimiçi olduğunuzda uzak yarışma verilerinizi kaldırmayı yeniden deneyecek."
           }
         }
       }
@@ -3602,6 +3800,12 @@
             "state": "translated",
             "value": "用户名"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "@ olmadan kullanıcı adı"
+          }
         }
       }
     },
@@ -3707,6 +3911,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "积分计算方式"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Puanlar nasıl işler"
           }
         }
       }
@@ -3814,6 +4024,12 @@
             "state": "translated",
             "value": "饮水"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Su"
+          }
         }
       }
     },
@@ -3919,6 +4135,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "我接受社区规则，并会使用尊重他人且不冒充他人的个人资料。"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Topluluk Kurallarını kabul ediyorum"
           }
         }
       }
@@ -4026,6 +4248,12 @@
             "state": "translated",
             "value": "我确认已年满 18 岁。Fud AI 不会访问或上传我的出生日期。"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "18 yaşında veya daha büyüğüm"
+          }
         }
       }
     },
@@ -4131,6 +4359,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "冒充他人"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taklit"
           }
         }
       }
@@ -4238,6 +4472,12 @@
             "state": "translated",
             "value": "名称不当"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uygunsuz ad"
+          }
         }
       }
     },
@@ -4343,6 +4583,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "加入挑战"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Katıl"
           }
         }
       }
@@ -4450,6 +4696,12 @@
             "state": "translated",
             "value": "加入每周挑战"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Haftalık Yarışmaya Katıl"
+          }
         }
       }
     },
@@ -4555,6 +4807,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "可自愿加入，比较每周活动、营养、坚持和饮水目标。即使不加入，也可以继续使用私密的进度页面。"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vücut ağırlığına değil, sağlıklı haftalık alışkanlıklara dayalı isteğe bağlı, gizlilik odaklı bir sıralamaya katılın. 18 yaşında veya daha büyük olmalısınız."
           }
         }
       }
@@ -4662,6 +4920,12 @@
             "state": "translated",
             "value": "上次更新："
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Son güncelleme"
+          }
         }
       }
     },
@@ -4767,6 +5031,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "上次更新：%1$@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Son güncelleme %1$@"
           }
         }
       }
@@ -4874,6 +5144,12 @@
             "state": "translated",
             "value": "参与者只能看到您的显示名称，以及可选的一个 X 或 Instagram 用户名。体重和减重情况绝不会用于排名。"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sıralama sonuçları yalnızca katılan kişilere görünür. İstediğiniz zaman ayrılabilir ve uzak yarışma verilerinizi silebilirsiniz."
+          }
         }
       }
     },
@@ -4979,6 +5255,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "退出并删除"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ayrıl ve Uzak Verileri Sil"
           }
         }
       }
@@ -5086,6 +5368,12 @@
             "state": "translated",
             "value": "退出"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yarışmadan Ayrıl"
+          }
         }
       }
     },
@@ -5191,6 +5479,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "退出挑战？"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Haftalık Yarışmadan ayrılınsın mı?"
           }
         }
       }
@@ -5298,6 +5592,12 @@
             "state": "translated",
             "value": "排名"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sıralama yükleniyor"
+          }
         }
       }
     },
@@ -5403,6 +5703,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "管理已屏蔽用户"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Engellenen Katılımcıları Yönet"
           }
         }
       }
@@ -5510,6 +5816,12 @@
             "state": "translated",
             "value": "%1$@ 的更多操作"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ için daha fazla işlem"
+          }
         }
       }
     },
@@ -5616,6 +5928,12 @@
             "state": "translated",
             "value": "我的排名"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Konumum"
+          }
         }
       }
     },
@@ -5721,6 +6039,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "我的进度"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İlerlemem"
           }
         }
       }
@@ -5934,6 +6258,12 @@
             "state": "translated",
             "value": "您尚未屏蔽任何人。"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Engellenen Katılımcı Yok"
+          }
         }
       }
     },
@@ -6039,6 +6369,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "目前还没有其他上榜参与者。下拉即可刷新。"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Henüz sıralama sonucu yok."
           }
         }
       }
@@ -6146,6 +6482,12 @@
             "state": "translated",
             "value": "目前还没有其他上榜参与者。下拉即可刷新。"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Henüz sıralanmış başka katılımcı yok."
+          }
         }
       }
     },
@@ -6251,6 +6593,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "无"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sosyal bağlantı yok"
           }
         }
       }
@@ -6358,6 +6706,12 @@
             "state": "translated",
             "value": "营养"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beslenme"
+          }
         }
       }
     },
@@ -6463,6 +6817,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "好"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tamam"
           }
         }
       }
@@ -6570,6 +6930,12 @@
             "state": "translated",
             "value": "离线 · 正在显示上次保存的排名"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Çevrimdışı — kaydedilen sonuçlar gösteriliyor"
+          }
         }
       }
     },
@@ -6675,6 +7041,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "离线 · 正在显示上次保存的排名 · 上次更新：%1$@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Çevrimdışı — kaydedilen sonuçlar gösteriliyor · Son güncelleme %1$@"
           }
         }
       }
@@ -6782,6 +7154,12 @@
             "state": "translated",
             "value": "本周"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yalnızca haftalık toplamlar cihazınızdan çıkar"
+          }
         }
       }
     },
@@ -6887,6 +7265,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "在 %2$@ 上打开 @%1$@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%2$@'de @%1$@'i aç"
           }
         }
       }
@@ -6994,6 +7378,12 @@
             "state": "translated",
             "value": "加入挑战"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İsteğe bağlı genel profil ve onay formunu açar."
+          }
         }
       }
     },
@@ -7099,6 +7489,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "可选详情"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İsteğe bağlı ayrıntılar"
           }
         }
       }
@@ -7206,6 +7602,12 @@
             "state": "translated",
             "value": "可选详情"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İsteğe bağlı şikayet ayrıntıları"
+          }
         }
       }
     },
@@ -7311,6 +7713,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "其他"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diğer"
           }
         }
       }
@@ -7418,6 +7826,12 @@
             "state": "translated",
             "value": "综合"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Genel"
+          }
         }
       }
     },
@@ -7523,6 +7937,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "我的排名"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Katılımcı"
           }
         }
       }
@@ -7736,6 +8156,12 @@
             "state": "translated",
             "value": "我的进度"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İlerleme görünümü"
+          }
         }
       }
     },
@@ -7841,6 +8267,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "编辑个人资料"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Genel Profil"
           }
         }
       }
@@ -8054,6 +8486,12 @@
             "state": "translated",
             "value": "我接受社区规则，并会使用尊重他人且不冒充他人的个人资料。"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Topluluk Kurallarını Oku"
+          }
         }
       }
     },
@@ -8159,6 +8597,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "可选详情"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neden"
           }
         }
       }
@@ -8266,6 +8710,12 @@
             "state": "translated",
             "value": "此设备上已隐藏您的挑战个人资料。联网后，Fud AI 将再次尝试删除远程个人资料和每周得分。"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uzak yarışma verileri silinmedi. Bağlantınızı kontrol edip tekrar deneyin."
+          }
         }
       }
     },
@@ -8371,6 +8821,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "举报"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Şikayet Et"
           }
         }
       }
@@ -8478,6 +8934,12 @@
             "state": "translated",
             "value": "举报"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Katılımcıyı Şikayet Et"
+          }
         }
       }
     },
@@ -8583,6 +9045,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "举报已发送"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Şikayet Gönderildi"
           }
         }
       }
@@ -8690,6 +9158,12 @@
             "state": "translated",
             "value": "举报"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Şikayet nedeni"
+          }
         }
       }
     },
@@ -8795,6 +9269,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "举报仅包含参与者 ID、所选原因和可选详情，绝不包含您的健康数据。"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Şikayetler yalnızca katılımcı kimliğini, seçilen nedeni ve yazdığınız isteğe bağlı ayrıntıları içerir. Sağlık veya yiyecek verisi dahil edilmez."
           }
         }
       }
@@ -8902,6 +9382,12 @@
             "state": "translated",
             "value": "连接后将删除"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Silmeyi Tekrar Dene"
+          }
         }
       }
     },
@@ -9007,6 +9493,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "保存"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaydet"
           }
         }
       }
@@ -9114,6 +9606,12 @@
             "state": "translated",
             "value": "编辑个人资料"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Genel profil kaydediliyor"
+          }
         }
       }
     },
@@ -9219,6 +9717,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "发送举报"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Şikayeti Gönder"
           }
         }
       }
@@ -9326,6 +9830,12 @@
             "state": "translated",
             "value": "本周"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Paylaşılan Haftalık Toplamlar"
+          }
         }
       }
     },
@@ -9431,6 +9941,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "可选社交媒体用户名（选择一个）"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sosyal bağlantı"
           }
         }
       }
@@ -9538,6 +10054,12 @@
             "state": "translated",
             "value": "垃圾信息"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spam"
+          }
         }
       }
     },
@@ -9643,6 +10165,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "举报已发送"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Teşekkürler. Şikayet inceleme için gönderildi."
           }
         }
       }
@@ -9856,6 +10384,12 @@
             "state": "translated",
             "value": "无法更新每周挑战，请稍后重试。"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sıralama güncellenemedi. Tekrar denemek için aşağı çekin."
+          }
         }
       }
     },
@@ -9961,6 +10495,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "无法更新每周挑战，请稍后重试。"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Şikayet gönderilemedi. Tekrar deneyin."
           }
         }
       }
@@ -10068,6 +10608,12 @@
             "state": "translated",
             "value": "取消屏蔽"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Engeli Kaldır"
+          }
         }
       }
     },
@@ -10173,6 +10719,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "未排名"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bilinmeyen katılımcı"
           }
         }
       }
@@ -10280,6 +10832,12 @@
             "state": "translated",
             "value": "危险内容"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Güvensiz içerik"
+          }
         }
       }
     },
@@ -10385,6 +10943,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "排名"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sıralama güncelleniyor"
           }
         }
       }
@@ -10492,6 +11056,12 @@
             "state": "translated",
             "value": "2–40 个字符：字母、数字、空格、句点、下划线、撇号或连字符"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "2 ile 40 arası harf veya rakam kullanın."
+          }
         }
       }
     },
@@ -10597,6 +11167,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "2–40 个字符：字母、数字、空格、句点、下划线、撇号或连字符"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "2-40 harf veya rakam kullanın. Boşluklar, noktalar, alt çizgiler, kesme işaretleri ve tireler kullanılabilir."
           }
         }
       }
@@ -10704,6 +11280,12 @@
             "state": "translated",
             "value": "尚未更新"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İlk güncelleme bekleniyor"
+          }
         }
       }
     },
@@ -10809,6 +11391,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "每周挑战"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Haftalık Yarışma"
           }
         }
       }
@@ -11022,6 +11610,12 @@
             "state": "translated",
             "value": "参与者只能看到您的显示名称，以及可选的一个 X 或 Instagram 用户名。体重和减重情况绝不会用于排名。"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Görünen adınız ve isteğe bağlı tek bir sosyal medya kullanıcı adınız katılan katılımcılara görünür."
+          }
         }
       }
     },
@@ -11127,6 +11721,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "您似乎处于离线状态，仍可查看已保存的排名。"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Son haftalık toplamlarınız bu cihazda kaydedildi ve otomatik olarak yeniden denenecek."
           }
         }
       }
@@ -11234,6 +11834,12 @@
             "state": "translated",
             "value": "无法更新每周挑战，请稍后重试。"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Genel yarışma profiliniz güncellenemedi."
+          }
         }
       }
     },
@@ -11339,6 +11945,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "这将删除您的远程挑战个人资料和所有每周得分。您的私密食物、体重、锻炼和 Apple Health 数据仍保留在设备上。"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Genel profiliniz, haftalık puanlarınız ve yarışma raporlarınız Fud AI'dan silinecek. Özel yiyecek, su ve antrenman geçmişiniz bu cihazda kalır."
           }
         }
       }
@@ -11446,6 +12058,12 @@
             "state": "translated",
             "value": "天"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "gün"
+          }
         }
       }
     },
@@ -11548,6 +12166,12 @@
           }
         },
         "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "kcal"
+          }
+        },
+        "tr": {
           "stringUnit": {
             "state": "translated",
             "value": "kcal"
@@ -11658,6 +12282,12 @@
             "state": "translated",
             "value": "分"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "puan"
+          }
         }
       }
     },
@@ -11763,6 +12393,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "在 上打开 @"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "profili:"
           }
         }
       }

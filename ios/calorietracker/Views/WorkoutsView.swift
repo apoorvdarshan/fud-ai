@@ -581,8 +581,8 @@ private struct ExerciseLibraryBrowserView: View {
     }
 
     private func selectionTitle(_ selection: Set<String>) -> String {
-        if selection.isEmpty { return "All" }
-        if selection.count == 1 { return selection.first ?? "All" }
+        if selection.isEmpty { return String(localized: "All") }
+        if selection.count == 1 { return selection.first ?? String(localized: "All") }
         return String(localized: "\(selection.count) selected")
     }
 

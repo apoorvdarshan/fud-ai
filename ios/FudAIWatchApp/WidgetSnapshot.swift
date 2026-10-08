@@ -126,10 +126,10 @@ struct WidgetSnapshot: Codable, Equatable {
             carbs: 132, carbsGoal: 220,
             fat: 42, fatGoal: 70,
             homeNutrients: [
-                WidgetNutrientValue(id: "protein", label: "Protein", shortLabel: "P", unit: "g", iconName: "fork.knife", value: 84, goal: 150),
-                WidgetNutrientValue(id: "carbs", label: "Carbs", shortLabel: "C", unit: "g", iconName: "leaf", value: 132, goal: 220),
-                WidgetNutrientValue(id: "fat", label: "Fat", shortLabel: "F", unit: "g", iconName: "drop.fill", value: 42, goal: 70),
-                WidgetNutrientValue(id: "fiber", label: "Fiber", shortLabel: "Fi", unit: "g", iconName: "leaf.fill", value: 18, goal: 30),
+                WidgetNutrientValue(id: "protein", label: String(localized: "Protein"), shortLabel: "P", unit: "g", iconName: "fork.knife", value: 84, goal: 150),
+                WidgetNutrientValue(id: "carbs", label: String(localized: "Carbs"), shortLabel: "C", unit: "g", iconName: "leaf", value: 132, goal: 220),
+                WidgetNutrientValue(id: "fat", label: String(localized: "Fat"), shortLabel: "F", unit: "g", iconName: "drop.fill", value: 42, goal: 70),
+                WidgetNutrientValue(id: "fiber", label: String(localized: "Fiber"), shortLabel: "Fi", unit: "g", iconName: "leaf.fill", value: 18, goal: 30),
             ],
             waterTrackingEnabled: true,
             waterCurrentMl: 1_250,
@@ -148,10 +148,10 @@ struct WidgetSnapshot: Codable, Equatable {
             carbs: 0, carbsGoal: 220,
             fat: 0, fatGoal: 70,
             homeNutrients: [
-                WidgetNutrientValue(id: "protein", label: "Protein", shortLabel: "P", unit: "g", iconName: "fork.knife", value: 0, goal: 150),
-                WidgetNutrientValue(id: "carbs", label: "Carbs", shortLabel: "C", unit: "g", iconName: "leaf", value: 0, goal: 220),
-                WidgetNutrientValue(id: "fat", label: "Fat", shortLabel: "F", unit: "g", iconName: "drop.fill", value: 0, goal: 70),
-                WidgetNutrientValue(id: "fiber", label: "Fiber", shortLabel: "Fi", unit: "g", iconName: "leaf.fill", value: 0, goal: 30),
+                WidgetNutrientValue(id: "protein", label: String(localized: "Protein"), shortLabel: "P", unit: "g", iconName: "fork.knife", value: 0, goal: 150),
+                WidgetNutrientValue(id: "carbs", label: String(localized: "Carbs"), shortLabel: "C", unit: "g", iconName: "leaf", value: 0, goal: 220),
+                WidgetNutrientValue(id: "fat", label: String(localized: "Fat"), shortLabel: "F", unit: "g", iconName: "drop.fill", value: 0, goal: 70),
+                WidgetNutrientValue(id: "fiber", label: String(localized: "Fiber"), shortLabel: "Fi", unit: "g", iconName: "leaf.fill", value: 0, goal: 30),
             ]
         )
     }
@@ -171,10 +171,10 @@ struct WidgetSnapshot: Codable, Equatable {
 
     private var defaultHomeNutrients: [WidgetNutrientValue] {
         [
-            WidgetNutrientValue(id: "protein", label: "Protein", shortLabel: "P", unit: "g", iconName: "fork.knife", value: protein, goal: Double(proteinGoal)),
-            WidgetNutrientValue(id: "carbs", label: "Carbs", shortLabel: "C", unit: "g", iconName: "leaf", value: carbs, goal: Double(carbsGoal)),
-            WidgetNutrientValue(id: "fat", label: "Fat", shortLabel: "F", unit: "g", iconName: "drop.fill", value: fat, goal: Double(fatGoal)),
-            WidgetNutrientValue(id: "fiber", label: "Fiber", shortLabel: "Fi", unit: "g", iconName: "leaf.fill", value: 0, goal: 30),
+            WidgetNutrientValue(id: "protein", label: String(localized: "Protein"), shortLabel: "P", unit: "g", iconName: "fork.knife", value: protein, goal: Double(proteinGoal)),
+            WidgetNutrientValue(id: "carbs", label: String(localized: "Carbs"), shortLabel: "C", unit: "g", iconName: "leaf", value: carbs, goal: Double(carbsGoal)),
+            WidgetNutrientValue(id: "fat", label: String(localized: "Fat"), shortLabel: "F", unit: "g", iconName: "drop.fill", value: fat, goal: Double(fatGoal)),
+            WidgetNutrientValue(id: "fiber", label: String(localized: "Fiber"), shortLabel: "Fi", unit: "g", iconName: "leaf.fill", value: 0, goal: 30),
         ]
     }
 
@@ -183,7 +183,7 @@ struct WidgetSnapshot: Codable, Equatable {
         let divisor = usesFluidOunces ? 29.5735295625 : 1
         return WidgetNutrientValue(
             id: "water",
-            label: "Water",
+            label: String(localized: "Water"),
             shortLabel: "W",
             unit: usesFluidOunces ? " fl oz" : "ml",
             iconName: "drop.fill",

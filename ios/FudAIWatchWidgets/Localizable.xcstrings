@@ -1,0 +1,54 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Calories" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Calories" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Kalori" } }
+      }
+    },
+    "Fud AI Calories" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Fud AI Calories" } }
+      }
+    },
+    "Fud AI Macros" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Fud AI Macros" } }
+      }
+    },
+    "Fud AI Protein" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Fud AI Protein" } }
+      }
+    },
+    "Macros" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Macros" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Makrolar" } }
+      }
+    },
+    "Protein" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Protein" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Protein" } }
+      }
+    },
+    "Protein, carbs, and fat on your watch face." : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Protein, carbs, and fat on your watch face." } }
+      }
+    },
+    "Today's calories on your watch face." : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Today's calories on your watch face." } }
+      }
+    },
+    "Today's protein on your watch face." : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Today's protein on your watch face." } }
+      }
+    }
+  },
+  "version" : "1.1"
+}

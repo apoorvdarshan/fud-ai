@@ -374,6 +374,10 @@
     <string name="home_menu_saved_meals">Saved Meals</string>
     <string name="home_kcal_of_format">of %1$s kcal</string>
     <string name="home_kcal_left_format">%1$s left</string>
+    <string name="home_macro_left_format">%1$s left</string>
+    <string name="home_macro_over_format">%1$s over</string>
+    <string name="home_macro_no_goal">No goal</string>
+    <string name="home_macro_goal_reached">Goal reached</string>
     <string name="home_view_more">View More</string>
     <string name="home_burn_deficit">%1$s burned · %2$s deficit</string>
     <string name="home_burn_surplus">%1$s burned · %2$s surplus</string>

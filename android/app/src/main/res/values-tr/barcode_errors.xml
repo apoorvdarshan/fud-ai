@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_barcode_invalid">Bu barkod okunamadı. Tekrar taramayı deneyin.</string>
+    <string name="error_barcode_product_not_found">Ürün Open Food Facts\'te bulunamadı. Bunun yerine besin etiketini tarayın.</string>
+    <string name="error_barcode_missing_nutrition">Bu barkod bulundu ancak besin verisi eksik. Bunun yerine besin etiketini tarayın.</string>
+    <string name="error_barcode_rate_limited">Çok fazla barkod araması yapıldı. Biraz bekleyin, sonra tekrar deneyin.</string>
+    <string name="error_barcode_service_unavailable">Open Food Facts geçici olarak kullanılamıyor. Daha sonra tekrar deneyin.</string>
+    <string name="error_barcode_unexpected_response">Open Food Facts beklenmedik bir yanıt döndürdü.</string>
+    <string name="error_barcode_network">Open Food Facts\'e bağlanılamadı. Bağlantınızı kontrol edip tekrar deneyin.</string>
+    <string name="error_barcode_offline">Çevrimdışı görünüyorsunuz. Bağlantınızı kontrol edip tekrar taramayı deneyin.</string>
+    <string name="error_barcode_timeout">Open Food Facts yanıt vermek için çok uzun sürdü. Tekrar taramayı deneyin.</string>
+</resources>

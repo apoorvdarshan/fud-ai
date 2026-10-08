@@ -641,9 +641,9 @@ struct OnboardingView: View {
                                 .font(.system(.subheadline, design: .rounded, weight: .bold))
                                 .foregroundStyle(AppColors.calorie)
                         }
-                        Text(goalSpeed == 1 ? "The most balanced pace, motivating and sustainable."
+                        Text(LocalizedDisplayText.text(goalSpeed == 1 ? "The most balanced pace, motivating and sustainable."
                              : goalSpeed == 0 ? "Gentle and sustainable. Great for long-term habits."
-                             : "Aggressive but doable. Requires strong discipline.")
+                             : "Aggressive but doable. Requires strong discipline."))
                             .font(.system(.caption, design: .rounded)).foregroundStyle(.secondary)
                     }
                     .padding(16).frame(maxWidth: .infinity, alignment: .leading)
@@ -1244,7 +1244,9 @@ struct OnboardingView: View {
             if byokProvider == .ollama || byokProvider.requiresCustomEndpoint {
                 Divider()
                 HStack {
-                    Label { Text(byokProvider.requiresCustomEndpoint ? "Base URL" : "Server URL") } icon: {
+                    Label { Text(byokProvider.requiresCustomEndpoint
+                        ? String(localized: "Base URL")
+                        : String(localized: "Server URL")) } icon: {
                         Image(systemName: "link").foregroundStyle(AppColors.calorie)
                     }
                     Spacer()

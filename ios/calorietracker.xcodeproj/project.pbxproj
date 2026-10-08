@@ -16,6 +16,7 @@
 		F00D58000000000000000011 /* LiteRTLM in Frameworks */ = {isa = PBXBuildFile; productRef = F00D58000000000000000013 /* LiteRTLM */; };
 		F00D59000000000000000011 /* THIRD_PARTY_NOTICES_LiteRTLM_v0.16.0.txt in Resources */ = {isa = PBXBuildFile; fileRef = F00D59000000000000000012 /* THIRD_PARTY_NOTICES_LiteRTLM_v0.16.0.txt */; };
 		F00D5A000000000000000011 /* THIRD_PARTY_NOTICES_WhisperBase.txt in Resources */ = {isa = PBXBuildFile; fileRef = F00D5A000000000000000012 /* THIRD_PARTY_NOTICES_WhisperBase.txt */; };
+		F00D1000000000000000001E /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F00D1000000000000000001D /* Localizable.xcstrings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,6 +111,7 @@
 		F00D10000000000000000008 /* FudAIWatchWidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FudAIWatchWidgetsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F00D59000000000000000012 /* THIRD_PARTY_NOTICES_LiteRTLM_v0.16.0.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = THIRD_PARTY_NOTICES_LiteRTLM_v0.16.0.txt; path = ../local-models/legal/THIRD_PARTY_NOTICES_LiteRTLM_v0.16.0.txt; sourceTree = "<group>"; };
 		F00D5A000000000000000012 /* THIRD_PARTY_NOTICES_WhisperBase.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = THIRD_PARTY_NOTICES_WhisperBase.txt; path = ../local-models/legal/THIRD_PARTY_NOTICES_WhisperBase.txt; sourceTree = "<group>"; };
+		F00D1000000000000000001D /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -195,6 +197,9 @@
 		};
 		F00D1000000000000000000C /* FudAIWatchWidgets */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			children = (
+				F00D1000000000000000001D /* Localizable.xcstrings */,
+			);
 			exceptions = (
 				F00D1000000000000000000A /* Exceptions for "FudAIWatchWidgets" folder in "FudAIWatchWidgetsExtension" target */,
 			);
@@ -515,6 +520,7 @@
 				"pt-BR",
 				ro,
 				ru,
+				tr,
 				"zh-Hans",
 				Base,
 			);
@@ -590,6 +596,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F00D1000000000000000001E /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

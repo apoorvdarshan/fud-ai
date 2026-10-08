@@ -105,6 +105,12 @@
             "state": "translated",
             "value": "Fud AI 使用相机扫描食物和条形码。"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI, yiyecek ve barkodları taramak için kamerayı kullanır."
+          }
         }
       }
     },
@@ -211,6 +217,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "当你点按“保存”时，Fud AI 会将餐食照片保存到照片图库。"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaydet'e dokunduğunuzda Fud AI, öğün fotoğraflarını foto galerinize kaydeder."
           }
         }
       }

@@ -1,6 +1,6 @@
 # Play Store Listing
 
-Google Play Console listing copy for Fud AI Android v7.2 / versionCode 41. Each field is in a code block for easy copy-paste. Char counts are tracked because Play Console enforces hard caps and silently truncates anything over. This file is prepared for the 7.2 release (first Google Play billing build: optional Plus/Pro, credit packs, tip jar) and has not been submitted.
+Google Play Console listing copy for Fud AI Android v7.2 / versionCode 42. Each field is in a code block for easy copy-paste. Char counts are tracked because Play Console enforces hard caps and silently truncates anything over. This file is prepared for the 7.2 release (first Google Play billing build: optional Plus/Pro, credit packs, tip jar) and has not been submitted.
 
 **Where to paste each field in Play Console:**
 - App name / Short description / Full description → Grow → Store presence → **Main store listing** (default English) and Grow → Store presence → **Custom store listings** → Manage translations (per-language overrides)
@@ -106,7 +106,7 @@ English-only on Play Console — non-English Play Store browsers (ar, az-AZ, cs-
 
 ---
 
-## 4. What's New (v7.2 / versionCode 41 — being released)
+## 4. What's New (v7.2 / versionCode 42 — being released)
 
 **500 char hard cap per language.** Paste only the `<en-US>` block for the 7.2 release. The other language blocks below are still the 7.0.1 notes and must not be submitted as 7.2 release notes.
 

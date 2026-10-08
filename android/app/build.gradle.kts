@@ -63,7 +63,7 @@ android {
         applicationId = "com.apoorvdarshan.calorietracker"
         minSdk = 26
         targetSdk = 36
-        versionCode = 41
+        versionCode = 42
         versionName = "7.2"
         // Release uses localized @string/app_name; debug overrides to "Fud AI Debug".
         manifestPlaceholders["launcherAppName"] = "@string/app_name"

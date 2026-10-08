@@ -99,7 +99,7 @@ Legacy note: a single `default` offering alone is not enough for iOS subscribe f
 
 See `services/hosted-ai/README.md`. Deploy secrets on the `fud-ai` worker:
 
-- `REVENUECAT_API_KEY` — RevenueCat v1 **secret** key; the Worker verifies each subscriber's entitlements and credit purchases with it. Never embedded in the app.
+- `REVENUECAT_API_KEY` — a key that can read `GET /v1/subscribers` (a v1 secret key, or the public SDK key; production uses the Android `goog_…` key). The Worker verifies each subscriber's entitlements and credit purchases with it. A v2 secret key is rejected (403) and breaks every hosted request. Verify a deploy with `scripts/hosted_ai_smoke.sh`.
 - `GEMINI_API_KEY` — set at production time
 - `DEEPGRAM_API_KEY` — set at production time
 

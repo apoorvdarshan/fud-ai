@@ -74,7 +74,7 @@ Set on the `fud-ai` worker (Dashboard → Workers → fud-ai → Settings → Va
 
 | Variable | Description | When |
 |----------|-------------|------|
-| `REVENUECAT_API_KEY` | RevenueCat **v1 secret API key** (`sk_…`; Project → API keys). Read access to `GET /v1/subscribers` is all that is used. Never ship this in an app binary. | Before enabling hosted mode |
+| `REVENUECAT_API_KEY` | A RevenueCat key that can read `GET /v1/subscribers`: a **v1** secret key (`sk_…`), or the app's public SDK key (production currently uses the Android `goog_…` key, which is read-only and already ships in the app). A **v2** secret key does not work here (RevenueCat answers 403, code 7723), and every hosted request fails with `entitlement_unavailable`. Never ship a secret key in an app binary. | Before enabling hosted mode |
 | `GEMINI_API_KEY` | Google AI Studio key for Flash-Lite | Production time |
 | `DEEPGRAM_API_KEY` | Deepgram API key for hosted voice STT | Production time |
 
@@ -100,6 +100,7 @@ Until the provider keys are set, the proxy responds `503 gemini_not_configured` 
 2. The `HOSTED_AI_USER_RATE_LIMITER` / `HOSTED_AI_ADDRESS_RATE_LIMITER` bindings are declared in `web/wrangler.toml` (namespace ids 61005/61006) and are created on deploy.
 3. `run_worker_first` in `web/wrangler.toml` already includes `/api/hosted-ai/v1/*`.
 4. Set the secrets above, then `npx wrangler deploy`.
+5. Run the live check below (`scripts/hosted_ai_smoke.sh`). Unit tests run against mocks and cannot catch a missing migration or a wrong RevenueCat key.
 
 ## Hosted limits
 
@@ -116,7 +117,13 @@ cd web
 npm test -- hosted-ai
 ```
 
-Against a deployed Worker (needs a real RevenueCat app user id with an active entitlement):
+Against the deployed Worker, end to end (creates a throwaway Plus customer, then checks quota, text, one and two photos, a Coach tool call, Android WAV and iOS m4a voice, and metering; exits non-zero on the first failure):
+
+```bash
+RC_V2_SECRET_KEY=sk_... scripts/hosted_ai_smoke.sh
+```
+
+Manual requests (need a real RevenueCat app user id with an active entitlement):
 
 ```bash
 curl -sS "https://fud-ai.app/api/hosted-ai/v1/quota" \

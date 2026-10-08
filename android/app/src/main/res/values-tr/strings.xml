@@ -919,7 +919,6 @@
     <string name="about_ace_desc">Kişisel Antrenör · NCCA onaylı</string>
     <string name="about_star_github">GitHub\'da Yıldızla</string>
     <string name="about_vote_ph">Product Hunt\'ta Oy Ver</string>
-    <string name="about_leave_tip_kofi">Ko-fi\'de Bahşiş Bırak</string>
     <string name="about_report_issue">Sorun Bildir</string>
     <string name="about_request_feature">Özellik Talep Et</string>
     <string name="about_contact">Bize Ulaşın</string>
@@ -1232,13 +1231,6 @@
     <string name="notif_product_hunt_text">Az önce yayınlandık! Oy vermek ve daha fazla kişinin Fud AI\'yı bulmasına yardım etmek için dokunun.</string>
 
     <!-- One-time post-update prompts (existing users only) -->
-    <string name="post_update_hosted_title">İsteğe bağlı: yapay zeka anahtarlarını biz halledelim</string>
-    <string name="post_update_hosted_body">Fud AI kendi API anahtarlarınızla (BYOK) ücretsizdir — ve her zaman öyle kalacak. Anahtarlarla uğraşmak kafa karıştırıcı geliyorsa, Plus ve Pro planları yönetilecek anahtar olmadan yapay zekayı sizin için çalıştırır. Tamamen isteğe bağlıdır, siz değiştirmediğiniz sürece hiçbir şey değişmez.</string>
-    <string name="post_update_hosted_cta">Daha fazla bilgi</string>
-    <string name="post_update_hosted_keep_byok">BYOK\'u koru (ücretsiz)</string>
-    <string name="post_update_hosted_android_title">Barındırılan Yapay Zeka Android\'e geliyor</string>
-    <string name="post_update_hosted_android_body">Plus ve Pro barındırılan planlar önce iPhone\'da yayında; sırada Android var. O zamana kadar burada hiçbir şey değişmez — BYOK sonsuza dek ücretsiz kalır ve kendi anahtarlarınızı bugün olduğu gibi kullanmaya devam edebilirsiniz.</string>
-    <string name="post_update_hosted_android_got_it">Anladım</string>
     <string name="post_update_meet_dev_title">Geliştiriciyle tanışın</string>
     <string name="post_update_meet_dev_greeting">Merhaba, ben Apoorv 👋</string>
     <string name="post_update_meet_dev_body">Fud AI\'yı kendi başıma, açık bir şekilde geliştiriyorum. Gelin merhaba deyin, geri bildirim paylaşın veya takip edin — gerçekten yardımcı oluyor.</string>

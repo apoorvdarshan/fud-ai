@@ -40,12 +40,14 @@ jobs:
           [ "$EVENT" = "pull_request" ] || { all; exit 0; }
           # pull_request checks out the PR merged into its base, so parent 1 is the base.
           # --no-renames: a moved file counts for both its old and new folder.
-          files=$(git diff --no-renames --name-only HEAD^1 HEAD) || { all; exit 0; }
+          # quotePath=false keeps accented names raw; names git still quotes (tabs,
+          # newlines) start with a quote, which the patterns below allow.
+          files=$(git -c core.quotePath=false diff --no-renames --name-only HEAD^1 HEAD) || { all; exit 0; }
           printf '%s\n' "$files"
           match() { printf '%s\n' "$files" | grep -qE "$1" && echo true || echo false; }
           # The Android build also packages these as assets (see android/app/build.gradle.kts).
-          echo "android=$(match '^(android/|shared/|\.github/|ios/calorietracker/Resources/FreeExerciseDB/dist/|local-models/legal/)')" >> "$GITHUB_OUTPUT"
-          echo "web=$(match '^(web/|store/catalog/|\.github/)')" >> "$GITHUB_OUTPUT"
+          echo "android=$(match '^"?(android/|shared/|\.github/|ios/calorietracker/Resources/FreeExerciseDB/dist/|local-models/legal/)')" >> "$GITHUB_OUTPUT"
+          echo "web=$(match '^"?(web/|store/catalog/|\.github/)')" >> "$GITHUB_OUTPUT"
 
   web:
     needs: changes

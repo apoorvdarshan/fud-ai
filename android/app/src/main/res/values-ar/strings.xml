@@ -267,8 +267,8 @@
     <string name="onboarding_ai_byok_card_subtitle">مجاني للأبد — غير محدود على مفتاحك. Gemini وOpenAI وGroq والمزيد.</string>
     <string name="onboarding_ai_byok_badge">موصى به</string>
     <string name="onboarding_ai_hosted_card_title">الذكاء الاصطناعي المستضاف</string>
-    <string name="onboarding_ai_hosted_card_subtitle">خطط Plus أو Pro مع أرصدة ذكاء اصطناعي يومية — لا حاجة لمفتاح API.</string>
-    <string name="onboarding_ai_hosted_badge">قريبًا</string>
+    <string name="onboarding_ai_hosted_card_subtitle">Plus (30/يوم) أو Pro (60/يوم) — اشترك داخل التطبيق، مع حزم أرصدة اختيارية.</string>
+    <string name="onboarding_ai_hosted_badge">مريح</string>
     <string name="onboarding_provider_title">إعداد الذكاء الاصطناعي الخاص بك</string>
     <string name="onboarding_provider_subtitle">أضف مفتاح مزود الذكاء الاصطناعي الخاص بك — التطبيق يبقى مجانيًا.</string>
     <string name="onboarding_provider_recommended_title">موصى به: Google Gemini</string>
@@ -617,7 +617,6 @@
     <string name="about_open_source">مفتوح المصدر (MIT)</string>
     <string name="about_star_github">ضع نجمة على GitHub</string>
     <string name="about_vote_ph">صوّت على Product Hunt</string>
-    <string name="about_leave_tip_kofi">اترك إكرامية على Ko-fi</string>
     <string name="about_report_issue">الإبلاغ عن مشكلة على GitHub</string>
     <string name="about_report_issue_discord">الإبلاغ عن مشكلة على Discord</string>
     <string name="about_request_feature">طلب ميزة على GitHub</string>

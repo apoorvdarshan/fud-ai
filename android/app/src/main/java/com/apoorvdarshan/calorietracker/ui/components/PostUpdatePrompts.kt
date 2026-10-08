@@ -26,6 +26,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -43,6 +44,8 @@ import com.apoorvdarshan.calorietracker.AppContainer
 import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.models.FudAILinks
 import com.apoorvdarshan.calorietracker.services.ProductHuntLaunchReminder
+import com.apoorvdarshan.calorietracker.services.hosted.AiAccessMode
+import com.apoorvdarshan.calorietracker.services.hosted.HostedPrompt
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
@@ -50,9 +53,9 @@ import kotlinx.coroutines.launch
 
 /**
  * One-time prompts for *existing* users the first time they open the app after
- * updating. Android shows Meet the developer, then a Product Hunt vote sheet
- * during the launch day, then arms the launch reminder. Hosted Plus/Pro upsell
- * stays iOS-only (billing is iPhone-first).
+ * updating: the optional Hosted Plus/Pro upsell (only once plans are actually
+ * purchasable), then Meet the developer, then a Product Hunt vote sheet during
+ * the launch day, then arms the launch reminder.
  * Fresh installs never qualify — onboarding marks prompts as seen
  * (see PreferencesStore.setOnboardingCompleted).
  */
@@ -62,6 +65,9 @@ fun PostUpdatePromptsHost(container: AppContainer, enabled: Boolean) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     var showMeetDeveloper by remember { mutableStateOf(false) }
+    var showHostedUpsell by remember { mutableStateOf(false) }
+    var waitingForPaywall by remember { mutableStateOf(false) }
+    val hostedPrompt by container.hostedUi.prompt.collectAsState()
     var showProductHuntLaunch by remember { mutableStateOf(false) }
 
     suspend fun armProductHuntReminder(): Boolean =
@@ -98,6 +104,26 @@ fun PostUpdatePromptsHost(container: AppContainer, enabled: Boolean) {
         showProductHuntLaunch = true
     }
 
+    /**
+     * iOS #493 gating: the upsell is consumed only when it is actually shown. A failed
+     * RevenueCat refresh, or plans that are not purchasable yet, leave it for later.
+     */
+    suspend fun shouldShowHostedUpsell(): Boolean {
+        if (prefs.hasSeenHostedUpsellPrompt.first()) return false
+        val billing = container.billing
+        if (!billing.isAvailable || !billing.refreshCustomerInfo()) return false
+        if (billing.entitlement.value.isEntitled) {
+            prefs.setHasSeenHostedUpsellPrompt(true)
+            return false
+        }
+        billing.loadOfferings()
+        val eligible = prefs.aiAccessMode.first() == AiAccessMode.BYOK &&
+            !billing.entitlement.value.isEntitled &&
+            billing.hasPurchasablePlans
+        if (eligible) prefs.setHasSeenHostedUpsellPrompt(true)
+        return eligible
+    }
+
     suspend fun continueToMeetDeveloper(delayMillis: Long) {
         if (prefs.hasSeenMeetDeveloperPrompt.first()) {
             continueToProductHuntLaunch()
@@ -113,12 +139,33 @@ fun PostUpdatePromptsHost(container: AppContainer, enabled: Boolean) {
         // Let the first frame settle before interrupting.
         delay(2_500)
         if (!prefs.hasCompletedOnboarding.first()) return@LaunchedEffect
-        // Hosted Plus/Pro billing is iPhone-first — don't show a paywall-style upsell on
-        // Android (every user is BYOK today). Mark it seen so we never replay it later.
-        if (!prefs.hasSeenHostedUpsellPrompt.first()) {
-            prefs.setHasSeenHostedUpsellPrompt(true)
+        if (shouldShowHostedUpsell()) {
+            showHostedUpsell = true
+            return@LaunchedEffect
         }
         continueToMeetDeveloper(delayMillis = 0)
+    }
+
+    // "See Plus & Pro plans" hands off to the shared paywall; the chain resumes when it closes.
+    LaunchedEffect(waitingForPaywall, hostedPrompt) {
+        if (waitingForPaywall && hostedPrompt == null) {
+            waitingForPaywall = false
+            continueToMeetDeveloper(delayMillis = 400)
+        }
+    }
+
+    if (showHostedUpsell) {
+        HostedUpsellDialog(
+            onSeePlans = {
+                showHostedUpsell = false
+                waitingForPaywall = true
+                container.hostedUi.show(HostedPrompt.Paywall)
+            },
+            onKeepByok = {
+                showHostedUpsell = false
+                scope.launch { continueToMeetDeveloper(delayMillis = 400) }
+            }
+        )
     }
 
     if (showMeetDeveloper) {
@@ -149,6 +196,28 @@ fun PostUpdatePromptsHost(container: AppContainer, enabled: Boolean) {
                     finishFlow()
                 }
             }
+        )
+    }
+}
+
+@Composable
+private fun HostedUpsellDialog(onSeePlans: () -> Unit, onKeepByok: () -> Unit) {
+    FudGlassDialog(onDismissRequest = {}) {
+        Text(
+            text = stringResource(R.string.hosted_upsell_title),
+            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.Bold
+        )
+        Text(
+            text = stringResource(R.string.hosted_upsell_body),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f)
+        )
+        FudGlassDialogActions(
+            primaryText = stringResource(R.string.hosted_upsell_cta),
+            onPrimary = onSeePlans,
+            dismissText = stringResource(R.string.hosted_upsell_keep),
+            onDismiss = onKeepByok
         )
     }
 }

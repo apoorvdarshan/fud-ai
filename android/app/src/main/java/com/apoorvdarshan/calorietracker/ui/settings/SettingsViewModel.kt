@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker.ui.settings
 
+import com.apoorvdarshan.calorietracker.services.ai.AiError
 import com.apoorvdarshan.calorietracker.models.OpenRouterReasoningEffort
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -1354,6 +1355,16 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
                     container.prefs.healthEnergyGoalsEnabled.first() != energyEnabledAtStart
                 ) {
                     _ui.value = _ui.value.copy(recalculatingGoals = false)
+                    return@launch
+                }
+                if (e is AiError.Hosted) {
+                    // Hosted AI: no provider key to check; open the paywall flow or explain the hosted error.
+                    val routed = container.hostedUi.handle(e)
+                    _ui.value = _ui.value.copy(
+                        recalculatingGoals = false,
+                        adaptiveGoalAlertTitle = if (routed) null else "Couldn't Recalculate",
+                        adaptiveGoalAlertMessage = if (routed) null else e.userMessage(container.appContext)
+                    )
                     return@launch
                 }
                 _ui.value = _ui.value.copy(

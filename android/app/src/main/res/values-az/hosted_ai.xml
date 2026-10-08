@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Hosted AI (Plus/Pro), Google Play billing, and the tip jar. -->
+<resources>
+    <!-- Errors -->
+    <string name="hosted_error_subscription_required">Host edilmiş AI-dan istifadə etmək üçün Plus və ya Pro-ya abunə olun, ya da Parametrlər → AI Girişi bölməsində BYOK-a keçin.</string>
+    <string name="hosted_error_quota_exceeded">Bu gün üçün host edilmiş AI əməliyyatlarınız bitdi. Kredit alın, planınızı yüksəldin və ya BYOK-a keçin.</string>
+    <string name="hosted_error_rate_limited">Host edilmiş AI hazırda məşğuldur. Bir az gözləyin və yenidən cəhd edin.</string>
+    <string name="hosted_error_unavailable">Host edilmiş AI müvəqqəti olaraq əlçatan deyil. Bir azdan yenidən cəhd edin.</string>
+    <string name="hosted_error_unauthorized">Host edilmiş AI abunəliyinizi müəyyən edə bilmədi. Alışları Bərpa Et seçimini sınayın.</string>
+    <string name="hosted_error_too_many_images">Host edilmiş AI hər sorğuda ən çox 3 foto qəbul edir.</string>
+    <string name="hosted_error_too_large">Bu sorğu Host edilmiş AI üçün çox böyükdür. Daha kiçik foto və ya daha qısa mətn sınayın.</string>
+    <string name="hosted_error_audio_too_long">Host edilmiş AI üçün səsyazmalar ən çox 2 dəqiqə ola bilər. Daha qısa səsyazma sınayın.</string>
+    <string name="hosted_error_rejected">Host edilmiş AI bu sorğunu rədd etdi. Fud AI-ni yeniləyin və yenidən cəhd edin.</string>
+    <string name="hosted_error_failed">Host edilmiş AI sorğusu uğursuz oldu. Yenidən cəhd edin.</string>
+
+    <!-- Settings → AI Access -->
+    <string name="settings_category_ai_access">AI Girişi</string>
+    <string name="hosted_mode_title">AI Rejimi</string>
+    <string name="hosted_mode_byok">BYOK (öz açarınız)</string>
+    <string name="hosted_mode_hosted">Host edilmiş (Plus/Pro)</string>
+    <string name="hosted_mode_footer">BYOK limitsiz olaraq öz təminatçı açarlarınızdan istifadə edir. Host edilmiş rejim Fud AI Plus və ya Pro planından istifadə edir: hər AI sorğusu əvvəlcə gündəlik limitinizdən, sonra kreditlərinizdən çıxılır.</string>
+    <string name="hosted_plan_label">Plan</string>
+    <string name="hosted_plan_none">Yoxdur</string>
+    <string name="hosted_plan_plus">Plus</string>
+    <string name="hosted_plan_pro">Pro</string>
+    <string name="hosted_today_label">Bu gün (UTC)</string>
+    <string name="hosted_today_value">%1$d / %2$d</string>
+    <string name="hosted_credits_label">Kreditlər</string>
+    <string name="hosted_usage_footer">Fud AI-nin serveri hər AI sorğusunu hesablayır, gündəlik limit isə UTC ilə gecə yarısı sıfırlanır. Bir neçə axtarış tələb edən Məşqçi cavabları bir neçə əməliyyat sərf edir.</string>
+    <string name="hosted_view_plans">Planlara Bax</string>
+    <string name="hosted_change_plan">Planı Dəyiş</string>
+    <string name="hosted_buy_credits">Kredit Al</string>
+    <string name="hosted_restore">Alışları Bərpa Et</string>
+    <string name="hosted_manage_subscription">Abunəliyi İdarə Et</string>
+    <string name="hosted_restore_success">Alışlar bərpa edildi.</string>
+    <string name="hosted_restore_none">Bu Google hesabı üçün aktiv Plus və ya Pro abunəliyi tapılmadı.</string>
+    <string name="hosted_restore_failed">Alışları bərpa etmək mümkün olmadı. Bağlantınızı yoxlayın və yenidən cəhd edin.</string>
+
+    <!-- Paywall -->
+    <string name="hosted_paywall_title">Host edilmiş AI</string>
+    <string name="hosted_paywall_subtitle">Modelləri Fud AI işlədir. API açarı və quraşdırma lazım deyil.</string>
+    <string name="hosted_period_monthly">Aylıq</string>
+    <string name="hosted_period_yearly">İllik</string>
+    <string name="hosted_save_percent">%d%% qənaət</string>
+    <string name="hosted_plan_actions">Hər gün %d AI əməliyyatı</string>
+    <string name="hosted_current_plan">Cari plan</string>
+    <string name="hosted_per_month">ayda</string>
+    <string name="hosted_per_year">ildə</string>
+    <string name="hosted_included_title">Nələr daxildir</string>
+    <string name="hosted_feature_all_title">Bütün AI funksiyaları</string>
+    <string name="hosted_feature_all_body">Foto, səs və mətnlə qeyd, Məşqçi və məşqlər üçün AI.</string>
+    <string name="hosted_feature_daily_title">Gündəlik limit</string>
+    <string name="hosted_feature_daily_body">UTC ilə gecə yarısı sıfırlanır. Sıx günlər üçün kredit paketləri var.</string>
+    <string name="hosted_feature_private_title">Yalnız sorğunuz göndərilir</string>
+    <string name="hosted_feature_private_body">Gündəliyiniz və tarixçəniz bu cihazda qalır. İstənilən vaxt Google Play-də ləğv edin.</string>
+    <string name="hosted_cta_subscribe">%s planına abunə ol</string>
+    <string name="hosted_cta_upgrade">Pro-ya keç</string>
+    <string name="hosted_cta_switch">Planı Dəyiş</string>
+    <string name="hosted_cta_current">Cari Plan</string>
+    <string name="hosted_upgrade_note">Pro dərhal başlayır. Google Play cari ödəniş dövrünün qalan hissəsi üçün proporsional fərqi tutur.</string>
+    <string name="hosted_switch_note">Yeni plan növbəti yenilənmədə başlayır. O vaxta qədər cari planınız qüvvədə qalır.</string>
+    <string name="hosted_disclosure">%1$s %2$s · Google Play-də ləğv edənə qədər avtomatik yenilənir.</string>
+    <string name="hosted_optional_note">İstəyə bağlı — Fud AI öz API açarınızla pulsuz qalır.</string>
+    <string name="hosted_terms">Şərtlər</string>
+    <string name="hosted_privacy">Məxfilik</string>
+    <string name="hosted_close">Bağla</string>
+    <string name="hosted_plans_loading">Planlar yüklənir…</string>
+    <string name="hosted_plans_unavailable_title">Planlar hazırda əlçatan deyil.</string>
+    <string name="hosted_plans_unavailable_body">Bağlantınızı yoxlayın və yenidən cəhd edin.</string>
+    <string name="hosted_try_again">Yenidən cəhd et</string>
+    <string name="hosted_purchase_success_title">Hər şey hazırdır</string>
+    <string name="hosted_purchase_success_body">Host edilmiş AI aktivdir. İstənilən vaxt Parametrlər → AI Girişi bölməsində BYOK-a qayıda bilərsiniz.</string>
+    <string name="hosted_purchase_pending">Alışınız gözləmədədir. Google Play ödənişi təsdiqlədikdən dərhal sonra Host edilmiş AI aktivləşəcək.</string>
+    <string name="hosted_purchase_failed">Alışı tamamlamaq mümkün olmadı. Yenidən cəhd edin.</string>
+    <string name="hosted_purchase_already_owned">Bu artıq sizdədir. Aktivləşdirmək üçün Alışları Bərpa Et düyməsinə toxunun.</string>
+
+    <!-- Credits -->
+    <string name="hosted_credits_title">Kredit Al</string>
+    <string name="hosted_credits_subtitle">Sıx günlər üçün birdəfəlik artırmalar. Kreditlər gündəlik limitinizdən sonra, yalnız Plus və ya Pro planı aktiv olduqda istifadə olunur və heç vaxt köhnəlmir.</string>
+    <string name="hosted_credits_amount">%d kredit</string>
+    <string name="hosted_credits_added">Kreditlər əlavə edildi.</string>
+    <string name="hosted_credits_pending">Alış tamamlandı. Kreditləriniz tezliklə görünəcək.</string>
+    <string name="hosted_credits_unavailable">Kredit paketləri hazırda əlçatan deyil.</string>
+
+    <!-- Out of quota -->
+    <string name="hosted_out_title">Host edilmiş əməliyyatlar bitdi</string>
+    <string name="hosted_out_body">Kredit alın, planınızı yüksəldin və ya öz API açarınızla BYOK-a keçin.</string>
+    <string name="hosted_out_buy">Kredit Al və ya Yüksəlt</string>
+    <string name="hosted_out_byok">BYOK-a keç</string>
+
+    <!-- One-time post-update upsell (existing users) -->
+    <string name="hosted_upsell_title">İstəyə bağlı: AI açarlarını bizə həvalə edin</string>
+    <string name="hosted_upsell_body">Fud AI öz API açarlarınızla (BYOK) pulsuzdur — və həmişə belə qalacaq. Açarlarla uğraşmaq çaşdırıcı gəlirsə, Plus və Pro planları AI-ni sizin üçün işlədir, heç bir açarı idarə etməli olmursunuz. Tamamilə istəyə bağlıdır, keçid etməsəniz heç nə dəyişmir.</string>
+    <string name="hosted_upsell_cta">Plus və Pro planlarına bax</string>
+    <string name="hosted_upsell_keep">BYOK ilə qal (pulsuz)</string>
+
+    <!-- Onboarding: Hosted path -->
+    <string name="onboarding_ai_hosted_subtitle">Host edilmiş AI üçün Plus və ya Pro-ya abunə olun — API açarı lazım deyil. İstənilən vaxt Parametrlər bölməsində BYOK-a keçə bilərsiniz.</string>
+    <string name="onboarding_ai_hosted_active">Aktiv plan: %s</string>
+    <string name="onboarding_ai_hosted_inactive">Öz açarınızı gətirmədən host edilmiş AI-dan istifadə etmək üçün Plus və ya Pro-ya abunə olun.</string>
+    <string name="onboarding_ai_hosted_use_byok">Əvəzinə BYOK istifadə et</string>
+    <string name="onboarding_ai_hosted_notice_analysis_body">Yemək fotoları, səs transkriptləri və yazılmış yeməklər Fud AI-nin host edilmiş xidməti vasitəsilə emal olunur.</string>
+    <string name="onboarding_ai_hosted_notice_local_body">Yemək jurnalınız, çəki tarixçəniz və bədən yağı tarixçəniz bu cihazda qalır.</string>
+    <string name="onboarding_ai_hosted_cta_subscribe">Davam etmək üçün abunə ol</string>
+
+    <!-- Tip jar (Google Play) -->
+    <string name="tip_jar_title">Bəxşiş burax</string>
+    <string name="tip_snack">Qəlyanaltı</string>
+    <string name="tip_proteinshake">Protein kokteyli</string>
+    <string name="tip_lunch">Nahar</string>
+    <string name="tip_feast">Ziyafət</string>
+    <string name="tip_thanks_title">Təşəkkür edirik!</string>
+    <string name="tip_thanks_body">Dəstəyiniz Fud AI-ni hamı üçün pulsuz saxlayır.</string>
+    <string name="tip_unavailable">Bəxşişlər hazırda əlçatan deyil.</string>
+</resources>

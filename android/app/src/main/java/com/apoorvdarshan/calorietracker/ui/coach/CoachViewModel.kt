@@ -136,7 +136,9 @@ class CoachViewModel(private val container: AppContainer) : ViewModel() {
                 container.chatRepository.append(ChatMessage(role = ChatMessage.Role.ASSISTANT, content = reply.trim()))
                 _ui.value = _ui.value.copy(sending = false)
             } catch (e: AiError) {
-                _ui.value = _ui.value.copy(sending = false, error = e.message)
+                // Hosted quota / no-plan errors open the paywall flow; others show localized text.
+                val routed = container.hostedUi.handle(e)
+                _ui.value = _ui.value.copy(sending = false, error = if (routed) null else e.userMessage(container.appContext))
             } catch (e: Throwable) {
                 _ui.value = _ui.value.copy(
                     sending = false,

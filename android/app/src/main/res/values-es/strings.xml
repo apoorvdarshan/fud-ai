@@ -264,8 +264,8 @@
     <string name="onboarding_ai_byok_card_subtitle">Gratis para siempre — ilimitado con tu clave. Gemini, OpenAI, Groq y más.</string>
     <string name="onboarding_ai_byok_badge">Recomendado</string>
     <string name="onboarding_ai_hosted_card_title">IA alojada</string>
-    <string name="onboarding_ai_hosted_card_subtitle">Planes Plus o Pro con créditos diarios de IA — sin clave API.</string>
-    <string name="onboarding_ai_hosted_badge">Próximamente</string>
+    <string name="onboarding_ai_hosted_card_subtitle">Plus (30/día) o Pro (60/día) — suscripción en la app, paquetes de créditos opcionales.</string>
+    <string name="onboarding_ai_hosted_badge">Práctico</string>
     <string name="onboarding_provider_title">Configura tu IA</string>
     <string name="onboarding_provider_subtitle">Añade tu propia clave de proveedor de IA — la app sigue siendo gratis.</string>
     <string name="onboarding_provider_recommended_title">Recomendado: Google Gemini</string>
@@ -606,7 +606,6 @@
     <string name="about_open_source">Código abierto (MIT)</string>
     <string name="about_star_github">Destacar en GitHub</string>
     <string name="about_vote_ph">Votar en Product Hunt</string>
-    <string name="about_leave_tip_kofi">Dejar una propina en Ko-fi</string>
     <string name="about_report_issue">Informar de un problema en GitHub</string>
     <string name="about_report_issue_discord">Informar de un problema en Discord</string>
     <string name="about_request_feature">Solicitar una función en GitHub</string>

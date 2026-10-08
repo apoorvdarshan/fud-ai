@@ -25,7 +25,22 @@ enum class AiErrorKind(val messageRes: Int, val defaultMessage: String) {
     OVERLOADED(R.string.ai_error_overloaded, "The AI provider is overloaded right now. We retried a few times — try again in a minute, or switch provider/model in Settings → AI Provider."),
     GENERIC(R.string.ai_error_generic, "The AI request failed. Try again, or switch provider in Settings → AI Provider."),
     LOCAL_UNAVAILABLE(R.string.ai_error_local_unavailable, "The on-device AI runtime is unavailable. Check the downloaded model in Settings → AI Provider."),
-    TRUNCATED(R.string.ai_error_truncated, "The AI response was truncated twice. Try a shorter input or another model.");
+    TRUNCATED(R.string.ai_error_truncated, "The AI response was truncated twice. Try a shorter input or another model."),
+
+    // Hosted AI (Plus/Pro). The Worker meters and verifies; these map its error codes.
+    HOSTED_SUBSCRIPTION_REQUIRED(R.string.hosted_error_subscription_required, "Subscribe to Plus or Pro to use Hosted AI, or switch to BYOK in Settings → AI Access."),
+    HOSTED_QUOTA_EXCEEDED(R.string.hosted_error_quota_exceeded, "You're out of hosted AI actions for today. Buy credits, upgrade, or switch to BYOK."),
+    HOSTED_RATE_LIMITED(R.string.hosted_error_rate_limited, "Hosted AI is busy. Please wait a moment and try again."),
+    HOSTED_UNAVAILABLE(R.string.hosted_error_unavailable, "Hosted AI is temporarily unavailable. Please try again shortly."),
+    HOSTED_UNAUTHORIZED(R.string.hosted_error_unauthorized, "Hosted AI could not identify your subscription. Try Restore Purchases."),
+    HOSTED_TOO_MANY_IMAGES(R.string.hosted_error_too_many_images, "Hosted AI accepts up to 3 photos per request."),
+    HOSTED_TOO_LARGE(R.string.hosted_error_too_large, "That request is too large for Hosted AI. Try a smaller photo or shorter text."),
+    HOSTED_AUDIO_TOO_LONG(R.string.hosted_error_audio_too_long, "Recordings for Hosted AI can be up to 2 minutes. Try a shorter one."),
+    HOSTED_REJECTED(R.string.hosted_error_rejected, "Hosted AI rejected this request. Please update Fud AI and try again."),
+    HOSTED_FAILED(R.string.hosted_error_failed, "The Hosted AI request failed. Please try again.");
+
+    val isHostedPaywallTrigger: Boolean
+        get() = this == HOSTED_SUBSCRIPTION_REQUIRED || this == HOSTED_QUOTA_EXCEEDED
 
     companion object {
         fun fromResponse(status: Int, raw: String): AiErrorKind {
@@ -64,6 +79,8 @@ sealed class AiError(val kind: AiErrorKind) : Exception(kind.defaultMessage) {
     class InvalidUrl(val url: String) : AiError(AiErrorKind.INVALID_URL)
     class BothProvidersFailed(val primary: AIProvider, val fallback: AIProvider, val failure: Throwable) :
         AiError((failure as? AiError)?.kind ?: AiErrorKind.GENERIC)
+    /** A Hosted AI Worker error; [code] is the Worker's machine-readable `error` value. */
+    class Hosted(kind: AiErrorKind, val code: String? = null, val status: Int = 0) : AiError(kind)
 
     fun userMessage(context: Context): String = when (this) {
         is BothProvidersFailed -> context.getString(R.string.ai_error_both_failed,

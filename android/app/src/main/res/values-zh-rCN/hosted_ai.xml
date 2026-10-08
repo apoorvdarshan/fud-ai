@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Hosted AI (Plus/Pro), Google Play billing, and the tip jar. -->
+<resources>
+    <!-- Errors -->
+    <string name="hosted_error_subscription_required">订阅 Plus 或 Pro 即可使用托管 AI，也可以在“设置 → AI 接入”中切换到 BYOK。</string>
+    <string name="hosted_error_quota_exceeded">今天的托管 AI 次数已用完。可以购买点数、升级方案，或切换到 BYOK。</string>
+    <string name="hosted_error_rate_limited">托管 AI 正忙，请稍候再试。</string>
+    <string name="hosted_error_unavailable">托管 AI 暂时不可用，请稍后再试。</string>
+    <string name="hosted_error_unauthorized">托管 AI 无法识别你的订阅。请尝试“恢复购买”。</string>
+    <string name="hosted_error_too_many_images">托管 AI 每次请求最多接受 3 张照片。</string>
+    <string name="hosted_error_too_large">该请求超出托管 AI 的大小限制。请尝试更小的照片或更短的文字。</string>
+    <string name="hosted_error_audio_too_long">托管 AI 的录音最长 2 分钟。请录一段更短的。</string>
+    <string name="hosted_error_rejected">托管 AI 拒绝了此请求。请更新 Fud AI 后重试。</string>
+    <string name="hosted_error_failed">托管 AI 请求失败，请重试。</string>
+
+    <!-- Settings → AI Access -->
+    <string name="settings_category_ai_access">AI 接入</string>
+    <string name="hosted_mode_title">AI 模式</string>
+    <string name="hosted_mode_byok">BYOK（自带密钥）</string>
+    <string name="hosted_mode_hosted">托管（Plus/Pro）</string>
+    <string name="hosted_mode_footer">BYOK 使用你自己的提供商密钥，没有限制。托管模式使用 Fud AI Plus 或 Pro 方案：每次 AI 请求先消耗每日额度，再消耗点数。</string>
+    <string name="hosted_plan_label">方案</string>
+    <string name="hosted_plan_none">无</string>
+    <string name="hosted_plan_plus">Plus</string>
+    <string name="hosted_plan_pro">Pro</string>
+    <string name="hosted_today_label">今日（UTC）</string>
+    <string name="hosted_today_value">%1$d / %2$d</string>
+    <string name="hosted_credits_label">点数</string>
+    <string name="hosted_usage_footer">Fud AI 服务器会计量每次 AI 请求，每日额度在 UTC 午夜重置。需要多次查询的教练回复会消耗多次操作。</string>
+    <string name="hosted_view_plans">查看方案</string>
+    <string name="hosted_change_plan">更改方案</string>
+    <string name="hosted_buy_credits">购买点数</string>
+    <string name="hosted_restore">恢复购买</string>
+    <string name="hosted_manage_subscription">管理订阅</string>
+    <string name="hosted_restore_success">已恢复购买。</string>
+    <string name="hosted_restore_none">未找到此 Google 账号的有效 Plus 或 Pro 订阅。</string>
+    <string name="hosted_restore_failed">无法恢复购买。请检查网络连接后重试。</string>
+
+    <!-- Paywall -->
+    <string name="hosted_paywall_title">托管 AI</string>
+    <string name="hosted_paywall_subtitle">由 Fud AI 运行模型。无需 API 密钥，无需设置。</string>
+    <string name="hosted_period_monthly">按月</string>
+    <string name="hosted_period_yearly">按年</string>
+    <string name="hosted_save_percent">节省 %d%%</string>
+    <string name="hosted_plan_actions">每天 %d 次 AI 操作</string>
+    <string name="hosted_current_plan">当前方案</string>
+    <string name="hosted_per_month">每月</string>
+    <string name="hosted_per_year">每年</string>
+    <string name="hosted_included_title">包含内容</string>
+    <string name="hosted_feature_all_title">全部 AI 功能</string>
+    <string name="hosted_feature_all_body">拍照、语音和文字记录，教练，以及训练 AI。</string>
+    <string name="hosted_feature_daily_title">每日额度</string>
+    <string name="hosted_feature_daily_body">在 UTC 午夜重置。忙碌的日子可用点数包补充。</string>
+    <string name="hosted_feature_private_title">只发送你的请求</string>
+    <string name="hosted_feature_private_body">你的饮食日记和历史记录保留在本设备上。可随时在 Google Play 中取消。</string>
+    <string name="hosted_cta_subscribe">订阅 %s</string>
+    <string name="hosted_cta_upgrade">升级到 Pro</string>
+    <string name="hosted_cta_switch">切换方案</string>
+    <string name="hosted_cta_current">当前方案</string>
+    <string name="hosted_upgrade_note">Pro 立即生效。Google Play 会按比例收取本计费周期剩余时间的差价。</string>
+    <string name="hosted_switch_note">新方案将在下次续订时生效。在此之前，你仍保留当前方案。</string>
+    <string name="hosted_disclosure">%1$s %2$s · 自动续订，直到你在 Google Play 中取消。</string>
+    <string name="hosted_optional_note">可选 — 使用你自己的 API 密钥，Fud AI 依然免费。</string>
+    <string name="hosted_terms">条款</string>
+    <string name="hosted_privacy">隐私</string>
+    <string name="hosted_close">关闭</string>
+    <string name="hosted_plans_loading">正在加载方案…</string>
+    <string name="hosted_plans_unavailable_title">方案暂时不可用。</string>
+    <string name="hosted_plans_unavailable_body">请检查网络连接后重试。</string>
+    <string name="hosted_try_again">重试</string>
+    <string name="hosted_purchase_success_title">一切就绪</string>
+    <string name="hosted_purchase_success_body">托管 AI 已开启。你可以随时在“设置 → AI 接入”中切换回 BYOK。</string>
+    <string name="hosted_purchase_pending">你的购买正在处理中。Google Play 确认付款后即会解锁托管 AI。</string>
+    <string name="hosted_purchase_failed">无法完成购买，请重试。</string>
+    <string name="hosted_purchase_already_owned">你已拥有此项。点按“恢复购买”即可解锁。</string>
+
+    <!-- Credits -->
+    <string name="hosted_credits_title">购买点数</string>
+    <string name="hosted_credits_subtitle">为忙碌的日子一次性充值。点数在每日额度用完后使用，仅在 Plus 或 Pro 方案有效期间可用，且永不过期。</string>
+    <string name="hosted_credits_amount">%d 点数</string>
+    <string name="hosted_credits_added">点数已添加。</string>
+    <string name="hosted_credits_pending">购买完成。点数将很快到账。</string>
+    <string name="hosted_credits_unavailable">点数包暂时不可用。</string>
+
+    <!-- Out of quota -->
+    <string name="hosted_out_title">托管 AI 次数已用完</string>
+    <string name="hosted_out_body">购买点数、升级方案，或使用你自己的 API 密钥切换到 BYOK。</string>
+    <string name="hosted_out_buy">购买点数或升级</string>
+    <string name="hosted_out_byok">切换到 BYOK</string>
+
+    <!-- One-time post-update upsell (existing users) -->
+    <string name="hosted_upsell_title">可选：让我们来处理 AI 密钥</string>
+    <string name="hosted_upsell_body">使用你自己的 API 密钥（BYOK），Fud AI 免费 — 而且永远免费。如果管理密钥让你感到困惑，Plus 和 Pro 方案会替你运行 AI，无需管理任何密钥。完全可选，除非你主动切换，否则一切不变。</string>
+    <string name="hosted_upsell_cta">查看 Plus 和 Pro 方案</string>
+    <string name="hosted_upsell_keep">继续使用 BYOK（免费）</string>
+
+    <!-- Onboarding: Hosted path -->
+    <string name="onboarding_ai_hosted_subtitle">订阅 Plus 或 Pro 即可使用托管 AI — 无需 API 密钥。可随时在设置中切换到 BYOK。</string>
+    <string name="onboarding_ai_hosted_active">当前方案：%s</string>
+    <string name="onboarding_ai_hosted_inactive">订阅 Plus 或 Pro，无需自带密钥即可使用托管 AI。</string>
+    <string name="onboarding_ai_hosted_use_byok">改用 BYOK</string>
+    <string name="onboarding_ai_hosted_notice_analysis_body">食物照片、语音转录和输入的餐食会通过 Fud AI 的托管服务处理。</string>
+    <string name="onboarding_ai_hosted_notice_local_body">你的饮食记录、体重历史和体脂历史都保留在本设备上。</string>
+    <string name="onboarding_ai_hosted_cta_subscribe">订阅以继续</string>
+
+    <!-- Tip jar (Google Play) -->
+    <string name="tip_jar_title">留个小费</string>
+    <string name="tip_snack">零食</string>
+    <string name="tip_proteinshake">蛋白奶昔</string>
+    <string name="tip_lunch">午餐</string>
+    <string name="tip_feast">大餐</string>
+    <string name="tip_thanks_title">谢谢你！</string>
+    <string name="tip_thanks_body">你的支持让 Fud AI 对所有人保持免费。</string>
+    <string name="tip_unavailable">暂时无法留小费。</string>
+</resources>

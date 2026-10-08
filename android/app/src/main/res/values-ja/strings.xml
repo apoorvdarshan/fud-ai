@@ -262,8 +262,8 @@
     <string name="onboarding_ai_byok_card_subtitle">永久無料 — 自分のキーで無制限。Gemini、OpenAI、Groqなど。</string>
     <string name="onboarding_ai_byok_badge">おすすめ</string>
     <string name="onboarding_ai_hosted_card_title">ホスト型AI</string>
-    <string name="onboarding_ai_hosted_card_subtitle">PlusまたはProプランで毎日のAIクレジット — APIキー不要。</string>
-    <string name="onboarding_ai_hosted_badge">近日公開</string>
+    <string name="onboarding_ai_hosted_card_subtitle">Plus（1日30回）またはPro（1日60回）— アプリ内で登録、クレジットパックも任意で追加可能。</string>
+    <string name="onboarding_ai_hosted_badge">便利</string>
     <string name="onboarding_provider_title">AIをセットアップ</string>
     <string name="onboarding_provider_subtitle">自分のAIプロバイダーキーを追加 — アプリは無料のままです。</string>
     <string name="onboarding_provider_recommended_title">おすすめ：Google Gemini</string>
@@ -604,7 +604,6 @@
     <string name="about_open_source">オープンソース (MIT)</string>
     <string name="about_star_github">GitHubでスターを付ける</string>
     <string name="about_vote_ph">Product Huntで投票</string>
-    <string name="about_leave_tip_kofi">Ko-fiでチップを送る</string>
     <string name="about_report_issue">GitHubで問題を報告</string>
     <string name="about_report_issue_discord">Discordで問題を報告</string>
     <string name="about_request_feature">GitHubで機能をリクエスト</string>

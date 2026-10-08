@@ -37,6 +37,7 @@ import com.apoorvdarshan.calorietracker.services.update.AndroidUpdateChecker
 import com.apoorvdarshan.calorietracker.services.update.AndroidUpdateState
 import com.apoorvdarshan.calorietracker.ui.coach.CoachScreen
 import com.apoorvdarshan.calorietracker.ui.components.PostUpdatePromptsHost
+import com.apoorvdarshan.calorietracker.ui.hosted.HostedUiHost
 import com.apoorvdarshan.calorietracker.ui.home.HomeScreen
 import com.apoorvdarshan.calorietracker.ui.onboarding.OnboardingScreen
 import com.apoorvdarshan.calorietracker.ui.progress.BodyMeasurementsScreen
@@ -275,6 +276,9 @@ fun FudAINavHost(
             // One-time post-update prompts for existing users; never during (or right after)
             // a fresh onboarding — those users are marked as "seen" on completion.
             PostUpdatePromptsHost(container = container, enabled = !startOnboarding)
+            // Paywall, credits, and out-of-quota UI for Hosted AI, reachable from any screen
+            // (including onboarding).
+            HostedUiHost(container = container)
         }
     }
     }

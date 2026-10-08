@@ -30,6 +30,7 @@ splashscreen = "1.2.0"
 browser = "1.10.0"
 litertLm = "0.17.1"
 whisperAndroid = "1.0.0"
+revenuecat = "10.26.0"
 
 [libraries]
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
@@ -77,6 +78,7 @@ androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscree
 androidx-browser = { group = "androidx.browser", name = "browser", version.ref = "browser" }
 litert-lm-android = { group = "com.google.ai.edge.litertlm", name = "litertlm-android", version.ref = "litertLm" }
 whisper-android = { group = "dev.ffmpegkit-maintained", name = "whisper-android", version.ref = "whisperAndroid" }
+revenuecat-purchases = { group = "com.revenuecat.purchases", name = "purchases", version.ref = "revenuecat" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

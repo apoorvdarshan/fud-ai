@@ -314,8 +314,8 @@
     <string name="onboarding_ai_byok_card_subtitle">Free forever — unlimited on your key. Gemini, OpenAI, Groq &amp; more.</string>
     <string name="onboarding_ai_byok_badge">Recommended</string>
     <string name="onboarding_ai_hosted_card_title">Hosted AI</string>
-    <string name="onboarding_ai_hosted_card_subtitle">Plus or Pro plans with daily AI credits — no API key needed.</string>
-    <string name="onboarding_ai_hosted_badge">Coming soon</string>
+    <string name="onboarding_ai_hosted_card_subtitle">Plus (30/day) or Pro (60/day) — subscribe in-app, optional credit packs.</string>
+    <string name="onboarding_ai_hosted_badge">Convenient</string>
     <string name="onboarding_provider_title">Set Up Your AI</string>
     <string name="onboarding_provider_subtitle">Add your own AI provider key — the app stays free.</string>
     <string name="onboarding_provider_recommended_title">Recommended: Google Gemini</string>
@@ -925,7 +925,6 @@
     <string name="about_ace_desc">Personal Trainer · NCCA-accredited</string>
     <string name="about_star_github">Star on GitHub</string>
     <string name="about_vote_ph">Vote on Product Hunt</string>
-    <string name="about_leave_tip_kofi">Leave a Tip on Ko-fi</string>
     <string name="about_report_issue">Report an Issue on GitHub</string>
     <string name="about_report_issue_discord">Report an Issue on Discord</string>
     <string name="about_request_feature">Request a Feature on GitHub</string>
@@ -1240,13 +1239,6 @@
     <string name="notif_product_hunt_text">We just launched! Tap to vote and help more people find Fud AI.</string>
 
     <!-- One-time post-update prompts (existing users only) -->
-    <string name="post_update_hosted_title">Optional: let us handle the AI keys</string>
-    <string name="post_update_hosted_body">Fud AI is free with your own API keys (BYOK) — and always will be. If juggling keys feels confusing, Plus and Pro plans run the AI for you with no keys to manage. Totally optional, nothing changes unless you switch.</string>
-    <string name="post_update_hosted_cta">Learn more</string>
-    <string name="post_update_hosted_keep_byok">Keep BYOK (free)</string>
-    <string name="post_update_hosted_android_title">Hosted AI is coming to Android</string>
-    <string name="post_update_hosted_android_body">Plus and Pro hosted plans are live on iPhone first; Android is next. Until then nothing changes here — BYOK stays free forever, and you can keep using your own keys exactly as you do today.</string>
-    <string name="post_update_hosted_android_got_it">Got it</string>
     <string name="post_update_product_hunt_title">Fud AI is live on Product Hunt</string>
     <string name="post_update_product_hunt_body">We just launched. A vote helps more people find Fud AI.</string>
     <string name="post_update_product_hunt_not_now">Not now</string>

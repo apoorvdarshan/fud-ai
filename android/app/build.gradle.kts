@@ -34,6 +34,17 @@ val debugWorkoutVectorsBaseUrl = localProperties.getProperty("workout.vectors.ba
     ?.takeIf { it.isNotEmpty() }
     ?: workoutVectorsDefaultBaseUrl
 
+// RevenueCat SDK keys (public, not secrets). The Play key ships in release builds;
+// the Test Store key only ever goes into debug variants. Either may be overridden
+// from local.properties or the environment for local testing.
+fun revenueCatKey(property: String, env: String, default: String = ""): String =
+    (localProperties.getProperty(property) ?: System.getenv(env))
+        ?.trim()
+        ?.takeIf { it.matches(Regex("[A-Za-z0-9_]+")) }
+        ?: default
+val revenueCatGoogleApiKey = revenueCatKey("revenuecat.google.api.key", "REVENUECAT_GOOGLE_API_KEY")
+val revenueCatTestStoreApiKey = revenueCatKey("revenuecat.test.store.api.key", "REVENUECAT_TEST_STORE_API_KEY")
+
 android {
     namespace = "com.apoorvdarshan.calorietracker"
     compileSdk {
@@ -47,8 +58,8 @@ android {
         applicationId = "com.apoorvdarshan.calorietracker"
         minSdk = 26
         targetSdk = 36
-        versionCode = 39
-        versionName = "7.1.1"
+        versionCode = 40
+        versionName = "7.2"
         // Release uses localized @string/app_name; debug overrides to "Fud AI Debug".
         manifestPlaceholders["launcherAppName"] = "@string/app_name"
 
@@ -68,6 +79,9 @@ android {
         )
         // Public CDN prefix the app fetches workout frames from on demand.
         buildConfigField("String", "WORKOUT_VECTORS_BASE_URL", "\"$workoutVectorsDefaultBaseUrl\"")
+        // RevenueCat public Google Play SDK key (goog_…). Public by design, like the
+        // iOS appl_ key. Empty disables billing: Hosted AI plans stay hidden.
+        buildConfigField("String", "REVENUECAT_API_KEY", "\"$revenueCatGoogleApiKey\"")
     }
 
     signingConfigs {
@@ -105,6 +119,10 @@ android {
             // Literal placeholder so locale app_name strings can't override the label.
             manifestPlaceholders["launcherAppName"] = "Fud AI Debug"
             buildConfigField("String", "WORKOUT_VECTORS_BASE_URL", "\"$debugWorkoutVectorsBaseUrl\"")
+            // .debug packages are unknown to Google Play, so debug builds use a
+            // RevenueCat Test Store key (never shipped: the SDK crashes on purpose
+            // if one reaches a release build).
+            buildConfigField("String", "REVENUECAT_API_KEY", "\"$revenueCatTestStoreApiKey\"")
         }
         create("debug2") {
             initWith(getByName("debug"))
@@ -112,6 +130,7 @@ android {
             versionNameSuffix = "-debug2"
             manifestPlaceholders["launcherAppName"] = "Fud AI Debug 2"
             buildConfigField("String", "WORKOUT_VECTORS_BASE_URL", "\"$debugWorkoutVectorsBaseUrl\"")
+            buildConfigField("String", "REVENUECAT_API_KEY", "\"$revenueCatTestStoreApiKey\"")
         }
     }
     compileOptions {
@@ -396,6 +415,7 @@ dependencies {
     implementation(libs.vico.compose.m3)
     implementation(libs.litert.lm.android)
     implementation(libs.whisper.android)
+    implementation(libs.revenuecat.purchases)
 
     testImplementation(libs.junit)
     testImplementation("com.squareup.okhttp3:mockwebserver:${libs.versions.okhttp.get()}")

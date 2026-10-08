@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Hosted AI (Plus/Pro), Google Play billing, and the tip jar. -->
+<resources>
+    <!-- Errors -->
+    <string name="hosted_error_subscription_required">Abbonati a Plus o Pro per usare l\'IA ospitata, oppure passa a BYOK in Impostazioni → Accesso IA.</string>
+    <string name="hosted_error_quota_exceeded">Hai esaurito le azioni di IA ospitata per oggi. Acquista crediti, potenzia il piano o passa a BYOK.</string>
+    <string name="hosted_error_rate_limited">L\'IA ospitata è occupata. Attendi un momento e riprova.</string>
+    <string name="hosted_error_unavailable">L\'IA ospitata è temporaneamente non disponibile. Riprova tra poco.</string>
+    <string name="hosted_error_unauthorized">L\'IA ospitata non è riuscita a identificare il tuo abbonamento. Prova Ripristina acquisti.</string>
+    <string name="hosted_error_too_many_images">L\'IA ospitata accetta fino a 3 foto per richiesta.</string>
+    <string name="hosted_error_too_large">Questa richiesta è troppo grande per l\'IA ospitata. Prova con una foto più piccola o un testo più breve.</string>
+    <string name="hosted_error_audio_too_long">Le registrazioni per l\'IA ospitata possono durare fino a 2 minuti. Provane una più breve.</string>
+    <string name="hosted_error_rejected">L\'IA ospitata ha rifiutato questa richiesta. Aggiorna Fud AI e riprova.</string>
+    <string name="hosted_error_failed">La richiesta all\'IA ospitata non è riuscita. Riprova.</string>
+
+    <!-- Settings → AI Access -->
+    <string name="settings_category_ai_access">Accesso IA</string>
+    <string name="hosted_mode_title">Modalità IA</string>
+    <string name="hosted_mode_byok">BYOK (la tua chiave)</string>
+    <string name="hosted_mode_hosted">Ospitata (Plus/Pro)</string>
+    <string name="hosted_mode_footer">BYOK usa le chiavi del tuo provider, senza limiti. La modalità ospitata usa un piano Fud AI Plus o Pro: ogni richiesta IA consuma prima la quota giornaliera, poi i tuoi crediti.</string>
+    <string name="hosted_plan_label">Piano</string>
+    <string name="hosted_plan_none">Nessuno</string>
+    <string name="hosted_plan_plus">Plus</string>
+    <string name="hosted_plan_pro">Pro</string>
+    <string name="hosted_today_label">Oggi (UTC)</string>
+    <string name="hosted_today_value">%1$d / %2$d</string>
+    <string name="hosted_credits_label">Crediti</string>
+    <string name="hosted_usage_footer">Il server di Fud AI conteggia ogni richiesta IA e la quota giornaliera si azzera a mezzanotte UTC. Le risposte del Coach che richiedono più ricerche consumano più azioni.</string>
+    <string name="hosted_view_plans">Vedi i piani</string>
+    <string name="hosted_change_plan">Cambia piano</string>
+    <string name="hosted_buy_credits">Acquista crediti</string>
+    <string name="hosted_restore">Ripristina acquisti</string>
+    <string name="hosted_manage_subscription">Gestisci abbonamento</string>
+    <string name="hosted_restore_success">Acquisti ripristinati.</string>
+    <string name="hosted_restore_none">Nessun abbonamento Plus o Pro attivo trovato per questo account Google.</string>
+    <string name="hosted_restore_failed">Impossibile ripristinare gli acquisti. Controlla la connessione e riprova.</string>
+
+    <!-- Paywall -->
+    <string name="hosted_paywall_title">IA ospitata</string>
+    <string name="hosted_paywall_subtitle">Ai modelli pensa Fud AI. Nessuna chiave API, nessuna configurazione.</string>
+    <string name="hosted_period_monthly">Mensile</string>
+    <string name="hosted_period_yearly">Annuale</string>
+    <string name="hosted_save_percent">Risparmia il %d%%</string>
+    <string name="hosted_plan_actions">%d azioni IA ogni giorno</string>
+    <string name="hosted_current_plan">Piano attuale</string>
+    <string name="hosted_per_month">al mese</string>
+    <string name="hosted_per_year">all\'anno</string>
+    <string name="hosted_included_title">Cosa è incluso</string>
+    <string name="hosted_feature_all_title">Tutte le funzioni IA</string>
+    <string name="hosted_feature_all_body">Registrazione con foto, voce e testo, Coach e IA per gli allenamenti.</string>
+    <string name="hosted_feature_daily_title">Quota giornaliera</string>
+    <string name="hosted_feature_daily_body">Si azzera a mezzanotte UTC. I pacchetti di crediti coprono le giornate più intense.</string>
+    <string name="hosted_feature_private_title">Viene inviata solo la tua richiesta</string>
+    <string name="hosted_feature_private_body">Il tuo diario e la cronologia restano su questo dispositivo. Annulla quando vuoi da Google Play.</string>
+    <string name="hosted_cta_subscribe">Abbonati a %s</string>
+    <string name="hosted_cta_upgrade">Passa a Pro</string>
+    <string name="hosted_cta_switch">Cambia piano</string>
+    <string name="hosted_cta_current">Piano attuale</string>
+    <string name="hosted_upgrade_note">Pro si attiva subito. Google Play addebita la differenza proporzionale per il resto del periodo di fatturazione.</string>
+    <string name="hosted_switch_note">Il nuovo piano inizia al prossimo rinnovo. Fino ad allora mantieni il piano attuale.</string>
+    <string name="hosted_disclosure">%1$s %2$s · Si rinnova automaticamente finché non annulli da Google Play.</string>
+    <string name="hosted_optional_note">Facoltativo — Fud AI resta gratuito con la tua chiave API.</string>
+    <string name="hosted_terms">Termini</string>
+    <string name="hosted_privacy">Privacy</string>
+    <string name="hosted_close">Chiudi</string>
+    <string name="hosted_plans_loading">Caricamento dei piani…</string>
+    <string name="hosted_plans_unavailable_title">I piani non sono disponibili al momento.</string>
+    <string name="hosted_plans_unavailable_body">Controlla la connessione e riprova.</string>
+    <string name="hosted_try_again">Riprova</string>
+    <string name="hosted_purchase_success_title">Tutto pronto</string>
+    <string name="hosted_purchase_success_body">L\'IA ospitata è attiva. Puoi tornare a BYOK in qualsiasi momento in Impostazioni → Accesso IA.</string>
+    <string name="hosted_purchase_pending">Il tuo acquisto è in sospeso. L\'IA ospitata si sblocca non appena Google Play conferma il pagamento.</string>
+    <string name="hosted_purchase_failed">Impossibile completare l\'acquisto. Riprova.</string>
+    <string name="hosted_purchase_already_owned">Lo possiedi già. Tocca Ripristina acquisti per sbloccarlo.</string>
+
+    <!-- Credits -->
+    <string name="hosted_credits_title">Acquista crediti</string>
+    <string name="hosted_credits_subtitle">Ricariche una tantum per le giornate più intense. I crediti si usano dopo la quota giornaliera, solo con un piano Plus o Pro attivo, e non scadono mai.</string>
+    <string name="hosted_credits_amount">%d crediti</string>
+    <string name="hosted_credits_added">Crediti aggiunti.</string>
+    <string name="hosted_credits_pending">Acquisto completato. I tuoi crediti appariranno a breve.</string>
+    <string name="hosted_credits_unavailable">I pacchetti di crediti non sono disponibili al momento.</string>
+
+    <!-- Out of quota -->
+    <string name="hosted_out_title">Azioni ospitate esaurite</string>
+    <string name="hosted_out_body">Acquista crediti, potenzia il tuo piano o passa a BYOK con la tua chiave API.</string>
+    <string name="hosted_out_buy">Acquista crediti o potenzia il piano</string>
+    <string name="hosted_out_byok">Passa a BYOK</string>
+
+    <!-- One-time post-update upsell (existing users) -->
+    <string name="hosted_upsell_title">Facoltativo: lascia a noi le chiavi IA</string>
+    <string name="hosted_upsell_body">Fud AI è gratuito con le tue chiavi API (BYOK) — e lo sarà sempre. Se destreggiarti tra le chiavi ti confonde, i piani Plus e Pro gestiscono l\'IA per te, senza chiavi da amministrare. Del tutto facoltativo: non cambia nulla finché non decidi di passare.</string>
+    <string name="hosted_upsell_cta">Vedi i piani Plus e Pro</string>
+    <string name="hosted_upsell_keep">Mantieni BYOK (gratis)</string>
+
+    <!-- Onboarding: Hosted path -->
+    <string name="onboarding_ai_hosted_subtitle">Abbonati a Plus o Pro per l\'IA ospitata — nessuna chiave API necessaria. Passa a BYOK quando vuoi in Impostazioni.</string>
+    <string name="onboarding_ai_hosted_active">Piano attivo: %s</string>
+    <string name="onboarding_ai_hosted_inactive">Abbonati a Plus o Pro per usare l\'IA ospitata senza una chiave tua.</string>
+    <string name="onboarding_ai_hosted_use_byok">Usa invece BYOK</string>
+    <string name="onboarding_ai_hosted_notice_analysis_body">Le foto del cibo, le trascrizioni vocali e i pasti digitati vengono elaborati dal servizio ospitato di Fud AI.</string>
+    <string name="onboarding_ai_hosted_notice_local_body">Il tuo diario alimentare, lo storico del peso e quello della massa grassa restano su questo dispositivo.</string>
+    <string name="onboarding_ai_hosted_cta_subscribe">Abbonati per continuare</string>
+
+    <!-- Tip jar (Google Play) -->
+    <string name="tip_jar_title">Lascia una mancia</string>
+    <string name="tip_snack">Snack</string>
+    <string name="tip_proteinshake">Frullato proteico</string>
+    <string name="tip_lunch">Pranzo</string>
+    <string name="tip_feast">Banchetto</string>
+    <string name="tip_thanks_title">Grazie!</string>
+    <string name="tip_thanks_body">Il tuo supporto mantiene Fud AI gratuito per tutti.</string>
+    <string name="tip_unavailable">Le mance non sono disponibili al momento.</string>
+</resources>

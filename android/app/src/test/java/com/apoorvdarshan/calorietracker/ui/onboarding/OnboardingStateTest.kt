@@ -79,4 +79,23 @@ class OnboardingStateTest {
         val fresh = OnboardingState(step = OnboardingStep.PROVIDER)
         assertTrue(fresh.aiPhaseForProviderStep() == OnboardingAiPhase.CHOICE)
     }
+
+    @Test
+    fun hostedNeedsAnActivePlanToContinue() {
+        val waiting = OnboardingState(step = OnboardingStep.PROVIDER, aiPhase = OnboardingAiPhase.HOSTED, acceptedTerms = true)
+        assertFalse(waiting.canAdvance)
+        val subscribed = waiting.copy(hostedEntitled = true)
+        assertTrue(subscribed.canAdvance)
+        assertTrue(subscribed.accessMode == com.apoorvdarshan.calorietracker.services.hosted.AiAccessMode.HOSTED)
+    }
+
+    @Test
+    fun providerStepReopensHostedOnlyWhenSubscribed() {
+        val subscribed = OnboardingState(step = OnboardingStep.PLAN_READY, aiPhase = OnboardingAiPhase.HOSTED, hostedEntitled = true)
+        assertTrue(subscribed.aiPhaseForProviderStep() == OnboardingAiPhase.HOSTED)
+        val lapsed = subscribed.copy(hostedEntitled = false)
+        assertTrue(lapsed.aiPhaseForProviderStep() == OnboardingAiPhase.CHOICE)
+        val byok = OnboardingState(aiPhase = OnboardingAiPhase.BYOK, apiKey = "k")
+        assertTrue(byok.accessMode == com.apoorvdarshan.calorietracker.services.hosted.AiAccessMode.BYOK)
+    }
 }

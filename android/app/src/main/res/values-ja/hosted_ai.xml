@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Hosted AI (Plus/Pro), Google Play billing, and the tip jar. -->
+<resources>
+    <!-- Errors -->
+    <string name="hosted_error_subscription_required">ホスト型AIを使うにはPlusまたはProに登録するか、設定 → AIアクセスでBYOKに切り替えてください。</string>
+    <string name="hosted_error_quota_exceeded">本日のホスト型AIアクションを使い切りました。クレジットを購入するか、アップグレードするか、BYOKに切り替えてください。</string>
+    <string name="hosted_error_rate_limited">ホスト型AIが混み合っています。少し待ってからもう一度お試しください。</string>
+    <string name="hosted_error_unavailable">ホスト型AIは一時的に利用できません。しばらくしてからもう一度お試しください。</string>
+    <string name="hosted_error_unauthorized">ホスト型AIでサブスクリプションを確認できませんでした。「購入を復元」をお試しください。</string>
+    <string name="hosted_error_too_many_images">ホスト型AIでは1回のリクエストにつき写真は3枚までです。</string>
+    <string name="hosted_error_too_large">このリクエストはホスト型AIには大きすぎます。小さめの写真か短いテキストでお試しください。</string>
+    <string name="hosted_error_audio_too_long">ホスト型AIで使える録音は最大2分です。もっと短い録音でお試しください。</string>
+    <string name="hosted_error_rejected">ホスト型AIがこのリクエストを拒否しました。Fud AIをアップデートしてもう一度お試しください。</string>
+    <string name="hosted_error_failed">ホスト型AIのリクエストに失敗しました。もう一度お試しください。</string>
+
+    <!-- Settings → AI Access -->
+    <string name="settings_category_ai_access">AIアクセス</string>
+    <string name="hosted_mode_title">AIモード</string>
+    <string name="hosted_mode_byok">BYOK（自分のキー）</string>
+    <string name="hosted_mode_hosted">ホスト型（Plus/Pro）</string>
+    <string name="hosted_mode_footer">BYOKは自分のプロバイダーキーを使い、制限はありません。ホスト型はFud AIのPlusまたはProプランを使用し、各AIリクエストはまず1日の利用枠、次にクレジットから消費されます。</string>
+    <string name="hosted_plan_label">プラン</string>
+    <string name="hosted_plan_none">なし</string>
+    <string name="hosted_plan_plus">Plus</string>
+    <string name="hosted_plan_pro">Pro</string>
+    <string name="hosted_today_label">今日（UTC）</string>
+    <string name="hosted_today_value">%1$d / %2$d</string>
+    <string name="hosted_credits_label">クレジット</string>
+    <string name="hosted_usage_footer">Fud AIのサーバーがすべてのAIリクエストを計測し、1日の利用枠はUTCの午前0時にリセットされます。複数の検索が必要なコーチの返信では、複数のアクションを消費します。</string>
+    <string name="hosted_view_plans">プランを見る</string>
+    <string name="hosted_change_plan">プランを変更</string>
+    <string name="hosted_buy_credits">クレジットを購入</string>
+    <string name="hosted_restore">購入を復元</string>
+    <string name="hosted_manage_subscription">サブスクリプションを管理</string>
+    <string name="hosted_restore_success">購入を復元しました。</string>
+    <string name="hosted_restore_none">このGoogleアカウントで有効なPlusまたはProのサブスクリプションが見つかりませんでした。</string>
+    <string name="hosted_restore_failed">購入を復元できませんでした。接続を確認してもう一度お試しください。</string>
+
+    <!-- Paywall -->
+    <string name="hosted_paywall_title">ホスト型AI</string>
+    <string name="hosted_paywall_subtitle">モデルはFud AIが動かします。APIキーも設定も不要です。</string>
+    <string name="hosted_period_monthly">月額</string>
+    <string name="hosted_period_yearly">年額</string>
+    <string name="hosted_save_percent">%d%%お得</string>
+    <string name="hosted_plan_actions">毎日%d回のAIアクション</string>
+    <string name="hosted_current_plan">現在のプラン</string>
+    <string name="hosted_per_month">1か月あたり</string>
+    <string name="hosted_per_year">1年あたり</string>
+    <string name="hosted_included_title">プランの内容</string>
+    <string name="hosted_feature_all_title">すべてのAI機能</string>
+    <string name="hosted_feature_all_body">写真・音声・テキストでの記録、コーチ、ワークアウトAI。</string>
+    <string name="hosted_feature_daily_title">1日の利用枠</string>
+    <string name="hosted_feature_daily_body">UTCの午前0時にリセット。忙しい日はクレジットパックで補えます。</string>
+    <string name="hosted_feature_private_title">送信されるのはリクエストだけ</string>
+    <string name="hosted_feature_private_body">日記と履歴はこのデバイスに保存されたままです。Google Playでいつでも解約できます。</string>
+    <string name="hosted_cta_subscribe">%sに登録</string>
+    <string name="hosted_cta_upgrade">Proにアップグレード</string>
+    <string name="hosted_cta_switch">プランを切り替える</string>
+    <string name="hosted_cta_current">現在のプラン</string>
+    <string name="hosted_upgrade_note">Proはすぐに開始されます。今回の請求期間の残りについては、Google Playが日割りの差額を請求します。</string>
+    <string name="hosted_switch_note">新しいプランは次回の更新時に開始されます。それまでは現在のプランを引き続き利用できます。</string>
+    <string name="hosted_disclosure">%1$s %2$s · Google Playで解約するまで自動更新されます。</string>
+    <string name="hosted_optional_note">任意 — 自分のAPIキーを使えばFud AIは無料のままです。</string>
+    <string name="hosted_terms">利用規約</string>
+    <string name="hosted_privacy">プライバシー</string>
+    <string name="hosted_close">閉じる</string>
+    <string name="hosted_plans_loading">プランを読み込み中…</string>
+    <string name="hosted_plans_unavailable_title">現在プランを利用できません。</string>
+    <string name="hosted_plans_unavailable_body">接続を確認してもう一度お試しください。</string>
+    <string name="hosted_try_again">再試行</string>
+    <string name="hosted_purchase_success_title">準備完了</string>
+    <string name="hosted_purchase_success_body">ホスト型AIがオンになりました。設定 → AIアクセスからいつでもBYOKに戻せます。</string>
+    <string name="hosted_purchase_pending">購入は保留中です。Google Playで支払いが確認され次第、ホスト型AIが使えるようになります。</string>
+    <string name="hosted_purchase_failed">購入を完了できませんでした。もう一度お試しください。</string>
+    <string name="hosted_purchase_already_owned">すでに購入済みです。「購入を復元」をタップしてロックを解除してください。</string>
+
+    <!-- Credits -->
+    <string name="hosted_credits_title">クレジットを購入</string>
+    <string name="hosted_credits_subtitle">忙しい日のための買い切りチャージ。クレジットは1日の利用枠の後に、PlusまたはProプランが有効な間だけ使用され、有効期限はありません。</string>
+    <string name="hosted_credits_amount">%dクレジット</string>
+    <string name="hosted_credits_added">クレジットを追加しました。</string>
+    <string name="hosted_credits_pending">購入が完了しました。まもなくクレジットが反映されます。</string>
+    <string name="hosted_credits_unavailable">現在クレジットパックは利用できません。</string>
+
+    <!-- Out of quota -->
+    <string name="hosted_out_title">ホスト型アクションの上限に達しました</string>
+    <string name="hosted_out_body">クレジットを購入するか、プランをアップグレードするか、自分のAPIキーでBYOKに切り替えてください。</string>
+    <string name="hosted_out_buy">クレジット購入またはアップグレード</string>
+    <string name="hosted_out_byok">BYOKに切り替える</string>
+
+    <!-- One-time post-update upsell (existing users) -->
+    <string name="hosted_upsell_title">任意：AIキーの管理はおまかせ</string>
+    <string name="hosted_upsell_body">Fud AIは自分のAPIキー（BYOK）があれば無料です — これからもずっと。キーの管理がややこしいと感じたら、PlusとProプランならキー不要でAIを動かします。完全に任意で、切り替えない限り何も変わりません。</string>
+    <string name="hosted_upsell_cta">PlusとProのプランを見る</string>
+    <string name="hosted_upsell_keep">BYOKのまま（無料）</string>
+
+    <!-- Onboarding: Hosted path -->
+    <string name="onboarding_ai_hosted_subtitle">PlusまたはProに登録してホスト型AIを利用 — APIキーは不要です。設定からいつでもBYOKに切り替えられます。</string>
+    <string name="onboarding_ai_hosted_active">有効なプラン：%s</string>
+    <string name="onboarding_ai_hosted_inactive">PlusまたはProに登録すると、自分のキーなしでホスト型AIを使えます。</string>
+    <string name="onboarding_ai_hosted_use_byok">代わりにBYOKを使う</string>
+    <string name="onboarding_ai_hosted_notice_analysis_body">食事の写真、音声の文字起こし、入力した食事はFud AIのホスト型サービスで処理されます。</string>
+    <string name="onboarding_ai_hosted_notice_local_body">食事記録、体重の履歴、体脂肪の履歴はこのデバイスに保存されたままです。</string>
+    <string name="onboarding_ai_hosted_cta_subscribe">登録して続ける</string>
+
+    <!-- Tip jar (Google Play) -->
+    <string name="tip_jar_title">チップを送る</string>
+    <string name="tip_snack">スナック</string>
+    <string name="tip_proteinshake">プロテインシェイク</string>
+    <string name="tip_lunch">ランチ</string>
+    <string name="tip_feast">ごちそう</string>
+    <string name="tip_thanks_title">ありがとうございます！</string>
+    <string name="tip_thanks_body">あなたのサポートが、Fud AIをみんなに無料で届け続ける力になります。</string>
+    <string name="tip_unavailable">現在チップは利用できません。</string>
+</resources>

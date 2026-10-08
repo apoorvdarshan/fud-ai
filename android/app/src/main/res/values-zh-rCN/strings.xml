@@ -262,8 +262,8 @@
     <string name="onboarding_ai_byok_card_subtitle">永久免费 — 使用你的密钥无限制。Gemini、OpenAI、Groq 等。</string>
     <string name="onboarding_ai_byok_badge">推荐</string>
     <string name="onboarding_ai_hosted_card_title">托管 AI</string>
-    <string name="onboarding_ai_hosted_card_subtitle">Plus 或 Pro 计划，每日 AI 额度 — 无需 API 密钥。</string>
-    <string name="onboarding_ai_hosted_badge">即将推出</string>
+    <string name="onboarding_ai_hosted_card_subtitle">Plus（30 次/天）或 Pro（60 次/天）— 应用内订阅，可选点数包。</string>
+    <string name="onboarding_ai_hosted_badge">便捷</string>
     <string name="onboarding_provider_title">设置你的 AI</string>
     <string name="onboarding_provider_subtitle">添加你自己的 AI 提供商密钥 — 应用保持免费。</string>
     <string name="onboarding_provider_recommended_title">推荐：Google Gemini</string>
@@ -604,7 +604,6 @@
     <string name="about_open_source">开源 (MIT)</string>
     <string name="about_star_github">在 GitHub 上加星</string>
     <string name="about_vote_ph">在 Product Hunt 上投票</string>
-    <string name="about_leave_tip_kofi">在 Ko-fi 上留个小费</string>
     <string name="about_report_issue">在 GitHub 上报告问题</string>
     <string name="about_report_issue_discord">在 Discord 上报告问题</string>
     <string name="about_request_feature">在 GitHub 上请求功能</string>

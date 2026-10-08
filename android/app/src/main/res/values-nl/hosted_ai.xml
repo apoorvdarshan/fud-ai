@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Hosted AI (Plus/Pro), Google Play billing, and the tip jar. -->
+<resources>
+    <!-- Errors -->
+    <string name="hosted_error_subscription_required">Abonneer je op Plus of Pro om Gehoste AI te gebruiken, of schakel over naar BYOK in Instellingen → AI-toegang.</string>
+    <string name="hosted_error_quota_exceeded">Je gehoste AI-acties voor vandaag zijn op. Koop credits, upgrade of schakel over naar BYOK.</string>
+    <string name="hosted_error_rate_limited">Gehoste AI is druk. Wacht even en probeer het opnieuw.</string>
+    <string name="hosted_error_unavailable">Gehoste AI is tijdelijk niet beschikbaar. Probeer het zo opnieuw.</string>
+    <string name="hosted_error_unauthorized">Gehoste AI kon je abonnement niet herkennen. Probeer Aankopen herstellen.</string>
+    <string name="hosted_error_too_many_images">Gehoste AI accepteert maximaal 3 foto’s per verzoek.</string>
+    <string name="hosted_error_too_large">Dat verzoek is te groot voor Gehoste AI. Probeer een kleinere foto of kortere tekst.</string>
+    <string name="hosted_error_audio_too_long">Opnames voor Gehoste AI mogen maximaal 2 minuten duren. Probeer een kortere opname.</string>
+    <string name="hosted_error_rejected">Gehoste AI heeft dit verzoek geweigerd. Werk Fud AI bij en probeer het opnieuw.</string>
+    <string name="hosted_error_failed">Het verzoek aan Gehoste AI is mislukt. Probeer het opnieuw.</string>
+
+    <!-- Settings → AI Access -->
+    <string name="settings_category_ai_access">AI-toegang</string>
+    <string name="hosted_mode_title">AI-modus</string>
+    <string name="hosted_mode_byok">BYOK (je eigen sleutel)</string>
+    <string name="hosted_mode_hosted">Gehost (Plus/Pro)</string>
+    <string name="hosted_mode_footer">BYOK gebruikt je eigen providersleutels, zonder limieten. Gehost gebruikt een Fud AI Plus- of Pro-abonnement: elk AI-verzoek gebruikt eerst je dagelijkse tegoed en daarna je credits.</string>
+    <string name="hosted_plan_label">Abonnement</string>
+    <string name="hosted_plan_none">Geen</string>
+    <string name="hosted_plan_plus">Plus</string>
+    <string name="hosted_plan_pro">Pro</string>
+    <string name="hosted_today_label">Vandaag (UTC)</string>
+    <string name="hosted_today_value">%1$d / %2$d</string>
+    <string name="hosted_credits_label">Credits</string>
+    <string name="hosted_usage_footer">De server van Fud AI meet elk AI-verzoek en het dagelijkse tegoed wordt om middernacht UTC gereset. Coach-antwoorden waarvoor meerdere opzoekingen nodig zijn, gebruiken meerdere acties.</string>
+    <string name="hosted_view_plans">Abonnementen bekijken</string>
+    <string name="hosted_change_plan">Abonnement wijzigen</string>
+    <string name="hosted_buy_credits">Credits kopen</string>
+    <string name="hosted_restore">Aankopen herstellen</string>
+    <string name="hosted_manage_subscription">Abonnement beheren</string>
+    <string name="hosted_restore_success">Aankopen hersteld.</string>
+    <string name="hosted_restore_none">Er is geen actief Plus- of Pro-abonnement gevonden voor dit Google-account.</string>
+    <string name="hosted_restore_failed">Kan aankopen niet herstellen. Controleer je verbinding en probeer het opnieuw.</string>
+
+    <!-- Paywall -->
+    <string name="hosted_paywall_title">Gehoste AI</string>
+    <string name="hosted_paywall_subtitle">Fud AI draait de modellen. Geen API-sleutels, geen configuratie.</string>
+    <string name="hosted_period_monthly">Maandelijks</string>
+    <string name="hosted_period_yearly">Jaarlijks</string>
+    <string name="hosted_save_percent">Bespaar %d%%</string>
+    <string name="hosted_plan_actions">%d AI-acties per dag</string>
+    <string name="hosted_current_plan">Huidig abonnement</string>
+    <string name="hosted_per_month">per maand</string>
+    <string name="hosted_per_year">per jaar</string>
+    <string name="hosted_included_title">Wat is inbegrepen</string>
+    <string name="hosted_feature_all_title">Elke AI-functie</string>
+    <string name="hosted_feature_all_body">Loggen met foto, spraak en tekst, Coach en workout-AI.</string>
+    <string name="hosted_feature_daily_title">Dagelijks tegoed</string>
+    <string name="hosted_feature_daily_body">Wordt om middernacht UTC gereset. Creditpakketten vangen drukke dagen op.</string>
+    <string name="hosted_feature_private_title">Alleen je verzoek wordt verzonden</string>
+    <string name="hosted_feature_private_body">Je dagboek en geschiedenis blijven op dit apparaat. Altijd opzegbaar via Google Play.</string>
+    <string name="hosted_cta_subscribe">Abonneren op %s</string>
+    <string name="hosted_cta_upgrade">Upgraden naar Pro</string>
+    <string name="hosted_cta_switch">Abonnement wisselen</string>
+    <string name="hosted_cta_current">Huidig abonnement</string>
+    <string name="hosted_upgrade_note">Pro gaat direct in. Google Play rekent het verschil naar rato af voor de rest van deze factureringsperiode.</string>
+    <string name="hosted_switch_note">Het nieuwe abonnement gaat in bij je volgende verlenging. Tot die tijd houd je je huidige abonnement.</string>
+    <string name="hosted_disclosure">%1$s %2$s · Wordt automatisch verlengd tot je opzegt in Google Play.</string>
+    <string name="hosted_optional_note">Optioneel — Fud AI blijft gratis met je eigen API-sleutel.</string>
+    <string name="hosted_terms">Voorwaarden</string>
+    <string name="hosted_privacy">Privacy</string>
+    <string name="hosted_close">Sluiten</string>
+    <string name="hosted_plans_loading">Abonnementen laden…</string>
+    <string name="hosted_plans_unavailable_title">Abonnementen zijn nu niet beschikbaar.</string>
+    <string name="hosted_plans_unavailable_body">Controleer je verbinding en probeer het opnieuw.</string>
+    <string name="hosted_try_again">Opnieuw proberen</string>
+    <string name="hosted_purchase_success_title">Je bent er klaar voor</string>
+    <string name="hosted_purchase_success_body">Gehoste AI staat aan. Je kunt altijd terugschakelen naar BYOK in Instellingen → AI-toegang.</string>
+    <string name="hosted_purchase_pending">Je aankoop is in behandeling. Gehoste AI wordt ontgrendeld zodra Google Play de betaling bevestigt.</string>
+    <string name="hosted_purchase_failed">De aankoop kon niet worden voltooid. Probeer het opnieuw.</string>
+    <string name="hosted_purchase_already_owned">Je hebt dit al gekocht. Tik op Aankopen herstellen om het te ontgrendelen.</string>
+
+    <!-- Credits -->
+    <string name="hosted_credits_title">Credits kopen</string>
+    <string name="hosted_credits_subtitle">Eenmalige aanvullingen voor drukke dagen. Credits worden gebruikt na je dagelijkse tegoed, alleen zolang een Plus- of Pro-abonnement actief is, en ze verlopen nooit.</string>
+    <string name="hosted_credits_amount">%d credits</string>
+    <string name="hosted_credits_added">Credits toegevoegd.</string>
+    <string name="hosted_credits_pending">Aankoop voltooid. Je credits verschijnen zo.</string>
+    <string name="hosted_credits_unavailable">Creditpakketten zijn nu niet beschikbaar.</string>
+
+    <!-- Out of quota -->
+    <string name="hosted_out_title">Gehoste acties op</string>
+    <string name="hosted_out_body">Koop credits, upgrade je abonnement of schakel over naar BYOK met je eigen API-sleutel.</string>
+    <string name="hosted_out_buy">Credits kopen of upgraden</string>
+    <string name="hosted_out_byok">Overschakelen naar BYOK</string>
+
+    <!-- One-time post-update upsell (existing users) -->
+    <string name="hosted_upsell_title">Optioneel: laat ons de AI-sleutels regelen</string>
+    <string name="hosted_upsell_body">Fud AI is gratis met je eigen API-sleutels (BYOK) — en dat blijft zo. Vind je al die sleutels verwarrend? Dan regelen de Plus- en Pro-abonnementen de AI voor je, zonder sleutels om te beheren. Helemaal optioneel: er verandert niets tenzij je overstapt.</string>
+    <string name="hosted_upsell_cta">Bekijk Plus- &amp; Pro-abonnementen</string>
+    <string name="hosted_upsell_keep">BYOK houden (gratis)</string>
+
+    <!-- Onboarding: Hosted path -->
+    <string name="onboarding_ai_hosted_subtitle">Abonneer je op Plus of Pro voor gehoste AI — geen API-sleutel nodig. Je kunt altijd overschakelen naar BYOK in Instellingen.</string>
+    <string name="onboarding_ai_hosted_active">Actief abonnement: %s</string>
+    <string name="onboarding_ai_hosted_inactive">Abonneer je op Plus of Pro om gehoste AI te gebruiken zonder je eigen sleutel.</string>
+    <string name="onboarding_ai_hosted_use_byok">Liever BYOK gebruiken</string>
+    <string name="onboarding_ai_hosted_notice_analysis_body">Voedselfoto’s, spraaktranscripties en getypte maaltijden worden verwerkt via de gehoste dienst van Fud AI.</string>
+    <string name="onboarding_ai_hosted_notice_local_body">Je voedingslogboek, gewichtsgeschiedenis en vetpercentagegeschiedenis blijven op dit apparaat.</string>
+    <string name="onboarding_ai_hosted_cta_subscribe">Abonneren om door te gaan</string>
+
+    <!-- Tip jar (Google Play) -->
+    <string name="tip_jar_title">Geef een fooi</string>
+    <string name="tip_snack">Snack</string>
+    <string name="tip_proteinshake">Eiwitshake</string>
+    <string name="tip_lunch">Lunch</string>
+    <string name="tip_feast">Feestmaal</string>
+    <string name="tip_thanks_title">Bedankt!</string>
+    <string name="tip_thanks_body">Jouw steun houdt Fud AI gratis voor iedereen.</string>
+    <string name="tip_unavailable">Fooien zijn nu niet beschikbaar.</string>
+</resources>

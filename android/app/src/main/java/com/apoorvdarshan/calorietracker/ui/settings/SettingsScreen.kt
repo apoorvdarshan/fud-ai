@@ -102,6 +102,7 @@ import androidx.compose.material.icons.outlined.BatteryAlert
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Refresh
 import androidx.compose.material.icons.outlined.SmartToy
+import androidx.compose.material.icons.outlined.WorkspacePremium
 import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material.icons.outlined.Speed
 import androidx.compose.material.icons.outlined.Straighten
@@ -275,6 +276,7 @@ internal enum class SettingsCategory(
     GOALS_NUTRITION(R.string.settings_section_goals, Icons.Outlined.TrackChanges),
     TRACKING_REMINDERS(R.string.settings_section_tracking_reminders, Icons.Outlined.Timer),
     NOTIFICATIONS(R.string.settings_notifications, Icons.Outlined.Notifications),
+    AI_ACCESS(R.string.settings_category_ai_access, Icons.Outlined.WorkspacePremium),
     AI_PROVIDERS(R.string.settings_category_ai_providers, Icons.Outlined.SmartToy),
     SPEECH_TO_TEXT(R.string.settings_section_speech, Icons.Outlined.Mic),
     APP_PREFERENCES(R.string.settings_section_app, Icons.Outlined.Palette),
@@ -1062,6 +1064,10 @@ fun SettingsScreen(
                 }
             }
 
+            if (selectedCategory == SettingsCategory.AI_ACCESS) {
+                AiAccessSettings(container)
+            }
+
             // Keep the related AI and voice controls in one category while retaining
             // independent provider, model, key, and routing preferences.
             if (selectedCategory == SettingsCategory.AI_PROVIDERS) {
@@ -1613,7 +1619,7 @@ fun SettingsScreen(
                 }
 
                 SectionCard {
-                    AboutSettingsRows(aboutCategory)
+                    AboutSettingsRows(aboutCategory, billing = container.billing)
                 }
             }
 
@@ -4019,7 +4025,7 @@ private fun MacroField(
 }
 
 @Composable
-private fun SectionCard(title: String? = null, content: @Composable () -> Unit) {
+internal fun SectionCard(title: String? = null, content: @Composable () -> Unit) {
     Column {
         if (title != null) {
             Text(
@@ -4207,7 +4213,7 @@ private fun formatModelBytes(bytes: Long): String = if (bytes >= 1_000_000_000L)
 }
 
 @Composable
-private fun SettingRow(
+internal fun SettingRow(
     label: String,
     value: String,
     icon: ImageVector? = null,

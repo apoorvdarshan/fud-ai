@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Hosted AI (Plus/Pro), Google Play billing, and the tip jar. -->
+<resources>
+    <!-- Errors -->
+    <string name="hosted_error_subscription_required">होस्टेड AI इस्तेमाल करने के लिए Plus या Pro की सदस्यता लें, या सेटिंग्स → AI एक्सेस में BYOK पर स्विच करें।</string>
+    <string name="hosted_error_quota_exceeded">आज के लिए आपके होस्टेड AI एक्शन खत्म हो गए हैं। क्रेडिट खरीदें, अपग्रेड करें या BYOK पर स्विच करें।</string>
+    <string name="hosted_error_rate_limited">होस्टेड AI अभी व्यस्त है। कृपया थोड़ी देर रुककर फिर से कोशिश करें।</string>
+    <string name="hosted_error_unavailable">होस्टेड AI अस्थायी रूप से उपलब्ध नहीं है। कृपया कुछ देर में फिर से कोशिश करें।</string>
+    <string name="hosted_error_unauthorized">होस्टेड AI आपकी सदस्यता की पहचान नहीं कर सका। खरीदारी रीस्टोर करें आज़माएँ।</string>
+    <string name="hosted_error_too_many_images">होस्टेड AI एक अनुरोध में अधिकतम 3 फ़ोटो स्वीकार करता है।</string>
+    <string name="hosted_error_too_large">यह अनुरोध होस्टेड AI के लिए बहुत बड़ा है। छोटी फ़ोटो या छोटा टेक्स्ट आज़माएँ।</string>
+    <string name="hosted_error_audio_too_long">होस्टेड AI के लिए रिकॉर्डिंग अधिकतम 2 मिनट की हो सकती है। छोटी रिकॉर्डिंग आज़माएँ।</string>
+    <string name="hosted_error_rejected">होस्टेड AI ने यह अनुरोध अस्वीकार कर दिया। कृपया Fud AI अपडेट करें और फिर से कोशिश करें।</string>
+    <string name="hosted_error_failed">होस्टेड AI अनुरोध विफल रहा। कृपया फिर से कोशिश करें।</string>
+
+    <!-- Settings → AI Access -->
+    <string name="settings_category_ai_access">AI एक्सेस</string>
+    <string name="hosted_mode_title">AI मोड</string>
+    <string name="hosted_mode_byok">BYOK (आपकी अपनी कुंजी)</string>
+    <string name="hosted_mode_hosted">होस्टेड (Plus/Pro)</string>
+    <string name="hosted_mode_footer">BYOK बिना किसी सीमा के आपकी अपनी प्रोवाइडर कुंजियों का उपयोग करता है। होस्टेड के लिए Fud AI Plus या Pro प्लान चाहिए: हर AI अनुरोध पहले आपके दैनिक कोटे से, फिर आपके क्रेडिट से लिया जाता है।</string>
+    <string name="hosted_plan_label">प्लान</string>
+    <string name="hosted_plan_none">कोई नहीं</string>
+    <string name="hosted_plan_plus">Plus</string>
+    <string name="hosted_plan_pro">Pro</string>
+    <string name="hosted_today_label">आज (UTC)</string>
+    <string name="hosted_today_value">%1$d / %2$d</string>
+    <string name="hosted_credits_label">क्रेडिट</string>
+    <string name="hosted_usage_footer">Fud AI का सर्वर हर AI अनुरोध को गिनता है, और दैनिक कोटा UTC आधी रात को रीसेट होता है। जिन कोच जवाबों में कई लुकअप लगते हैं, वे कई एक्शन इस्तेमाल करते हैं।</string>
+    <string name="hosted_view_plans">प्लान देखें</string>
+    <string name="hosted_change_plan">प्लान बदलें</string>
+    <string name="hosted_buy_credits">क्रेडिट खरीदें</string>
+    <string name="hosted_restore">खरीदारी रीस्टोर करें</string>
+    <string name="hosted_manage_subscription">सदस्यता प्रबंधित करें</string>
+    <string name="hosted_restore_success">खरीदारी रीस्टोर हो गई।</string>
+    <string name="hosted_restore_none">इस Google खाते के लिए कोई सक्रिय Plus या Pro सदस्यता नहीं मिली।</string>
+    <string name="hosted_restore_failed">खरीदारी रीस्टोर नहीं हो सकी। अपना कनेक्शन जाँचें और फिर से कोशिश करें।</string>
+
+    <!-- Paywall -->
+    <string name="hosted_paywall_title">होस्टेड AI</string>
+    <string name="hosted_paywall_subtitle">मॉडल Fud AI चलाता है। न API कुंजी, न कोई सेटअप।</string>
+    <string name="hosted_period_monthly">मासिक</string>
+    <string name="hosted_period_yearly">वार्षिक</string>
+    <string name="hosted_save_percent">%d%% बचाएँ</string>
+    <string name="hosted_plan_actions">हर दिन %d AI एक्शन</string>
+    <string name="hosted_current_plan">मौजूदा प्लान</string>
+    <string name="hosted_per_month">प्रति माह</string>
+    <string name="hosted_per_year">प्रति वर्ष</string>
+    <string name="hosted_included_title">क्या-क्या शामिल है</string>
+    <string name="hosted_feature_all_title">हर AI फ़ीचर</string>
+    <string name="hosted_feature_all_body">फ़ोटो, आवाज़ और टेक्स्ट से लॉगिंग, कोच और वर्कआउट AI।</string>
+    <string name="hosted_feature_daily_title">दैनिक कोटा</string>
+    <string name="hosted_feature_daily_body">UTC आधी रात को रीसेट होता है। व्यस्त दिनों के लिए क्रेडिट पैक हैं।</string>
+    <string name="hosted_feature_private_title">सिर्फ़ आपका अनुरोध भेजा जाता है</string>
+    <string name="hosted_feature_private_body">आपकी डायरी और इतिहास इसी डिवाइस पर रहते हैं। Google Play में कभी भी रद्द करें।</string>
+    <string name="hosted_cta_subscribe">%s की सदस्यता लें</string>
+    <string name="hosted_cta_upgrade">Pro में अपग्रेड करें</string>
+    <string name="hosted_cta_switch">प्लान बदलें</string>
+    <string name="hosted_cta_current">मौजूदा प्लान</string>
+    <string name="hosted_upgrade_note">Pro तुरंत शुरू हो जाता है। इस बिलिंग अवधि के बाकी समय के लिए Google Play आनुपातिक अंतर चार्ज करता है।</string>
+    <string name="hosted_switch_note">नया प्लान आपके अगले रिन्यूअल पर शुरू होगा। तब तक आपका मौजूदा प्लान जारी रहेगा।</string>
+    <string name="hosted_disclosure">%1$s %2$s · Google Play में रद्द करने तक अपने-आप रिन्यू होता है।</string>
+    <string name="hosted_optional_note">वैकल्पिक — अपनी API कुंजी के साथ Fud AI मुफ़्त रहता है।</string>
+    <string name="hosted_terms">शर्तें</string>
+    <string name="hosted_privacy">गोपनीयता</string>
+    <string name="hosted_close">बंद करें</string>
+    <string name="hosted_plans_loading">प्लान लोड हो रहे हैं…</string>
+    <string name="hosted_plans_unavailable_title">प्लान अभी उपलब्ध नहीं हैं।</string>
+    <string name="hosted_plans_unavailable_body">अपना कनेक्शन जाँचें और फिर से कोशिश करें।</string>
+    <string name="hosted_try_again">फिर से कोशिश करें</string>
+    <string name="hosted_purchase_success_title">सब तैयार है</string>
+    <string name="hosted_purchase_success_body">होस्टेड AI चालू है। आप कभी भी सेटिंग्स → AI एक्सेस में BYOK पर वापस जा सकते हैं।</string>
+    <string name="hosted_purchase_pending">आपकी खरीदारी लंबित है। Google Play से भुगतान की पुष्टि होते ही होस्टेड AI अनलॉक हो जाएगा।</string>
+    <string name="hosted_purchase_failed">खरीदारी पूरी नहीं हो सकी। कृपया फिर से कोशिश करें।</string>
+    <string name="hosted_purchase_already_owned">यह आपके पास पहले से है। अनलॉक करने के लिए खरीदारी रीस्टोर करें पर टैप करें।</string>
+
+    <!-- Credits -->
+    <string name="hosted_credits_title">क्रेडिट खरीदें</string>
+    <string name="hosted_credits_subtitle">व्यस्त दिनों के लिए एक बार के टॉप-अप। क्रेडिट आपके दैनिक कोटे के बाद, सिर्फ़ Plus या Pro प्लान सक्रिय रहने पर इस्तेमाल होते हैं, और कभी समाप्त नहीं होते।</string>
+    <string name="hosted_credits_amount">%d क्रेडिट</string>
+    <string name="hosted_credits_added">क्रेडिट जोड़ दिए गए।</string>
+    <string name="hosted_credits_pending">खरीदारी पूरी हुई। आपके क्रेडिट जल्द ही दिखेंगे।</string>
+    <string name="hosted_credits_unavailable">क्रेडिट पैक अभी उपलब्ध नहीं हैं।</string>
+
+    <!-- Out of quota -->
+    <string name="hosted_out_title">होस्टेड एक्शन खत्म हो गए</string>
+    <string name="hosted_out_body">क्रेडिट खरीदें, अपना प्लान अपग्रेड करें, या अपनी API कुंजी के साथ BYOK पर स्विच करें।</string>
+    <string name="hosted_out_buy">क्रेडिट खरीदें या अपग्रेड करें</string>
+    <string name="hosted_out_byok">BYOK पर स्विच करें</string>
+
+    <!-- One-time post-update upsell (existing users) -->
+    <string name="hosted_upsell_title">वैकल्पिक: AI कुंजियाँ हमें संभालने दें</string>
+    <string name="hosted_upsell_body">Fud AI आपकी अपनी API कुंजियों (BYOK) के साथ मुफ़्त है — और हमेशा रहेगा। अगर कुंजियाँ संभालना उलझन भरा लगता है, तो Plus और Pro प्लान आपके लिए AI चलाते हैं, कोई कुंजी संभालने की ज़रूरत नहीं। पूरी तरह वैकल्पिक — जब तक आप स्विच नहीं करते, कुछ नहीं बदलता।</string>
+    <string name="hosted_upsell_cta">Plus और Pro प्लान देखें</string>
+    <string name="hosted_upsell_keep">BYOK रखें (मुफ़्त)</string>
+
+    <!-- Onboarding: Hosted path -->
+    <string name="onboarding_ai_hosted_subtitle">होस्टेड AI के लिए Plus या Pro की सदस्यता लें — किसी API कुंजी की ज़रूरत नहीं। सेटिंग्स में कभी भी BYOK पर स्विच करें।</string>
+    <string name="onboarding_ai_hosted_active">सक्रिय प्लान: %s</string>
+    <string name="onboarding_ai_hosted_inactive">अपनी कुंजी लाए बिना होस्टेड AI इस्तेमाल करने के लिए Plus या Pro की सदस्यता लें।</string>
+    <string name="onboarding_ai_hosted_use_byok">इसके बजाय BYOK इस्तेमाल करें</string>
+    <string name="onboarding_ai_hosted_notice_analysis_body">खाने की फ़ोटो, आवाज़ के ट्रांसक्रिप्ट और टाइप किए गए भोजन Fud AI की होस्टेड सेवा से प्रोसेस होते हैं।</string>
+    <string name="onboarding_ai_hosted_notice_local_body">आपका फ़ूड लॉग, वज़न इतिहास और बॉडी-फ़ैट इतिहास इसी डिवाइस पर रहते हैं।</string>
+    <string name="onboarding_ai_hosted_cta_subscribe">जारी रखने के लिए सदस्यता लें</string>
+
+    <!-- Tip jar (Google Play) -->
+    <string name="tip_jar_title">टिप दें</string>
+    <string name="tip_snack">स्नैक</string>
+    <string name="tip_proteinshake">प्रोटीन शेक</string>
+    <string name="tip_lunch">लंच</string>
+    <string name="tip_feast">दावत</string>
+    <string name="tip_thanks_title">धन्यवाद!</string>
+    <string name="tip_thanks_body">आपका सहयोग Fud AI को सभी के लिए मुफ़्त रखता है।</string>
+    <string name="tip_unavailable">टिप अभी उपलब्ध नहीं हैं।</string>
+</resources>

@@ -4,6 +4,8 @@ import com.apoorvdarshan.calorietracker.data.KeyStore
 import com.apoorvdarshan.calorietracker.data.PreferencesStore
 import com.apoorvdarshan.calorietracker.models.SpeechProvider
 import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysisService
+import com.apoorvdarshan.calorietracker.services.hosted.AiAccessMode
+import com.apoorvdarshan.calorietracker.services.hosted.HostedAiAccess
 import com.apoorvdarshan.calorietracker.services.ondevice.LocalWhisperRuntime
 import kotlinx.coroutines.flow.first
 import okhttp3.OkHttpClient
@@ -18,12 +20,29 @@ class SpeechService(
     private val prefs: PreferencesStore,
     private val keyStore: KeyStore,
     private val okHttp: OkHttpClient = FoodAnalysisService.defaultClient,
-    private val localWhisper: LocalWhisperRuntime? = null
+    private val localWhisper: LocalWhisperRuntime? = null,
+    private val hosted: HostedAiAccess? = null
 ) {
 
-    /** Returns the transcript text. Throws [SttApiError] on any failure. */
+    /**
+     * Returns the transcript text. Throws [SttApiError] on any failure, or an
+     * [com.apoorvdarshan.calorietracker.services.ai.AiError] in Hosted AI mode.
+     * Native on-device recognition never reaches here, so it stays free in Hosted mode.
+     */
     suspend fun transcribeRecordedAudio(audio: File): String {
         val provider = prefs.selectedSpeechProvider.first()
+        // On-device Whisper stays local (free); remote providers go through Hosted AI.
+        if (hosted != null && provider != SpeechProvider.LOCAL_WHISPER &&
+            prefs.aiAccessMode.first() == AiAccessMode.HOSTED
+        ) {
+            return try {
+                hosted.requireEntitlement()
+                val language = prefs.selectedSpeechLanguage(provider).first().remoteLanguageCode()
+                hosted.client.transcribe(audio, mimeType = "audio/wav", language = language)
+            } finally {
+                runCatching { audio.delete() }
+            }
+        }
         return try {
             try {
                 transcribe(audio, provider)

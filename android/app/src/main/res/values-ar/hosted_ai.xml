@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Hosted AI (Plus/Pro), Google Play billing, and the tip jar. -->
+<resources>
+    <!-- Errors -->
+    <string name="hosted_error_subscription_required">اشترك في Plus أو Pro لاستخدام الذكاء الاصطناعي المستضاف، أو انتقل إلى BYOK من الإعدادات ← الوصول إلى الذكاء الاصطناعي.</string>
+    <string name="hosted_error_quota_exceeded">نفدت إجراءات الذكاء الاصطناعي المستضاف لهذا اليوم. اشترِ أرصدة أو قم بالترقية أو انتقل إلى BYOK.</string>
+    <string name="hosted_error_rate_limited">الذكاء الاصطناعي المستضاف مشغول. يرجى الانتظار قليلًا ثم المحاولة مرة أخرى.</string>
+    <string name="hosted_error_unavailable">الذكاء الاصطناعي المستضاف غير متاح مؤقتًا. يرجى المحاولة مرة أخرى بعد قليل.</string>
+    <string name="hosted_error_unauthorized">تعذّر على الذكاء الاصطناعي المستضاف التعرّف على اشتراكك. جرّب استعادة المشتريات.</string>
+    <string name="hosted_error_too_many_images">يقبل الذكاء الاصطناعي المستضاف 3 صور كحد أقصى لكل طلب.</string>
+    <string name="hosted_error_too_large">هذا الطلب كبير جدًا بالنسبة للذكاء الاصطناعي المستضاف. جرّب صورة أصغر أو نصًا أقصر.</string>
+    <string name="hosted_error_audio_too_long">يمكن أن تصل مدة التسجيلات للذكاء الاصطناعي المستضاف إلى دقيقتين. جرّب تسجيلًا أقصر.</string>
+    <string name="hosted_error_rejected">رفض الذكاء الاصطناعي المستضاف هذا الطلب. يرجى تحديث Fud AI والمحاولة مرة أخرى.</string>
+    <string name="hosted_error_failed">فشل طلب الذكاء الاصطناعي المستضاف. يرجى المحاولة مرة أخرى.</string>
+
+    <!-- Settings → AI Access -->
+    <string name="settings_category_ai_access">الوصول إلى الذكاء الاصطناعي</string>
+    <string name="hosted_mode_title">وضع الذكاء الاصطناعي</string>
+    <string name="hosted_mode_byok">BYOK (مفتاحك الخاص)</string>
+    <string name="hosted_mode_hosted">مستضاف (Plus/Pro)</string>
+    <string name="hosted_mode_footer">يستخدم BYOK مفاتيح المزوّدين الخاصة بك بلا حدود. أما الوضع المستضاف فيستخدم خطة Fud AI Plus أو Pro: يُحتسب كل طلب ذكاء اصطناعي من حصتك اليومية أولًا، ثم من أرصدتك.</string>
+    <string name="hosted_plan_label">الخطة</string>
+    <string name="hosted_plan_none">لا توجد</string>
+    <string name="hosted_plan_plus">Plus</string>
+    <string name="hosted_plan_pro">Pro</string>
+    <string name="hosted_today_label">اليوم (UTC)</string>
+    <string name="hosted_today_value">%1$d / %2$d</string>
+    <string name="hosted_credits_label">الأرصدة</string>
+    <string name="hosted_usage_footer">يحتسب خادم Fud AI كل طلب ذكاء اصطناعي، وتُعاد الحصة اليومية عند منتصف الليل بتوقيت UTC. ردود المدرب التي تحتاج إلى عدة عمليات بحث تستهلك عدة إجراءات.</string>
+    <string name="hosted_view_plans">عرض الخطط</string>
+    <string name="hosted_change_plan">تغيير الخطة</string>
+    <string name="hosted_buy_credits">شراء أرصدة</string>
+    <string name="hosted_restore">استعادة المشتريات</string>
+    <string name="hosted_manage_subscription">إدارة الاشتراك</string>
+    <string name="hosted_restore_success">تمت استعادة المشتريات.</string>
+    <string name="hosted_restore_none">لم يُعثر على اشتراك Plus أو Pro نشط لحساب Google هذا.</string>
+    <string name="hosted_restore_failed">تعذّرت استعادة المشتريات. تحقّق من اتصالك وحاول مرة أخرى.</string>
+
+    <!-- Paywall -->
+    <string name="hosted_paywall_title">الذكاء الاصطناعي المستضاف</string>
+    <string name="hosted_paywall_subtitle">يشغّل Fud AI النماذج نيابةً عنك. بلا مفاتيح API ولا إعداد.</string>
+    <string name="hosted_period_monthly">شهري</string>
+    <string name="hosted_period_yearly">سنوي</string>
+    <string name="hosted_save_percent">وفّر %d%%</string>
+    <string name="hosted_plan_actions">%d إجراء ذكاء اصطناعي كل يوم</string>
+    <string name="hosted_current_plan">الخطة الحالية</string>
+    <string name="hosted_per_month">شهريًا</string>
+    <string name="hosted_per_year">سنويًا</string>
+    <string name="hosted_included_title">ما الذي يتضمنه</string>
+    <string name="hosted_feature_all_title">جميع ميزات الذكاء الاصطناعي</string>
+    <string name="hosted_feature_all_body">التسجيل بالصور والصوت والنص، والمدرب، والذكاء الاصطناعي للتمارين.</string>
+    <string name="hosted_feature_daily_title">حصة يومية</string>
+    <string name="hosted_feature_daily_body">تُعاد عند منتصف الليل بتوقيت UTC. وتغطي حزم الأرصدة الأيام المزدحمة.</string>
+    <string name="hosted_feature_private_title">يُرسَل طلبك فقط</string>
+    <string name="hosted_feature_private_body">تبقى يومياتك وسجلك على هذا الجهاز. يمكنك الإلغاء في أي وقت من Google Play.</string>
+    <string name="hosted_cta_subscribe">اشترك في %s</string>
+    <string name="hosted_cta_upgrade">الترقية إلى Pro</string>
+    <string name="hosted_cta_switch">تبديل الخطة</string>
+    <string name="hosted_cta_current">الخطة الحالية</string>
+    <string name="hosted_upgrade_note">تبدأ خطة Pro فورًا. يحتسب Google Play الفرق التناسبي عن بقية فترة الفوترة الحالية.</string>
+    <string name="hosted_switch_note">تبدأ الخطة الجديدة عند التجديد التالي. تحتفظ بخطتك الحالية حتى ذلك الحين.</string>
+    <string name="hosted_disclosure">%1$s %2$s · يتجدد تلقائيًا حتى تلغيه من Google Play.</string>
+    <string name="hosted_optional_note">اختياري — يبقى Fud AI مجانيًا مع مفتاح API الخاص بك.</string>
+    <string name="hosted_terms">الشروط</string>
+    <string name="hosted_privacy">الخصوصية</string>
+    <string name="hosted_close">إغلاق</string>
+    <string name="hosted_plans_loading">جارٍ تحميل الخطط…</string>
+    <string name="hosted_plans_unavailable_title">الخطط غير متاحة حاليًا.</string>
+    <string name="hosted_plans_unavailable_body">تحقّق من اتصالك وحاول مرة أخرى.</string>
+    <string name="hosted_try_again">حاول مرة أخرى</string>
+    <string name="hosted_purchase_success_title">كل شيء جاهز</string>
+    <string name="hosted_purchase_success_body">تم تفعيل الذكاء الاصطناعي المستضاف. يمكنك العودة إلى BYOK في أي وقت من الإعدادات ← الوصول إلى الذكاء الاصطناعي.</string>
+    <string name="hosted_purchase_pending">عملية الشراء قيد الانتظار. سيُفعَّل الذكاء الاصطناعي المستضاف فور تأكيد Google Play للدفع.</string>
+    <string name="hosted_purchase_failed">تعذّر إتمام عملية الشراء. يرجى المحاولة مرة أخرى.</string>
+    <string name="hosted_purchase_already_owned">أنت تملك هذا بالفعل. اضغط على استعادة المشتريات لتفعيله.</string>
+
+    <!-- Credits -->
+    <string name="hosted_credits_title">شراء أرصدة</string>
+    <string name="hosted_credits_subtitle">شحن لمرة واحدة للأيام المزدحمة. تُستخدم الأرصدة بعد حصتك اليومية، وفقط أثناء تفعيل خطة Plus أو Pro، ولا تنتهي صلاحيتها أبدًا.</string>
+    <string name="hosted_credits_amount">%d رصيد</string>
+    <string name="hosted_credits_added">تمت إضافة الأرصدة.</string>
+    <string name="hosted_credits_pending">اكتملت عملية الشراء. ستظهر أرصدتك قريبًا.</string>
+    <string name="hosted_credits_unavailable">حزم الأرصدة غير متاحة حاليًا.</string>
+
+    <!-- Out of quota -->
+    <string name="hosted_out_title">نفدت الإجراءات المستضافة</string>
+    <string name="hosted_out_body">اشترِ أرصدة أو قم بترقية خطتك أو انتقل إلى BYOK باستخدام مفتاح API الخاص بك.</string>
+    <string name="hosted_out_buy">شراء أرصدة أو الترقية</string>
+    <string name="hosted_out_byok">الانتقال إلى BYOK</string>
+
+    <!-- One-time post-update upsell (existing users) -->
+    <string name="hosted_upsell_title">اختياري: دعنا نتولَّ مفاتيح الذكاء الاصطناعي</string>
+    <string name="hosted_upsell_body">Fud AI مجاني مع مفاتيح API الخاصة بك (BYOK) — وسيبقى كذلك دائمًا. إذا كانت إدارة المفاتيح مربكة، فخطتا Plus وPro تشغّلان الذكاء الاصطناعي نيابةً عنك دون أي مفاتيح لإدارتها. الأمر اختياري تمامًا، ولن يتغير شيء ما لم تنتقل.</string>
+    <string name="hosted_upsell_cta">عرض خطتي Plus وPro</string>
+    <string name="hosted_upsell_keep">الإبقاء على BYOK (مجاني)</string>
+
+    <!-- Onboarding: Hosted path -->
+    <string name="onboarding_ai_hosted_subtitle">اشترك في Plus أو Pro للحصول على الذكاء الاصطناعي المستضاف — لا حاجة لمفتاح API. يمكنك الانتقال إلى BYOK في أي وقت من الإعدادات.</string>
+    <string name="onboarding_ai_hosted_active">الخطة النشطة: %s</string>
+    <string name="onboarding_ai_hosted_inactive">اشترك في Plus أو Pro لاستخدام الذكاء الاصطناعي المستضاف دون إحضار مفتاحك الخاص.</string>
+    <string name="onboarding_ai_hosted_use_byok">استخدام BYOK بدلًا من ذلك</string>
+    <string name="onboarding_ai_hosted_notice_analysis_body">تتم معالجة صور الطعام ونصوص التسجيلات الصوتية والوجبات المكتوبة عبر خدمة Fud AI المستضافة.</string>
+    <string name="onboarding_ai_hosted_notice_local_body">يبقى سجل طعامك وسجل وزنك وسجل نسبة الدهون في جسمك على هذا الجهاز.</string>
+    <string name="onboarding_ai_hosted_cta_subscribe">اشترك للمتابعة</string>
+
+    <!-- Tip jar (Google Play) -->
+    <string name="tip_jar_title">اترك إكرامية</string>
+    <string name="tip_snack">وجبة خفيفة</string>
+    <string name="tip_proteinshake">مخفوق بروتين</string>
+    <string name="tip_lunch">غداء</string>
+    <string name="tip_feast">وليمة</string>
+    <string name="tip_thanks_title">شكرًا لك!</string>
+    <string name="tip_thanks_body">دعمك يُبقي Fud AI مجانيًا للجميع.</string>
+    <string name="tip_unavailable">الإكراميات غير متاحة حاليًا.</string>
+</resources>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Hosted AI (Plus/Pro), Google Play billing, and the tip jar. -->
+<resources>
+    <!-- Errors -->
+    <string name="hosted_error_subscription_required">Abonează-te la Plus sau Pro pentru a folosi AI găzduit sau treci la BYOK din Setări → Acces AI.</string>
+    <string name="hosted_error_quota_exceeded">Ai epuizat acțiunile AI găzduit pentru azi. Cumpără credite, fă upgrade sau treci la BYOK.</string>
+    <string name="hosted_error_rate_limited">AI găzduit este ocupat. Așteaptă puțin și încearcă din nou.</string>
+    <string name="hosted_error_unavailable">AI găzduit este temporar indisponibil. Încearcă din nou în curând.</string>
+    <string name="hosted_error_unauthorized">AI găzduit nu ți-a putut identifica abonamentul. Încearcă Restabilește achizițiile.</string>
+    <string name="hosted_error_too_many_images">AI găzduit acceptă cel mult 3 fotografii per cerere.</string>
+    <string name="hosted_error_too_large">Cererea este prea mare pentru AI găzduit. Încearcă o fotografie mai mică sau un text mai scurt.</string>
+    <string name="hosted_error_audio_too_long">Înregistrările pentru AI găzduit pot avea cel mult 2 minute. Încearcă una mai scurtă.</string>
+    <string name="hosted_error_rejected">AI găzduit a respins această cerere. Actualizează Fud AI și încearcă din nou.</string>
+    <string name="hosted_error_failed">Cererea către AI găzduit a eșuat. Încearcă din nou.</string>
+
+    <!-- Settings → AI Access -->
+    <string name="settings_category_ai_access">Acces AI</string>
+    <string name="hosted_mode_title">Mod AI</string>
+    <string name="hosted_mode_byok">BYOK (cheia ta)</string>
+    <string name="hosted_mode_hosted">Găzduit (Plus/Pro)</string>
+    <string name="hosted_mode_footer">BYOK folosește propriile tale chei de furnizor, fără limite. Modul găzduit folosește un plan Fud AI Plus sau Pro: fiecare cerere AI consumă mai întâi alocarea zilnică, apoi creditele.</string>
+    <string name="hosted_plan_label">Plan</string>
+    <string name="hosted_plan_none">Niciunul</string>
+    <string name="hosted_plan_plus">Plus</string>
+    <string name="hosted_plan_pro">Pro</string>
+    <string name="hosted_today_label">Azi (UTC)</string>
+    <string name="hosted_today_value">%1$d / %2$d</string>
+    <string name="hosted_credits_label">Credite</string>
+    <string name="hosted_usage_footer">Serverul Fud AI contorizează fiecare cerere AI, iar alocarea zilnică se resetează la miezul nopții UTC. Răspunsurile Antrenorului care necesită mai multe căutări folosesc mai multe acțiuni.</string>
+    <string name="hosted_view_plans">Vezi planurile</string>
+    <string name="hosted_change_plan">Schimbă planul</string>
+    <string name="hosted_buy_credits">Cumpără credite</string>
+    <string name="hosted_restore">Restabilește achizițiile</string>
+    <string name="hosted_manage_subscription">Gestionează abonamentul</string>
+    <string name="hosted_restore_success">Achizițiile au fost restabilite.</string>
+    <string name="hosted_restore_none">Nu s-a găsit niciun abonament Plus sau Pro activ pentru acest cont Google.</string>
+    <string name="hosted_restore_failed">Achizițiile nu au putut fi restabilite. Verifică conexiunea și încearcă din nou.</string>
+
+    <!-- Paywall -->
+    <string name="hosted_paywall_title">AI găzduit</string>
+    <string name="hosted_paywall_subtitle">Fud AI rulează modelele. Fără chei API, fără configurare.</string>
+    <string name="hosted_period_monthly">Lunar</string>
+    <string name="hosted_period_yearly">Anual</string>
+    <string name="hosted_save_percent">Economisești %d%%</string>
+    <string name="hosted_plan_actions">%d de acțiuni AI pe zi</string>
+    <string name="hosted_current_plan">Planul actual</string>
+    <string name="hosted_per_month">pe lună</string>
+    <string name="hosted_per_year">pe an</string>
+    <string name="hosted_included_title">Ce este inclus</string>
+    <string name="hosted_feature_all_title">Toate funcțiile AI</string>
+    <string name="hosted_feature_all_body">Înregistrare prin foto, voce și text, Antrenor și AI pentru antrenamente.</string>
+    <string name="hosted_feature_daily_title">Alocare zilnică</string>
+    <string name="hosted_feature_daily_body">Se resetează la miezul nopții UTC. Pachetele de credite acoperă zilele aglomerate.</string>
+    <string name="hosted_feature_private_title">Se trimite doar cererea ta</string>
+    <string name="hosted_feature_private_body">Jurnalul și istoricul tău rămân pe acest dispozitiv. Anulezi oricând din Google Play.</string>
+    <string name="hosted_cta_subscribe">Abonează-te la %s</string>
+    <string name="hosted_cta_upgrade">Treci la Pro</string>
+    <string name="hosted_cta_switch">Schimbă planul</string>
+    <string name="hosted_cta_current">Plan actual</string>
+    <string name="hosted_upgrade_note">Pro începe imediat. Google Play percepe diferența proporțională pentru restul acestei perioade de facturare.</string>
+    <string name="hosted_switch_note">Noul plan începe la următoarea reînnoire. Până atunci îți păstrezi planul actual.</string>
+    <string name="hosted_disclosure">%1$s %2$s · Se reînnoiește automat până când anulezi din Google Play.</string>
+    <string name="hosted_optional_note">Opțional — Fud AI rămâne gratuit cu propria ta cheie API.</string>
+    <string name="hosted_terms">Termeni</string>
+    <string name="hosted_privacy">Confidențialitate</string>
+    <string name="hosted_close">Închide</string>
+    <string name="hosted_plans_loading">Se încarcă planurile…</string>
+    <string name="hosted_plans_unavailable_title">Planurile nu sunt disponibile momentan.</string>
+    <string name="hosted_plans_unavailable_body">Verifică conexiunea și încearcă din nou.</string>
+    <string name="hosted_try_again">Încearcă din nou</string>
+    <string name="hosted_purchase_success_title">Totul este gata</string>
+    <string name="hosted_purchase_success_body">AI găzduit este activ. Poți reveni oricând la BYOK din Setări → Acces AI.</string>
+    <string name="hosted_purchase_pending">Achiziția este în așteptare. AI găzduit se deblochează imediat ce Google Play confirmă plata.</string>
+    <string name="hosted_purchase_failed">Achiziția nu a putut fi finalizată. Încearcă din nou.</string>
+    <string name="hosted_purchase_already_owned">Deții deja acest produs. Atinge Restabilește achizițiile pentru a-l debloca.</string>
+
+    <!-- Credits -->
+    <string name="hosted_credits_title">Cumpără credite</string>
+    <string name="hosted_credits_subtitle">Reîncărcări unice pentru zilele aglomerate. Creditele se folosesc după alocarea zilnică, doar cât timp un plan Plus sau Pro este activ, și nu expiră niciodată.</string>
+    <string name="hosted_credits_amount">%d de credite</string>
+    <string name="hosted_credits_added">Credite adăugate.</string>
+    <string name="hosted_credits_pending">Achiziție finalizată. Creditele vor apărea în curând.</string>
+    <string name="hosted_credits_unavailable">Pachetele de credite nu sunt disponibile momentan.</string>
+
+    <!-- Out of quota -->
+    <string name="hosted_out_title">Acțiuni găzduite epuizate</string>
+    <string name="hosted_out_body">Cumpără credite, fă upgrade la plan sau treci la BYOK cu propria ta cheie API.</string>
+    <string name="hosted_out_buy">Cumpără credite sau fă upgrade</string>
+    <string name="hosted_out_byok">Treci la BYOK</string>
+
+    <!-- One-time post-update upsell (existing users) -->
+    <string name="hosted_upsell_title">Opțional: lasă-ne pe noi să ne ocupăm de cheile AI</string>
+    <string name="hosted_upsell_body">Fud AI este gratuit cu propriile tale chei API (BYOK) — și așa va rămâne mereu. Dacă gestionarea cheilor ți se pare complicată, planurile Plus și Pro rulează AI-ul pentru tine, fără chei de gestionat. Complet opțional, nimic nu se schimbă dacă nu treci la ele.</string>
+    <string name="hosted_upsell_cta">Vezi planurile Plus și Pro</string>
+    <string name="hosted_upsell_keep">Păstrează BYOK (gratuit)</string>
+
+    <!-- Onboarding: Hosted path -->
+    <string name="onboarding_ai_hosted_subtitle">Abonează-te la Plus sau Pro pentru AI găzduit — fără cheie API. Treci oricând la BYOK din Setări.</string>
+    <string name="onboarding_ai_hosted_active">Plan activ: %s</string>
+    <string name="onboarding_ai_hosted_inactive">Abonează-te la Plus sau Pro ca să folosești AI găzduit fără propria ta cheie.</string>
+    <string name="onboarding_ai_hosted_use_byok">Folosește BYOK</string>
+    <string name="onboarding_ai_hosted_notice_analysis_body">Fotografiile cu mâncare, transcrierile vocale și mesele tastate sunt procesate prin serviciul găzduit Fud AI.</string>
+    <string name="onboarding_ai_hosted_notice_local_body">Jurnalul alimentar, istoricul greutății și istoricul grăsimii corporale rămân pe acest dispozitiv.</string>
+    <string name="onboarding_ai_hosted_cta_subscribe">Abonează-te pentru a continua</string>
+
+    <!-- Tip jar (Google Play) -->
+    <string name="tip_jar_title">Lasă un bacșiș</string>
+    <string name="tip_snack">Gustare</string>
+    <string name="tip_proteinshake">Shake proteic</string>
+    <string name="tip_lunch">Prânz</string>
+    <string name="tip_feast">Ospăț</string>
+    <string name="tip_thanks_title">Mulțumim!</string>
+    <string name="tip_thanks_body">Sprijinul tău menține Fud AI gratuit pentru toți.</string>
+    <string name="tip_unavailable">Bacșișurile nu sunt disponibile momentan.</string>
+</resources>

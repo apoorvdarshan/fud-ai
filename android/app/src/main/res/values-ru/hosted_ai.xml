@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Hosted AI (Plus/Pro), Google Play billing, and the tip jar. -->
+<resources>
+    <!-- Errors -->
+    <string name="hosted_error_subscription_required">Оформи Plus или Pro, чтобы пользоваться Хостингом ИИ, или переключись на BYOK в разделе Настройки → Доступ к ИИ.</string>
+    <string name="hosted_error_quota_exceeded">Действия Хостинга ИИ на сегодня закончились. Купи кредиты, повысь тариф или переключись на BYOK.</string>
+    <string name="hosted_error_rate_limited">Хостинг ИИ перегружен. Подожди немного и попробуй снова.</string>
+    <string name="hosted_error_unavailable">Хостинг ИИ временно недоступен. Попробуй ещё раз чуть позже.</string>
+    <string name="hosted_error_unauthorized">Хостингу ИИ не удалось определить твою подписку. Попробуй «Восстановить покупки».</string>
+    <string name="hosted_error_too_many_images">Хостинг ИИ принимает не более 3 фото за запрос.</string>
+    <string name="hosted_error_too_large">Запрос слишком большой для Хостинга ИИ. Попробуй фото поменьше или текст покороче.</string>
+    <string name="hosted_error_audio_too_long">Записи для Хостинга ИИ могут длиться до 2 минут. Попробуй запись покороче.</string>
+    <string name="hosted_error_rejected">Хостинг ИИ отклонил этот запрос. Обнови Fud AI и попробуй снова.</string>
+    <string name="hosted_error_failed">Запрос к Хостингу ИИ не выполнен. Попробуй ещё раз.</string>
+
+    <!-- Settings → AI Access -->
+    <string name="settings_category_ai_access">Доступ к ИИ</string>
+    <string name="hosted_mode_title">Режим ИИ</string>
+    <string name="hosted_mode_byok">BYOK (свой ключ)</string>
+    <string name="hosted_mode_hosted">Хостинг (Plus/Pro)</string>
+    <string name="hosted_mode_footer">BYOK использует твои собственные ключи провайдеров без ограничений. Хостинг работает по тарифу Fud AI Plus или Pro: каждый запрос к ИИ сначала расходует дневной лимит, а затем кредиты.</string>
+    <string name="hosted_plan_label">Тариф</string>
+    <string name="hosted_plan_none">Нет</string>
+    <string name="hosted_plan_plus">Plus</string>
+    <string name="hosted_plan_pro">Pro</string>
+    <string name="hosted_today_label">Сегодня (UTC)</string>
+    <string name="hosted_today_value">%1$d / %2$d</string>
+    <string name="hosted_credits_label">Кредиты</string>
+    <string name="hosted_usage_footer">Сервер Fud AI учитывает каждый запрос к ИИ, а дневной лимит обновляется в полночь по UTC. Ответы Тренера, которым нужно несколько поисков, расходуют несколько действий.</string>
+    <string name="hosted_view_plans">Посмотреть тарифы</string>
+    <string name="hosted_change_plan">Сменить тариф</string>
+    <string name="hosted_buy_credits">Купить кредиты</string>
+    <string name="hosted_restore">Восстановить покупки</string>
+    <string name="hosted_manage_subscription">Управление подпиской</string>
+    <string name="hosted_restore_success">Покупки восстановлены.</string>
+    <string name="hosted_restore_none">Для этого аккаунта Google не найдено активной подписки Plus или Pro.</string>
+    <string name="hosted_restore_failed">Не удалось восстановить покупки. Проверь подключение и попробуй снова.</string>
+
+    <!-- Paywall -->
+    <string name="hosted_paywall_title">Хостинг ИИ</string>
+    <string name="hosted_paywall_subtitle">Модели запускает Fud AI. Без ключей API и без настройки.</string>
+    <string name="hosted_period_monthly">Ежемесячно</string>
+    <string name="hosted_period_yearly">Ежегодно</string>
+    <string name="hosted_save_percent">Экономия %d%%</string>
+    <string name="hosted_plan_actions">%d действий ИИ каждый день</string>
+    <string name="hosted_current_plan">Текущий тариф</string>
+    <string name="hosted_per_month">в месяц</string>
+    <string name="hosted_per_year">в год</string>
+    <string name="hosted_included_title">Что входит</string>
+    <string name="hosted_feature_all_title">Все функции ИИ</string>
+    <string name="hosted_feature_all_body">Запись еды по фото, голосу и тексту, Тренер и ИИ для тренировок.</string>
+    <string name="hosted_feature_daily_title">Дневной лимит</string>
+    <string name="hosted_feature_daily_body">Обновляется в полночь по UTC. Пакеты кредитов выручат в насыщенные дни.</string>
+    <string name="hosted_feature_private_title">Отправляется только твой запрос</string>
+    <string name="hosted_feature_private_body">Дневник и история остаются на этом устройстве. Отменить можно в любой момент в Google Play.</string>
+    <string name="hosted_cta_subscribe">Оформить %s</string>
+    <string name="hosted_cta_upgrade">Перейти на Pro</string>
+    <string name="hosted_cta_switch">Сменить тариф</string>
+    <string name="hosted_cta_current">Текущий тариф</string>
+    <string name="hosted_upgrade_note">Pro начинает действовать сразу. Google Play спишет пропорциональную разницу за остаток текущего расчётного периода.</string>
+    <string name="hosted_switch_note">Новый тариф начнёт действовать со следующего продления. До тех пор у тебя остаётся текущий тариф.</string>
+    <string name="hosted_disclosure">%1$s %2$s · Продлевается автоматически, пока ты не отменишь подписку в Google Play.</string>
+    <string name="hosted_optional_note">Необязательно — со своим ключом API Fud AI остаётся бесплатным.</string>
+    <string name="hosted_terms">Условия</string>
+    <string name="hosted_privacy">Конфиденциальность</string>
+    <string name="hosted_close">Закрыть</string>
+    <string name="hosted_plans_loading">Загрузка тарифов…</string>
+    <string name="hosted_plans_unavailable_title">Тарифы сейчас недоступны.</string>
+    <string name="hosted_plans_unavailable_body">Проверь подключение и попробуй снова.</string>
+    <string name="hosted_try_again">Повторить</string>
+    <string name="hosted_purchase_success_title">Всё готово</string>
+    <string name="hosted_purchase_success_body">Хостинг ИИ включён. Вернуться к BYOK можно в любой момент в разделе Настройки → Доступ к ИИ.</string>
+    <string name="hosted_purchase_pending">Покупка ожидает подтверждения. Хостинг ИИ станет доступен, как только Google Play подтвердит оплату.</string>
+    <string name="hosted_purchase_failed">Не удалось завершить покупку. Попробуй ещё раз.</string>
+    <string name="hosted_purchase_already_owned">Эта покупка у тебя уже есть. Нажми «Восстановить покупки», чтобы её активировать.</string>
+
+    <!-- Credits -->
+    <string name="hosted_credits_title">Купить кредиты</string>
+    <string name="hosted_credits_subtitle">Разовые пополнения для насыщенных дней. Кредиты расходуются после дневного лимита, только пока активен тариф Plus или Pro, и никогда не сгорают.</string>
+    <string name="hosted_credits_amount">%d кредитов</string>
+    <string name="hosted_credits_added">Кредиты добавлены.</string>
+    <string name="hosted_credits_pending">Покупка завершена. Кредиты скоро появятся.</string>
+    <string name="hosted_credits_unavailable">Пакеты кредитов сейчас недоступны.</string>
+
+    <!-- Out of quota -->
+    <string name="hosted_out_title">Действия хостинга закончились</string>
+    <string name="hosted_out_body">Купи кредиты, повысь тариф или переключись на BYOK со своим ключом API.</string>
+    <string name="hosted_out_buy">Купить кредиты или повысить тариф</string>
+    <string name="hosted_out_byok">Перейти на BYOK</string>
+
+    <!-- One-time post-update upsell (existing users) -->
+    <string name="hosted_upsell_title">По желанию: доверь ключи ИИ нам</string>
+    <string name="hosted_upsell_body">Fud AI бесплатен с твоими собственными ключами API (BYOK) — и так будет всегда. Если возиться с ключами сложно, тарифы Plus и Pro запускают ИИ за тебя, и никакими ключами управлять не нужно. Это полностью необязательно: ничего не изменится, пока ты сам не переключишься.</string>
+    <string name="hosted_upsell_cta">Тарифы Plus и Pro</string>
+    <string name="hosted_upsell_keep">Оставить BYOK (бесплатно)</string>
+
+    <!-- Onboarding: Hosted path -->
+    <string name="onboarding_ai_hosted_subtitle">Оформи Plus или Pro для Хостинга ИИ — ключ API не нужен. Переключиться на BYOK можно в любой момент в Настройках.</string>
+    <string name="onboarding_ai_hosted_active">Активный тариф: %s</string>
+    <string name="onboarding_ai_hosted_inactive">Оформи Plus или Pro, чтобы пользоваться Хостингом ИИ без собственного ключа.</string>
+    <string name="onboarding_ai_hosted_use_byok">Использовать BYOK</string>
+    <string name="onboarding_ai_hosted_notice_analysis_body">Фото еды, расшифровки голоса и введённые блюда обрабатываются через хостинг-сервис Fud AI.</string>
+    <string name="onboarding_ai_hosted_notice_local_body">Дневник питания, история веса и история процента жира остаются на этом устройстве.</string>
+    <string name="onboarding_ai_hosted_cta_subscribe">Оформить подписку и продолжить</string>
+
+    <!-- Tip jar (Google Play) -->
+    <string name="tip_jar_title">Оставить чаевые</string>
+    <string name="tip_snack">Перекус</string>
+    <string name="tip_proteinshake">Протеиновый коктейль</string>
+    <string name="tip_lunch">Обед</string>
+    <string name="tip_feast">Пир</string>
+    <string name="tip_thanks_title">Спасибо!</string>
+    <string name="tip_thanks_body">Твоя поддержка помогает Fud AI оставаться бесплатным для всех.</string>
+    <string name="tip_unavailable">Чаевые сейчас недоступны.</string>
+</resources>

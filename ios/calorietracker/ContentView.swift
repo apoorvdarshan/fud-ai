@@ -2788,7 +2788,7 @@ private struct CopyFromDaySheet: View {
 
     private var targetDateText: String {
         if Calendar.current.isDateInToday(targetDate) {
-            return "today"
+            return String(localized: "today")
         }
         return targetDate.formatted(.dateTime.month(.abbreviated).day())
     }

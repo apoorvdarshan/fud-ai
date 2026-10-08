@@ -18,6 +18,9 @@ import com.apoorvdarshan.calorietracker.models.WorkoutWeightUnit
 import com.apoorvdarshan.calorietracker.models.WeightEntry
 import com.apoorvdarshan.calorietracker.services.WeightAnalysisService
 import com.apoorvdarshan.calorietracker.services.WeightForecast
+import com.apoorvdarshan.calorietracker.services.hosted.AiAccessMode
+import com.apoorvdarshan.calorietracker.services.hosted.HostedAiAccess
+import com.apoorvdarshan.calorietracker.services.hosted.HostedAiConstants
 import com.apoorvdarshan.calorietracker.services.ondevice.LocalGemmaRuntime
 import kotlinx.coroutines.flow.first
 import okhttp3.MediaType.Companion.toMediaType
@@ -47,7 +50,8 @@ class ChatService(
     private val prefs: PreferencesStore,
     private val keyStore: KeyStore,
     private val okHttp: OkHttpClient = FoodAnalysisService.defaultClient,
-    private val localGemma: LocalGemmaRuntime? = null
+    private val localGemma: LocalGemmaRuntime? = null,
+    private val hosted: HostedAiAccess? = null
 ) {
 
     suspend fun sendMessage(
@@ -93,6 +97,18 @@ class ChatService(
             workoutPreferences = workoutPreferences,
             workoutPlanWeightUnit = workoutPlanWeightUnit
         )
+
+        if (hosted != null && prefs.aiAccessMode.first() == AiAccessMode.HOSTED) {
+            // Hosted Coach: same Gemini tool loop, sent through the Worker's /gemini
+            // allow-list. Every round is one metered action; no BYOK fallback.
+            hosted.requireEntitlement()
+            return runGeminiToolLoop(
+                systemPrompt, history, newUserMessage, tools, imageBytes,
+                maxToolResultChars = HostedAiConstants.MAX_TOOL_RESULT_CHARS
+            ) { body ->
+                hosted.client.gemini(body.toString())
+            }
+        }
 
         val useSeparateTextProvider = imageBytes == null && prefs.separateTextProviderEnabled.first()
         val provider = if (useSeparateTextProvider) {
@@ -164,7 +180,22 @@ class ChatService(
         if (baseUrl.isEmpty()) throw AiError.InvalidUrl(baseUrl)
         val requestClient = FoodAnalysisService.clientForProvider(okHttp, provider, requestTimeoutSeconds)
         return when (provider.apiFormat) {
-            AIProvider.ApiFormat.GEMINI -> runGeminiToolLoop(requestClient, baseUrl, model, apiKey!!, systemPrompt, history, newUserMessage, tools, imageBytes)
+            AIProvider.ApiFormat.GEMINI -> {
+                val url = "$baseUrl/models/$model:generateContent"
+                val key = apiKey!!
+                runGeminiToolLoop(systemPrompt, history, newUserMessage, tools, imageBytes) { body ->
+                    RetryPolicy.execute {
+                        requestClient.newCall(
+                            Request.Builder()
+                                .url(url)
+                                .addHeader("Content-Type", "application/json")
+                                .addHeader("X-goog-api-key", key)
+                                .post(body.toString().toRequestBody(JSON_MEDIA))
+                                .build()
+                        )
+                    }
+                }
+            }
             AIProvider.ApiFormat.ANTHROPIC -> runAnthropicToolLoop(requestClient, baseUrl, model, apiKey!!, systemPrompt, history, newUserMessage, tools, imageBytes, maxTokens)
             AIProvider.ApiFormat.OPENAI_COMPATIBLE -> runOpenAIToolLoop(requestClient, baseUrl, model, apiKey, systemPrompt, history, newUserMessage, provider, tools, imageBytes, maxTokens)
             AIProvider.ApiFormat.LOCAL -> error("Local inference must be dispatched before network setup.")
@@ -522,18 +553,19 @@ class ChatService(
 
     // MARK: - Gemini tool loop
 
+    /**
+     * [send] posts one `generateContent` body (BYOK Gemini or the hosted proxy) and returns its raw JSON.
+     * [maxToolResultChars] trims oversized tool results (the hosted proxy rejects them).
+     */
     private suspend fun runGeminiToolLoop(
-        requestClient: OkHttpClient,
-        baseUrl: String,
-        model: String,
-        apiKey: String,
         systemPrompt: String,
         history: List<ChatMessage>,
         newUserMessage: String,
         tools: CoachTools,
-        imageBytes: ByteArray?
+        imageBytes: ByteArray?,
+        maxToolResultChars: Int? = null,
+        send: suspend (JSONObject) -> String
     ): String {
-        val url = "$baseUrl/models/$model:generateContent"
         // Gemini tool schema: tools=[{functionDeclarations:[{name,description,parameters}]}]
         val declarations = JSONArray()
         for (name in CoachTools.TOOL_NAMES) {
@@ -566,16 +598,7 @@ class ChatService(
                 put("contents", contents)
                 put("tools", JSONArray().put(toolsObj))
             }
-            val raw = RetryPolicy.execute {
-                requestClient.newCall(
-                    Request.Builder()
-                        .url(url)
-                        .addHeader("Content-Type", "application/json")
-                        .addHeader("X-goog-api-key", apiKey)
-                        .post(body.toString().toRequestBody(JSON_MEDIA))
-                        .build()
-                )
-            }
+            val raw = send(body)
             val json = runCatching { JSONObject(raw) }.getOrNull() ?: throw AiError.InvalidResponse
             val candidate = json.optJSONArray("candidates")?.optJSONObject(0) ?: throw AiError.InvalidResponse
             val content = candidate.optJSONObject("content") ?: throw AiError.InvalidResponse
@@ -594,7 +617,9 @@ class ChatService(
                 for (call in functionCalls) {
                     val name = call.optString("name").takeIf { it.isNotEmpty() } ?: continue
                     val args = call.optJSONObject("args") ?: JSONObject()
-                    val resultStr = tools.execute(name, args)
+                    val resultStr = tools.execute(name, args).let { result ->
+                        maxToolResultChars?.let { ToolResultLimiter.fit(result, it) } ?: result
+                    }
                     val resultObj = runCatching { JSONObject(resultStr) }.getOrNull() ?: JSONObject()
                     responseParts.put(JSONObject().apply {
                         put("functionResponse", JSONObject().apply {

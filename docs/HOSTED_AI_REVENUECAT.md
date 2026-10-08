@@ -1,8 +1,8 @@
-# Fud AI v7 — Hosted Plans, Credits & RevenueCat Setup (iOS first)
+# Fud AI — Hosted Plans, Credits & RevenueCat Setup (iOS + Android)
 
 Fud AI keeps the **full app free with BYOK forever** on both platforms.
 
-**v7 shipping scope:** optional **Plus / Pro** + credit packs + tip jar are implemented on **iOS** (RevenueCat + App Store). **Android stays BYOK-only** for now (Ko-fi tip link unchanged). Android hosted plans can ship in a later update.
+**Scope:** optional **Plus / Pro** + credit packs + tip jar ship on **iOS 7.0+** (RevenueCat + App Store) and **Android 7.2+** (RevenueCat + Google Play Billing 8). Both apps use the same RevenueCat project, entitlements, and offerings; the Worker counts both stores. Android tips moved from Ko-fi to Google Play in 7.2.
 
 ## Entitlements (RevenueCat)
 
@@ -50,6 +50,30 @@ Credits persist across renewals/cancel; **v1 spends credits only while Plus/Pro 
 | `com.apoorvdarshan.calorietracker.tip.lunch` | Lunch | $4.99 |
 | `com.apoorvdarshan.calorietracker.tip.feast` | Feast | $9.99 |
 
+## Product IDs (Google Play / Android 7.2+)
+
+Play caps product ids at **40 characters** and ids can never be reused, so the Play ids are short and live in each item's `play` block in `store/catalog/products.json`.
+
+| Play product | Base plan | RevenueCat product id | Entitlement / package | Price |
+|---|---|---|---|---|
+| subscription `plus` | `monthly` (auto-renew, 1 month) | `plus:monthly` | `plus` / `$rc_monthly` | $8.99 |
+| subscription `plus` | `yearly` (auto-renew, 1 year) | `plus:yearly` | `plus` / `$rc_annual` | $69.99 |
+| subscription `pro` | `monthly` | `pro:monthly` | `pro` / `pro_monthly` | $17.99 |
+| subscription `pro` | `yearly` | `pro:yearly` | `pro` / `pro_yearly` | $149.99 |
+| one-time `credits_50` / `credits_150` / `credits_400` | — | same | none / `credits_*` on both offerings | $1.99 / $4.99 / $9.99 |
+| one-time `tip_snack` / `tip_proteinshake` / `tip_lunch` / `tip_feast` | — | same | none (bought by id) | $0.99 / $2.99 / $4.99 / $9.99 |
+
+In RevenueCat, credit packs and tips must stay **consumable** (not "non-consumable") so they can be bought again. Plus ↔ Pro changes on Play use `oldProductId` + a replacement mode (upgrade: `CHARGE_PRORATED_PRICE`; downgrade or period change: `DEFERRED`), so a user is never billed for two subscriptions.
+
+### Android launch checklist (one time)
+
+1. **Play Console:** payments profile active. Upload the first 7.2 AAB (with the Billing permission) to **closed testing** — products cannot be created before a billing build exists on a track.
+2. **Play Console → Monetize:** create subscriptions `plus` and `pro`, each with auto-renewing base plans `monthly` and `yearly` at the prices above; create the one-time products `credits_50/150/400` and `tip_snack/proteinshake/lunch/feast`. Activate them. Add license testers.
+3. **Google Cloud:** a service account for RevenueCat with the Play Developer API enabled, invited in Play Console with view financial data and manage orders/subscriptions permissions (credentials can take up to 36 h to activate).
+4. **RevenueCat (same project as iOS):** add the Play Store app (`com.apoorvdarshan.calorietracker`), upload the service-account JSON, set up real-time developer notifications, import the Play products, attach `plus:*` to the `plus` entitlement and `pro:*` to `pro` (mirroring iOS), and add the Play products to the `plus` / `pro` offering packages listed below. Copy the `goog_…` public SDK key into the Android build.
+5. **Worker:** deploy the version that counts `credits_*` (already in `web/hosted-ai-ledger.ts`) before the Android release.
+6. Test real purchases from the closed-testing install, then promote.
+
 ## RevenueCat offerings (suggested)
 
 Create separate offerings named **`plus`** and **`pro`** (iOS paywall looks up these identifiers). Include credit packs on those offerings (or the current offering) so the iOS credits sheet can load them:
@@ -68,14 +92,14 @@ Legacy note: a single `default` offering alone is not enough for iOS subscribe f
 
 ### SDK keys
 
-- **iOS:** already configured (`appl_…` in `calorietrackerApp.swift`)
-- **Android:** not wired for hosted billing in this release
+- **iOS:** `appl_…` public key in `calorietrackerApp.swift`
+- **Android:** `goog_…` public key in `BuildConfig.REVENUECAT_API_KEY` (set in `android/app/build.gradle.kts`, or `revenuecat.google.api.key` in `local.properties` / `REVENUECAT_GOOGLE_API_KEY`). Empty = billing off and plans hidden. Debug variants use a RevenueCat **Test Store** key (`revenuecat.test.store.api.key`) because `.debug` packages cannot load Play products; never put a Test Store key in a release build (the SDK crashes on purpose).
 
 ## Hosted AI worker
 
 See `services/hosted-ai/README.md`. Deploy secrets on the `fud-ai` worker:
 
-- `REVENUECAT_API_KEY` — RevenueCat v1 **secret** key; the Worker verifies each subscriber's entitlements and credit purchases with it. Never embedded in the app.
+- `REVENUECAT_API_KEY` — a key that can read `GET /v1/subscribers` (a v1 secret key, or the public SDK key; production uses the Android `goog_…` key). The Worker verifies each subscriber's entitlements and credit purchases with it. A v2 secret key is rejected (403) and breaks every hosted request. Verify a deploy with `scripts/hosted_ai_smoke.sh`.
 - `GEMINI_API_KEY` — set at production time
 - `DEEPGRAM_API_KEY` — set at production time
 
@@ -95,10 +119,10 @@ One shared daily pool per subscriber, keyed by RevenueCat app user id and reset 
 
 Spend order: **daily allowance → credit bank → `402 quota_exceeded` → soft paywall**.
 
-Credits are reconciled from RevenueCat `non_subscriptions` by transaction id, so a pack is counted exactly once regardless of reinstalls, restores, or backups. The iOS app only caches the numbers the Worker returns (`X-Fud-Quota-*` headers) for display and forces a re-verification (`GET /quota?refresh=1`) right after a purchase or restore.
+Credits are reconciled from RevenueCat `non_subscriptions` by transaction id (App Store and Google Play ids), so a transaction is counted once per ledger row. Spent credits are tracked per anonymous app user id, so a restore onto a new id can show previously spent credits again depending on RevenueCat's restore behavior. The iOS and Android apps only cache the numbers the Worker returns (`X-Fud-Quota-*` headers) for display and force a re-verification (`GET /quota?refresh=1`) right after a purchase or restore.
 
 ## Store copy notes
 
 - Free forever = full tracker + BYOK (both platforms)
-- Optional Plus/Pro + credits = **iOS hosted convenience** in this release
-- iOS tip jar unchanged; Android keeps Ko-fi
+- Optional Plus/Pro + credits = hosted convenience on iOS (App Store) and Android 7.2+ (Google Play)
+- Tip jar on both platforms through the store (Android moved off Ko-fi in 7.2)

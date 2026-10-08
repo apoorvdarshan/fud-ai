@@ -1,8 +1,10 @@
 name: Quality checks
 
 on:
+  # PR branches are checked by pull_request; push covers main only, so a PR's
+  # checks do not run twice.
   push:
-    branches: ['**']
+    branches: [main]
   pull_request:
   schedule:
     - cron: '23 3 * * *'
@@ -13,13 +15,53 @@ permissions:
   contents: read
 
 jobs:
+  # Pull requests run only the jobs their files can affect (skipped jobs still
+  # satisfy the required checks). Pushes, schedules, and callers run everything.
+  changes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      android: ${{ steps.filter.outputs.android }}
+      web: ${{ steps.filter.outputs.web }}
+    steps:
+      # Trees only (no file contents): enough for git diff --name-only.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        if: github.event_name == 'pull_request'
+        with:
+          fetch-depth: 2
+          filter: blob:none
+          sparse-checkout: .github
+          persist-credentials: false
+      - id: filter
+        env:
+          EVENT: ${{ github.event_name }}
+        run: |
+          all() { echo "android=true" >> "$GITHUB_OUTPUT"; echo "web=true" >> "$GITHUB_OUTPUT"; }
+          [ "$EVENT" = "pull_request" ] || { all; exit 0; }
+          # pull_request checks out the PR merged into its base, so parent 1 is the base.
+          # --no-renames: a moved file counts for both its old and new folder.
+          # quotePath=false keeps accented names raw; names git still quotes (tabs,
+          # newlines) start with a quote, which the patterns below allow.
+          files=$(git -c core.quotePath=false diff --no-renames --name-only HEAD^1 HEAD) || { all; exit 0; }
+          printf '%s\n' "$files"
+          match() { printf '%s\n' "$files" | grep -qE "$1" && echo true || echo false; }
+          # The Android build also packages these as assets (see android/app/build.gradle.kts).
+          echo "android=$(match '^"?(android/|shared/|\.github/|ios/calorietracker/Resources/FreeExerciseDB/dist/|local-models/legal/)')" >> "$GITHUB_OUTPUT"
+          echo "web=$(match '^"?(web/|store/catalog/|\.github/)')" >> "$GITHUB_OUTPUT"
+
   web:
+    needs: changes
+    # Runs if the filter failed, so a broken filter can never skip the check.
+    if: ${{ !cancelled() && (needs.changes.result != 'success' || needs.changes.outputs.web == 'true') }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          sparse-checkout: web
+          # store/catalog: the hosted AI tests check the Worker's credit packs against it.
+          sparse-checkout: |
+            web
+            store/catalog
           persist-credentials: false
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
@@ -32,6 +74,8 @@ jobs:
         working-directory: web
 
   android:
+    needs: changes
+    if: ${{ !cancelled() && (needs.changes.result != 'success' || needs.changes.outputs.android == 'true') }}
     runs-on: ubuntu-latest
     timeout-minutes: 40
     steps:
@@ -40,10 +84,12 @@ jobs:
           sparse-checkout: |
             android
             shared
+            ios/calorietracker/Resources/FreeExerciseDB/dist
+            local-models/legal
           persist-credentials: false
       # Verifies the checksum of android/gradle/wrapper/gradle-wrapper.jar against
       # Gradle's published releases, so a tampered wrapper binary fails CI.
-      - uses: gradle/actions/wrapper-validation@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
+      - uses: gradle/actions/wrapper-validation@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
       - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
         with:
           distribution: temurin
@@ -52,7 +98,7 @@ jobs:
       - uses: android-actions/setup-android@be39fa834029ff78f1a44aa3bb0819b8fc2bd8fd # v4.0.4
         with:
           packages: platform-tools
-      - uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
+      - uses: gradle/actions/setup-gradle@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
       # -PworkoutVectors=none: release parity (manifest only). Store builds never bundle
       # the ~7,000-frame / 1.2 GB workout corpus (shared/workout-vectors); frames come
       # from the CDN at runtime. Debug builds default to the small sample pack, which

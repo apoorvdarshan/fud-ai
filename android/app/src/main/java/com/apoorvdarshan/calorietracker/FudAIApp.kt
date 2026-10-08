@@ -31,6 +31,13 @@ import com.apoorvdarshan.calorietracker.models.WorkoutSession
 import com.apoorvdarshan.calorietracker.services.ai.ChatService
 import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysisService
 import com.apoorvdarshan.calorietracker.services.health.HealthConnectManager
+import com.apoorvdarshan.calorietracker.services.hosted.AiAccessMode
+import com.apoorvdarshan.calorietracker.services.hosted.BillingManager
+import com.apoorvdarshan.calorietracker.services.hosted.HostedAiAccess
+import com.apoorvdarshan.calorietracker.services.hosted.HostedAiClient
+import com.apoorvdarshan.calorietracker.services.hosted.HostedQuotaStore
+import com.apoorvdarshan.calorietracker.services.hosted.HostedUiRouter
+import com.apoorvdarshan.calorietracker.services.hosted.SharedPreferencesQuotaPersistence
 import com.apoorvdarshan.calorietracker.services.ondevice.LocalGemmaRuntime
 import com.apoorvdarshan.calorietracker.services.ondevice.LocalModelId
 import com.apoorvdarshan.calorietracker.services.ondevice.LocalModelManager
@@ -75,7 +82,20 @@ class FudAIApp : Application() {
         // Re-apply the AndroidX per-app locale list on API 32 and below, where
         // AppCompat stores it. Empty list = follow the system language.
         AppCompatDelegate.setApplicationLocales(AppCompatDelegate.getApplicationLocales())
+        // RevenueCat must be configured before the container reads its app user id.
+        runCatching { BillingManager.configure(this) }
+            .onFailure { Log.e("FudAIApp", "RevenueCat configure failed", it) }
         container = AppContainer(this)
+        container.billing.start()
+        // A pending plan purchase (e.g. a slow UPI payment) turns Hosted on once Play confirms it.
+        container.billing.entitlement
+            .onEach { entitlement ->
+                if (entitlement.isEntitled && container.prefs.pendingHostedSwitch.first()) {
+                    container.prefs.setAiAccessMode(AiAccessMode.HOSTED)
+                    container.prefs.setPendingHostedSwitch(false)
+                }
+            }
+            .launchIn(appScope)
         container.notifications.createChannels()
         WidgetRefreshScheduler.onAppStarted(this)
         container.widgetSnapshotWriter.observe().launchIn(appScope)
@@ -240,9 +260,23 @@ class AppContainer(app: FudAIApp) {
     val localGemma = LocalGemmaRuntime(app, localModels)
     val localWhisper = LocalWhisperRuntime(app, localModels)
 
-    val foodAnalysis = FoodAnalysisService(prefs, keyStore, localGemma = localGemma)
-    val chatService = ChatService(prefs, keyStore, localGemma = localGemma)
-    val speechService = SpeechService(prefs, keyStore, localWhisper = localWhisper)
+    // Hosted AI (Plus/Pro): RevenueCat entitlements + the fud-ai.app Worker ledger.
+    private val hostedScope = CoroutineScope(
+        SupervisorJob() + Dispatchers.Default + CoroutineExceptionHandler { _, throwable ->
+            Log.e("AppContainer", "Hosted AI background task failed", throwable)
+        }
+    )
+    val hostedQuota: HostedQuotaStore = HostedQuotaStore(SharedPreferencesQuotaPersistence(app), hostedScope) { refresh ->
+        hostedAiClient.fetchQuota(refresh)
+    }
+    val billing = BillingManager(hostedScope, hostedQuota)
+    val hostedAiClient = HostedAiClient(userId = billing::appUserId, quota = hostedQuota)
+    val hostedAccess = HostedAiAccess(hostedAiClient) { billing.entitlement.value }
+    val hostedUi = HostedUiRouter()
+
+    val foodAnalysis = FoodAnalysisService(prefs, keyStore, localGemma = localGemma, hosted = hostedAccess)
+    val chatService = ChatService(prefs, keyStore, localGemma = localGemma, hosted = hostedAccess)
+    val speechService = SpeechService(prefs, keyStore, localWhisper = localWhisper, hosted = hostedAccess)
 
     val widgetSnapshotWriter = WidgetSnapshotWriter(app, prefs, foodRepository, profileRepository)
     /**

@@ -15,10 +15,21 @@
  * the same user cannot double-spend.
  */
 
+/**
+ * Consumable credit packs, keyed by the store product id RevenueCat reports in
+ * `non_subscriptions`. Google Play caps product ids at 40 characters, so the
+ * Play packs cannot reuse the App Store ids. Must match store/catalog/products.json
+ * (enforced by a test).
+ */
 export const HOSTED_AI_CREDIT_PRODUCTS: Readonly<Record<string, number>> = {
+  // App Store
   "com.apoorvdarshan.calorietracker.credits.50": 50,
   "com.apoorvdarshan.calorietracker.credits.150": 150,
   "com.apoorvdarshan.calorietracker.credits.400": 400,
+  // Google Play
+  credits_50: 50,
+  credits_150: 150,
+  credits_400: 400,
 };
 
 export const HOSTED_AI_DAILY_LIMITS: Readonly<Record<HostedPlan, number>> = {
@@ -320,7 +331,6 @@ export async function fetchRevenueCatEntitlement(
       headers: {
         Authorization: `Bearer ${apiKey}`,
         Accept: "application/json",
-        "X-Platform": "ios",
       },
     });
   } catch (error) {

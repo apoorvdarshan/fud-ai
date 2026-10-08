@@ -342,12 +342,12 @@ google-api-core==2.36.0 \
 google-api-python-client==2.169.0 \
     --hash=sha256:0585bb97bd5f5bf3ed8d4bf624593e4c5a14d06c811d1952b07a1f94b4d12c51 \
     --hash=sha256:dae3e882dc0e6f28e60cf09c1f13fedfd881db84f824dd418aa9e44def2fe00d
-    # via -r /tmp/requirements-store.in
+    # via -r requirements-store.in
 google-auth==2.40.1 \
     --hash=sha256:58f0e8416a9814c1d86c9b7f6acf6816b51aba167b2c76821965271bac275540 \
     --hash=sha256:ed4cae4f5c46b41bae1d19c036e06f6c371926e97b19e816fc854eff811974ee
     # via
-    #   -r /tmp/requirements-store.in
+    #   -r requirements-store.in
     #   google-api-core
     #   google-api-python-client
     #   google-auth-httplib2
@@ -461,7 +461,7 @@ pillow==12.3.0 \
     --hash=sha256:fdafc9cce40277e0f7a0feabce0ee50dd2fa1800f3b38015e51296b5e814048d \
     --hash=sha256:fe3cca2e4e8a592be0f269a1ca4835c25199d9f3ce815c8491048f785b0a0198 \
     --hash=sha256:ffd0c5368496f41b0944be820fcb7a838aa6e623d250b01acf2643939c3f99d7
-    # via -r /tmp/requirements-store.in
+    # via -r requirements-store.in
 proto-plus==1.28.4 \
     --hash=sha256:4b01341272f8a348db3f003b6143109f83ab43091019d5181b3fcdf500ab32aa \
     --hash=sha256:5ff7ecad828e032a491fcb86947801768e32237f99dd049b649965b892ae9a63
@@ -493,11 +493,11 @@ pycparser==3.0 \
     --hash=sha256:600f49d217304a5902ac3c37e1281c9fe94e4d0489de643a9504c5cdfdfc6b29 \
     --hash=sha256:b727414169a36b7d524c1c3e31839a521725078d7b2ff038656844266160a992
     # via cffi
-pyjwt[crypto]==2.14.0 \
-    --hash=sha256:77283c83fb56ecf566a886c757a714bc83668e38156de2cce8263302f42e0b86 \
-    --hash=sha256:ad0cef71c756a56e74863c2919cf0985f72decbcfcb550ee2f422e7c62b5eedc
+pyjwt[crypto]==2.15.0 \
+    --hash=sha256:7a3742debf6b879e912dbb9819ceec1594be812452b78c5f2e2dfc56564954f8 \
+    --hash=sha256:b11c5f9791d7bf51c2b39a81ed669f6b2dbbd669df2942f6c60167e9e3d1abe4
     # via
-    #   -r /tmp/requirements-store.in
+    #   -r requirements-store.in
     #   pyjwt
 pyparsing==3.3.2 \
     --hash=sha256:850ba148bd908d7e2411587e247a1e4f0327839c40e2e5e6d05a007ecc69911d \
@@ -519,7 +519,7 @@ uritemplate==4.2.0 \
     --hash=sha256:480c2ed180878955863323eea31b0ede668795de182617fef9c6ca09e6ec9d0e \
     --hash=sha256:962201ba1c4edcab02e60f9a0d3821e82dfc5d2d6662a21abd533879bdb8a686
     # via google-api-python-client
-urllib3==2.7.0 \
-    --hash=sha256:231e0ec3b63ceb14667c67be60f2f2c40a518cb38b03af60abc813da26505f4c \
-    --hash=sha256:9fb4c81ebbb1ce9531cce37674bbc6f1360472bc18ca9a553ede278ef7276897
+urllib3==2.8.0 \
+    --hash=sha256:0cf3cae568d36aa9576b28dfb35f11328f1cb974ca7647d9475ebb86c75ac6e3 \
+    --hash=sha256:63bf2ead4c879426ebf22ef2a781eeb4aa3b4ae798a0435506f8687fd5bb9b63
     # via requests

@@ -265,8 +265,8 @@
     <string name="onboarding_ai_byok_card_subtitle">Бесплатно навсегда — без лимитов на твоём ключе. Gemini, OpenAI, Groq и другие.</string>
     <string name="onboarding_ai_byok_badge">Рекомендуется</string>
     <string name="onboarding_ai_hosted_card_title">Хостинг ИИ</string>
-    <string name="onboarding_ai_hosted_card_subtitle">Тарифы Plus или Pro с ежедневными кредитами ИИ — ключ API не нужен.</string>
-    <string name="onboarding_ai_hosted_badge">Скоро</string>
+    <string name="onboarding_ai_hosted_card_subtitle">Plus (30 в день) или Pro (60 в день) — подписка в приложении, пакеты кредитов по желанию.</string>
+    <string name="onboarding_ai_hosted_badge">Удобно</string>
     <string name="onboarding_provider_title">Настрой свой ИИ</string>
     <string name="onboarding_provider_subtitle">Добавь свой ключ провайдера ИИ — приложение остаётся бесплатным.</string>
     <string name="onboarding_provider_recommended_title">Рекомендуется: Google Gemini</string>
@@ -611,7 +611,6 @@
     <string name="about_open_source">Открытый код (MIT)</string>
     <string name="about_star_github">Поставить звезду на GitHub</string>
     <string name="about_vote_ph">Проголосовать на Product Hunt</string>
-    <string name="about_leave_tip_kofi">Оставить чаевые на Ko-fi</string>
     <string name="about_report_issue">Сообщить о проблеме на GitHub</string>
     <string name="about_report_issue_discord">Сообщить о проблеме в Discord</string>
     <string name="about_request_feature">Предложить функцию на GitHub</string>

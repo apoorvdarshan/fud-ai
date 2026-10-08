@@ -8,16 +8,26 @@
       "products": [
         "com.apoorvdarshan.calorietracker.plus.monthly",
         "com.apoorvdarshan.calorietracker.plus.yearly"
+      ],
+      "play_products": [
+        "plus:monthly",
+        "plus:yearly"
       ]
     },
     {
       "id": "pro",
       "plan": "pro",
       "daily_hosted_actions": 60,
-      "includes_entitlements": ["plus"],
+      "includes_entitlements": [
+        "plus"
+      ],
       "products": [
         "com.apoorvdarshan.calorietracker.pro.monthly",
         "com.apoorvdarshan.calorietracker.pro.yearly"
+      ],
+      "play_products": [
+        "pro:monthly",
+        "pro:yearly"
       ]
     }
   ],
@@ -25,27 +35,67 @@
     {
       "identifier": "plus",
       "packages": [
-        { "identifier": "$rc_monthly", "product_id": "com.apoorvdarshan.calorietracker.plus.monthly" },
-        { "identifier": "$rc_annual", "product_id": "com.apoorvdarshan.calorietracker.plus.yearly" },
-        { "identifier": "credits_50", "product_id": "com.apoorvdarshan.calorietracker.credits.50" },
-        { "identifier": "credits_150", "product_id": "com.apoorvdarshan.calorietracker.credits.150" },
-        { "identifier": "credits_400", "product_id": "com.apoorvdarshan.calorietracker.credits.400" }
+        {
+          "identifier": "$rc_monthly",
+          "product_id": "com.apoorvdarshan.calorietracker.plus.monthly",
+          "play_product_id": "plus:monthly"
+        },
+        {
+          "identifier": "$rc_annual",
+          "product_id": "com.apoorvdarshan.calorietracker.plus.yearly",
+          "play_product_id": "plus:yearly"
+        },
+        {
+          "identifier": "credits_50",
+          "product_id": "com.apoorvdarshan.calorietracker.credits.50",
+          "play_product_id": "credits_50"
+        },
+        {
+          "identifier": "credits_150",
+          "product_id": "com.apoorvdarshan.calorietracker.credits.150",
+          "play_product_id": "credits_150"
+        },
+        {
+          "identifier": "credits_400",
+          "product_id": "com.apoorvdarshan.calorietracker.credits.400",
+          "play_product_id": "credits_400"
+        }
       ]
     },
     {
       "identifier": "pro",
       "packages": [
-        { "identifier": "pro_monthly", "product_id": "com.apoorvdarshan.calorietracker.pro.monthly" },
-        { "identifier": "pro_yearly", "product_id": "com.apoorvdarshan.calorietracker.pro.yearly" },
-        { "identifier": "credits_50", "product_id": "com.apoorvdarshan.calorietracker.credits.50" },
-        { "identifier": "credits_150", "product_id": "com.apoorvdarshan.calorietracker.credits.150" },
-        { "identifier": "credits_400", "product_id": "com.apoorvdarshan.calorietracker.credits.400" }
+        {
+          "identifier": "pro_monthly",
+          "product_id": "com.apoorvdarshan.calorietracker.pro.monthly",
+          "play_product_id": "pro:monthly"
+        },
+        {
+          "identifier": "pro_yearly",
+          "product_id": "com.apoorvdarshan.calorietracker.pro.yearly",
+          "play_product_id": "pro:yearly"
+        },
+        {
+          "identifier": "credits_50",
+          "product_id": "com.apoorvdarshan.calorietracker.credits.50",
+          "play_product_id": "credits_50"
+        },
+        {
+          "identifier": "credits_150",
+          "product_id": "com.apoorvdarshan.calorietracker.credits.150",
+          "play_product_id": "credits_150"
+        },
+        {
+          "identifier": "credits_400",
+          "product_id": "com.apoorvdarshan.calorietracker.credits.400",
+          "play_product_id": "credits_400"
+        }
       ]
     }
   ],
-  "tips_note": "Tip jar products stay on App Store / TipJarView; they are not required on Plus/Pro offerings.",
+  "tips_note": "Tip jar products are bought directly by product id (iOS TipJarView, Android TipJarSection); they are not on the Plus/Pro offerings.",
   "android": {
-    "hosted_billing": "planned",
-    "tip_channel": "kofi"
+    "hosted_billing": "active",
+    "tip_channel": "play_billing"
   }
 }

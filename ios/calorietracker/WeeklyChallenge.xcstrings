@@ -1710,7 +1710,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Reto semanal"
+            "value": "Categoría del reto"
           }
         },
         "fr": {
@@ -2494,7 +2494,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Reto semanal"
+            "value": "Requisitos y comunidad"
           }
         },
         "fr": {
@@ -2830,7 +2830,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Introduce solo el usuario, sin @ ni enlace."
+            "value": "Introduce el usuario de la red social seleccionada o elige Ninguno."
           }
         },
         "fr": {
@@ -3166,7 +3166,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Esta semana"
+            "value": "Datos semanales agregados exactos"
           }
         },
         "fr": {
@@ -3390,7 +3390,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "No se ha podido actualizar el Reto semanal. Vuelve a intentarlo pronto."
+            "value": "Fud AI no pudo unirse al reto. Vuelve a intentarlo."
           }
         },
         "fr": {
@@ -3502,7 +3502,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Confirmo que tengo 18 años o más. Fud AI no accede a mi fecha de nacimiento ni la sube."
+            "value": "Fud AI no accede a tu fecha de nacimiento ni la sube para esta confirmación."
           }
         },
         "fr": {
@@ -4174,7 +4174,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Confirmo que tengo 18 años o más. Fud AI no accede a mi fecha de nacimiento ni la sube."
+            "value": "Tengo 18 años o más"
           }
         },
         "fr": {
@@ -5518,7 +5518,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Clasificación"
+            "value": "Cargando clasificación"
           }
         },
         "fr": {
@@ -7080,7 +7080,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Esta semana"
+            "value": "Solo los totales semanales salen de tu dispositivo"
           }
         },
         "fr": {
@@ -7304,7 +7304,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Unirme al reto"
+            "value": "Abre el perfil público opcional y el formulario de consentimiento."
           }
         },
         "fr": {
@@ -7864,7 +7864,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mi posición"
+            "value": "Participante"
           }
         },
         "fr": {
@@ -8412,7 +8412,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Acepto las Normas de la comunidad y usaré un perfil respetuoso que no suplante a nadie."
+            "value": "Leer las Normas de la comunidad"
           }
         },
         "fr": {
@@ -8524,7 +8524,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Detalles opcionales"
+            "value": "Motivo"
           }
         },
         "fr": {
@@ -8636,7 +8636,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tu perfil del reto está oculto en este dispositivo. Fud AI volverá a intentar borrar el perfil remoto y las puntuaciones semanales cuando tengas conexión."
+            "value": "No se borraron los datos remotos del reto. Revisa tu conexión y vuelve a intentarlo."
           }
         },
         "fr": {
@@ -8860,7 +8860,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Denunciar a"
+            "value": "Denunciar participante"
           }
         },
         "fr": {
@@ -9084,7 +9084,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Denunciar a"
+            "value": "Motivo de la denuncia"
           }
         },
         "fr": {
@@ -9308,7 +9308,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "El borrado espera una conexión"
+            "value": "Reintentar borrado"
           }
         },
         "fr": {
@@ -9532,7 +9532,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Editar perfil"
+            "value": "Guardando perfil público"
           }
         },
         "fr": {
@@ -9756,7 +9756,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Esta semana"
+            "value": "Totales semanales compartidos"
           }
         },
         "fr": {
@@ -10422,7 +10422,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "No se ha podido actualizar el Reto semanal. Vuelve a intentarlo pronto."
+            "value": "No se pudo enviar la denuncia. Vuelve a intentarlo."
           }
         },
         "fr": {
@@ -10646,7 +10646,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sin clasificación"
+            "value": "Participante desconocido"
           }
         },
         "fr": {
@@ -10870,7 +10870,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Clasificación"
+            "value": "Actualizando clasificación"
           }
         },
         "fr": {
@@ -11648,7 +11648,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Parece que no tienes conexión. Las clasificaciones guardadas siguen disponibles."
+            "value": "Tus últimos totales semanales están guardados en este dispositivo y se volverán a enviar automáticamente."
           }
         },
         "fr": {

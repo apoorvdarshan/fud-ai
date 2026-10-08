@@ -262,8 +262,8 @@
     <string name="onboarding_ai_byok_card_subtitle">영원히 무료 — 내 키로 무제한. Gemini, OpenAI, Groq 등.</string>
     <string name="onboarding_ai_byok_badge">추천</string>
     <string name="onboarding_ai_hosted_card_title">호스팅 AI</string>
-    <string name="onboarding_ai_hosted_card_subtitle">Plus 또는 Pro 요금제로 매일 AI 크레딧 — API 키 불필요.</string>
-    <string name="onboarding_ai_hosted_badge">곧 출시</string>
+    <string name="onboarding_ai_hosted_card_subtitle">Plus(하루 30회) 또는 Pro(하루 60회) — 앱 내 구독, 선택형 크레딧 팩.</string>
+    <string name="onboarding_ai_hosted_badge">간편</string>
     <string name="onboarding_provider_title">AI 설정하기</string>
     <string name="onboarding_provider_subtitle">자체 AI 제공업체 키를 추가하세요 — 앱은 무료입니다.</string>
     <string name="onboarding_provider_recommended_title">추천: Google Gemini</string>
@@ -604,7 +604,6 @@
     <string name="about_open_source">오픈 소스 (MIT)</string>
     <string name="about_star_github">GitHub에 별 주기</string>
     <string name="about_vote_ph">Product Hunt에서 투표</string>
-    <string name="about_leave_tip_kofi">Ko-fi에서 팁 남기기</string>
     <string name="about_report_issue">GitHub에 문제 신고</string>
     <string name="about_report_issue_discord">Discord에 문제 신고</string>
     <string name="about_request_feature">GitHub에 기능 요청</string>

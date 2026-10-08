@@ -9,6 +9,8 @@ import com.apoorvdarshan.calorietracker.models.AIProvider
 import com.apoorvdarshan.calorietracker.models.Gender
 import com.apoorvdarshan.calorietracker.models.UserProfile
 import com.apoorvdarshan.calorietracker.models.WeightGoal
+import com.apoorvdarshan.calorietracker.services.hosted.AiAccessMode
+import com.apoorvdarshan.calorietracker.services.hosted.HostedPrompt
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -24,10 +26,11 @@ enum class OnboardingStep {
     BUILDING_PLAN, PLAN_READY
 }
 
-/** Android onboarding AI step: honest BYOK-first choice, then key setup. */
+/** Android onboarding AI step: honest BYOK-first choice, then key setup or a Plus/Pro plan. */
 enum class OnboardingAiPhase {
     CHOICE,
-    BYOK
+    BYOK,
+    HOSTED
 }
 
 data class OnboardingState(
@@ -58,6 +61,8 @@ data class OnboardingState(
     val aiModel: String = AIProvider.GEMINI.defaultModel,
     val apiKey: String = "",
     val acceptedTerms: Boolean = false,
+    /** RevenueCat reports an active Plus or Pro plan. */
+    val hostedEntitled: Boolean = false,
     val submitting: Boolean = false,
     /** Manual overrides applied on the Plan Ready step. Null = use formula default. */
     val customCalories: Int? = null,
@@ -78,13 +83,21 @@ data class OnboardingState(
         OnboardingStep.PROVIDER -> when (aiPhase) {
             OnboardingAiPhase.CHOICE -> false
             OnboardingAiPhase.BYOK -> byokSetupComplete
+            OnboardingAiPhase.HOSTED -> hostedEntitled
         }
         else -> true
     }
 
-    /** When returning to the provider step, reopen BYOK if the user already configured it. */
-    fun aiPhaseForProviderStep(): OnboardingAiPhase =
-        if (byokSetupComplete) OnboardingAiPhase.BYOK else OnboardingAiPhase.CHOICE
+    /** When returning to the provider step, reopen the path the user already set up. */
+    fun aiPhaseForProviderStep(): OnboardingAiPhase = when {
+        aiPhase == OnboardingAiPhase.HOSTED && hostedEntitled -> OnboardingAiPhase.HOSTED
+        byokSetupComplete -> OnboardingAiPhase.BYOK
+        else -> OnboardingAiPhase.CHOICE
+    }
+
+    /** How AI calls are powered once the user leaves the provider step. */
+    val accessMode: AiAccessMode
+        get() = if (aiPhase == OnboardingAiPhase.HOSTED) AiAccessMode.HOSTED else AiAccessMode.BYOK
 
     fun buildProfile(): UserProfile = UserProfile(
         gender = gender,
@@ -114,6 +127,22 @@ class OnboardingViewModel(private val container: AppContainer) : ViewModel() {
             val weightMetric = container.prefs.weightUnit.first() == "kg"
             _ui.value = _ui.value.copy(heightMetric = heightMetric, weightMetric = weightMetric)
         }
+        viewModelScope.launch {
+            container.billing.entitlement.collect { entitlement ->
+                _ui.value = _ui.value.copy(hostedEntitled = entitlement.isEntitled)
+            }
+        }
+    }
+
+    /** Hosted AI card: open the hosted path, and the paywall right away if there is no plan yet. */
+    fun selectHostedSetup() {
+        _ui.value = _ui.value.copy(aiPhase = OnboardingAiPhase.HOSTED)
+        if (!_ui.value.hostedEntitled) container.hostedUi.show(HostedPrompt.Paywall)
+        viewModelScope.launch { container.billing.refreshCustomerInfo() }
+    }
+
+    fun showHostedPlans() {
+        container.hostedUi.show(HostedPrompt.Paywall)
     }
 
     fun setGender(v: Gender) { _ui.value = _ui.value.copy(gender = v) }
@@ -232,11 +261,20 @@ class OnboardingViewModel(private val container: AppContainer) : ViewModel() {
     fun next() {
         if (_ui.value.step == OnboardingStep.PLAN_READY) return
         val nextStep = OnboardingStep.values().getOrNull(_ui.value.step.ordinal + 1) ?: return
+        if (_ui.value.step == OnboardingStep.PROVIDER) {
+            // Persist the AI mode before BUILDING_PLAN, whose goal calculation must
+            // go through the path the user just chose.
+            viewModelScope.launch {
+                container.prefs.setAiAccessMode(_ui.value.accessMode)
+                _ui.value = _ui.value.copy(step = nextStep)
+            }
+            return
+        }
         _ui.value = _ui.value.copy(step = nextStep)
     }
 
     fun back() {
-        if (_ui.value.step == OnboardingStep.PROVIDER && _ui.value.aiPhase == OnboardingAiPhase.BYOK) {
+        if (_ui.value.step == OnboardingStep.PROVIDER && _ui.value.aiPhase != OnboardingAiPhase.CHOICE) {
             _ui.value = _ui.value.copy(aiPhase = OnboardingAiPhase.CHOICE)
             return
         }
@@ -284,12 +322,17 @@ class OnboardingViewModel(private val container: AppContainer) : ViewModel() {
             }
             container.prefs.setNotificationsEnabled(state.notificationsEnabled)
             container.prefs.setHealthConnectEnabled(state.healthConnectEnabled)
+            container.prefs.setAiAccessMode(state.accessMode)
             container.prefs.setSelectedAIProvider(state.aiProvider)
             container.prefs.setSelectedAIModel(state.aiModel)
             if (state.apiKey.isNotBlank()) {
                 container.keyStore.setApiKey(state.aiProvider, state.apiKey.trim())
             }
-            container.prefs.setInitialSpeechProviderForAIProvider(state.aiProvider)
+            // Hosted users keep the default on-device speech recognizer (free); a remote
+            // speech provider would need a BYOK key.
+            if (state.accessMode == AiAccessMode.BYOK) {
+                container.prefs.setInitialSpeechProviderForAIProvider(state.aiProvider)
+            }
             // New installs start with Energy Burn on, and Adaptive Goals on unless the
             // user hand-tuned their plan (adaptive would overwrite it). Existing users are
             // untouched — these prefs are only written here and by the Settings toggles.

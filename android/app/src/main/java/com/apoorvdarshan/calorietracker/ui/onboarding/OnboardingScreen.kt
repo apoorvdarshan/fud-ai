@@ -118,6 +118,8 @@ import com.apoorvdarshan.calorietracker.services.update.AndroidUpdateChecker
 import com.apoorvdarshan.calorietracker.ui.components.DateWheelPicker
 import com.apoorvdarshan.calorietracker.ui.components.DecimalWheelPicker
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassSurface
+import com.apoorvdarshan.calorietracker.ui.components.FudGlassTextButton
+import com.apoorvdarshan.calorietracker.services.hosted.HostedPlan
 import com.apoorvdarshan.calorietracker.ui.components.FudIconBubble
 import com.apoorvdarshan.calorietracker.ui.components.SplitDecimalWheelPicker
 import com.apoorvdarshan.calorietracker.ui.components.FeetInchesWheelPicker
@@ -133,6 +135,12 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
     val vm: OnboardingViewModel = viewModel(factory = OnboardingViewModel.Factory(container))
     val ui by vm.ui.collectAsState()
     var showMissingApiKey by remember { mutableStateOf(false) }
+    val entitlement by container.billing.entitlement.collectAsState()
+    val hostedPlanName = when (entitlement.plan) {
+        HostedPlan.PLUS -> stringResource(R.string.hosted_plan_plus)
+        HostedPlan.PRO -> stringResource(R.string.hosted_plan_pro)
+        HostedPlan.NONE -> null
+    }
 
     // Match the on-screen chevron: system back / gesture must use vm.back() so BYOK → choice
     // (and other nested steps) don't pop the whole onboarding destination.
@@ -242,6 +250,10 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
                 )
                 OnboardingStep.PROVIDER -> ProviderStep(
                     phase = ui.aiPhase,
+                    hostedPlanName = hostedPlanName,
+                    hostedAvailable = container.billing.isAvailable,
+                    onSelectHosted = vm::selectHostedSetup,
+                    onViewHostedPlans = vm::showHostedPlans,
                     provider = ui.aiProvider,
                     model = ui.aiModel,
                     apiKey = ui.apiKey,
@@ -326,6 +338,9 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
                 if (showContinue) {
                     val onByok = ui.step == OnboardingStep.PROVIDER &&
                         ui.aiPhase == OnboardingAiPhase.BYOK
+                    val onHosted = ui.step == OnboardingStep.PROVIDER &&
+                        ui.aiPhase == OnboardingAiPhase.HOSTED
+                    val waitingForPlan = onHosted && !ui.hostedEntitled
                     val waitingForByokKey = onByok && ui.acceptedTerms && !ui.byokSetupComplete
                     Column(
                         modifier = Modifier
@@ -348,10 +363,13 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
                         }
                         Button(
                             onClick = {
-                                if (waitingForByokKey) showMissingApiKey = true
-                                else vm.next()
+                                when {
+                                    waitingForByokKey -> showMissingApiKey = true
+                                    waitingForPlan -> vm.showHostedPlans()
+                                    else -> vm.next()
+                                }
                             },
-                            enabled = if (onByok) ui.acceptedTerms else ui.canAdvance,
+                            enabled = if (onByok || onHosted) ui.acceptedTerms else ui.canAdvance,
                             shape = RoundedCornerShape(28.dp),
                             colors = ButtonDefaults.buttonColors(
                                 containerColor = MaterialTheme.colorScheme.onBackground,
@@ -362,7 +380,10 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
                                 .height(54.dp)
                         ) {
                             Text(
-                                stringResource(R.string.action_continue),
+                                stringResource(
+                                    if (waitingForPlan) R.string.onboarding_ai_hosted_cta_subscribe
+                                    else R.string.action_continue
+                                ),
                                 style = MaterialTheme.typography.titleMedium,
                                 fontWeight = FontWeight.SemiBold
                             )
@@ -1244,6 +1265,10 @@ private fun ToggleCard(label: String, subtitle: String, enabled: Boolean, onTogg
 @Composable
 private fun ProviderStep(
     phase: OnboardingAiPhase,
+    hostedPlanName: String?,
+    hostedAvailable: Boolean,
+    onSelectHosted: () -> Unit,
+    onViewHostedPlans: () -> Unit,
     provider: AIProvider,
     model: String,
     apiKey: String,
@@ -1266,7 +1291,17 @@ private fun ProviderStep(
         Spacer(Modifier.height(18.dp))
 
         when (phase) {
-            OnboardingAiPhase.CHOICE -> AiAccessChoiceSection(onSelectByok = onSelectByok)
+            OnboardingAiPhase.CHOICE -> AiAccessChoiceSection(
+                onSelectByok = onSelectByok,
+                onSelectHosted = onSelectHosted.takeIf { hostedAvailable }
+            )
+            OnboardingAiPhase.HOSTED -> HostedSetupSection(
+                planName = hostedPlanName,
+                acceptedTerms = acceptedTerms,
+                onViewPlans = onViewHostedPlans,
+                onUseByok = onSelectByok,
+                onAcceptedTermsChange = onAcceptedTermsChange
+            )
             OnboardingAiPhase.BYOK -> ByokSetupSection(
                 provider = provider,
                 model = model,
@@ -1334,6 +1369,7 @@ private fun ProviderStepHeader(phase: OnboardingAiPhase) {
         when (phase) {
             OnboardingAiPhase.CHOICE -> stringResource(R.string.onboarding_ai_choice_subtitle)
             OnboardingAiPhase.BYOK -> stringResource(R.string.onboarding_ai_byok_subtitle)
+            OnboardingAiPhase.HOSTED -> stringResource(R.string.onboarding_ai_hosted_subtitle)
         },
         style = MaterialTheme.typography.bodyLarge,
         color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f),
@@ -1342,7 +1378,7 @@ private fun ProviderStepHeader(phase: OnboardingAiPhase) {
 }
 
 @Composable
-private fun AiAccessChoiceSection(onSelectByok: () -> Unit) {
+private fun AiAccessChoiceSection(onSelectByok: () -> Unit, onSelectHosted: (() -> Unit)?) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
         AiAccessChoiceCard(
             icon = Icons.Filled.Star,
@@ -1352,16 +1388,61 @@ private fun AiAccessChoiceSection(onSelectByok: () -> Unit) {
             highlighted = true,
             onClick = onSelectByok
         )
-        AiAccessChoiceCard(
-            icon = Icons.Outlined.AutoAwesome,
-            title = stringResource(R.string.onboarding_ai_hosted_card_title),
-            subtitle = stringResource(R.string.onboarding_ai_hosted_card_subtitle),
-            badge = stringResource(R.string.onboarding_ai_hosted_badge),
-            highlighted = false,
-            enabled = false,
-            onClick = {}
-        )
+        // Hidden when this build has no billing key (plans could never load).
+        if (onSelectHosted != null) {
+            AiAccessChoiceCard(
+                icon = Icons.Outlined.AutoAwesome,
+                title = stringResource(R.string.onboarding_ai_hosted_card_title),
+                subtitle = stringResource(R.string.onboarding_ai_hosted_card_subtitle),
+                badge = stringResource(R.string.onboarding_ai_hosted_badge),
+                highlighted = false,
+                onClick = onSelectHosted
+            )
+        }
     }
+}
+
+@Composable
+private fun HostedSetupSection(
+    planName: String?,
+    acceptedTerms: Boolean,
+    onViewPlans: () -> Unit,
+    onUseByok: () -> Unit,
+    onAcceptedTermsChange: (Boolean) -> Unit
+) {
+    FudGlassSurface(modifier = Modifier.fillMaxWidth(), cornerRadius = 16.dp, padding = 16.dp) {
+        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(
+                    imageVector = if (planName != null) Icons.Filled.CheckCircle else Icons.Outlined.AutoAwesome,
+                    contentDescription = null,
+                    tint = AppColors.Calorie,
+                    modifier = Modifier.size(22.dp)
+                )
+                Spacer(Modifier.width(10.dp))
+                Text(
+                    if (planName != null) stringResource(R.string.onboarding_ai_hosted_active, planName)
+                    else stringResource(R.string.onboarding_ai_hosted_inactive),
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = if (planName != null) FontWeight.SemiBold else FontWeight.Normal
+                )
+            }
+            Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                if (planName == null) {
+                    FudGlassTextButton(text = stringResource(R.string.hosted_view_plans), onClick = onViewPlans)
+                }
+                FudGlassTextButton(
+                    text = stringResource(R.string.onboarding_ai_hosted_use_byok),
+                    onClick = onUseByok,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
+                )
+            }
+        }
+    }
+    Spacer(Modifier.height(14.dp))
+    AiPrivacyNoticeCard(hosted = true)
+    Spacer(Modifier.height(10.dp))
+    AiTermsCard(accepted = acceptedTerms, onToggle = { onAcceptedTermsChange(!acceptedTerms) })
 }
 
 @Composable
@@ -1574,7 +1655,7 @@ private fun ByokSetupSection(
 }
 
 @Composable
-private fun AiPrivacyNoticeCard() {
+private fun AiPrivacyNoticeCard(hosted: Boolean = false) {
     Card(
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
@@ -1584,12 +1665,18 @@ private fun AiPrivacyNoticeCard() {
             AiNoticeRow(
                 icon = Icons.Outlined.PhotoCamera,
                 title = stringResource(R.string.onboarding_ai_notice_analysis_title),
-                text = stringResource(R.string.onboarding_ai_notice_analysis_body)
+                text = stringResource(
+                    if (hosted) R.string.onboarding_ai_hosted_notice_analysis_body
+                    else R.string.onboarding_ai_notice_analysis_body
+                )
             )
             AiNoticeRow(
                 icon = Icons.Outlined.Lock,
                 title = stringResource(R.string.onboarding_ai_notice_local_title),
-                text = stringResource(R.string.onboarding_ai_notice_local_body)
+                text = stringResource(
+                    if (hosted) R.string.onboarding_ai_hosted_notice_local_body
+                    else R.string.onboarding_ai_notice_local_body
+                )
             )
         }
     }

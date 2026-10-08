@@ -429,6 +429,16 @@ viewModelScope.launch {
         }
     }
 
+    /** Hosted AI quota / no-plan errors open the paywall flow instead of an error dialog. */
+    private fun showAnalysisError(e: AiError) {
+        val routed = container.hostedUi.handle(e)
+        _ui.value = _ui.value.copy(
+            analyzing = false,
+            error = if (routed) null else e.userMessage(container.appContext),
+            errorOffersScanLabel = false
+        )
+    }
+
     fun analyzeText(description: String) {
         retryAction = { analyzeText(description) }
         analysisJob = launchAnalysis { _ ->
@@ -454,7 +464,7 @@ viewModelScope.launch {
                 throw e
             } catch (e: AiError) {
                 ensureActive()
-                _ui.value = _ui.value.copy(analyzing = false, error = e.userMessage(container.appContext), errorOffersScanLabel = false)
+                showAnalysisError(e)
             } catch (e: Throwable) {
                 ensureActive()
                 _ui.value = _ui.value.copy(analyzing = false, error = container.appContext.getString(R.string.ai_error_generic), errorOffersScanLabel = false)
@@ -487,7 +497,7 @@ viewModelScope.launch {
                 throw e
             } catch (e: AiError) {
                 ensureActive()
-                _ui.value = _ui.value.copy(analyzing = false, error = e.userMessage(container.appContext), errorOffersScanLabel = false)
+                showAnalysisError(e)
             } catch (e: Throwable) {
                 ensureActive()
                 _ui.value = _ui.value.copy(analyzing = false, error = container.appContext.getString(R.string.ai_error_generic), errorOffersScanLabel = false)
@@ -531,7 +541,7 @@ viewModelScope.launch {
                 throw e
             } catch (e: AiError) {
                 ensureActive()
-                _ui.value = _ui.value.copy(analyzing = false, error = e.userMessage(container.appContext), errorOffersScanLabel = false)
+                showAnalysisError(e)
             } catch (e: Throwable) {
                 ensureActive()
                 _ui.value = _ui.value.copy(analyzing = false, error = container.appContext.getString(R.string.ai_error_generic), errorOffersScanLabel = false)

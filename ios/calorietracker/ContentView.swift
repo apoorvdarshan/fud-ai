@@ -1853,9 +1853,9 @@ private var dailyStepsTaskKey: String {
                     case .analyzing:
                         AnalyzingView(image: currentImage, onCancel: cancelAnalysis)
                     case .analyzingText:
-                        AnalyzingView(image: nil, message: "Looking up nutrition...", onCancel: cancelAnalysis)
+                        AnalyzingView(image: nil, message: String(localized: "Looking up nutrition..."), onCancel: cancelAnalysis)
                     case .lookingUpBarcode:
-                        AnalyzingView(image: nil, message: "Looking up barcode...", onCancel: cancelAnalysis)
+                        AnalyzingView(image: nil, message: String(localized: "Looking up barcode..."), onCancel: cancelAnalysis)
                     case .result:
                     if let result = currentFoodResult {
                         FoodResultView(
@@ -2788,7 +2788,7 @@ private struct CopyFromDaySheet: View {
 
     private var targetDateText: String {
         if Calendar.current.isDateInToday(targetDate) {
-            return "today"
+            return String(localized: "today")
         }
         return targetDate.formatted(.dateTime.month(.abbreviated).day())
     }
@@ -3912,9 +3912,9 @@ struct FoodRow: View {
                 }
 
                 HStack(spacing: 8) {
-                    MacroPill(label: "P", value: entry.protein)
-                    MacroPill(label: "C", value: entry.carbs)
-                    MacroPill(label: "F", value: entry.fat)
+                    MacroPill(label: String(localized: "P", comment: "Abbreviation for protein."), value: entry.protein)
+                    MacroPill(label: String(localized: "C", comment: "Abbreviation for carbs."), value: entry.carbs)
+                    MacroPill(label: String(localized: "F", comment: "Abbreviation for fat."), value: entry.fat)
                 }
             }
         }
@@ -4024,7 +4024,7 @@ struct ProgressTabView: View {
                     // Segmented Picker
                     Picker("Time Range", selection: $timeRange) {
                         ForEach(TimeRange.allCases, id: \.self) { range in
-                            Text(range.rawValue).tag(range)
+                            Text(range.title).tag(range)
                         }
                     }
                     .pickerStyle(.segmented)

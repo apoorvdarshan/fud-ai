@@ -7,7 +7,23 @@ same marketing version can share a feature summary while identifying different b
 
 ## Unreleased
 
-No iPhone release tag yet. The ios-v7.1.2 notes below are the prepared store copy for the iOS-only 7.1.2 build 39 that ships with the first Plus/Pro hosted AI submission.
+No Android 7.2 tag yet. The android-v7.2 notes below are the prepared store copy for versionCode 42, the first Android build with Google Play billing (versionCode 41 went to internal testing). iOS stays on 7.1.2 build 39 (live on the App Store); the 7.2 Android release has no iOS changes.
+
+## android-v7.2
+
+Fud AI 7.2 for Android adds optional Plus and Pro plans, so Fud AI can run the AI for you with no API keys to manage. Bring Your Own Key stays free forever.
+
+NEW
+• Optional Plus (30 AI actions a day) and Pro (60 a day) plans through Google Play, with monthly or yearly billing and optional credit packs for busy days.
+• Settings → AI Access switches between your own key (BYOK) and Hosted AI, and shows today's usage and credits.
+• Onboarding lets you pick Hosted AI instead of setting up a key.
+• The tip jar now uses Google Play.
+
+IMPROVED
+• Coach and food-logging errors now appear in your language.
+• Existing users see the optional plan offer once after updating, and only when the plans can be bought.
+
+Existing logs, goals, Health data, widgets, workout history, and BYOK settings are preserved during a normal update.
 
 ## ios-v7.1.2
 

@@ -141,7 +141,8 @@ class CoachVoiceController(
                 val text = try {
                     val file = recorder.stop()
                     if (file != null) container.speechService.transcribeRecordedAudio(file).trim() else ""
-                } catch (_: Exception) {
+                } catch (e: Exception) {
+                    container.hostedUi.handle(e)
                     ""
                 }
                 reset()

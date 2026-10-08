@@ -15,8 +15,8 @@ copy, What's New, screenshots, and the IAP / subscription / tip / credit catalog
 | What's New | manual paste | optional via `STORE_UPLOAD_WHATS_NEW` on the Play upload | prepared locally every tag |
 | Listing / screenshots | manual | manual | **wired** (`asc_release.py`, `play_listing.py`) |
 | Submit for review / production | manual | off unless `STORE_PRODUCTION_ROLLOUT` is on | **wired, OFF** (`STORE_SUBMIT_IOS_REVIEW`, `STORE_PRODUCTION_ROLLOUT`); includes Ready-to-Submit IAPs / subscriptions |
-| IAP / subs / tips / credits | ASC + RevenueCat console | not shipped yet | versioned `store/catalog/` + validate CI |
-| RevenueCat sync | manual | n/a | dry-run in CI; `STORE_SYNC_REVENUECAT=true` **fails closed** |
+| IAP / subs / tips / credits | ASC + RevenueCat console | Play Console + RevenueCat console (7.2+; Play ids in each catalog item's `play` block) | versioned `store/catalog/` + validate CI |
+| RevenueCat sync | manual | manual | dry-run in CI; `STORE_SYNC_REVENUECAT=true` **fails closed** |
 
 ## Safe defaults (do not flip until ready)
 

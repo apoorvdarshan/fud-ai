@@ -61,6 +61,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.apoorvdarshan.calorietracker.services.ai.AiError
 import com.apoorvdarshan.calorietracker.AppContainer
 import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.models.SpeechProvider
@@ -173,7 +174,11 @@ fun VoiceInputSheet(
                 throw cancelled
             } catch (e: Throwable) {
                 currentCoroutineContext().ensureActive()
-                error = e.localizedMessage ?: transcriptionFailedMsg
+                error = when {
+                    container.hostedUi.handle(e) -> null
+                    e is AiError -> e.userMessage(ctx)
+                    else -> e.localizedMessage ?: transcriptionFailedMsg
+                }
                 phase = VoicePhase.REVIEWING
             } finally {
                 uploadFile?.delete()

@@ -32,6 +32,7 @@ import androidx.compose.material.icons.filled.Work
 import androidx.compose.material.icons.filled.BugReport
 import androidx.compose.material.icons.filled.Business
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.CloudOff
 import androidx.compose.material.icons.filled.Code
 import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.filled.Email
@@ -61,6 +62,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.FilterQuality
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -70,10 +74,14 @@ import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.models.FudAILinks
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.apoorvdarshan.calorietracker.services.hosted.BillingManager
+import com.apoorvdarshan.calorietracker.services.hosted.PurchaseOutcome
 import com.apoorvdarshan.calorietracker.services.update.AndroidUpdateChecker
 import com.apoorvdarshan.calorietracker.services.update.AndroidUpdateState
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialog
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialogActions
+import com.apoorvdarshan.calorietracker.ui.hosted.findActivity
+import com.revenuecat.purchases.models.StoreProduct
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -120,7 +128,7 @@ fun AboutAppHeader() {
 
 /** Rows for one focused About category, embedded in the existing Settings layout. */
 @Composable
-fun AboutSettingsRows(category: AboutSettingsCategory) {
+fun AboutSettingsRows(category: AboutSettingsCategory, billing: BillingManager? = null) {
     val ctx = LocalContext.current
     val shareText = stringResource(R.string.about_share_message)
     val shareChooser = stringResource(R.string.about_share_chooser)
@@ -207,10 +215,12 @@ fun AboutSettingsRows(category: AboutSettingsCategory) {
             }
 
             AboutSettingsCategory.SUPPORT -> {
-                AboutRow(Icons.Filled.Favorite, stringResource(R.string.about_leave_tip_kofi)) {
-                    open("https://ko-fi.com/apoorvdarshan")
+                // Tips go through Google Play Billing (Play Payments policy: no
+                // links to outside payment methods in an app that sells digital goods).
+                if (billing != null && billing.isAvailable) {
+                    TipJarRows(billing)
+                    Hairline()
                 }
-                Hairline()
                 AboutRow(Icons.Filled.Star, stringResource(R.string.about_rate), onClick = ::rate)
                 Hairline()
                 AboutRow(Icons.Filled.Share, stringResource(R.string.about_share), onClick = ::share)
@@ -603,4 +613,79 @@ private fun Hairline() {
             .height(0.5.dp)
             .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f))
     )
+}
+
+private data class TipTier(val productId: String, @DrawableRes val icon: Int, val nameRes: Int)
+
+private val TIP_TIERS = listOf(
+    TipTier("tip_snack", R.drawable.tip_snack, R.string.tip_snack),
+    TipTier("tip_proteinshake", R.drawable.tip_proteinshake, R.string.tip_proteinshake),
+    TipTier("tip_lunch", R.drawable.tip_lunch, R.string.tip_lunch),
+    TipTier("tip_feast", R.drawable.tip_feast, R.string.tip_feast)
+)
+
+/** iOS tip jar parity: four consumable Play products with PixelLab pixel-art icons. */
+@Composable
+private fun TipJarRows(billing: BillingManager) {
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    var products by remember { mutableStateOf<Map<String, StoreProduct>?>(null) }
+    var purchasingId by remember { mutableStateOf<String?>(null) }
+    var thanked by remember { mutableStateOf(false) }
+    LaunchedEffect(Unit) {
+        products = billing.loadProducts(TIP_TIERS.map { it.productId }).associateBy { it.id }
+    }
+
+    Text(
+        stringResource(R.string.tip_jar_title),
+        style = MaterialTheme.typography.labelLarge,
+        fontWeight = FontWeight.SemiBold,
+        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+        modifier = Modifier.padding(start = 16.dp, top = 12.dp, bottom = 4.dp)
+    )
+    TIP_TIERS.forEachIndexed { index, tier ->
+        if (index > 0) Hairline()
+        val product = products?.get(tier.productId)
+        AboutRow(
+            iconContent = {
+                // Pixel art: nearest-neighbour scaling keeps the pixels crisp.
+                Image(
+                    bitmap = ImageBitmap.imageResource(tier.icon),
+                    contentDescription = null,
+                    filterQuality = FilterQuality.None,
+                    modifier = Modifier.size(24.dp)
+                )
+            },
+            label = stringResource(tier.nameRes),
+            trailing = {
+                when {
+                    purchasingId == tier.productId || products == null ->
+                        CircularProgressIndicator(Modifier.size(18.dp), strokeWidth = 2.dp, color = AppColors.Calorie)
+                    product != null -> Text(product.price.formatted, color = AppColors.Calorie, fontWeight = FontWeight.SemiBold)
+                    else -> Icon(
+                        Icons.Filled.CloudOff,
+                        contentDescription = stringResource(R.string.tip_unavailable),
+                        tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f),
+                        modifier = Modifier.size(18.dp)
+                    )
+                }
+            }
+        ) {
+            val activity = context.findActivity()
+            if (product == null || activity == null || purchasingId != null) return@AboutRow
+            purchasingId = tier.productId
+            scope.launch {
+                if (billing.purchaseProduct(activity, product) == PurchaseOutcome.Success) thanked = true
+                purchasingId = null
+            }
+        }
+    }
+
+    if (thanked) {
+        FudGlassDialog(onDismissRequest = { thanked = false }) {
+            Text(stringResource(R.string.tip_thanks_title), style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
+            Text(stringResource(R.string.tip_thanks_body), style = MaterialTheme.typography.bodyMedium)
+            FudGlassDialogActions(primaryText = stringResource(R.string.action_done), onPrimary = { thanked = false })
+        }
+    }
 }

@@ -1,8 +1,16 @@
+import { readFileSync } from "node:fs";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { handleHostedAIRequest, summarizeUpstreamErrorBody, type HostedAIDependencies } from "../hosted-ai-api";
+import { measureAudioDurationSeconds } from "../hosted-ai-audio";
+import {
+  MAX_TRANSCRIBE_AUDIO_SECONDS,
+  handleHostedAIRequest,
+  summarizeUpstreamErrorBody,
+  type HostedAIDependencies,
+} from "../hosted-ai-api";
 import {
   D1LedgerStore,
   ENTITLEMENT_TTL_MS,
+  HOSTED_AI_CREDIT_PRODUCTS,
   LEDGER_RETENTION_MS,
   REFUND_MARKER_RETENTION_MS,
   cleanupHostedAILedger,
@@ -17,6 +25,72 @@ import {
 
 const USER_ID = "$RCAnonymousID:0123456789abcdef0123456789abcdef";
 const BASE = "https://fud-ai.app/api/hosted-ai/v1";
+
+/** 16 kHz mono 16-bit PCM WAV, the format Android records. */
+function wavBytes(seconds: number, dataSizeOverride?: number): Uint8Array {
+  const byteRate = 16_000 * 2;
+  const dataSize = Math.round(seconds * byteRate);
+  const bytes = new Uint8Array(44 + dataSize);
+  const view = new DataView(bytes.buffer);
+  const ascii = (offset: number, text: string) => {
+    for (let i = 0; i < text.length; i += 1) bytes[offset + i] = text.charCodeAt(i);
+  };
+  ascii(0, "RIFF");
+  view.setUint32(4, 36 + dataSize, true);
+  ascii(8, "WAVE");
+  ascii(12, "fmt ");
+  view.setUint32(16, 16, true);
+  view.setUint16(20, 1, true);
+  view.setUint16(22, 1, true);
+  view.setUint32(24, 16_000, true);
+  view.setUint32(28, byteRate, true);
+  view.setUint16(32, 2, true);
+  view.setUint16(34, 16, true);
+  ascii(36, "data");
+  view.setUint32(40, dataSizeOverride ?? dataSize, true);
+  return bytes;
+}
+
+function toBase64(bytes: Uint8Array): string {
+  let binary = "";
+  for (let i = 0; i < bytes.length; i += 0x8000) {
+    binary += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+  }
+  return btoa(binary);
+}
+
+function wavBase64(seconds: number): string {
+  return toBase64(wavBytes(seconds));
+}
+
+/** Minimal MPEG-4 file: `ftyp` + `moov/mvhd` with the given duration (timescale 1000). */
+function mp4Bytes(seconds: number, version: 0 | 1 = 0): Uint8Array {
+  const box = (type: string, payload: Uint8Array): Uint8Array => {
+    const out = new Uint8Array(8 + payload.length);
+    new DataView(out.buffer).setUint32(0, out.length);
+    for (let i = 0; i < 4; i += 1) out[4 + i] = type.charCodeAt(i);
+    out.set(payload, 8);
+    return out;
+  };
+  const mvhd = new Uint8Array(version === 0 ? 100 : 112);
+  const view = new DataView(mvhd.buffer);
+  view.setUint8(0, version);
+  if (version === 0) {
+    view.setUint32(12, 1000);
+    view.setUint32(16, Math.round(seconds * 1000));
+  } else {
+    view.setUint32(20, 1000);
+    view.setUint32(28, Math.round(seconds * 1000));
+  }
+  const ftyp = box("ftyp", new Uint8Array([0x4d, 0x34, 0x41, 0x20, 0, 0, 0, 0]));
+  const mdat = box("mdat", new Uint8Array(16));
+  const moov = box("moov", box("mvhd", mvhd));
+  const out = new Uint8Array(ftyp.length + mdat.length + moov.length);
+  out.set(ftyp, 0);
+  out.set(mdat, ftyp.length);
+  out.set(moov, ftyp.length + mdat.length);
+  return out;
+}
 
 class MemoryLedgerStore implements LedgerStore {
   rows = new Map<string, LedgerRow>();
@@ -116,7 +190,7 @@ interface Harness {
   store: MemoryLedgerStore;
   calls: Array<{ url: string; init: RequestInit | undefined }>;
   revenueCat: { plan: "none" | "plus" | "pro"; credits?: Array<{ product: string; id: string }>; status?: number };
-  gemini: { status?: number; body?: unknown };
+  gemini: { status?: number; body?: unknown; throwName?: string };
   deepgram: { status?: number; body?: unknown };
   rateLimit: { user: boolean; address: boolean };
   clock: { now: Date };
@@ -166,6 +240,11 @@ function createHarness(overrides: Partial<Pick<Harness, "revenueCat" | "gemini" 
       return new Response(status === 200 ? JSON.stringify(subscriberPayload(harness)) : "{}", { status });
     }
     if (url.startsWith("https://generativelanguage.googleapis.com/")) {
+      if (harness.gemini.throwName) {
+        const error = new Error("upstream fetch failed");
+        error.name = harness.gemini.throwName;
+        throw error;
+      }
       return new Response(JSON.stringify(harness.gemini.body ?? {}), { status: harness.gemini.status ?? 200 });
     }
     if (url.startsWith("https://api.deepgram.com/")) {
@@ -287,6 +366,13 @@ describe("hosted-ai identity and auth", () => {
     expect(response.headers.get("X-Fud-Quota-Plan")).toBe("plus");
     expect(response.headers.get("X-Fud-Quota-Daily-Used")).toBe("1");
     expect(response.headers.get("X-Fud-Quota-Daily-Limit")).toBe("30");
+  });
+
+  it("looks up subscribers without an X-Platform header (store-agnostic, read-only)", async () => {
+    const harness = createHarness();
+    await call(harness, post("/generate", { prompt: "hi" }));
+    const lookup = harness.calls.find((c) => c.url.startsWith("https://api.revenuecat.com/"));
+    expect(new Headers(lookup?.init?.headers).get("X-Platform")).toBeNull();
   });
 
   it("caches the verified entitlement and re-verifies after the TTL", async () => {
@@ -430,6 +516,68 @@ describe("hosted-ai server-side ledger", () => {
     expect(body).toEqual({ error: "upstream_unavailable" });
     expect(JSON.stringify(body)).not.toContain("secret detail");
     expect(harness.store.only().daily_used).toBe(0);
+  });
+
+  it("keeps the action when the provider may still bill: timeouts and empty 200s", async () => {
+    const timeout = createHarness({ gemini: { throwName: "TimeoutError" } });
+    const timedOut = await call(timeout, post("/generate", { prompt: "hi" }));
+    expect(timedOut.status).toBe(504);
+    expect(timeout.store.only().daily_used).toBe(1);
+    expect(timeout.store.refundAttempts).toBe(0);
+
+    const empty = createHarness({ gemini: { body: { candidates: [{ finishReason: "SAFETY" }] } } });
+    const blocked = await call(empty, post("/generate", { prompt: "hi" }));
+    expect(blocked.status).toBe(502);
+    expect(empty.store.only().daily_used).toBe(1);
+    expect(empty.store.refundAttempts).toBe(0);
+  });
+
+  it("refunds a request that never reached the provider", async () => {
+    const harness = createHarness({ gemini: { throwName: "TypeError" } });
+    const response = await call(harness, post("/generate", { prompt: "hi" }));
+    expect(response.status).toBe(500);
+    expect(harness.store.only().daily_used).toBe(0);
+  });
+
+  it("caps output tokens on /generate and forwards an allowed response mime type", async () => {
+    const harness = createHarness();
+    await call(harness, post("/generate", { prompt: "hi", responseMimeType: "application/json" }));
+    const upstream = harness.calls.find((c) => c.url.includes("generativelanguage"));
+    const forwarded = JSON.parse(String(upstream?.init?.body)) as { generationConfig: Record<string, unknown> };
+    expect(forwarded.generationConfig).toEqual({ maxOutputTokens: 8192, responseMimeType: "application/json" });
+
+    const response = await call(harness, post("/generate", { prompt: "hi", responseMimeType: "text/x-python" }));
+    expect(response.status).toBe(400);
+    await expect(response.json()).resolves.toEqual({ error: "unsupported_response_mime_type" });
+    expect(harness.store.only().daily_used).toBe(1);
+  });
+
+  it("injects an output cap into /gemini bodies that omit one", async () => {
+    const harness = createHarness();
+    await call(harness, post("/gemini", geminiBody()));
+    await call(harness, post("/gemini", geminiBody({ generationConfig: { temperature: 0.2, maxOutputTokens: 512 } })));
+    const bodies = harness.calls
+      .filter((c) => c.url.includes("generativelanguage"))
+      .map((c) => JSON.parse(String(c.init?.body)) as { generationConfig: Record<string, unknown> });
+    expect(bodies[0]!.generationConfig).toEqual({ maxOutputTokens: 8192 });
+    expect(bodies[1]!.generationConfig).toEqual({ temperature: 0.2, maxOutputTokens: 512 });
+  });
+
+  it("grants Google Play credit packs and dedups transactions across stores", async () => {
+    const harness = createHarness({
+      revenueCat: {
+        plan: "pro",
+        credits: [
+          { product: "credits_50", id: "gpa-1" },
+          { product: "credits_400", id: "gpa-2" },
+          { product: "com.apoorvdarshan.calorietracker.credits.150", id: "ios-1" },
+          { product: "credits_150", id: "ios-1" },
+          { product: "tip_snack", id: "gpa-3" },
+        ],
+      },
+    });
+    const response = await call(harness, post("/generate", { prompt: "hi" }));
+    expect(response.headers.get("X-Fud-Quota-Credits")).toBe("600");
   });
 
   it("does not charge the ledger for invalid requests or unconfigured providers", async () => {
@@ -792,7 +940,7 @@ describe("hosted-ai upstream error hygiene", () => {
 
   it("never echoes Deepgram error bodies and refunds the action", async () => {
     const harness = createHarness({ deepgram: { status: 401, body: { err_msg: "Invalid credentials: token dg-key" } } });
-    const response = await call(harness, post("/transcribe", { audio: btoa("audio"), mimeType: "audio/wav" }));
+    const response = await call(harness, post("/transcribe", { audio: wavBase64(2), mimeType: "audio/wav" }));
     expect(response.status).toBe(502);
     expect(await response.text()).not.toContain("dg-key");
     expect(harness.store.only().daily_used).toBe(0);
@@ -806,7 +954,7 @@ describe("hosted-ai upstream error hygiene", () => {
       },
     });
     const logs = captureLogs();
-    await call(harness, post("/transcribe", { audio: btoa("audio"), mimeType: "audio/wav" }));
+    await call(harness, post("/transcribe", { audio: wavBase64(2), mimeType: "audio/wav" }));
 
     harness.gemini = {
       status: 400,
@@ -861,7 +1009,8 @@ describe("hosted-ai upstream error hygiene", () => {
 
   it("transcribes audio and meters it as one action", async () => {
     const harness = createHarness();
-    const response = await call(harness, post("/transcribe", { audio: btoa("audio"), mimeType: "audio/m4a", language: "en" }));
+    const m4a = toBase64(readFileSync("tests/fixtures/speech.m4a"));
+    const response = await call(harness, post("/transcribe", { audio: m4a, mimeType: "audio/mp4", language: "en" }));
     expect(response.status).toBe(200);
     await expect(response.json()).resolves.toEqual({ text: "two eggs" });
     expect(response.headers.get("X-Fud-Quota-Daily-Used")).toBe("1");
@@ -873,8 +1022,33 @@ describe("hosted-ai upstream error hygiene", () => {
     const harness = createHarness();
     let response = await call(harness, post("/transcribe", { audio: btoa("a"), mimeType: "application/octet-stream" }));
     expect(response.status).toBe(400);
+    // Containers whose duration cannot be measured are not accepted.
+    response = await call(harness, post("/transcribe", { audio: btoa("a"), mimeType: "audio/ogg" }));
+    await expect(response.json()).resolves.toEqual({ error: "unsupported_audio_type" });
     response = await call(harness, post("/transcribe", { audio: btoa("a"), language: "en; DROP" }));
     expect(response.status).toBe(400);
+  });
+
+  it("bounds transcription by measured duration before charging", async () => {
+    const harness = createHarness();
+    await call(harness, post("/transcribe", { audio: wavBase64(1), mimeType: "audio/wav" }));
+    expect(harness.store.only().daily_used).toBe(1);
+
+    let response = await call(
+      harness,
+      post("/transcribe", { audio: wavBase64(MAX_TRANSCRIBE_AUDIO_SECONDS + 1), mimeType: "audio/wav" })
+    );
+    expect(response.status).toBe(400);
+    await expect(response.json()).resolves.toEqual({ error: "audio_too_long", maxSeconds: MAX_TRANSCRIBE_AUDIO_SECONDS });
+
+    response = await call(harness, post("/transcribe", { audio: toBase64(mp4Bytes(600)), mimeType: "audio/mp4" }));
+    await expect(response.json()).resolves.toMatchObject({ error: "audio_too_long" });
+
+    response = await call(harness, post("/transcribe", { audio: btoa("not a wav header"), mimeType: "audio/wav" }));
+    await expect(response.json()).resolves.toEqual({ error: "unreadable_audio" });
+
+    expect(harness.calls.filter((c) => c.url.includes("deepgram"))).toHaveLength(1);
+    expect(harness.store.only().daily_used).toBe(1);
   });
 
   it("returns 503 when provider keys are not configured (mock-friendly deploys)", async () => {
@@ -933,5 +1107,37 @@ describe("parseRevenueCatSubscriber", () => {
 
   it("throws on malformed payloads", () => {
     expect(() => parseRevenueCatSubscriber({}, now)).toThrow("revenuecat_invalid_payload");
+  });
+});
+
+describe("hosted-ai audio duration probe", () => {
+  it("reads WAV durations, including streaming headers with an unset data size", () => {
+    expect(measureAudioDurationSeconds(wavBytes(2.5), "wav")).toBeCloseTo(2.5, 3);
+    expect(measureAudioDurationSeconds(wavBytes(3, 0), "wav")).toBeCloseTo(3, 3);
+    expect(measureAudioDurationSeconds(wavBytes(3, 0xffffffff), "wav")).toBeCloseTo(3, 3);
+    expect(measureAudioDurationSeconds(new Uint8Array(8), "wav")).toBeNull();
+  });
+
+  it("reads MPEG-4 mvhd durations (v0, v1, and a real AAC .m4a)", () => {
+    expect(measureAudioDurationSeconds(mp4Bytes(42), "mp4")).toBeCloseTo(42, 3);
+    expect(measureAudioDurationSeconds(mp4Bytes(42, 1), "mp4")).toBeCloseTo(42, 3);
+    const real = measureAudioDurationSeconds(readFileSync("tests/fixtures/speech.m4a"), "mp4");
+    expect(real).toBeGreaterThan(0.5);
+    expect(real).toBeLessThan(3);
+    expect(measureAudioDurationSeconds(new Uint8Array(32), "mp4")).toBeNull();
+  });
+});
+
+describe("hosted-ai credit catalog parity", () => {
+  it("grants exactly the credit packs listed in store/catalog/products.json", () => {
+    const catalog = JSON.parse(readFileSync("../store/catalog/products.json", "utf8")) as {
+      consumables: Array<{ id: string; credits: number; play?: { product_id: string } }>;
+    };
+    const expected: Record<string, number> = {};
+    for (const pack of catalog.consumables) {
+      expected[pack.id] = pack.credits;
+      if (pack.play) expected[pack.play.product_id] = pack.credits;
+    }
+    expect({ ...HOSTED_AI_CREDIT_PRODUCTS }).toEqual(expected);
   });
 });

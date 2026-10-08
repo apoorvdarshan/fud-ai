@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Hosted AI (Plus/Pro), Google Play billing, and the tip jar. -->
+<resources>
+    <!-- Errors -->
+    <string name="hosted_error_subscription_required">Pro používání hostované AI si předplať Plus nebo Pro, nebo přepni na BYOK v Nastavení → Přístup k AI.</string>
+    <string name="hosted_error_quota_exceeded">Na dnešek ti došly akce hostované AI. Kup si kredity, přejdi na vyšší plán nebo přepni na BYOK.</string>
+    <string name="hosted_error_rate_limited">Hostovaná AI je vytížená. Chvíli počkej a zkus to znovu.</string>
+    <string name="hosted_error_unavailable">Hostovaná AI je dočasně nedostupná. Zkus to prosím za chvíli.</string>
+    <string name="hosted_error_unauthorized">Hostovaná AI nedokázala ověřit tvé předplatné. Zkus Obnovit nákupy.</string>
+    <string name="hosted_error_too_many_images">Hostovaná AI přijme nejvýš 3 fotky na jeden požadavek.</string>
+    <string name="hosted_error_too_large">Tento požadavek je pro hostovanou AI příliš velký. Zkus menší fotku nebo kratší text.</string>
+    <string name="hosted_error_audio_too_long">Nahrávky pro hostovanou AI mohou mít nejvýš 2 minuty. Zkus kratší.</string>
+    <string name="hosted_error_rejected">Hostovaná AI tento požadavek odmítla. Aktualizuj Fud AI a zkus to znovu.</string>
+    <string name="hosted_error_failed">Požadavek na hostovanou AI selhal. Zkus to prosím znovu.</string>
+
+    <!-- Settings → AI Access -->
+    <string name="settings_category_ai_access">Přístup k AI</string>
+    <string name="hosted_mode_title">Režim AI</string>
+    <string name="hosted_mode_byok">BYOK (vlastní klíč)</string>
+    <string name="hosted_mode_hosted">Hostovaná (Plus/Pro)</string>
+    <string name="hosted_mode_footer">BYOK používá tvé vlastní klíče poskytovatelů bez omezení. Hostovaná AI využívá plán Fud AI Plus nebo Pro: každý AI požadavek čerpá nejdřív z denního limitu, potom z tvých kreditů.</string>
+    <string name="hosted_plan_label">Plán</string>
+    <string name="hosted_plan_none">Žádný</string>
+    <string name="hosted_plan_plus">Plus</string>
+    <string name="hosted_plan_pro">Pro</string>
+    <string name="hosted_today_label">Dnes (UTC)</string>
+    <string name="hosted_today_value">%1$d / %2$d</string>
+    <string name="hosted_credits_label">Kredity</string>
+    <string name="hosted_usage_footer">Server Fud AI započítává každý AI požadavek a denní limit se obnovuje o půlnoci UTC. Odpovědi Kouče, které vyžadují víc vyhledávání, spotřebují víc akcí.</string>
+    <string name="hosted_view_plans">Zobrazit plány</string>
+    <string name="hosted_change_plan">Změnit plán</string>
+    <string name="hosted_buy_credits">Koupit kredity</string>
+    <string name="hosted_restore">Obnovit nákupy</string>
+    <string name="hosted_manage_subscription">Spravovat předplatné</string>
+    <string name="hosted_restore_success">Nákupy byly obnoveny.</string>
+    <string name="hosted_restore_none">Pro tento účet Google nebylo nalezeno žádné aktivní předplatné Plus ani Pro.</string>
+    <string name="hosted_restore_failed">Nákupy se nepodařilo obnovit. Zkontroluj připojení a zkus to znovu.</string>
+
+    <!-- Paywall -->
+    <string name="hosted_paywall_title">Hostovaná AI</string>
+    <string name="hosted_paywall_subtitle">Modely provozuje Fud AI. Žádné API klíče, žádné nastavování.</string>
+    <string name="hosted_period_monthly">Měsíčně</string>
+    <string name="hosted_period_yearly">Ročně</string>
+    <string name="hosted_save_percent">Ušetři %d%%</string>
+    <string name="hosted_plan_actions">%d AI akcí každý den</string>
+    <string name="hosted_current_plan">Aktuální plán</string>
+    <string name="hosted_per_month">za měsíc</string>
+    <string name="hosted_per_year">za rok</string>
+    <string name="hosted_included_title">Co je zahrnuto</string>
+    <string name="hosted_feature_all_title">Všechny AI funkce</string>
+    <string name="hosted_feature_all_body">Zápis z fotky, hlasu i textu, Kouč a AI pro tréninky.</string>
+    <string name="hosted_feature_daily_title">Denní limit</string>
+    <string name="hosted_feature_daily_body">Obnovuje se o půlnoci UTC. Na rušné dny jsou tu balíčky kreditů.</string>
+    <string name="hosted_feature_private_title">Odesílá se jen tvůj požadavek</string>
+    <string name="hosted_feature_private_body">Tvůj deník a historie zůstávají v tomto zařízení. Zrušit můžeš kdykoli v Google Play.</string>
+    <string name="hosted_cta_subscribe">Předplatit %s</string>
+    <string name="hosted_cta_upgrade">Přejít na Pro</string>
+    <string name="hosted_cta_switch">Změnit plán</string>
+    <string name="hosted_cta_current">Aktuální plán</string>
+    <string name="hosted_upgrade_note">Pro začne platit hned. Google Play naúčtuje poměrný rozdíl za zbytek aktuálního fakturačního období.</string>
+    <string name="hosted_switch_note">Nový plán začne při příštím obnovení. Do té doby ti zůstane aktuální plán.</string>
+    <string name="hosted_disclosure">%1$s %2$s · Obnovuje se automaticky, dokud ho nezrušíš v Google Play.</string>
+    <string name="hosted_optional_note">Volitelné — s vlastním API klíčem zůstává Fud AI zdarma.</string>
+    <string name="hosted_terms">Podmínky</string>
+    <string name="hosted_privacy">Soukromí</string>
+    <string name="hosted_close">Zavřít</string>
+    <string name="hosted_plans_loading">Načítání plánů…</string>
+    <string name="hosted_plans_unavailable_title">Plány teď nejsou dostupné.</string>
+    <string name="hosted_plans_unavailable_body">Zkontroluj připojení a zkus to znovu.</string>
+    <string name="hosted_try_again">Zkusit znovu</string>
+    <string name="hosted_purchase_success_title">Vše je připraveno</string>
+    <string name="hosted_purchase_success_body">Hostovaná AI je zapnutá. Na BYOK se můžeš kdykoli vrátit v Nastavení → Přístup k AI.</string>
+    <string name="hosted_purchase_pending">Tvůj nákup čeká na vyřízení. Hostovaná AI se odemkne, jakmile Google Play potvrdí platbu.</string>
+    <string name="hosted_purchase_failed">Nákup se nepodařilo dokončit. Zkus to prosím znovu.</string>
+    <string name="hosted_purchase_already_owned">Tohle už vlastníš. Odemkneš to klepnutím na Obnovit nákupy.</string>
+
+    <!-- Credits -->
+    <string name="hosted_credits_title">Koupit kredity</string>
+    <string name="hosted_credits_subtitle">Jednorázové dobití na rušné dny. Kredity se čerpají až po denním limitu, jen když máš aktivní plán Plus nebo Pro, a nikdy nevyprší.</string>
+    <string name="hosted_credits_amount">%d kreditů</string>
+    <string name="hosted_credits_added">Kredity byly přidány.</string>
+    <string name="hosted_credits_pending">Nákup dokončen. Kredity se brzy objeví.</string>
+    <string name="hosted_credits_unavailable">Balíčky kreditů teď nejsou dostupné.</string>
+
+    <!-- Out of quota -->
+    <string name="hosted_out_title">Došly hostované akce</string>
+    <string name="hosted_out_body">Kup si kredity, přejdi na vyšší plán nebo přepni na BYOK s vlastním API klíčem.</string>
+    <string name="hosted_out_buy">Koupit kredity nebo vyšší plán</string>
+    <string name="hosted_out_byok">Přepnout na BYOK</string>
+
+    <!-- One-time post-update upsell (existing users) -->
+    <string name="hosted_upsell_title">Volitelné: nech AI klíče na nás</string>
+    <string name="hosted_upsell_body">Fud AI je zdarma s tvými vlastními API klíči (BYOK) — a vždycky bude. Pokud ti správa klíčů přijde složitá, plány Plus a Pro ti AI provozují za tebe a žádné klíče řešit nemusíš. Zcela volitelné, nic se nezmění, dokud sám nepřepneš.</string>
+    <string name="hosted_upsell_cta">Zobrazit plány Plus a Pro</string>
+    <string name="hosted_upsell_keep">Zůstat u BYOK (zdarma)</string>
+
+    <!-- Onboarding: Hosted path -->
+    <string name="onboarding_ai_hosted_subtitle">Předplať si Plus nebo Pro a používej hostovanou AI — bez API klíče. Na BYOK můžeš kdykoli přepnout v Nastavení.</string>
+    <string name="onboarding_ai_hosted_active">Aktivní plán: %s</string>
+    <string name="onboarding_ai_hosted_inactive">Předplať si Plus nebo Pro a používej hostovanou AI bez vlastního klíče.</string>
+    <string name="onboarding_ai_hosted_use_byok">Použít raději BYOK</string>
+    <string name="onboarding_ai_hosted_notice_analysis_body">Fotky jídla, přepisy hlasu a napsaná jídla se zpracovávají přes hostovanou službu Fud AI.</string>
+    <string name="onboarding_ai_hosted_notice_local_body">Tvůj deník jídel, historie váhy a historie tělesného tuku zůstávají v tomto zařízení.</string>
+    <string name="onboarding_ai_hosted_cta_subscribe">Předplatit a pokračovat</string>
+
+    <!-- Tip jar (Google Play) -->
+    <string name="tip_jar_title">Nechat spropitné</string>
+    <string name="tip_snack">Svačina</string>
+    <string name="tip_proteinshake">Proteinový koktejl</string>
+    <string name="tip_lunch">Oběd</string>
+    <string name="tip_feast">Hostina</string>
+    <string name="tip_thanks_title">Děkujeme!</string>
+    <string name="tip_thanks_body">Tvoje podpora udržuje Fud AI zdarma pro všechny.</string>
+    <string name="tip_unavailable">Spropitné teď není dostupné.</string>
+</resources>

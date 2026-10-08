@@ -10,6 +10,9 @@ import com.apoorvdarshan.calorietracker.models.OptionalNutrientGoals
 import com.apoorvdarshan.calorietracker.models.UserProfile
 import com.apoorvdarshan.calorietracker.services.GoalEvidence
 import com.apoorvdarshan.calorietracker.services.health.HealthEnergySummary
+import com.apoorvdarshan.calorietracker.services.hosted.AiAccessMode
+import com.apoorvdarshan.calorietracker.services.hosted.HostedAiAccess
+import com.apoorvdarshan.calorietracker.services.hosted.HostedAiConstants
 import com.apoorvdarshan.calorietracker.services.ondevice.LocalGemmaRuntime
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -74,7 +77,8 @@ class FoodAnalysisService(
     private val prefs: PreferencesStore,
     private val keyStore: KeyStore,
     private val okHttp: OkHttpClient = defaultClient,
-    private val localGemma: LocalGemmaRuntime? = null
+    private val localGemma: LocalGemmaRuntime? = null,
+    private val hosted: HostedAiAccess? = null
 ) {
 
     suspend fun analyzeWorkout(
@@ -519,6 +523,21 @@ class FoodAnalysisService(
                 imageBytesList.map(FoodImagePreprocessor::prepareForUpload)
             }
             settingsDeferred.await() to imagesDeferred.await()
+        }
+        if (settings.accessMode == AiAccessMode.HOSTED && hosted != null) {
+            // Hosted AI (Plus/Pro): the Worker picks the model and meters the call.
+            // No BYOK key, fallback chain, or on-device model is involved.
+            hosted.requireEntitlement()
+            if (uploadImages.size > HostedAiConstants.MAX_IMAGES) {
+                throw AiError.Hosted(AiErrorKind.HOSTED_TOO_MANY_IMAGES, "too_many_images")
+            }
+            return hosted.client.generate(
+                prompt = prompt,
+                jpegImages = uploadImages,
+                systemInstruction = settings.userContext.takeIf { it.isNotBlank() }
+                    ?.let { "User context (apply to every analysis): $it" },
+                jsonResponse = jsonResponse
+            )
         }
         val finalPrompt = if (settings.userContext.isNotBlank()) {
             "User context (apply to every analysis): ${settings.userContext}\n\n$prompt"

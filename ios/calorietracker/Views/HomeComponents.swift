@@ -575,14 +575,10 @@ struct CalorieGauge: View {
     }
 
     private var statusText: String {
-        guard goal > 0 else { return LocalizedDisplayText.text("No goal") }
-        if eaten < goal {
-            return String(format: LocalizedDisplayText.text("%@ left"), (goal - eaten).formatted())
-        }
-        if eaten > goal {
-            return String(format: LocalizedDisplayText.text("%@ over"), (eaten - goal).formatted())
-        }
-        return LocalizedDisplayText.text("Goal reached")
+        guard goal > 0 else { return String(localized: "No goal") }
+        if eaten < goal { return String(localized: "\((goal - eaten).formatted()) left") }
+        if eaten > goal { return String(localized: "\((eaten - goal).formatted()) over") }
+        return String(localized: "Goal reached")
     }
 
     private var dashedStroke: StrokeStyle {
@@ -690,12 +686,11 @@ struct MacroVerticalBar: View {
     }
 
     private var statusText: String {
-        guard goal > 0 else { return LocalizedDisplayText.text("No goal") }
+        guard goal > 0 else { return String(localized: "No goal") }
         let difference = goal - current
-        if abs(difference) < 0.0001 { return LocalizedDisplayText.text("Goal reached") }
+        if abs(difference) < 0.0001 { return String(localized: "Goal reached") }
         let amount = MacroValueFormatter.string(abs(difference))
-        let formatKey = difference > 0 ? "%@ left" : "%@ over"
-        return String(format: LocalizedDisplayText.text(formatKey), "\(amount)\(unit)")
+        return difference > 0 ? String(localized: "\(amount)\(unit) left") : String(localized: "\(amount)\(unit) over")
     }
 
     var body: some View {

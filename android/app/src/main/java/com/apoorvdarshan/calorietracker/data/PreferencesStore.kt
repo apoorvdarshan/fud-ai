@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker.data
 
+import com.apoorvdarshan.calorietracker.services.hosted.AiAccessMode
 import com.apoorvdarshan.calorietracker.models.OpenRouterReasoningEffort
 import android.content.Context
 import android.util.Log
@@ -60,6 +61,7 @@ private data class HealthEnergyGoalTargetSnapshot(
 
 /** Snapshot of AI settings for one food-analysis request (single DataStore read). */
 data class FoodAiCallSettings(
+    val accessMode: AiAccessMode,
     val userContext: String,
     val provider: AIProvider,
     val model: String,
@@ -215,6 +217,7 @@ class PreferencesStore(
             if (value) {
                 // Fresh installs must never see the "existing user" post-update prompts.
                 prefs[Keys.HAS_SEEN_HOSTED_UPSELL_PROMPT] = true
+                prefs[Keys.HAS_SEEN_HOSTED_UPSELL_PROMPT_V2] = true
                 prefs[Keys.HAS_SEEN_MEET_DEVELOPER_PROMPT] = true
             }
             prefs[Keys.ONBOARDING_COMPLETED] = value
@@ -222,8 +225,18 @@ class PreferencesStore(
     }
 
     // -- Post-update prompts (existing users only, one-time) ----------------
-    val hasSeenHostedUpsellPrompt: Flow<Boolean> = ds.data.map { it[Keys.HAS_SEEN_HOSTED_UPSELL_PROMPT] ?: false }
-    suspend fun setHasSeenHostedUpsellPrompt(v: Boolean) { ds.edit { it[Keys.HAS_SEEN_HOSTED_UPSELL_PROMPT] = v } }
+    // 7.1 marked the original key seen for every Android user while billing was
+    // iPhone-only, so the 7.2 Plus/Pro upsell uses a versioned key (iOS #493 pattern).
+    val hasSeenHostedUpsellPrompt: Flow<Boolean> = ds.data.map { it[Keys.HAS_SEEN_HOSTED_UPSELL_PROMPT_V2] ?: false }
+    suspend fun setHasSeenHostedUpsellPrompt(v: Boolean) { ds.edit { it[Keys.HAS_SEEN_HOSTED_UPSELL_PROMPT_V2] = v } }
+
+    // -- AI access mode (BYOK vs Hosted Plus/Pro) -----------------------------
+    val aiAccessMode: Flow<AiAccessMode> = ds.data.map { AiAccessMode.fromStorage(it[Keys.AI_ACCESS_MODE]) }
+    suspend fun setAiAccessMode(mode: AiAccessMode) { ds.edit { it[Keys.AI_ACCESS_MODE] = mode.storageValue } }
+
+    /** A plan purchase is waiting on Google Play; switch to Hosted once the plan is active. */
+    val pendingHostedSwitch: Flow<Boolean> = ds.data.map { it[Keys.PENDING_HOSTED_SWITCH] ?: false }
+    suspend fun setPendingHostedSwitch(v: Boolean) { ds.edit { it[Keys.PENDING_HOSTED_SWITCH] = v } }
 
     val hasSeenMeetDeveloperPrompt: Flow<Boolean> = ds.data.map { it[Keys.HAS_SEEN_MEET_DEVELOPER_PROMPT] ?: false }
     suspend fun setHasSeenMeetDeveloperPrompt(v: Boolean) { ds.edit { it[Keys.HAS_SEEN_MEET_DEVELOPER_PROMPT] = v } }
@@ -999,6 +1012,7 @@ class PreferencesStore(
         val custom = prefs[stringPreferencesKey(CUSTOM_BASE_URL_PREFIX + primary.name)]
             ?.takeIf { it.isNotEmpty() }
         return FoodAiCallSettings(
+            accessMode = AiAccessMode.fromStorage(prefs[Keys.AI_ACCESS_MODE]),
             userContext = prefs[Keys.USER_CONTEXT].orEmpty(),
             provider = primary,
             model = model,
@@ -1402,6 +1416,9 @@ class PreferencesStore(
         val ADAPTIVE_GOALS_ENABLED = booleanPreferencesKey("adaptiveGoalsEnabled")
         val REVIEW_PROMPTED_AFTER_FIRST_LOG = booleanPreferencesKey("reviewPromptedAfterFirstLog")
         val HAS_SEEN_HOSTED_UPSELL_PROMPT = booleanPreferencesKey("hasSeenHostedUpsellPrompt")
+        val HAS_SEEN_HOSTED_UPSELL_PROMPT_V2 = booleanPreferencesKey("hasSeenHostedUpsellPrompt.android-7.2")
+        val AI_ACCESS_MODE = stringPreferencesKey("aiAccessMode")
+        val PENDING_HOSTED_SWITCH = booleanPreferencesKey("pendingHostedSwitch")
         val HAS_SEEN_MEET_DEVELOPER_PROMPT = booleanPreferencesKey("hasCompletedMeetDeveloperPrompt")
         val HAS_SEEN_PRODUCT_HUNT_LAUNCH_PROMPT = booleanPreferencesKey("hasSeenProductHuntLaunchPrompt.2026-09-29")
         val PRODUCT_HUNT_LAUNCH_NOTIFICATION_SCHEDULED = booleanPreferencesKey("productHuntLaunchNotificationScheduled.2026-09-29")

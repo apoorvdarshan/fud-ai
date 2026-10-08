@@ -7,9 +7,9 @@ import org.junit.Test
 class SettingsCategoryTest {
     @Test
     fun hubKeepsEveryFocusedCategory() {
-        assertEquals(15, SettingsCategory.entries.size)
-        assertEquals(15, SettingsCategory.entries.map { it.titleRes }.toSet().size)
-        assertEquals(10, SettingsCategory.preferenceEntries.size)
+        assertEquals(16, SettingsCategory.entries.size)
+        assertEquals(16, SettingsCategory.entries.map { it.titleRes }.toSet().size)
+        assertEquals(11, SettingsCategory.preferenceEntries.size)
         assertEquals(5, SettingsCategory.appInfoEntries.size)
         assertEquals(5, SettingsCategory.entries.mapNotNull { it.aboutCategory }.size)
     }

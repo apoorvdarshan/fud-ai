@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Hosted AI (Plus/Pro), Google Play billing, and the tip jar. -->
+<resources>
+    <!-- Errors -->
+    <string name="hosted_error_subscription_required">Abonne-toi à Plus ou Pro pour utiliser l’IA hébergée, ou passe en BYOK dans Réglages → Accès à l’IA.</string>
+    <string name="hosted_error_quota_exceeded">Tu as épuisé tes actions d’IA hébergée pour aujourd’hui. Achète des crédits, passe à un forfait supérieur ou passe en BYOK.</string>
+    <string name="hosted_error_rate_limited">L’IA hébergée est occupée. Patiente un instant et réessaie.</string>
+    <string name="hosted_error_unavailable">L’IA hébergée est temporairement indisponible. Réessaie dans un instant.</string>
+    <string name="hosted_error_unauthorized">L’IA hébergée n’a pas pu identifier ton abonnement. Essaie Restaurer les achats.</string>
+    <string name="hosted_error_too_many_images">L’IA hébergée accepte jusqu’à 3 photos par requête.</string>
+    <string name="hosted_error_too_large">Cette requête est trop volumineuse pour l’IA hébergée. Essaie une photo plus petite ou un texte plus court.</string>
+    <string name="hosted_error_audio_too_long">Les enregistrements pour l’IA hébergée peuvent durer jusqu’à 2 minutes. Essaie avec un enregistrement plus court.</string>
+    <string name="hosted_error_rejected">L’IA hébergée a refusé cette requête. Mets à jour Fud AI et réessaie.</string>
+    <string name="hosted_error_failed">La requête à l’IA hébergée a échoué. Réessaie.</string>
+
+    <!-- Settings → AI Access -->
+    <string name="settings_category_ai_access">Accès à l’IA</string>
+    <string name="hosted_mode_title">Mode IA</string>
+    <string name="hosted_mode_byok">BYOK (ta propre clé)</string>
+    <string name="hosted_mode_hosted">Hébergé (Plus/Pro)</string>
+    <string name="hosted_mode_footer">BYOK utilise tes propres clés de fournisseur, sans limites. Le mode hébergé utilise un forfait Fud AI Plus ou Pro : chaque requête IA consomme d’abord ton quota quotidien, puis tes crédits.</string>
+    <string name="hosted_plan_label">Forfait</string>
+    <string name="hosted_plan_none">Aucun</string>
+    <string name="hosted_plan_plus">Plus</string>
+    <string name="hosted_plan_pro">Pro</string>
+    <string name="hosted_today_label">Aujourd’hui (UTC)</string>
+    <string name="hosted_today_value">%1$d / %2$d</string>
+    <string name="hosted_credits_label">Crédits</string>
+    <string name="hosted_usage_footer">Le serveur de Fud AI comptabilise chaque requête IA, et le quota quotidien se réinitialise à minuit UTC. Les réponses du Coach qui nécessitent plusieurs recherches consomment plusieurs actions.</string>
+    <string name="hosted_view_plans">Voir les forfaits</string>
+    <string name="hosted_change_plan">Changer de forfait</string>
+    <string name="hosted_buy_credits">Acheter des crédits</string>
+    <string name="hosted_restore">Restaurer les achats</string>
+    <string name="hosted_manage_subscription">Gérer l’abonnement</string>
+    <string name="hosted_restore_success">Achats restaurés.</string>
+    <string name="hosted_restore_none">Aucun abonnement Plus ou Pro actif n’a été trouvé pour ce compte Google.</string>
+    <string name="hosted_restore_failed">Impossible de restaurer les achats. Vérifie ta connexion et réessaie.</string>
+
+    <!-- Paywall -->
+    <string name="hosted_paywall_title">IA hébergée</string>
+    <string name="hosted_paywall_subtitle">Fud AI fait tourner les modèles. Pas de clé API, aucune configuration.</string>
+    <string name="hosted_period_monthly">Mensuel</string>
+    <string name="hosted_period_yearly">Annuel</string>
+    <string name="hosted_save_percent">Économise %d %%</string>
+    <string name="hosted_plan_actions">%d actions IA par jour</string>
+    <string name="hosted_current_plan">Forfait actuel</string>
+    <string name="hosted_per_month">par mois</string>
+    <string name="hosted_per_year">par an</string>
+    <string name="hosted_included_title">Ce qui est inclus</string>
+    <string name="hosted_feature_all_title">Toutes les fonctions IA</string>
+    <string name="hosted_feature_all_body">Saisie par photo, voix et texte, Coach et IA d’entraînement.</string>
+    <string name="hosted_feature_daily_title">Quota quotidien</string>
+    <string name="hosted_feature_daily_body">Réinitialisé à minuit UTC. Les packs de crédits couvrent les journées chargées.</string>
+    <string name="hosted_feature_private_title">Seule ta requête est envoyée</string>
+    <string name="hosted_feature_private_body">Ton journal et ton historique restent sur cet appareil. Résiliable à tout moment dans Google Play.</string>
+    <string name="hosted_cta_subscribe">S’abonner à %s</string>
+    <string name="hosted_cta_upgrade">Passer à Pro</string>
+    <string name="hosted_cta_switch">Changer de forfait</string>
+    <string name="hosted_cta_current">Forfait actuel</string>
+    <string name="hosted_upgrade_note">Pro démarre immédiatement. Google Play facture la différence au prorata pour le reste de cette période de facturation.</string>
+    <string name="hosted_switch_note">Le nouveau forfait démarre à ton prochain renouvellement. Tu conserves ton forfait actuel d’ici là.</string>
+    <string name="hosted_disclosure">%1$s %2$s · Renouvellement automatique jusqu’à résiliation dans Google Play.</string>
+    <string name="hosted_optional_note">Facultatif — Fud AI reste gratuit avec ta propre clé API.</string>
+    <string name="hosted_terms">Conditions</string>
+    <string name="hosted_privacy">Confidentialité</string>
+    <string name="hosted_close">Fermer</string>
+    <string name="hosted_plans_loading">Chargement des forfaits…</string>
+    <string name="hosted_plans_unavailable_title">Les forfaits sont indisponibles pour le moment.</string>
+    <string name="hosted_plans_unavailable_body">Vérifie ta connexion et réessaie.</string>
+    <string name="hosted_try_again">Réessayer</string>
+    <string name="hosted_purchase_success_title">Tout est prêt</string>
+    <string name="hosted_purchase_success_body">L’IA hébergée est activée. Tu peux revenir à BYOK à tout moment dans Réglages → Accès à l’IA.</string>
+    <string name="hosted_purchase_pending">Ton achat est en attente. L’IA hébergée sera débloquée dès que Google Play aura confirmé le paiement.</string>
+    <string name="hosted_purchase_failed">L’achat n’a pas pu être finalisé. Réessaie.</string>
+    <string name="hosted_purchase_already_owned">Tu possèdes déjà cet achat. Touche Restaurer les achats pour le débloquer.</string>
+
+    <!-- Credits -->
+    <string name="hosted_credits_title">Acheter des crédits</string>
+    <string name="hosted_credits_subtitle">Recharges ponctuelles pour les journées chargées. Les crédits sont utilisés après ton quota quotidien, uniquement tant qu’un forfait Plus ou Pro est actif, et n’expirent jamais.</string>
+    <string name="hosted_credits_amount">%d crédits</string>
+    <string name="hosted_credits_added">Crédits ajoutés.</string>
+    <string name="hosted_credits_pending">Achat effectué. Tes crédits apparaîtront sous peu.</string>
+    <string name="hosted_credits_unavailable">Les packs de crédits sont indisponibles pour le moment.</string>
+
+    <!-- Out of quota -->
+    <string name="hosted_out_title">Actions hébergées épuisées</string>
+    <string name="hosted_out_body">Achète des crédits, passe à un forfait supérieur ou passe en BYOK avec ta propre clé API.</string>
+    <string name="hosted_out_buy">Acheter des crédits ou changer de forfait</string>
+    <string name="hosted_out_byok">Passer en BYOK</string>
+
+    <!-- One-time post-update upsell (existing users) -->
+    <string name="hosted_upsell_title">Facultatif : on gère les clés IA pour toi</string>
+    <string name="hosted_upsell_body">Fud AI est gratuit avec tes propres clés API (BYOK) — et le restera toujours. Si jongler avec les clés te semble compliqué, les forfaits Plus et Pro font tourner l’IA pour toi, sans aucune clé à gérer. Entièrement facultatif : rien ne change tant que tu ne bascules pas.</string>
+    <string name="hosted_upsell_cta">Voir les forfaits Plus &amp; Pro</string>
+    <string name="hosted_upsell_keep">Garder BYOK (gratuit)</string>
+
+    <!-- Onboarding: Hosted path -->
+    <string name="onboarding_ai_hosted_subtitle">Abonne-toi à Plus ou Pro pour l’IA hébergée — aucune clé API nécessaire. Passe en BYOK à tout moment dans les Réglages.</string>
+    <string name="onboarding_ai_hosted_active">Forfait actif : %s</string>
+    <string name="onboarding_ai_hosted_inactive">Abonne-toi à Plus ou Pro pour utiliser l’IA hébergée sans apporter ta propre clé.</string>
+    <string name="onboarding_ai_hosted_use_byok">Utiliser BYOK à la place</string>
+    <string name="onboarding_ai_hosted_notice_analysis_body">Les photos de repas, les transcriptions vocales et les repas saisis sont traités par le service hébergé de Fud AI.</string>
+    <string name="onboarding_ai_hosted_notice_local_body">Ton journal alimentaire, ton historique de poids et ton historique de masse grasse restent sur cet appareil.</string>
+    <string name="onboarding_ai_hosted_cta_subscribe">S’abonner pour continuer</string>
+
+    <!-- Tip jar (Google Play) -->
+    <string name="tip_jar_title">Laisser un pourboire</string>
+    <string name="tip_snack">En-cas</string>
+    <string name="tip_proteinshake">Shake protéiné</string>
+    <string name="tip_lunch">Déjeuner</string>
+    <string name="tip_feast">Festin</string>
+    <string name="tip_thanks_title">Merci !</string>
+    <string name="tip_thanks_body">Ton soutien permet à Fud AI de rester gratuit pour tous.</string>
+    <string name="tip_unavailable">Les pourboires sont indisponibles pour le moment.</string>
+</resources>

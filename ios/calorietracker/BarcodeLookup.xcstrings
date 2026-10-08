@@ -10,6 +10,12 @@
             "value": "You appear to be offline. Check your connection and try scanning again."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parece que no tienes conexión. Revisa tu conexión e intenta escanear de nuevo."
+          }
+        },
         "uk": {
           "stringUnit": {
             "state": "translated",
@@ -31,6 +37,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Open Food Facts took too long to respond. Try scanning again."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts tardó demasiado en responder. Intenta escanear de nuevo."
           }
         },
         "uk": {

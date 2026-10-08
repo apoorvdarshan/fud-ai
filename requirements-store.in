@@ -1,4 +1,4 @@
-PyJWT[crypto]==2.14.0
+PyJWT[crypto]==2.15.0
 google-api-python-client==2.169.0
 google-auth==2.40.1
 Pillow==12.3.0

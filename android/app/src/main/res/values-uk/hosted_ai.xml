@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Hosted AI (Plus/Pro), Google Play billing, and the tip jar. -->
+<resources>
+    <!-- Errors -->
+    <string name="hosted_error_subscription_required">Оформи Plus або Pro, щоб користуватися Хостингом ШІ, або перейди на BYOK у розділі Налаштування → Доступ до ШІ.</string>
+    <string name="hosted_error_quota_exceeded">На сьогодні дії Хостингу ШІ вичерпано. Купи кредити, покращ тариф або перейди на BYOK.</string>
+    <string name="hosted_error_rate_limited">Хостинг ШІ зараз перевантажений. Зачекай трохи й спробуй ще раз.</string>
+    <string name="hosted_error_unavailable">Хостинг ШІ тимчасово недоступний. Спробуй ще раз трохи згодом.</string>
+    <string name="hosted_error_unauthorized">Хостингу ШІ не вдалося визначити твою підписку. Спробуй «Відновити покупки».</string>
+    <string name="hosted_error_too_many_images">Хостинг ШІ приймає до 3 фото за один запит.</string>
+    <string name="hosted_error_too_large">Цей запит завеликий для Хостингу ШІ. Спробуй менше фото або коротший текст.</string>
+    <string name="hosted_error_audio_too_long">Записи для Хостингу ШІ можуть тривати до 2 хвилин. Спробуй коротший запис.</string>
+    <string name="hosted_error_rejected">Хостинг ШІ відхилив цей запит. Онови Fud AI і спробуй ще раз.</string>
+    <string name="hosted_error_failed">Запит до Хостингу ШІ не вдався. Спробуй ще раз.</string>
+
+    <!-- Settings → AI Access -->
+    <string name="settings_category_ai_access">Доступ до ШІ</string>
+    <string name="hosted_mode_title">Режим ШІ</string>
+    <string name="hosted_mode_byok">BYOK (власний ключ)</string>
+    <string name="hosted_mode_hosted">Хостинг (Plus/Pro)</string>
+    <string name="hosted_mode_footer">BYOK використовує твої власні ключі провайдерів без обмежень. Хостинг працює з тарифом Fud AI Plus або Pro: кожен запит до ШІ спершу витрачає щоденний ліміт, а потім кредити.</string>
+    <string name="hosted_plan_label">Тариф</string>
+    <string name="hosted_plan_none">Немає</string>
+    <string name="hosted_plan_plus">Plus</string>
+    <string name="hosted_plan_pro">Pro</string>
+    <string name="hosted_today_label">Сьогодні (UTC)</string>
+    <string name="hosted_today_value">%1$d / %2$d</string>
+    <string name="hosted_credits_label">Кредити</string>
+    <string name="hosted_usage_footer">Сервер Fud AI враховує кожен запит до ШІ, а щоденний ліміт оновлюється опівночі за UTC. Відповіді Тренера, яким потрібно кілька пошуків, використовують кілька дій.</string>
+    <string name="hosted_view_plans">Переглянути тарифи</string>
+    <string name="hosted_change_plan">Змінити тариф</string>
+    <string name="hosted_buy_credits">Купити кредити</string>
+    <string name="hosted_restore">Відновити покупки</string>
+    <string name="hosted_manage_subscription">Керувати підпискою</string>
+    <string name="hosted_restore_success">Покупки відновлено.</string>
+    <string name="hosted_restore_none">Для цього облікового запису Google не знайдено активної підписки Plus або Pro.</string>
+    <string name="hosted_restore_failed">Не вдалося відновити покупки. Перевір з’єднання і спробуй ще раз.</string>
+
+    <!-- Paywall -->
+    <string name="hosted_paywall_title">Хостинг ШІ</string>
+    <string name="hosted_paywall_subtitle">Моделі запускає Fud AI. Без ключів API і без налаштувань.</string>
+    <string name="hosted_period_monthly">Щомісяця</string>
+    <string name="hosted_period_yearly">Щороку</string>
+    <string name="hosted_save_percent">Економія %d%%</string>
+    <string name="hosted_plan_actions">%d дій ШІ щодня</string>
+    <string name="hosted_current_plan">Поточний тариф</string>
+    <string name="hosted_per_month">на місяць</string>
+    <string name="hosted_per_year">на рік</string>
+    <string name="hosted_included_title">Що входить</string>
+    <string name="hosted_feature_all_title">Усі функції ШІ</string>
+    <string name="hosted_feature_all_body">Запис їжі за фото, голосом і текстом, Тренер і ШІ для тренувань.</string>
+    <string name="hosted_feature_daily_title">Щоденний ліміт</string>
+    <string name="hosted_feature_daily_body">Оновлюється опівночі за UTC. Пакети кредитів виручать у насичені дні.</string>
+    <string name="hosted_feature_private_title">Надсилається лише твій запит</string>
+    <string name="hosted_feature_private_body">Твій щоденник та історія залишаються на цьому пристрої. Скасувати можна будь-коли в Google Play.</string>
+    <string name="hosted_cta_subscribe">Підписатися на %s</string>
+    <string name="hosted_cta_upgrade">Перейти на Pro</string>
+    <string name="hosted_cta_switch">Змінити тариф</string>
+    <string name="hosted_cta_current">Поточний тариф</string>
+    <string name="hosted_upgrade_note">Pro починає діяти одразу. Google Play стягне пропорційну різницю за решту поточного розрахункового періоду.</string>
+    <string name="hosted_switch_note">Новий тариф почне діяти з наступного продовження. До того часу в тебе залишається поточний тариф.</string>
+    <string name="hosted_disclosure">%1$s %2$s · Продовжується автоматично, доки не скасуєш у Google Play.</string>
+    <string name="hosted_optional_note">Необов’язково — Fud AI залишається безкоштовним із власним ключем API.</string>
+    <string name="hosted_terms">Умови</string>
+    <string name="hosted_privacy">Конфіденційність</string>
+    <string name="hosted_close">Закрити</string>
+    <string name="hosted_plans_loading">Завантаження тарифів…</string>
+    <string name="hosted_plans_unavailable_title">Тарифи зараз недоступні.</string>
+    <string name="hosted_plans_unavailable_body">Перевір з’єднання і спробуй ще раз.</string>
+    <string name="hosted_try_again">Спробувати ще раз</string>
+    <string name="hosted_purchase_success_title">Усе готово</string>
+    <string name="hosted_purchase_success_body">Хостинг ШІ увімкнено. Повернутися до BYOK можна будь-коли в розділі Налаштування → Доступ до ШІ.</string>
+    <string name="hosted_purchase_pending">Покупка очікує підтвердження. Хостинг ШІ розблокується, щойно Google Play підтвердить оплату.</string>
+    <string name="hosted_purchase_failed">Не вдалося завершити покупку. Спробуй ще раз.</string>
+    <string name="hosted_purchase_already_owned">У тебе це вже є. Натисни «Відновити покупки», щоб розблокувати.</string>
+
+    <!-- Credits -->
+    <string name="hosted_credits_title">Купити кредити</string>
+    <string name="hosted_credits_subtitle">Разові поповнення для насичених днів. Кредити витрачаються після щоденного ліміту, лише поки активний тариф Plus або Pro, і ніколи не згорають.</string>
+    <string name="hosted_credits_amount">%d кредитів</string>
+    <string name="hosted_credits_added">Кредити додано.</string>
+    <string name="hosted_credits_pending">Покупку завершено. Кредити незабаром з’являться.</string>
+    <string name="hosted_credits_unavailable">Пакети кредитів зараз недоступні.</string>
+
+    <!-- Out of quota -->
+    <string name="hosted_out_title">Дії Хостингу ШІ вичерпано</string>
+    <string name="hosted_out_body">Купи кредити, покращ тариф або перейди на BYOK із власним ключем API.</string>
+    <string name="hosted_out_buy">Купити кредити чи покращити тариф</string>
+    <string name="hosted_out_byok">Перейти на BYOK</string>
+
+    <!-- One-time post-update upsell (existing users) -->
+    <string name="hosted_upsell_title">Необов’язково: ключі ШІ беремо на себе</string>
+    <string name="hosted_upsell_body">Fud AI безкоштовний із власними ключами API (BYOK) — і так буде завжди. Якщо морока з ключами здається заплутаною, тарифи Plus і Pro запускають ШІ за тебе — жодних ключів. Повністю за бажанням: нічого не зміниться, доки не перемкнешся.</string>
+    <string name="hosted_upsell_cta">Переглянути тарифи Plus і Pro</string>
+    <string name="hosted_upsell_keep">Залишити BYOK (безкоштовно)</string>
+
+    <!-- Onboarding: Hosted path -->
+    <string name="onboarding_ai_hosted_subtitle">Оформи Plus або Pro для Хостингу ШІ — ключ API не потрібен. Перейти на BYOK можна будь-коли в Налаштуваннях.</string>
+    <string name="onboarding_ai_hosted_active">Активний тариф: %s</string>
+    <string name="onboarding_ai_hosted_inactive">Оформи Plus або Pro, щоб користуватися Хостингом ШІ без власного ключа.</string>
+    <string name="onboarding_ai_hosted_use_byok">Використовувати BYOK</string>
+    <string name="onboarding_ai_hosted_notice_analysis_body">Фото їжі, голосові розшифровки та введені страви обробляються через хостинг-сервіс Fud AI.</string>
+    <string name="onboarding_ai_hosted_notice_local_body">Твій журнал харчування, історія ваги та історія відсотка жиру залишаються на цьому пристрої.</string>
+    <string name="onboarding_ai_hosted_cta_subscribe">Підписатися й продовжити</string>
+
+    <!-- Tip jar (Google Play) -->
+    <string name="tip_jar_title">Залишити чайові</string>
+    <string name="tip_snack">Перекус</string>
+    <string name="tip_proteinshake">Протеїновий коктейль</string>
+    <string name="tip_lunch">Обід</string>
+    <string name="tip_feast">Бенкет</string>
+    <string name="tip_thanks_title">Дякуємо!</string>
+    <string name="tip_thanks_body">Твоя підтримка допомагає Fud AI залишатися безкоштовним для всіх.</string>
+    <string name="tip_unavailable">Чайові зараз недоступні.</string>
+</resources>

@@ -2,7 +2,7 @@ import SwiftUI
 
 struct AnalyzingView: View {
     let image: UIImage?
-    var message: String = "Analyzing your food..."
+    var message: String = String(localized: "Analyzing your food...")
     /// A slow or stalled provider used to leave this sheet up with no way out (#357).
     var onCancel: (() -> Void)? = nil
 

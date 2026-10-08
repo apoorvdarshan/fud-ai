@@ -1,6 +1,6 @@
 # Play Store Listing
 
-Google Play Console listing copy for Fud AI Android v7.1 / versionCode 38. Each field is in a code block for easy copy-paste. Char counts are tracked because Play Console enforces hard caps and silently truncates anything over. This file is prepared for the 7.1 release and has not been submitted.
+Google Play Console listing copy for Fud AI Android v7.2 / versionCode 42. Each field is in a code block for easy copy-paste. Char counts are tracked because Play Console enforces hard caps and silently truncates anything over. This file is prepared for the 7.2 release (first Google Play billing build: optional Plus/Pro, credit packs, tip jar) and has not been submitted.
 
 **Where to paste each field in Play Console:**
 - App name / Short description / Full description → Grow → Store presence → **Main store listing** (default English) and Grow → Store presence → **Custom store listings** → Manage translations (per-language overrides)
@@ -38,11 +38,11 @@ Snap, speak, or type a meal. AI logs the calories. Open source.
 ```
 Fud AI makes calorie tracking effortless with AI-powered food recognition. Snap a photo, scan a barcode, speak it, or type it — get instant nutrition: calories, protein, carbs, fats, vitamins, minerals, and more.
 
-NEW in v7.1: Weekly Challenge places, Discord help, and in-app language. Also includes steps, Walk/Run, custom exercises, meal time, and 18 languages.
+NEW in v7.2: optional Plus and Pro plans run the AI for you, no API keys needed. Bring Your Own Key stays free. Also: Weekly Challenge, steps, Walk/Run, 18 languages.
 
 Nutrition adds custom goals plus caffeine, creatine, and other performance compounds. Optional fasting adds timers, editable history, goals, alerts, and Coach context. Android includes a daily calorie summary and clearer Health Connect guidance.
 
-Open source, privacy-first. Bring your own API key.
+Open source, privacy-first. Bring your own API key, or pick an optional Plus/Pro plan.
 
 WAYS TO LOG A MEAL
 • Camera — take up to 10 photos, add an optional note
@@ -88,7 +88,7 @@ Off by default. Choose a 1–168 hour goal, start/end/cancel from Home +, keep t
 Auto-selected by phone language: English, Spanish, French, German, Italian, Portuguese (BR), Dutch, Russian, Japanese, Korean, Chinese, Hindi, Arabic, Romanian, Azerbaijani, Polish, Czech, Ukrainian.
 
 PRIVACY FIRST
-Core tracking needs no account; no analytics, behavioral tracking, or ads. The optional 18+ Weekly Challenge uploads only a display name, optional social handle, anonymous ID, and weekly aggregate milestones—never raw food, weight, meals, workouts, or Health Connect records. Keys encrypted; AI/STT requests go to your provider. MIT licensed.
+Core tracking needs no account; no analytics, behavioral tracking, or ads. The optional 18+ Weekly Challenge uploads only a display name, optional social handle, anonymous ID, and weekly aggregate milestones—never raw food, weight, meals, workouts, or Health Connect records. Keys encrypted; AI/STT requests go to your provider, or to Fud AI’s server on Plus/Pro. MIT licensed.
 
 HEALTH CONNECT
 Optional sync for nutrition, weight, body fat, and calculated workout calories, plus energy and daily step reads for Home and goal estimates. Records can restore after reinstall. Fasting is local-only.
@@ -106,15 +106,17 @@ English-only on Play Console — non-English Play Store browsers (ar, az-AZ, cs-
 
 ---
 
-## 4. What's New (v7.1.1 / versionCode 39 — being released)
+## 4. What's New (v7.2 / versionCode 42 — being released)
 
-**500 char hard cap per language.** Paste only the `<en-US>` block for the 7.1.1 release. The other language blocks below are still the 7.0.1 notes and must not be submitted as 7.1.1 release notes.
+**500 char hard cap per language.** Paste only the `<en-US>` block for the 7.2 release. The other language blocks below are still the 7.0.1 notes and must not be submitted as 7.2 release notes.
 
 ```
 <en-US>
-Fud AI 7.1.1
-• Removed the beta signup from Settings.
-• Weekly Challenge places, the language picker, and Help & Feedback from 7.1 are included.
+Fud AI 7.2
+• Optional Plus and Pro plans: Fud AI runs the AI for you, no API keys to manage. BYOK stays free forever.
+• Settings → AI Access switches between your own key and Hosted AI and shows today's usage.
+• Pick Hosted AI during onboarding, buy credit packs for busy days, and tip through Google Play.
+• Coach and food-logging errors now appear in your language.
 </en-US>
 
 <ar>
@@ -266,7 +268,7 @@ These are one-time setup in Play Console → Policy → App content. Don't drift
 - **Target audience**: 13+
 - **News app**: No
 - **COVID-19 contact tracing**: No
-- **Data safety**: Core tracking has no Fud AI account, analytics, advertising, or behavioral tracking. Do not declare Advertising ID. Most app data, including fasting history, is local, and API keys are stored in EncryptedSharedPreferences. The optional 18+ Weekly Challenge is a first-party collection for app functionality: declare **Personal info → Name** (the chosen display name), **Personal info → User IDs** (the random participant ID and optional X or Instagram handle), and **Health and fitness → Fitness info** (weekly aggregate activity calories and qualifying activity, nutrition, consistency, and hydration day counts). These fields are optional to collect because joining is optional, encrypted in transit, not shared with third parties, and deletable from Leave Challenge or Delete All Data. No date of birth is read or uploaded; the age gate stores only acceptance. Do not declare raw food names, meals, weight, workout details, or Health Connect records as challenge-backend collection because those never leave the device for this feature. User-initiated AI/STT requests send selected photos/text/audio directly to the configured provider; Coach requests may include explicitly logged fasting context when relevant; barcode lookup sends the barcode to Open Food Facts; optional shared-meal links place selected meal data in the URL; optional Health Connect sync reads/writes the declared health types. Complete the Play form according to Google's current definitions for these direct user-initiated transfers rather than broadly claiming that no data is processed. Network requests use HTTPS except a user-configured local/custom endpoint may use the URL the user supplies. Delete All Data removes local app data and first requests deletion of the remote challenge profile; if offline, the encrypted deletion credential is retained and deletion retries on the next launch. It does not delete Health Connect records.
+- **Data safety**: Core tracking has no Fud AI account, analytics, advertising, or behavioral tracking. Do not declare Advertising ID. Most app data, including fasting history, is local, and API keys are stored in EncryptedSharedPreferences. The optional 18+ Weekly Challenge is a first-party collection for app functionality: declare **Personal info → Name** (the chosen display name), **Personal info → User IDs** (the random participant ID and optional X or Instagram handle), and **Health and fitness → Fitness info** (weekly aggregate activity calories and qualifying activity, nutrition, consistency, and hydration day counts). These fields are optional to collect because joining is optional, encrypted in transit, not shared with third parties, and deletable from Leave Challenge or Delete All Data. No date of birth is read or uploaded; the age gate stores only acceptance. Do not declare raw food names, meals, weight, workout details, or Health Connect records as challenge-backend collection because those never leave the device for this feature. User-initiated AI/STT requests send selected photos/text/audio directly to the configured provider; Coach requests may include explicitly logged fasting context when relevant; barcode lookup sends the barcode to Open Food Facts; optional shared-meal links place selected meal data in the URL; optional Health Connect sync reads/writes the declared health types. Complete the Play form according to Google's current definitions for these direct user-initiated transfers rather than broadly claiming that no data is processed. **7.2 billing:** declare **Financial info → Purchase history** (RevenueCat processes Google Play purchases for Plus/Pro, credit packs, and tips; collected, not optional for purchasers, app functionality, not shared for advertising) and **Device or other IDs** for the anonymous RevenueCat app user ID (app functionality; Fud AI's Worker stores only its SHA-256 hash in the hosted-AI quota ledger). In Hosted AI mode (optional, Plus/Pro only) food photos, prompt text, voice audio, and Coach messages go to Fud AI's server (fud-ai.app), which forwards them to Gemini/Deepgram and does not store them: declare **Photos**, **Audio → Voice or sound recordings**, and **App activity → Other user-generated content** as collected, optional, processed ephemerally, for app functionality. Network requests use HTTPS except a user-configured local/custom endpoint may use the URL the user supplies. Delete All Data removes local app data and first requests deletion of the remote challenge profile; if offline, the encrypted deletion credential is retained and deletion retries on the next launch. It does not delete Health Connect records.
 - **Government app**: No
 - **Financial features**: No
 - **Health features**: Yes — nutrition, body measurements, energy-based goals, calculated workout calories, optional daily step reads for Home, optional local water/fasting tracking, and an optional 18+ Weekly Challenge. Challenge qualification is calculated locally and uploads only weekly totals: overall points, qualifying activity/nutrition/consistency/hydration day counts, and activity calories capped at 2,000 per day; it never uploads raw logs or ranks weight loss. Health Connect permissions are READ/WRITE nutrition, weight, body fat, and active calories burned, plus READ total calories burned and steps. Water and fasting history are local and are not written to Health Connect. Explain restore/backfill, Energy Burn Goals, calculated workout-burn sync, daily steps display, and the separate opt-in challenge aggregate in the permissions/declaration material, and keep the in-app rationale/Manage Access flow aligned with the privacy policy.
@@ -293,6 +295,7 @@ No account/login. Password field = Google Gemini API key for review only.
 1. Finish onboarding with any test values; skip notifications and Health Connect.
 2. On Bring Your Own AI: keep Google Gemini + the preselected model, paste the key into API Key, tap Continue.
 3. Key is reusable; no 2FA or location lock. All features work after that, including AI food log / coach.
+Plus/Pro (Settings → AI Access) is optional; BYOK gives full access.
 ```
 
 After Apply → Save, if Publishing overview lists pending changes, **Send for review**.

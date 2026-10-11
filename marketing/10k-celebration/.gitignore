@@ -1,0 +1,4 @@
+node_modules/
+exports/*.wav
+exports/*-silent.mp4
+exports/preview-*.png

@@ -28,7 +28,7 @@ mlkitBarcode = "17.3.0"
 vico = "3.3.1"
 splashscreen = "1.2.0"
 browser = "1.10.0"
-litertLm = "0.17.1"
+litertLm = "0.18.0"
 whisperAndroid = "1.0.0"
 revenuecat = "10.26.0"
 

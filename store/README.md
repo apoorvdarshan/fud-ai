@@ -168,12 +168,16 @@ networking and the RevenueCat SDK), Keychain, iOS Data Protection, SHA-256 for
 download and backup integrity, and Apple's system crypto. If the app ever adds
 its own encryption, set it to `YES` and add `ITSEncryptionExportComplianceCode`
 with the code App Store Connect issues for the app's encryption documentation.
-An `INFOPLIST_KEY_` build setting works too; when both are set they must agree.
+An `INFOPLIST_KEY_` build setting works too (when Xcode generates the
+Info.plist); when both are set they must agree.
 
 Release and validation runs check it twice: `ios_release.py gates` reads the
 project before anything is built, and `ios_release.py export-compliance` reads
-the archived app's Info.plist right after the archive. A missing key, a
-non-Boolean or mixed value, or `YES` without the code fails the run.
+the archived app's Info.plist right after the archive. The project check looks
+at each build configuration of the `calorietracker` target on its own (its
+`INFOPLIST_FILE` and its build settings over the project's); other targets do
+not count. A configuration without the key, a non-Boolean value, different
+answers, or `YES` without the code fails the run.
 
 ## Concurrency
 

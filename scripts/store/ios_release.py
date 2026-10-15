@@ -38,8 +38,8 @@ from typing import Any, Callable, Mapping
 
 ROOT = Path(__file__).resolve().parents[2]
 PBXPROJ = ROOT / "ios" / "calorietracker.xcodeproj" / "project.pbxproj"
-# The app target's own Info.plist (INFOPLIST_FILE), merged into the generated one.
-APP_INFO_PLIST = ROOT / "ios" / "calorietracker" / "Info.plist"
+# The App Store app's target in PBXPROJ (export compliance is checked on it alone).
+APP_TARGET = "calorietracker"
 BUNDLE_ID = "com.apoorvdarshan.calorietracker"
 TAG_PREFIX = "ios-v"
 
@@ -151,24 +151,88 @@ def export_compliance_answer(answers: list[str], codes: list[str], *, source: st
     return answer
 
 
-def check_export_compliance(pbxproj: Path = PBXPROJ, info_plist: Path = APP_INFO_PLIST) -> str:
+def pbx_objects(text: str) -> dict[str, str]:
+    """{object id: body} for the multi-line top-level objects of a project.pbxproj."""
+    pattern = r"^\t\t([0-9A-Fa-f]{24}) (?:/\*.*?\*/ )?= \{\n(.*?)^\t\t\};$"
+    return {match.group(1): match.group(2) for match in re.finditer(pattern, text, re.M | re.S)}
+
+
+def pbx_field(body: str, field: str) -> str | None:
+    match = re.search(rf"^\t\t\t{field} = ([^;\n]+);", body, re.M)
+    return match.group(1).split("/*")[0].strip().strip('"') if match else None
+
+
+def pbx_configurations(objects: Mapping[str, str], list_id: str | None) -> dict[str, dict[str, str]]:
+    """{configuration name: build settings} for one XCConfigurationList (single-line values only)."""
+    configs: dict[str, dict[str, str]] = {}
+    list_body = objects.get(list_id or "", "")
+    ids = re.search(r"^\t\t\tbuildConfigurations = \((.*?)\);", list_body, re.M | re.S)
+    for config_id in re.findall(r"[0-9A-Fa-f]{24}", ids.group(1) if ids else ""):
+        body = objects.get(config_id, "")
+        block = re.search(r"^\t\t\tbuildSettings = \{\n(.*?)^\t\t\t\};", body, re.M | re.S)
+        settings = {
+            key.strip('"'): value.strip().strip('"')
+            for key, value in re.findall(r"^\t\t\t\t(\"[^\"]+\"|[A-Za-z0-9_]+) = ([^;\n]*);$", block.group(1) if block else "", re.M)
+        }
+        configs[pbx_field(body, "name") or config_id] = settings
+    return configs
+
+
+def settings_named(settings: Mapping[str, str], name: str) -> list[str]:
+    """Values of a build setting, including its conditional variants (NAME[sdk=...])."""
+    return [value for key, value in settings.items() if key == name or key.startswith(name + "[")]
+
+
+def app_configurations(pbxproj: Path = PBXPROJ, target: str = APP_TARGET) -> dict[str, dict[str, str]]:
+    """{configuration name: effective build settings} of one target: its own settings over the project's."""
+    objects = pbx_objects(pbxproj.read_text(encoding="utf-8"))
+    targets = [
+        body for body in objects.values()
+        if pbx_field(body, "isa") == "PBXNativeTarget" and pbx_field(body, "name") == target
+    ]
+    if len(targets) != 1:
+        raise ReleaseError(f"expected one {target!r} target in {pbxproj}, found {len(targets)}")
+    project = next((body for body in objects.values() if pbx_field(body, "isa") == "PBXProject"), "")
+    project_configs = pbx_configurations(objects, pbx_field(project, "buildConfigurationList"))
+    configs = pbx_configurations(objects, pbx_field(targets[0], "buildConfigurationList"))
+    if not configs:
+        raise ReleaseError(f"the {target!r} target in {pbxproj} has no build configurations")
+    return {name: {**project_configs.get(name, {}), **settings} for name, settings in configs.items()}
+
+
+def check_export_compliance(pbxproj: Path = PBXPROJ, target: str = APP_TARGET) -> str:
     """The app's export compliance answer, read from the project before anything is built.
 
-    The app can declare it in its Info.plist (Fud AI does) or as an
-    INFOPLIST_KEY_ build setting; when both are set they must agree.
+    Every build configuration of the app target is checked on its own: its
+    INFOPLIST_FILE (Fud AI declares the key there) and, when Xcode generates the
+    Info.plist, its INFOPLIST_KEY_ build settings (the target's over the
+    project's). Each must declare the same answer; other targets do not count.
     """
-    answers = [v.strip().strip('"') for v in project_values(BUILD_SETTING_PREFIX + ENCRYPTION_KEY, pbxproj)]
-    codes = [
-        code
-        for code in (v.strip().strip('"') for v in project_values(BUILD_SETTING_PREFIX + COMPLIANCE_CODE_KEY, pbxproj))
-        if code
-    ]
-    if info_plist.is_file():
-        with info_plist.open("rb") as handle:
-            plist_answers, plist_codes = plist_declarations(plistlib.load(handle))
-        answers += plist_answers
-        codes += plist_codes
-    return export_compliance_answer(answers, codes, source="the app")
+    found: dict[str, str] = {}
+    for name, settings in app_configurations(pbxproj, target).items():
+        source = f"the {target} target's {name} configuration"
+        answers: list[str] = []
+        codes: list[str] = []
+        if settings.get("GENERATE_INFOPLIST_FILE", "").upper() == "YES":
+            answers += settings_named(settings, BUILD_SETTING_PREFIX + ENCRYPTION_KEY)
+            codes += [code for code in settings_named(settings, BUILD_SETTING_PREFIX + COMPLIANCE_CODE_KEY) if code]
+        info_file = settings.get("INFOPLIST_FILE", "")
+        if info_file:
+            relative = re.sub(r"^\$[({]SRCROOT[)}]/", "", info_file)
+            if "$" in relative:
+                raise ReleaseError(f"{source}: cannot resolve INFOPLIST_FILE {info_file!r}")
+            path = pbxproj.parents[1] / relative
+            try:
+                with path.open("rb") as handle:
+                    plist_answers, plist_codes = plist_declarations(plistlib.load(handle))
+            except (OSError, plistlib.InvalidFileException, ValueError) as exc:
+                raise ReleaseError(f"{source}: cannot read {path}: {exc}") from None
+            answers += plist_answers
+            codes += plist_codes
+        found[name] = export_compliance_answer(answers, codes, source=source)
+    if len(set(found.values())) != 1:
+        raise ReleaseError(f"{ENCRYPTION_KEY} must be the same in every {target} configuration; found {found}")
+    return next(iter(found.values()))
 
 
 def check_archived_export_compliance(info_plist: Path) -> str:

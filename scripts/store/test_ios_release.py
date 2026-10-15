@@ -828,10 +828,12 @@ class VersionCreationClient:
     """
 
     def __init__(self, *, versions: list[tuple[str, str]] | None = None,
-                 app_id: str = asc_release.ASC_APP_ID) -> None:
+                 app_id: str = asc_release.ASC_APP_ID, listed_after_create: bool = True) -> None:
         # The app's IOS App Store versions as (versionString, appStoreState).
         self.versions = [("7.1.2", "READY_FOR_SALE")] if versions is None else list(versions)
         self.app_id = app_id
+        # False: the created version does not show up in the listing yet.
+        self.listed_after_create = listed_after_create
         self.calls: list[tuple[str, str]] = []
         self.bodies: list[dict] = []
 
@@ -849,8 +851,9 @@ class VersionCreationClient:
         self.bodies.append(body)
         if path != "/appStoreVersions":
             raise AssertionError(f"unexpected POST {path}")
-        self.versions.append((body["data"]["attributes"]["versionString"], "PREPARE_FOR_SUBMISSION"))
-        return {"data": {"id": f"V{len(self.versions) - 1}"}}
+        if self.listed_after_create:
+            self.versions.append((body["data"]["attributes"]["versionString"], "PREPARE_FOR_SUBMISSION"))
+        return {"data": {"id": "NEW"}}
 
     def writes(self) -> list[tuple[str, str]]:
         return [call for call in self.calls if call[0] != "GET"]
@@ -910,6 +913,14 @@ class CreateVersionTests(unittest.TestCase):
         self.assertTrue(any(method == "GET" and "/appStoreVersions" in path
                             for method, path in fake.calls[post + 1:]), "the created version must be read back")
         self.assertIn(f"created App Store version {VERSION} (PREPARE_FOR_SUBMISSION)", output)
+
+    def test_read_back_miss_names_the_created_version(self) -> None:
+        fake = VersionCreationClient(listed_after_create=False)
+        code, output = self.create(fake)
+        self.assertEqual(code, 1, output)
+        self.assertEqual(fake.writes(), [("POST", "/appStoreVersions")])
+        self.assertIn(f"created App Store version {VERSION} (NEW), but reading it back found 0", output)
+        self.assertNotIn("turn on IOS_CREATE_VERSION", output)
 
     def test_another_version_on_its_way_blocks_creation(self) -> None:
         for state in ("PREPARE_FOR_SUBMISSION", "WAITING_FOR_REVIEW", "IN_REVIEW", "PENDING_DEVELOPER_RELEASE",
@@ -977,6 +988,14 @@ class CreateVersionTests(unittest.TestCase):
         code, output = self.create(fake, None, "--dry-run")
         self.assertEqual(code, 0, output)
         self.assertIn("would create", output)
+        self.assertEqual(fake.calls, [])
+
+    def test_dry_run_rejects_a_bad_version_like_the_live_run(self) -> None:
+        fake = VersionCreationClient()
+        code, output = self.create(fake, None, "--dry-run", version="7.2-beta")
+        self.assertEqual(code, 1, output)
+        self.assertIn("must look like", output)
+        self.assertNotIn("would create", output)
         self.assertEqual(fake.calls, [])
 
 

@@ -88,10 +88,19 @@ jobs:
         with:
           path: .ios-test-packages
           key: ios-spm-${{ runner.os }}-${{ runner.arch }}-xcode27-${{ hashFiles('ios/**/Package.resolved', 'ios/Packages/**/Package.swift') }}
+      - name: Restore the compilation cache
+        # Compiler outputs only, reused for unchanged files; every test still runs.
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ${{ runner.temp }}/ios-compilation-cache
+          key: ios-ccache-${{ runner.os }}-${{ runner.arch }}-xcode27-${{ github.sha }}
+          restore-keys: |
+            ios-ccache-${{ runner.os }}-${{ runner.arch }}-xcode27-
       - name: Build and run unit and UI tests
         env:
           IOS_TEST_RESULTS: ${{ runner.temp }}/ios-test-results
           IOS_TEST_DERIVED_DATA: ${{ runner.temp }}/ios-test-build
+          IOS_COMPILATION_CACHE: ${{ runner.temp }}/ios-compilation-cache
         run: bash scripts/test-ios.sh
       - name: Retain test results and failure screenshots
         if: always()

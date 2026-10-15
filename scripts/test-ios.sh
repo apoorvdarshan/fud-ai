@@ -59,6 +59,13 @@ trap cleanup EXIT
 export TEST_RUNNER_FUDAI_TESTING=1
 export SIMCTL_CHILD_FUDAI_TESTING=1
 
+# CI sets IOS_COMPILATION_CACHE to a directory it restores and saves, so
+# unchanged Swift and C files reuse earlier compiler outputs. The tests always run.
+cache_settings=()
+if [ -n "${IOS_COMPILATION_CACHE:-}" ]; then
+  cache_settings=(COMPILATION_CACHE_ENABLE_CACHING=YES "COMPILATION_CACHE_CAS_PATH=$IOS_COMPILATION_CACHE")
+fi
+
 status=0
 # -collect-test-diagnostics never: otherwise xcodebuild spends 10 minutes after
 # the tests finish timing out while collecting simulator diagnostics. Failure
@@ -78,6 +85,7 @@ xcodebuild test \
   -maximum-concurrent-test-simulator-destinations 1 \
   -collect-test-diagnostics never \
   -jobs 2 \
+  ${cache_settings[@]+"${cache_settings[@]}"} \
   CODE_SIGNING_ALLOWED=NO WORKOUT_VECTORS=sample \
   2>&1 | tee "$results/xcodebuild.log" || status=$?
 

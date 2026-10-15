@@ -16,6 +16,9 @@
 # Switches (repository Variables; missing = off, invalid values fail the run).
 # See store/README.md for the full table.
 #   IOS_RELEASE_AUTOMATION   master switch for every iOS store operation below
+#   IOS_CREATE_VERSION       create the tag's App Store version when it is missing
+#                            (tag runs only; refuses while another version is in
+#                            flight or when the tag is not the newest version)
 #   IOS_UPLOAD_BUILD         build + upload the binary to App Store Connect
 #   IOS_UPLOAD_LISTING       description, keywords, promo text, URLs
 #   IOS_UPLOAD_WHATS_NEW     What's New text (the What's New block in APPSTORE.md)
@@ -39,9 +42,10 @@
 #   ios-tests  iOS unit + UI tests (ios-tests.yml); a bundle that runs no test fails
 #   quality    web and Android checks (quality.yml)
 #   prepare    store-script unit tests, release notes, IAP catalog, switches, the
-#              text that is switched on and, when any App Store Connect switch is
-#              on, that the App Store version X.Y already exists in a state that
-#              can take the release (read-only; this pipeline never creates it)
+#              text that is switched on, creating App Store version X.Y when
+#              IOS_CREATE_VERSION is on and it is missing, and, when any App Store
+#              Connect switch is on, that X.Y exists in a state that can take the
+#              release (read-only)
 #
 # Jobs (tag run)
 #   ios-tests + quality + prepare → build (archive, upload) → wait-for-build →
@@ -108,6 +112,7 @@ jobs:
     timeout-minutes: 15
     outputs:
       mode: ${{ steps.gates.outputs.mode }}
+      create_version: ${{ steps.gates.outputs.create_version }}
       build: ${{ steps.gates.outputs.build }}
       upload_build: ${{ steps.gates.outputs.upload_build }}
       listing: ${{ steps.gates.outputs.listing }}
@@ -160,6 +165,7 @@ jobs:
         id: gates
         env:
           IOS_RELEASE_AUTOMATION: ${{ vars.IOS_RELEASE_AUTOMATION }}
+          IOS_CREATE_VERSION: ${{ vars.IOS_CREATE_VERSION }}
           IOS_UPLOAD_BUILD: ${{ vars.IOS_UPLOAD_BUILD }}
           IOS_UPLOAD_LISTING: ${{ vars.IOS_UPLOAD_LISTING }}
           IOS_UPLOAD_WHATS_NEW: ${{ vars.IOS_UPLOAD_WHATS_NEW }}
@@ -181,13 +187,31 @@ jobs:
         run: python3 scripts/store/prepare_whats_new.py --platform ios --tag "$GITHUB_REF_NAME" --out "$RUNNER_TEMP/whats-new-check"
 
       - name: Install store tooling
-        if: steps.gates.outputs.build == 'true' || steps.gates.outputs.asc == 'true'
+        if: >-
+          steps.gates.outputs.build == 'true' || steps.gates.outputs.asc == 'true' ||
+          steps.gates.outputs.create_version == 'true'
         run: python3 -m pip install --disable-pip-version-check --require-hashes -r requirements-store.txt
 
+      # Tag runs only (never validation runs). Adds the App Store version for this
+      # tag when App Store Connect does not have it yet; an existing one is left
+      # alone. Refuses, before anything is built, when another version is still
+      # on its way to the store or this version is not newer than every existing
+      # one. A version created here stays in Prepare for Submission if a later
+      # step fails, and the next run for the same tag reuses it.
+      - name: Create the App Store version if it is missing (IOS_CREATE_VERSION)
+        if: steps.gates.outputs.mode == 'release' && steps.gates.outputs.create_version == 'true'
+        env:
+          APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          APP_STORE_CONNECT_API_KEY_P8: ${{ secrets.APP_STORE_CONNECT_API_KEY_P8 }}
+          CREATE_IOS_VERSION: ${{ steps.gates.outputs.create_version }}
+          MARKETING_VERSION: ${{ steps.gates.outputs.marketing_version }}
+        run: python3 -u scripts/store/asc_release.py --create-version --version "$MARKETING_VERSION"
+
       # Read-only, tag runs with a listing/What's New/screenshot/review switch on
-      # (`asc` is never on for validation runs). asc_release.py never creates App
-      # Store versions, so fail now, before the archive and upload, when X.Y is
-      # missing or already in review.
+      # (`asc` is never on for validation runs). Fails now, before the archive and
+      # upload, when X.Y is missing (turn on IOS_CREATE_VERSION or create it in App
+      # Store Connect first) or already in review.
       - name: Check the App Store version (read-only)
         if: steps.gates.outputs.asc == 'true'
         env:
@@ -599,6 +623,7 @@ jobs:
       - name: Print store gates
         env:
           IOS_RELEASE_AUTOMATION: ${{ vars.IOS_RELEASE_AUTOMATION }}
+          IOS_CREATE_VERSION: ${{ vars.IOS_CREATE_VERSION }}
           IOS_UPLOAD_BUILD: ${{ vars.IOS_UPLOAD_BUILD }}
           IOS_UPLOAD_LISTING: ${{ vars.IOS_UPLOAD_LISTING }}
           IOS_UPLOAD_WHATS_NEW: ${{ vars.IOS_UPLOAD_WHATS_NEW }}

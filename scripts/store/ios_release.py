@@ -41,6 +41,7 @@ FALSE_VALUES = {"", "0", "false", "no", "off"}
 
 MASTER = "IOS_RELEASE_AUTOMATION"
 OPERATION_SWITCHES = (
+    ("IOS_CREATE_VERSION", "create_version"),
     ("IOS_UPLOAD_BUILD", "upload_build"),
     ("IOS_UPLOAD_LISTING", "listing"),
     ("IOS_UPLOAD_WHATS_NEW", "whats_new"),
@@ -418,11 +419,13 @@ def version_preflight(
     """Read-only: fail before anything is built when the App Store version cannot
     take this release. Returns the version's state.
 
-    asc_release.py never creates App Store versions; the X.Y version must already
-    exist in App Store Connect (Prepare for Submission). Text can still be edited
-    and submitted in READY_FOR_REVIEW (a draft submission left by an earlier
-    attempt); any other state (waiting for or in review, released) cannot take a
-    new build or listing change.
+    The X.Y version must already exist in App Store Connect (Prepare for
+    Submission): with IOS_CREATE_VERSION on, `asc_release.py --create-version`
+    creates a missing one in the step before this; otherwise create it in App
+    Store Connect before tagging. Text can still be edited and submitted in
+    READY_FOR_REVIEW (a draft submission left by an earlier attempt); any other
+    state (waiting for or in review, released) cannot take a new build or
+    listing change.
     """
     app_id = asc.find_app(client, BUNDLE_ID)
     record = asc.get_ios_app_store_version(client, app_id, version)

@@ -60,6 +60,9 @@ export TEST_RUNNER_FUDAI_TESTING=1
 export SIMCTL_CHILD_FUDAI_TESTING=1
 
 status=0
+# -collect-test-diagnostics never: otherwise xcodebuild spends 10 minutes after
+# the tests finish timing out while collecting simulator diagnostics. Failure
+# screenshots and logs are still kept in the result bundle.
 xcodebuild test \
   -project ios/calorietracker.xcodeproj \
   -scheme calorietracker \
@@ -73,6 +76,7 @@ xcodebuild test \
   -enableCodeCoverage YES \
   -parallel-testing-enabled NO \
   -maximum-concurrent-test-simulator-destinations 1 \
+  -collect-test-diagnostics never \
   -jobs 2 \
   CODE_SIGNING_ALLOWED=NO WORKOUT_VECTORS=sample \
   2>&1 | tee "$results/xcodebuild.log" || status=$?

@@ -77,7 +77,6 @@ xcodebuild test \
   -parallel-testing-enabled NO \
   -maximum-concurrent-test-simulator-destinations 1 \
   -collect-test-diagnostics never \
-  -jobs 2 \
   CODE_SIGNING_ALLOWED=NO WORKOUT_VECTORS=sample \
   2>&1 | tee "$results/xcodebuild.log" || status=$?
 

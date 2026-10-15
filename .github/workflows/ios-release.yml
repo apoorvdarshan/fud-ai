@@ -42,10 +42,11 @@
 #   ios-tests  iOS unit + UI tests (ios-tests.yml); a bundle that runs no test fails
 #   quality    web and Android checks (quality.yml)
 #   prepare    store-script unit tests, release notes, IAP catalog, switches, the
-#              text that is switched on, creating App Store version X.Y when
-#              IOS_CREATE_VERSION is on and it is missing, and, when any App Store
-#              Connect switch is on, that X.Y exists in a state that can take the
-#              release (read-only)
+#              app's export compliance declaration (ITSAppUsesNonExemptEncryption,
+#              whenever the run builds), the text that is switched on, creating
+#              App Store version X.Y when IOS_CREATE_VERSION is on and it is
+#              missing, and, when any App Store Connect switch is on, that X.Y
+#              exists in a state that can take the release (read-only)
 #
 # Jobs (tag run)
 #   ios-tests + quality + prepare → build (archive, upload) → wait-for-build →
@@ -135,6 +136,7 @@ jobs:
             /scripts/release_notes.py
             /store/
             /ios/calorietracker.xcodeproj/
+            /ios/calorietracker/Info.plist
             /requirements-store.txt
             /RELEASE_NOTES.md
             /APPSTORE.md
@@ -270,6 +272,7 @@ jobs:
             /shared/workout-vectors/sample-pack.txt
             /shared/workout-vectors/exercise-visual-manifest.json
             /scripts/store/redact_credential_ids.py
+            /scripts/store/ios_release.py
 
       - name: Cache pinned Swift packages
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -347,7 +350,7 @@ jobs:
           grep -E '(error|warning): |\*\* ARCHIVE' "$log" || true
           [ "$status" -eq 0 ] || { tail -n 60 "$log"; echo "error: archive failed (full log in artifact)" >&2; exit "$status"; }
 
-      - name: Verify app identity and version in every bundle
+      - name: Verify app identity, version and export compliance in every bundle
         run: |
           set -euo pipefail
           apps="$RUNNER_TEMP/FudAI.xcarchive/Products/Applications"
@@ -369,6 +372,10 @@ jobs:
             checked=$((checked + 1))
           done < <(printf '%s\0' "$main"; find "$main" -mindepth 1 -type d \( -name '*.app' -o -name '*.appex' \) -not -path '*/Frameworks/*' -print0)
           echo "verified $BUNDLE_ID $MARKETING_VERSION ($BUILD_NUMBER) in $checked app/extension bundles"
+          # Export compliance: without ITSAppUsesNonExemptEncryption (YES also needs
+          # ITSEncryptionExportComplianceCode) App Store Connect asks about every
+          # build by hand and review submission fails until it is answered.
+          python3 scripts/store/ios_release.py export-compliance --info-plist "$main/Info.plist"
 
       - name: Write export options
         run: |

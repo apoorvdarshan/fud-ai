@@ -18,7 +18,8 @@ ios-vX.Y tag ─► iOS unit + UI tests (ios-tests.yml) ─┐
              ─► quality checks (quality.yml) ─────────┤ all must pass
              ─► prepare: store-script unit tests,     │ before anything
                 release notes, IAP catalog, switches ─┘ is built
-                (tag must equal MARKETING_VERSION)
+                (tag must equal MARKETING_VERSION),
+                export compliance (when the run builds)
   └─ IOS_RELEASE_AUTOMATION off ─► GitHub Release only
   └─ on:
        IOS_UPLOAD_LISTING / IOS_UPLOAD_WHATS_NEW ─► check that APPSTORE.md text
@@ -29,6 +30,7 @@ ios-vX.Y tag ─► iOS unit + UI tests (ios-tests.yml) ─┐
                                        can take the release (see Release procedure)
        IOS_UPLOAD_BUILD ─► next build number from App Store Connect
                         ─► archive Release ─► verify app id/version/build in every bundle
+                                                  and the app's export compliance
                         ─► cloud-signed export + upload
                         ─► wait-for-build job: until THIS build is VALID
                            (poll 30 s, up to 120 min from upload start)
@@ -152,6 +154,26 @@ must be plain text: the stores show Markdown literally, so links, `**bold**`,
 With the switch off, missing or unfit What's New text never blocks a release.
 The listing text works the same way: it is read and checked (before anything is
 built) only when `IOS_UPLOAD_LISTING` / `ANDROID_UPLOAD_LISTING` is on.
+
+## Export compliance (iOS)
+
+The app declares its export compliance answer in its own Info.plist
+([`ios/calorietracker/Info.plist`](../ios/calorietracker/Info.plist):
+`ITSAppUsesNonExemptEncryption` = `false`), so every build's Info.plist carries
+it. Without it, App Store Connect asks about each build by hand, and review
+submission fails with `usesNonExemptEncryption` missing (HTTP 409).
+
+`NO` is right while the app only uses exempt encryption: HTTPS (Apple's
+networking and the RevenueCat SDK), Keychain, iOS Data Protection, SHA-256 for
+download and backup integrity, and Apple's system crypto. If the app ever adds
+its own encryption, set it to `YES` and add `ITSEncryptionExportComplianceCode`
+with the code App Store Connect issues for the app's encryption documentation.
+An `INFOPLIST_KEY_` build setting works too; when both are set they must agree.
+
+Release and validation runs check it twice: `ios_release.py gates` reads the
+project before anything is built, and `ios_release.py export-compliance` reads
+the archived app's Info.plist right after the archive. A missing key, a
+non-Boolean or mixed value, or `YES` without the code fails the run.
 
 ## Concurrency
 
@@ -329,11 +351,11 @@ Later for catalog automation:
 | [`scripts/store/prepare_whats_new.py`](../scripts/store/prepare_whats_new.py) | What's New for Play + iOS (`APPSTORE.md` / `PLAYSTORE.md`), with the store length and plain-text checks |
 | [`scripts/release_notes.py`](../scripts/release_notes.py) | The tag's `RELEASE_NOTES.md` section for the GitHub Release; `--if-present` prints nothing when there is none; duplicate sections fail |
 | [`scripts/store/stage_screenshots.py`](../scripts/store/stage_screenshots.py) | `web/assets/screenshots/*.png` → `store/metadata/screenshots/` |
-| [`scripts/store/ios_release.py`](../scripts/store/ios_release.py) | iOS switches, build number, read-only App Store version preflight, wait for this run's build |
+| [`scripts/store/ios_release.py`](../scripts/store/ios_release.py) | iOS switches, export compliance check (project and archived app), build number, read-only App Store version preflight, wait for this run's build |
 | [`scripts/store/asc_release.py`](../scripts/store/asc_release.py) | App Store version creation (`--create-version`), ASC listing, What's New, 6.7" screenshots, build selection, submit for review (re-runnable) |
 | [`scripts/store/redact_credential_ids.py`](../scripts/store/redact_credential_ids.py) | Removes the ASC key and issuer IDs from failure logs before they are uploaded |
 | [`scripts/store/print_gates.py`](../scripts/store/print_gates.py) | Prints the switches as configured; an invalid value shows as `INVALID` |
-| [`scripts/store/test_ios_release.py`](../scripts/store/test_ios_release.py) | Offline tests: disabled/invalid switches, timeouts, failures, mismatches, version creation, the version preflight, re-runs, IAP order, optional release notes, iOS What's New checks, log redaction. Run by every iOS release before anything is built |
+| [`scripts/store/test_ios_release.py`](../scripts/store/test_ios_release.py) | Offline tests: disabled/invalid switches, export compliance, timeouts, failures, mismatches, version creation, the version preflight, re-runs, IAP order, optional release notes, iOS What's New checks, log redaction. Run by every iOS release before anything is built |
 | [`scripts/store/android_release.py`](../scripts/store/android_release.py) | Android switches, versionCode checks against earlier GitHub Releases and Google Play, signing properties, AAB/APK identity + pinned-certificate checks, Play track read-back |
 | [`scripts/store/test_android_release.py`](../scripts/store/test_android_release.py) | Offline tests: disabled/invalid switches, track selection, wrong app/version/key, the versionCode preflight and re-runs, signing properties, Play What's New checks. Run by every Android release before anything is built |
 | [`scripts/store/play_listing.py`](../scripts/store/play_listing.py) | Play listing text + phone screenshots |

@@ -24,6 +24,8 @@ on:
       - ".github/workflows/ios-release.yml"
       - ".github/workflows/android-release.yml"
       - "requirements-store.txt"
+      - "ios/calorietracker/Info.plist"
+      - "ios/calorietracker.xcodeproj/project.pbxproj"
   pull_request:
     paths:
       - "store/**"
@@ -36,6 +38,8 @@ on:
       - ".github/workflows/ios-release.yml"
       - ".github/workflows/android-release.yml"
       - "requirements-store.txt"
+      - "ios/calorietracker/Info.plist"
+      - "ios/calorietracker.xcodeproj/project.pbxproj"
   workflow_dispatch:
 
 permissions:
@@ -64,6 +68,7 @@ jobs:
             /PLAYSTORE.md
             /requirements-store.txt
             /ios/calorietracker.xcodeproj/project.pbxproj
+            /ios/calorietracker/Info.plist
             /android/app/build.gradle.kts
             /web/assets/screenshots/
 

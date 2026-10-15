@@ -9,6 +9,10 @@ key=value lines to $GITHUB_OUTPUT when it is set):
   build-number       Next CFBundleVersion: max(project value, highest ASC build + 1).
   version-preflight  Read-only, before anything is built: the App Store version
                      exists and is in a state the store step can edit/submit.
+  export-compliance  Check an archived app's Info.plist declares export compliance
+                     (ITSAppUsesNonExemptEncryption; YES also needs
+                     ITSEncryptionExportComplianceCode). `gates` checks the project
+                     the same way before anything is built.
   wait-build         Poll App Store Connect until the build uploaded by THIS run is
                      processed (VALID, unexpired, matching app/version/build number,
                      uploaded during this run). Fails on timeout, processing
@@ -23,6 +27,7 @@ import argparse
 import datetime as dt
 import http.client
 import os
+import plistlib
 import re
 import sys
 import time
@@ -33,6 +38,8 @@ from typing import Any, Callable, Mapping
 
 ROOT = Path(__file__).resolve().parents[2]
 PBXPROJ = ROOT / "ios" / "calorietracker.xcodeproj" / "project.pbxproj"
+# The app target's own Info.plist (INFOPLIST_FILE), merged into the generated one.
+APP_INFO_PLIST = ROOT / "ios" / "calorietracker" / "Info.plist"
 BUNDLE_ID = "com.apoorvdarshan.calorietracker"
 TAG_PREFIX = "ios-v"
 
@@ -97,6 +104,82 @@ def single_project_value(setting: str, pbxproj: Path = PBXPROJ) -> str:
             f"{setting} must be identical across all targets; found {sorted(values)}"
         )
     return values.pop().strip().strip('"')
+
+
+ENCRYPTION_KEY = "ITSAppUsesNonExemptEncryption"
+COMPLIANCE_CODE_KEY = "ITSEncryptionExportComplianceCode"
+BUILD_SETTING_PREFIX = "INFOPLIST_KEY_"
+
+
+def plist_declarations(plist: Mapping[str, Any]) -> tuple[list[str], list[str]]:
+    """(answers, compliance codes) an Info.plist declares; a non-Boolean answer is kept as-is."""
+    answers: list[str] = []
+    if ENCRYPTION_KEY in plist:
+        value = plist[ENCRYPTION_KEY]
+        answers.append(("YES" if value else "NO") if isinstance(value, bool) else repr(value))
+    code = plist.get(COMPLIANCE_CODE_KEY)
+    codes = [code.strip()] if isinstance(code, str) and code.strip() else []
+    return answers, codes
+
+
+def export_compliance_answer(answers: list[str], codes: list[str], *, source: str) -> str:
+    """NO or YES, or ReleaseError when the declaration is missing, mixed, unknown or incomplete.
+
+    Without ITSAppUsesNonExemptEncryption, App Store Connect asks about every
+    build by hand and review submission fails (HTTP 409, usesNonExemptEncryption
+    missing) until someone answers. NO means only exempt encryption (HTTPS,
+    Keychain, Apple's system crypto); YES also needs the export compliance code
+    Apple issues for the app's encryption documentation.
+    """
+    if not answers:
+        raise ReleaseError(
+            f"{source} does not declare export compliance: set {ENCRYPTION_KEY} to NO (only HTTPS, "
+            f"Keychain or Apple's system crypto) or YES with {COMPLIANCE_CODE_KEY}"
+        )
+    distinct = set(answers)
+    if len(distinct) != 1 or not distinct <= {"NO", "YES"}:
+        raise ReleaseError(
+            f"{ENCRYPTION_KEY} must be NO or YES (a Boolean), the same everywhere {source} sets it; "
+            f"found {sorted(distinct)}"
+        )
+    answer = distinct.pop()
+    if answer == "YES" and not codes:
+        raise ReleaseError(
+            f"{ENCRYPTION_KEY} = YES needs {COMPLIANCE_CODE_KEY} (the code App Store Connect issues "
+            "for the app's encryption documentation)"
+        )
+    return answer
+
+
+def check_export_compliance(pbxproj: Path = PBXPROJ, info_plist: Path = APP_INFO_PLIST) -> str:
+    """The app's export compliance answer, read from the project before anything is built.
+
+    The app can declare it in its Info.plist (Fud AI does) or as an
+    INFOPLIST_KEY_ build setting; when both are set they must agree.
+    """
+    answers = [v.strip().strip('"') for v in project_values(BUILD_SETTING_PREFIX + ENCRYPTION_KEY, pbxproj)]
+    codes = [
+        code
+        for code in (v.strip().strip('"') for v in project_values(BUILD_SETTING_PREFIX + COMPLIANCE_CODE_KEY, pbxproj))
+        if code
+    ]
+    if info_plist.is_file():
+        with info_plist.open("rb") as handle:
+            plist_answers, plist_codes = plist_declarations(plistlib.load(handle))
+        answers += plist_answers
+        codes += plist_codes
+    return export_compliance_answer(answers, codes, source="the app")
+
+
+def check_archived_export_compliance(info_plist: Path) -> str:
+    """The same check on the Info.plist of the archived app, after the build."""
+    try:
+        with info_plist.open("rb") as handle:
+            plist = plistlib.load(handle)
+    except (OSError, plistlib.InvalidFileException, ValueError) as exc:
+        raise ReleaseError(f"cannot read {info_plist}: {exc}") from None
+    answers, codes = plist_declarations(plist)
+    return export_compliance_answer(answers, codes, source="the archived app")
 
 
 VERSION_PATTERN = re.compile(r"[0-9]+(\.[0-9]+){0,2}")
@@ -383,6 +466,8 @@ def cmd_gates(_: argparse.Namespace) -> None:
         validation_version=os.environ.get("VALIDATION_MARKETING_VERSION", ""),
     )
     notes = resolved.pop("notes")
+    if resolved["build"]:
+        notes.append(f"export compliance: {ENCRYPTION_KEY} = {check_export_compliance()}")
     print("iOS release switches:")
     for note in notes:
         print(f"  note: {note}")
@@ -465,6 +550,12 @@ def cmd_version_preflight(args: argparse.Namespace) -> None:
     print(f"App Store version {args.version} exists and is {state}: it can take this release")
 
 
+def cmd_export_compliance(args: argparse.Namespace) -> None:
+    answer = check_archived_export_compliance(args.info_plist)
+    detail = "no non-exempt encryption" if answer == "NO" else "non-exempt encryption with a compliance code"
+    print(f"export compliance: {ENCRYPTION_KEY} = {answer} ({detail}) in {args.info_plist}")
+
+
 def cmd_wait_build(args: argparse.Namespace) -> None:
     asc_release, client = asc_client()
     # The budget covers upload + processing, so it is counted from upload start.
@@ -499,6 +590,9 @@ def main(argv: list[str] | None = None) -> None:
     preflight = sub.add_parser("version-preflight")
     preflight.add_argument("--version", required=True, help="marketing version, e.g. 7.2")
     preflight.set_defaults(func=cmd_version_preflight)
+    compliance = sub.add_parser("export-compliance")
+    compliance.add_argument("--info-plist", required=True, type=Path, help="the archived app's Info.plist")
+    compliance.set_defaults(func=cmd_export_compliance)
     wait = sub.add_parser("wait-build")
     wait.add_argument("--version", required=True)
     wait.add_argument("--build", required=True, type=int)

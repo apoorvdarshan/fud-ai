@@ -78,6 +78,9 @@ enum class AIProvider {
         )
         OPENAI -> listOf(
             "gpt-5.4-mini",
+            // GPT-6 presets verified 2026-10-17; Coach uses reasoning_effort=none.
+            "gpt-6-luna",
+            "gpt-6-sol",
             "gpt-5.6-sol",
             "gpt-5.6-terra",
             "gpt-5.6-luna",

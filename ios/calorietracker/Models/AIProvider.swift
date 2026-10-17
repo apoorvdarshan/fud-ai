@@ -208,10 +208,13 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
         ]
         case .openai: [
             "gpt-5.4-mini",              // vision, best price/perf
-            "gpt-5.6-sol",               // vision, latest flagship
+            // GPT-6 presets verified 2026-10-17; Coach uses reasoning_effort=none.
+            "gpt-6-luna",                // vision, efficient GPT-6 model
+            "gpt-6-sol",                 // vision, capable GPT-6 model
+            "gpt-5.6-sol",               // vision, previous Sol model
             "gpt-5.6-terra",             // vision, balanced
             "gpt-5.6-luna",              // vision, lowest-cost 5.6 model
-            "gpt-5.5",                   // vision, current flagship
+            "gpt-5.5",                   // vision, previous generation
             "gpt-5.4-nano",              // vision, cheapest
             "gpt-4.1",                   // vision, legacy
             "gpt-4.1-mini",              // vision, legacy cheap
@@ -415,15 +418,29 @@ extension AIProvider {
         return "max_tokens"
     }
 
-    private static func usesOpenAICompletionTokenLimit(model: String) -> Bool {
-        let normalized = model
+    /// GPT-6 Sol/Luna require non-reasoning mode for Chat Completions tool calls.
+    func openAICompatibleToolReasoningEffort(for model: String) -> String? {
+        guard self == .openai || self == .customOpenAI else { return nil }
+        let normalized = Self.normalizedOpenAIModel(model)
+        return ["gpt-6-sol", "gpt-6-luna"].contains {
+            normalized == $0 || normalized.hasPrefix("\($0)-")
+        } ? "none" : nil
+    }
+
+    private static func normalizedOpenAIModel(_ model: String) -> String {
+        model
             .trimmingCharacters(in: .whitespacesAndNewlines)
             .lowercased()
             .split(separator: "/")
             .last
             .map(String.init) ?? model.lowercased()
+    }
+
+    private static func usesOpenAICompletionTokenLimit(model: String) -> Bool {
+        let normalized = normalizedOpenAIModel(model)
 
         return normalized.hasPrefix("gpt-5")
+            || normalized.hasPrefix("gpt-6")
             || normalized.hasPrefix("o1")
             || normalized.hasPrefix("o3")
             || normalized.hasPrefix("o4")

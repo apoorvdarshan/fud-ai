@@ -471,6 +471,9 @@ struct ChatService {
                     "tool_choice": "auto",
                 ]
                 body[provider.openAICompatibleTokenLimitKey(for: model)] = AIProviderSettings.maxResponseTokens
+                if let effort = provider.openAICompatibleToolReasoningEffort(for: model) {
+                    body["reasoning_effort"] = effort
+                }
                 if provider == .openrouter {
                     body["reasoning"] = AIProviderSettings.openRouterReasoningEffort.requestOptions(compactRetry: compactRetry, exclude: false)
                 }

@@ -159,13 +159,23 @@ object OpenAICompatibleClient {
         }
     }
 
+    /** GPT-6 Sol/Luna require non-reasoning mode for Chat Completions tool calls. */
+    fun toolReasoningEffort(provider: AIProvider, model: String): String? {
+        if (provider != AIProvider.OPENAI && provider != AIProvider.CUSTOM_OPENAI) return null
+        val normalized = normalizedOpenAIModel(model)
+        return if (listOf("gpt-6-sol", "gpt-6-luna").any {
+            normalized == it || normalized.startsWith("$it-")
+        }) "none" else null
+    }
+
+    private fun normalizedOpenAIModel(model: String): String =
+        model.trim().lowercase(Locale.US).substringAfterLast("/")
+
     private fun usesOpenAICompletionTokenLimit(model: String): Boolean {
-        val normalized = model
-            .trim()
-            .lowercase(Locale.US)
-            .substringAfterLast("/")
+        val normalized = normalizedOpenAIModel(model)
 
         return normalized.startsWith("gpt-5") ||
+            normalized.startsWith("gpt-6") ||
             normalized.startsWith("o1") ||
             normalized.startsWith("o3") ||
             normalized.startsWith("o4")

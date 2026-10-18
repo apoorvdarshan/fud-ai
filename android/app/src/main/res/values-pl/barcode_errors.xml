@@ -3,6 +3,7 @@
     <string name="error_barcode_invalid">Nie udało się odczytać tego kodu kreskowego. Zeskanuj go ponownie.</string>
     <string name="error_barcode_product_not_found">Nie znaleziono produktu w Open Food Facts. Zeskanuj etykietę wartości odżywczych.</string>
     <string name="error_barcode_missing_nutrition">Znaleziono ten kod kreskowy, ale dane żywieniowe są niepełne. Zeskanuj etykietę wartości odżywczych.</string>
+    <string name="error_barcode_usda_key_rejected">USDA FoodData Central odrzuciło Twój klucz API. Sprawdź go w Ustawienia > Informacje o produkcie albo zeskanuj etykietę wartości odżywczych.</string>
     <string name="error_barcode_rate_limited">Wykonano zbyt wiele wyszukiwań kodów kreskowych. Odczekaj chwilę i spróbuj ponownie.</string>
     <string name="error_barcode_service_unavailable">Open Food Facts jest tymczasowo niedostępny. Spróbuj ponownie później.</string>
     <string name="error_barcode_unexpected_response">Open Food Facts zwrócił nieoczekiwaną odpowiedź.</string>

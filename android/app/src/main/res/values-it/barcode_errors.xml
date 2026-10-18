@@ -3,6 +3,7 @@
     <string name="error_barcode_invalid">Non è stato possibile leggere questo codice a barre. Prova a scansionarlo di nuovo.</string>
     <string name="error_barcode_product_not_found">Prodotto non trovato in Open Food Facts. Scansiona invece l’etichetta nutrizionale.</string>
     <string name="error_barcode_missing_nutrition">Il codice a barre è stato trovato, ma i dati nutrizionali sono incompleti. Scansiona invece l’etichetta nutrizionale.</string>
+    <string name="error_barcode_usda_key_rejected">USDA FoodData Central ha rifiutato la tua chiave API. Controllala in Impostazioni > Informazioni sul prodotto oppure scansiona invece l’etichetta nutrizionale.</string>
     <string name="barcode_saved_label_title">Uso della tua etichetta nutrizionale salvata per questo codice a barre</string>
     <string name="barcode_saved_label_footer">Open Food Facts non ha valori nutrizionali per questo prodotto. Per dimenticare questa etichetta, elimina le registrazioni dei pasti che l\'hanno usata.</string>
     <string name="error_barcode_rate_limited">Sono state effettuate troppe ricerche di codici a barre. Attendi un momento e riprova.</string>

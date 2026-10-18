@@ -8,6 +8,7 @@ import com.apoorvdarshan.calorietracker.models.WaterEntry
 import com.apoorvdarshan.calorietracker.models.WeightEntry
 import com.apoorvdarshan.calorietracker.models.WorkoutClarification
 import com.apoorvdarshan.calorietracker.models.WorkoutTextDraft
+import com.apoorvdarshan.calorietracker.services.FoodDataCentralService
 import com.apoorvdarshan.calorietracker.services.OpenFoodFactsService
 import com.apoorvdarshan.calorietracker.services.ai.AiError
 import com.apoorvdarshan.calorietracker.services.ai.AiErrorKind
@@ -545,10 +546,15 @@ class VoiceToolExecutor(
                     ToolResults.error(ToolError.INVALID_ARGUMENTS, "That barcode could not be read. Try scanning again.")
                 else -> ToolResults.error(ToolError.ANALYSIS_FAILED, "The barcode lookup failed. Check the connection and try again.")
             }
+        } catch (usda: FoodDataCentralService.LookupException) {
+            return ToolResults.error(
+                ToolError.NOT_FOUND,
+                "No product was found for barcode $code in Open Food Facts, and USDA FoodData Central rejected the API key saved in Settings > Product information. Offer to take a photo of the label instead."
+            )
         } catch (error: Throwable) {
             return ToolResults.error(ToolError.ANALYSIS_FAILED, "The barcode lookup failed. Please try again.")
         }
-        return foodDraft(product.analysis, listOfNotNull(product.imageBytes), FoodSource.BARCODE) {
+        return foodDraft(product.analysis, listOfNotNull(product.imageBytes), product.source) {
             put("barcode", code)
         }
     }

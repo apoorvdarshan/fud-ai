@@ -53,6 +53,7 @@ internal fun FoodProductMetadataCard(
         val label = stringResource(field.labelRes)
         when (field) {
             ProductInfoField.BARCODE -> ProductMetadataItem(label, metadata.barcode)
+            ProductInfoField.SOURCE -> metadata.dataSourceNameRes?.let { ProductMetadataItem(label, stringResource(it)) }
             ProductInfoField.PACKAGE -> metadata.packageQuantity?.let { ProductMetadataItem(label, it) }
             ProductInfoField.NUTRI_SCORE -> metadata.nutriScore?.let { ProductMetadataItem(label, it) }
             ProductInfoField.NOVA_GROUP -> metadata.novaGroup?.let { ProductMetadataItem(label, it.toString()) }

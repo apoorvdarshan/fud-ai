@@ -3,6 +3,7 @@
     <string name="error_barcode_invalid">이 바코드를 읽을 수 없습니다. 다시 스캔해 주세요.</string>
     <string name="error_barcode_product_not_found">Open Food Facts에서 제품을 찾지 못했습니다. 대신 영양 정보 라벨을 스캔해 주세요.</string>
     <string name="error_barcode_missing_nutrition">바코드는 찾았지만 영양 정보가 불완전합니다. 대신 영양 정보 라벨을 스캔해 주세요.</string>
+    <string name="error_barcode_usda_key_rejected">USDA FoodData Central에서 API 키를 거부했습니다. 설정 > 제품 정보에서 확인하거나 대신 영양 정보 라벨을 스캔해 주세요.</string>
     <string name="barcode_saved_label_title">이 바코드에 저장한 영양성분 라벨을 사용 중입니다</string>
     <string name="barcode_saved_label_footer">Open Food Facts에 이 제품의 영양 정보가 없습니다. 이 라벨을 지우려면 이 라벨을 사용한 식사 기록을 삭제하세요.</string>
     <string name="error_barcode_rate_limited">바코드 조회가 너무 많습니다. 잠시 기다린 후 다시 시도해 주세요.</string>

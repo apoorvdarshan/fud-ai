@@ -114,6 +114,7 @@
     <!-- Open Food Facts product metadata -->
     <string name="product_information">产品信息</string>
     <string name="product_barcode">条形码</string>
+    <string name="product_source">来源</string>
     <string name="product_package">净含量</string>
     <string name="product_nutri_score">Nutri-Score</string>
     <string name="product_nova_group">NOVA 分组</string>
@@ -128,6 +129,10 @@
     <string name="product_info_settings_show">显示产品信息</string>
     <string name="product_info_settings_fields">显示的详细信息</string>
     <string name="product_info_settings_footer">显示在条形码扫描食物的审核和编辑页面末尾。过敏原检查不受影响，只要设置了过敏原敏感项就会始终显示。</string>
+    <string name="usda_fooddata_central">USDA FoodData Central</string>
+    <string name="usda_fdc_api_key_placeholder">API 密钥（可选）</string>
+    <string name="usda_fdc_get_key">获取免费 API 密钥</string>
+    <string name="usda_fdc_settings_footer">当 Open Food Facts 和你保存的标签都没有所扫条形码的营养数据时，Fud AI 会用你自己的免费密钥在 USDA FoodData Central（主要是美国产品）中查找。只会发送条形码，没有密钥时不会发送任何内容。</string>
 
     <!-- Macros / Goal labels -->
     <string name="macro_protein">蛋白质</string>

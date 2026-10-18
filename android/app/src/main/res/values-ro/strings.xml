@@ -114,6 +114,7 @@
     <!-- Open Food Facts product metadata -->
     <string name="product_information">Informații despre produs</string>
     <string name="product_barcode">Cod de bare</string>
+    <string name="product_source">Sursă</string>
     <string name="product_package">Ambalaj</string>
     <string name="product_nutri_score">Nutri-Score</string>
     <string name="product_nova_group">Grupa NOVA</string>
@@ -128,6 +129,10 @@
     <string name="product_info_settings_show">Afișează informații despre produs</string>
     <string name="product_info_settings_fields">Detalii afișate</string>
     <string name="product_info_settings_footer">Apar la finalul ecranelor de verificare și editare pentru alimentele scanate cu cod de bare. Verificarea alergenilor nu este afectată și apare mereu când ai setate sensibilități la alergeni.</string>
+    <string name="usda_fooddata_central">USDA FoodData Central</string>
+    <string name="usda_fdc_api_key_placeholder">Cheie API (opțională)</string>
+    <string name="usda_fdc_get_key">Obține o cheie API gratuită</string>
+    <string name="usda_fdc_settings_footer">Când nici Open Food Facts, nici etichetele salvate nu au valori nutriționale pentru un cod de bare scanat, Fud AI îl caută în USDA FoodData Central (mai ales produse din SUA) cu propria ta cheie gratuită. Se trimite doar codul de bare, iar fără cheie nu se trimite nimic.</string>
 
     <!-- Macros / Goal labels -->
     <string name="macro_protein">Proteine</string>

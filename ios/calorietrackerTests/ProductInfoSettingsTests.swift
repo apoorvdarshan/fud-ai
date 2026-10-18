@@ -19,7 +19,7 @@ struct ProductInfoSettingsTests {
     @Test
     func storageKeysMatchAndroid() {
         #expect(ProductInfoField.allCases.map(\.rawValue) == [
-            "barcode", "package", "nutriScore", "novaGroup", "ecoScore",
+            "barcode", "source", "package", "nutriScore", "novaGroup", "ecoScore",
             "allergens", "traces", "labels", "categories", "ingredientLabel"
         ])
         #expect(ProductInfoSettings.isShownKey == "productInfoShown")
@@ -50,7 +50,19 @@ struct ProductInfoSettingsTests {
             isShown: true,
             hiddenFields: [.barcode, .categories, .ecoScore]
         )
-        #expect(fields == [.package, .nutriScore, .novaGroup, .allergens, .traces, .labels, .ingredientLabel])
+        #expect(fields == [.source, .package, .nutriScore, .novaGroup, .allergens, .traces, .labels, .ingredientLabel])
+    }
+
+    @Test
+    func sourceShowsOnlyForUSDAProducts() {
+        var metadata = fullMetadata
+        metadata.dataSource = nil
+        #expect(!ProductInfoSettings.visibleFields(for: metadata, isShown: true, hiddenFields: []).contains(.source))
+        metadata.dataSource = "someNewSource"
+        #expect(!ProductInfoSettings.visibleFields(for: metadata, isShown: true, hiddenFields: []).contains(.source))
+        metadata.dataSource = FoodDataCentralService.dataSourceID
+        #expect(ProductInfoSettings.visibleFields(for: metadata, isShown: true, hiddenFields: []).contains(.source))
+        #expect(!ProductInfoSettings.visibleFields(for: metadata, isShown: true, hiddenFields: [.source]).contains(.source))
     }
 
     @Test
@@ -77,7 +89,8 @@ struct ProductInfoSettingsTests {
             ecoScore: "D",
             labels: ["Vegetarian"],
             categories: ["Spreads"],
-            imageURL: nil
+            imageURL: nil,
+            dataSource: FoodDataCentralService.dataSourceID
         )
     }
 }

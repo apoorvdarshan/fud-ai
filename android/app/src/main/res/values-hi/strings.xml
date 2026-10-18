@@ -114,6 +114,7 @@
     <!-- Open Food Facts product metadata -->
     <string name="product_information">उत्पाद जानकारी</string>
     <string name="product_barcode">बारकोड</string>
+    <string name="product_source">स्रोत</string>
     <string name="product_package">पैकेज</string>
     <string name="product_nutri_score">Nutri-Score</string>
     <string name="product_nova_group">NOVA समूह</string>
@@ -128,6 +129,10 @@
     <string name="product_info_settings_show">उत्पाद जानकारी दिखाएं</string>
     <string name="product_info_settings_fields">दिखाए जाने वाले विवरण</string>
     <string name="product_info_settings_footer">बारकोड से स्कैन किए गए खाद्य पदार्थों के लिए समीक्षा और संपादन स्क्रीन के अंत में दिखाई देती है। एलर्जेन जांच पर इसका कोई असर नहीं पड़ता और जब आपने एलर्जेन संवेदनशीलताएं सेट की हों, तो वह हमेशा दिखाई देती है।</string>
+    <string name="usda_fooddata_central">USDA FoodData Central</string>
+    <string name="usda_fdc_api_key_placeholder">API कुंजी (वैकल्पिक)</string>
+    <string name="usda_fdc_get_key">मुफ़्त API कुंजी पाएँ</string>
+    <string name="usda_fdc_settings_footer">जब Open Food Facts और आपके सहेजे गए लेबल में स्कैन किए गए बारकोड का पोषण डेटा नहीं होता, तो Fud AI आपकी अपनी मुफ़्त कुंजी से उसे USDA FoodData Central (ज़्यादातर अमेरिकी उत्पाद) में खोजता है। सिर्फ़ बारकोड भेजा जाता है, और कुंजी के बिना कुछ भी नहीं भेजा जाता।</string>
 
     <!-- Macros / Goal labels -->
     <string name="macro_protein">प्रोटीन</string>

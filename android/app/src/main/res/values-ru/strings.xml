@@ -79,6 +79,7 @@
     <!-- Open Food Facts product metadata -->
     <string name="product_information">Информация о продукте</string>
     <string name="product_barcode">Штрихкод</string>
+    <string name="product_source">Источник</string>
     <string name="product_package">Упаковка</string>
     <string name="product_nutri_score">Nutri-Score</string>
     <string name="product_nova_group">Группа NOVA</string>
@@ -93,6 +94,10 @@
     <string name="product_info_settings_show">Показывать информацию о продукте</string>
     <string name="product_info_settings_fields">Отображаемые сведения</string>
     <string name="product_info_settings_footer">Показывается в конце экранов проверки и редактирования продуктов, отсканированных по штрихкоду. Проверка аллергенов от этого не зависит и всегда отображается, если у вас заданы чувствительности к аллергенам.</string>
+    <string name="usda_fooddata_central">USDA FoodData Central</string>
+    <string name="usda_fdc_api_key_placeholder">Ключ API (необязательно)</string>
+    <string name="usda_fdc_get_key">Получить бесплатный ключ API</string>
+    <string name="usda_fdc_settings_footer">Если ни в Open Food Facts, ни в ваших сохранённых этикетках нет пищевой ценности для отсканированного штрихкода, Fud AI ищет его в USDA FoodData Central (в основном товары из США) с вашим собственным бесплатным ключом. Отправляется только штрихкод, а без ключа ничего не отправляется.</string>
 
     <!-- Macros / Goal labels -->
     <string name="macro_protein">Белок</string>

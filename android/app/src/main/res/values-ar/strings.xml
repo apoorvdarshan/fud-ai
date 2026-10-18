@@ -114,6 +114,7 @@
     <!-- Open Food Facts product metadata -->
     <string name="product_information">معلومات المنتج</string>
     <string name="product_barcode">الباركود</string>
+    <string name="product_source">المصدر</string>
     <string name="product_package">العبوة</string>
     <string name="product_nutri_score">Nutri-Score</string>
     <string name="product_nova_group">مجموعة NOVA</string>
@@ -128,6 +129,10 @@
     <string name="product_info_settings_show">إظهار معلومات المنتج</string>
     <string name="product_info_settings_fields">التفاصيل المعروضة</string>
     <string name="product_info_settings_footer">تظهر في نهاية شاشتي المراجعة والتعديل للأطعمة الممسوحة بالباركود. لا يتأثر فحص مسببات الحساسية، ويظهر دائمًا عند تعيين حساسيات تجاه مسببات الحساسية.</string>
+    <string name="usda_fooddata_central">USDA FoodData Central</string>
+    <string name="usda_fdc_api_key_placeholder">مفتاح API (اختياري)</string>
+    <string name="usda_fdc_get_key">احصل على مفتاح API مجاني</string>
+    <string name="usda_fdc_settings_footer">عندما لا تتوفر لدى Open Food Facts ولا في ملصقاتك المحفوظة قيم غذائية لباركود ممسوح، يبحث Fud AI عنه في USDA FoodData Central (منتجات أمريكية في الغالب) باستخدام مفتاحك المجاني الخاص. يُرسَل الباركود فقط، ولا يُرسَل أي شيء بدون مفتاح.</string>
 
     <!-- Macros / Goal labels -->
     <string name="macro_protein">البروتين</string>

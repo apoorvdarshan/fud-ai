@@ -3,6 +3,7 @@
     <string name="error_barcode_invalid">تعذّر قراءة هذا الرمز الشريطي. حاول مسحه ضوئيًا مرة أخرى.</string>
     <string name="error_barcode_product_not_found">المنتج غير موجود في Open Food Facts. امسح ملصق القيم الغذائية بدلاً من ذلك.</string>
     <string name="error_barcode_missing_nutrition">تم العثور على هذا الرمز الشريطي، لكن بيانات التغذية غير مكتملة. امسح ملصق القيم الغذائية بدلاً من ذلك.</string>
+    <string name="error_barcode_usda_key_rejected">رفض USDA FoodData Central مفتاح API الخاص بك. تحقق منه في الإعدادات > معلومات المنتج، أو امسح ملصق القيم الغذائية بدلاً من ذلك.</string>
     <string name="barcode_saved_label_title">يتم استخدام ملصق التغذية المحفوظ لهذا الباركود</string>
     <string name="barcode_saved_label_footer">لا تتوفر لدى Open Food Facts قيم غذائية لهذا المنتج. لنسيان هذا الملصق، احذف سجلات الطعام التي استخدمته.</string>
     <string name="error_barcode_rate_limited">تم إجراء عدد كبير جدًا من عمليات البحث عن الرموز الشريطية. انتظر قليلاً ثم حاول مرة أخرى.</string>

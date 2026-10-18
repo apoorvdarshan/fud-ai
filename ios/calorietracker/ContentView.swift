@@ -2604,26 +2604,26 @@ private var dailyStepsTaskKey: String {
         analysisTask?.cancel()
         analysisTask = Task {
             do {
-                let lookup = try await OpenFoodFactsService.lookupWithImage(barcode: trimmedBarcode)
+                // Open Food Facts wins when it has nutrition; otherwise reuse the label
+                // the user scanned for this barcode before (#485), then USDA (#533).
+                let outcome = try await BarcodeProductLookup.lookup(
+                    barcode: trimmedBarcode,
+                    savedLabelEntries: foodStore.entries,
+                    usdaAPIKey: FoodDataCentralSettings.apiKey
+                )
                 try Task.checkCancellation()
-                let result = lookup.analysis
-                currentEmoji = result.emoji
-                if let imageData = lookup.productImageData,
-                   let image = UIImage(data: imageData) {
-                    currentImage = image
-                    currentImages = [image]
-                }
                 retryRequest = nil
-                presentFoodResult(result)
-            } catch is CancellationError {
-                // User tapped Cancel on the analyzing sheet; cancelAnalysis already reset the UI.
-            } catch {
-                if Task.isCancelled { return }
-                // Open Food Facts wins when it has nutrition; otherwise reuse the
-                // label the user scanned for this barcode before (#485).
-                if BarcodeLabelMemory.allowsFallback(for: error),
-                   let savedLabel = BarcodeLabelMemory.latestLabelEntry(for: trimmedBarcode, in: foodStore.entries) {
-                    retryRequest = nil
+                switch outcome {
+                case .product(let lookup):
+                    let result = lookup.analysis
+                    currentEmoji = result.emoji
+                    if let imageData = lookup.productImageData,
+                       let image = UIImage(data: imageData) {
+                        currentImage = image
+                        currentImages = [image]
+                    }
+                    presentFoodResult(result)
+                case .savedLabel(let savedLabel):
                     currentEmoji = savedLabel.emoji
                     currentFoodSource = .nutritionLabel
                     presentFoodResult(
@@ -2631,8 +2631,11 @@ private var dailyStepsTaskKey: String {
                         usesSavedBarcodeLabel: true,
                         isLoggedPortion: RecipeServings.isLoggedPortion(options: savedLabel.servingUnitOptions)
                     )
-                    return
                 }
+            } catch is CancellationError {
+                // User tapped Cancel on the analyzing sheet; cancelAnalysis already reset the UI.
+            } catch {
+                if Task.isCancelled { return }
                 presentBarcodeLookupError(error, barcode: trimmedBarcode)
             }
         }
@@ -2699,10 +2702,12 @@ private var dailyStepsTaskKey: String {
                 offersScanLabel = false
             }
         } else {
-            offersScanLabel = false
+            // A refused USDA key only follows an Open Food Facts miss (#533).
+            offersScanLabel = error is FoodDataCentralService.LookupError
         }
 
         let message = (error as? OpenFoodFactsService.LookupError)?.localizedDescription
+            ?? (error as? FoodDataCentralService.LookupError)?.localizedDescription
             ?? OpenFoodFactsService.LookupError.invalidResponse.localizedDescription
         errorMessage = message
         // End the loading sheet first, then show only the system popup.
@@ -6759,6 +6764,7 @@ struct ProfileView: View {
                         UserDefaults.standard.removePersistentDomain(forName: domain)
                         AIProviderSettings.deleteAllData()
                         SpeechSettings.deleteAllData()
+                        FoodDataCentralSettings.setAPIKey(nil)
                         chatStore.reset()
                         WidgetSnapshot.clear()
                         WidgetCenter.shared.reloadAllTimelines()

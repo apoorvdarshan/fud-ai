@@ -3,6 +3,7 @@
     <string name="error_barcode_invalid">このバーコードを読み取れませんでした。もう一度スキャンしてください。</string>
     <string name="error_barcode_product_not_found">Open Food Facts に商品が見つかりませんでした。代わりに栄養成分表示をスキャンしてください。</string>
     <string name="error_barcode_missing_nutrition">バーコードは見つかりましたが、栄養データが不完全です。代わりに栄養成分表示をスキャンしてください。</string>
+    <string name="error_barcode_usda_key_rejected">USDA FoodData CentralでAPIキーが拒否されました。設定 > 製品情報で確認するか、代わりに栄養成分表示をスキャンしてください。</string>
     <string name="barcode_saved_label_title">このバーコード用に保存した栄養成分表示を使用しています</string>
     <string name="barcode_saved_label_footer">Open Food Factsにはこの商品の栄養情報がありません。この表示を使わないようにするには、それを使った食事記録を削除してください。</string>
     <string name="error_barcode_rate_limited">バーコード検索の回数が多すぎます。しばらく待ってから、もう一度お試しください。</string>

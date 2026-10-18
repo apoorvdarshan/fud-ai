@@ -15,6 +15,20 @@ struct FoodProductMetadata: Codable, Equatable, Sendable {
     var labels: [String]
     var categories: [String]
     var imageURL: URL?
+    /// Where the product came from when it was not Open Food Facts (#533):
+    /// `FoodDataCentralService.dataSourceID` for USDA FoodData Central. Stored as
+    /// text so an unknown value from a newer app version never fails decoding.
+    var dataSource: String? = nil
+
+    /// Display name of `dataSource`, nil for Open Food Facts and unknown values.
+    var dataSourceName: String? {
+        switch dataSource {
+        case FoodDataCentralService.dataSourceID?:
+            String(localized: "USDA FoodData Central", comment: "Product Information source for foods found in the USDA FoodData Central database.")
+        default:
+            nil
+        }
+    }
 
     var hasDisplayDetails: Bool {
         !barcode.isEmpty
@@ -27,5 +41,6 @@ struct FoodProductMetadata: Codable, Equatable, Sendable {
             || ecoScore != nil
             || !labels.isEmpty
             || !categories.isEmpty
+            || dataSourceName != nil
     }
 }

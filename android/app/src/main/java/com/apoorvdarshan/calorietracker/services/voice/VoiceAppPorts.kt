@@ -3,12 +3,14 @@ package com.apoorvdarshan.calorietracker.services.voice
 import com.apoorvdarshan.calorietracker.models.BodyFatEntry
 import com.apoorvdarshan.calorietracker.models.FastingSession
 import com.apoorvdarshan.calorietracker.models.FoodEntry
+import com.apoorvdarshan.calorietracker.models.FoodSource
 import com.apoorvdarshan.calorietracker.models.MealType
 import com.apoorvdarshan.calorietracker.models.UserProfile
 import com.apoorvdarshan.calorietracker.models.WaterEntry
 import com.apoorvdarshan.calorietracker.models.WaterUnit
 import com.apoorvdarshan.calorietracker.models.WeightEntry
 import com.apoorvdarshan.calorietracker.models.WorkoutTextDraft
+import com.apoorvdarshan.calorietracker.services.BarcodeProductLookup
 import com.apoorvdarshan.calorietracker.services.ai.CoachTools
 import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysis
 import java.time.Instant
@@ -85,7 +87,21 @@ data class SavedFood(val entry: FoodEntry, val kind: SavedFoodKind, val timesLog
     val savedId: String get() = "${if (kind == SavedFoodKind.FAVORITE) "favorite" else "food"}-${entry.id}"
 }
 
-class BarcodeProduct(val analysis: FoodAnalysis, val imageBytes: ByteArray?)
+/** A scanned product; a saved label (#485) logs as a label again, so the barcode keeps it. */
+class BarcodeProduct(
+    val analysis: FoodAnalysis,
+    val imageBytes: ByteArray?,
+    val source: FoodSource = FoodSource.BARCODE
+) {
+    companion object {
+        fun from(outcome: BarcodeProductLookup.Outcome): BarcodeProduct = when (outcome) {
+            is BarcodeProductLookup.Outcome.Product ->
+                BarcodeProduct(outcome.result.analysis, outcome.result.productImageBytes)
+            is BarcodeProductLookup.Outcome.SavedLabel ->
+                BarcodeProduct(outcome.analysis, null, FoodSource.NUTRITION_LABEL)
+        }
+    }
+}
 
 data class TrackingPrefs(
     val waterEnabled: Boolean,

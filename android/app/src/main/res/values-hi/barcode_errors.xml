@@ -3,6 +3,7 @@
     <string name="error_barcode_invalid">यह बारकोड पढ़ा नहीं जा सका। इसे फिर से स्कैन करें।</string>
     <string name="error_barcode_product_not_found">यह उत्पाद Open Food Facts में नहीं मिला। इसके बजाय पोषण लेबल स्कैन करें।</string>
     <string name="error_barcode_missing_nutrition">यह बारकोड मिला, लेकिन पोषण जानकारी अधूरी है। इसके बजाय पोषण लेबल स्कैन करें।</string>
+    <string name="error_barcode_usda_key_rejected">USDA FoodData Central ने आपकी API कुंजी अस्वीकार कर दी। इसे सेटिंग्स > उत्पाद जानकारी में जाँचें, या इसके बजाय पोषण लेबल स्कैन करें।</string>
     <string name="barcode_saved_label_title">इस बारकोड के लिए आपका सहेजा गया पोषण लेबल इस्तेमाल हो रहा है</string>
     <string name="barcode_saved_label_footer">Open Food Facts के पास इस उत्पाद का पोषण डेटा नहीं है। इस लेबल को भुलाने के लिए, इसका इस्तेमाल करने वाले फ़ूड लॉग हटाएँ।</string>
     <string name="error_barcode_rate_limited">बहुत अधिक बारकोड खोज की गई हैं। थोड़ी देर प्रतीक्षा करें और फिर प्रयास करें।</string>

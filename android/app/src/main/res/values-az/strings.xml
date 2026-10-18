@@ -114,6 +114,7 @@
     <!-- Open Food Facts product metadata -->
     <string name="product_information">Məhsul məlumatı</string>
     <string name="product_barcode">Barkod</string>
+    <string name="product_source">Mənbə</string>
     <string name="product_package">Qablaşdırma</string>
     <string name="product_nutri_score">Nutri-Score</string>
     <string name="product_nova_group">NOVA qrupu</string>
@@ -128,6 +129,10 @@
     <string name="product_info_settings_show">Məhsul məlumatını göstər</string>
     <string name="product_info_settings_fields">Göstəriləcək məlumatlar</string>
     <string name="product_info_settings_footer">Barkodla skan edilmiş qidalar üçün nəzərdən keçirmə və redaktə ekranlarının sonunda göstərilir. Allergen yoxlamasına təsir etmir və allergen həssaslıqlarınız təyin olunduqda həmişə göstərilir.</string>
+    <string name="usda_fooddata_central">USDA FoodData Central</string>
+    <string name="usda_fdc_api_key_placeholder">API açarı (istəyə bağlı)</string>
+    <string name="usda_fdc_get_key">Pulsuz API açarı əldə edin</string>
+    <string name="usda_fdc_settings_footer">Open Food Facts-da və saxladığınız etiketlərdə skan edilmiş barkod üçün qida dəyəri olmadıqda, Fud AI onu öz pulsuz açarınızla USDA FoodData Central-da (əsasən ABŞ məhsulları) axtarır. Yalnız barkod göndərilir, açar olmadan isə heç nə göndərilmir.</string>
 
     <!-- Macros / Goal labels -->
     <string name="macro_protein">Protein</string>

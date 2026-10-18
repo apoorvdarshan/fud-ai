@@ -3,6 +3,7 @@
     <string name="error_barcode_invalid">Deze streepjescode kon niet worden gelezen. Scan hem opnieuw.</string>
     <string name="error_barcode_product_not_found">Product niet gevonden in Open Food Facts. Scan in plaats daarvan het voedingsetiket.</string>
     <string name="error_barcode_missing_nutrition">De streepjescode is gevonden, maar de voedingsgegevens zijn onvolledig. Scan in plaats daarvan het voedingsetiket.</string>
+    <string name="error_barcode_usda_key_rejected">USDA FoodData Central heeft je API-sleutel geweigerd. Controleer hem bij Instellingen > Productinformatie of scan in plaats daarvan het voedingsetiket.</string>
     <string name="barcode_saved_label_title">Je opgeslagen voedingslabel voor deze barcode wordt gebruikt</string>
     <string name="barcode_saved_label_footer">Open Food Facts heeft geen voedingswaarden voor dit product. Verwijder de voedingslogs die dit label gebruikten om het te vergeten.</string>
     <string name="error_barcode_rate_limited">Er zijn te veel streepjescodes opgezocht. Wacht even en probeer het opnieuw.</string>

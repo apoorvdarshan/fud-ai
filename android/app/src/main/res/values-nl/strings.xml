@@ -114,6 +114,7 @@
     <!-- Open Food Facts product metadata -->
     <string name="product_information">Productinformatie</string>
     <string name="product_barcode">Barcode</string>
+    <string name="product_source">Bron</string>
     <string name="product_package">Verpakking</string>
     <string name="product_nutri_score">Nutri-Score</string>
     <string name="product_nova_group">NOVA-groep</string>
@@ -128,6 +129,10 @@
     <string name="product_info_settings_show">Productinformatie tonen</string>
     <string name="product_info_settings_fields">Te tonen details</string>
     <string name="product_info_settings_footer">Wordt onderaan de controle- en bewerkschermen getoond voor voedingsmiddelen die met een barcode zijn gescand. De allergenencontrole verandert niet en verschijnt altijd als je allergeengevoeligheden hebt ingesteld.</string>
+    <string name="usda_fooddata_central">USDA FoodData Central</string>
+    <string name="usda_fdc_api_key_placeholder">API-sleutel (optioneel)</string>
+    <string name="usda_fdc_get_key">Gratis API-sleutel aanvragen</string>
+    <string name="usda_fdc_settings_footer">Als Open Food Facts en je opgeslagen labels geen voedingswaarden hebben voor een gescande barcode, zoekt Fud AI die op in USDA FoodData Central (vooral Amerikaanse producten) met je eigen gratis sleutel. Alleen de barcode wordt verzonden, en zonder sleutel wordt niets verzonden.</string>
 
     <!-- Macros / Goal labels -->
     <string name="macro_protein">Eiwit</string>

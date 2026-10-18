@@ -80,6 +80,7 @@
     <!-- Open Food Facts product metadata -->
     <string name="product_information">Product information</string>
     <string name="product_barcode">Barcode</string>
+    <string name="product_source">Source</string>
     <string name="product_package">Package</string>
     <string name="product_nutri_score">Nutri-Score</string>
     <string name="product_nova_group">NOVA group</string>
@@ -94,6 +95,10 @@
     <string name="product_info_settings_show">Show product information</string>
     <string name="product_info_settings_fields">Details to show</string>
     <string name="product_info_settings_footer">Shown at the end of the review and edit screens for barcode-scanned foods. Allergen check is not affected and always appears when you have allergen sensitivities set.</string>
+    <string name="usda_fooddata_central">USDA FoodData Central</string>
+    <string name="usda_fdc_api_key_placeholder">API key (optional)</string>
+    <string name="usda_fdc_get_key">Get a free API key</string>
+    <string name="usda_fdc_settings_footer">When Open Food Facts and your saved labels have no nutrition for a scanned barcode, Fud AI looks it up in USDA FoodData Central (mostly US products) with your own free key. Only the barcode is sent, and nothing is sent without a key.</string>
 
     <!-- Macros / Goal labels -->
     <string name="macro_protein">Protein</string>

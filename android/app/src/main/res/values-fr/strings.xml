@@ -114,6 +114,7 @@
     <!-- Open Food Facts product metadata -->
     <string name="product_information">Informations sur le produit</string>
     <string name="product_barcode">Code-barres</string>
+    <string name="product_source">Source</string>
     <string name="product_package">Emballage</string>
     <string name="product_nutri_score">Nutri-Score</string>
     <string name="product_nova_group">Groupe NOVA</string>
@@ -128,6 +129,10 @@
     <string name="product_info_settings_show">Afficher les informations sur le produit</string>
     <string name="product_info_settings_fields">Détails à afficher</string>
     <string name="product_info_settings_footer">Affichées à la fin des écrans de vérification et de modification des aliments scannés par code-barres. La vérification des allergènes n\'est pas concernée et apparaît toujours lorsque vous avez défini des sensibilités aux allergènes.</string>
+    <string name="usda_fooddata_central">USDA FoodData Central</string>
+    <string name="usda_fdc_api_key_placeholder">Clé API (facultative)</string>
+    <string name="usda_fdc_get_key">Obtenir une clé API gratuite</string>
+    <string name="usda_fdc_settings_footer">Quand ni Open Food Facts ni vos étiquettes enregistrées n’ont de valeurs nutritionnelles pour un code-barres scanné, Fud AI le recherche dans USDA FoodData Central (surtout des produits américains) avec votre propre clé gratuite. Seul le code-barres est envoyé, et rien n’est envoyé sans clé.</string>
 
     <!-- Macros / Goal labels -->
     <string name="macro_protein">Protéines</string>

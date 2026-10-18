@@ -326,7 +326,8 @@ object OpenFoodFactsService {
     private fun micrograms(grams: Double?): Double? =
         grams?.let { round(it * 1_000_000.0 * 10.0) / 10.0 }
 
-    private fun gramsFrom(servingSize: String?): Double? {
+    /** Grams in a serving text such as "30 g (1 cup)"; FoodData Central reuses it (#533). */
+    internal fun gramsFrom(servingSize: String?): Double? {
         var text = servingSize?.lowercase(Locale.US) ?: return null
         text = text.replace(",", ".").replace("fl. oz", "fl oz")
         val match = Regex("""([0-9]+(?:\.[0-9]+)?)\s*(fl oz|kg|mg|g|oz|ml|l)""")

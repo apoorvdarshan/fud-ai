@@ -3,6 +3,7 @@
     <string name="error_barcode_invalid">Acest cod de bare nu a putut fi citit. Încearcă să îl scanezi din nou.</string>
     <string name="error_barcode_product_not_found">Produsul nu a fost găsit în Open Food Facts. Scanează în schimb eticheta nutrițională.</string>
     <string name="error_barcode_missing_nutrition">Codul de bare a fost găsit, dar datele nutriționale sunt incomplete. Scanează în schimb eticheta nutrițională.</string>
+    <string name="error_barcode_usda_key_rejected">USDA FoodData Central a respins cheia ta API. Verific-o în Setări > Informații despre produs sau scanează în schimb eticheta nutrițională.</string>
     <string name="barcode_saved_label_title">Se folosește eticheta nutrițională salvată pentru acest cod de bare</string>
     <string name="barcode_saved_label_footer">Open Food Facts nu are valori nutriționale pentru acest produs. Ca să uiți această etichetă, șterge înregistrările de mâncare care au folosit-o.</string>
     <string name="error_barcode_rate_limited">Au fost efectuate prea multe căutări de coduri de bare. Așteaptă puțin și încearcă din nou.</string>

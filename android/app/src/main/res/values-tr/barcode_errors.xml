@@ -3,6 +3,7 @@
     <string name="error_barcode_invalid">Bu barkod okunamadı. Tekrar taramayı deneyin.</string>
     <string name="error_barcode_product_not_found">Ürün Open Food Facts\'te bulunamadı. Bunun yerine besin etiketini tarayın.</string>
     <string name="error_barcode_missing_nutrition">Bu barkod bulundu ancak besin verisi eksik. Bunun yerine besin etiketini tarayın.</string>
+    <string name="error_barcode_usda_key_rejected">USDA FoodData Central API anahtarınızı reddetti. Ayarlar > Ürün bilgisi bölümünden kontrol edin veya bunun yerine besin etiketini tarayın.</string>
     <string name="barcode_saved_label_title">Bu barkod için kaydettiğiniz besin etiketi kullanılıyor</string>
     <string name="barcode_saved_label_footer">Open Food Facts\'te bu ürün için besin bilgisi yok. Bu etiketi unutmak için onu kullanan yemek kayıtlarını silin.</string>
     <string name="error_barcode_rate_limited">Çok fazla barkod araması yapıldı. Biraz bekleyin, sonra tekrar deneyin.</string>

@@ -114,6 +114,7 @@
     <!-- Open Food Facts product metadata -->
     <string name="product_information">제품 정보</string>
     <string name="product_barcode">바코드</string>
+    <string name="product_source">출처</string>
     <string name="product_package">내용량</string>
     <string name="product_nutri_score">Nutri-Score</string>
     <string name="product_nova_group">NOVA 그룹</string>
@@ -128,6 +129,10 @@
     <string name="product_info_settings_show">제품 정보 표시</string>
     <string name="product_info_settings_fields">표시할 항목</string>
     <string name="product_info_settings_footer">바코드로 스캔한 음식의 검토 및 편집 화면 맨 아래에 표시됩니다. 알레르기 성분 확인은 영향을 받지 않으며, 알레르기 민감 항목을 설정한 경우 항상 표시됩니다.</string>
+    <string name="usda_fooddata_central">USDA FoodData Central</string>
+    <string name="usda_fdc_api_key_placeholder">API 키(선택 사항)</string>
+    <string name="usda_fdc_get_key">무료 API 키 받기</string>
+    <string name="usda_fdc_settings_footer">스캔한 바코드의 영양 정보가 Open Food Facts와 저장된 라벨에 없으면 Fud AI가 사용자의 무료 키로 USDA FoodData Central(주로 미국 제품)에서 찾아봅니다. 바코드만 전송되며, 키가 없으면 아무것도 전송되지 않습니다.</string>
 
     <!-- Macros / Goal labels -->
     <string name="macro_protein">단백질</string>

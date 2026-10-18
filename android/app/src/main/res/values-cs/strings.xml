@@ -81,6 +81,7 @@
     <!-- Open Food Facts product metadata -->
     <string name="product_information">Informace o produktu</string>
     <string name="product_barcode">Čárový kód</string>
+    <string name="product_source">Zdroj</string>
     <string name="barcode_saved_label_title">Používá se váš uložený výživový štítek pro tento čárový kód</string>
     <string name="barcode_saved_label_footer">Open Food Facts pro tento produkt nemá nutriční hodnoty. Chcete-li tento štítek zapomenout, smažte záznamy jídla, které ho použily.</string>
     <string name="product_package">Balení</string>
@@ -97,6 +98,10 @@
     <string name="product_info_settings_show">Zobrazit informace o produktu</string>
     <string name="product_info_settings_fields">Zobrazené údaje</string>
     <string name="product_info_settings_footer">Zobrazuje se na konci obrazovek kontroly a úprav u potravin naskenovaných čárovým kódem. Kontrola alergenů tím není ovlivněna a zobrazí se vždy, když máte nastavené citlivosti na alergeny.</string>
+    <string name="usda_fooddata_central">USDA FoodData Central</string>
+    <string name="usda_fdc_api_key_placeholder">API klíč (volitelné)</string>
+    <string name="usda_fdc_get_key">Získat bezplatný API klíč</string>
+    <string name="usda_fdc_settings_footer">Když Open Food Facts ani vaše uložené štítky nemají pro naskenovaný čárový kód nutriční hodnoty, Fud AI ho vyhledá v USDA FoodData Central (převážně produkty z USA) s vaším vlastním bezplatným klíčem. Odesílá se jen čárový kód a bez klíče se neodesílá nic.</string>
 
     <!-- Macros / Goal labels -->
     <string name="macro_protein">Bílkoviny</string>

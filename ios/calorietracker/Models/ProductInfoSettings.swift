@@ -1,11 +1,13 @@
 import Foundation
 
-/// Open Food Facts fields the barcode Product Information block can show (#427).
+/// Open Food Facts fields the barcode Product Information block can show (#427),
+/// plus the data source when a product came from USDA FoodData Central (#533).
 /// Raw values are persisted in `ProductInfoSettings.hiddenFieldsKey`, so keep them stable.
 /// Allergen Check is deliberately not a field: it follows the user's allergen
 /// sensitivities in its own section, so this setting can never hide it.
 enum ProductInfoField: String, CaseIterable, Identifiable, Sendable {
     case barcode
+    case source
     case package
     case nutriScore
     case novaGroup
@@ -21,6 +23,7 @@ enum ProductInfoField: String, CaseIterable, Identifiable, Sendable {
     func hasValue(in metadata: FoodProductMetadata) -> Bool {
         switch self {
         case .barcode: !metadata.barcode.isEmpty
+        case .source: metadata.dataSourceName != nil
         case .package: metadata.packageQuantity != nil
         case .nutriScore: metadata.nutriScore != nil
         case .novaGroup: metadata.novaGroup != nil

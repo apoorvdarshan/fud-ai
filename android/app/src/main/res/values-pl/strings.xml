@@ -114,6 +114,7 @@
     <!-- Open Food Facts product metadata -->
     <string name="product_information">Informacje o produkcie</string>
     <string name="product_barcode">Kod kreskowy</string>
+    <string name="product_source">Źródło</string>
     <string name="barcode_saved_label_title">Używana jest Twoja zapisana etykieta żywieniowa dla tego kodu kreskowego</string>
     <string name="barcode_saved_label_footer">Open Food Facts nie ma wartości odżywczych dla tego produktu. Aby zapomnieć tę etykietę, usuń wpisy jedzenia, które jej użyły.</string>
     <string name="product_package">Opakowanie</string>
@@ -130,6 +131,10 @@
     <string name="product_info_settings_show">Pokazuj informacje o produkcie</string>
     <string name="product_info_settings_fields">Wyświetlane szczegóły</string>
     <string name="product_info_settings_footer">Wyświetlane na końcu ekranów przeglądu i edycji produktów zeskanowanych kodem kreskowym. Nie wpływa na kontrolę alergenów, która zawsze się pojawia, gdy masz ustawione wrażliwości na alergeny.</string>
+    <string name="usda_fooddata_central">USDA FoodData Central</string>
+    <string name="usda_fdc_api_key_placeholder">Klucz API (opcjonalnie)</string>
+    <string name="usda_fdc_get_key">Uzyskaj bezpłatny klucz API</string>
+    <string name="usda_fdc_settings_footer">Gdy ani Open Food Facts, ani zapisane etykiety nie mają wartości odżywczych dla zeskanowanego kodu kreskowego, Fud AI szuka go w USDA FoodData Central (głównie produkty z USA) z użyciem własnego bezpłatnego klucza. Wysyłany jest tylko kod kreskowy, a bez klucza nic nie jest wysyłane.</string>
 
     <!-- Macros / Goal labels -->
     <string name="macro_protein">Białko</string>

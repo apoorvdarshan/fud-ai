@@ -3,6 +3,7 @@
     <string name="error_barcode_invalid">That barcode could not be read. Try scanning it again.</string>
     <string name="error_barcode_product_not_found">Product not found in Open Food Facts. Scan the nutrition label instead.</string>
     <string name="error_barcode_missing_nutrition">This barcode was found, but nutrition data is incomplete. Scan the nutrition label instead.</string>
+    <string name="error_barcode_usda_key_rejected">USDA FoodData Central rejected your API key. Check it in Settings > Product information, or scan the nutrition label instead.</string>
     <string name="barcode_saved_label_title">Using your saved label for this barcode</string>
     <string name="barcode_saved_label_footer">Open Food Facts has no nutrition for this product. To forget this label, delete the food logs that used it.</string>
     <string name="error_barcode_rate_limited">Too many barcode lookups were made. Wait a moment, then try again.</string>

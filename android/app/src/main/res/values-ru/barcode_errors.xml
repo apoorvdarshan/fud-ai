@@ -3,6 +3,7 @@
     <string name="error_barcode_invalid">Не удалось прочитать этот штрихкод. Попробуйте отсканировать его ещё раз.</string>
     <string name="error_barcode_product_not_found">Товар не найден в Open Food Facts. Вместо этого отсканируйте этикетку с пищевой ценностью.</string>
     <string name="error_barcode_missing_nutrition">Штрихкод найден, но данные о пищевой ценности неполные. Вместо этого отсканируйте этикетку.</string>
+    <string name="error_barcode_usda_key_rejected">USDA FoodData Central отклонил ваш ключ API. Проверьте его в разделе «Настройки > Информация о продукте» или отсканируйте этикетку.</string>
     <string name="barcode_saved_label_title">Используется ваша сохранённая этикетка питания для этого штрихкода</string>
     <string name="barcode_saved_label_footer">В Open Food Facts нет данных о пищевой ценности этого продукта. Чтобы забыть эту этикетку, удалите записи о еде, в которых она использовалась.</string>
     <string name="error_barcode_rate_limited">Выполнено слишком много поисков по штрихкоду. Подождите немного и повторите попытку.</string>

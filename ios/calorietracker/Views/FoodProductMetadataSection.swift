@@ -31,6 +31,10 @@ struct FoodProductMetadataSection: View {
         switch field {
         case .barcode:
             ProductMetadataRow(title: field.title, value: metadata.barcode)
+        case .source:
+            if let value = metadata.dataSourceName {
+                ProductMetadataRow(title: field.title, value: value)
+            }
         case .package:
             if let value = metadata.packageQuantity {
                 ProductMetadataRow(title: field.title, value: value)
@@ -71,6 +75,7 @@ extension ProductInfoField {
     var title: LocalizedStringKey {
         switch self {
         case .barcode: "Barcode"
+        case .source: "Source"
         case .package: "Package"
         case .nutriScore: "Nutri-Score"
         case .novaGroup: "NOVA Group"

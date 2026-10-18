@@ -708,6 +708,18 @@ class VoiceToolExecutorTest {
     }
 
     @Test
+    fun savedLabelScansLogAsNutritionLabels() {
+        val executor = executor(confirmSaves = false)
+        ports.barcodeProduct = BarcodeProduct(ports.analysis.copy(name = "My label"), null, FoodSource.NUTRITION_LABEL)
+
+        val scanned = executor.call("scan_barcode")
+        assertEquals("My label", scanned["name"]!!.jsonPrimitive.content)
+        assertTrue(executor.call("log_food", args("draft_id" to scanned["draft_id"]!!.jsonPrimitive.content)).ok())
+
+        assertEquals(FoodSource.NUTRITION_LABEL, ports.foods.single().source)
+    }
+
+    @Test
     fun analysisErrorsMapToContractCodes() {
         val executor = executor()
         ports.analysisError = AiError.Hosted(AiErrorKind.HOSTED_QUOTA_EXCEEDED)

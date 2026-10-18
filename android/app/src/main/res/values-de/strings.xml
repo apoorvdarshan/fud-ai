@@ -114,6 +114,7 @@
     <!-- Open Food Facts product metadata -->
     <string name="product_information">Produktinformationen</string>
     <string name="product_barcode">Barcode</string>
+    <string name="product_source">Quelle</string>
     <string name="product_package">Packung</string>
     <string name="product_nutri_score">Nutri-Score</string>
     <string name="product_nova_group">NOVA-Gruppe</string>
@@ -128,6 +129,10 @@
     <string name="product_info_settings_show">Produktinformationen anzeigen</string>
     <string name="product_info_settings_fields">Angezeigte Details</string>
     <string name="product_info_settings_footer">Wird bei per Barcode gescannten Lebensmitteln am Ende der Prüf- und Bearbeitungsansicht angezeigt. Der Allergen-Check ist davon nicht betroffen und erscheint immer, wenn du Allergen-Empfindlichkeiten festgelegt hast.</string>
+    <string name="usda_fooddata_central">USDA FoodData Central</string>
+    <string name="usda_fdc_api_key_placeholder">API-Schlüssel (optional)</string>
+    <string name="usda_fdc_get_key">Kostenlosen API-Schlüssel holen</string>
+    <string name="usda_fdc_settings_footer">Wenn weder Open Food Facts noch deine gespeicherten Nährwertangaben Nährwerte für einen gescannten Barcode haben, sucht Fud AI ihn mit deinem eigenen kostenlosen Schlüssel in USDA FoodData Central (überwiegend US-Produkte). Gesendet wird nur der Barcode, und ohne Schlüssel wird nichts gesendet.</string>
 
     <!-- Macros / Goal labels -->
     <string name="macro_protein">Protein</string>

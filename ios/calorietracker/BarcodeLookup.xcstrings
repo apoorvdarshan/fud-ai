@@ -1198,6 +1198,126 @@
           }
         }
       }
+    },
+    "barcode.lookup.usda_key_rejected": {
+      "comment": "Error shown when Open Food Facts has no usable product and USDA FoodData Central refuses the API key the user added.",
+      "extractionState": "manual",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "رفض USDA FoodData Central مفتاح API الخاص بك. تحقق منه في الإعدادات > معلومات المنتج، أو امسح ملصق القيم الغذائية بدلاً من ذلك."
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "USDA FoodData Central API açarınızı rədd etdi. Onu Parametrlər > Məhsul məlumatı bölməsində yoxlayın və ya əvəzinə qida dəyəri etiketini skan edin."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "USDA FoodData Central odmítla váš API klíč. Zkontrolujte ho v Nastavení > Informace o produktu, nebo raději naskenujte nutriční etiketu."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "USDA FoodData Central hat deinen API-Schlüssel abgelehnt. Prüfe ihn unter Einstellungen > Produktinformationen oder scanne stattdessen die Nährwertangaben."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "USDA FoodData Central rejected your API key. Check it in Settings > Product Information, or scan the nutrition label instead."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "USDA FoodData Central rechazó tu clave API. Revísala en Ajustes > Información del producto o escanea la etiqueta nutricional."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "USDA FoodData Central a refusé votre clé API. Vérifiez-la dans Réglages > Informations sur le produit, ou scannez plutôt l’étiquette nutritionnelle."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "USDA FoodData Central ने आपकी API कुंजी अस्वीकार कर दी। इसे सेटिंग्स > उत्पाद जानकारी में जाँचें, या इसके बजाय पोषण लेबल स्कैन करें।"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "USDA FoodData Central ha rifiutato la tua chiave API. Controllala in Impostazioni > Informazioni sul prodotto oppure scansiona invece l’etichetta nutrizionale."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "USDA FoodData CentralでAPIキーが拒否されました。設定 > 製品情報で確認するか、代わりに栄養成分表示をスキャンしてください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "USDA FoodData Central에서 API 키를 거부했습니다. 설정 > 제품 정보에서 확인하거나 대신 영양 정보 라벨을 스캔해 주세요."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "USDA FoodData Central heeft je API-sleutel geweigerd. Controleer hem bij Instellingen > Productinformatie of scan in plaats daarvan het voedingsetiket."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "USDA FoodData Central odrzuciło Twój klucz API. Sprawdź go w Ustawienia > Informacje o produkcie albo zeskanuj etykietę wartości odżywczych."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O USDA FoodData Central recusou sua chave de API. Confira em Ajustes > Informações do produto ou escaneie o rótulo nutricional."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "USDA FoodData Central a respins cheia ta API. Verific-o în Setări > Informații despre produs sau scanează în schimb eticheta nutrițională."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "USDA FoodData Central отклонил ваш ключ API. Проверьте его в разделе «Настройки > Информация о продукте» или отсканируйте этикетку."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "USDA FoodData Central API anahtarınızı reddetti. Ayarlar > Ürün Bilgisi bölümünden kontrol edin veya bunun yerine besin etiketini tarayın."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "USDA FoodData Central відхилив ваш ключ API. Перевірте його в розділі «Налаштування > Інформація про продукт» або натомість відскануйте етикетку."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "USDA FoodData Central 拒绝了你的 API 密钥。请在“设置 > 产品信息”中检查，或改为扫描营养成分标签。"
+          }
+        }
+      }
     }
   },
   "version": "1.0"

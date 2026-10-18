@@ -3,6 +3,7 @@
     <string name="error_barcode_invalid">Dieser Barcode konnte nicht gelesen werden. Scanne ihn erneut.</string>
     <string name="error_barcode_product_not_found">Das Produkt wurde in Open Food Facts nicht gefunden. Scanne stattdessen die Nährwertangaben.</string>
     <string name="error_barcode_missing_nutrition">Der Barcode wurde gefunden, aber die Nährwertdaten sind unvollständig. Scanne stattdessen die Nährwertangaben.</string>
+    <string name="error_barcode_usda_key_rejected">USDA FoodData Central hat deinen API-Schlüssel abgelehnt. Prüfe ihn unter Einstellungen > Produktinformationen oder scanne stattdessen die Nährwertangaben.</string>
     <string name="barcode_saved_label_title">Deine gespeicherten Nährwertangaben für diesen Barcode werden verwendet</string>
     <string name="barcode_saved_label_footer">Open Food Facts hat keine Nährwerte für dieses Produkt. Um diese Angaben zu vergessen, lösche die Einträge, die sie verwendet haben.</string>
     <string name="error_barcode_rate_limited">Es wurden zu viele Barcode-Abfragen durchgeführt. Warte einen Moment und versuche es erneut.</string>

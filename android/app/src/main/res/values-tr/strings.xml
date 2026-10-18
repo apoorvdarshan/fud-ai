@@ -82,6 +82,7 @@
     <!-- Open Food Facts product metadata -->
     <string name="product_information">Ürün bilgisi</string>
     <string name="product_barcode">Barkod</string>
+    <string name="product_source">Kaynak</string>
     <string name="product_package">Paket</string>
     <string name="product_nutri_score">Nutri-Score</string>
     <string name="product_nova_group">NOVA grubu</string>
@@ -96,6 +97,10 @@
     <string name="product_info_settings_show">Ürün bilgisini göster</string>
     <string name="product_info_settings_fields">Gösterilecek ayrıntılar</string>
     <string name="product_info_settings_footer">Barkodla taranan yiyeceklerde inceleme ve düzenleme ekranlarının sonunda gösterilir. Alerjen kontrolü bundan etkilenmez ve alerjen hassasiyetleri ayarladığınızda her zaman görünür.</string>
+    <string name="usda_fooddata_central">USDA FoodData Central</string>
+    <string name="usda_fdc_api_key_placeholder">API anahtarı (isteğe bağlı)</string>
+    <string name="usda_fdc_get_key">Ücretsiz API anahtarı al</string>
+    <string name="usda_fdc_settings_footer">Open Food Facts\'te ve kayıtlı etiketlerinizde taranan barkod için besin değeri yoksa Fud AI, kendi ücretsiz anahtarınızla barkodu USDA FoodData Central\'da (çoğunlukla ABD ürünleri) arar. Yalnızca barkod gönderilir; anahtar yoksa hiçbir şey gönderilmez.</string>
 
     <!-- Macros / Goal labels -->
     <string name="macro_protein">Protein</string>

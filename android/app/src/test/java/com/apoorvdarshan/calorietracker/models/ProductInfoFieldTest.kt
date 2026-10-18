@@ -1,6 +1,7 @@
 package com.apoorvdarshan.calorietracker.models
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -31,7 +32,7 @@ class ProductInfoFieldTest {
     fun storageKeysMatchIos() {
         assertEquals(
             listOf(
-                "barcode", "package", "nutriScore", "novaGroup", "ecoScore",
+                "barcode", "source", "package", "nutriScore", "novaGroup", "ecoScore",
                 "allergens", "traces", "labels", "categories", "ingredientLabel"
             ),
             ProductInfoField.entries.map { it.storageKey }
@@ -64,7 +65,7 @@ class ProductInfoFieldTest {
         )
         assertEquals(
             listOf(
-                ProductInfoField.PACKAGE, ProductInfoField.NUTRI_SCORE, ProductInfoField.NOVA_GROUP,
+                ProductInfoField.SOURCE, ProductInfoField.PACKAGE, ProductInfoField.NUTRI_SCORE, ProductInfoField.NOVA_GROUP,
                 ProductInfoField.ALLERGENS, ProductInfoField.TRACES, ProductInfoField.LABELS,
                 ProductInfoField.INGREDIENT_LABEL
             ),
@@ -84,6 +85,20 @@ class ProductInfoFieldTest {
         )
     }
 
+    @Test
+    fun sourceShowsOnlyForUsdaProducts() {
+        fun shows(dataSource: String?, hidden: Set<ProductInfoField> = emptySet()) =
+            ProductInfoField.SOURCE in ProductInfoField.visibleFields(
+                fullMetadata.copy(dataSource = dataSource),
+                shown = true,
+                hidden = hidden
+            )
+        assertFalse(shows(null))
+        assertFalse(shows("someNewSource"))
+        assertTrue(shows(FoodProductMetadata.USDA_FOOD_DATA_CENTRAL))
+        assertFalse(shows(FoodProductMetadata.USDA_FOOD_DATA_CENTRAL, hidden = setOf(ProductInfoField.SOURCE)))
+    }
+
     private val fullMetadata = FoodProductMetadata(
         barcode = "4006381333931",
         packageQuantity = "400 g",
@@ -94,6 +109,7 @@ class ProductInfoFieldTest {
         novaGroup = 4,
         ecoScore = "D",
         labels = listOf("Vegetarian"),
-        categories = listOf("Spreads")
+        categories = listOf("Spreads"),
+        dataSource = FoodProductMetadata.USDA_FOOD_DATA_CENTRAL
     )
 }

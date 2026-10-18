@@ -3,6 +3,7 @@
     <string name="error_barcode_invalid">Não foi possível ler este código de barras. Tente escaneá-lo novamente.</string>
     <string name="error_barcode_product_not_found">Produto não encontrado no Open Food Facts. Escaneie o rótulo nutricional.</string>
     <string name="error_barcode_missing_nutrition">O código de barras foi encontrado, mas os dados nutricionais estão incompletos. Escaneie o rótulo nutricional.</string>
+    <string name="error_barcode_usda_key_rejected">O USDA FoodData Central recusou sua chave de API. Confira em Ajustes > Informações do produto ou escaneie o rótulo nutricional.</string>
     <string name="barcode_saved_label_title">Usando seu rótulo nutricional salvo para este código de barras</string>
     <string name="barcode_saved_label_footer">O Open Food Facts não tem informações nutricionais deste produto. Para esquecer este rótulo, exclua os registros de alimentos que o usaram.</string>
     <string name="error_barcode_rate_limited">Foram feitas muitas consultas de códigos de barras. Aguarde um momento e tente novamente.</string>

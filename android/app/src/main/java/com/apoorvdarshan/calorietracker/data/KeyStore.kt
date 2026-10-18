@@ -43,6 +43,14 @@ class KeyStore(context: Context) {
         if (key.isNullOrEmpty()) delete(storageKey) else save(storageKey, key)
     }
 
+    /** The user's own USDA FoodData Central key for barcode lookups (#533); null when blank. */
+    fun usdaFoodDataCentralApiKey(): String? = load(USDA_FDC_API_KEY)?.trim()?.takeIf { it.isNotEmpty() }
+
+    fun setUsdaFoodDataCentralApiKey(key: String?) {
+        val trimmed = key?.trim().orEmpty()
+        if (trimmed.isEmpty()) delete(USDA_FDC_API_KEY) else save(USDA_FDC_API_KEY, trimmed)
+    }
+
     fun weeklyChallengeBearerToken(): String? = load(WEEKLY_CHALLENGE_BEARER_TOKEN)
 
     fun setWeeklyChallengeBearerToken(token: String) {
@@ -73,6 +81,7 @@ class KeyStore(context: Context) {
         private const val FILE_NAME = "fudai_keychain"
         private const val AI_PREFIX = "apikey_"
         private const val STT_PREFIX = "speechApiKey_"
+        private const val USDA_FDC_API_KEY = "usdaFoodDataCentralApiKey"
         private const val WEEKLY_CHALLENGE_BEARER_TOKEN = "weekly_challenge_bearer_token_v1"
         private const val CLOUD_BACKUP_ACCESS_TOKEN = "cloud_backup_access_token_v1"
 

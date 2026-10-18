@@ -3,6 +3,7 @@
     <string name="error_barcode_invalid">无法读取此条形码。请重新扫描。</string>
     <string name="error_barcode_product_not_found">在 Open Food Facts 中未找到该产品。请改为扫描营养成分标签。</string>
     <string name="error_barcode_missing_nutrition">已找到该条形码，但营养数据不完整。请改为扫描营养成分标签。</string>
+    <string name="error_barcode_usda_key_rejected">USDA FoodData Central 拒绝了你的 API 密钥。请在“设置 > 产品信息”中检查，或改为扫描营养成分标签。</string>
     <string name="barcode_saved_label_title">正在使用你为此条形码保存的营养成分表</string>
     <string name="barcode_saved_label_footer">Open Food Facts 没有此产品的营养信息。如需忘记此标签，请删除使用过它的饮食记录。</string>
     <string name="error_barcode_rate_limited">条形码查询次数过多。请稍等片刻后重试。</string>

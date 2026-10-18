@@ -21,6 +21,7 @@ struct IngredientAddMenuButton: View {
     let onManual: () -> Void
     let onIngredient: (MealIngredient) -> Void
 
+    @Environment(FoodStore.self) private var foodStore
     @State private var showText = false
     @State private var showVoice = false
     @State private var showBarcode = false
@@ -125,8 +126,15 @@ struct IngredientAddMenuButton: View {
             BarcodeScannerView(
                 onScan: { code in
                     showBarcode = false
+                    // Same order as Home: Open Food Facts, the saved label (#485), then USDA (#533).
+                    let savedLabels = foodStore.entries
                     runAnalysis {
-                        try await OpenFoodFactsService.lookup(barcode: code)
+                        try await BarcodeProductLookup.lookup(
+                            barcode: code,
+                            savedLabelEntries: savedLabels,
+                            usdaAPIKey: FoodDataCentralSettings.apiKey,
+                            includesProductImage: false
+                        ).analysis
                     }
                 },
                 onCancel: { showBarcode = false }

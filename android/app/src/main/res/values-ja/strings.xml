@@ -114,6 +114,7 @@
     <!-- Open Food Facts product metadata -->
     <string name="product_information">製品情報</string>
     <string name="product_barcode">バーコード</string>
+    <string name="product_source">出典</string>
     <string name="product_package">内容量</string>
     <string name="product_nutri_score">Nutri-Score</string>
     <string name="product_nova_group">NOVAグループ</string>
@@ -128,6 +129,10 @@
     <string name="product_info_settings_show">製品情報を表示</string>
     <string name="product_info_settings_fields">表示する項目</string>
     <string name="product_info_settings_footer">バーコードでスキャンした食品の確認画面と編集画面の最後に表示されます。アレルゲンチェックには影響せず、アレルゲン感受性を設定している場合は常に表示されます。</string>
+    <string name="usda_fooddata_central">USDA FoodData Central</string>
+    <string name="usda_fdc_api_key_placeholder">APIキー（任意）</string>
+    <string name="usda_fdc_get_key">無料のAPIキーを取得</string>
+    <string name="usda_fdc_settings_footer">スキャンしたバーコードの栄養情報がOpen Food Factsにも保存済みの表示にもない場合、Fud AIはあなた自身の無料キーでUSDA FoodData Central（主に米国の製品）を検索します。送信されるのはバーコードだけで、キーがなければ何も送信されません。</string>
 
     <!-- Macros / Goal labels -->
     <string name="macro_protein">タンパク質</string>

@@ -561,6 +561,32 @@ struct VoiceAssistantToolTests {
         #expect(await harness.executor.execute(name: "scan_barcode", arguments: [:])["error"] as? String == "not_found")
     }
 
+    @Test func scannedBarcodeChecksSavedLabelsAndLogsALabelAsALabel() async throws {
+        let harness = VoiceAssistantHarness(confirmSaves: false)
+        let label = FoodEntry(
+            name: "My label",
+            calories: 150,
+            protein: 5,
+            carbs: 20,
+            fat: 4,
+            source: .nutritionLabel,
+            productMetadata: BarcodeLabelMemory.labelMetadata(nil, barcode: "016000275287")
+        )
+        #expect(harness.food.addEntry(label))
+        harness.host.scanResult = .value("016000275287")
+        harness.analyzer.analysis = label.reviewAnalysis
+        harness.analyzer.barcodeSource = .nutritionLabel
+
+        let scanned = await harness.executor.execute(name: "scan_barcode", arguments: [:])
+        #expect(harness.analyzer.lastSavedLabelEntries.map(\.id) == [label.id])
+        let draftID = try #require(scanned["draft_id"] as? String)
+        #expect(await harness.executor.execute(name: "log_food", arguments: ["draft_id": draftID])["ok"] as? Bool == true)
+
+        let logged = try #require(harness.food.entries.first { $0.id != label.id })
+        #expect(logged.source == .nutritionLabel)
+        #expect(logged.productMetadata?.barcode == "016000275287")
+    }
+
     @Test func capturePhotoOpensTheCameraFirst() async throws {
         let harness = VoiceAssistantHarness(confirmSaves: false)
         #expect(harness.host.cameraMode == nil)
@@ -912,6 +938,8 @@ final class StubVoiceAssistantHost: VoiceAssistantToolHost {
 final class StubVoiceAssistantAnalyzer: VoiceAssistantAnalyzing {
     var analysis = GeminiService.FoodAnalysis(name: "Oatmeal", calories: 300, protein: 10, carbs: 50, fat: 6, servingSizeGrams: 250)
     var barcodeError: Error?
+    var barcodeSource: FoodSource = .barcode
+    private(set) var lastSavedLabelEntries: [FoodEntry] = []
     var workout: WorkoutTextDraft?
     var beforeText: (() async -> Void)?
     private(set) var lastWorkoutDate: Date?
@@ -929,9 +957,13 @@ final class StubVoiceAssistantAnalyzer: VoiceAssistantAnalyzing {
         return analysis
     }
 
-    func lookUpBarcode(_ code: String) async throws -> (analysis: GeminiService.FoodAnalysis, image: UIImage?) {
+    func lookUpBarcode(
+        _ code: String,
+        savedLabelEntries: [FoodEntry]
+    ) async throws -> (analysis: GeminiService.FoodAnalysis, image: UIImage?, source: FoodSource) {
+        lastSavedLabelEntries = savedLabelEntries
         if let barcodeError { throw barcodeError }
-        return (analysis, nil)
+        return (analysis, nil, barcodeSource)
     }
 
     func parseWorkout(_ description: String, date: Date, unit: WeightUnit, library: [ExerciseLibraryItem]) async throws -> WorkoutTextDraft {

@@ -398,7 +398,8 @@ enum OpenFoodFactsService {
         grams.map { round($0 * 1_000_000 * 10) / 10 }
     }
 
-    private static func grams(from servingSize: String?) -> Double? {
+    /// Grams in a serving text such as "30 g (1 cup)"; FoodData Central reuses it (#533).
+    static func grams(from servingSize: String?) -> Double? {
         guard var text = servingSize?.lowercased() else { return nil }
         text = text.replacingOccurrences(of: ",", with: ".")
         text = text.replacingOccurrences(of: "fl. oz", with: "fl oz")

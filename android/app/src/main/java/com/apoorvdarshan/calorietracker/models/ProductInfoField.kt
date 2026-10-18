@@ -4,13 +4,15 @@ import androidx.annotation.StringRes
 import com.apoorvdarshan.calorietracker.R
 
 /**
- * Open Food Facts fields the barcode Product information block can show (#427).
+ * Open Food Facts fields the barcode Product information block can show (#427), plus the
+ * data source when a product came from USDA FoodData Central (#533).
  * [storageKey] is persisted (and matches iOS ProductInfoField raw values), so keep it stable.
  * Allergen check is deliberately not a field: it follows the user's allergen sensitivities
  * in its own section, so this setting can never hide it.
  */
 enum class ProductInfoField(val storageKey: String, @StringRes val labelRes: Int) {
     BARCODE("barcode", R.string.product_barcode),
+    SOURCE("source", R.string.product_source),
     PACKAGE("package", R.string.product_package),
     NUTRI_SCORE("nutriScore", R.string.product_nutri_score),
     NOVA_GROUP("novaGroup", R.string.product_nova_group),
@@ -23,6 +25,7 @@ enum class ProductInfoField(val storageKey: String, @StringRes val labelRes: Int
 
     fun hasValue(metadata: FoodProductMetadata): Boolean = when (this) {
         BARCODE -> metadata.barcode.isNotEmpty()
+        SOURCE -> metadata.dataSourceNameRes != null
         PACKAGE -> metadata.packageQuantity != null
         NUTRI_SCORE -> metadata.nutriScore != null
         NOVA_GROUP -> metadata.novaGroup != null

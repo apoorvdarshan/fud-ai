@@ -189003,6 +189003,720 @@
           }
         }
       }
+    },
+    "USDA FoodData Central": {
+      "comment": "Name of the USDA FoodData Central barcode database: Settings section header and the Product Information source.",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "USDA FoodData Central"
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "USDA FoodData Central"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "USDA FoodData Central"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "USDA FoodData Central"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "USDA FoodData Central"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "USDA FoodData Central"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "USDA FoodData Central"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "USDA FoodData Central"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "USDA FoodData Central"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "USDA FoodData Central"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "USDA FoodData Central"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "USDA FoodData Central"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "USDA FoodData Central"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "USDA FoodData Central"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "USDA FoodData Central"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "USDA FoodData Central"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "USDA FoodData Central"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "USDA FoodData Central"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "USDA FoodData Central"
+          }
+        }
+      }
+    },
+    "Optional": {
+      "comment": "Placeholder of the optional USDA FoodData Central API key field.",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اختياري"
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İstəyə bağlı"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Volitelné"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Optional"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Optional"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opcional"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Facultatif"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "वैकल्पिक"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Facoltativo"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "任意"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "선택 사항"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Optioneel"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opcjonalnie"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opcional"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opțional"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Необязательно"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İsteğe bağlı"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Необов’язково"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "可选"
+          }
+        }
+      }
+    },
+    "Show API Key": {
+      "comment": "Accessibility label of the button that reveals the typed API key.",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إظهار مفتاح API"
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API açarını göstər"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zobrazit API klíč"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API-Schlüssel anzeigen"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show API Key"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar clave API"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Afficher la clé API"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API कुंजी दिखाएँ"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostra chiave API"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "APIキーを表示"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API 키 표시"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API-sleutel tonen"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pokaż klucz API"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar chave de API"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Afișează cheia API"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показать ключ API"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API anahtarını göster"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показати ключ API"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "显示 API 密钥"
+          }
+        }
+      }
+    },
+    "Hide API Key": {
+      "comment": "Accessibility label of the button that hides the typed API key.",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إخفاء مفتاح API"
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API açarını gizlət"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Skrýt API klíč"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API-Schlüssel ausblenden"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hide API Key"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ocultar clave API"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Masquer la clé API"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API कुंजी छिपाएँ"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nascondi chiave API"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "APIキーを隠す"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API 키 숨기기"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API-sleutel verbergen"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ukryj klucz API"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ocultar chave de API"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ascunde cheia API"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Скрыть ключ API"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API anahtarını gizle"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Приховати ключ API"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "隐藏 API 密钥"
+          }
+        }
+      }
+    },
+    "Get a Free API Key": {
+      "comment": "Link to the free USDA FoodData Central API key sign-up page.",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "احصل على مفتاح API مجاني"
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pulsuz API açarı əldə edin"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Získat bezplatný API klíč"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kostenlosen API-Schlüssel holen"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Get a Free API Key"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Obtener una clave API gratuita"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Obtenir une clé API gratuite"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "मुफ़्त API कुंजी पाएँ"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ottieni una chiave API gratuita"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無料のAPIキーを取得"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "무료 API 키 받기"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gratis API-sleutel aanvragen"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uzyskaj bezpłatny klucz API"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Obter uma chave de API gratuita"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Obține o cheie API gratuită"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Получить бесплатный ключ API"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ücretsiz API anahtarı al"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отримати безкоштовний ключ API"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "获取免费 API 密钥"
+          }
+        }
+      }
+    },
+    "When Open Food Facts and your saved labels have no nutrition for a scanned barcode, Fud AI looks it up in USDA FoodData Central (mostly US products) with your own free key. Only the barcode is sent, and nothing is sent without a key.": {
+      "comment": "Footer of the USDA FoodData Central API key setting under Product Information.",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "عندما لا تتوفر لدى Open Food Facts ولا في ملصقاتك المحفوظة قيم غذائية لباركود ممسوح، يبحث Fud AI عنه في USDA FoodData Central (منتجات أمريكية في الغالب) باستخدام مفتاحك المجاني الخاص. يُرسَل الباركود فقط، ولا يُرسَل أي شيء بدون مفتاح."
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts-da və saxladığınız etiketlərdə skan edilmiş barkod üçün qida dəyəri olmadıqda, Fud AI onu öz pulsuz açarınızla USDA FoodData Central-da (əsasən ABŞ məhsulları) axtarır. Yalnız barkod göndərilir, açar olmadan isə heç nə göndərilmir."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Když Open Food Facts ani vaše uložené štítky nemají pro naskenovaný čárový kód nutriční hodnoty, Fud AI ho vyhledá v USDA FoodData Central (převážně produkty z USA) s vaším vlastním bezplatným klíčem. Odesílá se jen čárový kód a bez klíče se neodesílá nic."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wenn weder Open Food Facts noch deine gespeicherten Nährwertangaben Nährwerte für einen gescannten Barcode haben, sucht Fud AI ihn mit deinem eigenen kostenlosen Schlüssel in USDA FoodData Central (überwiegend US-Produkte). Gesendet wird nur der Barcode, und ohne Schlüssel wird nichts gesendet."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "When Open Food Facts and your saved labels have no nutrition for a scanned barcode, Fud AI looks it up in USDA FoodData Central (mostly US products) with your own free key. Only the barcode is sent, and nothing is sent without a key."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cuando ni Open Food Facts ni tus etiquetas guardadas tienen información nutricional de un código de barras escaneado, Fud AI lo busca en USDA FoodData Central (sobre todo productos de EE. UU.) con tu propia clave gratuita. Solo se envía el código de barras, y sin clave no se envía nada."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quand ni Open Food Facts ni vos étiquettes enregistrées n’ont de valeurs nutritionnelles pour un code-barres scanné, Fud AI le recherche dans USDA FoodData Central (surtout des produits américains) avec votre propre clé gratuite. Seul le code-barres est envoyé, et rien n’est envoyé sans clé."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "जब Open Food Facts और आपके सहेजे गए लेबल में स्कैन किए गए बारकोड का पोषण डेटा नहीं होता, तो Fud AI आपकी अपनी मुफ़्त कुंजी से उसे USDA FoodData Central (ज़्यादातर अमेरिकी उत्पाद) में खोजता है। सिर्फ़ बारकोड भेजा जाता है, और कुंजी के बिना कुछ भी नहीं भेजा जाता।"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quando né Open Food Facts né le tue etichette salvate hanno valori nutrizionali per un codice a barre scansionato, Fud AI lo cerca in USDA FoodData Central (soprattutto prodotti statunitensi) con la tua chiave gratuita. Viene inviato solo il codice a barre e senza chiave non viene inviato nulla."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "スキャンしたバーコードの栄養情報がOpen Food Factsにも保存済みの表示にもない場合、Fud AIはあなた自身の無料キーでUSDA FoodData Central（主に米国の製品）を検索します。送信されるのはバーコードだけで、キーがなければ何も送信されません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "스캔한 바코드의 영양 정보가 Open Food Facts와 저장된 라벨에 없으면 Fud AI가 사용자의 무료 키로 USDA FoodData Central(주로 미국 제품)에서 찾아봅니다. 바코드만 전송되며, 키가 없으면 아무것도 전송되지 않습니다."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Als Open Food Facts en je opgeslagen labels geen voedingswaarden hebben voor een gescande barcode, zoekt Fud AI die op in USDA FoodData Central (vooral Amerikaanse producten) met je eigen gratis sleutel. Alleen de barcode wordt verzonden, en zonder sleutel wordt niets verzonden."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gdy ani Open Food Facts, ani zapisane etykiety nie mają wartości odżywczych dla zeskanowanego kodu kreskowego, Fud AI szuka go w USDA FoodData Central (głównie produkty z USA) z użyciem własnego bezpłatnego klucza. Wysyłany jest tylko kod kreskowy, a bez klucza nic nie jest wysyłane."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quando nem o Open Food Facts nem seus rótulos salvos têm informações nutricionais de um código de barras escaneado, o Fud AI o procura no USDA FoodData Central (principalmente produtos dos EUA) com sua própria chave gratuita. Só o código de barras é enviado, e nada é enviado sem uma chave."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Când nici Open Food Facts, nici etichetele salvate nu au valori nutriționale pentru un cod de bare scanat, Fud AI îl caută în USDA FoodData Central (mai ales produse din SUA) cu propria ta cheie gratuită. Se trimite doar codul de bare, iar fără cheie nu se trimite nimic."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Если ни в Open Food Facts, ни в ваших сохранённых этикетках нет пищевой ценности для отсканированного штрихкода, Fud AI ищет его в USDA FoodData Central (в основном товары из США) с вашим собственным бесплатным ключом. Отправляется только штрихкод, а без ключа ничего не отправляется."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts'te ve kayıtlı etiketlerinizde taranan barkod için besin değeri yoksa Fud AI, kendi ücretsiz anahtarınızla barkodu USDA FoodData Central'da (çoğunlukla ABD ürünleri) arar. Yalnızca barkod gönderilir; anahtar yoksa hiçbir şey gönderilmez."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Якщо ні в Open Food Facts, ні у ваших збережених етикетках немає харчової цінності для відсканованого штрихкоду, Fud AI шукає його в USDA FoodData Central (переважно товари зі США) з вашим власним безкоштовним ключем. Надсилається лише штрихкод, а без ключа нічого не надсилається."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "当 Open Food Facts 和你保存的标签都没有所扫条形码的营养数据时，Fud AI 会用你自己的免费密钥在 USDA FoodData Central（主要是美国产品）中查找。只会发送条形码，没有密钥时不会发送任何内容。"
+          }
+        }
+      }
     }
   },
   "version": "1.1"

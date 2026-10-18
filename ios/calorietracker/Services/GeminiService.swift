@@ -111,7 +111,7 @@ struct GeminiService {
                 polyunsaturatedFat: polyunsaturatedFatPer100g.map { round($0 * scale * 10) / 10 },
                 cholesterol: cholesterolPer100g.map { round($0 * scale * 10) / 10 },
                 caffeine: caffeinePer100g.map { round($0 * scale * 10) / 10 },
-                supplementalNutrients: supplementalNutrientsPer100g.mapValues { round($0 * scale * 10) / 10 },
+                supplementalNutrients: AminoAcidEstimates.roundedSupplementalNutrients(supplementalNutrientsPer100g, scaledBy: scale),
                 sodium: sodiumPer100g.map { round($0 * scale * 10) / 10 },
                 potassium: potassiumPer100g.map { round($0 * scale * 10) / 10 },
                 transFat: transFatPer100g.map { round($0 * scale * 10) / 10 },
@@ -213,7 +213,19 @@ struct GeminiService {
     {"name":"Product Name","calories_per_100g":0.0,"protein_per_100g":0.0,"carbs_per_100g":0.0,"fat_per_100g":0.0,"serving_size_grams":0.0,"sugar_per_100g":0.0,"added_sugar_per_100g":0.0,"fiber_per_100g":0.0,"saturated_fat_per_100g":0.0,"monounsaturated_fat_per_100g":0.0,"polyunsaturated_fat_per_100g":0.0,"trans_fat_per_100g":0.0,"cholesterol_per_100g":0.0,"caffeine_per_100g":0.0,"creatine_per_100g":0.0,"beta_alanine_per_100g":0.0,"l_citrulline_per_100g":0.0,"l_carnitine_per_100g":0.0,"l_arginine_per_100g":0.0,"taurine_per_100g":0.0,"betaine_per_100g":0.0,"hmb_per_100g":0.0,"sodium_per_100g":0.0,"potassium_per_100g":0.0,"calcium_per_100g":0.0,"iron_per_100g":0.0,"magnesium_per_100g":0.0,"zinc_per_100g":0.0,"vitamin_a_per_100g":0.0,"vitamin_c_per_100g":0.0,"vitamin_d_per_100g":0.0,"vitamin_b12_per_100g":0.0,"vitamin_e_per_100g":0.0,"vitamin_k_per_100g":0.0,"folate_per_100g":0.0,"omega_3_per_100g":0.0,"unit_options":[]}
     """
 
-    private static let nutrientUnitsInstruction = "Calories are integers. Protein/carbs/fat are decimal gram values when needed. serving_size_grams is the estimated weight in grams. Nutrients are numbers: sugar/fiber/fats/omega_3/creatine/beta_alanine/l_citrulline/l_carnitine/l_arginine/taurine/betaine/hmb in grams; cholesterol/caffeine/sodium/potassium/calcium/iron/magnesium/zinc/vitamin_c/vitamin_e in milligrams; vitamin_a/vitamin_d/vitamin_b12/vitamin_k/folate in micrograms. Only report sports-nutrition compounds when explicitly present in a label or description; otherwise use 0."
+    private static var nutrientUnitsInstruction: String {
+        foodNutrientInstruction(includingAminoAcids: AminoAcidSettings.isEnabled)
+    }
+
+    /// Amino acid keys join the shared nutrient instruction only while the opt-in setting is on (#491),
+    /// so everyone else keeps exactly the same food-analysis prompts.
+    static func foodNutrientInstruction(includingAminoAcids: Bool) -> String {
+        includingAminoAcids
+            ? baseNutrientUnitsInstruction + "\n" + AminoAcidEstimates.foodPromptInstruction
+            : baseNutrientUnitsInstruction
+    }
+
+    private static let baseNutrientUnitsInstruction = "Calories are integers. Protein/carbs/fat are decimal gram values when needed. serving_size_grams is the estimated weight in grams. Nutrients are numbers: sugar/fiber/fats/omega_3/creatine/beta_alanine/l_citrulline/l_carnitine/l_arginine/taurine/betaine/hmb in grams; cholesterol/caffeine/sodium/potassium/calcium/iron/magnesium/zinc/vitamin_c/vitamin_e in milligrams; vitamin_a/vitamin_d/vitamin_b12/vitamin_k/folate in micrograms. Only report sports-nutrition compounds when explicitly present in a label or description; otherwise use 0."
 
     private static let servingUnitOptionsInstruction = """
     unit_options is required and must always be a JSON array. Each item must be a complete object with this exact schema (the values are schema examples only; never copy them):
@@ -456,7 +468,7 @@ struct GeminiService {
     }
 
     static func analyzeNutritionLabel(image: UIImage) async throws -> NutritionLabelAnalysis {
-        let prompt = """
+        let basePrompt = """
         Read this nutrition label image. Extract the nutritional values per 100g (or per 100ml).
         If the label shows per-serving values, convert them to per-100g using the serving size.
 
@@ -469,6 +481,9 @@ struct GeminiService {
         \(Self.servingUnitOptionsInstruction)
         All nutrient and serving-size values should be numbers. If serving size or any nutrient is not available, use null. Only include a label serving unit such as slice, piece, tbsp, cup, ml, fl oz, can, or packet when its quantity is actually printed or otherwise visible on the label.
         """
+        let prompt = AminoAcidSettings.isEnabled
+            ? basePrompt + "\n" + AminoAcidEstimates.labelPromptInstruction
+            : basePrompt
         return try await runWithHostedQuota(.photoFood) {
             let text = try await callAI(prompt: prompt, image: image)
             let analysis = try parseNutritionLabel(from: text)
@@ -1459,7 +1474,10 @@ struct GeminiService {
         }
         let supplementalNutrients = Dictionary(uniqueKeysWithValues: SupplementalNutrient.allCases.compactMap { nutrient in
             double(nutrient.jsonKey).map { (nutrient.rawValue, $0) }
-        })
+        }).merging(
+            AminoAcidEstimates.parse(json, limitGrams: responseServingSizeGrams),
+            uniquingKeysWith: { current, _ in current }
+        )
         let ingredients = parseIngredientBreakdown(
             json["ingredients"],
             mealCalories: calories,
@@ -1638,7 +1656,10 @@ struct GeminiService {
         }
         let supplementalNutrientsPer100g = Dictionary(uniqueKeysWithValues: SupplementalNutrient.allCases.compactMap { nutrient in
             double("\(nutrient.jsonKey)_per_100g").map { (nutrient.rawValue, $0) }
-        })
+        }).merging(
+            AminoAcidEstimates.parse(json, keySuffix: "_per_100g", limitGrams: 100),
+            uniquingKeysWith: { current, _ in current }
+        )
         return NutritionLabelAnalysis(
             name: name, caloriesPer100g: caloriesPer100g, proteinPer100g: proteinPer100g,
             carbsPer100g: carbsPer100g, fatPer100g: fatPer100g,

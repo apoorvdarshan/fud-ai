@@ -549,6 +549,19 @@
     <string name="nutrition_label_taurine">Taurine</string>
     <string name="nutrition_label_betaine">Betaïne</string>
     <string name="nutrition_label_hmb">HMB</string>
+    <string name="nutrition_section_amino_acids">Aminozuren</string>
+    <string name="nutrition_label_histidine">Histidine</string>
+    <string name="nutrition_label_isoleucine">Isoleucine</string>
+    <string name="nutrition_label_leucine">Leucine</string>
+    <string name="nutrition_label_lysine">Lysine</string>
+    <string name="nutrition_label_methionine">Methionine</string>
+    <string name="nutrition_label_phenylalanine">Fenylalanine</string>
+    <string name="nutrition_label_threonine">Threonine</string>
+    <string name="nutrition_label_tryptophan">Tryptofaan</string>
+    <string name="nutrition_label_valine">Valine</string>
+    <string name="nutrition_amino_acids_ai_estimate">Aminozuren (AI-schatting)</string>
+    <string name="nutrition_amino_acids_reference">Referentie %1$s</string>
+    <string name="nutrition_amino_acids_note">AI-schattingen van voedsel dat is geanalyseerd terwijl Aminozuren aan stond. Referentiewaarden gebruiken de WHO/FAO/UNU 2007-behoefte voor volwassenen bij je lichaamsgewicht. Het is een referentie, geen doel.</string>
     <string name="nutrition_label_sodium">Natrium</string>
     <string name="nutrition_label_potassium">Kalium</string>
     <string name="nutrition_em_dash">—</string>
@@ -1415,6 +1428,7 @@
     <string name="settings_save_photos_to_gallery">Opslaan in Foto\u2019s</string>
     <string name="settings_save_photos_to_gallery_subtitle">Sla maaltijdfoto\u2019s ook op in je galerij bij het loggen</string>
     <string name="settings_other_nutrients_note">Los van de doelen voor calorieën, eiwitten, koolhydraten en vet.</string>
+    <string name="settings_amino_acids_note">Als dit aan staat, schatten AI-voedselanalyses ook de 9 essentiële aminozuren. De waarden zijn AI-schattingen, geen metingen.</string>
     <string name="settings_reset_defaults">Standaardwaarden herstellen</string>
     <string name="copy_from">Kopiëren van</string>
     <string name="macro_protein_format">Eiwit: %1$s</string>

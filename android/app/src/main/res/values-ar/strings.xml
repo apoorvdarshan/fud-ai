@@ -557,6 +557,19 @@
     <string name="nutrition_label_taurine">التورين</string>
     <string name="nutrition_label_betaine">البيتين</string>
     <string name="nutrition_label_hmb">HMB</string>
+    <string name="nutrition_section_amino_acids">الأحماض الأمينية</string>
+    <string name="nutrition_label_histidine">الهستيدين</string>
+    <string name="nutrition_label_isoleucine">الأيزوليوسين</string>
+    <string name="nutrition_label_leucine">الليوسين</string>
+    <string name="nutrition_label_lysine">الليسين</string>
+    <string name="nutrition_label_methionine">الميثيونين</string>
+    <string name="nutrition_label_phenylalanine">الفينيل ألانين</string>
+    <string name="nutrition_label_threonine">الثريونين</string>
+    <string name="nutrition_label_tryptophan">التريبتوفان</string>
+    <string name="nutrition_label_valine">الفالين</string>
+    <string name="nutrition_amino_acids_ai_estimate">الأحماض الأمينية (تقدير بالذكاء الاصطناعي)</string>
+    <string name="nutrition_amino_acids_reference">المرجع %1$s</string>
+    <string name="nutrition_amino_acids_note">تقديرات بالذكاء الاصطناعي من الأطعمة التي حُلّلت أثناء تفعيل الأحماض الأمينية. تستخدم القيم المرجعية احتياج البالغين وفق WHO/FAO/UNU 2007 لوزن جسمك. إنها قيم مرجعية وليست أهدافًا.</string>
     <string name="nutrition_label_sodium">الصوديوم</string>
     <string name="nutrition_label_potassium">البوتاسيوم</string>
     <string name="nutrition_em_dash">—</string>
@@ -1463,6 +1476,7 @@
     <string name="settings_save_photos_to_gallery">حفظ في الصور</string>
     <string name="settings_save_photos_to_gallery_subtitle">احفظ أيضًا صور الوجبات في المعرض عند التسجيل</string>
     <string name="settings_other_nutrients_note">منفصل عن أهداف السعرات الحرارية والبروتين والكربوهيدرات والدهون.</string>
+    <string name="settings_amino_acids_note">عند التفعيل، تقدّر تحليلات الطعام بالذكاء الاصطناعي أيضًا الأحماض الأمينية الأساسية التسعة. القيم تقديرات بالذكاء الاصطناعي وليست قياسات.</string>
     <string name="settings_reset_defaults">إعادة التعيين إلى الإعدادات الافتراضية</string>
     <string name="copy_from">النسخ من</string>
     <string name="macro_protein_format">البروتين: %1$s</string>

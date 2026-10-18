@@ -504,6 +504,19 @@
     <string name="nutrition_label_taurine">Таурин</string>
     <string name="nutrition_label_betaine">Бетаин</string>
     <string name="nutrition_label_hmb">HMB</string>
+    <string name="nutrition_section_amino_acids">Аминокислоты</string>
+    <string name="nutrition_label_histidine">Гистидин</string>
+    <string name="nutrition_label_isoleucine">Изолейцин</string>
+    <string name="nutrition_label_leucine">Лейцин</string>
+    <string name="nutrition_label_lysine">Лизин</string>
+    <string name="nutrition_label_methionine">Метионин</string>
+    <string name="nutrition_label_phenylalanine">Фенилаланин</string>
+    <string name="nutrition_label_threonine">Треонин</string>
+    <string name="nutrition_label_tryptophan">Триптофан</string>
+    <string name="nutrition_label_valine">Валин</string>
+    <string name="nutrition_amino_acids_ai_estimate">Аминокислоты (оценка ИИ)</string>
+    <string name="nutrition_amino_acids_reference">Ориентир %1$s</string>
+    <string name="nutrition_amino_acids_note">Оценки ИИ для продуктов, проанализированных при включённых аминокислотах. Справочные значения основаны на потребности взрослых по ВОЗ/ФАО/УООН 2007 для вашего веса. Это ориентир, а не цель.</string>
     <string name="nutrition_label_sodium">Натрий</string>
     <string name="nutrition_label_potassium">Калий</string>
     <string name="nutrition_em_dash">—</string>
@@ -1125,6 +1138,7 @@
     <string name="settings_other_nutrients">Другие нутриенты</string>
     <string name="settings_other_nutrient_goals">Цели по другим нутриентам</string>
     <string name="settings_other_nutrients_note">Отдельно от целей по калориям, белкам, углеводам и жирам.</string>
+    <string name="settings_amino_acids_note">Если включено, анализ еды с помощью ИИ также оценивает 9 незаменимых аминокислот. Значения — это оценки ИИ, а не измерения.</string>
     <string name="settings_reset_defaults">Сбросить по умолчанию</string>
     <string name="copy_from">Копировать из</string>
     <string name="macro_protein_format">Белки: %1$s</string>

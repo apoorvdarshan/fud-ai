@@ -551,6 +551,19 @@
     <string name="nutrition_label_taurine">Taurină</string>
     <string name="nutrition_label_betaine">Betaină</string>
     <string name="nutrition_label_hmb">HMB</string>
+    <string name="nutrition_section_amino_acids">Aminoacizi</string>
+    <string name="nutrition_label_histidine">Histidină</string>
+    <string name="nutrition_label_isoleucine">Izoleucină</string>
+    <string name="nutrition_label_leucine">Leucină</string>
+    <string name="nutrition_label_lysine">Lizină</string>
+    <string name="nutrition_label_methionine">Metionină</string>
+    <string name="nutrition_label_phenylalanine">Fenilalanină</string>
+    <string name="nutrition_label_threonine">Treonină</string>
+    <string name="nutrition_label_tryptophan">Triptofan</string>
+    <string name="nutrition_label_valine">Valină</string>
+    <string name="nutrition_amino_acids_ai_estimate">Aminoacizi (estimare AI)</string>
+    <string name="nutrition_amino_acids_reference">Referință %1$s</string>
+    <string name="nutrition_amino_acids_note">Estimări AI din alimentele analizate cu Aminoacizi activat. Valorile de referință folosesc necesarul pentru adulți OMS/FAO/UNU 2007 pentru greutatea ta corporală. Sunt o referință, nu o țintă.</string>
     <string name="nutrition_label_sodium">Sodiu</string>
     <string name="nutrition_label_potassium">Potasiu</string>
     <string name="nutrition_em_dash">—</string>
@@ -1427,6 +1440,7 @@
     <string name="settings_save_photos_to_gallery">Salvează în Fotografii</string>
     <string name="settings_save_photos_to_gallery_subtitle">Salvează și fotografiile meselor în galerie la înregistrare</string>
     <string name="settings_other_nutrients_note">Separat de obiectivele de calorii, proteine, carbohidrați și grăsimi.</string>
+    <string name="settings_amino_acids_note">Când este activat, analizele alimentelor cu AI estimează și cei 9 aminoacizi esențiali. Valorile sunt estimări AI, nu măsurători.</string>
     <string name="settings_reset_defaults">Resetează la valorile implicite</string>
     <string name="copy_from">Copiază din</string>
     <string name="macro_protein_format">Proteine: %1$s</string>

@@ -3105,6 +3105,7 @@ struct NutritionDetailView: View {
     @AppStorage(WaterSettings.dailyGoalKey) private var waterDailyGoal = WaterSettings.defaultDailyGoalMl
     @AppStorage(WaterSettings.unitKey) private var waterUnitRaw = WaterUnit.defaultUnit.rawValue
     @AppStorage(EnergyUnit.storageKey) private var energyUnit = EnergyUnit.defaultUnit
+    @AppStorage(AminoAcidSettings.enabledKey) private var aminoAcidsEnabled = false
     @State private var showHomeNutrientPicker = false
 
     private var userProfile: UserProfile { profileStore.profile }
@@ -3199,6 +3200,14 @@ struct NutritionDetailView: View {
                     }
                 }
                 .listRowBackground(AppColors.appCard)
+
+                if aminoAcidsEnabled {
+                    AminoAcidDailySection(
+                        totals: foodStore.aminoAcidTotals(for: date),
+                        bodyWeightKg: userProfile.weightKg
+                    )
+                    .listRowBackground(AppColors.appCard)
+                }
             }
             .scrollContentBackground(.hidden)
             .background(AppColors.appBackground)

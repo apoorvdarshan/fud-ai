@@ -548,6 +548,19 @@
     <string name="nutrition_label_taurine">타우린</string>
     <string name="nutrition_label_betaine">베타인</string>
     <string name="nutrition_label_hmb">HMB</string>
+    <string name="nutrition_section_amino_acids">아미노산</string>
+    <string name="nutrition_label_histidine">히스티딘</string>
+    <string name="nutrition_label_isoleucine">이소류신</string>
+    <string name="nutrition_label_leucine">류신</string>
+    <string name="nutrition_label_lysine">라이신</string>
+    <string name="nutrition_label_methionine">메티오닌</string>
+    <string name="nutrition_label_phenylalanine">페닐알라닌</string>
+    <string name="nutrition_label_threonine">트레오닌</string>
+    <string name="nutrition_label_tryptophan">트립토판</string>
+    <string name="nutrition_label_valine">발린</string>
+    <string name="nutrition_amino_acids_ai_estimate">아미노산 (AI 추정)</string>
+    <string name="nutrition_amino_acids_reference">참고값 %1$s</string>
+    <string name="nutrition_amino_acids_note">아미노산이 켜져 있는 동안 분석한 음식의 AI 추정치입니다. 참고값은 체중에 따른 WHO/FAO/UNU 2007 성인 필요량을 사용합니다. 목표가 아닌 참고값입니다.</string>
     <string name="nutrition_label_sodium">나트륨</string>
     <string name="nutrition_label_potassium">칼륨</string>
     <string name="nutrition_em_dash">—</string>
@@ -1406,6 +1419,7 @@
     <string name="settings_save_photos_to_gallery">사진에 저장</string>
     <string name="settings_save_photos_to_gallery_subtitle">기록할 때 식사 사진을 갤러리에도 저장</string>
     <string name="settings_other_nutrients_note">칼로리, 단백질, 탄수화물, 지방 목표와 별개입니다.</string>
+    <string name="settings_amino_acids_note">켜면 AI 음식 분석에서 9가지 필수 아미노산도 추정합니다. 값은 측정치가 아닌 AI 추정치입니다.</string>
     <string name="settings_reset_defaults">기본값으로 재설정</string>
     <string name="copy_from">복사할 날짜</string>
     <string name="macro_protein_format">단백질: %1$s</string>

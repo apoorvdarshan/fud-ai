@@ -75,6 +75,8 @@ data class HomeUiState(
     val optionalNutrientGoals: OptionalNutrientGoals = OptionalNutrientGoals.Default,
     val foodLogSortOrder: FoodLogSortOrder = FoodLogSortOrder.STANDARD,
     val preferGramsByDefault: Boolean = false,
+    /** Opt-in amino acid estimates (#491): shows their rows in nutrition views. */
+    val aminoAcidEstimatesEnabled: Boolean = false,
     val weightMetric: Boolean = true,
     val favoriteKeys: Set<String> = emptySet(),
     val waterTrackingEnabled: Boolean = false,
@@ -239,6 +241,10 @@ private val _stepsRefreshEpoch = MutableStateFlow(0)
             .onEach { preferGrams ->
                 _ui.value = _ui.value.copy(preferGramsByDefault = preferGrams)
             }
+            .launchIn(viewModelScope)
+
+        container.prefs.aminoAcidEstimatesEnabled
+            .onEach { enabled -> _ui.value = _ui.value.copy(aminoAcidEstimatesEnabled = enabled) }
             .launchIn(viewModelScope)
 
         container.prefs.weightUnit

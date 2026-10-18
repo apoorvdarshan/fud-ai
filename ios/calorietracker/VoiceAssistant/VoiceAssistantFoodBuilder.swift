@@ -55,7 +55,7 @@ enum VoiceAssistantFoodBuilder {
             polyunsaturatedFat: scaled(base.polyunsaturatedFat),
             cholesterol: scaled(base.cholesterol),
             caffeine: scaled(base.caffeine),
-            supplementalNutrients: base.supplementalNutrients.mapValues { round($0 * factor * 10) / 10 },
+            supplementalNutrients: AminoAcidEstimates.roundedSupplementalNutrients(base.supplementalNutrients, scaledBy: factor),
             sodium: scaled(base.sodium),
             potassium: scaled(base.potassium),
             transFat: scaled(base.transFat),
@@ -186,7 +186,9 @@ extension FoodEntry {
             polyunsaturatedFat: scaled(polyunsaturatedFat),
             cholesterol: scaled(cholesterol),
             caffeine: scaled(caffeine),
-            supplementalNutrients: factor == 1 ? supplementalNutrients : supplementalNutrients.mapValues { round($0 * factor * 10) / 10 },
+            supplementalNutrients: factor == 1
+                ? supplementalNutrients
+                : AminoAcidEstimates.roundedSupplementalNutrients(supplementalNutrients, scaledBy: factor),
             sodium: scaled(sodium),
             potassium: scaled(potassium),
             transFat: scaled(transFat),

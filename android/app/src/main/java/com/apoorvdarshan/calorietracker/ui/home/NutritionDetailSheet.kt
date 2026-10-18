@@ -24,6 +24,7 @@ import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.LocalFireDepartment
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Science
 import androidx.compose.material.icons.filled.Spa
 import androidx.compose.material.icons.filled.WaterDrop
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -50,6 +51,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.apoorvdarshan.calorietracker.R
+import com.apoorvdarshan.calorietracker.models.AminoAcid
+import com.apoorvdarshan.calorietracker.models.AminoAcidEstimates
 import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.HomeTopNutrient
 import com.apoorvdarshan.calorietracker.models.MacroValueFormatter
@@ -88,6 +91,7 @@ fun NutritionDetailSheet(
     waterCurrentMl: Int,
     waterGoalMl: Int,
     waterUnit: WaterUnit,
+    aminoAcidsEnabled: Boolean = false,
     onHomeTopNutrientsChange: (List<HomeTopNutrient>) -> Unit,
     onDismiss: () -> Unit
 ) {
@@ -123,6 +127,7 @@ fun NutritionDetailSheet(
     val vitaminK = entries.sumOf { it.vitaminK ?: 0.0 }
     val folate = entries.sumOf { it.folate ?: 0.0 }
     val omega3 = entries.sumOf { it.omega3 ?: 0.0 }
+    val aminoAcidTotals = AminoAcidEstimates.dailyTotals(entries)
     val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
     val sheetSurface = if (isDark) MaterialTheme.colorScheme.surface else Color(0xFFFAF3EE)
 
@@ -251,6 +256,30 @@ fun NutritionDetailSheet(
                             goal = "${optionalGoals.valueFor(nutrient.optionalNutrient)}"
                         )
                     }
+                }
+            }
+
+            if (aminoAcidsEnabled) {
+                item { SectionHeader(stringResource(R.string.nutrition_section_amino_acids)) }
+                item {
+                    Card {
+                        AminoAcid.values().forEachIndexed { index, aminoAcid ->
+                            if (index > 0) Hairline()
+                            AminoAcidDetailRow(
+                                label = stringResource(aminoAcid.displayNameRes),
+                                grams = aminoAcidTotals[aminoAcid],
+                                referenceGrams = profile?.weightKg?.let(aminoAcid::referenceGrams)
+                            )
+                        }
+                    }
+                }
+                item {
+                    Text(
+                        stringResource(R.string.nutrition_amino_acids_note),
+                        fontSize = 12.sp,
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f),
+                        modifier = Modifier.padding(horizontal = 14.dp)
+                    )
                 }
             }
         }
@@ -542,6 +571,41 @@ private fun DetailRow(
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f),
                 modifier = Modifier.padding(start = 6.dp)
             )
+        }
+    }
+}
+
+/** Daily amino acid estimate with its WHO/FAO/UNU reference (#491), never shown as a goal. */
+@Composable
+private fun AminoAcidDetailRow(label: String, grams: Double?, referenceGrams: Double?) {
+    val gramUnit = stringResource(R.string.unit_g)
+    Row(
+        Modifier.fillMaxWidth().padding(horizontal = 14.dp, vertical = 12.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        Icon(Icons.Filled.Science, null, tint = AppColors.Calorie, modifier = Modifier.size(20.dp))
+        Column(Modifier.weight(1f)) {
+            Text(label, fontSize = 17.sp)
+            if (referenceGrams != null) {
+                Text(
+                    stringResource(
+                        R.string.nutrition_amino_acids_reference,
+                        "${AminoAcidEstimates.formattedGrams(referenceGrams)} $gramUnit"
+                    ),
+                    fontSize = 12.sp,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f)
+                )
+            }
+        }
+        Row(verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(3.dp)) {
+            Text(
+                grams?.let(AminoAcidEstimates::formattedGrams) ?: stringResource(R.string.nutrition_em_dash),
+                fontSize = 17.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = AppColors.Calorie
+            )
+            Text(gramUnit, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f))
         }
     }
 }

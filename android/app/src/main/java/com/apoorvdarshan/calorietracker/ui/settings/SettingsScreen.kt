@@ -75,6 +75,7 @@ import androidx.compose.material.icons.outlined.CloudUpload
 import androidx.compose.material.icons.outlined.CalendarToday
 import androidx.compose.material.icons.outlined.Cake
 import androidx.compose.material.icons.outlined.DataUsage
+import androidx.compose.material.icons.outlined.Science
 import androidx.compose.material.icons.outlined.DeleteForever
 import androidx.compose.material.icons.outlined.DeleteSweep
 import androidx.compose.material.icons.outlined.Download
@@ -2409,6 +2410,30 @@ fun OptionalNutrientGoalsScreen(
             item {
                 Text(
                     stringResource(R.string.settings_other_nutrients_note),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.55f),
+                    modifier = Modifier.padding(start = 4.dp, top = 4.dp)
+                )
+            }
+
+            item {
+                FudGlassSurface(
+                    modifier = Modifier.fillMaxWidth(),
+                    cornerRadius = 22.dp,
+                    padding = 0.dp
+                ) {
+                    ToggleRow(
+                        label = stringResource(R.string.nutrition_section_amino_acids),
+                        checked = ui.aminoAcidEstimatesEnabled,
+                        icon = Icons.Outlined.Science,
+                        onChange = vm::setAminoAcidEstimatesEnabled
+                    )
+                }
+            }
+
+            item {
+                Text(
+                    stringResource(R.string.settings_amino_acids_note),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.55f),
                     modifier = Modifier.padding(start = 4.dp, top = 4.dp)

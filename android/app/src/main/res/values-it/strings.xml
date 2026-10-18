@@ -550,6 +550,19 @@
     <string name="nutrition_label_taurine">Taurina</string>
     <string name="nutrition_label_betaine">Betaina</string>
     <string name="nutrition_label_hmb">HMB</string>
+    <string name="nutrition_section_amino_acids">Amminoacidi</string>
+    <string name="nutrition_label_histidine">Istidina</string>
+    <string name="nutrition_label_isoleucine">Isoleucina</string>
+    <string name="nutrition_label_leucine">Leucina</string>
+    <string name="nutrition_label_lysine">Lisina</string>
+    <string name="nutrition_label_methionine">Metionina</string>
+    <string name="nutrition_label_phenylalanine">Fenilalanina</string>
+    <string name="nutrition_label_threonine">Treonina</string>
+    <string name="nutrition_label_tryptophan">Triptofano</string>
+    <string name="nutrition_label_valine">Valina</string>
+    <string name="nutrition_amino_acids_ai_estimate">Amminoacidi (stima dell’IA)</string>
+    <string name="nutrition_amino_acids_reference">Riferimento %1$s</string>
+    <string name="nutrition_amino_acids_note">Stime dell’IA dagli alimenti analizzati con Amminoacidi attivo. I valori di riferimento usano il fabbisogno per adulti OMS/FAO/UNU 2007 per il tuo peso corporeo. Sono un riferimento, non un obiettivo.</string>
     <string name="nutrition_label_sodium">Sodio</string>
     <string name="nutrition_label_potassium">Potassio</string>
     <string name="nutrition_em_dash">—</string>
@@ -1419,6 +1432,7 @@
     <string name="settings_save_photos_to_gallery">Salva in Foto</string>
     <string name="settings_save_photos_to_gallery_subtitle">Salva anche le foto dei pasti nella galleria quando registri</string>
     <string name="settings_other_nutrients_note">Separato dagli obiettivi di calorie, proteine, carboidrati e grassi.</string>
+    <string name="settings_amino_acids_note">Se attivo, le analisi degli alimenti con l’IA stimano anche i 9 amminoacidi essenziali. I valori sono stime dell’IA, non misurazioni.</string>
     <string name="settings_reset_defaults">Ripristina valori predefiniti</string>
     <string name="copy_from">Copia da</string>
     <string name="macro_protein_format">Proteine: %1$s</string>

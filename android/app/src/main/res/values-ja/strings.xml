@@ -548,6 +548,19 @@
     <string name="nutrition_label_taurine">タウリン</string>
     <string name="nutrition_label_betaine">ベタイン</string>
     <string name="nutrition_label_hmb">HMB</string>
+    <string name="nutrition_section_amino_acids">アミノ酸</string>
+    <string name="nutrition_label_histidine">ヒスチジン</string>
+    <string name="nutrition_label_isoleucine">イソロイシン</string>
+    <string name="nutrition_label_leucine">ロイシン</string>
+    <string name="nutrition_label_lysine">リシン</string>
+    <string name="nutrition_label_methionine">メチオニン</string>
+    <string name="nutrition_label_phenylalanine">フェニルアラニン</string>
+    <string name="nutrition_label_threonine">トレオニン</string>
+    <string name="nutrition_label_tryptophan">トリプトファン</string>
+    <string name="nutrition_label_valine">バリン</string>
+    <string name="nutrition_amino_acids_ai_estimate">アミノ酸（AI推定）</string>
+    <string name="nutrition_amino_acids_reference">参考値 %1$s</string>
+    <string name="nutrition_amino_acids_note">アミノ酸がオンの間に分析した食品のAI推定値です。参考値は、体重に基づくWHO/FAO/UNU 2007の成人必要量です。目標ではなく参考値です。</string>
     <string name="nutrition_label_sodium">ナトリウム</string>
     <string name="nutrition_label_potassium">カリウム</string>
     <string name="nutrition_em_dash">—</string>
@@ -1406,6 +1419,7 @@
     <string name="settings_save_photos_to_gallery">写真に保存</string>
     <string name="settings_save_photos_to_gallery_subtitle">記録時に食事写真をギャラリーにも保存</string>
     <string name="settings_other_nutrients_note">カロリー・タンパク質・炭水化物・脂質の目標とは別です。</string>
+    <string name="settings_amino_acids_note">オンにすると、AIによる食品分析で9種類の必須アミノ酸も推定します。値はAIによる推定で、測定値ではありません。</string>
     <string name="settings_reset_defaults">デフォルトに戻す</string>
     <string name="copy_from">コピー元</string>
     <string name="macro_protein_format">タンパク質：%1$s</string>

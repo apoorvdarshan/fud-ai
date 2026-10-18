@@ -555,6 +555,19 @@
     <string name="nutrition_label_taurine">Tauryna</string>
     <string name="nutrition_label_betaine">Betaina</string>
     <string name="nutrition_label_hmb">HMB</string>
+    <string name="nutrition_section_amino_acids">Aminokwasy</string>
+    <string name="nutrition_label_histidine">Histydyna</string>
+    <string name="nutrition_label_isoleucine">Izoleucyna</string>
+    <string name="nutrition_label_leucine">Leucyna</string>
+    <string name="nutrition_label_lysine">Lizyna</string>
+    <string name="nutrition_label_methionine">Metionina</string>
+    <string name="nutrition_label_phenylalanine">Fenyloalanina</string>
+    <string name="nutrition_label_threonine">Treonina</string>
+    <string name="nutrition_label_tryptophan">Tryptofan</string>
+    <string name="nutrition_label_valine">Walina</string>
+    <string name="nutrition_amino_acids_ai_estimate">Aminokwasy (szacunek AI)</string>
+    <string name="nutrition_amino_acids_reference">Wartość referencyjna %1$s</string>
+    <string name="nutrition_amino_acids_note">Szacunki AI z posiłków analizowanych przy włączonych aminokwasach. Wartości referencyjne to zapotrzebowanie dorosłych wg WHO/FAO/UNU 2007 dla Twojej masy ciała. To punkt odniesienia, a nie cel.</string>
     <string name="nutrition_label_sodium">Sód</string>
     <string name="nutrition_label_potassium">Potas</string>
     <string name="nutrition_em_dash">—</string>
@@ -1157,6 +1170,7 @@
     <string name="settings_other_nutrients">Inne składniki odżywcze</string>
     <string name="settings_other_nutrient_goals">Inne cele składników odżywczych</string>
     <string name="settings_other_nutrients_note">Oddzielnie od celów kalorii, białka, węglowodanów i tłuszczu.</string>
+    <string name="settings_amino_acids_note">Po włączeniu analizy jedzenia przez AI szacują też 9 aminokwasów egzogennych. Wartości są szacunkami AI, a nie pomiarami.</string>
     <string name="settings_reset_defaults">Przywróć ustawienia domyślne</string>
     <string name="copy_from">Kopiuj z</string>
     <string name="macro_protein_format">Białko: %1$s</string>

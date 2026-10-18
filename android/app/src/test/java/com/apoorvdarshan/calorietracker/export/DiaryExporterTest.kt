@@ -129,6 +129,18 @@ class DiaryExporterTest {
     }
 
     @Test
+    fun jsonKeepsMilligramsForAminoAcidEstimates() {
+        val entry = nutrientEntry().copy(supplementalNutrients = mapOf("tryptophan" to 0.011, "creatine" to 5.04))
+        val date = entry.timestamp.atZone(ZoneId.systemDefault()).toLocalDate()
+        val (_, json) = requireNotNull(build(entry, date, DiaryFormat.JSON))
+        val extras = JsonParser.parseString(json).asJsonObject["days"].asJsonArray[0].asJsonObject["meals"].asJsonArray[0]
+            .asJsonObject["items"].asJsonArray[0].asJsonObject["supplemental_nutrients_g"].asJsonObject
+
+        assertEquals(0.011, extras["tryptophan"].asDouble, 0.0)
+        assertEquals(5.0, extras["creatine"].asDouble, 0.0)
+    }
+
+    @Test
     fun csvAndMarkdownIncludeEveryStoredNutrient() {
         val entry = nutrientEntry()
         val date = entry.timestamp.atZone(ZoneId.systemDefault()).toLocalDate()

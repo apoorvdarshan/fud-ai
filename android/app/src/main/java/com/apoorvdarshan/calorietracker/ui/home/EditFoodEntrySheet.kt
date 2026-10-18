@@ -71,6 +71,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.apoorvdarshan.calorietracker.R
+import com.apoorvdarshan.calorietracker.models.AminoAcid
+import com.apoorvdarshan.calorietracker.models.AminoAcidEstimates
 import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.applyingIngredientChanges
 import com.apoorvdarshan.calorietracker.services.MealShare
@@ -108,6 +110,8 @@ import kotlin.math.roundToInt
 fun EditFoodEntrySheet(
     entry: FoodEntry,
     preferGramsByDefault: Boolean = false,
+    /** Opt-in amino acid estimates (#491) add their rows to More Nutrition. */
+    aminoAcidsEnabled: Boolean = false,
     profile: UserProfile? = null,
     isFavorite: Boolean,
     container: com.apoorvdarshan.calorietracker.AppContainer,
@@ -246,7 +250,11 @@ fun EditFoodEntrySheet(
         polyunsaturatedFat = scaledD(currentBaseEntry.polyunsaturatedFat),
         cholesterol = scaledD(currentBaseEntry.cholesterol),
         caffeine = scaledD(currentBaseEntry.caffeine),
-        supplementalNutrients = currentBaseEntry.supplementalNutrients.mapValues { (_, value) -> scaledD(value) ?: 0.0 },
+        supplementalNutrients = if (scale == 1.0) {
+            currentBaseEntry.supplementalNutrients
+        } else {
+            AminoAcidEstimates.roundedSupplementalNutrients(currentBaseEntry.supplementalNutrients, scale)
+        },
         sodium = scaledD(currentBaseEntry.sodium),
         potassium = scaledD(currentBaseEntry.potassium),
         transFat = scaledD(currentBaseEntry.transFat),
@@ -404,6 +412,18 @@ fun EditFoodEntrySheet(
                 scaledD(currentBaseEntry.supplementalNutrients[nutrient.storageKey]),
                 gUnit
             )
+        }
+        val aminoAcidRows = if (aminoAcidsEnabled) {
+            AminoAcid.values().mapNotNull { aminoAcid ->
+                currentBaseEntry.supplementalNutrients[aminoAcid.storageKey]?.let { value ->
+                    val scaled = if (scale == 1.0) value else {
+                        AminoAcidEstimates.roundedSupplementalNutrient(aminoAcid.storageKey, value * scale)
+                    }
+                    stringResource(aminoAcid.displayNameRes) to scaled
+                }
+            }
+        } else {
+            emptyList()
         }
 
         Box(modifier = Modifier.fillMaxWidth()) {
@@ -624,7 +644,7 @@ fun EditFoodEntrySheet(
             // chevron-down when expanded; matches iOS DisclosureGroup behavior.
             // (gUnit / mgUnit / micros hoisted above the LazyColumn so the
             // composable reads happen in @Composable scope.)
-            if (micros.any { it.second != null }) {
+            if (micros.any { it.second != null } || aminoAcidRows.isNotEmpty()) {
                 item {
                     SheetPillRow(onClick = { moreNutritionExpanded = !moreNutritionExpanded }) {
                         Text(stringResource(R.string.sheet_more_nutrition), fontSize = 17.sp, modifier = Modifier.weight(1f))
@@ -643,6 +663,14 @@ fun EditFoodEntrySheet(
                             present.forEachIndexed { idx, (label, value, unit) ->
                                 if (idx > 0) SheetHairline()
                                 SheetNutritionRow(label, String.format("%.1f", value), unit, dim = true)
+                            }
+                            if (aminoAcidRows.isNotEmpty()) {
+                                if (present.isNotEmpty()) SheetHairline()
+                                SheetAminoAcidHeader()
+                                aminoAcidRows.forEach { (label, value) ->
+                                    SheetHairline()
+                                    SheetNutritionRow(label, AminoAcidEstimates.formattedGrams(value), gUnit, dim = true)
+                                }
                             }
                         }
                     }

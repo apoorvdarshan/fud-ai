@@ -554,6 +554,18 @@ internal fun SheetNutritionRow(label: String, value: String, unit: String, dim: 
     }
 }
 
+/** Caption that introduces the opt-in amino acid estimates in a More Nutrition card (#491). */
+@Composable
+internal fun SheetAminoAcidHeader() {
+    Text(
+        stringResource(R.string.nutrition_amino_acids_ai_estimate),
+        fontSize = 13.sp,
+        fontWeight = FontWeight.SemiBold,
+        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f),
+        modifier = Modifier.padding(horizontal = 18.dp, vertical = 10.dp)
+    )
+}
+
 @Composable
 internal fun SheetHairline() {
     Box(

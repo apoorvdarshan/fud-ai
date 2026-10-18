@@ -3,6 +3,7 @@ package com.apoorvdarshan.calorietracker.export
 import com.apoorvdarshan.calorietracker.R
 
 import com.apoorvdarshan.calorietracker.models.WaterEntry
+import com.apoorvdarshan.calorietracker.models.AminoAcidEstimates
 import com.apoorvdarshan.calorietracker.models.EnergyUnit
 import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.FoodSource
@@ -181,7 +182,7 @@ object DiaryExporter {
                             monounsaturated_fat_g = e.monounsaturatedFat?.let { r1(it) },
                             polyunsaturated_fat_g = e.polyunsaturatedFat?.let { r1(it) },
                             cholesterol_mg = e.cholesterol?.let { r1(it) }, caffeine_mg = e.caffeine?.let { r1(it) }, sodium_mg = e.sodium?.let { r1(it) },
-                            supplemental_nutrients_g = e.supplementalNutrients.mapValues { (_, value) -> r1(value) },
+                            supplemental_nutrients_g = AminoAcidEstimates.roundedSupplementalNutrients(e.supplementalNutrients),
                             potassium_mg = e.potassium?.let { r1(it) }, trans_fat_g = e.transFat?.let { r1(it) },
                             calcium_mg = e.calcium?.let { r1(it) }, iron_mg = e.iron?.let { r1(it) },
                             magnesium_mg = e.magnesium?.let { r1(it) }, zinc_mg = e.zinc?.let { r1(it) },

@@ -1077,6 +1077,7 @@ CalorieHero(
         EditFoodEntrySheet(
             entry = entry,
             preferGramsByDefault = ui.preferGramsByDefault,
+            aminoAcidsEnabled = ui.aminoAcidEstimatesEnabled,
             profile = ui.profile,
             isFavorite = ui.isFavorite(entry),
             container = container,
@@ -1109,6 +1110,7 @@ CalorieHero(
             waterCurrentMl = ui.waterTodayMl,
             waterGoalMl = ui.waterDailyGoalMl,
             waterUnit = ui.waterUnit,
+            aminoAcidsEnabled = ui.aminoAcidEstimatesEnabled,
             onHomeTopNutrientsChange = vm::setHomeTopNutrients,
             onDismiss = { showNutritionDetail = false }
         )
@@ -1121,6 +1123,7 @@ CalorieHero(
             analysis = analysis,
             imageBytesList = ui.pendingImageBytesList,
             preferGramsByDefault = ui.preferGramsByDefault,
+            aminoAcidsEnabled = ui.aminoAcidEstimatesEnabled,
             profile = ui.profile,
             dayEntries = ui.todayEntries,
             allEntries = allEntries,

@@ -516,6 +516,19 @@
     <string name="nutrition_label_taurine">Taurin</string>
     <string name="nutrition_label_betaine">Betain</string>
     <string name="nutrition_label_hmb">HMB</string>
+    <string name="nutrition_section_amino_acids">Amino asitler</string>
+    <string name="nutrition_label_histidine">Histidin</string>
+    <string name="nutrition_label_isoleucine">İzolösin</string>
+    <string name="nutrition_label_leucine">Lösin</string>
+    <string name="nutrition_label_lysine">Lizin</string>
+    <string name="nutrition_label_methionine">Metiyonin</string>
+    <string name="nutrition_label_phenylalanine">Fenilalanin</string>
+    <string name="nutrition_label_threonine">Treonin</string>
+    <string name="nutrition_label_tryptophan">Triptofan</string>
+    <string name="nutrition_label_valine">Valin</string>
+    <string name="nutrition_amino_acids_ai_estimate">Amino asitler (Yapay Zeka tahmini)</string>
+    <string name="nutrition_amino_acids_reference">Referans %1$s</string>
+    <string name="nutrition_amino_acids_note">Amino asitler açıkken analiz edilen yiyeceklerden Yapay Zeka tahminleri. Referans değerler, vücut ağırlığınıza göre WHO/FAO/UNU 2007 yetişkin gereksinimini kullanır. Bunlar hedef değil, referanstır.</string>
     <string name="nutrition_label_sodium">Sodyum</string>
     <string name="nutrition_label_potassium">Potasyum</string>
     <string name="nutrition_em_dash">—</string>
@@ -1181,6 +1194,7 @@
     <string name="settings_other_nutrients">Diğer Besinler</string>
     <string name="settings_other_nutrient_goals">Diğer Besin Hedefleri</string>
     <string name="settings_other_nutrients_note">Kalori, protein, karbonhidrat ve yağ hedeflerinden ayrıdır.</string>
+    <string name="settings_amino_acids_note">Açıkken Yapay Zeka yemek analizleri 9 temel amino asidi de tahmin eder. Değerler ölçüm değil, Yapay Zeka tahminidir.</string>
     <string name="settings_reset_defaults">Varsayılanlara Sıfırla</string>
     <string name="copy_from">Şuradan Kopyala</string>
     <string name="macro_protein_format">Protein: %1$s</string>

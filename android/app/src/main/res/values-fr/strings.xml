@@ -550,6 +550,19 @@
     <string name="nutrition_label_taurine">Taurine</string>
     <string name="nutrition_label_betaine">Bétaïne</string>
     <string name="nutrition_label_hmb">HMB</string>
+    <string name="nutrition_section_amino_acids">Acides aminés</string>
+    <string name="nutrition_label_histidine">Histidine</string>
+    <string name="nutrition_label_isoleucine">Isoleucine</string>
+    <string name="nutrition_label_leucine">Leucine</string>
+    <string name="nutrition_label_lysine">Lysine</string>
+    <string name="nutrition_label_methionine">Méthionine</string>
+    <string name="nutrition_label_phenylalanine">Phénylalanine</string>
+    <string name="nutrition_label_threonine">Thréonine</string>
+    <string name="nutrition_label_tryptophan">Tryptophane</string>
+    <string name="nutrition_label_valine">Valine</string>
+    <string name="nutrition_amino_acids_ai_estimate">Acides aminés (estimation de l’IA)</string>
+    <string name="nutrition_amino_acids_reference">Référence %1$s</string>
+    <string name="nutrition_amino_acids_note">Estimations de l’IA pour les aliments analysés avec Acides aminés activé. Les valeurs de référence reprennent le besoin adulte OMS/FAO/UNU 2007 pour votre poids corporel. Ce sont des repères, pas des objectifs.</string>
     <string name="nutrition_label_sodium">Sodium</string>
     <string name="nutrition_label_potassium">Potassium</string>
     <string name="nutrition_em_dash">—</string>
@@ -1419,6 +1432,7 @@
     <string name="settings_save_photos_to_gallery">Enregistrer dans Photos</string>
     <string name="settings_save_photos_to_gallery_subtitle">Enregistrer aussi les photos de repas dans votre galerie lors de la saisie</string>
     <string name="settings_other_nutrients_note">Distinct des objectifs de calories, protéines, glucides et lipides.</string>
+    <string name="settings_amino_acids_note">Si activé, les analyses d’aliments par l’IA estiment aussi les 9 acides aminés essentiels. Les valeurs sont des estimations de l’IA, pas des mesures.</string>
     <string name="settings_reset_defaults">Rétablir les valeurs par défaut</string>
     <string name="copy_from">Copier depuis</string>
     <string name="macro_protein_format">Protéines : %1$s</string>

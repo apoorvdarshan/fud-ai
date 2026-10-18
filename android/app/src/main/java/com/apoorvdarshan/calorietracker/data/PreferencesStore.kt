@@ -95,7 +95,9 @@ data class FoodAiCallSettings(
     val baseUrl: String,
     val maxTokens: Int,
     val requestTimeoutSeconds: Int,
-    val openRouterReasoningEffort: OpenRouterReasoningEffort
+    val openRouterReasoningEffort: OpenRouterReasoningEffort,
+    /** Opt-in amino acid estimates (#491); off leaves food-analysis prompts unchanged. */
+    val aminoAcidEstimates: Boolean = false
 )
 
 internal fun executableAIProviderOrDefault(
@@ -756,6 +758,10 @@ class PreferencesStore(
         ds.edit { it[Keys.HOME_TOP_NUTRIENTS] = v }
     }
 
+    /** Opt-in essential amino acid estimates in AI food analyses (#491). Mirrors iOS "aminoAcidEstimatesEnabled"; off by default. */
+    val aminoAcidEstimatesEnabled: Flow<Boolean> = ds.data.map { it[Keys.AMINO_ACID_ESTIMATES_ENABLED] ?: false }
+    suspend fun setAminoAcidEstimatesEnabled(v: Boolean) { ds.edit { it[Keys.AMINO_ACID_ESTIMATES_ENABLED] = v } }
+
     /** Goals for nutrients outside the calorie/protein/carb/fat calculator. */
     val optionalNutrientGoals: Flow<OptionalNutrientGoals> = ds.data.map { prefs ->
         prefs[Keys.OPTIONAL_NUTRIENT_GOALS]?.let {
@@ -1106,7 +1112,8 @@ class PreferencesStore(
             ),
             openRouterReasoningEffort = OpenRouterReasoningEffort.fromValue(
                 prefs[Keys.OPENROUTER_REASONING_EFFORT]
-            )
+            ),
+            aminoAcidEstimates = prefs[Keys.AMINO_ACID_ESTIMATES_ENABLED] ?: false
         )
     }
 
@@ -1603,6 +1610,7 @@ class PreferencesStore(
         val WEIGHT_UNIT = stringPreferencesKey("weightUnit")
         val PROGRESS_INCLUDE_TODAY = booleanPreferencesKey("progressIncludeToday")
         val PREFER_GRAMS_BY_DEFAULT = booleanPreferencesKey("foodMeasurementPreferGramsByDefault")
+        val AMINO_ACID_ESTIMATES_ENABLED = booleanPreferencesKey("aminoAcidEstimatesEnabled")
         val PRODUCT_INFO_SHOWN = booleanPreferencesKey("productInfoShown")
         val PRODUCT_INFO_HIDDEN_FIELDS = stringPreferencesKey("productInfoHiddenFields")
         val SAVE_MEAL_PHOTOS_TO_GALLERY = booleanPreferencesKey("saveMealPhotosToGallery")

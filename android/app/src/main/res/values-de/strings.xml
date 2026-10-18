@@ -549,6 +549,19 @@
     <string name="nutrition_label_taurine">Taurin</string>
     <string name="nutrition_label_betaine">Betain</string>
     <string name="nutrition_label_hmb">HMB</string>
+    <string name="nutrition_section_amino_acids">Aminosäuren</string>
+    <string name="nutrition_label_histidine">Histidin</string>
+    <string name="nutrition_label_isoleucine">Isoleucin</string>
+    <string name="nutrition_label_leucine">Leucin</string>
+    <string name="nutrition_label_lysine">Lysin</string>
+    <string name="nutrition_label_methionine">Methionin</string>
+    <string name="nutrition_label_phenylalanine">Phenylalanin</string>
+    <string name="nutrition_label_threonine">Threonin</string>
+    <string name="nutrition_label_tryptophan">Tryptophan</string>
+    <string name="nutrition_label_valine">Valin</string>
+    <string name="nutrition_amino_acids_ai_estimate">Aminosäuren (KI-Schätzung)</string>
+    <string name="nutrition_amino_acids_reference">Referenz %1$s</string>
+    <string name="nutrition_amino_acids_note">KI-Schätzungen aus Lebensmitteln, die bei aktivierten Aminosäuren analysiert wurden. Die Referenzwerte nutzen den Erwachsenenbedarf nach WHO/FAO/UNU 2007 für dein Körpergewicht. Sie sind eine Referenz, kein Ziel.</string>
     <string name="nutrition_label_sodium">Natrium</string>
     <string name="nutrition_label_potassium">Kalium</string>
     <string name="nutrition_em_dash">—</string>
@@ -1415,6 +1428,7 @@
     <string name="settings_save_photos_to_gallery">In Fotos speichern</string>
     <string name="settings_save_photos_to_gallery_subtitle">Mahlzeitfotos beim Protokollieren auch in deiner Galerie speichern</string>
     <string name="settings_other_nutrients_note">Getrennt von den Zielen für Kalorien, Protein, Kohlenhydrate und Fett.</string>
+    <string name="settings_amino_acids_note">Wenn aktiviert, schätzen KI-Lebensmittelanalysen auch die 9 essenziellen Aminosäuren. Die Werte sind KI-Schätzungen, keine Messungen.</string>
     <string name="settings_reset_defaults">Auf Standardwerte zurücksetzen</string>
     <string name="copy_from">Kopieren von</string>
     <string name="macro_protein_format">Protein: %1$s</string>

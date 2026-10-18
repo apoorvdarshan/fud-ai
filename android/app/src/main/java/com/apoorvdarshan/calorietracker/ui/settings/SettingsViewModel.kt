@@ -113,6 +113,7 @@ data class SettingsUiState(
     val textFallbackModel: String = AIProvider.GEMINI.defaultTextModel,
     val textFallbackApiKeyMasked: String = "",
     val optionalNutrientGoals: OptionalNutrientGoals = OptionalNutrientGoals.Default,
+    val aminoAcidEstimatesEnabled: Boolean = false,
     val quickActions: List<QuickAction> = QuickAction.Defaults,
     val addMenuConfig: AddMenuConfig = AddMenuConfig.Default,
     /** False until DataStore has delivered the menu, so the editor cannot save the factory default over a real layout. */
@@ -184,6 +185,12 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
         viewModelScope.launch {
             container.prefs.optionalNutrientGoals.collect { goals ->
                 _ui.value = _ui.value.copy(optionalNutrientGoals = goals)
+            }
+        }
+
+        viewModelScope.launch {
+            container.prefs.aminoAcidEstimatesEnabled.collect { enabled ->
+                _ui.value = _ui.value.copy(aminoAcidEstimatesEnabled = enabled)
             }
         }
 
@@ -488,6 +495,13 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
         viewModelScope.launch {
             container.prefs.setOptionalNutrientGoals(goals)
             _ui.value = _ui.value.copy(optionalNutrientGoals = goals)
+        }
+    }
+
+    fun setAminoAcidEstimatesEnabled(v: Boolean) {
+        viewModelScope.launch {
+            container.prefs.setAminoAcidEstimatesEnabled(v)
+            _ui.value = _ui.value.copy(aminoAcidEstimatesEnabled = v)
         }
     }
 

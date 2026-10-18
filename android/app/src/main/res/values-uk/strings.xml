@@ -519,6 +519,19 @@
     <string name="nutrition_label_taurine">Таурин</string>
     <string name="nutrition_label_betaine">Бетаїн</string>
     <string name="nutrition_label_hmb">HMB</string>
+    <string name="nutrition_section_amino_acids">Амінокислоти</string>
+    <string name="nutrition_label_histidine">Гістидин</string>
+    <string name="nutrition_label_isoleucine">Ізолейцин</string>
+    <string name="nutrition_label_leucine">Лейцин</string>
+    <string name="nutrition_label_lysine">Лізин</string>
+    <string name="nutrition_label_methionine">Метіонін</string>
+    <string name="nutrition_label_phenylalanine">Фенілаланін</string>
+    <string name="nutrition_label_threonine">Треонін</string>
+    <string name="nutrition_label_tryptophan">Триптофан</string>
+    <string name="nutrition_label_valine">Валін</string>
+    <string name="nutrition_amino_acids_ai_estimate">Амінокислоти (оцінка ШІ)</string>
+    <string name="nutrition_amino_acids_reference">Орієнтир %1$s</string>
+    <string name="nutrition_amino_acids_note">Оцінки ШІ для страв, проаналізованих з увімкненими амінокислотами. Довідкові значення ґрунтуються на потребі дорослих за ВООЗ/ФАО/УООН 2007 для вашої ваги. Це орієнтир, а не ціль.</string>
     <string name="nutrition_label_sodium">Натрій</string>
     <string name="nutrition_label_potassium">Калій</string>
     <string name="nutrition_em_dash">—</string>
@@ -1199,6 +1212,7 @@
     <string name="settings_other_nutrients">Інші нутрієнти</string>
     <string name="settings_other_nutrient_goals">Цілі для інших нутрієнтів</string>
     <string name="settings_other_nutrients_note">Окремо від цілей щодо калорій, білків, вуглеводів і жирів.</string>
+    <string name="settings_amino_acids_note">Якщо увімкнено, аналіз їжі за допомогою ШІ також оцінює 9 незамінних амінокислот. Значення — це оцінки ШІ, а не вимірювання.</string>
     <string name="settings_reset_defaults">Скинути до стандартних</string>
     <string name="copy_from">Копіювати з</string>
     <string name="macro_protein_format">Білок: %1$s</string>

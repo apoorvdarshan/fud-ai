@@ -548,6 +548,19 @@
     <string name="nutrition_label_taurine">牛磺酸</string>
     <string name="nutrition_label_betaine">甜菜碱</string>
     <string name="nutrition_label_hmb">HMB</string>
+    <string name="nutrition_section_amino_acids">氨基酸</string>
+    <string name="nutrition_label_histidine">组氨酸</string>
+    <string name="nutrition_label_isoleucine">异亮氨酸</string>
+    <string name="nutrition_label_leucine">亮氨酸</string>
+    <string name="nutrition_label_lysine">赖氨酸</string>
+    <string name="nutrition_label_methionine">甲硫氨酸</string>
+    <string name="nutrition_label_phenylalanine">苯丙氨酸</string>
+    <string name="nutrition_label_threonine">苏氨酸</string>
+    <string name="nutrition_label_tryptophan">色氨酸</string>
+    <string name="nutrition_label_valine">缬氨酸</string>
+    <string name="nutrition_amino_acids_ai_estimate">氨基酸（AI 估算）</string>
+    <string name="nutrition_amino_acids_reference">参考值 %1$s</string>
+    <string name="nutrition_amino_acids_note">来自开启氨基酸期间所分析食物的 AI 估算值。参考值采用 WHO/FAO/UNU 2007 按你的体重计算的成人需要量，仅供参考，并非目标。</string>
     <string name="nutrition_label_sodium">钠</string>
     <string name="nutrition_label_potassium">钾</string>
     <string name="nutrition_em_dash">—</string>
@@ -1406,6 +1419,7 @@
     <string name="settings_save_photos_to_gallery">保存到照片</string>
     <string name="settings_save_photos_to_gallery_subtitle">记录时也将餐食照片保存到相册</string>
     <string name="settings_other_nutrients_note">与卡路里、蛋白质、碳水化合物和脂肪目标分开。</string>
+    <string name="settings_amino_acids_note">开启后，AI 食物分析还会估算 9 种必需氨基酸。数值为 AI 估算，并非实测。</string>
     <string name="settings_reset_defaults">恢复默认值</string>
     <string name="copy_from">复制自</string>
     <string name="macro_protein_format">蛋白质：%1$s</string>

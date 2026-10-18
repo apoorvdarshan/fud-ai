@@ -68,6 +68,8 @@ import androidx.compose.ui.unit.sp
 import com.apoorvdarshan.calorietracker.services.FoodImageDecoder
 import com.apoorvdarshan.calorietracker.services.FoodImageStore
 import com.apoorvdarshan.calorietracker.R
+import com.apoorvdarshan.calorietracker.models.AminoAcid
+import com.apoorvdarshan.calorietracker.models.AminoAcidEstimates
 import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.FoodSource
 import com.apoorvdarshan.calorietracker.models.MacroValueFormatter
@@ -106,6 +108,8 @@ fun FoodResultSheet(
     analysis: FoodAnalysis,
     imageBytesList: List<ByteArray> = emptyList(),
     preferGramsByDefault: Boolean = false,
+    /** Opt-in amino acid estimates (#491) add their rows to More Nutrition. */
+    aminoAcidsEnabled: Boolean = false,
     profile: UserProfile? = null,
     dayEntries: List<FoodEntry> = emptyList(),
     allEntries: List<FoodEntry> = dayEntries,
@@ -434,7 +438,7 @@ fun FoodResultSheet(
         polyunsaturatedFat = scaledD(editablePolyunsaturatedFat),
         cholesterol = scaledD(editableCholesterol),
         caffeine = scaledD(editableCaffeine),
-        supplementalNutrients = editableSupplementalNutrients.mapValues { (_, value) -> scaledD(value) ?: 0.0 },
+        supplementalNutrients = AminoAcidEstimates.roundedSupplementalNutrients(editableSupplementalNutrients, scale),
         sodium = scaledD(editableSodium),
         potassium = scaledD(editablePotassium),
         transFat = scaledD(editableTransFat),
@@ -787,6 +791,32 @@ fun FoodResultSheet(
                                 dim = true,
                                 onEdit = spec.onEdit
                             )
+                        }
+                        if (aminoAcidsEnabled) {
+                            SheetHairline()
+                            SheetAminoAcidHeader()
+                            AminoAcid.values().forEach { aminoAcid ->
+                                val value = editableSupplementalNutrients[aminoAcid.storageKey]?.let {
+                                    AminoAcidEstimates.roundedSupplementalNutrient(aminoAcid.storageKey, it * scale)
+                                }
+                                SheetHairline()
+                                ReviewNutritionValueRow(
+                                    label = stringResource(aminoAcid.displayNameRes),
+                                    displayValue = value?.let(AminoAcidEstimates::formattedGrams) ?: emDashText,
+                                    editValue = value?.let(AminoAcidEstimates::formattedGrams).orEmpty(),
+                                    unit = gUnit,
+                                    unlocked = nutritionUnlocked,
+                                    dim = true,
+                                    onEdit = { text ->
+                                        val base = baseOptionalFromText(text)
+                                        editableSupplementalNutrients = if (base == null) {
+                                            editableSupplementalNutrients - aminoAcid.storageKey
+                                        } else {
+                                            editableSupplementalNutrients + (aminoAcid.storageKey to base)
+                                        }
+                                    }
+                                )
+                            }
                         }
                     }
                 }

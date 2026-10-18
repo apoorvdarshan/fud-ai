@@ -13,6 +13,7 @@ struct EditFoodEntryView: View {
     // Base values (the entry's nutrition at its logged serving size)
     @State private var baseCalories: Int
     @AppStorage(EnergyUnit.storageKey) private var energyUnit = EnergyUnit.defaultUnit
+    @AppStorage(AminoAcidSettings.enabledKey) private var aminoAcidsEnabled = false
     @State private var baseProtein: Double
     @State private var baseCarbs: Double
     @State private var baseFat: Double
@@ -83,7 +84,9 @@ struct EditFoodEntryView: View {
     private var scaledCholesterol: Double? { baseCholesterol.map { scale == 1 ? $0 : round($0 * scale * 10) / 10 } }
     private var scaledCaffeine: Double? { baseCaffeine.map { scale == 1 ? $0 : round($0 * scale * 10) / 10 } }
     private var scaledSupplementalNutrients: [String: Double] {
-        baseSupplementalNutrients.mapValues { scale == 1 ? $0 : round($0 * scale * 10) / 10 }
+        scale == 1
+            ? baseSupplementalNutrients
+            : AminoAcidEstimates.roundedSupplementalNutrients(baseSupplementalNutrients, scaledBy: scale)
     }
     private var scaledSodium: Double? { baseSodium.map { scale == 1 ? $0 : round($0 * scale * 10) / 10 } }
     private var scaledPotassium: Double? { basePotassium.map { scale == 1 ? $0 : round($0 * scale * 10) / 10 } }
@@ -510,6 +513,17 @@ struct EditFoodEntryView: View {
                                     value: scaledSupplementalNutrients[nutrient.rawValue],
                                     unit: "g"
                                 )
+                            }
+                            if aminoAcidsEnabled {
+                                AminoAcidEstimateHeader()
+                                ForEach(AminoAcid.allCases) { aminoAcid in
+                                    OptionalNutritionDisplayRow(
+                                        label: aminoAcid.englishName,
+                                        value: scaledSupplementalNutrients[aminoAcid.storageKey],
+                                        unit: "g",
+                                        format: AminoAcidEstimates.formattedGrams
+                                    )
+                                }
                             }
                         }
                         .tint(AppColors.calorie)

@@ -549,6 +549,19 @@
     <string name="nutrition_label_taurine">Taurin</string>
     <string name="nutrition_label_betaine">Betain</string>
     <string name="nutrition_label_hmb">HMB</string>
+    <string name="nutrition_section_amino_acids">Amin turşuları</string>
+    <string name="nutrition_label_histidine">Histidin</string>
+    <string name="nutrition_label_isoleucine">İzoleysin</string>
+    <string name="nutrition_label_leucine">Leysin</string>
+    <string name="nutrition_label_lysine">Lizin</string>
+    <string name="nutrition_label_methionine">Metionin</string>
+    <string name="nutrition_label_phenylalanine">Fenilalanin</string>
+    <string name="nutrition_label_threonine">Treonin</string>
+    <string name="nutrition_label_tryptophan">Triptofan</string>
+    <string name="nutrition_label_valine">Valin</string>
+    <string name="nutrition_amino_acids_ai_estimate">Amin turşuları (AI təxmini)</string>
+    <string name="nutrition_amino_acids_reference">İstinad %1$s</string>
+    <string name="nutrition_amino_acids_note">Amin turşuları aktiv olarkən analiz edilmiş qidalardan AI təxminləri. İstinad dəyərləri bədən çəkinizə görə WHO/FAO/UNU 2007 böyüklər üçün tələbatından istifadə edir. Bunlar hədəf deyil, istinaddır.</string>
     <string name="nutrition_label_sodium">Natrium</string>
     <string name="nutrition_label_potassium">Kalium</string>
     <string name="nutrition_em_dash">—</string>
@@ -1415,6 +1428,7 @@
     <string name="settings_save_photos_to_gallery">Fotolarda saxla</string>
     <string name="settings_save_photos_to_gallery_subtitle">Qeyd edərkən yemək fotolarını qalereyada da saxla</string>
     <string name="settings_other_nutrients_note">Kalori, protein, karbohidrat və yağ hədəflərindən ayrıdır.</string>
+    <string name="settings_amino_acids_note">Aktiv olduqda AI qida analizləri 9 əvəzolunmaz amin turşusunu da təxmin edir. Dəyərlər ölçmə deyil, AI təxminləridir.</string>
     <string name="settings_reset_defaults">Defoltlara sıfırla</string>
     <string name="copy_from">Buradan kopyala</string>
     <string name="macro_protein_format">Protein: %1$s</string>

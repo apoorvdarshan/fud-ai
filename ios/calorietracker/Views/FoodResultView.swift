@@ -39,6 +39,7 @@ struct FoodResultView: View {
     @State private var isQuantityEditing = false
     @State private var nutritionUnlocked = false
     @AppStorage(EnergyUnit.storageKey) private var energyUnit = EnergyUnit.defaultUnit
+    @AppStorage(AminoAcidSettings.enabledKey) private var aminoAcidsEnabled = false
     @State private var editableCalories: Int
     @State private var editableProtein: Double
     @State private var editableCarbs: Double
@@ -104,7 +105,7 @@ struct FoodResultView: View {
     private var scaledCholesterol: Double? { editableCholesterol.map { round($0 * scale * 10) / 10 } }
     private var scaledCaffeine: Double? { editableCaffeine.map { round($0 * scale * 10) / 10 } }
     private var scaledSupplementalNutrients: [String: Double] {
-        editableSupplementalNutrients.mapValues { round($0 * scale * 10) / 10 }
+        AminoAcidEstimates.roundedSupplementalNutrients(editableSupplementalNutrients, scaledBy: scale)
     }
     private var scaledSodium: Double? { editableSodium.map { round($0 * scale * 10) / 10 } }
     private var scaledPotassium: Double? { editablePotassium.map { round($0 * scale * 10) / 10 } }
@@ -662,6 +663,29 @@ struct FoodResultView: View {
                                         }
                                     }
                                 )
+                            }
+                            if aminoAcidsEnabled {
+                                AminoAcidEstimateHeader()
+                                ForEach(AminoAcid.allCases) { aminoAcid in
+                                    let value = scaledSupplementalNutrients[aminoAcid.storageKey]
+                                    ReviewNutritionValueRow(
+                                        label: aminoAcid.englishName,
+                                        displayValue: value.map(AminoAcidEstimates.formattedGrams) ?? "—",
+                                        editValue: value.map(AminoAcidEstimates.formattedGrams) ?? "",
+                                        unit: "g",
+                                        isUnlocked: nutritionUnlocked,
+                                        dim: true,
+                                        onEdit: { text in
+                                            updateOptionalBaseDouble(from: text) { value in
+                                                if let value {
+                                                    editableSupplementalNutrients[aminoAcid.storageKey] = value
+                                                } else {
+                                                    editableSupplementalNutrients.removeValue(forKey: aminoAcid.storageKey)
+                                                }
+                                            }
+                                        }
+                                    )
+                                }
                             }
                         }
                         .tint(AppColors.calorie)
@@ -1709,13 +1733,14 @@ struct OptionalNutritionDisplayRow: View {
     let label: String
     let value: Double?
     let unit: String
+    var format: (Double) -> String = { String(format: "%.1f", $0) }
 
     var body: some View {
         HStack {
             Text(LocalizedDisplayText.text(label))
                 .foregroundStyle(.secondary)
             Spacer()
-            Text(value.map { String(format: "%.1f", $0) } ?? "—")
+            Text(value.map(format) ?? "—")
                 .fontWeight(.medium)
             Text(unit)
                 .foregroundStyle(.secondary)

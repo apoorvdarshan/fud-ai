@@ -1120,6 +1120,7 @@
     <string name="settings_other_nutrients">Další živiny</string>
     <string name="settings_other_nutrient_goals">Cíle dalších živin</string>
     <string name="settings_other_nutrients_note">Odděleno od cílů kalorií, bílkovin, sacharidů a tuků.</string>
+    <string name="settings_amino_acids_note">Když je zapnuto, analýzy jídla pomocí AI odhadnou také 9 esenciálních aminokyselin. Hodnoty jsou odhady AI, ne měření.</string>
     <string name="settings_reset_defaults">Obnovit výchozí</string>
     <string name="copy_from">Zkopírovat z</string>
     <string name="macro_protein_format">Bílkoviny: %1$s</string>
@@ -1369,6 +1370,19 @@
     <string name="nutrition_label_taurine">Taurin</string>
     <string name="nutrition_label_betaine">Betain</string>
     <string name="nutrition_label_hmb">HMB</string>
+    <string name="nutrition_section_amino_acids">Aminokyseliny</string>
+    <string name="nutrition_label_histidine">Histidin</string>
+    <string name="nutrition_label_isoleucine">Isoleucin</string>
+    <string name="nutrition_label_leucine">Leucin</string>
+    <string name="nutrition_label_lysine">Lysin</string>
+    <string name="nutrition_label_methionine">Methionin</string>
+    <string name="nutrition_label_phenylalanine">Fenylalanin</string>
+    <string name="nutrition_label_threonine">Threonin</string>
+    <string name="nutrition_label_tryptophan">Tryptofan</string>
+    <string name="nutrition_label_valine">Valin</string>
+    <string name="nutrition_amino_acids_ai_estimate">Aminokyseliny (odhad AI)</string>
+    <string name="nutrition_amino_acids_reference">Reference %1$s</string>
+    <string name="nutrition_amino_acids_note">Odhady AI z jídel analyzovaných se zapnutými aminokyselinami. Referenční hodnoty vycházejí z potřeby dospělých podle WHO/FAO/UNU 2007 pro tvou tělesnou hmotnost. Jde o referenci, ne o cíl.</string>
     <string name="settings_fasting_tracking">Sledování půstu</string>
     <string name="settings_walk_run_quick_log">Chůze a běh</string>
     <string name="settings_walk_run_quick_log_footer">Ve výchozím stavu vypnuto. Když je zapnuto, Chůze a Běh se objeví v nabídce + v Trénincích pro rychlý zápis venkovních aktivit.</string>

@@ -206,7 +206,7 @@ enum DiaryExporter {
                          polyunsaturated_fat_g: e.polyunsaturatedFat.map(r1),
                          cholesterol_mg: e.cholesterol.map(r1), caffeine_mg: e.caffeine.map(r1), sodium_mg: e.sodium.map(r1),
                          potassium_mg: e.potassium.map(r1),
-                         supplemental_nutrients_g: e.supplementalNutrients.mapValues(r1),
+                         supplemental_nutrients_g: AminoAcidEstimates.roundedSupplementalNutrients(e.supplementalNutrients),
                          trans_fat_g: e.transFat.map(r1),
                          calcium_mg: e.calcium.map(r1), iron_mg: e.iron.map(r1),
                          magnesium_mg: e.magnesium.map(r1), zinc_mg: e.zinc.map(r1),

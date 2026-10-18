@@ -4,6 +4,7 @@ struct OptionalNutrientGoalsSettingsView: View {
     let profile: UserProfile
 
     @AppStorage(OptionalNutrientGoals.storageKey) private var storedGoalsData = Data()
+    @AppStorage(AminoAcidSettings.enabledKey) private var aminoAcidsEnabled = false
     @State private var goals: OptionalNutrientGoals = .current
     @State private var editingNutrient: OptionalNutrient?
 
@@ -39,6 +40,21 @@ struct OptionalNutrientGoalsSettingsView: View {
                 Text("Other Nutrients")
             } footer: {
                 Text("Separate from calorie, protein, carb, and fat goals.")
+            }
+            .listRowBackground(AppColors.appCard)
+
+            Section {
+                Toggle(isOn: $aminoAcidsEnabled) {
+                    HStack(spacing: 12) {
+                        Image(systemName: "atom")
+                            .foregroundStyle(AppColors.calorie)
+                            .frame(width: 22)
+                        Text("Amino acids")
+                    }
+                }
+                .tint(AppColors.calorie)
+            } footer: {
+                Text("When on, AI food analyses also estimate the 9 essential amino acids. Values are AI estimates, not measurements.")
             }
             .listRowBackground(AppColors.appCard)
         }

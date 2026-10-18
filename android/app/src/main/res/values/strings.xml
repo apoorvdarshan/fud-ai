@@ -513,6 +513,19 @@
     <string name="nutrition_label_taurine">Taurine</string>
     <string name="nutrition_label_betaine">Betaine</string>
     <string name="nutrition_label_hmb">HMB</string>
+    <string name="nutrition_section_amino_acids">Amino acids</string>
+    <string name="nutrition_label_histidine">Histidine</string>
+    <string name="nutrition_label_isoleucine">Isoleucine</string>
+    <string name="nutrition_label_leucine">Leucine</string>
+    <string name="nutrition_label_lysine">Lysine</string>
+    <string name="nutrition_label_methionine">Methionine</string>
+    <string name="nutrition_label_phenylalanine">Phenylalanine</string>
+    <string name="nutrition_label_threonine">Threonine</string>
+    <string name="nutrition_label_tryptophan">Tryptophan</string>
+    <string name="nutrition_label_valine">Valine</string>
+    <string name="nutrition_amino_acids_ai_estimate">Amino acids (AI estimate)</string>
+    <string name="nutrition_amino_acids_reference">Reference %1$s</string>
+    <string name="nutrition_amino_acids_note">AI estimates from foods analyzed while Amino acids is on. Reference values use the WHO/FAO/UNU 2007 adult requirement for your body weight. They are a reference, not a target.</string>
     <string name="nutrition_label_sodium">Sodium</string>
     <string name="nutrition_label_potassium">Potassium</string>
     <string name="nutrition_em_dash">—</string>
@@ -1177,6 +1190,7 @@
     <string name="settings_other_nutrients">Other Nutrients</string>
     <string name="settings_other_nutrient_goals">Other Nutrient Goals</string>
     <string name="settings_other_nutrients_note">Separate from calorie, protein, carb, and fat goals.</string>
+    <string name="settings_amino_acids_note">When on, AI food analyses also estimate the 9 essential amino acids. Values are AI estimates, not measurements.</string>
     <string name="settings_reset_defaults">Reset to Defaults</string>
     <string name="copy_from">Copy From</string>
     <string name="macro_protein_format">Protein: %1$s</string>

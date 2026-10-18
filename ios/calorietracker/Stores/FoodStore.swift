@@ -240,6 +240,10 @@ class FoodStore {
         }
     }
 
+    func aminoAcidTotals(for date: Date) -> [AminoAcid: Double] {
+        AminoAcidEstimates.dailyTotals(entries(for: date))
+    }
+
     func sodium(for date: Date) -> Double {
         entries(for: date).reduce(0) { $0 + ($1.sodium ?? 0) }
     }

@@ -765,6 +765,7 @@
 
     <string name="settings_health_connect">Health Connect</string>
     <string name="settings_health_history_access">Старые записи веса</string>
+    <string name="settings_health_exercise_access">Тренировки из других приложений</string>
     <string name="settings_manage_health_access">Управление доступом Health Connect</string>
     <string name="settings_permissions">Разрешения</string>
     <string name="settings_clear_food_log">Очистить дневник питания</string>

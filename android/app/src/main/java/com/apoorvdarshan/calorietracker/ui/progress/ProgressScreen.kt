@@ -229,6 +229,9 @@ private fun MyProgressContent(container: AppContainer) {
     val includeToday by container.prefs.progressIncludeToday.collectAsState(initial = true)
     val weekStartsOnMonday by container.prefs.weekStartsOnMonday.collectAsState(initial = true)
     val workoutDayPlans by container.workoutRepository.dayPlans.collectAsState(initial = emptyMap())
+    // Read-only sessions other apps shared with Health Connect (#479); never part of the burn math.
+    val importedWorkouts by container.importedHealthWorkoutRepository.workouts.collectAsState(initial = emptyList())
+    val heightUnit by container.prefs.heightUnit.collectAsState(initial = "cm")
     // null until DataStore answers, so a restored Steps selection isn't reset early.
     val healthConnectEnabled by container.prefs.healthConnectEnabled.collectAsState(initial = null)
     val prefsScope = rememberCoroutineScope()
@@ -267,6 +270,7 @@ private fun MyProgressContent(container: AppContainer) {
     var showAllWeights by remember { mutableStateOf(false) }
     var showAllBodyFats by remember { mutableStateOf(false) }
     var showAllWorkouts by remember { mutableStateOf(false) }
+    var showImportedWorkouts by remember { mutableStateOf(false) }
     var workoutPendingDelete by remember { mutableStateOf<WorkoutSession?>(null) }
     var selectedMetric by rememberSaveable { mutableStateOf(ProgressMetric.WEIGHT) }
 
@@ -316,7 +320,7 @@ private fun MyProgressContent(container: AppContainer) {
     }
     val availableMetrics = availableProgressMetrics(
         bodyFatAvailable = bodyFatAvailable,
-        workoutHistoryAvailable = reliableWorkoutBurnSessions.isNotEmpty(),
+        workoutHistoryAvailable = reliableWorkoutBurnSessions.isNotEmpty() || importedWorkouts.isNotEmpty(),
         stepsAvailable = stepsReadable == true
     )
     LaunchedEffect(availableMetrics, selectedMetric, stepsReadable) {
@@ -447,7 +451,14 @@ private fun MyProgressContent(container: AppContainer) {
                             goalFraction = ui.profile?.goalBodyFatPercentage,
                             onLogBodyFat = { showAddBodyFatDialog = true }
                         )
-                        ProgressMetric.WORKOUTS -> WorkoutProgressSection(filteredWorkouts)
+                        ProgressMetric.WORKOUTS -> Column(verticalArrangement = Arrangement.spacedBy(18.dp)) {
+                            val showsCalculated = reliableWorkoutBurnSessions.isNotEmpty() || importedWorkouts.isEmpty()
+                            if (showsCalculated) WorkoutProgressSection(filteredWorkouts)
+                            if (importedWorkouts.isNotEmpty()) {
+                                if (showsCalculated) HorizontalDivider()
+                                ImportedWorkoutProgressSection(importedWorkouts, rangeStartDate, rangeEndDate)
+                            }
+                        }
                         ProgressMetric.STEPS -> StepsProgressSection(
                             days = stepDays,
                             chartStart = rangeStartDate.takeIf { range.supportsPeriodNavigation },
@@ -468,9 +479,16 @@ private fun MyProgressContent(container: AppContainer) {
                 ProgressMetric.BODY_FAT -> if (ui.bodyFatEntries.isNotEmpty()) {
                     item { BodyFatHistoryLink(ui.bodyFatEntries.size) { showAllBodyFats = true } }
                 }
-                ProgressMetric.WORKOUTS -> if (reliableWorkoutBurnSessions.isNotEmpty()) {
-                    item {
-                        WorkoutHistoryLink(reliableWorkoutBurnSessions.size) { showAllWorkouts = true }
+                ProgressMetric.WORKOUTS -> {
+                    if (reliableWorkoutBurnSessions.isNotEmpty()) {
+                        item {
+                            WorkoutHistoryLink(reliableWorkoutBurnSessions.size) { showAllWorkouts = true }
+                        }
+                    }
+                    if (importedWorkouts.isNotEmpty()) {
+                        item {
+                            ImportedWorkoutHistoryLink(importedWorkouts.size) { showImportedWorkouts = true }
+                        }
                     }
                 }
                 ProgressMetric.STEPS -> Unit
@@ -595,6 +613,13 @@ private fun MyProgressContent(container: AppContainer) {
             entries = reliableWorkoutBurnSessions,
             onRequestDelete = { workoutPendingDelete = it },
             onDismiss = { showAllWorkouts = false }
+        )
+    }
+    if (showImportedWorkouts) {
+        ImportedWorkoutHistorySheet(
+            workouts = importedWorkouts,
+            useMetricDistance = heightUnit != "ftin",
+            onDismiss = { showImportedWorkouts = false }
         )
     }
     workoutPendingDelete?.let { session ->

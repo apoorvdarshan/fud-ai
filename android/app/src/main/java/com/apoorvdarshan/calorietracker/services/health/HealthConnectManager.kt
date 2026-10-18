@@ -13,6 +13,7 @@ import androidx.health.connect.client.changes.UpsertionChange
 import androidx.health.connect.client.permission.HealthPermission
 import androidx.health.connect.client.records.ActiveCaloriesBurnedRecord
 import androidx.health.connect.client.records.BodyFatRecord
+import androidx.health.connect.client.records.ExerciseSessionRecord
 import androidx.health.connect.client.records.MealType as HCMealType
 import androidx.health.connect.client.records.NutritionRecord
 import androidx.health.connect.client.records.StepsRecord
@@ -210,13 +211,15 @@ class HealthConnectManager(
     private val activeEnergyWrite = HealthPermission.getWritePermission(ActiveCaloriesBurnedRecord::class)
     private val totalEnergyRead = HealthPermission.getReadPermission(TotalCaloriesBurnedRecord::class)
     private val stepsRead = HealthPermission.getReadPermission(StepsRecord::class)
+    /** Optional: imports other apps' workouts (Garmin Connect, Strava, …) read-only. */
+    private val exerciseRead = HealthPermission.getReadPermission(ExerciseSessionRecord::class)
     private val backgroundRead = HealthPermission.PERMISSION_READ_HEALTH_DATA_IN_BACKGROUND
     private val historyRead = HealthPermission.PERMISSION_READ_HEALTH_DATA_HISTORY
 
     val permissions: Set<String> = setOf(
         weightRead, weightWrite, nutritionRead, nutritionWrite,
         bodyFatRead, bodyFatWrite, activeEnergyRead, activeEnergyWrite, totalEnergyRead,
-        stepsRead
+        stepsRead, exerciseRead
     )
 
     /** What the connect flows request: [permissions] plus history access where supported.
@@ -299,6 +302,11 @@ class HealthConnectManager(
     suspend fun hasActiveEnergyWrite(): Boolean = activeEnergyWrite in granted()
     suspend fun hasEnergyRead(): Boolean = granted().let { activeEnergyRead in it && totalEnergyRead in it }
     suspend fun hasStepsRead(): Boolean = stepsRead in granted()
+    suspend fun hasExerciseRead(): Boolean = exerciseRead in granted()
+
+    /** Exercise read access, or null when the permission probe itself failed — so a transient
+     *  Health Connect outage is never mistaken for a revoked grant (which clears imports). */
+    suspend fun exerciseReadGrant(): Boolean? = grantedOrNull()?.let { exerciseRead in it }
     suspend fun hasBackgroundRead(): Boolean = backgroundRead in granted()
 
     /** One permission read snapshotting every capability — used by the read-sync coordinator. */
@@ -314,7 +322,8 @@ class HealthConnectManager(
             energyRead = activeEnergyRead in g && totalEnergyRead in g,
             activeEnergyWrite = activeEnergyWrite in g,
             stepsRead = stepsRead in g,
-            historyRead = historyRead in g
+            historyRead = historyRead in g,
+            exerciseRead = exerciseRead in g
         )
     }
 
@@ -719,6 +728,85 @@ class HealthConnectManager(
         return out.sortedWith(compareBy<HealthWorkoutBurn> { it.diaryDateKey }.thenBy { it.healthSyncVersion })
     }
 
+    // -- Imported workouts -------------------------------------------------
+
+    /**
+     * Exercise sessions other apps wrote in [from, to), oldest first. Sessions from any Fud AI
+     * build are left out. Null when Health Connect is unavailable or a page read failed, so a
+     * partial read never looks like deleted sessions.
+     */
+    suspend fun readExternalExerciseSessions(from: Instant, to: Instant): List<HealthExerciseSession>? {
+        val c = client ?: return null
+        if (!from.isBefore(to)) return emptyList()
+        return readAllPages { pageToken ->
+            val response = c.readRecords(
+                ReadRecordsRequest(
+                    recordType = ExerciseSessionRecord::class,
+                    timeRangeFilter = TimeRangeFilter.between(from, to),
+                    pageToken = pageToken
+                )
+            )
+            response.records.mapNotNull { it.toExternalHealthExerciseSession(context.packageName) } to
+                response.pageToken
+        }?.sortedBy { it.startTime }
+    }
+
+    /**
+     * Active calories for one imported session (see [attributedSessionActiveCalories]): the
+     * recording app's own Active Calories Burned over the session, else every other app's
+     * active energy in that window minus Fud AI's own calculated burns. Health Connect's
+     * aggregation de-duplicates overlapping sources and prorates partial records.
+     */
+    suspend fun readSessionActiveCalories(session: HealthExerciseSession): SessionCalorieLookup {
+        val c = client ?: return SessionCalorieLookup.Failed
+        val window = TimeRangeFilter.between(session.startTime, session.endTime)
+        val metric = ActiveCaloriesBurnedRecord.ACTIVE_CALORIES_TOTAL
+        return try {
+            val sameOrigin = c.aggregate(
+                AggregateRequest(
+                    metrics = setOf(metric),
+                    timeRangeFilter = window,
+                    dataOriginFilter = setOf(DataOrigin(session.originPackage))
+                )
+            )[metric]?.inKilocalories
+            if (sameOrigin != null && sameOrigin > 0.0) {
+                SessionCalorieLookup.Resolved(attributedSessionActiveCalories(sameOrigin, null, null))
+            } else {
+                val all = c.aggregate(AggregateRequest(metrics = setOf(metric), timeRangeFilter = window))
+                val allKcal = all[metric]?.inKilocalories
+                // Only pay for the third read when a Fud AI build actually wrote into this window.
+                val includesOwnBurn = all.dataOrigins.any { isFudAiHealthOrigin(it.packageName, context.packageName) }
+                val ownKcal = if (allKcal != null && includesOwnBurn) {
+                    val ownOrigins = (FUD_AI_HEALTH_PACKAGES + context.packageName).mapTo(mutableSetOf(), ::DataOrigin)
+                    c.aggregate(
+                        AggregateRequest(
+                            metrics = setOf(metric),
+                            timeRangeFilter = window,
+                            dataOriginFilter = ownOrigins
+                        )
+                    )[metric]?.inKilocalories
+                } else {
+                    0.0
+                }
+                SessionCalorieLookup.Resolved(attributedSessionActiveCalories(sameOrigin, allKcal, ownKcal))
+            }
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            // Log only the failure class; session values stay private.
+            Log.w(TAG, "Health Connect session calories read failed: ${e.javaClass.simpleName}")
+            SessionCalorieLookup.Failed
+        }
+    }
+
+    /** The installed app's name for a Health Connect data origin, or null when Android
+     *  cannot show it (uninstalled, or not visible to Fud AI). */
+    fun appLabel(packageName: String): String? = runCatching {
+        val pm = context.packageManager
+        @Suppress("DEPRECATION")
+        pm.getApplicationLabel(pm.getApplicationInfo(packageName, 0)).toString().trim()
+    }.getOrNull()?.takeIf { it.isNotEmpty() }
+
     // -- Energy burn summary --------------------------------------------
 
     /** Completed-day energy history for goal evidence. The active-calorie value has this app's data
@@ -1009,7 +1097,9 @@ class HealthConnectManager(
          *  v3 = added energy burn read permissions.
          *  v4 = added NutritionRecord read permission (food-log restore).
          *  v5 = added ActiveCaloriesBurnedRecord write permission (workout burn sync).
-         *  v6 = added StepsRecord read permission (daily steps on Home). */
+         *  v6 = added StepsRecord read permission (daily steps on Home).
+         *  ExerciseSessionRecord read (imported workouts) is optional and deliberately does
+         *  not bump this: Settings offers it on its own row instead of re-prompting everyone. */
         const val CURRENT_TYPES_VERSION = 6
     }
 }
@@ -1062,7 +1152,9 @@ data class HealthCapabilities(
     val activeEnergyWrite: Boolean,
     val stepsRead: Boolean,
     /** PERMISSION_READ_HEALTH_DATA_HISTORY: reads may go past the 30-day pre-grant window. */
-    val historyRead: Boolean = false
+    val historyRead: Boolean = false,
+    /** Optional ExerciseSessionRecord read: imports other apps' workouts. */
+    val exerciseRead: Boolean = false
 )
 
 data class WorkoutBurnIdentity(

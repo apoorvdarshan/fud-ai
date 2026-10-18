@@ -24,6 +24,8 @@ object CloudBackupPolicy {
         "healthChangesToken",
         "healthChangesTokenTypes",
         "healthFoodRestoreDone",
+        // Copies of other apps' Health Connect workouts; re-imported from Health Connect.
+        "importedHealthWorkoutsV1",
         "widget_snapshot_v1",
         "lastNotifiedUpdateVersion",
         "cloudBackupFileId",

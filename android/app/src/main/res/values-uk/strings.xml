@@ -921,6 +921,7 @@
 
     <string name="settings_health_connect">Health Connect</string>
     <string name="settings_health_history_access">Старіші записи ваги</string>
+    <string name="settings_health_exercise_access">Тренування з інших застосунків</string>
     <string name="settings_manage_health_access">Керувати доступом до Health Connect</string>
     <string name="settings_permissions">Дозволи</string>
     <string name="settings_energy_goals">Цілі спалювання енергії</string>

@@ -825,6 +825,7 @@
 
     <string name="settings_health_connect">Health Connect</string>
     <string name="settings_health_history_access">Pesagens anteriores</string>
+    <string name="settings_health_exercise_access">Treinos de outros apps</string>
     <string name="settings_manage_health_access">Gerenciar acesso ao Health Connect</string>
     <string name="settings_permissions">Permissões</string>
     <string name="settings_energy_goals">Metas de queima de energia</string>

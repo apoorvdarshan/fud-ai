@@ -818,6 +818,7 @@
 
     <string name="settings_health_connect">Health Connect</string>
     <string name="settings_health_history_access">過去の体重記録</string>
+    <string name="settings_health_exercise_access">他のアプリのワークアウト</string>
     <string name="settings_manage_health_access">Health Connectへのアクセスを管理</string>
     <string name="settings_permissions">アクセス許可</string>
     <string name="settings_energy_goals">消費エネルギーの目標</string>

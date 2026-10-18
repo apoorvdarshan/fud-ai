@@ -859,6 +859,7 @@
 
     <string name="settings_health_connect">Health Connect</string>
     <string name="settings_health_history_access">Starší záznamy hmotnosti</string>
+    <string name="settings_health_exercise_access">Tréninky z jiných aplikací</string>
     <string name="settings_manage_health_access">Spravovat přístup Health Connect</string>
     <string name="settings_permissions">Oprávnění</string>
     <string name="settings_energy_goals">Cíle podle spálené energie</string>

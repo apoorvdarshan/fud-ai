@@ -33,6 +33,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.apoorvdarshan.calorietracker.R
+import com.apoorvdarshan.calorietracker.models.ImportedHealthWorkout
 import com.apoorvdarshan.calorietracker.models.WorkoutSession
 import com.apoorvdarshan.calorietracker.ui.components.LocalEnergyUnit
 import com.apoorvdarshan.calorietracker.ui.components.energyText
@@ -95,6 +96,82 @@ internal fun preferredDailyWorkoutBurns(entries: List<WorkoutSession>): List<Pai
                 ?.let { date to it }
         }
         .sortedBy(Pair<LocalDate, Int>::first)
+
+/**
+ * Sessions other apps shared with Health Connect over the selected window
+ * (iOS ImportedHealthWorkoutChartSection). Display-only: these calories never feed
+ * Energy Burn goals or Fud AI's own calculated burns.
+ */
+@Composable
+internal fun ImportedWorkoutProgressSection(
+    workouts: List<ImportedHealthWorkout>,
+    start: LocalDate,
+    end: LocalDate
+) {
+    val days = remember(workouts, start, end) { importedWorkoutDays(workouts, start, end) }
+    Column(verticalArrangement = Arrangement.spacedBy(14.dp)) {
+        Text(
+            stringResource(R.string.health_workouts_title),
+            fontSize = 17.sp,
+            fontWeight = FontWeight.SemiBold
+        )
+        if (days.isEmpty()) {
+            ProgressEmptyText(stringResource(R.string.health_workouts_no_range))
+        } else {
+            val summary = remember(days) { importedWorkoutSummary(days) }
+            ProgressStatRow(
+                listOf(
+                    stringResource(R.string.health_workouts_stat_sessions) to summary.sessions.toString(),
+                    stringResource(R.string.progress_workout_stat_total) to energyText(summary.totalCalories),
+                    stringResource(R.string.progress_workout_stat_average) to energyText(summary.averageCalories),
+                    stringResource(R.string.progress_workout_stat_days) to days.size.toString()
+                )
+            )
+            val dateFormatter = remember {
+                DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).withLocale(Locale.getDefault())
+            }
+            DailyBarChart(
+                values = days.map { it.date to it.sessionCount },
+                contentDescription = stringResource(
+                    R.string.health_workouts_chart_description,
+                    dateFormatter.format(days.first().date),
+                    dateFormatter.format(days.last().date),
+                    summary.sessions
+                ),
+                dateFormatter = dateFormatter
+            )
+        }
+        ProgressFootnote(stringResource(R.string.health_workouts_footnote))
+    }
+}
+
+internal data class ImportedWorkoutDay(val date: LocalDate, val sessionCount: Int, val totalCalories: Int)
+
+/** Sessions and active calories per diary day from [start] through [end], oldest first;
+ *  only days with sessions (iOS ImportedHealthWorkoutAggregation.daily). */
+internal fun importedWorkoutDays(
+    workouts: List<ImportedHealthWorkout>,
+    start: LocalDate,
+    end: LocalDate
+): List<ImportedWorkoutDay> =
+    workouts.mapNotNull { workout -> workout.diaryDate?.takeIf { it in start..end }?.let { it to workout } }
+        .groupBy({ it.first }, { it.second })
+        .map { (date, sessions) ->
+            ImportedWorkoutDay(date, sessions.size, sessions.sumOf { it.activeCalories ?: 0 })
+        }
+        .sortedBy { it.date }
+
+internal data class ImportedWorkoutSummary(val sessions: Int, val totalCalories: Int, val averageCalories: Int)
+
+/** Totals for the chart badges. The average spans only days with calories, so a session
+ *  whose app recorded none does not read as a zero-calorie day. */
+internal fun importedWorkoutSummary(days: List<ImportedWorkoutDay>): ImportedWorkoutSummary {
+    val withCalories = days.filter { it.totalCalories > 0 }
+    val total = days.sumOf { it.totalCalories }
+    val average = if (withCalories.isEmpty()) 0
+        else (withCalories.sumOf { it.totalCalories }.toDouble() / withCalories.size).roundToInt()
+    return ImportedWorkoutSummary(days.sumOf { it.sessionCount }, total, average)
+}
 
 @Composable
 internal fun StepsProgressSection(

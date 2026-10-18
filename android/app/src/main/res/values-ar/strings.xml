@@ -856,6 +856,7 @@
 
     <string name="settings_health_connect">Health Connect</string>
     <string name="settings_health_history_access">سجلات الوزن الأقدم</string>
+    <string name="settings_health_exercise_access">تمارين من تطبيقات أخرى</string>
     <string name="settings_manage_health_access">إدارة الوصول إلى Health Connect</string>
     <string name="settings_permissions">الأذونات</string>
     <string name="settings_energy_goals">أهداف حرق الطاقة</string>

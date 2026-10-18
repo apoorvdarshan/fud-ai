@@ -905,6 +905,7 @@
 
     <string name="settings_health_connect">Health Connect</string>
     <string name="settings_health_history_access">Eski kilo kayıtları</string>
+    <string name="settings_health_exercise_access">Diğer Uygulamalardan Antrenmanlar</string>
     <string name="settings_manage_health_access">Health Connect Erişimini Yönet</string>
     <string name="settings_permissions">İzinler</string>
     <string name="settings_energy_goals">Enerji Yakım Hedefleri</string>

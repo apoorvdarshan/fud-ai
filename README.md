@@ -96,7 +96,7 @@ Fud AI is a Udyam-registered micro enterprise in India, operating as a sole prop
 
 ### Health & platform
 - **Apple Health** — bidirectional sync for body measurements, meal nutrition, and calculated workout calories; Siri food/weight logs use the same HealthKit paths, and Energy Burn Goals can estimate calorie targets from active/total energy while macros stay editable
-- **Health Connect** — Android sync for nutrition, weight, body fat, and calculated workout calories, with permission reconciliation and backfill support; Energy Burn Goals can use recent energy data for calorie targets
+- **Health Connect** — Android sync for nutrition, weight, body fat, and calculated workout calories, with permission reconciliation and backfill support; Energy Burn Goals can use recent energy data for calorie targets; optional read-only import of workouts other apps (Garmin Connect, Coros, Strava, Samsung Health, Fitbit, …) share with Health Connect into Workouts and Progress
 - **Local-only fasting records** — fasting sessions are intentionally not written to Apple Health or Health Connect; eligible OS backup/device transfer may still include them according to device settings
 - **Restore after a reinstall** — on a fresh install or new phone, food, weight, body-fat, and calculated workout-burn records previously written by Fud AI can restore from Apple Health / Health Connect; local workout plans and set details require an OS backup/device transfer
 - **Optional iCloud / Google Drive Backup** — off until you turn it on in Settings → Data Management; iPhone uses iCloud, Android uses Google Drive after sign-in at that toggle only; restore keeps original Health IDs so samples are not duplicated

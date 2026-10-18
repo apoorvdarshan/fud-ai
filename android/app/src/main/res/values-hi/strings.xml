@@ -824,6 +824,7 @@
 
     <string name="settings_health_connect">Health Connect</string>
     <string name="settings_health_history_access">पुराने वज़न रिकॉर्ड</string>
+    <string name="settings_health_exercise_access">दूसरे ऐप्स के वर्कआउट</string>
     <string name="settings_manage_health_access">Health Connect पहुँच प्रबंधित करें</string>
     <string name="settings_permissions">अनुमतियाँ</string>
     <string name="settings_energy_goals">एनर्जी बर्न लक्ष्य</string>

@@ -9,6 +9,8 @@ import com.apoorvdarshan.calorietracker.data.ChatRepository
 import com.apoorvdarshan.calorietracker.data.ExerciseRepository
 import com.apoorvdarshan.calorietracker.data.FoodRepository
 import com.apoorvdarshan.calorietracker.data.FastingRepository
+import com.apoorvdarshan.calorietracker.data.ExerciseSessionSource
+import com.apoorvdarshan.calorietracker.data.ImportedHealthWorkoutRepository
 import com.apoorvdarshan.calorietracker.data.KeyStore
 import com.apoorvdarshan.calorietracker.data.PreferencesStore
 import com.apoorvdarshan.calorietracker.data.ProfileRepository
@@ -38,6 +40,7 @@ import com.apoorvdarshan.calorietracker.services.ai.ChatService
 import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysisService
 import com.apoorvdarshan.calorietracker.services.health.HealthCapabilities
 import com.apoorvdarshan.calorietracker.services.health.HealthConnectManager
+import com.apoorvdarshan.calorietracker.services.health.HealthExerciseSession
 import com.apoorvdarshan.calorietracker.services.hosted.AiAccessMode
 import com.apoorvdarshan.calorietracker.services.hosted.BillingManager
 import com.apoorvdarshan.calorietracker.services.hosted.HostedAiAccess
@@ -346,6 +349,21 @@ class AppContainer(app: FudAIApp) {
     val waterRepository = WaterRepository(prefs)
     val fastingRepository = FastingRepository(prefs)
     val workoutRepository = WorkoutRepository(prefs, workoutHealthSync)
+    /** Read-only workouts other apps (Garmin Connect, Strava, …) shared with Health Connect. */
+    val importedHealthWorkoutRepository = ImportedHealthWorkoutRepository(
+        store = prefs,
+        source = object : ExerciseSessionSource {
+            // Unavailable reads as a failed probe, never as revoked access (which clears imports).
+            override suspend fun exerciseReadGranted(): Boolean? =
+                if (health.isAvailable()) health.exerciseReadGrant() else null
+            override suspend fun activeCaloriesReadable(): Boolean = health.hasActiveEnergyRead()
+            override suspend fun readSessions(from: Instant, to: Instant): List<HealthExerciseSession>? =
+                health.readExternalExerciseSessions(from, to)
+            override suspend fun activeCalories(session: HealthExerciseSession) =
+                health.readSessionActiveCalories(session)
+            override fun appLabel(packageName: String): String? = health.appLabel(packageName)
+        }
+    )
     /** The rest countdown after a logged set; main-thread scoped so the UI and its end agree. */
     val workoutRestTimer = WorkoutRestTimerController(
         scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate),
@@ -424,6 +442,10 @@ class AppContainer(app: FudAIApp) {
      */
     suspend fun syncHealthConnectReads() {
         if (healthReadSyncInFlight) return
+        // Ahead of the toggle and capability guards below: revoking every Health Connect
+        // permission, or Exercise while the toggle is off, returns before the import step,
+        // yet other apps' workouts copied in earlier must still go (#479). Removal only.
+        importedHealthWorkoutRepository.removeIfAccessRevoked()
         if (!prefs.healthConnectEnabled.first()) return
         if (!health.isAvailable()) return
 
@@ -435,7 +457,7 @@ class AppContainer(app: FudAIApp) {
         val caps = health.capabilities()
         val workoutBurnRead = health.hasActiveEnergyRead()
         if (!caps.weightRead && !caps.bodyFatRead && !caps.nutritionRead &&
-            !workoutBurnRead && !caps.activeEnergyWrite
+            !workoutBurnRead && !caps.activeEnergyWrite && !caps.exerciseRead
         ) return
 
         healthReadSyncInFlight = true
@@ -461,6 +483,10 @@ class AppContainer(app: FudAIApp) {
             if (workoutBurnRead || caps.activeEnergyWrite) {
                 workoutRepository.synchronizeWithHealth()
             }
+
+            // Other apps' exercise sessions, read-only (#479). Gated on its own optional
+            // permission: it imports when granted and removes the copies once revoked.
+            importedHealthWorkoutRepository.synchronize()
 
             if (!caps.weightRead && !caps.bodyFatRead) return
 

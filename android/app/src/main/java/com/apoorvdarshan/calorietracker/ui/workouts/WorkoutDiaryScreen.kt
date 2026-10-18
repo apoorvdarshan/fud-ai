@@ -126,6 +126,7 @@ import com.apoorvdarshan.calorietracker.data.ExerciseRepository
 import com.apoorvdarshan.calorietracker.data.ExerciseVisual
 import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.models.PlannedExercise
+import com.apoorvdarshan.calorietracker.models.importedWorkoutsOn
 import com.apoorvdarshan.calorietracker.models.ExerciseTimerAction
 import com.apoorvdarshan.calorietracker.models.WorkoutRpeScale
 import com.apoorvdarshan.calorietracker.models.WorkoutIntensity
@@ -189,6 +190,11 @@ internal fun WorkoutDiaryScreen(
     var addMenuExpanded by remember { mutableStateOf(false) }
     var outdoorActivitySheet by remember { mutableStateOf<OutdoorActivityKind?>(null) }
     val walkRunQuickLogEnabled by container.prefs.walkRunQuickLogEnabled.collectAsState(initial = false)
+    val importedWorkouts by container.importedHealthWorkoutRepository.workouts.collectAsState(initial = emptyList())
+    val importedWorkoutsForDay = remember(importedWorkouts, state.selectedDate) {
+        importedWorkoutsOn(importedWorkouts, state.selectedDate)
+    }
+    val heightUnit by container.prefs.heightUnit.collectAsState(initial = "cm")
     val voiceUi by container.voiceAssistant.ui.collectAsState()
     val listState = rememberLazyListState()
     val focusManager = LocalFocusManager.current
@@ -293,6 +299,24 @@ internal fun WorkoutDiaryScreen(
                         }
                     )
                 )
+            }
+
+            // Read-only sessions other apps shared with Health Connect (iOS shows Apple
+            // Health workouts in the same place).
+            if (importedWorkoutsForDay.isNotEmpty()) {
+                item(key = "workout-health-imports") {
+                    ImportedHealthWorkoutDayCard(
+                        workouts = importedWorkoutsForDay,
+                        useMetricDistance = heightUnit != "ftin",
+                        modifier = Modifier.workoutDaySwipe(
+                            selectedDate = state.selectedDate,
+                            onMove = {
+                                dismissKeyboard()
+                                viewModel.moveDate(it)
+                            }
+                        )
+                    )
+                }
             }
 
             item(key = "workout-day-title") {

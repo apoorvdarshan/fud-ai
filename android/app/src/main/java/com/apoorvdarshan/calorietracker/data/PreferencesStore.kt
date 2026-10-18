@@ -12,6 +12,7 @@ import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
 import com.apoorvdarshan.calorietracker.models.AddMenuConfig
+import com.apoorvdarshan.calorietracker.models.ImportedHealthWorkout
 import com.apoorvdarshan.calorietracker.models.TabBarSettings
 import com.apoorvdarshan.calorietracker.models.AIProvider
 import com.apoorvdarshan.calorietracker.models.AutoBalanceMacro
@@ -135,7 +136,7 @@ class PreferencesStore(
     private val context: Context,
     private val isLocalGemmaExecutable: () -> Boolean = { false },
     private val isLocalWhisperExecutable: () -> Boolean = { false }
-) : WorkoutStateStore, NutritionSyncStore {
+) : WorkoutStateStore, NutritionSyncStore, ImportedHealthWorkoutStore {
 
     // coerceInputValues: an enum value this build does not know (e.g. a meal
     // type added by a newer release) falls back to the property default
@@ -427,6 +428,17 @@ class PreferencesStore(
     /// the restore should be allowed to run again.
     val healthFoodRestoreDone: Flow<Boolean> = ds.data.map { it[Keys.HEALTH_FOOD_RESTORE_DONE] ?: false }
     suspend fun setHealthFoodRestoreDone(v: Boolean) { ds.edit { it[Keys.HEALTH_FOOD_RESTORE_DONE] = v } }
+
+    /// Read-only copies of other apps' Health Connect exercise sessions (Workouts + Progress).
+    /// Re-imported from Health Connect on a new device, so Drive backups skip them.
+    override val importedHealthWorkouts: Flow<List<ImportedHealthWorkout>> =
+        jsonListFlow(Keys.IMPORTED_HEALTH_WORKOUTS, ImportedHealthWorkout.serializer())
+
+    override suspend fun updateImportedHealthWorkouts(
+        transform: (List<ImportedHealthWorkout>) -> List<ImportedHealthWorkout>
+    ) {
+        updateJsonList(Keys.IMPORTED_HEALTH_WORKOUTS, ImportedHealthWorkout.serializer(), transform)
+    }
 
     /// Food entries whose Health Connect write was never confirmed, retried on the next
     /// foreground sync. Comma-joined UUIDs, matching [healthChangesTokenTypes] — UUIDs
@@ -1577,6 +1589,7 @@ class PreferencesStore(
         val HEALTH_CHANGES_TOKEN_TYPES = stringPreferencesKey("healthChangesTokenTypes")
         val HEALTH_FOOD_RESTORE_DONE = booleanPreferencesKey("healthFoodRestoreDone")
         val PENDING_NUTRITION_HEALTH_WRITES = stringPreferencesKey("pendingNutritionHealthWrites")
+        val IMPORTED_HEALTH_WORKOUTS = stringPreferencesKey("importedHealthWorkoutsV1")
         val DELETED_WEIGHT_ENTRY_IDS = stringPreferencesKey("deletedWeightEntryIds")
         val DELETED_BODY_FAT_ENTRY_IDS = stringPreferencesKey("deletedBodyFatEntryIds")
         val CLOUD_BACKUP_ENABLED = booleanPreferencesKey("cloudBackupEnabled")

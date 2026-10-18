@@ -83,6 +83,8 @@ data class SettingsUiState(
     val workoutHealthWriteGranted: Boolean = false,
     /** Connected without Health Connect history access, so older weigh-ins stay hidden. */
     val healthHistoryAccessMissing: Boolean = false,
+    /** Connected without the optional Exercise read, so other apps' workouts are not imported. */
+    val healthExerciseAccessMissing: Boolean = false,
     val healthEnergyGoalsEnabled: Boolean = false,
     val adaptiveGoalsEnabled: Boolean = true,
     val applyingHealthEnergyGoals: Boolean = false,
@@ -384,12 +386,15 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
                 container.health.hasActiveEnergyWrite()
             val reconciledHistoryMissing = reconciledHealthConnect &&
                 container.health.isHistoryAccessMissing()
+            val reconciledExerciseMissing = reconciledHealthConnect &&
+                !container.health.hasExerciseRead()
             val reconciledProfile = container.profileRepository.current()
             _ui.value = _ui.value.copy(
                 profile = reconciledProfile ?: _ui.value.profile,
                 healthConnectEnabled = reconciledHealthConnect,
                 workoutHealthWriteGranted = reconciledWorkoutWrite,
                 healthHistoryAccessMissing = reconciledHistoryMissing,
+                healthExerciseAccessMissing = reconciledExerciseMissing,
                 healthEnergyGoalsEnabled = container.prefs.healthEnergyGoalsEnabled.first() &&
                     reconciledHealthConnect,
                 goalsNeedRecalc = needsRecalc(reconciledProfile ?: _ui.value.profile)
@@ -1220,6 +1225,7 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
                     healthConnectEnabled = false,
                     workoutHealthWriteGranted = false,
                     healthHistoryAccessMissing = false,
+                    healthExerciseAccessMissing = false,
                     healthEnergyGoalsEnabled = false
                 )
                 return@launch
@@ -1239,6 +1245,7 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
                 healthConnectEnabled = enabled,
                 workoutHealthWriteGranted = enabled && container.health.hasActiveEnergyWrite(),
                 healthHistoryAccessMissing = enabled && container.health.isHistoryAccessMissing(),
+                healthExerciseAccessMissing = enabled && !container.health.hasExerciseRead(),
                 healthEnergyGoalsEnabled = if (enabled) _ui.value.healthEnergyGoalsEnabled else false
             )
         }

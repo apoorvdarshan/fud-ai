@@ -1526,6 +1526,19 @@ fun SettingsScreen(
                         healthConnectLauncher.launch(container.health.connectPermissions)
                     }
                 }
+                // Optional Exercise read imports other apps' workouts (Garmin Connect, Strava, …)
+                // into Workouts and Progress. Everything else works without it.
+                if (ui.healthConnectEnabled && ui.healthExerciseAccessMissing) {
+                    HorizontalDivider()
+                    SettingRow(
+                        stringResource(R.string.settings_health_exercise_access),
+                        stringResource(R.string.settings_grant_permission),
+                        icon = Icons.Outlined.FitnessCenter
+                    ) {
+                        pendingHealthPermissionAction = HealthConnectPermissionAction.SYNC
+                        healthConnectLauncher.launch(container.health.connectPermissions)
+                    }
+                }
                 // Users who connected before history access was requested only see weigh-ins
                 // from 30 days before their first grant; granting it re-runs the import.
                 if (ui.healthConnectEnabled && ui.healthHistoryAccessMissing) {

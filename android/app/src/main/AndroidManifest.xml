@@ -26,6 +26,8 @@
     <uses-permission android:name="android.permission.health.WRITE_ACTIVE_CALORIES_BURNED" />
     <uses-permission android:name="android.permission.health.READ_TOTAL_CALORIES_BURNED" />
     <uses-permission android:name="android.permission.health.READ_STEPS" />
+    <!-- Optional: imports workouts other apps (Garmin Connect, Strava, …) shared with Health Connect. -->
+    <uses-permission android:name="android.permission.health.READ_EXERCISE" />
     <uses-permission android:name="android.permission.health.READ_HEALTH_DATA_IN_BACKGROUND" />
 
     <uses-feature
@@ -37,8 +39,14 @@
 
     <queries>
         <package android:name="com.google.android.apps.healthdata" />
+        <!-- Health Connect clients declare one of these rationale intents; seeing those apps
+             lets imported workouts show the recording app's name. -->
         <intent>
             <action android:name="androidx.health.ACTION_SHOW_PERMISSIONS_RATIONALE" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW_PERMISSION_USAGE" />
+            <category android:name="android.intent.category.HEALTH_PERMISSIONS" />
         </intent>
         <!-- Android 14+ resolves this to the system Health Connect controller, not the
              standalone com.google.android.apps.healthdata package. -->

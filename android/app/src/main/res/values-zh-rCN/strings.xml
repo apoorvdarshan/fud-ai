@@ -818,6 +818,7 @@
 
     <string name="settings_health_connect">Health Connect</string>
     <string name="settings_health_history_access">较早的体重记录</string>
+    <string name="settings_health_exercise_access">来自其他应用的锻炼</string>
     <string name="settings_manage_health_access">管理 Health Connect 访问权限</string>
     <string name="settings_permissions">权限</string>
     <string name="settings_energy_goals">能量消耗目标</string>

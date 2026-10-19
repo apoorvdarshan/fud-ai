@@ -307,7 +307,9 @@ class ChatService(
                 weightMetric = weightMetric,
                 workoutSessions = workoutSessions,
                 workoutPlans = workoutPlans,
-                energyUnit = energyUnit
+                energyUnit = energyUnit,
+                today = LocalDate.now(zone),
+                zoneId = zone
             )
         )
         lines.add("")

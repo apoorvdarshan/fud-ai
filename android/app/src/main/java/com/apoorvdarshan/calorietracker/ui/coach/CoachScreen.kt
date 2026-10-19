@@ -53,6 +53,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowUpward
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.CameraAlt
 import androidx.compose.material.icons.filled.CheckCircle
@@ -78,6 +79,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -145,14 +148,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 /**
- * Verbatim port of struct ChatView in
- * ios/calorietracker/Views/ChatView.swift.
- *
- * Layout (top to bottom):
- *   - TopAppBar with "Coach" title + reset icon (disabled when empty)
- *   - empty state OR message list (weight 1f)
- *   - horizontal scrolling promptChips (always visible)
- *   - capsule input bar with gradient send button
+ * A persistent nutrition-coach conversation with photo input and contextual prompts.
  */
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
@@ -248,8 +244,6 @@ fun CoachScreen(container: AppContainer) {
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
         topBar = {
-            // iOS Coach: centered "Coach" title, with a small circular dark
-            // chip on the right wrapping a counterclockwise arrow reset icon.
             CenterAlignedTopAppBar(
                 title = { Text(stringResource(R.string.coach_title), fontWeight = FontWeight.SemiBold) },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
@@ -350,7 +344,7 @@ fun CoachScreen(container: AppContainer) {
                 )
             }
 
-            // input bar — capsule with gradient send button
+            // Keep the existing camera and gallery flows behind one familiar add control.
             InputBar(
                 value = input,
                 onValueChange = { input = it },
@@ -399,9 +393,7 @@ fun CoachScreen(container: AppContainer) {
 }
 
 /**
- * Verbatim port of `emptyState` in ChatView.swift.
- * 108dp glassy disc with bubble.left.and.bubble.right.fill (44sp) icon,
- * "Ask your Coach" title (rounded title2 semibold), subtitle.
+ * Branded, compact starting point for the conversation.
  */
 @Composable
 private fun EmptyState(
@@ -420,28 +412,15 @@ private fun EmptyState(
     ) {
         Box(
             Modifier
-                .size(92.dp)
-                .shadow(
-                    elevation = 14.dp,
-                    shape = CircleShape,
-                    ambientColor = AppColors.Calorie.copy(alpha = 0.18f),
-                    spotColor = AppColors.Calorie.copy(alpha = 0.18f)
-                )
+                .size(68.dp)
                 .clip(CircleShape)
-                .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.85f))
-                .border(
-                    0.8.dp,
-                    Brush.linearGradient(
-                        listOf(Color.White.copy(alpha = 0.35f), Color.White.copy(alpha = 0.05f))
-                    ),
-                    CircleShape
-                ),
+                .background(AppColors.Calorie.copy(alpha = 0.10f)),
             contentAlignment = Alignment.Center
         ) {
             Icon(
                 Icons.Filled.Forum,
                 contentDescription = null,
-                modifier = Modifier.size(38.dp),
+                modifier = Modifier.size(30.dp),
                 tint = AppColors.Calorie
             )
         }
@@ -841,15 +820,7 @@ private fun proposalDetails(proposal: CoachExerciseProposal): List<String> {
 }
 
 /**
- * Verbatim port of `bubble`.
- *   .font(.system(.body, design: .rounded))            -> 17sp
- *   .padding(.horizontal, 16).padding(.vertical, 11)    -> same
- *   user background = LinearGradient(calorieGradient)
- *   assistant background = ultraThinMaterial + Calorie 0.035 tint
- *   stroke = LinearGradient white 0.45->0.05 user / 0.22->0.04 assistant
- *   user has top white 0.35->0 highlight (fakes .blendMode(.plusLighter))
- *   shadow user: Calorie 0.28, radius 10, y 6
- *   shadow asst: Black 0.12, radius 6, y 3
+ * Keep user turns distinct while letting assistant replies read as a clean transcript.
  */
 @Composable
 private fun Bubble(content: String, isUser: Boolean, attachmentImageBase64: String? = null) {
@@ -859,52 +830,15 @@ private fun Bubble(content: String, isUser: Boolean, attachmentImageBase64: Stri
         bottomEnd = 20.dp,
         bottomStart = 20.dp
     )
-    val borderBrush = Brush.linearGradient(
-        listOf(
-            Color.White.copy(alpha = if (isUser) 0.45f else 0.22f),
-            Color.White.copy(alpha = if (isUser) 0.05f else 0.04f)
-        )
-    )
-    val shadowElevation = if (isUser) 9.dp else 5.dp
-    val shadowColor = if (isUser) AppColors.Calorie.copy(alpha = 0.18f) else Color.Black.copy(alpha = 0.08f)
-
     Box(
         modifier = Modifier
             .widthIn(max = 320.dp)
-            .shadow(
-                elevation = shadowElevation,
-                shape = shape,
-                ambientColor = shadowColor,
-                spotColor = shadowColor
-            )
             .clip(shape)
-            .then(
-                if (isUser) {
-                    Modifier.background(AppColors.CalorieGradient)
-                } else {
-                    Modifier
-                        .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.85f))
-                        .background(AppColors.Calorie.copy(alpha = 0.035f))
-                }
+            .background(
+                if (isUser) MaterialTheme.colorScheme.surfaceVariant
+                else Color.Transparent
             )
-            .border(0.7.dp, borderBrush, shape)
     ) {
-        if (isUser) {
-            // Top white highlight — fakes SwiftUI .blendMode(.plusLighter).
-            Box(
-                Modifier
-                    .fillMaxWidth()
-                    .height(28.dp)
-                    .background(
-                        Brush.verticalGradient(
-                            colors = listOf(
-                                Color.White.copy(alpha = 0.35f),
-                                Color.Transparent
-                            )
-                        )
-                    )
-            )
-        }
         Column(Modifier.padding(horizontal = 16.dp, vertical = 11.dp)) {
             attachmentImageBase64?.let { encoded ->
                 val bitmap by produceState<Bitmap?>(initialValue = null, encoded) {
@@ -933,7 +867,7 @@ private fun Bubble(content: String, isUser: Boolean, attachmentImageBase64: Stri
                 Text(
                     content,
                     fontSize = 17.sp,
-                    color = Color.White,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     lineHeight = 22.sp,
                     style = TextStyle(fontWeight = FontWeight.Normal)
                 )
@@ -1031,29 +965,17 @@ private fun InputBar(
     onSend: () -> Unit
 ) {
     val canSend = !sending && (value.trim().isNotEmpty() || attachedImageBytes != null)
-    val capsule = RoundedCornerShape(24.dp)
+    val capsule = RoundedCornerShape(28.dp)
 
     Column(
         modifier = Modifier
-            .padding(horizontal = 12.dp)
-            .padding(top = 4.dp, bottom = 10.dp)
+            .padding(horizontal = 16.dp)
+            .padding(top = 4.dp, bottom = 12.dp)
             .fillMaxWidth()
-            .shadow(
-                elevation = 14.dp,
-                shape = capsule,
-                ambientColor = Color.Black.copy(alpha = 0.18f),
-                spotColor = Color.Black.copy(alpha = 0.18f)
-            )
             .clip(capsule)
-            .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.85f))
-            .border(
-                0.8.dp,
-                Brush.linearGradient(
-                    listOf(Color.White.copy(alpha = 0.25f), Color.White.copy(alpha = 0.05f))
-                ),
-                capsule
-            )
-            .padding(start = 4.dp, end = 5.dp, top = 4.dp, bottom = 4.dp),
+            .background(MaterialTheme.colorScheme.surface)
+            .border(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.45f), capsule)
+            .padding(start = 6.dp, end = 6.dp, top = 6.dp, bottom = 6.dp),
     ) {
         attachedImageBytes?.let { bytes ->
             val previewBitmap by produceState<Bitmap?>(initialValue = null, bytes) {
@@ -1150,59 +1072,47 @@ private fun CoachMediaActions(
     onPickImage: () -> Unit,
     onCaptureImage: () -> Unit
 ) {
-    Row(
-        horizontalArrangement = Arrangement.spacedBy(6.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        CoachMediaActionButton(
-            icon = Icons.Filled.PhotoLibrary,
-            contentDescription = stringResource(R.string.cd_add_image),
-            enabled = enabled,
-            onClick = onPickImage
-        )
-        CoachMediaActionButton(
-            icon = Icons.Filled.CameraAlt,
-            contentDescription = stringResource(R.string.cd_open_camera),
-            enabled = enabled,
-            onClick = onCaptureImage
-        )
-    }
-}
-
-@Composable
-private fun CoachMediaActionButton(
-    icon: androidx.compose.ui.graphics.vector.ImageVector,
-    contentDescription: String,
-    enabled: Boolean,
-    onClick: () -> Unit
-) {
-    Box(
-        modifier = Modifier
-            .size(40.dp)
-            .clip(CircleShape)
-            .background(
-                if (enabled) AppColors.Calorie.copy(alpha = 0.11f)
-                else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.06f)
+    var expanded by remember { mutableStateOf(false) }
+    val addImageDescription = stringResource(R.string.cd_add_image)
+    Box {
+        Box(
+            modifier = Modifier
+                .size(40.dp)
+                .clip(CircleShape)
+                .background(MaterialTheme.colorScheme.surfaceVariant)
+                .clickable(enabled = enabled) { expanded = true }
+                .semantics { contentDescription = addImageDescription },
+            contentAlignment = Alignment.Center
+        ) {
+            Icon(
+                Icons.Filled.Add,
+                contentDescription = null,
+                tint = if (enabled) MaterialTheme.colorScheme.onSurfaceVariant
+                else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.32f),
+                modifier = Modifier.size(22.dp)
             )
-            .border(
-                0.7.dp,
-                Brush.linearGradient(
-                    listOf(
-                        Color.White.copy(alpha = if (enabled) 0.18f else 0.08f),
-                        AppColors.Calorie.copy(alpha = if (enabled) 0.2f else 0.06f)
-                    )
-                ),
-                CircleShape
+        }
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false }
+        ) {
+            DropdownMenuItem(
+                text = { Text(stringResource(R.string.cd_add_image)) },
+                leadingIcon = { Icon(Icons.Filled.PhotoLibrary, contentDescription = null) },
+                onClick = {
+                    expanded = false
+                    onPickImage()
+                }
             )
-            .clickable(enabled = enabled, onClick = onClick),
-        contentAlignment = Alignment.Center
-    ) {
-        Icon(
-            icon,
-            contentDescription = contentDescription,
-            tint = if (enabled) AppColors.Calorie else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.32f),
-            modifier = Modifier.size(18.dp)
-        )
+            DropdownMenuItem(
+                text = { Text(stringResource(R.string.cd_open_camera)) },
+                leadingIcon = { Icon(Icons.Filled.CameraAlt, contentDescription = null) },
+                onClick = {
+                    expanded = false
+                    onCaptureImage()
+                }
+            )
+        }
     }
 }
 

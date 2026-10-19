@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">Fud AI</string>
+    <string name="app_name">Calorie Tracking</string>
+    <string name="food_analysis_estimate_notice">AI nutrition values are estimates. Review the food, serving size, and nutrition before logging.</string>
 
     <!-- Widgets -->
     <string name="widget_calorie_label">Fud AI Calories</string>

@@ -14,6 +14,8 @@ import com.apoorvdarshan.calorietracker.models.WorkoutSession
 import com.apoorvdarshan.calorietracker.services.WeightAnalysisService
 import com.apoorvdarshan.calorietracker.services.WeightForecast
 import java.util.Locale
+import java.time.LocalDate
+import java.time.ZoneId
 
 /**
  * The user's profile, formulas, forecast and data overview that ground Coach's answers.
@@ -32,7 +34,9 @@ object CoachContext {
         weightMetric: Boolean,
         workoutSessions: List<WorkoutSession> = emptyList(),
         workoutPlans: List<WorkoutDayPlan> = emptyList(),
-        energyUnit: EnergyUnit = EnergyUnit.Default
+        energyUnit: EnergyUnit = EnergyUnit.Default,
+        today: LocalDate? = null,
+        zoneId: ZoneId = ZoneId.systemDefault()
     ): List<String> {
         val forecast: WeightForecast = WeightAnalysisService.compute(weights, foods, profile)
 
@@ -71,6 +75,31 @@ object CoachContext {
         lines.add("- TDEE: BMR × activity multiplier ≈ ${profile.tdee.toInt()} kcal/day")
         lines.add("- Calorie goal: ${profile.effectiveCalories} kcal/day")
         lines.add("- Macro targets: ${profile.effectiveProtein}g protein, ${profile.effectiveCarbs}g carbs, ${profile.effectiveFat}g fat")
+        if (today != null) {
+            val todayFoods = foods.filter { it.timestamp.atZone(zoneId).toLocalDate() == today }
+            val calories = todayFoods.sumOf { it.calories }
+            val protein = todayFoods.sumOf { it.protein }
+            val carbs = todayFoods.sumOf { it.carbs }
+            val fat = todayFoods.sumOf { it.fat }
+            fun grams(value: Double): String = String.format(Locale.US, "%.1f", value)
+
+            lines.add("")
+            lines.add("## Today's logged nutrition (local diary date: $today)")
+            if (todayFoods.isEmpty()) {
+                lines.add("- No food entries are logged for this date. The diary may be incomplete; this does not establish that the user ate nothing.")
+            }
+            lines.add(
+                "- Logged so far: $calories kcal of ${profile.effectiveCalories} kcal; " +
+                    "${profile.effectiveCalories - calories} kcal to goal. " +
+                    "Protein: ${grams(protein)} g of ${profile.effectiveProtein} g; " +
+                    "${grams(profile.effectiveProtein - protein)} g to goal. " +
+                    "Carbs: ${grams(carbs)} g of ${profile.effectiveCarbs} g; " +
+                    "${grams(profile.effectiveCarbs - carbs)} g to goal. " +
+                    "Fat: ${grams(fat)} g of ${profile.effectiveFat} g; " +
+                    "${grams(profile.effectiveFat - fat)} g to goal."
+            )
+            lines.add("- Totals are based only on diary entries; the diary may be incomplete. A negative amount to goal means logged intake is above target.")
+        }
         lines.add("")
         lines.add("## Computed forecast (from their logged data)")
         if (forecast.hasEnoughData) {

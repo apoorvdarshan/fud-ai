@@ -564,6 +564,18 @@ fun FoodResultSheet(
                 }
             }
 
+            if (source == FoodSource.SNAP_FOOD || source == FoodSource.TEXT_INPUT) {
+                item {
+                    SheetPillCard {
+                        Text(
+                            stringResource(R.string.food_analysis_estimate_notice),
+                            modifier = Modifier.padding(18.dp),
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.78f)
+                        )
+                    }
+                }
+            }
+
             if (usesSavedBarcodeLabel) {
                 item { SavedBarcodeLabelNoticeCard() }
             }

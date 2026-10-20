@@ -56,6 +56,18 @@ class TranslationFormatTest {
         }
     }
 
+    @Test
+    fun appNameMatchesCalorieTrackingInEveryLocale() {
+        val englishName = load(File(res, "values")).single { it.name == "app_name" }.text
+        assertEquals("Calorie Tracking", englishName)
+
+        for (directory in localeDirectories()) {
+            val expected = if (directory.name == "values-ar") "تتبّع السعرات الحرارية" else englishName
+            val localizedName = load(directory).single { it.name == "app_name" }.text
+            assertEquals(directory.name, expected, localizedName)
+        }
+    }
+
     private data class Entry(val file: String, val name: String, val quantity: String?, val text: String)
 
     private fun localeDirectories(): List<File> =

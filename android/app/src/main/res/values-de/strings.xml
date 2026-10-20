@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Fud AI</string>
+    <string name="app_name">Calorie Tracking</string>
 
     <!-- Widgets -->
     <string name="widget_calorie_label">Fud AI Kalorien</string>

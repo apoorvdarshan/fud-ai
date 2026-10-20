@@ -1,0 +1,62 @@
+name: Android Debug APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "android/**"
+      - "shared/voice-assistant/**"
+      - "shared/workout-vectors/**"
+      - "ios/calorietracker/Resources/FreeExerciseDB/dist/**"
+      - "ios/calorietracker/VoiceAssistant/VoiceAssistantTools.json"
+      - "local-models/legal/**"
+      - ".github/workflows/android-debug-apk.yml"
+  pull_request:
+    paths:
+      - "android/**"
+      - "shared/voice-assistant/**"
+      - "shared/workout-vectors/**"
+      - "ios/calorietracker/Resources/FreeExerciseDB/dist/**"
+      - "ios/calorietracker/VoiceAssistant/VoiceAssistantTools.json"
+      - "local-models/legal/**"
+      - ".github/workflows/android-debug-apk.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /android/
+            /ios/calorietracker/Resources/FreeExerciseDB/dist/
+            /ios/calorietracker/VoiceAssistant/VoiceAssistantTools.json
+            /local-models/legal/
+            /shared/voice-assistant/
+            /shared/workout-vectors/
+            !/shared/workout-vectors/*_v2_*.png
+      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: android-actions/setup-android@be39fa834029ff78f1a44aa3bb0819b8fc2bd8fd # v4.0.4
+        with:
+          packages: platform-tools
+      - uses: gradle/actions/setup-gradle@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
+      - name: Run Android unit tests and build debug APK
+        working-directory: android
+        run: ./gradlew :app:testDebugUnitTest :app:assembleDebug -PworkoutVectors=none
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: success()
+        with:
+          name: calorie-tracking-debug-apk-${{ github.run_number }}
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+          retention-days: 14

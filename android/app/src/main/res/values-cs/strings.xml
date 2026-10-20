@@ -1,6 +1,6 @@
 <resources>
     <!-- Widgets -->
-    <string name="app_name">Fud AI</string>
+    <string name="app_name">Calorie Tracking</string>
     <string name="widget_calorie_label">Fud AI Kalorie</string>
     <string name="widget_calorie_description">Přehled dnešních kalorií a maker na první pohled.</string>
     <string name="widget_protein_label">Fud AI Bílkoviny</string>

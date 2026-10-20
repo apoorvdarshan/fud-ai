@@ -1,0 +1,64 @@
+# Store checks: validates the store data, the store-release config and these callers
+# against the pinned store-release version. Never uploads anything. Safe to run anytime.
+# Rendered by `run.py callers render --platform checks`.
+name: Store checks
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "store/**"
+      - "APPSTORE.md"
+      - "PLAYSTORE.md"
+      - "RELEASE_NOTES.md"
+      - "docs/HOSTED_AI_REVENUECAT.md"
+      - "scripts/ci/check_catalog.py"
+      - ".github/workflows/store-checks.yml"
+      - ".github/workflows/ios-release.yml"
+      - ".github/workflows/android-release.yml"
+      - "ios/calorietracker/Info.plist"
+      - "ios/calorietracker.xcodeproj/project.pbxproj"
+      - "android/app/build.gradle.kts"
+  pull_request:
+    paths:
+      - "store/**"
+      - "APPSTORE.md"
+      - "PLAYSTORE.md"
+      - "RELEASE_NOTES.md"
+      - "docs/HOSTED_AI_REVENUECAT.md"
+      - "scripts/ci/check_catalog.py"
+      - ".github/workflows/store-checks.yml"
+      - ".github/workflows/ios-release.yml"
+      - ".github/workflows/android-release.yml"
+      - "ios/calorietracker/Info.plist"
+      - "ios/calorietracker.xcodeproj/project.pbxproj"
+      - "android/app/build.gradle.kts"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# A newer push to a pull request cancels its older run; main and manual runs are never cancelled.
+concurrency:
+  group: store-checks-${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.pull_request.number) || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  checks:
+    uses: apoorvdarshan/store-release/.github/workflows/checks.yml@9366064914d02d30c75b945b8551b05bc842fae5 # v0.1.0
+    permissions:
+      contents: read
+
+  # One stable check name across store-release versions (not a required check in v0.1.0).
+  store-release:
+    needs: checks
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    # It reads only the checks job's result: no token permission at all.
+    permissions: {}
+    steps:
+      - name: Require the store checks to pass
+        env:
+          RESULT: ${{ needs.checks.result }}
+        run: test "$RESULT" = success

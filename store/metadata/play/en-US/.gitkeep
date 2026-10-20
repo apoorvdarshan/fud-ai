@@ -1,3 +1,0 @@
-# Play / App Store listing text is generated into these folders by
-# scripts/store/prepare_listing_text.py (dry-run safe).
-# Do not enable ANDROID_UPLOAD_LISTING / IOS_UPLOAD_LISTING until the files look correct.

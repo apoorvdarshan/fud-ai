@@ -3,7 +3,8 @@
 # (including the commit-SHA-pinned GitHub Actions) do not go stale.
 #
 # Every ecosystem is grouped into a single weekly PR so the Quality checks /
-# CodeQL runs on that one PR validate the whole batch at once.
+# CodeQL runs on that one PR validate the whole batch at once. The store-release
+# pins (the three store caller workflows) get a PR of their own.
 
 version: 2
 updates:
@@ -15,8 +16,20 @@ updates:
       time: "06:00"
       timezone: Asia/Kolkata
     groups:
+      # A dependency joins the first group it matches, so store-release comes before
+      # the catch-all: one PR moves every store-release pin (ios-release.yml,
+      # android-release.yml, store-checks.yml) to the new commit and "# vX.Y.Z"
+      # comment together, as Store checks requires.
+      store-release:
+        patterns: ["apoorvdarshan/store-release*"]
       github-actions:
         patterns: ["*"]
+    # store-release's workflows run with this repository's signing and store
+    # credentials: let a new store-release version age a week before it is proposed.
+    # Security updates are never delayed by a cooldown.
+    cooldown:
+      default-days: 7
+      include: ["apoorvdarshan/store-release*"]
     commit-message:
       prefix: "CI"
 
@@ -68,28 +81,6 @@ updates:
         patterns: ["*"]
     commit-message:
       prefix: "Scripts"
-
-  # Store release tooling (requirements-store.in → hash-locked requirements-store.txt),
-  # installed by the release jobs that hold the App Store Connect and Play credentials.
-  - package-ecosystem: pip
-    directory: /
-    # Only the two root-level files above. Dependabot's pip support also reads
-    # requirements files one folder down, so without this it bumped
-    # scripts/requirements-workout-repair.txt here as well, duplicating the
-    # /scripts entry's PR under a "Store" title. "*/**" is everything inside any
-    # folder; a Python folder gets its own entry, like /scripts.
-    exclude-paths:
-      - "*/**"
-    schedule:
-      interval: weekly
-      day: monday
-      time: "06:00"
-      timezone: Asia/Kolkata
-    groups:
-      store-tooling:
-        patterns: ["*"]
-    commit-message:
-      prefix: "Store"
 
   # Not covered: the iOS app's Swift packages (RevenueCat, argmax, swift-argument-
   # parser) are pinned by the Xcode project's Package.resolved. Dependabot's swift

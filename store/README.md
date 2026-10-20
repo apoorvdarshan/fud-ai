@@ -1,172 +1,135 @@
 # Store release automation
 
-GitHub Actions plumbing for App Store + Play Store releases, including listing
-copy, What's New, screenshots, and the IAP / subscription / tip / credit catalog
-(RevenueCat).
+Fud AI's App Store and Google Play releases run on
+[apoorvdarshan/store-release](https://github.com/apoorvdarshan/store-release), a
+shared set of reusable GitHub Actions workflows and Python tooling that started as
+this repository's own pipeline and keeps its behaviour. This folder holds what is
+specific to Fud AI: its store data, its config, and the facts below.
 
 **Nothing reaches a store unless its switch is on.** An `ios-v*` tag runs
 [`ios-release.yml`](../.github/workflows/ios-release.yml): GitHub Actions builds,
 signs and uploads the iOS binary (Xcode Cloud no longer builds Fud AI). An
 `android-v*` tag runs [`android-release.yml`](../.github/workflows/android-release.yml):
 GitHub Actions builds, verifies and signs the Android app, and uploads it to the
-Play tracks you switch on.
+Play tracks you switch on. A manual **Run workflow** on either only validates the
+build and prints a read-only store plan of what a tag run would change; it never
+uploads, submits or creates a GitHub Release.
 
-## iOS release flow (`ios-v*` tag)
+How it works, in store-release's docs (for the version pinned here,
+[v0.1.0](https://github.com/apoorvdarshan/store-release/tree/v0.1.0/docs)):
 
-```
-ios-vX.Y tag ─► iOS unit + UI tests (ios-tests.yml) ─┐
-             ─► quality checks (quality.yml) ─────────┤ all must pass
-             ─► prepare: store-script unit tests,     │ before anything
-                release notes, IAP catalog, switches ─┘ is built
-                (tag must equal MARKETING_VERSION),
-                export compliance (when the run builds)
-  └─ IOS_RELEASE_AUTOMATION off ─► GitHub Release only
-  └─ on:
-       IOS_UPLOAD_LISTING / IOS_UPLOAD_WHATS_NEW ─► check that APPSTORE.md text
-       IOS_UPLOAD_CREATIVE_ASSETS ─► check the header / search results images
-                                     (size, format, no alpha, well-formed file)
-       IOS_CREATE_VERSION ─► create App Store version X.Y if it is missing
-                             (refuses while another version is on its way to the
-                             store, or when X.Y is not newer than every version)
-       any App Store Connect switch ─► read-only: App Store version X.Y exists and
-                                       can take the release (see Release procedure),
-                                       a READY_FOR_REVIEW version's draft (with
-                                       IOS_SUBMIT_REVIEW) and the images' Asset
-                                       Library state (with IOS_UPLOAD_CREATIVE_ASSETS)
-       IOS_UPLOAD_BUILD ─► next build number from App Store Connect
-                        ─► archive Release ─► verify app id/version/build in every bundle
-                                                  and the app's export compliance
-                        ─► cloud-signed export + upload
-                        ─► wait-for-build job: until THIS build is VALID
-                           (poll 30 s, up to 120 min from upload start)
-       IOS_SUBMIT_REVIEW ─► pick and check the version's draft review submission
-                            (read-only, before any write) and reserve it
-       IOS_UPLOAD_LISTING / IOS_UPLOAD_WHATS_NEW / IOS_UPLOAD_SCREENSHOTS ─► version metadata
-       IOS_UPLOAD_CREATIVE_ASSETS ─► new images: Asset Library upload, then App Review
-                                     in a submission of their own
-                                  ─► approved images: placed on the version (en-US)
-       IOS_SUBMIT_REVIEW ─► select this run's build, read it back, set release type
-                         ─► attach subscriptions to the draft submission
-                         ─► recheck build + selection
-                         ─► submit Ready-to-Submit IAPs, then the version
-  └─ GitHub Release, marked Latest (only if every enabled step succeeded)
-```
+| Topic | Doc |
+|-------|-----|
+| The jobs, their order, check names and caller checks | [workflows](https://github.com/apoorvdarshan/store-release/blob/v0.1.0/docs/workflows.md) |
+| What each switch does | [switches](https://github.com/apoorvdarshan/store-release/blob/v0.1.0/docs/switches.md) |
+| Which job uses which secret, the shared CI signing identity and how to copy it | [secrets](https://github.com/apoorvdarshan/store-release/blob/v0.1.0/docs/secrets.md) |
+| `store-release.toml` keys | [config](https://github.com/apoorvdarshan/store-release/blob/v0.1.0/docs/config.md) |
+| **Re-run failed jobs** | [rerun](https://github.com/apoorvdarshan/store-release/blob/v0.1.0/docs/rerun.md) |
+| The store plan on validation runs | [plan](https://github.com/apoorvdarshan/store-release/blob/v0.1.0/docs/plan.md) |
+| Verifying Android release files | [verification](https://github.com/apoorvdarshan/store-release/blob/v0.1.0/docs/verification.md) |
+| New store-release versions, yanked versions | [release process](https://github.com/apoorvdarshan/store-release/blob/v0.1.0/docs/release-process.md), [yanked](https://github.com/apoorvdarshan/store-release/blob/main/docs/yanked.md) |
 
-The iOS tests are the same `ios-tests.yml` that runs on pull requests, called
-by the release; a test bundle that runs no tests (skipped tests do not count)
-fails it. Catalog IAPs go to
-App Review immediately when submitted, so they are submitted only after the
-final build and selection recheck, never before it.
+## What lives here
 
-Waiting for the build is its own `wait-for-build` job, which outputs the
-processed build's ID to the `app-store-connect` job. If a listing, screenshot or
-review step fails, **Re-run failed jobs** reuses that build ID instead of
-waiting again; a second wait would always time out, because the wait budget
-counts from the original upload.
+| File | Role |
+|------|------|
+| [`store-release.toml`](store-release.toml) | Fud AI's identities and paths: bundle id, App Store Connect app id, team, Xcode project, the pinned upload certificate, screenshot folders, catalog, sparse checkouts, release titles and asset names |
+| [`../.github/workflows/ios-release.yml`](../.github/workflows/ios-release.yml), [`android-release.yml`](../.github/workflows/android-release.yml), [`store-checks.yml`](../.github/workflows/store-checks.yml) | Thin callers of store-release, pinned by commit SHA with a `# vX.Y.Z` comment. They are rendered from the config (`run.py callers render`); **Store checks** fails when they drift, so don't edit them by hand |
+| [`catalog/`](catalog/) | The IAP / subscription / tip / credit catalog |
+| [`../scripts/ci/check_catalog.py`](../scripts/ci/check_catalog.py) | Fud AI's own catalog rules (the `catalog.checks` hook) |
+| [`screenshots/`](screenshots/), [`creative/ios/`](creative/ios/), [`graphics/`](graphics/) | Listing images ([Metadata layout](#metadata-layout)) |
+| [`../APPSTORE.md`](../APPSTORE.md), [`../PLAYSTORE.md`](../PLAYSTORE.md) | Listing copy and What's New |
+| [`../RELEASE_NOTES.md`](../RELEASE_NOTES.md) | GitHub Release notes, one `## <tag>` section per tag |
 
-A re-run of `app-store-connect` is safe in every state the first attempt can
-leave behind. Listing and What's New fields are only sent when they differ from
-App Store Connect, and screenshots are only replaced when the files differ.
-Header and search results images already in the Asset Library are never
-uploaded again, an image already placed is left alone, and an interrupted image
-review is finished in the draft it left (see below).
-After a failed submit the version is `READY_FOR_REVIEW`: its text can still
-change, its screenshots cannot (they are compared, and the run fails only if they
-differ). After a submit that went through but whose job failed, the version is
-`WAITING_FOR_REVIEW`: nothing can change, so the re-run checks that App Store
-Connect already matches the repository and that this run's build is the one in
-review, then finishes. The GitHub Release step updates the release if an earlier
-attempt created it.
+**Store checks** (`store-checks.yml`) runs on pull requests and `main` pushes that
+touch these files: the switches, the config and every file it names, the catalog,
+the listing and What's New text, screenshot staging with Pillow, the project's
+export compliance and versions, the gradle version, the callers and their pins.
+It never calls a store API.
 
-A manual **Run workflow** (`workflow_dispatch`) is a validation run: it archives,
-signs, exports and validates the IPA with App Store Connect, and never uploads,
-edits the listing, submits or creates a GitHub Release. Apple refuses versions it
-has already approved, so before bumping the project version, fill in the optional
-**marketing_version** input with the next version (e.g. `7.2`); the build is
-validated as that version without changing the project.
+New store-release versions arrive as one Dependabot pull request (group
+`store-release`, after a 7-day cooldown) that moves every pin at once. Merge it
+once Store checks pass; when its changelog's `Impact:` is `validation` or
+`release-path`, first run **iOS Release** and **Android Release** on the
+Dependabot branch with **Run workflow** and check both store plans.
 
-Submission fails instead of continuing when the build times out, fails
-processing, is expired, is ambiguous, belongs to another app/version, was
-uploaded before this run, or is not the build selected on the version. An older
-build is never substituted.
+## Tags and versions
 
-## Android release flow (`android-v*` tag)
+- iOS: `ios-vX.Y`, equal to `MARKETING_VERSION` in
+  [`ios/calorietracker.xcodeproj`](../ios/calorietracker.xcodeproj) (the same in
+  every configuration). Build numbers come from App Store Connect.
+- Android: `android-vX.Y`, equal to `versionName` in
+  [`android/app/build.gradle.kts`](../android/app/build.gradle.kts). Bump
+  `versionCode` before tagging: Play rejects a versionCode it has seen, and the
+  run stops before building when Play or an earlier `android-v*` GitHub Release
+  has it.
+- Push `ios-v*` and `android-v*` tags one at a time: GitHub starts no workflow
+  for any of them when more than three tags are pushed at once.
 
-```
-android-vX.Y tag ─► store-script unit tests ─► resolve switches (tag must equal versionName)
-  └─ ANDROID_RELEASE_AUTOMATION off ─► nothing is built or released
-  └─ on:
-       ANDROID_UPLOAD_WHATS_NEW (with a track) / ANDROID_UPLOAD_LISTING
-                      ─► check that PLAYSTORE.md text
-       read-only: this versionCode is higher than every earlier android-v*
-                      GitHub Release (from their titles)
-       any Play track ─► read-only: this versionCode is new to Google Play
-       quality checks (the whole quality.yml, see below)
-                      ─► check the keystore secrets are set
-                      ─► build signed AAB + APK
-                      ─► verify package, versionName/versionCode, and that both are
-                         signed only by the pinned upload certificate
-                      ─► Sigstore signatures + build provenance
-       ANDROID_UPLOAD_LISTING / ANDROID_UPLOAD_SCREENSHOTS ─► Play listing
-       ANDROID_INTERNAL_TESTING / ANDROID_CLOSED_TESTING / ANDROID_PRODUCTION_ROLLOUT
-                      ─► one Play upload to every selected track (+ What's New if on)
-                      ─► read each track back: this versionCode, status completed
-       GitHub Release (AAB + APK), only after Play confirmed the build:
-                      Latest with ANDROID_PRODUCTION_ROLLOUT, otherwise a
-                      pre-release (iOS stays Latest)
-```
+## Switches
 
-The quality gate is the whole **Quality checks** workflow (`quality.yml`), the
-same one that runs on pull requests: the `web` job (Worker and site type check,
-tests and build), the Android unit tests, Release lint and unsigned Release APK,
-and both emulator UI test shards. A failure in any of them stops the release
-before anything is signed.
+Repository **Variables** (Settings → Secrets and variables → Actions → Variables).
+Missing means off; any value other than `true/false/yes/no/on/off/1/0` fails the
+run, even when the platform's master switch is off. What each one does:
+[switches](https://github.com/apoorvdarshan/store-release/blob/v0.1.0/docs/switches.md);
+the canonical list of names is store-release's
+[`gates.env.example`](https://github.com/apoorvdarshan/store-release/blob/v0.1.0/gates.env.example).
 
-A manual **Run workflow** (`workflow_dispatch`) is a validation run: it builds
-the signed AAB and APK and verifies them, and never uploads, signs with Sigstore
-or creates a GitHub Release. Both validation and tag runs stop with the names of
-any missing `ANDROID_KEYSTORE_*` / `ANDROID_KEY_*` secrets before Gradle runs.
+Fud AI's values on 2026-10-21 (the Variables page is the source of truth):
 
-Each track switch is independent: testing tracks never imply production, and
-production never falls back to a testing track. The Play upload action is never
-called without a track (it would default to production). A completed Play
-release can still go through Google's review before testers or users get it.
+| Variable | Value |
+|----------|-------|
+| `IOS_RELEASE_AUTOMATION` | `true` |
+| `IOS_CREATE_VERSION` | `true` |
+| `IOS_UPLOAD_BUILD` | `true` |
+| `IOS_UPLOAD_LISTING`, `IOS_UPLOAD_WHATS_NEW`, `IOS_UPLOAD_SCREENSHOTS`, `IOS_UPLOAD_CREATIVE_ASSETS`, `IOS_SUBMIT_REVIEW`, `IOS_PUBLIC_RELEASE` | not set (off) |
+| `IOS_BUILD_POLL_SECONDS`, `IOS_BUILD_WAIT_MINUTES` | not set (30 s, 120 min) |
+| `ANDROID_RELEASE_AUTOMATION` | `true` |
+| `ANDROID_UPLOAD_LISTING` | `true` |
+| `ANDROID_UPLOAD_WHATS_NEW`, `ANDROID_UPLOAD_SCREENSHOTS` | `false` |
+| `ANDROID_INTERNAL_TESTING`, `ANDROID_CLOSED_TESTING`, `ANDROID_PRODUCTION_ROLLOUT` | `false` |
+| `STORE_SYNC_REVENUECAT` | not set (off; on fails the run, as the sync is not implemented) |
 
-**Re-runs.** The GitHub Release is created last, so a failed Play upload or
-read-back never leaves a release behind. **Re-run failed jobs** rebuilds and
-re-signs the app; if an earlier attempt of the same run already got this
-versionCode onto every selected track, the upload is skipped (Play would reject
-the duplicate) and the read-back and GitHub Release go ahead, and an existing
-GitHub Release for the tag gets this attempt's signed files instead of failing.
-Play then holds the first attempt's AAB; both come from the same commit and the
-same upload key. A versionCode Play already has from anything else (an older
-release, another run) fails the run before it builds, and so does a versionCode
-that is not higher than every earlier `android-v*` GitHub Release's, so the APK
-on GitHub always installs over the previous one.
+So today an `ios-v*` tag creates the App Store version when it is missing, then
+builds, uploads and waits for the build, and creates the GitHub Release (Latest
+when it is the highest iOS version); it changes no listing text, screenshots or
+images and submits nothing. An `android-v*` tag builds, verifies and signs the
+app, updates the Play listing text, uploads to no track, and creates a GitHub
+pre-release.
 
-**Xcode Cloud:** its tag-triggered "Release" workflow was removed in App Store
-Connect. Xcode Cloud triggers live in App Store Connect, not in this repo, so a
-GitHub switch cannot stop them; never re-create an `ios-v*` Xcode Cloud workflow
-or both pipelines will upload a build for the same tag.
+## Secrets
 
-## Release notes and What's New
+Repository secrets (Settings → Secrets and variables → Actions → Secrets). The
+callers map each one by name to the store-release job that uses it, never with
+`secrets: inherit`.
 
-The tag's `## ios-vX.Y` / `## android-vX.Y` section in `RELEASE_NOTES.md` becomes
-the GitHub Release body. A tag without a section still gets a GitHub Release,
-with GitHub's generated notes; an empty section, or two sections for the same
-tag, fails the run.
+| Secret | Used for |
+|--------|----------|
+| `APP_STORE_CONNECT_API_KEY_ID` | Admin-role App Store Connect API key: version creation, build numbers, cloud-managed distribution signing, upload, build readiness, listing, review, the store plan |
+| `APP_STORE_CONNECT_ISSUER_ID` | Its issuer |
+| `APP_STORE_CONNECT_API_KEY_P8` | Its private key (`.p8` body) |
+| `IOS_DEV_SIGNING_P12_BASE64` | The CI Apple Development identity (base64 `.p12`; certificate "Apple Development: Created via API", ID `NVNGDQGCKK`, **expires 2027-10-14**) that signs the archive. App Store signing happens at export with Apple's cloud-managed distribution certificate |
+| `IOS_DEV_SIGNING_P12_PASSWORD` | Password for that `.p12` |
+| `ANDROID_KEYSTORE_BASE64` | base64 of `fudai-release.jks`, the upload keystore |
+| `ANDROID_KEYSTORE_PASSWORD` | Keystore password |
+| `ANDROID_KEY_ALIAS` | Upload key alias (`fudai`) |
+| `ANDROID_KEY_PASSWORD` | Upload key password |
+| `PLAY_SERVICE_ACCOUNT_JSON` | Play publisher service-account JSON key: Play listing, uploads, track read-back, the store plan |
+| `GRADLE_ENCRYPTION_KEY` | Not a store secret: the Gradle configuration-cache key of [Quality checks](../.github/workflows/quality.yml) |
 
-Store What's New comes from the What's New block in `APPSTORE.md` (iOS) and
-`PLAYSTORE.md` (Play), not from `RELEASE_NOTES.md`. It is read only when
-`IOS_UPLOAD_WHATS_NEW` / `ANDROID_UPLOAD_WHATS_NEW` is on, and then checked before
-anything is built: iOS needs non-empty text of at most 4,000 characters; Play
-needs `<locale>` blocks of at most 500 characters each, including `<en-US>`
-(the only one uploaded; the file sent to Play is exactly the checked text). Both
-must be plain text: the stores show Markdown literally, so links, `**bold**`,
-`` `code` `` and `#` headings fail the check (bullets such as `•` or `-` are fine).
-With the switch off, missing or unfit What's New text never blocks a release.
-The listing text works the same way: it is read and checked (before anything is
-built) only when `IOS_UPLOAD_LISTING` / `ANDROID_UPLOAD_LISTING` is on.
+The same CI identity signs the archives of Verceltics, Abysm, iitjee, Quit All and
+Scowld (Apple allows one API-created development certificate per API key). When it
+expires or is revoked, replace both `IOS_DEV_SIGNING_*` secrets in Fud AI and in
+every repository listed here; to give another repository the identity without
+rotating it, follow
+[secrets](https://github.com/apoorvdarshan/store-release/blob/v0.1.0/docs/secrets.md#the-shared-ci-signing-identity).
+
+The Android upload certificate is pinned in
+[`store-release.toml`](store-release.toml) (`android.upload_cert_sha256`,
+`35d739f4…f704e0`, the certificate every Fud AI release since 1.0.0 is signed
+with). A release run fails when `ANDROID_KEYSTORE_BASE64` holds any other key,
+before anything is signed or published. After a Play upload-key reset, change
+that value in the same change as the new keystore secret.
 
 ## Export compliance (iOS)
 
@@ -179,250 +142,39 @@ submission fails with `usesNonExemptEncryption` missing (HTTP 409).
 `NO` is right while the app only uses exempt encryption: HTTPS (Apple's
 networking and the RevenueCat SDK), Keychain, iOS Data Protection, SHA-256 for
 download and backup integrity, and Apple's system crypto. If the app ever adds
-its own encryption, set it to `YES` and add `ITSEncryptionExportComplianceCode`
-with the code App Store Connect issues for the app's encryption documentation.
-An `INFOPLIST_KEY_` build setting works too (when Xcode generates the
-Info.plist); when both are set they must agree.
-
-Release and validation runs check it twice: `ios_release.py gates` reads the
-project before anything is built, and `ios_release.py export-compliance` reads
-the archived app's Info.plist right after the archive. The project check looks
-at each build configuration of the `calorietracker` target on its own (its
-`INFOPLIST_FILE` and its build settings over the project's); other targets do
-not count. A configuration without the key, a non-Boolean value, different
-answers, or `YES` without the code fails the run.
-
-## Concurrency
-
-Tag runs of each workflow share one concurrency group with `queue: max`, so
-releases run one at a time and every waiting tag run stays queued (by default a
-third run would cancel the pending one). Manual validation runs each get their
-own group and never wait for, or cancel, a release run.
-
-## Switches
-
-Repository **Variables** (Settings → Secrets and variables → Actions → Variables).
-Missing means off. Any value other than `true/false/yes/no/on/off/1/0` fails the
-run, even when the platform's master switch is off.
-
-### iOS
-
-| Variable | When `true` |
-|----------|-------------|
-| `IOS_RELEASE_AUTOMATION` | Master switch. When off, every iOS store operation below is skipped |
-| `IOS_CREATE_VERSION` | Create the tag's App Store version (Prepare for Submission) when App Store Connect does not have it, before the read-only version check. An existing version is left alone. Refuses, before anything is built and without writing, when another version is still on its way to the store (anything but Ready for Distribution, replaced or removed) or the tag is not newer than every existing version. Tag runs only, never validation runs |
-| `IOS_UPLOAD_BUILD` | Build, sign and upload the binary to App Store Connect, then wait for processing |
-| `IOS_UPLOAD_LISTING` | Description, keywords, promotional text, marketing/support URLs from `APPSTORE.md`, checked before the build. Off: never read |
-| `IOS_UPLOAD_WHATS_NEW` | What's New text from `APPSTORE.md`, checked before the build. Off: never read |
-| `IOS_UPLOAD_SCREENSHOTS` | 6.7" iPhone, 13" iPad, iPhone Duo and Apple Watch screenshots, staged as RGB (see below) |
-| `IOS_UPLOAD_CREATIVE_ASSETS` | Product page header and search results images from `store/creative/ios/`, checked (size, format, no alpha) before the build. A new image is uploaded to the Asset Library once and sent to App Review in a submission of its own; an approved image is placed on the version's en-US page while the version can be edited (see below). Off: never read |
-| `IOS_SUBMIT_REVIEW` | Select this run's build and submit the version **and** Ready-to-Submit IAPs / subscriptions for review. Requires `IOS_UPLOAD_BUILD` |
-| `IOS_PUBLIC_RELEASE` | Release automatically after approval. Off = manual release. Requires `IOS_SUBMIT_REVIEW` |
-| `IOS_BUILD_POLL_SECONDS` | Poll interval, default 30 (10–600) |
-| `IOS_BUILD_WAIT_MINUTES` | Total wait from upload start, default 120 (10–300) |
-
-### Android
-
-| Variable | When `true` |
-|----------|-------------|
-| `ANDROID_RELEASE_AUTOMATION` | Master switch. On: the tag builds and verifies the signed AAB/APK and creates the GitHub Release. Off: the tag builds and releases nothing, and every switch below is ignored |
-| `ANDROID_UPLOAD_LISTING` | Play title, short and full description from `PLAYSTORE.md`, checked before the build. Off: never read |
-| `ANDROID_UPLOAD_WHATS_NEW` | English What's New from `PLAYSTORE.md` on this run's Play release, checked before the build. Needs a track below; skipped with a note otherwise. Off: never read |
-| `ANDROID_UPLOAD_SCREENSHOTS` | Play phone screenshots (see below) |
-| `ANDROID_INTERNAL_TESTING` | Upload this build to Play **internal testing** |
-| `ANDROID_CLOSED_TESTING` | Upload this build to Play **closed testing** (the `alpha` track) |
-| `ANDROID_PRODUCTION_ROLLOUT` | Upload this build to Play **production**, live, and mark the GitHub Release Latest. Off: the `android-v*` GitHub Release is a pre-release, so the iOS release stays Latest |
-
-### Shared
-
-| Variable | When `true` |
-|----------|-------------|
-| `STORE_SYNC_REVENUECAT` | **Fails the workflow** — RevenueCat write/sync is not implemented yet |
-
-Copy names from [`gates.env.example`](gates.env.example).
-
-## Secrets
-
-Android:
-
-| Secret | Used for |
-|--------|----------|
-| `ANDROID_KEYSTORE_BASE64` | base64 of `fudai-release.jks`, the upload keystore |
-| `ANDROID_KEYSTORE_PASSWORD` | Keystore password |
-| `ANDROID_KEY_ALIAS` | Upload key alias (`fudai`) |
-| `ANDROID_KEY_PASSWORD` | Upload key password |
-| `PLAY_SERVICE_ACCOUNT_JSON` | Play publisher service-account JSON key (listing, uploads, track read-back) |
-
-The four keystore secrets are required by every Android run, validation included.
-The keystore and its passwords are written only under `$RUNNER_TEMP` (umask 077,
-Java properties escaping, so any password character works); the checkout gets just
-a link for Gradle, and both are removed right after the build.
-
-The upload certificate is pinned: `UPLOAD_CERT_SHA256` in
-[`scripts/store/android_release.py`](../scripts/store/android_release.py)
-(`35d739f4…f704e0`, the certificate every Fud AI release since 1.0.0 is signed
-with). `verify` fails when `ANDROID_KEYSTORE_BASE64` holds any other key, before
-anything is signed or published. After a Play upload-key reset, update that
-constant in the same change as the new keystore secret.
-
-iOS:
-
-| Secret | Used for |
-|--------|----------|
-| `APP_STORE_CONNECT_API_KEY_ID` | Admin-role ASC API key: build numbers, cloud-managed distribution signing, upload, build readiness, listing, review |
-| `APP_STORE_CONNECT_ISSUER_ID` | ASC issuer |
-| `APP_STORE_CONNECT_API_KEY_P8` | ASC private key (`.p8` body) |
-| `IOS_DEV_SIGNING_P12_BASE64` | CI Apple Development identity (base64 `.p12`; certificate "Apple Development: Created via API", ID `NVNGDQGCKK`, expires 2027-10-14) that signs the archive. App Store signing happens at export with Apple's cloud-managed distribution certificate |
-| `IOS_DEV_SIGNING_P12_PASSWORD` | Password for that `.p12` |
-
-The same CI identity signs the archives of Verceltics, Abysm, iitjee, Quit All
-and Scowld: Apple allows one API-created development certificate per API key. Its private key exists only in those repositories' `IOS_DEV_SIGNING_*`
-secrets. When it expires or is revoked, revoke it first (App Store Connect API,
-`DELETE /v1/certificates/<id>`), create a new one (`certificateType: DEVELOPMENT`),
-and replace both `IOS_DEV_SIGNING_*` secrets in Fud AI and in every repository
-listed above.
-
-To give another app repository this identity, don't rotate it. Copy both
-`IOS_DEV_SIGNING_*` secrets on GitHub's side, so the private key never leaves
-GitHub:
-
-1. Read the target repository's Actions public key:
-   `gh api repos/<owner>/<repo>/actions/secrets/public-key` (`key` and `key_id`).
-2. On a temporary branch of a repository that already has the secrets and whose
-   workflows don't run on other branches, push the workflow below with `<key>`
-   filled in. It prints only the sealed ciphertext, which only GitHub can decrypt
-   for the target repository. All the app repositories are public, so that run's
-   log is public until step 4 deletes it, but it never contains a usable secret.
-3. Store each sealed value in the target (`<run id>` is the finished temporary
-   run). This stops on the first error and refuses anything but exactly two
-   sealed values:
-
-   ```sh
-   (
-     set -euo pipefail
-     sealed=$(gh run view <run id> -R <owner>/<source repo> --log \
-       | grep -oE 'SEALED [A-Z0-9_]+ [A-Za-z0-9+/=]+')
-     [ "$(printf '%s\n' "$sealed" | grep -c '^SEALED ')" -eq 2 ] \
-       || { echo "expected 2 sealed values" >&2; exit 1; }
-     while read -r _ name value; do
-       gh api -X PUT "repos/<owner>/<repo>/actions/secrets/$name" \
-         -f encrypted_value="$value" -f key_id="<key_id>" --silent
-     done <<< "$sealed"
-   )
-   ```
-
-4. Once `gh secret list -R <owner>/<repo>` shows both `IOS_DEV_SIGNING_*`
-   secrets with today's date, delete the temporary branch and its run
-   (`gh api -X DELETE repos/<owner>/<source repo>/git/refs/heads/<branch>`,
-   `gh run delete <run id> -R <owner>/<source repo>`).
-
-Then add the three `APP_STORE_CONNECT_*` secrets, add the repository to the list
-above, and run a validation dispatch.
-
-The temporary workflow (`.github/workflows/tmp-seal-ci-signing.yml`):
-
-```yaml
-name: Seal CI signing secrets (temporary)
-on:
-  push:
-    branches: [tmp/seal-ci-signing]
-permissions: {}
-jobs:
-  seal:
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - name: Seal with the target repository's Actions public key
-        env:
-          IOS_DEV_SIGNING_P12_BASE64: ${{ secrets.IOS_DEV_SIGNING_P12_BASE64 }}
-          IOS_DEV_SIGNING_P12_PASSWORD: ${{ secrets.IOS_DEV_SIGNING_P12_PASSWORD }}
-          TARGET_PUBLIC_KEY: "<key>"
-        run: |
-          python3 -m venv "$RUNNER_TEMP/venv"
-          "$RUNNER_TEMP/venv/bin/pip" install --quiet pynacl==1.5.0
-          "$RUNNER_TEMP/venv/bin/python" - <<'PY'
-          import base64, os
-          from nacl import encoding, public
-          key = public.PublicKey(os.environ["TARGET_PUBLIC_KEY"].encode(), encoding.Base64Encoder())
-          box = public.SealedBox(key)
-          for name in ("IOS_DEV_SIGNING_P12_BASE64", "IOS_DEV_SIGNING_P12_PASSWORD"):
-              value = os.environ[name]
-              if not value:
-                  raise SystemExit(f"missing {name}")
-              sealed = base64.b64encode(box.encrypt(value.encode())).decode()
-              print(f"SEALED {name} {sealed}")
-          PY
-```
-
-Later for catalog automation:
-
-| Secret | Used for |
-|--------|----------|
-| `REVENUECAT_SECRET_API_KEY` | Catalog sync / product verification |
-
-## Scripts
-
-| Script | Role |
-|--------|------|
-| [`scripts/store/prepare_listing_text.py`](../scripts/store/prepare_listing_text.py) | `APPSTORE.md` / `PLAYSTORE.md` → `store/metadata/` |
-| [`scripts/store/prepare_whats_new.py`](../scripts/store/prepare_whats_new.py) | What's New for Play + iOS (`APPSTORE.md` / `PLAYSTORE.md`), with the store length and plain-text checks |
-| [`scripts/release_notes.py`](../scripts/release_notes.py) | The tag's `RELEASE_NOTES.md` section for the GitHub Release; `--if-present` prints nothing when there is none; duplicate sections fail |
-| [`scripts/store/stage_screenshots.py`](../scripts/store/stage_screenshots.py) | `store/screenshots/{ios,ipad,iphone-duo,watch,play}/*.png` → `store/metadata/screenshots/` (`--platform ios\|play\|all`); App Store screenshots are saved as RGB |
-| [`scripts/store/ios_release.py`](../scripts/store/ios_release.py) | iOS switches, export compliance check (project and archived app), build number, read-only App Store version preflight, wait for this run's build |
-| [`scripts/store/asc_release.py`](../scripts/store/asc_release.py) | App Store version creation (`--create-version`), ASC listing, What's New, 6.7" iPhone / 13" iPad / iPhone Duo / Apple Watch screenshots, header and search results images, build selection, submit for review (re-runnable) |
-| [`scripts/store/redact_credential_ids.py`](../scripts/store/redact_credential_ids.py) | Removes the ASC key and issuer IDs from failure logs before they are uploaded |
-| [`scripts/store/print_gates.py`](../scripts/store/print_gates.py) | Prints the switches as configured; an invalid value shows as `INVALID` |
-| [`scripts/store/test_ios_release.py`](../scripts/store/test_ios_release.py) | Offline tests: disabled/invalid switches, export compliance, timeouts, failures, mismatches, version creation, the version preflight, re-runs, IAP order, the screenshot alpha guard, Apple Watch sets, header and search results images (upload, review, placement, drafts), optional release notes, iOS What's New checks, log redaction. Run by every iOS release before anything is built |
-| [`scripts/store/android_release.py`](../scripts/store/android_release.py) | Android switches, versionCode checks against earlier GitHub Releases and Google Play, signing properties, AAB/APK identity + pinned-certificate checks, Play track read-back |
-| [`scripts/store/test_android_release.py`](../scripts/store/test_android_release.py) | Offline tests: disabled/invalid switches, track selection, wrong app/version/key, the versionCode preflight and re-runs, signing properties, Play What's New checks. Run by every Android release before anything is built |
-| [`scripts/store/play_listing.py`](../scripts/store/play_listing.py) | Play listing text + phone screenshots |
-| [`scripts/store/sync_revenuecat_catalog.py`](../scripts/store/sync_revenuecat_catalog.py) | Validate catalog; fail if sync gate on |
-
-When any live iOS or Play gate is on, release workflows install
-[`requirements-store.txt`](../requirements-store.txt) (PyJWT, Google API client,
-Pillow; hash-locked) into a pinned Python set up by `actions/setup-python`, never
-the runner image's own Python. The store dry-run installs and imports the same
-set on every change to it. Store steps run with `python3 -u`, so long waits log
-each poll as it happens.
-
-Environment flags consumed by `asc_release.py` (set by `ios-release.yml` from the
-resolved iOS switches): `UPLOAD_LISTING`, `UPLOAD_WHATS_NEW`, `UPLOAD_SCREENSHOTS`,
-`UPLOAD_CREATIVE_ASSETS`, `SUBMIT_IOS_REVIEW`, `PUBLIC_RELEASE`, and `CREATE_IOS_VERSION` (read only with
-`--create-version`). `play_listing.py` uses `UPLOAD_LISTING` and
-`UPLOAD_SCREENSHOTS`, set by `android-release.yml` from the resolved Android switches.
-
-### iOS subscription submission caveat
-
-`IOS_SUBMIT_REVIEW` submits the App Store version and every
-`READY_TO_SUBMIT` (or `DEVELOPER_REJECTED`) subscription in one step. As of the
-2026 App Store Connect workflow, subscriptions attach to the review submission
-through the `subscriptionVersion` relationship on Review Submission Items (the
-`subscription` relationship is rejected by the API), so a first-time
-subscription must ship with the version. Subscriptions that are still
-`READY_TO_SUBMIT` attach to the current in-flight version; consumable and tip
-IAPs go through the dedicated `inAppPurchaseSubmissions` endpoint. That endpoint
-sends an IAP to App Review at once, so the release submits IAPs only after its
-final build and selection recheck; when the recheck fails, nothing reaches
-review.
-
-A subscription whose in-flight version was **removed** from an earlier
-submission sits in `DEVELOPER_REJECTED`. Attaching that version to the new
-submission clears it, so no manual step is required; only products listed in
-`store/catalog/products.json` are submitted, and the script stops before
-submitting the version (non-zero exit) if a required product cannot be added.
-
-If the app version is already `WAITING_FOR_REVIEW`, a product attached to a
-newly created draft is submitted on its own so it still reaches review. A retry
-reuses the same draft but skips anything already attached, and the catch-up path
-refuses to submit a draft that contains an app version, so a rerun can never
-duplicate products or ship unrelated items.
+its own encryption, set it to `YES`, add `ITSEncryptionExportComplianceCode` with
+the code App Store Connect issues for the app's encryption documentation, and
+change `ios.export_compliance` in [`store-release.toml`](store-release.toml): it
+pins the answer (`NO`), so Store checks and every iOS release run fail when the
+project declares another one. Release and validation runs also check the
+archived app's Info.plist right after the archive.
 
 ## Canonical catalog
 
-- [`catalog/products.json`](catalog/products.json) — App Store + Play product IDs (subs, credits, tips)
-- [`catalog/revenuecat.json`](catalog/revenuecat.json) — entitlements + offerings
+- [`catalog/products.json`](catalog/products.json): App Store and Play product IDs
+  (Plus / Pro subscriptions, credit packs, tips)
+- [`catalog/revenuecat.json`](catalog/revenuecat.json): entitlements and offerings
 
-Source of truth for product IDs stays aligned with [`docs/HOSTED_AI_REVENUECAT.md`](../docs/HOSTED_AI_REVENUECAT.md).
+store-release checks the generic rules (each group is a list of unique
+`com.apoorvdarshan.calorietracker.*` ids; a `play` block exactly when `android`
+is in `platforms`; Play id formats; `revenuecat_product_id` = `<sub>:<base>`).
+[`scripts/ci/check_catalog.py`](../scripts/ci/check_catalog.py) adds Fud AI's: the
+`plus` / `pro` entitlements and offerings, their packages, Pro including Plus,
+and that only subscriptions unlock an entitlement. Both run in iOS tag runs, every
+Android release job, and Store checks. The Hosted AI Worker's tests in
+[Quality checks](../.github/workflows/quality.yml) (`web`) check its credit
+packs against the same catalog.
+
+Source of truth for product IDs stays aligned with
+[`docs/HOSTED_AI_REVENUECAT.md`](../docs/HOSTED_AI_REVENUECAT.md).
+
+`IOS_SUBMIT_REVIEW` submits the App Store version together with every catalog
+subscription that is `READY_TO_SUBMIT` (or `DEVELOPER_REJECTED`, after its
+version was removed from an earlier submission), attached through
+`subscriptionVersion` review items, so a first-time subscription ships with the
+version. Credit and tip IAPs go through `POST /inAppPurchaseSubmissions` only
+after the final build and selection recheck, because that sends them to App
+Review at once. Only products listed in `products.json` are ever submitted.
 
 ## Metadata layout
 
@@ -439,147 +191,122 @@ store/creative/ios/    # App Store product page creative assets (Asset Library)
   search-results/      # one search results PNG or JPEG, 3:2, 1920 to 3840 wide
 store/graphics/
   play/feature-graphic.png   # Play feature graphic, 1024×500 (uploaded by hand)
-store/metadata/
-  play/en-US/          # title, short/full description, whatsnew (generated)
-  ios/en-US/           # description, keywords, promotional_text, whats_new
-  screenshots/
-    play/phone/        # Play phoneScreenshots (staged from store/screenshots/play)
-    ios/6.7/           # ASC APP_IPHONE_67 slot (staged from store/screenshots/ios)
-    ios/ipad-13/       # ASC APP_IPAD_PRO_3GEN_129 slot (staged from store/screenshots/ipad)
-    ios/iphone-duo/    # ASC APP_IPHONE_DUO slot (staged from store/screenshots/iphone-duo)
-    ios/watch/         # ASC Apple Watch slots, by frame size (staged from store/screenshots/watch)
 ```
 
-Release workflows run `stage_screenshots.py --platform ios` when
-`IOS_UPLOAD_SCREENSHOTS` is true and `--platform play` when
-`ANDROID_UPLOAD_SCREENSHOTS` is true. Staging copies the numbered PNGs, in file
-name order, into `store/metadata/screenshots/`, and each upload replaces that
-store's whole screenshot set. Every iOS set needs at least one numbered PNG, so a
-missing set stops staging before anything is replaced. The app supports iPad, and
-App Store Connect will not submit a version without 13" iPad screenshots. iPhone
-Duo screenshots are optional until April 2027. `APP_IPHONE_DUO` is not in Apple's
-OpenAPI spec yet, but App Store Connect accepts it. To change a listing, replace the files in
-`store/screenshots/` first, so turning a switch on never uploads an older set.
-
-App Store screenshots are staged as RGB PNGs. App Store Connect refuses a PNG
-that stores an alpha channel, even when every pixel is opaque, so staging lays
-transparent pixels over black once, before any resize, and keeps the colour
-profile (ICC profile, sRGB, gamma and chromaticity chunks). The files in
-`store/screenshots/` are only read, never rewritten. Without Pillow, staging
-copies the files as they are and refuses one that stores alpha. Right before
-upload, `asc_release.py` refuses any staged file that still stores alpha (PNG
-colour type 4 or 6, or a `tRNS` chunk) or is not a well-formed PNG (complete
-chunks with matching CRCs, image data of the size its header gives, a final
-`IEND`), before anything is sent.
-
-Apple Watch screenshots go with the other sets when `store/screenshots/watch/`
-exists. Each frame's size picks its set: 416×496 `APP_WATCH_SERIES_10`, 422×514
-or 410×502 `APP_WATCH_ULTRA`, 396×484 `APP_WATCH_SERIES_7`, 368×448
-`APP_WATCH_SERIES_4`, 312×390 `APP_WATCH_SERIES_3`; another Watch-shaped frame
-is fitted onto 416×496. Like every set, a Watch set is replaced only when its
-files differ, and only compared while the version is in a review submission.
-Watch sets the repository has no frames for (such as an `APP_WATCH_ULTRA` set
-uploaded by hand) are left alone; remove them in App Store Connect if they
-should go. Without the folder, no Watch set is touched.
+The folders and their App Store display types are set in
+[`store-release.toml`](store-release.toml) (`[[ios.screenshots.sets]]`,
+`[android.screenshots]`). Release runs stage the screenshots into a temporary
+folder of the runner, never into the repository: App Store frames are saved as
+RGB without an alpha channel (App Store Connect refuses alpha even when every
+pixel is opaque), and Play frames are padded onto black at 9:16 (1573×2796), at
+most 8. Each upload replaces that store's whole set, and an App Store set is
+replaced only when its files differ. Every iOS set needs at least one numbered
+PNG; the app supports iPad, and App Store Connect will not submit a version
+without 13" iPad screenshots. iPhone Duo screenshots are optional until April
+2027. To change a listing, replace the files in `store/screenshots/` first, so
+turning a switch on never uploads an older set. The files here are only read,
+never rewritten.
 
 The Play feature graphic has no automated upload; upload it in Play Console by hand.
 
 ## Header and search results images (iOS)
 
 With `IOS_UPLOAD_CREATIVE_ASSETS` on, the images in `store/creative/ios/` go to
-the App Store product page: `header/` takes one PNG of exactly 3840×1646, and
-`search-results/` one PNG or JPEG in 3:2, from 1920×1280 to 3840×2560. Neither
-may store alpha. `prepare` checks sizes, formats, alpha and that each file is
-a complete, well-formed image before anything is built, then (read-only) each
-image's Asset Library state the way the store step plans it, so an image the
-version cannot take now fails before the build. A slot without an image is left
-alone; with neither image the run fails.
+the product page through the app's Asset Library: a new image is uploaded once
+(matched by file name and size), reviewed in a submission of its own, and placed
+on the version's en-US page once Apple approves it, while the version can be
+edited. To change an image, commit it under a new file name.
 
-They live in the app's Asset Library and are reviewed on their own, apart from
-the version:
-
-1. An image is uploaded once, matched by file name and size. A reservation an
-   interrupted upload left in `AWAITING_UPLOAD` (like a failed or archived image)
-   does not count, and the image is uploaded again. To change an image, commit
-   it under a new file name. An image App Review rejected stops the run until it
-   is replaced.
-2. A new image goes to App Review in a review submission of its own, never the
-   version's draft. A draft an earlier attempt left holding only some of the
-   images is finished first, else an empty draft, else a new one is created, so
-   re-runs never pile up drafts. The run submits it only when it holds exactly
-   these images.
-3. Once Apple approves an image, the run places it on the version's en-US
-   localization (`POST /v1/appAssetLibraryPlacements`, placement group
-   `DEFAULT_PROFILE`), only while the version can be edited (Prepare for
-   Submission or rejected). An image already placed there is left alone; another
-   image in the same slot is replaced in the same request. Approval takes a while,
-   so a new image is usually placed by the next release's run.
-
-While the version is in a review submission (`READY_FOR_REVIEW` or
-`WAITING_FOR_REVIEW`), nothing is uploaded, reviewed or placed: an image that
-still needs uploading or review fails the run, and an approved image waits for
-a later run.
-
-With `IOS_SUBMIT_REVIEW` on, the run picks the version's draft review submission
-before anything is written: the draft that already holds the version, else a
-draft holding no app version, never one holding header or search results images.
-That draft is reserved for the version and its products, so image reviews never
-take it. A `READY_FOR_REVIEW` version that no such draft holds stops the run in
-`prepare`, before the build, and the store step checks it again before its first
-write.
-
-Fud AI's header (`fud-ai-header-orb-horizon.png`) and search results image
-(`fud-ai-search-voice.png`) were approved and placed on the live 7.1.2 page on
-2026-10-20, so the pipeline finds them in the Asset Library and never uploads
-them again.
+Fud AI's header (`fud-ai-header-orb-horizon.png`, 1,763,332 bytes) and search
+results image (`fud-ai-search-voice.png`, 2,670,930 bytes) were approved and placed
+on the live 7.1.2 page on 2026-10-20, so the pipeline finds them in the Asset
+Library and never uploads them again. Their names and sizes are pinned in
+[`store-release.toml`](store-release.toml) (`[ios.creative.sizes]`): Store checks
+and every iOS release run fail when the files change, until the pin is updated
+with the new image.
 
 Website and README screenshots stay in [`web/assets/screenshots/`](../web/assets/screenshots/).
 Promo, social and launch graphics do not belong in the repository.
 
 ## Release procedure
 
-1. Keep `APPSTORE.md` / `PLAYSTORE.md` / `RELEASE_NOTES.md` in sync; run the prepare scripts locally if needed.
-2. Confirm ASC + Play secrets are present.
-3. Bump the version: iOS `MARKETING_VERSION` (the tag must equal it); Android
+1. Keep `APPSTORE.md`, `PLAYSTORE.md` and `RELEASE_NOTES.md` in sync. The tag's
+   `## ios-vX.Y` / `## android-vX.Y` section becomes the GitHub Release body; a
+   tag without one gets GitHub's generated notes, and an empty or duplicated
+   section fails the run.
+2. Bump the version: iOS `MARKETING_VERSION` (the tag must equal it); Android
    `versionName` and a `versionCode` higher than any Play has seen.
-4. **iOS: the X.Y App Store version must exist** (Prepare for Submission)
-   whenever `IOS_UPLOAD_LISTING`, `IOS_UPLOAD_WHATS_NEW`,
-   `IOS_UPLOAD_SCREENSHOTS`, `IOS_UPLOAD_CREATIVE_ASSETS` or `IOS_SUBMIT_REVIEW` is on. With
-   `IOS_CREATE_VERSION` on, the tag run creates it in `prepare` when it is
-   missing; otherwise **create it in App Store Connect first**. `prepare` then
-   checks it (read-only) and stops before anything is built when it is missing
-   or already in review. A version the run created stays in Prepare for
-   Submission if a later step fails, and the next run for the same tag reuses it.
-5. Flip only the variables you want. iOS operations also need `IOS_RELEASE_AUTOMATION`;
-   Android ones need `ANDROID_RELEASE_AUTOMATION`.
-6. Before relying on signing changes, run **iOS Release → Run workflow** or
-   **Android Release → Run workflow** (validation only; nothing is uploaded).
-7. Check that the commit you tag passed **Quality checks** and, for iOS, **iOS
+3. **iOS: the X.Y App Store version must exist** (Prepare for Submission) whenever
+   `IOS_UPLOAD_LISTING`, `IOS_UPLOAD_WHATS_NEW`, `IOS_UPLOAD_SCREENSHOTS`,
+   `IOS_UPLOAD_CREATIVE_ASSETS` or `IOS_SUBMIT_REVIEW` is on. With
+   `IOS_CREATE_VERSION` on, the tag run creates it when it is missing; otherwise
+   create it in App Store Connect first.
+4. Flip only the variables you want. iOS operations also need
+   `IOS_RELEASE_AUTOMATION`; Android ones need `ANDROID_RELEASE_AUTOMATION`.
+5. Run **iOS Release → Run workflow** (with **marketing_version** set to the next
+   unapproved version, e.g. `7.2`, before the project is bumped; Apple refuses
+   versions it has already approved) and **Android Release → Run workflow**. Both
+   validate the signed build, and their `store-plan / store-plan` job lists, read
+   only, every App Store Connect, Play and GitHub Release change a tag run would
+   make with the current switches. Read it before tagging.
+6. Check that the commit you tag passed **Quality checks** and, for iOS, **iOS
    tests** (that workflow runs on `main` only when iOS files change and daily;
    start it with **Run workflow** if its last run is older or red). The tag run
    repeats them and builds nothing if one fails.
-8. Tag as usual (`ios-vX.Y` / `android-vX.Y`). Try a build on
+7. Tag as usual (`ios-vX.Y` / `android-vX.Y`). Try a build on
    `ANDROID_INTERNAL_TESTING` first; leave `ANDROID_PRODUCTION_ROLLOUT`,
    `IOS_SUBMIT_REVIEW` and `IOS_PUBLIC_RELEASE` off until you intend that release.
-9. If a later step fails, fix the cause and use **Re-run failed jobs** (see the
-   re-run notes in the iOS and Android flows above).
+8. If a later step fails, fix the cause and use **Re-run failed jobs**
+   ([rerun](https://github.com/apoorvdarshan/store-release/blob/v0.1.0/docs/rerun.md)).
 
-## Dry-run
+**Xcode Cloud:** its tag-triggered "Release" workflow was removed in App Store
+Connect. Xcode Cloud triggers live in App Store Connect, not in this repository,
+so a GitHub switch cannot stop them; never re-create an `ios-v*` Xcode Cloud
+workflow, or both pipelines will upload a build for the same tag.
 
-Local:
+## Verifying Android release files
+
+Each `android-v*` GitHub Release carries `fudai-vX.Y.aab` and `fudai-vX.Y.apk`,
+each with a Sigstore bundle (`.sigstore.json`) and a build provenance attestation.
+
+Releases built by store-release (after `android-v7.2`) are signed by
+store-release's `android-publish.yml`, an identity every app that uses it shares,
+so always pin this repository as well:
 
 ```bash
-python3 scripts/store/validate_catalog.py
-python3 scripts/store/prepare_whats_new.py --platform all --tag android-v6.1 --out /tmp/whatsnew
-python3 scripts/store/prepare_listing_text.py --platform all --out /tmp/listing
-python3 scripts/store/stage_screenshots.py --dry-run
-python3 -m unittest scripts/store/test_ios_release.py
-python3 -m unittest scripts/store/test_android_release.py
-python3 -m unittest scripts/store/test_stage_screenshots.py
-IOS_SUBMIT_REVIEW=maybe python3 scripts/store/print_gates.py   # shows INVALID
-UPLOAD_LISTING=true python3 scripts/store/asc_release.py --dry-run --metadata-dir store/metadata
-UPLOAD_CREATIVE_ASSETS=true python3 scripts/store/asc_release.py --dry-run   # header / search images
-CREATE_IOS_VERSION=true python3 scripts/store/asc_release.py --create-version --dry-run --version 7.2
-UPLOAD_LISTING=true python3 scripts/store/play_listing.py --dry-run --metadata-dir store/metadata
-STORE_SYNC_REVENUECAT=false python3 scripts/store/sync_revenuecat_catalog.py
+cosign verify-blob fudai-vX.Y.apk --bundle fudai-vX.Y.apk.sigstore.json \
+  --certificate-identity-regexp '^https://github\.com/apoorvdarshan/store-release/\.github/workflows/android-publish\.yml@[0-9a-f]{40}$' \
+  --certificate-oidc-issuer https://token.actions.githubusercontent.com \
+  --certificate-github-workflow-repository apoorvdarshan/fud-ai
+gh attestation verify fudai-vX.Y.apk --repo apoorvdarshan/fud-ai \
+  --signer-workflow apoorvdarshan/store-release/.github/workflows/android-publish.yml
+```
+
+`android-v7.2` and earlier were signed by this repository's own
+`android-release.yml`:
+
+```bash
+cosign verify-blob fudai-v7.2.apk --bundle fudai-v7.2.apk.sigstore.json \
+  --certificate-identity-regexp '^https://github.com/apoorvdarshan/fud-ai/' \
+  --certificate-oidc-issuer https://token.actions.githubusercontent.com
+gh attestation verify fudai-v7.2.apk --repo apoorvdarshan/fud-ai
+```
+
+## Local checks
+
+With a checkout of store-release next to this repository (no store calls; the
+last two need its `requirements.txt` and `requirements-checks.txt`):
+
+```bash
+sr() { python3 -I -u ../store-release/run.py --app-root . "$@"; }
+sr config check --files
+sr catalog check
+sr listing prepare --platform all --out /tmp/listing
+sr whats-new prepare --platform all --tag ios-v7.2 --out /tmp/whatsnew
+sr screenshots stage --platform all --dry-run --out /tmp/screenshots
+sr release-notes --check-headings
+IOS_SUBMIT_REVIEW=maybe sr print-switches --platform all   # shows INVALID
+STORE_SYNC_REVENUECAT=false sr revenuecat-gate
+GH_TOKEN="$(gh auth token)" sr callers render --platform ios \
+  --sha <the pinned sha> --version <its version> --app-repository apoorvdarshan/fud-ai
 ```

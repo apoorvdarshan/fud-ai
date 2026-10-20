@@ -1,0 +1,153 @@
+# Fud AI's store-release configuration. Schema:
+# https://github.com/apoorvdarshan/store-release/blob/v0.1.0/docs/config.md
+# Switches stay in repository variables and secrets in repository secrets.
+schema = 1
+
+[app]
+name = "Fud AI"
+slug = "fudai"
+
+[release_notes]
+path = "RELEASE_NOTES.md"
+
+[catalog]
+path = "store/catalog/products.json"
+groups = ["subscriptions", "consumables", "tips"]
+id_prefix = "com.apoorvdarshan.calorietracker."
+play_rules = true
+revenuecat = "store/catalog/revenuecat.json"
+# fud-ai's validate_catalog.py, moved unchanged (plus/pro entitlements, offerings, packages).
+checks = ["scripts/ci/check_catalog.py"]
+
+[checks]
+paths = [
+  "store/**",
+  "APPSTORE.md",
+  "PLAYSTORE.md",
+  "RELEASE_NOTES.md",
+  "docs/HOSTED_AI_REVENUECAT.md",
+  "scripts/ci/check_catalog.py",
+  ".github/workflows/store-checks.yml",
+  ".github/workflows/ios-release.yml",
+  ".github/workflows/android-release.yml",
+  "ios/calorietracker/Info.plist",
+  "ios/calorietracker.xcodeproj/project.pbxproj",
+  "android/app/build.gradle.kts",
+]
+
+[ios]
+tag_prefix = "ios-v"
+bundle_id = "com.apoorvdarshan.calorietracker"
+asc_app_id = "6758935726"
+team_id = "23RV7FYH36"
+project = "ios/calorietracker.xcodeproj"
+scheme = "calorietracker"
+app_target = "calorietracker"
+info_plist = "ios/calorietracker/Info.plist"
+# The project declares no non-exempt encryption (only HTTPS and Apple's system APIs).
+# Store checks and every prepare fail when it declares another answer.
+export_compliance = "NO"
+locale = "en-US"
+gate_jobs = [
+  { id = "ios-tests", uses = "./.github/workflows/ios-tests.yml" },
+  { id = "quality", uses = "./.github/workflows/quality.yml" },
+]
+
+[ios.build]
+developer_dir = "/Applications/Xcode_27.app/Contents/Developer"
+# Never the 1.2 GB workout-frame corpus: release builds bundle only its manifest.
+checkout = [
+  "/ios/",
+  "/local-models/legal/",
+  "/shared/workout-vectors/sample-pack.txt",
+  "/shared/workout-vectors/exercise-visual-manifest.json",
+]
+package_cache_files = ["ios/**/Package.resolved", "ios/Packages/**/Package.swift"]
+pre_archive = ["scripts/ci/ensure_metal_toolchain.sh"]
+
+[ios.listing]
+source = "markdown"
+markdown = "APPSTORE.md"
+
+[ios.whats_new]
+source = "markdown"
+markdown = "APPSTORE.md"
+heading = "What's New"
+
+[[ios.screenshots.sets]]
+display_type = "APP_IPHONE_67"
+dir = "store/screenshots/ios"
+required = true
+
+[[ios.screenshots.sets]]
+display_type = "APP_IPAD_PRO_3GEN_129"
+dir = "store/screenshots/ipad"
+required = true
+
+[[ios.screenshots.sets]]
+display_type = "APP_IPHONE_DUO"
+dir = "store/screenshots/iphone-duo"
+required = true
+
+[[ios.screenshots.sets]]
+display_type = "WATCH"
+dir = "store/screenshots/watch"
+required = false
+
+[ios.creative]
+dir = "store/creative/ios"
+
+# The images the live Asset Library holds (approved and placed on 7.1.2, 2026-10-20).
+# App Store Connect matches images by file name and byte size, so Store checks and every
+# prepare fail when these change, until this list is updated.
+[ios.creative.sizes]
+"header/fud-ai-header-orb-horizon.png" = 1763332
+"search-results/fud-ai-search-voice.png" = 2670930
+
+[ios.products]
+iap_route = "submission"
+
+[ios.github_release]
+title = "iOS {version} (build {build})"
+
+[android]
+tag_prefix = "android-v"
+package = "com.apoorvdarshan.calorietracker"
+gradle_file = "android/app/build.gradle.kts"
+upload_cert_sha256 = "35d739f426248c3c04f344ffaaf972dabc67b9aaa64f49143ef8f3f4b1f704e0"
+locale = "en-US"
+gate_jobs = [
+  { id = "quality", uses = "./.github/workflows/quality.yml" },
+]
+
+[android.build]
+dir = "android"
+tasks = [":app:bundleRelease", ":app:assembleRelease"]
+aab = "android/app/build/outputs/bundle/release/app-release.aab"
+apk = "android/app/build/outputs/apk/release/app-release.apk"
+# Never the 1.2 GB workout-frame corpus.
+checkout = [
+  "/android/",
+  "/ios/calorietracker/Resources/FreeExerciseDB/dist/",
+  "/local-models/legal/",
+  "/shared/workout-vectors/",
+  "!/shared/workout-vectors/*_v2_*.png",
+]
+signing = "keystore-properties"
+keystore_properties = "android/keystore.properties"
+
+[android.listing]
+source = "markdown"
+markdown = "PLAYSTORE.md"
+
+[android.whats_new]
+source = "markdown"
+markdown = "PLAYSTORE.md"
+heading = "What's New"
+
+[android.screenshots]
+dir = "store/screenshots/play"
+pad_to_9_16 = true
+
+[android.github_release]
+asset_name = "fudai-v{version}"

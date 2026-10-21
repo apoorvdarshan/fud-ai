@@ -1,7 +1,8 @@
 package com.apoorvdarshan.calorietracker.services.ai
 
+import com.apoorvdarshan.calorietracker.data.AICredentialRegistry
+import com.apoorvdarshan.calorietracker.data.AIRoute
 import com.apoorvdarshan.calorietracker.data.ExerciseItem
-import com.apoorvdarshan.calorietracker.data.KeyStore
 import com.apoorvdarshan.calorietracker.data.PreferencesStore
 import com.apoorvdarshan.calorietracker.models.AIProvider
 import com.apoorvdarshan.calorietracker.models.BodyFatEntry
@@ -46,7 +47,7 @@ import java.util.Base64
  */
 class ChatService(
     private val prefs: PreferencesStore,
-    private val keyStore: KeyStore,
+    private val credentials: AICredentialRegistry,
     private val okHttp: OkHttpClient = FoodAnalysisService.defaultClient,
     private val localGemma: LocalGemmaRuntime? = null,
     private val hosted: HostedAiAccess? = null
@@ -134,7 +135,10 @@ class ChatService(
             provider.supportedModelOrDefault(prefs.selectedAIModel.first())
         }
         val baseUrl = prefs.customBaseUrl(provider).first()?.takeIf { it.isNotEmpty() } ?: provider.baseUrl
-        val apiKey = keyStore.apiKey(provider)
+        val apiKey = credentials.routeSecret(
+            if (useSeparateTextProvider) AIRoute.TEXT else AIRoute.PRIMARY,
+            provider
+        )
         val maxTokens = prefs.maxResponseTokens.first()
         val requestTimeoutSeconds = prefs.aiRequestTimeoutSeconds.first()
 
@@ -239,7 +243,10 @@ class ChatService(
         }
         val baseUrl = prefs.fallbackCustomBaseUrl(provider).first()?.takeIf { it.isNotEmpty() } ?: provider.baseUrl
         if (provider == primary && model == primaryModel && baseUrl == primaryBaseUrl) return null
-        val apiKey = keyStore.apiKey(provider)
+        val apiKey = credentials.routeSecret(
+            if (hasImage) AIRoute.IMAGE_FALLBACK else AIRoute.TEXT_FALLBACK,
+            provider
+        )
         if (provider.requiresApiKey && apiKey.isNullOrEmpty()) return null
         if (provider != AIProvider.LOCAL_GEMMA && baseUrl.isEmpty()) return null
         return ChatFallbackConfig(provider, model, baseUrl, apiKey)

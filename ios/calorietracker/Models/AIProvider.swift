@@ -513,7 +513,6 @@ struct AIProviderSettings {
     private static let separateTextProviderEnabledKey = "separateTextProviderEnabled"
     private static let textProviderKey = "selectedTextAIProvider"
     private static let textModelKey = "selectedTextAIModel"
-    private static let apiKeyKeychainPrefix = "apikey_"
     private static let baseURLKey = "customBaseURL_"
     private static let userContextKey = "aiUserContext"
     private static let fallbackEnabledKey = "aiFallbackEnabled"
@@ -706,17 +705,15 @@ struct AIProviderSettings {
         }
     }
 
+    /// The provider's default API-key profile. Named profiles live in
+    /// [AICredentialStore]; this keeps the single-key callers (chat, voice, speech)
+    /// on the profile the user sees as primary.
     static func apiKey(for provider: AIProvider) -> String? {
-        KeychainHelper.load(key: apiKeyKeychainPrefix + provider.rawValue)
+        AICredentialStore.shared.effectiveSecret(for: provider)
     }
 
     static func setAPIKey(_ key: String?, for provider: AIProvider) {
-        let keychainKey = apiKeyKeychainPrefix + provider.rawValue
-        if let key, !key.isEmpty {
-            KeychainHelper.save(key: keychainKey, value: key)
-        } else {
-            KeychainHelper.delete(key: keychainKey)
-        }
+        _ = AICredentialStore.shared.setDefaultSecret(provider: provider, secret: key)
     }
 
     static func customBaseURL(for provider: AIProvider) -> String? {
@@ -767,11 +764,12 @@ struct AIProviderSettings {
         let useSeparateText = !requiresVision && separateTextProviderEnabled
         let provider = useSeparateText ? selectedTextProvider : selectedProvider
         let model = useSeparateText ? selectedTextModel : selectedModel
+        let route: AIRoute = useSeparateText ? .text : .primary
         return RequestConfig(
             provider: provider,
             model: model,
             baseURL: customBaseURL(for: provider) ?? provider.baseURL,
-            apiKey: apiKey(for: provider)
+            apiKey: AICredentialStore.shared.routeSecret(route, provider: provider) ?? apiKey(for: provider)
         )
     }
 
@@ -908,12 +906,13 @@ struct AIProviderSettings {
         let baseURL = fallbackCustomBaseURL(for: provider) ?? provider.baseURL
         if provider == primary, model == primaryModel,
            baseURL == (customBaseURL(for: primary) ?? primary.baseURL) { return nil }
-        if provider.requiresAPIKey, apiKey(for: provider) == nil { return nil }
+        let apiKey = AICredentialStore.shared.routeSecret(.imageFallback, provider: provider) ?? self.apiKey(for: provider)
+        if provider.requiresAPIKey, apiKey == nil { return nil }
         return FallbackConfig(
             provider: provider,
             model: model,
             baseURL: baseURL,
-            apiKey: apiKey(for: provider)
+            apiKey: apiKey
         )
     }
 
@@ -924,16 +923,18 @@ struct AIProviderSettings {
         let baseURL = fallbackCustomBaseURL(for: provider) ?? provider.baseURL
         if provider == primary, model == primaryModel,
            baseURL == (customBaseURL(for: primary) ?? primary.baseURL) { return nil }
-        if provider.requiresAPIKey, apiKey(for: provider) == nil { return nil }
+        let apiKey = AICredentialStore.shared.routeSecret(.textFallback, provider: provider) ?? self.apiKey(for: provider)
+        if provider.requiresAPIKey, apiKey == nil { return nil }
         return FallbackConfig(
             provider: provider,
             model: model,
             baseURL: baseURL,
-            apiKey: apiKey(for: provider)
+            apiKey: apiKey
         )
     }
 
     static func deleteAllData() {
+        AICredentialStore.shared.deleteAll()
         for provider in AIProvider.allCases {
             setAPIKey(nil, for: provider)
             setCustomBaseURL(nil, for: provider)

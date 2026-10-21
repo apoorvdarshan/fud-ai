@@ -1,7 +1,8 @@
 package com.apoorvdarshan.calorietracker.services.ai
 
 import com.apoorvdarshan.calorietracker.services.SecureHttpClient
-import com.apoorvdarshan.calorietracker.data.KeyStore
+import com.apoorvdarshan.calorietracker.data.AICredentialRegistry
+import com.apoorvdarshan.calorietracker.data.AIRoute
 import com.apoorvdarshan.calorietracker.data.PreferencesStore
 import com.apoorvdarshan.calorietracker.models.AIProvider
 import com.apoorvdarshan.calorietracker.models.AminoAcidEstimates
@@ -76,7 +77,7 @@ internal fun multiPhotoAnalysisPrompt(
  */
 class FoodAnalysisService(
     private val prefs: PreferencesStore,
-    private val keyStore: KeyStore,
+    private val credentials: AICredentialRegistry,
     private val okHttp: OkHttpClient = defaultClient,
     private val localGemma: LocalGemmaRuntime? = null,
     private val hosted: HostedAiAccess? = null
@@ -577,7 +578,10 @@ class FoodAnalysisService(
         } else {
             requestPrompt
         }
-        val primaryKey = keyStore.apiKey(settings.provider)
+        // A text request without photos runs on the separate Text AI provider when the
+        // user enabled one, so it reads the Text route's credential.
+        val primaryRoute = if (settings.usesSeparateTextProvider) AIRoute.TEXT else AIRoute.PRIMARY
+        val primaryKey = credentials.routeSecret(primaryRoute, settings.provider)
         if (settings.provider.requiresApiKey && primaryKey.isNullOrEmpty()) throw AiError.NoApiKey
 
         return try {
@@ -745,7 +749,7 @@ class FoodAnalysisService(
         // Fallback identical to primary would be a pointless retry of the same call.
         // The same provider and model on a *different* server is a legitimate config.
         if (provider == primary && model == primaryModel && baseUrl == primaryBaseUrl) return null
-        val key = keyStore.apiKey(provider)
+        val key = credentials.routeSecret(AIRoute.IMAGE_FALLBACK, provider)
         if (provider.requiresApiKey && key.isNullOrEmpty()) return null
         if (provider != AIProvider.LOCAL_GEMMA && baseUrl.isEmpty()) return null
         return FallbackConfig(provider, model, baseUrl, key)
@@ -762,7 +766,7 @@ class FoodAnalysisService(
         val model = provider.supportedTextModelOrDefault(prefs.selectedTextFallbackModel.first())
         val baseUrl = prefs.fallbackCustomBaseUrl(provider).first()?.takeIf { it.isNotEmpty() } ?: provider.baseUrl
         if (provider == primary && model == primaryModel && baseUrl == primaryBaseUrl) return null
-        val key = keyStore.apiKey(provider)
+        val key = credentials.routeSecret(AIRoute.TEXT_FALLBACK, provider)
         if (provider.requiresApiKey && key.isNullOrEmpty()) return null
         if (provider != AIProvider.LOCAL_GEMMA && baseUrl.isEmpty()) return null
         return FallbackConfig(provider, model, baseUrl, key)

@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.apoorvdarshan.calorietracker.AppContainer
+import com.apoorvdarshan.calorietracker.data.AICredential
+import com.apoorvdarshan.calorietracker.data.AIRoute
 import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.models.AIProvider
 import com.apoorvdarshan.calorietracker.models.AddMenuConfig
@@ -37,6 +39,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 
@@ -96,6 +99,12 @@ data class SettingsUiState(
     val adaptiveGoalAlertMessage: String? = null,
     val apiKeyMasked: String = "",
     val speechApiKeyMasked: String = "",
+    /** Named API-key profiles, oldest first. Secrets are never part of this list. */
+    val credentialProfiles: List<AICredential> = emptyList(),
+    /** Safe per-profile fingerprints (last four characters only). */
+    val credentialFingerprints: Map<String, String> = emptyMap(),
+    /** Explicit route bindings. A missing entry means "use the provider's default profile". */
+    val routeCredentialIds: Map<AIRoute, String?> = emptyMap(),
     val appearanceMode: String = "system",
     val appThemeColor: AppThemeColor = AppThemeColor.FUD_PINK,
     val weekStartsOnMonday: Boolean = true,
@@ -145,7 +154,38 @@ data class SettingsUiState(
         get() = SpeechProvider.remoteProviders + listOfNotNull(
             SpeechProvider.LOCAL_WHISPER.takeIf { localModelStates[LocalModelId.WHISPER_BASE]?.executable == true }
         )
+
+    val credentialProviders: List<AIProvider>
+        get() = availableVisionProviders.filter { it.requiresApiKey }
+
+    /** Explicitly bound profile for [route], or the provider's oldest profile. */
+    fun credentialForRoute(route: AIRoute, provider: AIProvider): AICredential? {
+        val boundId = routeCredentialIds[route]
+        val bound = credentialProfiles.firstOrNull { it.id == boundId && it.provider == provider }
+        return bound ?: credentialProfiles
+            .filter { it.provider == provider }
+            .minByOrNull { it.createdAtEpochMs }
+    }
+
+    fun fingerprintFor(credential: AICredential?): String =
+        credential?.let { credentialFingerprints[it.id] }.orEmpty()
+
+    fun providerForRoute(route: AIRoute): AIProvider = when (route) {
+        AIRoute.PRIMARY -> selectedAI
+        AIRoute.TEXT -> selectedTextAI
+        AIRoute.IMAGE_FALLBACK -> fallbackProvider
+        AIRoute.TEXT_FALLBACK -> textFallbackProvider
+    }
+
+    fun routeCredential(route: AIRoute): AICredential? =
+        credentialForRoute(route, providerForRoute(route))
 }
+
+/** Result of creating a profile, including the validation/error code for inline UI feedback. */
+data class CredentialMutation(
+    val credential: AICredential? = null,
+    val error: String? = null,
+)
 
 internal fun adaptiveCheckDayAfterManualRecalculation(
     adaptiveEnabled: Boolean,
@@ -270,6 +310,11 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
                 storedHealthPermissionsVersion >= HealthConnectManager.CURRENT_TYPES_VERSION
             val energyGoals = container.prefs.healthEnergyGoalsEnabled.first() && storedHealthConnect
             val adaptiveGoals = container.prefs.adaptiveGoalsEnabled.first()
+            val credentialProfiles = container.aiCredentials.all()
+            val credentialFingerprints = credentialProfiles.associate {
+                it.id to container.aiCredentials.maskedSecret(it.id)
+            }
+            val routeCredentialIds = container.aiCredentials.bindings()
             val masked = maskKey(container.keyStore.apiKey(provider))
             val textMasked = maskKey(container.keyStore.apiKey(textProvider))
             val speechMasked = maskKey(container.keyStore.speechApiKey(speech))
@@ -355,6 +400,9 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
                 adaptiveGoalsEnabled = adaptiveGoals,
                 apiKeyMasked = masked,
                 speechApiKeyMasked = speechMasked,
+                credentialProfiles = credentialProfiles,
+                credentialFingerprints = credentialFingerprints,
+                routeCredentialIds = routeCredentialIds,
                 appearanceMode = appearance,
                 appThemeColor = appThemeColor,
                 weekStartsOnMonday = weekMon,
@@ -467,6 +515,11 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
                 selectedTextAI = textProvider,
                 selectedTextModel = textModel,
                 textApiKeyMasked = maskKey(container.keyStore.apiKey(textProvider)),
+                credentialProfiles = container.aiCredentials.all(),
+                credentialFingerprints = container.aiCredentials.all().associate {
+                    it.id to container.aiCredentials.maskedSecret(it.id)
+                },
+                routeCredentialIds = container.aiCredentials.bindings(),
                 selectedSpeech = speechProvider,
                 selectedSpeechLanguage = container.prefs.selectedSpeechLanguage(speechProvider).first(),
                 speechApiKeyMasked = maskKey(container.keyStore.speechApiKey(speechProvider)),
@@ -550,7 +603,9 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
     fun selectFallbackProvider(p: AIProvider) {
         if (p !in _ui.value.availableVisionProviders) return
         viewModelScope.launch {
+            clearForeignBinding(AIRoute.IMAGE_FALLBACK, p)
             container.prefs.setSelectedFallbackProvider(p)
+            syncCredentialState()
             // Reset model to provider default if old model isn't in the new provider's list.
             var newModel = p.supportedModelOrDefault(_ui.value.fallbackModel)
             val primary = _ui.value.selectedAI
@@ -575,20 +630,6 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
         }
     }
 
-    fun setFallbackApiKey(raw: String) {
-        viewModelScope.launch {
-            val p = _ui.value.fallbackProvider
-            container.keyStore.setApiKey(p, raw.takeIf { it.isNotBlank() })
-            val masked = maskKey(raw.takeIf { it.isNotBlank() })
-            _ui.value = _ui.value.copy(
-                fallbackApiKeyMasked = masked,
-                apiKeyMasked = if (p == _ui.value.selectedAI) masked else _ui.value.apiKeyMasked,
-                textApiKeyMasked = if (p == _ui.value.selectedTextAI) masked else _ui.value.textApiKeyMasked,
-                textFallbackApiKeyMasked = if (p == _ui.value.textFallbackProvider) masked else _ui.value.textFallbackApiKeyMasked
-            )
-        }
-    }
-
     fun setTextFallbackEnabled(enabled: Boolean) {
         viewModelScope.launch {
             container.prefs.setTextFallbackEnabled(enabled)
@@ -599,7 +640,9 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
     fun selectTextFallbackProvider(provider: AIProvider) {
         if (provider !in _ui.value.availableTextProviders) return
         viewModelScope.launch {
+            clearForeignBinding(AIRoute.TEXT_FALLBACK, provider)
             container.prefs.setSelectedTextFallbackProvider(provider)
+            syncCredentialState()
             var model = provider.supportedTextModelOrDefault(_ui.value.textFallbackModel)
             val primary = if (_ui.value.separateTextProviderEnabled) _ui.value.selectedTextAI else _ui.value.selectedAI
             val primaryModel = if (_ui.value.separateTextProviderEnabled) {
@@ -628,20 +671,6 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
             val resolved = _ui.value.textFallbackProvider.supportedTextModelOrDefault(model)
             container.prefs.setSelectedTextFallbackModel(resolved)
             _ui.value = _ui.value.copy(textFallbackModel = resolved)
-        }
-    }
-
-    fun setTextFallbackApiKey(raw: String) {
-        viewModelScope.launch {
-            val provider = _ui.value.textFallbackProvider
-            container.keyStore.setApiKey(provider, raw.takeIf { it.isNotBlank() })
-            val masked = maskKey(raw.takeIf { it.isNotBlank() })
-            _ui.value = _ui.value.copy(
-                textFallbackApiKeyMasked = masked,
-                apiKeyMasked = if (provider == _ui.value.selectedAI) masked else _ui.value.apiKeyMasked,
-                textApiKeyMasked = if (provider == _ui.value.selectedTextAI) masked else _ui.value.textApiKeyMasked,
-                fallbackApiKeyMasked = if (provider == _ui.value.fallbackProvider) masked else _ui.value.fallbackApiKeyMasked
-            )
         }
     }
 
@@ -726,8 +755,10 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
     fun selectProvider(p: AIProvider) {
         if (p !in _ui.value.availableVisionProviders) return
         viewModelScope.launch {
+            clearForeignBinding(AIRoute.PRIMARY, p)
             container.prefs.setSelectedAIProvider(p)
             container.prefs.setSelectedAIModel(p.defaultModel)
+            syncCredentialState()
             val masked = maskKey(container.keyStore.apiKey(p))
             _ui.value = _ui.value.copy(selectedAI = p, selectedModel = p.defaultModel, apiKeyMasked = masked)
         }
@@ -741,29 +772,76 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
         }
     }
 
-    fun setApiKey(raw: String) {
-        viewModelScope.launch {
-            val p = _ui.value.selectedAI
-            container.keyStore.setApiKey(p, raw.takeIf { it.isNotBlank() })
-            val masked = maskKey(raw.takeIf { it.isNotBlank() })
-            val speechMasked = if (_ui.value.selectedSpeech.matchingAIProvider == p) {
-                maskKey(container.keyStore.speechApiKey(_ui.value.selectedSpeech))
-            } else {
-                _ui.value.speechApiKeyMasked
-            }
-            val speechFallbackMasked = if (_ui.value.speechFallbackProvider.matchingAIProvider == p) {
-                maskKey(container.keyStore.speechApiKey(_ui.value.speechFallbackProvider))
-            } else {
-                _ui.value.speechFallbackApiKeyMasked
-            }
-            _ui.value = _ui.value.copy(
-                apiKeyMasked = masked,
-                textApiKeyMasked = if (p == _ui.value.selectedTextAI) masked else _ui.value.textApiKeyMasked,
-                fallbackApiKeyMasked = if (p == _ui.value.fallbackProvider) masked else _ui.value.fallbackApiKeyMasked,
-                textFallbackApiKeyMasked = if (p == _ui.value.textFallbackProvider) masked else _ui.value.textFallbackApiKeyMasked,
-                speechApiKeyMasked = speechMasked,
-                speechFallbackApiKeyMasked = speechFallbackMasked
+    // -- API-key profiles and routing -------------------------------------
+
+    /** Adds a named profile and returns it so the caller can bind it to a route. */
+    fun addCredential(provider: AIProvider, label: String, key: String): CredentialMutation {
+        val result = container.aiCredentials.add(provider, label, key)
+        val error = result.exceptionOrNull()?.message
+        if (result.isSuccess) syncCredentialState()
+        return CredentialMutation(result.getOrNull(), error)
+    }
+
+    fun renameCredential(id: String, label: String): String? {
+        val error = container.aiCredentials.rename(id, label).exceptionOrNull()?.message
+        if (error == null) syncCredentialState()
+        return error
+    }
+
+    fun replaceCredentialSecret(id: String, key: String): String? {
+        val error = container.aiCredentials.replaceSecret(id, key).exceptionOrNull()?.message
+        if (error == null) syncCredentialState()
+        return error
+    }
+
+    /** Deletes a profile; only slots explicitly bound to it are reassigned or cleared. */
+    fun deleteCredential(id: String, replacementId: String? = null) {
+        container.aiCredentials.delete(id, replacementId)
+        syncCredentialState()
+    }
+
+    fun bindCredentialToRoute(route: AIRoute, credentialId: String) {
+        container.aiCredentials.bindRoute(route, credentialId)
+        syncCredentialState()
+    }
+
+    /** Slots currently resolving to [id], used by the delete confirmation. */
+    fun activeRoutesUsingCredential(id: String): List<AIRoute> {
+        val state = _ui.value
+        val providers = buildMap {
+            put(AIRoute.PRIMARY, state.selectedAI)
+            if (state.separateTextProviderEnabled) put(AIRoute.TEXT, state.selectedTextAI)
+            if (state.fallbackEnabled) put(AIRoute.IMAGE_FALLBACK, state.fallbackProvider)
+            if (state.textFallbackEnabled) put(AIRoute.TEXT_FALLBACK, state.textFallbackProvider)
+        }
+        return container.aiCredentials.routesUsing(id, providers)
+    }
+
+    fun replacementCredentials(provider: AIProvider, excludingId: String): List<AICredential> =
+        container.aiCredentials.forProvider(provider).filter { it.id != excludingId }
+
+    private fun syncCredentialState() {
+        _ui.update { state ->
+            val profiles = container.aiCredentials.all()
+            state.copy(
+                credentialProfiles = profiles,
+                credentialFingerprints = profiles.associate {
+                    it.id to container.aiCredentials.maskedSecret(it.id)
+                },
+                routeCredentialIds = container.aiCredentials.bindings(),
+                apiKeyMasked = maskKey(container.keyStore.apiKey(state.selectedAI)),
+                textApiKeyMasked = maskKey(container.keyStore.apiKey(state.selectedTextAI)),
+                fallbackApiKeyMasked = maskKey(container.keyStore.apiKey(state.fallbackProvider)),
+                textFallbackApiKeyMasked = maskKey(container.keyStore.apiKey(state.textFallbackProvider)),
             )
+        }
+    }
+
+    /** A route must never keep a binding to a provider the user just switched away from. */
+    private fun clearForeignBinding(route: AIRoute, provider: AIProvider) {
+        val bound = container.aiCredentials.find(container.aiCredentials.bindings()[route])
+        if (bound != null && bound.provider != provider) {
+            container.aiCredentials.clearRoute(route)
         }
     }
 
@@ -777,7 +855,9 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
     fun selectTextProvider(provider: AIProvider) {
         if (provider !in _ui.value.availableTextProviders) return
         viewModelScope.launch {
+            clearForeignBinding(AIRoute.TEXT, provider)
             container.prefs.setSelectedTextAIProvider(provider)
+            syncCredentialState()
             val model = provider.defaultTextModel
             container.prefs.setSelectedTextAIModel(model)
             _ui.value = _ui.value.copy(
@@ -793,32 +873,6 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
             val resolved = _ui.value.selectedTextAI.supportedTextModelOrDefault(model)
             container.prefs.setSelectedTextAIModel(resolved)
             _ui.value = _ui.value.copy(selectedTextModel = resolved)
-        }
-    }
-
-    fun setTextApiKey(raw: String) {
-        viewModelScope.launch {
-            val provider = _ui.value.selectedTextAI
-            container.keyStore.setApiKey(provider, raw.takeIf { it.isNotBlank() })
-            val masked = maskKey(raw.takeIf { it.isNotBlank() })
-            val speechMasked = if (_ui.value.selectedSpeech.matchingAIProvider == provider) {
-                maskKey(container.keyStore.speechApiKey(_ui.value.selectedSpeech))
-            } else {
-                _ui.value.speechApiKeyMasked
-            }
-            val speechFallbackMasked = if (_ui.value.speechFallbackProvider.matchingAIProvider == provider) {
-                maskKey(container.keyStore.speechApiKey(_ui.value.speechFallbackProvider))
-            } else {
-                _ui.value.speechFallbackApiKeyMasked
-            }
-            _ui.value = _ui.value.copy(
-                textApiKeyMasked = masked,
-                apiKeyMasked = if (provider == _ui.value.selectedAI) masked else _ui.value.apiKeyMasked,
-                fallbackApiKeyMasked = if (provider == _ui.value.fallbackProvider) masked else _ui.value.fallbackApiKeyMasked,
-                textFallbackApiKeyMasked = if (provider == _ui.value.textFallbackProvider) masked else _ui.value.textFallbackApiKeyMasked,
-                speechApiKeyMasked = speechMasked,
-                speechFallbackApiKeyMasked = speechFallbackMasked
-            )
         }
     }
 

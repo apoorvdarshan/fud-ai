@@ -101,7 +101,9 @@ data class FoodAiCallSettings(
     val requestTimeoutSeconds: Int,
     val openRouterReasoningEffort: OpenRouterReasoningEffort,
     /** Opt-in amino acid estimates (#491); off leaves food-analysis prompts unchanged. */
-    val aminoAcidEstimates: Boolean = false
+    val aminoAcidEstimates: Boolean = false,
+    /** True when this request uses the separate Text AI provider instead of the primary one. */
+    val usesSeparateTextProvider: Boolean = false
 )
 
 internal fun executableAIProviderOrDefault(
@@ -1158,7 +1160,8 @@ class PreferencesStore(
             openRouterReasoningEffort = OpenRouterReasoningEffort.fromValue(
                 prefs[Keys.OPENROUTER_REASONING_EFFORT]
             ),
-            aminoAcidEstimates = prefs[Keys.AMINO_ACID_ESTIMATES_ENABLED] ?: false
+            aminoAcidEstimates = prefs[Keys.AMINO_ACID_ESTIMATES_ENABLED] ?: false,
+            usesSeparateTextProvider = useSeparateText
         )
     }
 

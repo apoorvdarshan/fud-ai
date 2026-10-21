@@ -4642,6 +4642,7 @@ enum AISettingsInfoTopic {
     case imageFallback
     case speechToText
     case speechFallback
+    case routing
 
     var title: String {
         switch self {
@@ -4651,6 +4652,7 @@ enum AISettingsInfoTopic {
         case .imageFallback: "Image AI Fallback"
         case .speechToText: "Speech-to-Text"
         case .speechFallback: "STT Fallback"
+        case .routing: "Routing overview"
         }
     }
 
@@ -4668,6 +4670,8 @@ enum AISettingsInfoTopic {
             "Converts microphone audio into text only. The transcript then follows the normal text route: Text AI when enabled, otherwise Primary AI. Matching provider API keys are reused unless you save a separate STT key."
         case .speechFallback:
             "Retries transcription when the selected remote STT provider fails. It only produces a transcript; that transcript still follows the normal text AI route. Native iOS speech already uses Apple's offline and online recognition recovery, so a separate STT fallback is available only for remote providers."
+        case .routing:
+            "Shows which provider, API key profile and model every AI route uses. Each route can use its own key, so you can keep a personal and a work key for the same provider. Rows marked Off are not active."
         }
     }
 }
@@ -4916,33 +4920,26 @@ struct ProfileView: View {
     @State private var invalidGoalWeightMessage = ""
     @State private var selectedProvider: AIProvider = AIProviderSettings.selectedProvider
     @State private var selectedModel: String = AIProviderSettings.selectedModel
-    @State private var apiKeyText: String = AIProviderSettings.apiKey(for: AIProviderSettings.selectedProvider) ?? ""
     @State private var customBaseURL: String = AIProviderSettings.customBaseURL(for: AIProviderSettings.selectedProvider) ?? ""
     @AppStorage("openRouterReasoningEffort") private var openRouterReasoningEffort: OpenRouterReasoningEffort = .auto
     @State private var maxResponseTokensText: String = String(AIProviderSettings.maxResponseTokens)
     @State private var requestTimeoutSecondsText: String = String(AIProviderSettings.requestTimeoutSeconds)
-    @State private var showAPIKey = false
     @State private var separateTextProviderEnabled: Bool = AIProviderSettings.separateTextProviderEnabled
     @State private var selectedTextProvider: AIProvider = AIProviderSettings.selectedTextProvider
     @State private var selectedTextModel: String = AIProviderSettings.selectedTextModel
-    @State private var textApiKeyText: String = AIProviderSettings.apiKey(for: AIProviderSettings.selectedTextProvider) ?? ""
     @State private var textBaseURL: String = AIProviderSettings.customBaseURL(for: AIProviderSettings.selectedTextProvider) ?? ""
-    @State private var showTextAPIKey = false
     @State private var customAIInstructions: String = AIProviderSettings.userContext
     @State private var savedAIInstructions: String = AIProviderSettings.userContext
     @FocusState private var customInstructionsFocused: Bool
     @State private var fallbackEnabled: Bool = AIProviderSettings.fallbackEnabled
     @State private var selectedFallbackProvider: AIProvider = AIProviderSettings.selectedFallbackProvider
     @State private var selectedFallbackModel: String = AIProviderSettings.selectedFallbackModel
-    @State private var fallbackApiKeyText: String = AIProviderSettings.apiKey(for: AIProviderSettings.selectedFallbackProvider) ?? ""
     @State private var fallbackBaseURL: String = AIProviderSettings.fallbackCustomBaseURL(for: AIProviderSettings.selectedFallbackProvider) ?? ""
-    @State private var showFallbackAPIKey = false
     @State private var textFallbackEnabled: Bool = AIProviderSettings.textFallbackEnabled
     @State private var selectedTextFallbackProvider: AIProvider = AIProviderSettings.selectedTextFallbackProvider
     @State private var selectedTextFallbackModel: String = AIProviderSettings.selectedTextFallbackModel
-    @State private var textFallbackApiKeyText: String = AIProviderSettings.apiKey(for: AIProviderSettings.selectedTextFallbackProvider) ?? ""
     @State private var textFallbackBaseURL: String = AIProviderSettings.fallbackCustomBaseURL(for: AIProviderSettings.selectedTextFallbackProvider) ?? ""
-    @State private var showTextFallbackAPIKey = false
+    @State private var credentialPickerRoute: AIRoute?
     @State private var localModelAvailabilityRevision = 0
     @State private var selectedSpeechProvider: SpeechProvider = SpeechSettings.selectedProvider
     @State private var selectedSpeechLanguage: SpeechLanguage = SpeechSettings.selectedLanguage(for: SpeechSettings.selectedProvider)
@@ -5760,6 +5757,60 @@ struct ProfileView: View {
                 if settingsCategory == .aiProviders {
                 Section {
                         AISettingsSubsectionHeader(
+                            title: "Routing overview",
+                            systemImage: "arrow.triangle.branch",
+                            infoTopic: .routing
+                        )
+
+                        AIRoutingOverviewRow(
+                            title: "Primary AI",
+                            provider: selectedProvider,
+                            model: selectedModel,
+                            profile: AICredentialStore.shared.routeProfile(.primary, provider: selectedProvider),
+                            isActive: true
+                        )
+
+                        AIRoutingOverviewRow(
+                            title: "Text AI",
+                            provider: selectedTextProvider,
+                            model: selectedTextModel,
+                            profile: AICredentialStore.shared.routeProfile(.text, provider: selectedTextProvider),
+                            isActive: separateTextProviderEnabled
+                        )
+
+                        AIRoutingOverviewRow(
+                            title: "Image fallback",
+                            provider: selectedFallbackProvider,
+                            model: selectedFallbackModel,
+                            profile: AICredentialStore.shared.routeProfile(.imageFallback, provider: selectedFallbackProvider),
+                            isActive: fallbackEnabled
+                        )
+
+                        AIRoutingOverviewRow(
+                            title: "Text fallback",
+                            provider: selectedTextFallbackProvider,
+                            model: selectedTextFallbackModel,
+                            profile: AICredentialStore.shared.routeProfile(.textFallback, provider: selectedTextFallbackProvider),
+                            isActive: textFallbackEnabled
+                        )
+
+                        NavigationLink {
+                            AICredentialManagerView()
+                        } label: {
+                            Label {
+                                HStack {
+                                    Text("API key profiles")
+                                    Spacer()
+                                    Text("Manage")
+                                        .foregroundStyle(.secondary)
+                                }
+                            } icon: {
+                                Image(systemName: "key.horizontal")
+                                    .foregroundStyle(AppColors.calorie)
+                            }
+                        }
+
+                        AISettingsSubsectionHeader(
                             title: "Primary AI",
                             systemImage: "sparkles",
                             infoTopic: .primaryAI
@@ -5785,10 +5836,10 @@ struct ProfileView: View {
                         .tint(.secondary)
                         .id("primary-provider-\(localModelAvailabilityRevision)")
                         .onChange(of: selectedProvider) { _, newProvider in
+                            AICredentialStore.shared.clearRouteIfForeign(.primary, provider: newProvider)
                             AIProviderSettings.selectedProvider = newProvider
                             selectedModel = newProvider.defaultModel
                             AIProviderSettings.selectedModel = newProvider.defaultModel
-                            apiKeyText = AIProviderSettings.apiKey(for: newProvider) ?? ""
                             customBaseURL = AIProviderSettings.customBaseURL(for: newProvider) ?? ""
                         }
 
@@ -5859,38 +5910,12 @@ struct ProfileView: View {
                         }
 
                         if selectedProvider.requiresAPIKey {
-                            HStack {
-                                Label {
-                                    Text("API Key")
-                                } icon: {
-                                    Image(systemName: "key.fill")
-                                        .foregroundStyle(AppColors.calorie)
-                                }
-                                Spacer()
-                                Group {
-                                    if showAPIKey {
-                                        TextField(selectedProvider.apiKeyPlaceholder, text: $apiKeyText)
-                                    } else {
-                                        SecureField(selectedProvider.apiKeyPlaceholder, text: $apiKeyText)
-                                    }
-                                }
-                                .textFieldStyle(.plain)
-                                .multilineTextAlignment(.trailing)
-                                .autocorrectionDisabled()
-                                .textInputAutocapitalization(.never)
-                                .onChange(of: apiKeyText) { _, newValue in
-                                    let t = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
-                                    AIProviderSettings.setAPIKey(t.isEmpty ? nil : t, for: selectedProvider)
-                                }
-                                Button {
-                                    showAPIKey.toggle()
-                                } label: {
-                                    Image(systemName: showAPIKey ? "eye.fill" : "eye.slash.fill")
-                                        .foregroundStyle(.secondary)
-                                        .font(.system(size: 14))
-                                }
-                                .buttonStyle(.plain)
-                            }
+                            AICredentialRouteRow(
+                                title: "API Key",
+                                route: .primary,
+                                provider: selectedProvider,
+                                onPick: { credentialPickerRoute = .primary }
+                            )
                         }
 
                         if selectedProvider == .ollama || selectedProvider.requiresCustomEndpoint {
@@ -6031,10 +6056,10 @@ struct ProfileView: View {
                         .tint(.secondary)
                         .id("text-provider-\(localModelAvailabilityRevision)")
                         .onChange(of: selectedTextProvider) { _, newProvider in
+                            AICredentialStore.shared.clearRouteIfForeign(.text, provider: newProvider)
                             AIProviderSettings.selectedTextProvider = newProvider
                             selectedTextModel = newProvider.defaultTextModel
                             AIProviderSettings.selectedTextModel = selectedTextModel
-                            textApiKeyText = AIProviderSettings.apiKey(for: newProvider) ?? ""
                             textBaseURL = AIProviderSettings.customBaseURL(for: newProvider) ?? ""
                         }
 
@@ -6095,32 +6120,12 @@ struct ProfileView: View {
                         }
 
                         if selectedTextProvider.requiresAPIKey {
-                            HStack {
-                                Label("API Key", systemImage: "key.fill")
-                                Spacer()
-                                Group {
-                                    if showTextAPIKey {
-                                        TextField(selectedTextProvider.apiKeyPlaceholder, text: $textApiKeyText)
-                                    } else {
-                                        SecureField(selectedTextProvider.apiKeyPlaceholder, text: $textApiKeyText)
-                                    }
-                                }
-                                .textFieldStyle(.plain)
-                                .multilineTextAlignment(.trailing)
-                                .autocorrectionDisabled()
-                                .textInputAutocapitalization(.never)
-                                .onChange(of: textApiKeyText) { _, newValue in
-                                    let trimmed = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
-                                    AIProviderSettings.setAPIKey(trimmed.isEmpty ? nil : trimmed, for: selectedTextProvider)
-                                }
-                                Button {
-                                    showTextAPIKey.toggle()
-                                } label: {
-                                    Image(systemName: showTextAPIKey ? "eye.fill" : "eye.slash.fill")
-                                        .foregroundStyle(.secondary)
-                                }
-                                .buttonStyle(.plain)
-                            }
+                            AICredentialRouteRow(
+                                title: "API Key",
+                                route: .text,
+                                provider: selectedTextProvider,
+                                onPick: { credentialPickerRoute = .text }
+                            )
                         }
 
                         if selectedTextProvider == .ollama || selectedTextProvider.requiresCustomEndpoint {
@@ -6292,37 +6297,12 @@ struct ProfileView: View {
                             }
 
                             if selectedFallbackProvider.requiresAPIKey {
-                                HStack {
-                                    Label {
-                                        Text("API Key")
-                                    } icon: {
-                                        Image(systemName: "key.fill")
-                                            .foregroundStyle(AppColors.calorie)
-                                    }
-                                    Spacer()
-                                    Group {
-                                        if showFallbackAPIKey {
-                                            TextField(selectedFallbackProvider.apiKeyPlaceholder, text: $fallbackApiKeyText)
-                                        } else {
-                                            SecureField(selectedFallbackProvider.apiKeyPlaceholder, text: $fallbackApiKeyText)
-                                        }
-                                    }
-                                    .textFieldStyle(.plain)
-                                    .multilineTextAlignment(.trailing)
-                                    .autocorrectionDisabled()
-                                    .textInputAutocapitalization(.never)
-                                    .onChange(of: fallbackApiKeyText) { _, newValue in
-                                        AIProviderSettings.setAPIKey(newValue.isEmpty ? nil : newValue, for: selectedFallbackProvider)
-                                    }
-                                    Button {
-                                        showFallbackAPIKey.toggle()
-                                    } label: {
-                                        Image(systemName: showFallbackAPIKey ? "eye.fill" : "eye.slash.fill")
-                                            .foregroundStyle(.secondary)
-                                            .font(.system(size: 14))
-                                    }
-                                    .buttonStyle(.plain)
-                                }
+                                AICredentialRouteRow(
+                                    title: "API Key",
+                                    route: .imageFallback,
+                                    provider: selectedFallbackProvider,
+                                    onPick: { credentialPickerRoute = .imageFallback }
+                                )
                             }
 
                             if selectedFallbackProvider == .ollama || selectedFallbackProvider.requiresCustomEndpoint {
@@ -6621,6 +6601,12 @@ struct ProfileView: View {
             .scrollContentBackground(.hidden)
             .modifier(SettingsKeyboardDismissalModifier())
             .background(AppColors.appBackground)
+            .sheet(item: $credentialPickerRoute) { route in
+                AICredentialPickerSheet(
+                    route: route,
+                    provider: providerForCredentialRoute(route)
+                )
+            }
             .sheet(isPresented: $showExportDiary) {
                 ExportDiaryView()
             }
@@ -6986,31 +6972,12 @@ struct ProfileView: View {
             }
 
             if selectedTextFallbackProvider.requiresAPIKey {
-                HStack {
-                    Label("API Key", systemImage: "key.fill")
-                    Spacer()
-                    Group {
-                        if showTextFallbackAPIKey {
-                            TextField(selectedTextFallbackProvider.apiKeyPlaceholder, text: $textFallbackApiKeyText)
-                        } else {
-                            SecureField(selectedTextFallbackProvider.apiKeyPlaceholder, text: $textFallbackApiKeyText)
-                        }
-                    }
-                    .textFieldStyle(.plain)
-                    .multilineTextAlignment(.trailing)
-                    .autocorrectionDisabled()
-                    .textInputAutocapitalization(.never)
-                    .onChange(of: textFallbackApiKeyText) { _, newValue in
-                        AIProviderSettings.setAPIKey(newValue.isEmpty ? nil : newValue, for: selectedTextFallbackProvider)
-                    }
-                    Button {
-                        showTextFallbackAPIKey.toggle()
-                    } label: {
-                        Image(systemName: showTextFallbackAPIKey ? "eye.fill" : "eye.slash.fill")
-                            .foregroundStyle(.secondary)
-                    }
-                    .buttonStyle(.plain)
-                }
+                AICredentialRouteRow(
+                    title: "API Key",
+                    route: .textFallback,
+                    provider: selectedTextFallbackProvider,
+                    onPick: { credentialPickerRoute = .textFallback }
+                )
             }
 
             if selectedTextFallbackProvider == .ollama || selectedTextFallbackProvider.requiresCustomEndpoint {
@@ -7255,6 +7222,7 @@ struct ProfileView: View {
     }
 
     private func selectFallbackProvider(_ newProvider: AIProvider) {
+        AICredentialStore.shared.clearRouteIfForeign(.imageFallback, provider: newProvider)
         AIProviderSettings.selectedFallbackProvider = newProvider
         if !newProvider.supportsCustomModelName,
            !newProvider.models.contains(selectedFallbackModel) {
@@ -7271,11 +7239,11 @@ struct ProfileView: View {
             selectedFallbackModel = alternateModel
             AIProviderSettings.selectedFallbackModel = alternateModel
         }
-        fallbackApiKeyText = AIProviderSettings.apiKey(for: newProvider) ?? ""
         fallbackBaseURL = AIProviderSettings.fallbackCustomBaseURL(for: newProvider) ?? ""
     }
 
     private func selectTextFallbackProvider(_ newProvider: AIProvider) {
+        AICredentialStore.shared.clearRouteIfForeign(.textFallback, provider: newProvider)
         AIProviderSettings.selectedTextFallbackProvider = newProvider
         let options = newProvider.textModels
         if !newProvider.supportsCustomModelName,
@@ -7294,8 +7262,17 @@ struct ProfileView: View {
             selectedTextFallbackModel = alternate
             AIProviderSettings.selectedTextFallbackModel = alternate
         }
-        textFallbackApiKeyText = AIProviderSettings.apiKey(for: newProvider) ?? ""
         textFallbackBaseURL = AIProviderSettings.fallbackCustomBaseURL(for: newProvider) ?? ""
+    }
+
+    /// The provider that currently belongs to an AI routing slot.
+    private func providerForCredentialRoute(_ route: AIRoute) -> AIProvider {
+        switch route {
+        case .primary: return selectedProvider
+        case .text: return selectedTextProvider
+        case .imageFallback: return selectedFallbackProvider
+        case .textFallback: return selectedTextFallbackProvider
+        }
     }
 
     private func reconcileImageFallbackModelIfDuplicate() {

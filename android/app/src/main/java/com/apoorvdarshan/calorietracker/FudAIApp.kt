@@ -246,6 +246,8 @@ class AppContainer(app: FudAIApp) {
         isLocalWhisperExecutable = { localModels.isExecutable(LocalModelId.WHISPER_BASE) }
     )
     val keyStore = KeyStore(app)
+    /** Named API-key profiles plus the credential bound to each AI routing slot. */
+    val aiCredentials = keyStore.credentials.also { it.ensureMigrated() }
     val imageStore = FoodImageStore(app)
     val notifications = NotificationService(app)
     val health = HealthConnectManager(app)
@@ -355,8 +357,8 @@ class AppContainer(app: FudAIApp) {
     val hostedAccess = HostedAiAccess(hostedAiClient) { billing.entitlement.value }
     val hostedUi = HostedUiRouter()
 
-    val foodAnalysis = FoodAnalysisService(prefs, keyStore, localGemma = localGemma, hosted = hostedAccess)
-    val chatService = ChatService(prefs, keyStore, localGemma = localGemma, hosted = hostedAccess)
+    val foodAnalysis = FoodAnalysisService(prefs, aiCredentials, localGemma = localGemma, hosted = hostedAccess)
+    val chatService = ChatService(prefs, aiCredentials, localGemma = localGemma, hosted = hostedAccess)
     val speechService = SpeechService(prefs, keyStore, localWhisper = localWhisper, hosted = hostedAccess)
 
     val widgetSnapshotWriter = WidgetSnapshotWriter(app, prefs, foodRepository, profileRepository)

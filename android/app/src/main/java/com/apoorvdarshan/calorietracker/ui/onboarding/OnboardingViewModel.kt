@@ -207,7 +207,7 @@ class OnboardingViewModel(private val container: AppContainer) : ViewModel() {
         _ui.value = _ui.value.copy(apiKey = key)
         // Persist immediately so the in-onboarding AI plan calc can use it.
         viewModelScope.launch {
-            container.keyStore.setApiKey(_ui.value.aiProvider, key.trim().takeIf { it.isNotBlank() })
+            container.aiCredentials.setDefaultSecret(_ui.value.aiProvider, key.trim().takeIf { it.isNotBlank() })
         }
     }
 
@@ -594,7 +594,7 @@ class OnboardingViewModel(private val container: AppContainer) : ViewModel() {
             container.prefs.setSelectedAIProvider(state.aiProvider)
             container.prefs.setSelectedAIModel(state.aiModel)
             if (state.apiKey.isNotBlank()) {
-                container.keyStore.setApiKey(state.aiProvider, state.apiKey.trim())
+                container.aiCredentials.setDefaultSecret(state.aiProvider, state.apiKey.trim())
             }
             // Hosted users keep the default on-device speech recognizer (free); a remote
             // speech provider would need a BYOK key.

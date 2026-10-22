@@ -263,14 +263,17 @@ final class AICredentialStore {
     }
 
     /// A route must never keep a binding to a provider the user just switched away from.
+    /// An unconfigured marker also belongs to a provider, so switching away from it
+    /// clears the marker and restores the old provider's legacy mirror.
     func clearRouteIfForeign(_ route: AIRoute, provider: AIProvider) {
         ensureMigrated()
-        if let bound = profile(id: defaults.string(forKey: Self.routeKey(route))),
-           bound.provider != provider {
-            defaults.removeObject(forKey: Self.routeKey(route))
-            syncLegacyDefault(bound.provider)
-            revision &+= 1
-        }
+        guard let binding = defaults.string(forKey: Self.routeKey(route)),
+              let boundProvider = profile(id: binding)?.provider
+                ?? Self.providerForUnconfiguredBinding(binding),
+              boundProvider != provider else { return }
+        defaults.removeObject(forKey: Self.routeKey(route))
+        syncLegacyDefault(boundProvider)
+        revision &+= 1
     }
 
     /// Adds a named profile. A nil `label` creates the provider's unnamed key slot; a
@@ -540,6 +543,10 @@ final class AICredentialStore {
     private static func routeKey(_ route: AIRoute) -> String { routePrefix + route.rawValue }
     private static func unconfiguredBinding(_ provider: AIProvider) -> String {
         unconfiguredPrefix + provider.rawValue
+    }
+    private static func providerForUnconfiguredBinding(_ binding: String) -> AIProvider? {
+        guard binding.hasPrefix(unconfiguredPrefix) else { return nil }
+        return AIProvider(rawValue: String(binding.dropFirst(unconfiguredPrefix.count)))
     }
     private static func legacyKey(_ provider: AIProvider) -> String { legacyPrefix + provider.rawValue }
 }

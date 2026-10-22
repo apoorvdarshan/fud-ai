@@ -921,10 +921,7 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
 
     /** A route must never keep a binding to a provider the user just switched away from. */
     private fun clearForeignBinding(route: AIRoute, provider: AIProvider) {
-        val bound = container.aiCredentials.find(container.aiCredentials.bindings()[route])
-        if (bound != null && bound.provider != provider) {
-            container.aiCredentials.clearRoute(route)
-        }
+        container.aiCredentials.clearRouteIfForeign(route, provider)
     }
 
     fun setSeparateTextProviderEnabled(enabled: Boolean) {

@@ -213,6 +213,25 @@ class AICredentialRegistry(
     }
 
     /**
+     * Clears a slot binding that belongs to another provider, so switching the slot to
+     * [provider] starts from that provider's default. A profile of [provider] and an
+     * unconfigured marker for [provider] are kept. An unknown binding is left alone.
+     */
+    @Synchronized
+    fun clearRouteIfForeign(route: AIRoute, provider: AIProvider) {
+        ensureMigrated()
+        val binding = secrets.load(routeKey(route)) ?: return
+        val oldProvider = find(binding)?.provider
+            ?: providerForUnconfiguredBinding(binding)
+            ?: return
+        if (oldProvider == provider) return
+        secrets.delete(routeKey(route))
+        // The marker stopped the old provider's legacy mirror, so removing it restores
+        // the old provider's default key for readers that only know the provider.
+        syncLegacyDefault(oldProvider)
+    }
+
+    /**
      * Adds a named profile. A null [label] creates the provider's unnamed key slot;
      * a blank label is rejected.
      */
@@ -422,6 +441,13 @@ class AICredentialRegistry(
         val bound = boundProfile(AIRoute.PRIMARY, provider)
             ?: defaultIn(readProfiles().orEmpty(), provider)
         return bound?.let { rawSecret(it.id) }
+    }
+
+    /** The provider an unconfigured marker belongs to, or null for any other binding. */
+    private fun providerForUnconfiguredBinding(binding: String): AIProvider? {
+        if (!binding.startsWith(UNCONFIGURED_PREFIX)) return null
+        val providerName = binding.removePrefix(UNCONFIGURED_PREFIX)
+        return AIProvider.entries.firstOrNull { it.name == providerName }
     }
 
     /** Mirrors the provider's effective key into `apikey_<PROVIDER>` for legacy readers. */

@@ -159,6 +159,84 @@ class AICredentialRegistryTest {
     }
 
     @Test
+    fun switchingAwayFromAProviderClearsItsUnconfiguredMarkerAndRestoresItsDefaultKey() {
+        val store = FakeSecrets()
+        val creds = registry(store)
+        val bound = creds.add(AIProvider.OPENAI, "Bound", "sk-openai-bound-1111").getOrThrow()
+        creds.add(AIProvider.OPENAI, null, "sk-openai-default-2222").getOrThrow()
+        creds.bindRoute(AIRoute.PRIMARY, bound.id)
+        assertEquals("sk-openai-bound-1111", creds.effectiveSecret(AIProvider.OPENAI))
+
+        creds.delete(bound.id, routeProviders = mapOf(AIRoute.PRIMARY to AIProvider.OPENAI)).getOrThrow()
+
+        assertEquals(
+            AICredentialRegistry.unconfiguredBinding(AIProvider.OPENAI),
+            creds.bindings()[AIRoute.PRIMARY]
+        )
+        assertNull(creds.effectiveSecret(AIProvider.OPENAI))
+        assertNull(store.load("apikey_OPENAI"))
+
+        // Switching the primary route to Gemini must not leave OpenAI's marker behind,
+        // otherwise OpenAI's legacy readers would keep seeing a route without a key.
+        creds.clearRouteIfForeign(AIRoute.PRIMARY, AIProvider.GEMINI)
+
+        assertNull(creds.bindings()[AIRoute.PRIMARY])
+        assertNull(creds.routeCredential(AIRoute.PRIMARY, AIProvider.GEMINI))
+        assertEquals("sk-openai-default-2222", creds.effectiveSecret(AIProvider.OPENAI))
+        assertEquals("sk-openai-default-2222", store.load("apikey_OPENAI"))
+    }
+
+    @Test
+    fun switchingToTheSameProviderKeepsItsUnconfiguredMarker() {
+        val store = FakeSecrets()
+        val creds = registry(store)
+        val bound = creds.add(AIProvider.OPENAI, "Bound", "sk-openai-bound-1111").getOrThrow()
+        creds.add(AIProvider.OPENAI, "Default", "sk-openai-default-2222").getOrThrow()
+        creds.bindRoute(AIRoute.PRIMARY, bound.id)
+        creds.delete(bound.id, routeProviders = mapOf(AIRoute.PRIMARY to AIProvider.OPENAI)).getOrThrow()
+
+        creds.clearRouteIfForeign(AIRoute.PRIMARY, AIProvider.OPENAI)
+
+        assertEquals(
+            AICredentialRegistry.unconfiguredBinding(AIProvider.OPENAI),
+            creds.bindings()[AIRoute.PRIMARY]
+        )
+        assertNull(creds.routeCredential(AIRoute.PRIMARY, AIProvider.OPENAI))
+        assertNull(creds.effectiveSecret(AIProvider.OPENAI))
+        assertNull(store.load("apikey_OPENAI"))
+    }
+
+    @Test
+    fun switchingToTheSameProviderKeepsItsProfileBinding() {
+        val creds = registry()
+        creds.add(AIProvider.OPENROUTER, "Personal", "sk-or-personal-1111").getOrThrow()
+        val work = creds.add(AIProvider.OPENROUTER, "Work", "sk-or-work-2222").getOrThrow()
+        creds.bindRoute(AIRoute.PRIMARY, work.id)
+
+        creds.clearRouteIfForeign(AIRoute.PRIMARY, AIProvider.OPENROUTER)
+
+        assertEquals(work.id, creds.bindings()[AIRoute.PRIMARY])
+        assertEquals("sk-or-work-2222", creds.routeSecret(AIRoute.PRIMARY, AIProvider.OPENROUTER))
+    }
+
+    @Test
+    fun switchingProvidersClearsAForeignProfileBindingAndRestoresItsMirror() {
+        val store = FakeSecrets()
+        val creds = registry(store)
+        val openRouter = creds.add(AIProvider.OPENROUTER, "Personal", "sk-or-personal-1111").getOrThrow()
+        creds.bindRoute(AIRoute.PRIMARY, openRouter.id)
+        assertEquals("sk-or-personal-1111", store.load("apikey_OPENROUTER"))
+
+        creds.clearRouteIfForeign(AIRoute.PRIMARY, AIProvider.GEMINI)
+
+        assertNull(creds.bindings()[AIRoute.PRIMARY])
+        assertNull(creds.routeCredential(AIRoute.PRIMARY, AIProvider.GEMINI))
+        // OpenRouter is no longer primary but keeps its default key for its own readers.
+        assertEquals("sk-or-personal-1111", creds.effectiveSecret(AIProvider.OPENROUTER))
+        assertEquals("sk-or-personal-1111", store.load("apikey_OPENROUTER"))
+    }
+
+    @Test
     fun deletingTheImplicitDefaultLeavesTheActiveRouteUnconfigured() {
         val creds = registry()
         val first = creds.add(AIProvider.OPENROUTER, "First", "sk-or-first-1111").getOrThrow()

@@ -160,6 +160,61 @@ struct AICredentialStoreTests {
         #expect(store.routeSecret(.primary, provider: .openai) == "sk-openai-3333")
     }
 
+    @Test func switchingTheProviderClearsAnUnconfiguredMarkerAndRestoresTheOldMirror() throws {
+        let secrets = MemorySecrets()
+        let (store, _) = makeStore(secrets: secrets)
+        let first = try store.add(provider: .openai, label: "First", secret: "sk-openai-first-1111").get()
+        let second = try store.add(provider: .openai, label: "Second", secret: "sk-openai-second-2222").get()
+        store.bindRoute(.primary, credentialID: first.id)
+
+        _ = try store.delete(id: first.id, routeProviders: [.primary: .openai]).get()
+
+        #expect((store.routeBindings()[.primary])!! == "__unconfigured__:OpenAI")
+        #expect(store.effectiveSecret(for: .openai) == nil)
+        #expect(secrets.values["apikey_OpenAI"] == nil)
+
+        // Switching the primary route to Gemini must drop the old provider's marker and
+        // restore the mirror from OpenAI's remaining default profile.
+        store.clearRouteIfForeign(.primary, provider: .gemini)
+
+        #expect((store.routeBindings()[.primary])! == nil)
+        #expect(store.routeProfile(.primary, provider: .openai)?.id == second.id)
+        #expect(store.effectiveSecret(for: .openai) == "sk-openai-second-2222")
+        #expect(secrets.values["apikey_OpenAI"] == "sk-openai-second-2222")
+    }
+
+    @Test func aSameProviderUnconfiguredMarkerSurvivesTheProviderCheck() throws {
+        let secrets = MemorySecrets()
+        let (store, _) = makeStore(secrets: secrets)
+        let first = try store.add(provider: .openai, label: "First", secret: "sk-openai-first-1111").get()
+        _ = try store.add(provider: .openai, label: "Second", secret: "sk-openai-second-2222").get()
+        store.bindRoute(.primary, credentialID: first.id)
+
+        _ = try store.delete(id: first.id, routeProviders: [.primary: .openai]).get()
+        store.clearRouteIfForeign(.primary, provider: .openai)
+
+        #expect((store.routeBindings()[.primary])!! == "__unconfigured__:OpenAI")
+        #expect(store.routeSecret(.primary, provider: .openai) == nil)
+        #expect(store.effectiveSecret(for: .openai) == nil)
+        #expect(secrets.values["apikey_OpenAI"] == nil)
+    }
+
+    @Test func switchingTheProviderStillClearsAForeignProfileBinding() throws {
+        let secrets = MemorySecrets()
+        let (store, _) = makeStore(secrets: secrets)
+        let openAI = try store.add(provider: .openai, label: "Main", secret: "sk-openai-3333").get()
+        let gemini = try store.add(provider: .gemini, label: "Main", secret: "sk-gemini-4444").get()
+        store.bindRoute(.primary, credentialID: openAI.id)
+
+        store.clearRouteIfForeign(.primary, provider: .gemini)
+
+        #expect((store.routeBindings()[.primary])! == nil)
+        #expect(store.routeProfile(.primary, provider: .gemini)?.id == gemini.id)
+        #expect(store.routeSecret(.primary, provider: .gemini) == "sk-gemini-4444")
+        #expect(store.effectiveSecret(for: .openai) == "sk-openai-3333")
+        #expect(secrets.values["apikey_OpenAI"] == "sk-openai-3333")
+    }
+
     @Test func deletingTheImplicitDefaultLeavesTheActiveRouteUnconfigured() throws {
         let (store, _) = makeStore()
         let first = try store.add(provider: .openrouter, label: "First", secret: "sk-or-first-1111").get()

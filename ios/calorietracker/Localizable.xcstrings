@@ -198908,18 +198908,18 @@
         }
       }
     },
-    "Delete without replacement": {
+    "Delete and leave routes unconfigured": {
       "localizations": {
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ohne Ersatz löschen"
+            "value": "Löschen und Routen ohne Zuordnung lassen"
           }
         },
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Delete without replacement"
+            "value": "Delete and leave routes unconfigured"
           }
         }
       }

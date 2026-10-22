@@ -1272,6 +1272,9 @@
     <string name="camera_error_capture">Fotku se nepodařilo pořídit</string>
     <string name="barcode_hint">Namiř fotoaparát na čárový kód</string>
     <string name="barcode_off_note">Balené potraviny používají Open Food Facts, pokud jsou data k dispozici.</string>
+    <string name="cd_camera_preview">Náhled fotoaparátu</string>
+    <string name="camera_focus_action">Zaostřit</string>
+    <string name="camera_focus_failed_hint">Nepodařilo se zaostřit. Zkus držet telefon o kousek dál.</string>
     <string name="measure_neck">Krk</string>
     <string name="measure_waist">Pas</string>
     <string name="measure_hips">Boky</string>

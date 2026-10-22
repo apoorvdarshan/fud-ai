@@ -1366,6 +1366,9 @@
     <string name="camera_error_capture">Не вдалося зробити знімок</string>
     <string name="barcode_hint">Наведіть камеру на штрихкод</string>
     <string name="barcode_off_note">Для фасованих продуктів використовується Open Food Facts, якщо доступно.</string>
+    <string name="cd_camera_preview">Попередній перегляд камери</string>
+    <string name="camera_focus_action">Сфокусувати</string>
+    <string name="camera_focus_failed_hint">Не вдалося сфокусуватися. Спробуйте тримати телефон трохи далі.</string>
     <string name="measure_neck">Шия</string>
     <string name="measure_waist">Талія</string>
     <string name="measure_hips">Обхват стегон</string>

@@ -1344,6 +1344,9 @@
     <string name="camera_error_capture">Fotoğraf çekilemedi</string>
     <string name="barcode_hint">Kamerayı barkoda doğrultun</string>
     <string name="barcode_off_note">Paketli yiyecekler mevcut olduğunda Open Food Facts kullanır.</string>
+    <string name="cd_camera_preview">Kamera önizlemesi</string>
+    <string name="camera_focus_action">Odakla</string>
+    <string name="camera_focus_failed_hint">Odaklanamadı. Telefonu biraz daha uzakta tutmayı deneyin.</string>
     <string name="measure_neck">Boyun</string>
     <string name="measure_waist">Bel</string>
     <string name="measure_hips">Kalça</string>

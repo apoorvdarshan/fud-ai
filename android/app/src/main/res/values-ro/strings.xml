@@ -73,6 +73,9 @@
     <string name="camera_error_capture">Fotografia nu a putut fi făcută</string>
     <string name="barcode_hint">Îndreaptă camera spre codul de bare</string>
     <string name="barcode_off_note">Alimentele ambalate folosesc Open Food Facts când este disponibil.</string>
+    <string name="cd_camera_preview">Previzualizare cameră</string>
+    <string name="camera_focus_action">Focalizează</string>
+    <string name="camera_focus_failed_hint">Nu s-a putut focaliza. Încearcă să ții telefonul puțin mai departe.</string>
     <string name="measure_neck">Gât</string>
     <string name="measure_waist">Talie</string>
     <string name="measure_hips">Șolduri</string>

@@ -1,6 +1,5 @@
 package com.apoorvdarshan.calorietracker.ui.components
 
-import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
@@ -28,6 +27,7 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -45,16 +45,11 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.core.content.ContextCompat
 import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import kotlinx.coroutines.launch
 import java.io.File
 
-internal enum class CaptureLens { BACK, FRONT }
-
-/** The back camera when present, else the front one; null when the device has neither. */
-internal fun preferredCaptureLens(hasBack: Boolean, hasFront: Boolean): CaptureLens? = when {
-    hasBack -> CaptureLens.BACK
-    hasFront -> CaptureLens.FRONT
-    else -> null
-}
+/** The quality the earlier low-latency capture mode used; MAXIMIZE_QUALITY alone writes 100. */
+private const val PHOTO_JPEG_QUALITY = 95
 
 @Composable
 fun InAppCameraCaptureDialog(
@@ -67,6 +62,8 @@ fun InAppCameraCaptureDialog(
     val cameraCaptureError = stringResource(R.string.camera_error_capture)
     val lifecycleOwner = LocalLifecycleOwner.current
     val mainExecutor = ContextCompat.getMainExecutor(context)
+    val scope = rememberCoroutineScope()
+    val focus = rememberCameraFocusController()
     val previewView = remember {
         PreviewView(context).apply {
             // Show the complete frame that ImageCapture will save. Letterbox
@@ -81,38 +78,34 @@ fun InAppCameraCaptureDialog(
     var hasFlashUnit by remember { mutableStateOf(false) }
 
     DisposableEffect(lifecycleOwner) {
+        var disposed = false
         val cameraProviderFuture = ProcessCameraProvider.getInstance(context)
         val listener = Runnable {
+            // Closed before CameraX was ready: binding now would keep the camera open.
+            if (disposed) return@Runnable
             val cameraProvider = cameraProviderFuture.get()
-            val preview = Preview.Builder().build().also {
+            val previewBuilder = Preview.Builder()
+            focus.instrument(previewBuilder)
+            val preview = previewBuilder.build().also {
                 it.surfaceProvider = previewView.surfaceProvider
             }
+            // MAXIMIZE_QUALITY makes CameraX wait for autofocus (up to 1 s) before the shot;
+            // MINIMIZE_LATENCY fired at once, so a close-up taken mid-scan came out soft.
             val capture = ImageCapture.Builder()
-                .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
+                .setCaptureMode(ImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY)
+                .setJpegQuality(PHOTO_JPEG_QUALITY)
                 .build()
 
             runCatching {
                 cameraProvider.unbindAll()
-                // Devices with only a front camera (some tablets and Chromebooks) still
-                // report a camera, so fall back to it instead of failing to bind.
-                val lens = preferredCaptureLens(
-                    hasBack = runCatching { cameraProvider.hasCamera(CameraSelector.DEFAULT_BACK_CAMERA) }
-                        .getOrDefault(true),
-                    hasFront = runCatching { cameraProvider.hasCamera(CameraSelector.DEFAULT_FRONT_CAMERA) }
-                        .getOrDefault(false)
-                ) ?: error("No camera available")
-                val camera = cameraProvider.bindToLifecycle(
-                    lifecycleOwner,
-                    when (lens) {
-                        CaptureLens.BACK -> CameraSelector.DEFAULT_BACK_CAMERA
-                        CaptureLens.FRONT -> CameraSelector.DEFAULT_FRONT_CAMERA
-                    },
-                    preview,
-                    capture
-                )
+                // Prefers a back camera that can autofocus. Devices with only a front camera
+                // (some tablets and Chromebooks) still report a camera, so they use it.
+                val selector = cameraProvider.captureCameraSelector(allowFront = true) ?: error("No camera available")
+                val camera = cameraProvider.bindToLifecycle(lifecycleOwner, selector, preview, capture)
                 capture.flashMode = flashMode
                 imageCapture = capture
                 hasFlashUnit = camera.cameraInfo.hasFlashUnit()
+                focus.attach(camera, preview, previewView)
             }.onFailure {
                 error = cameraOpenError
             }
@@ -120,7 +113,9 @@ fun InAppCameraCaptureDialog(
         cameraProviderFuture.addListener(listener, mainExecutor)
 
         onDispose {
+            disposed = true
             imageCapture = null
+            focus.detach()
             runCatching { cameraProviderFuture.get().unbindAll() }
         }
     }
@@ -140,6 +135,8 @@ fun InAppCameraCaptureDialog(
                 factory = { previewView },
                 modifier = Modifier.fillMaxSize()
             )
+
+            CameraFocusOverlay(focus = focus, enabled = !isCapturing)
 
             IconButton(
                 onClick = onDismiss,
@@ -195,36 +192,47 @@ fun InAppCameraCaptureDialog(
             IconButton(
                 onClick = {
                     val capture = imageCapture ?: return@IconButton
-                    val dir = File(context.cacheDir, "in-app-camera").apply { mkdirs() }
-                    val file = File(dir, "shot-${System.currentTimeMillis()}.jpg")
-                    val output = ImageCapture.OutputFileOptions.Builder(file).build()
-
                     isCapturing = true
                     error = null
-                    capture.flashMode = flashMode
-                    capture.targetRotation = previewView.display.rotation
-                    capture.takePicture(
-                        output,
-                        mainExecutor,
-                        object : ImageCapture.OnImageSavedCallback {
-                            override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                                val bytes = runCatching { file.readBytes() }.getOrNull()
-                                runCatching { file.delete() }
-                                isCapturing = false
-                                if (bytes != null && bytes.isNotEmpty()) {
-                                    onCapture(bytes)
-                                } else {
-                                    error = cameraSaveError
+                    scope.launch {
+                        // Lets autofocus settle, or scans the middle when it gave up (close-ups).
+                        focus.prepareForCapture()
+                        if (imageCapture !== capture) {
+                            // The camera was closed or rebound while focusing.
+                            focus.captureFinished()
+                            isCapturing = false
+                            return@launch
+                        }
+                        val dir = File(context.cacheDir, "in-app-camera").apply { mkdirs() }
+                        val file = File(dir, "shot-${System.currentTimeMillis()}.jpg")
+                        val output = ImageCapture.OutputFileOptions.Builder(file).build()
+                        capture.flashMode = flashMode
+                        previewView.display?.let { capture.targetRotation = it.rotation }
+                        capture.takePicture(
+                            output,
+                            mainExecutor,
+                            object : ImageCapture.OnImageSavedCallback {
+                                override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
+                                    val bytes = runCatching { file.readBytes() }.getOrNull()
+                                    runCatching { file.delete() }
+                                    focus.captureFinished()
+                                    isCapturing = false
+                                    if (bytes != null && bytes.isNotEmpty()) {
+                                        onCapture(bytes)
+                                    } else {
+                                        error = cameraSaveError
+                                    }
+                                }
+
+                                override fun onError(exception: ImageCaptureException) {
+                                    runCatching { file.delete() }
+                                    focus.captureFinished()
+                                    isCapturing = false
+                                    error = cameraCaptureError
                                 }
                             }
-
-                            override fun onError(exception: ImageCaptureException) {
-                                runCatching { file.delete() }
-                                isCapturing = false
-                                error = cameraCaptureError
-                            }
-                        }
-                    )
+                        )
+                    }
                 },
                 enabled = imageCapture != null && !isCapturing,
                 modifier = Modifier

@@ -73,6 +73,9 @@
     <string name="camera_error_capture">Nie udało się zrobić zdjęcia</string>
     <string name="barcode_hint">Skieruj aparat na kod kreskowy</string>
     <string name="barcode_off_note">Produkty paczkowane korzystają z Open Food Facts, gdy to możliwe.</string>
+    <string name="cd_camera_preview">Podgląd aparatu</string>
+    <string name="camera_focus_action">Ustaw ostrość</string>
+    <string name="camera_focus_failed_hint">Nie udało się ustawić ostrości. Spróbuj odsunąć telefon nieco dalej.</string>
     <string name="measure_neck">Szyja</string>
     <string name="measure_waist">Talia</string>
     <string name="measure_hips">Biodra</string>

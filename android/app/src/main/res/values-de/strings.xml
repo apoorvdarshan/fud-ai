@@ -73,6 +73,9 @@
     <string name="camera_error_capture">Foto konnte nicht aufgenommen werden</string>
     <string name="barcode_hint">Richte die Kamera auf den Barcode</string>
     <string name="barcode_off_note">Verpackte Lebensmittel nutzen Open Food Facts, wenn verfügbar.</string>
+    <string name="cd_camera_preview">Kameravorschau</string>
+    <string name="camera_focus_action">Scharfstellen</string>
+    <string name="camera_focus_failed_hint">Scharfstellen nicht möglich. Halte das Telefon etwas weiter weg.</string>
     <string name="measure_neck">Hals</string>
     <string name="measure_waist">Taille</string>
     <string name="measure_hips">Hüfte</string>

@@ -73,6 +73,9 @@
     <string name="camera_error_capture">写真を撮影できませんでした</string>
     <string name="barcode_hint">カメラをバーコードに向けてください</string>
     <string name="barcode_off_note">包装食品は、利用可能な場合Open Food Factsを使用します。</string>
+    <string name="cd_camera_preview">カメラのプレビュー</string>
+    <string name="camera_focus_action">ピントを合わせる</string>
+    <string name="camera_focus_failed_hint">ピントを合わせられませんでした。端末を少し離してみてください。</string>
     <string name="measure_neck">首</string>
     <string name="measure_waist">ウエスト</string>
     <string name="measure_hips">ヒップ</string>

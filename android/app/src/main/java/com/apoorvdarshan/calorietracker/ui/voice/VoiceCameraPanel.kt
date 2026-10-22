@@ -8,7 +8,7 @@ import android.graphics.Matrix
 import android.os.SystemClock
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.camera.core.CameraSelector
+import androidx.camera.core.Camera
 import androidx.camera.core.ExperimentalGetImage
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageCapture
@@ -66,13 +66,21 @@ import com.apoorvdarshan.calorietracker.services.voice.CameraFrame
 import com.apoorvdarshan.calorietracker.services.voice.VoiceAssistantController
 import com.apoorvdarshan.calorietracker.services.voice.VoiceCameraHandle
 import com.apoorvdarshan.calorietracker.services.voice.VoiceCameraMode
+import com.apoorvdarshan.calorietracker.ui.components.CameraFocusController
+import com.apoorvdarshan.calorietracker.ui.components.CameraFocusOverlay
+import com.apoorvdarshan.calorietracker.ui.components.captureCameraSelector
+import com.apoorvdarshan.calorietracker.ui.components.rememberCameraFocusController
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.barcode.common.Barcode
 import com.google.android.gms.tasks.Tasks
 import com.google.mlkit.vision.common.InputImage
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeoutOrNull
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.util.concurrent.Executors
@@ -117,10 +125,11 @@ fun VoiceCameraPanel(
     val previewView = remember {
         PreviewView(context).apply { scaleType = PreviewView.ScaleType.FILL_CENTER }
     }
+    val focus = rememberCameraFocusController()
 
     if (permitted) {
         DisposableEffect(lifecycleOwner, mode) {
-            val binding = CameraBinding(context, controller, mode)
+            val binding = CameraBinding(context, controller, mode, focus)
             binding.bind(lifecycleOwner, previewView)
             onDispose { binding.release() }
         }
@@ -134,6 +143,9 @@ fun VoiceCameraPanel(
             .testTag("voiceAssistantCamera")
     ) {
         AndroidView(factory = { previewView }, modifier = Modifier.fillMaxSize())
+
+        // Below the orb and close button that sit over the panel's top corners.
+        CameraFocusOverlay(focus = focus, enabled = permitted && !capturing, hintTopPadding = 72.dp)
 
         IconButton(
             onClick = { controller.userClosedCamera() },
@@ -195,7 +207,8 @@ fun VoiceCameraPanel(
 private class CameraBinding(
     private val context: Context,
     private val controller: VoiceAssistantController,
-    private val mode: VoiceCameraMode
+    private val mode: VoiceCameraMode,
+    private val focus: CameraFocusController
 ) : VoiceCameraHandle {
     private val executor = Executors.newSingleThreadExecutor { Thread(it, "fudai-voice-camera") }
     private val latest = AtomicReference<CameraFrame?>(null)
@@ -205,6 +218,7 @@ private class CameraBinding(
     private var provider: ProcessCameraProvider? = null
     private var boundUseCases: Array<UseCase> = emptyArray()
     private var analysisUseCase: ImageAnalysis? = null
+    private var boundCamera: Camera? = null
     @Volatile private var capture: ImageCapture? = null
     private var lastEncodedAt = 0L
     private val scanner = if (mode == VoiceCameraMode.BARCODE) {
@@ -221,7 +235,9 @@ private class CameraBinding(
                 return@addListener
             }
             provider = cameraProvider
-            val preview = Preview.Builder().build().also { it.surfaceProvider = previewView.surfaceProvider }
+            val previewBuilder = Preview.Builder()
+            focus.instrument(previewBuilder)
+            val preview = previewBuilder.build().also { it.surfaceProvider = previewView.surfaceProvider }
             val analysis = ImageAnalysis.Builder()
                 .setResolutionSelector(
                     ResolutionSelector.Builder()
@@ -237,27 +253,36 @@ private class CameraBinding(
                 .build()
                 .also { it.setAnalyzer(executor, ::analyze) }
             analysisUseCase = analysis
+            // MAXIMIZE_QUALITY waits for autofocus before the shot; MINIMIZE_LATENCY did not.
             val photo = if (mode == VoiceCameraMode.FOOD) {
-                ImageCapture.Builder().setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY).build()
+                ImageCapture.Builder()
+                    .setCaptureMode(ImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY)
+                    .setJpegQuality(PHOTO_JPEG_QUALITY)
+                    .build()
             } else null
-            fun bindAll(vararg useCases: UseCase): Boolean = runCatching {
+            // A back camera, preferring one that can autofocus.
+            val selector = cameraProvider.captureCameraSelector(allowFront = false)
+            fun bindAll(vararg useCases: UseCase): Camera? = runCatching {
                 cameraProvider.unbind(*boundUseCases)
                 boundUseCases = arrayOf(*useCases)
-                cameraProvider.bindToLifecycle(lifecycleOwner, CameraSelector.DEFAULT_BACK_CAMERA, *useCases)
-            }.isSuccess
-            val withPhoto = photo != null && bindAll(preview, photo, analysis)
+                cameraProvider.bindToLifecycle(lifecycleOwner, checkNotNull(selector), *useCases)
+            }.getOrNull()
+            val withPhoto = photo?.let { bindAll(preview, it, analysis) }
             // Some devices can't run three use cases at once; photos then come from the analysis stream.
-            val bound = withPhoto || bindAll(preview, analysis)
-            if (!bound) {
+            val camera = withPhoto ?: bindAll(preview, analysis)
+            if (camera == null) {
                 controller.cameraFailed(permissionDenied = false)
                 return@addListener
             }
-            capture = if (withPhoto) photo else null
+            capture = if (withPhoto != null) photo else null
+            boundCamera = camera
+            focus.attach(camera, preview, previewView)
         }, ContextCompat.getMainExecutor(context))
     }
 
     fun release() {
         if (!released.compareAndSet(false, true)) return
+        boundCamera?.let { focus.detach(only = it) }
         controller.cameraUnbound(this)
         runCatching { analysisUseCase?.clearAnalyzer() }
         runCatching { provider?.unbind(*boundUseCases) }
@@ -267,37 +292,75 @@ private class CameraBinding(
 
     override fun latestFrame(): CameraFrame? = latest.get()
 
-    override suspend fun takePhoto(): ByteArray? {
-        val photo = capture ?: return fullFrame
-        val dir = File(context.cacheDir, "voice-camera").apply { mkdirs() }
-        val file = File(dir, "shot-${System.currentTimeMillis()}.jpg")
-        return suspendCancellableCoroutine { continuation ->
-            photo.takePicture(
-                ImageCapture.OutputFileOptions.Builder(file).build(),
-                ContextCompat.getMainExecutor(context),
-                object : ImageCapture.OnImageSavedCallback {
-                    override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                        val bytes = runCatching { file.readBytes() }.getOrNull()
-                        runCatching { file.delete() }
-                        if (continuation.isActive) continuation.resume(bytes?.takeIf { it.isNotEmpty() })
-                    }
+    override suspend fun takePhoto(): ByteArray? = withContext(Dispatchers.Main.immediate) {
+        try {
+            // Lets autofocus settle, or scans the middle when it gave up (close-ups).
+            val refocused = focus.prepareForCapture()
+            val photo = capture
+            if (photo == null) {
+                // The shutter uses analysis frames here: wait for one the camera took after focusing.
+                val focusedAt = if (refocused) focus.latestFrameTimestampNanos() else null
+                if (focusedAt != null) awaitPhotoFrameAfter(focusedAt)
+                return@withContext fullPhoto?.jpeg
+            }
+            val dir = File(context.cacheDir, "voice-camera").apply { mkdirs() }
+            val file = File(dir, "shot-${System.currentTimeMillis()}.jpg")
+            suspendCancellableCoroutine { continuation ->
+                photo.takePicture(
+                    ImageCapture.OutputFileOptions.Builder(file).build(),
+                    ContextCompat.getMainExecutor(context),
+                    object : ImageCapture.OnImageSavedCallback {
+                        override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
+                            val bytes = runCatching { file.readBytes() }.getOrNull()
+                            runCatching { file.delete() }
+                            if (continuation.isActive) continuation.resume(bytes?.takeIf { it.isNotEmpty() })
+                        }
 
-                    override fun onError(exception: ImageCaptureException) {
-                        runCatching { file.delete() }
-                        if (continuation.isActive) continuation.resume(null)
+                        override fun onError(exception: ImageCaptureException) {
+                            runCatching { file.delete() }
+                            if (continuation.isActive) continuation.resume(null)
+                        }
                     }
-                }
-            )
+                )
+            }
+        } finally {
+            focus.captureFinished()
         }
     }
 
-    @Volatile private var fullFrame: ByteArray? = null
+    /**
+     * Waits for an analysis frame exposed after [sensorTimestampNanos] (the camera's own clock,
+     * shared by preview results and analysis frames). If none is encoded in time, e.g. the
+     * analyzer stalls, the latest frame is used, as before focusing was added: analyzing a
+     * slightly soft photo beats reporting a failed one and making the user ask again.
+     */
+    private suspend fun awaitPhotoFrameAfter(sensorTimestampNanos: Long) {
+        photoWantedAfterNanos = sensorTimestampNanos
+        try {
+            withTimeoutOrNull(FRESH_FRAME_TIMEOUT_MS) {
+                while ((fullPhoto?.sensorTimestampNanos ?: Long.MIN_VALUE) <= sensorTimestampNanos && !released.get()) {
+                    delay(FRESH_FRAME_POLL_MS)
+                }
+            }
+        } finally {
+            photoWantedAfterNanos = Long.MAX_VALUE
+        }
+    }
+
+    /** The largest analysis frame, for the shutter without ImageCapture, and when it was exposed. */
+    private class TimedPhoto(val jpeg: ByteArray, val sensorTimestampNanos: Long)
+
+    @Volatile private var fullPhoto: TimedPhoto? = null
+
+    /** Set while the shutter waits: the first frame exposed after it is encoded at once. */
+    @Volatile private var photoWantedAfterNanos = Long.MAX_VALUE
 
     private fun analyze(image: ImageProxy) {
         try {
             if (released.get()) return
             val now = SystemClock.elapsedRealtime()
-            if (now - lastEncodedAt >= FRAME_ENCODE_INTERVAL_MS) {
+            val wanted = image.imageInfo.timestamp > photoWantedAfterNanos
+            if (wanted || now - lastEncodedAt >= FRAME_ENCODE_INTERVAL_MS) {
                 lastEncodedAt = now
                 encodeFrames(image)
             }
@@ -323,7 +386,9 @@ private class CameraBinding(
         val upright = rotated(bitmap, image.imageInfo.rotationDegrees)
         latest.set(CameraFrame(jpeg(upright, MAX_FRAME_SIDE, FRAME_QUALITY), SystemClock.elapsedRealtime()))
         // Without ImageCapture, the shutter uses the largest analysis frame.
-        if (capture == null && mode == VoiceCameraMode.FOOD) fullFrame = jpeg(upright, MAX_PHOTO_SIDE, PHOTO_QUALITY)
+        if (capture == null && mode == VoiceCameraMode.FOOD) {
+            fullPhoto = TimedPhoto(jpeg(upright, MAX_PHOTO_SIDE, PHOTO_QUALITY), image.imageInfo.timestamp)
+        }
         if (notifiedReady.compareAndSet(false, true)) {
             ContextCompat.getMainExecutor(context).execute {
                 if (!released.get()) controller.cameraReady(this)
@@ -358,5 +423,10 @@ private class CameraBinding(
         private const val FRAME_QUALITY = 70
         private const val MAX_PHOTO_SIDE = 1_920
         private const val PHOTO_QUALITY = 90
+        /** The quality the earlier low-latency capture mode used; MAXIMIZE_QUALITY alone writes 100. */
+        private const val PHOTO_JPEG_QUALITY = 95
+        /** The first frame after focusing is encoded straight away, well within this. */
+        private const val FRESH_FRAME_TIMEOUT_MS = 1_500L
+        private const val FRESH_FRAME_POLL_MS = 40L
     }
 }

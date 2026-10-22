@@ -120,6 +120,7 @@ nonisolated private final class StubVoiceCamera: VoiceAssistantCameraIO, @unchec
         if let capture { return await capture() }
         return still
     }
+    func focus(at devicePoint: CGPoint) {}
 }
 
 private actor DeferredStillCapture {

@@ -73,6 +73,9 @@
     <string name="camera_error_capture">无法拍摄照片</string>
     <string name="barcode_hint">将相机对准条形码</string>
     <string name="barcode_off_note">包装食品会在可用时使用 Open Food Facts。</string>
+    <string name="cd_camera_preview">相机预览</string>
+    <string name="camera_focus_action">对焦</string>
+    <string name="camera_focus_failed_hint">无法对焦。请试着把手机拿远一点。</string>
     <string name="measure_neck">颈围</string>
     <string name="measure_waist">腰围</string>
     <string name="measure_hips">臀围</string>

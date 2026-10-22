@@ -1,4 +1,5 @@
 import ARKit
+import AVFoundation
 import CoreImage
 import SwiftUI
 import UIKit
@@ -38,124 +39,66 @@ struct ARPortionCameraView: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: ARPortionCameraController, context: Context) {}
 }
 
-final class ARPortionCameraController: UIViewController, ARSessionDelegate {
-    var onCapture: ((UIImage, PortionScale?) -> Void)?
-    var onCancel: (() -> Void)?
+/// ARKit streams only the wide lens and picks focus on its own. This camera sets
+/// that lens to continuous autofocus and adds tap to focus through ARKit's capture
+/// device. The wide lens still can't focus as close as the ultra-wide macro lens the
+/// system camera switches to, so when the subject comes closer than it can focus, on
+/// an iPhone with a closer-focusing lens, the camera hands off to the standard camera
+/// (`FoodCameraController`) for the rest of the shot. That photo is not measured.
+final class ARPortionCameraController: FoodCameraController, ARSessionDelegate {
     var onSessionFailed: (() -> Void)?
 
     private let sceneView = ARSCNView()
-    private let titleText: String?
     private let ciContext = CIContext()
-    private var isCapturing = false
-    /// Set when the user leaves this camera, so a still that arrives afterwards is dropped.
-    private var hasLeft = false
     private var sessionFailed = false
+    /// False once the camera has handed off to the standard camera for a close-up.
+    private var isARActive = true
+    /// The capture device ARKit runs, configured for focus.
+    private var arDevice: AVCaptureDevice?
+    private var didConfigureARFocus = false
+    private var closeUpDetector: CloseUpFocusDetector?
+    private var lastCloseUpCheck: TimeInterval = 0
+    /// The last AR frame, covering the switch to the standard camera.
+    private var handOffSnapshot: UIView?
+    /// Standard-camera starts tried for the current hand-off.
+    private var handOffStartAttempts = 0
+    /// The standard camera couldn't start for a close-up, so ARKit stays on for this shot.
+    private var handOffUnavailable = false
 
-    init(title: String?) {
-        titleText = title
-        super.init(nibName: nil, bundle: nil)
-        modalPresentationStyle = .fullScreen
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) is not used")
-    }
+    /// How often the close-up check samples the lens and the scene.
+    private static let closeUpCheckInterval: TimeInterval = 0.15
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black
         sceneView.session.delegate = self
         sceneView.automaticallyUpdatesLighting = false
         sceneView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(sceneView)
+        view.insertSubview(sceneView, aboveSubview: capturePreviewView)
 
         // Same layout as the standard camera: the full 4:3 frame, letterboxed
         // above the bottom bar, so the preview matches the saved photo.
         let screenSize = UIScreen.main.bounds.size
         let previewHeight = screenSize.width * 4.0 / 3.0
-        let bottomBarHeight: CGFloat = 140
-        let availablePreviewHeight = max(0, screenSize.height - bottomBarHeight)
+        let availablePreviewHeight = max(0, screenSize.height - Self.bottomBarHeight)
         let previewOffset = max(0, (availablePreviewHeight - previewHeight) / 2)
-
-        let bottomBar = UIView()
-        bottomBar.backgroundColor = UIColor.black.withAlphaComponent(0.6)
-        bottomBar.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(bottomBar)
-
-        let shutterOuter = UIView()
-        shutterOuter.backgroundColor = .white
-        shutterOuter.layer.cornerRadius = 37
-        shutterOuter.isUserInteractionEnabled = false
-        shutterOuter.translatesAutoresizingMaskIntoConstraints = false
-        bottomBar.addSubview(shutterOuter)
-
-        let shutterInner = UIView()
-        shutterInner.backgroundColor = .white
-        shutterInner.layer.cornerRadius = 32
-        shutterInner.layer.borderWidth = 2
-        shutterInner.layer.borderColor = UIColor.black.withAlphaComponent(0.15).cgColor
-        shutterInner.isUserInteractionEnabled = false
-        shutterInner.translatesAutoresizingMaskIntoConstraints = false
-        shutterOuter.addSubview(shutterInner)
-
-        let shutterButton = UIButton(type: .system)
-        shutterButton.accessibilityLabel = String(localized: "Take photo")
-        shutterButton.translatesAutoresizingMaskIntoConstraints = false
-        shutterButton.addTarget(self, action: #selector(capture), for: .touchUpInside)
-        bottomBar.addSubview(shutterButton)
-
-        let cancelButton = UIButton(type: .system)
-        cancelButton.setTitle(String(localized: "Cancel"), for: .normal)
-        cancelButton.setTitleColor(.white, for: .normal)
-        cancelButton.titleLabel?.font = .systemFont(ofSize: 17)
-        cancelButton.translatesAutoresizingMaskIntoConstraints = false
-        cancelButton.addTarget(self, action: #selector(cancel), for: .touchUpInside)
-        bottomBar.addSubview(cancelButton)
-
         NSLayoutConstraint.activate([
             sceneView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             sceneView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             sceneView.topAnchor.constraint(equalTo: view.topAnchor, constant: previewOffset),
             sceneView.heightAnchor.constraint(equalToConstant: previewHeight),
-
-            bottomBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            bottomBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            bottomBar.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            bottomBar.heightAnchor.constraint(equalToConstant: bottomBarHeight),
-
-            shutterOuter.centerXAnchor.constraint(equalTo: bottomBar.centerXAnchor),
-            shutterOuter.centerYAnchor.constraint(equalTo: bottomBar.topAnchor, constant: 50),
-            shutterOuter.widthAnchor.constraint(equalToConstant: 74),
-            shutterOuter.heightAnchor.constraint(equalToConstant: 74),
-            shutterInner.centerXAnchor.constraint(equalTo: shutterOuter.centerXAnchor),
-            shutterInner.centerYAnchor.constraint(equalTo: shutterOuter.centerYAnchor),
-            shutterInner.widthAnchor.constraint(equalToConstant: 64),
-            shutterInner.heightAnchor.constraint(equalToConstant: 64),
-            shutterButton.leadingAnchor.constraint(equalTo: shutterOuter.leadingAnchor),
-            shutterButton.trailingAnchor.constraint(equalTo: shutterOuter.trailingAnchor),
-            shutterButton.topAnchor.constraint(equalTo: shutterOuter.topAnchor),
-            shutterButton.bottomAnchor.constraint(equalTo: shutterOuter.bottomAnchor),
-
-            cancelButton.leadingAnchor.constraint(equalTo: bottomBar.leadingAnchor, constant: 20),
-            cancelButton.centerYAnchor.constraint(equalTo: shutterOuter.centerYAnchor),
         ])
-
-        if let titleText {
-            let label = UILabel()
-            label.text = titleText
-            label.textColor = .white
-            label.font = .systemFont(ofSize: 17, weight: .semibold)
-            label.translatesAutoresizingMaskIntoConstraints = false
-            bottomBar.addSubview(label)
-            NSLayoutConstraint.activate([
-                label.centerXAnchor.constraint(equalTo: bottomBar.centerXAnchor),
-                label.topAnchor.constraint(equalTo: shutterOuter.bottomAnchor, constant: 14),
-            ])
-        }
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    // MARK: - Camera lifecycle
+
+    override func startCamera() {
+        guard isARActive else {
+            super.startCamera()
+            return
+        }
+        didConfigureARFocus = false
+        closeUpDetector = nil
+        lastCloseUpCheck = 0
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = [.horizontal]
         // A full-resolution still for the AI instead of a video frame.
@@ -165,19 +108,168 @@ final class ARPortionCameraController: UIViewController, ARSessionDelegate {
         sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
     }
 
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        hasLeft = true
-        sceneView.session.pause()
+    override func stopCamera() {
+        if isARActive {
+            sceneView.session.pause()
+        }
+        super.stopCamera()
+    }
+
+    override func cameraDidStart() {
+        super.cameraDidStart()
+        guard let snapshot = handOffSnapshot else { return }
+        handOffSnapshot = nil
+        // Gives the standard camera a moment to show its first frames.
+        UIView.animate(withDuration: 0.25, delay: 0.15, options: []) {
+            snapshot.alpha = 0
+        } completion: { _ in
+            snapshot.removeFromSuperview()
+        }
+    }
+
+    /// ARKit may not have released the camera yet, so the standard camera gets a second
+    /// try; if that fails too, ARKit takes over again rather than leaving an error.
+    override func handleCameraFailure() -> Bool {
+        guard handOffSnapshot != nil, !hasLeft else { return super.handleCameraFailure() }
+        if handOffStartAttempts < 2 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { [weak self] in
+                self?.startStandardCamera()
+            }
+        } else {
+            returnToARCamera()
+        }
+        return true
+    }
+
+    private func returnToARCamera() {
+        handOffSnapshot?.removeFromSuperview()
+        handOffSnapshot = nil
+        handOffUnavailable = true
+        isARActive = true
+        sceneView.isHidden = false
+        startCamera()
     }
 
     // MARK: - ARSessionDelegate
 
+    func session(_ session: ARSession, didUpdate frame: ARFrame) {
+        guard isARActive, !hasLeft else { return }
+        if !didConfigureARFocus {
+            configureARFocus()
+        }
+        checkForCloseUp(in: frame)
+    }
+
     func session(_ session: ARSession, didFailWithError error: Error) {
-        guard !sessionFailed, !hasLeft else { return }
+        guard isARActive, !sessionFailed, !hasLeft else { return }
         sessionFailed = true
         onSessionFailed?()
     }
+
+    // MARK: - Focus
+
+    private func configureARFocus() {
+        didConfigureARFocus = true
+        guard let device = ARWorldTrackingConfiguration.configurableCaptureDeviceForPrimaryCamera else { return }
+        arDevice = device
+        CameraDeviceConfigurator.configureContinuousFocus(device)
+        trackFocus(of: device)
+        if !handOffUnavailable, let alternative = BackCameraSelection.preferredBackVideoCaptureDevice() {
+            closeUpDetector = CloseUpFocusDetector(
+                arMinimumFocusDistanceMM: device.minimumFocusDistance,
+                alternativeMinimumFocusDistanceMM: alternative.minimumFocusDistance
+            )
+        }
+    }
+
+    override func activePreviewRect() -> CGRect? {
+        guard isARActive else { return super.activePreviewRect() }
+        return arDevice == nil ? nil : sceneView.frame
+    }
+
+    override func focusDevicePoint(forViewPoint point: CGPoint) -> CGPoint? {
+        guard isARActive else { return super.focusDevicePoint(forViewPoint: point) }
+        guard let frame = sceneView.session.currentFrame else { return nil }
+        let size = sceneView.bounds.size
+        return CameraFocusGeometry.devicePoint(
+            forViewPoint: sceneView.convert(point, from: view),
+            viewSize: size,
+            displayTransform: frame.displayTransform(for: sceneOrientation, viewportSize: size)
+        )
+    }
+
+    override func applyFocus(_ request: CameraFocusRequest) {
+        guard isARActive else {
+            super.applyFocus(request)
+            return
+        }
+        guard let arDevice else { return }
+        CameraDeviceConfigurator.apply(request, to: arDevice)
+    }
+
+    private func checkForCloseUp(in frame: ARFrame) {
+        guard !isCapturing, var detector = closeUpDetector, let device = arDevice else { return }
+        let now = frame.timestamp
+        guard now - lastCloseUpCheck >= Self.closeUpCheckInterval else { return }
+        lastCloseUpCheck = now
+        let shouldHandOff = detector.update(
+            now: now,
+            lensPosition: device.lensPosition,
+            subjectDistanceMM: subjectDistanceMM(in: frame, at: device.focusPointOfInterest)
+        )
+        closeUpDetector = detector
+        if shouldHandOff {
+            handOffToCloseUpCamera()
+        }
+    }
+
+    /// How far the surface under the focus point is, when ARKit can tell.
+    private func subjectDistanceMM(in frame: ARFrame, at imagePoint: CGPoint) -> Double? {
+        guard case .normal = frame.camera.trackingState else { return nil }
+        let camera = frame.camera.transform.columns.3
+        for target in [ARRaycastQuery.Target.existingPlaneGeometry, .estimatedPlane] {
+            let query = frame.raycastQuery(from: imagePoint, allowing: target, alignment: .any)
+            if let hit = sceneView.session.raycast(query).first {
+                let surface = hit.worldTransform.columns.3
+                let meters = simd_distance(SIMD3(camera.x, camera.y, camera.z), SIMD3(surface.x, surface.y, surface.z))
+                return Double(meters) * 1000
+            }
+        }
+        return nil
+    }
+
+    /// Switches to the standard camera, which can move to the macro lens, for the
+    /// rest of this shot.
+    private func handOffToCloseUpCamera() {
+        guard isARActive, !hasLeft, !isCapturing, !sessionFailed else { return }
+        isARActive = false
+        closeUpDetector = nil
+        endFocusTracking()
+        let snapshot = UIImageView(image: sceneView.snapshot())
+        snapshot.frame = sceneView.frame
+        snapshot.contentMode = .scaleAspectFill
+        snapshot.clipsToBounds = true
+        snapshot.isUserInteractionEnabled = false
+        view.insertSubview(snapshot, aboveSubview: sceneView)
+        handOffSnapshot = snapshot
+        handOffStartAttempts = 0
+        sceneView.session.pause()
+        sceneView.isHidden = true
+        arDevice = nil
+        // Lets ARKit release the camera first.
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { [weak self] in
+            self?.startStandardCamera()
+        }
+    }
+
+    private func startStandardCamera() {
+        guard !hasLeft, !isARActive else { return }
+        handOffStartAttempts += 1
+        super.startCamera()
+    }
+
+    /// The AR camera never used the flash; the close-up camera that replaces it keeps it off too.
+    override var photoFlashMode: AVCaptureDevice.FlashMode { .off }
 
     // MARK: - Measuring
 
@@ -219,8 +311,12 @@ final class ARPortionCameraController: UIViewController, ARSessionDelegate {
 
     // MARK: - Capture
 
-    @objc private func capture() {
-        guard !isCapturing, !hasLeft, let frame = sceneView.session.currentFrame else { return }
+    override func takePhoto() {
+        guard isARActive else {
+            super.takePhoto()
+            return
+        }
+        guard let frame = sceneView.session.currentFrame else { return }
         isCapturing = true
         let orientation = sceneOrientation
         let fallbackScale = measure(frame, orientation: orientation)
@@ -256,8 +352,7 @@ final class ARPortionCameraController: UIViewController, ARSessionDelegate {
             isCapturing = false
             return
         }
-        hasLeft = true
-        onCapture?(image, scale)
+        deliver(image, scale: scale)
     }
 
     private func uprightImage(from pixelBuffer: CVPixelBuffer, orientation: UIInterfaceOrientation) -> UIImage? {
@@ -273,10 +368,5 @@ final class ARPortionCameraController: UIViewController, ARSessionDelegate {
         let ciImage = CIImage(cvPixelBuffer: pixelBuffer).oriented(rotation)
         guard let cgImage = ciContext.createCGImage(ciImage, from: ciImage.extent) else { return nil }
         return UIImage(cgImage: cgImage, scale: 1, orientation: .up)
-    }
-
-    @objc private func cancel() {
-        hasLeft = true
-        onCancel?()
     }
 }

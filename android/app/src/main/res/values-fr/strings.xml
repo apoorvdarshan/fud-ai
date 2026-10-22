@@ -73,6 +73,9 @@
     <string name="camera_error_capture">Impossible de prendre la photo</string>
     <string name="barcode_hint">Pointez l’appareil photo vers le code-barres</string>
     <string name="barcode_off_note">Les aliments emballés utilisent Open Food Facts lorsque c’est possible.</string>
+    <string name="cd_camera_preview">Aperçu de l’appareil photo</string>
+    <string name="camera_focus_action">Faire la mise au point</string>
+    <string name="camera_focus_failed_hint">Mise au point impossible. Essayez d’éloigner un peu le téléphone.</string>
     <string name="measure_neck">Cou</string>
     <string name="measure_waist">Tour de taille</string>
     <string name="measure_hips">Tour de hanches</string>

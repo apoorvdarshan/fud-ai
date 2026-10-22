@@ -198252,6 +198252,118 @@
         }
       }
     },
+    "Camera access is off. Turn it on for Fud AI in the iOS Settings app.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الوصول إلى الكاميرا متوقف. فعّله لتطبيق Fud AI في تطبيق الإعدادات."
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kameraya giriş söndürülüb. iOS Ayarlar tətbiqində Fud AI üçün onu aktiv edin."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přístup k fotoaparátu je vypnutý. Zapni ho pro Fud AI v aplikaci Nastavení."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Kamerazugriff ist aus. Aktiviere ihn für Fud AI in der Einstellungen-App."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El acceso a la cámara está desactivado. Actívalo para Fud AI en la app Ajustes."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L’accès à l’appareil photo est désactivé. Activez-le pour Fud AI dans l’app Réglages."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "कैमरा एक्सेस बंद है। iOS सेटिंग्स ऐप में Fud AI के लिए इसे चालू करें।"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L’accesso alla fotocamera è disattivato. Attivalo per Fud AI nell’app Impostazioni."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "カメラへのアクセスがオフになっています。iOSの「設定」アプリでFud AIのカメラをオンにしてください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "카메라 접근이 꺼져 있습니다. iOS 설정 앱에서 Fud AI의 카메라 접근을 켜세요."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cameratoegang staat uit. Zet het aan voor Fud AI in de Instellingen-app."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dostęp do aparatu jest wyłączony. Włącz go dla Fud AI w aplikacji Ustawienia."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O acesso à câmera está desativado. Ative-o para o Fud AI no app Ajustes."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accesul la cameră este dezactivat. Activează-l pentru Fud AI în aplicația Configurări."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Доступ к камере выключен. Включите его для Fud AI в приложении «Настройки»."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kamera erişimi kapalı. iOS Ayarlar uygulamasında Fud AI için açın."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Доступ до камери вимкнено. Увімкніть його для Fud AI у програмі «Параметри»."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "相机访问已关闭。请在 iOS“设置”App 中为 Fud AI 打开相机。"
+          }
+        }
+      }
+    },
     "Routing overview": {
       "localizations": {
         "de": {
@@ -198968,6 +199080,118 @@
           "stringUnit": {
             "state": "translated",
             "value": "No key needed"
+          }
+        }
+      }
+    },
+    "Camera is unavailable.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الكاميرا غير متاحة."
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kamera əlçatan deyil."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fotoaparát není k dispozici."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Kamera ist nicht verfügbar."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La cámara no está disponible."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L’appareil photo n’est pas disponible."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "कैमरा उपलब्ध नहीं है।"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La fotocamera non è disponibile."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "カメラを使用できません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "카메라를 사용할 수 없습니다."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De camera is niet beschikbaar."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aparat jest niedostępny."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A câmera não está disponível."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Camera nu este disponibilă."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Камера недоступна."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kamera kullanılamıyor."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Камера недоступна."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "相机不可用。"
           }
         }
       }

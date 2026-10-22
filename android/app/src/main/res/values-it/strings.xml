@@ -73,6 +73,9 @@
     <string name="camera_error_capture">Impossibile scattare la foto</string>
     <string name="barcode_hint">Inquadra il codice a barre</string>
     <string name="barcode_off_note">Gli alimenti confezionati usano Open Food Facts quando disponibile.</string>
+    <string name="cd_camera_preview">Anteprima fotocamera</string>
+    <string name="camera_focus_action">Mettere a fuoco</string>
+    <string name="camera_focus_failed_hint">Impossibile mettere a fuoco. Prova ad allontanare un po’ il telefono.</string>
     <string name="measure_neck">Collo</string>
     <string name="measure_waist">Vita</string>
     <string name="measure_hips">Fianchi</string>

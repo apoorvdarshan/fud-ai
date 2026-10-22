@@ -73,6 +73,9 @@
     <string name="camera_error_capture">사진을 촬영할 수 없습니다</string>
     <string name="barcode_hint">카메라를 바코드에 맞추세요</string>
     <string name="barcode_off_note">포장 식품은 가능한 경우 Open Food Facts를 사용합니다.</string>
+    <string name="cd_camera_preview">카메라 미리보기</string>
+    <string name="camera_focus_action">초점 맞추기</string>
+    <string name="camera_focus_failed_hint">초점을 맞추지 못했습니다. 휴대폰을 조금 더 멀리 떨어뜨려 보세요.</string>
     <string name="measure_neck">목</string>
     <string name="measure_waist">허리</string>
     <string name="measure_hips">엉덩이</string>

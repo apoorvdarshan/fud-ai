@@ -73,6 +73,9 @@
     <string name="camera_error_capture">Foto kon niet worden gemaakt</string>
     <string name="barcode_hint">Richt de camera op de barcode</string>
     <string name="barcode_off_note">Verpakte voedingsmiddelen gebruiken Open Food Facts als dat beschikbaar is.</string>
+    <string name="cd_camera_preview">Cameravoorbeeld</string>
+    <string name="camera_focus_action">Scherpstellen</string>
+    <string name="camera_focus_failed_hint">Scherpstellen lukt niet. Probeer de telefoon iets verder weg te houden.</string>
     <string name="measure_neck">Nek</string>
     <string name="measure_waist">Taille</string>
     <string name="measure_hips">Heupen</string>

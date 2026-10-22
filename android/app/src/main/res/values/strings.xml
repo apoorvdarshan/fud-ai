@@ -1385,6 +1385,9 @@
     <string name="camera_error_capture">Could not capture photo</string>
     <string name="barcode_hint">Point the camera at the barcode</string>
     <string name="barcode_off_note">Packaged foods use Open Food Facts when available.</string>
+    <string name="cd_camera_preview">Camera preview</string>
+    <string name="camera_focus_action">Focus</string>
+    <string name="camera_focus_failed_hint">Couldn\'t focus. Try holding the phone a bit farther away.</string>
     <string name="measure_neck">Neck</string>
     <string name="measure_waist">Waist</string>
     <string name="measure_hips">Hips</string>

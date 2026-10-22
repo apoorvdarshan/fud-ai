@@ -583,14 +583,19 @@ private struct VoiceAssistantCameraPanel: View {
 
     var body: some View {
         ZStack {
-            VoiceAssistantCameraPreview(session: controller.camera.session)
-                .accessibilityLabel(Text("Camera preview"))
+            VoiceAssistantCameraPreview(
+                session: controller.camera.session,
+                onFocus: { [camera = controller.camera] devicePoint in camera.focus(at: devicePoint) }
+            )
+            .accessibilityLabel(Text("Camera preview"))
 
             if controller.cameraMode == .barcode {
+                // Decoration only: taps go through to the preview to focus.
                 RoundedRectangle(cornerRadius: 18, style: .continuous)
                     .strokeBorder(.white.opacity(0.9), lineWidth: 3)
                     .frame(height: 140)
                     .padding(.horizontal, 36)
+                    .allowsHitTesting(false)
                     .accessibilityHidden(true)
                 VStack {
                     Spacer()
@@ -602,6 +607,7 @@ private struct VoiceAssistantCameraPanel: View {
                         .background(.black.opacity(0.45), in: Capsule())
                         .padding(.bottom, 16)
                 }
+                .allowsHitTesting(false)
             } else {
                 VStack {
                     Spacer()

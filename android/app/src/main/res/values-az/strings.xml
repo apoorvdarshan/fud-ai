@@ -73,6 +73,9 @@
     <string name="camera_error_capture">Foto çəkmək mümkün olmadı</string>
     <string name="barcode_hint">Kameranı ştrix-koda tutun</string>
     <string name="barcode_off_note">Qablaşdırılmış qidalar mümkün olduqda Open Food Facts-dən istifadə edir.</string>
+    <string name="cd_camera_preview">Kamera önizləməsi</string>
+    <string name="camera_focus_action">Fokuslamaq</string>
+    <string name="camera_focus_failed_hint">Fokuslamaq alınmadı. Telefonu bir az uzaqda tutmağa çalışın.</string>
     <string name="measure_neck">Boyun</string>
     <string name="measure_waist">Bel</string>
     <string name="measure_hips">Bud</string>

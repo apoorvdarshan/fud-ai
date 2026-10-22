@@ -1,5 +1,6 @@
 @preconcurrency import AVFoundation
 import CoreImage
+import CoreMedia
 import SwiftUI
 import UIKit
 import os
@@ -14,6 +15,8 @@ nonisolated protocol VoiceAssistantCameraIO: AnyObject, Sendable {
     func stop()
     func latestJPEG() -> Data?
     func captureStill(timeout: TimeInterval) async -> UIImage?
+    /// Focuses and exposes at a tapped point, in capture device coordinates.
+    func focus(at devicePoint: CGPoint)
 }
 
 /// The back camera inside the voice assistant. It shows a live preview, keeps the
@@ -41,6 +44,8 @@ nonisolated final class VoiceAssistantCamera: NSObject, VoiceAssistantCameraIO, 
     static let barcodeTypes: [AVMetadataObject.ObjectType] = [
         .ean13, .ean8, .upce, .code128, .code39, .code93, .itf14, .interleaved2of5,
     ]
+    /// The barcode frame in the camera panel spans about this share of its width.
+    static let barcodeFrameWidthFraction: Double = 0.75
 
     let session = AVCaptureSession()
 
@@ -59,6 +64,16 @@ nonisolated final class VoiceAssistantCamera: NSObject, VoiceAssistantCameraIO, 
     private var isConfigured = false
     private var lastBarcode: (code: String, at: TimeInterval)?
     private var generation = 0
+    // Confined to `queue`.
+    private var device: AVCaptureDevice?
+    private var focusState = CameraFocusState()
+    private var subjectAreaObserver: NSObjectProtocol?
+
+    deinit {
+        if let subjectAreaObserver {
+            NotificationCenter.default.removeObserver(subjectAreaObserver)
+        }
+    }
 
     static var isDenied: Bool {
         let status = AVCaptureDevice.authorizationStatus(for: .video)
@@ -79,7 +94,7 @@ nonisolated final class VoiceAssistantCamera: NSObject, VoiceAssistantCameraIO, 
         default:
             return .denied
         }
-        let device = await MainActor.run { BarcodeScannerCameraSelection.preferredBackVideoCaptureDevice() }
+        let device = BackCameraSelection.preferredBackVideoCaptureDevice()
         return await withCheckedContinuation { continuation in
             queue.async { [self] in
                 guard lock.withLock({ number == generation }) else {
@@ -118,6 +133,12 @@ nonisolated final class VoiceAssistantCamera: NSObject, VoiceAssistantCameraIO, 
     func stop() {
         lock.withLock { generation += 1 }
         queue.async { [self] in
+            // A tap's pending timeout or scene change must not touch the camera after it
+            // closes, when another camera may be using it.
+            if focusState.isUserFocused, let device {
+                CameraDeviceConfigurator.apply(.continuous, to: device)
+            }
+            focusState.reset()
             if session.isRunning {
                 session.stopRunning()
                 logger.info("[Camera] Stopped")
@@ -164,13 +185,35 @@ nonisolated final class VoiceAssistantCamera: NSObject, VoiceAssistantCameraIO, 
         return Task.isCancelled ? nil : image.map { UIImage(cgImage: $0) }
     }
 
+    /// Tap to focus and expose there, like the system camera; see `CameraFocusState`.
+    func focus(at devicePoint: CGPoint) {
+        queue.async { [self] in
+            guard isConfigured, session.isRunning, let device else { return }
+            CameraDeviceConfigurator.apply(focusState.userFocus(at: devicePoint), to: device)
+            let tap = focusState.generation
+            queue.asyncAfter(deadline: .now() + CameraFocusState.userFocusTimeout) { [weak self] in
+                self?.focusHoldTimedOut(generation: tap)
+            }
+        }
+    }
+
     // MARK: - Configuration (camera queue)
 
     private func configure(device: AVCaptureDevice?) {
         // The live conversation owns the audio session; the camera must not change it.
         session.automaticallyConfiguresApplicationAudioSession = false
         session.beginConfiguration()
-        defer { session.commitConfiguration() }
+        let added = addInputAndOutputs(device: device)
+        session.commitConfiguration()
+        guard added, let device else { return }
+        // Zoom and focus are set per mode (`applyMode`), once the session has its format.
+        self.device = device
+        observeSubjectAreaChanges(of: device)
+        isConfigured = true
+    }
+
+    /// False when the camera can't be used.
+    private func addInputAndOutputs(device: AVCaptureDevice?) -> Bool {
         if session.canSetSessionPreset(.hd1920x1080) {
             session.sessionPreset = .hd1920x1080
         } else {
@@ -181,17 +224,16 @@ nonisolated final class VoiceAssistantCamera: NSObject, VoiceAssistantCameraIO, 
               let input = try? AVCaptureDeviceInput(device: device),
               session.canAddInput(input) else {
             logger.error("[Camera] The back camera isn't available")
-            return
+            return false
         }
         session.addInput(input)
-        configureFocus(device)
 
         videoOutput.alwaysDiscardsLateVideoFrames = true
         videoOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32BGRA]
         videoOutput.setSampleBufferDelegate(self, queue: queue)
         guard session.canAddOutput(videoOutput) else {
             logger.error("[Camera] Can't add the video output")
-            return
+            return false
         }
         session.addOutput(videoOutput)
         if let connection = videoOutput.connection(with: .video), connection.isVideoRotationAngleSupported(90) {
@@ -203,34 +245,72 @@ nonisolated final class VoiceAssistantCamera: NSObject, VoiceAssistantCameraIO, 
             session.addOutput(metadataOutput)
             metadataOutput.setMetadataObjectsDelegate(self, queue: queue)
         }
-        isConfigured = true
+        return true
     }
 
+    /// Food: the system camera's 1×, focusing at any distance, and the virtual camera
+    /// switches to the ultra-wide macro lens by itself for close-ups where the iPhone
+    /// has one. (At its default zoom it would stay on the 0.5× ultra-wide lens, which
+    /// is fixed-focus on many iPhones.) Barcodes: focus limited to near subjects, and
+    /// on iPhones that can't focus close, a little zoom so codes fill the frame from a
+    /// distance the lens can focus at. Either way a mode change ends any tap focus.
     private func applyMode(_ mode: Mode) {
-        guard session.outputs.contains(metadataOutput) else { return }
-        let available = Self.barcodeTypes.filter { metadataOutput.availableMetadataObjectTypes.contains($0) }
-        metadataOutput.metadataObjectTypes = mode == .barcode ? available : []
+        if session.outputs.contains(metadataOutput) {
+            let available = Self.barcodeTypes.filter { metadataOutput.availableMetadataObjectTypes.contains($0) }
+            metadataOutput.metadataObjectTypes = mode == .barcode ? available : []
+        }
+        guard let device else { return }
+        focusState.reset()
+        switch mode {
+        case .food:
+            CameraDeviceConfigurator.configureForCapture(
+                device,
+                zoomFactor: BackCameraSelection.wideAngleZoomFactor(for: device),
+                rangeRestriction: .none
+            )
+        case .barcode:
+            // The panel shows the frame's full width, so there is no preview crop to allow for.
+            CameraDeviceConfigurator.configureForCapture(
+                device,
+                zoomFactor: BackCameraSelection.barcodeZoomFactor(
+                    baseZoomFactor: BackCameraSelection.wideAngleZoomFactor(for: device),
+                    minimumFocusDistanceMM: device.minimumFocusDistance,
+                    fieldOfViewDegrees: Double(device.activeFormat.videoFieldOfView),
+                    formatAspectRatio: Self.formatAspectRatio(of: device),
+                    scanWidthFraction: Self.barcodeFrameWidthFraction
+                ),
+                rangeRestriction: .near
+            )
+        }
     }
 
-    /// Close focus helps barcodes and plates alike; the same tuning as the barcode scanner.
-    private func configureFocus(_ camera: AVCaptureDevice) {
-        do {
-            try camera.lockForConfiguration()
-            defer { camera.unlockForConfiguration() }
-            if camera.isFocusModeSupported(.continuousAutoFocus) {
-                camera.focusMode = .continuousAutoFocus
+    private static func formatAspectRatio(of device: AVCaptureDevice) -> Double {
+        let dimensions = CMVideoFormatDescriptionGetDimensions(device.activeFormat.formatDescription)
+        return BackCameraSelection.formatAspectRatio(width: Int(dimensions.width), height: Int(dimensions.height))
+    }
+
+    private func focusHoldTimedOut(generation: Int) {
+        guard session.isRunning, let device, let request = focusState.holdTimedOut(generation: generation) else { return }
+        CameraDeviceConfigurator.apply(request, to: device)
+    }
+
+    private func sceneChanged() {
+        guard session.isRunning, let device, let request = focusState.sceneChanged() else { return }
+        CameraDeviceConfigurator.apply(request, to: device)
+    }
+
+    private func observeSubjectAreaChanges(of device: AVCaptureDevice) {
+        // A virtual camera may report the change from the lens in use.
+        let deviceIDs = Set([device.uniqueID] + device.constituentDevices.map(\.uniqueID))
+        subjectAreaObserver = NotificationCenter.default.addObserver(
+            forName: AVCaptureDevice.subjectAreaDidChangeNotification,
+            object: nil,
+            queue: nil
+        ) { [weak self] notification in
+            guard let changed = notification.object as? AVCaptureDevice, deviceIDs.contains(changed.uniqueID) else { return }
+            self?.queue.async { [weak self] in
+                self?.sceneChanged()
             }
-            if camera.isAutoFocusRangeRestrictionSupported {
-                camera.autoFocusRangeRestriction = .near
-            }
-            if camera.isSmoothAutoFocusSupported {
-                camera.isSmoothAutoFocusEnabled = true
-            }
-            if camera.isExposureModeSupported(.continuousAutoExposure) {
-                camera.exposureMode = .continuousAutoExposure
-            }
-        } catch {
-            // The camera still works without the tuning.
         }
     }
 
@@ -285,25 +365,50 @@ nonisolated final class VoiceAssistantCamera: NSObject, VoiceAssistantCameraIO, 
 
 // MARK: - Preview
 
-/// The live preview of the assistant's camera.
+/// The live preview of the assistant's camera. A tap focuses there, with the focus square.
 struct VoiceAssistantCameraPreview: UIViewRepresentable {
     let session: AVCaptureSession
+    /// Gets the tapped point in capture device coordinates.
+    var onFocus: ((CGPoint) -> Void)?
 
     func makeUIView(context: Context) -> PreviewView {
         let view = PreviewView()
         view.previewLayer.session = session
         view.previewLayer.videoGravity = .resizeAspectFill
+        view.onFocus = onFocus
         return view
     }
 
-    func updateUIView(_ uiView: PreviewView, context: Context) {}
+    func updateUIView(_ uiView: PreviewView, context: Context) {
+        uiView.onFocus = onFocus
+    }
 
     final class PreviewView: UIView {
         override class var layerClass: AnyClass { AVCaptureVideoPreviewLayer.self }
 
+        var onFocus: ((CGPoint) -> Void)?
+        private let focusIndicator = CameraFocusIndicatorView()
+
         var previewLayer: AVCaptureVideoPreviewLayer {
             // The layer class above guarantees the type.
             layer as! AVCaptureVideoPreviewLayer
+        }
+
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            addSubview(focusIndicator)
+            addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapped(_:))))
+        }
+
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) is not used")
+        }
+
+        @objc private func tapped(_ recognizer: UITapGestureRecognizer) {
+            guard recognizer.state == .ended, let onFocus, previewLayer.connection != nil else { return }
+            let point = recognizer.location(in: self)
+            onFocus(previewLayer.captureDevicePointConverted(fromLayerPoint: point))
+            focusIndicator.show(at: point)
         }
 
         override func layoutSubviews() {

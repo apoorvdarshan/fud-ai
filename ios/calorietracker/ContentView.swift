@@ -3638,159 +3638,6 @@ struct ContextDescriptionSheet: View {
     }
 }
 
-// MARK: - Camera View (UIKit wrapper)
-struct CameraView: UIViewControllerRepresentable {
-    @Binding var image: UIImage?
-    let title: String?
-    let onCancel: (() -> Void)?
-    @Environment(\.dismiss) private var dismiss
-
-    init(image: Binding<UIImage?>, title: String? = nil, onCancel: (() -> Void)? = nil) {
-        _image = image
-        self.title = title
-        self.onCancel = onCancel
-    }
-
-    func makeUIViewController(context: Context) -> UIImagePickerController {
-        let picker = UIImagePickerController()
-        picker.sourceType = .camera
-        picker.delegate = context.coordinator
-        picker.modalPresentationStyle = .fullScreen
-        picker.edgesForExtendedLayout = .all
-        picker.showsCameraControls = false
-
-        // Keep the complete 4:3 camera frame visible so the preview matches the
-        // original image delivered after capture. Tall screens intentionally
-        // letterbox instead of enlarging and cropping the preview.
-        let screenSize = UIScreen.main.bounds.size
-        let previewHeight = screenSize.width * 4.0 / 3.0
-        let bottomBarHeight: CGFloat = 140
-        let availablePreviewHeight = max(0, screenSize.height - bottomBarHeight)
-        let previewOffset = max(0, (availablePreviewHeight - previewHeight) / 2)
-        picker.cameraViewTransform = CGAffineTransform(translationX: 0, y: previewOffset)
-
-        // Custom overlay with shutter + cancel buttons
-        let overlay = UIView(frame: UIScreen.main.bounds)
-        overlay.isUserInteractionEnabled = true
-        overlay.backgroundColor = .clear
-
-        let bottomBar = UIView()
-        bottomBar.backgroundColor = UIColor.black.withAlphaComponent(0.6)
-        bottomBar.translatesAutoresizingMaskIntoConstraints = false
-        overlay.addSubview(bottomBar)
-
-        let shutterOuter = UIView()
-        shutterOuter.backgroundColor = .white
-        shutterOuter.layer.cornerRadius = 37
-        shutterOuter.translatesAutoresizingMaskIntoConstraints = false
-        bottomBar.addSubview(shutterOuter)
-
-        let shutterInner = UIView()
-        shutterInner.backgroundColor = .white
-        shutterInner.layer.cornerRadius = 32
-        shutterInner.layer.borderWidth = 2
-        shutterInner.layer.borderColor = UIColor.black.withAlphaComponent(0.15).cgColor
-        shutterInner.translatesAutoresizingMaskIntoConstraints = false
-        shutterOuter.addSubview(shutterInner)
-
-        let shutterButton = UIButton(type: .system)
-        shutterButton.translatesAutoresizingMaskIntoConstraints = false
-        shutterButton.addTarget(context.coordinator, action: #selector(Coordinator.capture), for: .touchUpInside)
-        shutterOuter.addSubview(shutterButton)
-
-        let cancelButton = UIButton(type: .system)
-        cancelButton.setTitle("Cancel", for: .normal)
-        cancelButton.setTitleColor(.white, for: .normal)
-        cancelButton.titleLabel?.font = .systemFont(ofSize: 17)
-        cancelButton.translatesAutoresizingMaskIntoConstraints = false
-        cancelButton.addTarget(context.coordinator, action: #selector(Coordinator.cancel), for: .touchUpInside)
-        bottomBar.addSubview(cancelButton)
-
-        var titleLabel: UILabel?
-        if let title {
-            let label = UILabel()
-            label.text = title
-            label.textColor = .white
-            label.font = .systemFont(ofSize: 17, weight: .semibold)
-            label.translatesAutoresizingMaskIntoConstraints = false
-            bottomBar.addSubview(label)
-            titleLabel = label
-        }
-
-        NSLayoutConstraint.activate([
-            bottomBar.leadingAnchor.constraint(equalTo: overlay.leadingAnchor),
-            bottomBar.trailingAnchor.constraint(equalTo: overlay.trailingAnchor),
-            bottomBar.bottomAnchor.constraint(equalTo: overlay.bottomAnchor),
-            bottomBar.heightAnchor.constraint(equalToConstant: bottomBarHeight),
-
-            shutterOuter.centerXAnchor.constraint(equalTo: bottomBar.centerXAnchor),
-            shutterOuter.centerYAnchor.constraint(equalTo: bottomBar.topAnchor, constant: 50),
-            shutterOuter.widthAnchor.constraint(equalToConstant: 74),
-            shutterOuter.heightAnchor.constraint(equalToConstant: 74),
-
-            shutterInner.centerXAnchor.constraint(equalTo: shutterOuter.centerXAnchor),
-            shutterInner.centerYAnchor.constraint(equalTo: shutterOuter.centerYAnchor),
-            shutterInner.widthAnchor.constraint(equalToConstant: 64),
-            shutterInner.heightAnchor.constraint(equalToConstant: 64),
-
-            shutterButton.leadingAnchor.constraint(equalTo: shutterOuter.leadingAnchor),
-            shutterButton.trailingAnchor.constraint(equalTo: shutterOuter.trailingAnchor),
-            shutterButton.topAnchor.constraint(equalTo: shutterOuter.topAnchor),
-            shutterButton.bottomAnchor.constraint(equalTo: shutterOuter.bottomAnchor),
-
-            cancelButton.leadingAnchor.constraint(equalTo: bottomBar.leadingAnchor, constant: 20),
-            cancelButton.centerYAnchor.constraint(equalTo: shutterOuter.centerYAnchor),
-        ])
-        if let titleLabel {
-            NSLayoutConstraint.activate([
-                titleLabel.centerXAnchor.constraint(equalTo: bottomBar.centerXAnchor),
-                titleLabel.topAnchor.constraint(equalTo: shutterOuter.bottomAnchor, constant: 14),
-            ])
-        }
-
-        picker.cameraOverlayView = overlay
-        context.coordinator.picker = picker
-
-        return picker
-    }
-
-    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
-
-    func makeCoordinator() -> Coordinator {
-        Coordinator(self)
-    }
-
-    class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-        let parent: CameraView
-        weak var picker: UIImagePickerController?
-
-        init(_ parent: CameraView) {
-            self.parent = parent
-        }
-
-        @objc func capture() {
-            picker?.takePicture()
-        }
-
-        @objc func cancel() {
-            parent.onCancel?()
-            parent.dismiss()
-        }
-
-        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-            if let image = info[.originalImage] as? UIImage {
-                parent.image = image
-            }
-            parent.dismiss()
-        }
-
-        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-            parent.onCancel?()
-            parent.dismiss()
-        }
-    }
-}
-
 // MARK: - Barcode Scanner
 struct BarcodeScannerView: UIViewControllerRepresentable {
     let onScan: (String) -> Void
@@ -3810,6 +3657,11 @@ final class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOut
     private var previewLayer: AVCaptureVideoPreviewLayer?
     private var captureDevice: AVCaptureDevice?
     private var didScan = false
+    private let focusIndicator = CameraFocusIndicatorView()
+    private var focusState = CameraFocusState()
+    private var subjectAreaObserver: NSObjectProtocol?
+    /// The preview size the barcode zoom was worked out for.
+    private var barcodeZoomPreviewSize: CGSize?
 
     init(onScan: @escaping (String) -> Void, onCancel: @escaping () -> Void) {
         self.onScan = onScan
@@ -3831,10 +3683,17 @@ final class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOut
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         previewLayer?.frame = view.bounds
+        updateBarcodeZoomForPreviewSize()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        if let subjectAreaObserver {
+            NotificationCenter.default.removeObserver(subjectAreaObserver)
+            self.subjectAreaObserver = nil
+        }
+        focusState.reset()
+        focusIndicator.hide()
         let session = session
         DispatchQueue.global(qos: .userInitiated).async {
             session?.stopRunning()
@@ -3866,7 +3725,7 @@ final class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOut
         let session = AVCaptureSession()
         session.beginConfiguration()
 
-        guard let camera = BarcodeScannerCameraSelection.preferredBackVideoCaptureDevice(),
+        guard let camera = BackCameraSelection.preferredBackVideoCaptureDevice(),
               let input = try? AVCaptureDeviceInput(device: camera),
               session.canAddInput(input) else {
             session.commitConfiguration()
@@ -3875,7 +3734,6 @@ final class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOut
         }
         session.addInput(input)
         captureDevice = camera
-        configureCameraForBarcodeScanning(camera)
 
         let output = AVCaptureMetadataOutput()
         guard session.canAddOutput(output) else {
@@ -3904,6 +3762,9 @@ final class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOut
         }
         output.metadataObjectTypes = availableTypes
         session.commitConfiguration()
+        // Zoom and focus go on after the session has picked its format.
+        configureCameraForBarcodeScanning(camera)
+        observeSubjectAreaChanges(of: camera)
 
         let previewLayer = AVCaptureVideoPreviewLayer(session: session)
         previewLayer.videoGravity = .resizeAspectFill
@@ -3926,6 +3787,7 @@ final class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOut
         view.addGestureRecognizer(tap)
     }
 
+    /// Tap to focus and expose there, like the system camera; see `CameraFocusState`.
     @objc private func previewTapped(_ recognizer: UITapGestureRecognizer) {
         guard recognizer.state == .ended,
               let previewLayer,
@@ -3933,76 +3795,68 @@ final class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOut
         let layerPoint = recognizer.location(in: view)
         if view.hitTest(layerPoint, with: nil) is UIControl { return }
         let devicePoint = previewLayer.captureDevicePointConverted(fromLayerPoint: layerPoint)
-        focusCamera(camera, at: devicePoint)
-    }
-
-    private func focusCamera(_ camera: AVCaptureDevice, at devicePoint: CGPoint) {
-        do {
-            try camera.lockForConfiguration()
-            defer { camera.unlockForConfiguration() }
-
-            if camera.isFocusPointOfInterestSupported {
-                camera.focusPointOfInterest = devicePoint
-                if camera.isFocusModeSupported(.autoFocus) {
-                    camera.focusMode = .autoFocus
-                } else if camera.isFocusModeSupported(.continuousAutoFocus) {
-                    camera.focusMode = .continuousAutoFocus
-                }
-            }
-
-            if camera.isExposurePointOfInterestSupported {
-                camera.exposurePointOfInterest = devicePoint
-                if camera.isExposureModeSupported(.continuousAutoExposure) {
-                    camera.exposureMode = .continuousAutoExposure
-                } else if camera.isExposureModeSupported(.autoExpose) {
-                    camera.exposureMode = .autoExpose
-                }
-            }
-        } catch {
-            // Keep scanning available even if tap-to-focus fails.
+        CameraDeviceConfigurator.apply(focusState.userFocus(at: devicePoint), to: camera)
+        focusIndicator.show(at: layerPoint)
+        let generation = focusState.generation
+        DispatchQueue.main.asyncAfter(deadline: .now() + CameraFocusState.userFocusTimeout) { [weak self] in
+            self?.focusHoldTimedOut(generation: generation)
         }
     }
 
-    /// Food photo camera uses UIKit/system capture with autofocus. This scanner
-    /// previously left the device on its default focus, which often stays soft
-    /// at barcode distance on multi-camera iPhones.
+    private func focusHoldTimedOut(generation: Int) {
+        guard session?.isRunning == true, let camera = captureDevice,
+              let request = focusState.holdTimedOut(generation: generation) else { return }
+        CameraDeviceConfigurator.apply(request, to: camera)
+    }
+
+    private func sceneChanged() {
+        guard session?.isRunning == true, let camera = captureDevice,
+              let request = focusState.sceneChanged() else { return }
+        CameraDeviceConfigurator.apply(request, to: camera)
+        focusIndicator.hide()
+    }
+
+    private func observeSubjectAreaChanges(of camera: AVCaptureDevice) {
+        // A virtual camera may report the change from the lens in use.
+        let cameraIDs = Set([camera.uniqueID] + camera.constituentDevices.map(\.uniqueID))
+        subjectAreaObserver = NotificationCenter.default.addObserver(
+            forName: AVCaptureDevice.subjectAreaDidChangeNotification,
+            object: nil,
+            queue: .main
+        ) { [weak self] notification in
+            guard let changed = notification.object as? AVCaptureDevice, cameraIDs.contains(changed.uniqueID) else { return }
+            MainActor.assumeIsolated {
+                self?.sceneChanged()
+            }
+        }
+    }
+
+    /// Continuous autofocus limited to near subjects, starting at the system camera's 1×.
+    /// The virtual camera starts at its 0.5× ultra-wide lens, which is fixed-focus on
+    /// many iPhones, so close barcodes never sharpened there. At 1× it still switches to
+    /// the ultra-wide macro lens by itself for close codes where the iPhone has one; on
+    /// other iPhones it zooms in a little so codes fill the frame from a distance the
+    /// lens can focus at.
     private func configureCameraForBarcodeScanning(_ camera: AVCaptureDevice) {
-        do {
-            try camera.lockForConfiguration()
-            defer { camera.unlockForConfiguration() }
+        let previewSize = view.bounds.isEmpty ? nil : view.bounds.size
+        barcodeZoomPreviewSize = previewSize
+        CameraDeviceConfigurator.configureForCapture(
+            camera,
+            zoomFactor: BackCameraSelection.barcodeZoomFactor(for: camera, previewSize: previewSize),
+            rangeRestriction: .near
+        )
+    }
 
-            if camera.isFocusModeSupported(.continuousAutoFocus) {
-                camera.focusMode = .continuousAutoFocus
-            } else if camera.isFocusModeSupported(.autoFocus) {
-                camera.focusMode = .autoFocus
-            }
-
-            if camera.isFocusPointOfInterestSupported {
-                camera.focusPointOfInterest = CGPoint(x: 0.5, y: 0.5)
-            }
-
-            if camera.isAutoFocusRangeRestrictionSupported {
-                camera.autoFocusRangeRestriction = .near
-            }
-
-            if camera.isSmoothAutoFocusSupported {
-                camera.isSmoothAutoFocusEnabled = true
-            }
-
-            if camera.isExposureModeSupported(.continuousAutoExposure) {
-                camera.exposureMode = .continuousAutoExposure
-            }
-
-            if camera.isExposurePointOfInterestSupported {
-                camera.exposurePointOfInterest = CGPoint(x: 0.5, y: 0.5)
-            }
-
-            if camera.isLowLightBoostSupported {
-                camera.automaticallyEnablesLowLightBoostWhenAvailable = true
-            }
-        } catch {
-            // Keep scanning available even if focus tuning fails.
-        }
+    /// The zoom allows for the sides the aspect-fill preview crops, which depends on the
+    /// preview's size; the session can be configured before the first layout.
+    private func updateBarcodeZoomForPreviewSize() {
+        guard let camera = captureDevice, !view.bounds.isEmpty,
+              view.bounds.size != barcodeZoomPreviewSize else { return }
+        barcodeZoomPreviewSize = view.bounds.size
+        CameraDeviceConfigurator.setZoomFactor(
+            BackCameraSelection.barcodeZoomFactor(for: camera, previewSize: view.bounds.size),
+            on: camera
+        )
     }
 
     private func buildOverlay() {
@@ -4039,6 +3893,7 @@ final class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOut
         hint.numberOfLines = 0
         hint.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(hint)
+        view.addSubview(focusIndicator)
 
         NSLayoutConstraint.activate([
             closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 14),
@@ -4046,7 +3901,7 @@ final class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOut
 
             scanBox.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             scanBox.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -34),
-            scanBox.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.76),
+            scanBox.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: BackCameraSelection.barcodeScanFrameWidthFraction),
             scanBox.heightAnchor.constraint(equalToConstant: 190),
 
             label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 28),

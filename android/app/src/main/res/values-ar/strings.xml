@@ -73,6 +73,9 @@
     <string name="camera_error_capture">تعذّر التقاط الصورة</string>
     <string name="barcode_hint">وجّه الكاميرا نحو الرمز الشريطي</string>
     <string name="barcode_off_note">تستخدم الأطعمة المعبأة Open Food Facts عند توفره.</string>
+    <string name="cd_camera_preview">معاينة الكاميرا</string>
+    <string name="camera_focus_action">التركيز</string>
+    <string name="camera_focus_failed_hint">تعذّر التركيز. جرّب إبعاد الهاتف قليلًا.</string>
     <string name="measure_neck">الرقبة</string>
     <string name="measure_waist">الخصر</string>
     <string name="measure_hips">الوركان</string>

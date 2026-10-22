@@ -73,6 +73,9 @@
     <string name="camera_error_capture">फ़ोटो नहीं खींची जा सकी</string>
     <string name="barcode_hint">कैमरे को बारकोड पर रखें</string>
     <string name="barcode_off_note">पैकेज्ड खाद्य पदार्थ उपलब्ध होने पर Open Food Facts का उपयोग करते हैं।</string>
+    <string name="cd_camera_preview">कैमरा प्रीव्यू</string>
+    <string name="camera_focus_action">फ़ोकस करें</string>
+    <string name="camera_focus_failed_hint">फ़ोकस नहीं हो सका। फ़ोन को थोड़ा दूर रखकर देखें।</string>
     <string name="measure_neck">गर्दन</string>
     <string name="measure_waist">कमर</string>
     <string name="measure_hips">कूल्हे</string>

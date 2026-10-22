@@ -73,6 +73,9 @@
     <string name="camera_error_capture">Não foi possível tirar a foto</string>
     <string name="barcode_hint">Aponte a câmera para o código de barras</string>
     <string name="barcode_off_note">Alimentos embalados usam o Open Food Facts quando disponível.</string>
+    <string name="cd_camera_preview">Prévia da câmera</string>
+    <string name="camera_focus_action">Focar</string>
+    <string name="camera_focus_failed_hint">Não foi possível focar. Tente afastar um pouco o telefone.</string>
     <string name="measure_neck">Pescoço</string>
     <string name="measure_waist">Cintura</string>
     <string name="measure_hips">Quadril</string>

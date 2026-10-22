@@ -1,6 +1,5 @@
 package com.apoorvdarshan.calorietracker.ui.home
 
-import androidx.camera.core.CameraSelector
 import androidx.camera.core.ExperimentalGetImage
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.Preview
@@ -41,6 +40,9 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.core.content.ContextCompat
 import com.apoorvdarshan.calorietracker.R
+import com.apoorvdarshan.calorietracker.ui.components.CameraFocusOverlay
+import com.apoorvdarshan.calorietracker.ui.components.captureCameraSelector
+import com.apoorvdarshan.calorietracker.ui.components.rememberCameraFocusController
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
@@ -64,6 +66,7 @@ fun BarcodeScannerSheet(
     }
     val executor = remember { Executors.newSingleThreadExecutor() }
     val hasScanned = remember { AtomicBoolean(false) }
+    val focus = rememberCameraFocusController()
     val scanner = remember {
         BarcodeScanning.getClient(
             BarcodeScannerOptions.Builder()
@@ -73,11 +76,16 @@ fun BarcodeScannerSheet(
     }
 
     DisposableEffect(lifecycleOwner) {
+        var disposed = false
         val cameraProviderFuture = ProcessCameraProvider.getInstance(context)
         val mainExecutor = ContextCompat.getMainExecutor(context)
         val listener = Runnable {
+            // Closed before CameraX was ready: binding now would keep the camera open.
+            if (disposed) return@Runnable
             val cameraProvider = cameraProviderFuture.get()
-            val preview = Preview.Builder().build().also {
+            val previewBuilder = Preview.Builder()
+            focus.instrument(previewBuilder)
+            val preview = previewBuilder.build().also {
                 it.surfaceProvider = previewView.surfaceProvider
             }
             val analysis = ImageAnalysis.Builder()
@@ -112,17 +120,17 @@ fun BarcodeScannerSheet(
 
             runCatching {
                 cameraProvider.unbindAll()
-                cameraProvider.bindToLifecycle(
-                    lifecycleOwner,
-                    CameraSelector.DEFAULT_BACK_CAMERA,
-                    preview,
-                    analysis
-                )
+                // A back camera, preferring one that can autofocus (barcodes are read up close).
+                val selector = cameraProvider.captureCameraSelector(allowFront = false) ?: return@runCatching
+                val camera = cameraProvider.bindToLifecycle(lifecycleOwner, selector, preview, analysis)
+                focus.attach(camera, preview, previewView)
             }
         }
         cameraProviderFuture.addListener(listener, mainExecutor)
 
         onDispose {
+            disposed = true
+            focus.detach()
             runCatching { cameraProviderFuture.get().unbindAll() }
             runCatching { scanner.close() }
             executor.shutdown()
@@ -142,6 +150,8 @@ fun BarcodeScannerSheet(
                 factory = { previewView },
                 modifier = Modifier.fillMaxSize()
             )
+
+            CameraFocusOverlay(focus = focus, enabled = true)
 
             IconButton(
                 onClick = onDismiss,

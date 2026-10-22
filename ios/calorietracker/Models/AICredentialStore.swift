@@ -68,6 +68,9 @@ final class KeychainCredentialSecretStore: CredentialSecretStoring {
 /// Resolution rules:
 /// - A route that is bound to a profile always uses that profile — even after its key
 ///   was cleared, so a route never silently switches to a different key.
+/// - A route explicitly marked unconfigured uses no key, even when the provider has
+///   another profile. The marker is scoped to its provider, so changing the route's
+///   provider starts from that provider's default instead of reusing the old key.
 /// - A route without a binding uses the provider's default profile: its unnamed profile
 ///   when it has one, otherwise its oldest profile.
 /// - A binding to a different provider is ignored, so changing a route's provider can
@@ -86,6 +89,7 @@ final class AICredentialStore {
     private static let migrationVersion = 1
     private static let secretPrefix = "aiCredentialSecret_"
     private static let routePrefix = "aiRouteCredential_"
+    private static let unconfiguredPrefix = "__unconfigured__:"
     private static let legacyPrefix = "apikey_"
     static let maxLabelLength = 60
     static let maxSecretLength = 8_192
@@ -200,6 +204,9 @@ final class AICredentialStore {
 
     func routeProfile(_ route: AIRoute, provider: AIProvider) -> AICredential? {
         ensureMigrated()
+        if defaults.string(forKey: Self.routeKey(route)) == Self.unconfiguredBinding(provider) {
+            return nil
+        }
         if let bound = boundProfile(route, provider: provider) { return bound }
         return defaultProfile(for: provider)
     }
@@ -226,7 +233,9 @@ final class AICredentialStore {
 
     // MARK: - Writing
 
-    /// Binds a slot to a profile. A binding to another provider is ignored.
+    /// Binds a slot to a profile. A binding to another provider is ignored. Passing nil
+    /// clears both a profile binding and an explicit unconfigured marker, so the
+    /// provider's default applies again.
     func bindRoute(_ route: AIRoute, credentialID: String?) {
         ensureMigrated()
         guard let credentialID else {
@@ -367,8 +376,10 @@ final class AICredentialStore {
     ///
     /// Every route that would resolve to the deleted profile is captured first — both
     /// explicit bindings and routes that used it as the provider default — and moved to
-    /// `replacementID` when it belongs to the same provider, or left unconfigured
-    /// otherwise. Routes that never used the profile keep their own credential.
+    /// `replacementID` when it belongs to the same provider, or explicitly marked
+    /// unconfigured otherwise. The marker prevents the route from falling back to a
+    /// different profile of the same provider. Routes that never used the profile keep
+    /// their own credential.
     @discardableResult
     func delete(
         id: String,
@@ -402,7 +413,7 @@ final class AICredentialStore {
             if let replacement {
                 defaults.set(replacement.id, forKey: Self.routeKey(route))
             } else {
-                defaults.removeObject(forKey: Self.routeKey(route))
+                defaults.set(Self.unconfiguredBinding(credential.provider), forKey: Self.routeKey(route))
             }
         }
         syncLegacyDefault(credential.provider)
@@ -476,6 +487,11 @@ final class AICredentialStore {
     /// The effective key without running the migration. The migration calls the legacy
     /// mirror before it writes its marker, so this variant prevents a recursive pass.
     private func effectiveSecretForMirror(_ provider: AIProvider) -> String? {
+        // A primary route that was explicitly left without a key must not expose a
+        // different profile's key through the legacy one-key-per-provider mirror.
+        if defaults.string(forKey: Self.routeKey(.primary)) == Self.unconfiguredBinding(provider) {
+            return nil
+        }
         let target = boundProfile(.primary, provider: provider)
             ?? defaultIn(readProfiles() ?? [], provider: provider)
         return target.flatMap { rawSecret($0.id) }
@@ -522,6 +538,9 @@ final class AICredentialStore {
 
     private static func secretKey(_ id: String) -> String { secretPrefix + id }
     private static func routeKey(_ route: AIRoute) -> String { routePrefix + route.rawValue }
+    private static func unconfiguredBinding(_ provider: AIProvider) -> String {
+        unconfiguredPrefix + provider.rawValue
+    }
     private static func legacyKey(_ provider: AIProvider) -> String { legacyPrefix + provider.rawValue }
 }
 

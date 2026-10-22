@@ -27,6 +27,26 @@ struct CloudBackupArchiveTests {
         }
     }
 
+    @Test func deviceBoundCredentialRecordsStayOutOfBackups() {
+        let values: [String: CloudBackupValue] = [
+            "aiCredentialProfiles_v1": .data(Data([1, 2, 3])),
+            "aiCredentialProfiles_v1_corrupt_backup": .data(Data([4])),
+            "aiCredentialMigrationVersion": .int(1),
+            "aiRouteCredential_primary": .string("profile-id"),
+            "aiRouteCredential_textFallback": .string("__unconfigured__:OpenRouter"),
+            "foodEntries": .string("[]"),
+        ]
+
+        #expect(!CloudBackupPolicy.include("aiCredentialProfiles_v1"))
+        #expect(!CloudBackupPolicy.include("aiCredentialProfiles_v1_corrupt_backup"))
+        #expect(!CloudBackupPolicy.include("aiCredentialMigrationVersion"))
+        #expect(!CloudBackupPolicy.include("aiRouteCredential_primary"))
+        #expect(CloudBackupPolicy.include("foodEntries"))
+
+        let filtered = values.filter { CloudBackupPolicy.include($0.key) }
+        #expect(filtered.keys.sorted() == ["foodEntries"])
+    }
+
     @Test func newerFormatFailsClosed() throws {
         try withTemporaryDirectory { dir in
             let packed = dir.appendingPathComponent("packed.zip")

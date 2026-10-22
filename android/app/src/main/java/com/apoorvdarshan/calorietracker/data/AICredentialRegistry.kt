@@ -53,6 +53,9 @@ interface CredentialSecretStore {
  * Resolution rules:
  * - A route that is bound to a profile always uses that profile — even after its key
  *   was cleared, so a route never silently switches to a different key.
+ * - A route explicitly marked unconfigured uses no key, even when the provider has
+ *   another profile. The marker is scoped to its provider, so changing the route's
+ *   provider starts from that provider's default instead of reusing the old key.
  * - A route without a binding uses the provider's default profile: its unnamed profile
  *   when it has one, otherwise its oldest profile.
  * - A binding to a different provider is ignored, so changing a route's provider can
@@ -156,11 +159,13 @@ class AICredentialRegistry(
 
     /**
      * The profile a route uses: its own binding when that binding is valid for the
-     * route's provider, otherwise the provider's default profile.
+     * route's provider, otherwise the provider's default profile. An explicit
+     * unconfigured marker for this provider stops the default fallback.
      */
     @Synchronized
     fun routeCredential(route: AIRoute, provider: AIProvider): AICredential? {
         ensureMigrated()
+        if (secrets.load(routeKey(route)) == unconfiguredBinding(provider)) return null
         return boundProfile(route, provider) ?: defaultFor(provider)
     }
 
@@ -178,7 +183,11 @@ class AICredentialRegistry(
 
     // -- Writing ----------------------------------------------------------
 
-    /** Binds a slot to a profile. A binding to another provider is ignored. */
+    /**
+     * Binds a slot to a profile. A binding to another provider is ignored. Passing
+     * null clears both a profile binding and an explicit unconfigured marker, so the
+     * provider's default applies again.
+     */
     @Synchronized
     fun bindRoute(route: AIRoute, credentialId: String?) {
         ensureMigrated()
@@ -292,8 +301,10 @@ class AICredentialRegistry(
      *
      * Every route that would resolve to the deleted profile is captured first — both
      * explicit bindings and routes that used it as the provider default — and moved to
-     * [replacementId] when it belongs to the same provider, or left unconfigured
-     * otherwise. Routes that never used the profile keep their own credential.
+     * [replacementId] when it belongs to the same provider, or explicitly marked
+     * unconfigured otherwise. The marker prevents the route from falling back to a
+     * different profile of the same provider. Routes that never used the profile keep
+     * their own credential.
      */
     @Synchronized
     fun delete(
@@ -323,7 +334,7 @@ class AICredentialRegistry(
             if (replacement != null) {
                 secrets.save(routeKey(route), replacement.id)
             } else {
-                secrets.delete(routeKey(route))
+                secrets.save(routeKey(route), unconfiguredBinding(credential.provider))
             }
         }
         syncLegacyDefault(credential.provider)
@@ -403,6 +414,11 @@ class AICredentialRegistry(
      * mirror before it writes its marker, so this variant prevents a recursive pass.
      */
     private fun effectiveSecretForMirror(provider: AIProvider): String? {
+        // A primary route that was explicitly left without a key must not expose a
+        // different profile's key through the legacy one-key-per-provider mirror.
+        if (secrets.load(routeKey(AIRoute.PRIMARY)) == unconfiguredBinding(provider)) {
+            return null
+        }
         val bound = boundProfile(AIRoute.PRIMARY, provider)
             ?: defaultIn(readProfiles().orEmpty(), provider)
         return bound?.let { rawSecret(it.id) }
@@ -461,9 +477,11 @@ class AICredentialRegistry(
         internal const val MIGRATION_VERSION = 1
         internal const val SECRET_PREFIX = "aiCredentialSecret_"
         internal const val ROUTE_PREFIX = "aiRouteCredential_"
+        internal const val UNCONFIGURED_PREFIX = "__unconfigured__:"
 
         internal fun secretStorageKey(id: String) = SECRET_PREFIX + id
         internal fun routeKey(route: AIRoute) = ROUTE_PREFIX + route.name
+        internal fun unconfiguredBinding(provider: AIProvider) = UNCONFIGURED_PREFIX + provider.name
         internal fun legacyKey(provider: AIProvider) = "apikey_" + provider.name
 
         /** Last four characters only, or a fully masked value for very short secrets. */

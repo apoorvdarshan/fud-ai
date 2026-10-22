@@ -616,7 +616,6 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
         viewModelScope.launch {
             clearForeignBinding(AIRoute.IMAGE_FALLBACK, p)
             container.prefs.setSelectedFallbackProvider(p)
-            syncCredentialState()
             // Reset model to provider default if old model isn't in the new provider's list.
             var newModel = p.supportedModelOrDefault(_ui.value.fallbackModel)
             val primary = _ui.value.selectedAI
@@ -634,6 +633,9 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
             container.prefs.setSelectedFallbackModel(newModel)
             val masked = maskKey(container.keyStore.apiKey(p))
             _ui.value = _ui.value.copy(fallbackProvider = p, fallbackModel = newModel, fallbackApiKeyMasked = masked)
+            // Resolve route credentials only after the new provider is visible to
+            // syncCredentialState(), otherwise its profile ID is still the old one.
+            syncCredentialState()
         }
     }
 
@@ -657,7 +659,6 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
         viewModelScope.launch {
             clearForeignBinding(AIRoute.TEXT_FALLBACK, provider)
             container.prefs.setSelectedTextFallbackProvider(provider)
-            syncCredentialState()
             var model = provider.supportedTextModelOrDefault(_ui.value.textFallbackModel)
             val primary = if (_ui.value.separateTextProviderEnabled) _ui.value.selectedTextAI else _ui.value.selectedAI
             val primaryModel = if (_ui.value.separateTextProviderEnabled) {
@@ -684,6 +685,7 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
                 textFallbackModel = model,
                 textFallbackApiKeyMasked = maskKey(container.keyStore.apiKey(provider))
             )
+            syncCredentialState()
         }
     }
 
@@ -779,9 +781,9 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
             clearForeignBinding(AIRoute.PRIMARY, p)
             container.prefs.setSelectedAIProvider(p)
             container.prefs.setSelectedAIModel(p.defaultModel)
-            syncCredentialState()
             val masked = maskKey(container.keyStore.apiKey(p))
             _ui.value = _ui.value.copy(selectedAI = p, selectedModel = p.defaultModel, apiKeyMasked = masked)
+            syncCredentialState()
         }
     }
 
@@ -937,7 +939,6 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
         viewModelScope.launch {
             clearForeignBinding(AIRoute.TEXT, provider)
             container.prefs.setSelectedTextAIProvider(provider)
-            syncCredentialState()
             val model = provider.defaultTextModel
             container.prefs.setSelectedTextAIModel(model)
             _ui.value = _ui.value.copy(
@@ -945,6 +946,7 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
                 selectedTextModel = model,
                 textApiKeyMasked = maskKey(container.keyStore.apiKey(provider))
             )
+            syncCredentialState()
         }
     }
 

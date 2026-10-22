@@ -132,6 +132,49 @@ class AICredentialRegistryTest {
     }
 
     @Test
+    fun deletingTheBoundProfileWithoutReplacementLeavesTheRouteUnconfigured() {
+        val creds = registry()
+        val first = creds.add(AIProvider.OPENROUTER, "First", "sk-or-first-1111").getOrThrow()
+        val second = creds.add(AIProvider.OPENROUTER, "Second", "sk-or-second-2222").getOrThrow()
+        creds.bindRoute(AIRoute.PRIMARY, first.id)
+
+        creds.delete(first.id, routeProviders = mapOf(AIRoute.PRIMARY to AIProvider.OPENROUTER)).getOrThrow()
+
+        assertEquals(
+            AICredentialRegistry.unconfiguredBinding(AIProvider.OPENROUTER),
+            creds.bindings()[AIRoute.PRIMARY]
+        )
+        assertNull(creds.routeCredential(AIRoute.PRIMARY, AIProvider.OPENROUTER))
+        assertNull(creds.routeSecret(AIRoute.PRIMARY, AIProvider.OPENROUTER))
+        assertNull(creds.effectiveSecret(AIProvider.OPENROUTER))
+        // The other profile is still available for an explicit choice, but the route
+        // must not silently switch to it.
+        assertEquals(second.id, creds.defaultFor(AIProvider.OPENROUTER)?.id)
+
+        // The unconfigured marker belongs to OpenRouter. A route switched to another
+        // provider starts from that provider's default key.
+        val openAI = creds.add(AIProvider.OPENAI, "Main", "sk-openai-3333").getOrThrow()
+        assertEquals(openAI.id, creds.routeCredential(AIRoute.PRIMARY, AIProvider.OPENAI)?.id)
+        assertEquals("sk-openai-3333", creds.routeSecret(AIRoute.PRIMARY, AIProvider.OPENAI))
+    }
+
+    @Test
+    fun deletingTheImplicitDefaultLeavesTheActiveRouteUnconfigured() {
+        val creds = registry()
+        val first = creds.add(AIProvider.OPENROUTER, "First", "sk-or-first-1111").getOrThrow()
+        creds.add(AIProvider.OPENROUTER, "Second", "sk-or-second-2222").getOrThrow()
+
+        creds.delete(first.id, routeProviders = mapOf(AIRoute.PRIMARY to AIProvider.OPENROUTER)).getOrThrow()
+
+        assertEquals(
+            AICredentialRegistry.unconfiguredBinding(AIProvider.OPENROUTER),
+            creds.bindings()[AIRoute.PRIMARY]
+        )
+        assertNull(creds.routeCredential(AIRoute.PRIMARY, AIProvider.OPENROUTER))
+        assertNull(creds.routeSecret(AIRoute.PRIMARY, AIProvider.OPENROUTER))
+    }
+
+    @Test
     fun deletingOneOfTwoUnboundProfilesKeepsTheDefaultAvailable() {
         val creds = registry()
         val first = creds.add(AIProvider.OPENAI, "First", "sk-openai-first-1111").getOrThrow()

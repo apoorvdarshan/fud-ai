@@ -329,7 +329,7 @@ struct AICredentialManagerView: View {
                     }
                 }
             }
-            Button("Delete without replacement", role: .destructive) {
+            Button("Delete and leave routes unconfigured", role: .destructive) {
                 delete(profile, replacement: nil)
             }
             Button("Cancel", role: .cancel) { }

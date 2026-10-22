@@ -2,11 +2,17 @@ import Foundation
 import Testing
 @testable import calorietracker
 
+private extension Result {
+    var isFailure: Bool {
+        if case .failure = self { return true }
+        return false
+    }
+}
+
 /// Verifies the named API-key profile store (#644): migration of legacy per-provider
 /// keys, isolation between profiles of the same provider, route bindings and deletion.
 @MainActor
 struct AICredentialStoreTests {
-    @MainActor
     private final class MemorySecrets: CredentialSecretStoring {
         var values: [String: String] = [:]
 
@@ -16,9 +22,10 @@ struct AICredentialStoreTests {
     }
 
     private func makeStore(
-        secrets: MemorySecrets = MemorySecrets(),
+        secrets: MemorySecrets? = nil,
         suiteName: String = "AICredentialStoreTests"
     ) -> (AICredentialStore, UserDefaults) {
+        let secrets = secrets ?? MemorySecrets()
         let defaults = UserDefaults(suiteName: suiteName)!
         defaults.removePersistentDomain(forName: suiteName)
         var counter = 0
@@ -129,6 +136,39 @@ struct AICredentialStoreTests {
 
         _ = try store.delete(id: second.id).get()
         #expect(store.routeProfile(.primary, provider: .openrouter) == nil)
+    }
+
+    @Test func deletingTheBoundProfileWithoutReplacementLeavesTheRouteUnconfigured() throws {
+        let (store, _) = makeStore()
+        let first = try store.add(provider: .openrouter, label: "First", secret: "sk-or-first-1111").get()
+        let second = try store.add(provider: .openrouter, label: "Second", secret: "sk-or-second-2222").get()
+        store.bindRoute(.primary, credentialID: first.id)
+
+        _ = try store.delete(id: first.id, routeProviders: [.primary: .openrouter]).get()
+
+        #expect(store.routeProfile(.primary, provider: .openrouter) == nil)
+        #expect(store.routeSecret(.primary, provider: .openrouter) == nil)
+        #expect(store.effectiveSecret(for: .openrouter) == nil)
+        // The other profile is still available for an explicit choice, but the route
+        // must not silently switch to it.
+        #expect(store.defaultProfile(for: .openrouter)?.id == second.id)
+
+        // The unconfigured marker belongs to OpenRouter. A route switched to another
+        // provider starts from that provider's default key.
+        let openAI = try store.add(provider: .openai, label: "Main", secret: "sk-openai-3333").get()
+        #expect(store.routeProfile(.primary, provider: .openai)?.id == openAI.id)
+        #expect(store.routeSecret(.primary, provider: .openai) == "sk-openai-3333")
+    }
+
+    @Test func deletingTheImplicitDefaultLeavesTheActiveRouteUnconfigured() throws {
+        let (store, _) = makeStore()
+        let first = try store.add(provider: .openrouter, label: "First", secret: "sk-or-first-1111").get()
+        _ = try store.add(provider: .openrouter, label: "Second", secret: "sk-or-second-2222").get()
+
+        _ = try store.delete(id: first.id, routeProviders: [.primary: .openrouter]).get()
+
+        #expect(store.routeProfile(.primary, provider: .openrouter) == nil)
+        #expect(store.routeSecret(.primary, provider: .openrouter) == nil)
     }
 
     @Test func deletingOneOfTwoProfilesKeepsTheDefaultAvailable() throws {

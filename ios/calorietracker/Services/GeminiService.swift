@@ -326,7 +326,11 @@ struct GeminiService {
         }
     }
 
-    static func analyzeTextInput(description: String, skipHostedMetering: Bool = false) async throws -> FoodAnalysis {
+    static func analyzeTextInput(
+        description: String,
+        skipHostedMetering: Bool = false,
+        progress: AnalysisProgressReporter? = nil
+    ) async throws -> FoodAnalysis {
         let prompt = """
         Estimate the nutritional content for: \(description)
         Parse any quantities, brands, and multiple items from the text. If a brand is mentioned, use that brand's known nutritional data. If multiple items are described, sum up the total nutrition.
@@ -338,13 +342,22 @@ struct GeminiService {
         When supported by the text, use slice/piece for discrete foods, ml/cup/fl oz for liquids, tbsp/tsp for spooned foods, and can/packet for packaged foods.
         Include a single food emoji that best represents the food. Use null for any nutrient you cannot estimate.
         """
+        progress?(AnalysisProgressUpdate(stage: .preparing))
         return try await runWithHostedQuota(.textFood, skip: skipHostedMetering) {
-            let analysis = try await callTextFoodAnalysis(prompt: prompt, description: description)
+            let analysis = try await callTextFoodAnalysis(
+                prompt: prompt,
+                description: description,
+                progress: progress
+            )
+            progress?(AnalysisProgressUpdate(stage: .validating))
             return await addingFallbackServingUnits(to: analysis, image: nil, description: description)
         }
     }
 
-    static func autoAnalyze(image: UIImage) async throws -> FoodAnalysis {
+    static func autoAnalyze(
+        image: UIImage,
+        progress: AnalysisProgressReporter? = nil
+    ) async throws -> FoodAnalysis {
         let prompt = """
         Analyze this image. It could be either a photo of food OR a nutrition facts label.
 
@@ -359,14 +372,21 @@ struct GeminiService {
         When supported by the image or label, use slice/piece for discrete foods, ml/cup/fl oz for liquids, tbsp/tsp for spooned foods, and can/packet for packaged foods. For a whole or mostly-whole divisible food, count only clearly visible pieces or slices and derive grams_per_unit from serving_size_grams / quantity.
         Use null for any nutrient you cannot estimate.
         """
+        progress?(AnalysisProgressUpdate(stage: .preparing))
         return try await runWithHostedQuota(.photoFood) {
-            let text = try await callAI(prompt: prompt, image: image)
+            let text = try await callAI(prompt: prompt, image: image, progress: progress)
             let analysis = try parseFoodAnalysis(from: text)
+            progress?(AnalysisProgressUpdate(stage: .validating))
             return await addingFallbackServingUnits(to: analysis, image: image, description: nil)
         }
     }
 
-    static func analyzeFood(image: UIImage, description: String? = nil, skipHostedMetering: Bool = false) async throws -> FoodAnalysis {
+    static func analyzeFood(
+        image: UIImage,
+        description: String? = nil,
+        skipHostedMetering: Bool = false,
+        progress: AnalysisProgressReporter? = nil
+    ) async throws -> FoodAnalysis {
         var prompt = """
         Analyze this food image. Identify the food and estimate its nutritional content.
 
@@ -384,15 +404,19 @@ struct GeminiService {
             prompt += "\n\nAdditional context from the user about this meal: \(description)\nUse this context to improve accuracy of identification, portion size, and nutrition estimates."
         }
 
+        progress?(AnalysisProgressUpdate(stage: .preparing))
         return try await runWithHostedQuota(.photoFood, skip: skipHostedMetering) {
             if let onDevice = try await analyzeFoodWithAppleIntelligenceIfSelected(
                 images: [image],
-                description: description
+                description: description,
+                progress: progress
             ) {
+                progress?(AnalysisProgressUpdate(stage: .validating))
                 return await addingFallbackServingUnits(to: onDevice, image: image, description: description)
             }
-            let text = try await callAI(prompt: prompt, image: image)
+            let text = try await callAI(prompt: prompt, image: image, progress: progress)
             let analysis = try parseFoodAnalysis(from: text)
+            progress?(AnalysisProgressUpdate(stage: .validating))
             return await addingFallbackServingUnits(to: analysis, image: image, description: description)
         }
     }
@@ -448,7 +472,8 @@ struct GeminiService {
         images: [UIImage],
         description: String? = nil,
         progressiveMeal: Bool = false,
-        skipHostedMetering: Bool = false
+        skipHostedMetering: Bool = false,
+        progress: AnalysisProgressReporter? = nil
     ) async throws -> FoodAnalysis {
         guard !images.isEmpty else { throw AnalysisError.imageConversionFailed }
 
@@ -462,6 +487,7 @@ struct GeminiService {
             portionScaleSection: portionScaleSection
         )
 
+        progress?(AnalysisProgressUpdate(stage: .preparing))
         return try await runWithHostedQuota(.photoFood, skip: skipHostedMetering) {
             let labelText = OnDeviceLabelText(images: images)
             if let onDevice = try await analyzeFoodWithAppleIntelligenceIfSelected(
@@ -469,14 +495,17 @@ struct GeminiService {
                 description: description,
                 progressiveMeal: progressiveMeal,
                 labelText: labelText,
-                portionScaleSection: portionScaleSection
+                portionScaleSection: portionScaleSection,
+                progress: progress
             ) {
                 var result = await addingFallbackServingUnits(to: onDevice, image: images[0], description: description)
                 result.progressiveMeal = progressiveMeal
+                progress?(AnalysisProgressUpdate(stage: .validating))
                 return result
             }
-            let text = try await callAI(prompt: prompt, images: images, labelText: labelText)
+            let text = try await callAI(prompt: prompt, images: images, labelText: labelText, progress: progress)
             let analysis = try parseFoodAnalysis(from: text)
+            progress?(AnalysisProgressUpdate(stage: .validating))
             var result = await addingFallbackServingUnits(to: analysis, image: images[0], description: description)
             result.progressiveMeal = progressiveMeal
             return result
@@ -825,26 +854,58 @@ struct GeminiService {
     /// - Parameter jsonResponse: true (default) for prompts that demand a JSON object; providers with
     ///   structured output are asked for `application/json` so they cannot wander off into prose.
     ///   Pass false for the few plain-English prompts.
-    private static func callAI(prompt: String, image: UIImage?, jsonResponse: Bool = true) async throws -> String {
-        try await callAI(prompt: prompt, images: image.map { [$0] } ?? [], jsonResponse: jsonResponse)
+    private static func callAI(
+        prompt: String,
+        image: UIImage?,
+        jsonResponse: Bool = true,
+        progress: AnalysisProgressReporter? = nil
+    ) async throws -> String {
+        try await callAI(
+            prompt: prompt,
+            images: image.map { [$0] } ?? [],
+            jsonResponse: jsonResponse,
+            progress: progress
+        )
     }
 
-    private static func callTextFoodAnalysis(prompt: String, description: String) async throws -> FoodAnalysis {
+    private static func callTextFoodAnalysis(
+        prompt: String,
+        description: String,
+        progress: AnalysisProgressReporter? = nil
+    ) async throws -> FoodAnalysis {
         if AIModeSettings.isHosted {
+            progress?(AnalysisProgressUpdate(stage: .requesting))
             let text = try await HostedAIService.generate(
                 prompt: prompt,
                 imageDataList: [],
                 systemInstruction: AIProviderSettings.currentUserContext
             )
+            progress?(AnalysisProgressUpdate(stage: .responding))
             return try parseFoodAnalysis(from: text)
         }
+        // The provider and model are resolved before the request starts; the optional
+        // estimate is read from the local history only for a real meal analysis.
         let primary = AIProviderSettings.currentConfig(requiresVision: false)
         if primary.provider.requiresAPIKey, primary.apiKey == nil {
             throw AnalysisError.noAPIKey
         }
+        let durationStore = AnalysisDurationStore()
+        // The local history is only touched for real meal analyses with a progress
+        // reporter; goals, chat and workout prompts must not skew the estimate.
+        let primaryEstimate = progress == nil ? nil : durationStore.estimate(
+            provider: primary.provider,
+            model: primary.model,
+            kind: .text
+        )
+        progress?(AnalysisProgressUpdate(
+            stage: .requesting,
+            provider: primary.provider,
+            model: primary.model,
+            estimateSeconds: primaryEstimate
+        ))
 
         do {
-            return try await dispatchFoodAnalysis(
+            let analysis = try await dispatchFoodAnalysis(
                 provider: primary.provider,
                 model: primary.model,
                 baseURL: primary.baseURL,
@@ -852,6 +913,8 @@ struct GeminiService {
                 prompt: prompt,
                 description: description
             )
+            progress?(AnalysisProgressUpdate(stage: .responding))
+            return analysis
         } catch {
             if error is CancellationError { throw error }
             guard let fallback = AIProviderSettings.currentTextFallbackConfig(
@@ -860,8 +923,22 @@ struct GeminiService {
             ) else {
                 throw error
             }
+            // The primary request failed: say so plainly instead of looking stuck.
+            if progress != nil {
+                progress?(AnalysisProgressUpdate(
+                    stage: .fallback,
+                    attempt: 2,
+                    provider: fallback.provider,
+                    model: fallback.model,
+                    estimateSeconds: durationStore.estimate(
+                        provider: fallback.provider,
+                        model: fallback.model,
+                        kind: .text
+                    )
+                ))
+            }
             do {
-                return try await dispatchFoodAnalysis(
+                let analysis = try await dispatchFoodAnalysis(
                     provider: fallback.provider,
                     model: fallback.model,
                     baseURL: fallback.baseURL,
@@ -869,6 +946,13 @@ struct GeminiService {
                     prompt: prompt,
                     description: description
                 )
+                progress?(AnalysisProgressUpdate(
+                    stage: .responding,
+                    attempt: 2,
+                    provider: fallback.provider,
+                    model: fallback.model
+                ))
+                return analysis
             } catch let fallbackError {
                 if fallbackError is CancellationError { throw fallbackError }
                 let chosenError = AIRequestErrorPolicy.errorToSurface(
@@ -887,11 +971,19 @@ struct GeminiService {
         description: String?,
         progressiveMeal: Bool = false,
         labelText: OnDeviceLabelText? = nil,
-        portionScaleSection: String? = nil
+        portionScaleSection: String? = nil,
+        progress: AnalysisProgressReporter? = nil
     ) async throws -> FoodAnalysis? {
         guard !AIModeSettings.isHosted else { return nil }
         let primary = AIProviderSettings.currentConfig(requiresVision: true)
         guard primary.provider == .appleIntelligence else { return nil }
+        // The model runs on this iPhone, so no remote provider is contacted. Say so
+        // instead of naming a provider that never answers.
+        progress?(AnalysisProgressUpdate(
+            stage: .requesting,
+            provider: primary.provider,
+            model: primary.model
+        ))
         #if canImport(FoundationModels)
         if #available(iOS 27.0, *) {
             do {
@@ -962,17 +1054,24 @@ struct GeminiService {
         prompt: String,
         images: [UIImage],
         jsonResponse: Bool = true,
-        labelText: OnDeviceLabelText? = nil
+        labelText: OnDeviceLabelText? = nil,
+        progress: AnalysisProgressReporter? = nil
     ) async throws -> String {
+        let kind: AnalysisKind = images.isEmpty ? .text : .image
         if AIModeSettings.isHosted {
             let capped = Array(images.prefix(HostedAIConstants.maxHostedImages))
             let imageDataList = try capped.map { try encodedJPEGData(for: $0) }
-            return try await HostedAIService.generate(
+            progress?(AnalysisProgressUpdate(stage: .requesting))
+            let text = try await HostedAIService.generate(
                 prompt: prompt,
                 imageDataList: imageDataList,
                 systemInstruction: AIProviderSettings.currentUserContext
             )
+            progress?(AnalysisProgressUpdate(stage: .responding))
+            return text
         }
+        // The provider and model are resolved before the request starts; the optional
+        // estimate is read from the local history only for a real meal analysis.
         let primary = AIProviderSettings.currentConfig(requiresVision: !images.isEmpty)
         if primary.provider.requiresAPIKey, primary.apiKey == nil {
             throw AnalysisError.noAPIKey
@@ -981,9 +1080,21 @@ struct GeminiService {
         let imageDataList = try images.map {
             try encodedJPEGData(for: $0)
         }
+        let durationStore = AnalysisDurationStore()
+        let primaryEstimate = progress == nil ? nil : durationStore.estimate(
+            provider: primary.provider,
+            model: primary.model,
+            kind: kind
+        )
+        progress?(AnalysisProgressUpdate(
+            stage: .requesting,
+            provider: primary.provider,
+            model: primary.model,
+            estimateSeconds: primaryEstimate
+        ))
 
         do {
-            return try await dispatch(
+            let text = try await dispatch(
                 provider: primary.provider,
                 model: primary.model,
                 baseURL: primary.baseURL,
@@ -992,6 +1103,8 @@ struct GeminiService {
                 imageDataList: imageDataList,
                 jsonResponse: jsonResponse
             )
+            progress?(AnalysisProgressUpdate(stage: .responding))
+            return text
         } catch {
             if error is CancellationError { throw error }
             // imageConversionFailed is local — fallback won't help, rethrow.
@@ -1009,8 +1122,22 @@ struct GeminiService {
             guard let fallback else {
                 throw error
             }
+            // The primary request failed: say so plainly instead of looking stuck.
+            if progress != nil {
+                progress?(AnalysisProgressUpdate(
+                    stage: .fallback,
+                    attempt: 2,
+                    provider: fallback.provider,
+                    model: fallback.model,
+                    estimateSeconds: durationStore.estimate(
+                        provider: fallback.provider,
+                        model: fallback.model,
+                        kind: kind
+                    )
+                ))
+            }
             do {
-                return try await dispatch(
+                let text = try await dispatch(
                     provider: fallback.provider,
                     model: fallback.model,
                     baseURL: fallback.baseURL,
@@ -1019,6 +1146,13 @@ struct GeminiService {
                     imageDataList: imageDataList,
                     jsonResponse: jsonResponse
                 )
+                progress?(AnalysisProgressUpdate(
+                    stage: .responding,
+                    attempt: 2,
+                    provider: fallback.provider,
+                    model: fallback.model
+                ))
+                return text
             } catch let fallbackError {
                 if fallbackError is CancellationError { throw fallbackError }
                 let chosenError = AIRequestErrorPolicy.errorToSurface(

@@ -1073,6 +1073,8 @@ struct HomeView: View {
     @State private var labelScanBarcode = LabelScanBarcodeHandoff()
     /// The in-flight photo/text/barcode analysis behind the analyzing sheet, so Cancel can abort it.
     @State private var analysisTask: Task<Void, Never>?
+    /// Progress of the running analysis, so the analyzing sheet can show stage and elapsed time.
+    @State private var analysisProgressTracker = AnalysisProgressTracker()
     @State private var selectedDate: Date = .now
     @State private var showVoicePopover = false
     @State private var showTextPopover = false
@@ -2100,11 +2102,11 @@ private var dailyStepsTaskKey: String {
                     Group {
                     switch foodLogPhase {
                     case .analyzing:
-                        AnalyzingView(image: currentImage, onCancel: cancelAnalysis)
+                        AnalyzingView(image: currentImage, progressTracker: analysisProgressTracker, onCancel: cancelAnalysis)
                     case .analyzingText:
-                        AnalyzingView(image: nil, message: String(localized: "Looking up nutrition..."), onCancel: cancelAnalysis)
+                        AnalyzingView(image: nil, message: String(localized: "Looking up nutrition..."), progressTracker: analysisProgressTracker, onCancel: cancelAnalysis)
                     case .lookingUpBarcode:
-                        AnalyzingView(image: nil, message: String(localized: "Looking up barcode..."), onCancel: cancelAnalysis)
+                        AnalyzingView(image: nil, message: String(localized: "Looking up barcode..."), progressTracker: analysisProgressTracker, onCancel: cancelAnalysis)
                     case .result:
                     if let result = currentFoodResult {
                         FoodResultView(
@@ -2556,29 +2558,37 @@ private var dailyStepsTaskKey: String {
             progressiveMeal: progressiveMeal,
             labelBarcode: labelBarcode
         )
-        presentFoodLogLoading(.analyzing)
 
         analysisTask?.cancel()
+        // The progress starts before the sheet appears, so the first frame already
+        // shows the stage instead of the old text.
+        let progress = startAnalysisProgress(kind: .image)
+        presentFoodLogLoading(.analyzing)
+
         analysisTask = Task {
             do {
                 switch mode {
                 case .snapFood:
                     let result = try await GeminiService.analyzeFood(
                         images: images,
-                        progressiveMeal: progressiveMeal
+                        progressiveMeal: progressiveMeal,
+                        progress: progress.reporter
                     )
                     try Task.checkCancellation()
                     retryRequest = nil
+                    finishAnalysisProgress(.complete, runID: progress.runID)
                     presentPhotoAnalysisResult(result, labelBarcode: labelBarcode)
 
                 case .snapFoodWithContext:
                     let result = try await GeminiService.analyzeFood(
                         images: images,
                         description: description,
-                        progressiveMeal: progressiveMeal
+                        progressiveMeal: progressiveMeal,
+                        progress: progress.reporter
                     )
                     try Task.checkCancellation()
                     retryRequest = nil
+                    finishAnalysisProgress(.complete, runID: progress.runID)
                     presentPhotoAnalysisResult(result, labelBarcode: labelBarcode)
 
                 }
@@ -2586,9 +2596,45 @@ private var dailyStepsTaskKey: String {
                 // User tapped Cancel on the analyzing sheet; cancelAnalysis already reset the UI.
             } catch {
                 if Task.isCancelled { return }
+                finishAnalysisProgress(.failed, runID: progress.runID)
                 presentAnalysisError(error)
             }
         }
+    }
+
+    /// Starts tracking an analysis and returns the reporter the analysis layer calls
+    /// with its stage changes, plus the id of the run. The reporter only publishes what
+    /// really happened, and the id lets a late result of an older run be ignored.
+    @MainActor
+    private func startAnalysisProgress(kind: AnalysisKind) -> (reporter: AnalysisProgressReporter, runID: Int) {
+        let tracker = analysisProgressTracker
+        tracker.start(kind: kind)
+        return (tracker.reporter(), tracker.runID)
+    }
+
+    /// Ends the tracked analysis. A result of an older run is ignored, so a late
+    /// answer cannot overwrite the progress of the analysis that runs now.
+    ///
+    /// The duration of a successful meal analysis is recorded here, not in the service:
+    /// this is the time the user actually waited, including prompt and image work. The
+    /// write is local and cannot throw, so it never delays or changes the result.
+    /// Barcode lookups and hosted AI (no provider/model) are skipped.
+    @MainActor
+    private func finishAnalysisProgress(_ outcome: AnalysisOutcome, runID: Int) {
+        let previous = analysisProgressTracker.state
+        guard let ended = analysisProgressTracker.finish(outcome, runID: runID) else { return }
+        guard previous?.outcome == .running,
+              outcome == .complete,
+              ended.kind != .barcode,
+              let provider = ended.provider,
+              let model = ended.model,
+              !model.isEmpty else { return }
+        AnalysisDurationStore().record(
+            provider: provider,
+            model: model,
+            kind: ended.kind,
+            durationMillis: ended.elapsedMilliseconds()
+        )
     }
 
     /// Cancel button on the analyzing sheet. Cancels the task (which also cancels the underlying
@@ -2599,6 +2645,9 @@ private var dailyStepsTaskKey: String {
         analysisTask?.cancel()
         analysisTask = nil
         retryRequest = nil
+        // The run ends as cancelled. A later error of the cancelled task cannot turn
+        // it into a failure, and the next analysis starts a fresh run.
+        analysisProgressTracker.cancel()
         if foodLogPhase.isLoading {
             activeSheet = nil
         }
@@ -2677,13 +2726,18 @@ private var dailyStepsTaskKey: String {
         currentImages = []
         currentEmoji = nil
         currentFoodSource = .barcode
-        presentFoodLogLoading(.lookingUpBarcode)
 
         analysisTask?.cancel()
+        // A barcode asks a product database, not an AI provider: the progress shows
+        // the lookup, never a provider stage.
+        let progress = startAnalysisProgress(kind: .barcode)
+        presentFoodLogLoading(.lookingUpBarcode)
+
         analysisTask = Task {
             do {
                 // Open Food Facts wins when it has nutrition; otherwise reuse the label
                 // the user scanned for this barcode before (#485), then USDA (#533).
+                progress.reporter(AnalysisProgressUpdate(stage: .requesting))
                 let outcome = try await BarcodeProductLookup.lookup(
                     barcode: trimmedBarcode,
                     savedLabelEntries: foodStore.entries,
@@ -2691,6 +2745,8 @@ private var dailyStepsTaskKey: String {
                 )
                 try Task.checkCancellation()
                 retryRequest = nil
+                progress.reporter(AnalysisProgressUpdate(stage: .responding))
+                finishAnalysisProgress(.complete, runID: progress.runID)
                 switch outcome {
                 case .product(let lookup):
                     let result = lookup.analysis
@@ -2714,6 +2770,7 @@ private var dailyStepsTaskKey: String {
                 // User tapped Cancel on the analyzing sheet; cancelAnalysis already reset the UI.
             } catch {
                 if Task.isCancelled { return }
+                finishAnalysisProgress(.failed, runID: progress.runID)
                 presentBarcodeLookupError(error, barcode: trimmedBarcode)
             }
         }
@@ -2722,19 +2779,29 @@ private var dailyStepsTaskKey: String {
     private func startTextAnalysis(_ description: String) {
         labelScanBarcode.clear()
         retryRequest = .text(description)
-        presentFoodLogLoading(.analyzingText)
+
         analysisTask?.cancel()
+        // The progress starts before the sheet appears, so the first frame already
+        // shows the stage instead of the old text.
+        let progress = startAnalysisProgress(kind: .text)
+        presentFoodLogLoading(.analyzingText)
+
         analysisTask = Task {
             do {
-                let result = try await GeminiService.analyzeTextInput(description: description)
+                let result = try await GeminiService.analyzeTextInput(
+                    description: description,
+                    progress: progress.reporter
+                )
                 try Task.checkCancellation()
                 currentEmoji = result.emoji
                 retryRequest = nil
+                finishAnalysisProgress(.complete, runID: progress.runID)
                 presentFoodResult(result)
             } catch is CancellationError {
                 // User tapped Cancel on the analyzing sheet; cancelAnalysis already reset the UI.
             } catch {
                 if Task.isCancelled { return }
+                finishAnalysisProgress(.failed, runID: progress.runID)
                 presentAnalysisError(error)
             }
         }

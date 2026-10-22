@@ -198364,6 +198364,134 @@
         }
       }
     },
+    "Preparing your request…": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anfrage wird vorbereitet…"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preparing your request…"
+          }
+        }
+      }
+    },
+    "Preparing your photo…": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Foto wird vorbereitet…"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preparing your photo…"
+          }
+        }
+      }
+    },
+    "Waiting for the AI provider…": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Warten auf den KI-Anbieter…"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Waiting for the AI provider…"
+          }
+        }
+      }
+    },
+    "Reading the response…": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Antwort wird gelesen…"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reading the response…"
+          }
+        }
+      }
+    },
+    "Checking the nutrition data…": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nährwerte werden geprüft…"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Checking the nutrition data…"
+          }
+        }
+      }
+    },
+    "Trying the backup model…": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ersatzmodell wird versucht…"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trying the backup model…"
+          }
+        }
+      }
+    },
+    "%d s elapsed": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%d s vergangen"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%d s elapsed"
+          }
+        }
+      }
+    },
+    "Looking up the barcode…": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Barcode wird gesucht…"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Looking up the barcode…"
+          }
+        }
+      }
+    },
     "Camera is unavailable.": {
       "localizations": {
         "ar": {
@@ -198472,6 +198600,86 @@
           "stringUnit": {
             "state": "translated",
             "value": "相机不可用。"
+          }
+        }
+      }
+    },
+    "Analyzing on this iPhone…": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Analyse läuft auf diesem iPhone…"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Analyzing on this iPhone…"
+          }
+        }
+      }
+    },
+    "Usually takes about %d s": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dauert meist etwa %d s"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usually takes about %d s"
+          }
+        }
+      }
+    },
+    "Usually takes about %d–%d s": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dauert meist etwa %d–%d s"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usually takes about %d–%d s"
+          }
+        }
+      }
+    },
+    "Trying the backup model (attempt %d)…": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ersatzmodell wird versucht (Versuch %d)…"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trying the backup model (attempt %d)…"
+          }
+        }
+      }
+    },
+    "Analyzing your food...": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mahlzeit wird analysiert…"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Analyzing your food..."
           }
         }
       }

@@ -1,6 +1,8 @@
 package com.apoorvdarshan.calorietracker.ui.settings
 
 import com.apoorvdarshan.calorietracker.services.ai.AiError
+import com.apoorvdarshan.calorietracker.services.ai.AiErrorKind
+import com.apoorvdarshan.calorietracker.services.ai.ApiKeyTester
 import com.apoorvdarshan.calorietracker.models.OpenRouterReasoningEffort
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -155,16 +157,14 @@ data class SettingsUiState(
             SpeechProvider.LOCAL_WHISPER.takeIf { localModelStates[LocalModelId.WHISPER_BASE]?.executable == true }
         )
 
+    /** Every provider that can hold a key, including the text-only ones. */
     val credentialProviders: List<AIProvider>
-        get() = availableVisionProviders.filter { it.requiresApiKey }
+        get() = AIProvider.entries.filter { it.requiresApiKey && it != AIProvider.LOCAL_GEMMA }
 
-    /** Explicitly bound profile for [route], or the provider's oldest profile. */
+    /** The profile a route actually resolves to, including the provider default. */
     fun credentialForRoute(route: AIRoute, provider: AIProvider): AICredential? {
-        val boundId = routeCredentialIds[route]
-        val bound = credentialProfiles.firstOrNull { it.id == boundId && it.provider == provider }
-        return bound ?: credentialProfiles
-            .filter { it.provider == provider }
-            .minByOrNull { it.createdAtEpochMs }
+        val resolvedId = routeCredentialIds[route] ?: return null
+        return credentialProfiles.firstOrNull { it.id == resolvedId && it.provider == provider }
     }
 
     fun fingerprintFor(credential: AICredential?): String =
@@ -314,7 +314,6 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
             val credentialFingerprints = credentialProfiles.associate {
                 it.id to container.aiCredentials.maskedSecret(it.id)
             }
-            val routeCredentialIds = container.aiCredentials.bindings()
             val masked = maskKey(container.keyStore.apiKey(provider))
             val textMasked = maskKey(container.keyStore.apiKey(textProvider))
             val speechMasked = maskKey(container.keyStore.speechApiKey(speech))
@@ -334,6 +333,12 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
             val textFbProvider = container.prefs.selectedTextFallbackProvider.first()
             val textFbModel = textFbProvider.supportedTextModelOrDefault(container.prefs.selectedTextFallbackModel.first())
             val textFbMasked = maskKey(container.keyStore.apiKey(textFbProvider))
+            val routeCredentialIds = resolvedRouteCredentialIds(
+                primary = provider,
+                text = textProvider,
+                imageFallback = fbProvider,
+                textFallback = textFbProvider
+            )
             val optionalGoals = container.prefs.optionalNutrientGoals.first()
             val quickActions = listOf(
                 container.prefs.quickAction1.first(),
@@ -507,6 +512,12 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
             val textModel = textProvider.supportedTextModelOrDefault(container.prefs.selectedTextAIModel.first())
             val speechProvider = container.prefs.selectedSpeechProvider.first()
             val speechFallbackProvider = container.prefs.selectedSpeechFallbackProvider.first()
+            val routeCredentialIds = resolvedRouteCredentialIds(
+                primary = provider,
+                text = textProvider,
+                imageFallback = _ui.value.fallbackProvider,
+                textFallback = _ui.value.textFallbackProvider
+            )
             _ui.value = _ui.value.copy(
                 selectedAI = provider,
                 selectedModel = model,
@@ -519,7 +530,7 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
                 credentialFingerprints = container.aiCredentials.all().associate {
                     it.id to container.aiCredentials.maskedSecret(it.id)
                 },
-                routeCredentialIds = container.aiCredentials.bindings(),
+                routeCredentialIds = routeCredentialIds,
                 selectedSpeech = speechProvider,
                 selectedSpeechLanguage = container.prefs.selectedSpeechLanguage(speechProvider).first(),
                 speechApiKeyMasked = maskKey(container.keyStore.speechApiKey(speechProvider)),
@@ -613,7 +624,11 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
                 ?: primary.baseUrl
             val fallbackUrl = container.prefs.fallbackCustomBaseUrl(p).first()?.takeIf { it.isNotEmpty() }
                 ?: p.baseUrl
-            if (p == primary && newModel == _ui.value.selectedModel && primaryUrl == fallbackUrl) {
+            val sameCredential = container.aiCredentials.routeCredential(AIRoute.IMAGE_FALLBACK, p)?.id ==
+                container.aiCredentials.routeCredential(AIRoute.PRIMARY, primary)?.id
+            if (p == primary && newModel == _ui.value.selectedModel && primaryUrl == fallbackUrl &&
+                sameCredential
+            ) {
                 newModel = p.models.firstOrNull { it != _ui.value.selectedModel } ?: newModel
             }
             container.prefs.setSelectedFallbackModel(newModel)
@@ -654,7 +669,13 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
                 ?: primary.baseUrl
             val fallbackUrl = container.prefs.fallbackCustomBaseUrl(provider).first()?.takeIf { it.isNotEmpty() }
                 ?: provider.baseUrl
-            if (provider == primary && model == primaryModel && primaryUrl == fallbackUrl) {
+            val primaryRoute = if (_ui.value.separateTextProviderEnabled) AIRoute.TEXT else AIRoute.PRIMARY
+            val sameCredential =
+                container.aiCredentials.routeCredential(AIRoute.TEXT_FALLBACK, provider)?.id ==
+                    container.aiCredentials.routeCredential(primaryRoute, primary)?.id
+            if (provider == primary && model == primaryModel && primaryUrl == fallbackUrl &&
+                sameCredential
+            ) {
                 model = provider.textModels.firstOrNull { it != primaryModel } ?: model
             }
             container.prefs.setSelectedTextFallbackModel(model)
@@ -788,15 +809,27 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
         return error
     }
 
+    /**
+     * Renames a profile and replaces its key in one atomic edit. A rejected name or key
+     * leaves the profile unchanged instead of applying half of the change.
+     */
+    fun updateCredential(id: String, label: String, key: String?): String? {
+        val error = container.aiCredentials.update(id, label, key).exceptionOrNull()?.message
+        if (error == null) syncCredentialState()
+        return error
+    }
+
     fun replaceCredentialSecret(id: String, key: String): String? {
         val error = container.aiCredentials.replaceSecret(id, key).exceptionOrNull()?.message
         if (error == null) syncCredentialState()
         return error
     }
 
-    /** Deletes a profile; only slots explicitly bound to it are reassigned or cleared. */
+    /** Deletes a profile and reassigns every active route that resolved to it. */
     fun deleteCredential(id: String, replacementId: String? = null) {
-        container.aiCredentials.delete(id, replacementId)
+        // The routes that use the deleted profile are captured here, so the routes
+        // that only used it as the provider default move to the replacement too.
+        container.aiCredentials.delete(id, replacementId, routeProviders = activeRouteProviders())
         syncCredentialState()
     }
 
@@ -805,16 +838,51 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
         syncCredentialState()
     }
 
+    /**
+     * Checks the credential against its provider with one minimal request and reports the
+     * failure kind, or null when the provider accepted the key.
+     */
+    suspend fun testCredential(id: String): AiErrorKind? {
+        val credential = container.aiCredentials.find(id) ?: return AiErrorKind.NO_KEY
+        val provider = credential.provider
+        val model = provider.defaultModel
+        val baseUrl = container.prefs.customBaseUrl(provider).first()?.takeIf { it.isNotEmpty() }
+            ?: provider.baseUrl
+        val secret = container.aiCredentials.secret(id)
+        return ApiKeyTester().test(
+            provider = provider,
+            model = model,
+            apiKey = secret,
+            baseUrl = baseUrl
+        )
+    }
+
     /** Slots currently resolving to [id], used by the delete confirmation. */
-    fun activeRoutesUsingCredential(id: String): List<AIRoute> {
+    fun activeRoutesUsingCredential(id: String): List<AIRoute> =
+        container.aiCredentials.routesUsing(id, activeRouteProviders())
+
+    /** The credential each route actually resolves to, including provider defaults. */
+    private fun resolvedRouteCredentialIds(
+        primary: AIProvider,
+        text: AIProvider,
+        imageFallback: AIProvider,
+        textFallback: AIProvider
+    ): Map<AIRoute, String?> = mapOf(
+        AIRoute.PRIMARY to container.aiCredentials.routeCredential(AIRoute.PRIMARY, primary)?.id,
+        AIRoute.TEXT to container.aiCredentials.routeCredential(AIRoute.TEXT, text)?.id,
+        AIRoute.IMAGE_FALLBACK to container.aiCredentials.routeCredential(AIRoute.IMAGE_FALLBACK, imageFallback)?.id,
+        AIRoute.TEXT_FALLBACK to container.aiCredentials.routeCredential(AIRoute.TEXT_FALLBACK, textFallback)?.id
+    )
+
+    /** The routes that are actually in use, with the provider each one runs on. */
+    private fun activeRouteProviders(): Map<AIRoute, AIProvider> {
         val state = _ui.value
-        val providers = buildMap {
+        return buildMap {
             put(AIRoute.PRIMARY, state.selectedAI)
             if (state.separateTextProviderEnabled) put(AIRoute.TEXT, state.selectedTextAI)
             if (state.fallbackEnabled) put(AIRoute.IMAGE_FALLBACK, state.fallbackProvider)
             if (state.textFallbackEnabled) put(AIRoute.TEXT_FALLBACK, state.textFallbackProvider)
         }
-        return container.aiCredentials.routesUsing(id, providers)
     }
 
     fun replacementCredentials(provider: AIProvider, excludingId: String): List<AICredential> =
@@ -823,16 +891,28 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
     private fun syncCredentialState() {
         _ui.update { state ->
             val profiles = container.aiCredentials.all()
+            val routeCredentialIds = resolvedRouteCredentialIds(
+                primary = state.selectedAI,
+                text = state.selectedTextAI,
+                imageFallback = state.fallbackProvider,
+                textFallback = state.textFallbackProvider
+            )
             state.copy(
                 credentialProfiles = profiles,
                 credentialFingerprints = profiles.associate {
                     it.id to container.aiCredentials.maskedSecret(it.id)
                 },
-                routeCredentialIds = container.aiCredentials.bindings(),
+                routeCredentialIds = routeCredentialIds,
                 apiKeyMasked = maskKey(container.keyStore.apiKey(state.selectedAI)),
                 textApiKeyMasked = maskKey(container.keyStore.apiKey(state.selectedTextAI)),
                 fallbackApiKeyMasked = maskKey(container.keyStore.apiKey(state.fallbackProvider)),
                 textFallbackApiKeyMasked = maskKey(container.keyStore.apiKey(state.textFallbackProvider)),
+                // A speech provider without its own key falls back to the matching AI
+                // provider's key, so its row changes with the AI profiles too.
+                speechApiKeyMasked = maskKey(container.keyStore.speechApiKey(state.selectedSpeech)),
+                speechFallbackApiKeyMasked = maskKey(
+                    container.keyStore.speechApiKey(state.speechFallbackProvider)
+                ),
             )
         }
     }

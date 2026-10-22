@@ -198859,6 +198859,118 @@
           }
         }
       }
+    },
+    "Test": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Testen"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Test"
+          }
+        }
+      }
+    },
+    "Test API key?": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API-Schlüssel testen?"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Test API key?"
+          }
+        }
+      }
+    },
+    "Fud AI sends one short request to %@ to check that the key, the model and the endpoint work together. It uses one request from your provider account.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI sendet eine kurze Anfrage an %@, um zu prüfen, ob Schlüssel, Modell und Endpunkt zusammenpassen. Das kostet eine Anfrage auf deinem Anbieter-Konto."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI sends one short request to %@ to check that the key, the model and the endpoint work together. It uses one request from your provider account."
+          }
+        }
+      }
+    },
+    "Checking the key…": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schlüssel wird geprüft…"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Checking the key…"
+          }
+        }
+      }
+    },
+    "Send test request": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Testanfrage senden"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Send test request"
+          }
+        }
+      }
+    },
+    "The provider accepted this key.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Anbieter hat diesen Schlüssel akzeptiert."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The provider accepted this key."
+          }
+        }
+      }
+    },
+    "No key needed": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kein Schlüssel nötig"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No key needed"
+          }
+        }
+      }
     }
   },
   "version": "1.1"

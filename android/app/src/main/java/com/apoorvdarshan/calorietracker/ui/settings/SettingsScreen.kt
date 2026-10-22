@@ -1,6 +1,7 @@
 package com.apoorvdarshan.calorietracker.ui.settings
 
 import com.apoorvdarshan.calorietracker.models.OpenRouterReasoningEffort
+import com.apoorvdarshan.calorietracker.services.ai.AiErrorKind
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -88,6 +89,7 @@ import androidx.compose.material.icons.outlined.Key
 import androidx.compose.material.icons.outlined.Language
 import androidx.compose.material.icons.outlined.Translate
 import androidx.compose.material.icons.outlined.Link
+import androidx.compose.material.icons.outlined.NetworkCheck
 import androidx.compose.material.icons.outlined.Numbers
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.outlined.LockOpen
@@ -267,6 +269,9 @@ private data class CredentialEditorRequest(
 
 private data class CredentialDeleteRequest(val credential: AICredential)
 
+/** A key the user asked to check against its provider. */
+private data class CredentialTestRequest(val credential: AICredential)
+
 private fun energyUnitTitleRes(unit: EnergyUnit): Int =
     if (unit == EnergyUnit.KJ) R.string.settings_energy_unit_kj else R.string.settings_energy_unit_kcal
 
@@ -394,6 +399,7 @@ fun SettingsScreen(
     var credentialEditor by remember { mutableStateOf<CredentialEditorRequest?>(null) }
     var credentialToDelete by remember { mutableStateOf<CredentialDeleteRequest?>(null) }
     var credentialPickerRoute by remember { mutableStateOf<AIRoute?>(null) }
+    var credentialTest by remember { mutableStateOf<CredentialTestRequest?>(null) }
     var showNutritionImport by remember { mutableStateOf(false) }
     if (showNutritionImport) {
         HealthNutritionImportDialog(container) { showNutritionImport = false }
@@ -1218,6 +1224,7 @@ fun SettingsScreen(
                         credential = credential,
                         fingerprint = ui.fingerprintFor(credential),
                         onEdit = { credentialEditor = CredentialEditorRequest(credential.provider, credential) },
+                        onTest = { credentialTest = CredentialTestRequest(credential) },
                         onDelete = { credentialToDelete = CredentialDeleteRequest(credential) }
                     )
                     HorizontalDivider()
@@ -1919,13 +1926,26 @@ fun SettingsScreen(
                     }
                     result.error
                 } else {
-                    val nameError = vm.renameCredential(existing.id, label)
-                    val keyError = if (key.isNotBlank()) vm.replaceCredentialSecret(existing.id, key) else null
-                    if (nameError == null && keyError == null) credentialEditor = null
-                    nameError ?: keyError
+                    // Name and key are one edit: a rejected key must not leave the
+                    // profile renamed without the new key.
+                    val error = vm.updateCredential(
+                        existing.id,
+                        label,
+                        key.takeIf { it.isNotBlank() }
+                    )
+                    if (error == null) credentialEditor = null
+                    error
                 }
             },
             onDismiss = { credentialEditor = null }
+        )
+    }
+
+    credentialTest?.let { request ->
+        CredentialTestDialog(
+            request = request,
+            vm = vm,
+            onDismiss = { credentialTest = null }
         )
     }
 
@@ -3015,7 +3035,12 @@ private fun SettingsSheets(
                                 ?.takeIf { it.isNotEmpty() } ?: ui.textFallbackProvider.baseUrl
                         }
                     }
-                    val sameServer = ui.textFallbackProvider == primaryTextProvider && primaryBaseUrl == fallbackBaseUrl
+                    val primaryTextRoute = if (ui.separateTextProviderEnabled) AIRoute.TEXT else AIRoute.PRIMARY
+                    val sameCredential = ui.routeCredential(primaryTextRoute)?.id ==
+                        ui.routeCredential(AIRoute.TEXT_FALLBACK)?.id
+                    // Same model is fine when the fallback uses another key profile.
+                    val sameServer = ui.textFallbackProvider == primaryTextProvider &&
+                        primaryBaseUrl == fallbackBaseUrl && sameCredential
                     val options = if (sameServer) {
                         ui.textFallbackProvider.textModels.filter { it != primaryTextModel }
                     } else {
@@ -3184,7 +3209,11 @@ private fun SettingsSheets(
                                 ?.takeIf { it.isNotEmpty() } ?: ui.fallbackProvider.baseUrl
                         }
                     }
-                    val sameServer = ui.fallbackProvider == ui.selectedAI && primaryBaseUrl == fallbackBaseUrl
+                    val sameCredential = ui.routeCredential(AIRoute.PRIMARY)?.id ==
+                        ui.routeCredential(AIRoute.IMAGE_FALLBACK)?.id
+                    // Same model is fine when the fallback uses another key profile.
+                    val sameServer = ui.fallbackProvider == ui.selectedAI &&
+                        primaryBaseUrl == fallbackBaseUrl && sameCredential
                     val opts = if (sameServer)
                         ui.fallbackProvider.models.filter { it != ui.selectedModel }
                     else ui.fallbackProvider.models
@@ -3766,6 +3795,7 @@ private fun ApiCredentialProfileRow(
     credential: AICredential,
     fingerprint: String,
     onEdit: () -> Unit,
+    onTest: () -> Unit,
     onDelete: () -> Unit,
 ) {
     Row(
@@ -3798,6 +3828,14 @@ private fun ApiCredentialProfileRow(
                 stringResource(R.string.settings_api_profile_not_verified),
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.45f)
+            )
+        }
+        IconButton(onClick = onTest) {
+            Icon(
+                Icons.Outlined.NetworkCheck,
+                contentDescription = stringResource(R.string.settings_api_profile_test),
+                tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.65f),
+                modifier = Modifier.size(20.dp)
             )
         }
         IconButton(onClick = onEdit) {
@@ -3846,6 +3884,10 @@ private fun RoutingOverview(state: SettingsUiState) {
             provider = stringResource(provider.displayNameRes),
             credential = if (!active) {
                 stringResource(R.string.settings_routing_off)
+            } else if (!provider.requiresApiKey) {
+                // A local or keyless provider is fully configured without a key, so it
+                // must not look like a missing credential.
+                stringResource(R.string.settings_routing_no_key_needed)
             } else {
                 credential?.let { credentialName(it) }
                     ?: stringResource(R.string.settings_routing_no_key)
@@ -4006,6 +4048,10 @@ private fun CredentialEditorDialog(
     var error by remember { mutableStateOf<String?>(null) }
     var providerMenu by remember { mutableStateOf(false) }
     val isEdit = request.existing != null
+    // A profile added from a route picker belongs to that route's provider, so the
+    // provider cannot be changed here — otherwise the route would silently keep its
+    // old provider while the new key is saved for another one.
+    val providerIsLocked = request.bindToRoute != null
     val providers = state.credentialProviders.ifEmpty { AIProvider.remoteVisionProviders }
     val errorText = when (error) {
         "label_required" -> stringResource(R.string.settings_api_profile_error_name)
@@ -4022,7 +4068,7 @@ private fun CredentialEditorDialog(
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.Bold
         )
-        if (!isEdit) {
+        if (!isEdit && !providerIsLocked) {
             Box {
                 Row(
                     Modifier
@@ -4101,6 +4147,86 @@ private fun CredentialEditorDialog(
         FudGlassDialogActions(
             primaryText = stringResource(R.string.action_cancel),
             onPrimary = onDismiss
+        )
+    }
+}
+
+/**
+ * Runs one minimal request against the provider of the chosen key and reports whether
+ * the provider accepted it. The dialog states that the check uses one request from the
+ * provider's account before the user starts it.
+ */
+@Composable
+private fun CredentialTestDialog(
+    request: CredentialTestRequest,
+    vm: SettingsViewModel,
+    onDismiss: () -> Unit
+) {
+    var result: AiErrorKind? by remember(request) { mutableStateOf<AiErrorKind?>(null) }
+    var hasRun by remember(request) { mutableStateOf(false) }
+    var testing by remember(request) { mutableStateOf(false) }
+    val scope = rememberCoroutineScope()
+    FudGlassDialog(onDismissRequest = { if (!testing) onDismiss() }) {
+        Text(
+            stringResource(R.string.settings_api_profile_test_title),
+            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.Bold
+        )
+        Text(
+            stringResource(
+                R.string.settings_api_profile_test_message,
+                stringResource(request.credential.provider.displayNameRes)
+            ),
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.68f)
+        )
+        if (testing) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                CircularProgressIndicator(
+                    color = AppColors.Calorie,
+                    strokeWidth = 2.dp,
+                    modifier = Modifier.size(18.dp)
+                )
+                Spacer(Modifier.width(10.dp))
+                Text(
+                    stringResource(R.string.settings_api_profile_test_running),
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+                )
+            }
+        }
+        result?.let { kind ->
+            Text(
+                stringResource(kind.messageRes),
+                color = AppColors.Calorie
+            )
+        }
+        if (hasRun && result == null && !testing) {
+            Text(
+                stringResource(R.string.settings_api_profile_test_success),
+                color = AppColors.Calorie
+            )
+        }
+        FudGlassDialogActions(
+            primaryText = if (testing) {
+                stringResource(R.string.settings_api_profile_test_running)
+            } else {
+                stringResource(R.string.settings_api_profile_test_action)
+            },
+            onPrimary = {
+                if (!testing) {
+                    testing = true
+                    hasRun = false
+                    result = null
+                    scope.launch {
+                        val outcome = vm.testCredential(request.credential.id)
+                        testing = false
+                        hasRun = true
+                        result = outcome
+                    }
+                }
+            },
+            primaryEnabled = !testing,
+            dismissText = stringResource(R.string.action_cancel),
+            onDismiss = { if (!testing) onDismiss() }
         )
     }
 }

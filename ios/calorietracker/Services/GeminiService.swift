@@ -856,7 +856,9 @@ struct GeminiService {
             if error is CancellationError { throw error }
             guard let fallback = AIProviderSettings.currentTextFallbackConfig(
                 excludingPrimary: primary.provider,
-                model: primary.model
+                model: primary.model,
+                primaryCredentialID: AICredentialStore.shared
+                    .routeProfile(AIProviderSettings.currentTextRoute, provider: primary.provider)?.id
             ) else {
                 throw error
             }
@@ -913,6 +915,27 @@ struct GeminiService {
         }
         #endif
         return nil
+    }
+
+    /// Sends one minimal request to a provider, used to check whether a stored API key
+    /// works. The prompt is a single word and no image is attached, so the request
+    /// costs as little as the provider allows.
+    static func testRequest(
+        provider: AIProvider,
+        model: String,
+        baseURL: String,
+        apiKey: String?,
+        prompt: String
+    ) async throws -> String {
+        try await dispatch(
+            provider: provider,
+            model: model,
+            baseURL: baseURL,
+            apiKey: apiKey,
+            prompt: prompt,
+            imageDataList: [],
+            jsonResponse: false
+        )
     }
 
     private static func dispatchFoodAnalysis(
@@ -997,14 +1020,21 @@ struct GeminiService {
             // imageConversionFailed is local — fallback won't help, rethrow.
             // For everything else (network / 5xx / 4xx / parser failure) try fallback.
             if case AnalysisError.imageConversionFailed = error { throw error }
+            let primaryRoute: AIRoute = images.isEmpty
+                ? AIProviderSettings.currentTextRoute
+                : .primary
+            let primaryCredentialID = AICredentialStore.shared
+                .routeProfile(primaryRoute, provider: primary.provider)?.id
             let fallback = images.isEmpty
                 ? AIProviderSettings.currentTextFallbackConfig(
                     excludingPrimary: primary.provider,
-                    model: primary.model
+                    model: primary.model,
+                    primaryCredentialID: primaryCredentialID
                 )
                 : AIProviderSettings.currentImageFallbackConfig(
                     excludingPrimary: primary.provider,
-                    model: primary.model
+                    model: primary.model,
+                    primaryCredentialID: primaryCredentialID
                 )
             guard let fallback else {
                 throw error

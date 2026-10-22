@@ -364,6 +364,7 @@
     <string name="onboarding_paste_api_key_helper">Füge deinen %1$s-API-Schlüssel oben in das Feld ein. Der Hinweistext ist kein Schlüssel.</string>
     <string name="onboarding_missing_api_key_title">Füge deinen %1$s-API-Schlüssel ein</string>
     <string name="onboarding_missing_api_key_message">„Weiter“ braucht einen echten Schlüssel im Feld „API-Schlüssel“. Der Hinweistext ist kein Schlüssel – füge deinen %1$s-Schlüssel ein.</string>
+    <string name="onboarding_api_key_invalid">Dieser Schlüssel wurde nicht gespeichert. Prüfe, ob er Leerzeichen enthält oder zu lang ist, und versuche es erneut.</string>
     <string name="onboarding_ai_notice_analysis_title">KI-Analyse</string>
     <string name="onboarding_ai_notice_analysis_body">Essensfotos, Sprachtranskripte und getippte Mahlzeiten werden direkt an deinen gewählten KI-Anbieter gesendet.</string>
     <string name="onboarding_ai_notice_local_title">Lokale Daten</string>
@@ -849,6 +850,12 @@
     <string name="settings_api_profile_subtitle">%1$s · %2$s</string>
     <string name="settings_api_profile_not_verified">Gespeichert · nicht geprüft</string>
     <string name="settings_api_profile_edit">API-Schlüsselprofil bearbeiten</string>
+    <string name="settings_api_profile_test">API-Schlüssel testen</string>
+    <string name="settings_api_profile_test_title">API-Schlüssel testen?</string>
+    <string name="settings_api_profile_test_message">Fud AI sendet eine kurze Anfrage an %1$s, um zu prüfen, ob Schlüssel, Modell und Endpunkt zusammenpassen. Das kostet eine Anfrage auf deinem Anbieter-Konto.</string>
+    <string name="settings_api_profile_test_running">Schlüssel wird geprüft…</string>
+    <string name="settings_api_profile_test_action">Testanfrage senden</string>
+    <string name="settings_api_profile_test_success">Der Anbieter hat diesen Schlüssel akzeptiert.</string>
     <string name="settings_api_profile_delete">API-Schlüsselprofil löschen</string>
     <string name="settings_api_profile_add">API-Schlüssel hinzufügen</string>
     <string name="settings_api_profile_add_title">API-Schlüssel hinzufügen</string>
@@ -873,6 +880,7 @@
     <string name="settings_routing_image_fallback">Bild-Fallback</string>
     <string name="settings_routing_text_fallback">Text-Fallback</string>
     <string name="settings_routing_no_key">Kein Schlüssel gewählt</string>
+    <string name="settings_routing_no_key_needed">Kein Schlüssel nötig</string>
     <string name="settings_routing_off">Aus</string>
     <string name="settings_api_profile_delete_title">API-Schlüssel löschen?</string>
     <string name="settings_api_profile_delete_message">„%1$s“ wird von diesem Gerät entfernt.</string>

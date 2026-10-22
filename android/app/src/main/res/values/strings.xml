@@ -342,6 +342,7 @@
     <string name="onboarding_paste_api_key_helper">Paste your %1$s API key in the field above. The hint text is not a key.</string>
     <string name="onboarding_missing_api_key_title">Paste your %1$s API key</string>
     <string name="onboarding_missing_api_key_message">Continue needs a real key in the API Key field. The hint text is not a key — paste your %1$s key.</string>
+    <string name="onboarding_api_key_invalid">This key was not saved. Check that it has no spaces and is not too long, then try again.</string>
     <string name="onboarding_ai_notice_analysis_title">AI analysis</string>
     <string name="onboarding_ai_notice_analysis_body">Food photos, voice transcripts, and typed meals are sent directly to your selected AI provider.</string>
     <string name="onboarding_ai_notice_local_title">Local data</string>
@@ -915,6 +916,12 @@
     <string name="settings_api_profile_subtitle">%1$s · %2$s</string>
     <string name="settings_api_profile_not_verified">Saved · not verified</string>
     <string name="settings_api_profile_edit">Edit API key profile</string>
+    <string name="settings_api_profile_test">Test API key</string>
+    <string name="settings_api_profile_test_title">Test API key?</string>
+    <string name="settings_api_profile_test_message">Fud AI sends one short request to %1$s to check that the key, the model and the endpoint work together. It uses one request from your provider account.</string>
+    <string name="settings_api_profile_test_running">Checking the key…</string>
+    <string name="settings_api_profile_test_action">Send test request</string>
+    <string name="settings_api_profile_test_success">The provider accepted this key.</string>
     <string name="settings_api_profile_delete">Delete API key profile</string>
     <string name="settings_api_profile_add">Add API key</string>
     <string name="settings_api_profile_add_title">Add API key</string>
@@ -939,6 +946,7 @@
     <string name="settings_routing_image_fallback">Image fallback</string>
     <string name="settings_routing_text_fallback">Text fallback</string>
     <string name="settings_routing_no_key">No key selected</string>
+    <string name="settings_routing_no_key_needed">No key needed</string>
     <string name="settings_routing_off">Off</string>
     <string name="settings_api_profile_delete_title">Delete API key?</string>
     <string name="settings_api_profile_delete_message">“%1$s” will be removed from this device.</string>

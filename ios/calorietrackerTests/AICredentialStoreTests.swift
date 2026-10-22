@@ -52,6 +52,16 @@ struct AICredentialStoreTests {
         defaults.removePersistentDomain(forName: "AICredentialStoreTests")
     }
 
+    @Test func aRouteReadRunsTheMigrationOnItsOwn() {
+        let secrets = MemorySecrets()
+        secrets.values["apikey_OpenRouter"] = "sk-or-legacy-1234"
+        let (store, _) = makeStore(secrets: secrets)
+
+        // The first call may be a route read, before any UI lists the profiles.
+        #expect(store.routeSecret(.primary, provider: .openrouter) == "sk-or-legacy-1234")
+        #expect(store.profiles(for: .openrouter).count == 1)
+    }
+
     @Test func twoProfilesForOneProviderStayIsolated() throws {
         let secrets = MemorySecrets()
         let (store, _) = makeStore(secrets: secrets)
@@ -110,6 +120,8 @@ struct AICredentialStoreTests {
 
         _ = try store.delete(id: first.id, replacementID: second.id).get()
 
+        #expect((store.routeBindings()[.primary])!! == second.id)
+        #expect((store.routeBindings()[.text])!! == second.id)
         #expect(store.routeProfile(.primary, provider: .openrouter)?.id == second.id)
         #expect(store.routeProfile(.text, provider: .openrouter)?.id == second.id)
         #expect(store.profile(id: first.id) == nil)
@@ -156,10 +168,53 @@ struct AICredentialStoreTests {
         #expect(store.secret(for: unnamed.id) == "sk-or-updated-4444")
         #expect(store.profiles(for: .openrouter).count == 1)
 
-        // Clearing removes the unnamed slot again.
+        // Clearing keeps the slot but drops its key, so a route bound to it reports
+        // "no key" instead of silently using another profile's key.
         _ = try store.setDefaultSecret(provider: .openrouter, secret: nil).get()
-        #expect(store.profile(id: unnamed.id) == nil)
-        #expect(store.profiles(for: .openrouter).isEmpty)
+        #expect(store.secret(for: unnamed.id) == nil)
+        #expect(store.profile(id: unnamed.id) != nil)
+    }
+
+    @Test func aRouteBoundToAKeylessProfileNeverBorrowsAnotherKey() throws {
+        let (store, _) = makeStore()
+        let personal = try store.add(provider: .openrouter, label: "Personal", secret: "sk-or-personal-1111").get()
+        let work = try store.add(provider: .openrouter, label: "Work", secret: "sk-or-work-2222").get()
+        store.bindRoute(.text, credentialID: work.id)
+
+        // Clearing the bound profile's key must not fall back to the other profile.
+        _ = try store.clearSecret(id: work.id).get()
+
+        #expect(store.routeSecret(.text, provider: .openrouter) == nil)
+        #expect(store.secret(for: personal.id) == "sk-or-personal-1111")
+    }
+
+    @Test func deletingTheDefaultProfileMovesTheRoutesThatUsedIt() throws {
+        let (store, _) = makeStore()
+        let first = try store.add(provider: .openrouter, label: "Personal", secret: "sk-or-first-1111").get()
+        let second = try store.add(provider: .openrouter, label: "Work", secret: "sk-or-work-2222").get()
+        let routeProviders: [AIRoute: AIProvider] = [.primary: .openrouter]
+
+        // The primary route uses the default profile; deleting it with a replacement must
+        // move the route, not leave it on another profile.
+        _ = try store.delete(id: first.id, replacementID: second.id, routeProviders: routeProviders).get()
+
+        #expect(store.routeProfile(.primary, provider: .openrouter)?.id == second.id)
+        #expect(store.routeSecret(.primary, provider: .openrouter) == "sk-or-work-2222")
+    }
+
+    @Test func theLegacyMirrorFollowsThePrimaryRoute() throws {
+        let (store, _) = makeStore()
+        let personal = try store.add(provider: .openrouter, label: "Personal", secret: "sk-or-personal-1111").get()
+        let work = try store.add(provider: .openrouter, label: "Work", secret: "sk-or-work-2222").get()
+
+        store.bindRoute(.primary, credentialID: work.id)
+
+        #expect(store.effectiveSecret(for: .openrouter) == "sk-or-work-2222")
+        #expect(store.secret(for: personal.id) == "sk-or-personal-1111")
+
+        // Clearing the primary binding must restore the mirror to the provider default.
+        store.clearRoute(.primary)
+        #expect(store.effectiveSecret(for: .openrouter) == "sk-or-personal-1111")
     }
 
     @Test func theProviderEffectiveKeyFollowsThePrimaryRoute() throws {

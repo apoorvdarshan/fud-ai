@@ -47,14 +47,14 @@ interface CredentialSecretStore {
  *
  * Legacy installs kept exactly one key per provider under `apikey_<PROVIDER>`. That key
  * becomes the provider's unnamed profile, and the registry keeps mirroring the
- * provider's effective key into the legacy entry so older call sites that only know a
+ * provider's effective key into the legacy entry, so older call sites that only know a
  * provider keep working without ever seeing another profile's secret.
  *
  * Resolution rules:
- * - An explicit route binding wins when it still exists and belongs to that provider.
- * - Otherwise the provider's default profile is used: its unnamed profile when that one
- *   still holds a key, otherwise its oldest profile with a key. For a migrated install
- *   that is exactly the pre-profile behavior of every existing route.
+ * - A route that is bound to a profile always uses that profile — even after its key
+ *   was cleared, so a route never silently switches to a different key.
+ * - A route without a binding uses the provider's default profile: its unnamed profile
+ *   when it has one, otherwise its oldest profile.
  * - A binding to a different provider is ignored, so changing a route's provider can
  *   never accidentally send one provider's key to another service.
  */
@@ -111,20 +111,22 @@ class AICredentialRegistry(
         all().filter { it.provider == provider }
 
     /**
-     * The provider's default profile: its unnamed profile while that one still holds a
-     * key, otherwise its oldest profile with a key. It is the implicit target for
-     * routes without an explicit binding.
+     * The provider's default profile: its unnamed profile when that one still holds a
+     * key, otherwise the oldest profile with a key. When no profile has a key, the
+     * oldest one is returned so the UI can still show which profile is empty.
      */
     @Synchronized
-    fun defaultFor(provider: AIProvider): AICredential? =
-        defaultIn(readProfiles().orEmpty(), provider)
+    fun defaultFor(provider: AIProvider): AICredential? {
+        ensureMigrated()
+        return defaultIn(readProfiles().orEmpty(), provider)
+    }
 
     @Synchronized
     fun find(id: String?): AICredential? = id?.let { wanted -> all().firstOrNull { it.id == wanted } }
 
     /** Secret of the provider's default profile. */
     @Synchronized
-    fun defaultSecret(provider: AIProvider): String? = defaultFor(provider)?.let { secret(it.id) }
+    fun defaultSecret(provider: AIProvider): String? = defaultFor(provider)?.let { rawSecret(it.id) }
 
     /**
      * The provider's effective key: the profile bound to the primary route when that
@@ -133,8 +135,10 @@ class AICredentialRegistry(
      * primary AI configuration.
      */
     @Synchronized
-    fun effectiveSecret(provider: AIProvider): String? =
-        (routeCredential(AIRoute.PRIMARY, provider) ?: defaultFor(provider))?.let { secret(it.id) }
+    fun effectiveSecret(provider: AIProvider): String? {
+        ensureMigrated()
+        return effectiveSecretForMirror(provider)
+    }
 
     @Synchronized
     fun secret(id: String): String? {
@@ -150,17 +154,23 @@ class AICredentialRegistry(
     @Synchronized
     fun maskedSecret(id: String): String = maskSecret(secret(id))
 
+    /**
+     * The profile a route uses: its own binding when that binding is valid for the
+     * route's provider, otherwise the provider's default profile.
+     */
     @Synchronized
     fun routeCredential(route: AIRoute, provider: AIProvider): AICredential? {
         ensureMigrated()
-        val bound = find(secrets.load(routeKey(route)))
-        if (bound != null && bound.provider == provider) return bound
-        return defaultFor(provider)
+        return boundProfile(route, provider) ?: defaultFor(provider)
     }
 
+    /**
+     * The secret a route uses. A route that is bound to a profile without a key gets no
+     * secret — it never falls back to another profile's key.
+     */
     @Synchronized
     fun routeSecret(route: AIRoute, provider: AIProvider): String? =
-        routeCredential(route, provider)?.let { secret(it.id) }
+        routeCredential(route, provider)?.let { rawSecret(it.id) }
 
     @Synchronized
     fun bindings(): Map<AIRoute, String?> =
@@ -178,12 +188,19 @@ class AICredentialRegistry(
         }
         val credential = find(credentialId) ?: return
         secrets.save(routeKey(route), credential.id)
+        // The legacy mirror follows the primary route, so a rebuild from a damaged
+        // profile file recovers the key the user actually uses.
+        syncLegacyDefault(credential.provider)
     }
 
     /** Clears a slot binding after its provider changed, so the new provider's default applies. */
     @Synchronized
     fun clearRoute(route: AIRoute) {
+        val previous = find(secrets.load(routeKey(route)))
         secrets.delete(routeKey(route))
+        // Clearing the primary binding changes the effective key the legacy mirror
+        // should expose, exactly like rebinding it does.
+        previous?.let { syncLegacyDefault(it.provider) }
     }
 
     /**
@@ -213,19 +230,36 @@ class AICredentialRegistry(
         return Result.success(credential)
     }
 
+    /**
+     * Renames a profile and optionally replaces its key, as one edit.
+     *
+     * Both values are validated before anything is written, so a rejected key does not
+     * leave the profile half-renamed.
+     */
     @Synchronized
-    fun rename(id: String, label: String): Result<AICredential> {
+    fun update(id: String, label: String, secret: String? = null): Result<AICredential> {
         ensureMigrated()
         val normalizedLabel = label.trim()
         validateLabel(normalizedLabel)?.let { return Result.failure(IllegalArgumentException(it)) }
+        val normalizedSecret = secret?.trim()
+        if (normalizedSecret != null) {
+            validateSecret(normalizedSecret)?.let { return Result.failure(IllegalArgumentException(it)) }
+        }
         val profiles = readProfiles().orEmpty().toMutableList()
         val index = profiles.indexOfFirst { it.id == id }
         if (index < 0) return Result.failure(NoSuchElementException("credential"))
         val updated = profiles[index].copy(label = normalizedLabel)
         profiles[index] = updated
+        if (normalizedSecret != null) {
+            secrets.save(secretStorageKey(id), normalizedSecret)
+        }
         writeProfiles(profiles)
+        syncLegacyDefault(updated.provider)
         return Result.success(updated)
     }
+
+    @Synchronized
+    fun rename(id: String, label: String): Result<AICredential> = update(id, label)
 
     /** Replaces the secret of one profile only; other profiles and route bindings stay untouched. */
     @Synchronized
@@ -240,45 +274,56 @@ class AICredentialRegistry(
     }
 
     /**
-     * Removes the stored key of one profile. A named profile keeps its label and its
-     * route binding, so the user can paste a new key into the same profile later. The
-     * provider's unnamed slot is removed instead, because it only exists to hold a key.
+     * Removes the stored key of one profile but keeps the profile itself, so a named
+     * profile keeps its label and its route binding, and the user can paste a new key
+     * into the same profile later.
      */
     @Synchronized
     fun clearSecret(id: String): Result<AICredential> {
         ensureMigrated()
         val credential = find(id) ?: return Result.failure(NoSuchElementException("credential"))
-        if (credential.label.isNullOrBlank()) {
-            delete(id)
-            return Result.success(credential)
-        }
         secrets.delete(secretStorageKey(id))
         syncLegacyDefault(credential.provider)
         return Result.success(credential)
     }
 
     /**
-     * Deletes a profile. Explicit route bindings are moved to [replacementId] when it
-     * belongs to the same provider, otherwise they are cleared. Unbound routes fall
-     * back to the provider's default profile automatically.
+     * Deletes a profile.
+     *
+     * Every route that would resolve to the deleted profile is captured first — both
+     * explicit bindings and routes that used it as the provider default — and moved to
+     * [replacementId] when it belongs to the same provider, or left unconfigured
+     * otherwise. Routes that never used the profile keep their own credential.
      */
     @Synchronized
-    fun delete(id: String, replacementId: String? = null): Result<Unit> {
+    fun delete(
+        id: String,
+        replacementId: String? = null,
+        routeProviders: Map<AIRoute, AIProvider> = emptyMap()
+    ): Result<Unit> {
         ensureMigrated()
         val profiles = readProfiles().orEmpty().toMutableList()
         val credential = profiles.firstOrNull { it.id == id }
             ?: return Result.failure(NoSuchElementException("credential"))
         val replacement = find(replacementId)?.takeIf { it.id != id && it.provider == credential.provider }
+
+        // Capture the routes that use this profile before it disappears, including the
+        // routes that only used it because it was the provider default. Explicit
+        // bindings always count, even when the caller does not pass the route map.
+        val affectedRoutes = AIRoute.entries.filter { route ->
+            if (secrets.load(routeKey(route)) == id) return@filter true
+            val provider = routeProviders[route] ?: return@filter false
+            routeCredential(route, provider)?.id == id
+        }
+
         profiles.removeAll { it.id == id }
         writeProfiles(profiles)
         secrets.delete(secretStorageKey(id))
-        AIRoute.entries.forEach { route ->
-            if (secrets.load(routeKey(route)) == id) {
-                if (replacement != null) {
-                    secrets.save(routeKey(route), replacement.id)
-                } else {
-                    secrets.delete(routeKey(route))
-                }
+        affectedRoutes.forEach { route ->
+            if (replacement != null) {
+                secrets.save(routeKey(route), replacement.id)
+            } else {
+                secrets.delete(routeKey(route))
             }
         }
         syncLegacyDefault(credential.provider)
@@ -287,18 +332,19 @@ class AICredentialRegistry(
 
     /**
      * Compatibility entry point for onboarding and older callers that only know a
-     * provider. It only ever writes to the provider's unnamed profile, so a key the
-     * user named is never overwritten. A new unnamed profile is created when the
-     * provider has none.
+     * provider. It writes to the provider's default profile, so a key the user named
+     * for a *different* profile is never overwritten.
      */
     @Synchronized
     fun setDefaultSecret(provider: AIProvider, secret: String?): Result<AICredential?> {
         ensureMigrated()
         val value = secret?.trim().orEmpty()
+        // The provider-wide API only ever writes the unnamed key slot, so a key the
+        // user named is never overwritten.
         val target = forProvider(provider).firstOrNull { it.label.isNullOrBlank() }
         if (value.isEmpty()) {
-            // Clearing a key removes the secret; routes fall back to the
-            // provider's remaining default.
+            // Clearing a key removes the secret; the profile and its bindings stay, so
+            // the route reports "no key" instead of silently using another one.
             if (target != null) clearSecret(target.id)
             return Result.success(null)
         }
@@ -329,26 +375,42 @@ class AICredentialRegistry(
 
     // -- Internals --------------------------------------------------------
 
+    /** The profile a route is explicitly bound to, when that binding is usable. */
+    private fun boundProfile(route: AIRoute, provider: AIProvider): AICredential? {
+        val boundId = secrets.load(routeKey(route)) ?: return null
+        val bound = readProfiles().orEmpty().firstOrNull { it.id == boundId } ?: return null
+        return bound.takeIf { it.provider == provider }
+    }
+
     /**
-     * The provider's default profile out of [profiles]: its unnamed profile while that
-     * one still holds a key, otherwise its oldest profile with a key.
+     * The provider's default profile out of [profiles]: its unnamed profile when that one
+     * still holds a key, otherwise the oldest profile with a key. Without a key anywhere,
+     * the oldest profile is returned so the UI can show which profile is empty.
      */
     private fun defaultIn(profiles: List<AICredential>, provider: AIProvider): AICredential? {
-        val withKey = profiles
-            .filter { it.provider == provider && rawSecret(it.id) != null }
+        val candidates = profiles
+            .filter { it.provider == provider }
             .sortedWith(compareBy({ it.createdAtEpochMs }, { it.id }))
+        val withKey = candidates.filter { rawSecret(it.id) != null }
         return withKey.firstOrNull { it.label.isNullOrBlank() }
             ?: withKey.firstOrNull()
+            ?: candidates.firstOrNull { it.label.isNullOrBlank() }
+            ?: candidates.firstOrNull()
+    }
+
+    /**
+     * The effective key without running the migration. The migration calls the legacy
+     * mirror before it writes its marker, so this variant prevents a recursive pass.
+     */
+    private fun effectiveSecretForMirror(provider: AIProvider): String? {
+        val bound = boundProfile(AIRoute.PRIMARY, provider)
+            ?: defaultIn(readProfiles().orEmpty(), provider)
+        return bound?.let { rawSecret(it.id) }
     }
 
     /** Mirrors the provider's effective key into `apikey_<PROVIDER>` for legacy readers. */
     private fun syncLegacyDefault(provider: AIProvider) {
-        val profiles = readProfiles().orEmpty()
-        val primaryBound = profiles.firstOrNull {
-            it.id == secrets.load(routeKey(AIRoute.PRIMARY)) && it.provider == provider
-        }
-        val target = primaryBound ?: defaultIn(profiles, provider)
-        val value = target?.let { secrets.load(secretStorageKey(it.id)) }
+        val value = effectiveSecretForMirror(provider)
         if (value.isNullOrBlank()) {
             secrets.delete(legacyKey(provider))
         } else {

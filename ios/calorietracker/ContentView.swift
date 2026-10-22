@@ -5755,6 +5755,9 @@ struct ProfileView: View {
                 }
 
                 if settingsCategory == .aiProviders {
+                // Reading the revision makes the routing overview refresh after the
+                // profile manager adds, renames or deletes a key.
+                let credentialRevision = AICredentialStore.shared.revision
                 Section {
                         AISettingsSubsectionHeader(
                             title: "Routing overview",
@@ -5762,37 +5765,46 @@ struct ProfileView: View {
                             infoTopic: .routing
                         )
 
-                        AIRoutingOverviewRow(
-                            title: "Primary AI",
-                            provider: selectedProvider,
-                            model: selectedModel,
-                            profile: AICredentialStore.shared.routeProfile(.primary, provider: selectedProvider),
-                            isActive: true
-                        )
+                        Group {
+                            AIRoutingOverviewRow(
+                                title: "Primary AI",
+                                provider: selectedProvider,
+                                model: selectedModel,
+                                profile: AICredentialStore.shared.routeProfile(.primary, provider: selectedProvider),
+                                isActive: true
+                            )
 
-                        AIRoutingOverviewRow(
-                            title: "Text AI",
-                            provider: selectedTextProvider,
-                            model: selectedTextModel,
-                            profile: AICredentialStore.shared.routeProfile(.text, provider: selectedTextProvider),
-                            isActive: separateTextProviderEnabled
-                        )
+                            AIRoutingOverviewRow(
+                                title: "Text AI",
+                                provider: selectedTextProvider,
+                                model: selectedTextModel,
+                                profile: AICredentialStore.shared.routeProfile(.text, provider: selectedTextProvider),
+                                isActive: separateTextProviderEnabled
+                            )
 
-                        AIRoutingOverviewRow(
-                            title: "Image fallback",
-                            provider: selectedFallbackProvider,
-                            model: selectedFallbackModel,
-                            profile: AICredentialStore.shared.routeProfile(.imageFallback, provider: selectedFallbackProvider),
-                            isActive: fallbackEnabled
-                        )
+                            AIRoutingOverviewRow(
+                                title: "Image fallback",
+                                provider: selectedFallbackProvider,
+                                model: selectedFallbackModel,
+                                profile: AICredentialStore.shared.routeProfile(.imageFallback, provider: selectedFallbackProvider),
+                                isActive: fallbackEnabled
+                            )
 
-                        AIRoutingOverviewRow(
-                            title: "Text fallback",
-                            provider: selectedTextFallbackProvider,
-                            model: selectedTextFallbackModel,
-                            profile: AICredentialStore.shared.routeProfile(.textFallback, provider: selectedTextFallbackProvider),
-                            isActive: textFallbackEnabled
-                        )
+                            AIRoutingOverviewRow(
+                                title: "Text fallback",
+                                provider: selectedTextFallbackProvider,
+                                model: selectedTextFallbackModel,
+                                profile: AICredentialStore.shared.routeProfile(.textFallback, provider: selectedTextFallbackProvider),
+                                isActive: textFallbackEnabled
+                            )
+                        }
+                        .id(credentialRevision)
+                        .onChange(of: credentialRevision) { _, _ in
+                            // A route profile can change while the model picker is open.
+                            // Keep a fallback from silently becoming the primary request.
+                            reconcileImageFallbackModelIfDuplicate()
+                            reconcileTextFallbackModelIfDuplicate()
+                        }
 
                         NavigationLink {
                             AICredentialManagerView()
@@ -6260,8 +6272,9 @@ struct ProfileView: View {
                                     }
                                 }
                             } else {
-                                // Same provider + same server → exclude the primary's model so
-                                // user can't accidentally pick an identical config.
+                                // Same provider + server + credential → exclude the primary's
+                                // model so the user can't pick an identical config. A different
+                                // key profile makes the same model a valid fallback.
                                 let modelOptions: [String] = {
                                     if fallbackSharesPrimaryServer {
                                         return selectedFallbackProvider.models.filter { $0 != selectedModel }
@@ -6844,14 +6857,18 @@ struct ProfileView: View {
                         FoodImageStore.shared.deleteAll()
                         notificationManager.cancelAllNotifications()
                         let domain = Bundle.main.bundleIdentifier ?? ""
+                        // The AI and speech keys live in the Keychain while their
+                        // profile list lives in UserDefaults. Delete them before the
+                        // defaults are wiped, otherwise the profile ids are gone and
+                        // the secrets would stay on the device.
+                        AIProviderSettings.deleteAllData()
+                        SpeechSettings.deleteAllData()
+                        FoodDataCentralSettings.setAPIKey(nil)
                         UserDefaults.standard.removePersistentDomain(forName: domain)
                         // The backup service still has backup on in memory; left
                         // alone, the next background auto-backup would upload this
                         // emptied phone over the user's iCloud backup.
                         cloudBackupService.turnOffAfterDeleteAllData()
-                        AIProviderSettings.deleteAllData()
-                        SpeechSettings.deleteAllData()
-                        FoodDataCentralSettings.setAPIKey(nil)
                         chatStore.reset()
                         WidgetSnapshot.clear()
                         WidgetCenter.shared.reloadAllTimelines()
@@ -7151,9 +7168,16 @@ struct ProfileView: View {
         return trimmed.isEmpty ? selectedFallbackProvider.baseURL : trimmed
     }
 
-    /// True when fallback would hit the same provider, model, and server as primary.
+    /// True when the image fallback would be a literal repeat of the primary request.
+    /// A second key profile for the same provider, model, and server is a valid retry.
     private var fallbackSharesPrimaryServer: Bool {
-        selectedFallbackProvider == selectedProvider && resolvedPrimaryBaseURL == resolvedFallbackBaseURL
+        guard selectedFallbackProvider == selectedProvider,
+              resolvedPrimaryBaseURL == resolvedFallbackBaseURL else { return false }
+        let primaryCredentialID = AICredentialStore.shared
+            .routeProfile(.primary, provider: selectedProvider)?.id
+        let fallbackCredentialID = AICredentialStore.shared
+            .routeProfile(.imageFallback, provider: selectedFallbackProvider)?.id
+        return primaryCredentialID == fallbackCredentialID
     }
 
     private var fallbackModelPresetOptions: [String] {
@@ -7177,8 +7201,14 @@ struct ProfileView: View {
 
     private var textFallbackSharesPrimaryServer: Bool {
         let primaryProvider = separateTextProviderEnabled ? selectedTextProvider : selectedProvider
-        return selectedTextFallbackProvider == primaryProvider &&
-            resolvedTextPrimaryBaseURL == resolvedTextFallbackBaseURL
+        guard selectedTextFallbackProvider == primaryProvider,
+              resolvedTextPrimaryBaseURL == resolvedTextFallbackBaseURL else { return false }
+        let primaryRoute: AIRoute = separateTextProviderEnabled ? .text : .primary
+        let primaryCredentialID = AICredentialStore.shared
+            .routeProfile(primaryRoute, provider: primaryProvider)?.id
+        let fallbackCredentialID = AICredentialStore.shared
+            .routeProfile(.textFallback, provider: selectedTextFallbackProvider)?.id
+        return primaryCredentialID == fallbackCredentialID
     }
 
     private var textFallbackModelPresetOptions: [String] {
@@ -7229,10 +7259,15 @@ struct ProfileView: View {
             selectedFallbackModel = newProvider.defaultModel
             AIProviderSettings.selectedFallbackModel = selectedFallbackModel
         }
-        // Same provider + same server + same model would be a pointless retry — pick an alternate.
+        // Same provider + server + credential + model would be a pointless retry — pick an alternate.
+        let primaryCredentialID = AICredentialStore.shared
+            .routeProfile(.primary, provider: selectedProvider)?.id
+        let fallbackCredentialID = AICredentialStore.shared
+            .routeProfile(.imageFallback, provider: newProvider)?.id
         let sharesServer = newProvider == selectedProvider &&
             (AIProviderSettings.fallbackCustomBaseURL(for: newProvider) ?? newProvider.baseURL) ==
-            (AIProviderSettings.customBaseURL(for: selectedProvider) ?? selectedProvider.baseURL)
+            (AIProviderSettings.customBaseURL(for: selectedProvider) ?? selectedProvider.baseURL) &&
+            fallbackCredentialID == primaryCredentialID
         if sharesServer,
            selectedFallbackModel == selectedModel,
            let alternateModel = newProvider.models.first(where: { $0 != selectedModel }) {
@@ -7253,9 +7288,15 @@ struct ProfileView: View {
         }
         let primaryProvider = separateTextProviderEnabled ? selectedTextProvider : selectedProvider
         let primaryModel = separateTextProviderEnabled ? selectedTextModel : selectedModel
+        let primaryRoute: AIRoute = separateTextProviderEnabled ? .text : .primary
+        let primaryCredentialID = AICredentialStore.shared
+            .routeProfile(primaryRoute, provider: primaryProvider)?.id
+        let fallbackCredentialID = AICredentialStore.shared
+            .routeProfile(.textFallback, provider: newProvider)?.id
         let sharesServer = newProvider == primaryProvider &&
             (AIProviderSettings.fallbackCustomBaseURL(for: newProvider) ?? newProvider.baseURL) ==
-            (AIProviderSettings.customBaseURL(for: primaryProvider) ?? primaryProvider.baseURL)
+            (AIProviderSettings.customBaseURL(for: primaryProvider) ?? primaryProvider.baseURL) &&
+            fallbackCredentialID == primaryCredentialID
         if sharesServer,
            selectedTextFallbackModel == primaryModel,
            let alternate = options.first(where: { $0 != primaryModel }) {
@@ -7280,6 +7321,11 @@ struct ProfileView: View {
         guard selectedFallbackProvider == selectedProvider,
               selectedFallbackModel == selectedModel,
               resolvedPrimaryBaseURL == resolvedFallbackBaseURL else { return }
+        let primaryCredentialID = AICredentialStore.shared
+            .routeProfile(.primary, provider: selectedProvider)?.id
+        let fallbackCredentialID = AICredentialStore.shared
+            .routeProfile(.imageFallback, provider: selectedFallbackProvider)?.id
+        guard primaryCredentialID == fallbackCredentialID else { return }
         guard let alternate = selectedFallbackProvider.models.first(where: { $0 != selectedModel }) else { return }
         selectedFallbackModel = alternate
         AIProviderSettings.selectedFallbackModel = alternate
@@ -7292,6 +7338,12 @@ struct ProfileView: View {
         guard selectedTextFallbackProvider == primaryProvider,
               selectedTextFallbackModel == primaryModel,
               resolvedTextPrimaryBaseURL == resolvedTextFallbackBaseURL else { return }
+        let primaryRoute: AIRoute = separateTextProviderEnabled ? .text : .primary
+        let primaryCredentialID = AICredentialStore.shared
+            .routeProfile(primaryRoute, provider: primaryProvider)?.id
+        let fallbackCredentialID = AICredentialStore.shared
+            .routeProfile(.textFallback, provider: selectedTextFallbackProvider)?.id
+        guard primaryCredentialID == fallbackCredentialID else { return }
         guard let alternate = selectedTextFallbackProvider.textModels.first(where: { $0 != primaryModel }) else { return }
         selectedTextFallbackModel = alternate
         AIProviderSettings.selectedTextFallbackModel = alternate

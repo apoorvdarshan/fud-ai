@@ -760,6 +760,12 @@ struct AIProviderSettings {
 
     /// Image requests always use the vision provider. Text-only requests use the
     /// optional dedicated selection when enabled; otherwise behavior is unchanged.
+    /// The route a text-only request uses: the Text AI slot when the user enabled a
+    /// separate text provider, otherwise the primary route.
+    static var currentTextRoute: AIRoute {
+        separateTextProviderEnabled ? .text : .primary
+    }
+
     static func currentConfig(requiresVision: Bool) -> RequestConfig {
         let useSeparateText = !requiresVision && separateTextProviderEnabled
         let provider = useSeparateText ? selectedTextProvider : selectedProvider
@@ -769,7 +775,7 @@ struct AIProviderSettings {
             provider: provider,
             model: model,
             baseURL: customBaseURL(for: provider) ?? provider.baseURL,
-            apiKey: AICredentialStore.shared.routeSecret(route, provider: provider) ?? apiKey(for: provider)
+            apiKey: AICredentialStore.shared.routeSecret(route, provider: provider)
         )
     }
 
@@ -895,18 +901,29 @@ struct AIProviderSettings {
 
     /// Returns the resolved fallback config when (a) fallback is enabled, (b) the fallback
     /// provider has a usable key (or doesn't require one), and (c) the fallback config
-    /// isn't byte-for-byte identical to the primary (same provider + model + server =
-    /// pointless retry). Same provider with a *different* model IS allowed — common pattern
-    /// is e.g. Gemini Pro primary with Gemini Flash fallback for capacity-pool diversity
-    /// within one provider — and so is the same model on a *different* server.
-    static func currentImageFallbackConfig(excludingPrimary primary: AIProvider, model primaryModel: String) -> FallbackConfig? {
+    /// isn't the same request as the primary one. Same provider with a *different* model
+    /// IS allowed — common pattern is e.g. Gemini Pro primary with Gemini Flash fallback
+    /// for capacity-pool diversity within one provider — and so is the same model on a
+    /// *different* server, or the same model with a *different* key: a second account of
+    /// the same provider can answer when the first one is exhausted or rate limited.
+    static func currentImageFallbackConfig(
+        excludingPrimary primary: AIProvider,
+        model primaryModel: String,
+        primaryCredentialID: String? = nil
+    ) -> FallbackConfig? {
         guard fallbackEnabled else { return nil }
         let provider = selectedFallbackProvider
         let model = selectedFallbackModel
         let baseURL = fallbackCustomBaseURL(for: provider) ?? provider.baseURL
+        let credential = AICredentialStore.shared.routeProfile(.imageFallback, provider: provider)
         if provider == primary, model == primaryModel,
-           baseURL == (customBaseURL(for: primary) ?? primary.baseURL) { return nil }
-        let apiKey = AICredentialStore.shared.routeSecret(.imageFallback, provider: provider) ?? self.apiKey(for: provider)
+           baseURL == (customBaseURL(for: primary) ?? primary.baseURL),
+           credential?.id == primaryCredentialID {
+            return nil
+        }
+        // The route's own credential only: a route bound to a keyless profile must not
+        // silently borrow another profile's key.
+        let apiKey = AICredentialStore.shared.routeSecret(.imageFallback, provider: provider)
         if provider.requiresAPIKey, apiKey == nil { return nil }
         return FallbackConfig(
             provider: provider,
@@ -916,14 +933,22 @@ struct AIProviderSettings {
         )
     }
 
-    static func currentTextFallbackConfig(excludingPrimary primary: AIProvider, model primaryModel: String) -> FallbackConfig? {
+    static func currentTextFallbackConfig(
+        excludingPrimary primary: AIProvider,
+        model primaryModel: String,
+        primaryCredentialID: String? = nil
+    ) -> FallbackConfig? {
         guard textFallbackEnabled else { return nil }
         let provider = selectedTextFallbackProvider
         let model = selectedTextFallbackModel
         let baseURL = fallbackCustomBaseURL(for: provider) ?? provider.baseURL
+        let credential = AICredentialStore.shared.routeProfile(.textFallback, provider: provider)
         if provider == primary, model == primaryModel,
-           baseURL == (customBaseURL(for: primary) ?? primary.baseURL) { return nil }
-        let apiKey = AICredentialStore.shared.routeSecret(.textFallback, provider: provider) ?? self.apiKey(for: provider)
+           baseURL == (customBaseURL(for: primary) ?? primary.baseURL),
+           credential?.id == primaryCredentialID {
+            return nil
+        }
+        let apiKey = AICredentialStore.shared.routeSecret(.textFallback, provider: provider)
         if provider.requiresAPIKey, apiKey == nil { return nil }
         return FallbackConfig(
             provider: provider,

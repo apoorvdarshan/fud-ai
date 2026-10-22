@@ -1,4 +1,5 @@
 import Foundation
+import Observation
 
 /// A named API-key profile. The secret itself never lives in this record; it stays in
 /// the platform credential store (iOS Keychain) under `aiCredentialSecret_<id>`.
@@ -65,15 +66,19 @@ final class KeychainCredentialSecretStore: CredentialSecretStoring {
 /// working without ever seeing another profile's secret.
 ///
 /// Resolution rules:
-/// - An explicit route binding wins when it still exists and belongs to that provider.
-/// - Otherwise the provider's default profile is used: its unnamed profile when that one
-///   still holds a key, otherwise its oldest profile with a key. For a migrated install
-///   that is exactly the pre-profile behavior of every existing route.
+/// - A route that is bound to a profile always uses that profile — even after its key
+///   was cleared, so a route never silently switches to a different key.
+/// - A route without a binding uses the provider's default profile: its unnamed profile
+///   when it has one, otherwise its oldest profile.
 /// - A binding to a different provider is ignored, so changing a route's provider can
 ///   never accidentally send one provider's key to another service.
+@Observable
 @MainActor
 final class AICredentialStore {
     static let shared = AICredentialStore(defaults: .standard, secrets: KeychainCredentialSecretStore.shared)
+
+    /// Bumped whenever a profile changes, so views that show a profile refresh.
+    private(set) var revision: Int = 0
 
     private static let profilesKey = "aiCredentialProfiles_v1"
     private static let profilesBackupKey = "aiCredentialProfiles_v1_corrupt_backup"
@@ -148,17 +153,18 @@ final class AICredentialStore {
         all().filter { $0.provider == provider }
     }
 
-    /// The provider's default profile: its unnamed profile while that one still holds a
-    /// key, otherwise its oldest profile with a key. It is the implicit target for routes
-    /// without an explicit binding.
+    /// The provider's default profile: its unnamed profile when that one still holds a
+    /// key, otherwise the oldest profile with a key. When no profile has a key, the
+    /// oldest one is returned so the UI can still show which profile is empty.
     func defaultProfile(for provider: AIProvider) -> AICredential? {
-        defaultIn(readProfiles() ?? [], provider: provider)
+        ensureMigrated()
+        return defaultIn(readProfiles() ?? [], provider: provider)
     }
 
     /// Secret of the provider's default profile. Used by surfaces that are not bound to a
     /// routing slot (chat, voice assistant, speech fallback).
     func defaultSecret(for provider: AIProvider) -> String? {
-        defaultProfile(for: provider).flatMap { secret(for: $0.id) }
+        defaultProfile(for: provider).flatMap { rawSecret($0.id) }
     }
 
     /// The provider's effective key: the profile bound to the primary route when that
@@ -166,12 +172,8 @@ final class AICredentialStore {
     /// "one key per provider" readers use this, so they follow what the user sees as the
     /// primary AI configuration.
     func effectiveSecret(for provider: AIProvider) -> String? {
-        let profiles = readProfiles() ?? []
-        let primaryBound = profiles.first {
-            $0.id == defaults.string(forKey: Self.routeKey(.primary)) && $0.provider == provider
-        }
-        let target = primaryBound ?? defaultProfile(for: provider)
-        return target.flatMap { secret(for: $0.id) }
+        ensureMigrated()
+        return effectiveSecretForMirror(provider)
     }
 
     func profile(id: String?) -> AICredential? {
@@ -181,7 +183,12 @@ final class AICredentialStore {
 
     func secret(for id: String) -> String? {
         ensureMigrated()
-        return secrets.loadSecret(key: Self.secretKey(id))?
+        return rawSecret(id)
+    }
+
+    /// Reads a stored secret without triggering the migration pass.
+    private func rawSecret(_ id: String) -> String? {
+        secrets.loadSecret(key: Self.secretKey(id))?
             .trimmingCharacters(in: .whitespacesAndNewlines)
             .nilIfEmpty
     }
@@ -193,13 +200,20 @@ final class AICredentialStore {
 
     func routeProfile(_ route: AIRoute, provider: AIProvider) -> AICredential? {
         ensureMigrated()
-        let bound = profile(id: defaults.string(forKey: Self.routeKey(route)))
-        if let bound, bound.provider == provider { return bound }
+        if let bound = boundProfile(route, provider: provider) { return bound }
         return defaultProfile(for: provider)
     }
 
+    /// The profile a route is explicitly bound to, when that binding is usable.
+    private func boundProfile(_ route: AIRoute, provider: AIProvider) -> AICredential? {
+        guard let boundId = defaults.string(forKey: Self.routeKey(route)),
+              let bound = (readProfiles() ?? []).first(where: { $0.id == boundId }),
+              bound.provider == provider else { return nil }
+        return bound
+    }
+
     func routeSecret(_ route: AIRoute, provider: AIProvider) -> String? {
-        routeProfile(route, provider: provider).flatMap { secret(for: $0.id) }
+        routeProfile(route, provider: provider).flatMap { rawSecret($0.id) }
     }
 
     func routeBindings() -> [AIRoute: String?] {
@@ -221,11 +235,22 @@ final class AICredentialStore {
         }
         guard let credential = profile(id: credentialID) else { return }
         defaults.set(credential.id, forKey: Self.routeKey(route))
+        // The legacy mirror follows the primary route, so a rebuild from a damaged
+        // profile file recovers the key the user actually uses.
+        syncLegacyDefault(credential.provider)
+        revision &+= 1
     }
 
     /// Clears a slot binding after its provider changed, so the new provider's default applies.
     func clearRoute(_ route: AIRoute) {
+        let previous = profile(id: defaults.string(forKey: Self.routeKey(route)))
         defaults.removeObject(forKey: Self.routeKey(route))
+        // Clearing the primary binding changes the effective key the legacy mirror
+        // should expose, exactly like rebinding it does.
+        if let previous {
+            syncLegacyDefault(previous.provider)
+        }
+        revision &+= 1
     }
 
     /// A route must never keep a binding to a provider the user just switched away from.
@@ -234,6 +259,8 @@ final class AICredentialStore {
         if let bound = profile(id: defaults.string(forKey: Self.routeKey(route))),
            bound.provider != provider {
             defaults.removeObject(forKey: Self.routeKey(route))
+            syncLegacyDefault(bound.provider)
+            revision &+= 1
         }
     }
 
@@ -263,15 +290,31 @@ final class AICredentialStore {
         profiles.append(credential)
         writeProfiles(profiles)
         syncLegacyDefault(provider)
+        revision &+= 1
         return .success(credential)
     }
 
     @discardableResult
     func rename(id: String, label: String) -> Result<AICredential, AICredentialError> {
+        update(id: id, label: label, secret: nil)
+    }
+
+    /// Renames a profile and optionally replaces its key, as one edit.
+    ///
+    /// Both values are validated before anything is written, so a rejected key does not
+    /// leave the profile half-renamed.
+    @discardableResult
+    func update(id: String, label: String, secret: String?) -> Result<AICredential, AICredentialError> {
         ensureMigrated()
         let normalizedLabel = label.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !normalizedLabel.isEmpty else { return .failure(.labelRequired) }
         guard normalizedLabel.count <= Self.maxLabelLength else { return .failure(.labelTooLong) }
+        let normalizedSecret = secret?.trimmingCharacters(in: .whitespacesAndNewlines)
+        if let normalizedSecret {
+            if normalizedSecret.isEmpty { return .failure(.keyRequired) }
+            if normalizedSecret.count > Self.maxSecretLength { return .failure(.keyTooLong) }
+            if normalizedSecret.contains(where: { $0.isWhitespace }) { return .failure(.keyContainsWhitespace) }
+        }
         var profiles = readProfiles() ?? []
         guard let index = profiles.firstIndex(where: { $0.id == id }) else {
             return .failure(.notFound)
@@ -283,7 +326,12 @@ final class AICredentialStore {
             createdAt: profiles[index].createdAt
         )
         profiles[index] = updated
+        if let normalizedSecret {
+            secrets.saveSecret(key: Self.secretKey(id), value: normalizedSecret)
+        }
         writeProfiles(profiles)
+        syncLegacyDefault(updated.provider)
+        revision &+= 1
         return .success(updated)
     }
 
@@ -298,30 +346,35 @@ final class AICredentialStore {
         guard let credential = profile(id: id) else { return .failure(.notFound) }
         secrets.saveSecret(key: Self.secretKey(id), value: normalizedSecret)
         syncLegacyDefault(credential.provider)
+        revision &+= 1
         return .success(credential)
     }
 
-    /// Removes the stored key of one profile. A named profile keeps its label and its
-    /// route binding, so the user can paste a new key into the same profile later. The
-    /// provider's unnamed slot is removed instead, because it only exists to hold a key.
+    /// Removes the stored key of one profile but keeps the profile itself, so a named
+    /// profile keeps its label and its route binding, and the user can paste a new key
+    /// into the same profile later.
     @discardableResult
     func clearSecret(id: String) -> Result<AICredential, AICredentialError> {
         ensureMigrated()
         guard let credential = profile(id: id) else { return .failure(.notFound) }
-        if credential.label?.isNilOrEmpty ?? true {
-            _ = delete(id: id)
-            return .success(credential)
-        }
         secrets.deleteSecret(key: Self.secretKey(id))
         syncLegacyDefault(credential.provider)
+        revision &+= 1
         return .success(credential)
     }
 
-    /// Deletes a profile. Explicit route bindings are moved to `replacementID` when it
-    /// belongs to the same provider, otherwise they are cleared. Unbound routes fall
-    /// back to the provider's default profile automatically.
+    /// Deletes a profile.
+    ///
+    /// Every route that would resolve to the deleted profile is captured first — both
+    /// explicit bindings and routes that used it as the provider default — and moved to
+    /// `replacementID` when it belongs to the same provider, or left unconfigured
+    /// otherwise. Routes that never used the profile keep their own credential.
     @discardableResult
-    func delete(id: String, replacementID: String? = nil) -> Result<Void, AICredentialError> {
+    func delete(
+        id: String,
+        replacementID: String? = nil,
+        routeProviders: [AIRoute: AIProvider] = [:]
+    ) -> Result<Void, AICredentialError> {
         ensureMigrated()
         var profiles = readProfiles() ?? []
         guard let credential = profiles.first(where: { $0.id == id }) else {
@@ -332,10 +385,20 @@ final class AICredentialStore {
            candidate.provider == credential.provider {
             replacement = candidate
         }
+
+        // Capture the routes that use this profile before it disappears, including the
+        // routes that only used it because it was the provider default. Explicit
+        // bindings always count, even when the caller does not pass the route map.
+        let affectedRoutes = AIRoute.allCases.filter { route in
+            if defaults.string(forKey: Self.routeKey(route)) == id { return true }
+            guard let provider = routeProviders[route] else { return false }
+            return routeProfile(route, provider: provider)?.id == id
+        }
+
         profiles.removeAll { $0.id == id }
         writeProfiles(profiles)
         secrets.deleteSecret(key: Self.secretKey(id))
-        for route in AIRoute.allCases where defaults.string(forKey: Self.routeKey(route)) == id {
+        for route in affectedRoutes {
             if let replacement {
                 defaults.set(replacement.id, forKey: Self.routeKey(route))
             } else {
@@ -343,6 +406,7 @@ final class AICredentialStore {
             }
         }
         syncLegacyDefault(credential.provider)
+        revision &+= 1
         return .success(())
     }
 
@@ -354,10 +418,12 @@ final class AICredentialStore {
     func setDefaultSecret(provider: AIProvider, secret: String?) -> Result<AICredential?, AICredentialError> {
         ensureMigrated()
         let value = secret?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        // The provider-wide API only ever writes the unnamed key slot, so a key the
+        // user named is never overwritten.
         let target = profiles(for: provider).first { $0.label?.isNilOrEmpty ?? true }
         if value.isEmpty {
-            // Clearing a key removes the secret; routes fall back to the
-            // provider's remaining default.
+            // Clearing a key removes the secret; the profile and its bindings stay, so
+            // the route reports "no key" instead of silently using another one.
             if let target {
                 _ = clearSecret(id: target.id)
             }
@@ -388,27 +454,36 @@ final class AICredentialStore {
         }
         defaults.removeObject(forKey: Self.profilesKey)
         defaults.removeObject(forKey: Self.migrationKey)
+        revision &+= 1
     }
 
     // MARK: - Internals
 
-    /// The provider's default profile out of `profiles`: its unnamed profile while that
-    /// one still holds a key, otherwise its oldest profile with a key.
+    /// The provider's default profile out of `profiles`: its unnamed profile when that
+    /// one still holds a key, otherwise the oldest profile with a key. Without a key
+    /// anywhere, the oldest profile is returned so the UI can show which profile is empty.
     private func defaultIn(_ profiles: [AICredential], provider: AIProvider) -> AICredential? {
-        let withKey = profiles
-            .filter { $0.provider == provider && secrets.loadSecret(key: Self.secretKey($0.id))?.isEmpty == false }
+        let candidates = profiles
+            .filter { $0.provider == provider }
             .sorted { ($0.createdAt, $0.id) < ($1.createdAt, $1.id) }
-        return withKey.first { $0.label?.isNilOrEmpty ?? true } ?? withKey.first
+        let withKey = candidates.filter { rawSecret($0.id) != nil }
+        return withKey.first { $0.label?.isNilOrEmpty ?? true }
+            ?? withKey.first
+            ?? candidates.first { $0.label?.isNilOrEmpty ?? true }
+            ?? candidates.first
+    }
+
+    /// The effective key without running the migration. The migration calls the legacy
+    /// mirror before it writes its marker, so this variant prevents a recursive pass.
+    private func effectiveSecretForMirror(_ provider: AIProvider) -> String? {
+        let target = boundProfile(.primary, provider: provider)
+            ?? defaultIn(readProfiles() ?? [], provider: provider)
+        return target.flatMap { rawSecret($0.id) }
     }
 
     /// Mirrors the provider's effective key into `apikey_<PROVIDER>` for legacy readers.
     private func syncLegacyDefault(_ provider: AIProvider) {
-        let profiles = readProfiles() ?? []
-        let primaryBound = profiles.first {
-            $0.id == defaults.string(forKey: Self.routeKey(.primary)) && $0.provider == provider
-        }
-        let target = primaryBound ?? defaultIn(profiles, provider: provider)
-        let value = target.flatMap { secrets.loadSecret(key: Self.secretKey($0.id)) }
+        let value = effectiveSecretForMirror(provider)
         if let value, !value.isEmpty {
             secrets.saveSecret(key: Self.legacyKey(provider), value: value)
         } else {

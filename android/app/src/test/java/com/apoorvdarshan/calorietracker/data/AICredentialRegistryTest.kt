@@ -46,6 +46,16 @@ class AICredentialRegistryTest {
     }
 
     @Test
+    fun aRouteReadRunsTheMigrationOnItsOwn() {
+        val store = FakeSecrets(mutableMapOf("apikey_OPENROUTER" to "sk-or-legacy-1234"))
+        val creds = registry(store)
+
+        // The first call may be a route read, before any UI lists the profiles.
+        assertEquals("sk-or-legacy-1234", creds.routeSecret(AIRoute.PRIMARY, AIProvider.OPENROUTER))
+        assertEquals(1, creds.forProvider(AIProvider.OPENROUTER).size)
+    }
+
+    @Test
     fun twoProfilesForOneProviderStayIsolated() {
         val store = FakeSecrets()
         val creds = registry(store)
@@ -109,6 +119,8 @@ class AICredentialRegistryTest {
 
         creds.delete(first.id, replacementId = second.id).getOrThrow()
 
+        assertEquals(second.id, creds.bindings()[AIRoute.PRIMARY])
+        assertEquals(second.id, creds.bindings()[AIRoute.TEXT])
         assertEquals(second.id, creds.routeCredential(AIRoute.PRIMARY, AIProvider.OPENROUTER)?.id)
         assertEquals(second.id, creds.routeCredential(AIRoute.TEXT, AIProvider.OPENROUTER)?.id)
         assertEquals("sk-or-second-2222", creds.secret(second.id))
@@ -159,10 +171,11 @@ class AICredentialRegistryTest {
         assertEquals("sk-or-updated-4444", creds.secret(unnamed.id))
         assertEquals(1, creds.forProvider(AIProvider.OPENROUTER).size)
 
-        // Clearing removes the unnamed slot again.
+        // Clearing keeps the slot but drops its key, so a route bound to it reports
+        // "no key" instead of silently using another profile's key.
         creds.setDefaultSecret(AIProvider.OPENROUTER, null).getOrThrow()
-        assertNull(creds.find(unnamed.id))
-        assertTrue(creds.forProvider(AIProvider.OPENROUTER).isEmpty())
+        assertNull(creds.secret(unnamed.id))
+        assertEquals(unnamed.id, creds.find(unnamed.id)?.id)
     }
 
     @Test
@@ -179,6 +192,51 @@ class AICredentialRegistryTest {
         assertEquals("sk-or-work-2222", creds.effectiveSecret(AIProvider.OPENROUTER))
         // Other routes keep their own credential.
         assertEquals("sk-or-personal-1111", creds.routeSecret(AIRoute.TEXT, AIProvider.OPENROUTER))
+    }
+
+    @Test
+    fun aRouteBoundToAKeylessProfileNeverBorrowsAnotherKey() {
+        val creds = registry()
+        val personal = creds.add(AIProvider.OPENROUTER, "Personal", "sk-or-personal-1111").getOrThrow()
+        val work = creds.add(AIProvider.OPENROUTER, "Work", "sk-or-work-2222").getOrThrow()
+        creds.bindRoute(AIRoute.TEXT, work.id)
+
+        // Clearing the bound profile's key must not fall back to the other profile.
+        creds.clearSecret(work.id).getOrThrow()
+
+        assertNull(creds.routeSecret(AIRoute.TEXT, AIProvider.OPENROUTER))
+        assertEquals("sk-or-personal-1111", creds.secret(personal.id))
+    }
+
+    @Test
+    fun deletingTheDefaultProfileMovesTheRoutesThatUsedIt() {
+        val creds = registry()
+        val first = creds.add(AIProvider.OPENROUTER, "Personal", "sk-or-first-1111").getOrThrow()
+        val second = creds.add(AIProvider.OPENROUTER, "Work", "sk-or-work-2222").getOrThrow()
+        val routes = mapOf(AIRoute.PRIMARY to AIProvider.OPENROUTER)
+
+        // The primary route uses the default profile; deleting it with a replacement must
+        // move the route, not leave it on another profile.
+        creds.delete(first.id, replacementId = second.id, routeProviders = routes).getOrThrow()
+
+        assertEquals(second.id, creds.routeCredential(AIRoute.PRIMARY, AIProvider.OPENROUTER)?.id)
+        assertEquals("sk-or-work-2222", creds.routeSecret(AIRoute.PRIMARY, AIProvider.OPENROUTER))
+    }
+
+    @Test
+    fun theLegacyMirrorFollowsThePrimaryRoute() {
+        val creds = registry()
+        val personal = creds.add(AIProvider.OPENROUTER, "Personal", "sk-or-personal-1111").getOrThrow()
+        val work = creds.add(AIProvider.OPENROUTER, "Work", "sk-or-work-2222").getOrThrow()
+
+        creds.bindRoute(AIRoute.PRIMARY, work.id)
+
+        assertEquals("sk-or-work-2222", creds.effectiveSecret(AIProvider.OPENROUTER))
+        assertEquals("sk-or-personal-1111", creds.secret(personal.id))
+
+        // Clearing the primary binding must restore the mirror to the provider default.
+        creds.clearRoute(AIRoute.PRIMARY)
+        assertEquals("sk-or-personal-1111", creds.effectiveSecret(AIProvider.OPENROUTER))
     }
 
     @Test

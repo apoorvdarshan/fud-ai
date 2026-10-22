@@ -68,7 +68,10 @@ struct AICredentialPickerSheet: View {
                 }
             }
             .sheet(isPresented: $isAdding) {
-                AICredentialEditorView(mode: .create(provider: provider)) { created in
+                AICredentialEditorView(
+                    mode: .create(provider: provider),
+                    providerSelectionDisabled: true
+                ) { created in
                     if let created {
                         AICredentialStore.shared.bindRoute(route, credentialID: created.id)
                     }
@@ -94,6 +97,8 @@ struct AICredentialEditorView: View {
     }
 
     let mode: Mode
+    /// A profile created from a route picker must stay on that route's provider.
+    var providerSelectionDisabled: Bool = false
     var onSave: ((AICredential?) -> Void)? = nil
 
     @Environment(\.dismiss) private var dismiss
@@ -111,7 +116,7 @@ struct AICredentialEditorView: View {
     var body: some View {
         NavigationStack {
             Form {
-                if !isEditing {
+                if !isEditing && !providerSelectionDisabled {
                     Section {
                         Picker("Provider", selection: $provider) {
                             ForEach(AIProvider.allCases.filter { $0.requiresAPIKey }) { option in
@@ -202,18 +207,12 @@ struct AICredentialEditorView: View {
                 errorMessage = AICredentialLabel.errorText(for: error)
             }
         case .edit(let profile):
-            switch store.rename(id: profile.id, label: trimmedLabel) {
-            case .success:
-                if !trimmedSecret.isEmpty {
-                    switch store.replaceSecret(id: profile.id, secret: trimmedSecret) {
-                    case .success(let updated):
-                        onSave?(updated)
-                    case .failure(let error):
-                        errorMessage = AICredentialLabel.errorText(for: error)
-                    }
-                } else {
-                    onSave?(profile)
-                }
+            // Name and key are one edit: a rejected key must not leave the profile
+            // renamed without the new key.
+            let newSecret = trimmedSecret.isEmpty ? nil : trimmedSecret
+            switch store.update(id: profile.id, label: trimmedLabel, secret: newSecret) {
+            case .success(let updated):
+                onSave?(updated)
             case .failure(let error):
                 errorMessage = AICredentialLabel.errorText(for: error)
             }
@@ -228,6 +227,7 @@ struct AICredentialManagerView: View {
     @State private var editingProfile: AICredential?
     @State private var isAdding = false
     @State private var deletingProfile: AICredential?
+    @State private var testingProfile: AICredential?
 
     var body: some View {
         List {
@@ -263,6 +263,12 @@ struct AICredentialManagerView: View {
                             }
                         }
                         .swipeActions {
+                            Button {
+                                testingProfile = profile
+                            } label: {
+                                Label("Test", systemImage: "checkmark.circle")
+                            }
+                            .tint(.green)
                             Button(role: .destructive) {
                                 deletingProfile = profile
                             } label: {
@@ -297,6 +303,12 @@ struct AICredentialManagerView: View {
                 refresh()
             }
         }
+        .sheet(item: $testingProfile) { profile in
+            AICredentialTestSheet(profile: profile) {
+                testingProfile = nil
+                refresh()
+            }
+        }
         .confirmationDialog(
             "Delete API key?",
             isPresented: Binding(
@@ -306,12 +318,15 @@ struct AICredentialManagerView: View {
             titleVisibility: .visible,
             presenting: deletingProfile
         ) { profile in
+            let routes = AICredentialLabel.routesUsing(profile, store: AICredentialStore.shared)
             let replacements = AICredentialStore.shared.profiles(for: profile.provider).filter { $0.id != profile.id }
-            ForEach(replacements) { replacement in
-                Button {
-                    delete(profile, replacement: replacement)
-                } label: {
-                    Text(verbatim: "Move those routes to \(AICredentialLabel.text(for: replacement, provider: replacement.provider))")
+            if !routes.isEmpty {
+                ForEach(replacements) { replacement in
+                    Button {
+                        delete(profile, replacement: replacement)
+                    } label: {
+                        Text(verbatim: "Move those routes to \(AICredentialLabel.text(for: replacement, provider: replacement.provider))")
+                    }
                 }
             }
             Button("Delete without replacement", role: .destructive) {
@@ -339,7 +354,14 @@ struct AICredentialManagerView: View {
     }
 
     private func delete(_ profile: AICredential, replacement: AICredential?) {
-        _ = AICredentialStore.shared.delete(id: profile.id, replacementID: replacement?.id)
+        // The routes that use the profile are captured here, so the routes that only
+        // used it as the provider default move to the replacement too.
+        let providers = AICredentialLabel.routeProviders()
+        _ = AICredentialStore.shared.delete(
+            id: profile.id,
+            replacementID: replacement?.id,
+            routeProviders: providers
+        )
         deletingProfile = nil
         refresh()
     }
@@ -393,6 +415,93 @@ struct AICredentialRouteRow: View {
     }
 }
 
+/// Runs one minimal request against the provider of the chosen key and reports whether
+/// the provider accepted it. The sheet states that the check uses one request from the
+/// provider's account before the user starts it.
+struct AICredentialTestSheet: View {
+    let profile: AICredential
+    var onFinish: () -> Void
+
+    @Environment(\.dismiss) private var dismiss
+    @State private var isTesting = false
+    @State private var hasRun = false
+    @State private var failure: AIErrorKind?
+
+    var body: some View {
+        NavigationStack {
+            Form {
+                Section {
+                    Text(
+                        "Fud AI sends one short request to \(profile.provider.displayName) to check that the key, the model and the endpoint work together. It uses one request from your provider account."
+                    )
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+                }
+
+                if isTesting {
+                    Section {
+                        HStack(spacing: 10) {
+                            ProgressView()
+                            Text("Checking the key…")
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                }
+
+                if let failure {
+                    Section {
+                        Text(failure.message)
+                            .foregroundStyle(.red)
+                    }
+                } else if hasRun, !isTesting {
+                    Section {
+                        Label("The provider accepted this key.", systemImage: "checkmark.circle.fill")
+                            .foregroundStyle(.green)
+                    }
+                }
+            }
+            .navigationTitle("Test API key?")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") {
+                        dismiss()
+                        onFinish()
+                    }
+                    .disabled(isTesting)
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Send test request") {
+                        run()
+                    }
+                    .disabled(isTesting)
+                }
+            }
+            .interactiveDismissDisabled(isTesting)
+        }
+    }
+
+    private func run() {
+        isTesting = true
+        hasRun = false
+        failure = nil
+        Task {
+            let model = profile.provider.defaultModel
+            let baseURL = AIProviderSettings.customBaseURL(for: profile.provider)
+                ?? profile.provider.baseURL
+            let result = await ApiKeyTester.test(
+                provider: profile.provider,
+                model: model,
+                apiKey: AICredentialStore.shared.secret(for: profile.id),
+                baseURL: baseURL
+            )
+            failure = result.failure
+            hasRun = true
+            isTesting = false
+        }
+    }
+}
+
 /// One route of the routing overview: provider → key profile → model.
 struct AIRoutingOverviewRow: View {
     let title: String
@@ -403,12 +512,19 @@ struct AIRoutingOverviewRow: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text(title)
-                .font(.subheadline.weight(.semibold))
-                .foregroundStyle(isActive ? .primary : .secondary)
-            Text(verbatim: "\(provider.displayName) → \(profile.map { AICredentialLabel.text(for: $0, provider: $0.provider) } ?? String(localized: "No key selected"))")
+            HStack(spacing: 6) {
+                Text(title)
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(isActive ? .primary : .secondary)
+                if !isActive {
+                    Text("Off")
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(.secondary)
+                }
+            }
+            Text(verbatim: "\(provider.displayName) → \(profile.map { AICredentialLabel.text(for: $0, provider: $0.provider) } ?? credentialLabel)")
                 .font(.footnote)
-                .foregroundStyle(profile == nil && isActive ? AppColors.calorie : .secondary)
+                .foregroundStyle(profile == nil && isActive && needsKey ? AppColors.calorie : .secondary)
             if isActive && !model.isEmpty {
                 Text(model)
                     .font(.caption)
@@ -417,6 +533,14 @@ struct AIRoutingOverviewRow: View {
         }
         .padding(.vertical, 2)
         .accessibilityElement(children: .combine)
+    }
+
+    /// A local or keyless provider is fully configured without a key, so it must not
+    /// look like a missing credential.
+    private var needsKey: Bool { provider.requiresAPIKey }
+
+    private var credentialLabel: String {
+        needsKey ? String(localized: "No key selected") : String(localized: "No key needed")
     }
 }
 
@@ -450,13 +574,26 @@ enum AICredentialLabel {
     }
 
     /// Slots that currently resolve to the given profile.
-    static func routesUsing(_ profile: AICredential, store: AICredentialStore) -> [AIRoute] {
-        let providers: [AIRoute: AIProvider] = [
+    /// The routes that are currently in use, with the provider each one runs on.
+    static func routeProviders() -> [AIRoute: AIProvider] {
+        var providers: [AIRoute: AIProvider] = [
             .primary: AIProviderSettings.selectedProvider,
-            .text: AIProviderSettings.selectedTextProvider,
-            .imageFallback: AIProviderSettings.selectedFallbackProvider,
-            .textFallback: AIProviderSettings.selectedTextFallbackProvider,
         ]
-        return store.routesUsing(id: profile.id, routeProviders: providers)
+        if AIProviderSettings.separateTextProviderEnabled {
+            providers[.text] = AIProviderSettings.selectedTextProvider
+        }
+        if AIProviderSettings.fallbackEnabled {
+            providers[.imageFallback] = AIProviderSettings.selectedFallbackProvider
+        }
+        if AIProviderSettings.textFallbackEnabled {
+            providers[.textFallback] = AIProviderSettings.selectedTextFallbackProvider
+        }
+        return providers
+    }
+
+    /// The routes that actually use the profile. Routes that are switched off are not
+    /// listed, so the delete confirmation only names routes that would really change.
+    static func routesUsing(_ profile: AICredential, store: AICredentialStore) -> [AIRoute] {
+        store.routesUsing(id: profile.id, routeProviders: routeProviders())
     }
 }

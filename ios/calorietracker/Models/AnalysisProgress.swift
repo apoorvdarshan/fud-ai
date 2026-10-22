@@ -182,8 +182,14 @@ final class AnalysisProgressTracker {
         // instead of silently falling back to the primary.
         let nextAttempt = update.attempt ?? running.attempt
         let attemptChanged = update.attempt != nil && update.attempt != running.attempt
+        // A repair request can switch back to the primary model without starting a
+        // new attempt. Its predecessor's estimate then belongs to another model and
+        // must not be shown for this wait.
+        let modelChanged =
+            (update.provider != nil && update.provider != running.provider) ||
+                (update.model != nil && update.model != running.model)
         let estimate: ClosedRange<Int>?
-        if attemptChanged {
+        if attemptChanged || modelChanged {
             estimate = update.estimateSeconds
         } else {
             estimate = update.estimateSeconds ?? running.estimateSeconds

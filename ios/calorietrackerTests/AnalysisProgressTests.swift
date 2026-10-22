@@ -119,6 +119,34 @@ struct AnalysisProgressTests {
         #expect(state.canRecordDuration == false)
     }
 
+    @Test func aRepairOnAnotherModelDropsThePreviousEstimate() {
+        let tracker = AnalysisProgressTracker()
+        tracker.start(kind: .image)
+
+        tracker.onProgress(
+            AnalysisProgressUpdate(
+                stage: .fallback,
+                attempt: 2,
+                provider: .openrouter,
+                model: "backup-model",
+                estimateSeconds: 20...40
+            )
+        )
+        // The repair goes back to the primary model without starting attempt 1.
+        // The backup estimate does not describe this wait, so it must disappear.
+        let state = tracker.onProgress(
+            AnalysisProgressUpdate(
+                stage: .requesting,
+                provider: .openai,
+                model: "primary-model"
+            )
+        )
+
+        #expect(state.attempt == 2)
+        #expect(state.provider == .openai)
+        #expect(state.estimateSeconds == nil)
+    }
+
     @Test func aCompletedPrimaryRunCanBecomeADurationSample() {
         let tracker = AnalysisProgressTracker()
         tracker.start(kind: .text)

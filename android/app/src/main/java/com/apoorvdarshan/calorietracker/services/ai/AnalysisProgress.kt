@@ -188,7 +188,13 @@ class AnalysisProgressTracker(
         // estimate instead of silently falling back to the primary.
         val nextAttempt = update.attempt ?: running.attempt
         val attemptChanged = update.attempt != null && update.attempt != running.attempt
-        val estimate = if (attemptChanged) {
+        // A repair request can switch back to the primary model without starting a
+        // new attempt. Its predecessor's estimate then belongs to another model and
+        // must not be shown for this wait.
+        val modelChanged =
+            (update.provider != null && update.provider != running.provider) ||
+                (update.model != null && update.model != running.model)
+        val estimate = if (attemptChanged || modelChanged) {
             update.estimateSeconds
         } else {
             update.estimateSeconds ?: running.estimateSeconds

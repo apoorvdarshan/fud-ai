@@ -133,6 +133,37 @@ class AnalysisProgressTest {
     }
 
     @Test
+    fun aRepairOnAnotherModelDropsThePreviousEstimate() {
+        val tracker = AnalysisProgressTracker { 0L }
+        val run = tracker.start(AnalysisKind.IMAGE)
+
+        tracker.onProgress(
+            run.number,
+            AnalysisProgressUpdate(
+                AnalysisStage.FALLBACK,
+                attempt = 2,
+                provider = AIProvider.OPENROUTER,
+                model = "backup-model",
+                estimateSeconds = 20..40
+            )
+        )
+        // The repair goes back to the primary model without starting attempt 1.
+        // The backup estimate does not describe this wait, so it must disappear.
+        val state = tracker.onProgress(
+            run.number,
+            AnalysisProgressUpdate(
+                AnalysisStage.REQUESTING,
+                provider = AIProvider.OPENAI,
+                model = "primary-model"
+            )
+        )
+
+        assertEquals(2, state?.attempt)
+        assertEquals(AIProvider.OPENAI, state?.provider)
+        assertNull(state?.estimateSeconds)
+    }
+
+    @Test
     fun aCompletedPrimaryRunCanBecomeADurationSample() {
         val tracker = AnalysisProgressTracker { 0L }
         val run = tracker.start(AnalysisKind.TEXT)

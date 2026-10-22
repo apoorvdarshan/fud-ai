@@ -97,6 +97,44 @@ struct AnalysisProgressTests {
         #expect(state.estimateSeconds == 3...7)
     }
 
+    @Test func theBackupModelKeepsItsAttemptAndEstimateThroughValidation() {
+        let tracker = AnalysisProgressTracker()
+        tracker.start(kind: .text)
+
+        tracker.onProgress(AnalysisProgressUpdate(stage: .requesting, estimateSeconds: 5...12))
+        tracker.onProgress(
+            AnalysisProgressUpdate(
+                stage: .fallback,
+                attempt: 2,
+                provider: .openrouter,
+                estimateSeconds: 20...40
+            )
+        )
+        // Validation is a stage-only update and must not fall back to attempt 1.
+        let state = tracker.onProgress(AnalysisProgressUpdate(stage: .validating))
+
+        #expect(state.attempt == 2)
+        #expect(state.estimateSeconds == 20...40)
+        #expect(state.provider == .openrouter)
+        #expect(state.canRecordDuration == false)
+    }
+
+    @Test func aCompletedPrimaryRunCanBecomeADurationSample() {
+        let tracker = AnalysisProgressTracker()
+        tracker.start(kind: .text)
+        tracker.onProgress(
+            AnalysisProgressUpdate(
+                stage: .requesting,
+                provider: .openai,
+                model: "gpt-5.6-luna",
+                estimateSeconds: 5...12
+            )
+        )
+        let state = tracker.complete()
+
+        #expect(state.canRecordDuration)
+    }
+
     @Test func theEstimateIsHiddenOnceTheRequestRunsPastIt() {
         let state = AnalysisProgressState(kind: .text, stage: .requesting, estimateSeconds: 5...12)
 
@@ -230,7 +268,7 @@ struct AnalysisProgressTests {
     @Test func theEstimateNeedsEnoughLocalHistory() {
         #expect(AnalysisDurationEstimate.estimateSeconds(samples: []) == nil)
         #expect(AnalysisDurationEstimate.estimateSeconds(samples: [2_000, 3_000]) == nil)
-        #expect(AnalysisDurationEstimate.estimateSeconds(samples: [2_000, 3_000, 4_000]) == 2...3)
+        #expect(AnalysisDurationEstimate.estimateSeconds(samples: [2_000, 3_000, 4_000]) == 3...4)
     }
 
     @Test func theEstimateIgnoresASingleOutlier() throws {

@@ -349,8 +349,16 @@ struct GeminiService {
                 description: description,
                 progress: progress
             )
+            // The repair request may hit the provider again. Only call the result
+            // "validating" after it has actually answered.
+            let repaired = await addingFallbackServingUnits(
+                to: analysis,
+                image: nil,
+                description: description,
+                progress: progress
+            )
             progress?(AnalysisProgressUpdate(stage: .validating))
-            return await addingFallbackServingUnits(to: analysis, image: nil, description: description)
+            return repaired
         }
     }
 
@@ -376,8 +384,14 @@ struct GeminiService {
         return try await runWithHostedQuota(.photoFood) {
             let text = try await callAI(prompt: prompt, image: image, progress: progress)
             let analysis = try parseFoodAnalysis(from: text)
+            let repaired = await addingFallbackServingUnits(
+                to: analysis,
+                image: image,
+                description: nil,
+                progress: progress
+            )
             progress?(AnalysisProgressUpdate(stage: .validating))
-            return await addingFallbackServingUnits(to: analysis, image: image, description: nil)
+            return repaired
         }
     }
 
@@ -411,13 +425,25 @@ struct GeminiService {
                 description: description,
                 progress: progress
             ) {
+                let repaired = await addingFallbackServingUnits(
+                    to: onDevice,
+                    image: image,
+                    description: description,
+                    progress: progress
+                )
                 progress?(AnalysisProgressUpdate(stage: .validating))
-                return await addingFallbackServingUnits(to: onDevice, image: image, description: description)
+                return repaired
             }
             let text = try await callAI(prompt: prompt, image: image, progress: progress)
             let analysis = try parseFoodAnalysis(from: text)
+            let repaired = await addingFallbackServingUnits(
+                to: analysis,
+                image: image,
+                description: description,
+                progress: progress
+            )
             progress?(AnalysisProgressUpdate(stage: .validating))
-            return await addingFallbackServingUnits(to: analysis, image: image, description: description)
+            return repaired
         }
     }
 
@@ -498,16 +524,26 @@ struct GeminiService {
                 portionScaleSection: portionScaleSection,
                 progress: progress
             ) {
-                var result = await addingFallbackServingUnits(to: onDevice, image: images[0], description: description)
+                var result = await addingFallbackServingUnits(
+                    to: onDevice,
+                    image: images[0],
+                    description: description,
+                    progress: progress
+                )
                 result.progressiveMeal = progressiveMeal
                 progress?(AnalysisProgressUpdate(stage: .validating))
                 return result
             }
             let text = try await callAI(prompt: prompt, images: images, labelText: labelText, progress: progress)
             let analysis = try parseFoodAnalysis(from: text)
-            progress?(AnalysisProgressUpdate(stage: .validating))
-            var result = await addingFallbackServingUnits(to: analysis, image: images[0], description: description)
+            var result = await addingFallbackServingUnits(
+                to: analysis,
+                image: images[0],
+                description: description,
+                progress: progress
+            )
             result.progressiveMeal = progressiveMeal
+            progress?(AnalysisProgressUpdate(stage: .validating))
             return result
         }
     }
@@ -978,11 +1014,18 @@ struct GeminiService {
         let primary = AIProviderSettings.currentConfig(requiresVision: true)
         guard primary.provider == .appleIntelligence else { return nil }
         // The model runs on this iPhone, so no remote provider is contacted. Say so
-        // instead of naming a provider that never answers.
+        // instead of naming a provider that never answers. The local history still
+        // applies, so a photo analysis gets the same estimate as a cloud request.
+        let estimate = progress == nil ? nil : AnalysisDurationStore().estimate(
+            provider: primary.provider,
+            model: primary.model,
+            kind: .image
+        )
         progress?(AnalysisProgressUpdate(
             stage: .requesting,
             provider: primary.provider,
-            model: primary.model
+            model: primary.model,
+            estimateSeconds: estimate
         ))
         #if canImport(FoundationModels)
         if #available(iOS 27.0, *) {
@@ -1956,7 +1999,8 @@ struct GeminiService {
     private static func addingFallbackServingUnits(
         to analysis: FoodAnalysis,
         image: UIImage?,
-        description: String?
+        description: String?,
+        progress: AnalysisProgressReporter? = nil
     ) async -> FoodAnalysis {
         var updated = analysis
         updated.requiresServingUnitFallback = false
@@ -1965,7 +2009,8 @@ struct GeminiService {
             name: analysis.name,
             servingSizeGrams: analysis.servingSizeGrams,
             image: image,
-            description: description
+            description: description,
+            progress: progress
         ), !options.isEmpty else {
             return updated
         }
@@ -1978,7 +2023,8 @@ struct GeminiService {
 
     private static func addingFallbackServingUnits(
         to analysis: NutritionLabelAnalysis,
-        image: UIImage
+        image: UIImage,
+        progress: AnalysisProgressReporter? = nil
     ) async -> NutritionLabelAnalysis {
         var updated = analysis
         updated.requiresServingUnitFallback = false
@@ -1988,7 +2034,8 @@ struct GeminiService {
                 name: analysis.name,
                 servingSizeGrams: servingSizeGrams,
                 image: image,
-                description: nil
+                description: nil,
+                progress: progress
               ), !options.isEmpty else {
             return updated
         }
@@ -2001,7 +2048,8 @@ struct GeminiService {
         name: String,
         servingSizeGrams: Double,
         image: UIImage?,
-        description: String?
+        description: String?,
+        progress: AnalysisProgressReporter? = nil
     ) async throws -> [ServingUnitOption] {
         let context = description?.trimmingCharacters(in: .whitespacesAndNewlines)
         let contextLine = context.map { "\nUser context: \($0)" } ?? ""
@@ -2026,7 +2074,7 @@ struct GeminiService {
         - Return [] when the evidence does not support a reliable non-gram option.
         """
 
-        let text = try await callAI(prompt: prompt, image: image)
+        let text = try await callAI(prompt: prompt, image: image, progress: progress)
         return try parseServingUnitOptions(from: text, servingSizeGrams: servingSizeGrams)
     }
 

@@ -49,7 +49,7 @@ class AnalysisDurationHistoryTest {
         val restored = AnalysisDurationEstimate.readDurations(stored)
 
         assertEquals(durations, restored)
-        assertEquals(4..5, AnalysisDurationEstimate.estimateSeconds(restored[key].orEmpty()))
+        assertEquals(5..6, AnalysisDurationEstimate.estimateSeconds(restored[key].orEmpty()))
     }
 
     @Test
@@ -63,7 +63,7 @@ class AnalysisDurationHistoryTest {
             )
         }
         durations = durations + (key to (durations[key].orEmpty() + 3_000L))
-        assertEquals(1..2, AnalysisDurationEstimate.estimateSeconds(durations[key].orEmpty()))
+        assertEquals(2..3, AnalysisDurationEstimate.estimateSeconds(durations[key].orEmpty()))
     }
 
     @Test
@@ -72,6 +72,6 @@ class AnalysisDurationHistoryTest {
         val kept = samples.takeLast(AnalysisDurationEstimate.MAX_SAMPLES)
         assertEquals(AnalysisDurationEstimate.MAX_SAMPLES, kept.size)
         // The old samples are gone, so the band follows the recent ones.
-        assertEquals(14..18, AnalysisDurationEstimate.estimateSeconds(kept))
+        assertEquals(15..19, AnalysisDurationEstimate.estimateSeconds(kept))
     }
 }

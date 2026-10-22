@@ -106,6 +106,51 @@ class AnalysisProgressTest {
     }
 
     @Test
+    fun theFallbackAttemptKeepsItsEstimateThroughValidation() {
+        val tracker = AnalysisProgressTracker { 0L }
+        val run = tracker.start(AnalysisKind.TEXT)
+
+        tracker.onProgress(
+            run.number,
+            AnalysisProgressUpdate(AnalysisStage.REQUESTING, estimateSeconds = 5..12)
+        )
+        tracker.onProgress(
+            run.number,
+            AnalysisProgressUpdate(
+                AnalysisStage.FALLBACK,
+                attempt = 2,
+                provider = AIProvider.OPENROUTER,
+                estimateSeconds = 20..40
+            )
+        )
+        // Validation is a stage-only update and must not fall back to attempt 1.
+        val state = tracker.onProgress(run.number, AnalysisProgressUpdate(AnalysisStage.VALIDATING))
+
+        assertEquals(2, state?.attempt)
+        assertEquals(20..40, state?.estimateSeconds)
+        assertEquals(AIProvider.OPENROUTER, state?.provider)
+        assertFalse(state!!.copy(outcome = AnalysisOutcome.COMPLETE).canRecordDuration)
+    }
+
+    @Test
+    fun aCompletedPrimaryRunCanBecomeADurationSample() {
+        val tracker = AnalysisProgressTracker { 0L }
+        val run = tracker.start(AnalysisKind.TEXT)
+        tracker.onProgress(
+            run.number,
+            AnalysisProgressUpdate(
+                AnalysisStage.REQUESTING,
+                provider = AIProvider.OPENAI,
+                model = "gpt-5.6-luna",
+                estimateSeconds = 5..12
+            )
+        )
+        val state = tracker.finish(run.number, AnalysisOutcome.COMPLETE)
+
+        assertTrue(state!!.canRecordDuration)
+    }
+
+    @Test
     fun theEstimateSurvivesLaterUpdatesThatDoNotCarryIt() {
         val tracker = AnalysisProgressTracker { 0L }
         val run = tracker.start(AnalysisKind.TEXT)
@@ -252,7 +297,7 @@ class AnalysisProgressTest {
     fun theEstimateNeedsEnoughLocalHistory() {
         assertNull(AnalysisDurationEstimate.estimateSeconds(emptyList()))
         assertNull(AnalysisDurationEstimate.estimateSeconds(listOf(2_000, 3_000)))
-        assertEquals(2..3, AnalysisDurationEstimate.estimateSeconds(listOf(2_000, 3_000, 4_000)))
+        assertEquals(3..4, AnalysisDurationEstimate.estimateSeconds(listOf(2_000, 3_000, 4_000)))
     }
 
     @Test

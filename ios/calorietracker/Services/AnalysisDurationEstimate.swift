@@ -35,9 +35,18 @@ enum AnalysisDurationEstimate {
     }
 
     private static func percentile(_ sorted: [Int], _ fraction: Double) -> Int {
-        guard sorted.count > 1 else { return sorted.first ?? 0 }
-        let index = Int((Double(sorted.count - 1) * fraction).rounded(.down))
-        return sorted[min(max(index, 0), sorted.count - 1)]
+        guard !sorted.isEmpty else { return 0 }
+        guard sorted.count > 1 else { return sorted[0] }
+        // Interpolate between the two neighbouring samples instead of rounding down.
+        // With three samples a floor would turn the upper quartile into the median,
+        // so the band would not cover the slower half of the local history at all.
+        let position = Double(sorted.count - 1) * fraction
+        let lower = Int(position.rounded(.down))
+        let upper = Int(position.rounded(.up))
+        if lower == upper { return sorted[lower] }
+        let weight = position - Double(lower)
+        let value = Double(sorted[lower]) * (1 - weight) + Double(sorted[upper]) * weight
+        return Int(value.rounded())
     }
 }
 

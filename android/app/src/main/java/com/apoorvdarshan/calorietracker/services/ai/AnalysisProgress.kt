@@ -84,12 +84,30 @@ data class AnalysisProgressState(
         val estimate = estimateSeconds ?: return false
         return elapsedSeconds <= estimate.last
     }
+
+    /**
+     * True when this finished run is a clean local-history sample.
+     *
+     * A backup run's total includes the failed primary wait, so storing it under the
+     * backup provider would make that model look slower than it is. Barcode lookups
+     * and hosted runs have no provider/model to attribute the sample to.
+     */
+    val canRecordDuration: Boolean
+        get() = outcome == AnalysisOutcome.COMPLETE &&
+            kind != AnalysisKind.BARCODE &&
+            attempt == 1 &&
+            provider != null &&
+            !model.isNullOrBlank()
 }
 
 /** One progress event of an analysis. */
 data class AnalysisProgressUpdate(
     val stage: AnalysisStage,
-    val attempt: Int = 1,
+    /**
+     * 1 for the primary request, 2 or more for a backup model. Null keeps the
+     * current attempt, so a stage-only update cannot reset a running fallback.
+     */
+    val attempt: Int? = null,
     /** Provider that is handling the current attempt, known once the request is sent. */
     val provider: AIProvider? = null,
     /** Model that is handling the current attempt. */
@@ -165,16 +183,19 @@ class AnalysisProgressTracker(
         // not make the finished run look active again.
         if (running.outcome != AnalysisOutcome.RUNNING) return null
         // A new attempt (the backup model) brings its own estimate: the primary's
-        // duration says nothing about the fallback. Inside one attempt the estimate
-        // stays, so the "reading the response" stage keeps showing it.
-        val estimate = if (update.attempt != running.attempt) {
+        // duration says nothing about the fallback. A stage-only update has no
+        // attempt, so validation after a fallback keeps that attempt and its
+        // estimate instead of silently falling back to the primary.
+        val nextAttempt = update.attempt ?: running.attempt
+        val attemptChanged = update.attempt != null && update.attempt != running.attempt
+        val estimate = if (attemptChanged) {
             update.estimateSeconds
         } else {
             update.estimateSeconds ?: running.estimateSeconds
         }
         val updated = running.copy(
             stage = update.stage,
-            attempt = update.attempt,
+            attempt = nextAttempt,
             provider = update.provider ?: running.provider,
             model = update.model ?: running.model,
             estimateSeconds = estimate,

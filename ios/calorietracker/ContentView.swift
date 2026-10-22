@@ -2616,19 +2616,19 @@ private var dailyStepsTaskKey: String {
     /// answer cannot overwrite the progress of the analysis that runs now.
     ///
     /// The duration of a successful meal analysis is recorded here, not in the service:
-    /// this is the time the user actually waited, including prompt and image work. The
-    /// write is local and cannot throw, so it never delays or changes the result.
+    /// this is the time the user actually waited, including prompt and image work. Only
+    /// runs that finished on the primary attempt are recorded: a fallback run contains
+    /// the failed primary's wait, so its total would inflate the backup model's estimate.
+    /// The write is local and cannot throw, so it never delays or changes the result.
     /// Barcode lookups and hosted AI (no provider/model) are skipped.
     @MainActor
     private func finishAnalysisProgress(_ outcome: AnalysisOutcome, runID: Int) {
         let previous = analysisProgressTracker.state
         guard let ended = analysisProgressTracker.finish(outcome, runID: runID) else { return }
         guard previous?.outcome == .running,
-              outcome == .complete,
-              ended.kind != .barcode,
+              ended.canRecordDuration,
               let provider = ended.provider,
-              let model = ended.model,
-              !model.isEmpty else { return }
+              let model = ended.model else { return }
         AnalysisDurationStore().record(
             provider: provider,
             model: model,

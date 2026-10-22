@@ -75,6 +75,19 @@ struct AnalysisProgressState: Equatable {
         return elapsedSeconds <= estimate.upperBound
     }
 
+    /// True when this finished run is a clean local-history sample.
+    ///
+    /// A backup run's total includes the failed primary wait, so storing it under the
+    /// backup provider would make that model look slower than it is. Barcode lookups
+    /// and hosted runs have no provider/model to attribute the sample to.
+    var canRecordDuration: Bool {
+        outcome == .complete &&
+            kind != .barcode &&
+            attempt == 1 &&
+            provider != nil &&
+            model?.isEmpty == false
+    }
+
     /// True when the request runs on this iPhone instead of at a remote provider.
     ///
     /// The UI uses this to say "Analyzing on this iPhone…" instead of naming an AI
@@ -87,7 +100,9 @@ struct AnalysisProgressState: Equatable {
 /// One progress event of an analysis.
 struct AnalysisProgressUpdate {
     var stage: AnalysisStage
-    var attempt: Int = 1
+    /// 1 for the primary request, 2 or more for a backup model. Nil keeps the
+    /// current attempt, so a stage-only update cannot reset a running fallback.
+    var attempt: Int? = nil
     /// Provider that is handling the current attempt, known once the request is sent.
     var provider: AIProvider?
     /// Model that is handling the current attempt.
@@ -162,16 +177,19 @@ final class AnalysisProgressTracker {
         // not make the finished run look active again.
         guard running.outcome == .running else { return running }
         // A new attempt (the backup model) brings its own estimate: the duration of
-        // the primary says nothing about the fallback. Inside one attempt the estimate
-        // stays, so the "reading the response" stage keeps showing it.
+        // the primary says nothing about the fallback. A stage-only update has no
+        // attempt, so validation after a fallback keeps that attempt and its estimate
+        // instead of silently falling back to the primary.
+        let nextAttempt = update.attempt ?? running.attempt
+        let attemptChanged = update.attempt != nil && update.attempt != running.attempt
         let estimate: ClosedRange<Int>?
-        if update.attempt != running.attempt {
+        if attemptChanged {
             estimate = update.estimateSeconds
         } else {
             estimate = update.estimateSeconds ?? running.estimateSeconds
         }
         running.stage = update.stage
-        running.attempt = update.attempt
+        running.attempt = nextAttempt
         if let provider = update.provider { running.provider = provider }
         if let model = update.model { running.model = model }
         running.estimateSeconds = estimate

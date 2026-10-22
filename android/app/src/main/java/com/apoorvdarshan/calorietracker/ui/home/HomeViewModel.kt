@@ -960,9 +960,11 @@ viewModelScope.launch {
      * Ends the tracked analysis and clears the progress from the UI state.
      *
      * The duration of a successful meal analysis is recorded here, not in the service:
-     * this is the time the user actually waited, including prompt and image work. The
-     * write is best-effort and runs in its own job, so it can never delay or cancel the
-     * result. Runs without a known provider (hosted AI) and barcode lookups are skipped.
+     * this is the time the user actually waited, including prompt and image work. Only
+     * runs that finished on the primary attempt are recorded: a fallback run contains
+     * the failed primary's wait, so its total would inflate the backup model's estimate.
+     * The write is best-effort and runs in its own job, so it can never delay or cancel
+     * the result. Runs without a known provider (hosted AI) and barcode lookups are skipped.
      */
     private fun finishAnalysisProgress(outcome: AnalysisOutcome, run: AnalysisProgressRun?) {
         if (run == null) return
@@ -974,7 +976,7 @@ viewModelScope.launch {
         analysisProgressTracker.reset()
         if (analysisProgressRun?.number == run.number) analysisProgressRun = null
         _ui.value = _ui.value.copy(analysisProgress = null)
-        if (firstEnding && outcome == AnalysisOutcome.COMPLETE && ended.kind != AnalysisKind.BARCODE) {
+        if (firstEnding && ended.canRecordDuration) {
             val provider = ended.provider
             val model = ended.model
             if (provider != null && !model.isNullOrBlank()) {

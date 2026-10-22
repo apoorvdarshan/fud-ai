@@ -395,13 +395,18 @@ class FoodAnalysisService(
                 kind = AnalysisDurationEstimate.Kind.TEXT
             )
         )
-        progress?.onProgress(AnalysisProgressUpdate(AnalysisStage.VALIDATING))
-        return addingFallbackServingUnits(
+        val analysis = addingFallbackServingUnits(
             analysis = parsed.analysis,
             imageBytes = null,
             description = description,
-            shouldRequestFallback = parsed.shouldRequestServingUnitFallback
+            shouldRequestFallback = parsed.shouldRequestServingUnitFallback,
+            progress = progress,
+            kind = AnalysisDurationEstimate.Kind.TEXT
         )
+        // The repair request may hit the provider again. Only call the result
+        // "validating" after it has actually answered.
+        progress?.onProgress(AnalysisProgressUpdate(AnalysisStage.VALIDATING))
+        return analysis
     }
 
     suspend fun analyzeAuto(
@@ -436,13 +441,16 @@ class FoodAnalysisService(
                 kind = AnalysisDurationEstimate.Kind.IMAGE
             )
         )
-        progress?.onProgress(AnalysisProgressUpdate(AnalysisStage.VALIDATING))
-        return addingFallbackServingUnits(
+        val analysis = addingFallbackServingUnits(
             analysis = parsed.analysis,
             imageBytes = imageBytes,
             description = null,
-            shouldRequestFallback = parsed.shouldRequestServingUnitFallback
+            shouldRequestFallback = parsed.shouldRequestServingUnitFallback,
+            progress = progress,
+            kind = AnalysisDurationEstimate.Kind.IMAGE
         )
+        progress?.onProgress(AnalysisProgressUpdate(AnalysisStage.VALIDATING))
+        return analysis
     }
 
     suspend fun analyzeFood(
@@ -477,13 +485,16 @@ class FoodAnalysisService(
                 kind = AnalysisDurationEstimate.Kind.IMAGE
             )
         )
-        progress?.onProgress(AnalysisProgressUpdate(AnalysisStage.VALIDATING))
-        return addingFallbackServingUnits(
+        val analysis = addingFallbackServingUnits(
             analysis = parsed.analysis,
             imageBytes = imageBytes,
             description = description,
-            shouldRequestFallback = parsed.shouldRequestServingUnitFallback
+            shouldRequestFallback = parsed.shouldRequestServingUnitFallback,
+            progress = progress,
+            kind = AnalysisDurationEstimate.Kind.IMAGE
         )
+        progress?.onProgress(AnalysisProgressUpdate(AnalysisStage.VALIDATING))
+        return analysis
     }
 
     suspend fun analyzeFood(
@@ -505,13 +516,16 @@ class FoodAnalysisService(
                 kind = AnalysisDurationEstimate.Kind.IMAGE
             )
         )
-        progress?.onProgress(AnalysisProgressUpdate(AnalysisStage.VALIDATING))
-        return addingFallbackServingUnits(
+        val analysis = addingFallbackServingUnits(
             analysis = parsed.analysis,
             imageBytes = images.first(),
             description = description,
-            shouldRequestFallback = parsed.shouldRequestServingUnitFallback
+            shouldRequestFallback = parsed.shouldRequestServingUnitFallback,
+            progress = progress,
+            kind = AnalysisDurationEstimate.Kind.IMAGE
         ).copy(progressiveMeal = progressiveMeal)
+        progress?.onProgress(AnalysisProgressUpdate(AnalysisStage.VALIDATING))
+        return analysis
     }
 
     suspend fun analyzeNutritionLabel(imageBytes: ByteArray, servingGrams: Double): FoodAnalysis {
@@ -728,7 +742,9 @@ class FoodAnalysisService(
         analysis: FoodAnalysis,
         imageBytes: ByteArray?,
         description: String?,
-        shouldRequestFallback: Boolean
+        shouldRequestFallback: Boolean,
+        progress: AnalysisProgressReporter?,
+        kind: AnalysisDurationEstimate.Kind
     ): FoodAnalysis {
         if (!ServingUnitRepairPolicy.shouldRepair(analysis, shouldRequestFallback)) return analysis
         val options = runCatching {
@@ -736,7 +752,9 @@ class FoodAnalysisService(
                 name = analysis.name,
                 servingSizeGrams = analysis.servingSizeGrams,
                 imageBytes = imageBytes,
-                description = description
+                description = description,
+                progress = progress,
+                kind = kind
             )
         }.getOrDefault(emptyList())
         if (options.isEmpty()) return analysis
@@ -751,7 +769,9 @@ class FoodAnalysisService(
     private suspend fun addingFallbackServingUnits(
         analysis: NutritionLabelAnalysis,
         imageBytes: ByteArray,
-        shouldRequestFallback: Boolean
+        shouldRequestFallback: Boolean,
+        progress: AnalysisProgressReporter? = null,
+        kind: AnalysisDurationEstimate.Kind = AnalysisDurationEstimate.Kind.IMAGE
     ): NutritionLabelAnalysis {
         if (!ServingUnitRepairPolicy.shouldRepair(analysis, shouldRequestFallback)) return analysis
         val servingSizeGrams = analysis.servingSizeGrams ?: return analysis
@@ -760,7 +780,9 @@ class FoodAnalysisService(
                 name = analysis.name,
                 servingSizeGrams = servingSizeGrams,
                 imageBytes = imageBytes,
-                description = null
+                description = null,
+                progress = progress,
+                kind = kind
             )
         }.getOrDefault(emptyList())
         if (options.isEmpty()) return analysis
@@ -771,7 +793,9 @@ class FoodAnalysisService(
         name: String,
         servingSizeGrams: Double,
         imageBytes: ByteArray?,
-        description: String?
+        description: String?,
+        progress: AnalysisProgressReporter?,
+        kind: AnalysisDurationEstimate.Kind
     ): List<com.apoorvdarshan.calorietracker.models.ServingUnitOption> {
         val context = description?.trim()?.takeIf { it.isNotEmpty() }
         val contextLine = context?.let { "\nUser context: $it" }.orEmpty()
@@ -793,7 +817,10 @@ class FoodAnalysisService(
             - Return {"unit_options":[]} when no reliable non-gram unit exists.
             - Do not include g, gram, or grams as an option.
         """.trimIndent()
-        return FoodJsonParser.parseServingUnitOptions(callAi(prompt, imageBytes), servingSizeGrams)
+        return FoodJsonParser.parseServingUnitOptions(
+            callAi(prompt, imageBytes, progress = progress, kind = kind),
+            servingSizeGrams
+        )
     }
 
     private suspend fun dispatch(

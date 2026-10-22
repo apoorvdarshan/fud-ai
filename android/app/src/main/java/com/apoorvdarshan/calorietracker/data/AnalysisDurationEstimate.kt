@@ -1,6 +1,9 @@
 package com.apoorvdarshan.calorietracker.data
 
 import com.apoorvdarshan.calorietracker.models.AIProvider
+import kotlin.math.ceil
+import kotlin.math.floor
+import kotlin.math.roundToLong
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.builtins.MapSerializer
 import kotlinx.serialization.builtins.serializer
@@ -67,8 +70,16 @@ object AnalysisDurationEstimate {
     }
 
     private fun percentile(sorted: List<Long>, fraction: Double): Long {
+        if (sorted.isEmpty()) return 0
         if (sorted.size == 1) return sorted.first()
-        val index = ((sorted.size - 1) * fraction).toInt().coerceIn(0, sorted.size - 1)
-        return sorted[index]
+        // Interpolate between the two neighbouring samples instead of rounding down.
+        // With three samples a floor would turn the upper quartile into the median,
+        // so the band would not cover the slower half of the local history at all.
+        val position = (sorted.size - 1) * fraction
+        val lower = floor(position).toInt().coerceIn(0, sorted.size - 1)
+        val upper = ceil(position).toInt().coerceIn(0, sorted.size - 1)
+        if (lower == upper) return sorted[lower]
+        val weight = position - lower
+        return (sorted[lower] * (1.0 - weight) + sorted[upper] * weight).roundToLong()
     }
 }

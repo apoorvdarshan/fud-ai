@@ -70,6 +70,8 @@ data class OnboardingState(
     val aiProvider: AIProvider = AIProvider.GEMINI,
     val aiModel: String = AIProvider.GEMINI.defaultModel,
     val apiKey: String = "",
+    /** Set when the entered key could not be stored, so onboarding can say so. */
+    val apiKeyError: String? = null,
     val acceptedTerms: Boolean = false,
     /** RevenueCat reports an active Plus or Pro plan. */
     val hostedEntitled: Boolean = false,
@@ -85,7 +87,8 @@ data class OnboardingState(
 
     /** True once BYOK fields satisfy the same gate as pre-choice onboarding. */
     val byokSetupComplete: Boolean
-        get() = !aiProvider.requiresApiKey || apiKey.trim().isNotEmpty()
+        get() = !aiProvider.requiresApiKey ||
+            (apiKey.trim().isNotEmpty() && apiKeyError == null)
 
     /** AI is required for goal calculation, so BYOK users must enter an API key before leaving
      *  the provider step (Ollama needs none). All other steps advance freely. */
@@ -193,7 +196,12 @@ class OnboardingViewModel(private val container: AppContainer) : ViewModel() {
         // Update state synchronously so a slow prefs write can't overwrite a key the user typed
         // while the picker was open. Persist in the background for the Building Plan AI call.
         val existing = container.keyStore.apiKey(p) ?: ""
-        _ui.value = _ui.value.copy(aiProvider = p, aiModel = p.defaultModel, apiKey = existing)
+        _ui.value = _ui.value.copy(
+            aiProvider = p,
+            aiModel = p.defaultModel,
+            apiKey = existing,
+            apiKeyError = null
+        )
         viewModelScope.launch {
             container.prefs.setSelectedAIProvider(p)
             container.prefs.setSelectedAIModel(p.defaultModel)
@@ -204,10 +212,18 @@ class OnboardingViewModel(private val container: AppContainer) : ViewModel() {
         viewModelScope.launch { container.prefs.setSelectedAIModel(m) }
     }
     fun setApiKey(key: String) {
-        _ui.value = _ui.value.copy(apiKey = key)
+        _ui.value = _ui.value.copy(apiKey = key, apiKeyError = null)
         // Persist immediately so the in-onboarding AI plan calc can use it.
         viewModelScope.launch {
-            container.keyStore.setApiKey(_ui.value.aiProvider, key.trim().takeIf { it.isNotBlank() })
+            val result = container.aiCredentials.setDefaultSecret(
+                _ui.value.aiProvider,
+                key.trim().takeIf { it.isNotBlank() }
+            )
+            // A rejected key (too long, or containing a space) must not be dropped
+            // silently: the user would continue without a usable credential.
+            result.exceptionOrNull()?.let { error ->
+                _ui.value = _ui.value.copy(apiKeyError = error.message)
+            }
         }
     }
 
@@ -594,7 +610,7 @@ class OnboardingViewModel(private val container: AppContainer) : ViewModel() {
             container.prefs.setSelectedAIProvider(state.aiProvider)
             container.prefs.setSelectedAIModel(state.aiModel)
             if (state.apiKey.isNotBlank()) {
-                container.keyStore.setApiKey(state.aiProvider, state.apiKey.trim())
+                container.aiCredentials.setDefaultSecret(state.aiProvider, state.apiKey.trim())
             }
             // Hosted users keep the default on-device speech recognizer (free); a remote
             // speech provider would need a BYOK key.

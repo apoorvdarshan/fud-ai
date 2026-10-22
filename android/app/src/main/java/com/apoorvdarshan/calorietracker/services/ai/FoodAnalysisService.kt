@@ -1,7 +1,8 @@
 package com.apoorvdarshan.calorietracker.services.ai
 
 import com.apoorvdarshan.calorietracker.services.SecureHttpClient
-import com.apoorvdarshan.calorietracker.data.KeyStore
+import com.apoorvdarshan.calorietracker.data.AICredentialRegistry
+import com.apoorvdarshan.calorietracker.data.AIRoute
 import com.apoorvdarshan.calorietracker.data.PreferencesStore
 import com.apoorvdarshan.calorietracker.models.AIProvider
 import com.apoorvdarshan.calorietracker.models.AminoAcidEstimates
@@ -76,7 +77,7 @@ internal fun multiPhotoAnalysisPrompt(
  */
 class FoodAnalysisService(
     private val prefs: PreferencesStore,
-    private val keyStore: KeyStore,
+    private val credentials: AICredentialRegistry,
     private val okHttp: OkHttpClient = defaultClient,
     private val localGemma: LocalGemmaRuntime? = null,
     private val hosted: HostedAiAccess? = null
@@ -577,7 +578,10 @@ class FoodAnalysisService(
         } else {
             requestPrompt
         }
-        val primaryKey = keyStore.apiKey(settings.provider)
+        // A text request without photos runs on the separate Text AI provider when the
+        // user enabled one, so it reads the Text route's credential.
+        val primaryRoute = if (settings.usesSeparateTextProvider) AIRoute.TEXT else AIRoute.PRIMARY
+        val primaryKey = credentials.routeSecret(primaryRoute, settings.provider)
         if (settings.provider.requiresApiKey && primaryKey.isNullOrEmpty()) throw AiError.NoApiKey
 
         return try {
@@ -595,10 +599,22 @@ class FoodAnalysisService(
             )
         } catch (primaryError: Throwable) {
             if (primaryError is kotlinx.coroutines.CancellationException) throw primaryError
+            val primaryRoute = if (settings.usesSeparateTextProvider) AIRoute.TEXT else AIRoute.PRIMARY
+            val primaryCredentialId = credentials.routeCredential(primaryRoute, settings.provider)?.id
             val fallback = if (imageBytesList.isEmpty()) {
-                currentTextFallbackConfig(settings.provider, settings.model, settings.baseUrl)
+                currentTextFallbackConfig(
+                    settings.provider,
+                    settings.model,
+                    settings.baseUrl,
+                    primaryCredentialId
+                )
             } else {
-                currentImageFallbackConfig(settings.provider, settings.model, settings.baseUrl)
+                currentImageFallbackConfig(
+                    settings.provider,
+                    settings.model,
+                    settings.baseUrl,
+                    primaryCredentialId
+                )
             } ?: throw primaryError
             try {
                 dispatch(
@@ -732,37 +748,56 @@ class FoodAnalysisService(
         }
     }
 
+    /**
+     * The image fallback configuration, or null when no fallback should run.
+     *
+     * A fallback that repeats the primary request exactly — same provider, model and
+     * server — would only burn the same quota again. A fallback bound to a *different*
+     * key is a different request, though: the second account of the same provider can
+     * answer when the first one is exhausted or rate limited.
+     */
     private suspend fun currentImageFallbackConfig(
         primary: AIProvider,
         primaryModel: String,
-        primaryBaseUrl: String
+        primaryBaseUrl: String,
+        primaryCredentialId: String?
     ): FallbackConfig? {
         prefs.migrateFallbackBaseUrls()
         if (!prefs.fallbackEnabled.first()) return null
         val provider = prefs.selectedFallbackProvider.first()
         val model = provider.supportedModelOrDefault(prefs.selectedFallbackModel.first())
         val baseUrl = prefs.fallbackCustomBaseUrl(provider).first()?.takeIf { it.isNotEmpty() } ?: provider.baseUrl
-        // Fallback identical to primary would be a pointless retry of the same call.
-        // The same provider and model on a *different* server is a legitimate config.
-        if (provider == primary && model == primaryModel && baseUrl == primaryBaseUrl) return null
-        val key = keyStore.apiKey(provider)
+        val credential = credentials.routeCredential(AIRoute.IMAGE_FALLBACK, provider)
+        if (provider == primary && model == primaryModel && baseUrl == primaryBaseUrl &&
+            credential?.id == primaryCredentialId
+        ) {
+            return null
+        }
+        val key = credentials.routeSecret(AIRoute.IMAGE_FALLBACK, provider)
         if (provider.requiresApiKey && key.isNullOrEmpty()) return null
         if (provider != AIProvider.LOCAL_GEMMA && baseUrl.isEmpty()) return null
         return FallbackConfig(provider, model, baseUrl, key)
     }
 
+    /** The text fallback configuration. See [currentImageFallbackConfig]. */
     private suspend fun currentTextFallbackConfig(
         primary: AIProvider,
         primaryModel: String,
-        primaryBaseUrl: String
+        primaryBaseUrl: String,
+        primaryCredentialId: String?
     ): FallbackConfig? {
         prefs.migrateFallbackBaseUrls()
         if (!prefs.textFallbackEnabled.first()) return null
         val provider = prefs.selectedTextFallbackProvider.first()
         val model = provider.supportedTextModelOrDefault(prefs.selectedTextFallbackModel.first())
         val baseUrl = prefs.fallbackCustomBaseUrl(provider).first()?.takeIf { it.isNotEmpty() } ?: provider.baseUrl
-        if (provider == primary && model == primaryModel && baseUrl == primaryBaseUrl) return null
-        val key = keyStore.apiKey(provider)
+        val credential = credentials.routeCredential(AIRoute.TEXT_FALLBACK, provider)
+        if (provider == primary && model == primaryModel && baseUrl == primaryBaseUrl &&
+            credential?.id == primaryCredentialId
+        ) {
+            return null
+        }
+        val key = credentials.routeSecret(AIRoute.TEXT_FALLBACK, provider)
         if (provider.requiresApiKey && key.isNullOrEmpty()) return null
         if (provider != AIProvider.LOCAL_GEMMA && baseUrl.isEmpty()) return null
         return FallbackConfig(provider, model, baseUrl, key)

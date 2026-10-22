@@ -189,14 +189,21 @@ struct ChatService {
             )
         } catch {
             if error is CancellationError { throw error }
+            let primaryRoute: AIRoute = imageData == nil
+                ? AIProviderSettings.currentTextRoute
+                : .primary
+            let primaryCredentialID = AICredentialStore.shared
+                .routeProfile(primaryRoute, provider: config.provider)?.id
             let fallback = imageData == nil
                 ? AIProviderSettings.currentTextFallbackConfig(
                     excludingPrimary: config.provider,
-                    model: config.model
+                    model: config.model,
+                    primaryCredentialID: primaryCredentialID
                 )
                 : AIProviderSettings.currentImageFallbackConfig(
                     excludingPrimary: config.provider,
-                    model: config.model
+                    model: config.model,
+                    primaryCredentialID: primaryCredentialID
                 )
             guard let fallback else { throw error }
             do {

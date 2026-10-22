@@ -12,24 +12,33 @@ import com.apoorvdarshan.calorietracker.models.SpeechProvider
  * Encrypted per-provider API key storage — the Android equivalent of iOS Keychain.
  * Backed by EncryptedSharedPreferences (AES-256).
  */
-class KeyStore(context: Context) {
+class KeyStore(context: Context) : CredentialSecretStore {
     private val prefs: SharedPreferences = openOrRecover(context)
 
-    fun save(key: String, value: String) {
+    /**
+     * Named API-key profiles plus the credential bound to each AI routing slot.
+     * The registry owns every AI key, so [apiKey] and [setApiKey] stay in sync
+     * with the profiles shown in Settings.
+     */
+    val credentials: AICredentialRegistry = AICredentialRegistry(this)
+
+    override fun save(key: String, value: String) {
         prefs.edit().putString(key, value).apply()
     }
 
-    fun load(key: String): String? = prefs.getString(key, null)
+    override fun load(key: String): String? = prefs.getString(key, null)
 
-    fun delete(key: String) {
+    override fun delete(key: String) {
         prefs.edit().remove(key).apply()
     }
 
     // AI providers
-    fun apiKey(provider: AIProvider): String? = load(AI_PREFIX + provider.name)
+    /** The provider's effective key: the primary route's profile, or its default. */
+    fun apiKey(provider: AIProvider): String? = credentials.effectiveSecret(provider)
+
+    /** Writes the provider's default profile only; other profiles stay untouched. */
     fun setApiKey(provider: AIProvider, key: String?) {
-        val storageKey = AI_PREFIX + provider.name
-        if (key.isNullOrEmpty()) delete(storageKey) else save(storageKey, key)
+        credentials.setDefaultSecret(provider, key)
     }
 
     // Speech providers
@@ -79,7 +88,6 @@ class KeyStore(context: Context) {
     companion object {
         private const val TAG = "FudAIKeyStore"
         private const val FILE_NAME = "fudai_keychain"
-        private const val AI_PREFIX = "apikey_"
         private const val STT_PREFIX = "speechApiKey_"
         private const val USDA_FDC_API_KEY = "usdaFoodDataCentralApiKey"
         private const val WEEKLY_CHALLENGE_BEARER_TOKEN = "weekly_challenge_bearer_token_v1"

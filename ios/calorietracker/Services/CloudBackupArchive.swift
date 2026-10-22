@@ -26,6 +26,11 @@ enum CloudBackupPolicy {
         if key.hasPrefix("healthKit") { return false }
         if key.hasPrefix("Apple") || key.hasPrefix("NS") || key.hasPrefix("com.apple") { return false }
         if key.hasPrefix("AK") { return false }
+        // API-key profile records, the migration marker and route bindings are tied
+        // to this phone's Keychain. A backup cannot carry the secrets, so restoring
+        // these keys would leave profiles whose keys are absent and could suppress
+        // recovery of a legacy key that is still present on this phone.
+        if key.hasPrefix("aiCredential") || key.hasPrefix("aiRouteCredential_") { return false }
         return true
     }
 

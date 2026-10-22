@@ -198364,6 +198364,726 @@
         }
       }
     },
+    "Routing overview": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Routing-Übersicht"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Routing overview"
+          }
+        }
+      }
+    },
+    "API key profiles": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API-Schlüssel-Profile"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API key profiles"
+          }
+        }
+      }
+    },
+    "Manage": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verwalten"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Manage"
+          }
+        }
+      }
+    },
+    "No key selected": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kein Schlüssel gewählt"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No key selected"
+          }
+        }
+      }
+    },
+    "%@ key": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schlüssel für %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ key"
+          }
+        }
+      }
+    },
+    "Primary AI": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Haupt-KI"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Primary AI"
+          }
+        }
+      }
+    },
+    "Text AI": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Text-KI"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Text AI"
+          }
+        }
+      }
+    },
+    "Image fallback": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bild-Fallback"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Image fallback"
+          }
+        }
+      }
+    },
+    "Text fallback": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Text-Fallback"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Text fallback"
+          }
+        }
+      }
+    },
+    "Pick the API key profile this route uses. The provider and model stay the same.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wähle das API-Schlüsselprofil für diese Route. Anbieter und Modell bleiben unverändert."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pick the API key profile this route uses. The provider and model stay the same."
+          }
+        }
+      }
+    },
+    "Saved keys for %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gespeicherte Schlüssel für %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saved keys for %@"
+          }
+        }
+      }
+    },
+    "No API key saved for this provider yet.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Für diesen Anbieter ist noch kein API-Schlüssel gespeichert."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No API key saved for this provider yet."
+          }
+        }
+      }
+    },
+    "Add a new key": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neuen Schlüssel hinzufügen"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add a new key"
+          }
+        }
+      }
+    },
+    "API key": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API-Schlüssel"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API key"
+          }
+        }
+      }
+    },
+    "Name, e.g. OpenRouter – personal": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Name, z. B. OpenRouter – privat"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Name, e.g. OpenRouter – personal"
+          }
+        }
+      }
+    },
+    "Paste the API key": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API-Schlüssel einfügen"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Paste the API key"
+          }
+        }
+      }
+    },
+    "Hide API key": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API-Schlüssel verbergen"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hide API key"
+          }
+        }
+      }
+    },
+    "Show API key": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API-Schlüssel anzeigen"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show API key"
+          }
+        }
+      }
+    },
+    "Key profile": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schlüsselprofil"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Key profile"
+          }
+        }
+      }
+    },
+    "New key profile": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neues Schlüsselprofil"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "New key profile"
+          }
+        }
+      }
+    },
+    "Leave the key empty to keep the current one. The full key is never shown again.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lass das Schlüsselfeld leer, um den aktuellen Schlüssel zu behalten. Der vollständige Schlüssel wird nie wieder angezeigt."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Leave the key empty to keep the current one. The full key is never shown again."
+          }
+        }
+      }
+    },
+    "Stored in this device's encrypted credential storage. Fud AI never shows the full key again.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wird im verschlüsselten Anmeldedatenspeicher dieses Geräts gespeichert. Fud AI zeigt den vollständigen Schlüssel nie wieder an."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stored in this device's encrypted credential storage. Fud AI never shows the full key again."
+          }
+        }
+      }
+    },
+    "Edit API key": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API-Schlüssel bearbeiten"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Edit API key"
+          }
+        }
+      }
+    },
+    "Add API key": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API-Schlüssel hinzufügen"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add API key"
+          }
+        }
+      }
+    },
+    "Enter a name for this key.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gib einen Namen für diesen Schlüssel ein."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enter a name for this key."
+          }
+        }
+      }
+    },
+    "Keep the name under 60 characters.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Name darf höchstens 60 Zeichen lang sein."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keep the name under 60 characters."
+          }
+        }
+      }
+    },
+    "Enter an API key.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gib einen API-Schlüssel ein."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enter an API key."
+          }
+        }
+      }
+    },
+    "The key is too long.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Schlüssel ist zu lang."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The key is too long."
+          }
+        }
+      }
+    },
+    "The key contains spaces. Remove them and try again.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Schlüssel enthält Leerzeichen. Entferne sie und versuche es erneut."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The key contains spaces. Remove them and try again."
+          }
+        }
+      }
+    },
+    "This key no longer exists.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dieser Schlüssel existiert nicht mehr."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This key no longer exists."
+          }
+        }
+      }
+    },
+    "Save more than one key for the same provider, give each a name, and choose which profile every AI route uses. Keys stay in encrypted storage and are shown only as a short fingerprint.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Speichere mehrere Schlüssel für denselben Anbieter, gib jedem einen Namen und wähle, welches Profil jede KI-Route nutzt. Schlüssel bleiben verschlüsselt und werden nur als kurzer Fingerabdruck angezeigt."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Save more than one key for the same provider, give each a name, and choose which profile every AI route uses. Keys stay in encrypted storage and are shown only as a short fingerprint."
+          }
+        }
+      }
+    },
+    "No key saved for this provider.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Für diesen Anbieter ist kein Schlüssel gespeichert."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No key saved for this provider."
+          }
+        }
+      }
+    },
+    "Delete API key?": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API-Schlüssel löschen?"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete API key?"
+          }
+        }
+      }
+    },
+    "Move those routes to %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diese Routen zu %@ verschieben"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Move those routes to %@"
+          }
+        }
+      }
+    },
+    "Delete and leave routes unconfigured": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Löschen und Routen ohne Zuordnung lassen"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete and leave routes unconfigured"
+          }
+        }
+      }
+    },
+    "The key is removed from this device. No active route uses it.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Schlüssel wird von diesem Gerät entfernt. Keine aktive Route nutzt ihn."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The key is removed from this device. No active route uses it."
+          }
+        }
+      }
+    },
+    "The key is removed from this device. It is used by %@.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Schlüssel wird von diesem Gerät entfernt. Er wird genutzt von %@."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The key is removed from this device. It is used by %@."
+          }
+        }
+      }
+    },
+    "Shows which provider, API key profile and model every AI route uses. Each route can use its own key, so you can keep a personal and a work key for the same provider. Rows marked Off are not active.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zeigt, welcher Anbieter, welches API-Schlüsselprofil und welches Modell jede KI-Route nutzt. Jede Route kann ihren eigenen Schlüssel verwenden, sodass du einen privaten und einen geschäftlichen Schlüssel für denselben Anbieter behalten kannst. Mit „Aus“ markierte Zeilen sind nicht aktiv."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shows which provider, API key profile and model every AI route uses. Each route can use its own key, so you can keep a personal and a work key for the same provider. Rows marked Off are not active."
+          }
+        }
+      }
+    },
+    "Test": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Testen"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Test"
+          }
+        }
+      }
+    },
+    "Test API key?": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API-Schlüssel testen?"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Test API key?"
+          }
+        }
+      }
+    },
+    "Fud AI sends one short request to %@ to check that the key, the model and the endpoint work together. It uses one request from your provider account.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI sendet eine kurze Anfrage an %@, um zu prüfen, ob Schlüssel, Modell und Endpunkt zusammenpassen. Das kostet eine Anfrage auf deinem Anbieter-Konto."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI sends one short request to %@ to check that the key, the model and the endpoint work together. It uses one request from your provider account."
+          }
+        }
+      }
+    },
+    "Checking the key…": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schlüssel wird geprüft…"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Checking the key…"
+          }
+        }
+      }
+    },
+    "Send test request": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Testanfrage senden"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Send test request"
+          }
+        }
+      }
+    },
+    "The provider accepted this key.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Anbieter hat diesen Schlüssel akzeptiert."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The provider accepted this key."
+          }
+        }
+      }
+    },
+    "No key needed": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kein Schlüssel nötig"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No key needed"
+          }
+        }
+      }
+    },
     "Camera is unavailable.": {
       "localizations": {
         "ar": {

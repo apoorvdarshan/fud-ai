@@ -513,7 +513,6 @@ struct AIProviderSettings {
     private static let separateTextProviderEnabledKey = "separateTextProviderEnabled"
     private static let textProviderKey = "selectedTextAIProvider"
     private static let textModelKey = "selectedTextAIModel"
-    private static let apiKeyKeychainPrefix = "apikey_"
     private static let baseURLKey = "customBaseURL_"
     private static let userContextKey = "aiUserContext"
     private static let fallbackEnabledKey = "aiFallbackEnabled"
@@ -706,17 +705,15 @@ struct AIProviderSettings {
         }
     }
 
+    /// The provider's default API-key profile. Named profiles live in
+    /// [AICredentialStore]; this keeps the single-key callers (chat, voice, speech)
+    /// on the profile the user sees as primary.
     static func apiKey(for provider: AIProvider) -> String? {
-        KeychainHelper.load(key: apiKeyKeychainPrefix + provider.rawValue)
+        AICredentialStore.shared.effectiveSecret(for: provider)
     }
 
     static func setAPIKey(_ key: String?, for provider: AIProvider) {
-        let keychainKey = apiKeyKeychainPrefix + provider.rawValue
-        if let key, !key.isEmpty {
-            KeychainHelper.save(key: keychainKey, value: key)
-        } else {
-            KeychainHelper.delete(key: keychainKey)
-        }
+        _ = AICredentialStore.shared.setDefaultSecret(provider: provider, secret: key)
     }
 
     static func customBaseURL(for provider: AIProvider) -> String? {
@@ -763,15 +760,22 @@ struct AIProviderSettings {
 
     /// Image requests always use the vision provider. Text-only requests use the
     /// optional dedicated selection when enabled; otherwise behavior is unchanged.
+    /// The route a text-only request uses: the Text AI slot when the user enabled a
+    /// separate text provider, otherwise the primary route.
+    static var currentTextRoute: AIRoute {
+        separateTextProviderEnabled ? .text : .primary
+    }
+
     static func currentConfig(requiresVision: Bool) -> RequestConfig {
         let useSeparateText = !requiresVision && separateTextProviderEnabled
         let provider = useSeparateText ? selectedTextProvider : selectedProvider
         let model = useSeparateText ? selectedTextModel : selectedModel
+        let route: AIRoute = useSeparateText ? .text : .primary
         return RequestConfig(
             provider: provider,
             model: model,
             baseURL: customBaseURL(for: provider) ?? provider.baseURL,
-            apiKey: apiKey(for: provider)
+            apiKey: AICredentialStore.shared.routeSecret(route, provider: provider)
         )
     }
 
@@ -897,43 +901,65 @@ struct AIProviderSettings {
 
     /// Returns the resolved fallback config when (a) fallback is enabled, (b) the fallback
     /// provider has a usable key (or doesn't require one), and (c) the fallback config
-    /// isn't byte-for-byte identical to the primary (same provider + model + server =
-    /// pointless retry). Same provider with a *different* model IS allowed — common pattern
-    /// is e.g. Gemini Pro primary with Gemini Flash fallback for capacity-pool diversity
-    /// within one provider — and so is the same model on a *different* server.
-    static func currentImageFallbackConfig(excludingPrimary primary: AIProvider, model primaryModel: String) -> FallbackConfig? {
+    /// isn't the same request as the primary one. Same provider with a *different* model
+    /// IS allowed — common pattern is e.g. Gemini Pro primary with Gemini Flash fallback
+    /// for capacity-pool diversity within one provider — and so is the same model on a
+    /// *different* server, or the same model with a *different* key: a second account of
+    /// the same provider can answer when the first one is exhausted or rate limited.
+    static func currentImageFallbackConfig(
+        excludingPrimary primary: AIProvider,
+        model primaryModel: String,
+        primaryCredentialID: String? = nil
+    ) -> FallbackConfig? {
         guard fallbackEnabled else { return nil }
         let provider = selectedFallbackProvider
         let model = selectedFallbackModel
         let baseURL = fallbackCustomBaseURL(for: provider) ?? provider.baseURL
+        let credential = AICredentialStore.shared.routeProfile(.imageFallback, provider: provider)
         if provider == primary, model == primaryModel,
-           baseURL == (customBaseURL(for: primary) ?? primary.baseURL) { return nil }
-        if provider.requiresAPIKey, apiKey(for: provider) == nil { return nil }
+           baseURL == (customBaseURL(for: primary) ?? primary.baseURL),
+           credential?.id == primaryCredentialID {
+            return nil
+        }
+        // The route's own credential only: a route bound to a keyless profile must not
+        // silently borrow another profile's key.
+        let apiKey = AICredentialStore.shared.routeSecret(.imageFallback, provider: provider)
+        if provider.requiresAPIKey, apiKey == nil { return nil }
         return FallbackConfig(
             provider: provider,
             model: model,
             baseURL: baseURL,
-            apiKey: apiKey(for: provider)
+            apiKey: apiKey
         )
     }
 
-    static func currentTextFallbackConfig(excludingPrimary primary: AIProvider, model primaryModel: String) -> FallbackConfig? {
+    static func currentTextFallbackConfig(
+        excludingPrimary primary: AIProvider,
+        model primaryModel: String,
+        primaryCredentialID: String? = nil
+    ) -> FallbackConfig? {
         guard textFallbackEnabled else { return nil }
         let provider = selectedTextFallbackProvider
         let model = selectedTextFallbackModel
         let baseURL = fallbackCustomBaseURL(for: provider) ?? provider.baseURL
+        let credential = AICredentialStore.shared.routeProfile(.textFallback, provider: provider)
         if provider == primary, model == primaryModel,
-           baseURL == (customBaseURL(for: primary) ?? primary.baseURL) { return nil }
-        if provider.requiresAPIKey, apiKey(for: provider) == nil { return nil }
+           baseURL == (customBaseURL(for: primary) ?? primary.baseURL),
+           credential?.id == primaryCredentialID {
+            return nil
+        }
+        let apiKey = AICredentialStore.shared.routeSecret(.textFallback, provider: provider)
+        if provider.requiresAPIKey, apiKey == nil { return nil }
         return FallbackConfig(
             provider: provider,
             model: model,
             baseURL: baseURL,
-            apiKey: apiKey(for: provider)
+            apiKey: apiKey
         )
     }
 
     static func deleteAllData() {
+        AICredentialStore.shared.deleteAll()
         for provider in AIProvider.allCases {
             setAPIKey(nil, for: provider)
             setCustomBaseURL(nil, for: provider)

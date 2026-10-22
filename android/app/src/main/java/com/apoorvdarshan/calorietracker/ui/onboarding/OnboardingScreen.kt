@@ -285,6 +285,7 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
                     provider = ui.aiProvider,
                     model = ui.aiModel,
                     apiKey = ui.apiKey,
+                    apiKeyError = ui.apiKeyError,
                     acceptedTerms = ui.acceptedTerms,
                     onSelectByok = vm::selectByokSetup,
                     onProviderChange = vm::setAiProvider,
@@ -1317,6 +1318,7 @@ private fun ProviderStep(
     provider: AIProvider,
     model: String,
     apiKey: String,
+    apiKeyError: String?,
     acceptedTerms: Boolean,
     onSelectByok: () -> Unit,
     onProviderChange: (AIProvider) -> Unit,
@@ -1351,6 +1353,7 @@ private fun ProviderStep(
                 provider = provider,
                 model = model,
                 apiKey = apiKey,
+                apiKeyError = apiKeyError,
                 acceptedTerms = acceptedTerms,
                 onProviderClick = { selectorSheet = ProviderSelectorSheet.PROVIDER },
                 onModelClick = { selectorSheet = ProviderSelectorSheet.MODEL },
@@ -1595,6 +1598,7 @@ private fun ByokSetupSection(
     provider: AIProvider,
     model: String,
     apiKey: String,
+    apiKeyError: String?,
     acceptedTerms: Boolean,
     onProviderClick: () -> Unit,
     onModelClick: () -> Unit,
@@ -1676,9 +1680,13 @@ private fun ByokSetupSection(
                     value = apiKey,
                     onValueChange = onKeyChange,
                     singleLine = true,
+                    isError = apiKeyError != null,
                     visualTransformation = PasswordVisualTransformation(),
                     label = { Text(stringResource(R.string.settings_api_key)) },
                     placeholder = { Text(stringResource(provider.apiKeyPlaceholderRes)) },
+                    supportingText = apiKeyError?.let {
+                        { Text(stringResource(R.string.onboarding_api_key_invalid)) }
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 14.dp, vertical = 8.dp)

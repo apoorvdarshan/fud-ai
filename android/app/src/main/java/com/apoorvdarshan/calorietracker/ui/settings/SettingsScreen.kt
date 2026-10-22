@@ -1,6 +1,7 @@
 package com.apoorvdarshan.calorietracker.ui.settings
 
 import com.apoorvdarshan.calorietracker.models.OpenRouterReasoningEffort
+import com.apoorvdarshan.calorietracker.services.ai.AiErrorKind
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -88,6 +89,7 @@ import androidx.compose.material.icons.outlined.Key
 import androidx.compose.material.icons.outlined.Language
 import androidx.compose.material.icons.outlined.Translate
 import androidx.compose.material.icons.outlined.Link
+import androidx.compose.material.icons.outlined.NetworkCheck
 import androidx.compose.material.icons.outlined.Numbers
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.outlined.LockOpen
@@ -173,6 +175,8 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.apoorvdarshan.calorietracker.AppContainer
+import com.apoorvdarshan.calorietracker.data.AICredential
+import com.apoorvdarshan.calorietracker.data.AIRoute
 import com.apoorvdarshan.calorietracker.models.ActivityLevel
 import com.apoorvdarshan.calorietracker.models.AIProvider
 import com.apoorvdarshan.calorietracker.models.AutoBalanceMacro
@@ -246,15 +250,27 @@ import kotlin.math.abs
 import kotlin.math.roundToInt
 
 private enum class SettingsSheet {
-    AI_PROVIDER, AI_MODEL, REASONING_EFFORT, MAX_TOKENS, REQUEST_TIMEOUT, API_KEY, CUSTOM_BASE_URL, SPEECH_PROVIDER, SPEECH_LANGUAGE, SPEECH_KEY,
-    TEXT_PROVIDER, TEXT_MODEL, TEXT_KEY, TEXT_BASE_URL,
-    TEXT_FALLBACK_PROVIDER, TEXT_FALLBACK_MODEL, TEXT_FALLBACK_KEY, TEXT_FALLBACK_BASE_URL,
-    FALLBACK_PROVIDER, FALLBACK_MODEL, FALLBACK_KEY, FALLBACK_BASE_URL,
+    AI_PROVIDER, AI_MODEL, REASONING_EFFORT, MAX_TOKENS, REQUEST_TIMEOUT, CUSTOM_BASE_URL, SPEECH_PROVIDER, SPEECH_LANGUAGE, SPEECH_KEY,
+    TEXT_PROVIDER, TEXT_MODEL, TEXT_BASE_URL,
+    TEXT_FALLBACK_PROVIDER, TEXT_FALLBACK_MODEL, TEXT_FALLBACK_BASE_URL,
+    FALLBACK_PROVIDER, FALLBACK_MODEL, FALLBACK_BASE_URL,
     SPEECH_FALLBACK_PROVIDER, SPEECH_FALLBACK_LANGUAGE, SPEECH_FALLBACK_KEY,
     GENDER, BIRTHDAY, HEIGHT, WEIGHT, BODY_FAT, GOAL_BODY_FAT, ACTIVITY, GOAL, GOAL_WEIGHT, GOAL_SPEED,
     CALORIES, PROTEIN, CARBS, FAT, OPTIONAL_NUTRIENTS,
     APPEARANCE, APP_LANGUAGE, WEEK_START, ENERGY_UNIT, MEAL_TIMES, WATER_GOAL, WATER_UNIT, WATER_QUICK_ADD, FASTING_GOAL, WORKOUT_SPLIT, WORKOUT_RPE, WORKOUT_REST
 }
+
+/** Add/edit dialog request. A non-null [existing] means rename/replace, never a second profile. */
+private data class CredentialEditorRequest(
+    val provider: AIProvider,
+    val existing: AICredential? = null,
+    val bindToRoute: AIRoute? = null,
+)
+
+private data class CredentialDeleteRequest(val credential: AICredential)
+
+/** A key the user asked to check against its provider. */
+private data class CredentialTestRequest(val credential: AICredential)
 
 private fun energyUnitTitleRes(unit: EnergyUnit): Int =
     if (unit == EnergyUnit.KJ) R.string.settings_energy_unit_kj else R.string.settings_energy_unit_kcal
@@ -380,6 +396,10 @@ fun SettingsScreen(
     val latestMeasurement by container.bodyMeasurementRepository.latest.collectAsState(initial = null)
 
     var sheet by remember { mutableStateOf<SettingsSheet?>(null) }
+    var credentialEditor by remember { mutableStateOf<CredentialEditorRequest?>(null) }
+    var credentialToDelete by remember { mutableStateOf<CredentialDeleteRequest?>(null) }
+    var credentialPickerRoute by remember { mutableStateOf<AIRoute?>(null) }
+    var credentialTest by remember { mutableStateOf<CredentialTestRequest?>(null) }
     var showNutritionImport by remember { mutableStateOf(false) }
     if (showNutritionImport) {
         HealthNutritionImportDialog(container) { showNutritionImport = false }
@@ -1194,6 +1214,35 @@ fun SettingsScreen(
             // independent provider, model, key, and routing preferences.
             if (selectedCategory == SettingsCategory.AI_PROVIDERS) {
             SectionCard {
+                SettingsSubsectionHeader(
+                    title = stringResource(R.string.settings_api_profiles_title),
+                    icon = Icons.Outlined.Key,
+                    infoText = stringResource(R.string.settings_api_profiles_info)
+                )
+                ui.credentialProfiles.forEach { credential ->
+                    ApiCredentialProfileRow(
+                        credential = credential,
+                        fingerprint = ui.fingerprintFor(credential),
+                        onEdit = { credentialEditor = CredentialEditorRequest(credential.provider, credential) },
+                        onTest = { credentialTest = CredentialTestRequest(credential) },
+                        onDelete = { credentialToDelete = CredentialDeleteRequest(credential) }
+                    )
+                    HorizontalDivider()
+                }
+                SettingRow(
+                    label = stringResource(R.string.settings_api_profile_add),
+                    value = "",
+                    icon = Icons.Outlined.Add,
+                    onClick = {
+                        credentialEditor = CredentialEditorRequest(
+                            ui.credentialProviders.firstOrNull { it == ui.selectedAI }
+                                ?: ui.credentialProviders.first()
+                        )
+                    }
+                )
+                HorizontalDivider()
+                RoutingOverview(ui)
+                HorizontalDivider()
                 ui.localModelStates[LocalModelId.GEMMA_4_E2B]?.let { localModel ->
                     SettingsSubsectionHeader(
                         title = stringResource(R.string.settings_on_device_models),
@@ -1221,7 +1270,11 @@ fun SettingsScreen(
                 SettingRow(stringResource(R.string.settings_ai_model), ui.selectedModel.ifEmpty { stringResource(R.string.settings_ai_model_unset) }, icon = Icons.Outlined.Tune) { sheet = SettingsSheet.AI_MODEL }
                 if (ui.selectedAI.requiresApiKey) {
                     HorizontalDivider()
-                    SettingRow(stringResource(R.string.settings_api_key), ui.apiKeyMasked.ifEmpty { stringResource(R.string.settings_not_set) }, icon = Icons.Outlined.Key) { sheet = SettingsSheet.API_KEY }
+                    SettingRow(
+                        stringResource(R.string.settings_api_key),
+                        if (ui.selectedAI.requiresApiKey) ui.credentialRowValue(AIRoute.PRIMARY) else stringResource(R.string.settings_not_set),
+                        icon = Icons.Outlined.Key
+                    ) { credentialPickerRoute = AIRoute.PRIMARY }
                 }
                 if (ui.selectedAI.requiresCustomEndpoint || ui.selectedAI == AIProvider.OLLAMA) {
                     HorizontalDivider()
@@ -1287,9 +1340,9 @@ fun SettingsScreen(
                         HorizontalDivider()
                         SettingRow(
                             stringResource(R.string.settings_api_key),
-                            ui.textApiKeyMasked.ifEmpty { stringResource(R.string.settings_not_set) },
+                            ui.credentialRowValue(AIRoute.TEXT),
                             icon = Icons.Outlined.Key
-                        ) { sheet = SettingsSheet.TEXT_KEY }
+                        ) { credentialPickerRoute = AIRoute.TEXT }
                     }
                     if (ui.selectedTextAI.requiresCustomEndpoint || ui.selectedTextAI == AIProvider.OLLAMA) {
                         HorizontalDivider()
@@ -1337,9 +1390,9 @@ fun SettingsScreen(
                         HorizontalDivider()
                         SettingRow(
                             stringResource(R.string.settings_api_key),
-                            ui.textFallbackApiKeyMasked.ifEmpty { stringResource(R.string.settings_not_set) },
+                            ui.credentialRowValue(AIRoute.TEXT_FALLBACK),
                             icon = Icons.Outlined.Key
-                        ) { sheet = SettingsSheet.TEXT_FALLBACK_KEY }
+                        ) { credentialPickerRoute = AIRoute.TEXT_FALLBACK }
                     }
                     if (ui.textFallbackProvider.requiresCustomEndpoint || ui.textFallbackProvider == AIProvider.OLLAMA) {
                         HorizontalDivider()
@@ -1379,9 +1432,9 @@ fun SettingsScreen(
                         HorizontalDivider()
                         SettingRow(
                             stringResource(R.string.settings_api_key),
-                            ui.fallbackApiKeyMasked.ifEmpty { stringResource(R.string.settings_not_set) },
+                            ui.credentialRowValue(AIRoute.IMAGE_FALLBACK),
                             icon = Icons.Outlined.Key
-                        ) { sheet = SettingsSheet.FALLBACK_KEY }
+                        ) { credentialPickerRoute = AIRoute.IMAGE_FALLBACK }
                     }
                     if (ui.fallbackProvider.requiresCustomEndpoint || ui.fallbackProvider == AIProvider.OLLAMA) {
                         HorizontalDivider()
@@ -1840,6 +1893,73 @@ fun SettingsScreen(
             onDismiss = { sheet = null },
             onInvalidGoalWeight = { invalidGoalWeightMessage = it },
             onRebalanceBlocked = { showRebalanceBlockedAlert = true }
+        )
+    }
+
+    credentialPickerRoute?.let { route ->
+        CredentialPickerDialog(
+            route = route,
+            state = ui,
+            onSelect = { credential ->
+                vm.bindCredentialToRoute(route, credential.id)
+                credentialPickerRoute = null
+            },
+            onAddNew = { provider ->
+                credentialPickerRoute = null
+                credentialEditor = CredentialEditorRequest(provider, bindToRoute = route)
+            },
+            onDismiss = { credentialPickerRoute = null }
+        )
+    }
+
+    credentialEditor?.let { request ->
+        CredentialEditorDialog(
+            request = request,
+            state = ui,
+            onSave = { provider, label, key ->
+                val existing = request.existing
+                if (existing == null) {
+                    val result = vm.addCredential(provider, label, key)
+                    if (result.credential != null) {
+                        request.bindToRoute?.let { vm.bindCredentialToRoute(it, result.credential.id) }
+                        credentialEditor = null
+                    }
+                    result.error
+                } else {
+                    // Name and key are one edit: a rejected key must not leave the
+                    // profile renamed without the new key.
+                    val error = vm.updateCredential(
+                        existing.id,
+                        label,
+                        key.takeIf { it.isNotBlank() }
+                    )
+                    if (error == null) credentialEditor = null
+                    error
+                }
+            },
+            onDismiss = { credentialEditor = null }
+        )
+    }
+
+    credentialTest?.let { request ->
+        CredentialTestDialog(
+            request = request,
+            vm = vm,
+            onDismiss = { credentialTest = null }
+        )
+    }
+
+    credentialToDelete?.let { request ->
+        DeleteCredentialDialog(
+            request = request,
+            state = ui,
+            routes = vm.activeRoutesUsingCredential(request.credential.id),
+            replacements = vm.replacementCredentials(request.credential.provider, request.credential.id),
+            onDelete = { replacement ->
+                vm.deleteCredential(request.credential.id, replacement?.id)
+                credentialToDelete = null
+            },
+            onDismiss = { credentialToDelete = null }
         )
     }
 
@@ -2853,11 +2973,6 @@ private fun SettingsSheets(
                         { m -> vm.selectModel(m); onDismiss() }
                     } else null
                 )
-                SettingsSheet.API_KEY -> ApiKeySheet(
-                    title = stringResource(R.string.sheet_api_key_format, stringResource(ui.selectedAI.displayNameRes)),
-                    placeholder = stringResource(ui.selectedAI.apiKeyPlaceholderRes),
-                    onSave = { vm.setApiKey(it); onDismiss() }
-                )
                 SettingsSheet.CUSTOM_BASE_URL -> {
                     val existing = remember { runBlocking { vm.container.prefs.customBaseUrl(ui.selectedAI).first().orEmpty() } }
                     TextFieldSheet(
@@ -2885,11 +3000,6 @@ private fun SettingsSheets(
                     customField = if (ui.selectedTextAI.supportsCustomModelName) {
                         { model -> vm.selectTextModel(model); onDismiss() }
                     } else null
-                )
-                SettingsSheet.TEXT_KEY -> ApiKeySheet(
-                    title = stringResource(R.string.sheet_api_key_format, stringResource(ui.selectedTextAI.displayNameRes)),
-                    placeholder = stringResource(ui.selectedTextAI.apiKeyPlaceholderRes),
-                    onSave = { vm.setTextApiKey(it); onDismiss() }
                 )
                 SettingsSheet.TEXT_BASE_URL -> {
                     val existing = remember { runBlocking { vm.container.prefs.customBaseUrl(ui.selectedTextAI).first().orEmpty() } }
@@ -2925,7 +3035,12 @@ private fun SettingsSheets(
                                 ?.takeIf { it.isNotEmpty() } ?: ui.textFallbackProvider.baseUrl
                         }
                     }
-                    val sameServer = ui.textFallbackProvider == primaryTextProvider && primaryBaseUrl == fallbackBaseUrl
+                    val primaryTextRoute = if (ui.separateTextProviderEnabled) AIRoute.TEXT else AIRoute.PRIMARY
+                    val sameCredential = ui.routeCredential(primaryTextRoute)?.id ==
+                        ui.routeCredential(AIRoute.TEXT_FALLBACK)?.id
+                    // Same model is fine when the fallback uses another key profile.
+                    val sameServer = ui.textFallbackProvider == primaryTextProvider &&
+                        primaryBaseUrl == fallbackBaseUrl && sameCredential
                     val options = if (sameServer) {
                         ui.textFallbackProvider.textModels.filter { it != primaryTextModel }
                     } else {
@@ -2943,11 +3058,6 @@ private fun SettingsSheets(
                         } else null
                     )
                 }
-                SettingsSheet.TEXT_FALLBACK_KEY -> ApiKeySheet(
-                    title = stringResource(R.string.sheet_api_key_format, stringResource(ui.textFallbackProvider.displayNameRes)),
-                    placeholder = stringResource(ui.textFallbackProvider.apiKeyPlaceholderRes),
-                    onSave = { vm.setTextFallbackApiKey(it); onDismiss() }
-                )
                 SettingsSheet.TEXT_FALLBACK_BASE_URL -> {
                     val existing = remember(ui.textFallbackProvider) {
                         runBlocking {
@@ -3099,7 +3209,11 @@ private fun SettingsSheets(
                                 ?.takeIf { it.isNotEmpty() } ?: ui.fallbackProvider.baseUrl
                         }
                     }
-                    val sameServer = ui.fallbackProvider == ui.selectedAI && primaryBaseUrl == fallbackBaseUrl
+                    val sameCredential = ui.routeCredential(AIRoute.PRIMARY)?.id ==
+                        ui.routeCredential(AIRoute.IMAGE_FALLBACK)?.id
+                    // Same model is fine when the fallback uses another key profile.
+                    val sameServer = ui.fallbackProvider == ui.selectedAI &&
+                        primaryBaseUrl == fallbackBaseUrl && sameCredential
                     val opts = if (sameServer)
                         ui.fallbackProvider.models.filter { it != ui.selectedModel }
                     else ui.fallbackProvider.models
@@ -3115,11 +3229,6 @@ private fun SettingsSheets(
                         } else null
                     )
                 }
-                SettingsSheet.FALLBACK_KEY -> ApiKeySheet(
-                    title = stringResource(R.string.sheet_api_key_format, stringResource(ui.fallbackProvider.displayNameRes)),
-                    placeholder = stringResource(ui.fallbackProvider.apiKeyPlaceholderRes),
-                    onSave = { vm.setFallbackApiKey(it); onDismiss() }
-                )
                 SettingsSheet.FALLBACK_BASE_URL -> {
                     val existing = remember(ui.fallbackProvider) {
                         runBlocking {
@@ -3662,6 +3771,557 @@ private fun <T> ListSheet(
             text = stringResource(R.string.action_save),
             onClick = { if (custom.isNotBlank()) customField(custom.trim()) },
             modifier = Modifier.fillMaxWidth()
+        )
+    }
+}
+
+@Composable
+private fun credentialName(credential: AICredential): String =
+    credential.label?.takeIf { it.isNotBlank() }
+        ?: stringResource(
+            R.string.settings_api_profile_default_name,
+            stringResource(credential.provider.displayNameRes)
+        )
+
+@Composable
+private fun SettingsUiState.credentialRowValue(route: AIRoute): String {
+    val credential = routeCredential(route)
+        ?: return stringResource(R.string.settings_not_set)
+    return "${credentialName(credential)} · ${fingerprintFor(credential)}"
+}
+
+@Composable
+private fun ApiCredentialProfileRow(
+    credential: AICredential,
+    fingerprint: String,
+    onEdit: () -> Unit,
+    onTest: () -> Unit,
+    onDelete: () -> Unit,
+) {
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .padding(start = 16.dp, end = 6.dp, top = 8.dp, bottom = 8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        AIProviderBrandIcon(credential.provider, Modifier.size(22.dp))
+        Spacer(Modifier.width(14.dp))
+        Column(Modifier.weight(1f)) {
+            Text(
+                credentialName(credential),
+                style = MaterialTheme.typography.bodyLarge,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+            Text(
+                stringResource(
+                    R.string.settings_api_profile_subtitle,
+                    stringResource(credential.provider.displayNameRes),
+                    fingerprint
+                ),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.58f),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+            Text(
+                stringResource(R.string.settings_api_profile_not_verified),
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.45f)
+            )
+        }
+        IconButton(onClick = onTest) {
+            Icon(
+                Icons.Outlined.NetworkCheck,
+                contentDescription = stringResource(R.string.settings_api_profile_test),
+                tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.65f),
+                modifier = Modifier.size(20.dp)
+            )
+        }
+        IconButton(onClick = onEdit) {
+            Icon(
+                Icons.Outlined.Tune,
+                contentDescription = stringResource(R.string.settings_api_profile_edit),
+                tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.65f),
+                modifier = Modifier.size(20.dp)
+            )
+        }
+        IconButton(onClick = onDelete) {
+            Icon(
+                Icons.Outlined.DeleteForever,
+                contentDescription = stringResource(R.string.settings_api_profile_delete),
+                tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.65f),
+                modifier = Modifier.size(20.dp)
+            )
+        }
+    }
+}
+
+@Composable
+private fun RoutingOverview(state: SettingsUiState) {
+    SettingsSubsectionHeader(
+        title = stringResource(R.string.settings_routing_overview),
+        icon = Icons.Outlined.Refresh,
+        infoText = stringResource(R.string.settings_routing_overview_info)
+    )
+    AIRoute.entries.forEach { route ->
+        val active = when (route) {
+            AIRoute.PRIMARY -> true
+            AIRoute.TEXT -> state.separateTextProviderEnabled
+            AIRoute.IMAGE_FALLBACK -> state.fallbackEnabled
+            AIRoute.TEXT_FALLBACK -> state.textFallbackEnabled
+        }
+        val provider = state.providerForRoute(route)
+        val model = when (route) {
+            AIRoute.PRIMARY -> state.selectedModel
+            AIRoute.TEXT -> state.selectedTextModel
+            AIRoute.IMAGE_FALLBACK -> state.fallbackModel
+            AIRoute.TEXT_FALLBACK -> state.textFallbackModel
+        }
+        val credential = state.routeCredential(route)
+        RoutingOverviewRow(
+            label = stringResource(routeLabelRes(route)),
+            provider = stringResource(provider.displayNameRes),
+            credential = if (!active) {
+                stringResource(R.string.settings_routing_off)
+            } else if (!provider.requiresApiKey) {
+                // A local or keyless provider is fully configured without a key, so it
+                // must not look like a missing credential.
+                stringResource(R.string.settings_routing_no_key_needed)
+            } else {
+                credential?.let { credentialName(it) }
+                    ?: stringResource(R.string.settings_routing_no_key)
+            },
+            model = model,
+            active = active,
+        )
+        if (route != AIRoute.entries.last()) HorizontalDivider()
+    }
+}
+
+private fun routeLabelRes(route: AIRoute): Int = when (route) {
+    AIRoute.PRIMARY -> R.string.settings_routing_primary
+    AIRoute.TEXT -> R.string.settings_routing_text
+    AIRoute.IMAGE_FALLBACK -> R.string.settings_routing_image_fallback
+    AIRoute.TEXT_FALLBACK -> R.string.settings_routing_text_fallback
+}
+
+@Composable
+private fun RoutingOverviewRow(
+    label: String,
+    provider: String,
+    credential: String,
+    model: String,
+    active: Boolean,
+) {
+    val noKeyLabel = stringResource(R.string.settings_routing_no_key)
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 10.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Column(Modifier.weight(1f)) {
+            Text(
+                label,
+                style = MaterialTheme.typography.bodyMedium,
+                fontWeight = FontWeight.SemiBold,
+                color = if (active) {
+                    MaterialTheme.colorScheme.onSurface
+                } else {
+                    MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
+                }
+            )
+            Text(
+                provider,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f)
+            )
+        }
+        Column(
+            Modifier.weight(1.25f),
+            horizontalAlignment = Alignment.End
+        ) {
+            Text(
+                credential,
+                style = MaterialTheme.typography.bodySmall,
+                color = if (credential == noKeyLabel) {
+                    AppColors.Calorie
+                } else {
+                    MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f)
+                },
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+            if (active) {
+                Text(
+                    model,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun CredentialPickerDialog(
+    route: AIRoute,
+    state: SettingsUiState,
+    onSelect: (AICredential) -> Unit,
+    onAddNew: (AIProvider) -> Unit,
+    onDismiss: () -> Unit,
+) {
+    val provider = state.providerForRoute(route)
+    val profiles = state.credentialProfiles.filter { it.provider == provider }
+    val selected = state.routeCredential(route)
+    FudGlassDialog(onDismissRequest = onDismiss) {
+        Text(
+            stringResource(R.string.settings_api_route_select_title, stringResource(provider.displayNameRes)),
+            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.Bold
+        )
+        Text(
+            stringResource(R.string.settings_api_route_select_info),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.62f)
+        )
+        if (profiles.isEmpty()) {
+            Text(
+                stringResource(R.string.settings_api_route_empty),
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.68f)
+            )
+        } else {
+            Column(Modifier.heightIn(max = 280.dp).verticalScroll(rememberScrollState())) {
+                profiles.forEach { credential ->
+                    val isSelected = selected?.id == credential.id
+                    Row(
+                        Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(14.dp))
+                            .clickable { onSelect(credential) }
+                            .padding(horizontal = 10.dp, vertical = 10.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            if (isSelected) Icons.Filled.Check else Icons.Outlined.Key,
+                            contentDescription = null,
+                            tint = if (isSelected) AppColors.Calorie else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
+                            modifier = Modifier.size(20.dp)
+                        )
+                        Spacer(Modifier.width(12.dp))
+                        Column(Modifier.weight(1f)) {
+                            Text(credentialName(credential), style = MaterialTheme.typography.bodyLarge)
+                            Text(
+                                state.fingerprintFor(credential),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f)
+                            )
+                        }
+                    }
+                }
+            }
+        }
+        FudGlassPrimaryButton(
+            text = stringResource(R.string.settings_api_route_add),
+            onClick = { onAddNew(provider) }
+        )
+        FudGlassDialogActions(
+            primaryText = stringResource(R.string.action_cancel),
+            onPrimary = onDismiss
+        )
+    }
+}
+
+@Composable
+private fun CredentialEditorDialog(
+    request: CredentialEditorRequest,
+    state: SettingsUiState,
+    onSave: (provider: AIProvider, label: String, key: String) -> String?,
+    onDismiss: () -> Unit,
+) {
+    var provider by remember(request) { mutableStateOf(request.provider) }
+    var label by remember(request) { mutableStateOf(request.existing?.label.orEmpty()) }
+    var key by remember(request) { mutableStateOf("") }
+    var error by remember { mutableStateOf<String?>(null) }
+    var providerMenu by remember { mutableStateOf(false) }
+    val isEdit = request.existing != null
+    // A profile added from a route picker belongs to that route's provider, so the
+    // provider cannot be changed here — otherwise the route would silently keep its
+    // old provider while the new key is saved for another one.
+    val providerIsLocked = request.bindToRoute != null
+    val providers = state.credentialProviders.ifEmpty { AIProvider.remoteVisionProviders }
+    val errorText = when (error) {
+        "label_required" -> stringResource(R.string.settings_api_profile_error_name)
+        "label_too_long" -> stringResource(R.string.settings_api_profile_error_name_long)
+        "key_required" -> stringResource(R.string.settings_api_profile_error_key)
+        "key_too_long", "key_contains_whitespace" -> stringResource(R.string.settings_api_profile_error_key_invalid)
+        null -> null
+        else -> stringResource(R.string.settings_api_profile_error_generic)
+    }
+
+    FudGlassDialog(onDismissRequest = onDismiss) {
+        Text(
+            stringResource(if (isEdit) R.string.settings_api_profile_edit_title else R.string.settings_api_profile_add_title),
+            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.Bold
+        )
+        if (!isEdit && !providerIsLocked) {
+            Box {
+                Row(
+                    Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(14.dp))
+                        .clickable { providerMenu = true }
+                        .padding(horizontal = 12.dp, vertical = 12.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    AIProviderBrandIcon(provider, Modifier.size(20.dp))
+                    Spacer(Modifier.width(10.dp))
+                    Text(
+                        stringResource(provider.displayNameRes),
+                        modifier = Modifier.weight(1f),
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                    Icon(
+                        Icons.Filled.UnfoldMore,
+                        contentDescription = stringResource(R.string.settings_ai_provider),
+                        modifier = Modifier.size(18.dp)
+                    )
+                }
+                DropdownMenu(expanded = providerMenu, onDismissRequest = { providerMenu = false }) {
+                    providers.forEach { option ->
+                        DropdownMenuItem(
+                            text = { Text(stringResource(option.displayNameRes)) },
+                            leadingIcon = { AIProviderBrandIcon(option, Modifier.size(18.dp)) },
+                            onClick = {
+                                provider = option
+                                providerMenu = false
+                            }
+                        )
+                    }
+                }
+            }
+        } else {
+            Text(
+                stringResource(request.provider.displayNameRes),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+            )
+        }
+        FudGlassTextField(
+            value = label,
+            onValueChange = { label = it; error = null },
+            placeholder = stringResource(R.string.settings_api_profile_name_placeholder),
+            singleLine = true,
+            modifier = Modifier.fillMaxWidth()
+        )
+        FudGlassTextField(
+            value = key,
+            onValueChange = { key = it; error = null },
+            placeholder = if (isEdit) {
+                stringResource(R.string.settings_api_profile_replace_placeholder)
+            } else {
+                stringResource(R.string.settings_api_profile_key_placeholder)
+            },
+            visualTransformation = PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            singleLine = true,
+            modifier = Modifier.fillMaxWidth()
+        )
+        errorText?.let {
+            Text(it, style = MaterialTheme.typography.bodySmall, color = Color(0xFFFF453A))
+        }
+        Text(
+            stringResource(R.string.settings_api_profile_storage_note),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f)
+        )
+        FudGlassPrimaryButton(
+            text = stringResource(if (isEdit) R.string.action_save else R.string.settings_api_profile_add),
+            onClick = { error = onSave(provider, label, key.trim()) },
+            enabled = label.isNotBlank() && (isEdit || key.isNotBlank()),
+        )
+        FudGlassDialogActions(
+            primaryText = stringResource(R.string.action_cancel),
+            onPrimary = onDismiss
+        )
+    }
+}
+
+/**
+ * Runs one minimal request against the provider of the chosen key and reports whether
+ * the provider accepted it. The dialog states that the check uses one request from the
+ * provider's account before the user starts it.
+ */
+@Composable
+private fun CredentialTestDialog(
+    request: CredentialTestRequest,
+    vm: SettingsViewModel,
+    onDismiss: () -> Unit
+) {
+    var result: AiErrorKind? by remember(request) { mutableStateOf<AiErrorKind?>(null) }
+    var hasRun by remember(request) { mutableStateOf(false) }
+    var testing by remember(request) { mutableStateOf(false) }
+    val scope = rememberCoroutineScope()
+    FudGlassDialog(onDismissRequest = { if (!testing) onDismiss() }) {
+        Text(
+            stringResource(R.string.settings_api_profile_test_title),
+            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.Bold
+        )
+        Text(
+            stringResource(
+                R.string.settings_api_profile_test_message,
+                stringResource(request.credential.provider.displayNameRes)
+            ),
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.68f)
+        )
+        if (testing) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                CircularProgressIndicator(
+                    color = AppColors.Calorie,
+                    strokeWidth = 2.dp,
+                    modifier = Modifier.size(18.dp)
+                )
+                Spacer(Modifier.width(10.dp))
+                Text(
+                    stringResource(R.string.settings_api_profile_test_running),
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+                )
+            }
+        }
+        result?.let { kind ->
+            Text(
+                stringResource(kind.messageRes),
+                color = AppColors.Calorie
+            )
+        }
+        if (hasRun && result == null && !testing) {
+            Text(
+                stringResource(R.string.settings_api_profile_test_success),
+                color = AppColors.Calorie
+            )
+        }
+        FudGlassDialogActions(
+            primaryText = if (testing) {
+                stringResource(R.string.settings_api_profile_test_running)
+            } else {
+                stringResource(R.string.settings_api_profile_test_action)
+            },
+            onPrimary = {
+                if (!testing) {
+                    testing = true
+                    hasRun = false
+                    result = null
+                    scope.launch {
+                        val outcome = vm.testCredential(request.credential.id)
+                        testing = false
+                        hasRun = true
+                        result = outcome
+                    }
+                }
+            },
+            primaryEnabled = !testing,
+            dismissText = stringResource(R.string.action_cancel),
+            onDismiss = { if (!testing) onDismiss() }
+        )
+    }
+}
+
+@Composable
+private fun DeleteCredentialDialog(
+    request: CredentialDeleteRequest,
+    state: SettingsUiState,
+    routes: List<AIRoute>,
+    replacements: List<AICredential>,
+    onDelete: (AICredential?) -> Unit,
+    onDismiss: () -> Unit,
+) {
+    var replacement by remember(request) { mutableStateOf<AICredential?>(null) }
+    val routeNames = routes.map { route -> stringResource(routeLabelRes(route)) }
+    FudGlassDialog(onDismissRequest = onDismiss) {
+        Text(
+            stringResource(R.string.settings_api_profile_delete_title),
+            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.Bold
+        )
+        Text(
+            stringResource(R.string.settings_api_profile_delete_message, credentialName(request.credential)),
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.68f)
+        )
+        Text(
+            if (routes.isEmpty()) {
+                stringResource(R.string.settings_api_profile_delete_unused)
+            } else {
+                stringResource(
+                    R.string.settings_api_profile_delete_used,
+                    routeNames.joinToString(" · ")
+                )
+            },
+            style = MaterialTheme.typography.bodySmall,
+            color = if (routes.isEmpty()) {
+                MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+            } else {
+                AppColors.Calorie
+            }
+        )
+        if (routes.isNotEmpty() && replacements.isNotEmpty()) {
+            Text(
+                stringResource(R.string.settings_api_profile_delete_replacement),
+                style = MaterialTheme.typography.bodyMedium,
+                fontWeight = FontWeight.SemiBold
+            )
+            Column(Modifier.heightIn(max = 200.dp).verticalScroll(rememberScrollState())) {
+                replacements.forEach { credential ->
+                    Row(
+                        Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(12.dp))
+                            .clickable { replacement = credential }
+                            .padding(horizontal = 8.dp, vertical = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            if (replacement?.id == credential.id) Icons.Filled.Check else Icons.Outlined.Key,
+                            contentDescription = null,
+                            tint = if (replacement?.id == credential.id) AppColors.Calorie else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
+                            modifier = Modifier.size(18.dp)
+                        )
+                        Spacer(Modifier.width(10.dp))
+                        Text(credentialName(credential), style = MaterialTheme.typography.bodyMedium)
+                    }
+                }
+                Row(
+                    Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(12.dp))
+                        .clickable { replacement = null }
+                        .padding(horizontal = 8.dp, vertical = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        if (replacement == null) Icons.Filled.Check else Icons.Outlined.Key,
+                        contentDescription = null,
+                        tint = if (replacement == null) AppColors.Calorie else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
+                        modifier = Modifier.size(18.dp)
+                    )
+                    Spacer(Modifier.width(10.dp))
+                    Text(
+                        stringResource(R.string.settings_api_profile_delete_leave_unconfigured),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
+            }
+        }
+        FudGlassDialogActions(
+            primaryText = stringResource(R.string.action_delete),
+            onPrimary = { onDelete(replacement) },
+            dismissText = stringResource(R.string.action_cancel),
+            onDismiss = onDismiss,
+            destructive = true
         )
     }
 }

@@ -55,6 +55,19 @@ class OnboardingStateTest {
     }
 
     @Test
+    fun rejectedKeyBlocksContinue() {
+        val state = OnboardingState(
+            step = OnboardingStep.PROVIDER,
+            aiPhase = OnboardingAiPhase.BYOK,
+            aiProvider = AIProvider.GEMINI,
+            apiKey = "bad key",
+            apiKeyError = "key_contains_whitespace"
+        )
+        assertFalse(state.byokSetupComplete)
+        assertFalse(state.canAdvance)
+    }
+
+    @Test
     fun byokOllamaDoesNotRequireKey() {
         val state = OnboardingState(
             step = OnboardingStep.PROVIDER,

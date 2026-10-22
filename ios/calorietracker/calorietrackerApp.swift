@@ -58,6 +58,9 @@ struct calorietrackerApp: App {
         AIProviderSettings.migrateLegacyGeminiModelsIfNeeded()
         SpeechSettings.migrateMatchingPrimaryProviderIfNeeded()
         AIProviderSettings.migrateFallbackBaseURLsIfNeeded()
+        // Adopt legacy per-provider API keys as named profiles (#644). Runs before the
+        // first settings screen reads a key so no route loses its credential.
+        AICredentialStore.shared.ensureMigrated()
         if CommandLine.arguments.contains("--reset-onboarding") {
             UserDefaults.standard.removeObject(forKey: "hasCompletedOnboarding")
             UserDefaults.standard.removeObject(forKey: "userProfile")

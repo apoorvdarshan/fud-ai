@@ -10,6 +10,9 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- Voice-meal widget records in a microphone foreground service. -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
@@ -528,6 +531,33 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/voice_assistant_widget_info" />
         </receiver>
+
+        <!-- One-tap voice meal logging widget: tap to record, tap again to analyse and save. -->
+        <receiver
+            android:name=".widget.MealVoiceWidgetReceiver"
+            android:exported="true"
+            android:label="@string/meal_voice_widget_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/meal_voice_widget_info" />
+        </receiver>
+
+        <!-- Transparent trampoline so the mic foreground service starts without opening the app. -->
+        <activity
+            android:name=".widget.MealVoiceToggleActivity"
+            android:exported="false"
+            android:excludeFromRecents="true"
+            android:noHistory="true"
+            android:taskAffinity=""
+            android:theme="@style/Theme.FudAI.Transparent" />
+
+        <service
+            android:name=".services.MealVoiceService"
+            android:exported="false"
+            android:foregroundServiceType="microphone" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="meal_voice_widget_label">Înregistrează masa vocal</string>
+    <string name="meal_voice_widget_description">O atingere pentru a înregistra masa, încă una pentru a o salva. Afișează caloriile de azi.</string>
+    <string name="meal_voice_mic_denied">Este necesară permisiunea pentru microfon pentru a înregistra mesele vocal.</string>
+    <string name="meal_voice_channel_progress">Înregistrare vocală a mesei</string>
+    <string name="meal_voice_channel_result">Rezultatul mesei vocale</string>
+    <string name="meal_voice_notif_recording">Se înregistrează masa ta…</string>
+    <string name="meal_voice_notif_recording_text">Atinge din nou widgetul pentru a opri</string>
+    <string name="meal_voice_notif_processing">Se salvează masa ta…</string>
+    <string name="meal_voice_action_stop">Oprește</string>
+    <string name="meal_voice_saved_title">Masă salvată</string>
+    <string name="meal_voice_failed_title">Masa nu a fost salvată</string>
+    <string name="meal_voice_nothing_heard">Nu s-a auzit nimic. Încearcă din nou.</string>
+    <string name="meal_voice_failed_generic">Ceva nu a mers bine. Deschide Fud AI și încearcă din nou.</string>
+</resources>

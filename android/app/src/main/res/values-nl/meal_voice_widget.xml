@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="meal_voice_widget_label">Maaltijd inspreken</string>
+    <string name="meal_voice_widget_description">Eén tik om je maaltijd op te nemen, nog één om op te slaan. Toont de calorieën van vandaag.</string>
+    <string name="meal_voice_mic_denied">Microfoontoestemming is nodig om maaltijden in te spreken.</string>
+    <string name="meal_voice_channel_progress">Maaltijd opnemen met stem</string>
+    <string name="meal_voice_channel_result">Resultaat gesproken maaltijd</string>
+    <string name="meal_voice_notif_recording">Je maaltijd wordt opgenomen…</string>
+    <string name="meal_voice_notif_recording_text">Tik nogmaals op de widget om te stoppen</string>
+    <string name="meal_voice_notif_processing">Je maaltijd wordt opgeslagen…</string>
+    <string name="meal_voice_action_stop">Stop</string>
+    <string name="meal_voice_saved_title">Maaltijd opgeslagen</string>
+    <string name="meal_voice_failed_title">Maaltijd niet opgeslagen</string>
+    <string name="meal_voice_nothing_heard">Er is niets gehoord. Probeer het opnieuw.</string>
+    <string name="meal_voice_failed_generic">Er ging iets mis. Open Fud AI en probeer het opnieuw.</string>
+</resources>

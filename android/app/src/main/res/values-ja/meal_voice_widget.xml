@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="meal_voice_widget_label">音声で食事を記録</string>
+    <string name="meal_voice_widget_description">1回タップで食事を録音、もう1回タップで保存。今日のカロリーを表示します。</string>
+    <string name="meal_voice_mic_denied">音声で食事を記録するにはマイクの許可が必要です。</string>
+    <string name="meal_voice_channel_progress">食事の音声録音</string>
+    <string name="meal_voice_channel_result">音声での食事記録の結果</string>
+    <string name="meal_voice_notif_recording">食事を録音しています…</string>
+    <string name="meal_voice_notif_recording_text">ウィジェットをもう一度タップすると停止します</string>
+    <string name="meal_voice_notif_processing">食事を保存しています…</string>
+    <string name="meal_voice_action_stop">停止</string>
+    <string name="meal_voice_saved_title">食事を保存しました</string>
+    <string name="meal_voice_failed_title">食事を保存できませんでした</string>
+    <string name="meal_voice_nothing_heard">音声が聞き取れませんでした。もう一度お試しください。</string>
+    <string name="meal_voice_failed_generic">問題が発生しました。Fud AIを開いてもう一度お試しください。</string>
+</resources>

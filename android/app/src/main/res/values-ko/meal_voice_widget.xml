@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="meal_voice_widget_label">음성으로 식사 기록</string>
+    <string name="meal_voice_widget_description">한 번 탭하면 식사를 녹음하고, 다시 탭하면 저장합니다. 오늘의 칼로리를 보여줍니다.</string>
+    <string name="meal_voice_mic_denied">음성으로 식사를 기록하려면 마이크 권한이 필요합니다.</string>
+    <string name="meal_voice_channel_progress">음성 식사 녹음</string>
+    <string name="meal_voice_channel_result">음성 식사 기록 결과</string>
+    <string name="meal_voice_notif_recording">식사를 녹음하는 중…</string>
+    <string name="meal_voice_notif_recording_text">위젯을 다시 탭하면 중지됩니다</string>
+    <string name="meal_voice_notif_processing">식사를 저장하는 중…</string>
+    <string name="meal_voice_action_stop">중지</string>
+    <string name="meal_voice_saved_title">식사가 저장되었습니다</string>
+    <string name="meal_voice_failed_title">식사를 저장하지 못했습니다</string>
+    <string name="meal_voice_nothing_heard">아무것도 들리지 않았어요. 다시 시도해 주세요.</string>
+    <string name="meal_voice_failed_generic">문제가 발생했습니다. Fud AI를 열고 다시 시도해 주세요.</string>
+</resources>

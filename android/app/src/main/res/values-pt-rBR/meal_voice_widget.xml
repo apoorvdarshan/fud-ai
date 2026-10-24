@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="meal_voice_widget_label">Registrar refeição por voz</string>
+    <string name="meal_voice_widget_description">Um toque para gravar a refeição e outro para salvar. Mostra as calorias de hoje.</string>
+    <string name="meal_voice_mic_denied">A permissão do microfone é necessária para registrar refeições por voz.</string>
+    <string name="meal_voice_channel_progress">Gravação de refeição por voz</string>
+    <string name="meal_voice_channel_result">Resultado da refeição por voz</string>
+    <string name="meal_voice_notif_recording">Gravando sua refeição…</string>
+    <string name="meal_voice_notif_recording_text">Toque no widget novamente para parar</string>
+    <string name="meal_voice_notif_processing">Salvando sua refeição…</string>
+    <string name="meal_voice_action_stop">Parar</string>
+    <string name="meal_voice_saved_title">Refeição salva</string>
+    <string name="meal_voice_failed_title">Refeição não salva</string>
+    <string name="meal_voice_nothing_heard">Nada foi ouvido. Tente novamente.</string>
+    <string name="meal_voice_failed_generic">Algo deu errado. Abra o Fud AI e tente novamente.</string>
+</resources>

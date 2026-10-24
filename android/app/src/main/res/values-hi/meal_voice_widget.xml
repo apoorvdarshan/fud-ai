@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="meal_voice_widget_label">आवाज़ से भोजन दर्ज करें</string>
+    <string name="meal_voice_widget_description">भोजन रिकॉर्ड करने के लिए एक टैप, सेव करने के लिए एक और टैप। आज की कैलोरी दिखाता है।</string>
+    <string name="meal_voice_mic_denied">आवाज़ से भोजन दर्ज करने के लिए माइक्रोफ़ोन की अनुमति चाहिए।</string>
+    <string name="meal_voice_channel_progress">आवाज़ से भोजन रिकॉर्डिंग</string>
+    <string name="meal_voice_channel_result">आवाज़ से भोजन का नतीजा</string>
+    <string name="meal_voice_notif_recording">आपका भोजन रिकॉर्ड हो रहा है…</string>
+    <string name="meal_voice_notif_recording_text">रोकने के लिए विजेट पर फिर टैप करें</string>
+    <string name="meal_voice_notif_processing">आपका भोजन सेव हो रहा है…</string>
+    <string name="meal_voice_action_stop">रोकें</string>
+    <string name="meal_voice_saved_title">भोजन सेव हो गया</string>
+    <string name="meal_voice_failed_title">भोजन सेव नहीं हुआ</string>
+    <string name="meal_voice_nothing_heard">कुछ सुनाई नहीं दिया। फिर से कोशिश करें।</string>
+    <string name="meal_voice_failed_generic">कुछ गड़बड़ हो गई। Fud AI खोलकर फिर कोशिश करें।</string>
+</resources>

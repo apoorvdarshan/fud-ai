@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="meal_voice_widget_label">Zapisz posiłek głosem</string>
+    <string name="meal_voice_widget_description">Jedno dotknięcie nagrywa posiłek, drugie go zapisuje. Pokazuje dzisiejsze kalorie.</string>
+    <string name="meal_voice_mic_denied">Do zapisywania posiłków głosem potrzebne jest uprawnienie do mikrofonu.</string>
+    <string name="meal_voice_channel_progress">Głosowe nagrywanie posiłku</string>
+    <string name="meal_voice_channel_result">Wynik głosowego posiłku</string>
+    <string name="meal_voice_notif_recording">Nagrywam Twój posiłek…</string>
+    <string name="meal_voice_notif_recording_text">Dotknij widżetu ponownie, aby zatrzymać</string>
+    <string name="meal_voice_notif_processing">Zapisuję Twój posiłek…</string>
+    <string name="meal_voice_action_stop">Zatrzymaj</string>
+    <string name="meal_voice_saved_title">Posiłek zapisany</string>
+    <string name="meal_voice_failed_title">Posiłek nie został zapisany</string>
+    <string name="meal_voice_nothing_heard">Nic nie usłyszano. Spróbuj ponownie.</string>
+    <string name="meal_voice_failed_generic">Coś poszło nie tak. Otwórz Fud AI i spróbuj ponownie.</string>
+</resources>

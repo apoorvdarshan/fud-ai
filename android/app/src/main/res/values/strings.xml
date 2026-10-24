@@ -20,6 +20,8 @@
     <string name="widget_kcal_left_format">%1$d kcal left</string>
     <string name="widget_kj_left_format">%1$d kJ left</string>
     <string name="widget_g_left_format">%1$dg left</string>
+    <string name="widget_left_format">%1$s left</string>
+    <string name="widget_enable_in_app">Enable in Fud AI</string>
     <string name="widget_kcal">kcal</string>
     <string name="widget_protein_g">protein g</string>
     <string name="widget_value_unit_format">%1$d%2$s / %3$d%4$s</string>
@@ -66,6 +68,8 @@
     <string name="kj_value_format">%1$,d kJ</string>
     <string name="grams_value_format">%1$dg</string>
     <string name="grams_value_decimal_format">%1$.1fg</string>
+    <string name="macro_grams_format">%1$sg</string>
+    <string name="macro_value_unit_format">%1$s%2$s</string>
     <string name="kg_value_format">%1$.1f kg</string>
     <string name="lbs_value_format">%1$.1f lbs</string>
     <string name="kg_per_week_format">%1$.2f kg/wk</string>
@@ -92,6 +96,10 @@
     <string name="product_categories">Categories</string>
     <string name="product_ingredient_label">Ingredient label</string>
     <string name="product_possible_allergen">Possible allergen: %1$s</string>
+    <string name="allergen_assessment_declared">Declared allergen match</string>
+    <string name="allergen_assessment_may_contain">May contain</string>
+    <string name="allergen_assessment_possible">Possible allergen</string>
+    <string name="allergen_assessment_unable">Unable to assess</string>
     <string name="product_info_settings_show">Show product information</string>
     <string name="product_info_settings_fields">Details to show</string>
     <string name="product_info_settings_footer">Shown at the end of the review and edit screens for barcode-scanned foods. Allergen check is not affected and always appears when you have allergen sensitivities set.</string>
@@ -395,6 +403,12 @@
     <string name="home_macro_over_format">%1$s over</string>
     <string name="home_macro_no_goal">No goal</string>
     <string name="home_macro_goal_reached">Goal reached</string>
+    <string name="home_delete_food_title">Delete Food Log?</string>
+    <string name="home_delete_food_message">This removes the food from your diary. Saved favorites are kept.</string>
+    <string name="home_delete_water_title">Delete Water Log?</string>
+    <string name="home_delete_water_message">This removes the water entry from your diary.</string>
+    <string name="home_delete_fasting_title">Delete Fasting Log?</string>
+    <string name="home_delete_fasting_message">This removes the completed fast from your diary.</string>
     <string name="home_view_more">View More</string>
     <string name="home_burn_deficit">%1$s burned · %2$s deficit</string>
     <string name="home_burn_surplus">%1$s burned · %2$s surplus</string>
@@ -470,6 +484,12 @@
     <string name="context_note_title">Add Note</string>
     <string name="context_note_section">Add a note (optional)</string>
     <string name="context_note_placeholder">e.g. no oil, extra cheese, large portion</string>
+    <string name="context_note_photos_title">Meal Photos</string>
+    <string name="context_note_photo_count_format">%1$d of %2$d photos</string>
+    <string name="context_note_add_photo">Add Photo</string>
+    <string name="context_note_add_photos">Add Photos</string>
+    <string name="context_note_analysis_section">Note for food analysis (optional)</string>
+    <string name="context_note_analysis_placeholder">e.g. chicken is 180g, rice is 220g, use half the sauce</string>
 
     <!-- Voice input sheet -->
     <string name="voice_listening">Listening…</string>
@@ -480,6 +500,26 @@
     <string name="voice_mic_permission_denied">Microphone permission denied.</string>
     <string name="voice_mic_start_failed">Couldn\'t start the mic. Check permissions.</string>
     <string name="voice_transcription_failed">Transcription failed</string>
+    <string name="stt_error_audio">Audio capture failed</string>
+    <string name="stt_error_client">Client error</string>
+    <string name="stt_error_permission">Missing microphone permission</string>
+    <string name="stt_error_network">Network error</string>
+    <string name="stt_error_network_timeout">Network timeout</string>
+    <string name="stt_error_no_match">No speech recognized</string>
+    <string name="stt_error_busy">Recognizer busy</string>
+    <string name="stt_error_server">Server error</string>
+    <string name="stt_error_speech_timeout">No speech input</string>
+    <string name="stt_error_server_disconnected">Speech service disconnected</string>
+    <string name="stt_error_language_not_supported">Speech language is not supported on this device</string>
+    <string name="stt_error_language_unavailable">Speech language is unavailable on this device</string>
+    <string name="stt_error_generic_format">Speech error (%1$d)</string>
+    <string name="stt_api_error_no_key">No speech-to-text API key configured. Add one in Settings → Speech-to-Text.</string>
+    <string name="stt_api_error_network">Could not reach the speech provider. Check your connection and try again.</string>
+    <string name="stt_api_error_api">The speech provider returned an error.</string>
+    <string name="stt_api_error_http">The speech provider returned an error (HTTP %1$d).</string>
+    <string name="stt_api_error_invalid_response">Could not understand the transcription response.</string>
+    <string name="stt_api_error_timeout">Transcription timed out.</string>
+    <string name="stt_api_error_local_unavailable">Whisper Base is not ready on this device. Check the download in Settings → Speech-to-Text.</string>
     <string name="voice_stop">Stop</string>
     <string name="voice_record">Record</string>
 
@@ -552,6 +592,7 @@
     <string name="coach_reset_confirm">Reset</string>
     <string name="coach_no_profile_error">No profile yet. Finish onboarding first.</string>
     <string name="coach_chat_failed">Chat failed</string>
+    <string name="coach_analyze_image_default">Analyze this image.</string>
     <string name="coach_proposal_custom_title">New custom exercise</string>
     <string name="coach_proposal_add_title">Add to workout</string>
     <string name="coach_proposal_add">Add</string>
@@ -728,6 +769,17 @@
     <string name="settings_on_device_models_info">Models download to private app storage and run without sending photos, prompts, or audio to a server. Download size and model license terms apply.</string>
     <string name="settings_local_model_not_downloaded_format">%1$s · Not downloaded</string>
     <string name="settings_local_model_downloading_format">Downloading · %1$d%%</string>
+    <string name="local_model_error_start">The model download could not be started.</string>
+    <string name="local_model_error_storage">Not enough free storage for %1$s.</string>
+    <string name="local_model_error_http">Download failed (HTTP %1$d).</string>
+    <string name="local_model_error_server">The model server returned an unexpected response.</string>
+    <string name="local_model_error_size">The model download size did not match the published artifact.</string>
+    <string name="local_model_error_incomplete">The model download was incomplete.</string>
+    <string name="local_model_error_integrity">The model download failed integrity verification.</string>
+    <string name="local_model_error_install">The verified model could not be installed.</string>
+    <string name="local_model_error_write">The model could not be written to storage. Free up space and try again.</string>
+    <string name="local_model_error_network">Could not reach the model server. Check your connection and try again.</string>
+    <string name="local_model_error_generic">Model download failed.</string>
     <string name="settings_local_model_installed">Installed · Ready offline</string>
     <string name="settings_view_model_license">View model license</string>
     <string name="settings_model_source">Model source</string>
@@ -931,6 +983,7 @@
     <string name="settings_energy_goals_info">When on, Fud AI uses Health Connect\'s recent measured-energy window as your maintenance anchor when calculating goals instead of the formula estimate: measured total energy when enough days are available; otherwise, average measured active energy + formula BMR. No AI is used to read your burn. Requires Health Connect. Works with the Recalculate button and with Adaptive Goals.</string>
     <string name="settings_adaptive_goals">Adaptive Goals</string>
     <string name="settings_adaptive_goals_info">About once a week when you open the app, Fud AI automatically re-runs the full goal calculation — the same one the Recalculate button uses — from your profile, recent logged food, and weight trend. If Energy Burn is on, it uses your measured burn as the maintenance anchor. It skips silently if the AI is unavailable. Turning this off restores the targets from before Adaptive Goals first changed them. This is not medical advice.</string>
+    <string name="adaptive_goals_updated_format">Updated to %1$s from your latest data.</string>
     <string name="settings_refresh_energy_goals">Refresh Energy Burn Goals</string>
     <string name="settings_clear_food_log">Clear Food Log</string>
     <string name="settings_delete_all_data">Delete All Data</string>
@@ -1184,6 +1237,19 @@
     <string name="cloud_backup_switch_account">Switch Google account</string>
     <string name="cloud_backup_turn_on">Turn On</string>
     <string name="cloud_backup_sign_in_failed">Couldn\'t open Google sign-in.</string>
+    <string name="cloud_backup_error_not_backup">This is not a Fud AI backup.</string>
+    <string name="cloud_backup_error_needs_newer_app">This backup needs a newer Fud AI.</string>
+    <string name="cloud_backup_error_no_backup">No Google Drive backup found.</string>
+    <string name="cloud_backup_error_sign_in_required">Sign in to Google Drive first.</string>
+    <string name="cloud_backup_error_no_token">Google did not return an access token.</string>
+    <string name="cloud_backup_error_list_failed">Google Drive listing failed (HTTP %1$d).</string>
+    <string name="cloud_backup_error_download_failed">Google Drive download failed (HTTP %1$d).</string>
+    <string name="cloud_backup_error_delete_failed">Google Drive delete failed (HTTP %1$d).</string>
+    <string name="cloud_backup_error_revoke_failed">Google sign-out failed (HTTP %1$d).</string>
+    <string name="cloud_backup_error_upload_failed">Google Drive upload failed (HTTP %1$d).</string>
+    <string name="cloud_backup_error_empty_response">Google Drive returned an empty response.</string>
+    <string name="cloud_backup_error_update_failed">Google Drive update failed (HTTP %1$d).</string>
+    <string name="cloud_backup_error_network">Could not reach Google Drive. Check your connection and try again.</string>
     <string name="cloud_backup_restore_no_space">Not enough free storage to restore this backup. Free up some space and try again.</string>
     <string name="export_diary_title">Export Food Diary</string>
     <string name="import_diary_title">Import Food Diary</string>
@@ -1194,6 +1260,7 @@
     <string name="import_add_action">Add as New Entries</string>
     <string name="import_success">Imported %1$d food entries.</string>
     <string name="import_read_failed">The selected file could not be read.</string>
+    <string name="import_file_too_large">This file is too large to import.</string>
     <string name="export_range">Range</string>
     <string name="export_format">Format</string>
     <string name="export_action">Export</string>
@@ -1206,6 +1273,10 @@
     <string name="macro_protein_format">Protein: %1$s</string>
     <string name="macro_carbs_format">Carbs: %1$s</string>
     <string name="macro_fat_format">Fat: %1$s</string>
+    <string name="macro_abbrev_protein">P</string>
+    <string name="macro_abbrev_carbs">C</string>
+    <string name="macro_abbrev_fat">F</string>
+    <string name="home_meal_macro_summary_format">%1$dP · %2$dC · %3$dF</string>
     <string name="nutrient_fiber_format">Fiber: %1$sg</string>
     <string name="nutrient_sugar_format">Sugar: %1$sg</string>
     <string name="nutrient_sat_fat_format">Sat fat: %1$sg</string>
@@ -1237,6 +1308,10 @@
     <string name="cd_cancel_recording">Cancel recording</string>
     <string name="cd_remove_image">Remove image</string>
     <string name="cd_meal_photo">Photo %1$d</string>
+    <string name="cd_remove_photo">Remove photo</string>
+    <string name="cd_flash_on">Flash on</string>
+    <string name="cd_flash_auto">Flash auto</string>
+    <string name="cd_flash_off">Flash off</string>
     <string name="cd_view_full_photo">View full photo</string>
     <string name="cd_add_image">Add image</string>
     <string name="cd_open_camera">Open camera</string>
@@ -1265,6 +1340,10 @@
     <string name="edit_reprocess_hint">Add a note to refine this entry — e.g. large bowl, extra olive oil — then tap Reprocess</string>
     <string name="edit_reprocess">Reprocess</string>
     <string name="edit_reprocessing">Reprocessing…</string>
+    <string name="edit_section_actions">Actions</string>
+    <string name="edit_save_to_favorites">Save to Favorites</string>
+    <string name="edit_remove_from_favorites">Remove from Favorites</string>
+    <string name="edit_delete_food_log">Delete Food Log</string>
     <string name="edit_reprocessing_failed">Reprocessing failed</string>
     <string name="section_date_time">Date &amp; Time</string>
     <string name="section_share">Share</string>
@@ -1324,6 +1403,7 @@
     <string name="vm_health_connect_needed">Health Connect Needed</string>
     <string name="vm_not_enough_energy">Not Enough Energy Data</string>
     <string name="vm_adaptive_on_message">Adaptive Goals is on. Fud AI will check once per week after enough food and weight data exists.</string>
+    <string name="vm_goals_updated_format">Updated to %1$s.</string>
     <string name="vm_goals_recalculated">Goals Recalculated</string>
     <plurals name="import_add_meals_title">
         <item quantity="one">Add shared meal</item>

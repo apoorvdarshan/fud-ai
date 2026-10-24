@@ -7,6 +7,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
+import androidx.glance.LocalContext
 import androidx.glance.GlanceTheme
 import androidx.glance.LocalSize
 import androidx.glance.action.actionStartActivity
@@ -139,7 +140,7 @@ private fun AllMetricsTall(snapshot: WidgetSnapshot) {
     val barH = (contentH - 34f - gaugeW * 0.58f - 66f).toInt().coerceAtLeast(40)
 
     Column(modifier = GlanceModifier.fillMaxSize()) {
-        WidgetHeader(iconRes = R.drawable.ic_widget_flame, label = "Today")
+        WidgetHeader(iconRes = R.drawable.ic_widget_flame, label = LocalContext.current.getString(R.string.widget_today))
         Spacer(modifier = GlanceModifier.height(4.dp))
         Box(
             modifier = GlanceModifier.fillMaxWidth(),

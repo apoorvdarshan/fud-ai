@@ -96,7 +96,8 @@ class DriveCloudBackupClient(
         return if (pending != null) {
             AuthOutcome.Resolution(pending.intentSender)
         } else {
-            val token = result.accessToken ?: error("Google did not return an access token")
+            val token = result.accessToken
+                ?: throw CloudBackupDriveException(CloudBackupDriveFailure.NO_ACCESS_TOKEN, message = "Google did not return an access token")
             AuthOutcome.Token(token)
         }
     }
@@ -132,7 +133,7 @@ class DriveCloudBackupClient(
             .get()
             .build()
         http.newCall(request).execute().use { response ->
-            if (!response.isSuccessful) error("Drive list failed (${response.code})")
+            if (!response.isSuccessful) throw driveFailure(CloudBackupDriveFailure.LIST, response.code, "Drive list failed")
             val file = listJson.decodeFromString<DriveFileList>(response.body.string()).files.firstOrNull()
                 ?: return@use null
             val id = file.id.takeIf { it.isNotBlank() } ?: return@use null
@@ -164,7 +165,7 @@ class DriveCloudBackupClient(
             .get()
             .build()
         http.newCall(request).execute().use { response ->
-            if (!response.isSuccessful) error("Drive download failed (${response.code})")
+            if (!response.isSuccessful) throw driveFailure(CloudBackupDriveFailure.DOWNLOAD, response.code, "Drive download failed")
             response.body.byteStream().use { input ->
                 destination.outputStream().use { input.copyTo(it) }
             }
@@ -179,7 +180,7 @@ class DriveCloudBackupClient(
             .build()
         http.newCall(request).execute().use { response ->
             if (!response.isSuccessful && response.code != 404) {
-                error("Drive delete failed (${response.code})")
+                throw driveFailure(CloudBackupDriveFailure.DELETE, response.code, "Drive delete failed")
             }
         }
     }
@@ -192,7 +193,7 @@ class DriveCloudBackupClient(
             .build()
         http.newCall(request).execute().use { response ->
             if (!response.isSuccessful && response.code != 400) {
-                error("Google token revoke failed (${response.code})")
+                throw driveFailure(CloudBackupDriveFailure.REVOKE, response.code, "Google token revoke failed")
             }
         }
     }
@@ -221,8 +222,11 @@ class DriveCloudBackupClient(
             .post(body)
             .build()
         http.newCall(request).execute().use { response ->
-            if (!response.isSuccessful) error("Drive upload failed (${response.code})")
-            val json = JSONObject(response.body?.string() ?: error("Empty Drive create response"))
+            if (!response.isSuccessful) throw driveFailure(CloudBackupDriveFailure.UPLOAD, response.code, "Drive upload failed")
+            val json = JSONObject(
+                response.body?.string()
+                    ?: throw CloudBackupDriveException(CloudBackupDriveFailure.EMPTY_RESPONSE, message = "Empty Drive create response")
+            )
             return json.getString("id")
         }
     }
@@ -234,7 +238,7 @@ class DriveCloudBackupClient(
             .patch(zip.asRequestBody("application/zip".toMediaType()))
             .build()
         http.newCall(request).execute().use { response ->
-            if (!response.isSuccessful) error("Drive update failed (${response.code})")
+            if (!response.isSuccessful) throw driveFailure(CloudBackupDriveFailure.UPDATE, response.code, "Drive update failed")
         }
     }
 
@@ -245,3 +249,6 @@ class DriveCloudBackupClient(
         private val listJson = Json { ignoreUnknownKeys = true }
     }
 }
+
+private fun driveFailure(failure: CloudBackupDriveFailure, code: Int, what: String) =
+    CloudBackupDriveException(failure, code, "$what ($code)")

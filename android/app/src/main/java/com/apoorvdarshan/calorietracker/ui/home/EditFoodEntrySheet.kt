@@ -559,7 +559,7 @@ fun EditFoodEntrySheet(
                 item {
                     SheetPillCard {
                         Text(
-                            currentBaseEntry.allergenAnalysis(profile.allergenSensitivities).summary,
+                            currentBaseEntry.allergenAnalysis(profile.allergenSensitivities).summary(LocalContext.current),
                             modifier = Modifier.padding(18.dp),
                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.78f)
                         )
@@ -599,11 +599,11 @@ fun EditFoodEntrySheet(
                 SheetPillCard {
                     SheetNutritionRow(stringResource(R.string.nutrition_label_calories), "${LocalEnergyUnit.current.displayValue(scaledInt(currentBaseEntry.calories))}", energyUnitLabel())
                     SheetHairline()
-                    SheetNutritionRow(stringResource(R.string.nutrition_label_protein), MacroValueFormatter.string(scaledMacro(currentBaseEntry.protein)), stringResource(R.string.unit_g))
+                    SheetNutritionRow(stringResource(R.string.nutrition_label_protein), MacroValueFormatter.display(scaledMacro(currentBaseEntry.protein)), stringResource(R.string.unit_g))
                     SheetHairline()
-                    SheetNutritionRow(stringResource(R.string.nutrition_label_carbs), MacroValueFormatter.string(scaledMacro(currentBaseEntry.carbs)), stringResource(R.string.unit_g))
+                    SheetNutritionRow(stringResource(R.string.nutrition_label_carbs), MacroValueFormatter.display(scaledMacro(currentBaseEntry.carbs)), stringResource(R.string.unit_g))
                     SheetHairline()
-                    SheetNutritionRow(stringResource(R.string.nutrition_label_fat), MacroValueFormatter.string(scaledMacro(currentBaseEntry.fat)), stringResource(R.string.unit_g))
+                    SheetNutritionRow(stringResource(R.string.nutrition_label_fat), MacroValueFormatter.display(scaledMacro(currentBaseEntry.fat)), stringResource(R.string.unit_g))
                 }
             }
 
@@ -782,7 +782,7 @@ fun EditFoodEntrySheet(
                 }
             }
 
-            item { SheetSectionHeader("Actions") }
+            item { SheetSectionHeader(stringResource(R.string.edit_section_actions)) }
             item {
                 SheetPillCard {
                     Row(
@@ -800,7 +800,7 @@ fun EditFoodEntrySheet(
                         )
                         Spacer(Modifier.width(12.dp))
                         Text(
-                            if (isFavorite) "Remove from Favorites" else "Save to Favorites",
+                            stringResource(if (isFavorite) R.string.edit_remove_from_favorites else R.string.edit_save_to_favorites),
                             fontSize = 17.sp,
                             fontWeight = FontWeight.Medium,
                             color = AppColors.Calorie
@@ -822,7 +822,7 @@ fun EditFoodEntrySheet(
                         )
                         Spacer(Modifier.width(12.dp))
                         Text(
-                            "Delete Food Log",
+                            stringResource(R.string.edit_delete_food_log),
                             fontSize = 17.sp,
                             fontWeight = FontWeight.Medium,
                             color = MaterialTheme.colorScheme.error
@@ -889,9 +889,9 @@ fun EditFoodEntrySheet(
     }
     if (showDeleteConfirmation) {
         FudGlassDialog(onDismissRequest = { showDeleteConfirmation = false }) {
-            Text("Delete Food Log?", fontSize = 21.sp, fontWeight = FontWeight.Bold)
+            Text(stringResource(R.string.home_delete_food_title), fontSize = 21.sp, fontWeight = FontWeight.Bold)
             Text(
-                "This removes the food from your diary. Saved favorites are kept.",
+                stringResource(R.string.home_delete_food_message),
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.68f),
                 fontSize = 15.sp,
                 lineHeight = 21.sp

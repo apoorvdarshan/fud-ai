@@ -21,6 +21,8 @@
     <string name="kj_value_format">%1$,d kJ</string>
     <string name="grams_value_format">%1$d g</string>
     <string name="grams_value_decimal_format">%1$.1f g</string>
+    <string name="macro_grams_format">%1$s g</string>
+    <string name="macro_value_unit_format">%1$s %2$s</string>
     <string name="kg_value_format">%1$.1f kg</string>
     <string name="lbs_value_format">%1$.1f lb</string>
     <string name="health_import_count_kj">Nové záznamy: %1$d · %2$d kJ</string>
@@ -37,6 +39,8 @@
     <string name="unit_ft_in">ft / in</string>
     <string name="kcal_value_format">%1$,d kcal</string>
     <string name="widget_g_left_format">zbývá %1$d g</string>
+    <string name="widget_left_format">zbývá %1$s</string>
+    <string name="widget_enable_in_app">Zapni ve Fud AI</string>
     <string name="widget_kcal">kcal</string>
     <string name="widget_protein_g">bílkoviny g</string>
     <string name="widget_value_unit_format">%1$d%2$s / %3$d%4$s</string>
@@ -95,6 +99,10 @@
     <string name="product_categories">Kategorie</string>
     <string name="product_ingredient_label">Složení na etiketě</string>
     <string name="product_possible_allergen">Možný alergen: %1$s</string>
+    <string name="allergen_assessment_declared">Shoda s uvedeným alergenem</string>
+    <string name="allergen_assessment_may_contain">Může obsahovat</string>
+    <string name="allergen_assessment_possible">Možný alergen</string>
+    <string name="allergen_assessment_unable">Nelze posoudit</string>
     <string name="product_info_settings_show">Zobrazit informace o produktu</string>
     <string name="product_info_settings_fields">Zobrazené údaje</string>
     <string name="product_info_settings_footer">Zobrazuje se na konci obrazovek kontroly a úprav u potravin naskenovaných čárovým kódem. Kontrola alergenů tím není ovlivněna a zobrazí se vždy, když máte nastavené citlivosti na alergeny.</string>
@@ -400,6 +408,12 @@
     <string name="home_macro_over_format">%1$s navíc</string>
     <string name="home_macro_no_goal">Bez cíle</string>
     <string name="home_macro_goal_reached">Cíl splněn</string>
+    <string name="home_delete_food_title">Smazat záznam jídla?</string>
+    <string name="home_delete_food_message">Jídlo se odstraní z deníku. Uložená oblíbená jídla zůstanou.</string>
+    <string name="home_delete_water_title">Smazat záznam vody?</string>
+    <string name="home_delete_water_message">Záznam vody se odstraní z deníku.</string>
+    <string name="home_delete_fasting_title">Smazat záznam půstu?</string>
+    <string name="home_delete_fasting_message">Dokončený půst se odstraní z deníku.</string>
     <string name="home_view_more">Zobrazit více</string>
     <string name="home_burn_deficit">Spáleno %1$s · deficit %2$s</string>
     <string name="home_burn_surplus">Spáleno %1$s · přebytek %2$s</string>
@@ -475,6 +489,12 @@
     <string name="context_note_title">Přidat poznámku</string>
     <string name="context_note_section">Přidej poznámku (volitelné)</string>
     <string name="context_note_placeholder">např. bez oleje, extra sýr, velká porce</string>
+    <string name="context_note_photos_title">Fotky jídla</string>
+    <string name="context_note_photo_count_format">%1$d z %2$d fotek</string>
+    <string name="context_note_add_photo">Přidat fotku</string>
+    <string name="context_note_add_photos">Přidat fotky</string>
+    <string name="context_note_analysis_section">Poznámka pro analýzu jídla (volitelné)</string>
+    <string name="context_note_analysis_placeholder">např. kuře 180 g, rýže 220 g, použij polovinu omáčky</string>
 
     <!-- Voice input sheet -->
     <string name="voice_listening">Poslouchám…</string>
@@ -485,6 +505,26 @@
     <string name="voice_mic_permission_denied">Přístup k mikrofonu byl zamítnut.</string>
     <string name="voice_mic_start_failed">Mikrofon se nepodařilo spustit. Zkontroluj oprávnění.</string>
     <string name="voice_transcription_failed">Přepis se nezdařil</string>
+    <string name="stt_error_audio">Nahrávání zvuku selhalo</string>
+    <string name="stt_error_client">Chyba klienta</string>
+    <string name="stt_error_permission">Chybí oprávnění k mikrofonu</string>
+    <string name="stt_error_network">Chyba sítě</string>
+    <string name="stt_error_network_timeout">Vypršel časový limit sítě</string>
+    <string name="stt_error_no_match">Řeč nebyla rozpoznána</string>
+    <string name="stt_error_busy">Rozpoznávání je zaneprázdněné</string>
+    <string name="stt_error_server">Chyba serveru</string>
+    <string name="stt_error_speech_timeout">Žádný hlasový vstup</string>
+    <string name="stt_error_server_disconnected">Služba rozpoznávání řeči se odpojila</string>
+    <string name="stt_error_language_not_supported">Jazyk řeči není na tomto zařízení podporován</string>
+    <string name="stt_error_language_unavailable">Jazyk řeči není na tomto zařízení k dispozici</string>
+    <string name="stt_error_generic_format">Chyba rozpoznávání řeči (%1$d)</string>
+    <string name="stt_api_error_no_key">Není nastavený API klíč pro převod řeči na text. Přidej ho v Nastavení → Převod řeči na text.</string>
+    <string name="stt_api_error_network">Nepodařilo se spojit s poskytovatelem převodu řeči. Zkontroluj připojení a zkus to znovu.</string>
+    <string name="stt_api_error_api">Poskytovatel převodu řeči vrátil chybu.</string>
+    <string name="stt_api_error_http">Poskytovatel převodu řeči vrátil chybu (HTTP %1$d).</string>
+    <string name="stt_api_error_invalid_response">Odpovědi s přepisem se nepodařilo porozumět.</string>
+    <string name="stt_api_error_timeout">Vypršel časový limit přepisu.</string>
+    <string name="stt_api_error_local_unavailable">Whisper Base není na tomto zařízení připravený. Zkontroluj stažení v Nastavení → Převod řeči na text.</string>
     <string name="voice_stop">Zastavit</string>
     <string name="voice_record">Nahrát</string>
 
@@ -533,6 +573,7 @@
     <string name="coach_reset_confirm">Resetovat</string>
     <string name="coach_no_profile_error">Zatím nemáš profil. Nejdřív dokonči úvodní nastavení.</string>
     <string name="coach_chat_failed">Chat selhal</string>
+    <string name="coach_analyze_image_default">Analyzuj tento obrázek.</string>
     <string name="coach_proposal_custom_title">Nový vlastní cvik</string>
     <string name="coach_proposal_add_title">Přidat do tréninku</string>
     <string name="coach_proposal_add">Přidat</string>
@@ -722,6 +763,17 @@
     <string name="settings_on_device_models_info">Modely se stahují do soukromého úložiště aplikace a běží bez odesílání fotek, promptů nebo zvuku na server. Platí velikost stahování a licenční podmínky modelu.</string>
     <string name="settings_local_model_not_downloaded_format">%1$s · Nestaženo</string>
     <string name="settings_local_model_downloading_format">Stahuji · %1$d %%</string>
+    <string name="local_model_error_start">Stahování modelu se nepodařilo spustit.</string>
+    <string name="local_model_error_storage">Pro %1$s není dost volného místa.</string>
+    <string name="local_model_error_http">Stahování selhalo (HTTP %1$d).</string>
+    <string name="local_model_error_server">Server s modelem vrátil neočekávanou odpověď.</string>
+    <string name="local_model_error_size">Velikost staženého modelu neodpovídá zveřejněnému souboru.</string>
+    <string name="local_model_error_incomplete">Stažení modelu nebylo úplné.</string>
+    <string name="local_model_error_integrity">Stažený model neprošel kontrolou integrity.</string>
+    <string name="local_model_error_install">Ověřený model se nepodařilo nainstalovat.</string>
+    <string name="local_model_error_write">Model se nepodařilo zapsat do úložiště. Uvolni místo a zkus to znovu.</string>
+    <string name="local_model_error_network">Nepodařilo se spojit se serverem s modelem. Zkontroluj připojení a zkus to znovu.</string>
+    <string name="local_model_error_generic">Stažení modelu selhalo.</string>
     <string name="settings_local_model_installed">Nainstalováno · Připraveno offline</string>
     <string name="settings_view_model_license">Zobrazit licenci modelu</string>
     <string name="settings_model_source">Zdroj modelu</string>
@@ -874,6 +926,7 @@
     <string name="settings_energy_goals_info">Když je zapnuto, použije Fud AI při výpočtu cílů jako základ udržovacího příjmu tvoje naměřené spálené kalorie z Health Connect — 14denní průměr aktivní + bazální energie — místo odhadu ze vzorce. Ke čtení spálené energie se nepoužívá žádná AI. Vyžaduje Health Connect. Funguje s tlačítkem Přepočítat i s Adaptivními cíli.</string>
     <string name="settings_adaptive_goals">Adaptivní cíle</string>
     <string name="settings_adaptive_goals_info">Přibližně jednou týdně při otevření aplikace Fud AI automaticky znovu spustí celý výpočet cílů — stejný, jaký používá tlačítko Přepočítat — z tvého profilu, nedávno zapsaného jídla a trendu váhy. Pokud je zapnutá Spálená energie, použije jako základ udržovacího příjmu naměřený výdej. Když AI není dostupná, kontrola se tiše přeskočí. Vypnutím se obnoví hodnoty z doby, než je Adaptivní cíle poprvé změnily. Nejde o lékařské doporučení.</string>
+    <string name="adaptive_goals_updated_format">Aktualizováno na %1$s podle tvých posledních dat.</string>
     <string name="settings_refresh_energy_goals">Obnovit cíle ze spálené energie</string>
     <string name="settings_clear_food_log">Vymazat deník jídel</string>
     <string name="settings_delete_all_data">Smazat všechna data</string>
@@ -1120,6 +1173,19 @@
     <string name="cloud_backup_switch_account">Přepnout účet Google</string>
     <string name="cloud_backup_turn_on">Zapnout</string>
     <string name="cloud_backup_sign_in_failed">Přihlášení přes Google se nepodařilo otevřít.</string>
+    <string name="cloud_backup_error_not_backup">Toto není záloha Fud AI.</string>
+    <string name="cloud_backup_error_needs_newer_app">Tato záloha vyžaduje novější verzi Fud AI.</string>
+    <string name="cloud_backup_error_no_backup">Na Disku Google nebyla nalezena žádná záloha.</string>
+    <string name="cloud_backup_error_sign_in_required">Nejdřív se přihlas k Disku Google.</string>
+    <string name="cloud_backup_error_no_token">Google nevrátil přístupový token.</string>
+    <string name="cloud_backup_error_list_failed">Načtení seznamu z Disku Google selhalo (HTTP %1$d).</string>
+    <string name="cloud_backup_error_download_failed">Stažení z Disku Google selhalo (HTTP %1$d).</string>
+    <string name="cloud_backup_error_delete_failed">Smazání na Disku Google selhalo (HTTP %1$d).</string>
+    <string name="cloud_backup_error_revoke_failed">Odhlášení od Googlu selhalo (HTTP %1$d).</string>
+    <string name="cloud_backup_error_upload_failed">Nahrání na Disk Google selhalo (HTTP %1$d).</string>
+    <string name="cloud_backup_error_empty_response">Disk Google vrátil prázdnou odpověď.</string>
+    <string name="cloud_backup_error_update_failed">Aktualizace na Disku Google selhala (HTTP %1$d).</string>
+    <string name="cloud_backup_error_network">Nepodařilo se spojit s Diskem Google. Zkontroluj připojení a zkus to znovu.</string>
     <string name="cloud_backup_restore_no_space">Na obnovení této zálohy není dost volného místa. Uvolni trochu místa a zkus to znovu.</string>
     <string name="export_diary_title">Export deníku jídel</string>
     <string name="export_range">Období</string>
@@ -1134,6 +1200,10 @@
     <string name="macro_protein_format">Bílkoviny: %1$s</string>
     <string name="macro_carbs_format">Sacharidy: %1$s</string>
     <string name="macro_fat_format">Tuky: %1$s</string>
+    <string name="macro_abbrev_protein">B</string>
+    <string name="macro_abbrev_carbs">S</string>
+    <string name="macro_abbrev_fat">T</string>
+    <string name="home_meal_macro_summary_format">%1$dB · %2$dS · %3$dT</string>
     <string name="nutrient_fiber_format">Vláknina: %1$s g</string>
     <string name="nutrient_sugar_format">Cukr: %1$s g</string>
     <string name="nutrient_sat_fat_format">Nasyc. tuky: %1$s g</string>
@@ -1165,6 +1235,10 @@
     <string name="cd_cancel_recording">Zrušit nahrávání</string>
     <string name="cd_remove_image">Odebrat obrázek</string>
     <string name="cd_meal_photo">Fotka %1$d</string>
+    <string name="cd_remove_photo">Odstranit fotku</string>
+    <string name="cd_flash_on">Blesk zapnutý</string>
+    <string name="cd_flash_auto">Blesk automaticky</string>
+    <string name="cd_flash_off">Blesk vypnutý</string>
     <string name="cd_view_full_photo">Zobrazit celou fotku</string>
     <string name="cd_add_image">Přidat obrázek</string>
     <string name="cd_open_camera">Otevřít fotoaparát</string>
@@ -1195,6 +1269,10 @@
     <string name="edit_reprocess_hint">Přidej poznámku pro upřesnění záznamu — např. velká miska, extra olivový olej — a klepni na Zpracovat znovu</string>
     <string name="edit_reprocess">Zpracovat znovu</string>
     <string name="edit_reprocessing">Zpracovávám…</string>
+    <string name="edit_section_actions">Akce</string>
+    <string name="edit_save_to_favorites">Uložit do oblíbených</string>
+    <string name="edit_remove_from_favorites">Odebrat z oblíbených</string>
+    <string name="edit_delete_food_log">Smazat záznam jídla</string>
     <string name="edit_reprocessing_failed">Nové zpracování se nezdařilo</string>
     <string name="section_date_time">Datum a čas</string>
     <string name="section_share">Sdílení</string>
@@ -1254,6 +1332,7 @@
     <string name="vm_health_connect_needed">Je potřeba Health Connect</string>
     <string name="vm_not_enough_energy">Málo dat o energii</string>
     <string name="vm_adaptive_on_message">Adaptivní cíle jsou zapnuté. Fud AI provede kontrolu jednou týdně, jakmile bude dost dat o jídle a váze.</string>
+    <string name="vm_goals_updated_format">Aktualizováno na %1$s.</string>
     <string name="vm_goals_recalculated">Cíle přepočítány</string>
     <plurals name="import_add_meals_title">
         <item quantity="one">Přidat sdílené jídlo</item>
@@ -1453,6 +1532,7 @@
     <string name="import_add_action">Přidat jako nové záznamy</string>
     <string name="import_success">Naimportováno záznamů jídel: %1$d.</string>
     <string name="import_read_failed">Vybraný soubor se nepodařilo přečíst.</string>
+    <string name="import_file_too_large">Tento soubor je na import příliš velký.</string>
     <string name="notif_channel_fasting">Půst</string>
     <string name="notif_channel_fasting_desc">Upozornění, když aktivní půst dosáhne cíle.</string>
     <string name="notif_fasting_goal_title">Cíl půstu splněn</string>

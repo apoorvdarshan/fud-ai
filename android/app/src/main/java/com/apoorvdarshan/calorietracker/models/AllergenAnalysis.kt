@@ -1,5 +1,8 @@
 package com.apoorvdarshan.calorietracker.models
 
+import android.content.Context
+import androidx.annotation.StringRes
+import com.apoorvdarshan.calorietracker.R
 import java.text.Normalizer
 
 enum class AllergenAssessment {
@@ -14,14 +17,14 @@ data class AllergenAnalysis(
     val matchedSensitivities: List<String> = emptyList(),
     val evidence: List<String> = emptyList()
 ) {
-    val summary: String
-        get() = buildString {
-            append(assessment.displayName)
-            if (matchedSensitivities.isNotEmpty()) {
-                append(": ")
-                append(matchedSensitivities.joinToString(", "))
-            }
+    /** The assessment in the user's language, followed by the matched sensitivities. */
+    fun summary(context: Context): String = buildString {
+        append(context.getString(assessment.displayNameRes))
+        if (matchedSensitivities.isNotEmpty()) {
+            append(": ")
+            append(matchedSensitivities.joinToString(", "))
         }
+    }
 
     companion object {
         fun evaluate(entry: FoodEntry, sensitivities: List<String>): AllergenAnalysis {
@@ -103,12 +106,12 @@ data class AllergenAnalysis(
     }
 }
 
-val AllergenAssessment.displayName: String
-    get() = when (this) {
-        AllergenAssessment.DECLARED_ALLERGEN_MATCH -> "Declared allergen match"
-        AllergenAssessment.MAY_CONTAIN -> "May contain"
-        AllergenAssessment.POSSIBLE_ALLERGEN -> "Possible allergen"
-        AllergenAssessment.UNABLE_TO_ASSESS -> "Unable to assess"
+val AllergenAssessment.displayNameRes: Int
+    @StringRes get() = when (this) {
+        AllergenAssessment.DECLARED_ALLERGEN_MATCH -> R.string.allergen_assessment_declared
+        AllergenAssessment.MAY_CONTAIN -> R.string.allergen_assessment_may_contain
+        AllergenAssessment.POSSIBLE_ALLERGEN -> R.string.allergen_assessment_possible
+        AllergenAssessment.UNABLE_TO_ASSESS -> R.string.allergen_assessment_unable
     }
 
 fun FoodEntry.allergenAnalysis(sensitivities: List<String>): AllergenAnalysis =

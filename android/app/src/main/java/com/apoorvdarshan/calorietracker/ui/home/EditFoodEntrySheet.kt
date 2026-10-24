@@ -75,7 +75,7 @@ import com.apoorvdarshan.calorietracker.models.AminoAcid
 import com.apoorvdarshan.calorietracker.models.AminoAcidEstimates
 import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.applyingIngredientChanges
-import com.apoorvdarshan.calorietracker.services.MealShare
+import com.apoorvdarshan.calorietracker.ui.components.rememberMealSharer
 import com.apoorvdarshan.calorietracker.models.MacroValueFormatter
 import com.apoorvdarshan.calorietracker.models.MealType
 import com.apoorvdarshan.calorietracker.models.MealIngredient
@@ -140,6 +140,7 @@ fun EditFoodEntrySheet(
     var errorText by remember { mutableStateOf<String?>(null) }
     var ingredientEditor by remember { mutableStateOf<IngredientEditorTarget?>(null) }
     val scope = rememberCoroutineScope()
+    val shareMeals = rememberMealSharer(container)
 
     val servingSizeIsKnown = currentBaseEntry.hasKnownServingSize
     val baseServing = currentBaseEntry.reviewServingReference
@@ -830,14 +831,14 @@ fun EditFoodEntrySheet(
                 }
             }
 
-            // Share this meal as a fudai://add-meal link (issue #107)
+            // Share this meal as it's shown, unsaved serving and note edits included (issue #107)
             item { SheetSectionHeader(stringResource(R.string.section_share)) }
             item {
                 SheetPillCard {
                     Row(
                         Modifier
                             .fillMaxWidth()
-                            .clickable { scope.launch { MealShare.share(context, listOf(currentBaseEntry)) } }
+                            .clickable { shareMeals(listOf(buildUpdated())) }
                             .padding(horizontal = 18.dp, vertical = 14.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {

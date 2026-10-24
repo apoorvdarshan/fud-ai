@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Meal share link style: Settings row and the one-time choice on first share. -->
+<resources>
+    <string name="share_links_title">Share Links</string>
+    <string name="share_link_short">Short Link</string>
+    <string name="share_link_short_detail">Shows a preview first and expires after 7 days.</string>
+    <string name="share_link_direct">Direct Link</string>
+    <string name="share_link_direct_detail">Opens Fud AI right away and never expires, but the link is longer.</string>
+    <string name="share_link_choice_title">How should meal links work?</string>
+    <string name="share_link_choice_footer">You can change this anytime in %1$s.</string>
+</resources>

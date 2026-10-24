@@ -25,6 +25,7 @@ object AppLanguage {
         "pt-BR",
         "ro",
         "ru",
+        "tr",
         "uk",
         "zh-CN"
     )
@@ -37,9 +38,8 @@ object AppLanguage {
         }
     }
 
-    /** Languages the app's strings ship in: [supportedTags] plus Turkish, which has strings
-     *  but no picker entry yet. */
-    val translatedTags: List<String> = (supportedTags + "tr").distinct()
+    /** Languages the app's strings ship in; every one has a picker entry. */
+    val translatedTags: List<String> = supportedTags
 
     /** Maps a stored / system language tag onto one of [supportedTags], or null for system default. */
     fun matchSupported(languageTag: String?): String? = match(languageTag, supportedTags)

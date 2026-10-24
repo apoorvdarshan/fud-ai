@@ -1,6 +1,6 @@
 # Play Store Listing
 
-Google Play Console listing copy for Fud AI Android v7.2.1 / versionCode 43. Each field is in a code block for easy copy-paste. Char counts are tracked because Play Console enforces hard caps and silently truncates anything over. This file is prepared for the 7.2.1 release (Live Voice, workout rest timer and routines, Health Connect workout import) and has not been submitted. Android 7.2 / versionCode 42 is the live Play release.
+Google Play Console listing copy for Fud AI Android v8.0 / versionCode 44. Each field is in a code block for easy copy-paste. Char counts are tracked because Play Console enforces hard caps and silently truncates anything over. This file is prepared for the 8.0 release (Live Voice, workout rest timer and routines, Health Connect workout import, Short or Direct share links) and has not been submitted. Android 7.2 / versionCode 42 is the live Play release; 7.2.1 / versionCode 43 was tagged but never uploaded to Play.
 
 **Pending Play Console updates**
 - [ ] **Before the next Android release:** update the Health Connect declaration in Play Console to include **Exercise (READ)** — paste the `READ_EXERCISE` rationale from §7 *Health apps declaration*, then re-check the §7 Data safety notes (imported workouts stay on-device).
@@ -41,7 +41,7 @@ Snap, speak, or type a meal. AI logs the calories. Open source.
 ```
 Fud AI makes calorie tracking effortless with AI-powered food recognition. Snap a photo, scan a barcode, speak it, or type it — get instant nutrition: calories, protein, carbs, fats, vitamins, minerals, and more.
 
-NEW in v7.2: optional Plus and Pro plans run the AI for you, no API keys needed. Bring Your Own Key stays free. Also: Weekly Challenge, steps, Walk/Run, 18 languages.
+NEW in v8.0: Live Voice. Talk to Fud AI to log meals, scan barcodes and check progress. Also: workout rest timer and routines, Weekly Recap, Steps, kcal or kJ, share links, and Qwen.
 
 Nutrition adds custom goals plus caffeine, creatine, and other performance compounds. Optional fasting adds timers, editable history, goals, alerts, and Coach context. Android includes a daily calorie summary and clearer Health Connect guidance.
 
@@ -58,7 +58,7 @@ WAYS TO LOG A MEAL
 • Copy from Day — copy meals from another date
 
 AI PROVIDERS
-Use Gemini, OpenAI, Claude, Grok, Groq, OpenRouter, Together, Hugging Face, Fireworks, DeepInfra, Mistral, Ollama, or an OpenAI-compatible endpoint.
+Use Gemini, OpenAI, Claude, Grok, Groq, OpenRouter, Together, Hugging Face, Fireworks, DeepInfra, Mistral, Alibaba Qwen, Ollama, or an OpenAI-compatible endpoint.
 
 6 SPEECH-TO-TEXT ENGINES
 Native Android, Gemini, OpenAI Whisper, Groq, Deepgram, or AssemblyAI, with automatic or fixed language handling.
@@ -87,8 +87,8 @@ Off by default. Set a daily goal, quick-log glasses or a custom amount, view pro
 OPTIONAL FASTING TRACKING
 Off by default. Choose a 1–168 hour goal, start/end/cancel from Home +, keep the timer across restarts, optional local alerts, and edit completed sessions. Fasting stays on-device and is not sent to Health Connect.
 
-18 LANGUAGES
-Auto-selected by phone language: English, Spanish, French, German, Italian, Portuguese (BR), Dutch, Russian, Japanese, Korean, Chinese, Hindi, Arabic, Romanian, Azerbaijani, Polish, Czech, Ukrainian.
+19 LANGUAGES
+Auto-selected by phone language: English, Spanish, French, German, Italian, Portuguese (BR), Dutch, Russian, Japanese, Korean, Chinese, Hindi, Arabic, Romanian, Azerbaijani, Polish, Czech, Ukrainian, Turkish.
 
 PRIVACY FIRST
 Core tracking needs no account; no analytics, behavioral tracking, or ads. The optional 18+ Weekly Challenge uploads only a display name, optional social handle, anonymous ID, and weekly aggregate milestones—never raw food, weight, meals, workouts, or Health Connect records. Keys encrypted; AI/STT requests go to your provider, or to Fud AI’s server on Plus/Pro. MIT licensed.
@@ -105,146 +105,27 @@ Source: https://github.com/apoorvdarshan/fud-ai
 ```
 
 ### Other languages
-English-only on Play Console — non-English Play Store browsers (ar, az-AZ, cs-CZ, de-DE, es-ES, fr-FR, hi-IN, it-IT, ja-JP, ko-KR, nl-NL, pl-PL, pt-BR, ro, ru-RU, uk, zh-CN) see the English source as fallback. The app includes 18 localized interfaces; newer strings may temporarily use the English fallback.
+English-only on Play Console — non-English Play Store browsers (ar, az-AZ, cs-CZ, de-DE, es-ES, fr-FR, hi-IN, it-IT, ja-JP, ko-KR, nl-NL, pl-PL, pt-BR, ro, ru-RU, tr-TR, uk, zh-CN) see the English source as fallback. The app includes 19 localized interfaces; newer strings may temporarily use the English fallback.
 
 ---
 
-## 4. What's New (v7.2.1 / versionCode 43 — being released)
+## 4. What's New (v8.0 / versionCode 44 — being released)
 
-**500 char hard cap per language.** Paste only the `<en-US>` block for the 7.2.1 release. The other language blocks below are still the 7.0.1 notes and must not be submitted as 7.2.1 release notes.
+**500 char hard cap per language.** Only the `<en-US>` block is kept: store-release uploads every `<locale>` block in this fence, and Play shows the English notes to every other language. Add a translated block only when it describes this release.
 
 ```
 <en-US>
-Fud AI 7.2.1
-• Live Voice: talk to Fud AI to log meals, scan barcodes and check your progress. Included with Plus and Pro, or use your own Gemini, OpenAI, xAI or Qwen key.
-• Workouts: a rest timer, saved routines, and other apps' workouts via Health Connect.
+Fud AI 8.0
+• Live Voice: talk to Fud AI to log meals, scan barcodes and check progress. Included with Plus and Pro, or use your own Gemini, OpenAI, xAI or Qwen key.
+• Workouts: rest timer, routines, Health Connect import.
 • Progress: Weekly Recap, Steps, and past periods.
-• Show energy in kcal or kJ.
-• New phone? Welcome back restores your Google Drive backup and Health Connect data.
-• Alibaba Qwen joins the AI providers, and the app is now in Turkish.
+• Share meals as a short or direct link.
+• Energy in kcal or kJ.
+• Welcome back: restore your Drive backup and Health Connect data.
+• Camera: sharper close-ups and tap to focus.
+• Alibaba Qwen; the app is now in Turkish.
 </en-US>
-
-<ar>
-• خطوات يومية في الصفحة الرئيسية، خط حرق/عجز، وأهداف تكيفية مفعّلة افتراضياً.
-• تسجيل المشي/الجري، تمارين مخصصة، تعبئة المجموعات تلقائياً، وسجل الرفعات.
-• تعيين تاريخ/وقت الوجبة؛ تخصيص قائمة +؛ تكبير الصور وحفظها اختيارياً.
-• التشيكية والأوكرانية (18 لغة)، وتحسينات النسخ الاحتياطي والموثوقية.
-</ar>
-
-<az-AZ>
-• Əsas ekranda gündəlik addımlar, yanma/kəsir xətti və standart Adaptive Goals.
-• Gəzinti/qaçış qeydi, fərdi məşqlər, set avtomatik doldurma və qaldırma tarixçəsi.
-• Yemək tarix/saatını təyin et; + menyunu fərdiləşdir; fotoları böyüdüb saxla.
-• Çex və ukrayna (18 dil); Drive ehtiyat nüsxəsi və etibarlılıq təkmilləşmələri.
-</az-AZ>
-
-<cs-CZ>
-• Denní kroky na Domově, řádek výdeje/deficitu a Adaptive Goals ve výchozím stavu.
-• Rychlé logování chůze/běhu, vlastní cviky, autofill sad a historie zdvihů.
-• Datum/čas jídla při kontrole; nastavitelné menu +; zoom fotek a uložení do galerie.
-• Čeština a ukrajinština (18 jazyků); Drive záloha a spolehlivost.
-</cs-CZ>
-
-<de-DE>
-• Tägliche Schritte auf Start, Verbrauchs-/Defizitlinie, Adaptive Goals standardmäßig an.
-• Walk/Run-Schnelllog, eigene Übungen, Satz-Autofill und Hebehistorie.
-• Mahlzeit Datum/Uhrzeit setzen; + Menü anpassen; Fotos zoomen und optional speichern.
-• Tschechisch & Ukrainisch (18 Sprachen); Drive-Backup und Zuverlässigkeit.
-</de-DE>
-
-<es-ES>
-• Pasos diarios en Inicio, línea de gasto/déficit y Adaptive Goals activado por defecto.
-• Registro rápido de caminata/carrera, ejercicios propios, autocompletar series e historial.
-• Fecha/hora de la comida; menú + configurable; zoom de fotos y guardado opcional.
-• Checo y ucraniano (18 idiomas); copia Drive y más fiabilidad.
-</es-ES>
-
-<fr-FR>
-• Pas quotidiens sur Accueil, ligne dépense/déficit, Adaptive Goals activé par défaut.
-• Journal rapide marche/course, exercices perso, autofill des séries et historique.
-• Date/heure du repas; menu + configurable; zoom photos et enregistrement optionnel.
-• Tchèque et ukrainien (18 langues); sauvegarde Drive et fiabilité.
-</fr-FR>
-
-<hi-IN>
-• होम पर दैनिक कदम, बर्न/डेफिसिट लाइन, Adaptive Goals डिफ़ॉल्ट रूप से चालू।
-• वॉक/रन क्विक लॉग, कस्टम एक्सरसाइज़, सेट ऑटोफिल और लिफ्ट इतिहास।
-• समीक्षा पर भोजन तिथि/समय; Home + मेनू कॉन्फ़िगर; फ़ोटो ज़ूम और वैकल्पिक सेव।
-• चेक और यूक्रेनियन (18 भाषाएँ); Drive बैकअप और विश्वसनीयता सुधार।
-</hi-IN>
-
-<it-IT>
-• Passi giornalieri in Home, linea consumo/deficit e Adaptive Goals attivo di default.
-• Log rapido camminata/corsa, esercizi personalizzati, autofill serie e storico alzate.
-• Data/ora pasto in revisione; menu + configurabile; zoom foto e salvataggio opzionale.
-• Ceco e ucraino (18 lingue); backup Drive e affidabilità.
-</it-IT>
-
-<ja-JP>
-• ホームに日間歩数、消費/不足ライン、Adaptive Goals をデフォルトでオン。
-• ウォーク/ランのクイック記録、カスタム種目、セット自動入力、挙上履歴。
-• レビューで食事の日時を設定、+メニューを構成、写真のズームと任意保存。
-• チェコ語・ウクライナ語（18言語）、Driveバックアップと信頼性向上。
-</ja-JP>
-
-<ko-KR>
-• 홈에 일일 걸음, 소모/부족 라인, Adaptive Goals 기본 켜짐.
-• 걷기/달리기 빠른 기록, 사용자 운동, 세트 자동 채우기, 리프트 기록.
-• 검토에서 식사 날짜/시간, Home + 메뉴 구성, 사진 확대와 선택 저장.
-• 체코어·우크라이나어(18개 언어), Drive 백업과 안정성 개선.
-</ko-KR>
-
-<nl-NL>
-• Dagelijkse stappen op Home, verbrandings-/tekortlijn, Adaptive Goals standaard aan.
-• Walk/Run-snelregistratie, eigen oefeningen, set-autofill en tilgeschiedenis.
-• Maaltijd datum/tijd bij review; + menu instellen; foto’s zoomen en optioneel opslaan.
-• Tsjechisch & Oekraïens (18 talen); Drive-backup en betrouwbaarheid.
-</nl-NL>
-
-<pl-PL>
-• Dzienne kroki na Home, linia spalania/deficytu, Adaptive Goals domyślnie włączone.
-• Szybki log spaceru/biegu, własne ćwiczenia, autofill serii i historia podnoszenia.
-• Data/godzina posiłku przy przeglądzie; konfigurowalne menu +; zoom zdjęć i opcjonalny zapis.
-• Czeski i ukraiński (18 języków); kopia Drive i większa niezawodność.
-</pl-PL>
-
-<pt-BR>
-• Passos diários na Home, linha de gasto/déficit e Adaptive Goals ligado por padrão.
-• Log rápido de caminhada/corrida, exercícios próprios, autofill de séries e histórico.
-• Data/hora da refeição na revisão; menu + configurável; zoom de fotos e salvamento opcional.
-• Tcheco e ucraniano (18 idiomas); backup do Drive e mais confiabilidade.
-</pt-BR>
-
-<ro>
-• Pași zilnici pe Home, linie consum/deficit, Adaptive Goals activat implicit.
-• Log rapid mers/alergare, exerciții personalizate, autofill seturi și istoric ridicări.
-• Dată/oră masă la review; meniu + configurabil; zoom foto și salvare opțională.
-• Cehă și ucraineană (18 limbi); backup Drive și fiabilitate.
-</ro>
-
-<ru-RU>
-• Дневные шаги на Главной, линия расхода/дефицита, Adaptive Goals включён по умолчанию.
-• Быстрый лог ходьбы/бега, свои упражнения, автозаполнение подходов и история подъёмов.
-• Дата/время еды при проверке; настраиваемое меню +; зум фото и опциональное сохранение.
-• Чешский и украинский (18 языков); резервная копия Drive и надёжность.
-</ru-RU>
-
-<uk>
-• Щоденні кроки на Головній, лінія витрати/дефіциту, Adaptive Goals увімкнено за замовчуванням.
-• Швидкий лог ходьби/бігу, власні вправи, автозаповнення підходів і історія підйомів.
-• Дата/час їжі при перегляді; налаштоване меню +; зум фото та опційне збереження.
-• Чеська й українська (18 мов); резервна копія Drive та надійність.
-</uk>
-
-<zh-CN>
-• 首页显示每日步数、消耗/缺口线，Adaptive Goals 默认开启。
-• 步行/跑步快记、自定义动作、组数自动填充与举重历史。
-• 审核时设置用餐日期/时间；配置 Home + 菜单；照片缩放与可选保存。
-• 捷克语与乌克兰语（共 18 种语言）；Drive 备份与可靠性改进。
-</zh-CN>
 ```
-
----
 
 ## 5. Categorization
 

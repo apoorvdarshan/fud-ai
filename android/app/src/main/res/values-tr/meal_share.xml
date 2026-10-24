@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="share_links_title">Paylaşım Bağlantıları</string>
+    <string name="share_link_short">Kısa Bağlantı</string>
+    <string name="share_link_short_detail">Önce bir önizleme gösterir ve 7 gün sonra süresi dolar.</string>
+    <string name="share_link_direct">Doğrudan Bağlantı</string>
+    <string name="share_link_direct_detail">Fud AI\'ı hemen açar ve süresi dolmaz, ancak bağlantı daha uzundur.</string>
+    <string name="share_link_choice_title">Öğün bağlantıları nasıl çalışsın?</string>
+    <string name="share_link_choice_footer">Bunu istediğiniz zaman %1$s bölümünden değiştirebilirsiniz.</string>
+</resources>

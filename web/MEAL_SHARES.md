@@ -7,7 +7,7 @@ The body is limited to 64 KiB and 1–100 meals. Each meal needs a nonempty name
 (up to 500 characters), nonnegative calories (fractional values are rounded to the
 nearest integer), and finite nonnegative protein/carbs/fat. Optional meal fields are
 preserved for existing mobile decoders.
-The apps send the same fields as their old links: no photos, account data, or API keys.
+The apps send the same fields as their self-contained links, barcode product details included: no photos, account data, or API keys.
 
 IDs use 128 random bits encoded as 22 base64url characters. `MEAL_SHARES` stores
 payloads with a 604800-second TTL; the handler also checks an explicit expiration.
@@ -48,7 +48,10 @@ that deployment with the returned ID.
 See [Wrangler configuration](https://developers.cloudflare.com/workers/wrangler/configuration/).
 No account resources are created by the tests or dry-run.
 
-Both mobile share sheets attempt creation with a five-second timeout, send
+The first share asks once which link to send (Short Link preselected), and Settings →
+App Settings → Share Links changes it later. Direct Link skips this service entirely
+and shares the self-contained `/add-meal?d=...` link, which opens the app directly and
+never expires. With Short Link, both mobile share sheets attempt creation with a five-second timeout, send
 `Content-Type: application/json` and a `FudAI/1.0 (...; MealShare)` User-Agent,
 and retain the long link on offline, rate-limit (HTTP 429), service, or
 invalid-response failures. They do not immediately retry 429s: the Worker returns

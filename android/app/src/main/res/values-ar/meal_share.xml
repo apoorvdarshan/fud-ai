@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="share_links_title">روابط المشاركة</string>
+    <string name="share_link_short">رابط قصير</string>
+    <string name="share_link_short_detail">يعرض معاينة أولاً وتنتهي صلاحيته بعد 7 أيام.</string>
+    <string name="share_link_direct">رابط مباشر</string>
+    <string name="share_link_direct_detail">يفتح Fud AI فوراً ولا تنتهي صلاحيته، لكن الرابط أطول.</string>
+    <string name="share_link_choice_title">كيف تريد أن تعمل روابط الوجبات؟</string>
+    <string name="share_link_choice_footer">يمكنك تغيير ذلك في أي وقت من %1$s.</string>
+</resources>

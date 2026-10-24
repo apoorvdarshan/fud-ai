@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="share_links_title">Ссылки для отправки</string>
+    <string name="share_link_short">Короткая ссылка</string>
+    <string name="share_link_short_detail">Сначала показывает предпросмотр и истекает через 7 дней.</string>
+    <string name="share_link_direct">Прямая ссылка</string>
+    <string name="share_link_direct_detail">Сразу открывает Fud AI и не истекает, но ссылка длиннее.</string>
+    <string name="share_link_choice_title">Как должны работать ссылки на блюда?</string>
+    <string name="share_link_choice_footer">Это можно изменить в любое время в разделе %1$s.</string>
+</resources>

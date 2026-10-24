@@ -165,7 +165,7 @@ import com.apoorvdarshan.calorietracker.AppContainer
 import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.FastingSession
 import com.apoorvdarshan.calorietracker.models.formatFastingDuration
-import com.apoorvdarshan.calorietracker.services.MealShare
+import com.apoorvdarshan.calorietracker.ui.components.rememberMealSharer
 import com.apoorvdarshan.calorietracker.models.FoodSource
 import com.apoorvdarshan.calorietracker.models.MacroValueFormatter
 import com.apoorvdarshan.calorietracker.models.CurrentMealSchedule
@@ -241,7 +241,7 @@ DisposableEffect(lifecycleOwner, vm) {
         lifecycleOwner.lifecycle.addObserver(observer)
         onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
     }
-    val shareScope = rememberCoroutineScope()
+    val shareMeals = rememberMealSharer(container)
     val ctx = LocalContext.current
     val weekStartsOnMonday by container.prefs.weekStartsOnMonday.collectAsState(initial = true)
     val allEntries by container.foodRepository.entries.collectAsState(initial = emptyList())
@@ -646,7 +646,7 @@ CalorieHero(
                             totalCarbs = group.totalCarbs,
                             totalFat = group.totalFat,
                             onShare = if (foodEntries.isEmpty()) null else {
-                                { shareScope.launch { MealShare.share(ctx, foodEntries) } }
+                                { shareMeals(foodEntries) }
                             },
                             showSortMenu = groupIndex == 0,
                             sortOrder = ui.foodLogSortOrder,

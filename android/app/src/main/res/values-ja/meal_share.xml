@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="share_links_title">共有リンク</string>
+    <string name="share_link_short">短いリンク</string>
+    <string name="share_link_short_detail">最初にプレビューを表示し、7日後に期限切れになります。</string>
+    <string name="share_link_direct">直接リンク</string>
+    <string name="share_link_direct_detail">Fud AIをすぐに開き、期限切れになりませんが、リンクは長くなります。</string>
+    <string name="share_link_choice_title">食事のリンクをどのように共有しますか？</string>
+    <string name="share_link_choice_footer">これはいつでも%1$sで変更できます。</string>
+</resources>

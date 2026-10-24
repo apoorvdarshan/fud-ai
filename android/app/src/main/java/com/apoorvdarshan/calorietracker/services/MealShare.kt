@@ -4,9 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import com.apoorvdarshan.calorietracker.models.FoodEntry
+import com.apoorvdarshan.calorietracker.models.FoodProductMetadata
 import com.apoorvdarshan.calorietracker.models.FoodSource
 import com.apoorvdarshan.calorietracker.models.MealType
 import com.apoorvdarshan.calorietracker.models.MealIngredient
+import com.apoorvdarshan.calorietracker.models.MealShareLinkStyle
 import com.apoorvdarshan.calorietracker.models.ServingUnitOption
 import org.json.JSONArray
 import org.json.JSONObject
@@ -57,12 +59,17 @@ object MealShare {
         return "https://$WEB_HOST$WEB_PATH?d=$b64"
     }
 
-    /** Failed/offline/rate-limited creation preserves the existing self-contained link. */
+    /**
+     * The link for [style]: [MealShareLinkStyle.DIRECT] is always the self-contained link, and a
+     * failed/offline/rate-limited short-link creation falls back to it too.
+     */
     internal suspend fun preferredLink(
         entries: List<FoodEntry>,
+        style: MealShareLinkStyle = MealShareLinkStyle.Default,
         create: suspend (String) -> String? = ::createShortLink
     ): String {
         val fallback = link(entries)
+        if (style == MealShareLinkStyle.DIRECT) return fallback
         val payload = String(Base64.getUrlDecoder().decode(fallback.substringAfter("?d=")), Charsets.UTF_8)
         val pattern = Regex("https://www\\.fud-ai\\.app/m/[A-Za-z0-9_-]{22}")
         // One attempt only: the Worker rate-limits for 60s, so an immediate 429 retry
@@ -88,9 +95,9 @@ object MealShare {
     }
 
     /** Fire the system share sheet with a readable summary + the fudai://add-meal link. */
-    suspend fun share(context: Context, entries: List<FoodEntry>) {
+    suspend fun share(context: Context, entries: List<FoodEntry>, style: MealShareLinkStyle) {
         if (entries.isEmpty()) return
-        val shareLink = preferredLink(entries)
+        val shareLink = preferredLink(entries, style)
         val send = Intent(Intent.ACTION_SEND).apply {
             type = "text/plain"
             putExtra(Intent.EXTRA_TEXT, shareText(entries, shareLink))
@@ -139,7 +146,8 @@ object MealShare {
                     put(JSONObject()
                         .put("unit", option.unit)
                         .put("gramsPerUnit", option.gramsPerUnit)
-                        .apply { option.quantity?.let { put("quantity", it) } })
+                        // An explicit receiver: a bare put() here is the meal-level helper above.
+                        .also { json -> option.quantity?.let { json.put("quantity", it) } })
                 }
             })
         }
@@ -156,11 +164,28 @@ object MealShare {
                         .put("calories", ingredient.calories)
                         .put("protein", ingredient.protein)
                         .put("carbs", ingredient.carbs)
-                        .put("fat", ingredient.fat))
+                        .put("fat", ingredient.fat)
+                        .also { json -> ingredient.emoji?.let { json.put("emoji", it) } })
                 }
             })
         }
+        e.productMetadata?.let { d.put("productMetadata", productJson(it)) }
         return d
+    }
+
+    /** Barcode product details (#533), with the same keys as iOS. */
+    private fun productJson(p: FoodProductMetadata): JSONObject = JSONObject().put("barcode", p.barcode).apply {
+        p.packageQuantity?.let { put("packageQuantity", it) }
+        p.ingredientsText?.let { put("ingredientsText", it) }
+        if (p.allergens.isNotEmpty()) put("allergens", JSONArray(p.allergens))
+        if (p.traces.isNotEmpty()) put("traces", JSONArray(p.traces))
+        p.nutriScore?.let { put("nutriScore", it) }
+        p.novaGroup?.let { put("novaGroup", it) }
+        p.ecoScore?.let { put("ecoScore", it) }
+        if (p.labels.isNotEmpty()) put("labels", JSONArray(p.labels))
+        if (p.categories.isNotEmpty()) put("categories", JSONArray(p.categories))
+        p.imageUrl?.let { put("imageUrl", it) }
+        p.dataSource?.let { put("dataSource", it) }
     }
 
     // MARK: Decode
@@ -209,7 +234,8 @@ object MealShare {
                     calories = item.optInt("calories"),
                     protein = dblFrom(item, "protein") ?: 0.0,
                     carbs = dblFrom(item, "carbs") ?: 0.0,
-                    fat = dblFrom(item, "fat") ?: 0.0
+                    fat = dblFrom(item, "fat") ?: 0.0,
+                    emoji = textFrom(item, "emoji")
                 )
             }
         }.orEmpty()
@@ -258,9 +284,33 @@ object MealShare {
             selectedServingQuantity = dbl("selectedServingQuantity"),
             customNote = if (d.has("customNote")) d.optString("customNote") else null,
             progressiveMeal = d.optBoolean("progressiveMeal", false),
-            ingredients = ingredients
+            ingredients = ingredients,
+            productMetadata = d.optJSONObject("productMetadata")?.let(::productFrom)
         )
     }
+
+    private fun productFrom(p: JSONObject): FoodProductMetadata {
+        fun list(key: String): List<String> = p.optJSONArray(key)?.let { array ->
+            (0 until array.length()).mapNotNull { index -> array.optString(index).takeIf { it.isNotEmpty() } }
+        }.orEmpty()
+        return FoodProductMetadata(
+            barcode = textFrom(p, "barcode").orEmpty(),
+            packageQuantity = textFrom(p, "packageQuantity"),
+            ingredientsText = textFrom(p, "ingredientsText"),
+            allergens = list("allergens"),
+            traces = list("traces"),
+            nutriScore = textFrom(p, "nutriScore"),
+            novaGroup = if (p.has("novaGroup") && !p.isNull("novaGroup")) p.optInt("novaGroup") else null,
+            ecoScore = textFrom(p, "ecoScore"),
+            labels = list("labels"),
+            categories = list("categories"),
+            imageUrl = textFrom(p, "imageUrl"),
+            dataSource = textFrom(p, "dataSource")
+        )
+    }
+
+    private fun textFrom(json: JSONObject, key: String): String? =
+        if (json.has(key) && !json.isNull(key)) json.optString(key).takeIf { it.isNotEmpty() } else null
 
     private fun dblFrom(json: JSONObject, key: String): Double? =
         if (json.has(key) && !json.isNull(key)) json.optDouble(key) else null

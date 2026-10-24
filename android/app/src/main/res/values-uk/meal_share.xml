@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="share_links_title">Посилання для поширення</string>
+    <string name="share_link_short">Коротке посилання</string>
+    <string name="share_link_short_detail">Спочатку показує попередній перегляд і діє 7 днів.</string>
+    <string name="share_link_direct">Пряме посилання</string>
+    <string name="share_link_direct_detail">Одразу відкриває Fud AI і не має терміну дії, але посилання довше.</string>
+    <string name="share_link_choice_title">Як мають працювати посилання на страви?</string>
+    <string name="share_link_choice_footer">Це можна будь-коли змінити в розділі %1$s.</string>
+</resources>

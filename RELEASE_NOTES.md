@@ -7,7 +7,56 @@ same marketing version can share a feature summary while identifying different b
 
 ## Unreleased
 
-No Android 7.2.1 tag yet. The android-v7.2.1 notes below are the prepared store copy for versionCode 43; Android 7.2 (versionCode 42) is the live Google Play release. iOS stays on 7.1.2 build 39 (live on the App Store); this Android release has no iOS changes.
+No 8.0 tags yet. The ios-v8.0 and android-v8.0 notes below are the prepared store copy for iOS build 40 and Android versionCode 44. iOS 7.1.2 (build 39) and Android 7.2 (versionCode 42) are the live store releases; android-v7.2.1 (versionCode 43) is a GitHub pre-release that was never uploaded to Google Play, and 8.0 includes everything in it.
+
+## ios-v8.0
+
+Fud AI 8.0 for iPhone and iPad adds Live Voice: talk to Fud AI to log meals, scan barcodes and check your progress.
+
+NEW
+• Live Voice: tap the orb on Home, or start it from Siri, the Action Button or Control Center (iOS 18 and later). Included with Plus and Pro, or use your own Gemini, OpenAI, xAI or Qwen key.
+• Fud AI now runs on iPad.
+• The food camera measures the table under your food with AR, so the AI can size portions from real dimensions.
+• Workouts: a rest timer, saved routines, Coach exercise suggestions you confirm before anything is added, and Fill with AI or a photo for custom exercises.
+• Progress: a Weekly Recap card, a Steps tab, arrows to browse earlier periods, and a calorie chart you can tap or scrub.
+• Choose kilocalories or kilojoules in Settings.
+• Welcome back: returning users can restore an iCloud backup and import Apple Health data from the first screen.
+• Share a meal as a short link that shows a preview, or a direct link that opens Fud AI right away.
+• Alibaba Qwen joins the own-key AI providers, and OpenAI gains GPT-6 Sol and Luna presets.
+• Optional essential amino acid estimates, and an optional USDA FoodData Central barcode fallback with your own free API key.
+• Fud AI is now translated into Turkish.
+
+IMPROVED
+• Hide the Progress, Coach or Workouts tab, set your own water quick-add amounts, and see your estimated maintenance in Daily Targets.
+• Settings shows the space photos, on-device models and caches use, with cleanup actions.
+• Sharper camera focus on close-up food and barcodes, and tap the preview to focus.
+• Log a weigh-in on an earlier day, delete weights from Weight History, and more reliable Apple Health weight imports.
+• Resumable on-device model downloads and more reliable iCloud backups.
+
+Existing logs, goals, Health data, widgets, workout history, and BYOK settings are preserved during a normal update.
+
+## android-v8.0
+
+Fud AI 8.0 for Android adds Live Voice: talk to Fud AI to log meals, scan barcodes and check your progress.
+
+NEW
+• Live Voice: tap the orb on Home, or start it from a Quick Settings tile, a launcher shortcut or a home-screen widget. It is included with Plus and Pro, or works with your own Gemini, OpenAI, xAI or Qwen key.
+• Workouts: a rest timer, saved routines, Coach exercise suggestions you confirm before anything is added, Fill with AI for custom exercises, and read-only workouts that other apps write to Health Connect.
+• Progress: a Weekly Recap card, a Steps tab, arrows to browse earlier periods, and a calorie chart you can tap or scrub.
+• Choose kilocalories or kilojoules in Settings.
+• Welcome back: returning users can restore a Google Drive backup and import Health Connect data from the first screen.
+• Share a meal as a short link that shows a preview, or a direct link that opens Fud AI right away.
+• Alibaba Qwen joins the own-key AI providers, and OpenAI gains GPT-6 Sol and Luna presets.
+• Optional essential amino acid estimates, and an optional USDA FoodData Central barcode fallback with your own free API key.
+• The app is now translated into Turkish.
+
+IMPROVED
+• Hide the Progress, Coach or Workouts tab, set your own water quick-add amounts, and see your estimated maintenance in Daily Targets.
+• Settings shows the space photos, on-device models and caches use, with Clear Cache and Compress Photos.
+• More reliable Google Drive backup and restore, Health Connect history imports, and resumable on-device model downloads.
+• Every in-app camera focuses before it takes a photo, and you can tap the preview to focus on food or a barcode up close.
+
+Existing logs, goals, Health data, widgets, workout history, and BYOK settings are preserved during a normal update.
 
 ## android-v7.2.1
 
@@ -27,6 +76,7 @@ IMPROVED
 • Hide the Progress, Coach or Workouts tab, set your own water quick-add amounts, and see your estimated maintenance in Daily Targets.
 • Settings shows the space photos, on-device models and caches use, with Clear Cache and Compress Photos.
 • More reliable Google Drive backup and restore, Health Connect history imports, and resumable on-device model downloads.
+• Every in-app camera focuses before it takes a photo, and you can tap the preview to focus on food or a barcode up close.
 
 Existing logs, goals, Health data, widgets, workout history, and BYOK settings are preserved during a normal update.
 

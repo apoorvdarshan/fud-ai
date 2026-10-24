@@ -98,8 +98,8 @@ import kotlinx.coroutines.withContext
 
 private enum class VoiceSheet { PROVIDER, MODEL, VOICE, LANGUAGE }
 
-/** Languages offered for replies: the app's languages, plus Turkish, which has strings but no picker entry yet. */
-private val REPLY_LANGUAGES: List<String> = (AppLanguage.supportedTags + "tr").distinct()
+/** Languages offered for replies: the app's languages. */
+private val REPLY_LANGUAGES: List<String> = AppLanguage.supportedTags
 
 /**
  * Settings → Voice Assistant: provider (Automatic, Fud AI Plus/Pro, Gemini, OpenAI, xAI),

@@ -4713,6 +4713,8 @@ struct ProfileView: View {
     @AppStorage(EnergyBurnSettings.enabledKey) private var energyBurnEnabled = false
     @AppStorage("weekStartsOnMonday") private var weekStartsOnMonday = true
     @AppStorage(EnergyUnit.storageKey) private var energyUnit = EnergyUnit.defaultUnit
+    /// Nil until the first meal share asks; the row shows the default meanwhile.
+    @AppStorage(MealShareLinkStyle.storageKey) private var mealShareLinkStyle: MealShareLinkStyle?
     @AppStorage(FoodMeasurementSettings.preferGramsByDefaultKey) private var preferGramsByDefault = false
     @AppStorage(MealPhotoSettings.saveToGalleryKey) private var saveMealPhotosToGallery = false
     @AppStorage(AppThemeColor.storageKey) private var appThemeColorRaw = AppThemeColor.defaultColor.rawValue
@@ -5383,6 +5385,31 @@ struct ProfileView: View {
                                 foodStore: foodStore, weightStore: weightStore, bodyFatStore: bodyFatStore, profile: profile
                             )
                         }
+                    }
+
+                    VStack(alignment: .leading, spacing: 4) {
+                        Picker(selection: Binding(
+                            get: { mealShareLinkStyle ?? .defaultStyle },
+                            set: { mealShareLinkStyle = $0 }
+                        )) {
+                            ForEach(MealShareLinkStyle.allCases) { style in
+                                Text(style.title).tag(style)
+                            }
+                        } label: {
+                            Label {
+                                Text("Share Links")
+                            } icon: {
+                                Image(systemName: "link")
+                                    .foregroundStyle(AppColors.calorie)
+                            }
+                        }
+                        .pickerStyle(.menu)
+                        .tint(.secondary)
+                        .accessibilityIdentifier("settings.mealShareLinkStyle")
+                        Text((mealShareLinkStyle ?? .defaultStyle).detail)
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
+                            .padding(.leading, 32)
                     }
 
                     NavigationLink {

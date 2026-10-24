@@ -84,7 +84,7 @@ internal class ModelDownloader(
     ) {
         val expected = descriptor.expectedBytes
         // A write that failed midway can leave bytes the digest never saw; drop them first.
-        if (part.length() != transfer.offset) truncate(part, transfer.offset)
+        if (part.length() != transfer.offset) writeLocally { truncate(part, transfer.offset) }
         val request = Request.Builder()
             .url(descriptor.downloadUrl)
             .apply { if (transfer.offset > 0L) header("Range", "bytes=${transfer.offset}-") }
@@ -93,7 +93,7 @@ internal class ModelDownloader(
         val call = client.newCall(request)
         onCall(call)
         currentCoroutineContext().ensureActive()
-        call.execute().use { response ->
+        readRemotely { call.execute() }.use { response ->
             when (response.code) {
                 206 -> if (!continuesAt(response, transfer.offset, expected)) {
                     restart(part, transfer, onProgress)
@@ -118,12 +118,12 @@ internal class ModelDownloader(
                 else -> throw LocalModelInstallError("Download failed (HTTP ${response.code}).", R.string.local_model_error_http, response.code)
             }
             var lastPublished = transfer.offset
-            openOutput(part).use { output ->
+            writeLocally { openOutput(part) }.use { output ->
                 response.body.byteStream().use { input ->
                     val buffer = ByteArray(DEFAULT_BUFFER_SIZE * 4)
                     while (true) {
                         currentCoroutineContext().ensureActive()
-                        val count = input.read(buffer)
+                        val count = readRemotely { input.read(buffer) }
                         if (count < 0) break
                         if (count > expected - transfer.offset) {
                             discardPartial(part)
@@ -149,16 +149,27 @@ internal class ModelDownloader(
      * Only network failures are worth another attempt. A write that fails (for example because
      * the disk is full) would fail the same way after every reconnect, so it ends the download.
      */
-    private inline fun writeLocally(block: () -> Unit) {
+    private inline fun <T> writeLocally(block: () -> T): T =
         try {
             block()
         } catch (error: IOException) {
             throw ModelStorageException(error)
         }
-    }
+
+    /**
+     * Connecting to the server and reading its body are the network, whatever the stack reports:
+     * a dropped response surfaces as an `EOFException` or `ProtocolException`, which by type alone
+     * look like file errors. Marking them here lets Settings tell them from local file failures.
+     */
+    private inline fun <T> readRemotely(block: () -> T): T =
+        try {
+            block()
+        } catch (error: IOException) {
+            throw ModelNetworkException(error)
+        }
 
     private fun restart(part: File, transfer: Transfer, onProgress: (Long) -> Unit) {
-        truncate(part, 0L)
+        writeLocally { truncate(part, 0L) }
         transfer.offset = 0L
         transfer.digest.reset()
         onProgress(0L)
@@ -223,6 +234,12 @@ internal class ModelDownloader(
 
 /** Writing the partial failed on this device; the bytes written before it stay for a resume. */
 internal class ModelStorageException(cause: IOException) : IllegalStateException(cause.message, cause)
+
+/**
+ * The model server could not be reached or stopped answering mid-response. Still an [IOException],
+ * so the downloader retries it; once the retries are spent Settings shows the connection hint.
+ */
+internal class ModelNetworkException(cause: IOException) : IOException(cause.message, cause)
 
 /**
  * An install failure the Settings screen shows as [messageRes] (formatted with [args]).

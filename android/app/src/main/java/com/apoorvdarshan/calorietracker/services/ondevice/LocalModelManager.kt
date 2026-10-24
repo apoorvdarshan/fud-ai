@@ -213,6 +213,9 @@ class LocalModelManager(
         is LocalModelInstallError -> appContext.getString(error.messageRes, *error.args)
         is LocalModelInstallIOException -> appContext.getString(error.messageRes, *error.args)
         is ModelStorageException -> appContext.getString(R.string.local_model_error_write)
+        is ModelNetworkException -> appContext.getString(R.string.local_model_error_network)
+        // Any other IOException comes from a local file (the partial, its source note, the hash
+        // pass, the marker); the network check only guards an unmarked connectivity error.
         is IOException -> appContext.getString(
             if (error.isNetworkFailure()) R.string.local_model_error_network else R.string.local_model_error_write
         )

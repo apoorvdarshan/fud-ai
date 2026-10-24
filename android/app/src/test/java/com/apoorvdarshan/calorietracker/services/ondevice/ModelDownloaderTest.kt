@@ -1,6 +1,7 @@
 package com.apoorvdarshan.calorietracker.services.ondevice
 
 import java.io.File
+import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
 import java.security.MessageDigest
@@ -248,6 +249,33 @@ class ModelDownloaderTest {
         // The bytes already written stay, so freeing space and tapping Download resumes them.
         assertArrayEquals(artifact.copyOf(split), part.readBytes())
         assertTrue(ModelDownloader.isResumable(part, descriptor(artifact)))
+    }
+
+    @Test fun responseDroppedBeforeAnyByteIsReportedAsANetworkFailure() {
+        // OkHttp reports the cut body as a ProtocolException or EOFException, which by type alone
+        // look like file errors; the downloader marks them as the connection problem they are.
+        repeat(3) { server.enqueue(truncatedFullResponse(artifact, 0)) }
+
+        val error = downloadFailure(retryDelays = longArrayOf(0, 0))
+
+        assertTrue(error is ModelNetworkException)
+        assertTrue(error.cause is IOException)
+        assertEquals(3, server.requestCount)
+        assertTrue(ModelDownloader.isResumable(part, descriptor(artifact)))
+    }
+
+    @Test fun partialThatCannotBeOpenedIsAStorageFailure() {
+        server.enqueue(MockResponse().setBody(Buffer().write(artifact)))
+        val downloader = ModelDownloader(client, retryDelaysMillis = longArrayOf(0, 0, 0)) { file ->
+            throw FileNotFoundException("$file: open failed: EACCES (Permission denied)")
+        }
+
+        val error = runCatching {
+            runBlocking { downloader.download(descriptor(artifact), part, onCall = {}, onProgress = {}) }
+        }.exceptionOrNull()
+
+        assertTrue(error is ModelStorageException)
+        assertEquals(1, server.requestCount)
     }
 
     @Test fun cancellationDuringBackoffIsPrompt() = runBlocking {

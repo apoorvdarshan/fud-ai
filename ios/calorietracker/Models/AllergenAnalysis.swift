@@ -79,7 +79,7 @@ struct AllergenAnalysis: Equatable, Sendable {
         let folded = value.folding(options: [.diacriticInsensitive, .caseInsensitive], locale: Locale(identifier: "en_US_POSIX"))
         return folded
             .replacingOccurrences(of: "^[a-z]{2}:", with: "", options: .regularExpression)
-            .replacingOccurrences(of: "[^a-z0-9]+", with: " ", options: .regularExpression)
+            .replacingOccurrences(of: "[^\\p{L}\\p{N}]+", with: " ", options: .regularExpression)
             .trimmingCharacters(in: .whitespacesAndNewlines)
     }
 

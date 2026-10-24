@@ -1,5 +1,7 @@
 package com.apoorvdarshan.calorietracker.models
 
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import java.util.Locale
 
 /**
@@ -53,6 +55,19 @@ object AppLanguage {
         match(appChoice, translatedTags)
             ?: deviceTags.firstNotNullOfOrNull { match(it, translatedTags) }
             ?: "en"
+
+    /** [shownTag] for the running app: the in-app choice and the device's language list. */
+    fun shownTag(): String {
+        val device = LocaleListCompat.getAdjustedDefault()
+        return shownTag(
+            AppCompatDelegate.getApplicationLocales()[0]?.toLanguageTag(),
+            (0 until device.size()).mapNotNull { device[it]?.toLanguageTag() }
+        )
+    }
+
+    /** English name of a language tag (`pt-BR` → "Portuguese (Brazil)"), for AI instructions. */
+    fun englishName(tag: String): String =
+        Locale.forLanguageTag(tag).getDisplayName(Locale.ENGLISH).ifBlank { tag }
 
     private fun match(languageTag: String?, tags: List<String>): String? {
         if (languageTag.isNullOrBlank()) return null

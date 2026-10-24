@@ -3,7 +3,9 @@ package com.apoorvdarshan.calorietracker.backup
 import android.content.Context
 import androidx.annotation.StringRes
 import com.apoorvdarshan.calorietracker.R
+import com.apoorvdarshan.calorietracker.services.isNetworkFailure
 import java.io.IOException
+import java.util.zip.ZipException
 
 /** Which Google Drive call failed. The English exception message stays for logs and tests. */
 enum class CloudBackupDriveFailure(@StringRes val messageRes: Int) {
@@ -25,8 +27,9 @@ class CloudBackupDriveException(
 
 /**
  * Text for the backup error dialog in the user's language. Typed failures resolve their own
- * copy, connectivity problems get a network hint, anything else keeps [cloudBackupErrorMessage]'s
- * behaviour (the exception message, or [fallback] for blank and VM errors).
+ * copy; a damaged archive, a local file error and a connectivity problem each get their own
+ * hint; anything else keeps [cloudBackupErrorMessage]'s behaviour (the exception message, or
+ * [fallback] for blank and VM errors).
  */
 fun cloudBackupUserMessage(context: Context, failure: Throwable, fallback: String, noSpace: String): String =
     when (failure) {
@@ -39,6 +42,9 @@ fun cloudBackupUserMessage(context: Context, failure: Throwable, fallback: Strin
             ?: context.getString(failure.failure.messageRes)
         is CloudBackupNoSpaceException -> noSpace
         is CloudBackupPhotoWriteException -> fallback
-        is IOException -> context.getString(R.string.cloud_backup_error_network)
+        is ZipException -> context.getString(R.string.cloud_backup_error_corrupt)
+        is IOException -> context.getString(
+            if (failure.isNetworkFailure()) R.string.cloud_backup_error_network else R.string.cloud_backup_error_local_io
+        )
         else -> cloudBackupErrorMessage(failure, fallback, noSpace)
     }

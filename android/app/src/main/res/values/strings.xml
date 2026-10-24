@@ -1250,6 +1250,8 @@
     <string name="cloud_backup_error_empty_response">Google Drive returned an empty response.</string>
     <string name="cloud_backup_error_update_failed">Google Drive update failed (HTTP %1$d).</string>
     <string name="cloud_backup_error_network">Could not reach Google Drive. Check your connection and try again.</string>
+    <string name="cloud_backup_error_corrupt">The backup file is damaged or incomplete. Try again.</string>
+    <string name="cloud_backup_error_local_io">A file on this phone could not be read or written.</string>
     <string name="cloud_backup_restore_no_space">Not enough free storage to restore this backup. Free up some space and try again.</string>
     <string name="export_diary_title">Export Food Diary</string>
     <string name="import_diary_title">Import Food Diary</string>

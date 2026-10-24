@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.Build
 import android.os.StatFs
 import com.apoorvdarshan.calorietracker.R
+import com.apoorvdarshan.calorietracker.services.isNetworkFailure
 import java.io.File
 import java.io.IOException
 import java.util.concurrent.ConcurrentHashMap
@@ -212,7 +213,9 @@ class LocalModelManager(
         is LocalModelInstallError -> appContext.getString(error.messageRes, *error.args)
         is LocalModelInstallIOException -> appContext.getString(error.messageRes, *error.args)
         is ModelStorageException -> appContext.getString(R.string.local_model_error_write)
-        is IOException -> appContext.getString(R.string.local_model_error_network)
+        is IOException -> appContext.getString(
+            if (error.isNetworkFailure()) R.string.local_model_error_network else R.string.local_model_error_write
+        )
         else -> appContext.getString(R.string.local_model_error_generic)
     }
 

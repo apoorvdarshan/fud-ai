@@ -1186,6 +1186,8 @@
     <string name="cloud_backup_error_empty_response">Disk Google vrátil prázdnou odpověď.</string>
     <string name="cloud_backup_error_update_failed">Aktualizace na Disku Google selhala (HTTP %1$d).</string>
     <string name="cloud_backup_error_network">Nepodařilo se spojit s Diskem Google. Zkontroluj připojení a zkus to znovu.</string>
+    <string name="cloud_backup_error_corrupt">Soubor zálohy je poškozený nebo neúplný. Zkus to znovu.</string>
+    <string name="cloud_backup_error_local_io">Soubor v tomto telefonu se nepodařilo přečíst nebo zapsat.</string>
     <string name="cloud_backup_restore_no_space">Na obnovení této zálohy není dost volného místa. Uvolni trochu místa a zkus to znovu.</string>
     <string name="export_diary_title">Export deníku jídel</string>
     <string name="export_range">Období</string>

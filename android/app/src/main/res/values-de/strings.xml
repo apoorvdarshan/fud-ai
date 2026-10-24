@@ -432,6 +432,17 @@
     <string name="home_macro_chip_format">%1$s %2$dg</string>
     <string name="home_analyzing_food">Dein Essen wird analysiert…</string>
     <string name="home_looking_up_nutrition">Nährwerte werden gesucht…</string>
+    <string name="analysis_stage_preparing">Anfrage wird vorbereitet…</string>
+    <string name="analysis_stage_preparing_image">Foto wird vorbereitet…</string>
+    <string name="analysis_stage_requesting">Warten auf den KI-Anbieter…</string>
+    <string name="analysis_stage_on_device">Läuft auf dem Gerät…</string>
+    <string name="analysis_stage_responding">Antwort wird gelesen…</string>
+    <string name="analysis_stage_validating">Nährwerte werden geprüft…</string>
+    <string name="analysis_stage_fallback_attempt">Ersatzmodell wird versucht (Versuch %1$d)…</string>
+    <string name="analysis_stage_barcode">Barcode wird gesucht…</string>
+    <string name="analysis_elapsed_seconds">%1$d s vergangen</string>
+    <string name="analysis_estimate_range">Dauert meist etwa %1$d–%2$d s</string>
+    <string name="analysis_estimate_single">Dauert meist etwa %1$d s</string>
     <string name="home_fiber_format">Ballaststoffe: %1$.1fg</string>
     <string name="home_sugar_format">Zucker: %1$.1fg</string>
     <string name="home_sat_fat_format">Ges. Fett: %1$.1fg</string>

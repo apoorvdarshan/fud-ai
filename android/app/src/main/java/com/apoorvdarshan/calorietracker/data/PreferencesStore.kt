@@ -1114,6 +1114,56 @@ class PreferencesStore(
         }
     }
 
+    // -- Local AI analysis duration history -------------------------------
+    //
+    // How long an analysis usually takes is measured on this device only: the
+    // durations are not part of Fud AI's cloud backup and no analytics are involved.
+    // The history powers the optional "usually takes about N s" hint, which is hidden
+    // until enough samples exist (see AnalysisDurationEstimate).
+    private val analysisDurations: Flow<Map<String, List<Long>>> = ds.data.map { prefs ->
+        AnalysisDurationEstimate.readDurations(prefs[Keys.AI_ANALYSIS_DURATIONS])
+    }
+
+    /**
+     * The usual duration of a provider/model combination, or null when unknown.
+     *
+     * Reading the optional estimate is best-effort: an unreadable local store must not
+     * stop the analysis from starting.
+     */
+    suspend fun analysisDurationEstimate(
+        provider: AIProvider,
+        model: String,
+        kind: AnalysisDurationEstimate.Kind
+    ): IntRange? = try {
+        AnalysisDurationEstimate.estimateSeconds(
+            analysisDurations.first()[AnalysisDurationEstimate.key(provider, model, kind)].orEmpty()
+        )
+    } catch (e: kotlinx.coroutines.CancellationException) {
+        throw e
+    } catch (_: Throwable) {
+        null
+    }
+
+    /** Records how long one analysis took so later runs can show an honest estimate. */
+    suspend fun recordAnalysisDuration(
+        provider: AIProvider,
+        model: String,
+        kind: AnalysisDurationEstimate.Kind,
+        durationMillis: Long
+    ) {
+        if (durationMillis <= 0) return
+        val key = AnalysisDurationEstimate.key(provider, model, kind)
+        ds.edit { prefs ->
+            val current = AnalysisDurationEstimate
+                .readDurations(prefs[Keys.AI_ANALYSIS_DURATIONS])
+                .toMutableMap()
+            val samples = (current[key].orEmpty() + durationMillis)
+                .takeLast(AnalysisDurationEstimate.MAX_SAMPLES)
+            current[key] = samples
+            prefs[Keys.AI_ANALYSIS_DURATIONS] = AnalysisDurationEstimate.encodeDurations(current)
+        }
+    }
+
     /**
      * One DataStore read for everything a food-analysis request needs. Cold-start scans used to
      * issue ~8 sequential `.first()` calls that queued behind startup migrations and left the
@@ -1682,6 +1732,7 @@ class PreferencesStore(
         val OPENROUTER_REASONING_EFFORT = stringPreferencesKey("openRouterReasoningEffort")
         val MAX_RESPONSE_TOKENS = intPreferencesKey("maxResponseTokens")
         val AI_REQUEST_TIMEOUT_SECONDS = intPreferencesKey("aiRequestTimeoutSeconds")
+        val AI_ANALYSIS_DURATIONS = stringPreferencesKey("aiAnalysisDurations")
         val USER_CONTEXT = stringPreferencesKey("userContext")
         val FALLBACK_ENABLED = booleanPreferencesKey("aiFallbackEnabled")
         val FALLBACK_PROVIDER = stringPreferencesKey("selectedFallbackAIProvider")

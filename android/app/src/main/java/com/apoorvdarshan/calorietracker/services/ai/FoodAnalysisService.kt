@@ -1,6 +1,7 @@
 package com.apoorvdarshan.calorietracker.services.ai
 
 import com.apoorvdarshan.calorietracker.services.SecureHttpClient
+import com.apoorvdarshan.calorietracker.data.AnalysisDurationEstimate
 import com.apoorvdarshan.calorietracker.data.KeyStore
 import com.apoorvdarshan.calorietracker.data.PreferencesStore
 import com.apoorvdarshan.calorietracker.models.AIProvider
@@ -365,7 +366,10 @@ class FoodAnalysisService(
         return callAi(prompt, imageBytesList = emptyList(), jsonResponse = false).trim()
     }
 
-    suspend fun analyzeText(description: String): FoodAnalysis {
+    suspend fun analyzeText(
+        description: String,
+        progress: AnalysisProgressReporter? = null
+    ): FoodAnalysis {
         val prompt = """
             Estimate the nutritional content for: $description
             Parse any quantities, brands, and multiple items from the text. If a brand is mentioned, use that brand's known nutritional data. If multiple items are described, sum up the total nutrition.
@@ -381,18 +385,34 @@ class FoodAnalysisService(
             Use slice/piece for explicitly counted pizza, cake, bread, cookies, fruit pieces, etc.; use ml/cup/fl oz for stated liquid volumes; use tbsp/tsp for stated spoon measures; use can/packet only when stated or strongly implied. Use [] when no reliable non-gram unit exists. Do not include g/gram/grams in unit_options.
             For "emoji" pick the single most specific food emoji that depicts this dish — e.g. 🥚 for eggs, 🍕 for pizza, 🍎 for an apple, 🥗 for a salad, 🍔 for a burger, 🍜 for ramen, 🍰 for cake, 🥑 for avocado, ☕ for coffee, 🍣 for sushi. Only fall back to 🍽️ when the food truly cannot be represented by any specific emoji. Use null for any nutrient you cannot estimate.
         """.trimIndent()
+        progress?.onProgress(AnalysisProgressUpdate(AnalysisStage.PREPARING))
         val parsed = FoodJsonParser.parseFoodResponse(
-            callAi(prompt, null, aminoAcidInstruction = AminoAcidEstimates.foodPromptInstruction)
+            callAi(
+                prompt,
+                null,
+                aminoAcidInstruction = AminoAcidEstimates.foodPromptInstruction,
+                progress = progress,
+                kind = AnalysisDurationEstimate.Kind.TEXT
+            )
         )
-        return addingFallbackServingUnits(
+        val analysis = addingFallbackServingUnits(
             analysis = parsed.analysis,
             imageBytes = null,
             description = description,
-            shouldRequestFallback = parsed.shouldRequestServingUnitFallback
+            shouldRequestFallback = parsed.shouldRequestServingUnitFallback,
+            progress = progress,
+            kind = AnalysisDurationEstimate.Kind.TEXT
         )
+        // The repair request may hit the provider again. Only call the result
+        // "validating" after it has actually answered.
+        progress?.onProgress(AnalysisProgressUpdate(AnalysisStage.VALIDATING))
+        return analysis
     }
 
-    suspend fun analyzeAuto(imageBytes: ByteArray): FoodAnalysis {
+    suspend fun analyzeAuto(
+        imageBytes: ByteArray,
+        progress: AnalysisProgressReporter? = null
+    ): FoodAnalysis {
         val prompt = """
             Analyze this image. It could be either a photo of food OR a nutrition facts label.
 
@@ -411,18 +431,33 @@ class FoodAnalysisService(
             Use slice/piece for visibly counted pizza, cake, bread, cookies, fruit pieces, etc.; use ml/cup/fl oz for visible or labeled liquid volumes; use tbsp/tsp for visible or labeled spoon measures; use can/packet only when visible or labeled. Use [] when no reliable non-gram unit exists. Do not include g/gram/grams in unit_options.
             Use null for any nutrient you cannot estimate.
         """.trimIndent()
+        progress?.onProgress(AnalysisProgressUpdate(AnalysisStage.PREPARING))
         val parsed = FoodJsonParser.parseFoodResponse(
-            callAi(prompt, imageBytes, aminoAcidInstruction = AminoAcidEstimates.foodPromptInstruction)
+            callAi(
+                prompt,
+                imageBytes,
+                aminoAcidInstruction = AminoAcidEstimates.foodPromptInstruction,
+                progress = progress,
+                kind = AnalysisDurationEstimate.Kind.IMAGE
+            )
         )
-        return addingFallbackServingUnits(
+        val analysis = addingFallbackServingUnits(
             analysis = parsed.analysis,
             imageBytes = imageBytes,
             description = null,
-            shouldRequestFallback = parsed.shouldRequestServingUnitFallback
+            shouldRequestFallback = parsed.shouldRequestServingUnitFallback,
+            progress = progress,
+            kind = AnalysisDurationEstimate.Kind.IMAGE
         )
+        progress?.onProgress(AnalysisProgressUpdate(AnalysisStage.VALIDATING))
+        return analysis
     }
 
-    suspend fun analyzeFood(imageBytes: ByteArray, description: String? = null): FoodAnalysis {
+    suspend fun analyzeFood(
+        imageBytes: ByteArray,
+        description: String? = null,
+        progress: AnalysisProgressReporter? = null
+    ): FoodAnalysis {
         var prompt = """
             Analyze this food image. Identify the food and estimate its nutritional content.
             Respond ONLY with JSON:
@@ -440,34 +475,57 @@ class FoodAnalysisService(
         if (!description.isNullOrBlank()) {
             prompt += "\n\nAdditional context from the user about this meal: $description\nUse this context to improve accuracy of identification, portion size, and nutrition estimates."
         }
+        progress?.onProgress(AnalysisProgressUpdate(AnalysisStage.PREPARING))
         val parsed = FoodJsonParser.parseFoodResponse(
-            callAi(prompt, imageBytes, aminoAcidInstruction = AminoAcidEstimates.foodPromptInstruction)
+            callAi(
+                prompt,
+                imageBytes,
+                aminoAcidInstruction = AminoAcidEstimates.foodPromptInstruction,
+                progress = progress,
+                kind = AnalysisDurationEstimate.Kind.IMAGE
+            )
         )
-        return addingFallbackServingUnits(
+        val analysis = addingFallbackServingUnits(
             analysis = parsed.analysis,
             imageBytes = imageBytes,
             description = description,
-            shouldRequestFallback = parsed.shouldRequestServingUnitFallback
+            shouldRequestFallback = parsed.shouldRequestServingUnitFallback,
+            progress = progress,
+            kind = AnalysisDurationEstimate.Kind.IMAGE
         )
+        progress?.onProgress(AnalysisProgressUpdate(AnalysisStage.VALIDATING))
+        return analysis
     }
 
     suspend fun analyzeFood(
         imageBytesList: List<ByteArray>,
         description: String? = null,
-        progressiveMeal: Boolean = false
+        progressiveMeal: Boolean = false,
+        progress: AnalysisProgressReporter? = null
     ): FoodAnalysis {
         val prompt = multiPhotoAnalysisPrompt(progressiveMeal, description)
         val images = imageBytesList.filter { it.isNotEmpty() }
         if (images.isEmpty()) throw AiError.InvalidResponse
+        progress?.onProgress(AnalysisProgressUpdate(AnalysisStage.PREPARING))
         val parsed = FoodJsonParser.parseFoodResponse(
-            callAi(prompt, images, aminoAcidInstruction = AminoAcidEstimates.foodPromptInstruction)
+            callAi(
+                prompt,
+                images,
+                aminoAcidInstruction = AminoAcidEstimates.foodPromptInstruction,
+                progress = progress,
+                kind = AnalysisDurationEstimate.Kind.IMAGE
+            )
         )
-        return addingFallbackServingUnits(
+        val analysis = addingFallbackServingUnits(
             analysis = parsed.analysis,
             imageBytes = images.first(),
             description = description,
-            shouldRequestFallback = parsed.shouldRequestServingUnitFallback
+            shouldRequestFallback = parsed.shouldRequestServingUnitFallback,
+            progress = progress,
+            kind = AnalysisDurationEstimate.Kind.IMAGE
         ).copy(progressiveMeal = progressiveMeal)
+        progress?.onProgress(AnalysisProgressUpdate(AnalysisStage.VALIDATING))
+        return analysis
     }
 
     suspend fun analyzeNutritionLabel(imageBytes: ByteArray, servingGrams: Double): FoodAnalysis {
@@ -528,9 +586,17 @@ class FoodAnalysisService(
     private suspend fun callAi(
         prompt: String,
         imageBytes: ByteArray?,
-        aminoAcidInstruction: String? = null
+        aminoAcidInstruction: String? = null,
+        progress: AnalysisProgressReporter? = null,
+        kind: AnalysisDurationEstimate.Kind = AnalysisDurationEstimate.Kind.TEXT
     ): String {
-        return callAi(prompt, imageBytes?.let { listOf(it) }.orEmpty(), aminoAcidInstruction = aminoAcidInstruction)
+        return callAi(
+            prompt,
+            imageBytes?.let { listOf(it) }.orEmpty(),
+            aminoAcidInstruction = aminoAcidInstruction,
+            progress = progress,
+            kind = kind
+        )
     }
 
     /**
@@ -544,17 +610,29 @@ class FoodAnalysisService(
         prompt: String,
         imageBytesList: List<ByteArray>,
         jsonResponse: Boolean = true,
-        aminoAcidInstruction: String? = null
+        aminoAcidInstruction: String? = null,
+        progress: AnalysisProgressReporter? = null,
+        kind: AnalysisDurationEstimate.Kind = AnalysisDurationEstimate.Kind.TEXT
     ): String {
         // Load settings + preprocess images in parallel. A chain of DataStore `.first()` calls
         // used to queue behind cold-start migrations and stall the analyzing overlay before any
         // HTTP went out — especially the first scan after opening the app.
-        val (settings, uploadImages) = coroutineScope {
+        val (settings, uploadImages, estimate) = coroutineScope {
             val settingsDeferred = async { prefs.foodAiCallSettings(forImages = imageBytesList.isNotEmpty()) }
             val imagesDeferred = async(Dispatchers.IO) {
                 imageBytesList.map(FoodImagePreprocessor::prepareForUpload)
             }
-            settingsDeferred.await() to imagesDeferred.await()
+            // The optional estimate is another DataStore read. Read it beside the images
+            // instead of adding a second sequential wait before the request starts.
+            val estimateDeferred = async {
+                val loaded = settingsDeferred.await()
+                if (progress == null || loaded.accessMode == AiAccessMode.HOSTED) {
+                    null
+                } else {
+                    prefs.analysisDurationEstimate(loaded.provider, loaded.model, kind)
+                }
+            }
+            Triple(settingsDeferred.await(), imagesDeferred.await(), estimateDeferred.await())
         }
         val requestPrompt = AminoAcidEstimates.prompt(prompt, aminoAcidInstruction, settings.aminoAcidEstimates)
         if (settings.accessMode == AiAccessMode.HOSTED && hosted != null) {
@@ -564,14 +642,23 @@ class FoodAnalysisService(
             if (uploadImages.size > HostedAiConstants.MAX_IMAGES) {
                 throw AiError.Hosted(AiErrorKind.HOSTED_TOO_MANY_IMAGES, "too_many_images")
             }
-            return hosted.client.generate(
+            // The Worker chooses the model, so there is no BYOK provider or model to name
+            // and no local history for one: the progress stays generic and honest.
+            progress?.onProgress(
+                AnalysisProgressUpdate(stage = AnalysisStage.REQUESTING)
+            )
+            val hostedText = hosted.client.generate(
                 prompt = requestPrompt,
                 jpegImages = uploadImages,
                 systemInstruction = settings.userContext.takeIf { it.isNotBlank() }
                     ?.let { "User context (apply to every analysis): $it" },
                 jsonResponse = jsonResponse
             )
+            progress?.onProgress(AnalysisProgressUpdate(AnalysisStage.RESPONDING))
+            return hostedText
         }
+        // BYOK: the provider and the model are known here, so the progress UI can name
+        // them and show the usual duration of this combination from the local history.
         val finalPrompt = if (settings.userContext.isNotBlank()) {
             "User context (apply to every analysis): ${settings.userContext}\n\n$requestPrompt"
         } else {
@@ -580,8 +667,16 @@ class FoodAnalysisService(
         val primaryKey = keyStore.apiKey(settings.provider)
         if (settings.provider.requiresApiKey && primaryKey.isNullOrEmpty()) throw AiError.NoApiKey
 
+        progress?.onProgress(
+            AnalysisProgressUpdate(
+                stage = AnalysisStage.REQUESTING,
+                provider = settings.provider,
+                model = settings.model,
+                estimateSeconds = estimate
+            )
+        )
         return try {
-            dispatch(
+            val text = dispatch(
                 settings.provider,
                 settings.model,
                 settings.baseUrl,
@@ -593,6 +688,8 @@ class FoodAnalysisService(
                 jsonResponse,
                 settings.openRouterReasoningEffort
             )
+            progress?.onProgress(AnalysisProgressUpdate(AnalysisStage.RESPONDING))
+            text
         } catch (primaryError: Throwable) {
             if (primaryError is kotlinx.coroutines.CancellationException) throw primaryError
             val fallback = if (imageBytesList.isEmpty()) {
@@ -600,8 +697,20 @@ class FoodAnalysisService(
             } else {
                 currentImageFallbackConfig(settings.provider, settings.model, settings.baseUrl)
             } ?: throw primaryError
+            // The primary request failed: say so plainly instead of looking stuck.
+            if (progress != null) {
+                progress.onProgress(
+                    AnalysisProgressUpdate(
+                        stage = AnalysisStage.FALLBACK,
+                        attempt = 2,
+                        provider = fallback.provider,
+                        model = fallback.model,
+                        estimateSeconds = prefs.analysisDurationEstimate(fallback.provider, fallback.model, kind)
+                    )
+                )
+            }
             try {
-                dispatch(
+                val text = dispatch(
                     fallback.provider,
                     fallback.model,
                     fallback.baseUrl,
@@ -613,6 +722,15 @@ class FoodAnalysisService(
                     jsonResponse,
                     settings.openRouterReasoningEffort
                 )
+                progress?.onProgress(
+                    AnalysisProgressUpdate(
+                        stage = AnalysisStage.RESPONDING,
+                        attempt = 2,
+                        provider = fallback.provider,
+                        model = fallback.model
+                    )
+                )
+                text
             } catch (fallbackError: Throwable) {
                 if (fallbackError is kotlinx.coroutines.CancellationException) throw fallbackError
                 throw AiError.BothProvidersFailed(settings.provider, fallback.provider, fallbackError)
@@ -624,7 +742,9 @@ class FoodAnalysisService(
         analysis: FoodAnalysis,
         imageBytes: ByteArray?,
         description: String?,
-        shouldRequestFallback: Boolean
+        shouldRequestFallback: Boolean,
+        progress: AnalysisProgressReporter?,
+        kind: AnalysisDurationEstimate.Kind
     ): FoodAnalysis {
         if (!ServingUnitRepairPolicy.shouldRepair(analysis, shouldRequestFallback)) return analysis
         val options = runCatching {
@@ -632,7 +752,9 @@ class FoodAnalysisService(
                 name = analysis.name,
                 servingSizeGrams = analysis.servingSizeGrams,
                 imageBytes = imageBytes,
-                description = description
+                description = description,
+                progress = progress,
+                kind = kind
             )
         }.getOrDefault(emptyList())
         if (options.isEmpty()) return analysis
@@ -647,7 +769,9 @@ class FoodAnalysisService(
     private suspend fun addingFallbackServingUnits(
         analysis: NutritionLabelAnalysis,
         imageBytes: ByteArray,
-        shouldRequestFallback: Boolean
+        shouldRequestFallback: Boolean,
+        progress: AnalysisProgressReporter? = null,
+        kind: AnalysisDurationEstimate.Kind = AnalysisDurationEstimate.Kind.IMAGE
     ): NutritionLabelAnalysis {
         if (!ServingUnitRepairPolicy.shouldRepair(analysis, shouldRequestFallback)) return analysis
         val servingSizeGrams = analysis.servingSizeGrams ?: return analysis
@@ -656,7 +780,9 @@ class FoodAnalysisService(
                 name = analysis.name,
                 servingSizeGrams = servingSizeGrams,
                 imageBytes = imageBytes,
-                description = null
+                description = null,
+                progress = progress,
+                kind = kind
             )
         }.getOrDefault(emptyList())
         if (options.isEmpty()) return analysis
@@ -667,7 +793,9 @@ class FoodAnalysisService(
         name: String,
         servingSizeGrams: Double,
         imageBytes: ByteArray?,
-        description: String?
+        description: String?,
+        progress: AnalysisProgressReporter?,
+        kind: AnalysisDurationEstimate.Kind
     ): List<com.apoorvdarshan.calorietracker.models.ServingUnitOption> {
         val context = description?.trim()?.takeIf { it.isNotEmpty() }
         val contextLine = context?.let { "\nUser context: $it" }.orEmpty()
@@ -689,7 +817,10 @@ class FoodAnalysisService(
             - Return {"unit_options":[]} when no reliable non-gram unit exists.
             - Do not include g, gram, or grams as an option.
         """.trimIndent()
-        return FoodJsonParser.parseServingUnitOptions(callAi(prompt, imageBytes), servingSizeGrams)
+        return FoodJsonParser.parseServingUnitOptions(
+            callAi(prompt, imageBytes, progress = progress, kind = kind),
+            servingSizeGrams
+        )
     }
 
     private suspend fun dispatch(

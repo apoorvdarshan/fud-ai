@@ -11,6 +11,7 @@ struct CloudBackupArchiveTests {
                 "foodEntries": .string("[{\"id\":\"\(id.uuidString)\"}]"),
                 "healthKitFoodRecoveryDone": .bool(false),
                 "healthKitNutritionBackfillVersion": .int(8),
+                "aiAnalysisDurations": .string("{\"gemini|m|text\":[4000]}"),
             ]
             let photo = Data([1, 2, 3, 4])
             let photos = try writePhotos(["\(id.uuidString).jpg": photo], in: dir)
@@ -23,6 +24,8 @@ struct CloudBackupArchiveTests {
             #expect(document.payload.values["foodEntries"]?.s?.contains(id.uuidString) == true)
             #expect(document.payload.values["healthKitFoodRecoveryDone"] == nil)
             #expect(document.payload.values["healthKitNutritionBackfillVersion"] == nil)
+            // Local analysis timing history must never leave the device (#635).
+            #expect(document.payload.values["aiAnalysisDurations"] == nil)
             #expect(try restoredPhotos(archive)["\(id.uuidString).jpg"] == photo)
         }
     }

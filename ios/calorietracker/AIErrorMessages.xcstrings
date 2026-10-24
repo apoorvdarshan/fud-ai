@@ -43,7 +43,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Není nastavený žádný klíč API. Přidej svůj klíč v Nastavení → AI poskytovatel."
+            "value": "Není nastavený žádný API klíč. Přidej svůj API klíč v Nastavení → Poskytovatel AI."
           }
         },
         "de": {
@@ -757,7 +757,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "AI odpovídala příliš dlouho. Zkus to znovu, nebo zvyš časový limit požadavku v Nastavení → AI poskytovatel."
+            "value": "AI odpovídala příliš dlouho. Zkus to znovu, nebo zvyš časový limit požadavku v Nastavení → Poskytovatel AI."
           }
         },
         "de": {
@@ -876,7 +876,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Na tvém AI účtu došly kredity. Dobij je, nebo změň poskytovatele v Nastavení → AI poskytovatel."
+            "value": "Na tvém AI účtu došly kredity. Dobij je, nebo změň poskytovatele v Nastavení → Poskytovatel AI."
           }
         },
         "de": {
@@ -995,7 +995,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Denní kvóta tvého AI účtu je vyčerpaná. Zkus to zítra, nebo změň poskytovatele v Nastavení → AI poskytovatel."
+            "value": "Denní kvóta tvého AI účtu je vyčerpaná. Zkus to zítra, nebo změň poskytovatele v Nastavení → Poskytovatel AI."
           }
         },
         "de": {
@@ -1114,7 +1114,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kvóta využití tvého AI účtu byla překročena. Zkontroluj limity poskytovatele, nebo ho změň v Nastavení → AI poskytovatel."
+            "value": "Kvóta využití tvého AI účtu byla překročena. Zkontroluj limity poskytovatele, nebo ho změň v Nastavení → Poskytovatel AI."
           }
         },
         "de": {
@@ -1233,7 +1233,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Vybraný model nebo koncový bod API není dostupný. Zkontroluj model a URL API v Nastavení → AI poskytovatel."
+            "value": "Vybraný model nebo koncový bod API není dostupný. Zkontroluj model a URL API v Nastavení → Poskytovatel AI."
           }
         },
         "de": {
@@ -1352,7 +1352,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tvůj API klíč narazil na limit počtu požadavků. Počkej minutu, nebo změň poskytovatele v Nastavení → AI poskytovatel. Pokud používáš bezplatnou úroveň, zkontroluj, zda není vyčerpaná její denní kvóta."
+            "value": "Tvůj API klíč narazil na limit počtu požadavků. Počkej minutu, nebo změň poskytovatele v Nastavení → Poskytovatel AI. Pokud používáš bezplatnou úroveň, zkontroluj, zda není vyčerpaná její denní kvóta."
           }
         },
         "de": {
@@ -1471,7 +1471,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tvůj API klíč byl odmítnut. Otevři Nastavení → AI poskytovatel a znovu vlož platný klíč."
+            "value": "Tvůj API klíč byl odmítnut. Otevři Nastavení → Poskytovatel AI a znovu vlož platný klíč."
           }
         },
         "de": {
@@ -1590,7 +1590,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Poskytovatel AI je teď přetížený. Několikrát jsme to zkusili znovu — zkus to za minutu, nebo změň poskytovatele či model v Nastavení → AI poskytovatel."
+            "value": "Poskytovatel AI je teď přetížený. Několikrát jsme to zkusili znovu — zkus to za minutu, nebo změň poskytovatele či model v Nastavení → Poskytovatel AI."
           }
         },
         "de": {
@@ -1709,7 +1709,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Požadavek na AI selhal. Zkus to znovu, nebo změň poskytovatele v Nastavení → AI poskytovatel."
+            "value": "Požadavek na AI selhal. Zkus to znovu, nebo změň poskytovatele v Nastavení → Poskytovatel AI."
           }
         },
         "de": {
@@ -1828,7 +1828,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Prostředí AI v zařízení není dostupné. Zkontroluj stažený model v Nastavení → AI poskytovatel."
+            "value": "Prostředí AI v zařízení není dostupné. Zkontroluj stažený model v Nastavení → Poskytovatel AI."
           }
         },
         "de": {

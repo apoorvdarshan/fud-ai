@@ -7,7 +7,7 @@
     <string name="workout_routine_save_message">Uloží cviky tohoto dne s plánovanými sériemi, opakováními a váhami.</string>
     <string name="workout_routines_title">Rutiny</string>
     <string name="workout_routines_empty_title">Zatím žádné rutiny</string>
-    <string name="workout_routines_empty_message">Zapište trénink a pak v nabídce + zvolte Uložit jako rutinu.</string>
+    <string name="workout_routines_empty_message">Zapiš trénink a pak v nabídce + zvol Uložit jako rutinu.</string>
     <string name="workout_routines_footer">Přidá cviky z rutiny do vybraného dne. Již zapsané série zůstanou beze změny.</string>
     <string name="workout_routine_rename">Přejmenovat</string>
     <string name="workout_routine_rename_title">Přejmenovat rutinu</string>

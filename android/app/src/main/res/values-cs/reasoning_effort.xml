@@ -2,7 +2,7 @@
     <string name="settings_reasoning_effort">Úroveň uvažování OpenRouter</string>
     <string name="settings_reasoning_effort_help">Platí pro všechny požadavky OpenRouter. Podporované úrovně se liší podle modelu. Vyšší úsilí může trvat déle a stát víc. Auto ponechá výchozí nastavení modelu; neúplné odpovědi se zopakují s úrovní Nízké.</string>
     <string name="reasoning_effort_auto">Výchozí / Auto</string>
-    <string name="reasoning_effort_none">Žádný</string>
+    <string name="reasoning_effort_none">Žádné</string>
     <string name="reasoning_effort_minimal">Minimální</string>
     <string name="reasoning_effort_low">Nízké</string>
     <string name="reasoning_effort_medium">Střední</string>

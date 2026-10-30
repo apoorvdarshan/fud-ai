@@ -101,9 +101,8 @@ Cursor/activation state persists; the most recent failure marker persists until
 replaced. Private Discord logs contain IDs, reasons and message links, not copied
 text; Discord messages persist until removed by the owner.
 
-For an appeal/reset, disable monitoring while editing the object's storage via
-Cloudflare's authenticated Durable Object tooling: remove the matching
-`user:<Discord user ID>` record and any matching `pending` action, then re-enable.
+For an appeal/reset, disable monitoring and use a reviewed, one-off code migration inside the Durable Object to remove the matching
+`user:<Discord user ID>` record and any matching `pending` action, then remove the migration and re-enable. There is no public reset endpoint or built-in remote storage editor.
 Remove a timeout or ban separately in Discord. Do not remove `started` or cursor
 keys unless intentionally resetting the activation boundary. The websites'
 Discord privacy sections disclose this processing.

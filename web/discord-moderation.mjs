@@ -13,26 +13,38 @@ export async function fingerprint(text) {
   return [...new Uint8Array(bytes)].map(b => b.toString(16).padStart(2, "0")).join("");
 }
 
+export function moderationText(text) {
+  return text.replace(/```[\s\S]*?(?:```|$)/g, " ").split("\n").filter(line => !/^\s*>/.test(line)).join("\n");
+}
+
 /** Deterministic rules, no model and no following links or instructions in chat. */
 export function classify(message, recent, hash, at) {
-  const text = message.content || "";
+  const text = moderationText(message.content || "");
   const mentions = new Set((message.mentions || []).filter(u => !u.bot).map(u => u.id));
-  if (mentions.size >= 6 || (message.mention_roles || []).length >= 3) {
+  if (mentions.size >= 6 || new Set(message.mention_roles || []).size >= 3) {
     return { violation: "mass mentions" };
   }
-  // Quoted examples and code/log dumps must never become promotional strikes.
-  if (/```|^\s*>/m.test(text)) return {};
   const links = [...text.matchAll(/https?:\/\/([^\s/<>]+)[^\s<>]*/gi)];
+  const externalLink = links.some(link => {
+    try { return !/^(?:www\.)?(?:discord\.com|discord\.gift)$/i.test(new URL(link[0]).hostname); }
+    catch { return false; }
+  });
   if (/^(?:@everyone\s+|@here\s+)?(?:claim|get) (?:your )?free (?:discord )?nitro\b/i.test(text.trim())
-    && links.some(link => !/^(?:www\.)?(?:discord\.com|discord\.gift)$/i.test(link[1]))) {
+    && externalLink) {
     return { violation: "free-Nitro solicitation linking outside Discord" };
   }
   const promotional = /\b(join my|join our|buy now|dm me to buy|hire me|subscribe to my|claim (?:your )?free nitro)\b/i.test(text);
-  const matching = recent.filter(x => x.hash === hash && x.at <= at);
-  if (text.trim().length >= 20 && matching.filter(x => at - x.at <= 60_000).length >= 4) {
+  // Channels can be scanned out of timestamp order. Count only real windows
+  // containing this message, not all neighbors in a +/- window twice as wide.
+  const times = [...recent.filter(x => x.hash === hash).map(x => x.at), at].sort((a, b) => a - b);
+  const repeated = (count, window) => times.some((start, i) => {
+    const end = times[i + count - 1];
+    return end !== undefined && end - start <= window && start <= at && end >= at;
+  });
+  if (text.trim().length >= 20 && repeated(5, 60_000)) {
     return { violation: "repeated identical messages (5 within 60 seconds)" };
   }
-  if (links.length && promotional && matching.filter(x => at - x.at <= 300_000).length >= 2) {
+  if (links.length && promotional && repeated(3, 300_000)) {
     return { violation: "repeated promotional message (3 within 5 minutes)" };
   }
   if (links.length && promotional) return { flag: "possible unsolicited promotion; no strike" };
@@ -165,8 +177,11 @@ export class DiscordModeration {
       }
     }
     // Delete expired metadata in bounded batches; raw messages are never persisted.
-    const users = await this.ctx.storage.list({ prefix: "user:", limit: 1000 });
+    const cleanupCursor = await this.ctx.storage.get("cleanupCursor");
+    const users = await this.ctx.storage.list({ prefix: "user:", limit: 1000, ...(cleanupCursor ? { startAfter: cleanupCursor } : {}) });
     for (const [key, user] of users) if (Date.now() - user.lastSeen > RESET) await this.ctx.storage.delete(key);
+    if (users.size === 1000) await this.ctx.storage.put("cleanupCursor", [...users.keys()].at(-1));
+    else await this.ctx.storage.delete("cleanupCursor");
   }
 
   async process(message, channelId, started) {
@@ -178,8 +193,8 @@ export class DiscordModeration {
     const key = `user:${message.author.id}`;
     const now = Date.now();
     const user = await this.ctx.storage.get(key) || { strikes: 0, lastStrike: 0, nextStrikeAt: 0, recent: [], lastSeen: now, lastFlag: 0 };
-    user.recent = user.recent.filter(x => at - x.at <= 300_000);
-    const hash = await fingerprint(message.content || "");
+    user.recent = user.recent.filter(x => Math.abs(at - x.at) <= 300_000);
+    const hash = await fingerprint(moderationText(message.content || ""));
     const result = classify(message, user.recent, hash, at);
     user.recent = [...user.recent, { hash, at }].slice(-30);
     user.lastSeen = now;
@@ -234,8 +249,18 @@ export class DiscordModeration {
         if (p.count === 3) await this.api(`/guilds/${this.guild.id}/bans/${p.userId}`, "PUT", { delete_message_seconds: 0 });
         else if (p.count && p.until > Date.now()) {
           const member = await this.api(`/guilds/${this.guild.id}/members/${p.userId}`, "GET", undefined, true);
-          if (member && (!member.communication_disabled_until || Date.parse(member.communication_disabled_until) < p.until)) {
+          if (!member) { await this.abandon(p, "member left before timeout enforcement"); return true; }
+          const existingUntil = Date.parse(member.communication_disabled_until || "");
+          if (!Number.isFinite(existingUntil) || existingUntil < p.until) {
             await this.api(`/guilds/${this.guild.id}/members/${p.userId}`, "PATCH", { communication_disabled_until: new Date(p.until).toISOString() });
+          } else {
+            p.until = existingUntil;
+            const key = `user:${p.userId}`;
+            await this.ctx.storage.transaction(async tx => {
+              const user = await tx.get(key);
+              if (user) await tx.put(key, { ...user, nextStrikeAt: Math.max(user.nextStrikeAt, existingUntil) });
+              await tx.put("pending", p);
+            });
           }
         }
         p.step = 2; await this.ctx.storage.put("pending", p);

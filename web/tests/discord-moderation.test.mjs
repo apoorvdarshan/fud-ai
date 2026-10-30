@@ -17,7 +17,7 @@ function setup() {
     get: async key => structuredClone(data.get(key)),
     put: async (key, value) => { data.set(key, structuredClone(value)); },
     delete: async key => data.delete(key),
-    list: async ({ prefix, limit }) => new Map([...data].filter(([k]) => k.startsWith(prefix)).slice(0, limit)),
+    list: async ({ prefix, limit, startAfter }) => new Map([...data].filter(([k]) => k.startsWith(prefix) && (!startAfter || k > startAfter)).sort(([a], [b]) => a.localeCompare(b)).slice(0, limit)),
     transaction: async callback => {
       const before = structuredClone(data);
       try { return await callback(storage); }
@@ -48,7 +48,7 @@ function setup() {
     if (path === `/guilds/${GUILD}/channels`) return Response.json([{ id: CHANNEL, type: 0 }, { id: LOG, type: 0 }]);
     if (path.endsWith("/messages")) {
       const after = BigInt(new URL(url).searchParams.get("after"));
-      return Response.json(messages.filter(m => BigInt(m.id) > after).slice(0, 100).toReversed());
+      return Response.json(messages.filter(m => m.channel_id === path.split("/")[2] && BigInt(m.id) > after).slice(0, 100).toReversed());
     }
     throw new Error(`Unexpected GET ${path}`);
   };
@@ -246,4 +246,52 @@ test("expired unconfirmed timeout is abandoned without a false success warning",
   await f.scan(); f.advance(600001); f.override(() => undefined); await f.scan();
   assert.equal(f.data.get(`user:${USER}`).strikes, 0);
   assert.ok(writes(f).filter(c => c.method === "POST").every(c => c.path.includes(LOG)));
+});
+
+test("an older fifth copy scanned in another channel still triggers repetition", async () => {
+  const f = setup(), second = "1548481448024084540";
+  f.override(path => path === `/guilds/${GUILD}/channels` ? Response.json([{ id: CHANNEL, type: 0 }, { id: second, type: 0 }]) : undefined);
+  await f.scan(); f.advance(1000);
+  f.messages.push(f.message("Repeated long message across two channels", { channel_id: second }));
+  for (let i = 0; i < 4; i++) { f.advance(1000); f.messages.push(f.message("Repeated long message across two channels")); }
+  await f.scan(); assert.equal(f.data.get(`user:${USER}`).strikes, 1);
+  assert.ok(writes(f).some(c => c.method === "DELETE" && c.path.includes(second)));
+});
+test("out-of-order repetition does not combine two disjoint windows", () => {
+  const recent = [0, 1000, 90000, 91000].map(at => ({ hash: "h", at }));
+  assert.deepEqual(classify({ content: "Repeated message that is long enough" }, recent, "h", 45000), {});
+});
+test("quoted examples are ignored but appending a quote does not hide an unquoted solicitation", () => {
+  for (const suffix of ["\n> quoted text", "\n```some example```", "\n```unfinished example"]) {
+    assert.ok(classify({ content: "Claim free Nitro https://example.invalid" + suffix }, [], "x", 0).violation);
+  }
+  assert.deepEqual(classify({ content: "> Claim free Nitro https://example.invalid" }, [], "x", 0), {});
+  assert.deepEqual(classify({ content: "```Claim free Nitro https://example.invalid```" }, [], "x", 0), {});
+  assert.ok(!classify({ content: "Claim free Nitro https://discord.gift:443/abc" }, [], "x", 0).violation);
+});
+test("a member leaving between checks gets no unserved strike or success warning", async () => {
+  const f = setup(); await f.scan(); f.advance(1000); f.messages.push(spam(f));
+  let lookups = 0;
+  f.override(path => path.endsWith(`/members/${USER}`) && ++lookups >= 3 ? new Response(null, { status: 404 }) : undefined);
+  await f.scan();
+  assert.equal(f.data.get(`user:${USER}`).strikes, 0);
+  assert.ok(!writes(f).some(c => c.method === "PATCH"));
+  assert.ok(writes(f).filter(c => c.method === "POST").every(c => c.path.includes(LOG)));
+});
+test("a retained longer timeout is reported accurately and defines the incident window", async () => {
+  const f = setup(); await f.scan(); f.advance(1000); f.messages.push(spam(f));
+  const until = f.now() + DAY;
+  f.override(path => path.endsWith(`/members/${USER}`) ? Response.json({ roles: [], communication_disabled_until: new Date(until).toISOString() }) : undefined);
+  await f.scan();
+  const warning = writes(f).find(c => c.method === "POST" && c.path.includes(CHANNEL));
+  assert.ok(warning.body.content.includes(String(Math.floor(until / 1000))));
+  assert.equal(f.data.get(`user:${USER}`).nextStrikeAt, until);
+});
+test("cleanup rotates past 1000 active records to remove expired member metadata", async () => {
+  const f = setup();
+  for (let i = 0; i < 1000; i++) f.data.set(`user:${String(i).padStart(4, "0")}`, { lastSeen: f.now() });
+  f.data.set("user:zzzz", { lastSeen: f.now() - 31 * DAY });
+  await f.scan(); assert.ok(f.data.has("user:zzzz"));
+  await f.scan(); assert.ok(!f.data.has("user:zzzz"));
+  assert.equal(f.data.get("cleanupCursor"), undefined);
 });

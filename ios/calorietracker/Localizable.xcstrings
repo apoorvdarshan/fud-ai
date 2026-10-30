@@ -697,7 +697,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kdykoli to můžete změnit v %@."
+            "value": "Kdykoli to můžeš změnit v %@."
           }
         },
         "de": {
@@ -939,7 +939,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Vypnuto, dokud ho nezapneš. Používá účet iCloud na tomto iPhonu. Klíče API zůstávají v zařízení."
+            "value": "Vypnuto, dokud ji nezapneš. Používá účet iCloud na tomto iPhonu. API klíče zůstávají v zařízení."
           }
         },
         "de": {
@@ -1051,7 +1051,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nahraje tvůj deník, tréninky, půsty, fotky a nastavení na tvůj iCloud. Klíče API zůstávají v telefonu."
+            "value": "Nahraje tvůj deník, tréninky, půsty, fotky a nastavení na tvůj iCloud. API klíče zůstávají v telefonu."
           }
         },
         "de": {
@@ -3022,7 +3022,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Vše %lld"
+            "value": "Vše (%lld)"
           }
         },
         "tr": {
@@ -6742,7 +6742,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "AI funkce běží na tvém vlastním klíči poskytovatele — přidej zdarma klíč Gemini, OpenAI, Groq nebo jiného podporovaného poskytovatele v úvodním nastavení nebo v Nastavení."
+            "value": "AI funkce běží na tvém vlastním klíči poskytovatele — přidej bezplatný klíč Gemini, OpenAI, Groq nebo jiného podporovaného poskytovatele v úvodním nastavení nebo v Nastavení."
           }
         },
         "tr": {
@@ -8512,7 +8512,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "/%1$@%2$@"
+            "value": "/%1$@ %2$@"
           }
         },
         "de": {
@@ -9078,7 +9078,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "zbývá %1$@%2$@"
+            "value": "zbývá %1$@ %2$@"
           }
         },
         "tr": {
@@ -10086,7 +10086,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld kal"
+            "value": "%lld kcal"
           }
         },
         "de": {
@@ -10694,9 +10694,33 @@
           }
         },
         "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%1$lld produkt%2$@ se přidá do %3$@."
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%1$lld jídlo se přidá do %3$@."
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%1$lld jídla se přidají do %3$@."
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%1$lld jídla se přidá do %3$@."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%1$lld jídel se přidá do %3$@."
+                }
+              }
+            }
           }
         },
         "tr": {
@@ -11983,6 +12007,12 @@
           }
         },
         "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld g"
+          }
+        },
+        "cs": {
           "stringUnit": {
             "state": "translated",
             "value": "%lld g"
@@ -13871,7 +13901,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Adaptivní cíle a Spálená energie opustily Experimentální a u nových instalací jsou zapnuté."
+            "value": "Adaptivní cíle a Spálená energie opustily sekci Experimentální a u nových instalací jsou ve výchozím nastavení zapnuté."
           }
         },
         "tr": {
@@ -14797,7 +14827,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "AI poskytovatel"
+            "value": "Poskytovatel AI"
           }
         },
         "tr": {
@@ -20371,7 +20401,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Základní URL"
+            "value": "Base URL"
           }
         },
         "de": {
@@ -29880,7 +29910,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Komprimovat fotky trvale zmenší fotky větší než 2048 px. Vymazat mezipaměť odstraní miniatury a stažené obrázky cviků, které se v případě potřeby znovu vytvoří. Modely v zařízení smažete v jejich nastavení AI nebo řeči."
+            "value": "Komprimovat fotky trvale zmenší fotky větší než 2048 px. Vymazat mezipaměť odstraní miniatury a stažené obrázky cviků, které se v případě potřeby znovu vytvoří. Modely v zařízení smažeš v jejich nastavení AI nebo řeči."
           }
         },
         "de": {
@@ -33049,7 +33079,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Zapnout zálohu"
+            "value": "Zapnout záložní AI"
           }
         },
         "tr": {
@@ -34122,7 +34152,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Očekávání za 30 dní"
+            "value": "Očekáváno za 30 dní"
           }
         },
         "tr": {
@@ -37918,7 +37948,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Fud AI je zdarma a open source — žádné předplatné, žádné paywally, všechno už je odemčené. Pokud ti pomohla, spropitné ji tak pomůže udržet."
+            "value": "Fud AI je zdarma a open source — žádné předplatné, žádné paywally, všechno už je odemčené. Pokud ti aplikace pomohla, spropitné pomůže, aby to tak zůstalo."
           }
         },
         "tr": {
@@ -40748,7 +40778,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hej Siri, %@"
+            "value": "Hey Siri, %@"
           }
         },
         "de": {
@@ -49954,7 +49984,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ navíc"
+            "value": "o %@ navíc"
           }
         },
         "de": {
@@ -50066,7 +50096,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "o %@%@ navíc"
+            "value": "o %1$@ %2$@ navíc"
           }
         },
         "de": {
@@ -50968,7 +50998,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Všechny"
+            "value": "Vše"
           }
         },
         "de": {
@@ -51306,7 +51336,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "P"
+            "value": "T"
           }
         },
         "de": {
@@ -64158,7 +64188,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Obnovit cíle ze spálené energie"
+            "value": "Obnovit cíle podle spálené energie"
           }
         },
         "tr": {
@@ -72130,7 +72160,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Odhadovaný udržovací příjem je počet kalorií, které spálíte v běžný den: váš BMR z profilu vynásobený úrovní aktivity. Když jíte méně, vzniká deficit pro hubnutí; když více, vzniká přebytek pro nabírání. Zobrazený deficit nebo přebytek je váš kalorický cíl minus tento odhad. Jde o odhad podle vzorce, takže skutečný výdej se může lišit, a přepočet cílů může nastavit cíl podle zaznamenaného jídla, vývoje hmotnosti nebo naměřeného výdeje energie. Nejde o lékařskou radu."
+            "value": "Odhadovaný udržovací příjem je počet kalorií, které spálíš v běžný den: tvůj BMR z profilu vynásobený úrovní aktivity. Když jíš méně, vzniká deficit pro hubnutí; když víc, vzniká přebytek pro nabírání. Zobrazený deficit nebo přebytek je tvůj kalorický cíl minus tento odhad. Jde o odhad podle vzorce, takže skutečný výdej se může lišit, a přepočet cílů může cíl nastavit podle zapsaného jídla, vývoje váhy nebo naměřeného výdeje energie. Nejde o lékařskou radu."
           }
         },
         "de": {
@@ -73600,7 +73630,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Trvale smaže všechny zapsané záznamy jídel. Profil, záznamy váhy a oblíbená zůstanou. Tuto akci nejde vrátit."
+            "value": "Trvale smaže všechny zapsané záznamy jídel. Profil, záznamy váhy a oblíbené položky zůstanou. Tuto akci nejde vrátit."
           }
         },
         "tr": {
@@ -82798,7 +82828,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Můžeš nastavit později v Nastavení."
+            "value": "Můžeš to nastavit později v Nastavení."
           }
         },
         "tr": {
@@ -83611,7 +83641,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Aktuálně vybraný poskytovatel: %@. Kdykoli ho můžeš změnit v Nastavení → AI poskytovatel. Každý poskytovatel má vlastní zásady ochrany soukromí a může logovat požadavky."
+            "value": "Aktuálně vybraný poskytovatel: %@. Kdykoli ho můžeš změnit v Nastavení → Poskytovatel AI. Každý poskytovatel má vlastní zásady ochrany soukromí a může logovat požadavky."
           }
         },
         "tr": {
@@ -83956,7 +83986,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "AI napasuje bílkoviny, sacharidy a tuky na tvůj kalorický cíl podle těchto referencí. Bílkoviny se škálují s úrovní aktivity (a při zadaném tělesném tuku vychází z aktivní tělesné hmoty); tuky se určí z tělesné váhy; sacharidy doplní zbytek. Cokoli můžeš zamknout nebo upravit ručně v Nastavení."
+            "value": "AI napasuje bílkoviny, sacharidy a tuky na tvůj kalorický cíl podle těchto referencí. Bílkoviny vychází z celkové tělesné váhy sazbou podle úrovně aktivity; tuky se určí z tělesné váhy; sacharidy doplní zbytek. Cokoli můžeš zamknout nebo upravit ručně v Nastavení."
           }
         }
       }
@@ -91352,7 +91382,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Metoda aktivitního násobitele"
+            "value": "Metoda koeficientu aktivity"
           }
         }
       }
@@ -91800,7 +91830,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Udržovací příjem vychází z tvého TDEE — nebo, když je zapnutá Spálená energie, z nedávných naměřených hodnot energie z Apple Health místo odhadu podle vzorce: celkové naměřené energie, pokud je k dispozici dost dní, jinak z průměrné naměřené aktivní energie + BMR podle vzorce. AI udržovací příjem upřesní podle zapsaného příjmu a vývoje váhy a pak použije tvůj cíl: týdenní tempo změny váhy se převede na denní kalorický deficit (Hubnutí) nebo přebytek (Nabírání)."
+            "value": "Udržovací příjem vychází z tvého TDEE — nebo, když je zapnutá Spálená energie, z nedávných naměřených hodnot energie z Apple Health místo odhadu podle vzorce: celkové naměřené energie, pokud je k dispozici dost dní, jinak z průměrné naměřené aktivní energie + BMR podle vzorce. AI udržovací příjem upřesní podle zapsaného příjmu a vývoje váhy a pak použije tvůj cíl: týdenní tempo změny váhy se převede na denní kalorický deficit (Zhubnout) nebo přebytek (Přibrat)."
           }
         }
       }
@@ -92360,7 +92390,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kalorie, makra, vláknina, cukr, nasycené tuky, cholesterol, sodík, draslík a další mikroživiny u každého jídla jsou odhady generované AI z fotky jídla, hlasového přepisu nebo textového popisu, přes tebou vybraného AI poskytovatele."
+            "value": "Kalorie, makra, vláknina, cukr, nasycené tuky, cholesterol, kofein, sodík, draslík a další podrobné výživové hodnoty u každého jídla jsou odhady generované AI z fotky jídla, hlasového přepisu nebo textového popisu, přes tebou vybraného AI poskytovatele."
           }
         }
       }
@@ -92472,7 +92502,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mifflin MD, St Jeor ST, et al. (1990). „Nová predikční rovnice pro klidový energetický výdej u zdravých osob.“ Am J Clin Nutr 51(2):241–247."
+            "value": "Mifflin MD, St Jeor ST a kol. (1990). „A new predictive equation for resting energy expenditure in healthy individuals.“ Am J Clin Nutr 51(2):241–247."
           }
         }
       }
@@ -92808,7 +92838,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hall KD, et al. (2011). „Kvantifikace vlivu energetické nerovnováhy na tělesnou hmotnost.“ Lancet 378(9793):826–837. Klasické pravidlo 3 500 kcal na libru pochází od Wishnofsky M (1958), Am J Clin Nutr 6:542–546."
+            "value": "Hall KD a kol. (2011). „Quantification of the effect of energy imbalance on bodyweight.“ Lancet 378(9793):826–837. Klasické pravidlo 3 500 kcal na libru pochází od Wishnofsky M (1958), Am J Clin Nutr 6:542–546."
           }
         }
       }
@@ -92920,7 +92950,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Morton RW, et al. (2018). „Systematický přehled, metaanalýza a metaregrese vlivu suplementace bílkovin na nárůst svalové hmoty a síly při silovém tréninku.“ Br J Sports Med 52(6):376–384."
+            "value": "Morton RW a kol. (2018). „A systematic review, meta-analysis and meta-regression of the effect of protein supplementation on resistance training-induced gains in muscle mass and strength.“ Br J Sports Med 52(6):376–384."
           }
         }
       }
@@ -97025,7 +97055,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Udržuj výživu a tělesné míry\nautomaticky synchronizované."
+            "value": "Udržuj výživu, kroky a tělesné\nmíry automaticky synchronizované."
           }
         }
       }
@@ -98725,7 +98755,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Při zápisu ukládat fotky jídel také do galerie"
+            "value": "Při zápisu ukládat fotky jídel také do Fotek"
           }
         }
       }
@@ -98944,7 +98974,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Vyber, jak chceš v Fud AI používat AI. Aplikace zůstane v obou případech zdarma."
+            "value": "Vyber, jak chceš ve Fud AI používat AI. Aplikace zůstane v obou případech zdarma."
           }
         },
         "tr": {
@@ -100300,7 +100330,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Jídelníček, historie váhy a tělesného tuku zůstávají na tomto zařízení. Hostovaná AI neukládá tvé BYOK klíče."
+            "value": "Deník jídel, historie váhy a tělesného tuku zůstávají v tomto zařízení. Hostovaná AI neukládá tvé BYOK klíče."
           }
         },
         "tr": {
@@ -100920,7 +100950,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Passing · projekt 14553"
+            "value": "Splněno · projekt 14553"
           }
         },
         "de": {
@@ -101848,7 +101878,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Přepis zvuku přes Gemini API. Používá dávkové porozumění zvuku, ne Speech-to-Text API Google Cloudu v reálném čase."
+            "value": "Gemini 3.5 Transcribe pro přesný dávkový přepis s automatickým rozpoznáním jazyka."
           }
         },
         "de": {
@@ -101961,7 +101991,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "OpenAI Whisper API. Vysoká přesnost, 99+ jazyků, platba za minutu."
+            "value": "OpenAI GPT-Transcribe, aktuální model s vysokou přesností pro nahraný zvuk."
           }
         },
         "de": {
@@ -106030,7 +106060,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Relace"
+            "value": "Tréninky"
           }
         },
         "de": {
@@ -117411,7 +117441,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Vyber soubor JSON, který Fud AI dříve exportovala. Soubor se ověří dřív, než se změní jakýkoli záznam v deníku."
+            "value": "Vyber soubor JSON dříve exportovaný z Fud AI. Soubor se ověří dřív, než se změní jakýkoli záznam v deníku."
           }
         },
         "de": {
@@ -120323,7 +120353,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Přizpůsob nabídku jídla tlačítka + na Domů. Voda a půst zůstanou samostatně, pokud jsou zapnuté. Rychlé akce ikony aplikace se tím nemění."
+            "value": "Přizpůsob nabídku jídla tlačítka + na Domů. Voda a půst zůstanou samostatné, pokud jsou zapnuté. Rychlé akce ikony aplikace se tím nemění."
           }
         },
         "de": {
@@ -121213,7 +121243,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Smazat deník jídel"
+            "value": "Smazat záznam jídla"
           }
         },
         "de": {
@@ -121325,7 +121355,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Smazat deník jídel?"
+            "value": "Smazat záznam jídla?"
           }
         },
         "de": {
@@ -121437,7 +121467,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Smazat deník tréninků?"
+            "value": "Smazat záznam tréninku?"
           }
         },
         "de": {
@@ -122003,7 +122033,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Popiš, co jsi dělal. Před přidáním do deníku tréninků zkontroluj podrobnosti."
+            "value": "Popiš svůj trénink. Před přidáním do deníku tréninků zkontroluj podrobnosti."
           }
         },
         "de": {
@@ -125487,7 +125517,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Rychlé (%@)"
+            "value": "Rychle (%@)"
           }
         },
         "de": {
@@ -126945,7 +126975,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Fud AI je zdarma s tvými vlastními API klíči (BYOK) — a vždycky bude. Pokud ti správa klíčů přijde složitá, plány Plus a Pro ti AI provozují za tebe a žádné klíče řešit nemusíš. Zcela volitelné, nic se nezmění, dokud sám nepřepneš."
+            "value": "Fud AI je zdarma s tvými vlastními API klíči (BYOK) — a vždycky bude. Pokud ti správa klíčů přijde složitá, plány Plus a Pro provozují AI za tebe a žádné klíče řešit nemusíš. Zcela volitelné, nic se nezmění, dokud nepřepneš."
           }
         },
         "de": {
@@ -132104,7 +132134,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Načítání plánů…"
+            "value": "Načítám plány…"
           }
         },
         "de": {
@@ -134563,7 +134593,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Zatím žádná historie zvedání"
+            "value": "Zatím žádná historie zdvihů"
           }
         },
         "de": {
@@ -136803,7 +136833,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Vypnuto, dokud ho nezapneš. Používá účet iCloud na tomto iPhonu — pokud potřebuješ jiný účet, změň Apple ID v Nastavení iOS. Klíče API zůstávají v zařízení."
+            "value": "Vypnuto, dokud ji nezapneš. Používá účet iCloud na tomto iPhonu — pokud potřebuješ jiný účet, změň Apple ID v Nastavení iOS. API klíče zůstávají v zařízení."
           }
         },
         "de": {
@@ -140058,7 +140088,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Vyber přesně čtyři živiny pro souhrnný řádek na Domů."
+            "value": "Vyber jednu až čtyři živiny pro souhrnný řádek na Domů."
           }
         },
         "de": {
@@ -141502,7 +141532,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Zobrazuje se na konci obrazovek kontroly a úprav u potravin naskenovaných čárovým kódem. Kontrola alergenů tím není ovlivněna a zobrazí se vždy, když máte nastavené citlivosti na alergeny."
+            "value": "Zobrazuje se na konci obrazovek kontroly a úprav u potravin naskenovaných čárovým kódem. Kontrola alergenů tím není ovlivněna a zobrazí se vždy, když máš nastavené citlivosti na alergeny."
           }
         },
         "de": {
@@ -147445,7 +147475,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Přítahy a síla horní části zad"
+            "value": "Přítahy a mohutnost horní části zad"
           }
         },
         "de": {
@@ -156063,7 +156093,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Zadejte množství nejvýše %@."
+            "value": "Zadej množství nejvýše %@."
           }
         },
         "de": {
@@ -156747,7 +156777,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Právě jsme spustili. Hlas pomůže, aby Fud AI našlo víc lidí."
+            "value": "Právě jsme spustili. Hlas pomůže dalším lidem najít Fud AI."
           }
         },
         "de": {
@@ -162438,7 +162468,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Přístup k mikrofonu je vypnutý. Zapni ho pro Fud AI v aplikaci Nastavení, abys mohl mluvit s asistentem."
+            "value": "Přístup k mikrofonu je vypnutý. Zapni ho pro Fud AI v aplikaci Nastavení, aby šlo mluvit s asistentem."
           }
         },
         "de": {
@@ -162550,7 +162580,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Fud AI nemohlo ověřit tvé předplatné. Zkus to znovu za chvíli."
+            "value": "Fud AI se nepodařilo ověřit tvé předplatné. Zkus to znovu za chvíli."
           }
         },
         "de": {
@@ -163222,7 +163252,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Fud AI nemohlo ověřit tvé předplatné. Zkus Obnovit nákupy v Nastavení → Přístup k AI."
+            "value": "Fud AI se nepodařilo ověřit tvé předplatné. Zkus Obnovit nákupy v Nastavení → Přístup k AI."
           }
         },
         "de": {
@@ -163334,7 +163364,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ odmítl tvůj klíč API nebo nepovoluje tento hlasový model. Zkontroluj ho v Nastavení → Poskytovatelé AI a záložní možnosti."
+            "value": "Poskytovatel %@ odmítl tvůj API klíč nebo nepovoluje tento hlasový model. Zkontroluj ho v Nastavení → Poskytovatelé AI a záložní možnosti."
           }
         },
         "de": {
@@ -165014,7 +165044,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Řekl jsi: %@"
+            "value": "Tvoje slova: %@"
           }
         },
         "de": {
@@ -166806,7 +166836,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Funkce Vyplnit pomocí AI odešle tuto fotku vašemu poskytovateli AI. Před uložením navržené údaje zkontrolujte."
+            "value": "Funkce Vyplnit pomocí AI odešle tuto fotku tvému poskytovateli AI. Před uložením navržené údaje zkontroluj."
           }
         },
         "de": {
@@ -167030,7 +167060,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mluv a zapisuj jídla, skenuj jídlo i čárové kódy a ptej se na svůj pokrok. Hlasový asistent běží s plánem Fud AI Plus nebo Pro, nebo s tvým vlastním klíčem API od Gemini, OpenAI, xAI či Qwen."
+            "value": "Mluv a zapisuj jídla, skenuj jídlo i čárové kódy a ptej se na svůj pokrok. Hlasový asistent běží s plánem Fud AI Plus nebo Pro, nebo s tvým vlastním API klíčem od Gemini, OpenAI, xAI či Qwen."
           }
         },
         "de": {
@@ -167142,7 +167172,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hlas Fud AI je součástí plánů Plus a Pro. Předplať si je, nebo přidej vlastní klíč API od Gemini, OpenAI, xAI či Qwen a vyber ho v Nastavení → Hlasový asistent."
+            "value": "Hlas Fud AI je součástí plánů Plus a Pro. Předplať si je, nebo přidej vlastní API klíč od Gemini, OpenAI, xAI či Qwen a vyber ho v Nastavení → Hlasový asistent."
           }
         },
         "de": {
@@ -167254,7 +167284,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Přidej svůj klíč API od %1$@ v nastavení AI, abys mohl mluvit přes %2$@, nebo si předplať Plus či Pro a používej hlas Fud AI."
+            "value": "Přidej svůj API klíč od %1$@ v nastavení AI, aby šlo mluvit přes %2$@, nebo si předplať Plus či Pro a používej hlas Fud AI."
           }
         },
         "de": {
@@ -167478,7 +167508,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Přidat klíč API"
+            "value": "Přidat API klíč"
           }
         },
         "de": {
@@ -168374,7 +168404,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Používá %@ s tvým klíčem API"
+            "value": "Používá %@ s tvým API klíčem"
           }
         },
         "de": {
@@ -168486,7 +168516,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Není uložen klíč API pro %@"
+            "value": "Není uložen API klíč pro %@"
           }
         },
         "de": {
@@ -168710,7 +168740,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Předplať si Plus nebo Pro, nebo přidej klíč API od Gemini, OpenAI, xAI či Qwen"
+            "value": "Předplať si Plus nebo Pro, nebo přidej API klíč od Gemini, OpenAI, xAI či Qwen"
           }
         },
         "de": {
@@ -168822,7 +168852,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Přidat klíč API v Poskytovatelích AI"
+            "value": "Přidat API klíč v Poskytovatelích AI"
           }
         },
         "de": {
@@ -171398,7 +171428,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Řekni „Hej Siri, mluvit s Fud AI“."
+            "value": "Řekni „Hey Siri, mluvit s Fud AI“."
           }
         },
         "de": {
@@ -176354,7 +176384,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ahoj, jsem váš asistent Fud AI. Takhle zní můj hlas."
+            "value": "Ahoj, jsem tvůj asistent Fud AI. Takhle zní můj hlas."
           }
         },
         "de": {
@@ -176473,7 +176503,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tuto hlasovou ukázku se nepodařilo přehrát. Zkuste to prosím znovu."
+            "value": "Tuto hlasovou ukázku se nepodařilo přehrát. Zkus to prosím znovu."
           }
         },
         "de": {
@@ -176592,7 +176622,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Před poslechem hlasové ukázky ukončete aktuální hlasovou konverzaci."
+            "value": "Před poslechem hlasové ukázky ukonči aktuální hlasovou konverzaci."
           }
         },
         "de": {
@@ -176935,7 +176965,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nastavte to po přidání všech ingrediencí. Fud AI recept rozdělí, abyste zapsali 1 porci, a Uložená jídla si tuto velikost porce ponechají."
+            "value": "Nastav to po přidání všech ingrediencí. Fud AI recept rozdělí, takže zapíšeš 1 porci, a Uložená jídla si tuto velikost porce ponechají."
           }
         },
         "de": {
@@ -177047,7 +177077,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Používá se váš uložený výživový štítek pro tento čárový kód"
+            "value": "Používá se tvůj uložený výživový štítek pro tento čárový kód"
           }
         },
         "de": {
@@ -177159,7 +177189,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Open Food Facts pro tento produkt nemá nutriční hodnoty. Chcete-li tento štítek zapomenout, smažte záznamy jídla, které ho použily."
+            "value": "Open Food Facts pro tento produkt nemá nutriční hodnoty. Pokud chceš tento štítek zapomenout, smaž záznamy jídla, které ho použily."
           }
         },
         "de": {
@@ -180099,7 +180129,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Není nastavený žádný klíč API. Přidej svůj klíč v Nastavení → AI poskytovatel."
+            "value": "Není nastavený žádný API klíč. Přidej svůj klíč v Nastavení → Poskytovatel AI."
           }
         },
         "de": {
@@ -180551,7 +180581,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Pro tohoto poskytovatele převodu řeči není nastavený klíč API. Přidej ho v Nastavení → Převod řeči na text."
+            "value": "Pro tohoto poskytovatele převodu řeči není nastavený API klíč. Přidej ho v Nastavení → Převod řeči na text."
           }
         },
         "de": {
@@ -181568,7 +181598,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Toto není platný soubor JSON s jídelníčkem Fud AI."
+            "value": "Toto není platný soubor JSON s deníkem jídel Fud AI."
           }
         },
         "de": {
@@ -181681,7 +181711,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tento formát jídelníčku není podporovaný."
+            "value": "Tento formát deníku jídel není podporovaný."
           }
         },
         "de": {
@@ -181794,7 +181824,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Vybraný jídelníček neobsahuje žádné záznamy jídla ani vody."
+            "value": "Vybraný deník neobsahuje žádné záznamy jídla ani vody."
           }
         },
         "de": {
@@ -181907,7 +181937,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Jídelníček obsahuje neplatné datum nebo čas: %@."
+            "value": "Deník obsahuje neplatné datum nebo čas: %@."
           }
         },
         "de": {
@@ -182020,7 +182050,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Jídelníček obsahuje neznámý typ jídla: %@."
+            "value": "Deník obsahuje neznámý typ jídla: %@."
           }
         },
         "de": {
@@ -182133,7 +182163,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Jídelníček obsahuje neplatný záznam vody."
+            "value": "Deník obsahuje neplatný záznam vody."
           }
         },
         "de": {
@@ -182246,7 +182276,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Jídelníček obsahuje neplatný záznam jídla: %@."
+            "value": "Deník obsahuje neplatný záznam jídla: %@."
           }
         },
         "de": {
@@ -183150,7 +183180,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Řekni prosím váhu, například 75 kg nebo 165 lb."
+            "value": "Řekni prosím váhu, například 75 kilogramů nebo 165 liber."
           }
         },
         "de": {
@@ -183846,7 +183876,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Zaznamenané dny"
+            "value": "Zapsané dny"
           }
         },
         "de": {
@@ -184798,7 +184828,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tento týden nic nezaznamenáno"
+            "value": "Tento týden nic nezapsáno"
           }
         },
         "de": {
@@ -184917,7 +184947,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Zaznamenáno každý den"
+            "value": "Zapsáno každý den"
           }
         },
         "de": {
@@ -186839,25 +186869,25 @@
               "one": {
                 "stringUnit": {
                   "state": "translated",
-                  "value": "+%lld zaznamenaný den oproti předchozímu týdnu"
+                  "value": "+%lld zapsaný den oproti předchozímu týdnu"
                 }
               },
               "few": {
                 "stringUnit": {
                   "state": "translated",
-                  "value": "+%lld zaznamenané dny oproti předchozímu týdnu"
+                  "value": "+%lld zapsané dny oproti předchozímu týdnu"
                 }
               },
               "many": {
                 "stringUnit": {
                   "state": "translated",
-                  "value": "+%lld zaznamenaného dne oproti předchozímu týdnu"
+                  "value": "+%lld zapsaného dne oproti předchozímu týdnu"
                 }
               },
               "other": {
                 "stringUnit": {
                   "state": "translated",
-                  "value": "+%lld zaznamenaných dní oproti předchozímu týdnu"
+                  "value": "+%lld zapsaných dní oproti předchozímu týdnu"
                 }
               }
             }
@@ -187314,7 +187344,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Odpočítávání začne, když dnes zapíšete sérii. Se zapnutými oznámeními vás Fud AI upozorní na konec odpočinku, i když aplikace běží na pozadí."
+            "value": "Odpočítávání začne, když dnes zapíšeš sérii. Se zapnutými oznámeními tě Fud AI upozorní na konec odpočinku, i když aplikace běží na pozadí."
           }
         },
         "de": {
@@ -189099,7 +189129,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Zapište trénink a pak v nabídce + zvolte Uložit jako rutinu."
+            "value": "Zapiš trénink a pak v nabídce + zvol Uložit jako rutinu."
           }
         },
         "de": {
@@ -192209,7 +192239,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Když Open Food Facts ani vaše uložené štítky nemají pro naskenovaný čárový kód nutriční hodnoty, Fud AI ho vyhledá v USDA FoodData Central (převážně produkty z USA) s vaším vlastním bezplatným klíčem. Odesílá se jen čárový kód a bez klíče se neodesílá nic."
+            "value": "Když Open Food Facts ani tvoje uložené štítky nemají pro naskenovaný čárový kód nutriční hodnoty, Fud AI ho vyhledá v USDA FoodData Central (převážně produkty z USA) s tvým vlastním bezplatným klíčem. Odesílá se jen čárový kód a bez klíče se neodesílá nic."
           }
         },
         "de": {
@@ -193625,7 +193655,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Fud AI je zdarma a tvoří ho jediný vývojář. Hodnocení, sdílení nebo malé spropitné mu pomáhá pokračovat."
+            "value": "Fud AI je zdarma a stojí za ním jediný vývojář. Hodnocení, sdílení nebo malé spropitné pomáhá aplikaci pokračovat dál."
           }
         },
         "de": {
@@ -193861,7 +193891,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Na Discordu získáš pomoc, sdílíš nápady a potkáš další uživatele Fud AI."
+            "value": "Na Discordu získáš pomoc, podělíš se o nápady a potkáš další uživatele Fud AI."
           }
         },
         "de": {
@@ -198164,7 +198194,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nejdřív se obnoví iCloud, potom Apple Health doplní jen to, co chybí. Nic se nepřepíše."
+            "value": "Nejdřív se obnoví záloha z iCloudu, potom Apple Health doplní jen to, co chybí. Nic se nepřepíše."
           }
         },
         "de": {

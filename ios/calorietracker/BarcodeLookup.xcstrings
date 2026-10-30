@@ -1218,7 +1218,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "USDA FoodData Central odmítla váš API klíč. Zkontrolujte ho v Nastavení > Informace o produktu, nebo raději naskenujte nutriční etiketu."
+            "value": "Služba USDA FoodData Central odmítla tvůj API klíč. Zkontroluj ho v Nastavení > Informace o produktu, nebo raději naskenuj nutriční etiketu."
           }
         },
         "de": {

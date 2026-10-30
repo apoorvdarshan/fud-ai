@@ -3,7 +3,7 @@
     <string name="error_barcode_invalid">Čárový kód se nepodařilo přečíst. Zkus ho naskenovat znovu.</string>
     <string name="error_barcode_product_not_found">Produkt nebyl v Open Food Facts nalezen. Naskenuj raději nutriční etiketu.</string>
     <string name="error_barcode_missing_nutrition">Čárový kód byl nalezen, ale nutriční údaje jsou neúplné. Naskenuj raději nutriční etiketu.</string>
-    <string name="error_barcode_usda_key_rejected">USDA FoodData Central odmítla váš API klíč. Zkontrolujte ho v Nastavení > Informace o produktu, nebo raději naskenujte nutriční etiketu.</string>
+    <string name="error_barcode_usda_key_rejected">USDA FoodData Central odmítla tvůj API klíč. Zkontroluj ho v Nastavení &gt; Informace o produktu, nebo raději naskenuj nutriční etiketu.</string>
     <string name="error_barcode_rate_limited">Bylo provedeno příliš mnoho vyhledávání čárových kódů. Chvíli počkej a zkus to znovu.</string>
     <string name="error_barcode_service_unavailable">Open Food Facts je dočasně nedostupný. Zkus to později.</string>
     <string name="error_barcode_unexpected_response">Open Food Facts vrátil neočekávanou odpověď.</string>

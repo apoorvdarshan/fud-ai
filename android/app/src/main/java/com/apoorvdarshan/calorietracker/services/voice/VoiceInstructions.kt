@@ -2,7 +2,7 @@ package com.apoorvdarshan.calorietracker.services.voice
 
 import java.time.LocalDate
 import java.time.LocalTime
-import java.util.Locale
+import com.apoorvdarshan.calorietracker.models.AppLanguage
 
 /** Everything one session's instructions are built from. */
 data class VoiceInstructionInput(
@@ -118,5 +118,5 @@ object VoiceInstructions {
 
     /** English name for a reply-language tag (`pt-BR` → "Portuguese (Brazil)"). */
     fun languageName(tag: String): String =
-        Locale.forLanguageTag(tag).getDisplayName(Locale.ENGLISH).ifBlank { tag }
+        AppLanguage.englishName(tag)
 }

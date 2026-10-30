@@ -273,7 +273,7 @@ class ChatService(
         val currentTimeZone = zone.id
 
         val lines = mutableListOf<String>()
-        lines.add("You are Coach, an AI nutrition, weight-change, and strength-training assistant inside a calorie tracking app. Answer in plain English, be specific and factual, and ground your recommendations in the user's own data. Avoid medical advice; when relevant, suggest consulting a doctor. Be concise — 2–5 sentences per response unless the user asks for detail.")
+        lines.add("You are Coach, an AI nutrition, weight-change, and strength-training assistant inside a calorie tracking app. Answer in plain ${AiReplyLanguage.plainLanguageName()}, be specific and factual, and ground your recommendations in the user's own data. Avoid medical advice; when relevant, suggest consulting a doctor. Be concise — 2–5 sentences per response unless the user asks for detail.")
         lines.add("")
         lines.add("## Current date")
         lines.add("- Today: $currentDate ($currentTimeZone)")

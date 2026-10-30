@@ -37,6 +37,17 @@ run_worker_first = true
 [vars]
 DISCORD_PUBLIC_KEY = "0ce6e6014282b489ce0930fad550e978c7d623cc71040d14250223110a9a9f57"
 DISCORD_APPLICATION_ID = "1548469419922038845"
+DISCORD_GUILD_ID = "1548469034570354709"
+DISCORD_MODERATION_ENABLED = "true"
+DISCORD_MODERATION_LOG_CHANNEL_ID = "1565585935792472084"
+
+[[durable_objects.bindings]]
+name = "DISCORD_MODERATION"
+class_name = "DiscordModeration"
+
+[[migrations]]
+tag = "discord-moderation-v1"
+new_sqlite_classes = ["DiscordModeration"]
 
 # Fuddy-only cooldown and interaction replay state; separate from Vercie's namespace.
 [[kv_namespaces]]
@@ -71,7 +82,7 @@ namespace_id = "61002"
   period = 60
 
 [triggers]
-crons = ["17 * * * *", "*/5 * * * *"]
+crons = ["17 * * * *", "*/5 * * * *", "* * * * *"]
 
 [[routes]]
 pattern = "fud-ai.app"

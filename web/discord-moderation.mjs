@@ -14,7 +14,13 @@ export async function fingerprint(text) {
 }
 
 export function moderationText(text) {
-  return text.replace(/```[\s\S]*?(?:```|$)/g, " ").split("\n").filter(line => !/^\s*>/.test(line)).join("\n");
+  const visible = [];
+  for (const line of text.replace(/```[\s\S]*?(?:```|$)/g, " ").split("\n")) {
+    // Discord's >>> quotes the remainder of the message, not just this line.
+    if (/^\s*>>>/.test(line)) break;
+    if (!/^\s*>/.test(line)) visible.push(line);
+  }
+  return visible.join("\n");
 }
 
 /** Deterministic rules, no model and no following links or instructions in chat. */

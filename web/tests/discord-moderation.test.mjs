@@ -295,3 +295,9 @@ test("cleanup rotates past 1000 active records to remove expired member metadata
   await f.scan(); assert.ok(!f.data.has("user:zzzz"));
   assert.equal(f.data.get("cleanupCursor"), undefined);
 });
+
+test("Discord multiline scam-report quotes are exempt but preceding unquoted spam is checked", () => {
+  assert.deepEqual(classify({ content: ">>> Suspicious message I received:\nClaim free Nitro https://example.invalid" }, [], "x", 0), {});
+  assert.deepEqual(classify({ content: "Is this a scam?\n>>> Claim free Nitro\nhttps://example.invalid" }, [], "x", 0), {});
+  assert.ok(classify({ content: "Claim free Nitro https://example.invalid\n>>> quoted footnote" }, [], "x", 0).violation);
+});

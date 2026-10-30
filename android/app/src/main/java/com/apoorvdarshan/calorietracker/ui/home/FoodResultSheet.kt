@@ -59,6 +59,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -66,6 +67,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.apoorvdarshan.calorietracker.services.FoodImageDecoder
+import com.apoorvdarshan.calorietracker.ui.util.gramsText
 import com.apoorvdarshan.calorietracker.services.FoodImageStore
 import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.models.AminoAcid
@@ -605,7 +607,7 @@ fun FoodResultSheet(
                     )
                     SheetPillCard {
                         Text(
-                            previewEntry.allergenAnalysis(profile.allergenSensitivities).summary,
+                            previewEntry.allergenAnalysis(profile.allergenSensitivities).summary(LocalContext.current),
                             modifier = Modifier.padding(18.dp),
                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.78f)
                         )
@@ -663,7 +665,7 @@ fun FoodResultSheet(
                     SheetHairline()
                     ReviewNutritionValueRow(
                         label = stringResource(R.string.nutrition_label_protein),
-                        displayValue = MacroValueFormatter.string(scaledMacro(editableProtein)),
+                        displayValue = MacroValueFormatter.display(scaledMacro(editableProtein)),
                         editValue = MacroValueFormatter.string(scaledMacro(editableProtein)),
                         unit = stringResource(R.string.unit_g),
                         unlocked = nutritionUnlocked,
@@ -672,7 +674,7 @@ fun FoodResultSheet(
                     SheetHairline()
                     ReviewNutritionValueRow(
                         label = stringResource(R.string.nutrition_label_carbs),
-                        displayValue = MacroValueFormatter.string(scaledMacro(editableCarbs)),
+                        displayValue = MacroValueFormatter.display(scaledMacro(editableCarbs)),
                         editValue = MacroValueFormatter.string(scaledMacro(editableCarbs)),
                         unit = stringResource(R.string.unit_g),
                         unlocked = nutritionUnlocked,
@@ -681,7 +683,7 @@ fun FoodResultSheet(
                     SheetHairline()
                     ReviewNutritionValueRow(
                         label = stringResource(R.string.nutrition_label_fat),
-                        displayValue = MacroValueFormatter.string(scaledMacro(editableFat)),
+                        displayValue = MacroValueFormatter.display(scaledMacro(editableFat)),
                         editValue = MacroValueFormatter.string(scaledMacro(editableFat)),
                         unit = stringResource(R.string.unit_g),
                         unlocked = nutritionUnlocked,
@@ -1167,21 +1169,21 @@ private fun WhatIfMealImpactDialog(
                     WhatIfImpactRow(
                         label = stringResource(R.string.nutrition_label_protein),
                         added = "+${whatIfGrams(entry.protein)}",
-                        total = profile?.let { "${whatIfGrams(after.protein)} / ${it.effectiveProtein}g" }
+                        total = profile?.let { "${whatIfGrams(after.protein)} / ${stringResource(R.string.grams_value_format, it.effectiveProtein)}" }
                             ?: whatIfGrams(after.protein)
                     )
                     SheetHairline()
                     WhatIfImpactRow(
                         label = stringResource(R.string.nutrition_label_carbs),
                         added = "+${whatIfGrams(entry.carbs)}",
-                        total = profile?.let { "${whatIfGrams(after.carbs)} / ${it.effectiveCarbs}g" }
+                        total = profile?.let { "${whatIfGrams(after.carbs)} / ${stringResource(R.string.grams_value_format, it.effectiveCarbs)}" }
                             ?: whatIfGrams(after.carbs)
                     )
                     SheetHairline()
                     WhatIfImpactRow(
                         label = stringResource(R.string.nutrition_label_fat),
                         added = "+${whatIfGrams(entry.fat)}",
-                        total = profile?.let { "${whatIfGrams(after.fat)} / ${it.effectiveFat}g" }
+                        total = profile?.let { "${whatIfGrams(after.fat)} / ${stringResource(R.string.grams_value_format, it.effectiveFat)}" }
                             ?: whatIfGrams(after.fat)
                     )
                 }
@@ -1263,7 +1265,8 @@ private fun WhatIfImpactRow(
     }
 }
 
-private fun whatIfGrams(value: Double): String = "${MacroValueFormatter.string(value)}g"
+@Composable
+private fun whatIfGrams(value: Double): String = gramsText(value)
 
 /**
  * Explains a review prefilled from the user's saved nutrition label for a barcode,

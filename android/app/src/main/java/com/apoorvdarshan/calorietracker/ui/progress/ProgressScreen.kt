@@ -120,6 +120,10 @@ import com.apoorvdarshan.calorietracker.ui.components.UnitToggle
 import com.apoorvdarshan.calorietracker.ui.settings.NutritionPickerSheet
 import androidx.annotation.StringRes
 import com.apoorvdarshan.calorietracker.R
+import com.apoorvdarshan.calorietracker.ui.util.mediumDateFormatter
+import com.apoorvdarshan.calorietracker.ui.util.valueWithUnit
+import com.apoorvdarshan.calorietracker.ui.util.monthDayFormatter
+import com.apoorvdarshan.calorietracker.ui.util.monthYearFormatter
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
@@ -1041,7 +1045,9 @@ private fun WeightChartCanvas(entries: List<WeightEntry>, goalKg: Double?, useMe
     val spanDays = maxOf(1L, (tEnd - tStart) / 86_400_000L)
     val showsYear = spanDays > 150 &&
         Instant.ofEpochMilli(tStart).atZone(zone).year != Instant.ofEpochMilli(tEnd).atZone(zone).year
-    val xLabelFmt = DateTimeFormatter.ofPattern(if (showsYear) "MMM yyyy" else "MMM d", Locale.US).withZone(zone)
+    val xLabelFmt = remember(showsYear, zone) {
+        (if (showsYear) monthYearFormatter() else monthDayFormatter()).withZone(zone)
+    }
     // Dense ranges plot bucket averages so the line stays a readable curve;
     // dots only render while each reading is still distinguishable.
     val points = remember(sortedEntries, useMetric) {
@@ -1057,7 +1063,7 @@ private fun WeightChartCanvas(entries: List<WeightEntry>, goalKg: Double?, useMe
     var selectedIndex by remember(points) { mutableStateOf<Int?>(null) }
     val selectedPoint = selectedIndex?.let(points::getOrNull)
     val inspectorDateFormat = remember {
-        DateTimeFormatter.ofPattern("MMM d, yyyy", Locale.getDefault()).withZone(ZoneId.systemDefault())
+        mediumDateFormatter().withZone(ZoneId.systemDefault())
     }
 
     Row(Modifier.fillMaxWidth().height(190.dp)) {
@@ -1544,7 +1550,7 @@ internal fun CalorieBarChart(dailyCalories: List<Pair<LocalDate, Int>>, goal: In
     val density = androidx.compose.ui.platform.LocalDensity.current
     val ticks = niceAxisTicks(0.0, maxValue, count = 5)
     val yTop = ticks.last().coerceAtLeast(maxValue)
-    val xLabelFmt = DateTimeFormatter.ofPattern("MMM d", Locale.US)
+    val xLabelFmt = remember { monthDayFormatter() }
     val haptic = LocalHapticFeedback.current
     var selectedIndex by remember(dailyCalories) { mutableStateOf<Int?>(null) }
     val inspectorDateFormat = remember {
@@ -1931,9 +1937,9 @@ private fun NutrientAveragesSection(items: List<NutrientAverageItem>) {
 private fun MacroProgressRow(label: String, current: Double, goal: Int, unit: String) {
     val progress = if (goal > 0) (current.toFloat() / goal).coerceIn(0f, 1f) else 0f
     val valueText = if (goal > 0) {
-        "${MacroValueFormatter.string(current)}$unit / ${goal}$unit"
+        "${valueWithUnit(MacroValueFormatter.display(current), unit)} / ${valueWithUnit(goal.toString(), unit)}"
     } else {
-        "${MacroValueFormatter.string(current)}$unit"
+        valueWithUnit(MacroValueFormatter.display(current), unit)
     }
     Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -1978,7 +1984,7 @@ private fun AllWeightHistorySheet(
     onDismiss: () -> Unit
 ) {
     val state = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-    val fmt = DateTimeFormatter.ofPattern("MMM d, yyyy", Locale.US).withZone(ZoneId.systemDefault())
+    val fmt = remember { mediumDateFormatter().withZone(ZoneId.systemDefault()) }
     val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
     val sheetSurface = if (isDark) MaterialTheme.colorScheme.surface else Color(0xFFFAF3EE)
     ModalBottomSheet(
@@ -2041,7 +2047,7 @@ private fun AllBodyFatHistorySheet(
     onDismiss: () -> Unit
 ) {
     val state = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-    val fmt = DateTimeFormatter.ofPattern("MMM d, yyyy", Locale.US).withZone(ZoneId.systemDefault())
+    val fmt = remember { mediumDateFormatter().withZone(ZoneId.systemDefault()) }
     val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
     val sheetSurface = if (isDark) MaterialTheme.colorScheme.surface else Color(0xFFFAF3EE)
     ModalBottomSheet(
@@ -2104,7 +2110,7 @@ private fun AllWorkoutHistorySheet(
     onDismiss: () -> Unit
 ) {
     val state = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-    val displayDate = DateTimeFormatter.ofPattern("MMM d, yyyy", Locale.US)
+    val displayDate = remember { mediumDateFormatter() }
     val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
     val sheetSurface = if (isDark) MaterialTheme.colorScheme.surface else Color(0xFFFAF3EE)
     ModalBottomSheet(
@@ -2193,7 +2199,7 @@ private fun AddWeightDialog(
     // they happened instead of piling up on today.
     var day by remember { mutableStateOf(LocalDate.now()) }
     var showDatePicker by remember { mutableStateOf(false) }
-    val dayFormatter = remember { DateTimeFormatter.ofPattern("MMM d, yyyy", Locale.getDefault()) }
+    val dayFormatter = remember { mediumDateFormatter() }
     FudGlassDialog(onDismissRequest = onDismiss) {
         Text(stringResource(R.string.progress_log_weight_title), fontSize = 21.sp, fontWeight = FontWeight.Bold)
         Spacer(Modifier.height(10.dp))
@@ -2375,7 +2381,9 @@ private fun BodyFatChartCanvas(entries: List<BodyFatEntry>, goalFraction: Double
     val spanDays = maxOf(1L, (tEnd - tStart) / 86_400_000L)
     val showsYear = spanDays > 150 &&
         Instant.ofEpochMilli(tStart).atZone(zone).year != Instant.ofEpochMilli(tEnd).atZone(zone).year
-    val xLabelFmt = DateTimeFormatter.ofPattern(if (showsYear) "MMM yyyy" else "MMM d", Locale.US).withZone(zone)
+    val xLabelFmt = remember(showsYear, zone) {
+        (if (showsYear) monthYearFormatter() else monthDayFormatter()).withZone(zone)
+    }
     val points = remember(sortedEntries) {
         downsampleTrend(sortedEntries.map { TrendPoint(it.date.toEpochMilli(), it.bodyFatFraction * 100) })
     }
@@ -2385,7 +2393,7 @@ private fun BodyFatChartCanvas(entries: List<BodyFatEntry>, goalFraction: Double
     var selectedIndex by remember(points) { mutableStateOf<Int?>(null) }
     val selectedPoint = selectedIndex?.let(points::getOrNull)
     val inspectorDateFormat = remember {
-        DateTimeFormatter.ofPattern("MMM d, yyyy", Locale.getDefault()).withZone(ZoneId.systemDefault())
+        mediumDateFormatter().withZone(ZoneId.systemDefault())
     }
 
     Row(Modifier.fillMaxWidth().height(190.dp)) {
@@ -2622,8 +2630,8 @@ private fun formatPercentChange(deltaPercent: Double): String {
 
 // ── Body Measurements (optional tape-measure tracking) ──────────────────
 
-private val measurementHistoryFmt: DateTimeFormatter =
-    DateTimeFormatter.ofPattern("MMM d, yyyy", Locale.US).withZone(ZoneId.systemDefault())
+private fun measurementHistoryFmt(): DateTimeFormatter =
+    mediumDateFormatter().withZone(ZoneId.systemDefault())
 
 private fun displayLengthCm(context: android.content.Context, cm: Double, useMetric: Boolean): String =
     if (useMetric) String.format(Locale.US, "%.1f %s", cm, context.getString(R.string.unit_cm))
@@ -2665,6 +2673,7 @@ private fun BodyMeasurementsHistorySheet(
     onDelete: (java.util.UUID) -> Unit,
     onDismiss: () -> Unit
 ) {
+    val historyFormatter = remember { measurementHistoryFmt() }
     val state = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
     val sheetSurface = if (isDark) MaterialTheme.colorScheme.surface else Color(0xFFFAF3EE)
@@ -2689,7 +2698,7 @@ private fun BodyMeasurementsHistorySheet(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                                Text(measurementHistoryFmt.format(entry.date), fontSize = 15.sp, fontWeight = FontWeight.SemiBold)
+                                Text(historyFormatter.format(entry.date), fontSize = 15.sp, fontWeight = FontWeight.SemiBold)
                                 Text(
                                     measurementHistorySummary(LocalContext.current, entry, gender, heightCm, useMetric),
                                     fontSize = 13.sp,

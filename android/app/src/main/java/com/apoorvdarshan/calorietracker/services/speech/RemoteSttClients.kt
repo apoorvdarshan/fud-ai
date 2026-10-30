@@ -1,5 +1,7 @@
 package com.apoorvdarshan.calorietracker.services.speech
 
+import android.content.Context
+import com.apoorvdarshan.calorietracker.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
@@ -25,12 +27,26 @@ import org.json.JSONObject
 import java.io.File
 import java.io.IOException
 
+/** Recorded-audio transcription failures. The English message is for logs; [userMessage] is what the UI shows. */
 sealed class SttApiError(message: String) : Exception(message) {
     object NoApiKey : SttApiError("No STT API key configured.")
     class Network(cause: Throwable) : SttApiError("Network error: ${cause.localizedMessage}")
-    class Api(msg: String) : SttApiError(msg)
+    class Api(msg: String, val httpCode: Int? = null) : SttApiError(msg)
     object InvalidResponse : SttApiError("Could not understand the transcription response.")
     object Timeout : SttApiError("Transcription timed out.")
+    object LocalUnavailable : SttApiError("The on-device Whisper runtime is unavailable.")
+    object EmptyTranscript : SttApiError("The recording contained no recognizable speech.")
+
+    fun userMessage(context: Context): String = when (this) {
+        NoApiKey -> context.getString(R.string.stt_api_error_no_key)
+        is Network -> context.getString(R.string.stt_api_error_network)
+        is Api -> httpCode?.let { context.getString(R.string.stt_api_error_http, it) }
+            ?: context.getString(R.string.stt_api_error_api)
+        InvalidResponse -> context.getString(R.string.stt_api_error_invalid_response)
+        Timeout -> context.getString(R.string.stt_api_error_timeout)
+        LocalUnavailable -> context.getString(R.string.stt_api_error_local_unavailable)
+        EmptyTranscript -> context.getString(R.string.stt_error_no_match)
+    }
 }
 
 /**
@@ -160,7 +176,7 @@ object GeminiAudioClient {
             client.newCall(startRequest).execute().use { response ->
                 val responseBody = response.body?.string().orEmpty()
                 if (!response.isSuccessful) {
-                    throw SttApiError.Api("STT HTTP ${response.code}: ${responseBody.take(200)}")
+                    throw SttApiError.Api("STT HTTP ${response.code}: ${responseBody.take(200)}", response.code)
                 }
                 response.header("X-Goog-Upload-URL")
                     ?: throw SttApiError.Api("Gemini upload URL was missing from the response.")
@@ -306,7 +322,7 @@ private suspend fun runRequestRaw(client: OkHttpClient, req: Request): String = 
     try {
         client.newCall(req).execute().use { resp ->
             val str = resp.body?.string().orEmpty()
-            if (!resp.isSuccessful) throw SttApiError.Api("STT HTTP ${resp.code}: ${str.take(200)}")
+            if (!resp.isSuccessful) throw SttApiError.Api("STT HTTP ${resp.code}: ${str.take(200)}", resp.code)
             str
         }
     } catch (io: IOException) {

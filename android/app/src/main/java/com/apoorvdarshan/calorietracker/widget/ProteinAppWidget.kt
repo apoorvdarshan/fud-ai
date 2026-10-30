@@ -7,6 +7,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
+import androidx.glance.LocalContext
 import androidx.glance.GlanceTheme
 import androidx.glance.LocalSize
 import androidx.glance.action.actionStartActivity
@@ -30,6 +31,7 @@ import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
 import com.apoorvdarshan.calorietracker.MainActivity
+import com.apoorvdarshan.calorietracker.ui.util.valueWithUnit
 import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.data.PreferencesStore
 import com.apoorvdarshan.calorietracker.models.MacroValueFormatter
@@ -104,12 +106,12 @@ private fun ProteinSmall(snapshot: WidgetSnapshot) {
                 gaugeWidthDp = gaugeW,
                 startHex = snapshot.themeStartHex,
                 endHex = snapshot.themeEndHex,
-                centerLarge = "${MacroValueFormatter.string(nutrient.value)}${nutrient.unit}",
-                centerSmall = "/ ${MacroValueFormatter.string(nutrient.goal)}${nutrient.unit}"
+                centerLarge = LocalContext.current.valueWithUnit(MacroValueFormatter.display(nutrient.value), nutrient.unit),
+                centerSmall = "/ " + LocalContext.current.valueWithUnit(MacroValueFormatter.display(nutrient.goal), nutrient.unit)
             )
         }
         Text(
-            text = "${MacroValueFormatter.string(remaining)}${nutrient.unit} left",
+            text = LocalContext.current.getString(R.string.widget_left_format, LocalContext.current.valueWithUnit(MacroValueFormatter.display(remaining), nutrient.unit)),
             style = TextStyle(
                 color = WidgetTheme.themeTextProvider(snapshot.themeStartHex),
                 fontWeight = FontWeight.Medium,
@@ -138,12 +140,12 @@ private fun ProteinMedium(snapshot: WidgetSnapshot) {
                 gaugeWidthDp = gaugeW,
                 startHex = snapshot.themeStartHex,
                 endHex = snapshot.themeEndHex,
-                centerLarge = "${MacroValueFormatter.string(nutrient.value)}${nutrient.unit}",
-                centerSmall = "/ ${MacroValueFormatter.string(nutrient.goal)}${nutrient.unit}"
+                centerLarge = LocalContext.current.valueWithUnit(MacroValueFormatter.display(nutrient.value), nutrient.unit),
+                centerSmall = "/ " + LocalContext.current.valueWithUnit(MacroValueFormatter.display(nutrient.goal), nutrient.unit)
             )
             Spacer(modifier = GlanceModifier.height(2.dp))
             Text(
-                text = "${MacroValueFormatter.string(remaining)}${nutrient.unit} left",
+                text = LocalContext.current.getString(R.string.widget_left_format, LocalContext.current.valueWithUnit(MacroValueFormatter.display(remaining), nutrient.unit)),
                 style = TextStyle(
                     color = WidgetTheme.themeTextProvider(snapshot.themeStartHex),
                     fontWeight = FontWeight.Medium,

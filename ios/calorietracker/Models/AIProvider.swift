@@ -426,9 +426,9 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
 
     var apiKeyPlaceholder: String {
         switch self {
-        case .appleIntelligence, .gemma4Local, .ollama: "No key needed"
-        case .customOpenAI: "API key (or anything if endpoint doesn't need one)"
-        default: "Paste \(apiKeyBrandName) API key"
+        case .appleIntelligence, .gemma4Local, .ollama: String(localized: "No key needed")
+        case .customOpenAI: String(localized: "API key (or anything if endpoint doesn't need one)")
+        default: String(localized: "Paste \(apiKeyBrandName) API key")
         }
     }
 }

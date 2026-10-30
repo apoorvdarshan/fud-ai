@@ -199266,6 +199266,216 @@
           }
         }
       }
+    },
+    "No key needed": {
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Klíč není potřeba"
+          }
+        }
+      }
+    },
+    "API key (or anything if endpoint doesn't need one)": {
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API klíč (nebo cokoli, pokud ho endpoint nevyžaduje)"
+          }
+        }
+      }
+    },
+    "Paste %@ API key": {
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vlož API klíč %@"
+          }
+        }
+      }
+    },
+    "Not needed": {
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Není potřeba"
+          }
+        }
+      }
+    },
+    "Paste Gemini API key": {
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vlož API klíč Gemini"
+          }
+        }
+      }
+    },
+    "Paste API key": {
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vlož API klíč"
+          }
+        }
+      }
+    },
+    "Your Mistral API key": {
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tvůj API klíč Mistral"
+          }
+        }
+      }
+    },
+    "Token your-deepgram-key": {
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tvůj API klíč Deepgram"
+          }
+        }
+      }
+    },
+    "Your AssemblyAI key": {
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tvůj API klíč AssemblyAI"
+          }
+        }
+      }
+    },
+    "Analyze this image.": {
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Analyzuj tento obrázek."
+          }
+        }
+      }
+    },
+    "Delete Water Log?": {
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Smazat záznam vody?"
+          }
+        }
+      }
+    },
+    "Delete Fasting Log?": {
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Smazat záznam půstu?"
+          }
+        }
+      }
+    },
+    "This removes the water entry from your diary.": {
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Záznam vody se odstraní z deníku."
+          }
+        }
+      }
+    },
+    "This removes the completed fast from your diary.": {
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dokončený půst se odstraní z deníku."
+          }
+        }
+      }
+    },
+    "Updated to %@ from your latest data.": {
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktualizováno na %@ podle tvých posledních dat."
+          }
+        }
+      }
+    },
+    "Apple Health Needed": {
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Je potřeba Apple Health"
+          }
+        }
+      }
+    },
+    "Energy Burn uses your measured calories burned from Apple Health. Connect Apple Health first, then turn Energy Burn on.": {
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spálená energie používá tvoje naměřené spálené kalorie z Apple Health. Nejdřív propoj Apple Health, pak Spálenou energii zapni."
+          }
+        }
+      }
+    },
+    "Not Enough Health Data": {
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nedostatek dat z Apple Health"
+          }
+        }
+      }
+    },
+    "Fud AI needs at least 3 recent days of Apple Health energy data before it can use your measured burn.": {
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI potřebuje alespoň 3 nedávné dny energetických dat z Apple Health, než může použít tvůj naměřený výdej."
+          }
+        }
+      }
+    },
+    "Couldn't reach your AI provider — your goals are unchanged. Check your AI provider and API key in Settings.": {
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nepodařilo se spojit s tvým poskytovatelem AI — cíle zůstávají beze změny. Zkontroluj poskytovatele AI a API klíč v Nastavení."
+          }
+        }
+      }
+    },
+    "%@g": {
+      "localizations": {
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ g"
+          }
+        }
+      }
     }
   },
   "version": "1.1"

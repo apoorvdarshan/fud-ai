@@ -3,6 +3,7 @@ package com.apoorvdarshan.calorietracker
 import android.app.Application
 import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
+import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.data.BodyFatRepository
 import com.apoorvdarshan.calorietracker.data.BodyMeasurementRepository
 import com.apoorvdarshan.calorietracker.data.ChatRepository
@@ -779,8 +780,10 @@ class AppContainer(app: FudAIApp) {
                 profile = next,
                 changed = true,
                 updatedCalories = result.calories,
-                message = "Updated to ${prefs.energyUnit.first().format(appContext.resources, result.calories)} from your latest data." +
-                    (result.reason?.let { " $it" } ?: "")
+                message = appContext.getString(
+                    R.string.adaptive_goals_updated_format,
+                    prefs.energyUnit.first().format(appContext.resources, result.calories)
+                ) + (result.reason?.let { " $it" } ?: "")
             )
         } finally {
             adaptiveGoalsRefreshInFlight = false

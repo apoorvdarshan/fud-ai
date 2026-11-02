@@ -42,6 +42,9 @@ object CloudBackupPolicy {
         "hasSeenProductHuntLaunchPrompt.2026-09-29",
         // Whether this install already posted its one "What's new" notification.
         "hasNotifiedWhatsNew.liveVoice",
+        // Local analysis timing history (#635). It is measured on this device only and
+        // must not leave it, so it is never part of a cloud backup.
+        "aiAnalysisDurations",
     )
 
     /** Longest photo file name a backup carries; real ones are a UUID and an extension. */

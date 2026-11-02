@@ -18,6 +18,9 @@ enum CloudBackupPolicy {
         "healthKitAuthVersion",
         "lastNotifiedAppUpdateVersion",
         "weeklyChallengeBearerToken",
+        // Local analysis timing history (#635). It is measured on this device only and
+        // must not leave it, so it is never part of a cloud backup.
+        "aiAnalysisDurations",
     ]
 
     static func include(_ key: String) -> Bool {

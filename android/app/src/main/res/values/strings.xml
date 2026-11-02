@@ -408,6 +408,17 @@
     <string name="home_macro_chip_format">%1$s %2$dg</string>
     <string name="home_analyzing_food">Analyzing your food…</string>
     <string name="home_looking_up_nutrition">Looking up nutrition…</string>
+    <string name="analysis_stage_preparing">Preparing your request…</string>
+    <string name="analysis_stage_preparing_image">Preparing your photo…</string>
+    <string name="analysis_stage_requesting">Waiting for the AI provider…</string>
+    <string name="analysis_stage_on_device">Running on your device…</string>
+    <string name="analysis_stage_responding">Reading the response…</string>
+    <string name="analysis_stage_validating">Checking the nutrition data…</string>
+    <string name="analysis_stage_fallback_attempt">Trying the backup model (attempt %1$d)…</string>
+    <string name="analysis_stage_barcode">Looking up the barcode…</string>
+    <string name="analysis_elapsed_seconds">%1$d s elapsed</string>
+    <string name="analysis_estimate_range">Usually takes about %1$d–%2$d s</string>
+    <string name="analysis_estimate_single">Usually takes about %1$d s</string>
     <string name="home_fiber_format">Fiber: %1$.1fg</string>
     <string name="home_sugar_format">Sugar: %1$.1fg</string>
     <string name="home_sat_fat_format">Sat fat: %1$.1fg</string>

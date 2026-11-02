@@ -31,6 +31,9 @@ import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.outlined.Circle
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import java.util.UUID
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -56,6 +59,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -178,6 +182,7 @@ import com.apoorvdarshan.calorietracker.models.QuickActionRequest
 import com.apoorvdarshan.calorietracker.models.ServingUnitOption
 import com.apoorvdarshan.calorietracker.models.WaterEntry
 import com.apoorvdarshan.calorietracker.models.WaterUnit
+import com.apoorvdarshan.calorietracker.services.ai.AnalysisProgressState
 import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysis
 import com.apoorvdarshan.calorietracker.ui.components.InAppCameraCaptureDialog
 import com.apoorvdarshan.calorietracker.ui.components.LocalEnergyUnit
@@ -1116,7 +1121,13 @@ CalorieHero(
         )
     }
 
-    if (ui.analyzing) AnalyzingOverlay(imageBytes = ui.pendingImageBytes, onCancel = vm::cancelAnalysis)
+    if (ui.analyzing) {
+        AnalyzingOverlay(
+            imageBytes = ui.pendingImageBytes,
+            progress = ui.analysisProgress,
+            onCancel = vm::cancelAnalysis
+        )
+    }
     ui.pendingAnalysis?.let { analysis ->
         val initialTimestamp = remember(analysis) { vm.timestampForSelectedDay() }
         FoodResultSheet(
@@ -2872,7 +2883,11 @@ private fun CopyFromDaySheet(
 // ── Dialogs (unchanged styling polish) ──────────────────────────────
 
 @Composable
-private fun AnalyzingOverlay(imageBytes: ByteArray? = null, onCancel: (() -> Unit)? = null) {
+private fun AnalyzingOverlay(
+    imageBytes: ByteArray? = null,
+    progress: AnalysisProgressState? = null,
+    onCancel: (() -> Unit)? = null
+) {
     // Verbatim port of ios/calorietracker/Views/AnalyzingView.swift:
     //   VStack { (image | text.magnifyingglass) → ProgressView(.large) → "Analyzing your food..." → Cancel }
     //   filling the screen, opaque background, calorie-pink accents.
@@ -2883,16 +2898,28 @@ private fun AnalyzingOverlay(imageBytes: ByteArray? = null, onCancel: (() -> Uni
             imageBytes?.takeIf { it.size <= 3_000_000 }?.let { FoodImageDecoder.decode(it, 720) }
         }
     }
-    Box(
+    val context = LocalContext.current
+    // Read the system animation setting once per overlay instead of on every tick.
+    val animationsEnabled = remember(context) { systemAnimationsEnabled(context) }
+    BoxWithConstraints(
         Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background),
-        contentAlignment = Alignment.Center
+            .background(MaterialTheme.colorScheme.background)
+            // The overlay is a modal surface: a tap on an invisible part must not reach
+            // the "+" button behind it and start a second analysis.
+            .pointerInput(Unit) { detectTapGestures(onTap = {}) }
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(24.dp),
-            modifier = Modifier.padding(horizontal = 32.dp)
+            verticalArrangement = Arrangement.spacedBy(24.dp, Alignment.CenterVertically),
+            // At large font sizes the fixed image and the three text lines no longer
+            // fit; the minimum height keeps the content centred, and the scroll keeps
+            // the cancel button reachable once the content grows past the screen.
+            modifier = Modifier
+                .verticalScroll(rememberScrollState())
+                .heightIn(min = maxHeight)
+                .fillMaxWidth()
+                .padding(horizontal = 32.dp, vertical = 24.dp)
         ) {
             bitmap?.let { bmp ->
                 androidx.compose.foundation.Image(
@@ -2911,21 +2938,25 @@ private fun AnalyzingOverlay(imageBytes: ByteArray? = null, onCancel: (() -> Uni
                     modifier = Modifier.size(64.dp)
                 )
             }
-            CircularProgressIndicator(
-                color = AppColors.Calorie,
-                strokeWidth = 4.dp,
-                modifier = Modifier.size(40.dp)
-            )
-            // iOS uses two different copies depending on the input mode — photo flows
-            // say "Analyzing your food..." while text/voice flows say
-            // "Looking up nutrition..." (see ContentView.swift cases .analyzing /
-            // .analyzingText). pendingImageBytes is the discriminator.
-            Text(
-                if (imageBytes != null) stringResource(R.string.home_analyzing_food) else stringResource(R.string.home_looking_up_nutrition),
-                fontSize = 17.sp,
-                fontWeight = FontWeight.SemiBold,
-                color = AppColors.Calorie
-            )
+            // A static icon replaces the spinner when the system turned animations off.
+            AnalysisProgressIndicator(animate = animationsEnabled)
+            // The stage line replaces the old static copy: it names what is happening
+            // now (preparing, waiting for the provider, reading the response, checking
+            // the data, or retrying with the backup model) and adds the elapsed time.
+            if (progress != null) {
+                AnalysisProgressView(progress)
+            } else {
+                // iOS uses two different copies depending on the input mode — photo flows
+                // say "Analyzing your food..." while text/voice flows say
+                // "Looking up nutrition..." (see ContentView.swift cases .analyzing /
+                // .analyzingText). pendingImageBytes is the discriminator.
+                Text(
+                    if (imageBytes != null) stringResource(R.string.home_analyzing_food) else stringResource(R.string.home_looking_up_nutrition),
+                    fontSize = 17.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.onBackground
+                )
+            }
             // A slow or stalled provider used to leave this screen up with no way out (#357).
             onCancel?.let { cancel ->
                 TextButton(onClick = cancel) {
@@ -2933,7 +2964,7 @@ private fun AnalyzingOverlay(imageBytes: ByteArray? = null, onCancel: (() -> Uni
                         stringResource(R.string.action_cancel),
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Medium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.85f)
                     )
                 }
             }

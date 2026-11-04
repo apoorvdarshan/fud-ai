@@ -111,7 +111,10 @@ English-only on Play Console — non-English Play Store browsers (ar, az-AZ, cs-
 
 ## 4. What's New (v8.1 / versionCode 46)
 
-**500 char hard cap per language.** Only the `<en-US>
+**500 char hard cap per language.** English is the fallback for other store locales.
+
+```
+<en-US>
 Fud AI 8.1
 • Eligible yearly Plus and Pro plans can show a 3-day free trial when available in your store.
 • Clear trial limits, renewal prices, and trial end dates.

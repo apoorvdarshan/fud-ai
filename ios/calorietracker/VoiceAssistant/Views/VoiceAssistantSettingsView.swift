@@ -413,7 +413,12 @@ struct VoiceAssistantSettingsView: View {
         } header: {
             Text("Fud AI Voice")
         } footer: {
-            Text("Plus includes 20 minutes and Pro 100 minutes a month (UTC). After that, voice uses credits: 1 credit per 15 seconds.")
+            if rc.trialEndsAt != nil {
+                let minutes = rc.activePlan == .plus ? 2 : 5
+                Text("Trial: 20 AI actions and \(minutes) voice minutes/day (UTC). Full plan limits after trial. Extra credits cost money.")
+            } else {
+                Text("Plus includes 20 minutes and Pro 100 minutes a month (UTC). After that, voice uses credits: 1 credit per 15 seconds.")
+            }
         }
         .listRowBackground(AppColors.appCard)
     }

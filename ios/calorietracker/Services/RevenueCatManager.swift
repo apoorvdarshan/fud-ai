@@ -5,6 +5,7 @@
 
 import Foundation
 import RevenueCat
+import UserNotifications
 
 /// Subscriptions, credit packs, and entitlement state. Tip Jar stays in TipJarView.
 @MainActor
@@ -18,6 +19,24 @@ final class RevenueCatManager: NSObject {
     private(set) var isLoadingOfferings = false
     private(set) var offerings: Offerings?
     private(set) var lastError: String?
+    private(set) var trialEligibility: [String: IntroEligibility] = [:]
+    private(set) var trialEndsAt: Date?
+
+    func hasThreeDayTrial(_ package: Package) -> Bool {
+        let product = package.storeProduct
+        guard HostedBillingPeriod(package: package) == .yearly,
+              let offer = product.introductoryDiscount,
+              offer.paymentMode == .freeTrial,
+              offer.subscriptionPeriod.unit == .day,
+              offer.subscriptionPeriod.value * offer.numberOfPeriods == 3 else { return false }
+        return trialEligibility[product.productIdentifier]?.status == .eligible
+    }
+
+    var hasEligibleYearlyTrial: Bool {
+        ["plus", "pro"].contains { plan in
+            offerings?.offering(identifier: plan)?.availablePackages.contains(where: hasThreeDayTrial) == true
+        }
+    }
 
     var hasHostedEntitlement: Bool { activePlan != .none }
 
@@ -75,7 +94,10 @@ final class RevenueCatManager: NSObject {
         isLoadingOfferings = true
         defer { isLoadingOfferings = false }
         do {
+            trialEligibility = [:]
             offerings = try await Purchases.shared.offerings()
+            let ids = [HostedAIConstants.plusYearlyProductID, HostedAIConstants.proYearlyProductID]
+            trialEligibility = await Purchases.shared.checkTrialOrIntroDiscountEligibility(productIdentifiers: ids)
         } catch {
             lastError = error.localizedDescription
         }
@@ -107,7 +129,50 @@ final class RevenueCatManager: NSObject {
         (try? await Purchases.shared.customerInfo().originalAppUserId) ?? Purchases.shared.appUserID
     }
 
+    private var trialReminderRevision = 0
+
+    private func updateTrialReminder(end: Date?) {
+        trialReminderRevision += 1
+        let revision = trialReminderRevision
+        Task { @MainActor in
+            let defaults = UserDefaults.standard
+            let key = "hosted.trialReminderExpiry"
+            let identifier = "hosted.trial-reminder"
+            let pending = await UNUserNotificationCenter.current().pendingNotificationRequests()
+            guard revision == trialReminderRevision else { return }
+            guard defaults.bool(forKey: "notificationsEnabled"), let end, end > .now else {
+                PendingNotificationRequests.remove([identifier])
+                defaults.removeObject(forKey: key)
+                return
+            }
+            if defaults.object(forKey: key) as? Date == end,
+               pending.contains(where: { $0.identifier == identifier }) { return }
+            PendingNotificationRequests.remove([identifier])
+            defaults.removeObject(forKey: key)
+            let delay = end.timeIntervalSinceNow - 24 * 60 * 60
+            guard delay > 0 else { return }
+            let content = UNMutableNotificationContent()
+            content.title = String(localized: "Trial ends tomorrow")
+            content.body = String(localized: "Your yearly plan renews after the trial. Review or cancel in store settings.")
+            let request = UNNotificationRequest(identifier: identifier, content: content,
+                trigger: UNTimeIntervalNotificationTrigger(timeInterval: delay, repeats: false))
+            do {
+                try await PendingNotificationRequests.addAfterPendingChanges(request)
+                // Do not resurrect a marker after cancellation or a newer entitlement refresh.
+                if revision == trialReminderRevision, defaults.bool(forKey: "notificationsEnabled") {
+                    defaults.set(end, forKey: key)
+                }
+            } catch {
+                // Leave it unmarked so the next refresh can retry a transient OS failure.
+            }
+        }
+    }
+
     private func applyCustomerInfo(_ info: CustomerInfo) {
+        let active = info.entitlements[HostedAIConstants.proEntitlementID].flatMap { $0.isActive ? $0 : nil }
+            ?? info.entitlements[HostedAIConstants.plusEntitlementID].flatMap { $0.isActive ? $0 : nil }
+        trialEndsAt = active?.periodType == .trial ? active?.expirationDate : nil
+        updateTrialReminder(end: active?.willRenew == true ? trialEndsAt : nil)
         hasProEntitlement = info.entitlements[HostedAIConstants.proEntitlementID]?.isActive == true
         hasPlusEntitlement = info.entitlements[HostedAIConstants.plusEntitlementID]?.isActive == true
         if hasProEntitlement {

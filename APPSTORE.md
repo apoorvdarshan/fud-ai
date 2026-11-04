@@ -87,31 +87,13 @@ Source: https://github.com/apoorvdarshan/fud-ai
 
 ```
 
-## What's New (v8.0 — iPhone and iPad, alongside Android 8.0)
+## What's New (v8.1)
 ```
-Fud AI 8.0 adds Live Voice: talk to Fud AI to log meals, scan barcodes and check your progress.
-
-NEW
-• Live Voice: tap the orb on Home, or start it from Siri, the Action Button or Control Center (iOS 18 and later). Included with Plus and Pro, or use your own Gemini, OpenAI, xAI or Qwen key.
-• Fud AI now runs on iPad.
-• The food camera measures the table under your food with AR, so the AI can size portions from real dimensions.
-• Workouts: a rest timer, saved routines, Coach exercise suggestions you confirm before anything is added, and Fill with AI or a photo for custom exercises.
-• Progress: a Weekly Recap card, a Steps tab, arrows to browse earlier periods, and a calorie chart you can tap or scrub.
-• Choose kilocalories or kilojoules in Settings.
-• Welcome back: returning users can restore an iCloud backup and import Apple Health data from the first screen.
-• Share a meal as a short link that shows a preview, or a direct link that opens Fud AI right away.
-• Alibaba Qwen joins the own-key AI providers, and OpenAI gains GPT-6 Sol and Luna presets.
-• Optional essential amino acid estimates, and an optional USDA FoodData Central barcode fallback with your own free API key.
-• Fud AI is now translated into Turkish.
-
-IMPROVED
-• Hide the Progress, Coach or Workouts tab, set your own water quick-add amounts, and see your estimated maintenance in Daily Targets.
-• Settings shows the space photos, on-device models and caches use, with cleanup actions.
-• Sharper camera focus on close-up food and barcodes, and tap the preview to focus.
-• Log a weigh-in on an earlier day, delete weights from Weight History, and more reliable Apple Health weight imports.
-• Resumable on-device model downloads and more reliable iCloud backups.
-
-Existing logs, goals, Health data, widgets, workout history, and BYOK settings are preserved during a normal update.
+Fud AI 8.1
+• Eligible yearly Plus and Pro plans can show a 3-day free trial when available in your store.
+• Clear trial limits, renewal prices, and trial end dates.
+• Optional reminder before your trial ends, when notifications are enabled.
+• Existing free users get a one-time invitation. BYOK stays free.
 ```
 
 ## Privacy URL

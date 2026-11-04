@@ -43,6 +43,9 @@ struct HostedAISettingsView: View {
             if aiMode == .hosted {
                 Section {
                     LabeledContent("Plan", value: rc.activePlan.displayName)
+                    if let end = rc.trialEndsAt {
+                        LabeledContent("Trial ends", value: end.formatted(date: .abbreviated, time: .shortened))
+                    }
                     LabeledContent("Today (UTC)", value: "\(quota.dailyUsed)/\(quota.dailyLimit)")
                     LabeledContent("Credit bank", value: "\(quota.creditBank)")
                 } header: {
@@ -600,6 +603,9 @@ struct HostedPaywallView: View {
     }
 
     private var ctaTitle: String {
+        if let package = selectedPackage, rc.hasThreeDayTrial(package), !rc.hasHostedEntitlement {
+            return String(localized: "Try free for 3 days")
+        }
         if rc.activePlan == .plus && selectedPlan == .pro {
             return String(localized: "Upgrade to Pro")
         }
@@ -610,6 +616,11 @@ struct HostedPaywallView: View {
     private var ctaDetail: String {
         guard let package = selectedPackage else { return "" }
         let product = package.storeProduct
+        if rc.hasThreeDayTrial(package), !rc.hasHostedEntitlement {
+            let minutes = selectedPlan == .plus ? 2 : 5
+            return String(localized: "3 days free, then \(product.localizedPriceString)/year. Renews automatically. Cancel before the trial ends to avoid a charge.")
+                + "\n" + String(localized: "Trial: 20 AI actions and \(minutes) voice minutes/day (UTC). Full plan limits after trial. Extra credits cost money.")
+        }
         let period = HostedBillingPeriod(package: package) ?? selectedPeriod
         return String(localized: "\(product.localizedPriceString) \(period.perUnit) · Renews automatically, cancel anytime.")
     }

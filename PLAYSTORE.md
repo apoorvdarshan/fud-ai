@@ -109,21 +109,17 @@ English-only on Play Console — non-English Play Store browsers (ar, az-AZ, cs-
 
 ---
 
-## 4. What's New (v8.0.1 / versionCode 45 — being released)
+## 4. What's New (v8.1 / versionCode 46)
 
-**500 char hard cap per language.** Only the `<en-US>` block is kept: store-release uploads every `<locale>` block in this fence, and Play shows the English notes to every other language. Add a translated block only when it describes this release.
+**500 char hard cap per language.** English is the fallback for other store locales.
 
 ```
 <en-US>
-Fud AI 8.0.1
-• Live Voice: talk to Fud AI to log meals, scan barcodes and check progress, with Plus/Pro or your own Gemini, OpenAI, xAI or Qwen key.
-• Workouts: rest timer, routines, Health Connect import.
-• Progress: Weekly Recap, Steps, past periods, kcal or kJ.
-• Share meals as a short or direct link.
-• Welcome back: restore Drive backups and Health Connect data.
-• Camera: sharper close-ups and tap to focus.
-• Alibaba Qwen; the app is now in Turkish.
-• Fixed a Health Connect setup crash.
+Fud AI 8.1
+• Eligible yearly Plus and Pro plans can show a 3-day free trial when available in your store.
+• Clear trial limits, renewal prices, and trial end dates.
+• Optional reminder before your trial ends, when notifications are enabled.
+• Existing free users get a one-time invitation. BYOK stays free.
 </en-US>
 ```
 

@@ -123,7 +123,7 @@ fun PostUpdatePromptsHost(container: AppContainer, enabled: Boolean) {
         billing.loadOfferings()
         val eligible = prefs.aiAccessMode.first() == AiAccessMode.BYOK &&
             !billing.entitlement.value.isEntitled &&
-            billing.hasPurchasablePlans
+            billing.hasEligibleYearlyTrial
         if (eligible) prefs.setHasSeenHostedUpsellPrompt(true)
         return eligible
     }
@@ -142,7 +142,7 @@ fun PostUpdatePromptsHost(container: AppContainer, enabled: Boolean) {
     suspend fun finishWhatsNew(reachedEnd: Boolean) {
         prefs.setHasSeenWhatsNewLiveVoice(true)
         if (reachedEnd) prefs.setHasSeenMeetDeveloperPrompt(true)
-        if (whatsNewAccess?.canBuyPlans == true || container.billing.entitlement.value.isEntitled) {
+        if (container.billing.entitlement.value.isEntitled) {
             prefs.setHasSeenHostedUpsellPrompt(true)
         }
     }
@@ -248,14 +248,14 @@ fun PostUpdatePromptsHost(container: AppContainer, enabled: Boolean) {
 
 @Composable
 private fun HostedUpsellDialog(onSeePlans: () -> Unit, onKeepByok: () -> Unit) {
-    FudGlassDialog(onDismissRequest = {}) {
+    FudGlassDialog(onDismissRequest = onKeepByok) {
         Text(
-            text = stringResource(R.string.hosted_upsell_title),
+            text = stringResource(R.string.hosted_trial_invite_title),
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.Bold
         )
         Text(
-            text = stringResource(R.string.hosted_upsell_body),
+            text = stringResource(R.string.hosted_trial_invite_body),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f)
         )

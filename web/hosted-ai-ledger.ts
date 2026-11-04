@@ -78,6 +78,7 @@ export type HostedPlan = "none" | "plus" | "pro";
 export interface LedgerRow {
   user_id_hash: string;
   plan: HostedPlan;
+  trial_expires_at?: string | null;
   credits_granted: number;
   credits_spent: number;
   usage_day: string;
@@ -93,6 +94,7 @@ export interface LedgerRow {
 export interface EntitlementSnapshot {
   plan: HostedPlan;
   creditsGranted: number;
+  trialExpiresAt?: string | null;
 }
 
 export interface QuotaSnapshot {
@@ -195,7 +197,7 @@ export class D1LedgerStore implements LedgerStore {
     return await this.database
       .prepare(
         `SELECT user_id_hash, plan, credits_granted, credits_spent, usage_day, daily_used,
-                entitlement_verified_at, version, voice_month, voice_seconds_used
+                entitlement_verified_at, version, voice_month, voice_seconds_used, trial_expires_at
            FROM hosted_ai_ledger WHERE user_id_hash = ?`
       )
       .bind(userIdHash)
@@ -213,20 +215,23 @@ export class D1LedgerStore implements LedgerStore {
       .prepare(
         `INSERT INTO hosted_ai_ledger (
            user_id_hash, plan, credits_granted, credits_spent, usage_day, daily_used,
-           entitlement_verified_at, version, created_at, updated_at
-         ) VALUES (?1, ?2, ?3, 0, ?4, 0, ?5, 0, ?5, ?5)
+           entitlement_verified_at, version, created_at, updated_at, trial_expires_at
+         ) VALUES (?1, ?2, ?3, 0, ?4, 0, ?5, 0, ?5, ?5, ?6)
          ON CONFLICT(user_id_hash) DO UPDATE SET
            plan = CASE
              WHEN excluded.entitlement_verified_at >= hosted_ai_ledger.entitlement_verified_at
              THEN excluded.plan ELSE hosted_ai_ledger.plan END,
+           trial_expires_at = CASE
+             WHEN excluded.entitlement_verified_at >= hosted_ai_ledger.entitlement_verified_at
+             THEN excluded.trial_expires_at ELSE hosted_ai_ledger.trial_expires_at END,
            credits_granted = MAX(hosted_ai_ledger.credits_granted, excluded.credits_granted),
            entitlement_verified_at = MAX(hosted_ai_ledger.entitlement_verified_at, excluded.entitlement_verified_at),
            version = hosted_ai_ledger.version + 1,
            updated_at = MAX(hosted_ai_ledger.updated_at, excluded.updated_at)
          RETURNING user_id_hash, plan, credits_granted, credits_spent, usage_day, daily_used,
-                   entitlement_verified_at, version, voice_month, voice_seconds_used`
+                   entitlement_verified_at, version, voice_month, voice_seconds_used, trial_expires_at`
       )
-      .bind(userIdHash, snapshot.plan, snapshot.creditsGranted, utcDayKey(new Date(verifiedAt)), verifiedAt)
+      .bind(userIdHash, snapshot.plan, snapshot.creditsGranted, utcDayKey(new Date(verifiedAt)), verifiedAt, snapshot.trialExpiresAt ?? null)
       .first<LedgerRow>();
     if (!row) throw new Error("ledger_upsert_failed");
     return row;
@@ -352,17 +357,21 @@ export function quotaFromRow(row: LedgerRow, now: Date): QuotaSnapshot {
     plan: row.plan,
     day,
     dailyUsed,
-    dailyLimit: HOSTED_AI_DAILY_LIMITS[row.plan],
+    dailyLimit: row.plan !== "none" && row.trial_expires_at ? 20 : HOSTED_AI_DAILY_LIMITS[row.plan],
     creditBank: Math.max(0, row.credits_granted - row.credits_spent),
   };
 }
 
 export function voiceQuotaFromRow(row: LedgerRow, now: Date): VoiceQuotaSnapshot {
-  const month = utcMonthKey(now);
+  // Seven-character period key preserves the existing D1 constraint. TYYMMDD
+  // is a UTC trial day; YYYY-MM remains the paid calendar month.
+  const month = row.trial_expires_at ? `T${utcDayKey(now).slice(2).replaceAll("-", "")}` : utcMonthKey(now);
   return {
     month,
     secondsUsed: row.voice_month === month ? row.voice_seconds_used : 0,
-    secondsLimit: HOSTED_AI_VOICE_MONTHLY_SECONDS[row.plan],
+    secondsLimit: row.trial_expires_at
+      ? ({ none: 0, plus: 120, pro: 300 }[row.plan])
+      : HOSTED_AI_VOICE_MONTHLY_SECONDS[row.plan],
     creditBank: Math.max(0, row.credits_granted - row.credits_spent),
   };
 }
@@ -389,7 +398,8 @@ export class EntitlementLookupError extends Error {
 
 interface RevenueCatSubscriberResponse {
   subscriber?: {
-    entitlements?: Record<string, { expires_date?: string | null }>;
+    entitlements?: Record<string, { expires_date?: string | null; product_identifier?: string }>;
+    subscriptions?: Record<string, { period_type?: string; expires_date?: string | null }>;
     non_subscriptions?: Record<string, Array<{ id?: string; purchase_date?: string }>>;
   };
 }
@@ -429,6 +439,18 @@ export function parseRevenueCatSubscriber(payload: unknown, now: Date): Entitlem
     }
   }
 
+  // Match the selected entitlement to its verified subscription. Never accept
+  // a trial flag from the device or infer conversion from the clock alone.
+  const entitlement = subscriber.entitlements?.[plan];
+  const subscription = entitlement?.product_identifier
+    ? subscriber.subscriptions?.[entitlement.product_identifier] : undefined;
+  if (plan !== "none" && subscription?.period_type === "trial") {
+    const expires = subscription.expires_date ?? entitlement?.expires_date;
+    if (!expires || !Number.isFinite(Date.parse(expires))) {
+      throw new EntitlementLookupError("revenuecat_invalid_trial_expiry");
+    }
+    return { plan, creditsGranted, trialExpiresAt: expires };
+  }
   return { plan, creditsGranted };
 }
 
@@ -488,7 +510,7 @@ export async function loadVerifiedLedger(
   const existing = await context.store.get(userIdHash);
   const ageMs = existing ? now.getTime() - Date.parse(existing.entitlement_verified_at) : Number.POSITIVE_INFINITY;
   const fresh = existing !== null && Number.isFinite(ageMs) && ageMs < ENTITLEMENT_TTL_MS[existing.plan];
-  if (fresh && !forceRefresh) return existing;
+  if (fresh && !forceRefresh && !(existing.trial_expires_at && now.getTime() >= Date.parse(existing.trial_expires_at))) return existing;
 
   try {
     const snapshot = await context.verify(userId);

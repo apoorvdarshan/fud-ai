@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hosted_trial_cta">3 gün pulsuz sına</string>
+    <string name="hosted_trial_disclosure">3 gün pulsuz, sonra %1$s/il. Avtomatik yenilənir. Ödəniş tutulmaması üçün sınaq bitməzdən əvvəl ləğv edin.</string>
+    <string name="hosted_trial_limits">Sınaq: gündə 20 süni intellekt əməliyyatı və %1$d səs dəqiqəsi (UTC). Sonra tam plan limitləri tətbiq olunur. Əlavə kreditlər ödənişlidir.</string>
+    <string name="hosted_trial_invite_body">API açarları olmadan illik Plus və ya Pro sınayın. Sınaq limitləri var. Qiymət və şərtlərə baxın və ya BYOK-u pulsuz saxlayın.</string>
+    <string name="hosted_trial_ends">Sınaq bitir</string>
+    <string name="hosted_trial_reminder_title">Sınaq sabah bitir</string>
+    <string name="hosted_trial_reminder_body">İllik planınız sınaqdan sonra yenilənir. Mağaza ayarlarında yoxlayın və ya ləğv edin.</string>
+    <string name="hosted_trial_invite_title">3 gün pulsuz sına</string>
+</resources>

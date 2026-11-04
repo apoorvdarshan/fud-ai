@@ -129,22 +129,36 @@ final class RevenueCatManager: NSObject {
         (try? await Purchases.shared.customerInfo().originalAppUserId) ?? Purchases.shared.appUserID
     }
 
+    private func updateTrialReminder(end: Date?) {
+        let defaults = UserDefaults.standard
+        let key = "hosted.trialReminderExpiry"
+        guard defaults.bool(forKey: "notificationsEnabled"), let end, end > .now else {
+            PendingNotificationRequests.remove(["hosted.trial-reminder"])
+            defaults.removeObject(forKey: key)
+            return
+        }
+        if defaults.object(forKey: key) as? Date == end { return }
+        PendingNotificationRequests.remove(["hosted.trial-reminder"])
+        defaults.removeObject(forKey: key)
+        guard end.timeIntervalSinceNow > 24 * 60 * 60 else { return }
+        defaults.set(end, forKey: key)
+        PendingNotificationRequests.addWhenQueued {
+            guard UserDefaults.standard.bool(forKey: "notificationsEnabled") else { return nil }
+            let delay = end.timeIntervalSinceNow - 24 * 60 * 60
+            guard delay > 0 else { return nil }
+            let content = UNMutableNotificationContent()
+            content.title = String(localized: "Trial ends tomorrow")
+            content.body = String(localized: "Your yearly plan renews after the trial. Review or cancel in store settings.")
+            return UNNotificationRequest(identifier: "hosted.trial-reminder", content: content,
+                trigger: UNTimeIntervalNotificationTrigger(timeInterval: delay, repeats: false))
+        }
+    }
+
     private func applyCustomerInfo(_ info: CustomerInfo) {
         let active = info.entitlements[HostedAIConstants.proEntitlementID].flatMap { $0.isActive ? $0 : nil }
             ?? info.entitlements[HostedAIConstants.plusEntitlementID].flatMap { $0.isActive ? $0 : nil }
         trialEndsAt = active?.periodType == .trial ? active?.expirationDate : nil
-        PendingNotificationRequests.remove(["hosted.trial-reminder"])
-        if let end = trialEndsAt, active?.willRenew == true {
-            PendingNotificationRequests.addWhenQueued {
-                let delay = end.timeIntervalSinceNow - 24 * 60 * 60
-                guard delay > 0 else { return nil }
-                let content = UNMutableNotificationContent()
-                content.title = String(localized: "Trial ends tomorrow")
-                content.body = String(localized: "Your yearly plan renews after the trial. Review or cancel in store settings.")
-                return UNNotificationRequest(identifier: "hosted.trial-reminder", content: content,
-                    trigger: UNTimeIntervalNotificationTrigger(timeInterval: delay, repeats: false))
-            }
-        }
+        updateTrialReminder(end: active?.willRenew == true ? trialEndsAt : nil)
         hasProEntitlement = info.entitlements[HostedAIConstants.proEntitlementID]?.isActive == true
         hasPlusEntitlement = info.entitlements[HostedAIConstants.plusEntitlementID]?.isActive == true
         if hasProEntitlement {

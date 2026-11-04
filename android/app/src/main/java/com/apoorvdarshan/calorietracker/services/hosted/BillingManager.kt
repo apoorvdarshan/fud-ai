@@ -48,6 +48,7 @@ data class HostedEntitlement(
     val managementUrl: String? = null,
     /** False until the first CustomerInfo arrived (cached or fetched). */
     val trialEndsAt: java.util.Date? = null,
+    val trialWillRenew: Boolean = false,
     val loaded: Boolean = false
 ) {
     val isEntitled: Boolean get() = plan != HostedPlan.NONE
@@ -134,8 +135,7 @@ private fun periodFromIdentifier(raw: String?): BillingPeriod? = when (raw?.lowe
  */
 class BillingManager(
     private val scope: CoroutineScope,
-    private val quota: HostedQuotaStore,
-    private val updateTrialReminder: (java.util.Date?) -> Unit = {}
+    private val quota: HostedQuotaStore
 ) {
     val isAvailable: Boolean get() = Purchases.isConfigured
 
@@ -296,9 +296,9 @@ class BillingManager(
             isPlayStore = active?.store == Store.PLAY_STORE,
             managementUrl = info.managementURL?.toString(),
             trialEndsAt = active?.takeIf { it.periodType == com.revenuecat.purchases.PeriodType.TRIAL }?.expirationDate,
+            trialWillRenew = active?.willRenew == true,
             loaded = true
         )
-        updateTrialReminder(_entitlement.value.trialEndsAt?.takeIf { active?.willRenew == true })
         // A plan change or a new consumable (e.g. a pending purchase that just
         // completed) means the Worker ledger changed: re-verify it now.
         val signature = plan to info.nonSubscriptionTransactions.size

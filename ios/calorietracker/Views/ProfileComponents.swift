@@ -1166,6 +1166,7 @@ struct NotificationSettingsSections: View {
                             applyFastingGoalNotification()
                             WorkoutRestTimerController.shared.rescheduleNotification()
                             await notificationManager.scheduleProductHuntLaunchReminderIfNeeded()
+                            await RevenueCatManager.shared.refreshCustomerInfo()
                         }
                     }
                 } else {

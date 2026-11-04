@@ -64,6 +64,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -350,7 +351,19 @@ class AppContainer(app: FudAIApp) {
     val hostedQuota: HostedQuotaStore = HostedQuotaStore(SharedPreferencesQuotaPersistence(app), hostedScope) { refresh ->
         hostedAiClient.fetchQuota(refresh)
     }
-    val billing = BillingManager(hostedScope, hostedQuota, notifications::updateTrialReminder)
+    val billing = BillingManager(hostedScope, hostedQuota)
+    init {
+        hostedScope.launch {
+            kotlinx.coroutines.flow.combine(billing.entitlement, prefs.notificationsEnabled) { info, enabled ->
+                info to enabled
+            }.collect { (info, enabled) ->
+                // A failed initial refresh must not erase a previously scheduled reminder.
+                if (info.loaded || !enabled) {
+                    notifications.updateTrialReminder(info.trialEndsAt?.takeIf { enabled && info.trialWillRenew })
+                }
+            }
+        }
+    }
     val hostedAiClient = HostedAiClient(userId = billing::appUserId, quota = hostedQuota)
     val hostedAccess = HostedAiAccess(hostedAiClient) { billing.entitlement.value }
     val hostedUi = HostedUiRouter()

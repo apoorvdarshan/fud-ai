@@ -129,28 +129,42 @@ final class RevenueCatManager: NSObject {
         (try? await Purchases.shared.customerInfo().originalAppUserId) ?? Purchases.shared.appUserID
     }
 
+    private var trialReminderRevision = 0
+
     private func updateTrialReminder(end: Date?) {
-        let defaults = UserDefaults.standard
-        let key = "hosted.trialReminderExpiry"
-        guard defaults.bool(forKey: "notificationsEnabled"), let end, end > .now else {
-            PendingNotificationRequests.remove(["hosted.trial-reminder"])
+        trialReminderRevision += 1
+        let revision = trialReminderRevision
+        Task { @MainActor in
+            let defaults = UserDefaults.standard
+            let key = "hosted.trialReminderExpiry"
+            let identifier = "hosted.trial-reminder"
+            let pending = await UNUserNotificationCenter.current().pendingNotificationRequests()
+            guard revision == trialReminderRevision else { return }
+            guard defaults.bool(forKey: "notificationsEnabled"), let end, end > .now else {
+                PendingNotificationRequests.remove([identifier])
+                defaults.removeObject(forKey: key)
+                return
+            }
+            if defaults.object(forKey: key) as? Date == end,
+               pending.contains(where: { $0.identifier == identifier }) { return }
+            PendingNotificationRequests.remove([identifier])
             defaults.removeObject(forKey: key)
-            return
-        }
-        if defaults.object(forKey: key) as? Date == end { return }
-        PendingNotificationRequests.remove(["hosted.trial-reminder"])
-        defaults.removeObject(forKey: key)
-        guard end.timeIntervalSinceNow > 24 * 60 * 60 else { return }
-        defaults.set(end, forKey: key)
-        PendingNotificationRequests.addWhenQueued {
-            guard UserDefaults.standard.bool(forKey: "notificationsEnabled") else { return nil }
             let delay = end.timeIntervalSinceNow - 24 * 60 * 60
-            guard delay > 0 else { return nil }
+            guard delay > 0 else { return }
             let content = UNMutableNotificationContent()
             content.title = String(localized: "Trial ends tomorrow")
             content.body = String(localized: "Your yearly plan renews after the trial. Review or cancel in store settings.")
-            return UNNotificationRequest(identifier: "hosted.trial-reminder", content: content,
+            let request = UNNotificationRequest(identifier: identifier, content: content,
                 trigger: UNTimeIntervalNotificationTrigger(timeInterval: delay, repeats: false))
+            do {
+                try await PendingNotificationRequests.addAfterPendingChanges(request)
+                // Do not resurrect a marker after cancellation or a newer entitlement refresh.
+                if revision == trialReminderRevision, defaults.bool(forKey: "notificationsEnabled") {
+                    defaults.set(end, forKey: key)
+                }
+            } catch {
+                // Leave it unmarked so the next refresh can retry a transient OS failure.
+            }
         }
     }
 

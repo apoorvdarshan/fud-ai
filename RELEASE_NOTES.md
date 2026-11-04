@@ -7,7 +7,21 @@ same marketing version can share a feature summary while identifying different b
 
 ## Unreleased
 
-ios-v8.0 (build 40) is in App Store review and android-v8.0.1 (versionCode 45) replaces android-v8.0 (versionCode 44) in Play review, each set to release automatically when approved (2026-10-24). iOS 7.1.2 (build 39) and Android 7.2 (versionCode 42) stay live until then; android-v7.2.1 (versionCode 43) is a GitHub pre-release that was never uploaded to Google Play, and 8.0 includes everything in it.
+## ios-v8.1
+
+Fud AI 8.1
+• Eligible yearly Plus and Pro plans can show a 3-day free trial when available in your store.
+• Clear trial limits, renewal prices, and trial end dates.
+• Optional reminder before your trial ends, when notifications are enabled.
+• Existing free users get a one-time invitation. BYOK stays free.
+
+## android-v8.1
+
+Fud AI 8.1
+• Eligible yearly Plus and Pro plans can show a 3-day free trial when available in your store.
+• Clear trial limits, renewal prices, and trial end dates.
+• Optional reminder before your trial ends, when notifications are enabled.
+• Existing free users get a one-time invitation. BYOK stays free.
 
 ## android-v8.0.1
 

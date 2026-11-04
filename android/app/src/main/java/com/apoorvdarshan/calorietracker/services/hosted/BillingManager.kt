@@ -47,6 +47,8 @@ data class HostedEntitlement(
     val isPlayStore: Boolean = false,
     val managementUrl: String? = null,
     /** False until the first CustomerInfo arrived (cached or fetched). */
+    val trialEndsAt: java.util.Date? = null,
+    val trialWillRenew: Boolean = false,
     val loaded: Boolean = false
 ) {
     val isEntitled: Boolean get() = plan != HostedPlan.NONE
@@ -55,6 +57,13 @@ data class HostedEntitlement(
 
 data class PlanOption(val plan: HostedPlan, val period: BillingPeriod, val pkg: Package) {
     val product: StoreProduct get() = pkg.product
+    // Play only returns eligible acquisition offers. Match the exact default
+    // option the SDK will purchase, not an arbitrary offer on the product.
+    val hasThreeDayTrial: Boolean get() {
+        val free = product.defaultOption?.freePhase ?: return false
+        return period == BillingPeriod.YEARLY && free.billingPeriod.unit == Period.Unit.DAY &&
+            free.billingPeriod.value * (free.billingCycleCount ?: 1) == 3
+    }
 }
 
 /** Purchasable plans and credit packs, resolved from the `plus` / `pro` offerings. */
@@ -191,6 +200,9 @@ class BillingManager(
     val hasPurchasablePlans: Boolean
         get() = (offerings.value as? OfferingsState.Loaded)?.catalog?.hasPurchasablePlans == true
 
+    val hasEligibleYearlyTrial: Boolean
+        get() = (offerings.value as? OfferingsState.Loaded)?.catalog?.plans?.any { it.hasThreeDayTrial } == true
+
     suspend fun purchasePlan(activity: Activity, option: PlanOption): PurchaseOutcome = guarded {
         val current = _entitlement.value
         val builder = PurchaseParams.Builder(activity, option.pkg)
@@ -283,6 +295,8 @@ class BillingManager(
             basePlanId = active?.productPlanIdentifier ?: active?.productIdentifier?.substringAfter(':', "")?.ifEmpty { null },
             isPlayStore = active?.store == Store.PLAY_STORE,
             managementUrl = info.managementURL?.toString(),
+            trialEndsAt = active?.takeIf { it.periodType == com.revenuecat.purchases.PeriodType.TRIAL }?.expirationDate,
+            trialWillRenew = active?.willRenew == true,
             loaded = true
         )
         // A plan change or a new consumable (e.g. a pending purchase that just

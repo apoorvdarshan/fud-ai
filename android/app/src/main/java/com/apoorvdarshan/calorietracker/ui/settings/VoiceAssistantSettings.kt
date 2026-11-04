@@ -237,7 +237,10 @@ internal fun VoiceAssistantSettings(container: AppContainer, onOpenAiProviders: 
                     icon = Icons.Outlined.Timer
                 ) { container.hostedUi.show(if (entitlement.isEntitled) HostedPrompt.Credits else HostedPrompt.Paywall) }
             }
-            VoiceFooter(stringResource(R.string.voice_settings_minutes_footer))
+            VoiceFooter(if (entitlement.trialEndsAt != null)
+                stringResource(R.string.hosted_trial_limits,
+                    if (entitlement.plan == com.apoorvdarshan.calorietracker.services.hosted.HostedPlan.PLUS) 2 else 5)
+                else stringResource(R.string.voice_settings_minutes_footer))
         }
 
         SectionCard(title = stringResource(R.string.voice_settings_open_title)) {

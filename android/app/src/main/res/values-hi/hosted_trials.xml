@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hosted_trial_cta">3 दिन मुफ़्त आज़माएँ</string>
+    <string name="hosted_trial_disclosure">3 दिन मुफ़्त, फिर %1$s/वर्ष। अपने आप नवीनीकरण होगा। शुल्क से बचने के लिए ट्रायल खत्म होने से पहले रद्द करें।</string>
+    <string name="hosted_trial_limits">ट्रायल: रोज़ 20 AI कार्रवाइयाँ और %1$d वॉइस मिनट (UTC)। बाद में पूरी प्लान सीमाएँ लागू होंगी। अतिरिक्त क्रेडिट के पैसे लगते हैं।</string>
+    <string name="hosted_trial_invite_body">API कुंजी के बिना सालाना Plus या Pro आज़माएँ। ट्रायल सीमाएँ लागू हैं। कीमत और शर्तें देखें या BYOK मुफ़्त रखें।</string>
+    <string name="hosted_trial_ends">ट्रायल समाप्ति</string>
+    <string name="hosted_trial_reminder_title">ट्रायल कल खत्म होगा</string>
+    <string name="hosted_trial_reminder_body">ट्रायल के बाद सालाना प्लान का नवीनीकरण होगा। स्टोर सेटिंग में जाँचें या रद्द करें।</string>
+    <string name="hosted_trial_invite_title">3 दिन मुफ़्त आज़माएँ</string>
+</resources>

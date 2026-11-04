@@ -49,7 +49,7 @@ function database(migrations: string[]): DatabaseSync {
   return db;
 }
 
-const ALL_MIGRATIONS = ["0002_hosted_ai_ledger.sql", "0003_hosted_ai_refunds.sql", "0004_hosted_ai_voice.sql", "0005_hosted_ai_voice_spends.sql"];
+const ALL_MIGRATIONS = ["0002_hosted_ai_ledger.sql", "0003_hosted_ai_refunds.sql", "0004_hosted_ai_voice.sql", "0005_hosted_ai_voice_spends.sql", "0006_hosted_ai_trials.sql"];
 const HASH = "a".repeat(64);
 const NOW = new Date("2026-09-13T12:00:00.000Z");
 
@@ -66,6 +66,7 @@ describe("hosted AI ledger on SQLite (D1 schema and queries)", () => {
        VALUES (?, 'pro', 150, 20, '2026-09-13', 4, '2026-09-13T00:00:00.000Z', 7, '2026-09-01T00:00:00.000Z', '2026-09-13T00:00:00.000Z')`
     ).run(HASH);
     db.exec(readFileSync("migrations/0004_hosted_ai_voice.sql", "utf8"));
+    db.exec(readFileSync("migrations/0006_hosted_ai_trials.sql", "utf8"));
 
     const row = await new D1LedgerStore(sqliteD1(db)).get(HASH);
     expect({ ...row }).toEqual({
@@ -77,9 +78,26 @@ describe("hosted AI ledger on SQLite (D1 schema and queries)", () => {
       daily_used: 4,
       entitlement_verified_at: "2026-09-13T00:00:00.000Z",
       version: 7,
+      trial_expires_at: null,
       voice_month: "",
       voice_seconds_used: 0,
     });
+  });
+
+  it("persists trial metering and does not let an old refresh undo conversion", async () => {
+    const store = new D1LedgerStore(sqliteD1(database(ALL_MIGRATIONS)));
+    const expires = "2026-09-16T12:00:00.000Z";
+    let row = await store.upsertEntitlement(HASH, { plan: "plus", creditsGranted: 50, trialExpiresAt: expires }, NOW.toISOString());
+    for (let i = 0; i < 9; i++) {
+      const result = await spendVoiceBlock(context(store), HASH, row);
+      expect(result.status).toBe("spent");
+      if (result.status === "spent") row = result.row;
+    }
+    expect(await store.get(HASH)).toMatchObject({ trial_expires_at: expires, voice_seconds_used: 120, credits_spent: 1 });
+    await store.upsertEntitlement(HASH, { plan: "plus", creditsGranted: 50 }, "2026-09-16T12:00:01.000Z");
+    const converted = await store.upsertEntitlement(HASH, { plan: "plus", creditsGranted: 50, trialExpiresAt: expires }, NOW.toISOString());
+    expect(converted.trial_expires_at).toBeNull();
+    expect(converted.credits_spent).toBe(1);
   });
 
   it("round-trips the voice counters with a version compare-and-swap", async () => {

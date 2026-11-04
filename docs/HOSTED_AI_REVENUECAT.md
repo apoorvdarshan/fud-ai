@@ -142,3 +142,45 @@ Credits are reconciled from RevenueCat `non_subscriptions` by transaction id (Ap
 - Free forever = full tracker + BYOK (both platforms)
 - Optional Plus/Pro + credits = hosted convenience on iOS (App Store) and Android 7.2+ (Google Play)
 - Tip jar on both platforms through the store (Android moved off Ko-fi in 7.2)
+
+## Three-day yearly trials (8.1)
+
+Only Plus yearly and Pro yearly receive a three-day introductory free trial.
+Monthly plans remain unchanged. Eligibility comes from the stores: iOS checks
+RevenueCat introductory-offer eligibility in the subscription group; Android
+uses the eligible default offer returned by Play. Configure Play acquisition
+eligibility as never having had any subscription in this app, not just the
+selected product. This is store-account eligibility, not a guarantee of one
+trial per human across stores.
+
+During a verified trial, both plans receive 20 AI actions per UTC day. Plus
+receives 120 voice seconds per UTC day; Pro receives 300. UTC midnight resets
+can occur on four dates during a 72-hour trial; do not advertise a fixed total.
+Purchased credits cover excess usage at the existing rates. Trial expiry alone
+never unlocks paid quotas: RevenueCat must confirm the paid entitlement.
+Paid voice uses a fresh calendar-month allowance after conversion; actions
+already used that UTC day count toward the normal paid daily limit.
+
+Migration `0006_hosted_ai_trials.sql` stores the verified trial expiry. The
+existing seven-character voice period key uses `TYYMMDD` during trials and
+`YYYY-MM` for paid months. Clients treat it as an opaque usage-period key.
+Verification races remain monotonic and credit balances survive conversion.
+
+The paywall shows trial wording only for an eligible three-day yearly offer,
+with localized annual price, automatic renewal, trial quotas, and cancellation
+terms. The versioned post-update invitation is shown once to existing BYOK
+users without an entitlement when an eligible trial is available. Fresh
+installs mark it seen during onboarding. Existing subscribers are skipped;
+failed entitlement checks and unavailable offers leave the invitation pending.
+
+Settings displays the trial end date. A local reminder is scheduled roughly
+24 hours before renewal if notification permission already allows delivery.
+It is best effort, not a billing guarantee; cancellation observed by the app
+removes it. Android inexact alarms may be delayed or removed by reboot until
+the app refreshes the entitlement again.
+
+Rollout: apply the D1 migration, deploy and verify the Worker, release the
+trial-aware apps, then enable the store offers. Do not activate the offers
+before the app update is available. Validate sandbox eligibility, cancellation,
+restore, conversion, and depleted-allowance top-ups before activation. Do not
+use real customer purchases for tests.

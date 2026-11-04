@@ -350,7 +350,7 @@ class AppContainer(app: FudAIApp) {
     val hostedQuota: HostedQuotaStore = HostedQuotaStore(SharedPreferencesQuotaPersistence(app), hostedScope) { refresh ->
         hostedAiClient.fetchQuota(refresh)
     }
-    val billing = BillingManager(hostedScope, hostedQuota)
+    val billing = BillingManager(hostedScope, hostedQuota, notifications::updateTrialReminder)
     val hostedAiClient = HostedAiClient(userId = billing::appUserId, quota = hostedQuota)
     val hostedAccess = HostedAiAccess(hostedAiClient) { billing.entitlement.value }
     val hostedUi = HostedUiRouter()

@@ -302,6 +302,23 @@ class NotificationService(private val context: Context) {
     }
 
     /** The pop-up is on screen, so the notification about it has done its job. */
+    fun updateTrialReminder(end: java.util.Date?) {
+        val request = 7091
+        cancel(request)
+        val fire = (end?.time ?: return) - 24L * 60 * 60 * 1000
+        if (fire <= System.currentTimeMillis()) return
+        val pi = broadcastPendingIntent(request, ReminderReceiver::class.java,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT) {
+            putExtra(EXTRA_CHANNEL, CHANNEL_ANNOUNCEMENTS)
+            putExtra(EXTRA_TITLE, context.getString(R.string.hosted_trial_reminder_title))
+            putExtra(EXTRA_TEXT, context.getString(R.string.hosted_trial_reminder_body))
+            putExtra(EXTRA_REQUEST, request)
+            putExtra("trialExpiry", end.time)
+        } ?: return
+        val am = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        am.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, fire, pi)
+    }
+
     fun cancelWhatsNew() {
         NotificationManagerCompat.from(context).cancel(WHATS_NEW_NOTIFICATION_ID)
     }
@@ -679,7 +696,9 @@ class ReminderReceiver : BroadcastReceiver() {
 
         // Re-arm first so suppressing today's streak nudge (or a transient storage failure)
         // never disables tomorrow's explicitly enabled reminder.
-        rearm(context, intent, request)
+        val trialExpiry = intent.getLongExtra("trialExpiry", 0)
+        if (trialExpiry > 0 && System.currentTimeMillis() >= trialExpiry) return
+        if (trialExpiry == 0L) rearm(context, intent, request)
 
         if (channel == NotificationService.CHANNEL_DAILY) {
             postDailySummary(context, title, text, request)

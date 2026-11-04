@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hosted_trial_cta">Wypróbuj bezpłatnie przez 3 dni</string>
+    <string name="hosted_trial_disclosure">3 dni bezpłatnie, potem %1$s/rok. Automatyczne odnawianie. Anuluj przed końcem okresu próbnego, aby uniknąć opłaty.</string>
+    <string name="hosted_trial_limits">Próba: 20 działań AI i %1$d minut głosu/dzień (UTC). Potem pełne limity planu. Dodatkowe kredyty są płatne.</string>
+    <string name="hosted_trial_invite_body">Wypróbuj roczny Plus lub Pro bez kluczy API. Obowiązują limity próbne. Sprawdź ceny i warunki lub zachowaj bezpłatne BYOK.</string>
+    <string name="hosted_trial_ends">Koniec okresu próbnego</string>
+    <string name="hosted_trial_reminder_title">Okres próbny kończy się jutro</string>
+    <string name="hosted_trial_reminder_body">Plan roczny odnowi się po okresie próbnym. Sprawdź lub anuluj w ustawieniach sklepu.</string>
+    <string name="hosted_trial_invite_title">Wypróbuj bezpłatnie przez 3 dni</string>
+</resources>

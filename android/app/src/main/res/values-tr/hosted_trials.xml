@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hosted_trial_cta">3 gün ücretsiz dene</string>
+    <string name="hosted_trial_disclosure">3 gün ücretsiz, ardından %1$s/yıl. Otomatik yenilenir. Ücret alınmaması için deneme bitmeden iptal edin.</string>
+    <string name="hosted_trial_limits">Deneme: günde 20 yapay zekâ işlemi ve %1$d ses dakikası (UTC). Sonrasında tam plan limitleri geçerlidir. Ek krediler ücretlidir.</string>
+    <string name="hosted_trial_invite_body">API anahtarı olmadan yıllık Plus veya Pro deneyin. Deneme limitleri geçerlidir. Fiyat ve koşulları görün ya da ücretsiz BYOK kullanın.</string>
+    <string name="hosted_trial_ends">Deneme bitişi</string>
+    <string name="hosted_trial_reminder_title">Deneme yarın bitiyor</string>
+    <string name="hosted_trial_reminder_body">Yıllık planınız denemeden sonra yenilenir. Mağaza ayarlarından inceleyin veya iptal edin.</string>
+    <string name="hosted_trial_invite_title">3 gün ücretsiz dene</string>
+</resources>

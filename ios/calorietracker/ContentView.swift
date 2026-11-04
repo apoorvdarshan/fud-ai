@@ -172,7 +172,7 @@ struct ContentView: View {
                 await refreshAppUpdateState()
                 await runPostUpdatePromptsIfNeeded()
             }
-            .alert("Optional: let us handle the AI keys", isPresented: $showHostedUpsellPrompt) {
+            .alert("Try free for 3 days", isPresented: $showHostedUpsellPrompt) {
                 Button("See Plus & Pro plans") {
                     showHostedUpsellPaywall = true
                 }
@@ -180,7 +180,7 @@ struct ContentView: View {
                     continueToMeetDeveloperPrompt()
                 }
             } message: {
-                Text("Fud AI is free with your own API keys (BYOK) — and always will be. If juggling keys feels confusing, Plus and Pro plans run the AI for you with no keys to manage. Totally optional, nothing changes unless you switch.")
+                Text("Try Plus or Pro yearly without API keys. Trial limits apply. See prices and terms, or keep BYOK free.")
             }
             .sheet(isPresented: $showHostedUpsellPaywall, onDismiss: { continueToMeetDeveloperPrompt() }) {
                 HostedPaywallView()

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hosted_trial_cta">Спробувати безкоштовно 3 дні</string>
+    <string name="hosted_trial_disclosure">3 дні безкоштовно, потім %1$s/рік. Автоматичне поновлення. Скасуйте до кінця пробного періоду, щоб уникнути списання.</string>
+    <string name="hosted_trial_limits">Пробний період: 20 дій ШІ та %1$d хвилин голосу на день (UTC). Потім повні ліміти плану. Додаткові кредити платні.</string>
+    <string name="hosted_trial_invite_body">Спробуйте річний Plus або Pro без ключів API. Діють пробні ліміти. Перегляньте ціни й умови або залиште BYOK безкоштовно.</string>
+    <string name="hosted_trial_ends">Кінець пробного періоду</string>
+    <string name="hosted_trial_reminder_title">Пробний період закінчується завтра</string>
+    <string name="hosted_trial_reminder_body">Річний план поновиться після пробного періоду. Перевірте або скасуйте підписку в налаштуваннях магазину.</string>
+    <string name="hosted_trial_invite_title">Спробувати безкоштовно 3 дні</string>
+</resources>

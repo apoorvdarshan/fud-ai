@@ -483,7 +483,8 @@ private fun PurchaseBar(
     onOpenUrl: (String) -> Unit
 ) {
     val perUnit = stringResource(if (option.period == BillingPeriod.MONTHLY) R.string.hosted_per_month else R.string.hosted_per_year)
-    val title = when (change) {
+    val trial = change == PlanChange.NEW && option.hasThreeDayTrial
+    val title = if (trial) stringResource(R.string.hosted_trial_cta) else when (change) {
         PlanChange.NEW -> stringResource(R.string.hosted_cta_subscribe, planName(option.plan))
         PlanChange.UPGRADE -> stringResource(R.string.hosted_cta_upgrade)
         PlanChange.SWITCH -> stringResource(R.string.hosted_cta_switch)
@@ -511,7 +512,12 @@ private fun PurchaseBar(
             else -> null
         }
         note?.let { SmallCenteredText(it) }
-        SmallCenteredText(stringResource(R.string.hosted_disclosure, option.product.price.formatted, perUnit))
+        if (trial) {
+            SmallCenteredText(stringResource(R.string.hosted_trial_disclosure, option.product.price.formatted))
+            SmallCenteredText(stringResource(R.string.hosted_trial_limits, if (option.plan == HostedPlan.PLUS) 2 else 5))
+        } else {
+            SmallCenteredText(stringResource(R.string.hosted_disclosure, option.product.price.formatted, perUnit))
+        }
         SmallCenteredText(stringResource(R.string.hosted_optional_note))
         LegalLinks(restoring = restoring, onRestore = onRestore, onOpenUrl = onOpenUrl, padded = false)
     }

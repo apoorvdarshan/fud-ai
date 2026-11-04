@@ -5,6 +5,7 @@
 
 import Foundation
 import RevenueCat
+import UserNotifications
 
 /// Subscriptions, credit packs, and entitlement state. Tip Jar stays in TipJarView.
 @MainActor
@@ -18,6 +19,24 @@ final class RevenueCatManager: NSObject {
     private(set) var isLoadingOfferings = false
     private(set) var offerings: Offerings?
     private(set) var lastError: String?
+    private(set) var trialEligibility: [String: IntroEligibility] = [:]
+    private(set) var trialEndsAt: Date?
+
+    func hasThreeDayTrial(_ package: Package) -> Bool {
+        let product = package.storeProduct
+        guard HostedBillingPeriod(package: package) == .yearly,
+              let offer = product.introductoryDiscount,
+              offer.paymentMode == .freeTrial,
+              offer.subscriptionPeriod.unit == .day,
+              offer.subscriptionPeriod.value * offer.numberOfPeriods == 3 else { return false }
+        return trialEligibility[product.productIdentifier]?.status == .eligible
+    }
+
+    var hasEligibleYearlyTrial: Bool {
+        ["plus", "pro"].contains { plan in
+            offerings?.offering(identifier: plan)?.availablePackages.contains(where: hasThreeDayTrial) == true
+        }
+    }
 
     var hasHostedEntitlement: Bool { activePlan != .none }
 
@@ -75,7 +94,10 @@ final class RevenueCatManager: NSObject {
         isLoadingOfferings = true
         defer { isLoadingOfferings = false }
         do {
+            trialEligibility = [:]
             offerings = try await Purchases.shared.offerings()
+            let ids = [HostedAIConstants.plusYearlyProductID, HostedAIConstants.proYearlyProductID]
+            trialEligibility = await Purchases.shared.checkTrialOrIntroDiscountEligibility(productIdentifiers: ids)
         } catch {
             lastError = error.localizedDescription
         }
@@ -108,6 +130,21 @@ final class RevenueCatManager: NSObject {
     }
 
     private func applyCustomerInfo(_ info: CustomerInfo) {
+        let active = info.entitlements[HostedAIConstants.proEntitlementID].flatMap { $0.isActive ? $0 : nil }
+            ?? info.entitlements[HostedAIConstants.plusEntitlementID].flatMap { $0.isActive ? $0 : nil }
+        trialEndsAt = active?.periodType == .trial ? active?.expirationDate : nil
+        PendingNotificationRequests.remove(["hosted.trial-reminder"])
+        if let end = trialEndsAt, active?.willRenew == true {
+            PendingNotificationRequests.addWhenQueued {
+                let delay = end.timeIntervalSinceNow - 24 * 60 * 60
+                guard delay > 0 else { return nil }
+                let content = UNMutableNotificationContent()
+                content.title = String(localized: "Trial ends tomorrow")
+                content.body = String(localized: "Your yearly plan renews after the trial. Review or cancel in store settings.")
+                return UNNotificationRequest(identifier: "hosted.trial-reminder", content: content,
+                    trigger: UNTimeIntervalNotificationTrigger(timeInterval: delay, repeats: false))
+            }
+        }
         hasProEntitlement = info.entitlements[HostedAIConstants.proEntitlementID]?.isActive == true
         hasPlusEntitlement = info.entitlements[HostedAIConstants.plusEntitlementID]?.isActive == true
         if hasProEntitlement {

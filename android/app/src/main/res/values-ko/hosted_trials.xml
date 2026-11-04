@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hosted_trial_cta">3일 무료 체험</string>
+    <string name="hosted_trial_disclosure">3일 무료, 이후 연 %1$s. 자동 갱신됩니다. 요금이 청구되지 않으려면 체험 종료 전에 취소하세요.</string>
+    <string name="hosted_trial_limits">체험: 하루 AI 작업 20회, 음성 %1$d분(UTC). 이후 정규 플랜 한도가 적용됩니다. 추가 크레딧은 유료입니다.</string>
+    <string name="hosted_trial_invite_body">API 키 없이 연간 Plus 또는 Pro를 체험하세요. 체험 한도가 적용됩니다. 가격과 약관을 확인하거나 무료 BYOK를 유지하세요.</string>
+    <string name="hosted_trial_ends">체험 종료</string>
+    <string name="hosted_trial_reminder_title">체험이 내일 종료됩니다</string>
+    <string name="hosted_trial_reminder_body">체험 후 연간 플랜이 갱신됩니다. 스토어 설정에서 확인하거나 취소하세요.</string>
+    <string name="hosted_trial_invite_title">3일 무료 체험</string>
+</resources>

@@ -54,8 +54,8 @@ class TrialOfferUiTest {
     private val prefs get() = actual.prefs
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     private val viewModels = ViewModelStore()
-    private val entitlement = MutableStateFlow(HostedEntitlement(loaded = true))
-    private val offerings = MutableStateFlow<OfferingsState>(OfferingsState.Idle)
+    private lateinit var entitlement: MutableStateFlow<HostedEntitlement>
+    private lateinit var offerings: MutableStateFlow<OfferingsState>
     private val generation = mutableStateOf(0)
     private val completedPromptFlows = AtomicInteger()
     private lateinit var billing: BillingManager
@@ -74,10 +74,15 @@ class TrialOfferUiTest {
         router = HostedUiRouter()
         billing = spyk(BillingManager(scope, mockk()))
         every { billing.isAvailable } returns true
-        every { billing.entitlement } returns entitlement
-        every { billing.offerings } returns offerings
+        // Seed the actual backing flows, rather than mocking their public getters:
+        // Kotlin reads backing fields directly inside BillingManager's computed
+        // properties. This preserves its real trial detection without app changes.
+        entitlement = billingState("_entitlement")
+        offerings = billingState("_offerings")
+        entitlement.value = HostedEntitlement(loaded = true)
         coEvery { billing.refreshCustomerInfo() } returns true
         coEvery { billing.loadOfferings() } answers { offerings.value }
+        coEvery { billing.loadProducts(any()) } returns emptyList()
         // hasEligibleYearlyTrial and PlanOption.hasThreeDayTrial run unchanged.
         container = mockk()
         every { container.prefs } returns prefs
@@ -91,6 +96,7 @@ class TrialOfferUiTest {
             false
         }
         catalog(eligible = true)
+        check(billing.hasEligibleYearlyTrial) { "Eligible billing fixture must reach the real computed property" }
     }
 
     @After fun cleanUp() {
@@ -221,6 +227,27 @@ class TrialOfferUiTest {
         assertTrialPaywall("₹6,800.00", 2)
     }
 
+    @Test fun unseenWhatsNewComesFirstAndTrialPopupAppearsOnNextLaunch() {
+        runBlocking { prefs.setHasSeenWhatsNewLiveVoice(false) }
+        render()
+        waitFor(R.string.whats_new_next)
+        compose.onNodeWithText(text(R.string.hosted_trial_invite_title)).assertDoesNotExist()
+        // Complete the real four-page What's New flow before relaunching the host.
+        repeat(3) {
+            compose.onNodeWithText(text(R.string.whats_new_next)).performClick()
+            compose.mainClock.advanceTimeBy(1_000)
+            compose.waitForIdle()
+        }
+        waitFor(R.string.cd_close)
+        compose.onNodeWithText(text(R.string.cd_close)).performClick()
+        compose.waitUntil(5_000) { runBlocking { prefs.hasSeenWhatsNewLiveVoice.first() } }
+        assertNoInvite()
+        assertFalse(runBlocking { prefs.hasSeenHostedUpsellPrompt.first() })
+        relaunchPrompt()
+        waitFor(R.string.hosted_upsell_cta)
+        compose.onNodeWithText(text(R.string.hosted_trial_invite_title)).assertIsDisplayed()
+    }
+
     private fun render() {
         compose.setContent {
             MaterialTheme {
@@ -258,6 +285,11 @@ class TrialOfferUiTest {
     }
 
     private fun text(id: Int) = context.getString(id)
+
+    @Suppress("UNCHECKED_CAST")
+    private fun <T> billingState(name: String): MutableStateFlow<T> =
+        BillingManager::class.java.getDeclaredField(name).apply { isAccessible = true }.get(billing) as MutableStateFlow<T>
+
     private fun waitFor(id: Int) = waitForText(text(id))
     private fun waitForText(value: String) {
         compose.waitUntil(10_000) { compose.onAllNodesWithText(value).fetchSemanticsNodes().isNotEmpty() }

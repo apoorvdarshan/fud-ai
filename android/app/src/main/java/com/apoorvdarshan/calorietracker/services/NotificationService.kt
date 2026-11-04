@@ -312,7 +312,9 @@ class NotificationService(private val context: Context) {
             return
         }
         // Preserve an unchanged alarm, including one delayed by Android's power management.
-        if (state.getLong("expiry", 0) == end.time) return
+        val pending = broadcastPendingIntent(request, ReminderReceiver::class.java,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_NO_CREATE)
+        if (state.getLong("expiry", 0) == end.time && pending != null) return
         cancel(request)
         state.edit().remove("expiry").apply()
         val fire = end.time - 24L * 60 * 60 * 1000

@@ -87,13 +87,12 @@ Source: https://github.com/apoorvdarshan/fud-ai
 
 ```
 
-## What's New (v8.1)
+## What's New (v8.1.1)
 ```
-Fud AI 8.1
-• Eligible yearly Plus and Pro plans can show a 3-day free trial when available in your store.
-• Clear trial limits, renewal prices, and trial end dates.
-• Optional reminder before your trial ends, when notifications are enabled.
-• Existing free users get a one-time invitation. BYOK stays free.
+Fud AI 8.1.1
+• Plus and Pro subscriptions now start at the displayed subscription price, without a free trial.
+• Trials already started keep their original terms.
+• Using your own API key remains free.
 ```
 
 ## Privacy URL

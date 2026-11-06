@@ -7,6 +7,20 @@ same marketing version can share a feature summary while identifying different b
 
 ## Unreleased
 
+## ios-v8.1.1
+
+Fud AI 8.1.1
+• Plus and Pro subscriptions now start at the displayed subscription price, without a free trial.
+• Trials already started keep their original terms.
+• Using your own API key remains free.
+
+## android-v8.1.1
+
+Fud AI 8.1.1
+• Plus and Pro subscriptions now start at the displayed subscription price, without a free trial.
+• Trials already started keep their original terms.
+• Using your own API key remains free.
+
 ## ios-v8.1
 
 Fud AI 8.1

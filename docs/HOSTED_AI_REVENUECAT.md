@@ -143,7 +143,16 @@ Credits are reconciled from RevenueCat `non_subscriptions` by transaction id (Ap
 - Optional Plus/Pro + credits = hosted convenience on iOS (App Store) and Android 7.2+ (Google Play)
 - Tip jar on both platforms through the store (Android moved off Ko-fi in 7.2)
 
-## Three-day yearly trials (8.1)
+## Three-day yearly trials (8.1; discontinued for new signups in 8.1.1)
+
+As of November 6, 2026, remove the introductory offers on Apple and deactivate
+`three-day-trial` on both Play yearly base plans. Do not recreate or activate
+these offers during releases. New subscriptions use the regular store price.
+The existing offer-driven UI hides trial copy and the post-update invitation
+when no eligible trial is returned. Keep the entitlement, quota, and reminder
+handling below for customers whose trials already started.
+
+Historical configuration:
 
 Only Plus yearly and Pro yearly receive a three-day introductory free trial.
 Monthly plans remain unchanged. Eligibility comes from the stores: iOS checks

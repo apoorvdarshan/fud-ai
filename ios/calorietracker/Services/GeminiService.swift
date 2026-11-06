@@ -280,7 +280,7 @@ struct GeminiService {
         You are a concise nutrition coach inside Fud AI. The user is reviewing a meal before logging it.
         Analyze this what-if scenario only. Do not say the meal has already been logged. Do not change the user's goals.
 
-        Return 2-4 short plain-English sentences, no markdown and no bullets.
+        Return 2-4 short plain \(AIReplyLanguage.plainLanguageName()) sentences, no markdown and no bullets.
         Say whether logging this meal as-is fits the remaining daily targets. If it does not fit well, suggest one practical action: reduce quantity, replace an item, add a protein/fiber source, or balance the next meal. Be specific with calories/macros from the data below.\(energyHint)
 
         User:
@@ -525,7 +525,8 @@ struct GeminiService {
         {"allergens":["milk","peanut"]}
         """
         return try await runWithHostedQuota(.allergensLab) {
-            let text = try await callAI(prompt: prompt, images: images)
+            // Allergen names stay English: AllergenAnalysis matches them against Open Food Facts tags and its alias table.
+            let text = try await callAI(prompt: prompt, images: images, replyLanguage: false)
             return try parseAllergensFromLabReport(from: text)
         }
     }
@@ -783,7 +784,7 @@ struct GeminiService {
         // Empty for kcal users, so their prompt is unchanged.
         let energyHint = EnergyUnit.current.aiReplyInstruction().map { "\n\($0)" } ?? ""
         let prompt = """
-        You are a nutrition coach analyzing a user's weight trend. Write 3–4 short sentences (plain English, no bullets, no markdown, no bold) that:
+        You are a nutrition coach analyzing a user's weight trend. Write 3–4 short sentences (plain \(AIReplyLanguage.plainLanguageName()), no bullets, no markdown, no bold) that:
         1. State the predicted weight in \(unit) 30 days out and whether they're on track for their goal.
         2. Give one or two specific, actionable suggestions (e.g. calorie target, protein amount, activity change) grounded in the numbers below.
         3. If predicted and observed trends disagree, mention possible under-logging briefly.
@@ -830,6 +831,7 @@ struct GeminiService {
     }
 
     private static func callTextFoodAnalysis(prompt: String, description: String) async throws -> FoodAnalysis {
+        let prompt = AIReplyLanguage.prompt(prompt)
         if AIModeSettings.isHosted {
             let text = try await HostedAIService.generate(
                 prompt: prompt,
@@ -962,8 +964,10 @@ struct GeminiService {
         prompt: String,
         images: [UIImage],
         jsonResponse: Bool = true,
-        labelText: OnDeviceLabelText? = nil
+        labelText: OnDeviceLabelText? = nil,
+        replyLanguage: Bool = true
     ) async throws -> String {
+        let prompt = replyLanguage ? AIReplyLanguage.prompt(prompt) : prompt
         if AIModeSettings.isHosted {
             let capped = Array(images.prefix(HostedAIConstants.maxHostedImages))
             let imageDataList = try capped.map { try encodedJPEGData(for: $0) }

@@ -508,7 +508,8 @@ class FoodAnalysisService(
             Respond ONLY with JSON:
             {"allergens":["milk","peanut"]}
         """.trimIndent()
-        return FoodJsonParser.parseAllergensFromLabReport(callAi(prompt, images))
+        // Allergen names stay English: AllergenAnalysis matches them against Open Food Facts tags and its alias table.
+        return FoodJsonParser.parseAllergensFromLabReport(callAi(prompt, images, replyLanguage = false))
     }
 
     /**
@@ -544,7 +545,8 @@ class FoodAnalysisService(
         prompt: String,
         imageBytesList: List<ByteArray>,
         jsonResponse: Boolean = true,
-        aminoAcidInstruction: String? = null
+        aminoAcidInstruction: String? = null,
+        replyLanguage: Boolean = true
     ): String {
         // Load settings + preprocess images in parallel. A chain of DataStore `.first()` calls
         // used to queue behind cold-start migrations and stall the analyzing overlay before any
@@ -557,6 +559,7 @@ class FoodAnalysisService(
             settingsDeferred.await() to imagesDeferred.await()
         }
         val requestPrompt = AminoAcidEstimates.prompt(prompt, aminoAcidInstruction, settings.aminoAcidEstimates)
+            .let { if (replyLanguage) AiReplyLanguage.prompt(it) else it }
         if (settings.accessMode == AiAccessMode.HOSTED && hosted != null) {
             // Hosted AI (Plus/Pro): the Worker picks the model and meters the call.
             // No BYOK key, fallback chain, or on-device model is involved.

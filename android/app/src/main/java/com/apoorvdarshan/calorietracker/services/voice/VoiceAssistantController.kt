@@ -2,8 +2,6 @@ package com.apoorvdarshan.calorietracker.services.voice
 
 import android.net.Uri
 import android.os.SystemClock
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.os.LocaleListCompat
 import com.apoorvdarshan.calorietracker.AppContainer
 import com.apoorvdarshan.calorietracker.data.VoiceAssistantPreferences
 import com.apoorvdarshan.calorietracker.models.AppLanguage
@@ -1059,10 +1057,4 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
 }
 
 /** The language the app's own strings are shown in, which App Language replies match. */
-internal fun shownAppLanguage(): String {
-    val device = LocaleListCompat.getAdjustedDefault()
-    return AppLanguage.shownTag(
-        AppCompatDelegate.getApplicationLocales()[0]?.toLanguageTag(),
-        (0 until device.size()).mapNotNull { device[it]?.toLanguageTag() }
-    )
-}
+internal fun shownAppLanguage(): String = AppLanguage.shownTag()

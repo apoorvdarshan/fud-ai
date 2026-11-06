@@ -165,6 +165,7 @@ struct OnDeviceFoodService {
         let userContext = AIProviderSettings.currentUserContext.map {
             "\n\nUSER-SUPPLIED CONTEXT\n\($0)"
         } ?? ""
+        let replyLanguage = AIReplyLanguage.instruction().map { "\n\nREPLY LANGUAGE\n\($0)" } ?? ""
         return """
         You are a precise nutrition database. Given a food description or meal photo(s) in any language, \
         return accurate nutritional values using these rules:
@@ -196,7 +197,7 @@ struct OnDeviceFoodService {
         - Examples: slice for pizza/bread/cake, piece for fruit/cookie/egg, cup for oatmeal/soup, \
           tbsp for peanut butter/sauces.
         - Leave servingUnit empty ("") when grams is the clearest unit.
-        \(userContext)
+        \(replyLanguage)\(userContext)
         """
     }
 

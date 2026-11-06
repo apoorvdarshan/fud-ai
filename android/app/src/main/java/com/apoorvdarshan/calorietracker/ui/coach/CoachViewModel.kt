@@ -100,7 +100,7 @@ class CoachViewModel(private val container: AppContainer) : ViewModel() {
     fun send(userText: String, imageBytes: ByteArray? = null, thumbnailBytes: ByteArray? = null) {
         val trimmed = userText.trim()
         if ((trimmed.isBlank() && imageBytes == null) || _ui.value.sending) return
-        val text = trimmed.ifEmpty { "Analyze this image." }
+        val text = trimmed.ifEmpty { container.appContext.getString(R.string.coach_analyze_image_default) }
         viewModelScope.launch {
             val userMsg = ChatMessage(
                 role = ChatMessage.Role.USER,

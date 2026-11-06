@@ -1,6 +1,7 @@
 package com.apoorvdarshan.calorietracker.ui.settings
 
 import com.apoorvdarshan.calorietracker.models.OpenRouterReasoningEffort
+import com.apoorvdarshan.calorietracker.ui.util.valueWithUnit
 import com.apoorvdarshan.calorietracker.models.MealShareLinkStyle
 import android.Manifest
 import android.content.Intent
@@ -14,7 +15,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import com.apoorvdarshan.calorietracker.backup.DriveCloudBackupClient
-import com.apoorvdarshan.calorietracker.backup.cloudBackupErrorMessage
+import com.apoorvdarshan.calorietracker.backup.cloudBackupUserMessage
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.core.os.LocaleListCompat
@@ -438,11 +439,12 @@ fun SettingsScreen(
     val resources = LocalResources.current
     val settingsScope = rememberCoroutineScope()
     val importReadFailedMessage = stringResource(R.string.import_read_failed)
+    val importTooLargeMessage = stringResource(R.string.import_file_too_large)
     val cloudBackupSignInFailed = stringResource(R.string.cloud_backup_sign_in_failed)
     val cloudBackupFailed = stringResource(R.string.error_title)
     val cloudBackupNoSpace = stringResource(R.string.cloud_backup_restore_no_space)
     val cloudBackupFailure: (Throwable) -> String = {
-        cloudBackupErrorMessage(it, cloudBackupFailed, cloudBackupNoSpace)
+        cloudBackupUserMessage(activityContext, it, cloudBackupFailed, cloudBackupNoSpace)
     }
     val cloudBackup by container.cloudBackup.ui.collectAsState()
     LaunchedEffect(selectedCategory) {
@@ -498,7 +500,7 @@ fun SettingsScreen(
                             }
                         }
                     }
-                    .onFailure { cloudBackupError = it.message }
+                    .onFailure { cloudBackupError = cloudBackupFailure(it) }
             }
         }
     }
@@ -519,7 +521,7 @@ fun SettingsScreen(
     val startDriveSignIn: () -> Unit = {
         runCatching {
             driveAccountPickerLauncher.launch(container.cloudBackup.accountPickerIntent())
-        }.onFailure { cloudBackupError = it.message ?: cloudBackupSignInFailed }
+        }.onFailure { cloudBackupError = cloudBackupUserMessage(activityContext, it, cloudBackupSignInFailed, cloudBackupNoSpace) }
     }
 
     val importFileLauncher = rememberLauncherForActivityResult(
@@ -532,7 +534,7 @@ fun SettingsScreen(
                     val bytes = activityContext.contentResolver.openInputStream(uri)?.use { input -> input.readBytes() }
                         ?: throw IllegalArgumentException(importReadFailedMessage)
                     if (bytes.size > DiaryImporter.MAXIMUM_FILE_SIZE) {
-                        throw IllegalArgumentException("This file is too large to import.")
+                        throw IllegalArgumentException(importTooLargeMessage)
                     }
                     DiaryImporter.parse(bytes.toString(Charsets.UTF_8))
                 }
@@ -875,7 +877,7 @@ fun SettingsScreen(
                     HorizontalDivider()
                     LockableGoalRow(
                         label = stringResource(R.string.macro_protein),
-                        value = "${p.effectiveProtein}g",
+                        value = stringResource(R.string.grams_value_format, p.effectiveProtein),
                         icon = Icons.Outlined.DataUsage,
                         locked = p.isMacroLocked(AutoBalanceMacro.PROTEIN),
                         lockEnabled = lockEnabled,
@@ -884,7 +886,7 @@ fun SettingsScreen(
                     HorizontalDivider()
                     LockableGoalRow(
                         label = stringResource(R.string.macro_carbs),
-                        value = "${p.effectiveCarbs}g",
+                        value = stringResource(R.string.grams_value_format, p.effectiveCarbs),
                         icon = Icons.Outlined.DataUsage,
                         locked = p.isMacroLocked(AutoBalanceMacro.CARBS),
                         lockEnabled = lockEnabled,
@@ -893,7 +895,7 @@ fun SettingsScreen(
                     HorizontalDivider()
                     LockableGoalRow(
                         label = stringResource(R.string.macro_fat),
-                        value = "${p.effectiveFat}g",
+                        value = stringResource(R.string.grams_value_format, p.effectiveFat),
                         icon = Icons.Outlined.DataUsage,
                         locked = p.isMacroLocked(AutoBalanceMacro.FAT),
                         lockEnabled = lockEnabled,
@@ -3546,7 +3548,7 @@ private fun OptionalNutrientGoalRow(
             )
         }
         Text(
-            "$value${nutrient.unit}",
+            valueWithUnit(value.toString(), nutrient.unit),
             style = MaterialTheme.typography.bodyMedium,
             fontWeight = FontWeight.SemiBold,
             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)

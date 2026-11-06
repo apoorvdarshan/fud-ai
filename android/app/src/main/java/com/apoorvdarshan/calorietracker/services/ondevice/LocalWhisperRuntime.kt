@@ -40,7 +40,7 @@ class LocalWhisperRuntime(
                     threads = Runtime.getRuntime().availableProcessors().coerceIn(2, 6),
                     printTimestamps = false
                 )
-            ).text.trim().ifEmpty { error("Whisper returned an empty transcript.") }
+            ).text.trim()
         }
     }
 

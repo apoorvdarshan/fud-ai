@@ -33,6 +33,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.apoorvdarshan.calorietracker.R
+import com.apoorvdarshan.calorietracker.ui.util.valueWithUnit
 import com.apoorvdarshan.calorietracker.models.MacroValueFormatter
 import com.apoorvdarshan.calorietracker.ui.navigation.LocalLaunchFillEpoch
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
@@ -75,11 +76,11 @@ fun MacroCard(
         current == goalValue -> stringResource(R.string.home_macro_goal_reached)
         current < goalValue -> stringResource(
             R.string.home_macro_left_format,
-            "${MacroValueFormatter.string(goalValue - current)}$unit",
+            valueWithUnit(MacroValueFormatter.display(goalValue - current), unit),
         )
         else -> stringResource(
             R.string.home_macro_over_format,
-            "${MacroValueFormatter.string(current - goalValue)}$unit",
+            valueWithUnit(MacroValueFormatter.display(current - goalValue), unit),
         )
     }
 
@@ -90,7 +91,7 @@ fun MacroCard(
     ) {
         // Value (gradient), above the bar
         Text(
-            MacroValueFormatter.string(current),
+            MacroValueFormatter.display(current),
             style = TextStyle(
                 brush = Brush.verticalGradient(gradientColors),
                 fontSize = 18.sp,

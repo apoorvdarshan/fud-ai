@@ -41,6 +41,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.apoorvdarshan.calorietracker.R
+import com.apoorvdarshan.calorietracker.ui.util.mediumDateFormatter
 import com.apoorvdarshan.calorietracker.AppContainer
 import com.apoorvdarshan.calorietracker.export.DiaryExporter
 import com.apoorvdarshan.calorietracker.export.DiaryFormat
@@ -55,7 +56,6 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.ZoneOffset
-import java.time.format.DateTimeFormatter
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
@@ -80,7 +80,7 @@ fun ExportDiarySheet(
     var status by remember { mutableStateOf<String?>(null) }
 
     val mealNames: Map<MealType, String> = MealType.values().associateWith { stringResource(it.displayNameRes) }
-    val niceDate = DateTimeFormatter.ofPattern("d MMM yyyy")
+    val niceDate = remember { mediumDateFormatter() }
 
     ModalBottomSheet(
         onDismissRequest = onDismiss,

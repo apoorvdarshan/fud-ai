@@ -65,8 +65,11 @@ class SpeechService(
         if (provider.requiresApiKey && apiKey.isNullOrEmpty()) throw SttApiError.NoApiKey
 
         return when (provider) {
-            SpeechProvider.LOCAL_WHISPER -> localWhisper?.transcribe(audio, languageCode)
-                ?: error("The on-device Whisper runtime is unavailable.")
+            SpeechProvider.LOCAL_WHISPER -> {
+                // Whisper Base is a runtime object even before its model is downloaded.
+                val runtime = localWhisper?.takeIf { it.isReady() } ?: throw SttApiError.LocalUnavailable
+                runtime.transcribe(audio, languageCode).ifBlank { throw SttApiError.EmptyTranscript }
+            }
             SpeechProvider.GEMINI -> GeminiAudioClient.transcribe(
                 client = okHttp,
                 apiKey = apiKey!!,

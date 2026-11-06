@@ -107,7 +107,7 @@ private struct CircularWaterView: View {
             .gaugeStyle(.accessoryCircularCapacity)
             .widgetAccentable()
         } else {
-            AccessoryCircularMetricView(iconName: "drop.fill", value: "—", label: "Water")
+            AccessoryCircularMetricView(iconName: "drop.fill", value: "—", label: String(localized: "Water"))
         }
     }
 }

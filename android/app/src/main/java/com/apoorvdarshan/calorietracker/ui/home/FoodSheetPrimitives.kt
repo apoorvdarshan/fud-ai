@@ -76,6 +76,7 @@ import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialogActions
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassTextField
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
 import com.apoorvdarshan.calorietracker.ui.util.clockTimePattern
+import com.apoorvdarshan.calorietracker.ui.util.mediumDateFormatter
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -729,8 +730,8 @@ internal fun SheetDateTimeCard(
     onEditTime: () -> Unit
 ) {
     val context = LocalContext.current
-    val dateFormatter = remember { DateTimeFormatter.ofPattern("MMM d, yyyy", Locale.US) }
-    val timeFormatter = remember(context) { DateTimeFormatter.ofPattern(clockTimePattern(context), Locale.US) }
+    val dateFormatter = remember { mediumDateFormatter() }
+    val timeFormatter = remember(context) { DateTimeFormatter.ofPattern(clockTimePattern(context), Locale.getDefault()) }
     SheetPillCard {
         Row(
             Modifier

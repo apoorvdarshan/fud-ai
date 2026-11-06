@@ -83,12 +83,12 @@ enum SpeechProvider: String, CaseIterable, Codable, Identifiable {
 
     var apiKeyPlaceholder: String {
         switch self {
-        case .nativeIOS, .whisperBase: "Not needed"
-        case .gemini: "Paste Gemini API key"
-        case .openai, .groq: "Paste API key"
-        case .mistral: "Your Mistral API key"
-        case .deepgram: "Token your-deepgram-key"
-        case .assemblyai: "Your AssemblyAI key"
+        case .nativeIOS, .whisperBase: String(localized: "Not needed")
+        case .gemini: String(localized: "Paste Gemini API key")
+        case .openai, .groq: String(localized: "Paste API key")
+        case .mistral: String(localized: "Your Mistral API key")
+        case .deepgram: String(localized: "Token your-deepgram-key")
+        case .assemblyai: String(localized: "Your AssemblyAI key")
         }
     }
 

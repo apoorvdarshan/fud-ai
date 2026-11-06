@@ -77,11 +77,14 @@ data class WidgetSnapshot(
      * Nutrient bars to render on widgets: 4 saved choices, or the first 3 plus Water
      * when tracking is enabled (widgets stay on a 4-slot layout).
      */
-    val displayedHomeNutrients: List<WidgetNutrient> get() {
+    val displayedHomeNutrients: List<WidgetNutrient> get() = displayedHomeNutrients(DEFAULT_WATER_LABEL)
+
+    /** Same as [displayedHomeNutrients], with the Water bar labelled in the user's language. */
+    fun displayedHomeNutrients(waterLabel: String): List<WidgetNutrient> {
         val selected = homeNutrients?.takeIf { it.isNotEmpty() } ?: defaultHomeNutrients
         val visible = selected.take(if (waterTrackingEnabled) 3 else 4)
         if (!waterTrackingEnabled) return visible
-        return visible + waterHomeNutrient
+        return visible + waterHomeNutrient(waterLabel)
     }
 
     private val defaultHomeNutrients: List<WidgetNutrient>
@@ -92,10 +95,10 @@ data class WidgetSnapshot(
             WidgetNutrient("fiber", "Fiber", "g", 0.0, OptionalNutrientGoals.Default.fiber.toDouble())
         )
 
-    private val waterHomeNutrient: WidgetNutrient
-        get() = WidgetNutrient(
+    private fun waterHomeNutrient(label: String): WidgetNutrient =
+        WidgetNutrient(
             id = "water",
-            label = "Water",
+            label = label,
             unit = if (waterUnit == WaterUnit.FLUID_OUNCES) " fl oz" else "ml",
             value = waterUnit.displayAmount(waterCurrentMl),
             goal = waterUnit.displayAmount(waterGoalMl)
@@ -111,6 +114,7 @@ data class WidgetSnapshot(
     )
 
     companion object {
+        private const val DEFAULT_WATER_LABEL = "Water"
         fun placeholder(): WidgetSnapshot {
             val now = Instant.now()
             return WidgetSnapshot(

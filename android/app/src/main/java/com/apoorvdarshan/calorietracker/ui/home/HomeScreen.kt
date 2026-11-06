@@ -148,6 +148,9 @@ import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
 import com.apoorvdarshan.calorietracker.ui.util.clockTimePattern
+import com.apoorvdarshan.calorietracker.ui.util.gramsText
+import com.apoorvdarshan.calorietracker.ui.util.localizedDatePattern
+import com.apoorvdarshan.calorietracker.ui.util.monthDayFormatter
 import com.apoorvdarshan.calorietracker.ui.util.formattedWholeNumber
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
@@ -895,14 +898,14 @@ CalorieHero(
 
     pendingDiaryDeletion?.let { target ->
         val title = when (target) {
-            is HomeDiaryItem.Food -> "Delete Food Log?"
-            is HomeDiaryItem.Water -> "Delete Water Log?"
-            is HomeDiaryItem.Fasting -> "Delete Fasting Log?"
+            is HomeDiaryItem.Food -> stringResource(R.string.home_delete_food_title)
+            is HomeDiaryItem.Water -> stringResource(R.string.home_delete_water_title)
+            is HomeDiaryItem.Fasting -> stringResource(R.string.home_delete_fasting_title)
         }
         val message = when (target) {
-            is HomeDiaryItem.Food -> "This removes the food from your diary. Saved favorites are kept."
-            is HomeDiaryItem.Water -> "This removes the water entry from your diary."
-            is HomeDiaryItem.Fasting -> "This removes the completed fast from your diary."
+            is HomeDiaryItem.Food -> stringResource(R.string.home_delete_food_message)
+            is HomeDiaryItem.Water -> stringResource(R.string.home_delete_water_message)
+            is HomeDiaryItem.Fasting -> stringResource(R.string.home_delete_fasting_message)
         }
         FudGlassDialog(onDismissRequest = { pendingDiaryDeletion = null }) {
             Text(title, fontSize = 21.sp, fontWeight = FontWeight.Bold)
@@ -1417,7 +1420,7 @@ private fun FastingSessionDialog(
     var endedAt by remember(session.id) { mutableStateOf(session.endedAt ?: Instant.now()) }
     var goalHours by remember(session.id) { mutableIntStateOf((session.goalMinutes / 60).coerceIn(1, 168)) }
     val dateTimeFormatter = remember(context) {
-        DateTimeFormatter.ofPattern("MMM d, yyyy • ${clockTimePattern(context)}", Locale.getDefault())
+        DateTimeFormatter.ofPattern("${localizedDatePattern("yMMMd") ?: "MMM d, yyyy"} • ${clockTimePattern(context)}", Locale.getDefault())
             .withZone(ZoneId.systemDefault())
     }
 
@@ -1593,15 +1596,9 @@ private fun WeekStripSection(selectedDate: LocalDate, onSelect: (LocalDate) -> U
     }
 }
 
-private fun shortDay(dow: DayOfWeek): String = when (dow) {
-    DayOfWeek.MONDAY -> "M"
-    DayOfWeek.TUESDAY -> "T"
-    DayOfWeek.WEDNESDAY -> "W"
-    DayOfWeek.THURSDAY -> "T"
-    DayOfWeek.FRIDAY -> "F"
-    DayOfWeek.SATURDAY -> "S"
-    DayOfWeek.SUNDAY -> "S"
-}
+/** One-letter weekday in the user's language — "M" (en), "P" for pondělí (cs). */
+private fun shortDay(dow: DayOfWeek): String =
+    dow.getDisplayName(java.time.format.TextStyle.NARROW, Locale.getDefault())
 
 // ── Calorie hero ─────────────────────────────────────────────────────
 
@@ -1968,7 +1965,7 @@ private fun MealSectionHeader(
                     color = AppColors.Calorie
                 )
                 Text(
-                    "${totalProtein.roundToInt()}P · ${totalCarbs.roundToInt()}C · ${totalFat.roundToInt()}F",
+                    stringResource(R.string.home_meal_macro_summary_format, totalProtein.roundToInt(), totalCarbs.roundToInt(), totalFat.roundToInt()),
                     fontSize = 12.sp,
                     lineHeight = 14.sp,
                     fontWeight = FontWeight.Medium,
@@ -2405,7 +2402,7 @@ private fun WaterLogRow(
     val ctx = LocalContext.current
     val time = remember(entry.date, ctx) {
         DateTimeFormatter
-            .ofPattern(clockTimePattern(ctx), Locale.US)
+            .ofPattern(clockTimePattern(ctx), Locale.getDefault())
             .withZone(ZoneId.systemDefault())
             .format(entry.date)
     }
@@ -2477,7 +2474,9 @@ private fun FoodRow(
     selected: Boolean = false
 ) {
     val ctx = LocalContext.current
-    val timeFmt = DateTimeFormatter.ofPattern(clockTimePattern(ctx), Locale.US).withZone(ZoneId.systemDefault())
+    val timeFmt = remember(ctx) {
+        DateTimeFormatter.ofPattern(clockTimePattern(ctx), Locale.getDefault()).withZone(ZoneId.systemDefault())
+    }
     val container = (ctx.applicationContext as com.apoorvdarshan.calorietracker.FudAIApp).container
     val scope = rememberCoroutineScope()
     val hasPhotos = entry.allImageFilenames.isNotEmpty()
@@ -2633,10 +2632,8 @@ private fun FoodRow(
                 )
                 entry.servingSizeGrams?.takeIf { it > 0 }?.let { grams ->
                     Text("·", color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f))
-                    val gramsText = if (grams == grams.toInt().toDouble()) "${grams.toInt()}g"
-                                    else String.format("%.1fg", grams)
                     Text(
-                        gramsText,
+                        gramsText(grams),
                         fontSize = 12.sp,
                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
                     )
@@ -2653,9 +2650,9 @@ private fun FoodRow(
 
             // Macro pills (P / C / F) — tinted dark capsules with gray text.
             Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                MacroChip("P", entry.protein)
-                MacroChip("C", entry.carbs)
-                MacroChip("F", entry.fat)
+                MacroChip(stringResource(R.string.macro_abbrev_protein), entry.protein)
+                MacroChip(stringResource(R.string.macro_abbrev_carbs), entry.carbs)
+                MacroChip(stringResource(R.string.macro_abbrev_fat), entry.fat)
             }
         }
     }
@@ -2693,7 +2690,7 @@ private fun MacroChip(label: String, value: Double) {
             .padding(horizontal = 8.dp, vertical = 3.dp)
     ) {
         Text(
-            "$label ${MacroValueFormatter.withUnit(value)}",
+            "$label ${gramsText(value)}",
             fontSize = 11.sp,
             fontWeight = FontWeight.Medium,
             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
@@ -2716,7 +2713,7 @@ private fun CopyFromDaySheet(
     var sourceDate by remember(targetDate) { mutableStateOf(targetDate.minusDays(1)) }
     var showDatePicker by remember { mutableStateOf(false) }
     val zone = ZoneId.systemDefault()
-    val dateFmt = remember { DateTimeFormatter.ofPattern("MMM d", Locale.US) }
+    val dateFmt = remember { monthDayFormatter() }
     val sourceEntries = remember(allEntries, sourceDate) {
         allEntries
             .filter { it.timestamp.atZone(zone).toLocalDate() == sourceDate }
@@ -3022,9 +3019,9 @@ private fun AnalysisResultDialog(
                     fontWeight = FontWeight.Bold,
                     color = AppColors.Calorie
                 )
-                Text(stringResource(R.string.macro_protein_format, MacroValueFormatter.withUnit(analysis.protein)))
-                Text(stringResource(R.string.macro_carbs_format, MacroValueFormatter.withUnit(analysis.carbs)))
-                Text(stringResource(R.string.macro_fat_format, MacroValueFormatter.withUnit(analysis.fat)))
+                Text(stringResource(R.string.macro_protein_format, gramsText(analysis.protein)))
+                Text(stringResource(R.string.macro_carbs_format, gramsText(analysis.carbs)))
+                Text(stringResource(R.string.macro_fat_format, gramsText(analysis.fat)))
                 if (analysis.fiber != null || analysis.sugar != null || analysis.sodium != null) {
                     Spacer(Modifier.height(2.dp))
                     analysis.fiber?.let { Text(stringResource(R.string.nutrient_fiber_format, it.toString()), fontSize = 12.sp) }

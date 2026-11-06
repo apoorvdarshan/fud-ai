@@ -235,7 +235,7 @@ object CloudBackupArchive {
                 }
             }
         }
-        val raw = payload ?: error("Backup is missing backup.json")
+        val raw = payload ?: throw CloudBackupFormatException(needsNewerApp = false)
         val document = json.decodeFromString<CloudBackupDocument>(raw.toString(Charsets.UTF_8))
         if (document.format != CloudBackupPolicy.FORMAT) throw CloudBackupFormatException(needsNewerApp = false)
         if (document.format_version > CloudBackupPolicy.VERSION) throw CloudBackupFormatException(needsNewerApp = true)

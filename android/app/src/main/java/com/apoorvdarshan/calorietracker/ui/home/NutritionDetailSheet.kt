@@ -190,11 +190,11 @@ fun NutritionDetailSheet(
                 Card {
                     DetailRow(Icons.Filled.LocalFireDepartment, stringResource(R.string.nutrition_label_calories), "${LocalEnergyUnit.current.displayValue(calories)}", energyUnitLabel(), goal = "${LocalEnergyUnit.current.displayValue(profile?.effectiveCalories ?: 2000)}")
                     Hairline()
-                    DetailRow(null, stringResource(R.string.nutrition_label_protein), MacroValueFormatter.string(protein), stringResource(R.string.unit_g), goal = "${profile?.effectiveProtein ?: 150}", labelGlyph = "P")
+                    DetailRow(null, stringResource(R.string.nutrition_label_protein), MacroValueFormatter.display(protein), stringResource(R.string.unit_g), goal = "${profile?.effectiveProtein ?: 150}", labelGlyph = "P")
                     Hairline()
-                    DetailRow(null, stringResource(R.string.nutrition_label_carbs), MacroValueFormatter.string(carbs), stringResource(R.string.unit_g), goal = "${profile?.effectiveCarbs ?: 220}", labelGlyph = "C")
+                    DetailRow(null, stringResource(R.string.nutrition_label_carbs), MacroValueFormatter.display(carbs), stringResource(R.string.unit_g), goal = "${profile?.effectiveCarbs ?: 220}", labelGlyph = "C")
                     Hairline()
-                    DetailRow(null, stringResource(R.string.nutrition_label_fat), MacroValueFormatter.string(fat), stringResource(R.string.unit_g), goal = "${profile?.effectiveFat ?: 70}", labelGlyph = "F")
+                    DetailRow(null, stringResource(R.string.nutrition_label_fat), MacroValueFormatter.display(fat), stringResource(R.string.unit_g), goal = "${profile?.effectiveFat ?: 70}", labelGlyph = "F")
                 }
             }
 

@@ -41,6 +41,7 @@ import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.ui.res.stringResource
 import com.apoorvdarshan.calorietracker.R
+import com.apoorvdarshan.calorietracker.ui.util.gramsText
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -619,9 +620,9 @@ private fun SavedMealRow(
                 }
             }
             Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                MacroTag("P", entry.protein)
-                MacroTag("C", entry.carbs)
-                MacroTag("F", entry.fat)
+                MacroTag(stringResource(R.string.macro_abbrev_protein), entry.protein)
+                MacroTag(stringResource(R.string.macro_abbrev_carbs), entry.carbs)
+                MacroTag(stringResource(R.string.macro_abbrev_fat), entry.fat)
             }
         }
 
@@ -683,7 +684,7 @@ private fun MacroTag(label: String, value: Double) {
             .padding(horizontal = 6.dp, vertical = 2.dp)
     ) {
         Text(
-            "$label ${MacroValueFormatter.withUnit(value)}",
+            "$label ${gramsText(value)}",
             fontSize = 11.sp,
             fontWeight = FontWeight.Medium,
             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)

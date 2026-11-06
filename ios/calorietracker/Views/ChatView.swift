@@ -676,7 +676,7 @@ struct ChatView: View {
         let image = attachedImage
         guard (!typedText.isEmpty || image != nil), !isSending else { return }
 
-        let text = typedText.isEmpty ? "Analyze this image." : typedText
+        let text = typedText.isEmpty ? String(localized: "Analyze this image.") : typedText
         let imageDataForAI = image.flatMap {
             resizedJPEGData(from: $0, maxDimension: 1600, compressionQuality: 0.78)
         }

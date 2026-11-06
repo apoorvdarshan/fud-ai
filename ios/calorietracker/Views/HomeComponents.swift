@@ -698,7 +698,7 @@ struct MacroVerticalBar: View {
         guard goal > 0 else { return String(localized: "No goal") }
         let difference = goal - current
         if abs(difference) < 0.0001 { return String(localized: "Goal reached") }
-        let amount = MacroValueFormatter.string(abs(difference))
+        let amount = MacroValueFormatter.display(abs(difference))
         return difference > 0 ? String(localized: "\(amount)\(unit) left") : String(localized: "\(amount)\(unit) over")
     }
 

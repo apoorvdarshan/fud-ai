@@ -8,6 +8,7 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import com.apoorvdarshan.calorietracker.FudAIApp
+import com.apoorvdarshan.calorietracker.ui.util.gramsText
 import com.apoorvdarshan.calorietracker.services.FoodImageStore
 import com.apoorvdarshan.calorietracker.ui.components.LocalEnergyUnit
 import com.apoorvdarshan.calorietracker.ui.components.energyText
@@ -119,7 +120,7 @@ internal fun MealIngredientsCard(
                             modifier = Modifier.weight(1f)
                         )
                         Text(
-                            "${MacroValueFormatter.string(ingredient.grams)}g · ${energyText(ingredient.calories)}",
+                            "${gramsText(ingredient.grams)} · ${energyText(ingredient.calories)}",
                             fontSize = 13.sp,
                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.58f)
                         )
@@ -131,9 +132,9 @@ internal fun MealIngredientsCard(
                         )
                     }
                     Row(horizontalArrangement = Arrangement.spacedBy(14.dp)) {
-                        IngredientMacro("P", ingredient.protein, AppColors.Protein)
-                        IngredientMacro("C", ingredient.carbs, AppColors.Carbs)
-                        IngredientMacro("F", ingredient.fat, AppColors.Fat)
+                        IngredientMacro(stringResource(R.string.macro_abbrev_protein), ingredient.protein, AppColors.Protein)
+                        IngredientMacro(stringResource(R.string.macro_abbrev_carbs), ingredient.carbs, AppColors.Carbs)
+                        IngredientMacro(stringResource(R.string.macro_abbrev_fat), ingredient.fat, AppColors.Fat)
                     }
                 }
             }
@@ -237,7 +238,7 @@ internal fun MealIngredientsAddRow(onClick: () -> Unit) {
 @Composable
 private fun IngredientMacro(label: String, value: Double, color: androidx.compose.ui.graphics.Color) {
     Text(
-        "$label ${MacroValueFormatter.string(value)}g",
+        "$label ${gramsText(value)}",
         color = color,
         fontSize = 12.sp,
         fontWeight = FontWeight.SemiBold

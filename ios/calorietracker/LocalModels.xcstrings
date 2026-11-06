@@ -1884,7 +1884,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ověřuji stažený Gemma 4"
+            "value": "Ověřování staženého modelu Gemma 4"
           }
         }
       }
@@ -2592,7 +2592,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Stahuje se 2,59 GB. Fud AI zkontroluje dalších 1 GB volného místa pro instalaci."
+            "value": "Ke stažení je 2,59 GB. Fud AI navíc kontroluje 1 GB volného místa jako rezervu pro instalaci."
           }
         }
       }
@@ -2946,7 +2946,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Stahuji určený model Gemma 4… Nech Fud AI otevřenou, dokud stahování neskončí."
+            "value": "Stahuji určený model Gemma 4… Nech aplikaci Fud AI otevřenou, dokud stahování neskončí."
           }
         }
       }
@@ -3654,7 +3654,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Gemma 4 není stažený. Stáhni ho v Nastavení → Poskytovatelé AI."
+            "value": "Gemma 4 není stažená. Stáhni ji v Nastavení → Poskytovatelé AI."
           }
         }
       }
@@ -3772,7 +3772,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Gemma 4 je zaneprázdněný. Počkej, než se dokončí aktuální operace."
+            "value": "Gemma 4 je právě zaneprázdněná. Počkej prosím, až skončí aktuální operace."
           }
         }
       }
@@ -4126,7 +4126,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Stažený Gemma 4 se nepodařilo ověřit (%@). Zkus to prosím znovu."
+            "value": "Stažený model Gemma 4 se nepodařilo ověřit (%@). Zkus to prosím znovu."
           }
         }
       }
@@ -4244,7 +4244,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Gemma 4 vrátil prázdnou odpověď. Zkus to prosím znovu."
+            "value": "Gemma 4 vrátila prázdnou odpověď. Zkus to prosím znovu."
           }
         }
       }

@@ -7,7 +7,7 @@
     <string name="challenge_last_updated">Naposledy aktualizováno %1$s</string>
     <string name="challenge_offline_status">Offline · zobrazuje se poslední uložený žebříček</string>
     <string name="challenge_not_updated">Zatím neaktualizováno</string>
-    <string name="challenge_intro_title">Budujte spolu zdravé návyky</string>
+    <string name="challenge_intro_title">Buduj zdravé návyky společně s ostatními</string>
     <string name="challenge_intro_body">Dobrovolně se zapoj a porovnávej týdenní milníky v aktivitě, výživě, pravidelnosti a hydrataci. Tvá soukromá obrazovka Pokrok zůstane dostupná, i když se do výzvy nezapojíš.</string>
     <string name="challenge_privacy_disclosure">Fud AI počítá vše ve tvém zařízení. Nahrává jen začátek týdne, celkové body, počty splněných dní aktivity, výživy, pravidelnosti a hydratace a celkové kalorie z aktivity. Názvy jídel, jídla, váha, podrobnosti tréninků a záznamy Health Connect se nikdy nenahrávají.</string>
     <string name="challenge_public_profile_disclosure">Účastníci vidí jen tvé zobrazované jméno a volitelně jedno uživatelské jméno na X nebo Instagramu. Váha ani hubnutí se nikdy nehodnotí.</string>
@@ -22,7 +22,7 @@
     <string name="challenge_retry_deletion">Zkusit smazání znovu</string>
     <string name="challenge_category_overall">Celkem</string>
     <string name="challenge_category_activity">Aktivita</string>
-    <string name="challenge_category_nutrition">Nutriční hodnoty</string>
+    <string name="challenge_category_nutrition">Výživa</string>
     <string name="challenge_category_consistency">Pravidelnost</string>
     <string name="challenge_category_hydration">Hydratace</string>
     <string name="challenge_my_position">Moje pozice</string>
@@ -50,7 +50,7 @@
     <string name="challenge_display_name_help">2–40 znaků; písmena, číslice, mezery, tečka, podtržítko, apostrof nebo pomlčka</string>
     <string name="challenge_display_name_error">Použij 2–40 povolených znaků. Odkazy, e-maily, oficiální/administrátorská jména, vydávání se za jiné a nebezpečné výrazy nejsou povoleny.</string>
     <string name="challenge_social_label">Volitelné uživatelské jméno na sociální síti (vyber jedno)</string>
-    <string name="challenge_social_none">Žádný</string>
+    <string name="challenge_social_none">Žádné</string>
     <string name="challenge_social_x">X</string>
     <string name="challenge_social_instagram">Instagram</string>
     <string name="challenge_handle_label">Uživatelské jméno</string>
@@ -78,7 +78,7 @@
     <string name="challenge_block_title">Zablokovat %1$s?</string>
     <string name="challenge_block_message">Tento účastník bude v tomto zařízení skrytý v žebříčku. Nedostane žádné upozornění.</string>
     <string name="challenge_blocked_title">Blokovaní účastníci</string>
-    <string name="challenge_blocked_empty">Nikoho jsi nezablokoval.</string>
+    <string name="challenge_blocked_empty">Nemáš nikoho zablokovaného.</string>
     <string name="challenge_unblock_action">Odblokovat</string>
     <string name="challenge_error_network">Vypadá to, že jsi offline. Uložené žebříčky jsou stále k dispozici.</string>
     <string name="challenge_error_auth">Tvá relace výzvy vypršela. Připoj se znovu a vytvoř novou relaci.</string>

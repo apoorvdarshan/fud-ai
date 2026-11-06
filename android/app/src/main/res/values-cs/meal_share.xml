@@ -6,5 +6,5 @@
     <string name="share_link_direct">Přímý odkaz</string>
     <string name="share_link_direct_detail">Otevře Fud AI hned a nikdy nevyprší, ale odkaz je delší.</string>
     <string name="share_link_choice_title">Jak mají odkazy na jídla fungovat?</string>
-    <string name="share_link_choice_footer">Kdykoli to můžete změnit v %1$s.</string>
+    <string name="share_link_choice_footer">Kdykoli to můžeš změnit v %1$s.</string>
 </resources>

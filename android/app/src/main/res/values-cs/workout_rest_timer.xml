@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_rest_timer">Časovač odpočinku</string>
-    <string name="settings_rest_timer_footer">Odpočítávání začne, když dnes zapíšete sérii. Se zapnutými oznámeními vás Fud AI upozorní na konec odpočinku, i když aplikace běží na pozadí.</string>
+    <string name="settings_rest_timer_footer">Odpočítávání začne, když dnes zapíšeš sérii. Se zapnutými oznámeními tě Fud AI upozorní na konec odpočinku, i když aplikace běží na pozadí.</string>
     <string name="workout_rest_off">Vypnuto</string>
     <string name="workout_rest_label">Odpočinek</string>
     <string name="workout_rest_add_15">+15 s</string>

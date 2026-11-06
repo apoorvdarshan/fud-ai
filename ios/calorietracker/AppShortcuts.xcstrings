@@ -28,9 +28,9 @@
           "stringSet" : {
             "state" : "translated",
             "values" : [
-              "Dnešní kalorie v ${applicationName}",
-              "Kolik kalorií v ${applicationName}",
-              "Dnešní výživa v ${applicationName}"
+              "Dnešní kalorie ve ${applicationName}",
+              "Kolik kalorií ve ${applicationName}",
+              "Dnešní výživa ve ${applicationName}"
             ]
           }
         },
@@ -223,9 +223,9 @@
           "stringSet" : {
             "state" : "translated",
             "values" : [
-              "Zapsat jídlo v ${applicationName}",
-              "Přidat jídlo v ${applicationName}",
-              "Sledovat jídlo v ${applicationName}"
+              "Zapsat jídlo ve ${applicationName}",
+              "Přidat jídlo ve ${applicationName}",
+              "Sledovat jídlo ve ${applicationName}"
             ]
           }
         },
@@ -416,8 +416,8 @@
           "stringSet" : {
             "state" : "translated",
             "values" : [
-              "Zapsat moji váhu v ${applicationName}",
-              "Zaznamenat váhu v ${applicationName}"
+              "Zapsat moji váhu ve ${applicationName}",
+              "Zaznamenat váhu ve ${applicationName}"
             ]
           }
         },
@@ -590,7 +590,7 @@
           "stringSet" : {
             "state" : "translated",
             "values" : [
-              "První rychlá akce v ${applicationName}"
+              "První rychlá akce ve ${applicationName}"
             ]
           }
         },
@@ -747,7 +747,7 @@
           "stringSet" : {
             "state" : "translated",
             "values" : [
-              "Třetí rychlá akce v ${applicationName}"
+              "Třetí rychlá akce ve ${applicationName}"
             ]
           }
         },
@@ -904,7 +904,7 @@
           "stringSet" : {
             "state" : "translated",
             "values" : [
-              "Druhá rychlá akce v ${applicationName}"
+              "Druhá rychlá akce ve ${applicationName}"
             ]
           }
         },
@@ -1064,7 +1064,7 @@
             "state" : "translated",
             "values" : [
               "Mluvit s ${applicationName}",
-              "Spustit hlasový chat v ${applicationName}"
+              "Spustit hlasový chat ve ${applicationName}"
             ]
           }
         },

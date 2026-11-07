@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="meal_voice_widget_label">Log meal by voice</string>
+    <string name="meal_voice_widget_description">One tap to record your meal, one tap to save it. Shows today\'s calories.</string>
+    <string name="meal_voice_mic_denied">Microphone permission is needed to log meals by voice.</string>
+    <string name="meal_voice_channel_progress">Voice meal recording</string>
+    <string name="meal_voice_channel_result">Voice meal results</string>
+    <string name="meal_voice_notif_recording">Recording your meal…</string>
+    <string name="meal_voice_notif_recording_text">Tap the widget again to stop</string>
+    <string name="meal_voice_notif_processing">Saving your meal…</string>
+    <string name="meal_voice_action_stop">Stop</string>
+    <string name="meal_voice_saved_title">Meal saved</string>
+    <string name="meal_voice_failed_title">Meal not saved</string>
+    <string name="meal_voice_nothing_heard">Nothing was heard. Try again.</string>
+    <string name="meal_voice_failed_generic">Something went wrong. Open Fud AI and try again.</string>
+    <string name="meal_voice_saved_text">%1$s · +%2$s</string>
+</resources>

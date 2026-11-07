@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="meal_voice_widget_label">Записать еду голосом</string>
+    <string name="meal_voice_widget_description">Одно касание — запись приёма пищи, второе — сохранение. Показывает калории за сегодня.</string>
+    <string name="meal_voice_mic_denied">Для записи еды голосом нужен доступ к микрофону.</string>
+    <string name="meal_voice_channel_progress">Голосовая запись еды</string>
+    <string name="meal_voice_channel_result">Результат голосовой записи еды</string>
+    <string name="meal_voice_notif_recording">Записываю ваш приём пищи…</string>
+    <string name="meal_voice_notif_recording_text">Нажмите на виджет ещё раз, чтобы остановить</string>
+    <string name="meal_voice_notif_processing">Сохраняю ваш приём пищи…</string>
+    <string name="meal_voice_action_stop">Стоп</string>
+    <string name="meal_voice_saved_title">Приём пищи сохранён</string>
+    <string name="meal_voice_failed_title">Приём пищи не сохранён</string>
+    <string name="meal_voice_nothing_heard">Ничего не слышно. Попробуйте ещё раз.</string>
+    <string name="meal_voice_failed_generic">Что-то пошло не так. Откройте Fud AI и повторите попытку.</string>
+</resources>

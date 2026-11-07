@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="meal_voice_widget_label">Öğünü sesle kaydet</string>
+    <string name="meal_voice_widget_description">Öğününü kaydetmek için bir dokunuş, saklamak için bir dokunuş daha. Bugünkü kalorileri gösterir.</string>
+    <string name="meal_voice_mic_denied">Öğünleri sesle kaydetmek için mikrofon izni gerekir.</string>
+    <string name="meal_voice_channel_progress">Sesli öğün kaydı</string>
+    <string name="meal_voice_channel_result">Sesli öğün sonucu</string>
+    <string name="meal_voice_notif_recording">Öğünün kaydediliyor…</string>
+    <string name="meal_voice_notif_recording_text">Durdurmak için widget\'a tekrar dokun</string>
+    <string name="meal_voice_notif_processing">Öğünün saklanıyor…</string>
+    <string name="meal_voice_action_stop">Durdur</string>
+    <string name="meal_voice_saved_title">Öğün kaydedildi</string>
+    <string name="meal_voice_failed_title">Öğün kaydedilmedi</string>
+    <string name="meal_voice_nothing_heard">Hiçbir şey duyulmadı. Tekrar dene.</string>
+    <string name="meal_voice_failed_generic">Bir şeyler ters gitti. Fud AI\'yi açıp tekrar dene.</string>
+</resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="meal_voice_widget_label">语音记录饮食</string>
+    <string name="meal_voice_widget_description">点一下开始录音，再点一下保存。显示今日热量。</string>
+    <string name="meal_voice_mic_denied">语音记录饮食需要麦克风权限。</string>
+    <string name="meal_voice_channel_progress">语音饮食录音</string>
+    <string name="meal_voice_channel_result">语音饮食记录结果</string>
+    <string name="meal_voice_notif_recording">正在录制你的饮食…</string>
+    <string name="meal_voice_notif_recording_text">再次点按小组件即可停止</string>
+    <string name="meal_voice_notif_processing">正在保存你的饮食…</string>
+    <string name="meal_voice_action_stop">停止</string>
+    <string name="meal_voice_saved_title">饮食已保存</string>
+    <string name="meal_voice_failed_title">饮食未保存</string>
+    <string name="meal_voice_nothing_heard">没有听到内容，请重试。</string>
+    <string name="meal_voice_failed_generic">出了点问题。请打开 Fud AI 后重试。</string>
+</resources>

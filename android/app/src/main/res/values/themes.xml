@@ -3,6 +3,9 @@
 
     <style name="Theme.FudAI" parent="Theme.AppCompat.Light.NoActionBar" />
 
+    <!-- Invisible window for MealVoiceToggleActivity. -->
+    <style name="Theme.FudAI.Transparent" parent="android:Theme.Translucent.NoTitleBar" />
+
     <style name="Theme.FudAI.Splash.Base" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/app_splash_background</item>
         <item name="postSplashScreenTheme">@style/Theme.FudAI</item>

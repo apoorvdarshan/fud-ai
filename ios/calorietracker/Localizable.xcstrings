@@ -199480,7 +199480,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "3 dny zdarma, poté %@/rok. Automatické obnovení. Zrušte před koncem zkušební doby, abyste se vyhnuli platbě."
+            "value": "3 dny zdarma, pak %@/rok. Předplatné se obnovuje automaticky. Zruš ho před koncem zkušební doby a nic nezaplatíš."
           }
         },
         "ro": {
@@ -199598,7 +199598,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Zkouška: 20 akcí AI a %lld hlasových minut/den (UTC). Poté plné limity tarifu. Další kredity jsou placené."
+            "value": "Zkušební doba: 20 AI akcí a %lld min hlasu denně (UTC). Potom platí plné limity plánu. Další kredity jsou placené."
           }
         },
         "ro": {
@@ -199716,7 +199716,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Vyzkoušejte roční Plus nebo Pro bez klíčů API. Platí zkušební limity. Prohlédněte si ceny a podmínky nebo ponechte BYOK zdarma."
+            "value": "Vyzkoušej roční Plus nebo Pro bez API klíčů. Platí limity zkušební doby. Podívej se na ceny a podmínky, nebo zůstaň u BYOK zdarma."
           }
         },
         "ro": {
@@ -200070,7 +200070,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Roční tarif se po zkušební době obnoví. Zkontrolujte nebo zrušte jej v nastavení obchodu."
+            "value": "Roční plán se po zkušební době obnoví. Zkontroluj nebo zruš ho v App Storu."
           }
         },
         "ro": {

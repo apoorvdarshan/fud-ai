@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hosted_trial_cta">3日間無料で試す</string>
+    <string name="hosted_trial_disclosure">3日間無料、その後は年額%1$s。自動更新されます。課金を避けるには無料期間終了前に解約してください。</string>
+    <string name="hosted_trial_limits">無料期間：1日20回のAI操作と音声%1$d分（UTC）。終了後は通常のプラン上限が適用されます。追加クレジットは有料です。</string>
+    <string name="hosted_trial_invite_body">APIキーなしで年間PlusまたはProをお試しください。無料期間には利用上限があります。料金と条件を確認するか、無料のBYOKを続けられます。</string>
+    <string name="hosted_trial_ends">無料期間の終了</string>
+    <string name="hosted_trial_reminder_title">無料期間は明日終了します</string>
+    <string name="hosted_trial_reminder_body">無料期間終了後、年間プランが更新されます。ストアの設定で確認または解約してください。</string>
+    <string name="hosted_trial_invite_title">3日間無料で試す</string>
+</resources>

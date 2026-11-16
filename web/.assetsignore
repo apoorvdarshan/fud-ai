@@ -1,6 +1,8 @@
 # Do not publish Worker source / build tooling as static site assets.
 *.ts
 *.tsx
+*.mjs
+*.mts
 *.map
 *.md
 package.json

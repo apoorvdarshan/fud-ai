@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hosted_trial_cta">جرّب مجانًا لمدة 3 أيام</string>
+    <string name="hosted_trial_disclosure">3 أيام مجانًا، ثم %1$s/سنة. تجديد تلقائي. ألغِ قبل انتهاء التجربة لتجنب الرسوم.</string>
+    <string name="hosted_trial_limits">التجربة: 20 إجراء ذكاء اصطناعي و%1$d دقيقة صوت يوميًا (UTC). بعدها تسري حدود الخطة الكاملة. الأرصدة الإضافية مدفوعة.</string>
+    <string name="hosted_trial_invite_body">جرّب Plus أو Pro السنوي دون مفاتيح API. تسري حدود التجربة. راجع الأسعار والشروط أو احتفظ بـ BYOK مجانًا.</string>
+    <string name="hosted_trial_ends">نهاية التجربة</string>
+    <string name="hosted_trial_reminder_title">تنتهي التجربة غدًا</string>
+    <string name="hosted_trial_reminder_body">تتجدد خطتك السنوية بعد التجربة. راجع الاشتراك أو ألغِه من إعدادات المتجر.</string>
+    <string name="hosted_trial_invite_title">جرّب مجانًا لمدة 3 أيام</string>
+</resources>

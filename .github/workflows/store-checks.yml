@@ -45,7 +45,7 @@ concurrency:
 
 jobs:
   checks:
-    uses: apoorvdarshan/store-release/.github/workflows/checks.yml@3e580dc136d0ede17e8f4d12e9385fb512d02faf # v0.3.0
+    uses: apoorvdarshan/store-release/.github/workflows/checks.yml@f5831056cd1bdfeb392a717ef9dc29da5060ec09 # v0.4.0
     permissions:
       contents: read
 

@@ -64,6 +64,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -110,6 +111,16 @@ open class FudAIApp : Application() {
             .onFailure { Log.e("FudAIApp", "RevenueCat configure failed", it) }
         container = AppContainer(this)
         container.billing.start()
+        appScope.launch {
+            kotlinx.coroutines.flow.combine(container.billing.entitlement, container.prefs.notificationsEnabled) { info, enabled ->
+                info to enabled
+            }.collect { (info, enabled) ->
+                // A failed initial refresh must not erase a previously scheduled reminder.
+                if (info.loaded || !enabled) {
+                    container.notifications.updateTrialReminder(info.trialEndsAt?.takeIf { enabled && info.trialWillRenew })
+                }
+            }
+        }
         // A pending plan purchase (e.g. a slow UPI payment) turns Hosted on once Play confirms it.
         container.billing.entitlement
             .onEach { entitlement ->

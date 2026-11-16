@@ -18,7 +18,7 @@ enum PostUpdatePrompts {
     /// Versioned so the Hosted AI upsell is deliberately re-armed once for users who already
     /// dismissed it (the previous unversioned key was consumed the moment the alert was shown).
     /// Bump the suffix only when the upsell should fire again.
-    static let hostedUpsellSeenKey = "hasSeenHostedUpsellPrompt.2026-09-28"
+    static let hostedUpsellSeenKey = "hasSeenHostedUpsellPrompt.yearly-trial-2026-11"
     /// Named "completed" (not "seen") so only Done counts — opening Instagram must not consume it.
     static let meetDeveloperSeenKey = "hasCompletedMeetDeveloperPrompt"
     /// Separate from Meet the developer so people who already tapped Done still get the launch-day sheet.
@@ -56,7 +56,7 @@ enum PostUpdatePrompts {
     static func finishWhatsNew(showedPlans: Bool, reachedEnd: Bool) {
         hasSeenWhatsNew = true
         if reachedEnd { hasSeenMeetDeveloper = true }
-        if showedPlans || RevenueCatManager.shared.hasHostedEntitlement { hasSeenHostedUpsell = true }
+        if RevenueCatManager.shared.hasHostedEntitlement { hasSeenHostedUpsell = true }
     }
 
     /// Called when onboarding completes so a brand-new user is never treated as
@@ -78,7 +78,7 @@ enum PostUpdatePrompts {
     static var isHostedUpsellEligible: Bool {
         AIModeSettings.mode == .byok
             && !RevenueCatManager.shared.hasHostedEntitlement
-            && RevenueCatManager.shared.hasPurchasableHostedPlans
+            && RevenueCatManager.shared.hasEligibleYearlyTrial
     }
 }
 

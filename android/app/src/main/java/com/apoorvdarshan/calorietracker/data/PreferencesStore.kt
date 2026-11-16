@@ -1634,7 +1634,7 @@ class PreferencesStore(
         val ADAPTIVE_GOALS_ENABLED = booleanPreferencesKey("adaptiveGoalsEnabled")
         val REVIEW_PROMPTED_AFTER_FIRST_LOG = booleanPreferencesKey("reviewPromptedAfterFirstLog")
         val HAS_SEEN_HOSTED_UPSELL_PROMPT = booleanPreferencesKey("hasSeenHostedUpsellPrompt")
-        val HAS_SEEN_HOSTED_UPSELL_PROMPT_V2 = booleanPreferencesKey("hasSeenHostedUpsellPrompt.android-7.2")
+        val HAS_SEEN_HOSTED_UPSELL_PROMPT_V2 = booleanPreferencesKey("hasSeenHostedUpsellPrompt.yearly-trial-2026-11")
         val AI_ACCESS_MODE = stringPreferencesKey("aiAccessMode")
         val PENDING_HOSTED_SWITCH = booleanPreferencesKey("pendingHostedSwitch")
         val HAS_SEEN_MEET_DEVELOPER_PROMPT = booleanPreferencesKey("hasCompletedMeetDeveloperPrompt")

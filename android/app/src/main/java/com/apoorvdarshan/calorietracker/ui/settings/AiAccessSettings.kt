@@ -97,6 +97,9 @@ internal fun AiAccessSettings(container: AppContainer) {
             val today = container.hostedQuota.snapshotFor(plan)
             SectionCard {
                 InfoRow(stringResource(R.string.hosted_plan_label), planLabel(plan))
+                entitlement.trialEndsAt?.let { end ->
+                    InfoRow(stringResource(R.string.hosted_trial_ends), java.text.DateFormat.getDateTimeInstance().format(end))
+                }
                 if (plan != HostedPlan.NONE) {
                     HorizontalDivider()
                     InfoRow(

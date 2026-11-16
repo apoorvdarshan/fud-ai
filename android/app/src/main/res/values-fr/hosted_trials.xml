@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hosted_trial_cta">Essayer gratuitement pendant 3 jours</string>
+    <string name="hosted_trial_disclosure">3 jours gratuits, puis %1$s/an. Renouvellement automatique. Annulez avant la fin de l’essai pour éviter tout prélèvement.</string>
+    <string name="hosted_trial_limits">Essai : 20 actions IA et %1$d minutes vocales/jour (UTC). Limites complètes ensuite. Les crédits supplémentaires sont payants.</string>
+    <string name="hosted_trial_invite_body">Essayez Plus ou Pro annuel sans clé API. Des limites s’appliquent. Consultez les prix et conditions ou gardez BYOK gratuit.</string>
+    <string name="hosted_trial_ends">Fin de l’essai</string>
+    <string name="hosted_trial_reminder_title">L’essai se termine demain</string>
+    <string name="hosted_trial_reminder_body">Votre forfait annuel se renouvelle après l’essai. Consultez ou annulez dans les réglages de la boutique.</string>
+    <string name="hosted_trial_invite_title">Essayer gratuitement pendant 3 jours</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hosted_trial_cta">Încearcă gratuit 3 zile</string>
+    <string name="hosted_trial_disclosure">3 zile gratuit, apoi %1$s/an. Reînnoire automată. Anulează înainte de sfârșitul perioadei de probă pentru a evita plata.</string>
+    <string name="hosted_trial_limits">Probă: 20 de acțiuni AI și %1$d minute vocale/zi (UTC). Apoi se aplică limitele complete. Creditele suplimentare costă bani.</string>
+    <string name="hosted_trial_invite_body">Încearcă Plus sau Pro anual fără chei API. Se aplică limite de probă. Vezi prețurile și condițiile sau păstrează BYOK gratuit.</string>
+    <string name="hosted_trial_ends">Proba se încheie</string>
+    <string name="hosted_trial_reminder_title">Proba se încheie mâine</string>
+    <string name="hosted_trial_reminder_body">Planul anual se reînnoiește după probă. Verifică sau anulează în setările magazinului.</string>
+    <string name="hosted_trial_invite_title">Încearcă gratuit 3 zile</string>
+</resources>

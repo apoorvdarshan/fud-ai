@@ -48,7 +48,7 @@ jobs:
       contents: read
 
   prepare:
-    uses: apoorvdarshan/store-release/.github/workflows/ios-prepare.yml@3e580dc136d0ede17e8f4d12e9385fb512d02faf # v0.3.0
+    uses: apoorvdarshan/store-release/.github/workflows/ios-prepare.yml@f5831056cd1bdfeb392a717ef9dc29da5060ec09 # v0.4.0
     permissions:
       contents: read
     with:
@@ -67,7 +67,7 @@ jobs:
       ((needs.ios-tests.result == 'success' && needs.quality.result == 'success') ||
        (github.event_name == 'workflow_dispatch' &&
         needs.ios-tests.result == 'skipped' && needs.quality.result == 'skipped'))
-    uses: apoorvdarshan/store-release/.github/workflows/ios-build.yml@3e580dc136d0ede17e8f4d12e9385fb512d02faf # v0.3.0
+    uses: apoorvdarshan/store-release/.github/workflows/ios-build.yml@f5831056cd1bdfeb392a717ef9dc29da5060ec09 # v0.4.0
     permissions:
       contents: read
     with:
@@ -93,7 +93,7 @@ jobs:
       needs.prepare.outputs.upload_build == 'true' &&
       needs.ios-tests.result == 'success' && needs.quality.result == 'success' &&
       needs.build.result == 'success'
-    uses: apoorvdarshan/store-release/.github/workflows/ios-wait-for-build.yml@3e580dc136d0ede17e8f4d12e9385fb512d02faf # v0.3.0
+    uses: apoorvdarshan/store-release/.github/workflows/ios-wait-for-build.yml@f5831056cd1bdfeb392a717ef9dc29da5060ec09 # v0.4.0
     permissions:
       contents: read
     with:
@@ -120,7 +120,7 @@ jobs:
       ((needs.build.result == 'success' && needs.wait-for-build.result == 'success') ||
        (needs.prepare.outputs.upload_build != 'true' &&
         needs.build.result == 'skipped' && needs.wait-for-build.result == 'skipped'))
-    uses: apoorvdarshan/store-release/.github/workflows/ios-app-store-connect.yml@3e580dc136d0ede17e8f4d12e9385fb512d02faf # v0.3.0
+    uses: apoorvdarshan/store-release/.github/workflows/ios-app-store-connect.yml@f5831056cd1bdfeb392a717ef9dc29da5060ec09 # v0.4.0
     permissions:
       contents: read
     with:
@@ -150,7 +150,7 @@ jobs:
       (needs.build.result == 'success' || needs.build.result == 'skipped') &&
       (needs.wait-for-build.result == 'success' || needs.wait-for-build.result == 'skipped') &&
       (needs.app-store-connect.result == 'success' || needs.app-store-connect.result == 'skipped')
-    uses: apoorvdarshan/store-release/.github/workflows/ios-github-release.yml@3e580dc136d0ede17e8f4d12e9385fb512d02faf # v0.3.0
+    uses: apoorvdarshan/store-release/.github/workflows/ios-github-release.yml@f5831056cd1bdfeb392a717ef9dc29da5060ec09 # v0.4.0
     permissions:
       contents: write
     with:
@@ -163,7 +163,7 @@ jobs:
   store-plan:
     needs: prepare
     if: github.event_name == 'workflow_dispatch' && needs.prepare.result == 'success'
-    uses: apoorvdarshan/store-release/.github/workflows/ios-store-plan.yml@3e580dc136d0ede17e8f4d12e9385fb512d02faf # v0.3.0
+    uses: apoorvdarshan/store-release/.github/workflows/ios-store-plan.yml@f5831056cd1bdfeb392a717ef9dc29da5060ec09 # v0.4.0
     permissions:
       contents: read
     with:

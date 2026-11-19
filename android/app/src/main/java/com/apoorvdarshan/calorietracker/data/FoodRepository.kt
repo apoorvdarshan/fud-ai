@@ -205,6 +205,18 @@ class FoodRepository(
         pruneOrphanedImages()
     }
 
+    internal suspend fun deletePreviewedFood(preview: List<FoodEntry>, alsoHealth: Boolean): Boolean {
+        ensureFavoritesMigrated()
+        val removed = prefs.removePreviewedFood(preview)
+        healthRetry.forgetAll(removed)
+        var healthSucceeded = true
+        if (alsoHealth) {
+            removed.forEach { if (health?.deleteNutrition(it) != true) healthSucceeded = false }
+        }
+        pruneOrphanedImages()
+        return healthSucceeded
+    }
+
     // -- Favorites --------------------------------------------------------
 
     suspend fun isFavorite(entry: FoodEntry): Boolean {

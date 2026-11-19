@@ -1,6 +1,14 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "Delete Food by Date": {},
+    "Preview": {},
+    "Delete the previewed food entries?": {},
+    "Only food entries in the preview are deleted. Favorites, water, and other logs are kept.": {},
+    "Also remove matching Apple Health nutrition": {},
+    "This also requests deletion of matching nutrition written by Fud AI in Apple Health.": {},
+    "This deletes entries from Fud AI only. Copies in Apple Health are kept.": {},
+    "Could Not Delete Food Entries": {},
     "Share Links": {
       "comment": "Settings row (App Settings) choosing which link a meal share sends.",
       "localizations": {

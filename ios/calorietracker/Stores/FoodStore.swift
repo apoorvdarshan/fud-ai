@@ -468,6 +468,28 @@ class FoodStore {
         return true
     }
 
+    /// Delete only rows present in the preview whose timestamps have not changed.
+    func deletePreviewedEntries(_ preview: [FoodEntry]) -> [UUID]? {
+        guard !isPersistenceBlocked else { return nil }
+        let timestamps = Dictionary(preview.map { ($0.id, $0.timestamp) }, uniquingKeysWith: { first, _ in first })
+        let removed = entries.filter { timestamps[$0.id] == $0.timestamp }
+        guard !removed.isEmpty else { return [] }
+        let ids = Set(removed.map(\.id))
+        let previous = entries
+        entries.removeAll { ids.contains($0.id) }
+        guard saveEntries() else {
+            entries = previous
+            return nil
+        }
+        for entry in removed {
+            for filename in entry.allImageFilenames where !isImageStillReferenced(filename: filename, excludingEntryID: entry.id) {
+                FoodImageStore.shared.delete(filename: filename)
+            }
+        }
+        onEntriesChanged?()
+        return removed.map(\.id)
+    }
+
     /// Merge selected diary foods into one combined meal and remove the originals.
     @discardableResult
     func combineIntoMeal(ids: Set<UUID>) -> FoodEntry? {

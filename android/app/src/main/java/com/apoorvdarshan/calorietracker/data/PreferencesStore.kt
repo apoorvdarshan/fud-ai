@@ -1324,6 +1324,22 @@ class PreferencesStore(
         updateFoodEntries { entries }
     }
 
+    internal suspend fun removePreviewedFood(preview: List<FoodEntry>): List<java.util.UUID> {
+        val timestamps = preview.associate { it.id to it.timestamp }
+        var removed = emptyList<java.util.UUID>()
+        ds.edit { prefs ->
+            val raw = prefs[Keys.FOOD_ENTRIES] ?: return@edit
+            val serializer = ListSerializer(FoodEntry.serializer())
+            val entries = json.decodeFromString(serializer, raw)
+            removed = entries.filter { timestamps[it.id] == it.timestamp }.map { it.id }
+            if (removed.isNotEmpty()) {
+                val ids = removed.toSet()
+                prefs[Keys.FOOD_ENTRIES] = json.encodeToString(serializer, entries.filterNot { it.id in ids })
+            }
+        }
+        return removed
+    }
+
     /**
      * Decode + mutate + encode the food log in one DataStore transaction.
      * Repositories must use this instead of `foodEntries.first()` followed by

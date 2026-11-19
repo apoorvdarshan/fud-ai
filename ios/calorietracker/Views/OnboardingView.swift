@@ -43,7 +43,7 @@ struct OnboardingView: View {
     @State private var targetWeightKgTenth = 0
     @State private var goalSpeed = 1
     @State private var knowsBodyFat = false
-    @State private var bodyFatPercentage = 20
+    @State private var bodyFatPercentage = 200
     /// Optional target body-fat % (whole number, 3–60). Nil means "skip" — the
     /// user opted out, or hasn't entered a current body fat (the goal field
     /// only appears when knowsBodyFat is true).
@@ -106,8 +106,8 @@ struct OnboardingView: View {
             weightKg: kg,
             activityLevel: activityLevel,
             goal: goal,
-            bodyFatPercentage: knowsBodyFat ? Double(bodyFatPercentage) / 100.0 : nil,
-            goalBodyFatPercentage: knowsBodyFat ? goalBodyFatPercentInt.map { Double($0) / 100.0 } : nil,
+            bodyFatPercentage: knowsBodyFat ? BodyFatWheel.fraction(for: bodyFatPercentage) : nil,
+            goalBodyFatPercentage: knowsBodyFat ? goalBodyFatPercentInt.map { BodyFatWheel.fraction(for: $0) } : nil,
             weeklyChangeKg: goal == .maintain ? nil : weeklyChangeKg,
             goalWeightKg: targetKg
         )
@@ -250,9 +250,9 @@ struct OnboardingView: View {
             weightLbsWhole = wheels.lbsWhole
             weightLbsTenth = wheels.lbsTenth
         }
-        if let fraction = prefill.bodyFatFraction, let percent = ReturningUser.bodyFatWheel(fraction: fraction) {
+        if let fraction = prefill.bodyFatFraction, fraction.isFinite {
             knowsBodyFat = true
-            bodyFatPercentage = percent
+            bodyFatPercentage = BodyFatWheel.selection(for: fraction)
         }
     }
 
@@ -446,7 +446,9 @@ struct OnboardingView: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.horizontal, 24)
                             Picker("Body Fat %", selection: $bodyFatPercentage) {
-                                ForEach(3...60, id: \.self) { pct in Text("\(pct)%").tag(pct) }
+                                ForEach(BodyFatWheel.values, id: \.self) { pct in
+                                    Text(verbatim: BodyFatWheel.fraction(for: pct).formatted(.percent.precision(.fractionLength(1)))).tag(pct)
+                                }
                             }
                             .pickerStyle(.wheel)
                             .frame(height: 130)
@@ -487,7 +489,9 @@ struct OnboardingView: View {
                                     get: { goalBodyFatPercentInt ?? bodyFatPercentage },
                                     set: { goalBodyFatPercentInt = $0 }
                                 )) {
-                                    ForEach(3...60, id: \.self) { pct in Text("\(pct)%").tag(pct) }
+                                    ForEach(BodyFatWheel.values, id: \.self) { pct in
+                                        Text(verbatim: BodyFatWheel.fraction(for: pct).formatted(.percent.precision(.fractionLength(1)))).tag(pct)
+                                    }
                                 }
                                 .pickerStyle(.wheel)
                                 .frame(height: 110)

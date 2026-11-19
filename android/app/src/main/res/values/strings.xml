@@ -1,4 +1,8 @@
 <resources>
+    <string name="optional_calorie_range">Optional Calorie Range</string>
+    <string name="calorie_floor_kcal">Calorie floor (kcal)</string>
+    <string name="calorie_ceiling_kcal">Calorie ceiling (kcal)</string>
+    <string name="calorie_range_hint">Leave either bound blank to skip it. This range is for reference and does not change your targets.</string>
     <string name="app_name">Fud AI</string>
 
     <!-- Widgets -->

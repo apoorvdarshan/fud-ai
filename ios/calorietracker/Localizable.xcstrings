@@ -1,6 +1,10 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "Optional Calorie Range": {},
+    "Calorie floor (kcal)": {},
+    "Calorie ceiling (kcal)": {},
+    "Leave either bound blank to skip it. This range is for reference and does not change your targets.": {},
     "Share Links": {
       "comment": "Settings row (App Settings) choosing which link a meal share sends.",
       "localizations": {

@@ -873,6 +873,8 @@ fun SettingsScreen(
                     HorizontalDivider()
                     MaintenanceEstimateRow(p.maintenanceBreakdown) { showMaintenanceInfo = true }
                     HorizontalDivider()
+                    CalorieRangeSettings(vm.container.prefs)
+                    HorizontalDivider()
                     LockableGoalRow(
                         label = stringResource(R.string.macro_protein),
                         value = "${p.effectiveProtein}g",

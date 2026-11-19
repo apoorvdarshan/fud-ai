@@ -1296,8 +1296,8 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
             return false
         }
 
-        val granted = container.health.hasAnyPermission()
         val stored = container.prefs.healthConnectEnabled.first()
+        val granted = container.health.anyPermissionGrant() ?: return stored
         val version = container.prefs.healthPermissionsVersion.first()
         container.prefs.setHealthConnectEnabled(granted)
         if (!granted) {

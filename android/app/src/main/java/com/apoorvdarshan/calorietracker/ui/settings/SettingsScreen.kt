@@ -2856,6 +2856,7 @@ private fun SettingsSheets(
     onInvalidGoalWeight: (String) -> Unit,
     onRebalanceBlocked: () -> Unit
 ) {
+    val geminiTimeout by vm.container.prefs.geminiTimeoutSeconds.collectAsState(initial = 0)
     val state = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val invalidLoseMsg = stringResource(R.string.settings_invalid_goal_lose)
     val invalidGainMsg = stringResource(R.string.settings_invalid_goal_gain)
@@ -3022,7 +3023,7 @@ private fun SettingsSheets(
                     },
                     selected = { it == geminiTimeout },
                     onSelect = { seconds ->
-                        settingsScope.launch { container.prefs.setGeminiTimeoutSeconds(seconds) }
+                        vm.setGeminiTimeoutSeconds(seconds)
                         onDismiss()
                     }
                 )

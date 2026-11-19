@@ -552,6 +552,10 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
         }
     }
 
+    fun setGeminiTimeoutSeconds(seconds: Int) {
+        viewModelScope.launch { container.prefs.setGeminiTimeoutSeconds(seconds) }
+    }
+
     fun setAiRequestTimeoutSeconds(value: Int) {
         val clamped = AIProvider.normalizedRequestTimeoutSeconds(value)
         viewModelScope.launch {

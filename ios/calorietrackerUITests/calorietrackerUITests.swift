@@ -148,6 +148,28 @@ final class calorietrackerUITests: XCTestCase {
     }
 
     @MainActor
+    func testCanEditWeightRepsAndEffortInAWorkoutSet() {
+        let app = makeApp(defaults: [
+            "--ui-testing-workout-set", "-AppleLanguages", "(en)",
+            "-fudai.workouts.tab.mode.v2", "log", "-weightUnit", "kg"
+        ])
+        app.launch()
+        let workouts = app.tabBars.buttons["Workouts"]
+        XCTAssertTrue(workouts.waitForExistence(timeout: 8))
+        workouts.tap()
+
+        for (placeholder, value) in [("kg", "25"), ("Reps", "8"), ("RPE", "6")] {
+            let field = app.textFields.matching(NSPredicate(format: "placeholderValue == %@", placeholder)).firstMatch
+            XCTAssertTrue(field.waitForExistence(timeout: 8))
+            reveal(field, in: app)
+            field.tap()
+            field.typeText(value)
+            XCTAssertEqual(field.value as? String, value)
+        }
+        XCTAssertEqual(app.state, .runningForeground)
+    }
+
+    @MainActor
     func testWorkoutSearchOpensExerciseDetails() throws {
         let app = makeApp()
         app.launchArguments += [

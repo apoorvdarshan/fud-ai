@@ -183,6 +183,9 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
 
     func supportedTextModelOrDefault(_ model: String?) -> String {
         guard let model else { return defaultTextModel }
+        if self == .groq, model.trimmingCharacters(in: .whitespacesAndNewlines) == "qwen/qwen3.6-27b" {
+            return "qwen/qwen3.8-27b"
+        }
         let normalized = Self.normalizedModelID(model)
         if supportsCustomModelName {
             return normalized
@@ -256,7 +259,7 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
             "MiniMaxAI/MiniMax-M3",                               // vision
         ]
         case .groq: [
-            "qwen/qwen3.6-27b",                                   // vision (llama-4-scout shutdown 2026-07-17)
+            "qwen/qwen3.8-27b",                                   // vision
         ]
         case .huggingface: [
             "google/gemma-4-31B-it",                              // vision, widest provider coverage
@@ -316,7 +319,6 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
                 "openai/gpt-oss-120b",
                 "llama-3.3-70b-versatile",
                 "llama-3.1-8b-instant",
-                "qwen/qwen3.6-27b",
                 "qwen/qwen3.8-27b",
             ]
         case .togetherai:

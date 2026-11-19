@@ -126,7 +126,7 @@ enum class AIProvider {
             "MiniMaxAI/MiniMax-M3"
         )
         GROQ -> listOf(
-            "qwen/qwen3.6-27b"
+            "qwen/qwen3.8-27b"
         )
         HUGGING_FACE -> listOf(
             "google/gemma-4-31B-it",
@@ -181,7 +181,6 @@ enum class AIProvider {
             "openai/gpt-oss-120b",
             "llama-3.3-70b-versatile",
             "llama-3.1-8b-instant",
-            "qwen/qwen3.6-27b",
             "qwen/qwen3.8-27b"
         )
         TOGETHER_AI -> listOf(
@@ -219,6 +218,7 @@ enum class AIProvider {
     }
 
     fun supportedTextModelOrDefault(model: String?): String {
+        if (this == GROQ && model?.trim() == "qwen/qwen3.6-27b") return "qwen/qwen3.8-27b"
         val normalized = model?.let(::normalizeModelId)
         return when {
             normalized.isNullOrBlank() -> defaultTextModel

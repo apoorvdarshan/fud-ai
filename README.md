@@ -125,7 +125,7 @@ Pick any of the **16 LLM providers** for food analysis, meal what-if suggestions
 | xAI Grok | OpenAI-compatible | Grok 4.3 | Yes |
 | OpenRouter | OpenAI-compatible | Any model, free-form IDs | Yes |
 | Together AI | OpenAI-compatible | Qwen 3.5, Gemma 4, MiniMax M3 | Yes |
-| Groq | OpenAI-compatible | Qwen 3.6, very fast | Yes |
+| Groq | OpenAI-compatible | Qwen 3.8 27B (preview; text and images) | Yes |
 | Hugging Face | OpenAI-compatible | Gemma 4 / 3 and Qwen 3.5 / 2.5 VL (open-weight router, free-form IDs) | Yes |
 | Fireworks AI | OpenAI-compatible | Qwen 3.7 Plus, MiniMax M3, Kimi K2.6 | Yes |
 | DeepInfra | OpenAI-compatible | Gemma 4 / 3 vision models | Yes |

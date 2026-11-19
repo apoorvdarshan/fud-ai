@@ -4,6 +4,7 @@ import android.util.AtomicFile
 import java.io.DataInputStream
 import java.io.DataOutputStream
 import java.io.File
+import java.io.FileNotFoundException
 
 internal data class FailedMealDraft(
     val text: String? = null,
@@ -17,7 +18,12 @@ internal data class FailedMealDraft(
 internal class FailedMealDraftStore(directory: File) {
     private val file = AtomicFile(File(directory, "failed_meal_draft"))
 
-    fun exists(): Boolean = file.exists()
+    fun exists(): Boolean = try {
+        // Unlike checking the base path, openRead also recovers a legacy backup.
+        file.openRead().use { true }
+    } catch (_: FileNotFoundException) {
+        false
+    }
 
     fun write(draft: FailedMealDraft) {
         val output = file.startWrite()

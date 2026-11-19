@@ -5,6 +5,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 
 private fun lightColors(themeColor: AppThemeColor) = lightColorScheme(
     primary = themeColor.start,
@@ -22,30 +23,31 @@ private fun lightColors(themeColor: AppThemeColor) = lightColorScheme(
     outline = AppColors.DividerLight
 )
 
-private fun darkColors(themeColor: AppThemeColor) = darkColorScheme(
+private fun darkColors(themeColor: AppThemeColor, gray: Boolean) = darkColorScheme(
     primary = themeColor.start,
     onPrimary = AppColors.OnDark,
     secondary = themeColor.start,
     onSecondary = AppColors.OnDark,
     tertiary = themeColor.start,
     onTertiary = AppColors.OnDark,
-    background = AppColors.AppBackgroundDark,
+    background = if (gray) Color(0xFF202124) else AppColors.AppBackgroundDark,
     onBackground = AppColors.OnDark,
-    surface = AppColors.AppCardDark,
+    surface = if (gray) Color(0xFF303136) else AppColors.AppCardDark,
     onSurface = AppColors.OnDark,
-    surfaceVariant = AppColors.AppCardDark,
+    surfaceVariant = if (gray) Color(0xFF303136) else AppColors.AppCardDark,
     onSurfaceVariant = AppColors.MutedDark,
-    outline = AppColors.DividerDark
+    outline = if (gray) Color(0xFF777980) else AppColors.DividerDark
 )
 
 @Composable
 fun FudAITheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     themeColor: AppThemeColor = AppThemeColor.FUD_PINK,
+    grayDarkTheme: Boolean = false,
     content: @Composable () -> Unit
 ) {
     AppColors.setThemeColor(themeColor)
-    val colorScheme = if (darkTheme) darkColors(themeColor) else lightColors(themeColor)
+    val colorScheme = if (darkTheme) darkColors(themeColor, grayDarkTheme) else lightColors(themeColor)
     MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography,

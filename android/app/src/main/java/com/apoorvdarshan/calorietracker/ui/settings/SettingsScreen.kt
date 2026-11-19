@@ -956,6 +956,7 @@ fun SettingsScreen(
                     when (ui.appearanceMode) {
                         "light" -> stringResource(R.string.settings_appearance_light)
                         "dark" -> stringResource(R.string.settings_appearance_dark)
+                        "darkGray" -> stringResource(R.string.settings_appearance_dark_gray)
                         else -> stringResource(R.string.settings_appearance_system)
                     },
                     icon = Icons.Outlined.Brightness6
@@ -3297,7 +3298,8 @@ private fun SettingsSheets(
                     items = listOf(
                         "system" to stringResource(R.string.settings_appearance_system),
                         "light" to stringResource(R.string.settings_appearance_light),
-                        "dark" to stringResource(R.string.settings_appearance_dark)
+                        "dark" to stringResource(R.string.settings_appearance_dark),
+                        "darkGray" to stringResource(R.string.settings_appearance_dark_gray)
                     ),
                     label = { it.second },
                     selected = { it.first == ui.appearanceMode },
@@ -5100,7 +5102,7 @@ private fun goalIcon(g: WeightGoal): ImageVector = when (g) {
 
 private fun appearanceIcon(key: String): ImageVector = when (key) {
     "light" -> Icons.Outlined.LightMode
-    "dark" -> Icons.Outlined.DarkMode
+    "dark", "darkGray" -> Icons.Outlined.DarkMode
     else -> Icons.Outlined.SettingsBrightness
 }
 

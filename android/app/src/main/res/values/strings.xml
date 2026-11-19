@@ -1,4 +1,5 @@
 <resources>
+    <string name="settings_appearance_dark_gray">Dark gray</string>
     <string name="app_name">Fud AI</string>
 
     <!-- Widgets -->

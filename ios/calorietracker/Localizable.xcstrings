@@ -1,6 +1,7 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "Dark gray": {},
     "Share Links": {
       "comment": "Settings row (App Settings) choosing which link a meal share sends.",
       "localizations": {

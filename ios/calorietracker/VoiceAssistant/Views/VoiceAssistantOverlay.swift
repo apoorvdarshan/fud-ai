@@ -23,7 +23,7 @@ struct VoiceAssistantOverlay: View {
     private var colorScheme: ColorScheme? {
         switch appearanceMode {
         case "light": .light
-        case "dark": .dark
+        case "dark", "darkGray": .dark
         default: nil
         }
     }

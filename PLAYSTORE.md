@@ -109,17 +109,16 @@ English-only on Play Console — non-English Play Store browsers (ar, az-AZ, cs-
 
 ---
 
-## 4. What's New (v8.1 / versionCode 46)
+## 4. What's New (v8.1.1 / versionCode 47)
 
 **500 char hard cap per language.** English is the fallback for other store locales.
 
 ```
 <en-US>
-Fud AI 8.1
-• Eligible yearly Plus and Pro plans can show a 3-day free trial when available in your store.
-• Clear trial limits, renewal prices, and trial end dates.
-• Optional reminder before your trial ends, when notifications are enabled.
-• Existing free users get a one-time invitation. BYOK stays free.
+Fud AI 8.1.1
+• Plus and Pro subscriptions now start at the displayed subscription price, without a free trial.
+• Trials already started keep their original terms.
+• Using your own API key remains free.
 </en-US>
 ```
 

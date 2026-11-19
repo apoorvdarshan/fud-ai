@@ -63,8 +63,8 @@ android {
         applicationId = "com.apoorvdarshan.calorietracker"
         minSdk = 26
         targetSdk = 36
-        versionCode = 46
-        versionName = "8.1"
+        versionCode = 47
+        versionName = "8.1.1"
         // Release uses localized @string/app_name; debug overrides to "Fud AI Debug".
         manifestPlaceholders["launcherAppName"] = "@string/app_name"
 
@@ -447,6 +447,8 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation("androidx.test:runner:1.7.0")
     androidTestImplementation("androidx.test:core:1.7.0")
+    // Billing responses are isolated in UI tests; no real store account or purchase.
+    androidTestImplementation("io.mockk:mockk-android:1.14.11")
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
 }

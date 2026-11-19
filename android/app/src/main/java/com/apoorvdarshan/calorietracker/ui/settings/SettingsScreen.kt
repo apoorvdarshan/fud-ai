@@ -1269,9 +1269,11 @@ fun SettingsScreen(
                         icon = Icons.Outlined.Tune
                     ) { sheet = SettingsSheet.REASONING_EFFORT }
                 }
-                // Only OpenAI-compatible + Anthropic send a token cap; Gemini is left
-                // uncapped, so hide this for Gemini.
-                if (ui.selectedAI.apiFormat != AIProvider.ApiFormat.GEMINI) {
+                // The shared limit already applies to compatible fallback requests, too.
+                if (ui.selectedAI.apiFormat != AIProvider.ApiFormat.GEMINI ||
+                    (ui.separateTextProviderEnabled && ui.selectedTextAI.apiFormat != AIProvider.ApiFormat.GEMINI) ||
+                    (ui.fallbackEnabled && ui.fallbackProvider.apiFormat != AIProvider.ApiFormat.GEMINI) ||
+                    (ui.textFallbackEnabled && ui.textFallbackProvider.apiFormat != AIProvider.ApiFormat.GEMINI)) {
                     HorizontalDivider()
                     SettingRow(
                         stringResource(R.string.settings_max_tokens),

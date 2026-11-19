@@ -37,6 +37,15 @@ class MealScheduleTest {
     }
 
     @Test
+    fun manualMealTypeWinsAfterTheTimeChanges() {
+        val schedule = MealSchedule.Default
+        val dinnerTime = LocalTime.of(19, 30)
+
+        assertEquals(MealType.DINNER, schedule.mealTypeAt(dinnerTime))
+        assertEquals(MealType.LUNCH, schedule.mealTypeAt(dinnerTime, MealType.LUNCH))
+    }
+
+    @Test
     fun invalidScheduleFallsBackToDefaults() {
         val invalid = MealSchedule(lunchStartMinutes = 19 * 60, dinnerStartMinutes = 18 * 60)
 

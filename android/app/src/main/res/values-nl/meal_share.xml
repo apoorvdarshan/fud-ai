@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="share_links_title">Deellinks</string>
+    <string name="share_link_short">Korte link</string>
+    <string name="share_link_short_detail">Toont eerst een voorbeeld en verloopt na 7 dagen.</string>
+    <string name="share_link_direct">Directe link</string>
+    <string name="share_link_direct_detail">Opent Fud AI meteen en verloopt nooit, maar de link is langer.</string>
+    <string name="share_link_choice_title">Hoe moeten maaltijdlinks werken?</string>
+    <string name="share_link_choice_footer">Je kunt dit altijd wijzigen in %1$s.</string>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="share_links_title">Paylaşım linkləri</string>
+    <string name="share_link_short">Qısa link</string>
+    <string name="share_link_short_detail">Əvvəlcə önizləmə göstərir və 7 gündən sonra etibarsız olur.</string>
+    <string name="share_link_direct">Birbaşa link</string>
+    <string name="share_link_direct_detail">Fud AI-ı dərhal açır və vaxtı bitmir, lakin link daha uzundur.</string>
+    <string name="share_link_choice_title">Yemək linkləri necə işləsin?</string>
+    <string name="share_link_choice_footer">Bunu istənilən vaxt %1$s bölməsində dəyişə bilərsiniz.</string>
+</resources>

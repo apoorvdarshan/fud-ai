@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="share_links_title">Liens de partage</string>
+    <string name="share_link_short">Lien court</string>
+    <string name="share_link_short_detail">Affiche d’abord un aperçu et expire après 7 jours.</string>
+    <string name="share_link_direct">Lien direct</string>
+    <string name="share_link_direct_detail">Ouvre Fud AI immédiatement et n’expire jamais, mais le lien est plus long.</string>
+    <string name="share_link_choice_title">Comment les liens de repas doivent-ils fonctionner ?</string>
+    <string name="share_link_choice_footer">Vous pouvez modifier ce choix à tout moment dans %1$s.</string>
+</resources>

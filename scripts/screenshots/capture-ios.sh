@@ -30,7 +30,15 @@ SCENES=(
 mkdir -p "$OUT"
 UDID=$(xcrun simctl list devices available | grep -F "$DEVICE_NAME (" | head -1 | sed -E 's/.*\(([0-9A-F-]{36})\).*/\1/' || true)
 if [ -z "$UDID" ]; then
-  RUNTIME=$(xcrun simctl list runtimes available | grep -E '^iOS' | tail -1 | sed -E 's/.* - (com\.apple\.CoreSimulator\.SimRuntime\.iOS-[0-9-]+).*/\1/')
+  # The newest runtime that offers an iPhone 17 Pro; a device-specific runtime (iOS 27.1
+  # ships only the iPhone Duo) can be newer and would reject this device type.
+  RUNTIME=$(xcrun simctl list --json runtimes available | python3 -I -c '
+import json, sys
+runtimes = [r for r in json.load(sys.stdin)["runtimes"] if ".iOS-" in r["identifier"] and
+            any(d["identifier"] == sys.argv[1] for d in r.get("supportedDeviceTypes", []))]
+runtimes.sort(key=lambda r: tuple(int(p) for p in r["version"].split(".")))
+print(runtimes[-1]["identifier"] if runtimes else "")' "$DEVICE_TYPE")
+  [ -n "$RUNTIME" ] || { echo "No installed iOS runtime supports $DEVICE_TYPE." >&2; exit 1; }
   UDID=$(xcrun simctl create "$DEVICE_NAME" "$DEVICE_TYPE" "$RUNTIME")
 fi
 echo "Simulator $UDID"

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="share_links_title">Teilen-Links</string>
+    <string name="share_link_short">Kurzer Link</string>
+    <string name="share_link_short_detail">Zeigt zuerst eine Vorschau und läuft nach 7 Tagen ab.</string>
+    <string name="share_link_direct">Direkter Link</string>
+    <string name="share_link_direct_detail">Öffnet Fud AI sofort und läuft nie ab, ist aber länger.</string>
+    <string name="share_link_choice_title">Wie sollen Mahlzeiten-Links funktionieren?</string>
+    <string name="share_link_choice_footer">Du kannst das jederzeit unter %1$s ändern.</string>
+</resources>

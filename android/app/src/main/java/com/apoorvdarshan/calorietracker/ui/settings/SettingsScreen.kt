@@ -1,6 +1,7 @@
 package com.apoorvdarshan.calorietracker.ui.settings
 
 import com.apoorvdarshan.calorietracker.models.OpenRouterReasoningEffort
+import com.apoorvdarshan.calorietracker.models.MealShareLinkStyle
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -253,7 +254,7 @@ private enum class SettingsSheet {
     SPEECH_FALLBACK_PROVIDER, SPEECH_FALLBACK_LANGUAGE, SPEECH_FALLBACK_KEY,
     GENDER, BIRTHDAY, HEIGHT, WEIGHT, BODY_FAT, GOAL_BODY_FAT, ACTIVITY, GOAL, GOAL_WEIGHT, GOAL_SPEED,
     CALORIES, PROTEIN, CARBS, FAT, OPTIONAL_NUTRIENTS,
-    APPEARANCE, APP_LANGUAGE, WEEK_START, ENERGY_UNIT, MEAL_TIMES, WATER_GOAL, WATER_UNIT, WATER_QUICK_ADD, FASTING_GOAL, WORKOUT_SPLIT, WORKOUT_RPE, WORKOUT_REST
+    APPEARANCE, APP_LANGUAGE, WEEK_START, ENERGY_UNIT, SHARE_LINKS, MEAL_TIMES, WATER_GOAL, WATER_UNIT, WATER_QUICK_ADD, FASTING_GOAL, WORKOUT_SPLIT, WORKOUT_RPE, WORKOUT_REST
 }
 
 private fun energyUnitTitleRes(unit: EnergyUnit): Int =
@@ -328,6 +329,10 @@ internal enum class SettingsCategory(
         AboutSettingsCategory.LEGAL.icon,
         AboutSettingsCategory.LEGAL
     );
+
+    /** Whether the page shows values from [SettingsViewModel]'s stored-settings snapshot. */
+    val readsSettingsSnapshot: Boolean
+        get() = aboutCategory == null && this != VOICE_ASSISTANT && this != AI_ACCESS
 
     /** The voice assistant's name for this category (`open_screen` / `get_app_state`). */
     val voiceSection: VoiceSettingsSection?
@@ -730,6 +735,16 @@ fun SettingsScreen(
                 onBack = { selectedCategory = null }
             )
 
+            // A fresh activity gets a new ViewModel whose snapshot is still loading; wait
+            // for it rather than briefly showing every switch at its default. Pages that
+            // load their own data (voice, AI Access, About) don't wait on it.
+            if (!ui.settingsLoaded && selectedCategory!!.readsSettingsSnapshot) {
+                Box(Modifier.fillMaxWidth().padding(vertical = 32.dp), contentAlignment = Alignment.Center) {
+                    CircularProgressIndicator()
+                }
+                return@Column
+            }
+
             // Section 1 — Personal Info (matches iOS Section "Personal Info")
             if (selectedCategory == SettingsCategory.PERSONAL_INFO) {
             SectionCard {
@@ -1021,6 +1036,12 @@ fun SettingsScreen(
                     stringResource(energyUnitTitleRes(ui.energyUnit)),
                     icon = Icons.Outlined.LocalFireDepartment
                 ) { sheet = SettingsSheet.ENERGY_UNIT }
+                HorizontalDivider()
+                SettingRow(
+                    stringResource(R.string.share_links_title),
+                    stringResource(ui.mealShareLinkStyle.titleRes),
+                    icon = Icons.Outlined.Link
+                ) { sheet = SettingsSheet.SHARE_LINKS }
                 HorizontalDivider()
                 SettingRow(
                     stringResource(R.string.settings_quick_actions),
@@ -3315,6 +3336,14 @@ private fun SettingsSheets(
                     label = { stringResource(energyUnitTitleRes(it)) },
                     selected = { it == ui.energyUnit },
                     onSelect = { vm.setEnergyUnit(it); onDismiss() }
+                )
+                SettingsSheet.SHARE_LINKS -> ListSheet(
+                    title = stringResource(R.string.share_links_title),
+                    items = MealShareLinkStyle.entries,
+                    label = { stringResource(it.titleRes) },
+                    subtitle = { stringResource(it.detailRes) },
+                    selected = { it == ui.mealShareLinkStyle },
+                    onSelect = { vm.setMealShareLinkStyle(it); onDismiss() }
                 )
                 SettingsSheet.MEAL_TIMES -> MealTimesSheet(
                     current = ui.mealSchedule,

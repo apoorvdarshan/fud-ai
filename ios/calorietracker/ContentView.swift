@@ -172,7 +172,7 @@ struct ContentView: View {
                 await refreshAppUpdateState()
                 await runPostUpdatePromptsIfNeeded()
             }
-            .alert("Optional: let us handle the AI keys", isPresented: $showHostedUpsellPrompt) {
+            .alert("Try free for 3 days", isPresented: $showHostedUpsellPrompt) {
                 Button("See Plus & Pro plans") {
                     showHostedUpsellPaywall = true
                 }
@@ -180,7 +180,7 @@ struct ContentView: View {
                     continueToMeetDeveloperPrompt()
                 }
             } message: {
-                Text("Fud AI is free with your own API keys (BYOK) — and always will be. If juggling keys feels confusing, Plus and Pro plans run the AI for you with no keys to manage. Totally optional, nothing changes unless you switch.")
+                Text("Try Plus or Pro yearly without API keys. Trial limits apply. See prices and terms, or keep BYOK free.")
             }
             .sheet(isPresented: $showHostedUpsellPaywall, onDismiss: { continueToMeetDeveloperPrompt() }) {
                 HostedPaywallView()
@@ -4780,6 +4780,8 @@ struct ProfileView: View {
     @AppStorage(EnergyBurnSettings.enabledKey) private var energyBurnEnabled = false
     @AppStorage("weekStartsOnMonday") private var weekStartsOnMonday = true
     @AppStorage(EnergyUnit.storageKey) private var energyUnit = EnergyUnit.defaultUnit
+    /// Nil until the first meal share asks; the row shows the default meanwhile.
+    @AppStorage(MealShareLinkStyle.storageKey) private var mealShareLinkStyle: MealShareLinkStyle?
     @AppStorage(FoodMeasurementSettings.preferGramsByDefaultKey) private var preferGramsByDefault = false
     @AppStorage(MealPhotoSettings.saveToGalleryKey) private var saveMealPhotosToGallery = false
     @AppStorage(AppThemeColor.storageKey) private var appThemeColorRaw = AppThemeColor.defaultColor.rawValue
@@ -5450,6 +5452,31 @@ struct ProfileView: View {
                                 foodStore: foodStore, weightStore: weightStore, bodyFatStore: bodyFatStore, profile: profile
                             )
                         }
+                    }
+
+                    VStack(alignment: .leading, spacing: 4) {
+                        Picker(selection: Binding(
+                            get: { mealShareLinkStyle ?? .defaultStyle },
+                            set: { mealShareLinkStyle = $0 }
+                        )) {
+                            ForEach(MealShareLinkStyle.allCases) { style in
+                                Text(style.title).tag(style)
+                            }
+                        } label: {
+                            Label {
+                                Text("Share Links")
+                            } icon: {
+                                Image(systemName: "link")
+                                    .foregroundStyle(AppColors.calorie)
+                            }
+                        }
+                        .pickerStyle(.menu)
+                        .tint(.secondary)
+                        .accessibilityIdentifier("settings.mealShareLinkStyle")
+                        Text((mealShareLinkStyle ?? .defaultStyle).detail)
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
+                            .padding(.leading, 32)
                     }
 
                     NavigationLink {

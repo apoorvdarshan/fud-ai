@@ -29,20 +29,26 @@ fi
 
 # Create a task-owned simulator: never erase or reset a developer's existing one.
 simulator_id="$(python3 - <<'PY'
-import json, subprocess
+import json, subprocess, sys
 data = json.loads(subprocess.check_output(['xcrun', 'simctl', 'list', '--json']))
 def version(runtime):
     return tuple(int(part) for part in runtime['version'].split('.'))
-runtimes = [r for r in data['runtimes'] if r.get('isAvailable') and
-            '.iOS-' in r['identifier'] and version(r) >= (26, 2)]
+runtimes = sorted((r for r in data['runtimes'] if r.get('isAvailable') and
+                   '.iOS-' in r['identifier'] and version(r) >= (26, 2)), key=version, reverse=True)
 if not runtimes:
     raise SystemExit('Install an iOS 26.2 or newer Simulator runtime in Xcode.')
-runtime = max(runtimes, key=version)
-device_types = runtime.get('supportedDeviceTypes', [])
-iphones = [d for d in device_types if d.get('productFamily') == 'iPhone']
-if not iphones:
-    raise SystemExit('Selected runtime has no supported iPhone device type.')
-device = next((d for d in iphones if d['name'] == 'iPhone 17 Pro'), iphones[0])
+def iphones(runtime):
+    return [d for d in runtime.get('supportedDeviceTypes', []) if d.get('productFamily') == 'iPhone']
+# The UI tests are laid out for an iPhone 17 Pro screen. Take the newest runtime that
+# offers one: a newer device-specific runtime (iOS 27.1 ships only the iPhone Duo, a
+# 386x678 pt screen) would otherwise win and push rows the tests expect off-screen.
+choice = next(((r, d) for r in runtimes for d in iphones(r) if d['name'] == 'iPhone 17 Pro'), None)
+if choice is None:
+    choice = next(((r, iphones(r)[0]) for r in runtimes if iphones(r)), None)
+if choice is None:
+    raise SystemExit('No installed iOS runtime supports an iPhone device type.')
+runtime, device = choice
+print(f"Simulator: {device['name']} on iOS {runtime['version']}", file=sys.stderr)
 print(subprocess.check_output(['xcrun', 'simctl', 'create', 'Fud AI CI',
       device['identifier'], runtime['identifier']], text=True).strip())
 PY

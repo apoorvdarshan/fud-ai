@@ -11,7 +11,7 @@ class AppLanguageTest {
         assertEquals(
             listOf(
                 "en", "ar", "az", "cs", "de", "es", "fr", "hi", "it",
-                "ja", "ko", "nl", "pl", "pt-BR", "ro", "ru", "uk", "zh-CN"
+                "ja", "ko", "nl", "pl", "pt-BR", "ro", "ru", "tr", "uk", "zh-CN"
             ),
             AppLanguage.supportedTags
         )
@@ -32,5 +32,6 @@ class AppLanguageTest {
         assertEquals("pt-BR", AppLanguage.matchSupported("pt-BR"))
         assertEquals("zh-CN", AppLanguage.matchSupported("zh-CN"))
         assertEquals("en", AppLanguage.matchSupported("en-US"))
+        assertEquals("tr", AppLanguage.matchSupported("tr-TR"))
     }
 }

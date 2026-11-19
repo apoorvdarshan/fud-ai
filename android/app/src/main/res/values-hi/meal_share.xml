@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="share_links_title">शेयर लिंक</string>
+    <string name="share_link_short">छोटा लिंक</string>
+    <string name="share_link_short_detail">पहले प्रीव्यू दिखाता है और 7 दिन बाद समाप्त हो जाता है।</string>
+    <string name="share_link_direct">डायरेक्ट लिंक</string>
+    <string name="share_link_direct_detail">Fud AI तुरंत खोलता है और कभी समाप्त नहीं होता, लेकिन लिंक लंबा होता है।</string>
+    <string name="share_link_choice_title">मील लिंक कैसे काम करें?</string>
+    <string name="share_link_choice_footer">आप इसे कभी भी %1$s में बदल सकते हैं।</string>
+</resources>

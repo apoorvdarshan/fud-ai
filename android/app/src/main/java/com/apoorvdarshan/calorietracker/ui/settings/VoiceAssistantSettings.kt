@@ -98,8 +98,8 @@ import kotlinx.coroutines.withContext
 
 private enum class VoiceSheet { PROVIDER, MODEL, VOICE, LANGUAGE }
 
-/** Languages offered for replies: the app's languages, plus Turkish, which has strings but no picker entry yet. */
-private val REPLY_LANGUAGES: List<String> = (AppLanguage.supportedTags + "tr").distinct()
+/** Languages offered for replies: the app's languages. */
+private val REPLY_LANGUAGES: List<String> = AppLanguage.supportedTags
 
 /**
  * Settings → Voice Assistant: provider (Automatic, Fud AI Plus/Pro, Gemini, OpenAI, xAI),
@@ -237,7 +237,10 @@ internal fun VoiceAssistantSettings(container: AppContainer, onOpenAiProviders: 
                     icon = Icons.Outlined.Timer
                 ) { container.hostedUi.show(if (entitlement.isEntitled) HostedPrompt.Credits else HostedPrompt.Paywall) }
             }
-            VoiceFooter(stringResource(R.string.voice_settings_minutes_footer))
+            VoiceFooter(if (entitlement.trialEndsAt != null)
+                stringResource(R.string.hosted_trial_limits,
+                    if (entitlement.plan == com.apoorvdarshan.calorietracker.services.hosted.HostedPlan.PLUS) 2 else 5)
+                else stringResource(R.string.voice_settings_minutes_footer))
         }
 
         SectionCard(title = stringResource(R.string.voice_settings_open_title)) {

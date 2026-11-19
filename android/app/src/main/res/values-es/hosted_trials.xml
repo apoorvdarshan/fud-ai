@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hosted_trial_cta">Prueba gratis durante 3 días</string>
+    <string name="hosted_trial_disclosure">3 días gratis, después %1$s/año. Renovación automática. Cancela antes de que termine la prueba para evitar el cobro.</string>
+    <string name="hosted_trial_limits">Prueba: 20 acciones de IA y %1$d minutos de voz/día (UTC). Límites completos después. Los créditos extra son de pago.</string>
+    <string name="hosted_trial_invite_body">Prueba Plus o Pro anual sin claves API. Se aplican límites de prueba. Consulta precios y condiciones o sigue con BYOK gratis.</string>
+    <string name="hosted_trial_ends">La prueba termina</string>
+    <string name="hosted_trial_reminder_title">La prueba termina mañana</string>
+    <string name="hosted_trial_reminder_body">Tu plan anual se renueva después de la prueba. Revisa o cancela en los ajustes de la tienda.</string>
+    <string name="hosted_trial_invite_title">Prueba gratis durante 3 días</string>
+</resources>

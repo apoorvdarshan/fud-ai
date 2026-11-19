@@ -1,8 +1,8 @@
 # App Store Listing
 
-App Store Connect submission details for Fud AI v7.1.2 build 39 (iOS only). Each field is in a code block for easy copy-paste. Not submitted.
+App Store Connect submission details for Fud AI v8.0 build 40 (iPhone and iPad). Each field is in a code block for easy copy-paste. Not submitted.
 
-7.1.2 is an iOS-only release that ships alongside the first submission of the optional Plus/Pro hosted AI subscriptions. It re-arms the one-time hosted AI prompt for existing users and hides it until the plans are actually purchasable. Android stays on 7.1.1.
+8.0 ships alongside Android 8.0. It adds Live Voice (the Home orb, Siri, the Action Button and, on iOS 18, Control Center), iPad support, AR portion sizing in the food camera, a workout rest timer and routines, Weekly Recap and Steps, kcal or kJ, the Welcome back restore, Short or Direct share links, Alibaba Qwen and Turkish. iOS 7.1.2 build 39 is the live App Store release.
 
 ## App Name
 ```
@@ -16,7 +16,7 @@ Macros, AI Coach & Workouts
 
 ## Promotional Text (170 chars max)
 ```
-New in 7.1: Weekly Challenge places, Help on Discord, and on-device food photos with Apple Intelligence on iOS 27.
+New in 8.0: Live Voice. Talk to Fud AI to log meals and check progress. Now on iPad, with AR portion sizing, workout routines and a Weekly Recap.
 ```
 
 ## Keywords (100 chars max)
@@ -34,17 +34,17 @@ Secondary: Food & Drink
 ```
 Effortless calorie tracking with AI-powered food recognition. Snap, scan, speak, or type a meal — get instant calories, macros, and nutrients.
 
-NEW in v7.1: Weekly Challenge places with a podium and 20 per page; Help & Feedback on GitHub or Discord; on-device food photos with Apple Intelligence on iOS 27. Still includes v7.0: optional Plus/Pro hosted AI or Bring Your Own Key; daily steps; Walk/Run; custom exercises; meal date/time; Log Food widget; Czech and Ukrainian (18 languages).
+NEW in v8.0: Live Voice. Talk to Fud AI to log meals, scan barcodes and check your progress, from Home, Siri, the Action Button or Control Center (iOS 18 and later). Fud AI now runs on iPad, and the food camera measures portions with AR. Also: workout rest timer and routines, Weekly Recap, Steps, kcal or kJ, Short or Direct share links, Alibaba Qwen, and Turkish (19 languages).
 
 Nutrition includes custom goals plus caffeine, creatine, and other performance compounds. Optional fasting adds timers, editable history, goals, alerts, and Coach context. Apple Watch can log water; import Watch workouts from HealthKit when Health is enabled.
 
-Free, open source, privacy-first. BYOK stays free forever; optional Plus/Pro hosted AI is iOS convenience only. No ads; optional tips support development.
+Free, open source, privacy-first. BYOK stays free forever; optional Plus/Pro hosted AI is a convenience. No ads; optional tips support development.
 
 LOG MEALS
 Use Camera or Photos (up to 10 images and a note), Barcode, Voice, Text, Manual Entry, Saved Meals, Copy from Day, Siri, or the Log Food widget. Choose which food actions appear in Home +.
 
 AI ACCESS
-Bring Your Own Key supports Gemini, OpenAI, Claude, Grok, Groq, OpenRouter, Together AI, Hugging Face, Fireworks AI, DeepInfra, Mistral, Ollama, or any OpenAI-compatible endpoint. Keys stay in iOS Keychain. Optional Plus/Pro hosted AI is available without your own key.
+Bring Your Own Key supports Gemini, OpenAI, Claude, Grok, Groq, OpenRouter, Together AI, Hugging Face, Fireworks AI, DeepInfra, Mistral, Alibaba Qwen, Ollama, or any OpenAI-compatible endpoint. Keys stay in iOS Keychain. Optional Plus/Pro hosted AI is available without your own key.
 
 6 SPEECH-TO-TEXT OPTIONS
 Native iOS, Gemini Audio, OpenAI Whisper, Groq, Deepgram, and AssemblyAI, with selectable language handling.
@@ -87,18 +87,12 @@ Source: https://github.com/apoorvdarshan/fud-ai
 
 ```
 
-## What's New (v7.1.2 — iOS only, submitting with the Plus/Pro subscriptions)
+## What's New (v8.1.1)
 ```
-Fud AI 7.1.2 keeps the 7.1 update and makes the optional Plus/Pro hosted AI easier to find.
-
-NEW
-• Plus and Pro plans, if you want Fud AI to run the AI for you with no API keys to manage. Totally optional — Bring Your Own Key stays free forever.
-
-IMPROVED
-• Weekly Challenge standings, Help & Feedback on GitHub or Discord, and on-device food photos with Apple Intelligence on iOS 27 carry over from 7.1.
-• If you use your own API keys, Fud AI now offers the hosted plans once so it is easy to switch when juggling keys feels like a chore.
-
-Existing logs, goals, Health data, widgets, workout history, and BYOK settings are preserved during a normal update.
+Fud AI 8.1.1
+• Plus and Pro subscriptions now start at the displayed subscription price, without a free trial.
+• Trials already started keep their original terms.
+• Using your own API key remains free.
 ```
 
 ## Privacy URL

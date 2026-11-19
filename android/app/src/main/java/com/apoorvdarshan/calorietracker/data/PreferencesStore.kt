@@ -29,6 +29,7 @@ import com.apoorvdarshan.calorietracker.models.ProductInfoField
 import com.apoorvdarshan.calorietracker.models.QuickAction
 import com.apoorvdarshan.calorietracker.models.SpeechLanguage
 import com.apoorvdarshan.calorietracker.models.EnergyUnit
+import com.apoorvdarshan.calorietracker.models.MealShareLinkStyle
 import com.apoorvdarshan.calorietracker.models.SpeechProvider
 import com.apoorvdarshan.calorietracker.models.UserProfile
 import com.apoorvdarshan.calorietracker.models.WeightEntry
@@ -710,6 +711,10 @@ class PreferencesStore(
     /** kcal (default) or kJ for display and calorie input; stored values stay kcal. Mirrors iOS "energyUnit". */
     val energyUnit: Flow<EnergyUnit> = ds.data.map { EnergyUnit.fromStorage(it[Keys.ENERGY_UNIT]) }
     suspend fun setEnergyUnit(v: EnergyUnit) { ds.edit { it[Keys.ENERGY_UNIT] = v.storageValue } }
+
+    /** Null until chosen, so the first meal share asks once. Mirrors iOS "mealShareLinkStyle". */
+    val mealShareLinkStyle: Flow<MealShareLinkStyle?> = ds.data.map { MealShareLinkStyle.fromStorage(it[Keys.MEAL_SHARE_LINK_STYLE]) }
+    suspend fun setMealShareLinkStyle(v: MealShareLinkStyle) { ds.edit { it[Keys.MEAL_SHARE_LINK_STYLE] = v.storageValue } }
 
     val quickAction1: Flow<QuickAction> = quickAction(Keys.QUICK_ACTION_1, QuickAction.Defaults[0])
     val quickAction2: Flow<QuickAction> = quickAction(Keys.QUICK_ACTION_2, QuickAction.Defaults[1])
@@ -1679,7 +1684,7 @@ class PreferencesStore(
         val ADAPTIVE_GOALS_ENABLED = booleanPreferencesKey("adaptiveGoalsEnabled")
         val REVIEW_PROMPTED_AFTER_FIRST_LOG = booleanPreferencesKey("reviewPromptedAfterFirstLog")
         val HAS_SEEN_HOSTED_UPSELL_PROMPT = booleanPreferencesKey("hasSeenHostedUpsellPrompt")
-        val HAS_SEEN_HOSTED_UPSELL_PROMPT_V2 = booleanPreferencesKey("hasSeenHostedUpsellPrompt.android-7.2")
+        val HAS_SEEN_HOSTED_UPSELL_PROMPT_V2 = booleanPreferencesKey("hasSeenHostedUpsellPrompt.yearly-trial-2026-11")
         val AI_ACCESS_MODE = stringPreferencesKey("aiAccessMode")
         val PENDING_HOSTED_SWITCH = booleanPreferencesKey("pendingHostedSwitch")
         val HAS_SEEN_MEET_DEVELOPER_PROMPT = booleanPreferencesKey("hasCompletedMeetDeveloperPrompt")
@@ -1702,6 +1707,7 @@ class PreferencesStore(
         val APP_THEME_COLOR = stringPreferencesKey("appThemeColor")
         val WEEK_STARTS_MONDAY = booleanPreferencesKey("weekStartsOnMonday")
         val ENERGY_UNIT = stringPreferencesKey("energyUnit")
+        val MEAL_SHARE_LINK_STYLE = stringPreferencesKey("mealShareLinkStyle")
         val QUICK_ACTION_1 = stringPreferencesKey("quickAction.slot1")
         val QUICK_ACTION_2 = stringPreferencesKey("quickAction.slot2")
         val QUICK_ACTION_3 = stringPreferencesKey("quickAction.slot3")

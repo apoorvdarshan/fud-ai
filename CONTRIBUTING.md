@@ -2,8 +2,8 @@
 
 Thanks for your interest in contributing! Fud AI is an open-source, "bring-your-own-key" calorie tracker. The repo is a monorepo:
 
-- `ios/` — SwiftUI iOS app (current release candidate: v6.1 build 34)
-- `android/` — Kotlin + Jetpack Compose app (current release candidate: v6.1 / versionCode 34)
+- `ios/` — SwiftUI iOS app (current release: v8.0 build 40)
+- `android/` — Kotlin + Jetpack Compose app (current release: v8.0.1 / versionCode 45)
 - `web/` — marketing site at [fud-ai.app](https://fud-ai.app) (plain HTML/CSS, Cloudflare Workers Static Assets)
 
 PRs, bug reports, and feature ideas for any of these are welcome.

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hosted_trial_cta">3 Tage kostenlos testen</string>
+    <string name="hosted_trial_disclosure">3 Tage kostenlos, danach %1$s/Jahr. Automatische Verlängerung. Vor Ablauf der Testphase kündigen, um Kosten zu vermeiden.</string>
+    <string name="hosted_trial_limits">Testphase: 20 KI-Aktionen und %1$d Sprachminuten/Tag (UTC). Danach gelten die vollen Tariflimits. Zusätzliche Credits kosten Geld.</string>
+    <string name="hosted_trial_invite_body">Plus oder Pro jährlich ohne API-Schlüssel testen. Testlimits gelten. Preise und Bedingungen ansehen oder BYOK kostenlos behalten.</string>
+    <string name="hosted_trial_ends">Testphase endet</string>
+    <string name="hosted_trial_reminder_title">Testphase endet morgen</string>
+    <string name="hosted_trial_reminder_body">Dein Jahrestarif verlängert sich nach der Testphase. In den Store-Einstellungen prüfen oder kündigen.</string>
+    <string name="hosted_trial_invite_title">3 Tage kostenlos testen</string>
+</resources>

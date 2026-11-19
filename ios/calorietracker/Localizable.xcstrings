@@ -1,6 +1,797 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "Share Links": {
+      "comment": "Settings row (App Settings) choosing which link a meal share sends.",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "روابط المشاركة"
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Paylaşım linkləri"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Odkazy ke sdílení"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Teilen-Links"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enlaces para compartir"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Liens de partage"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "शेयर लिंक"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Link di condivisione"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "共有リンク"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "공유 링크"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deellinks"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Linki do udostępniania"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Links de compartilhamento"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Linkuri de distribuire"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ссылки для отправки"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Paylaşım Bağlantıları"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Посилання для поширення"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "分享链接"
+          }
+        }
+      }
+    },
+    "Short Link": {
+      "comment": "Meal share link option: a short fud-ai.app/m link that opens a preview page.",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "رابط قصير"
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qısa link"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Krátký odkaz"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kurzer Link"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enlace corto"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lien court"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "छोटा लिंक"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Link breve"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "短いリンク"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "짧은 링크"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Korte link"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Krótki link"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Link curto"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Link scurt"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Короткая ссылка"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kısa Bağlantı"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Коротке посилання"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "短链接"
+          }
+        }
+      }
+    },
+    "Shows a preview first and expires after 7 days.": {
+      "comment": "Detail for the Short Link option.",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يعرض معاينة أولاً وتنتهي صلاحيته بعد 7 أيام."
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Əvvəlcə önizləmə göstərir və 7 gündən sonra etibarsız olur."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nejdřív zobrazí náhled a po 7 dnech vyprší."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zeigt zuerst eine Vorschau und läuft nach 7 Tagen ab."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Muestra primero una vista previa y caduca a los 7 días."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Affiche d’abord un aperçu et expire après 7 jours."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "पहले प्रीव्यू दिखाता है और 7 दिन बाद समाप्त हो जाता है।"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostra prima un’anteprima e scade dopo 7 giorni."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最初にプレビューを表示し、7日後に期限切れになります。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "먼저 미리보기를 보여 주며 7일 후 만료됩니다."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toont eerst een voorbeeld en verloopt na 7 dagen."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Najpierw pokazuje podgląd i wygasa po 7 dniach."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostra uma prévia primeiro e expira após 7 dias."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Afișează mai întâi o previzualizare și expiră după 7 zile."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сначала показывает предпросмотр и истекает через 7 дней."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Önce bir önizleme gösterir ve 7 gün sonra süresi dolar."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Спочатку показує попередній перегляд і діє 7 днів."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "先显示预览，7 天后过期。"
+          }
+        }
+      }
+    },
+    "Direct Link": {
+      "comment": "Meal share link option: a long link that opens the app directly.",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "رابط مباشر"
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Birbaşa link"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přímý odkaz"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Direkter Link"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enlace directo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lien direct"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "डायरेक्ट लिंक"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Link diretto"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "直接リンク"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "직접 링크"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Directe link"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bezpośredni link"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Link direto"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Link direct"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прямая ссылка"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Doğrudan Bağlantı"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пряме посилання"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "直接链接"
+          }
+        }
+      }
+    },
+    "Opens Fud AI right away and never expires, but the link is longer.": {
+      "comment": "Detail for the Direct Link option.",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يفتح Fud AI فوراً ولا تنتهي صلاحيته، لكن الرابط أطول."
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI-ı dərhal açır və vaxtı bitmir, lakin link daha uzundur."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otevře Fud AI hned a nikdy nevyprší, ale odkaz je delší."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Öffnet Fud AI sofort und läuft nie ab, ist aber länger."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abre Fud AI al instante y nunca caduca, pero el enlace es más largo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvre Fud AI immédiatement et n’expire jamais, mais le lien est plus long."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI तुरंत खोलता है और कभी समाप्त नहीं होता, लेकिन लिंक लंबा होता है।"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apre subito Fud AI e non scade mai, ma il link è più lungo."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AIをすぐに開き、期限切れになりませんが、リンクは長くなります。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI를 바로 열고 만료되지 않지만 링크가 더 깁니다."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opent Fud AI meteen en verloopt nooit, maar de link is langer."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Od razu otwiera Fud AI i nigdy nie wygasa, ale link jest dłuższy."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abre o Fud AI na hora e nunca expira, mas o link é mais longo."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deschide imediat Fud AI și nu expiră niciodată, dar linkul este mai lung."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сразу открывает Fud AI и не истекает, но ссылка длиннее."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI'ı hemen açar ve süresi dolmaz, ancak bağlantı daha uzundur."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Одразу відкриває Fud AI і не має терміну дії, але посилання довше."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "立即打开 Fud AI，永不过期，但链接较长。"
+          }
+        }
+      }
+    },
+    "How should meal links work?": {
+      "comment": "Title of the one-time choice shown on the first meal share.",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "كيف تريد أن تعمل روابط الوجبات؟"
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yemək linkləri necə işləsin?"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jak mají odkazy na jídla fungovat?"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wie sollen Mahlzeiten-Links funktionieren?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Cómo quieres que funcionen los enlaces de comidas?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comment les liens de repas doivent-ils fonctionner ?"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "मील लिंक कैसे काम करें?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Come devono funzionare i link dei pasti?"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "食事のリンクをどのように共有しますか？"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "식사 링크를 어떻게 공유할까요?"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hoe moeten maaltijdlinks werken?"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jak mają działać linki do posiłków?"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Como os links de refeições devem funcionar?"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cum să funcționeze linkurile pentru mese?"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Как должны работать ссылки на блюда?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Öğün bağlantıları nasıl çalışsın?"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Як мають працювати посилання на страви?"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "餐食链接要如何分享？"
+          }
+        }
+      }
+    },
+    "You can change this anytime in %@.": {
+      "comment": "Footer of the one-time meal link choice. %@ is the path, e.g. “Settings → App Settings”.",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يمكنك تغيير ذلك في أي وقت من %@."
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bunu istənilən vaxt %@ bölməsində dəyişə bilərsiniz."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kdykoli to můžete změnit v %@."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Du kannst das jederzeit unter %@ ändern."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Puedes cambiarlo cuando quieras en %@."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vous pouvez modifier ce choix à tout moment dans %@."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "आप इसे कभी भी %@ में बदल सकते हैं।"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Puoi cambiarlo in qualsiasi momento in %@."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "これはいつでも%@で変更できます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "언제든지 %@에서 변경할 수 있습니다."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Je kunt dit altijd wijzigen in %@."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Możesz to zmienić w dowolnej chwili w %@."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Você pode mudar isso a qualquer momento em %@."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Poți schimba oricând asta în %@."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Это можно изменить в любое время в разделе %@."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bunu istediğiniz zaman %@ bölümünden değiştirebilirsiniz."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Це можна будь-коли змінити в розділі %@."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你可以随时在%@中更改此设置。"
+          }
+        }
+      }
+    },
     "iCloud Backup": {
       "localizations": {
         "es": {
@@ -198364,6 +199155,944 @@
         }
       }
     },
+    "Camera is unavailable.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الكاميرا غير متاحة."
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kamera əlçatan deyil."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fotoaparát není k dispozici."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Kamera ist nicht verfügbar."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La cámara no está disponible."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L’appareil photo n’est pas disponible."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "कैमरा उपलब्ध नहीं है।"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La fotocamera non è disponibile."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "カメラを使用できません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "카메라를 사용할 수 없습니다."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De camera is niet beschikbaar."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aparat jest niedostępny."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A câmera não está disponível."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Camera nu este disponibilă."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Камера недоступна."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kamera kullanılamıyor."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Камера недоступна."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "相机不可用。"
+          }
+        }
+      }
+    },
+    "Try free for 3 days": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Try free for 3 days"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 Tage kostenlos testen"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prueba gratis durante 3 días"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Essayer gratuitement pendant 3 jours"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prova gratis per 3 giorni"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Teste grátis por 3 dias"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Probeer 3 dagen gratis"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 gün ücretsiz dene"
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 gün pulsuz sına"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wypróbuj bezpłatnie przez 3 dni"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vyzkoušet 3 dny zdarma"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Încearcă gratuit 3 zile"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Попробовать бесплатно 3 дня"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Спробувати безкоштовно 3 дні"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 दिन मुफ़्त आज़माएँ"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "جرّب مجانًا لمدة 3 أيام"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3日間無料で試す"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3일 무료 체험"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "免费试用3天"
+          }
+        }
+      }
+    },
+    "3 days free, then %@/year. Renews automatically. Cancel before the trial ends to avoid a charge.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 days free, then %@/year. Renews automatically. Cancel before the trial ends to avoid a charge."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 Tage kostenlos, danach %@/Jahr. Automatische Verlängerung. Vor Ablauf der Testphase kündigen, um Kosten zu vermeiden."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 días gratis, después %@/año. Renovación automática. Cancela antes de que termine la prueba para evitar el cobro."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 jours gratuits, puis %@/an. Renouvellement automatique. Annulez avant la fin de l’essai pour éviter tout prélèvement."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 giorni gratis, poi %@/anno. Rinnovo automatico. Annulla prima della fine della prova per evitare addebiti."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 dias grátis, depois %@/ano. Renovação automática. Cancele antes do fim do teste para evitar cobrança."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 dagen gratis, daarna %@/jaar. Automatische verlenging. Annuleer vóór het einde van de proefperiode om kosten te voorkomen."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 gün ücretsiz, ardından %@/yıl. Otomatik yenilenir. Ücret alınmaması için deneme bitmeden iptal edin."
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 gün pulsuz, sonra %@/il. Avtomatik yenilənir. Ödəniş tutulmaması üçün sınaq bitməzdən əvvəl ləğv edin."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 dni bezpłatnie, potem %@/rok. Automatyczne odnawianie. Anuluj przed końcem okresu próbnego, aby uniknąć opłaty."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 dny zdarma, poté %@/rok. Automatické obnovení. Zrušte před koncem zkušební doby, abyste se vyhnuli platbě."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 zile gratuit, apoi %@/an. Reînnoire automată. Anulează înainte de sfârșitul perioadei de probă pentru a evita plata."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 дня бесплатно, затем %@/год. Автоматическое продление. Отмените до конца пробного периода, чтобы избежать списания."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 дні безкоштовно, потім %@/рік. Автоматичне поновлення. Скасуйте до кінця пробного періоду, щоб уникнути списання."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 दिन मुफ़्त, फिर %@/वर्ष। अपने आप नवीनीकरण होगा। शुल्क से बचने के लिए ट्रायल खत्म होने से पहले रद्द करें।"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 أيام مجانًا، ثم %@/سنة. تجديد تلقائي. ألغِ قبل انتهاء التجربة لتجنب الرسوم."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3日間無料、その後は年額%@。自動更新されます。課金を避けるには無料期間終了前に解約してください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3일 무료, 이후 연 %@. 자동 갱신됩니다. 요금이 청구되지 않으려면 체험 종료 전에 취소하세요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "免费3天，之后每年%@。自动续订。请在试用结束前取消，以免扣费。"
+          }
+        }
+      }
+    },
+    "Trial: 20 AI actions and %lld voice minutes/day (UTC). Full plan limits after trial. Extra credits cost money.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trial: 20 AI actions and %lld voice minutes/day (UTC). Full plan limits after trial. Extra credits cost money."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Testphase: 20 KI-Aktionen und %lld Sprachminuten/Tag (UTC). Danach gelten die vollen Tariflimits. Zusätzliche Credits kosten Geld."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prueba: 20 acciones de IA y %lld minutos de voz/día (UTC). Límites completos después. Los créditos extra son de pago."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Essai : 20 actions IA et %lld minutes vocales/jour (UTC). Limites complètes ensuite. Les crédits supplémentaires sont payants."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prova: 20 azioni IA e %lld minuti vocali/giorno (UTC). Limiti completi dopo la prova. I crediti extra sono a pagamento."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Teste: 20 ações de IA e %lld minutos de voz/dia (UTC). Limites completos após o teste. Créditos extras são pagos."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Proefperiode: 20 AI-acties en %lld spraakminuten/dag (UTC). Daarna de volledige limieten. Extra credits kosten geld."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deneme: günde 20 yapay zekâ işlemi ve %lld ses dakikası (UTC). Sonrasında tam plan limitleri geçerlidir. Ek krediler ücretlidir."
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sınaq: gündə 20 süni intellekt əməliyyatı və %lld səs dəqiqəsi (UTC). Sonra tam plan limitləri tətbiq olunur. Əlavə kreditlər ödənişlidir."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Próba: 20 działań AI i %lld minut głosu/dzień (UTC). Potem pełne limity planu. Dodatkowe kredyty są płatne."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zkouška: 20 akcí AI a %lld hlasových minut/den (UTC). Poté plné limity tarifu. Další kredity jsou placené."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Probă: 20 de acțiuni AI și %lld minute vocale/zi (UTC). Apoi se aplică limitele complete. Creditele suplimentare costă bani."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пробный период: 20 действий ИИ и %lld минут голоса в день (UTC). Затем полные лимиты плана. Дополнительные кредиты платные."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пробний період: 20 дій ШІ та %lld хвилин голосу на день (UTC). Потім повні ліміти плану. Додаткові кредити платні."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ट्रायल: रोज़ 20 AI कार्रवाइयाँ और %lld वॉइस मिनट (UTC)। बाद में पूरी प्लान सीमाएँ लागू होंगी। अतिरिक्त क्रेडिट के पैसे लगते हैं।"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "التجربة: 20 إجراء ذكاء اصطناعي و%lld دقيقة صوت يوميًا (UTC). بعدها تسري حدود الخطة الكاملة. الأرصدة الإضافية مدفوعة."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無料期間：1日20回のAI操作と音声%lld分（UTC）。終了後は通常のプラン上限が適用されます。追加クレジットは有料です。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "체험: 하루 AI 작업 20회, 음성 %lld분(UTC). 이후 정규 플랜 한도가 적용됩니다. 추가 크레딧은 유료입니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "试用期间：每天20次AI操作和%lld分钟语音（UTC）。试用后适用完整套餐额度。额外积分需付费。"
+          }
+        }
+      }
+    },
+    "Try Plus or Pro yearly without API keys. Trial limits apply. See prices and terms, or keep BYOK free.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Try Plus or Pro yearly without API keys. Trial limits apply. See prices and terms, or keep BYOK free."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plus oder Pro jährlich ohne API-Schlüssel testen. Testlimits gelten. Preise und Bedingungen ansehen oder BYOK kostenlos behalten."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prueba Plus o Pro anual sin claves API. Se aplican límites de prueba. Consulta precios y condiciones o sigue con BYOK gratis."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Essayez Plus ou Pro annuel sans clé API. Des limites s’appliquent. Consultez les prix et conditions ou gardez BYOK gratuit."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prova Plus o Pro annuale senza chiavi API. Si applicano limiti di prova. Consulta prezzi e condizioni o mantieni BYOK gratis."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Teste Plus ou Pro anual sem chaves API. Há limites no teste. Veja preços e termos ou mantenha BYOK grátis."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Probeer Plus of Pro jaarlijks zonder API-sleutels. Proeflimieten gelden. Bekijk prijzen en voorwaarden of behoud gratis BYOK."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API anahtarı olmadan yıllık Plus veya Pro deneyin. Deneme limitleri geçerlidir. Fiyat ve koşulları görün ya da ücretsiz BYOK kullanın."
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API açarları olmadan illik Plus və ya Pro sınayın. Sınaq limitləri var. Qiymət və şərtlərə baxın və ya BYOK-u pulsuz saxlayın."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wypróbuj roczny Plus lub Pro bez kluczy API. Obowiązują limity próbne. Sprawdź ceny i warunki lub zachowaj bezpłatne BYOK."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vyzkoušejte roční Plus nebo Pro bez klíčů API. Platí zkušební limity. Prohlédněte si ceny a podmínky nebo ponechte BYOK zdarma."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Încearcă Plus sau Pro anual fără chei API. Se aplică limite de probă. Vezi prețurile și condițiile sau păstrează BYOK gratuit."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Попробуйте годовой Plus или Pro без ключей API. Действуют пробные лимиты. Посмотрите цены и условия или оставьте BYOK бесплатно."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Спробуйте річний Plus або Pro без ключів API. Діють пробні ліміти. Перегляньте ціни й умови або залиште BYOK безкоштовно."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API कुंजी के बिना सालाना Plus या Pro आज़माएँ। ट्रायल सीमाएँ लागू हैं। कीमत और शर्तें देखें या BYOK मुफ़्त रखें।"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "جرّب Plus أو Pro السنوي دون مفاتيح API. تسري حدود التجربة. راجع الأسعار والشروط أو احتفظ بـ BYOK مجانًا."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "APIキーなしで年間PlusまたはProをお試しください。無料期間には利用上限があります。料金と条件を確認するか、無料のBYOKを続けられます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API 키 없이 연간 Plus 또는 Pro를 체험하세요. 체험 한도가 적용됩니다. 가격과 약관을 확인하거나 무료 BYOK를 유지하세요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "无需API密钥即可试用Plus或Pro年付套餐。试用额度有限。查看价格和条款，或继续免费使用BYOK。"
+          }
+        }
+      }
+    },
+    "Trial ends": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trial ends"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Testphase endet"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La prueba termina"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fin de l’essai"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fine della prova"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fim do teste"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Proefperiode eindigt"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deneme bitişi"
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sınaq bitir"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Koniec okresu próbnego"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Konec zkušební doby"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Proba se încheie"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Конец пробного периода"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кінець пробного періоду"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ट्रायल समाप्ति"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "نهاية التجربة"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無料期間の終了"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "체험 종료"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "试用结束"
+          }
+        }
+      }
+    },
+    "Trial ends tomorrow": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trial ends tomorrow"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Testphase endet morgen"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La prueba termina mañana"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L’essai se termine demain"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La prova termina domani"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O teste termina amanhã"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Proefperiode eindigt morgen"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deneme yarın bitiyor"
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sınaq sabah bitir"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Okres próbny kończy się jutro"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zkušební doba končí zítra"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Proba se încheie mâine"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пробный период заканчивается завтра"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пробний період закінчується завтра"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ट्रायल कल खत्म होगा"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تنتهي التجربة غدًا"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無料期間は明日終了します"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "체험이 내일 종료됩니다"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "试用明天结束"
+          }
+        }
+      }
+    },
+    "Your yearly plan renews after the trial. Review or cancel in store settings.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your yearly plan renews after the trial. Review or cancel in store settings."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dein Jahrestarif verlängert sich nach der Testphase. In den Store-Einstellungen prüfen oder kündigen."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu plan anual se renueva después de la prueba. Revisa o cancela en los ajustes de la tienda."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Votre forfait annuel se renouvelle après l’essai. Consultez ou annulez dans les réglages de la boutique."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il piano annuale si rinnova dopo la prova. Controlla o annulla nelle impostazioni dello store."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seu plano anual renova após o teste. Confira ou cancele nas configurações da loja."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Je jaarabonnement wordt na de proefperiode verlengd. Bekijk of annuleer het in de winkelinstellingen."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yıllık planınız denemeden sonra yenilenir. Mağaza ayarlarından inceleyin veya iptal edin."
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İllik planınız sınaqdan sonra yenilənir. Mağaza ayarlarında yoxlayın və ya ləğv edin."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plan roczny odnowi się po okresie próbnym. Sprawdź lub anuluj w ustawieniach sklepu."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Roční tarif se po zkušební době obnoví. Zkontrolujte nebo zrušte jej v nastavení obchodu."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Planul anual se reînnoiește după probă. Verifică sau anulează în setările magazinului."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Годовой план продлится после пробного периода. Проверьте или отмените подписку в настройках магазина."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Річний план поновиться після пробного періоду. Перевірте або скасуйте підписку в налаштуваннях магазину."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ट्रायल के बाद सालाना प्लान का नवीनीकरण होगा। स्टोर सेटिंग में जाँचें या रद्द करें।"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تتجدد خطتك السنوية بعد التجربة. راجع الاشتراك أو ألغِه من إعدادات المتجر."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無料期間終了後、年間プランが更新されます。ストアの設定で確認または解約してください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "체험 후 연간 플랜이 갱신됩니다. 스토어 설정에서 확인하거나 취소하세요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "试用后将续订年付套餐。请在商店设置中查看或取消订阅。"
+          }
+        }
+      }
+    },
     "Preparing your request…": {
       "localizations": {
         "de": {
@@ -198488,118 +200217,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Looking up the barcode…"
-          }
-        }
-      }
-    },
-    "Camera is unavailable.": {
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "الكاميرا غير متاحة."
-          }
-        },
-        "az": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kamera əlçatan deyil."
-          }
-        },
-        "cs": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Fotoaparát není k dispozici."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Die Kamera ist nicht verfügbar."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "La cámara no está disponible."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "L’appareil photo n’est pas disponible."
-          }
-        },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "कैमरा उपलब्ध नहीं है।"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "La fotocamera non è disponibile."
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "カメラを使用できません。"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "카메라를 사용할 수 없습니다."
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "De camera is niet beschikbaar."
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aparat jest niedostępny."
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A câmera não está disponível."
-          }
-        },
-        "ro": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Camera nu este disponibilă."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Камера недоступна."
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kamera kullanılamıyor."
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Камера недоступна."
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "相机不可用。"
           }
         }
       }

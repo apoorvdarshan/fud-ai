@@ -302,6 +302,36 @@ class NotificationService(private val context: Context) {
     }
 
     /** The pop-up is on screen, so the notification about it has done its job. */
+    fun updateTrialReminder(end: java.util.Date?) {
+        val request = 7091
+        val state = context.getSharedPreferences("hosted-trial-reminder", Context.MODE_PRIVATE)
+        val now = System.currentTimeMillis()
+        if (end == null || end.time <= now) {
+            cancel(request)
+            state.edit().remove("expiry").apply()
+            return
+        }
+        // Preserve an unchanged alarm, including one delayed by Android's power management.
+        val pending = broadcastPendingIntent(request, ReminderReceiver::class.java,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_NO_CREATE)
+        if (state.getLong("expiry", 0) == end.time && pending != null) return
+        cancel(request)
+        state.edit().remove("expiry").apply()
+        val fire = end.time - 24L * 60 * 60 * 1000
+        if (fire <= now) return
+        val pi = broadcastPendingIntent(request, ReminderReceiver::class.java,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT) {
+            putExtra(EXTRA_CHANNEL, CHANNEL_ANNOUNCEMENTS)
+            putExtra(EXTRA_TITLE, context.getString(R.string.hosted_trial_reminder_title))
+            putExtra(EXTRA_TEXT, context.getString(R.string.hosted_trial_reminder_body))
+            putExtra(EXTRA_REQUEST, request)
+            putExtra("trialExpiry", end.time)
+        } ?: return
+        val am = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        am.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, fire, pi)
+        state.edit().putLong("expiry", end.time).apply()
+    }
+
     fun cancelWhatsNew() {
         NotificationManagerCompat.from(context).cancel(WHATS_NEW_NOTIFICATION_ID)
     }
@@ -679,6 +709,20 @@ class ReminderReceiver : BroadcastReceiver() {
 
         // Re-arm first so suppressing today's streak nudge (or a transient storage failure)
         // never disables tomorrow's explicitly enabled reminder.
+        val trialExpiry = intent.getLongExtra("trialExpiry", 0)
+        if (trialExpiry > 0) {
+            if (System.currentTimeMillis() >= trialExpiry) return
+            val pending = goAsync()
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    val app = context.applicationContext as FudAIApp
+                    if (app.container.prefs.notificationsEnabled.first()) {
+                        postNotification(context, channel, title, text, request)
+                    }
+                } finally { pending.finish() }
+            }
+            return
+        }
         rearm(context, intent, request)
 
         if (channel == NotificationService.CHANNEL_DAILY) {

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="share_links_title">Linkuri de distribuire</string>
+    <string name="share_link_short">Link scurt</string>
+    <string name="share_link_short_detail">Afișează mai întâi o previzualizare și expiră după 7 zile.</string>
+    <string name="share_link_direct">Link direct</string>
+    <string name="share_link_direct_detail">Deschide imediat Fud AI și nu expiră niciodată, dar linkul este mai lung.</string>
+    <string name="share_link_choice_title">Cum să funcționeze linkurile pentru mese?</string>
+    <string name="share_link_choice_footer">Poți schimba oricând asta în %1$s.</string>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="share_links_title">分享链接</string>
+    <string name="share_link_short">短链接</string>
+    <string name="share_link_short_detail">先显示预览，7 天后过期。</string>
+    <string name="share_link_direct">直接链接</string>
+    <string name="share_link_direct_detail">立即打开 Fud AI，永不过期，但链接较长。</string>
+    <string name="share_link_choice_title">餐食链接要如何分享？</string>
+    <string name="share_link_choice_footer">你可以随时在%1$s中更改此设置。</string>
+</resources>

@@ -18,20 +18,20 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeout
-import kotlinx.coroutines.withTimeoutOrNull
 import org.junit.After
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
 
 /**
- * Reproduces AndroidX b/431787506 with a real file-backed DataStore: the write is held
- * open after DataStore has bumped its version, and a new collector starts in that window.
+ * Guards against AndroidX b/431787506 (fixed in DataStore 1.3.0) with a real file-backed
+ * DataStore: the write is held open after DataStore has bumped its version, and a new
+ * collector starts in that window. It must still receive the write, or screens opened
+ * during a save (e.g. right after logging water) keep showing stale values.
  */
-class ConsistentDataStoreTest {
+class DataStoreLateCollectorTest {
     @get:Rule
     val folder = TemporaryFolder()
 
@@ -51,51 +51,13 @@ class ConsistentDataStoreTest {
 
     @Test
     fun collectorStartedDuringWriteReceivesTheWrite() = runBlocking {
-        val store = ConsistentDataStore(newStore())
+        val store = newStore()
         assertEquals(0, store.data.first())
 
         val late = raceLateCollectorAgainstWrite(store)
 
         assertEquals(1, withTimeout(10_000) { late.await() })
         assertEquals(1, store.data.first())
-    }
-
-    @Test
-    fun reReadsAfterAWriteDoNotReEmitEqualValues() = runBlocking {
-        val store = ConsistentDataStore(newStore())
-        val seen = java.util.Collections.synchronizedList(mutableListOf<Int>())
-        val collector = scope.async { store.data.onEach { seen += it }.first { it == 2 } }
-        awaitSeen(seen, 0)
-        store.updateData { 1 }
-        awaitSeen(seen, 1)
-        store.updateData { 1 } // no change: DataStore skips the write, the wrapper still re-reads
-        kotlinx.coroutines.delay(200)
-        store.updateData { 2 }
-        withTimeout(10_000) { collector.await() }
-        // DataStore conflates values; each value is waited for, so none is skipped here.
-        assertEquals(listOf(0, 1, 2), seen.toList())
-    }
-
-    private suspend fun awaitSeen(seen: List<Int>, value: Int) = withTimeout(10_000) {
-        while (value !in seen.toList()) kotlinx.coroutines.delay(10)
-    }
-
-    /**
-     * Characterizes the upstream bug the wrapper exists for. If this starts failing after a
-     * DataStore upgrade, the upgrade fixed b/431787506 and ConsistentDataStore can go.
-     */
-    @Test
-    fun upstreamDataStoreDropsTheWriteForALateCollector() = runBlocking {
-        val store = newStore()
-        assertEquals(0, store.data.first())
-
-        val late = raceLateCollectorAgainstWrite(store)
-
-        assertNull(
-            "DataStore now delivers the write; remove ConsistentDataStore (b/431787506 fixed)",
-            withTimeoutOrNull(2_000) { late.await() }
-        )
-        assertEquals(1, store.data.first()) // the write itself succeeded
     }
 
     /** Starts a write, holds it after the version bump, starts a new collector, then finishes the write. */

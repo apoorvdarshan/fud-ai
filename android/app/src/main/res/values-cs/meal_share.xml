@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="share_links_title">Odkazy ke sdílení</string>
+    <string name="share_link_short">Krátký odkaz</string>
+    <string name="share_link_short_detail">Nejdřív zobrazí náhled a po 7 dnech vyprší.</string>
+    <string name="share_link_direct">Přímý odkaz</string>
+    <string name="share_link_direct_detail">Otevře Fud AI hned a nikdy nevyprší, ale odkaz je delší.</string>
+    <string name="share_link_choice_title">Jak mají odkazy na jídla fungovat?</string>
+    <string name="share_link_choice_footer">Kdykoli to můžete změnit v %1$s.</string>
+</resources>

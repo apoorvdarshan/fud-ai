@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="share_links_title">Enlaces para compartir</string>
+    <string name="share_link_short">Enlace corto</string>
+    <string name="share_link_short_detail">Muestra primero una vista previa y caduca a los 7 días.</string>
+    <string name="share_link_direct">Enlace directo</string>
+    <string name="share_link_direct_detail">Abre Fud AI al instante y nunca caduca, pero el enlace es más largo.</string>
+    <string name="share_link_choice_title">¿Cómo quieres que funcionen los enlaces de comidas?</string>
+    <string name="share_link_choice_footer">Puedes cambiarlo cuando quieras en %1$s.</string>
+</resources>

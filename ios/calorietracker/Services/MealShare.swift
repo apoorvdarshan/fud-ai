@@ -41,13 +41,16 @@ enum MealShare {
 
     private static let shareUserAgent = "FudAI/1.0 (iOS; MealShare)"
 
-    /// Try the short-link service, falling back to the self-contained link on any failure.
+    /// The link for `style`: `.direct` is always the self-contained link, and a failed
+    /// short-link request falls back to it too.
     static func preferredLink(
         for entries: [FoodEntry],
+        style: MealShareLinkStyle = .defaultStyle,
         send: (URLRequest) async throws -> (Data, URLResponse) = { try await shareSession.data(for: $0) }
     ) async -> URL? {
-        guard let fallback = link(for: entries),
-              let encoded = URLComponents(url: fallback, resolvingAgainstBaseURL: false)?.queryItems?.first(where: { $0.name == "d" })?.value,
+        guard let fallback = link(for: entries) else { return nil }
+        if style == .direct { return fallback }
+        guard let encoded = URLComponents(url: fallback, resolvingAgainstBaseURL: false)?.queryItems?.first(where: { $0.name == "d" })?.value,
               let payload = data(fromBase64url: encoded) else { return nil }
         var request = URLRequest(url: URL(string: "https://\(webHost)/api/meal-shares")!)
         request.httpMethod = "POST"
@@ -125,16 +128,36 @@ enum MealShare {
         if e.progressiveMeal { d["progressiveMeal"] = true }
         if !e.ingredients.isEmpty {
             d["ingredients"] = e.ingredients.map { ingredient in
-                [
+                var value: [String: Any] = [
                     "name": ingredient.name,
                     "grams": ingredient.grams,
                     "calories": ingredient.calories,
                     "protein": ingredient.protein,
                     "carbs": ingredient.carbs,
                     "fat": ingredient.fat,
-                ] as [String: Any]
+                ]
+                if let emoji = ingredient.emoji { value["emoji"] = emoji }
+                return value
             }
         }
+        if let product = e.productMetadata { d["productMetadata"] = productDict(product) }
+        return d
+    }
+
+    /// Barcode product details (#533), with the same keys as Android.
+    private nonisolated static func productDict(_ p: FoodProductMetadata) -> [String: Any] {
+        var d: [String: Any] = ["barcode": p.barcode]
+        if let value = p.packageQuantity { d["packageQuantity"] = value }
+        if let value = p.ingredientsText { d["ingredientsText"] = value }
+        if !p.allergens.isEmpty { d["allergens"] = p.allergens }
+        if !p.traces.isEmpty { d["traces"] = p.traces }
+        if let value = p.nutriScore { d["nutriScore"] = value }
+        if let value = p.novaGroup { d["novaGroup"] = value }
+        if let value = p.ecoScore { d["ecoScore"] = value }
+        if !p.labels.isEmpty { d["labels"] = p.labels }
+        if !p.categories.isEmpty { d["categories"] = p.categories }
+        if let value = p.imageURL { d["imageUrl"] = value.absoluteString }
+        if let value = p.dataSource { d["dataSource"] = value }
         return d
     }
 
@@ -180,7 +203,8 @@ enum MealShare {
                 calories: (item["calories"] as? NSNumber)?.intValue ?? 0,
                 protein: (item["protein"] as? NSNumber)?.doubleValue ?? 0,
                 carbs: (item["carbs"] as? NSNumber)?.doubleValue ?? 0,
-                fat: (item["fat"] as? NSNumber)?.doubleValue ?? 0
+                fat: (item["fat"] as? NSNumber)?.doubleValue ?? 0,
+                emoji: text(item["emoji"])
             )
         }
         let servingUnitOptions = (d["servingUnitOptions"] as? [[String: Any]] ?? []).compactMap { item -> ServingUnitOption? in
@@ -222,29 +246,94 @@ enum MealShare {
             selectedServingQuantity: dbl("selectedServingQuantity"),
             customNote: d["customNote"] as? String,
             progressiveMeal: (d["progressiveMeal"] as? Bool) ?? false,
-            ingredients: ingredients
+            ingredients: ingredients,
+            productMetadata: (d["productMetadata"] as? [String: Any]).map(product(from:))
         )
+    }
+
+    private nonisolated static func product(from p: [String: Any]) -> FoodProductMetadata {
+        func list(_ key: String) -> [String] { (p[key] as? [Any] ?? []).compactMap { text($0) } }
+        return FoodProductMetadata(
+            barcode: text(p["barcode"]) ?? "",
+            packageQuantity: text(p["packageQuantity"]),
+            ingredientsText: text(p["ingredientsText"]),
+            allergens: list("allergens"),
+            traces: list("traces"),
+            nutriScore: text(p["nutriScore"]),
+            novaGroup: (p["novaGroup"] as? NSNumber)?.intValue,
+            ecoScore: text(p["ecoScore"]),
+            labels: list("labels"),
+            categories: list("categories"),
+            imageURL: text(p["imageUrl"]).flatMap(URL.init(string:)),
+            dataSource: text(p["dataSource"])
+        )
+    }
+
+    private nonisolated static func text(_ value: Any?) -> String? {
+        guard let value = value as? String, !value.isEmpty else { return nil }
+        return value
     }
 
     // MARK: - Share sheet
 
     /// Present the system share sheet directly via UIKit (avoids the blank-page issue of a
-    /// SwiftUI `.sheet` nested inside another sheet).
+    /// SwiftUI `.sheet` nested inside another sheet). The first share, for new and existing
+    /// users alike, asks once which link to send; the answer is kept on this device.
     static func presentShareSheet(for entries: [FoodEntry]) {
         guard !entries.isEmpty else { return }
+        if let style = MealShareLinkStyle.chosen() {
+            share(entries, style: style)
+        } else {
+            presentLinkStyleChoice { style in
+                UserDefaults.standard.set(style.rawValue, forKey: MealShareLinkStyle.storageKey)
+                share(entries, style: style)
+            }
+        }
+    }
+
+    private static func share(_ entries: [FoodEntry], style: MealShareLinkStyle) {
         Task { @MainActor in
-            let link = await preferredLink(for: entries)
+            let link = await preferredLink(for: entries, style: style)
             guard !Task.isCancelled else { return }
             presentShareText(shareText(for: entries, using: link))
         }
     }
 
+    /// One-time choice, with Short Link as the preferred (default) action.
+    private static func presentLinkStyleChoice(_ chosen: @escaping (MealShareLinkStyle) -> Void) {
+        let settingsPath = "\(String(localized: "Settings")) → \(String(localized: "App Settings"))"
+        let message = MealShareLinkStyle.allCases.map { "\($0.title): \($0.detail)" }.joined(separator: "\n")
+            + "\n\n" + String(localized: "You can change this anytime in \(settingsPath).")
+        let alert = UIAlertController(
+            title: String(localized: "How should meal links work?"),
+            message: message,
+            preferredStyle: .alert
+        )
+        for style in MealShareLinkStyle.allCases {
+            // Next run-loop turn, so the share sheet never races the alert's dismissal
+            // (Direct Link has no network wait to hide it).
+            let action = UIAlertAction(title: style.title, style: .default) { _ in
+                DispatchQueue.main.async { chosen(style) }
+            }
+            action.accessibilityIdentifier = "mealShare.linkChoice.\(style.rawValue)"
+            alert.addAction(action)
+            if style == .defaultStyle { alert.preferredAction = action }
+        }
+        alert.addAction(UIAlertAction(title: String(localized: "Cancel"), style: .cancel))
+        topViewController()?.present(alert, animated: true)
+    }
+
+    private static func topViewController() -> UIViewController? {
+        guard let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene,
+              let root = scene.windows.first(where: { $0.isKeyWindow })?.rootViewController else { return nil }
+        var top = root
+        while let presented = top.presentedViewController, !presented.isBeingDismissed { top = presented }
+        return top
+    }
+
     private static func presentShareText(_ text: String) {
         let av = UIActivityViewController(activityItems: [text], applicationActivities: nil)
-        guard let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene,
-              let root = scene.windows.first(where: { $0.isKeyWindow })?.rootViewController else { return }
-        var top = root
-        while let presented = top.presentedViewController { top = presented }
+        guard let top = topViewController() else { return }
         av.popoverPresentationController?.sourceView = top.view
         av.popoverPresentationController?.sourceRect = CGRect(x: top.view.bounds.midX, y: top.view.bounds.midY, width: 0, height: 0)
         av.popoverPresentationController?.permittedArrowDirections = []

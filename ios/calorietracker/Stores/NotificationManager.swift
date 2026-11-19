@@ -580,6 +580,7 @@ class NotificationManager {
     // MARK: - Cancel All
 
     func cancelAllNotifications() {
+        UserDefaults.standard.removeObject(forKey: "hosted.trialReminderExpiry")
         PendingNotificationRequests.removeAll()
     }
 

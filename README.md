@@ -22,6 +22,7 @@
   <a href="https://www.bestpractices.dev/projects/14553"><img src="https://www.bestpractices.dev/projects/14553/badge" alt="OpenSSF Best Practices Passing"></a>
   <a href="https://scorecard.dev/viewer/?uri=github.com/apoorvdarshan/fud-ai"><img src="https://api.scorecard.dev/projects/github.com/apoorvdarshan/fud-ai/badge" alt="OpenSSF Scorecard"></a>
   <img src="https://img.shields.io/badge/Udyam-Registered-green" alt="Udyam Registered">
+  <img src="https://img.shields.io/badge/D--U--N--S-311099925-blue" alt="D-U-N-S 311099925">
   <a href="https://github.com/apoorvdarshan/fud-ai/stargazers"><img src="https://img.shields.io/github/stars/apoorvdarshan/fud-ai?style=flat&logo=github&color=yellow" alt="GitHub stars"></a>
   <a href="https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726"><img src="https://img.shields.io/badge/App%20Store-Download-black?logo=apple" alt="App Store"></a>
   <a href="https://play.google.com/store/apps/details?id=com.apoorvdarshan.calorietracker"><img src="https://img.shields.io/badge/Google%20Play-Download-414141?logo=googleplay" alt="Google Play"></a>
@@ -31,7 +32,7 @@
 
 Open-source, privacy-first calorie tracker for iOS and Android. Bring your own AI provider — 13 supported including Gemini, OpenAI, Claude, Grok, Groq, Hugging Face, Fireworks AI, DeepInfra, Mistral, and any custom OpenAI-compatible endpoint — or optionally use Plus/Pro hosted AI on iPhone and Android. Capture or import up to 10 food photos with an optional note, scan a barcode, ask your AI coach how to hit your goal, speak your lunch, or use Siri Shortcuts on iOS to log food and weight. On supported iPhones, food-description analysis for text, voice-transcribed, and Siri food logs can use Apple Intelligence on-device as the final fallback after BYOK provider/fallback attempts fail. On iOS 27, Apple Intelligence can also analyze food photos on-device when you select it. The core tracker has no required account, general cloud sync, tracking, or ads. Its sole first-party sync exception for scores and profiles is an optional 18+ Weekly Challenge that shares only a pseudonymous display profile and weekly aggregate scores with other enrolled participants — never raw logs.
 
-Android 7.2 brings the optional Plus/Pro hosted AI to Android through Google Play (Settings → AI Access, onboarding, credit packs) and moves the Android tip jar to Google Play. iOS and Android 7.1 add Weekly Challenge places with a podium and 20 places per page, Help & Feedback on GitHub or Discord, an Android in-app language picker, and on-device food-photo analysis with Apple Intelligence on iOS 27. iOS 7.1.2 keeps that update and makes the optional Plus/Pro hosted AI easier to find, shipping alongside the first subscription submission. 7.0 remains the release that added optional Plus/Pro hosted AI on iPhone, daily steps, Walk/Run logging, custom exercises, meal date/time, the Log Food widget, pinch-zoom photos, and Czech and Ukrainian.
+Fud AI 8.0 brings Live Voice to iPhone, iPad and Android: talk to Fud AI to log meals, scan barcodes and check your progress, from the Home orb (and Siri, the Action Button or, on iOS 18, Control Center). It also adds iPad support and AR portion sizing on iOS, a workout rest timer and routines, Weekly Recap and Steps, kcal or kJ, and Short or Direct share links. Android 7.2 brought the optional Plus/Pro hosted AI to Android through Google Play (Settings → AI Access, onboarding, credit packs) and moves the Android tip jar to Google Play. iOS and Android 7.1 add Weekly Challenge places with a podium and 20 places per page, Help & Feedback on GitHub or Discord, an Android in-app language picker, and on-device food-photo analysis with Apple Intelligence on iOS 27. iOS 7.1.2 keeps that update and makes the optional Plus/Pro hosted AI easier to find, shipping alongside the first subscription submission. 7.0 remains the release that added optional Plus/Pro hosted AI on iPhone, daily steps, Walk/Run logging, custom exercises, meal date/time, the Log Food widget, pinch-zoom photos, and Czech and Ukrainian.
 
 Normal updates preserve existing local and Health data.
 
@@ -42,6 +43,8 @@ Normal updates preserve existing local and Health data.
 ## Business Registration
 
 Fud AI is a Udyam-registered micro enterprise in India, operating as a sole proprietorship in Services. Registration number: **UDYAM-DL-06-0225072**, registered on **9 September 2026**.
+
+Its Dun & Bradstreet D-U-N-S Number is **311099925**, issued on **28 October 2026**.
 
 ## Features
 
@@ -284,8 +287,8 @@ All values can be manually overridden in Settings, with a **Recalculate Goals** 
 
 ```
 fud-ai/
-├── ios/          # SwiftUI iOS app (v7.1.2 build 39)
-├── android/      # Kotlin + Jetpack Compose app (min SDK 26 / Android 8.0, v7.2.1 / versionCode 43)
+├── ios/          # SwiftUI iOS app (v8.0 build 40)
+├── android/      # Kotlin + Jetpack Compose app (min SDK 26 / Android 8.0, v8.0.1 / versionCode 45)
 ├── web/          # Marketing site — https://fud-ai.app (static HTML/CSS, Cloudflare Workers)
 ├── APPSTORE.md   # App Store Connect listing copy (iOS)
 ├── PLAYSTORE.md  # Google Play Console listing copy (Android)
@@ -303,7 +306,7 @@ ios/
 └── calorietracker/
     ├── calorietrackerApp.swift       # Entry point, environment setup
     ├── ContentView.swift             # 5-tab layout (Home, Progress, Coach, Settings, Workouts)
-    ├── Localizable.xcstrings         # String Catalog, 18 languages
+    ├── Localizable.xcstrings         # String Catalog, 19 languages
     ├── Models/
     │   ├── AIProvider.swift          # 13 LLM providers, model lists, settings
     │   ├── SpeechProvider.swift      # 6 STT options + Keychain settings

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hosted_trial_cta">Probeer 3 dagen gratis</string>
+    <string name="hosted_trial_disclosure">3 dagen gratis, daarna %1$s/jaar. Automatische verlenging. Annuleer vóór het einde van de proefperiode om kosten te voorkomen.</string>
+    <string name="hosted_trial_limits">Proefperiode: 20 AI-acties en %1$d spraakminuten/dag (UTC). Daarna de volledige limieten. Extra credits kosten geld.</string>
+    <string name="hosted_trial_invite_body">Probeer Plus of Pro jaarlijks zonder API-sleutels. Proeflimieten gelden. Bekijk prijzen en voorwaarden of behoud gratis BYOK.</string>
+    <string name="hosted_trial_ends">Proefperiode eindigt</string>
+    <string name="hosted_trial_reminder_title">Proefperiode eindigt morgen</string>
+    <string name="hosted_trial_reminder_body">Je jaarabonnement wordt na de proefperiode verlengd. Bekijk of annuleer het in de winkelinstellingen.</string>
+    <string name="hosted_trial_invite_title">Probeer 3 dagen gratis</string>
+</resources>

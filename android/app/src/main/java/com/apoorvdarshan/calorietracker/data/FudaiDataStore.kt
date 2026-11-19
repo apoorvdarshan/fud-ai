@@ -41,9 +41,7 @@ internal object FudaiDataStoreHolder {
 
     private fun create(app: Context): DataStore<Preferences> {
         val file = app.preferencesDataStoreFile(DATASTORE_NAME)
-        // See ConsistentDataStore: screens that start reading during a save must still
-        // receive that save (AndroidX b/431787506).
-        return ConsistentDataStore(PreferenceDataStoreFactory.create(
+        return PreferenceDataStoreFactory.create(
             corruptionHandler = ReplaceFileCorruptionHandler { exception ->
                 val backup = preserveCorruptFile(file)
                 if (backup == null) {
@@ -54,7 +52,7 @@ internal object FudaiDataStoreHolder {
                 emptyPreferences()
             },
             produceFile = { file }
-        ))
+        )
     }
 
     private fun preserveCorruptFile(file: File): File? =

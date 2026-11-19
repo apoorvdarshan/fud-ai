@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="share_links_title">공유 링크</string>
+    <string name="share_link_short">짧은 링크</string>
+    <string name="share_link_short_detail">먼저 미리보기를 보여 주며 7일 후 만료됩니다.</string>
+    <string name="share_link_direct">직접 링크</string>
+    <string name="share_link_direct_detail">Fud AI를 바로 열고 만료되지 않지만 링크가 더 깁니다.</string>
+    <string name="share_link_choice_title">식사 링크를 어떻게 공유할까요?</string>
+    <string name="share_link_choice_footer">언제든지 %1$s에서 변경할 수 있습니다.</string>
+</resources>

@@ -510,6 +510,7 @@ struct AIProviderSettings {
 
     private static let providerKey = "selectedAIProvider"
     private static let modelKey = "selectedAIModel"
+    private static let lastPrimaryCustomModelKey = "lastPrimaryCustomAIModel"
     private static let separateTextProviderEnabledKey = "separateTextProviderEnabled"
     private static let textProviderKey = "selectedTextAIProvider"
     private static let textModelKey = "selectedTextAIModel"
@@ -577,6 +578,21 @@ struct AIProviderSettings {
     static var separateTextProviderEnabled: Bool {
         get { UserDefaults.standard.bool(forKey: separateTextProviderEnabledKey) }
         set { UserDefaults.standard.set(newValue, forKey: separateTextProviderEnabledKey) }
+    }
+
+    /// Keep a free-form primary Custom model when switching providers in Settings.
+    static func switchPrimaryProvider(to provider: AIProvider, defaults: UserDefaults = .standard) -> String {
+        if defaults.string(forKey: providerKey) == AIProvider.customOpenAI.rawValue,
+           let model = defaults.string(forKey: modelKey) {
+            defaults.set(model, forKey: lastPrimaryCustomModelKey)
+        }
+        let resolved = AIProvider.visionProviders.contains(provider) ? provider : .gemini
+        let model = resolved == .customOpenAI
+            ? defaults.string(forKey: lastPrimaryCustomModelKey) ?? resolved.defaultModel
+            : resolved.defaultModel
+        defaults.set(resolved.rawValue, forKey: providerKey)
+        defaults.set(model, forKey: modelKey)
+        return model
     }
 
     static var selectedTextProvider: AIProvider {
@@ -953,6 +969,7 @@ struct AIProviderSettings {
         UserDefaults.standard.removeObject(forKey: textFallbackModelKey)
         UserDefaults.standard.removeObject(forKey: fallbackBaseURLMigrationVersionKey)
         UserDefaults.standard.removeObject(forKey: requestTimeoutSecondsKey)
+        UserDefaults.standard.removeObject(forKey: lastPrimaryCustomModelKey)
     }
 
     static func replaceDeletedLocalGemmaSelections(defaults: UserDefaults = .standard) {

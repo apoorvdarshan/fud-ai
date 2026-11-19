@@ -1184,6 +1184,7 @@
     <string name="cloud_backup_switch_account">Switch Google account</string>
     <string name="cloud_backup_turn_on">Turn On</string>
     <string name="cloud_backup_sign_in_failed">Couldn\'t open Google sign-in.</string>
+    <string name="cloud_backup_sign_in_unregistered">Google doesn\'t recognize this build for Drive backup. If you installed it from Google Play, please contact Fud AI support.</string>
     <string name="cloud_backup_restore_no_space">Not enough free storage to restore this backup. Free up some space and try again.</string>
     <string name="export_diary_title">Export Food Diary</string>
     <string name="import_diary_title">Import Food Diary</string>

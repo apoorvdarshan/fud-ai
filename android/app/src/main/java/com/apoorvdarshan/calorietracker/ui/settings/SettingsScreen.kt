@@ -14,6 +14,8 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import com.apoorvdarshan.calorietracker.backup.DriveCloudBackupClient
+import com.apoorvdarshan.calorietracker.backup.DriveAuthorizationException
+import com.apoorvdarshan.calorietracker.backup.DriveAuthorizationFailure
 import com.apoorvdarshan.calorietracker.backup.cloudBackupErrorMessage
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
@@ -439,6 +441,14 @@ fun SettingsScreen(
     val settingsScope = rememberCoroutineScope()
     val importReadFailedMessage = stringResource(R.string.import_read_failed)
     val cloudBackupSignInFailed = stringResource(R.string.cloud_backup_sign_in_failed)
+    val cloudBackupUnregistered = stringResource(R.string.cloud_backup_sign_in_unregistered)
+    val driveSignInError: (Throwable) -> String = { error ->
+        if ((error as? DriveAuthorizationException)?.kind == DriveAuthorizationFailure.UNREGISTERED_ANDROID_CLIENT) {
+            cloudBackupUnregistered
+        } else {
+            cloudBackupSignInFailed
+        }
+    }
     val cloudBackupFailed = stringResource(R.string.error_title)
     val cloudBackupNoSpace = stringResource(R.string.cloud_backup_restore_no_space)
     val cloudBackupFailure: (Throwable) -> String = {
@@ -474,10 +484,16 @@ fun SettingsScreen(
                 cloudBackupError = cloudBackupSignInFailed
                 return@launch
             }
-            if (container.cloudBackup.finishAuthorization(activity, result.data)) {
-                finishDriveSignIn()
-            } else {
-                cloudBackupError = cloudBackupSignInFailed
+            try {
+                if (container.cloudBackup.finishAuthorization(activity, result.data)) {
+                    finishDriveSignIn()
+                } else {
+                    cloudBackupError = cloudBackupSignInFailed
+                }
+            } catch (cancelled: kotlinx.coroutines.CancellationException) {
+                throw cancelled
+            } catch (failure: Exception) {
+                cloudBackupError = driveSignInError(failure)
             }
         }
     }
@@ -498,7 +514,10 @@ fun SettingsScreen(
                             }
                         }
                     }
-                    .onFailure { cloudBackupError = it.message }
+                    .onFailure {
+                        if (it is kotlinx.coroutines.CancellationException) throw it
+                        cloudBackupError = driveSignInError(it)
+                    }
             }
         }
     }
@@ -519,7 +538,7 @@ fun SettingsScreen(
     val startDriveSignIn: () -> Unit = {
         runCatching {
             driveAccountPickerLauncher.launch(container.cloudBackup.accountPickerIntent())
-        }.onFailure { cloudBackupError = it.message ?: cloudBackupSignInFailed }
+        }.onFailure { cloudBackupError = driveSignInError(it) }
     }
 
     val importFileLauncher = rememberLauncherForActivityResult(

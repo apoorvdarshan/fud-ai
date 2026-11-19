@@ -4,6 +4,12 @@ import Testing
 
 struct AllergenAnalysisTests {
     @Test
+    func matchesCanonicalAllergensAcrossReviewedLanguages() {
+        #expect(AllergenAnalysis.mentionsAny(of: ["mléko"], in: "en:milk"))
+        #expect(AllergenAnalysis.mentionsAny(of: ["milk"], in: "молоко"))
+        #expect(!AllergenAnalysis.mentionsAny(of: ["milk"], in: "oats"))
+    }
+    @Test
     func declaredAllergenWinsOverWeakerEvidence() {
         let entry = makeEntry(metadata: FoodProductMetadata(
             barcode: "1",

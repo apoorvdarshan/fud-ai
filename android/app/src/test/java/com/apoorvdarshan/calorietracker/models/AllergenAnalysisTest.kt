@@ -5,6 +5,13 @@ import org.junit.Test
 
 class AllergenAnalysisTest {
     @Test
+    fun localizedNamesMatchCanonicalLabelWithoutLosingOriginalSensitivity() {
+        val result = entry(FoodProductMetadata("1", allergens = listOf("en:milk")))
+            .allergenAnalysis(listOf(" ", "mléko", "молоко"))
+        assertEquals(AllergenAssessment.DECLARED_ALLERGEN_MATCH, result.assessment)
+        assertEquals(listOf("mléko", "молоко"), result.matchedSensitivities)
+    }
+    @Test
     fun declaredAllergenWinsOverWeakerEvidence() {
         val entry = entry(
             metadata = FoodProductMetadata(

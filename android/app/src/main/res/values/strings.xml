@@ -1,4 +1,6 @@
 <resources>
+    <string name="settings_hide_voice_shortcut">Hide in-app voice shortcut</string>
+    <string name="settings_hide_barcode_photo">Hide barcode product photos</string>
     <string name="app_name">Fud AI</string>
 
     <!-- Widgets -->

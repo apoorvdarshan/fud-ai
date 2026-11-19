@@ -437,6 +437,8 @@ fun SettingsScreen(
     val activityContext = LocalContext.current
     val resources = LocalResources.current
     val settingsScope = rememberCoroutineScope()
+    val hideVoiceShortcut by container.prefs.hideVoiceShortcut.collectAsState(initial = false)
+    val hideBarcodePhoto by container.prefs.hideBarcodePhoto.collectAsState(initial = false)
     val importReadFailedMessage = stringResource(R.string.import_read_failed)
     val cloudBackupSignInFailed = stringResource(R.string.cloud_backup_sign_in_failed)
     val cloudBackupFailed = stringResource(R.string.error_title)
@@ -951,6 +953,11 @@ fun SettingsScreen(
             // Section 3 — App Settings (matches iOS Section "App Settings")
             if (selectedCategory == SettingsCategory.APP_PREFERENCES) {
             SectionCard {
+                ToggleRow(stringResource(R.string.settings_hide_voice_shortcut), hideVoiceShortcut,
+                    icon = Icons.Outlined.Mic, onChange = { settingsScope.launch { container.prefs.setHideVoiceShortcut(it) } })
+                ToggleRow(stringResource(R.string.settings_hide_barcode_photo), hideBarcodePhoto,
+                    icon = Icons.Outlined.Tune, onChange = { settingsScope.launch { container.prefs.setHideBarcodePhoto(it) } })
+                HorizontalDivider()
                 SettingRow(
                     stringResource(R.string.settings_appearance),
                     when (ui.appearanceMode) {

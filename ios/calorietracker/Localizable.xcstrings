@@ -1,6 +1,8 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "Hide in-app voice shortcut": {},
+    "Hide barcode product photos": {},
     "Share Links": {
       "comment": "Settings row (App Settings) choosing which link a meal share sends.",
       "localizations": {

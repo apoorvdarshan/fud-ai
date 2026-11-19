@@ -1241,6 +1241,8 @@ struct HomeView: View {
     @AppStorage(FastingSettings.notificationEnabledKey) private var fastingGoalNotificationEnabled = true
     /// Observed so + menu edits in Settings refresh Home right away.
     @AppStorage(AddMenuConfig.storageKey) private var addMenuConfigData: Data?
+    @AppStorage("hideVoiceShortcut") private var hideVoiceShortcut = false
+    @AppStorage("hideBarcodePhoto") private var hideBarcodePhoto = false
     @AppStorage("notificationsEnabled") private var notificationsEnabled = false
     @Environment(ProfileStore.self) private var profileStore
     @State private var homeBurnLine: String?
@@ -1500,7 +1502,7 @@ private var dailyStepsTaskKey: String {
     private var homeActionBar: some View {
         HStack(spacing: 12) {
             // The live session uses its own floating controls.
-            if !voiceAssistant.isActive {
+            if !voiceAssistant.isActive, !hideVoiceShortcut {
                 VoiceAssistantHomeButton(controller: voiceAssistant)
             }
             Menu {
@@ -2687,7 +2689,8 @@ private var dailyStepsTaskKey: String {
                 let outcome = try await BarcodeProductLookup.lookup(
                     barcode: trimmedBarcode,
                     savedLabelEntries: foodStore.entries,
-                    usdaAPIKey: FoodDataCentralSettings.apiKey
+                    usdaAPIKey: FoodDataCentralSettings.apiKey,
+                    includesProductImage: !hideBarcodePhoto
                 )
                 try Task.checkCancellation()
                 retryRequest = nil
@@ -5270,6 +5273,7 @@ struct ProfileView: View {
                 // separately below so the card does not read as one long control wall.
                 if settingsCategory == .appPreferences {
                 Section {
+                    HomeShortcutVisibilitySettings()
                     Picker(selection: $appearanceMode) {
                         Text("System").tag("system")
                         Text("Light").tag("light")

@@ -635,7 +635,14 @@ viewModelScope.launch {
                 val outcome = BarcodeProductLookup.lookup(
                     barcode = barcode,
                     usdaApiKey = container.keyStore.usdaFoodDataCentralApiKey(),
-                    savedLabelEntries = { container.foodRepository.entries.first() }
+                    savedLabelEntries = { container.foodRepository.entries.first() },
+                    openFoodFacts = { code ->
+                        if (container.prefs.hideBarcodePhoto.first()) {
+                            OpenFoodFactsService.LookupResult(OpenFoodFactsService.lookup(code), null)
+                        } else {
+                            OpenFoodFactsService.lookupWithImage(code)
+                        }
+                    }
                 )
                 ensureActive()
                 when (outcome) {

@@ -1,6 +1,8 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "Create a JSON file of your food and water logs for the selected dates. Fud AI does not upload the file.": {},
+    "Export food diary from %@ to %@": {},
     "Share Links": {
       "comment": "Settings row (App Settings) choosing which link a meal share sends.",
       "localizations": {

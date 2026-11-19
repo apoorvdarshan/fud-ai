@@ -721,8 +721,7 @@ CalorieHero(
             }
         }
 
-        // Transparent floating controls preserve the full scrolling diary. Extra end
-        // padding lets its final card scroll clear of both buttons and the docked tabs.
+        // Transparent floating controls preserve the full scrolling diary.
         if (!selectionMode) {
         Row(
             modifier = Modifier
@@ -732,6 +731,25 @@ CalorieHero(
             horizontalArrangement = Arrangement.spacedBy(actionGap),
             verticalAlignment = Alignment.CenterVertically
         ) {
+            val favorites by container.foodRepository.favorites.collectAsState(initial = emptyList())
+            if (favorites.isNotEmpty() && ui.activeFast == null &&
+                FoodLogMethod.FAVORITES in ui.addMenuConfig.visibleMethods()) {
+                Box(
+                    modifier = Modifier
+                        .testTag("home.favorites")
+                        .size(48.dp)
+                        .clip(CircleShape)
+                        .background(MaterialTheme.colorScheme.surface)
+                        .clickable { performFoodLogMethod(FoodLogMethod.FAVORITES) },
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        FoodLogMethod.FAVORITES.icon,
+                        contentDescription = stringResource(R.string.saved_meals_tab_favorites),
+                        tint = AppColors.Calorie
+                    )
+                }
+            }
             if (!voiceUi.visible) {
                 VoiceAssistantButton(onClick = container.voiceAssistant::requestStart)
             }

@@ -102,7 +102,8 @@ data class FoodAiCallSettings(
     val requestTimeoutSeconds: Int,
     val openRouterReasoningEffort: OpenRouterReasoningEffort,
     /** Opt-in amino acid estimates (#491); off leaves food-analysis prompts unchanged. */
-    val aminoAcidEstimates: Boolean = false
+    val aminoAcidEstimates: Boolean = false,
+    val geminiTimeoutSeconds: Int = 0
 )
 
 internal fun executableAIProviderOrDefault(
@@ -1114,6 +1115,13 @@ class PreferencesStore(
         }
     }
 
+    private val geminiTimeoutKey = intPreferencesKey("byokGeminiRequestTimeoutSeconds")
+    val geminiTimeoutSeconds: Flow<Int> = ds.data.map { it[geminiTimeoutKey] ?: 0 }
+    suspend fun setGeminiTimeoutSeconds(seconds: Int) {
+        require(seconds == 0 || seconds in 120..600)
+        ds.edit { it[geminiTimeoutKey] = seconds }
+    }
+
     /**
      * One DataStore read for everything a food-analysis request needs. Cold-start scans used to
      * issue ~8 sequential `.first()` calls that queued behind startup migrations and left the
@@ -1163,7 +1171,8 @@ class PreferencesStore(
             openRouterReasoningEffort = OpenRouterReasoningEffort.fromValue(
                 prefs[Keys.OPENROUTER_REASONING_EFFORT]
             ),
-            aminoAcidEstimates = prefs[Keys.AMINO_ACID_ESTIMATES_ENABLED] ?: false
+            aminoAcidEstimates = prefs[Keys.AMINO_ACID_ESTIMATES_ENABLED] ?: false,
+            geminiTimeoutSeconds = prefs[geminiTimeoutKey] ?: 0
         )
     }
 

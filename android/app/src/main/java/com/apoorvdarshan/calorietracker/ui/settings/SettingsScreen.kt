@@ -247,7 +247,7 @@ import kotlin.math.abs
 import kotlin.math.roundToInt
 
 private enum class SettingsSheet {
-    AI_PROVIDER, AI_MODEL, REASONING_EFFORT, MAX_TOKENS, REQUEST_TIMEOUT, API_KEY, CUSTOM_BASE_URL, SPEECH_PROVIDER, SPEECH_LANGUAGE, SPEECH_KEY,
+    AI_PROVIDER, AI_MODEL, REASONING_EFFORT, MAX_TOKENS, REQUEST_TIMEOUT, GEMINI_TIMEOUT, API_KEY, CUSTOM_BASE_URL, SPEECH_PROVIDER, SPEECH_LANGUAGE, SPEECH_KEY,
     TEXT_PROVIDER, TEXT_MODEL, TEXT_KEY, TEXT_BASE_URL,
     TEXT_FALLBACK_PROVIDER, TEXT_FALLBACK_MODEL, TEXT_FALLBACK_KEY, TEXT_FALLBACK_BASE_URL,
     FALLBACK_PROVIDER, FALLBACK_MODEL, FALLBACK_KEY, FALLBACK_BASE_URL,
@@ -437,6 +437,7 @@ fun SettingsScreen(
     val activityContext = LocalContext.current
     val resources = LocalResources.current
     val settingsScope = rememberCoroutineScope()
+    val geminiTimeout by container.prefs.geminiTimeoutSeconds.collectAsState(initial = 0)
     val importReadFailedMessage = stringResource(R.string.import_read_failed)
     val cloudBackupSignInFailed = stringResource(R.string.cloud_backup_sign_in_failed)
     val cloudBackupFailed = stringResource(R.string.error_title)
@@ -1257,6 +1258,18 @@ fun SettingsScreen(
                         stringResource(R.string.settings_seconds_format, ui.aiRequestTimeoutSeconds),
                         icon = Icons.Outlined.Schedule
                     ) { sheet = SettingsSheet.REQUEST_TIMEOUT }
+                }
+                if (ui.selectedAI == AIProvider.GEMINI ||
+                    (ui.separateTextProviderEnabled && ui.selectedTextAI == AIProvider.GEMINI) ||
+                    (ui.fallbackEnabled && ui.fallbackProvider == AIProvider.GEMINI) ||
+                    (ui.textFallbackEnabled && ui.textFallbackProvider == AIProvider.GEMINI)) {
+                    HorizontalDivider()
+                    SettingRow(
+                        stringResource(R.string.settings_gemini_timeout),
+                        if (geminiTimeout == 0) stringResource(R.string.settings_app_language_system)
+                        else stringResource(R.string.settings_seconds_format, geminiTimeout),
+                        icon = Icons.Outlined.Schedule
+                    ) { sheet = SettingsSheet.GEMINI_TIMEOUT }
                 }
                 if (ui.selectedAI == AIProvider.OPENROUTER ||
                     (ui.separateTextProviderEnabled && ui.selectedTextAI == AIProvider.OPENROUTER) ||
@@ -3000,6 +3013,19 @@ private fun SettingsSheets(
                         onSave = { it.trim().toIntOrNull()?.let(vm::setMaxResponseTokens); onDismiss() }
                     )
                 }
+                SettingsSheet.GEMINI_TIMEOUT -> ListSheet(
+                    title = stringResource(R.string.settings_gemini_timeout),
+                    items = listOf(0, 120, 180, 300, 600),
+                    label = {
+                        if (it == 0) stringResource(R.string.settings_app_language_system)
+                        else stringResource(R.string.settings_seconds_format, it)
+                    },
+                    selected = { it == geminiTimeout },
+                    onSelect = { seconds ->
+                        settingsScope.launch { container.prefs.setGeminiTimeoutSeconds(seconds) }
+                        onDismiss()
+                    }
+                )
                 SettingsSheet.REQUEST_TIMEOUT -> {
                     TextFieldSheet(
                         title = stringResource(R.string.settings_request_timeout),

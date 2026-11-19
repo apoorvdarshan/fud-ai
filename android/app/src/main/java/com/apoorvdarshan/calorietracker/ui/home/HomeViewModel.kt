@@ -1,5 +1,8 @@
 package com.apoorvdarshan.calorietracker.ui.home
 
+import com.apoorvdarshan.calorietracker.data.FailedMealDraft
+import com.apoorvdarshan.calorietracker.data.FailedMealDraftStore
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -92,6 +95,9 @@ data class HomeUiState(
     val fastingDefaultGoalMinutes: Int = 16 * 60,
     val fastingSessions: List<FastingSession> = emptyList(),
     val pendingAnalysis: FoodAnalysis? = null,
+    val canSaveFailedMeal: Boolean = false,
+    val hasFailedMealDraft: Boolean = false,
+    val failedMealDraftBusy: Boolean = false,
     val pendingImageBytes: ByteArray? = null,
     val pendingAdditionalImageBytes: List<ByteArray> = emptyList(),
     val pendingFoodSource: FoodSource? = null,
@@ -166,6 +172,8 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
 private val _stepsRefreshEpoch = MutableStateFlow(0)
     private val _burnRefreshTick = MutableStateFlow(0)
     private var retryAction: (() -> Unit)? = null
+    private val failedDraftStore by lazy { FailedMealDraftStore(container.appContext.noBackupFilesDir) }
+    private var failedMealInput: FailedMealDraft? = null
     /** Barcode carried from the "Scan label" prompt into the next label photo (#485). */
     private val labelScanBarcode = LabelScanBarcodeHandoff()
     /** The barcode whose error dialog currently offers "Scan label". */
@@ -301,6 +309,8 @@ private val _stepsRefreshEpoch = MutableStateFlow(0)
 
         viewModelScope.launch {
             container.prefs.pendingFoodAnalysisDraft.first()?.let { restorePendingDraft(it) }
+            val exists = withContext(Dispatchers.IO) { failedDraftStore.exists() }
+            _ui.value = _ui.value.copy(hasFailedMealDraft = exists)
         }
 
 viewModelScope.launch {
@@ -482,6 +492,7 @@ viewModelScope.launch {
     }
 
     fun analyzeText(description: String) {
+        cacheFailedMealInput(FailedMealDraft(text = description))
         retryAction = { analyzeText(description) }
         labelScanBarcode.clear()
         analysisJob = launchAnalysis { _ ->
@@ -516,6 +527,7 @@ viewModelScope.launch {
     }
 
     fun analyzePhoto(bytes: ByteArray) {
+        cacheFailedMealInput(FailedMealDraft(images = listOf(bytes), singlePhoto = true))
         retryAction = { analyzePhoto(bytes) }
         labelScanBarcode.clear()
         analysisJob = launchAnalysis { _ ->
@@ -564,7 +576,8 @@ viewModelScope.launch {
         progressiveMeal: Boolean,
         labelBarcode: String?
     ) {
-        val retryImages = imageBytesList.toList()
+        val retryImages = imageBytesList.filter { it.isNotEmpty() }.take(10)
+        cacheFailedMealInput(FailedMealDraft(note, retryImages, progressiveMeal, labelBarcode))
         retryAction = { runPhotoAnalysis(retryImages, note, progressiveMeal, labelBarcode) }
         val source = if (labelBarcode != null) FoodSource.NUTRITION_LABEL else FoodSource.SNAP_FOOD
         analysisJob = launchAnalysis { _ ->
@@ -610,6 +623,7 @@ viewModelScope.launch {
     }
 
     fun lookupBarcode(barcode: String) {
+        cacheFailedMealInput(null)
         retryAction = { lookupBarcode(barcode) }
         labelScanBarcode.clear()
         scanLabelOfferBarcode = null
@@ -850,6 +864,7 @@ viewModelScope.launch {
     }
 
     fun dismissPending() {
+        cacheFailedMealInput(null)
         retryAction = null
         labelScanBarcode.clear()
         scanLabelOfferBarcode = null
@@ -892,6 +907,60 @@ viewModelScope.launch {
         action()
     }
 
+    private fun cacheFailedMealInput(draft: FailedMealDraft?) {
+        failedMealInput = draft
+        _ui.value = _ui.value.copy(canSaveFailedMeal = draft != null)
+    }
+
+    fun saveFailedMealForLater() {
+        val draft = failedMealInput ?: return
+        changeFailedDraft {
+            withContext(Dispatchers.IO) { failedDraftStore.write(draft) }
+            dismissPending()
+            _ui.value = _ui.value.copy(hasFailedMealDraft = true)
+        }
+    }
+
+    fun resumeFailedMeal() {
+        if (_ui.value.analyzing || _ui.value.pendingAnalysis != null) return
+        changeFailedDraft {
+            val draft = withContext(Dispatchers.IO) { failedDraftStore.read() }
+            if (_ui.value.analyzing || _ui.value.pendingAnalysis != null) return@changeFailedDraft
+            when {
+                draft.singlePhoto -> analyzePhoto(draft.images.single())
+                draft.images.isNotEmpty() -> runPhotoAnalysis(draft.images, draft.text, draft.progressive, draft.labelBarcode)
+                !draft.text.isNullOrBlank() -> analyzeText(draft.text)
+                else -> error("Empty draft")
+            }
+        }
+    }
+
+    fun discardFailedMeal() {
+        changeFailedDraft {
+            withContext(Dispatchers.IO) { failedDraftStore.delete() }
+            _ui.value = _ui.value.copy(hasFailedMealDraft = false)
+        }
+    }
+
+    private fun changeFailedDraft(action: suspend () -> Unit) {
+        if (_ui.value.failedMealDraftBusy) return
+        _ui.value = _ui.value.copy(failedMealDraftBusy = true)
+        viewModelScope.launch {
+            try {
+                action()
+            } catch (e: CancellationException) {
+                throw e
+            } catch (_: Exception) {
+                _ui.value = _ui.value.copy(
+                    error = container.appContext.getString(R.string.failed_meal_draft_error),
+                    errorOffersScanLabel = false
+                )
+            } finally {
+                _ui.value = _ui.value.copy(failedMealDraftBusy = false)
+            }
+        }
+    }
+
     private fun launchAnalysis(block: suspend CoroutineScope.(generation: Long) -> Unit): Job {
         analysisGeneration += 1
         draftSaveGeneration += 1
@@ -914,6 +983,7 @@ viewModelScope.launch {
      * the retry action so no error dialog follows.
      */
     fun cancelAnalysis() {
+        cacheFailedMealInput(null)
         labelScanBarcode.clear()
         if (!_ui.value.analyzing) return
         val job = analysisJob
@@ -1098,6 +1168,7 @@ viewModelScope.launch {
         usesSavedBarcodeLabel: Boolean = false
     ) {
         retryAction = null
+        cacheFailedMealInput(null)
         draftSaveGeneration += 1
         val saveGeneration = draftSaveGeneration
         // Drop the analyzing overlay immediately — disk + DataStore must not keep the user waiting

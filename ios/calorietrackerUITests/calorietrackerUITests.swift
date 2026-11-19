@@ -61,13 +61,30 @@ final class calorietrackerUITests: XCTestCase {
         category.tap()
     }
 
+    /// Fails at the caller's line with the count it found and the matching elements attached,
+    /// so an intermittent mismatch shows whether an element was missing or duplicated.
     @MainActor
-    private func waitForCount(_ count: Int, in query: XCUIElementQuery) {
+    private func waitForCount(
+        _ count: Int, in query: XCUIElementQuery, file: StaticString = #filePath, line: UInt = #line
+    ) {
+        // Resolving an accessibility snapshot can itself exceed the polling
+        // timeout on a busy runner. Check the current state before starting
+        // that timer, so an already-correct hierarchy cannot time out.
+        if query.count == count { return }
         let expectation = XCTNSPredicateExpectation(
             predicate: NSPredicate { _, _ in query.count == count },
             object: nil
         )
-        XCTAssertEqual(XCTWaiter.wait(for: [expectation], timeout: 5), .completed)
+        guard XCTWaiter.wait(for: [expectation], timeout: 5) != .completed else { return }
+        // A snapshot requested by the predicate may complete at the deadline.
+        // Assert its actual result, not just the waiter's elapsed-time status.
+        let observedCount = query.count
+        guard observedCount != count else { return }
+        let matches = XCTAttachment(string: query.debugDescription)
+        matches.name = "Elements matching the counted query"
+        matches.lifetime = .keepAlways
+        add(matches)
+        XCTFail("Expected \(count) matching element(s), found \(observedCount)", file: file, line: line)
     }
 
     @MainActor

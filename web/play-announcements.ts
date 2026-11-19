@@ -6,6 +6,7 @@
  */
 
 import { ANNOUNCEMENTS_CHANNEL_ID, postAnnouncement } from "./discord-announce";
+import { base64Url, base64UrlBytes, pemToBytes } from "./store-jwt";
 
 export { ANNOUNCEMENTS_CHANNEL_ID };
 
@@ -274,22 +275,4 @@ async function signServiceAccountJwt(account: ServiceAccount, now: number): Prom
     new TextEncoder().encode(unsigned),
   );
   return `${unsigned}.${base64UrlBytes(new Uint8Array(signature))}`;
-}
-
-function pemToBytes(pem: string): ArrayBuffer {
-  const body = pem.replace(/-----[^-]+-----/g, "").replace(/\s/g, "");
-  const binary = atob(body);
-  const bytes = new Uint8Array(binary.length);
-  for (let i = 0; i < binary.length; i += 1) bytes[i] = binary.charCodeAt(i);
-  return bytes.buffer;
-}
-
-function base64Url(value: string): string {
-  return base64UrlBytes(new TextEncoder().encode(value));
-}
-
-function base64UrlBytes(bytes: Uint8Array): string {
-  let binary = "";
-  for (const byte of bytes) binary += String.fromCharCode(byte);
-  return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/g, "");
 }

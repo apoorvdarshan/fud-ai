@@ -31,6 +31,8 @@ import com.apoorvdarshan.calorietracker.services.health.HealthConnectManager
 import com.apoorvdarshan.calorietracker.services.ondevice.LocalModelId
 import com.apoorvdarshan.calorietracker.services.ondevice.LocalModelState
 import com.apoorvdarshan.calorietracker.ui.theme.AppThemeColor
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -234,7 +236,10 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
             }
         }
 
-        viewModelScope.launch {
+        // ~60 sequential reads (DataStore, plus encrypted API keys that hit the Android
+        // keystore) run on IO: on Main every read waited for a main-thread slot, so a busy
+        // launch could keep the snapshot, and the Settings pages gated on it, waiting >15 s.
+        viewModelScope.launch(Dispatchers.IO) {
             // The app-level migration runs asynchronously. Await it here as well so
             // Settings can never snapshot the pre-migration Native value on a cold start.
             container.prefs.migrateMatchingSpeechProviderIfNeeded()
@@ -313,112 +318,114 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
             val openRouterReasoningEffort = container.prefs.openRouterReasoningEffort.first()
             // Values the live collectors (menu, hidden tabs, water amounts) already delivered
             // are newer than the reads above, so the snapshot keeps them.
-            val menuOnScreen = _ui.value
-            _ui.value = SettingsUiState(
-                selectedAI = provider,
-                selectedModel = model,
-                separateTextProviderEnabled = separateTextEnabled,
-                selectedTextAI = textProvider,
-                selectedTextModel = textModel,
-                textApiKeyMasked = textMasked,
-                maxResponseTokens = maxTokens,
-                openRouterReasoningEffort = openRouterReasoningEffort,
-                aiRequestTimeoutSeconds = requestTimeoutSeconds,
-                selectedSpeech = speech,
-                selectedSpeechLanguage = speechLanguage,
-                speechFallbackEnabled = speechFallbackEnabled,
-                speechFallbackProvider = speechFallbackProvider,
-                speechFallbackLanguage = speechFallbackLanguage,
-                speechFallbackApiKeyMasked = speechFallbackMasked,
-                heightUnit = heightUnit,
-                weightUnit = weightUnit,
-                preferGramsByDefault = preferGramsByDefault,
-                saveMealPhotosToGallery = saveMealPhotosToGallery,
-                profile = profile,
-                notificationsEnabled = notif,
-                streakReminderEnabled = streakReminder,
-                dailySummaryEnabled = dailySummary,
-                weightReminderEnabled = weightReminder,
-                bodyFatReminderEnabled = bodyFatReminder,
-                goalReachedNotificationsEnabled = goalReachedNotifications,
-                appUpdateNotificationsEnabled = appUpdateNotifications,
-                waterTrackingEnabled = waterTracking,
-                waterDailyGoalMl = waterGoal,
-                waterUnit = waterUnit,
-                waterQuickAddPresetsMl = if (waterQuickAddPresetsCollected) {
-                    menuOnScreen.waterQuickAddPresetsMl
-                } else {
-                    waterQuickAddPresets
-                },
-                waterReminderEnabled = waterReminder,
-                fastingTrackingEnabled = fastingTracking,
-                walkRunQuickLogEnabled = walkRunQuickLog,
-                fastingDefaultGoalMinutes = fastingGoal,
-                fastingGoalNotificationEnabled = fastingNotification,
-                healthConnectEnabled = storedHealthConnect,
-                workoutHealthWriteGranted = workoutHealthWriteGranted,
-                healthEnergyGoalsEnabled = energyGoals,
-                adaptiveGoalsEnabled = adaptiveGoals,
-                apiKeyMasked = masked,
-                speechApiKeyMasked = speechMasked,
-                appearanceMode = appearance,
-                appThemeColor = appThemeColor,
-                weekStartsOnMonday = weekMon,
-                mealSchedule = mealSchedule,
-                userContext = userContext,
-                fallbackEnabled = fbEnabled,
-                fallbackProvider = fbProvider,
-                fallbackModel = fbModel,
-                fallbackApiKeyMasked = fbMasked,
-                textFallbackEnabled = textFbEnabled,
-                textFallbackProvider = textFbProvider,
-                textFallbackModel = textFbModel,
-                textFallbackApiKeyMasked = textFbMasked,
-                optionalNutrientGoals = optionalGoals,
-                quickActions = quickActions,
-                addMenuConfig = AddMenuConfig.afterSettingsSnapshot(
-                    alreadyLoaded = menuOnScreen.addMenuLoaded,
-                    onScreen = menuOnScreen.addMenuConfig,
-                    diskRead = addMenuConfig,
-                ),
-                addMenuLoaded = menuOnScreen.addMenuLoaded,
-                hiddenTabs = if (hiddenTabsCollected) menuOnScreen.hiddenTabs else hiddenTabs,
-                workoutSplit = workoutPreferences.split,
-                workoutRpeScale = workoutPreferences.rpeScale,
-                workoutRestTimerSeconds = workoutPreferences.restTimerSeconds,
-                localModelStates = container.localModels.states.value,
-                goalsNeedRecalc = needsRecalc(profile),
-                settingsLoaded = true
-            )
-            followAssistantSettings()
-            // The first meal share can save the link style while Settings is open.
-            viewModelScope.launch {
-                container.prefs.mealShareLinkStyle.collect { style ->
-                    _ui.value = _ui.value.copy(mealShareLinkStyle = style ?: MealShareLinkStyle.Default)
+            withContext(Dispatchers.Main.immediate) {
+                val menuOnScreen = _ui.value
+                _ui.value = SettingsUiState(
+                    selectedAI = provider,
+                    selectedModel = model,
+                    separateTextProviderEnabled = separateTextEnabled,
+                    selectedTextAI = textProvider,
+                    selectedTextModel = textModel,
+                    textApiKeyMasked = textMasked,
+                    maxResponseTokens = maxTokens,
+                    openRouterReasoningEffort = openRouterReasoningEffort,
+                    aiRequestTimeoutSeconds = requestTimeoutSeconds,
+                    selectedSpeech = speech,
+                    selectedSpeechLanguage = speechLanguage,
+                    speechFallbackEnabled = speechFallbackEnabled,
+                    speechFallbackProvider = speechFallbackProvider,
+                    speechFallbackLanguage = speechFallbackLanguage,
+                    speechFallbackApiKeyMasked = speechFallbackMasked,
+                    heightUnit = heightUnit,
+                    weightUnit = weightUnit,
+                    preferGramsByDefault = preferGramsByDefault,
+                    saveMealPhotosToGallery = saveMealPhotosToGallery,
+                    profile = profile,
+                    notificationsEnabled = notif,
+                    streakReminderEnabled = streakReminder,
+                    dailySummaryEnabled = dailySummary,
+                    weightReminderEnabled = weightReminder,
+                    bodyFatReminderEnabled = bodyFatReminder,
+                    goalReachedNotificationsEnabled = goalReachedNotifications,
+                    appUpdateNotificationsEnabled = appUpdateNotifications,
+                    waterTrackingEnabled = waterTracking,
+                    waterDailyGoalMl = waterGoal,
+                    waterUnit = waterUnit,
+                    waterQuickAddPresetsMl = if (waterQuickAddPresetsCollected) {
+                        menuOnScreen.waterQuickAddPresetsMl
+                    } else {
+                        waterQuickAddPresets
+                    },
+                    waterReminderEnabled = waterReminder,
+                    fastingTrackingEnabled = fastingTracking,
+                    walkRunQuickLogEnabled = walkRunQuickLog,
+                    fastingDefaultGoalMinutes = fastingGoal,
+                    fastingGoalNotificationEnabled = fastingNotification,
+                    healthConnectEnabled = storedHealthConnect,
+                    workoutHealthWriteGranted = workoutHealthWriteGranted,
+                    healthEnergyGoalsEnabled = energyGoals,
+                    adaptiveGoalsEnabled = adaptiveGoals,
+                    apiKeyMasked = masked,
+                    speechApiKeyMasked = speechMasked,
+                    appearanceMode = appearance,
+                    appThemeColor = appThemeColor,
+                    weekStartsOnMonday = weekMon,
+                    mealSchedule = mealSchedule,
+                    userContext = userContext,
+                    fallbackEnabled = fbEnabled,
+                    fallbackProvider = fbProvider,
+                    fallbackModel = fbModel,
+                    fallbackApiKeyMasked = fbMasked,
+                    textFallbackEnabled = textFbEnabled,
+                    textFallbackProvider = textFbProvider,
+                    textFallbackModel = textFbModel,
+                    textFallbackApiKeyMasked = textFbMasked,
+                    optionalNutrientGoals = optionalGoals,
+                    quickActions = quickActions,
+                    addMenuConfig = AddMenuConfig.afterSettingsSnapshot(
+                        alreadyLoaded = menuOnScreen.addMenuLoaded,
+                        onScreen = menuOnScreen.addMenuConfig,
+                        diskRead = addMenuConfig,
+                    ),
+                    addMenuLoaded = menuOnScreen.addMenuLoaded,
+                    hiddenTabs = if (hiddenTabsCollected) menuOnScreen.hiddenTabs else hiddenTabs,
+                    workoutSplit = workoutPreferences.split,
+                    workoutRpeScale = workoutPreferences.rpeScale,
+                    workoutRestTimerSeconds = workoutPreferences.restTimerSeconds,
+                    localModelStates = container.localModels.states.value,
+                    goalsNeedRecalc = needsRecalc(profile),
+                    settingsLoaded = true
+                )
+                followAssistantSettings()
+                // The first meal share can save the link style while Settings is open.
+                viewModelScope.launch {
+                    container.prefs.mealShareLinkStyle.collect { style ->
+                        _ui.value = _ui.value.copy(mealShareLinkStyle = style ?: MealShareLinkStyle.Default)
+                    }
                 }
-            }
 
-            // Permission reconciliation may open Health Connect's provider and backfill data, so
-            // it must never sit on the critical path for displaying Settings. Refresh only the
-            // health-dependent fields after the complete local page is already available.
-            val reconciledHealthConnect = reconcileHealthConnectState()
-            val reconciledWorkoutWrite = reconciledHealthConnect &&
-                container.health.hasActiveEnergyWrite()
-            val reconciledHistoryMissing = reconciledHealthConnect &&
-                container.health.isHistoryAccessMissing()
-            val reconciledExerciseMissing = reconciledHealthConnect &&
-                !container.health.hasExerciseRead()
-            val reconciledProfile = container.profileRepository.current()
-            _ui.value = _ui.value.copy(
-                profile = reconciledProfile ?: _ui.value.profile,
-                healthConnectEnabled = reconciledHealthConnect,
-                workoutHealthWriteGranted = reconciledWorkoutWrite,
-                healthHistoryAccessMissing = reconciledHistoryMissing,
-                healthExerciseAccessMissing = reconciledExerciseMissing,
-                healthEnergyGoalsEnabled = container.prefs.healthEnergyGoalsEnabled.first() &&
-                    reconciledHealthConnect,
-                goalsNeedRecalc = needsRecalc(reconciledProfile ?: _ui.value.profile)
-            )
+                // Permission reconciliation may open Health Connect's provider and backfill data, so
+                // it must never sit on the critical path for displaying Settings. Refresh only the
+                // health-dependent fields after the complete local page is already available.
+                val reconciledHealthConnect = reconcileHealthConnectState()
+                val reconciledWorkoutWrite = reconciledHealthConnect &&
+                    container.health.hasActiveEnergyWrite()
+                val reconciledHistoryMissing = reconciledHealthConnect &&
+                    container.health.isHistoryAccessMissing()
+                val reconciledExerciseMissing = reconciledHealthConnect &&
+                    !container.health.hasExerciseRead()
+                val reconciledProfile = container.profileRepository.current()
+                _ui.value = _ui.value.copy(
+                    profile = reconciledProfile ?: _ui.value.profile,
+                    healthConnectEnabled = reconciledHealthConnect,
+                    workoutHealthWriteGranted = reconciledWorkoutWrite,
+                    healthHistoryAccessMissing = reconciledHistoryMissing,
+                    healthExerciseAccessMissing = reconciledExerciseMissing,
+                    healthEnergyGoalsEnabled = container.prefs.healthEnergyGoalsEnabled.first() &&
+                        reconciledHealthConnect,
+                    goalsNeedRecalc = needsRecalc(reconciledProfile ?: _ui.value.profile)
+                )
+            }
         }
     }
 

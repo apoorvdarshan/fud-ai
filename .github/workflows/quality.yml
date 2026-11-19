@@ -111,7 +111,7 @@ jobs:
         run: python3 scripts/ci/add_workout_sample_frames.py
       # Verifies the checksum of android/gradle/wrapper/gradle-wrapper.jar against
       # Gradle's published releases, so a tampered wrapper binary fails CI.
-      - uses: gradle/actions/wrapper-validation@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
+      - uses: gradle/actions/wrapper-validation@8da46b539cd8fe6ab27ca75128919a18d757604c # v6.4.1
       - uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
         with:
           distribution: temurin
@@ -120,7 +120,7 @@ jobs:
       - uses: android-actions/setup-android@be39fa834029ff78f1a44aa3bb0819b8fc2bd8fd # v4.0.4
         with:
           packages: platform-tools
-      - uses: gradle/actions/setup-gradle@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
+      - uses: gradle/actions/setup-gradle@8da46b539cd8fe6ab27ca75128919a18d757604c # v6.4.1
         with:
           # Lets main-branch runs save the configuration cache for later runs to reuse.
           cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
@@ -180,7 +180,7 @@ jobs:
       # Unit tests and Debug builds use only the small sample pack.
       - name: Add the workout sample frames
         run: python3 scripts/ci/add_workout_sample_frames.py
-      - uses: gradle/actions/wrapper-validation@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
+      - uses: gradle/actions/wrapper-validation@8da46b539cd8fe6ab27ca75128919a18d757604c # v6.4.1
       - uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
         with:
           distribution: temurin
@@ -188,7 +188,7 @@ jobs:
       - uses: android-actions/setup-android@be39fa834029ff78f1a44aa3bb0819b8fc2bd8fd # v4.0.4
         with:
           packages: platform-tools
-      - uses: gradle/actions/setup-gradle@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
+      - uses: gradle/actions/setup-gradle@8da46b539cd8fe6ab27ca75128919a18d757604c # v6.4.1
         with:
           # Lets main-branch runs save the configuration cache for later runs to reuse.
           cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}

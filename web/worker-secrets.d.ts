@@ -46,4 +46,12 @@ interface Env {
    * Set with `npx wrangler secret put PLAY_SERVICE_ACCOUNT_JSON`.
    */
   PLAY_SERVICE_ACCOUNT_JSON?: string;
+  /**
+   * App Store Connect API key (Customer Support role) the hourly job uses to
+   * read the live iOS version: its key ID, issuer ID, and `.p8` PEM contents.
+   * Set each with `npx wrangler secret put <NAME>`.
+   */
+  ASC_KEY_ID?: string;
+  ASC_ISSUER_ID?: string;
+  ASC_PRIVATE_KEY?: string;
 }

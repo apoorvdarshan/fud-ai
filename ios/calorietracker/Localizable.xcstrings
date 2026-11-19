@@ -199266,6 +199266,832 @@
           }
         }
       }
+    },
+    "Try free for 3 days": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Try free for 3 days"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 Tage kostenlos testen"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prueba gratis durante 3 días"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Essayer gratuitement pendant 3 jours"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prova gratis per 3 giorni"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Teste grátis por 3 dias"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Probeer 3 dagen gratis"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 gün ücretsiz dene"
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 gün pulsuz sına"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wypróbuj bezpłatnie przez 3 dni"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vyzkoušet 3 dny zdarma"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Încearcă gratuit 3 zile"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Попробовать бесплатно 3 дня"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Спробувати безкоштовно 3 дні"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 दिन मुफ़्त आज़माएँ"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "جرّب مجانًا لمدة 3 أيام"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3日間無料で試す"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3일 무료 체험"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "免费试用3天"
+          }
+        }
+      }
+    },
+    "3 days free, then %@/year. Renews automatically. Cancel before the trial ends to avoid a charge.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 days free, then %@/year. Renews automatically. Cancel before the trial ends to avoid a charge."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 Tage kostenlos, danach %@/Jahr. Automatische Verlängerung. Vor Ablauf der Testphase kündigen, um Kosten zu vermeiden."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 días gratis, después %@/año. Renovación automática. Cancela antes de que termine la prueba para evitar el cobro."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 jours gratuits, puis %@/an. Renouvellement automatique. Annulez avant la fin de l’essai pour éviter tout prélèvement."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 giorni gratis, poi %@/anno. Rinnovo automatico. Annulla prima della fine della prova per evitare addebiti."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 dias grátis, depois %@/ano. Renovação automática. Cancele antes do fim do teste para evitar cobrança."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 dagen gratis, daarna %@/jaar. Automatische verlenging. Annuleer vóór het einde van de proefperiode om kosten te voorkomen."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 gün ücretsiz, ardından %@/yıl. Otomatik yenilenir. Ücret alınmaması için deneme bitmeden iptal edin."
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 gün pulsuz, sonra %@/il. Avtomatik yenilənir. Ödəniş tutulmaması üçün sınaq bitməzdən əvvəl ləğv edin."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 dni bezpłatnie, potem %@/rok. Automatyczne odnawianie. Anuluj przed końcem okresu próbnego, aby uniknąć opłaty."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 dny zdarma, poté %@/rok. Automatické obnovení. Zrušte před koncem zkušební doby, abyste se vyhnuli platbě."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 zile gratuit, apoi %@/an. Reînnoire automată. Anulează înainte de sfârșitul perioadei de probă pentru a evita plata."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 дня бесплатно, затем %@/год. Автоматическое продление. Отмените до конца пробного периода, чтобы избежать списания."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 дні безкоштовно, потім %@/рік. Автоматичне поновлення. Скасуйте до кінця пробного періоду, щоб уникнути списання."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 दिन मुफ़्त, फिर %@/वर्ष। अपने आप नवीनीकरण होगा। शुल्क से बचने के लिए ट्रायल खत्म होने से पहले रद्द करें।"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 أيام مجانًا، ثم %@/سنة. تجديد تلقائي. ألغِ قبل انتهاء التجربة لتجنب الرسوم."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3日間無料、その後は年額%@。自動更新されます。課金を避けるには無料期間終了前に解約してください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3일 무료, 이후 연 %@. 자동 갱신됩니다. 요금이 청구되지 않으려면 체험 종료 전에 취소하세요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "免费3天，之后每年%@。自动续订。请在试用结束前取消，以免扣费。"
+          }
+        }
+      }
+    },
+    "Trial: 20 AI actions and %lld voice minutes/day (UTC). Full plan limits after trial. Extra credits cost money.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trial: 20 AI actions and %lld voice minutes/day (UTC). Full plan limits after trial. Extra credits cost money."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Testphase: 20 KI-Aktionen und %lld Sprachminuten/Tag (UTC). Danach gelten die vollen Tariflimits. Zusätzliche Credits kosten Geld."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prueba: 20 acciones de IA y %lld minutos de voz/día (UTC). Límites completos después. Los créditos extra son de pago."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Essai : 20 actions IA et %lld minutes vocales/jour (UTC). Limites complètes ensuite. Les crédits supplémentaires sont payants."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prova: 20 azioni IA e %lld minuti vocali/giorno (UTC). Limiti completi dopo la prova. I crediti extra sono a pagamento."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Teste: 20 ações de IA e %lld minutos de voz/dia (UTC). Limites completos após o teste. Créditos extras são pagos."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Proefperiode: 20 AI-acties en %lld spraakminuten/dag (UTC). Daarna de volledige limieten. Extra credits kosten geld."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deneme: günde 20 yapay zekâ işlemi ve %lld ses dakikası (UTC). Sonrasında tam plan limitleri geçerlidir. Ek krediler ücretlidir."
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sınaq: gündə 20 süni intellekt əməliyyatı və %lld səs dəqiqəsi (UTC). Sonra tam plan limitləri tətbiq olunur. Əlavə kreditlər ödənişlidir."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Próba: 20 działań AI i %lld minut głosu/dzień (UTC). Potem pełne limity planu. Dodatkowe kredyty są płatne."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zkouška: 20 akcí AI a %lld hlasových minut/den (UTC). Poté plné limity tarifu. Další kredity jsou placené."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Probă: 20 de acțiuni AI și %lld minute vocale/zi (UTC). Apoi se aplică limitele complete. Creditele suplimentare costă bani."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пробный период: 20 действий ИИ и %lld минут голоса в день (UTC). Затем полные лимиты плана. Дополнительные кредиты платные."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пробний період: 20 дій ШІ та %lld хвилин голосу на день (UTC). Потім повні ліміти плану. Додаткові кредити платні."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ट्रायल: रोज़ 20 AI कार्रवाइयाँ और %lld वॉइस मिनट (UTC)। बाद में पूरी प्लान सीमाएँ लागू होंगी। अतिरिक्त क्रेडिट के पैसे लगते हैं।"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "التجربة: 20 إجراء ذكاء اصطناعي و%lld دقيقة صوت يوميًا (UTC). بعدها تسري حدود الخطة الكاملة. الأرصدة الإضافية مدفوعة."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無料期間：1日20回のAI操作と音声%lld分（UTC）。終了後は通常のプラン上限が適用されます。追加クレジットは有料です。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "체험: 하루 AI 작업 20회, 음성 %lld분(UTC). 이후 정규 플랜 한도가 적용됩니다. 추가 크레딧은 유료입니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "试用期间：每天20次AI操作和%lld分钟语音（UTC）。试用后适用完整套餐额度。额外积分需付费。"
+          }
+        }
+      }
+    },
+    "Try Plus or Pro yearly without API keys. Trial limits apply. See prices and terms, or keep BYOK free.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Try Plus or Pro yearly without API keys. Trial limits apply. See prices and terms, or keep BYOK free."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plus oder Pro jährlich ohne API-Schlüssel testen. Testlimits gelten. Preise und Bedingungen ansehen oder BYOK kostenlos behalten."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prueba Plus o Pro anual sin claves API. Se aplican límites de prueba. Consulta precios y condiciones o sigue con BYOK gratis."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Essayez Plus ou Pro annuel sans clé API. Des limites s’appliquent. Consultez les prix et conditions ou gardez BYOK gratuit."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prova Plus o Pro annuale senza chiavi API. Si applicano limiti di prova. Consulta prezzi e condizioni o mantieni BYOK gratis."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Teste Plus ou Pro anual sem chaves API. Há limites no teste. Veja preços e termos ou mantenha BYOK grátis."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Probeer Plus of Pro jaarlijks zonder API-sleutels. Proeflimieten gelden. Bekijk prijzen en voorwaarden of behoud gratis BYOK."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API anahtarı olmadan yıllık Plus veya Pro deneyin. Deneme limitleri geçerlidir. Fiyat ve koşulları görün ya da ücretsiz BYOK kullanın."
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API açarları olmadan illik Plus və ya Pro sınayın. Sınaq limitləri var. Qiymət və şərtlərə baxın və ya BYOK-u pulsuz saxlayın."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wypróbuj roczny Plus lub Pro bez kluczy API. Obowiązują limity próbne. Sprawdź ceny i warunki lub zachowaj bezpłatne BYOK."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vyzkoušejte roční Plus nebo Pro bez klíčů API. Platí zkušební limity. Prohlédněte si ceny a podmínky nebo ponechte BYOK zdarma."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Încearcă Plus sau Pro anual fără chei API. Se aplică limite de probă. Vezi prețurile și condițiile sau păstrează BYOK gratuit."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Попробуйте годовой Plus или Pro без ключей API. Действуют пробные лимиты. Посмотрите цены и условия или оставьте BYOK бесплатно."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Спробуйте річний Plus або Pro без ключів API. Діють пробні ліміти. Перегляньте ціни й умови або залиште BYOK безкоштовно."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API कुंजी के बिना सालाना Plus या Pro आज़माएँ। ट्रायल सीमाएँ लागू हैं। कीमत और शर्तें देखें या BYOK मुफ़्त रखें।"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "جرّب Plus أو Pro السنوي دون مفاتيح API. تسري حدود التجربة. راجع الأسعار والشروط أو احتفظ بـ BYOK مجانًا."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "APIキーなしで年間PlusまたはProをお試しください。無料期間には利用上限があります。料金と条件を確認するか、無料のBYOKを続けられます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API 키 없이 연간 Plus 또는 Pro를 체험하세요. 체험 한도가 적용됩니다. 가격과 약관을 확인하거나 무료 BYOK를 유지하세요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "无需API密钥即可试用Plus或Pro年付套餐。试用额度有限。查看价格和条款，或继续免费使用BYOK。"
+          }
+        }
+      }
+    },
+    "Trial ends": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trial ends"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Testphase endet"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La prueba termina"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fin de l’essai"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fine della prova"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fim do teste"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Proefperiode eindigt"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deneme bitişi"
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sınaq bitir"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Koniec okresu próbnego"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Konec zkušební doby"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Proba se încheie"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Конец пробного периода"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кінець пробного періоду"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ट्रायल समाप्ति"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "نهاية التجربة"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無料期間の終了"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "체험 종료"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "试用结束"
+          }
+        }
+      }
+    },
+    "Trial ends tomorrow": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trial ends tomorrow"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Testphase endet morgen"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La prueba termina mañana"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L’essai se termine demain"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La prova termina domani"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O teste termina amanhã"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Proefperiode eindigt morgen"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deneme yarın bitiyor"
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sınaq sabah bitir"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Okres próbny kończy się jutro"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zkušební doba končí zítra"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Proba se încheie mâine"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пробный период заканчивается завтра"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пробний період закінчується завтра"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ट्रायल कल खत्म होगा"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تنتهي التجربة غدًا"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無料期間は明日終了します"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "체험이 내일 종료됩니다"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "试用明天结束"
+          }
+        }
+      }
+    },
+    "Your yearly plan renews after the trial. Review or cancel in store settings.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your yearly plan renews after the trial. Review or cancel in store settings."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dein Jahrestarif verlängert sich nach der Testphase. In den Store-Einstellungen prüfen oder kündigen."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu plan anual se renueva después de la prueba. Revisa o cancela en los ajustes de la tienda."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Votre forfait annuel se renouvelle après l’essai. Consultez ou annulez dans les réglages de la boutique."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il piano annuale si rinnova dopo la prova. Controlla o annulla nelle impostazioni dello store."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seu plano anual renova após o teste. Confira ou cancele nas configurações da loja."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Je jaarabonnement wordt na de proefperiode verlengd. Bekijk of annuleer het in de winkelinstellingen."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yıllık planınız denemeden sonra yenilenir. Mağaza ayarlarından inceleyin veya iptal edin."
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İllik planınız sınaqdan sonra yenilənir. Mağaza ayarlarında yoxlayın və ya ləğv edin."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plan roczny odnowi się po okresie próbnym. Sprawdź lub anuluj w ustawieniach sklepu."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Roční tarif se po zkušební době obnoví. Zkontrolujte nebo zrušte jej v nastavení obchodu."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Planul anual se reînnoiește după probă. Verifică sau anulează în setările magazinului."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Годовой план продлится после пробного периода. Проверьте или отмените подписку в настройках магазина."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Річний план поновиться після пробного періоду. Перевірте або скасуйте підписку в налаштуваннях магазину."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ट्रायल के बाद सालाना प्लान का नवीनीकरण होगा। स्टोर सेटिंग में जाँचें या रद्द करें।"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تتجدد خطتك السنوية بعد التجربة. راجع الاشتراك أو ألغِه من إعدادات المتجر."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無料期間終了後、年間プランが更新されます。ストアの設定で確認または解約してください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "체험 후 연간 플랜이 갱신됩니다. 스토어 설정에서 확인하거나 취소하세요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "试用后将续订年付套餐。请在商店设置中查看或取消订阅。"
+          }
+        }
+      }
     }
   },
   "version": "1.1"

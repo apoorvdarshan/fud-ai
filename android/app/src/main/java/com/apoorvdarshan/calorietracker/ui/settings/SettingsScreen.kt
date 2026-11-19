@@ -330,6 +330,10 @@ internal enum class SettingsCategory(
         AboutSettingsCategory.LEGAL
     );
 
+    /** Whether the page shows values from [SettingsViewModel]'s stored-settings snapshot. */
+    val readsSettingsSnapshot: Boolean
+        get() = aboutCategory == null && this != VOICE_ASSISTANT && this != AI_ACCESS
+
     /** The voice assistant's name for this category (`open_screen` / `get_app_state`). */
     val voiceSection: VoiceSettingsSection?
         get() = when (this) {
@@ -732,8 +736,9 @@ fun SettingsScreen(
             )
 
             // A fresh activity gets a new ViewModel whose snapshot is still loading; wait
-            // for it rather than briefly showing every switch at its default.
-            if (!ui.settingsLoaded) {
+            // for it rather than briefly showing every switch at its default. Pages that
+            // load their own data (voice, AI Access, About) don't wait on it.
+            if (!ui.settingsLoaded && selectedCategory!!.readsSettingsSnapshot) {
                 Box(Modifier.fillMaxWidth().padding(vertical = 32.dp), contentAlignment = Alignment.Center) {
                     CircularProgressIndicator()
                 }

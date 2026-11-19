@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hosted_trial_cta">免费试用3天</string>
+    <string name="hosted_trial_disclosure">免费3天，之后每年%1$s。自动续订。请在试用结束前取消，以免扣费。</string>
+    <string name="hosted_trial_limits">试用期间：每天20次AI操作和%1$d分钟语音（UTC）。试用后适用完整套餐额度。额外积分需付费。</string>
+    <string name="hosted_trial_invite_body">无需API密钥即可试用Plus或Pro年付套餐。试用额度有限。查看价格和条款，或继续免费使用BYOK。</string>
+    <string name="hosted_trial_ends">试用结束</string>
+    <string name="hosted_trial_reminder_title">试用明天结束</string>
+    <string name="hosted_trial_reminder_body">试用后将续订年付套餐。请在商店设置中查看或取消订阅。</string>
+    <string name="hosted_trial_invite_title">免费试用3天</string>
+</resources>

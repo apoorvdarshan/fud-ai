@@ -50,6 +50,7 @@ export class MemoryLedgerStore implements LedgerStore {
       ? {
           ...existing,
           plan: newer ? snapshot.plan : existing.plan,
+          trial_expires_at: newer ? snapshot.trialExpiresAt ?? null : existing.trial_expires_at ?? null,
           credits_granted: Math.max(existing.credits_granted, snapshot.creditsGranted),
           entitlement_verified_at: newer ? verifiedAt : existing.entitlement_verified_at,
           version: existing.version + 1,
@@ -57,6 +58,7 @@ export class MemoryLedgerStore implements LedgerStore {
       : {
           user_id_hash: userIdHash,
           plan: snapshot.plan,
+          trial_expires_at: snapshot.trialExpiresAt ?? null,
           credits_granted: snapshot.creditsGranted,
           credits_spent: 0,
           usage_day: verifiedAt.slice(0, 10),

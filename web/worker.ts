@@ -1,3 +1,5 @@
+import { runDiscordModeration } from "./discord-moderation.mjs";
+export { DiscordModeration } from "./discord-moderation.mjs";
 import { GITHUB_ISSUES_WEBHOOK_PATH, handleGitHubIssueClosure, retryDiscordIssueClosures } from "./discord-issue-closures";
 import { MEAL_SHARE_API, handleMealShareRequest } from "./meal-shares";
 import {
@@ -99,7 +101,9 @@ export default {
   },
 
   scheduled(_controller: ScheduledController, env: Env, context: ExecutionContext): void {
-    if (_controller.cron === "*/5 * * * *") {
+    if (_controller.cron === "* * * * *") {
+      context.waitUntil(runDiscordModeration(env));
+    } else if (_controller.cron === "*/5 * * * *") {
       context.waitUntil(retryDiscordIssueClosures(env));
     } else {
       context.waitUntil(runScheduledMaintenance(env));

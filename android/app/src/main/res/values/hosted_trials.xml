@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hosted_trial_cta">Try free for 3 days</string>
+    <string name="hosted_trial_disclosure">3 days free, then %1$s/year. Renews automatically. Cancel before the trial ends to avoid a charge.</string>
+    <string name="hosted_trial_limits">Trial: 20 AI actions and %1$d voice minutes/day (UTC). Full plan limits after trial. Extra credits cost money.</string>
+    <string name="hosted_trial_invite_body">Try Plus or Pro yearly without API keys. Trial limits apply. See prices and terms, or keep BYOK free.</string>
+    <string name="hosted_trial_ends">Trial ends</string>
+    <string name="hosted_trial_reminder_title">Trial ends tomorrow</string>
+    <string name="hosted_trial_reminder_body">Your yearly plan renews after the trial. Review or cancel in store settings.</string>
+    <string name="hosted_trial_invite_title">Try free for 3 days</string>
+</resources>

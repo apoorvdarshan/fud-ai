@@ -1,9 +1,9 @@
 # Play Store Listing
 
-Google Play Console listing copy for Fud AI Android v8.0 / versionCode 44. Each field is in a code block for easy copy-paste. Char counts are tracked because Play Console enforces hard caps and silently truncates anything over. This file is prepared for the 8.0 release (Live Voice, workout rest timer and routines, Health Connect workout import, Short or Direct share links) and has not been submitted. Android 7.2 / versionCode 42 is the live Play release; 7.2.1 / versionCode 43 was tagged but never uploaded to Play.
+Google Play Console listing copy for Fud AI Android v8.0.1 / versionCode 45. Each field is in a code block for easy copy-paste. Char counts are tracked because Play Console enforces hard caps and silently truncates anything over. This file is prepared for the 8.0.1 release (8.0's Live Voice, workout rest timer and routines, Health Connect workout import and share links, plus a Health Connect setup crash fix); 8.0.1 replaces 8.0 (versionCode 44), which was still in Play review. Android 7.2 / versionCode 42 is the live Play release; 7.2.1 / versionCode 43 was tagged but never uploaded to Play.
 
 **Pending Play Console updates**
-- [ ] **Before the next Android release:** update the Health Connect declaration in Play Console to include **Exercise (READ)** — paste the `READ_EXERCISE` rationale from §7 *Health apps declaration*, then re-check the §7 Data safety notes (imported workouts stay on-device).
+- [x] Health Connect declaration includes **Exercise (READ)** with the §7 `READ_EXERCISE` rationale (submitted with 8.0, 2026-10-24). Play lists a new health permission in the declaration only once a release containing it is uploaded, and a store-release upload that adds one fails until the declaration is updated, so upload such a release through Play Console first.
 
 **Where to paste each field in Play Console:**
 - App name / Short description / Full description → Grow → Store presence → **Main store listing** (default English) and Grow → Store presence → **Custom store listings** → Manage translations (per-language overrides)
@@ -109,21 +109,16 @@ English-only on Play Console — non-English Play Store browsers (ar, az-AZ, cs-
 
 ---
 
-## 4. What's New (v8.0 / versionCode 44 — being released)
+## 4. What's New (v8.1.1 / versionCode 47)
 
-**500 char hard cap per language.** Only the `<en-US>` block is kept: store-release uploads every `<locale>` block in this fence, and Play shows the English notes to every other language. Add a translated block only when it describes this release.
+**500 char hard cap per language.** English is the fallback for other store locales.
 
 ```
 <en-US>
-Fud AI 8.0
-• Live Voice: talk to Fud AI to log meals, scan barcodes and check progress. Included with Plus and Pro, or use your own Gemini, OpenAI, xAI or Qwen key.
-• Workouts: rest timer, routines, Health Connect import.
-• Progress: Weekly Recap, Steps, and past periods.
-• Share meals as a short or direct link.
-• Energy in kcal or kJ.
-• Welcome back: restore your Drive backup and Health Connect data.
-• Camera: sharper close-ups and tap to focus.
-• Alibaba Qwen; the app is now in Turkish.
+Fud AI 8.1.1
+• Plus and Pro subscriptions now start at the displayed subscription price, without a free trial.
+• Trials already started keep their original terms.
+• Using your own API key remains free.
 </en-US>
 ```
 

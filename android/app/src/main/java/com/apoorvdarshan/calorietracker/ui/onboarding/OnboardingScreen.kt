@@ -2,6 +2,8 @@ package com.apoorvdarshan.calorietracker.ui.onboarding
 
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -1177,6 +1179,15 @@ private fun HealthConnectStep(container: AppContainer, enabled: Boolean, onToggl
     }
     val context = LocalContext.current
     val available = remember { container.health.isAvailable() }
+    val unavailableMessage = stringResource(R.string.onboarding_health_unavailable)
+    // Some devices refuse Health Connect's permission or settings screen with a
+    // SecurityException (Play vitals, 7.2); say so instead of crashing onboarding.
+    fun openHealthConnect(open: () -> Unit) {
+        runCatching(open).onFailure { error ->
+            Log.w("Onboarding", "Health Connect screen refused to open", error)
+            Toast.makeText(context, unavailableMessage, Toast.LENGTH_SHORT).show()
+        }
+    }
     Column(
         Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -1236,7 +1247,7 @@ private fun HealthConnectStep(container: AppContainer, enabled: Boolean, onToggl
                         ))
                 )
                 .clickable(enabled = available) {
-                    hcLauncher.launch(container.health.connectPermissions)
+                    openHealthConnect { hcLauncher.launch(container.health.connectPermissions) }
                 },
             contentAlignment = Alignment.Center
         ) {
@@ -1252,7 +1263,7 @@ private fun HealthConnectStep(container: AppContainer, enabled: Boolean, onToggl
             )
         }
         if (available) {
-            TextButton(onClick = { context.startActivity(container.health.manageAccessIntent()) }) {
+            TextButton(onClick = { openHealthConnect { context.startActivity(container.health.manageAccessIntent()) } }) {
                 Text(
                     stringResource(R.string.settings_manage_health_access),
                     color = AppColors.Calorie

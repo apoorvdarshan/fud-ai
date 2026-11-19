@@ -1,4 +1,6 @@
 <resources>
+    <string name="settings_health_water_sync">Write water logs to Health Connect</string>
+    <string name="settings_health_water_sync_note">Off by default. Writes new or changed Fud AI water logs, including changes from diary imports. Turning this off does not remove records already shared.</string>
     <string name="app_name">Fud AI</string>
 
     <!-- Widgets -->

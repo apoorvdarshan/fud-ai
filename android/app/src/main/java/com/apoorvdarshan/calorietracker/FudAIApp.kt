@@ -306,7 +306,7 @@ class AppContainer(app: FudAIApp) {
     val bodyFatRepository = BodyFatRepository(prefs, profileRepository, health)
     val bodyMeasurementRepository = BodyMeasurementRepository(prefs)
     val chatRepository = ChatRepository(prefs)
-    val waterRepository = WaterRepository(prefs)
+    val waterRepository = WaterRepository(prefs, health)
     val fastingRepository = FastingRepository(prefs)
     val workoutRepository = WorkoutRepository(prefs, workoutHealthSync)
     /** Read-only workouts other apps (Garmin Connect, Strava, …) shared with Health Connect. */
@@ -479,6 +479,7 @@ class AppContainer(app: FudAIApp) {
         // permission, or Exercise while the toggle is off, returns before the import step,
         // yet other apps' workouts copied in earlier must still go (#479). Removal only.
         importedHealthWorkoutRepository.removeIfAccessRevoked()
+        waterRepository.retryHealthWrites()
         if (!prefs.healthConnectEnabled.first()) return
         if (!health.isAvailable()) return
 

@@ -381,6 +381,36 @@ class PreferencesStore(
     suspend fun updateWaterEntries(transform: (List<WaterEntry>) -> List<WaterEntry>): List<WaterEntry> =
         updateJsonList(Keys.WATER_ENTRIES, WaterEntry.serializer(), transform)
 
+    private val hydrationSyncKey = booleanPreferencesKey("healthHydrationSyncEnabled")
+    private val hydrationPendingKey = stringSetPreferencesKey("healthHydrationPending")
+    val hydrationSyncEnabled: Flow<Boolean> = ds.data.map { it[hydrationSyncKey] ?: false }
+    val pendingHydration: Flow<Set<String>> = ds.data.map { it[hydrationPendingKey].orEmpty() }
+
+    suspend fun setHydrationSync(enabled: Boolean) {
+        ds.edit {
+            it[hydrationSyncKey] = enabled
+            if (!enabled) it.remove(hydrationPendingKey)
+        }
+    }
+
+    suspend fun completeHydration(id: String) {
+        ds.edit { it[hydrationPendingKey] = it[hydrationPendingKey].orEmpty() - id }
+    }
+
+    suspend fun mutateWaterDiary(transform: (List<WaterEntry>) -> List<WaterEntry>) {
+        ds.edit { prefs ->
+            val key = Keys.WATER_ENTRIES
+            val decoded = decodeList(prefs[key], WaterEntry.serializer(), key.name)
+            preserveIfUnreadable(prefs, key, decoded)
+            val before = decoded.itemsOrEmpty
+            val after = transform(before)
+            prefs[key] = json.encodeToString(ListSerializer(WaterEntry.serializer()), after)
+            if (prefs[hydrationSyncKey] == true && prefs[Keys.HEALTH_CONNECT_ENABLED] == true) {
+                prefs[hydrationPendingKey] = prefs[hydrationPendingKey].orEmpty() + changedWaterIds(before, after)
+            }
+        }
+    }
+
     // -- Fasting tracking -----------------------------------------------
     val fastingTrackingEnabled: Flow<Boolean> = ds.data.map { it[Keys.FASTING_TRACKING_ENABLED] ?: false }
     suspend fun setFastingTrackingEnabled(v: Boolean) { ds.edit { it[Keys.FASTING_TRACKING_ENABLED] = v } }

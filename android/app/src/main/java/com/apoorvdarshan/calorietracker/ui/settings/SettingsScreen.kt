@@ -280,7 +280,7 @@ private fun applyAppLanguage(tag: String?) {
 }
 
 private enum class HealthConnectPermissionAction {
-    SYNC, ENERGY_GOALS, DAILY_SUMMARY
+    SYNC, ENERGY_GOALS, DAILY_SUMMARY, HYDRATION
 }
 
 private data class PermissionDialogState(
@@ -437,6 +437,7 @@ fun SettingsScreen(
     val activityContext = LocalContext.current
     val resources = LocalResources.current
     val settingsScope = rememberCoroutineScope()
+    val hydrationSync by container.prefs.hydrationSyncEnabled.collectAsState(initial = false)
     val importReadFailedMessage = stringResource(R.string.import_read_failed)
     val cloudBackupSignInFailed = stringResource(R.string.cloud_backup_sign_in_failed)
     val cloudBackupFailed = stringResource(R.string.error_title)
@@ -606,11 +607,20 @@ fun SettingsScreen(
     ) { granted ->
         val action = pendingHealthPermissionAction ?: HealthConnectPermissionAction.SYNC
         pendingHealthPermissionAction = null
+        if (action == HealthConnectPermissionAction.HYDRATION) {
+            if (granted.containsAll(container.health.hydrationWritePermissions)) {
+                settingsScope.launch { container.waterRepository.setHealthSync(true) }
+            } else {
+                showHealthPermissionHelp = true
+            }
+            return@rememberLauncherForActivityResult
+        }
         if (granted.any { it in container.health.permissions }) {
             when (action) {
                 HealthConnectPermissionAction.SYNC -> vm.setHealthConnectEnabled(true)
                 HealthConnectPermissionAction.ENERGY_GOALS -> vm.setHealthEnergyGoalsEnabled(true)
                 HealthConnectPermissionAction.DAILY_SUMMARY -> vm.setDailySummaryEnabled(true)
+                HealthConnectPermissionAction.HYDRATION -> Unit
             }
         } else {
             showHealthPermissionHelp = true
@@ -1531,6 +1541,21 @@ fun SettingsScreen(
             if (selectedCategory == SettingsCategory.HEALTH_DATA) {
             SectionCard {
                 ToggleRow(stringResource(R.string.settings_health_connect), ui.healthConnectEnabled, icon = Icons.Outlined.Favorite, onChange = ::onHealthConnectToggle)
+                if (ui.healthConnectEnabled) {
+                    HorizontalDivider()
+                    ToggleRow(
+                        stringResource(R.string.settings_health_water_sync), hydrationSync, icon = Icons.Outlined.Favorite,
+                        onChange = { enabled ->
+                            if (enabled) {
+                                pendingHealthPermissionAction = HealthConnectPermissionAction.HYDRATION
+                                healthConnectLauncher.launch(container.health.hydrationWritePermissions)
+                            } else {
+                                settingsScope.launch { container.waterRepository.setHealthSync(false) }
+                            }
+                        }
+                    )
+                    Text(stringResource(R.string.settings_health_water_sync_note), modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp))
+                }
                 HorizontalDivider()
                 SettingRow(
                     stringResource(R.string.health_import_title),

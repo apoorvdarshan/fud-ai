@@ -250,9 +250,9 @@ struct OnboardingView: View {
             weightLbsWhole = wheels.lbsWhole
             weightLbsTenth = wheels.lbsTenth
         }
-        if let fraction = prefill.bodyFatFraction, fraction.isFinite {
+        if let selection = BodyFatWheel.importedSelection(for: prefill.bodyFatFraction) {
             knowsBodyFat = true
-            bodyFatPercentage = BodyFatWheel.selection(for: fraction)
+            bodyFatPercentage = selection
         }
     }
 

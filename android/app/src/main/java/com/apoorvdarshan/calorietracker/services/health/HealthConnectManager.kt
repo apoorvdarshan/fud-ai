@@ -1141,7 +1141,10 @@ internal suspend fun <T> readAllPages(
             return null
         }
         out += records
-        if (!next.isNullOrEmpty() && !seenTokens.add(next)) return null
+        if (!next.isNullOrEmpty() && !seenTokens.add(next)) {
+            onFailure(IllegalStateException("Health Connect returned a repeated page token"))
+            return null
+        }
         pageToken = next
     } while (!pageToken.isNullOrEmpty())
     return out

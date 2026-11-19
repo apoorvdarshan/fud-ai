@@ -37,7 +37,8 @@ class HealthReadPagingTest {
     @Test
     fun repeatedTokenFailsWithoutLoopingOrAcceptingPartialHistory() = runTest {
         var requests = 0
-        val read = readAllPages {
+        val failures = mutableListOf<Exception>()
+        val read = readAllPages(onFailure = { failures.add(it) }) {
             requests += 1
             check(requests <= 2)
             listOf(requests) to "repeated"
@@ -45,6 +46,26 @@ class HealthReadPagingTest {
 
         assertNull(read)
         assertEquals(2, requests)
+        assertEquals(1, failures.size)
+        assertEquals(IllegalStateException::class.java, failures.single().javaClass)
+        assertEquals("Health Connect returned a repeated page token", failures.single().message)
+    }
+
+    @Test
+    fun repeatedTokenReachesTheThrowingImportPreviewCallback() {
+        var requests = 0
+        val caught = assertThrows(IllegalStateException::class.java) {
+            runBlocking {
+                readAllPages<Int>(onFailure = { throw it }) {
+                    requests += 1
+                    check(requests <= 2)
+                    listOf(requests) to "repeated"
+                }
+            }
+        }
+
+        assertEquals(2, requests)
+        assertEquals("Health Connect returned a repeated page token", caught.message)
     }
 
     @Test

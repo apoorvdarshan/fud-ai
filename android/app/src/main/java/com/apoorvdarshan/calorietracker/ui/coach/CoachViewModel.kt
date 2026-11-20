@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker.ui.coach
 
+import com.apoorvdarshan.calorietracker.AppLocalization
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -100,7 +101,9 @@ class CoachViewModel(private val container: AppContainer) : ViewModel() {
     fun send(userText: String, imageBytes: ByteArray? = null, thumbnailBytes: ByteArray? = null) {
         val trimmed = userText.trim()
         if ((trimmed.isBlank() && imageBytes == null) || _ui.value.sending) return
-        val text = trimmed.ifEmpty { "Analyze this image." }
+        val text = trimmed.ifEmpty {
+            AppLocalization.context(container.appContext).getString(R.string.coach_analyze_image_default)
+        }
         viewModelScope.launch {
             val userMsg = ChatMessage(
                 role = ChatMessage.Role.USER,

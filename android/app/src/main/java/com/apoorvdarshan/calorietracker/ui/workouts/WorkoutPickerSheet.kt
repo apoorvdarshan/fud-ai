@@ -107,7 +107,7 @@ import com.apoorvdarshan.calorietracker.ui.components.FudGlassSurface
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassTextButton
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
+import com.apoorvdarshan.calorietracker.ui.util.shortWeekdayMonthDayFormatter
 import java.util.Locale
 import kotlin.math.abs
 import kotlin.math.roundToInt
@@ -933,7 +933,7 @@ private fun WorkoutCopyDayRow(
             Icon(Icons.Filled.EventRepeat, contentDescription = null, tint = AppColors.Calorie)
             Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                 Text(
-                    day.date.format(DateTimeFormatter.ofPattern("EEE, MMM d", locale)),
+                    day.date.format(shortWeekdayMonthDayFormatter(locale)),
                     color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Bold

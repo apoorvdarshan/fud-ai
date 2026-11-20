@@ -76,6 +76,7 @@ private struct WorkoutLogCardFramePreferenceKey: PreferenceKey {
 /// separate from the food diary, while the visual language is bridged through
 /// Fud AI's existing workout theme tokens.
 struct WorkoutLogView: View {
+    @AppStorage("hideVoiceShortcut") private var hideVoiceShortcut = false
     @Environment(StrengthWorkoutStore.self) private var workoutStore
     @Environment(ImportedHealthWorkoutStore.self) private var importedHealthWorkoutStore
     @Environment(WeightStore.self) private var weightStore
@@ -492,7 +493,7 @@ struct WorkoutLogView: View {
                 }
                 .overlay(alignment: .bottomTrailing) {
                     HStack(spacing: 12) {
-                        if !voiceAssistant.isActive {
+                        if !voiceAssistant.isActive, !hideVoiceShortcut {
                             VoiceAssistantHomeButton(controller: voiceAssistant)
                         }
                         addExerciseMenu

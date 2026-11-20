@@ -4985,7 +4985,7 @@ struct ProfileView: View {
                     ProfileInfoRow(
                         icon: "percent",
                         label: "Body Fat",
-                        value: profile.bodyFatPercentage != nil ? "\(Int(profile.bodyFatPercentage! * 100))%" : "Not set"
+                        value: profile.bodyFatPercentage?.formatted(.percent.precision(.fractionLength(0...1))) ?? String(localized: "Not set")
                     ) {
                         activeSheet = .editBodyFat
                     }
@@ -4998,7 +4998,7 @@ struct ProfileView: View {
                         ProfileInfoRow(
                             icon: "target",
                             label: "Goal Body Fat",
-                            value: profile.goalBodyFatPercentage != nil ? "\(Int(profile.goalBodyFatPercentage! * 100))%" : "Not set"
+                            value: profile.goalBodyFatPercentage?.formatted(.percent.precision(.fractionLength(0...1))) ?? String(localized: "Not set")
                         ) {
                             activeSheet = .editGoalBodyFat
                         }

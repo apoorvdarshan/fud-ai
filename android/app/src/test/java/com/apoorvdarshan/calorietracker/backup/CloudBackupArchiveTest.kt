@@ -34,6 +34,7 @@ class CloudBackupArchiveTest {
             "foodEntries" to CloudBackupValue.string("""[{"id":"$id","name":"Oats"}]"""),
             "healthChangesToken" to CloudBackupValue.string("device-token"),
             "healthFoodRestoreDone" to CloudBackupValue.bool(false),
+            "aiAnalysisDurations" to CloudBackupValue.string("""{"openai|m|TEXT":[4000]}"""),
         )
         val photo = byteArrayOf(1, 2, 3, 4)
         val zip = packToFile(values, listOf(memoryPhoto("$id.jpg", photo)))
@@ -44,6 +45,8 @@ class CloudBackupArchiveTest {
         assertEquals("""[{"id":"$id","name":"Oats"}]""", document.payload.values.getValue("foodEntries").s)
         assertFalse(document.payload.values.containsKey("healthChangesToken"))
         assertFalse(document.payload.values.containsKey("healthFoodRestoreDone"))
+        // Local analysis timing history must never leave the device (#635).
+        assertFalse(document.payload.values.containsKey("aiAnalysisDurations"))
         assertTrue(photos.containsKey("$id.jpg"))
         assertEquals(photo.toList(), photos.getValue("$id.jpg").toList())
     }

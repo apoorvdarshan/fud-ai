@@ -62,6 +62,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.apoorvdarshan.calorietracker.services.ai.AiError
+import com.apoorvdarshan.calorietracker.services.speech.SttApiError
 import com.apoorvdarshan.calorietracker.AppContainer
 import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.models.SpeechProvider
@@ -177,7 +178,8 @@ fun VoiceInputSheet(
                 error = when {
                     container.hostedUi.handle(e) -> null
                     e is AiError -> e.userMessage(ctx)
-                    else -> e.localizedMessage ?: transcriptionFailedMsg
+                    e is SttApiError -> e.userMessage(ctx)
+                    else -> transcriptionFailedMsg
                 }
                 phase = VoicePhase.REVIEWING
             } finally {

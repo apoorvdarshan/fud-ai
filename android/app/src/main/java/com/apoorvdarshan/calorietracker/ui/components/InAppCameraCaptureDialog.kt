@@ -163,9 +163,9 @@ fun InAppCameraCaptureDialog(
                         .background(Color.Black.copy(alpha = 0.45f))
                 ) {
                     val (flashIcon, flashDesc) = when (flashMode) {
-                        ImageCapture.FLASH_MODE_ON -> Icons.Filled.FlashOn to "Flash on"
-                        ImageCapture.FLASH_MODE_AUTO -> Icons.Filled.FlashAuto to "Flash auto"
-                        else -> Icons.Filled.FlashOff to "Flash off"
+                        ImageCapture.FLASH_MODE_ON -> Icons.Filled.FlashOn to stringResource(R.string.cd_flash_on)
+                        ImageCapture.FLASH_MODE_AUTO -> Icons.Filled.FlashAuto to stringResource(R.string.cd_flash_auto)
+                        else -> Icons.Filled.FlashOff to stringResource(R.string.cd_flash_off)
                     }
                     Icon(
                         flashIcon,

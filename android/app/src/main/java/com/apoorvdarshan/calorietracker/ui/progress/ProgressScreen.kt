@@ -2581,9 +2581,7 @@ private fun AddBodyFatDialog(
     onDismiss: () -> Unit,
     onSubmit: (Double) -> Unit
 ) {
-    // Whole-percent wheel — body fat measurements rarely justify 0.1% resolution
-    // given the noise of calipers / smart scales (matches iOS LogBodyFatSheet).
-    var pct by remember { mutableStateOf(initialFraction * 100) }
+    var pct by remember { mutableStateOf((initialFraction * 100).coerceIn(3.0, 60.0)) }
     FudGlassDialog(onDismissRequest = onDismiss) {
         Text(stringResource(R.string.progress_log_body_fat_title), fontSize = 21.sp, fontWeight = FontWeight.Bold)
         DecimalWheelPicker(
@@ -2591,7 +2589,7 @@ private fun AddBodyFatDialog(
             onValueChange = { pct = it },
             min = 3.0,
             max = 60.0,
-            step = 0.5,
+            step = 0.1,
             unit = stringResource(R.string.unit_percent)
         )
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End, verticalAlignment = Alignment.CenterVertically) {

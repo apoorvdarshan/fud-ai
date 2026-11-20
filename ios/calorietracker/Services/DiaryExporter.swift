@@ -76,23 +76,19 @@ enum DiaryExporter {
         let start = cal.startOfDay(for: min(startDay, endDay))
         let end = cal.startOfDay(for: max(startDay, endDay))
 
-        var days: [DayBundle] = []
-        var day = start
-        while day <= end {
-            let dayEntries = entries
-                .filter { cal.isDate($0.timestamp, inSameDayAs: day) }
-                .sorted { $0.timestamp > $1.timestamp }
-            let water = waterEntries.filter { cal.isDate($0.date, inSameDayAs: day) }.sorted { $0.date < $1.date }
-            if !dayEntries.isEmpty || !water.isEmpty {
-                let groups = MealType.allCases.compactMap { meal -> FoodLogMealGroup? in
-                    let mealEntries = dayEntries.filter { $0.mealType == meal }
-                    guard !mealEntries.isEmpty else { return nil }
-                    return FoodLogMealGroup(id: "export-\(meal.rawValue)", meal: meal, entries: mealEntries)
-                }
-                days.append(DayBundle(date: day, groups: groups, water: water))
+        let foodsByDay = Dictionary(grouping: entries) { cal.startOfDay(for: $0.timestamp) }
+        let waterByDay = Dictionary(grouping: waterEntries) { cal.startOfDay(for: $0.date) }
+        let loggedDays = Set(foodsByDay.keys).union(waterByDay.keys)
+            .filter { $0 >= start && $0 <= end }.sorted()
+        let days = loggedDays.map { day in
+            let dayEntries = (foodsByDay[day] ?? []).sorted { $0.timestamp > $1.timestamp }
+            let water = (waterByDay[day] ?? []).sorted { $0.date < $1.date }
+            let groups = MealType.allCases.compactMap { meal -> FoodLogMealGroup? in
+                let mealEntries = dayEntries.filter { $0.mealType == meal }
+                guard !mealEntries.isEmpty else { return nil }
+                return FoodLogMealGroup(id: "export-\(meal.rawValue)", meal: meal, entries: mealEntries)
             }
-            guard let next = cal.date(byAdding: .day, value: 1, to: day) else { break }
-            day = next
+            return DayBundle(date: day, groups: groups, water: water)
         }
         guard !days.isEmpty else { return nil }
 

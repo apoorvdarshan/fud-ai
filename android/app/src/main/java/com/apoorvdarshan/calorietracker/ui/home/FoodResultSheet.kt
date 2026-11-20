@@ -75,6 +75,7 @@ import com.apoorvdarshan.calorietracker.models.AminoAcidEstimates
 import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.FoodSource
 import com.apoorvdarshan.calorietracker.models.MacroValueFormatter
+import com.apoorvdarshan.calorietracker.models.CurrentMealSchedule
 import com.apoorvdarshan.calorietracker.models.MealType
 import com.apoorvdarshan.calorietracker.models.MealIngredient
 import com.apoorvdarshan.calorietracker.models.MealMicronutrientSnapshot
@@ -188,7 +189,6 @@ fun FoodResultSheet(
     val selectedServingOption = ServingUnitOption.optionMatching(selectedServingUnitId, servingUnitOptions)
     val selectedServingQuantity = ServingAmountExpression.evaluate(servingQuantityText)?.takeIf { it > 0 }
     val scale = if (baseServingGrams > 0) servingGrams / baseServingGrams else 1.0
-    var mealType by rememberSaveable { mutableStateOf(MealType.currentMeal) }
     // Seeded from the viewed diary day (now when it is today); the Date & Time
     // section lets the user adjust it before logging.
     val zone = remember { ZoneId.systemDefault() }
@@ -199,6 +199,9 @@ fun FoodResultSheet(
     var loggedTime by rememberSaveable(analysis, stateSaver = LocalTimeSaver) {
         mutableStateOf(initialLoggedAt.toLocalTime())
     }
+    val mealSchedule by container.prefs.mealSchedule.collectAsState(initial = CurrentMealSchedule.value)
+    var manualMealType by rememberSaveable(analysis) { mutableStateOf<MealType?>(null) }
+    val mealType = mealSchedule.mealTypeAt(loggedTime, manualMealType)
     val whatIfDayEntries = remember(allEntries, loggedDate, zone) {
         allEntries
             .filter { it.timestamp.atZone(zone).toLocalDate() == loggedDate }
@@ -865,7 +868,7 @@ fun FoodResultSheet(
                                     leadingIcon = sheetMealIcon(m),
                                     selected = m == mealType,
                                     onClick = {
-                                        mealType = m
+                                        manualMealType = m
                                         mealMenuExpanded = false
                                     }
                                 )

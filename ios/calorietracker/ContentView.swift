@@ -1552,6 +1552,7 @@ private var dailyStepsTaskKey: String {
                     .frame(width: 60, height: 60)
                     .background(AppColors.calorie, in: Circle())
             }
+            .menuOrder(.fixed)
             .accessibilityIdentifier("home.add")
             .popover(isPresented: $showTextPopover) {
                 TextFoodInputView(
@@ -2845,6 +2846,7 @@ extension HomeView {
                 } label: {
                     Label(group.name, systemImage: addMenuGroupIcon(for: group))
                 }
+                .menuOrder(.fixed)
             }
         }
         if !config.flatMethods.isEmpty {

@@ -48,6 +48,17 @@ class AllergenAnalysisTest {
         assertEquals(listOf("milk", "peanuts"), restored.allergenSensitivities)
     }
 
+    @Test
+    fun nonLatinAndAccentedNamesStillMatch() {
+        val cyrillic = entry(ingredients = listOf(MealIngredient("Молоко 3,2 %", 1.0, 1, 0.0, 0.0, 0.0)))
+            .allergenAnalysis(listOf("молоко"))
+        assertEquals(AllergenAssessment.POSSIBLE_ALLERGEN, cyrillic.assessment)
+
+        val czech = entry(ingredients = listOf(MealIngredient("Arašídy pražené", 1.0, 1, 0.0, 0.0, 0.0)))
+            .allergenAnalysis(listOf("arašídy"))
+        assertEquals(AllergenAssessment.POSSIBLE_ALLERGEN, czech.assessment)
+    }
+
     private fun entry(
         metadata: FoodProductMetadata? = null,
         ingredients: List<MealIngredient> = emptyList()

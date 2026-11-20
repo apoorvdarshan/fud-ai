@@ -121,7 +121,7 @@ struct GeminiRequestConfigurationTests {
         let prosePrompt = GeminiRequestConfiguration.compactRetryPrompt(
             "Suggest", maxOutputTokens: 128, jsonResponse: false
         )
-        #expect(prosePrompt.contains("plain-English"))
+        #expect(prosePrompt.contains("concise answer in the requested language"))
         #expect(!prosePrompt.contains("JSON object"))
     }
 

@@ -60,7 +60,7 @@ data class AllergenAnalysis(
                 .lowercase()
             return folded
                 .replace("^[a-z]{2}:".toRegex(), "")
-                .replace("[^a-z0-9]+".toRegex(), " ")
+                .replace("[^\\p{L}\\p{N}]+".toRegex(), " ")
                 .trim()
         }
 

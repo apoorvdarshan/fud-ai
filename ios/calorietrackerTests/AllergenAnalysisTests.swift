@@ -54,6 +54,19 @@ struct AllergenAnalysisTests {
         #expect(restored.configuredAllergenSensitivities == ["milk", "peanuts"])
     }
 
+    @Test
+    func nonLatinAndAccentedNamesStillMatch() {
+        let cyrillic = makeEntry(ingredients: [
+            MealIngredient(id: UUID(), name: "Молоко 3,2 %", grams: 1, calories: 1, protein: 0, carbs: 0, fat: 0)
+        ])
+        #expect(cyrillic.allergenAnalysis(for: ["молоко"]).assessment == .possibleAllergen)
+
+        let czech = makeEntry(ingredients: [
+            MealIngredient(id: UUID(), name: "Arašídy pražené", grams: 1, calories: 1, protein: 0, carbs: 0, fat: 0)
+        ])
+        #expect(czech.allergenAnalysis(for: ["arašídy"]).assessment == .possibleAllergen)
+    }
+
     private func makeEntry(
         metadata: FoodProductMetadata? = nil,
         ingredients: [MealIngredient] = []

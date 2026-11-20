@@ -91,7 +91,7 @@ enum GeminiRequestConfiguration {
         let budget = maxOutputTokens > 0 ? " Keep the complete response under \(maxOutputTokens) tokens." : ""
         let shape = jsonResponse
             ? "Return only the requested compact JSON object, with no reasoning, explanation, or markdown."
-            : "Return only the requested concise plain-English answer, with no reasoning, explanation, JSON, or markdown."
+            : "Return only the requested concise answer in the requested language, with no reasoning, explanation, JSON, or markdown."
         return """
         \(prompt)
 

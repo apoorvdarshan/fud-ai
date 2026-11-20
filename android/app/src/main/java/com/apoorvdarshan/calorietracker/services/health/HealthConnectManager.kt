@@ -325,6 +325,10 @@ class HealthConnectManager(
     /** Exercise read access, or null when the permission probe itself failed — so a transient
      *  Health Connect outage is never mistaken for a revoked grant (which clears imports). */
     suspend fun exerciseReadGrant(): Boolean? = grantedOrNull()?.let { exerciseRead in it }
+
+    /** Energy read access, or null when the permission probe itself failed — a transient
+     *  Health Connect outage must not tear Energy Burn down as though access was revoked. */
+    suspend fun energyReadGrant(): Boolean? = grantedOrNull()?.let { activeEnergyRead in it && totalEnergyRead in it }
     suspend fun hasBackgroundRead(): Boolean = backgroundRead in granted()
 
     /** One permission read snapshotting every capability — used by the read-sync coordinator. */

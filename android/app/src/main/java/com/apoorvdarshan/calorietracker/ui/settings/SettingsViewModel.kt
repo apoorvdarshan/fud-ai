@@ -1314,7 +1314,10 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
         // "Connected" is now any-permission, so revoking ONLY the energy reads leaves granted=true
         // and skips the block above. Tear Energy Burn down independently on its own capability so
         // the toggle doesn't lie about an anchor that can no longer refresh.
-        if (granted && container.prefs.healthEnergyGoalsEnabled.first() && !container.health.hasEnergyRead()) {
+        // A failed permission probe must read as unknown, not revoked: tearing Energy
+        // Burn down on a transient Health Connect outage would restore the old targets
+        // and clear their saved copy even though access was never revoked.
+        if (granted && container.prefs.healthEnergyGoalsEnabled.first() && container.health.energyReadGrant() == false) {
             container.profileRepository.current()?.let { current ->
                 val restored = container.prefs.restoreHealthEnergyGoalPreviousTargets(current)
                 container.profileRepository.save(restored)

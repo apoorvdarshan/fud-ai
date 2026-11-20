@@ -777,6 +777,7 @@
     <string name="settings_appearance_system">Systémový</string>
     <string name="settings_appearance_light">Světlý</string>
     <string name="settings_appearance_dark">Tmavý</string>
+    <string name="settings_appearance_dark_gray">Tmavě šedý</string>
     <string name="settings_app_language">Jazyk</string>
     <string name="settings_app_language_system">Výchozí systémové</string>
     <string name="sheet_app_language">Jazyk</string>

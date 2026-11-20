@@ -814,6 +814,7 @@
     <string name="settings_appearance_system">Системний</string>
     <string name="settings_appearance_light">Світлий</string>
     <string name="settings_appearance_dark">Темний</string>
+    <string name="settings_appearance_dark_gray">Темно-сірий</string>
     <string name="settings_app_language">Мова</string>
     <string name="settings_app_language_system">Як у системі</string>
     <string name="sheet_app_language">Мова</string>

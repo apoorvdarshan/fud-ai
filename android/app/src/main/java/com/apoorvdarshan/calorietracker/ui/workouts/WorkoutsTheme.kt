@@ -29,15 +29,18 @@ data class WorkoutsColors(
 fun workoutsColors(): WorkoutsColors {
     // Same dark-detection trick as FudAIBottomNavBar: the resolved background
     // luminance tracks the user's appearance override, not just the system.
-    val bg = MaterialTheme.colorScheme.background
+    // Read the selected scheme so Dark gray is not painted back over with the
+    // fixed near-black palette. Non-gray dark still resolves to those colors.
+    val scheme = MaterialTheme.colorScheme
+    val bg = scheme.background
     val isDark = (bg.red + bg.green + bg.blue) / 3f < 0.5f
 
     return WorkoutsColors(
-        background = if (isDark) AppColors.AppBackgroundDark else AppColors.AppBackgroundLight,
+        background = bg,
         charcoal = if (isDark) AppColors.OnDark else AppColors.OnLight,
-        card = if (isDark) AppColors.AppCardDark else AppColors.AppCardLight,
+        card = scheme.surface,
         panel = if (isDark) Color(0xFF2A2A2E) else Color(0xFFEFE7DF),
-        hairline = if (isDark) AppColors.DividerDark else AppColors.DividerLight,
+        hairline = scheme.outline,
         accent = AppColors.Calorie,
         secondaryAccent = AppColors.CalorieEnd,
         onAccent = Color.White,

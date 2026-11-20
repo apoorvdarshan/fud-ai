@@ -9,6 +9,7 @@ import com.google.android.gms.auth.api.identity.AuthorizationRequest
 import com.google.android.gms.auth.api.identity.AuthorizationResult
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.common.AccountPicker
+import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.Scope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
@@ -33,7 +34,6 @@ import java.util.concurrent.TimeUnit
  * screen — never at install or first launch.
  */
 class DriveCloudBackupClient(
-    private val webClientId: String,
     private val http: OkHttpClient = OkHttpClient.Builder()
         .connectTimeout(30, TimeUnit.SECONDS)
         .readTimeout(120, TimeUnit.SECONDS)
@@ -67,17 +67,15 @@ class DriveCloudBackupClient(
             Scope(DRIVE_APPDATA_SCOPE),
             Scope(EMAIL_SCOPE),
         )
-        val builder = AuthorizationRequest.builder()
+        // Drive calls run on this device. Do not request an unused server auth code.
+        val request = AuthorizationRequest.builder()
             .setRequestedScopes(scopes)
             .setAccount(account)
             .setOptOutIncludingGrantedScopes(true)
-        if (webClientId.isNotBlank()) {
-            builder.requestOfflineAccess(webClientId, /* forceCodeForRefreshToken = */ true)
+            .build()
+        return mapAuthorizationFailure {
+            outcome(Identity.getAuthorizationClient(activity).authorize(request).await())
         }
-        val result = Identity.getAuthorizationClient(activity)
-            .authorize(builder.build())
-            .await()
-        return outcome(result)
     }
 
     /** Clears One Tap / Identity cached Google session so the next pick is fresh. */
@@ -87,8 +85,20 @@ class DriveCloudBackupClient(
 
     fun parseAuthorizationResult(activity: Activity, data: Intent?): String? {
         if (data == null) return null
-        val result = Identity.getAuthorizationClient(activity).getAuthorizationResultFromIntent(data)
-        return result.accessToken
+        return mapAuthorizationFailure {
+            Identity.getAuthorizationClient(activity).getAuthorizationResultFromIntent(data).accessToken
+        }
+    }
+
+    private inline fun <T> mapAuthorizationFailure(action: () -> T): T {
+        try {
+            return action()
+        } catch (failure: ApiException) {
+            val kind = classifyDriveAuthorizationFailure(failure.statusMessage)
+            // Do not print the exception or status message: it may include account details.
+            android.util.Log.w("FudAIDriveAuth", "Authorization failed: ${failure.statusCode}, ${kind.name}")
+            throw DriveAuthorizationException(kind)
+        }
     }
 
     private fun outcome(result: AuthorizationResult): AuthOutcome {

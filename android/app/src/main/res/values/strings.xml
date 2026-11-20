@@ -1268,6 +1268,7 @@
     <string name="cloud_backup_error_network">Could not reach Google Drive. Check your connection and try again.</string>
     <string name="cloud_backup_error_corrupt">The backup file is damaged or incomplete. Try again.</string>
     <string name="cloud_backup_error_local_io">A file on this phone could not be read or written.</string>
+    <string name="cloud_backup_sign_in_unregistered">Google doesn\'t recognize this build for Drive backup. If you installed it from Google Play, please contact Fud AI support.</string>
     <string name="cloud_backup_restore_no_space">Not enough free storage to restore this backup. Free up some space and try again.</string>
     <string name="export_diary_title">Export Food Diary</string>
     <string name="import_diary_title">Import Food Diary</string>

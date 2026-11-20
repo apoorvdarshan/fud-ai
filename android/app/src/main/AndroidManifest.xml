@@ -546,11 +546,13 @@
         </receiver>
 
         <!-- Transparent trampoline so the mic foreground service starts without opening the app. -->
+        <!-- noHistory must stay off: with it, granting the microphone permission can
+             finish this activity before the result is delivered, so the first widget
+             tap never starts recording. The activity finishes itself after each action. -->
         <activity
             android:name=".widget.MealVoiceToggleActivity"
             android:exported="false"
             android:excludeFromRecents="true"
-            android:noHistory="true"
             android:taskAffinity=""
             android:theme="@style/Theme.FudAI.Transparent" />
 

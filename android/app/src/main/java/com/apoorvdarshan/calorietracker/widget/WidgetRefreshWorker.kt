@@ -52,7 +52,9 @@ object WidgetRefreshScheduler {
         CalorieWidgetReceiver::class.java,
         ProteinWidgetReceiver::class.java,
         AllMetricsWidgetReceiver::class.java,
-        WaterWidgetReceiver::class.java
+        WaterWidgetReceiver::class.java,
+        VoiceAssistantWidgetReceiver::class.java,
+        MealVoiceWidgetReceiver::class.java
     )
 
     fun onAppStarted(context: Context) {

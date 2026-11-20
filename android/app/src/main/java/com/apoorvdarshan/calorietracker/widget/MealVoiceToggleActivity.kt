@@ -32,19 +32,38 @@ class MealVoiceToggleActivity : ComponentActivity() {
         when (MealVoiceState.phase) {
             MealVoiceState.Phase.RECORDING -> {
                 MealVoiceService.stop(this)
+                startPending = false
                 finish()
             }
             MealVoiceState.Phase.PROCESSING -> finish()
             MealVoiceState.Phase.IDLE -> {
+                // A start was requested but the service has not flipped the phase yet:
+                // treat a quick second tap as the stop it clearly means instead of
+                // starting a second recording.
+                if (startPending) {
+                    MealVoiceService.stop(this)
+                    startPending = false
+                    finish()
+                    return
+                }
                 val granted = ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) ==
                     PackageManager.PERMISSION_GRANTED
                 if (granted) {
                     MealVoiceService.start(this)
+                    startPending = true
                     finish()
                 } else {
                     micPermission.launch(Manifest.permission.RECORD_AUDIO)
                 }
             }
         }
+    }
+
+    companion object {
+        /**
+         * Set the moment a start is handed to the service and cleared once the phase
+         * moves, so double taps can never start two recordings.
+         */
+        @Volatile var startPending: Boolean = false
     }
 }

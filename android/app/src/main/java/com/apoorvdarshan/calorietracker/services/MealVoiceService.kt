@@ -50,6 +50,8 @@ class MealVoiceService : Service() {
     private var listenJob: Job? = null
     private var timeoutJob: Job? = null
     private var recorder: AudioRecorder? = null
+    /** The stopped voice file between capture and cleanup; deleted on destroy if the save is interrupted. */
+    private var pendingAudio: java.io.File? = null
     private var provider = SpeechProvider.NATIVE
 
     // Native recognition accumulates final segments in `committed`; `partial` is the in-flight one.
@@ -75,6 +77,8 @@ class MealVoiceService : Service() {
 
     override fun onDestroy() {
         recorder?.cancel()
+        pendingAudio?.delete()
+        pendingAudio = null
         scope.cancel()
         MealVoiceState.set(applicationContext, MealVoiceState.Phase.IDLE)
         super.onDestroy()
@@ -98,6 +102,7 @@ class MealVoiceService : Service() {
             return
         }
         MealVoiceState.set(this, MealVoiceState.Phase.RECORDING)
+        com.apoorvdarshan.calorietracker.widget.MealVoiceToggleActivity.startPending = false
         committed = ""
         partial = ""
         fatalError = null
@@ -110,6 +115,8 @@ class MealVoiceService : Service() {
                 listenNative(language.nativeLocaleTag())
             } else {
                 val rec = AudioRecorder(this@MealVoiceService)
+                // Registered before start(): a stop racing this coroutine still finds
+                // the recorder and takes whatever it captured.
                 recorder = rec
                 if (rec.start() == null) {
                     fatalError = getString(R.string.voice_mic_start_failed)
@@ -168,11 +175,16 @@ class MealVoiceService : Service() {
         if (MealVoiceState.phase != MealVoiceState.Phase.RECORDING) return
         MealVoiceState.set(this, MealVoiceState.Phase.PROCESSING)
         timeoutJob?.cancel()
-        listenJob?.cancel()
         val spoken = join(committed, partial)
         val pendingError = fatalError
+        // Stop the recorder before cancelling its job, so a stop racing the async
+        // start still takes the file the recorder already captured.
         val file = if (provider == SpeechProvider.NATIVE) null else recorder?.stop()
         recorder = null
+        // Keep a service-owned reference: if the save is interrupted, onDestroy
+        // still deletes the voice file instead of leaving it in the cache dir.
+        pendingAudio = file
+        listenJob?.cancel()
         startInForeground(progressNotification(R.string.meal_voice_notif_processing, null, withStop = false))
 
         scope.launch {
@@ -189,12 +201,23 @@ class MealVoiceService : Service() {
                     }
                 )
             }
-            if (outcome is Outcome.Saved) {
-                // Independent of notification permission: the widget button shows "+N" for a few seconds.
-                val unit = (application as FudAIApp).container.prefs.energyUnit.first()
-                MealVoiceState.showAdded(this@MealVoiceService, unit.displayValue(outcome.calories))
+            pendingAudio = null
+            file?.delete()
+            when (outcome) {
+                is Outcome.Saved -> {
+                    // Independent of notification permission: the widget button shows "+N" for a few seconds.
+                    val unit = (application as FudAIApp).container.prefs.energyUnit.first()
+                    MealVoiceState.showAdded(this@MealVoiceService, unit.displayValue(outcome.calories))
+                }
+                Outcome.NothingHeard ->
+                    // Widget feedback survives a missing notification permission.
+                    MealVoiceState.showFailure(this@MealVoiceService, getString(R.string.meal_voice_nothing_heard))
+                is Outcome.Failed ->
+                    MealVoiceState.showFailure(this@MealVoiceService, outcome.message)
             }
-            notifyResult(outcome)
+            // A failed notification must never keep the service from cleaning up.
+            runCatching { notifyResult(outcome) }
+                .onFailure { Log.w(TAG, "Result notification failed", it) }
             finish()
         }
     }
@@ -214,6 +237,10 @@ class MealVoiceService : Service() {
         val entry = analysis.toFoodEntry(source = FoodSource.TEXT_INPUT, mealType = MealType.currentMeal)
         return if (container.foodRepository.addEntry(entry)) {
             Outcome.Saved(entry.name, entry.calories)
+        } else if (container.fastingRepository.active() != null) {
+            // Retrying cannot help while the fast stays active; say so instead of
+            // telling the user to open the app and try again.
+            Outcome.Failed(getString(R.string.food_blocked_by_active_fast))
         } else {
             Outcome.Failed(getString(R.string.meal_voice_failed_generic))
         }
@@ -266,7 +293,11 @@ class MealVoiceService : Service() {
 
     private suspend fun notifyResult(outcome: Outcome) {
         val container = (application as FudAIApp).container
+        // Android's permission alone is not enough: a user who muted Fud AI's
+        // notifications must not get meal alerts from the widget. The mandatory
+        // foreground service notification is unaffected here.
         if (!container.notifications.canPostNotifications()) return
+        if (!container.prefs.notificationsEnabled.first()) return
         val (title, text) = when (outcome) {
             is Outcome.Saved -> {
                 val unit = container.prefs.energyUnit.first()

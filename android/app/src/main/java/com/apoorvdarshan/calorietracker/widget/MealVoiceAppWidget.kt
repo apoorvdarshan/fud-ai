@@ -63,6 +63,11 @@ object MealVoiceState {
     private val _added = MutableStateFlow<Int?>(null)
     val added: StateFlow<Int?> = _added
 
+    /** The last failure, shown as a red mark in the ring for a few seconds — feedback
+     *  that survives a missing notification permission. */
+    private val _failure = MutableStateFlow<String?>(null)
+    val failure: StateFlow<String?> = _failure
+
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
     fun showAdded(context: Context, displayCalories: Int) {
@@ -81,6 +86,17 @@ object MealVoiceState {
         if (phase != Phase.IDLE) _added.value = null
         val appContext = context.applicationContext
         scope.launch { runCatching { MealVoiceAppWidget().updateAll(appContext) } }
+    }
+
+    fun showFailure(context: Context, message: String) {
+        _failure.value = message
+        val appContext = context.applicationContext
+        scope.launch {
+            runCatching { MealVoiceAppWidget().updateAll(appContext) }
+            delay(ADDED_VISIBLE_MS)
+            _failure.value = null
+            runCatching { MealVoiceAppWidget().updateAll(appContext) }
+        }
     }
 }
 
@@ -101,8 +117,9 @@ class MealVoiceAppWidget : FudGlanceAppWidget() {
             val snapshot by snapshots.collectAsState(initial)
             val phase by MealVoiceState.flow.collectAsState()
             val added by MealVoiceState.added.collectAsState()
+            val failed = MealVoiceState.failure.collectAsState().value != null
             GlanceTheme {
-                MealVoiceContent(snapshot, phase, added)
+                MealVoiceContent(snapshot, phase, added, failed)
             }
         }
     }
@@ -119,9 +136,16 @@ class MealVoiceWidgetReceiver : FudGlanceAppWidgetReceiver() {
 
 private const val CORNER_DP = 26f
 private const val ADDED_VISIBLE_MS = 6_000L
+/** Height the wide layout's calories block needs (big number plus the /goal line). */
+private const val WIDE_TEXT_BLOCK_DP = 52f
 
 @Composable
-private fun MealVoiceContent(snapshot: WidgetSnapshot, phase: MealVoiceState.Phase, added: Int?) {
+private fun MealVoiceContent(
+    snapshot: WidgetSnapshot,
+    phase: MealVoiceState.Phase,
+    added: Int?,
+    failed: Boolean
+) {
     val context = LocalContext.current
     val size = LocalSize.current
     val recording = phase == MealVoiceState.Phase.RECORDING
@@ -134,7 +158,10 @@ private fun MealVoiceContent(snapshot: WidgetSnapshot, phase: MealVoiceState.Pha
 
     val pad = if (wide) 12f else 6f
     val ringDp = if (wide) {
-        (size.height.value - pad * 2).coerceIn(40f, 110f)
+        // Leave the two-line calories block its space inside the row: clipping the
+        // ring beats clipping the totals a short wide widget exists to show.
+        val available = size.height.value - pad * 2
+        (available - WIDE_TEXT_BLOCK_DP).coerceIn(40f, 110f)
     } else {
         (minOf(size.width.value, size.height.value) - pad * 2).coerceIn(40f, 120f)
     }
@@ -145,7 +172,12 @@ private fun MealVoiceContent(snapshot: WidgetSnapshot, phase: MealVoiceState.Pha
         processing = processing,
         startRgb = start,
         endRgb = end,
-        addedText = added?.takeIf { !recording && !processing }?.let { "+$it" }
+        addedText = when {
+            recording || processing -> null
+            failed -> "!"
+            added != null -> "+$added"
+            else -> null
+        }
     )
 
     Box(

@@ -31,12 +31,14 @@ struct AIRequestConfigurationTests {
     }
 
     @Test func mealPhotoLimitIncludesTheImageFallback() {
+        let originalMode = AIModeSettings.mode
         let originalProvider = AIProviderSettings.selectedProvider
         let originalModel = AIProviderSettings.selectedModel
         let originalFallbackEnabled = AIProviderSettings.fallbackEnabled
         let originalFallbackProvider = AIProviderSettings.selectedFallbackProvider
         let originalFallbackModel = AIProviderSettings.selectedFallbackModel
         defer {
+            AIModeSettings.mode = originalMode
             AIProviderSettings.selectedProvider = originalProvider
             AIProviderSettings.selectedModel = originalModel
             AIProviderSettings.fallbackEnabled = originalFallbackEnabled
@@ -44,6 +46,9 @@ struct AIRequestConfigurationTests {
             AIProviderSettings.selectedFallbackModel = originalFallbackModel
         }
 
+        // Other suites read shared defaults; force BYOK so a leaked hosted mode
+        // cannot turn the capture limit into the hosted default.
+        AIModeSettings.mode = .byok
         AIProviderSettings.fallbackEnabled = false
         AIProviderSettings.selectedProvider = .groq
         AIProviderSettings.selectedModel = "qwen/qwen3.8-27b"

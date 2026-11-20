@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker.widget
 
+import com.apoorvdarshan.calorietracker.AppLocalization
 import android.content.Context
 import android.content.res.Resources
 import androidx.compose.runtime.Composable
@@ -35,6 +36,7 @@ import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
 import com.apoorvdarshan.calorietracker.MainActivity
+import com.apoorvdarshan.calorietracker.ui.util.valueWithUnit
 import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.data.PreferencesStore
 import com.apoorvdarshan.calorietracker.models.MacroValueFormatter
@@ -101,7 +103,7 @@ private fun CalorieSmall(snapshot: WidgetSnapshot) {
     val gaugeW = minOf(contentW, (contentH - 44f) / 0.58f).toInt().coerceAtLeast(80)
 
     Column(modifier = GlanceModifier.fillMaxSize()) {
-        WidgetHeader(iconRes = R.drawable.ic_widget_flame, label = "Today")
+        WidgetHeader(iconRes = R.drawable.ic_widget_flame, label = AppLocalization.context(LocalContext.current).getString(R.string.widget_today))
         Box(
             modifier = GlanceModifier.fillMaxWidth().defaultWeight(),
             contentAlignment = Alignment.Center
@@ -175,9 +177,9 @@ private fun CalorieMedium(snapshot: WidgetSnapshot) {
 internal fun energyLeftText(snapshot: WidgetSnapshot): String {
     val context = LocalContext.current
     return if (snapshot.usesKilojoules) {
-        context.getString(R.string.widget_kj_left_format, snapshot.displayCaloriesRemaining)
+        AppLocalization.context(context).getString(R.string.widget_kj_left_format, snapshot.displayCaloriesRemaining)
     } else {
-        context.getString(R.string.widget_kcal_left_format, snapshot.caloriesRemaining)
+        AppLocalization.context(context).getString(R.string.widget_kcal_left_format, snapshot.caloriesRemaining)
     }
 }
 
@@ -292,7 +294,7 @@ internal fun NutrientBarsRow(
         modifier = GlanceModifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        snapshot.displayedHomeNutrients.forEach { nutrient ->
+        snapshot.displayedHomeNutrients(AppLocalization.context(LocalContext.current).getString(R.string.widget_water)).forEach { nutrient ->
             Box(modifier = GlanceModifier.defaultWeight()) {
                 VerticalNutrientBarCell(
                     nutrient = nutrient,
@@ -329,7 +331,7 @@ internal fun VerticalNutrientBarCell(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = MacroValueFormatter.string(nutrient.value),
+            text = MacroValueFormatter.display(nutrient.value),
             style = TextStyle(
                 color = WidgetTheme.themeTextProvider(startHex),
                 fontWeight = FontWeight.Bold,
@@ -354,7 +356,7 @@ internal fun VerticalNutrientBarCell(
             maxLines = 1
         )
         Text(
-            text = "/${MacroValueFormatter.string(nutrient.goal)}${nutrient.unit}",
+            text = "/" + LocalContext.current.valueWithUnit(MacroValueFormatter.display(nutrient.goal), nutrient.unit),
             style = TextStyle(
                 color = WidgetTheme.secondaryTextProvider,
                 fontSize = (valueFontSp - 4).coerceAtLeast(9).sp

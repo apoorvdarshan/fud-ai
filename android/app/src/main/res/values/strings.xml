@@ -1,4 +1,9 @@
 <resources>
+    <string name="failed_meal_draft_save">Save as draft</string>
+    <string name="failed_meal_draft_replace">Replace saved meal draft</string>
+    <string name="failed_meal_draft_retry">Retry saved meal</string>
+    <string name="failed_meal_draft_discard">Discard draft</string>
+    <string name="failed_meal_draft_error">Could not access the saved meal draft.</string>
     <string name="app_name">Fud AI</string>
 
     <!-- Widgets -->
@@ -408,6 +413,17 @@
     <string name="home_macro_chip_format">%1$s %2$dg</string>
     <string name="home_analyzing_food">Analyzing your food…</string>
     <string name="home_looking_up_nutrition">Looking up nutrition…</string>
+    <string name="analysis_stage_preparing">Preparing your request…</string>
+    <string name="analysis_stage_preparing_image">Preparing your photo…</string>
+    <string name="analysis_stage_requesting">Waiting for the AI provider…</string>
+    <string name="analysis_stage_on_device">Running on your device…</string>
+    <string name="analysis_stage_responding">Reading the response…</string>
+    <string name="analysis_stage_validating">Checking the nutrition data…</string>
+    <string name="analysis_stage_fallback_attempt">Trying the backup model (attempt %1$d)…</string>
+    <string name="analysis_stage_barcode">Looking up the barcode…</string>
+    <string name="analysis_elapsed_seconds">%1$d s elapsed</string>
+    <string name="analysis_estimate_range">Usually takes about %1$d–%2$d s</string>
+    <string name="analysis_estimate_single">Usually takes about %1$d s</string>
     <string name="home_fiber_format">Fiber: %1$.1fg</string>
     <string name="home_sugar_format">Sugar: %1$.1fg</string>
     <string name="home_sat_fat_format">Sat fat: %1$.1fg</string>
@@ -1185,6 +1201,7 @@
     <string name="cloud_backup_switch_account">Switch Google account</string>
     <string name="cloud_backup_turn_on">Turn On</string>
     <string name="cloud_backup_sign_in_failed">Couldn\'t open Google sign-in.</string>
+    <string name="cloud_backup_sign_in_unregistered">Google doesn\'t recognize this build for Drive backup. If you installed it from Google Play, please contact Fud AI support.</string>
     <string name="cloud_backup_restore_no_space">Not enough free storage to restore this backup. Free up some space and try again.</string>
     <string name="export_diary_title">Export Food Diary</string>
     <string name="import_diary_title">Import Food Diary</string>

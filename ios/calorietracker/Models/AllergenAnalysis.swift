@@ -31,7 +31,7 @@ struct AllergenAnalysis: Equatable, Sendable {
     }
 
     static func evaluate(entry: FoodEntry, sensitivities: [String]) -> AllergenAnalysis {
-        let configured = sensitivities.map(Self.normalize).filter { !$0.isEmpty }
+        let configured = sensitivities.map { ($0, Self.normalize($0)) }.filter { !$0.1.isEmpty }
         guard !configured.isEmpty else {
             return AllergenAnalysis(assessment: .unableToAssess, matchedSensitivities: [], evidence: [])
         }
@@ -45,9 +45,9 @@ struct AllergenAnalysis: Equatable, Sendable {
         ]
 
         for (assessment, source, values) in sources {
-            let matches = configured.enumerated().compactMap { index, sensitivity in
+            let matches = configured.compactMap { original, sensitivity in
                 values.contains(where: { Self.matches(sensitivity: sensitivity, candidate: $0) })
-                    ? sensitivities[index].trimmingCharacters(in: .whitespacesAndNewlines)
+                    ? original.trimmingCharacters(in: .whitespacesAndNewlines)
                     : nil
             }
             if !matches.isEmpty {
@@ -79,12 +79,13 @@ struct AllergenAnalysis: Equatable, Sendable {
         let folded = value.folding(options: [.diacriticInsensitive, .caseInsensitive], locale: Locale(identifier: "en_US_POSIX"))
         return folded
             .replacingOccurrences(of: "^[a-z]{2}:", with: "", options: .regularExpression)
-            .replacingOccurrences(of: "[^a-z0-9]+", with: " ", options: .regularExpression)
+            .replacingOccurrences(of: "[^\\p{L}\\p{N}]+", with: " ", options: .regularExpression)
             .trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
     private static func matches(sensitivity: String, candidate: String) -> Bool {
-        let candidateTerms = Set(normalize(candidate).split(separator: " ").map(String.init))
+        let normalizedCandidate = normalize(candidate)
+        let candidateTerms = Set(normalizedCandidate.split(separator: " ").map(String.init))
         let sensitivityTokens = normalize(sensitivity).split(separator: " ").map(String.init)
         guard !sensitivityTokens.isEmpty else { return false }
         let aliases: [String: Set<String>] = [
@@ -100,6 +101,10 @@ struct AllergenAnalysis: Equatable, Sendable {
             "gluten": ["wheat", "gluten", "rye", "barley", "oat"]
         ]
         let key = sensitivityTokens.joined(separator: " ")
+        // Exact names only. These reviewed aliases are not used to infer what a food does not contain.
+        if let allergen = canonicalAliases[key], canonicalAliases[normalizedCandidate] == allergen {
+            return true
+        }
         let terms = aliases[key] ?? Set(sensitivityTokens)
         if terms.count == 1, let term = terms.first, sensitivityTokens.count == 1 {
             return candidateTerms.contains(where: { Self.tokenMatches(term: term, candidate: $0) })
@@ -120,6 +125,17 @@ struct AllergenAnalysis: Equatable, Sendable {
             candidateTerms.contains(where: { Self.tokenMatches(term: token, candidate: $0) })
         }
     }
+
+    /// Keys are normalized the same way as sensitivities and candidates, so a
+    /// folded spelling (for example Russian `яйцо` → `яицо`) still resolves.
+    private static let canonicalAliases: [String: String] = Dictionary(
+        [
+            ("milk", "milk"), ("mleko", "milk"), ("mlekem", "milk"), ("молоко", "milk"),
+            ("egg", "egg"), ("eggs", "egg"), ("vejce", "egg"), ("vejci", "egg"), ("яйцо", "egg"),
+            ("peanut", "peanut"), ("peanuts", "peanut"), ("arasidy", "peanut"), ("arasid", "peanut")
+        ].map { (normalize($0.0), $0.1) },
+        uniquingKeysWith: { first, _ in first }
+    )
 
     private static func tokenMatches(term: String, candidate: String) -> Bool {
         term == candidate

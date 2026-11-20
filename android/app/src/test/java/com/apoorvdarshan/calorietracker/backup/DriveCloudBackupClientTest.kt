@@ -39,7 +39,7 @@ class DriveCloudBackupClientTest {
                 chain.proceed(original.newBuilder().url(local).build())
             }
             .build()
-        drive = DriveCloudBackupClient(webClientId = "", http = http)
+        drive = DriveCloudBackupClient(http = http)
     }
 
     @After

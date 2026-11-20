@@ -22,8 +22,7 @@ import com.apoorvdarshan.calorietracker.models.ExerciseLiftHistory
 import com.apoorvdarshan.calorietracker.models.WorkoutDate
 import com.apoorvdarshan.calorietracker.models.WorkoutWeightUnit
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.util.Locale
+import com.apoorvdarshan.calorietracker.ui.util.shortWeekdayMediumDateFormatter
 
 data class WorkoutExerciseHistoryRequest(
     val itemId: String,
@@ -98,6 +97,6 @@ private fun dayTitle(dateKey: String, selectedDate: LocalDate): String {
         date == today -> "Today"
         date == today.minusDays(1) -> "Yesterday"
         date == selectedDate -> "Selected day"
-        else -> date.format(DateTimeFormatter.ofPattern("EEE, MMM d, yyyy", Locale.getDefault()))
+        else -> date.format(shortWeekdayMediumDateFormatter())
     }
 }

@@ -126,11 +126,16 @@ struct AllergenAnalysis: Equatable, Sendable {
         }
     }
 
-    private static let canonicalAliases: [String: String] = [
-        "milk": "milk", "mleko": "milk", "mlekem": "milk", "молоко": "milk",
-        "egg": "egg", "eggs": "egg", "vejce": "egg", "vejci": "egg", "яйцо": "egg",
-        "peanut": "peanut", "peanuts": "peanut", "arasidy": "peanut", "arasid": "peanut"
-    ]
+    /// Keys are normalized the same way as sensitivities and candidates, so a
+    /// folded spelling (for example Russian `яйцо` → `яицо`) still resolves.
+    private static let canonicalAliases: [String: String] = Dictionary(
+        [
+            ("milk", "milk"), ("mleko", "milk"), ("mlekem", "milk"), ("молоко", "milk"),
+            ("egg", "egg"), ("eggs", "egg"), ("vejce", "egg"), ("vejci", "egg"), ("яйцо", "egg"),
+            ("peanut", "peanut"), ("peanuts", "peanut"), ("arasidy", "peanut"), ("arasid", "peanut")
+        ].map { (normalize($0.0), $0.1) },
+        uniquingKeysWith: { first, _ in first }
+    )
 
     private static func tokenMatches(term: String, candidate: String) -> Bool {
         term == candidate

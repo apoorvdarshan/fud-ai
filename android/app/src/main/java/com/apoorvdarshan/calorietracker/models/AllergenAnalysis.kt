@@ -101,11 +101,13 @@ data class AllergenAnalysis(
         }
 
         // Exact names only; no missing match is evidence that an allergen is absent.
+        // Keys are normalized like sensitivities and candidates, so a folded spelling
+        // (for example Russian "яйцо" -> "яицо") still resolves.
         private val canonicalAliases = mapOf(
             "milk" to "milk", "mleko" to "milk", "mlekem" to "milk", "молоко" to "milk",
             "egg" to "egg", "eggs" to "egg", "vejce" to "egg", "vejci" to "egg", "яйцо" to "egg",
             "peanut" to "peanut", "peanuts" to "peanut", "arasidy" to "peanut", "arasid" to "peanut"
-        )
+        ).mapKeys { normalize(it.key) }
 
         private fun tokenMatches(term: String, candidate: String): Boolean =
             term == candidate ||

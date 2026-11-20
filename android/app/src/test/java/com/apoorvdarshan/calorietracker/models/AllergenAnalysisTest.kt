@@ -1,6 +1,7 @@
 package com.apoorvdarshan.calorietracker.models
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class AllergenAnalysisTest {
@@ -11,6 +12,14 @@ class AllergenAnalysisTest {
         assertEquals(AllergenAssessment.DECLARED_ALLERGEN_MATCH, result.assessment)
         assertEquals(listOf("mléko", "молоко"), result.matchedSensitivities)
     }
+    @Test
+    fun russianEggMatchesCanonicalLabelInBothDirections() {
+        // Normalization folds й to и, so the alias table must use folded keys too.
+        assertTrue(AllergenAnalysis.mentionsAny(listOf("яйцо"), "en:egg"))
+        assertTrue(AllergenAnalysis.mentionsAny(listOf("egg"), "яйцо"))
+        assertTrue(AllergenAnalysis.mentionsAny(listOf("яйцо"), "egg"))
+    }
+
     @Test
     fun declaredAllergenWinsOverWeakerEvidence() {
         val entry = entry(

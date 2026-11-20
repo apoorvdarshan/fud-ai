@@ -826,6 +826,13 @@ class PreferencesStore(
         }
     }
 
+    private val hideVoiceShortcutKey = booleanPreferencesKey("hideVoiceShortcut")
+    private val hideBarcodePhotoKey = booleanPreferencesKey("hideBarcodePhoto")
+    val hideVoiceShortcut: Flow<Boolean> = ds.data.map { it[hideVoiceShortcutKey] ?: false }
+    val hideBarcodePhoto: Flow<Boolean> = ds.data.map { it[hideBarcodePhotoKey] ?: false }
+    suspend fun setHideVoiceShortcut(hidden: Boolean) { ds.edit { it[hideVoiceShortcutKey] = hidden } }
+    suspend fun setHideBarcodePhoto(hidden: Boolean) { ds.edit { it[hideBarcodePhotoKey] = hidden } }
+
     // -- AI Provider selection --------------------------------------------
     private val calorieFloorKey = intPreferencesKey("displayCalorieFloor")
     private val calorieCeilingKey = intPreferencesKey("displayCalorieCeiling")

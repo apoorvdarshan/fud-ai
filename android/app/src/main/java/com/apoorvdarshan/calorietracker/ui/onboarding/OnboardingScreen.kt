@@ -873,7 +873,7 @@ private fun BodyFatStep(
                 onValueChange = { onChange(it / 100.0) },
                 min = 3.0,
                 max = 60.0,
-                step = 0.5,
+                step = 0.1,
                 unit = stringResource(R.string.unit_percent)
             )
             Spacer(Modifier.height(8.dp))
@@ -912,7 +912,7 @@ private fun BodyFatStep(
                     onValueChange = { onGoalChange(it / 100.0) },
                     min = 3.0,
                     max = 60.0,
-                    step = 0.5,
+                    step = 0.1,
                     unit = stringResource(R.string.unit_percent)
                 )
             } else {

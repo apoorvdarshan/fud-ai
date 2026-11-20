@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.annotation.StringRes
 import com.apoorvdarshan.calorietracker.R
 import java.text.Normalizer
+import java.util.Locale
 
 enum class AllergenAssessment {
     DECLARED_ALLERGEN_MATCH,
@@ -28,7 +29,7 @@ data class AllergenAnalysis(
 
     companion object {
         fun evaluate(entry: FoodEntry, sensitivities: List<String>): AllergenAnalysis {
-            val configured = sensitivities.map(::normalize).filter(String::isNotEmpty)
+            val configured = sensitivities.map { it to normalize(it) }.filter { it.second.isNotEmpty() }
             if (configured.isEmpty()) return AllergenAnalysis(AllergenAssessment.UNABLE_TO_ASSESS)
 
             val sources = listOf(
@@ -40,8 +41,8 @@ data class AllergenAnalysis(
             )
 
             for ((assessment, source, values) in sources) {
-                val matches = configured.mapIndexedNotNull { index, sensitivity ->
-                    if (values.any { matches(sensitivity, it) }) sensitivities[index].trim() else null
+                val matches = configured.mapNotNull { (original, sensitivity) ->
+                    if (values.any { matches(sensitivity, it) }) original.trim() else null
                 }.distinct()
                 if (matches.isNotEmpty()) {
                     return AllergenAnalysis(assessment, matches, listOf(source))
@@ -60,15 +61,16 @@ data class AllergenAnalysis(
         private fun normalize(value: String): String {
             val folded = Normalizer.normalize(value, Normalizer.Form.NFD)
                 .replace("\\p{Mn}+".toRegex(), "")
-                .lowercase()
+                .lowercase(Locale.ROOT)
             return folded
                 .replace("^[a-z]{2}:".toRegex(), "")
-                .replace("[^a-z0-9]+".toRegex(), " ")
+                .replace("[^\\p{L}\\p{N}]+".toRegex(), " ")
                 .trim()
         }
 
         private fun matches(sensitivity: String, candidate: String): Boolean {
-            val candidateTokens = normalize(candidate).split(" ").filter(String::isNotEmpty)
+            val normalizedCandidate = normalize(candidate)
+            val candidateTokens = normalizedCandidate.split(" ").filter(String::isNotEmpty)
             val sensitivityTokens = normalize(sensitivity).split(" ").filter(String::isNotEmpty)
             if (sensitivityTokens.isEmpty()) return false
             val aliases = mapOf(
@@ -84,6 +86,8 @@ data class AllergenAnalysis(
                 "gluten" to setOf("wheat", "gluten", "rye", "barley", "oat")
             )
             val key = sensitivityTokens.joinToString(" ")
+            val canonical = canonicalAliases[key]
+            if (canonical != null && canonicalAliases[normalizedCandidate] == canonical) return true
             val terms = aliases[key] ?: sensitivityTokens.toSet()
             return terms.any { term ->
                 val termTokens = term.split(" ")
@@ -98,6 +102,15 @@ data class AllergenAnalysis(
                 candidateTokens.any { tokenMatches(expected, it) }
             }
         }
+
+        // Exact names only; no missing match is evidence that an allergen is absent.
+        // Keys are normalized like sensitivities and candidates, so a folded spelling
+        // (for example Russian "яйцо" -> "яицо") still resolves.
+        private val canonicalAliases = mapOf(
+            "milk" to "milk", "mleko" to "milk", "mlekem" to "milk", "молоко" to "milk",
+            "egg" to "egg", "eggs" to "egg", "vejce" to "egg", "vejci" to "egg", "яйцо" to "egg",
+            "peanut" to "peanut", "peanuts" to "peanut", "arasidy" to "peanut", "arasid" to "peanut"
+        ).mapKeys { normalize(it.key) }
 
         private fun tokenMatches(term: String, candidate: String): Boolean =
             term == candidate ||

@@ -1477,6 +1477,7 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
             // replace the user's Drive copy with this emptied phone. Backup stays off until the
             // user turns it on again; the Drive file itself is kept for a later restore.
             container.cloudBackup.forgetSession()
+            com.apoorvdarshan.calorietracker.data.FailedMealDraftStore(container.appContext.noBackupFilesDir).delete()
             container.prefs.clearAll()
             container.keyStore.clearAll(preserveWeeklyChallengeToken = !challengeDeleted)
             container.imageStore.clearAll()

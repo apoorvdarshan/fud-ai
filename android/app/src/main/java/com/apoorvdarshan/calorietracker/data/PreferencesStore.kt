@@ -401,6 +401,20 @@ class PreferencesStore(
         ds.edit { it[hydrationPendingKey] = it[hydrationPendingKey].orEmpty() - id }
     }
 
+    /**
+     * The water diary as the hydration drain must see it: null when the stored blob
+     * could not be decoded at all. An unreadable diary must not read as "every entry
+     * deleted", which would make the shared Health Connect records disappear.
+     */
+    suspend fun waterDiarySnapshot(): List<WaterEntry>? {
+        val key = Keys.WATER_ENTRIES
+        return when (val decoded = decodeList(ds.data.first()[key], WaterEntry.serializer(), key.name)) {
+            is PersistedListDecode.Corrupt -> null
+            is PersistedListDecode.Decoded -> decoded.items
+            PersistedListDecode.Missing -> emptyList()
+        }
+    }
+
     suspend fun mutateWaterDiary(transform: (List<WaterEntry>) -> List<WaterEntry>) {
         ds.edit { prefs ->
             val key = Keys.WATER_ENTRIES

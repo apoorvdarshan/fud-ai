@@ -19,30 +19,33 @@ internal fun changedWaterIds(before: List<WaterEntry>, after: List<WaterEntry>):
 }
 
 class WaterRepository(private val prefs: PreferencesStore, private val health: HealthConnectManager? = null) {
+    /** Serializes diary mutations only; Health Connect IPC never holds it. */
     private val mutationMutex = Mutex()
+    /** Serializes drains; a slow sync cannot run twice and cannot block diary taps. */
+    private val drainMutex = Mutex()
     val entries: Flow<List<WaterEntry>> = prefs.waterEntries.map { list -> list.sortedBy { it.date } }
 
     suspend fun add(entry: WaterEntry) {
         if (entry.milliliters <= 0) return
         mutationMutex.withLock {
             prefs.mutateWaterDiary { current -> current + entry }
-            drainLocked()
         }
+        drain()
     }
 
     suspend fun importDiary(preview: DiaryImportPreview, mode: DiaryImportMode) {
         if (!preview.includesWater) return
         mutationMutex.withLock {
             prefs.mutateWaterDiary { current -> DiaryImporter.applyingWater(preview, current, mode) }
-            drainLocked()
         }
+        drain()
     }
 
     suspend fun delete(id: UUID) {
         mutationMutex.withLock {
             prefs.mutateWaterDiary { current -> current.filter { it.id != id } }
-            drainLocked()
         }
+        drain()
     }
 
     suspend fun setHealthSync(enabled: Boolean) {
@@ -53,14 +56,18 @@ class WaterRepository(private val prefs: PreferencesStore, private val health: H
         prefs.setHydrationSync(enabled)
     }
 
-    suspend fun retryHealthWrites() = mutationMutex.withLock { drainLocked() }
+    suspend fun retryHealthWrites() = drain()
+
+    private suspend fun drain() = drainMutex.withLock { drainLocked() }
 
     private suspend fun drainLocked() {
         val connection = health ?: return
         if (!prefs.healthConnectEnabled.first() || !prefs.hydrationSyncEnabled.first() || !connection.hasHydrationWrite()) return
         val ids = prefs.pendingHydration.first().take(MAX_DRAIN_RECORDS)
         if (ids.isEmpty()) return
-        val byId = prefs.waterEntries.first().associateBy { it.id.toString() }
+        // An unreadable diary must not read as "every entry deleted": keep everything
+        // pending and retry after the blob is preserved and rewritten.
+        val byId = (prefs.waterDiarySnapshot() ?: return).associateBy { it.id.toString() }
         var consecutiveFailures = 0
         for (id in ids) {
             // The opt-out (or a disconnect) may land while this batch runs; stop as soon as it did.

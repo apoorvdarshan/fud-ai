@@ -448,7 +448,7 @@ dependencies {
     androidTestImplementation("androidx.test:runner:1.7.0")
     androidTestImplementation("androidx.test:core:1.7.0")
     // Billing responses are isolated in UI tests; no real store account or purchase.
-    androidTestImplementation("io.mockk:mockk-android:1.14.11")
+    androidTestImplementation("io.mockk:mockk-android:1.14.12")
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
 }

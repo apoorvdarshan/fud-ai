@@ -70,18 +70,6 @@ android {
 
         testInstrumentationRunner = "com.apoorvdarshan.calorietracker.testing.FudAITestRunner"
 
-        val oauthProps = Properties().apply {
-            val file = rootProject.file("oauth.properties")
-            if (file.exists()) load(file.inputStream())
-        }
-        val webClientId = oauthProps.getProperty("cloud.backup.web.client.id")
-            ?: localProperties.getProperty("cloud.backup.web.client.id")
-            ?: ""
-        buildConfigField(
-            "String",
-            "CLOUD_BACKUP_WEB_CLIENT_ID",
-            "\"${webClientId.replace("\"", "\\\"")}\""
-        )
         // Public CDN prefix the app fetches workout frames from on demand.
         buildConfigField("String", "WORKOUT_VECTORS_BASE_URL", "\"$workoutVectorsDefaultBaseUrl\"")
         // RevenueCat public Google Play SDK key (goog_…). Public by design, like the
@@ -448,7 +436,7 @@ dependencies {
     androidTestImplementation("androidx.test:runner:1.7.0")
     androidTestImplementation("androidx.test:core:1.7.0")
     // Billing responses are isolated in UI tests; no real store account or purchase.
-    androidTestImplementation("io.mockk:mockk-android:1.14.11")
+    androidTestImplementation("io.mockk:mockk-android:1.14.12")
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
 }

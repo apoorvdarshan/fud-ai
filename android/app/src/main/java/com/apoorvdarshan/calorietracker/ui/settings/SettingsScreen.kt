@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker.ui.settings
 
+import com.apoorvdarshan.calorietracker.backup.driveConsentCompletion
 import com.apoorvdarshan.calorietracker.models.OpenRouterReasoningEffort
 import com.apoorvdarshan.calorietracker.models.MealShareLinkStyle
 import android.Manifest
@@ -14,6 +15,8 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import com.apoorvdarshan.calorietracker.backup.DriveCloudBackupClient
+import com.apoorvdarshan.calorietracker.backup.DriveAuthorizationException
+import com.apoorvdarshan.calorietracker.backup.DriveAuthorizationFailure
 import com.apoorvdarshan.calorietracker.backup.cloudBackupErrorMessage
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
@@ -439,6 +442,14 @@ fun SettingsScreen(
     val settingsScope = rememberCoroutineScope()
     val importReadFailedMessage = stringResource(R.string.import_read_failed)
     val cloudBackupSignInFailed = stringResource(R.string.cloud_backup_sign_in_failed)
+    val cloudBackupUnregistered = stringResource(R.string.cloud_backup_sign_in_unregistered)
+    val driveSignInError: (Throwable) -> String = { error ->
+        if ((error as? DriveAuthorizationException)?.kind == DriveAuthorizationFailure.UNREGISTERED_ANDROID_CLIENT) {
+            cloudBackupUnregistered
+        } else {
+            cloudBackupSignInFailed
+        }
+    }
     val cloudBackupFailed = stringResource(R.string.error_title)
     val cloudBackupNoSpace = stringResource(R.string.cloud_backup_restore_no_space)
     val cloudBackupFailure: (Throwable) -> String = {
@@ -474,11 +485,10 @@ fun SettingsScreen(
                 cloudBackupError = cloudBackupSignInFailed
                 return@launch
             }
-            if (container.cloudBackup.finishAuthorization(activity, result.data)) {
-                finishDriveSignIn()
-            } else {
-                cloudBackupError = cloudBackupSignInFailed
+            val message = driveConsentCompletion(cloudBackupUnregistered, cloudBackupSignInFailed) {
+                container.cloudBackup.finishAuthorization(activity, result.data)
             }
+            if (message == null) finishDriveSignIn() else cloudBackupError = message
         }
     }
     val continueDriveAuth: (android.accounts.Account) -> Unit = { account ->
@@ -498,7 +508,10 @@ fun SettingsScreen(
                             }
                         }
                     }
-                    .onFailure { cloudBackupError = it.message }
+                    .onFailure {
+                        if (it is kotlinx.coroutines.CancellationException) throw it
+                        cloudBackupError = driveSignInError(it)
+                    }
             }
         }
     }
@@ -519,7 +532,7 @@ fun SettingsScreen(
     val startDriveSignIn: () -> Unit = {
         runCatching {
             driveAccountPickerLauncher.launch(container.cloudBackup.accountPickerIntent())
-        }.onFailure { cloudBackupError = it.message ?: cloudBackupSignInFailed }
+        }.onFailure { cloudBackupError = driveSignInError(it) }
     }
 
     val importFileLauncher = rememberLauncherForActivityResult(
@@ -769,7 +782,7 @@ fun SettingsScreen(
                     HorizontalDivider()
                     SettingRow(
                         stringResource(R.string.settings_body_fat),
-                        p.bodyFatPercentage?.let { "${(it * 100).toInt()}%" } ?: stringResource(R.string.settings_not_set),
+                        p.bodyFatPercentage?.let { bodyFatPercentLabel(it) } ?: stringResource(R.string.settings_not_set),
                         icon = Icons.Outlined.Percent
                     ) { sheet = SettingsSheet.BODY_FAT }
 
@@ -781,7 +794,7 @@ fun SettingsScreen(
                         HorizontalDivider()
                         SettingRow(
                             stringResource(R.string.settings_goal_body_fat),
-                            p.goalBodyFatPercentage?.let { "${(it * 100).toInt()}%" } ?: stringResource(R.string.settings_not_set),
+                            p.goalBodyFatPercentage?.let { bodyFatPercentLabel(it) } ?: stringResource(R.string.settings_not_set),
                             icon = Icons.Outlined.TrackChanges
                         ) { sheet = SettingsSheet.GOAL_BODY_FAT }
                     }
@@ -4019,11 +4032,17 @@ private fun FastingGoalSheet(currentMinutes: Int, onSave: (Int) -> Unit) {
 }
 
 @Composable
+private fun bodyFatPercentLabel(fraction: Double): String =
+    java.text.NumberFormat.getPercentInstance(androidx.compose.ui.platform.LocalConfiguration.current.locales[0]).apply {
+        maximumFractionDigits = 1
+    }.format(fraction)
+
+@Composable
 private fun BodyFatSheet(current: Double?, onSave: (Double?) -> Unit) {
-    var pct by remember(current) { mutableStateOf((current ?: 0.20) * 100) }
+    var pct by remember(current) { mutableStateOf(((current ?: 0.20) * 100).coerceIn(3.0, 60.0)) }
     Text(stringResource(R.string.sheet_body_fat_percent), style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
     Spacer(Modifier.height(12.dp))
-    DecimalWheelPicker(pct, { pct = it }, 5.0, 60.0, 0.5, stringResource(R.string.unit_percent))
+    DecimalWheelPicker(pct, { pct = it }, 3.0, 60.0, 0.1, stringResource(R.string.unit_percent))
     Spacer(Modifier.height(12.dp))
     GradientSaveButton { onSave(pct / 100.0) }
     Spacer(Modifier.height(4.dp))
@@ -4037,7 +4056,7 @@ private fun BodyFatSheet(current: Double?, onSave: (Double?) -> Unit) {
 @Composable
 private fun GoalBodyFatSheet(currentGoal: Double?, currentBodyFat: Double?, onSave: (Double?) -> Unit) {
     val seed = currentGoal ?: currentBodyFat ?: 0.15
-    var pct by remember(currentGoal) { mutableStateOf(seed * 100) }
+    var pct by remember(currentGoal) { mutableStateOf((seed * 100).coerceIn(3.0, 60.0)) }
     Text(stringResource(R.string.sheet_goal_body_fat), style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
     if (currentBodyFat != null) {
         Spacer(Modifier.height(4.dp))
@@ -4048,7 +4067,7 @@ private fun GoalBodyFatSheet(currentGoal: Double?, currentBodyFat: Double?, onSa
         )
     }
     Spacer(Modifier.height(12.dp))
-    DecimalWheelPicker(pct, { pct = it }, 3.0, 60.0, 0.5, stringResource(R.string.unit_percent))
+    DecimalWheelPicker(pct, { pct = it }, 3.0, 60.0, 0.1, stringResource(R.string.unit_percent))
     Spacer(Modifier.height(12.dp))
     GradientSaveButton { onSave(pct / 100.0) }
     Spacer(Modifier.height(4.dp))

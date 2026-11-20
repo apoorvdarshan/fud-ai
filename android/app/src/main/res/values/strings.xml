@@ -1410,6 +1410,7 @@
     <string name="settings_calc_methods">Calculation Methods</string>
     <string name="settings_max_tokens">Max response tokens</string>
     <string name="settings_request_timeout">Request timeout</string>
+    <string name="settings_gemini_timeout">Gemini request timeout</string>
     <string name="settings_seconds_format">%1$d sec</string>
     <string name="settings_notification_types">Notification types</string>
     <string name="settings_notif_food_reminders">Food log reminders</string>

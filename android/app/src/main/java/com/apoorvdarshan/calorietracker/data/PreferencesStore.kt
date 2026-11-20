@@ -1392,16 +1392,15 @@ class PreferencesStore(
 
     /**
      * Returns an atomic snapshot of every persisted food-image reference. A
-     * decode failure returns null so cleanup never treats unreadable user data
-     * as an empty list and deletes its files.
+     * missing or unreadable diary returns null so cleanup never treats a
+     * lost/reset preferences file as an intentionally empty diary.
      */
     suspend fun foodImageReferenceFilenames(): Set<String>? {
         val prefs = ds.data.first()
-        val foods = prefs[Keys.FOOD_ENTRIES]?.let { raw ->
-            runCatching {
-                json.decodeFromString(ListSerializer(FoodEntry.serializer()), raw)
-            }.getOrNull() ?: return null
-        }.orEmpty()
+        val rawFoods = prefs[Keys.FOOD_ENTRIES] ?: return null
+        val foods = runCatching {
+            json.decodeFromString(ListSerializer(FoodEntry.serializer()), rawFoods)
+        }.getOrNull() ?: return null
         val favorites = prefs[Keys.FAVORITE_ENTRIES]?.let { raw ->
             runCatching {
                 json.decodeFromString(ListSerializer(FoodEntry.serializer()), raw)

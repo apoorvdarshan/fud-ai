@@ -197,6 +197,7 @@ internal fun WorkoutDiaryScreen(
     }
     val heightUnit by container.prefs.heightUnit.collectAsState(initial = "cm")
     val voiceUi by container.voiceAssistant.ui.collectAsState()
+    val hideVoiceShortcut by container.prefs.hideVoiceShortcut.collectAsState(initial = false)
     val listState = rememberLazyListState()
     val focusManager = LocalFocusManager.current
     val keyboard = LocalSoftwareKeyboardController.current
@@ -472,7 +473,7 @@ internal fun WorkoutDiaryScreen(
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            if (!voiceUi.visible) {
+            if (!voiceUi.visible && !hideVoiceShortcut) {
                 VoiceAssistantButton(onClick = {
                     dismissKeyboard()
                     container.voiceAssistant.requestStart()

@@ -433,6 +433,7 @@ DisposableEffect(lifecycleOwner, vm) {
 
     // The voice assistant opens a logged food's edit sheet here (open_food_entry).
     val voiceUi by container.voiceAssistant.ui.collectAsState()
+    val hideVoiceShortcut by container.prefs.hideVoiceShortcut.collectAsState(initial = false)
     val pendingVoiceEntry by container.navigator.pendingFoodEntry.collectAsState()
     LaunchedEffect(pendingVoiceEntry, allEntries) {
         val id = pendingVoiceEntry ?: return@LaunchedEffect
@@ -753,7 +754,7 @@ CalorieHero(
             horizontalArrangement = Arrangement.spacedBy(actionGap),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            if (!voiceUi.visible) {
+            if (!voiceUi.visible && !hideVoiceShortcut) {
                 VoiceAssistantButton(onClick = container.voiceAssistant::requestStart)
             }
             Box {

@@ -529,6 +529,7 @@ struct AIProviderSettings {
     private static let currentModelRegistryMigrationVersion = 2
     private static let maxResponseTokensKey = "aiMaxResponseTokens"
     private static let requestTimeoutSecondsKey = "aiRequestTimeoutSeconds"
+    static let geminiTimeoutSecondsKey = "byokGeminiRequestTimeoutSeconds"
 
     /// The AI output-token cap sent with every request (`max_tokens` /
     /// `max_completion_tokens` / Gemini `maxOutputTokens`). Default 1024; raise it for
@@ -554,7 +555,11 @@ struct AIProviderSettings {
     }
 
     static func requestTimeout(for provider: AIProvider) -> TimeInterval? {
-        provider.usesConfigurableRequestTimeout ? TimeInterval(requestTimeoutSeconds) : nil
+        if provider == .gemini {
+            let seconds = UserDefaults.standard.integer(forKey: geminiTimeoutSecondsKey)
+            return (120...600).contains(seconds) ? TimeInterval(seconds) : nil
+        }
+        return provider.usesConfigurableRequestTimeout ? TimeInterval(requestTimeoutSeconds) : nil
     }
 
     static var selectedProvider: AIProvider {
@@ -953,6 +958,7 @@ struct AIProviderSettings {
         UserDefaults.standard.removeObject(forKey: textFallbackModelKey)
         UserDefaults.standard.removeObject(forKey: fallbackBaseURLMigrationVersionKey)
         UserDefaults.standard.removeObject(forKey: requestTimeoutSecondsKey)
+        UserDefaults.standard.removeObject(forKey: geminiTimeoutSecondsKey)
     }
 
     static func replaceDeletedLocalGemmaSelections(defaults: UserDefaults = .standard) {

@@ -9,6 +9,8 @@
     "This also requests deletion of matching nutrition written by Fud AI in Apple Health.": {},
     "This deletes entries from Fud AI only. Copies in Apple Health are kept.": {},
     "Could Not Delete Food Entries": {},
+    "Hide in-app voice shortcut": {},
+    "Hide barcode product photos": {},
     "Create a JSON file of your food and water logs for the selected dates. Fud AI does not upload the file.": {},
     "Export food diary from %@ to %@": {},
     "Share Links": {

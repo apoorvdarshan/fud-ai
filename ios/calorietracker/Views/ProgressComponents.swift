@@ -1753,9 +1753,7 @@ struct BodyFatChartSection: View {
 
 // MARK: - Log Body Fat Sheet
 
-/// Single-wheel picker for body-fat %. Whole-number precision (matches
-/// BodyFatPickerSheet in Settings) — body-fat measurements rarely justify
-/// 0.1% resolution given the noise of calipers / smart scales.
+/// Single-wheel picker for body-fat logs, in tenths of a percentage point.
 struct LogBodyFatSheet: View {
     @Environment(\.dismiss) private var dismiss
     let currentFraction: Double
@@ -1766,7 +1764,7 @@ struct LogBodyFatSheet: View {
     init(currentFraction: Double, onSave: @escaping (Double) -> Void) {
         self.currentFraction = currentFraction
         self.onSave = onSave
-        _percentage = State(initialValue: Int(currentFraction * 100))
+        _percentage = State(initialValue: BodyFatWheel.selection(for: currentFraction))
     }
 
     var body: some View {
@@ -1777,8 +1775,8 @@ struct LogBodyFatSheet: View {
 
                 HStack(spacing: 0) {
                     Picker("Percentage", selection: $percentage) {
-                        ForEach(3...60, id: \.self) { n in
-                            Text("\(n)").tag(n)
+                        ForEach(BodyFatWheel.values, id: \.self) { n in
+                            Text(verbatim: BodyFatWheel.label(for: n)).tag(n)
                                 .font(.system(.title2, design: .rounded, weight: .medium))
                         }
                     }
@@ -1793,7 +1791,7 @@ struct LogBodyFatSheet: View {
                 }
 
                 Button {
-                    onSave(Double(percentage) / 100.0)
+                    onSave(BodyFatWheel.fraction(for: percentage))
                     dismiss()
                 } label: {
                     Text("Save")

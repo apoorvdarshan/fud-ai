@@ -4,6 +4,20 @@ import Testing
 
 struct AllergenAnalysisTests {
     @Test
+    func matchesCanonicalAllergensAcrossReviewedLanguages() {
+        #expect(AllergenAnalysis.mentionsAny(of: ["mléko"], in: "en:milk"))
+        #expect(AllergenAnalysis.mentionsAny(of: ["milk"], in: "молоко"))
+        #expect(!AllergenAnalysis.mentionsAny(of: ["milk"], in: "oats"))
+    }
+    @Test
+    func russianEggMatchesCanonicalLabelInBothDirections() {
+        // Normalization folds й to и, so the alias table must use folded keys too.
+        #expect(AllergenAnalysis.mentionsAny(of: ["яйцо"], in: "en:egg"))
+        #expect(AllergenAnalysis.mentionsAny(of: ["egg"], in: "яйцо"))
+        #expect(AllergenAnalysis.mentionsAny(of: ["яйцо"], in: "egg"))
+    }
+
+    @Test
     func declaredAllergenWinsOverWeakerEvidence() {
         let entry = makeEntry(metadata: FoodProductMetadata(
             barcode: "1",

@@ -87,10 +87,23 @@ Settings → Data Management → iCloud Backup controls:
 
 1. Create a Google Cloud project and enable the Drive API.
 2. OAuth consent screen, External. Scopes: `drive.appdata` and `userinfo.email` only. Do not request full Drive.
-3. Create Android OAuth clients for release and debug package names / SHA-1s, plus a Web client ID.
-4. Copy `android/oauth.properties.example` to `android/oauth.properties` and set `cloud.backup.web.client.id`.
-5. Add test users until **brand verification** (name, logo, homepage, privacy policy). No demo video for `drive.appdata`.
-6. Public Play users cannot use Drive backup until brand verification is approved.
+3. In that project, register an **Android** OAuth client for
+   `com.apoorvdarshan.calorietracker` with the **Play App Signing** certificate SHA-1
+   from Play Console → App integrity. The upload certificate signs what you send
+   to Play, not what users install. If multiple Play signing certificates are in
+   use (for example after a signing-key upgrade), register each applicable SHA-1.
+4. Register the Debug package `com.apoorvdarshan.calorietracker.debug` separately
+   with the developer build's actual signing certificate. A working Debug sign-in
+   does not validate the Play release registration.
+5. Google Identity authorizes Drive access on-device. No web client ID,
+   server authorization code, or OAuth credential is needed in the app build
+   or release workflow. Keep the consent screen published for normal Play users.
+6. Verify on a Play-installed build: open the Drive Backup account picker,
+   choose a test account, accept consent and confirm that a test backup can be
+   read. Use a dedicated test account; don't overwrite an existing user backup.
+   `UNREGISTERED_ON_API_CONSOLE` points to the Android package/certificate
+   registration, not a missing web client ID. The `FudAIDriveAuth` log records
+   the status code and failure category without account or token details.
 
 ## Health
 

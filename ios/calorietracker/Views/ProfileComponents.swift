@@ -328,7 +328,7 @@ struct BodyFatPickerSheet: View {
     init(currentPercentage: Double?, onSave: @escaping (Double?) -> Void) {
         self.currentPercentage = currentPercentage
         self.onSave = onSave
-        _percentage = State(initialValue: Int((currentPercentage ?? 0.2) * 100))
+        _percentage = State(initialValue: BodyFatWheel.selection(for: currentPercentage ?? 0.2))
     }
 
     var body: some View {
@@ -339,8 +339,8 @@ struct BodyFatPickerSheet: View {
 
                 HStack(spacing: 0) {
                     Picker("Percentage", selection: $percentage) {
-                        ForEach(3...60, id: \.self) { n in
-                            Text("\(n)").tag(n)
+                        ForEach(BodyFatWheel.values, id: \.self) { n in
+                            Text(verbatim: BodyFatWheel.label(for: n)).tag(n)
                                 .font(.system(.title2, design: .rounded, weight: .medium))
                         }
                     }
@@ -355,7 +355,7 @@ struct BodyFatPickerSheet: View {
                 }
 
                 Button {
-                    onSave(Double(percentage) / 100.0)
+                    onSave(BodyFatWheel.fraction(for: percentage))
                     dismiss()
                 } label: {
                     Text("Save")
@@ -412,7 +412,7 @@ struct GoalBodyFatPickerSheet: View {
         // Seed from the existing goal, falling back to the user's current
         // body-fat value so the wheel lands somewhere sensible on first open.
         let seed = currentGoal ?? currentBodyFat ?? 0.15
-        _percentage = State(initialValue: Int(seed * 100))
+        _percentage = State(initialValue: BodyFatWheel.selection(for: seed))
     }
 
     var body: some View {
@@ -429,8 +429,8 @@ struct GoalBodyFatPickerSheet: View {
 
                 HStack(spacing: 0) {
                     Picker("Percentage", selection: $percentage) {
-                        ForEach(3...60, id: \.self) { n in
-                            Text("\(n)").tag(n)
+                        ForEach(BodyFatWheel.values, id: \.self) { n in
+                            Text(verbatim: BodyFatWheel.label(for: n)).tag(n)
                                 .font(.system(.title2, design: .rounded, weight: .medium))
                         }
                     }
@@ -445,7 +445,7 @@ struct GoalBodyFatPickerSheet: View {
                 }
 
                 Button {
-                    onSave(Double(percentage) / 100.0)
+                    onSave(BodyFatWheel.fraction(for: percentage))
                     dismiss()
                 } label: {
                     Text("Save")

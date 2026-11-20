@@ -17,6 +17,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import com.apoorvdarshan.calorietracker.models.AIProvider
 import com.apoorvdarshan.calorietracker.services.FoodImageDecoder
 import com.apoorvdarshan.calorietracker.ui.navigation.LocalLaunchFillEpoch
 import androidx.compose.foundation.BorderStroke
@@ -273,6 +274,11 @@ DisposableEffect(lifecycleOwner, vm) {
     var showCameraCapture by rememberSaveable { mutableStateOf(false) }
     var showMultiPhotoCapture by rememberSaveable { mutableStateOf(false) }
     val captureDraft: PhotoCaptureDraftViewModel = viewModel(factory = PhotoCaptureDraftViewModel.factory(ctx))
+    var mealPhotoLimit by rememberSaveable { mutableStateOf(AIProvider.DEFAULT_MEAL_PHOTO_LIMIT) }
+    LaunchedEffect(Unit) {
+        mealPhotoLimit = container.prefs.mealPhotoCaptureLimit(container.keyStore)
+        captureDraft.setMaxImages(mealPhotoLimit)
+    }
     val pendingCaptureImageBytes by captureDraft.images.collectAsState()
     val captureDraftBusy by captureDraft.busy.collectAsState()
     val captureDraftError by captureDraft.error.collectAsState()
@@ -1040,13 +1046,14 @@ CalorieHero(
         MultiPhotoCaptureSheet(
             imageBytesList = pendingCaptureImageBytes,
             addsFromLibrary = isImportingPhotos,
+            photoLimit = mealPhotoLimit,
             isBusy = captureDraftBusy,
             note = captureNote,
             onNoteChange = { captureNote = it },
             progressiveMeal = captureProgressiveMeal,
             onProgressiveMealChange = { captureProgressiveMeal = it },
             onAddPhoto = {
-                if (pendingCaptureImageBytes.size < 10) {
+                if (pendingCaptureImageBytes.size < mealPhotoLimit) {
                     if (isImportingPhotos) {
                         photoPicker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
                     } else {

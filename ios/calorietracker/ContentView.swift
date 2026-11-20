@@ -1058,6 +1058,8 @@ struct HomeView: View {
     @State private var cameraMode: CameraMode = .snapFood
     @State private var selectedPhotoItems: [PhotosPickerItem] = []
     @State private var showPhotoPicker = false
+    /// Photo cap for the active AI setup; Groq's Qwen models accept three (#712).
+    @State private var mealPhotoLimit = AIProvider.defaultMealPhotoLimit
     @State private var showError = false
     @State private var errorMessage = ""
     @State private var showHostedQuotaPaywall = false
@@ -2007,6 +2009,7 @@ private var dailyStepsTaskKey: String {
                 guard let image = newValue else { return }
                 capturedImage = nil
                 currentEmoji = nil
+                mealPhotoLimit = AIProviderSettings.mealPhotoCaptureLimit
 
                 captureImages.append(image)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
@@ -2021,10 +2024,11 @@ private var dailyStepsTaskKey: String {
                 MultiPhotoCaptureSheet(
                     images: $captureImages,
                     isImportingPhotos: isImportingPhotos,
+                    photoLimit: mealPhotoLimit,
                     selectedPhotoItems: $selectedPhotoItems,
                     description: $contextDescription,
                     onAddPhoto: {
-                        guard captureImages.count < 10 else { return }
+                        guard captureImages.count < mealPhotoLimit else { return }
                         labelScanBarcode.keepForAnotherPhoto()
                         showMultiPhotoCaptureSheet = false
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
@@ -2244,16 +2248,17 @@ private var dailyStepsTaskKey: String {
             .photosPicker(
                 isPresented: $showPhotoPicker,
                 selection: $selectedPhotoItems,
-                maxSelectionCount: 10,
+                maxSelectionCount: mealPhotoLimit,
                 selectionBehavior: .ordered,
                 matching: .images
             )
             .onChange(of: selectedPhotoItems) { oldValue, newValue in
                 guard !newValue.isEmpty else { return }
                 selectedPhotoItems = []
+                mealPhotoLimit = AIProviderSettings.mealPhotoCaptureLimit
                 Task {
                     var imported: [UIImage] = []
-                    for item in newValue.prefix(10 - captureImages.count) {
+                    for item in newValue.prefix(max(0, mealPhotoLimit - captureImages.count)) {
                         if let data = try? await item.loadTransferable(type: Data.self),
                            let image = UIImage(data: data) {
                             imported.append(image)
@@ -2444,6 +2449,7 @@ private var dailyStepsTaskKey: String {
                     captureImages = []
                     contextDescription = ""
                     selectedPhotoItems = []
+                    mealPhotoLimit = AIProviderSettings.mealPhotoCaptureLimit
                     showPhotoPicker = true
                 case .voice:
                     showVoicePopover = true
@@ -2950,6 +2956,7 @@ extension HomeView {
             captureImages = []
             contextDescription = ""
             selectedPhotoItems = []
+            mealPhotoLimit = AIProviderSettings.mealPhotoCaptureLimit
             showPhotoPicker = true
         case .barcode:
             showBarcodeScanner = true
@@ -3468,6 +3475,7 @@ private struct NativeSheetToolbarButton: View {
 struct MultiPhotoCaptureSheet: View {
     @Binding var images: [UIImage]
     let isImportingPhotos: Bool
+    var photoLimit: Int = AIProvider.defaultMealPhotoLimit
     @Binding var selectedPhotoItems: [PhotosPickerItem]
     @Binding var description: String
     let onAddPhoto: () -> Void
@@ -3482,9 +3490,18 @@ struct MultiPhotoCaptureSheet: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
-                    Text("\(images.count) of 10 photos")
-                        .font(.system(.subheadline, design: .rounded, weight: .semibold))
-                        .foregroundStyle(.secondary)
+                    if photoLimit == AIProvider.defaultMealPhotoLimit {
+                        Text("\(images.count) of 10 photos")
+                            .font(.system(.subheadline, design: .rounded, weight: .semibold))
+                            .foregroundStyle(.secondary)
+                    } else {
+                        Text("\(images.count) of \(photoLimit) photos")
+                            .font(.system(.subheadline, design: .rounded, weight: .semibold))
+                            .foregroundStyle(.secondary)
+                        Text("Your AI setup accepts up to \(photoLimit) photos per request.")
+                            .font(.system(.subheadline, design: .rounded, weight: .semibold))
+                            .foregroundStyle(.secondary)
+                    }
 
                     ScrollView(.horizontal, showsIndicators: false) {
                         LazyHStack(spacing: 12) {
@@ -3521,7 +3538,7 @@ struct MultiPhotoCaptureSheet: View {
                     }
                     .scrollTargetBehavior(.viewAligned)
 
-                    if images.count < 10 {
+                    if images.count < photoLimit {
                         HStack {
                             Spacer()
                             Button {
@@ -3594,7 +3611,7 @@ struct MultiPhotoCaptureSheet: View {
             .photosPicker(
                 isPresented: $showAdditionalPhotoPicker,
                 selection: $selectedPhotoItems,
-                maxSelectionCount: max(1, 10 - images.count),
+                maxSelectionCount: max(1, photoLimit - images.count),
                 selectionBehavior: .ordered,
                 matching: .images
             )

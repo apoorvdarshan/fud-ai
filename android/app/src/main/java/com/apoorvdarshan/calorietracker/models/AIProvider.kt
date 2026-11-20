@@ -299,6 +299,23 @@ enum class AIProvider {
 
         fun normalizedRequestTimeoutSeconds(value: Int): Int = value.coerceIn(30, 600)
 
+        /** The app's normal multi-photo meal limit. */
+        const val DEFAULT_MEAL_PHOTO_LIMIT = 10
+
+        /** Groq's Qwen vision models accept at most three images per request (#712). */
+        const val GROQ_REQUEST_IMAGE_LIMIT = 3
+
+        /**
+         * Photos one request to this provider/model accepts. Null means the provider
+         * takes the app's full ten-photo selection.
+         */
+        fun requestImageLimit(provider: AIProvider, model: String?): Int? =
+            if (provider == GROQ) GROQ_REQUEST_IMAGE_LIMIT else null
+
+        /** The smallest photo cap of the primary provider and the image fallback. */
+        fun mealPhotoLimit(primaryLimit: Int?, fallbackLimit: Int?): Int =
+            listOfNotNull(primaryLimit, fallbackLimit).minOrNull() ?: DEFAULT_MEAL_PHOTO_LIMIT
+
         fun normalizeModelId(model: String): String =
             when (model.trim()) {
                 "gemini-3.1-flash-lite-preview" -> "gemini-3.1-flash-lite"

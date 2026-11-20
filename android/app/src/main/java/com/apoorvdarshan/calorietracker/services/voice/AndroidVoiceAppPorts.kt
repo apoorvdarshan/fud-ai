@@ -131,7 +131,8 @@ class AndroidVoiceAppPorts(
     override suspend fun foodEntries(): List<FoodEntry> = container.foodRepository.entries.first()
 
     override suspend fun maxFoodPhotos(): Int =
-        if (prefs.foodAiCallSettings(forImages = true).accessMode == AiAccessMode.HOSTED) HostedAiConstants.MAX_IMAGES else 4
+        if (prefs.foodAiCallSettings(forImages = true).accessMode == AiAccessMode.HOSTED) HostedAiConstants.MAX_IMAGES
+        else minOf(4, prefs.mealPhotoCaptureLimit(container.keyStore))
 
     override suspend fun addFoodEntry(entry: FoodEntry): Boolean {
         if (!container.foodRepository.addEntry(entry)) return false

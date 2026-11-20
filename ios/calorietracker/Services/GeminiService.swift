@@ -1135,6 +1135,10 @@ struct GeminiService {
             model: primary.model,
             estimateSeconds: primaryEstimate
         ))
+        // Some BYOK models accept fewer images than the app's picker allows
+        // (Groq's Qwen models take three); never send a request they reject.
+        let primaryImages = AIProvider.requestImageLimit(provider: primary.provider, model: primary.model)
+            .map { Array(imageDataList.prefix($0)) } ?? imageDataList
 
         do {
             let text = try await dispatch(
@@ -1143,7 +1147,7 @@ struct GeminiService {
                 baseURL: primary.baseURL,
                 apiKey: primary.apiKey,
                 prompt: try await labelText?.prompt(prompt, for: primary.provider) ?? prompt,
-                imageDataList: imageDataList,
+                imageDataList: primaryImages,
                 jsonResponse: jsonResponse
             )
             progress?(AnalysisProgressUpdate(stage: .responding))
@@ -1180,13 +1184,15 @@ struct GeminiService {
                 ))
             }
             do {
+                let fallbackImages = AIProvider.requestImageLimit(provider: fallback.provider, model: fallback.model)
+                    .map { Array(imageDataList.prefix($0)) } ?? imageDataList
                 let text = try await dispatch(
                     provider: fallback.provider,
                     model: fallback.model,
                     baseURL: fallback.baseURL,
                     apiKey: fallback.apiKey,
                     prompt: try await labelText?.prompt(prompt, for: fallback.provider) ?? prompt,
-                    imageDataList: imageDataList,
+                    imageDataList: fallbackImages,
                     jsonResponse: jsonResponse
                 )
                 progress?(AnalysisProgressUpdate(

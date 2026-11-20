@@ -675,6 +675,10 @@ class FoodAnalysisService(
                 estimateSeconds = estimate
             )
         )
+        // Some BYOK models accept fewer images than the app's picker allows
+        // (Groq's Qwen models take three); never send a request they reject.
+        val primaryImages = AIProvider.requestImageLimit(settings.provider, settings.model)
+            ?.let { uploadImages.take(it) } ?: uploadImages
         return try {
             val text = dispatch(
                 settings.provider,
@@ -682,7 +686,7 @@ class FoodAnalysisService(
                 settings.baseUrl,
                 primaryKey,
                 finalPrompt,
-                uploadImages,
+                primaryImages,
                 settings.maxTokens,
                 settings.requestTimeoutSeconds,
                 jsonResponse,
@@ -710,13 +714,15 @@ class FoodAnalysisService(
                 )
             }
             try {
+                val fallbackImages = AIProvider.requestImageLimit(fallback.provider, fallback.model)
+                    ?.let { uploadImages.take(it) } ?: uploadImages
                 val text = dispatch(
                     fallback.provider,
                     fallback.model,
                     fallback.baseUrl,
                     fallback.apiKey,
                     finalPrompt,
-                    uploadImages,
+                    fallbackImages,
                     settings.maxTokens,
                     settings.requestTimeoutSeconds,
                     jsonResponse,

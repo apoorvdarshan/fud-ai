@@ -49,6 +49,7 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.apoorvdarshan.calorietracker.models.AIProvider
 import com.apoorvdarshan.calorietracker.services.FoodImageDecoder
 import com.apoorvdarshan.calorietracker.R
 
@@ -59,6 +60,7 @@ import com.apoorvdarshan.calorietracker.R
 fun MultiPhotoCaptureSheet(
     imageBytesList: List<ByteArray>,
     addsFromLibrary: Boolean,
+    photoLimit: Int = 10,
     onAddPhoto: () -> Unit,
     onRemove: (Int) -> Unit,
     onAnalyze: (String?, Boolean) -> Unit,
@@ -105,9 +107,29 @@ fun MultiPhotoCaptureSheet(
                 horizontalArrangement = Arrangement.Start
             ) {
                 Text(
-                    "${imageBytesList.size} of 10 photos",
+                    "${imageBytesList.size} of $photoLimit photos",
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
                 )
+            }
+
+            if (photoLimit < AIProvider.DEFAULT_MEAL_PHOTO_LIMIT) {
+                Row(
+                    Modifier.fillMaxWidth().padding(horizontal = 20.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Start
+                ) {
+                    Icon(
+                        Icons.Filled.Info,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+                        modifier = Modifier.size(18.dp)
+                    )
+                    Text(
+                        stringResource(R.string.ai_photo_limit_note, photoLimit),
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+                        modifier = Modifier.padding(start = 8.dp)
+                    )
+                }
             }
 
             LazyRow(
@@ -156,7 +178,7 @@ fun MultiPhotoCaptureSheet(
                 }
             }
 
-            if (imageBytesList.size < 10) {
+            if (imageBytesList.size < photoLimit) {
                 Row(
                     modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
                     horizontalArrangement = Arrangement.End

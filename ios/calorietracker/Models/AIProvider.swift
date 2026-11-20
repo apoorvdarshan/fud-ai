@@ -22,6 +22,17 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
 
     var id: String { rawValue }
 
+    /// The app's normal multi-photo meal limit.
+    static let defaultMealPhotoLimit = 10
+
+    /// Groq's Qwen vision models accept at most three images per request (#712).
+    static let groqRequestImageLimit = 3
+
+    /// Photos one request to this model accepts; nil takes the full selection.
+    static func requestImageLimit(provider: AIProvider, model: String) -> Int? {
+        provider == .groq ? Self.groqRequestImageLimit : nil
+    }
+
     var displayName: String {
         if self == .gemma4Local {
             return LocalModelStrings.text(
@@ -903,6 +914,20 @@ struct AIProviderSettings {
     /// pointless retry). Same provider with a *different* model IS allowed — common pattern
     /// is e.g. Gemini Pro primary with Gemini Flash fallback for capacity-pool diversity
     /// within one provider — and so is the same model on a *different* server.
+    /// The photo cap for the meal capture flow: the smallest limit of the primary
+    /// vision provider and the image fallback (#712). Hosted AI keeps its own
+    /// request-side cap, so the picker stays at the app's normal limit there.
+    static var mealPhotoCaptureLimit: Int {
+        if AIModeSettings.isHosted { return AIProvider.defaultMealPhotoLimit }
+        let primary = currentConfig(requiresVision: true)
+        var limits = [AIProvider.requestImageLimit(provider: primary.provider, model: primary.model)].compactMap { $0 }
+        if let fallback = currentImageFallbackConfig(excludingPrimary: primary.provider, model: primary.model),
+           let fallbackLimit = AIProvider.requestImageLimit(provider: fallback.provider, model: fallback.model) {
+            limits.append(fallbackLimit)
+        }
+        return limits.min() ?? AIProvider.defaultMealPhotoLimit
+    }
+
     static func currentImageFallbackConfig(excludingPrimary primary: AIProvider, model primaryModel: String) -> FallbackConfig? {
         guard fallbackEnabled else { return nil }
         let provider = selectedFallbackProvider

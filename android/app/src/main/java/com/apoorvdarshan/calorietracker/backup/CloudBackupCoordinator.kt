@@ -52,9 +52,7 @@ class CloudBackupCoordinator(
     private val keyStore: KeyStore,
     /** The reference-checked photo cleanup, run once a restore has written the restored diary. */
     private val pruneUnusedPhotos: suspend () -> Unit = {},
-    private val drive: DriveCloudBackupClient = DriveCloudBackupClient(
-        BuildConfig.CLOUD_BACKUP_WEB_CLIENT_ID
-    ),
+    private val drive: DriveCloudBackupClient = DriveCloudBackupClient(),
 ) {
     private val mutex = Mutex()
     private val _ui = MutableStateFlow(CloudBackupUi())

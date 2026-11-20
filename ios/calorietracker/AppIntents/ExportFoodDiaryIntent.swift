@@ -24,11 +24,13 @@ struct ExportFoodDiaryIntent: AppIntent {
     func perform() async throws -> some IntentResult & ReturnsValue<IntentFile> {
         let food = FoodStore(observesExternalChanges: false)
         let water = WaterStore()
-        guard !food.isPersistenceBlocked, !water.isPersistenceBlocked,
-              let export = DiaryExporter.build(
-                  from: startDate, to: endDate, format: .json, foodStore: food,
-                  profile: UserProfile.load() ?? .default, waterEntries: water.entries
-              ) else {
+        if food.isPersistenceBlocked || water.isPersistenceBlocked {
+            throw ExportDiaryError.unreadableData
+        }
+        guard let export = DiaryExporter.build(
+            from: startDate, to: endDate, format: .json, foodStore: food,
+            profile: UserProfile.load() ?? .default, waterEntries: water.entries
+        ) else {
             throw ExportDiaryError.noData
         }
         return .result(value: IntentFile(data: export.data, filename: export.filename, type: .json))
@@ -36,9 +38,15 @@ struct ExportFoodDiaryIntent: AppIntent {
 
     private enum ExportDiaryError: LocalizedError {
         case noData
+        case unreadableData
 
         var errorDescription: String? {
-            String(localized: "There are no food or water entries in the selected range.")
+            switch self {
+            case .noData:
+                return String(localized: "There are no food or water entries in the selected range.")
+            case .unreadableData:
+                return String(localized: "Some diary data could not be read. Open Fud AI to recover it before exporting.")
+            }
         }
     }
 }

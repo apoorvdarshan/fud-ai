@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker.services.ondevice
 
+import com.apoorvdarshan.calorietracker.AppLocalization
 import android.app.ActivityManager
 import android.content.Context
 import android.os.Build
@@ -209,17 +210,22 @@ class LocalModelManager(
     }
 
     /** What the Settings screen shows for a failed install, in the user's language. */
-    private fun installFailureMessage(error: Throwable): String = when (error) {
-        is LocalModelInstallError -> appContext.getString(error.messageRes, *error.args)
-        is LocalModelInstallIOException -> appContext.getString(error.messageRes, *error.args)
-        is ModelStorageException -> appContext.getString(R.string.local_model_error_write)
-        is ModelNetworkException -> appContext.getString(R.string.local_model_error_network)
-        // Any other IOException comes from a local file (the partial, its source note, the hash
-        // pass, the marker); the network check only guards an unmarked connectivity error.
-        is IOException -> appContext.getString(
-            if (error.isNetworkFailure()) R.string.local_model_error_network else R.string.local_model_error_write
-        )
-        else -> appContext.getString(R.string.local_model_error_generic)
+    private fun installFailureMessage(error: Throwable): String {
+        // The application context does not follow the language chosen in Settings on
+        // Android 12 and earlier, so resolve these strings through a localized context.
+        val localized = AppLocalization.context(appContext)
+        return when (error) {
+            is LocalModelInstallError -> localized.getString(error.messageRes, *error.args)
+            is LocalModelInstallIOException -> localized.getString(error.messageRes, *error.args)
+            is ModelStorageException -> localized.getString(R.string.local_model_error_write)
+            is ModelNetworkException -> localized.getString(R.string.local_model_error_network)
+            // Any other IOException comes from a local file (the partial, its source note, the hash
+            // pass, the marker); the network check only guards an unmarked connectivity error.
+            is IOException -> localized.getString(
+                if (error.isNetworkFailure()) R.string.local_model_error_network else R.string.local_model_error_write
+            )
+            else -> localized.getString(R.string.local_model_error_generic)
+        }
     }
 
     private fun installedStatus(descriptor: LocalModelDescriptor): LocalModelInstallStatus {

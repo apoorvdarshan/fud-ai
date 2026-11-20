@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker.widget
 
+import com.apoorvdarshan.calorietracker.AppLocalization
 import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.DpSize
@@ -111,7 +112,7 @@ private fun ProteinSmall(snapshot: WidgetSnapshot) {
             )
         }
         Text(
-            text = LocalContext.current.getString(R.string.widget_left_format, LocalContext.current.valueWithUnit(MacroValueFormatter.display(remaining), nutrient.unit)),
+            text = AppLocalization.context(LocalContext.current).getString(R.string.widget_left_format, LocalContext.current.valueWithUnit(MacroValueFormatter.display(remaining), nutrient.unit)),
             style = TextStyle(
                 color = WidgetTheme.themeTextProvider(snapshot.themeStartHex),
                 fontWeight = FontWeight.Medium,
@@ -145,7 +146,7 @@ private fun ProteinMedium(snapshot: WidgetSnapshot) {
             )
             Spacer(modifier = GlanceModifier.height(2.dp))
             Text(
-                text = LocalContext.current.getString(R.string.widget_left_format, LocalContext.current.valueWithUnit(MacroValueFormatter.display(remaining), nutrient.unit)),
+                text = AppLocalization.context(LocalContext.current).getString(R.string.widget_left_format, LocalContext.current.valueWithUnit(MacroValueFormatter.display(remaining), nutrient.unit)),
                 style = TextStyle(
                     color = WidgetTheme.themeTextProvider(snapshot.themeStartHex),
                     fontWeight = FontWeight.Medium,

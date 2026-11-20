@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker.widget
 
+import com.apoorvdarshan.calorietracker.AppLocalization
 import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.DpSize
@@ -89,7 +90,7 @@ private fun WaterProgressContent(snapshot: WidgetSnapshot) {
     val gaugeW = minOf(contentW, (contentH - 44f) / 0.58f).toInt().coerceAtLeast(80)
 
     Column(modifier = GlanceModifier.fillMaxSize()) {
-        WidgetHeader(iconRes = R.drawable.ic_widget_water, label = context.getString(R.string.widget_water))
+        WidgetHeader(iconRes = R.drawable.ic_widget_water, label = AppLocalization.context(context).getString(R.string.widget_water))
         Box(
             modifier = GlanceModifier.fillMaxWidth().defaultWeight(),
             contentAlignment = Alignment.Center
@@ -104,7 +105,7 @@ private fun WaterProgressContent(snapshot: WidgetSnapshot) {
             )
         }
         Text(
-            text = context.getString(R.string.widget_left_format, snapshot.waterUnit.format(snapshot.waterRemaining)),
+            text = AppLocalization.context(context).getString(R.string.widget_left_format, snapshot.waterUnit.format(snapshot.waterRemaining)),
             style = TextStyle(
                 color = WidgetTheme.themeTextProvider(snapshot.themeStartHex),
                 fontWeight = FontWeight.Medium,
@@ -126,12 +127,12 @@ private fun WaterDisabledContent() {
             )
             Spacer(modifier = GlanceModifier.height(8.dp))
             Text(
-                text = context.getString(R.string.settings_water_tracking),
+                text = AppLocalization.context(context).getString(R.string.settings_water_tracking),
                 style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 16.sp)
             )
             Spacer(modifier = GlanceModifier.height(4.dp))
             Text(
-                text = context.getString(R.string.widget_enable_in_app),
+                text = AppLocalization.context(context).getString(R.string.widget_enable_in_app),
                 style = TextStyle(color = WidgetTheme.secondaryTextProvider, fontSize = 12.sp)
             )
         }

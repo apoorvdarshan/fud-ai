@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker.widget
 
+import com.apoorvdarshan.calorietracker.AppLocalization
 import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.DpSize
@@ -140,7 +141,7 @@ private fun AllMetricsTall(snapshot: WidgetSnapshot) {
     val barH = (contentH - 34f - gaugeW * 0.58f - 66f).toInt().coerceAtLeast(40)
 
     Column(modifier = GlanceModifier.fillMaxSize()) {
-        WidgetHeader(iconRes = R.drawable.ic_widget_flame, label = LocalContext.current.getString(R.string.widget_today))
+        WidgetHeader(iconRes = R.drawable.ic_widget_flame, label = AppLocalization.context(LocalContext.current).getString(R.string.widget_today))
         Spacer(modifier = GlanceModifier.height(4.dp))
         Box(
             modifier = GlanceModifier.fillMaxWidth(),

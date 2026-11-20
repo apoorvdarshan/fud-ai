@@ -625,6 +625,19 @@ CalorieHero(
                 }
             }
 
+            if (ui.hasFailedMealDraft && !selectionMode && ui.activeFast == null) {
+                item(key = "failed-meal-draft") {
+                    Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                        TextButton(
+                            enabled = !ui.failedMealDraftBusy && !ui.analyzing && ui.pendingAnalysis == null,
+                            onClick = vm::resumeFailedMeal
+                        ) { Text(stringResource(R.string.failed_meal_draft_retry)) }
+                        TextButton(enabled = !ui.failedMealDraftBusy && !ui.analyzing, onClick = vm::discardFailedMeal) {
+                            Text(stringResource(R.string.failed_meal_draft_discard))
+                        }
+                    }
+                }
+            }
             // Unified diary. Water and fasting remain excluded from nutrition totals and sharing.
             item { Spacer(Modifier.height(8.dp)) }
             if (diaryMealGroups.isEmpty()) {
@@ -1177,6 +1190,11 @@ CalorieHero(
                 fontWeight = FontWeight.Bold
             )
             Text(err, color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.68f))
+            if (ui.canSaveFailedMeal) {
+                TextButton(enabled = !ui.failedMealDraftBusy, onClick = vm::saveFailedMealForLater) {
+                    Text(stringResource(if (ui.hasFailedMealDraft) R.string.failed_meal_draft_replace else R.string.failed_meal_draft_save))
+                }
+            }
             FudGlassDialogActions(
                 primaryText = stringResource(
                     if (ui.errorOffersScanLabel) R.string.action_scan_label else R.string.action_retry

@@ -1,4 +1,9 @@
 <resources>
+    <string name="failed_meal_draft_save">Save as draft</string>
+    <string name="failed_meal_draft_replace">Replace saved meal draft</string>
+    <string name="failed_meal_draft_retry">Retry saved meal</string>
+    <string name="failed_meal_draft_discard">Discard draft</string>
+    <string name="failed_meal_draft_error">Could not access the saved meal draft.</string>
     <string name="app_name">Fud AI</string>
 
     <!-- Widgets -->

@@ -139,6 +139,44 @@ struct DiaryExporterTests {
         #expect(markdown.contains("Rice"))
     }
 
+    @Test func sparseMultiDayExportOrdersDatesAndFiltersBounds() throws {
+        let cal = Calendar.current
+        func day(_ offset: Int) -> Date {
+            cal.date(byAdding: .day, value: offset, to: cal.startOfDay(for: Date(timeIntervalSince1970: 1_752_840_000)))!
+        }
+        // Food-only on day 1, water-only on day 3, both on day 5; entries outside the range on days 0 and 6.
+        let foodOnly = FoodEntry(name: "Food only", calories: 100, protein: 1, carbs: 1, fat: 1,
+                                 timestamp: day(1), source: .manual, mealType: .breakfast)
+        let waterOnly = WaterEntry(date: day(3), milliliters: 250)
+        let bothFood = FoodEntry(name: "Both", calories: 200, protein: 2, carbs: 2, fat: 2,
+                                 timestamp: day(5), source: .manual, mealType: .lunch)
+        let bothWater = WaterEntry(date: day(5), milliliters: 500)
+        let beforeFood = FoodEntry(name: "Before", calories: 50, protein: 0, carbs: 0, fat: 0,
+                                   timestamp: day(0), source: .manual, mealType: .breakfast)
+        let afterWater = WaterEntry(date: day(6), milliliters: 100)
+
+        let entries = [bothFood, beforeFood, foodOnly].shuffled()
+        let water = [afterWater, bothWater, waterOnly].shuffled()
+
+        func exportedDates(_ start: Date, _ end: Date) throws -> [String] {
+            let export = try #require(DiaryExporter.build(
+                from: start, to: end, format: .json,
+                entries: entries, profile: makeProfile(), waterEntries: water))
+            let root = try #require(JSONSerialization.jsonObject(with: export.data) as? [String: Any])
+            let days = try #require(root["days"] as? [[String: Any]])
+            return days.compactMap { $0["date"] as? String }
+        }
+
+        let expected = [day(1), day(3), day(5)].map { Self.dayFormatter.string(from: $0) }
+        #expect(try exportedDates(day(1), day(5)) == expected)
+        // Reversed bounds should produce the same ordered output.
+        #expect(try exportedDates(day(5), day(1)) == expected)
+    }
+
+    private static let dayFormatter: DateFormatter = {
+        let f = DateFormatter(); f.locale = Locale(identifier: "en_US_POSIX"); f.dateFormat = "yyyy-MM-dd"; return f
+    }()
+
     private func makeFixture() -> (date: Date, entry: FoodEntry) {
         let date = Date(timeIntervalSince1970: 1_752_840_000)
         let entry = FoodEntry(

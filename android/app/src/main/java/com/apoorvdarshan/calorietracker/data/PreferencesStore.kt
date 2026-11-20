@@ -138,6 +138,15 @@ internal fun executableSpeechProviderOrDefault(
  * functions for writes. Complex values (profile, entries, history) are stored
  * as JSON strings via kotlinx.serialization.
  */
+private val hydrationSyncKey = booleanPreferencesKey("healthHydrationSyncEnabled")
+private val hydrationPendingKey = stringSetPreferencesKey("healthHydrationPending")
+
+/** Enabling water sharing keeps pending writes; disabling clears them. Pure for tests. */
+internal fun applyHydrationSync(enabled: Boolean, prefs: androidx.datastore.preferences.core.MutablePreferences) {
+    prefs[hydrationSyncKey] = enabled
+    if (!enabled) prefs.remove(hydrationPendingKey)
+}
+
 class PreferencesStore(
     private val context: Context,
     private val isLocalGemmaExecutable: () -> Boolean = { false },
@@ -381,16 +390,11 @@ class PreferencesStore(
     suspend fun updateWaterEntries(transform: (List<WaterEntry>) -> List<WaterEntry>): List<WaterEntry> =
         updateJsonList(Keys.WATER_ENTRIES, WaterEntry.serializer(), transform)
 
-    private val hydrationSyncKey = booleanPreferencesKey("healthHydrationSyncEnabled")
-    private val hydrationPendingKey = stringSetPreferencesKey("healthHydrationPending")
     val hydrationSyncEnabled: Flow<Boolean> = ds.data.map { it[hydrationSyncKey] ?: false }
     val pendingHydration: Flow<Set<String>> = ds.data.map { it[hydrationPendingKey].orEmpty() }
 
     suspend fun setHydrationSync(enabled: Boolean) {
-        ds.edit {
-            it[hydrationSyncKey] = enabled
-            if (!enabled) it.remove(hydrationPendingKey)
-        }
+        ds.edit { applyHydrationSync(enabled, it) }
     }
 
     suspend fun completeHydration(id: String) {

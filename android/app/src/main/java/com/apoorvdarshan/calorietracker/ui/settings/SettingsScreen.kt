@@ -433,7 +433,9 @@ fun SettingsScreen(
     }
     val settingsHomeScrollState = rememberScrollState()
     val settingsDetailScrollState = remember(selectedCategory) { ScrollState(initial = 0) }
-    var pendingHealthPermissionAction by remember { mutableStateOf<HealthConnectPermissionAction?>(null) }
+    // Saveable: a rotation while the Health Connect permission screen is open must not
+    // reset this to null, which made the result default to SYNC instead of HYDRATION.
+    var pendingHealthPermissionAction by rememberSaveable { mutableStateOf<HealthConnectPermissionAction?>(null) }
     val activityContext = LocalContext.current
     val resources = LocalResources.current
     val settingsScope = rememberCoroutineScope()

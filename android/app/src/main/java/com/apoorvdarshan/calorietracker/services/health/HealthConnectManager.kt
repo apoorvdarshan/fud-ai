@@ -316,8 +316,10 @@ class HealthConnectManager(
     }
 
     /** The "connected" state: at least one Fud AI permission granted. Partial grants
-     *  are valid — a read-only user still syncs the read direction. */
-    suspend fun hasAnyPermission(): Boolean = granted().any { it in permissions }
+     *  are valid — a read-only user still syncs the read direction. A hydration-only
+     *  grant counts too: without it, Settings' reconcile turned the connection off
+     *  right after a user enabled only water sharing. */
+    suspend fun hasAnyPermission(): Boolean = granted().any { it in permissions || it in hydrationWritePermissions }
 
     suspend fun hasWeightRead(): Boolean = weightRead in granted()
     suspend fun hasWeightWrite(): Boolean = weightWrite in granted()

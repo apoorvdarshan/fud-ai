@@ -45,7 +45,11 @@ class WaterRepository(private val prefs: PreferencesStore, private val health: H
         }
     }
 
-    suspend fun setHealthSync(enabled: Boolean) = mutationMutex.withLock {
+    suspend fun setHealthSync(enabled: Boolean) {
+        // Saved without the mutation lock: an opt-out must not queue behind an
+        // in-flight write batch. The drain re-reads the setting before every
+        // record, so remaining writes stop on their own, and disabling clears
+        // the pending set.
         prefs.setHydrationSync(enabled)
     }
 
@@ -54,12 +58,29 @@ class WaterRepository(private val prefs: PreferencesStore, private val health: H
     private suspend fun drainLocked() {
         val connection = health ?: return
         if (!prefs.healthConnectEnabled.first() || !prefs.hydrationSyncEnabled.first() || !connection.hasHydrationWrite()) return
-        val ids = prefs.pendingHydration.first().take(20)
+        val ids = prefs.pendingHydration.first().take(MAX_DRAIN_RECORDS)
         if (ids.isEmpty()) return
         val byId = prefs.waterEntries.first().associateBy { it.id.toString() }
+        var consecutiveFailures = 0
         for (id in ids) {
-            if (!connection.syncHydration(UUID.fromString(id), byId[id])) break
-            prefs.completeHydration(id)
+            // The opt-out (or a disconnect) may land while this batch runs; stop as soon as it did.
+            if (!prefs.healthConnectEnabled.first() || !prefs.hydrationSyncEnabled.first()) return
+            if (connection.syncHydration(UUID.fromString(id), byId[id])) {
+                prefs.completeHydration(id)
+                consecutiveFailures = 0
+            } else if (hydrationBatchShouldStop(++consecutiveFailures)) {
+                // Two in a row looks batch-wide; keep the rest pending for the next retry.
+                return
+            }
+            // One record-specific failure keeps its ID pending without blocking the rest.
         }
     }
+
+    private companion object {
+        const val MAX_DRAIN_RECORDS = 20
+    }
 }
+
+/** Whether a failed hydration write ends the batch: one record-specific failure keeps
+ *  its ID pending and lets unrelated records proceed; two in a row stop the batch. */
+internal fun hydrationBatchShouldStop(consecutiveFailures: Int): Boolean = consecutiveFailures >= 2

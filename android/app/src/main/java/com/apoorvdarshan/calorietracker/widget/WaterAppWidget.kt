@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker.widget
 
+import com.apoorvdarshan.calorietracker.AppLocalization
 import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.DpSize
@@ -10,6 +11,7 @@ import androidx.glance.GlanceModifier
 import androidx.glance.GlanceTheme
 import androidx.glance.Image
 import androidx.glance.ImageProvider
+import androidx.glance.LocalContext
 import androidx.glance.LocalSize
 import androidx.glance.action.actionStartActivity
 import androidx.glance.action.clickable
@@ -81,13 +83,14 @@ private fun WaterWidgetContent(snapshot: WidgetSnapshot) {
 
 @Composable
 private fun WaterProgressContent(snapshot: WidgetSnapshot) {
+    val context = LocalContext.current
     val size = LocalSize.current
     val contentW = size.width.value - 28f
     val contentH = size.height.value - 28f
     val gaugeW = minOf(contentW, (contentH - 44f) / 0.58f).toInt().coerceAtLeast(80)
 
     Column(modifier = GlanceModifier.fillMaxSize()) {
-        WidgetHeader(iconRes = R.drawable.ic_widget_water, label = "Water")
+        WidgetHeader(iconRes = R.drawable.ic_widget_water, label = AppLocalization.context(context).getString(R.string.widget_water))
         Box(
             modifier = GlanceModifier.fillMaxWidth().defaultWeight(),
             contentAlignment = Alignment.Center
@@ -102,7 +105,7 @@ private fun WaterProgressContent(snapshot: WidgetSnapshot) {
             )
         }
         Text(
-            text = "${snapshot.waterUnit.format(snapshot.waterRemaining)} left",
+            text = AppLocalization.context(context).getString(R.string.widget_left_format, snapshot.waterUnit.format(snapshot.waterRemaining)),
             style = TextStyle(
                 color = WidgetTheme.themeTextProvider(snapshot.themeStartHex),
                 fontWeight = FontWeight.Medium,
@@ -114,6 +117,7 @@ private fun WaterProgressContent(snapshot: WidgetSnapshot) {
 
 @Composable
 private fun WaterDisabledContent() {
+    val context = LocalContext.current
     Box(modifier = GlanceModifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Image(
@@ -123,12 +127,12 @@ private fun WaterDisabledContent() {
             )
             Spacer(modifier = GlanceModifier.height(8.dp))
             Text(
-                text = "Water Tracking",
+                text = AppLocalization.context(context).getString(R.string.settings_water_tracking),
                 style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 16.sp)
             )
             Spacer(modifier = GlanceModifier.height(4.dp))
             Text(
-                text = "Enable in Fud AI",
+                text = AppLocalization.context(context).getString(R.string.widget_enable_in_app),
                 style = TextStyle(color = WidgetTheme.secondaryTextProvider, fontSize = 12.sp)
             )
         }

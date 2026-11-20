@@ -241,7 +241,16 @@ enum MacroValueFormatter {
     }
 
     static func withUnit(_ value: Double) -> String {
-        "\(string(value))g"
+        String(localized: "\(display(value))g")
+    }
+
+    /// `string` for display only: the user's decimal separator ("27,5" in Czech). Keep `string`
+    /// for text fields and anything parsed back with `Double(_:)`.
+    static func display(_ value: Double) -> String {
+        if abs(value.rounded() - value) < 0.0001 {
+            return String(Int(value.rounded()))
+        }
+        return String(format: "%.1f", locale: .current, value)
     }
 }
 

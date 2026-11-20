@@ -1,10 +1,14 @@
 package com.apoorvdarshan.calorietracker.services.ondevice
 
+import com.apoorvdarshan.calorietracker.AppLocalization
 import android.app.ActivityManager
 import android.content.Context
 import android.os.Build
 import android.os.StatFs
+import com.apoorvdarshan.calorietracker.R
+import com.apoorvdarshan.calorietracker.services.isNetworkFailure
 import java.io.File
+import java.io.IOException
 import java.util.concurrent.ConcurrentHashMap
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
@@ -151,8 +155,12 @@ class LocalModelManager(
             val reserve = maxOf(256L * 1024L * 1024L, descriptor.expectedBytes / 10L)
             // Bytes kept from an interrupted attempt already occupy their share of the space.
             val kept = ModelDownloader.keptBytes(part, descriptor)
-            require(available >= descriptor.expectedBytes - kept + reserve) {
-                "Not enough free storage for ${descriptor.displayName}."
+            if (available < descriptor.expectedBytes - kept + reserve) {
+                throw LocalModelInstallError(
+                    "Not enough free storage for ${descriptor.displayName}.",
+                    R.string.local_model_error_storage,
+                    descriptor.displayName
+                )
             }
             downloader.download(
                 descriptor = descriptor,
@@ -165,13 +173,17 @@ class LocalModelManager(
 
             val destination = modelFile(id)
             destination.delete()
-            check(part.renameTo(destination)) { "The verified model could not be installed." }
+            if (!part.renameTo(destination)) {
+                throw LocalModelInstallError("The verified model could not be installed.", R.string.local_model_error_install)
+            }
             ModelDownloader.sourceFile(part).delete()
             val marker = markerFile(descriptor)
             val markerPart = File(marker.parentFile, "${marker.name}.part")
             markerPart.writeText(descriptor.sha256)
             marker.delete()
-            check(markerPart.renameTo(marker)) { "The verification marker could not be installed." }
+            if (!markerPart.renameTo(marker)) {
+                throw LocalModelInstallError("The verification marker could not be installed.", R.string.local_model_error_install)
+            }
             update(id, LocalModelInstallStatus.Installed)
         } catch (cancelled: CancellationException) {
             // Only the user's Cancel/Delete cancels a download, so its partial goes too.
@@ -188,12 +200,31 @@ class LocalModelManager(
             // downloader already deleted it if the bytes failed verification.
             update(
                 id,
-                LocalModelInstallStatus.Failed(error.message ?: "Model download failed."),
+                LocalModelInstallStatus.Failed(installFailureMessage(error)),
                 keptBytes = ModelDownloader.keptBytes(part, descriptor)
             )
         } finally {
             activeCalls.remove(id)
             jobs.remove(id)
+        }
+    }
+
+    /** What the Settings screen shows for a failed install, in the user's language. */
+    private fun installFailureMessage(error: Throwable): String {
+        // The application context does not follow the language chosen in Settings on
+        // Android 12 and earlier, so resolve these strings through a localized context.
+        val localized = AppLocalization.context(appContext)
+        return when (error) {
+            is LocalModelInstallError -> localized.getString(error.messageRes, *error.args)
+            is LocalModelInstallIOException -> localized.getString(error.messageRes, *error.args)
+            is ModelStorageException -> localized.getString(R.string.local_model_error_write)
+            is ModelNetworkException -> localized.getString(R.string.local_model_error_network)
+            // Any other IOException comes from a local file (the partial, its source note, the hash
+            // pass, the marker); the network check only guards an unmarked connectivity error.
+            is IOException -> localized.getString(
+                if (error.isNetworkFailure()) R.string.local_model_error_network else R.string.local_model_error_write
+            )
+            else -> localized.getString(R.string.local_model_error_generic)
         }
     }
 

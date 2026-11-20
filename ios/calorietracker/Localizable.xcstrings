@@ -2,8 +2,8 @@
   "sourceLanguage": "en",
   "strings": {
     "Optional Calorie Range": {},
-    "Calorie floor (kcal)": {},
-    "Calorie ceiling (kcal)": {},
+    "Calorie floor (%@)": {},
+    "Calorie ceiling (%@)": {},
     "Leave either bound blank to skip it. This range is for reference and does not change your targets.": {},
     "Create a JSON file of your food and water logs for the selected dates. Fud AI does not upload the file.": {},
     "Export food diary from %@ to %@": {},

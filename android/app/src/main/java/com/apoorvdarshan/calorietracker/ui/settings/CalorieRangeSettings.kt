@@ -11,12 +11,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.data.PreferencesStore
+import com.apoorvdarshan.calorietracker.models.EnergyUnit
+import com.apoorvdarshan.calorietracker.ui.components.LocalEnergyUnit
 import com.apoorvdarshan.calorietracker.ui.components.energyText
+import com.apoorvdarshan.calorietracker.ui.components.energyUnitLabel
 import kotlinx.coroutines.launch
 
 @Composable
 internal fun CalorieRangeSettings(prefs: PreferencesStore) {
     val range by prefs.calorieDisplayRange.collectAsState(initial = 0 to 0)
+    val unit = LocalEnergyUnit.current
+    val unitLabel = energyUnitLabel()
     val scope = rememberCoroutineScope()
     var editing by remember { mutableStateOf(false) }
     var lower by remember { mutableStateOf("") }
@@ -26,8 +31,8 @@ internal fun CalorieRangeSettings(prefs: PreferencesStore) {
         (if (range.first == 0) "—" else energyText(range.first)) + " – " +
             (if (range.second == 0) "—" else energyText(range.second))
     TextButton(onClick = {
-        lower = range.first.takeIf { it > 0 }?.toString().orEmpty()
-        upper = range.second.takeIf { it > 0 }?.toString().orEmpty()
+        lower = range.first.takeIf { it > 0 }?.let { unit.displayValue(it).toString() }.orEmpty()
+        upper = range.second.takeIf { it > 0 }?.let { unit.displayValue(it).toString() }.orEmpty()
         editing = true
     }) { Text("$title: $summary") }
     if (editing) {
@@ -39,9 +44,9 @@ internal fun CalorieRangeSettings(prefs: PreferencesStore) {
             title = { Text(title) },
             text = {
                 Column {
-                    OutlinedTextField(lower, { lower = it }, label = { Text(stringResource(R.string.calorie_floor_kcal)) },
+                    OutlinedTextField(lower, { lower = it }, label = { Text(stringResource(R.string.calorie_floor, unitLabel)) },
                         singleLine = true, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number))
-                    OutlinedTextField(upper, { upper = it }, label = { Text(stringResource(R.string.calorie_ceiling_kcal)) },
+                    OutlinedTextField(upper, { upper = it }, label = { Text(stringResource(R.string.calorie_ceiling, unitLabel)) },
                         singleLine = true, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number))
                     Text(stringResource(R.string.calorie_range_hint))
                 }
@@ -49,7 +54,10 @@ internal fun CalorieRangeSettings(prefs: PreferencesStore) {
             confirmButton = {
                 TextButton(enabled = valid, onClick = {
                     if (floor != null && ceiling != null) scope.launch {
-                        prefs.setCalorieDisplayRange(floor, ceiling)
+                        prefs.setCalorieDisplayRange(
+                            calorieStoredKcal(floor, unit),
+                            calorieStoredKcal(ceiling, unit)
+                        )
                         editing = false
                     }
                 }) { Text(stringResource(R.string.action_save)) }
@@ -58,6 +66,10 @@ internal fun CalorieRangeSettings(prefs: PreferencesStore) {
         )
     }
 }
+
+/** The range is edited in the user's display unit but stored in kcal. */
+internal fun calorieStoredKcal(displayed: Int, unit: EnergyUnit): Int =
+    if (displayed == 0) 0 else unit.toKcal(displayed.toDouble())
 
 internal fun calorieBound(text: String): Int? = when {
     text.isEmpty() -> 0

@@ -360,6 +360,8 @@ class ChatService(
                 val body = JSONObject().apply {
                     put("model", model)
                     put("messages", messages)
+                    // Coach expects a complete JSON response, not SSE chunks.
+                    put("stream", false)
                     put("tools", toolsArr)
                     put("tool_choice", "auto")
                     put(OpenAICompatibleClient.tokenLimitParameter(provider, model), maxTokens)

@@ -194,7 +194,8 @@ class ChatService(
         }
         if (provider.requiresApiKey && apiKey.isNullOrEmpty()) throw AiError.NoApiKey
         if (baseUrl.isEmpty()) throw AiError.InvalidUrl(baseUrl)
-        val requestClient = FoodAnalysisService.clientForProvider(okHttp, provider, requestTimeoutSeconds)
+        val timeout = if (provider == AIProvider.GEMINI) prefs.geminiTimeoutSeconds.first() else requestTimeoutSeconds
+        val requestClient = FoodAnalysisService.clientForProvider(okHttp, provider, timeout)
         return when (provider.apiFormat) {
             AIProvider.ApiFormat.GEMINI -> {
                 val url = "$baseUrl/models/$model:generateContent"

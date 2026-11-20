@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker.ui.settings
 
+import com.apoorvdarshan.calorietracker.backup.driveConsentCompletion
 import com.apoorvdarshan.calorietracker.models.OpenRouterReasoningEffort
 import com.apoorvdarshan.calorietracker.models.MealShareLinkStyle
 import android.Manifest
@@ -484,17 +485,10 @@ fun SettingsScreen(
                 cloudBackupError = cloudBackupSignInFailed
                 return@launch
             }
-            try {
-                if (container.cloudBackup.finishAuthorization(activity, result.data)) {
-                    finishDriveSignIn()
-                } else {
-                    cloudBackupError = cloudBackupSignInFailed
-                }
-            } catch (cancelled: kotlinx.coroutines.CancellationException) {
-                throw cancelled
-            } catch (failure: Exception) {
-                cloudBackupError = driveSignInError(failure)
+            val message = driveConsentCompletion(cloudBackupUnregistered, cloudBackupSignInFailed) {
+                container.cloudBackup.finishAuthorization(activity, result.data)
             }
+            if (message == null) finishDriveSignIn() else cloudBackupError = message
         }
     }
     val continueDriveAuth: (android.accounts.Account) -> Unit = { account ->

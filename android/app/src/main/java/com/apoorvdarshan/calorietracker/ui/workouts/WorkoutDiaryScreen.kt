@@ -148,11 +148,11 @@ import com.apoorvdarshan.calorietracker.ui.home.SheetGlassDropdownMenuItem
 import com.apoorvdarshan.calorietracker.ui.navigation.BottomNavScrollPadding
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
 import com.apoorvdarshan.calorietracker.ui.util.formattedWholeNumber
+import com.apoorvdarshan.calorietracker.ui.util.weekdayMonthDayFormatter
 import coil.compose.AsyncImage
 import java.time.DayOfWeek
 import java.time.Instant
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.util.Locale
 import java.util.UUID
@@ -197,6 +197,7 @@ internal fun WorkoutDiaryScreen(
     }
     val heightUnit by container.prefs.heightUnit.collectAsState(initial = "cm")
     val voiceUi by container.voiceAssistant.ui.collectAsState()
+    val hideVoiceShortcut by container.prefs.hideVoiceShortcut.collectAsState(initial = false)
     val listState = rememberLazyListState()
     val focusManager = LocalFocusManager.current
     val keyboard = LocalSoftwareKeyboardController.current
@@ -472,7 +473,7 @@ internal fun WorkoutDiaryScreen(
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            if (!voiceUi.visible) {
+            if (!voiceUi.visible && !hideVoiceShortcut) {
                 VoiceAssistantButton(onClick = {
                     dismissKeyboard()
                     container.voiceAssistant.requestStart()
@@ -1839,7 +1840,7 @@ internal fun selectedDateTitle(date: LocalDate, today: LocalDate = LocalDate.now
     today -> "Today"
     today.plusDays(1) -> "Tomorrow"
     today.minusDays(1) -> "Yesterday"
-    else -> date.format(DateTimeFormatter.ofPattern("EEEE, MMM d", Locale.getDefault()))
+    else -> date.format(weekdayMonthDayFormatter())
 }
 
 /**

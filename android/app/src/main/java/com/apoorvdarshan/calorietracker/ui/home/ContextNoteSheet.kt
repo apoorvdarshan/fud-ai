@@ -79,7 +79,7 @@ fun MultiPhotoCaptureSheet(
         containerColor = MaterialTheme.colorScheme.surface
     ) {
         SheetReviewToolbar(
-            title = "Meal Photos",
+            title = stringResource(R.string.context_note_photos_title),
             primaryLabel = stringResource(R.string.action_analyze),
             primaryEnabled = !isBusy,
             onCancel = onDismiss,
@@ -105,7 +105,7 @@ fun MultiPhotoCaptureSheet(
                 horizontalArrangement = Arrangement.Start
             ) {
                 Text(
-                    "${imageBytesList.size} of 10 photos",
+                    stringResource(R.string.context_note_photo_count_format, imageBytesList.size, 10),
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
                 )
             }
@@ -125,7 +125,7 @@ fun MultiPhotoCaptureSheet(
                         if (bitmap != null) {
                             androidx.compose.foundation.Image(
                                 bitmap = bitmap!!.asImageBitmap(),
-                                contentDescription = "Photo ${index + 1}",
+                                contentDescription = stringResource(R.string.cd_meal_photo, index + 1),
                                 contentScale = ContentScale.Crop,
                                 modifier = Modifier
                                     .size(width = 240.dp, height = 260.dp)
@@ -141,10 +141,10 @@ fun MultiPhotoCaptureSheet(
                                 .size(34.dp)
                                 .background(androidx.compose.ui.graphics.Color.Black.copy(alpha = 0.62f), androidx.compose.foundation.shape.CircleShape)
                         ) {
-                            Icon(Icons.Filled.Close, contentDescription = "Remove photo", tint = androidx.compose.ui.graphics.Color.White)
+                            Icon(Icons.Filled.Close, contentDescription = stringResource(R.string.cd_remove_photo), tint = androidx.compose.ui.graphics.Color.White)
                         }
                         Text(
-                            "Photo ${index + 1}",
+                            stringResource(R.string.cd_meal_photo, index + 1),
                             color = androidx.compose.ui.graphics.Color.White,
                             modifier = Modifier
                                 .align(Alignment.BottomStart)
@@ -168,7 +168,7 @@ fun MultiPhotoCaptureSheet(
                             modifier = Modifier.size(18.dp)
                         )
                         Text(
-                            if (addsFromLibrary) "Add Photos" else "Add Photo",
+                            stringResource(if (addsFromLibrary) R.string.context_note_add_photos else R.string.context_note_add_photo),
                             modifier = Modifier.padding(start = 8.dp)
                         )
                     }
@@ -224,11 +224,11 @@ fun MultiPhotoCaptureSheet(
                 Modifier.fillMaxWidth().padding(horizontal = 20.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                SheetSectionHeader("Note for food analysis (optional)")
+                SheetSectionHeader(stringResource(R.string.context_note_analysis_section))
                 OutlinedTextField(
                     value = note,
                     onValueChange = onNoteChange,
-                    placeholder = { Text("e.g. chicken is 180g, rice is 220g, use half the sauce") },
+                    placeholder = { Text(stringResource(R.string.context_note_analysis_placeholder)) },
                     shape = RoundedCornerShape(20.dp),
                     modifier = Modifier.fillMaxWidth().heightIn(min = 110.dp)
                 )

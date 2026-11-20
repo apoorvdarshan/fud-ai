@@ -53,13 +53,14 @@ final class calorietrackerUITests: XCTestCase {
 
     /// Typing races the sheet's focus animation on busy runners: a tap can land
     /// before the field accepts the keyboard, and `typeText` then fails with
-    /// "Neither element nor any descendant has keyboard focus". Tap until a
-    /// keyboard appears for this field, then type.
+    /// "Neither element nor any descendant has keyboard focus". Tap first so the
+    /// field takes focus even when a keyboard is already up, then confirm the
+    /// keyboard before typing.
     @MainActor
     private func type(_ text: String, into field: XCUIElement, app: XCUIApplication) {
         for _ in 0..<3 {
-            if app.keyboards.firstMatch.waitForExistence(timeout: 2) { break }
             field.tap()
+            if app.keyboards.firstMatch.waitForExistence(timeout: 2) { break }
         }
         XCTAssertTrue(
             app.keyboards.firstMatch.waitForExistence(timeout: 5),

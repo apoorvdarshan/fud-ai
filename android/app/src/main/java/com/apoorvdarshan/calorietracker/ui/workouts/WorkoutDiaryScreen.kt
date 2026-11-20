@@ -134,6 +134,7 @@ import com.apoorvdarshan.calorietracker.models.WorkoutBurnEstimator
 import com.apoorvdarshan.calorietracker.models.WorkoutSetInput
 import com.apoorvdarshan.calorietracker.models.PlannedSet
 import com.apoorvdarshan.calorietracker.models.WorkoutWeightUnit
+import com.apoorvdarshan.calorietracker.models.workoutDiaryBurnCalories
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialog
 import com.apoorvdarshan.calorietracker.ui.components.energyText
 import com.apoorvdarshan.calorietracker.ui.components.energyUnitLabel
@@ -288,6 +289,7 @@ internal fun WorkoutDiaryScreen(
             item(key = "workout-burn") {
                 WorkoutBurnHero(
                     state = state,
+                    displayedBurnCalories = workoutDiaryBurnCalories(state.caloriesBurned, importedWorkoutsForDay),
                     onCalculate = {
                         dismissKeyboard()
                         viewModel.calculateBurn()
@@ -767,6 +769,7 @@ private fun workoutMenuGlyphAsset(title: String, muscles: Set<String>): String {
 @Composable
 private fun WorkoutBurnHero(
     state: WorkoutDiaryUiState,
+    displayedBurnCalories: Int?,
     onCalculate: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -815,9 +818,9 @@ private fun WorkoutBurnHero(
                 MetricDivider()
                 WorkoutMetric(
                     label = "Burn",
-                    value = state.caloriesBurned?.let { energyText(it) } ?: "-- ${energyUnitLabel()}",
+                    value = displayedBurnCalories?.let { energyText(it) } ?: "-- ${energyUnitLabel()}",
                     icon = Icons.Filled.LocalFireDepartment,
-                    active = state.caloriesBurned != null,
+                    active = displayedBurnCalories != null,
                     modifier = Modifier.weight(1f)
                 )
             }

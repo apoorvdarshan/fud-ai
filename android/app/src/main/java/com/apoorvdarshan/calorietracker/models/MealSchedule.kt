@@ -15,7 +15,8 @@ data class MealSchedule(
             dinnerStartMinutes < snackStartMinutes &&
             snackStartMinutes < MINUTES_PER_DAY
 
-    fun mealTypeAt(time: LocalTime): MealType {
+    fun mealTypeAt(time: LocalTime, manualSelection: MealType? = null): MealType {
+        if (manualSelection != null) return manualSelection
         val minutes = time.hour * 60 + time.minute
         return when {
             minutes >= snackStartMinutes || minutes < breakfastStartMinutes -> MealType.SNACK

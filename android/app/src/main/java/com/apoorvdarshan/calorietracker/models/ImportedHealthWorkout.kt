@@ -8,6 +8,14 @@ import java.time.Instant
 import java.time.LocalDate
 import kotlin.math.ceil
 
+/** Diary display only. Never use this total for Health Connect writes or nutrition targets. */
+internal fun workoutDiaryBurnCalories(calculated: Int?, imported: List<ImportedHealthWorkout>): Int? {
+    val external = imported.mapNotNull { it.activeCalories?.takeIf { kcal -> kcal > 0 } }
+    if (calculated == null && external.isEmpty()) return null
+    return ((calculated ?: 0).toLong() + external.sumOf { it.toLong() })
+        .coerceAtMost(Int.MAX_VALUE.toLong()).toInt()
+}
+
 /**
  * A read-only exercise session another app (Garmin Connect, Coros, Strava, Samsung Health,
  * Fitbit, …) wrote to Health Connect. Port of iOS ImportedHealthWorkout: kept apart from

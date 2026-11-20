@@ -1121,17 +1121,17 @@ struct HomeView: View {
 
         var title: String {
             switch self {
-            case .food: return "Delete Food Log?"
-            case .water: return "Delete Water Log?"
-            case .fasting: return "Delete Fasting Log?"
+            case .food: return String(localized: "Delete Food Log?")
+            case .water: return String(localized: "Delete Water Log?")
+            case .fasting: return String(localized: "Delete Fasting Log?")
             }
         }
 
         var message: String {
             switch self {
-            case .food: return "This removes the food from your diary. Saved favorites are kept."
-            case .water: return "This removes the water entry from your diary."
-            case .fasting: return "This removes the completed fast from your diary."
+            case .food: return String(localized: "This removes the food from your diary. Saved favorites are kept.")
+            case .water: return String(localized: "This removes the water entry from your diary.")
+            case .fasting: return String(localized: "This removes the completed fast from your diary.")
             }
         }
     }
@@ -1243,6 +1243,8 @@ struct HomeView: View {
     @AppStorage(FastingSettings.notificationEnabledKey) private var fastingGoalNotificationEnabled = true
     /// Observed so + menu edits in Settings refresh Home right away.
     @AppStorage(AddMenuConfig.storageKey) private var addMenuConfigData: Data?
+    @AppStorage("hideVoiceShortcut") private var hideVoiceShortcut = false
+    @AppStorage("hideBarcodePhoto") private var hideBarcodePhoto = false
     @AppStorage("notificationsEnabled") private var notificationsEnabled = false
     @Environment(ProfileStore.self) private var profileStore
     @State private var homeBurnLine: String?
@@ -1517,7 +1519,7 @@ private var dailyStepsTaskKey: String {
                 .accessibilityIdentifier("home.favorites")
             }
             // The live session uses its own floating controls.
-            if !voiceAssistant.isActive {
+            if !voiceAssistant.isActive, !hideVoiceShortcut {
                 VoiceAssistantHomeButton(controller: voiceAssistant)
             }
             Menu {
@@ -2757,7 +2759,8 @@ private var dailyStepsTaskKey: String {
                 let outcome = try await BarcodeProductLookup.lookup(
                     barcode: trimmedBarcode,
                     savedLabelEntries: foodStore.entries,
-                    usdaAPIKey: FoodDataCentralSettings.apiKey
+                    usdaAPIKey: FoodDataCentralSettings.apiKey,
+                    includesProductImage: !hideBarcodePhoto
                 )
                 try Task.checkCancellation()
                 retryRequest = nil
@@ -5354,6 +5357,7 @@ struct ProfileView: View {
                 // separately below so the card does not read as one long control wall.
                 if settingsCategory == .appPreferences {
                 Section {
+                    HomeShortcutVisibilitySettings()
                     Picker(selection: $appearanceMode) {
                         Text("System").tag("system")
                         Text("Light").tag("light")
@@ -7569,14 +7573,14 @@ struct ProfileView: View {
             guard healthKitEnabled else {
                 energyBurnToggleReverting = true
                 energyBurnEnabled = false
-                showAdaptiveGoalAlert(title: "Apple Health Needed", message: "Energy Burn uses your measured calories burned from Apple Health. Connect Apple Health first, then turn Energy Burn on.")
+                showAdaptiveGoalAlert(title: String(localized: "Apple Health Needed"), message: String(localized: "Energy Burn uses your measured calories burned from Apple Health. Connect Apple Health first, then turn Energy Burn on."))
                 return
             }
             Task {
                 if await healthKitManager.fetchRecentEnergySummary(days: 14) == nil {
                     energyBurnToggleReverting = true
                     energyBurnEnabled = false
-                    showAdaptiveGoalAlert(title: "Not Enough Health Data", message: "Fud AI needs at least 3 recent days of Apple Health energy data before it can use your measured burn.")
+                    showAdaptiveGoalAlert(title: String(localized: "Not Enough Health Data"), message: String(localized: "Fud AI needs at least 3 recent days of Apple Health energy data before it can use your measured burn."))
                     return
                 }
                 await recalculateGoalsWithAI()
@@ -7670,7 +7674,7 @@ struct ProfileView: View {
             markGoalsRecalculated()
             AdaptiveGoalSettings.markCheckedToday()
             if showAlert {
-                showAdaptiveGoalAlert(title: "Adaptive Goals", message: "Updated to \(energyUnit.format(kcal: result.calories)) from your latest data." + (result.reason.map { " \($0)" } ?? ""))
+                showAdaptiveGoalAlert(title: String(localized: "Adaptive Goals"), message: String(localized: "Updated to \(energyUnit.format(kcal: result.calories)) from your latest data.") + (result.reason.map { " \($0)" } ?? ""))
             }
         } catch {
             guard adaptiveGoalsEnabled,
@@ -7681,7 +7685,7 @@ struct ProfileView: View {
             // misconfigured provider on every app open; the user can still Recalculate manually.
             AdaptiveGoalSettings.markCheckedToday()
             if showAlert {
-                showAdaptiveGoalAlert(title: "Adaptive Goals", message: "Couldn't reach your AI provider — your goals are unchanged. Check your AI provider and API key in Settings.")
+                showAdaptiveGoalAlert(title: String(localized: "Adaptive Goals"), message: String(localized: "Couldn't reach your AI provider — your goals are unchanged. Check your AI provider and API key in Settings."))
             }
         }
     }

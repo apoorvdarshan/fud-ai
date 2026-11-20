@@ -13,7 +13,6 @@ class GroqModelTest {
         assertEquals(replacement, AIProvider.GROQ.supportedTextModelOrDefault(retired))
         assertFalse(retired in AIProvider.GROQ.textModels)
     }
-}
 
     @Test
     fun groqAcceptsAtMostThreeImagesPerRequest() {
@@ -29,3 +28,4 @@ class GroqModelTest {
         assertEquals(3, AIProvider.mealPhotoLimit(3, null))
         assertEquals(3, AIProvider.mealPhotoLimit(3, 5))
     }
+}

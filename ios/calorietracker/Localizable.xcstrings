@@ -119,6 +119,8 @@
         }
       }
     },
+    "Hide in-app voice shortcut": {},
+    "Hide barcode product photos": {},
     "Create a JSON file of your food and water logs for the selected dates. Fud AI does not upload the file.": {},
     "Export food diary from %@ to %@": {},
     "Share Links": {

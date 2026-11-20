@@ -413,7 +413,7 @@ fun DecimalWheelPicker(
         val end = (max * scaled).toInt()
         (start..end).toList()
     }
-    val currentScaled = (value * scaled).toInt().coerceIn(items.first(), items.last())
+    val currentScaled = (value * scaled).roundToInt().coerceIn(items.first(), items.last())
     Row(
         modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,

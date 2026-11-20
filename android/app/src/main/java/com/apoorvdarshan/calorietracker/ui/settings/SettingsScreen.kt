@@ -788,7 +788,7 @@ fun SettingsScreen(
                     HorizontalDivider()
                     SettingRow(
                         stringResource(R.string.settings_body_fat),
-                        p.bodyFatPercentage?.let { "${(it * 100).toInt()}%" } ?: stringResource(R.string.settings_not_set),
+                        p.bodyFatPercentage?.let { bodyFatPercentLabel(it) } ?: stringResource(R.string.settings_not_set),
                         icon = Icons.Outlined.Percent
                     ) { sheet = SettingsSheet.BODY_FAT }
 
@@ -800,7 +800,7 @@ fun SettingsScreen(
                         HorizontalDivider()
                         SettingRow(
                             stringResource(R.string.settings_goal_body_fat),
-                            p.goalBodyFatPercentage?.let { "${(it * 100).toInt()}%" } ?: stringResource(R.string.settings_not_set),
+                            p.goalBodyFatPercentage?.let { bodyFatPercentLabel(it) } ?: stringResource(R.string.settings_not_set),
                             icon = Icons.Outlined.TrackChanges
                         ) { sheet = SettingsSheet.GOAL_BODY_FAT }
                     }
@@ -4038,11 +4038,17 @@ private fun FastingGoalSheet(currentMinutes: Int, onSave: (Int) -> Unit) {
 }
 
 @Composable
+private fun bodyFatPercentLabel(fraction: Double): String =
+    java.text.NumberFormat.getPercentInstance(androidx.compose.ui.platform.LocalConfiguration.current.locales[0]).apply {
+        maximumFractionDigits = 1
+    }.format(fraction)
+
+@Composable
 private fun BodyFatSheet(current: Double?, onSave: (Double?) -> Unit) {
-    var pct by remember(current) { mutableStateOf((current ?: 0.20) * 100) }
+    var pct by remember(current) { mutableStateOf(((current ?: 0.20) * 100).coerceIn(3.0, 60.0)) }
     Text(stringResource(R.string.sheet_body_fat_percent), style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
     Spacer(Modifier.height(12.dp))
-    DecimalWheelPicker(pct, { pct = it }, 5.0, 60.0, 0.5, stringResource(R.string.unit_percent))
+    DecimalWheelPicker(pct, { pct = it }, 3.0, 60.0, 0.1, stringResource(R.string.unit_percent))
     Spacer(Modifier.height(12.dp))
     GradientSaveButton { onSave(pct / 100.0) }
     Spacer(Modifier.height(4.dp))
@@ -4056,7 +4062,7 @@ private fun BodyFatSheet(current: Double?, onSave: (Double?) -> Unit) {
 @Composable
 private fun GoalBodyFatSheet(currentGoal: Double?, currentBodyFat: Double?, onSave: (Double?) -> Unit) {
     val seed = currentGoal ?: currentBodyFat ?: 0.15
-    var pct by remember(currentGoal) { mutableStateOf(seed * 100) }
+    var pct by remember(currentGoal) { mutableStateOf((seed * 100).coerceIn(3.0, 60.0)) }
     Text(stringResource(R.string.sheet_goal_body_fat), style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
     if (currentBodyFat != null) {
         Spacer(Modifier.height(4.dp))
@@ -4067,7 +4073,7 @@ private fun GoalBodyFatSheet(currentGoal: Double?, currentBodyFat: Double?, onSa
         )
     }
     Spacer(Modifier.height(12.dp))
-    DecimalWheelPicker(pct, { pct = it }, 3.0, 60.0, 0.5, stringResource(R.string.unit_percent))
+    DecimalWheelPicker(pct, { pct = it }, 3.0, 60.0, 0.1, stringResource(R.string.unit_percent))
     Spacer(Modifier.height(12.dp))
     GradientSaveButton { onSave(pct / 100.0) }
     Spacer(Modifier.height(4.dp))

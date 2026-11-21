@@ -139,6 +139,15 @@ internal fun executableSpeechProviderOrDefault(
  * functions for writes. Complex values (profile, entries, history) are stored
  * as JSON strings via kotlinx.serialization.
  */
+private val hydrationSyncKey = booleanPreferencesKey("healthHydrationSyncEnabled")
+private val hydrationPendingKey = stringSetPreferencesKey("healthHydrationPending")
+
+/** Enabling water sharing keeps pending writes; disabling clears them. Pure for tests. */
+internal fun applyHydrationSync(enabled: Boolean, prefs: androidx.datastore.preferences.core.MutablePreferences) {
+    prefs[hydrationSyncKey] = enabled
+    if (!enabled) prefs.remove(hydrationPendingKey)
+}
+
 class PreferencesStore(
     private val context: Context,
     private val isLocalGemmaExecutable: () -> Boolean = { false },
@@ -381,6 +390,56 @@ class PreferencesStore(
 
     suspend fun updateWaterEntries(transform: (List<WaterEntry>) -> List<WaterEntry>): List<WaterEntry> =
         updateJsonList(Keys.WATER_ENTRIES, WaterEntry.serializer(), transform)
+
+    val hydrationSyncEnabled: Flow<Boolean> = ds.data.map { it[hydrationSyncKey] ?: false }
+    val pendingHydration: Flow<Set<String>> = ds.data.map { it[hydrationPendingKey].orEmpty() }
+
+    suspend fun setHydrationSync(enabled: Boolean) {
+        ds.edit { applyHydrationSync(enabled, it) }
+    }
+
+    /**
+     * Drops [id] from the pending set only when the diary still holds exactly the
+     * entry that was written. A change queued while the write was in flight keeps
+     * the ID pending, so the newer value is written on the next drain.
+     */
+    suspend fun completeHydrationIfUnchanged(id: String, written: WaterEntry?) {
+        ds.edit { prefs ->
+            val current = decodeList(prefs[Keys.WATER_ENTRIES], WaterEntry.serializer(), Keys.WATER_ENTRIES.name)
+                .itemsOrEmpty.firstOrNull { it.id.toString() == id }
+            if (current == written) {
+                prefs[hydrationPendingKey] = prefs[hydrationPendingKey].orEmpty() - id
+            }
+        }
+    }
+
+    /**
+     * The water diary as the hydration drain must see it: null when the stored blob
+     * could not be decoded at all. An unreadable diary must not read as "every entry
+     * deleted", which would make the shared Health Connect records disappear.
+     */
+    suspend fun waterDiarySnapshot(): List<WaterEntry>? {
+        val key = Keys.WATER_ENTRIES
+        return when (val decoded = decodeList(ds.data.first()[key], WaterEntry.serializer(), key.name)) {
+            is PersistedListDecode.Corrupt -> null
+            is PersistedListDecode.Decoded -> decoded.items
+            PersistedListDecode.Missing -> emptyList()
+        }
+    }
+
+    suspend fun mutateWaterDiary(transform: (List<WaterEntry>) -> List<WaterEntry>) {
+        ds.edit { prefs ->
+            val key = Keys.WATER_ENTRIES
+            val decoded = decodeList(prefs[key], WaterEntry.serializer(), key.name)
+            preserveIfUnreadable(prefs, key, decoded)
+            val before = decoded.itemsOrEmpty
+            val after = transform(before)
+            prefs[key] = json.encodeToString(ListSerializer(WaterEntry.serializer()), after)
+            if (prefs[hydrationSyncKey] == true && prefs[Keys.HEALTH_CONNECT_ENABLED] == true) {
+                prefs[hydrationPendingKey] = prefs[hydrationPendingKey].orEmpty() + changedWaterIds(before, after)
+            }
+        }
+    }
 
     // -- Fasting tracking -----------------------------------------------
     val fastingTrackingEnabled: Flow<Boolean> = ds.data.map { it[Keys.FASTING_TRACKING_ENABLED] ?: false }

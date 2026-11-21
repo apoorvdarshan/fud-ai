@@ -1417,13 +1417,18 @@ class PreferencesStore(
         val timestamps = preview.associate { it.id to it.timestamp }
         var removed = emptyList<java.util.UUID>()
         ds.edit { prefs ->
-            val raw = prefs[Keys.FOOD_ENTRIES] ?: return@edit
-            val serializer = ListSerializer(FoodEntry.serializer())
-            val entries = json.decodeFromString(serializer, raw)
+            val key = Keys.FOOD_ENTRIES
+            val decoded = decodeList(prefs[key], FoodEntry.serializer(), key.name)
+            preserveIfUnreadable(prefs, key, decoded)
+            // One unreadable row must not block deleting the readable ones; the guard
+            // above preserved the blob before this rewrite replaces it.
+            val entries = decoded.itemsOrEmpty
             removed = entries.filter { timestamps[it.id] == it.timestamp }.map { it.id }
             if (removed.isNotEmpty()) {
                 val ids = removed.toSet()
-                prefs[Keys.FOOD_ENTRIES] = json.encodeToString(serializer, entries.filterNot { it.id in ids })
+                prefs[key] = json.encodeToString(ListSerializer(FoodEntry.serializer()), entries.filterNot { it.id in ids })
+                // Keep after local deletion so a later Health recovery cannot resurrect them.
+                prefs[locallyDeletedFoodIdsKey] = (prefs[locallyDeletedFoodIdsKey].orEmpty() + ids.map { it.toString() })
             }
         }
         return removed
@@ -1437,6 +1442,11 @@ class PreferencesStore(
      */
     suspend fun updateFoodEntries(transform: (List<FoodEntry>) -> List<FoodEntry>): List<FoodEntry> =
         updateJsonList(Keys.FOOD_ENTRIES, FoodEntry.serializer(), transform)
+
+    // Locally deleted ids that a Health recovery must skip; their Health copies may
+    // remain when the deletion was local-only or a recovery was still in flight.
+    private val locallyDeletedFoodIdsKey = stringSetPreferencesKey("locallyDeletedFoodIds")
+    val locallyDeletedFoodIds: Flow<Set<String>> = ds.data.map { it[locallyDeletedFoodIdsKey].orEmpty() }
 
     // Keep this ledger after local deletion so repeat imports never resurrect removed meals.
     private val nutritionImportLedgerKey = stringPreferencesKey("healthNutritionImportedKeys")

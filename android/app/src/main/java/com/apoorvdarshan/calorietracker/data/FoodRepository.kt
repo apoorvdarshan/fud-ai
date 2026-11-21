@@ -1,5 +1,10 @@
 package com.apoorvdarshan.calorietracker.data
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.CoroutineScope
 import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.FoodSource
 import com.apoorvdarshan.calorietracker.models.combineFoodEntries
@@ -207,15 +212,44 @@ class FoodRepository(
 
     internal suspend fun deletePreviewedFood(preview: List<FoodEntry>, alsoHealth: Boolean): Boolean {
         ensureFavoritesMigrated()
-        val removed = prefs.removePreviewedFood(preview)
-        healthRetry.forgetAll(removed)
-        var healthSucceeded = true
-        if (alsoHealth) {
-            removed.forEach { if (health?.deleteNutrition(it) != true) healthSucceeded = false }
+        // Hold the retry mutex across the whole deletion: a background write that
+        // saw the rows vanish before the queue was cleared would delete their
+        // Health records even when alsoHealth is false.
+        return healthRetry.excludingBackgroundWrites {
+            val removed = prefs.removePreviewedFood(preview)
+            healthRetry.forgetAllLocked(removed)
+            var healthSucceeded = true
+            if (alsoHealth) {
+                removed.forEach { if (health?.deleteNutrition(it) != true) healthSucceeded = false }
+            }
+            pruneOrphanedImages()
+            healthSucceeded
         }
-        pruneOrphanedImages()
-        return healthSucceeded
     }
+
+    /**
+     * Runs the deletion outside any UI scope. The dialog's scope dies on rotation,
+     * which used to cancel Health deletions after the local rows were already gone.
+     * [onFinished] always runs on the main thread.
+     */
+    fun deletePreviewedFoodSurvivingUi(
+        preview: List<FoodEntry>,
+        alsoHealth: Boolean,
+        onFinished: (Boolean) -> Unit
+    ) {
+        deletionScope.launch {
+            val ok = try {
+                deletePreviewedFood(preview, alsoHealth)
+            } catch (cancelled: kotlinx.coroutines.CancellationException) {
+                throw cancelled
+            } catch (_: Exception) {
+                false
+            }
+            withContext(Dispatchers.Main) { onFinished(ok) }
+        }
+    }
+
+    private val deletionScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
     // -- Favorites --------------------------------------------------------
 
@@ -343,10 +377,14 @@ class FoodRepository(
      */
     suspend fun restoreFromHealthConnect(external: List<com.apoorvdarshan.calorietracker.services.health.ExternalNutrition>) {
         val manager = health ?: return
+        // Locally deleted meals must not come back from their retained Health copies.
+        val excluded = prefs.locallyDeletedFoodIds.first()
+            .mapTo(mutableSetOf()) { java.util.UUID.fromString(it) }
         prefs.updateFoodEntries { current ->
             val existingIds = current.map { it.id }.toMutableSet()
             val restored = external.mapNotNull { record ->
                 val id = manager.ownRecordId(record.clientRecordId) ?: return@mapNotNull null
+                if (id in excluded) return@mapNotNull null
                 val name = record.name?.trim().orEmpty()
                 if (name.isEmpty()) return@mapNotNull null
                 // `add` also dedupes ids repeated within the Health Connect batch.

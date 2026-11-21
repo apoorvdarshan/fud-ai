@@ -23,6 +23,64 @@ struct AIRequestConfigurationTests {
         #expect(Set(AboutSettingsCategory.allCases.map(\.rawValue)).count == 5)
     }
 
+    @Test func groqAcceptsAtMostThreeImagesPerRequest() {
+        #expect(AIProvider.requestImageLimit(provider: .groq, model: "qwen/qwen3.8-27b") == 3)
+        #expect(AIProvider.requestImageLimit(provider: .gemini, model: "gemini-3.8-flash") == nil)
+        #expect(AIProvider.requestImageLimit(provider: .openrouter, model: "qwen/qwen3.8-27b") == nil)
+        #expect(AIProvider.defaultMealPhotoLimit == 10)
+    }
+
+    @Test func mealPhotoLimitIncludesTheImageFallback() {
+        let originalMode = AIModeSettings.mode
+        let originalProvider = AIProviderSettings.selectedProvider
+        let originalModel = AIProviderSettings.selectedModel
+        let originalFallbackEnabled = AIProviderSettings.fallbackEnabled
+        let originalFallbackProvider = AIProviderSettings.selectedFallbackProvider
+        let originalFallbackModel = AIProviderSettings.selectedFallbackModel
+        defer {
+            AIModeSettings.mode = originalMode
+            AIProviderSettings.selectedProvider = originalProvider
+            AIProviderSettings.selectedModel = originalModel
+            AIProviderSettings.fallbackEnabled = originalFallbackEnabled
+            AIProviderSettings.selectedFallbackProvider = originalFallbackProvider
+            AIProviderSettings.selectedFallbackModel = originalFallbackModel
+        }
+
+        // Other suites read shared defaults; force BYOK so a leaked hosted mode
+        // cannot turn the capture limit into the hosted default.
+        AIModeSettings.mode = .byok
+        AIProviderSettings.fallbackEnabled = false
+        AIProviderSettings.selectedProvider = .groq
+        AIProviderSettings.selectedModel = "qwen/qwen3.8-27b"
+        #expect(AIProviderSettings.mealPhotoCaptureLimit == 3)
+
+        AIProviderSettings.selectedProvider = .gemini
+        AIProviderSettings.selectedModel = "gemini-3.5-flash-lite"
+        #expect(AIProviderSettings.mealPhotoCaptureLimit == 10)
+
+        // The fallback rule itself is pure and always covered.
+        #expect(AIProviderSettings.mealPhotoLimit(primaryLimit: nil, fallbackLimit: nil) == 10)
+        #expect(AIProviderSettings.mealPhotoLimit(primaryLimit: nil, fallbackLimit: 3) == 3)
+        #expect(AIProviderSettings.mealPhotoLimit(primaryLimit: 5, fallbackLimit: 3) == 3)
+
+        // Groq as the image fallback caps the selection too. Its key lives in the
+        // Keychain; when the host cannot store one the wiring below has nothing to
+        // observe, so run it only when the write actually lands.
+        let originalGroqKey = AIProviderSettings.apiKey(for: .groq)
+        defer { AIProviderSettings.setAPIKey(originalGroqKey, for: .groq) }
+        AIProviderSettings.setAPIKey("test-key", for: .groq)
+        if AIProviderSettings.apiKey(for: .groq) != nil {
+            AIProviderSettings.fallbackEnabled = true
+            AIProviderSettings.selectedFallbackProvider = .groq
+            AIProviderSettings.selectedFallbackModel = "qwen/qwen3.8-27b"
+            #expect(AIProviderSettings.mealPhotoCaptureLimit == 3)
+
+            // Without the key the fallback can't serve requests, so the cap lifts.
+            AIProviderSettings.setAPIKey(nil, for: .groq)
+            #expect(AIProviderSettings.mealPhotoCaptureLimit == 10)
+        }
+    }
+
     @Test func geminiUsesCurrentModelsAndFallsBackFromRetiredChoices() {
         #expect(AIProvider.gemini.defaultModel == "gemini-3.5-flash-lite")
         #expect(AIProvider.gemini.models.contains("gemini-3.6-flash"))

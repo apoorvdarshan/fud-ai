@@ -59,7 +59,7 @@ struct AIModelRegistryTests {
                 "MiniMaxAI/MiniMax-M3",
             ]),
             (.groq, [
-                "qwen/qwen3.6-27b",
+                "qwen/qwen3.8-27b",
             ]),
             (.huggingface, [
                 "google/gemma-4-31B-it",

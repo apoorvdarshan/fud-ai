@@ -67,7 +67,7 @@ class AIRequestConfigurationTest {
                 "google/gemma-4-31B-it",
                 "MiniMaxAI/MiniMax-M3"
             ),
-            AIProvider.GROQ to listOf("qwen/qwen3.6-27b"),
+            AIProvider.GROQ to listOf("qwen/qwen3.8-27b"),
             AIProvider.HUGGING_FACE to listOf(
                 "google/gemma-4-31B-it",
                 "Qwen/Qwen3.8-27B",

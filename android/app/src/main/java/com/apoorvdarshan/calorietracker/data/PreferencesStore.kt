@@ -1277,6 +1277,25 @@ class PreferencesStore(
      * issue ~8 sequential `.first()` calls that queued behind startup migrations and left the
      * analyzing overlay up with no network activity.
      */
+    /**
+     * The photo cap for the meal capture flow: the smallest limit of the BYOK
+     * primary vision provider and the image fallback, or the app's normal ten
+     * when neither restricts (#712). Hosted AI keeps its own request-side cap.
+     */
+    suspend fun mealPhotoCaptureLimit(keyStore: KeyStore): Int {
+        val settings = foodAiCallSettings(forImages = true)
+        if (settings.accessMode == AiAccessMode.HOSTED) return AIProvider.DEFAULT_MEAL_PHOTO_LIMIT
+        val primaryLimit = AIProvider.requestImageLimit(settings.provider, settings.model)
+        var fallbackLimit: Int? = null
+        if (fallbackEnabled.first()) {
+            val provider = selectedFallbackProvider.first()
+            val model = provider.supportedModelOrDefault(selectedFallbackModel.first())
+            val hasKey = !provider.requiresApiKey || !keyStore.apiKey(provider).isNullOrEmpty()
+            if (hasKey) fallbackLimit = AIProvider.requestImageLimit(provider, model)
+        }
+        return AIProvider.mealPhotoLimit(primaryLimit, fallbackLimit)
+    }
+
     suspend fun foodAiCallSettings(forImages: Boolean): FoodAiCallSettings {
         val localOk = isLocalGemmaExecutable()
         val prefs = ds.data.first()

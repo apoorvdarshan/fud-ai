@@ -675,6 +675,36 @@ class FoodAnalysisService(
                 estimateSeconds = estimate
             )
         )
+        // Some BYOK models accept fewer images than the app's picker allows (Groq's
+        // Qwen models take three). Never analyze a silently truncated set: route to a
+        // capable fallback with the full set, or reject with the provider's limit.
+        val primaryLimit = AIProvider.requestImageLimit(settings.provider, settings.model)
+        if (primaryLimit != null && imageBytesList.size > primaryLimit) {
+            val fallback = currentImageFallbackConfig(settings.provider, settings.model, settings.baseUrl)
+            if (fallback != null && AIProvider.requestImageLimit(fallback.provider, fallback.model) == null) {
+                // Gemini honors its own longer opt-in timeout, like the normal dispatch paths.
+                val fallbackTimeout = if (fallback.provider == AIProvider.GEMINI) {
+                    settings.geminiTimeoutSeconds
+                } else {
+                    settings.requestTimeoutSeconds
+                }
+                progress?.onProgress(
+                    AnalysisProgressUpdate(
+                        stage = AnalysisStage.FALLBACK,
+                        attempt = 1,
+                        provider = fallback.provider,
+                        model = fallback.model,
+                        estimateSeconds = prefs.analysisDurationEstimate(fallback.provider, fallback.model, kind)
+                    )
+                )
+                return dispatch(
+                    fallback.provider, fallback.model, fallback.baseUrl, fallback.apiKey,
+                    finalPrompt, uploadImages, settings.maxTokens, fallbackTimeout,
+                    jsonResponse, settings.openRouterReasoningEffort
+                )
+            }
+            throw AiError.PhotoLimit(primaryLimit)
+        }
         return try {
             val text = dispatch(
                 settings.provider,
@@ -710,6 +740,12 @@ class FoodAnalysisService(
                 )
             }
             try {
+                // A fallback that cannot take the full photo set is no help: surface
+                // the original error rather than analyzing a truncated set.
+                if (AIProvider.requestImageLimit(fallback.provider, fallback.model)
+                        ?.let { imageBytesList.size > it } == true) {
+                    throw primaryError
+                }
                 val text = dispatch(
                     fallback.provider,
                     fallback.model,

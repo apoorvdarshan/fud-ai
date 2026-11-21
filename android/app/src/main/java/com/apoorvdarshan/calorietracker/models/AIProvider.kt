@@ -126,7 +126,7 @@ enum class AIProvider {
             "MiniMaxAI/MiniMax-M3"
         )
         GROQ -> listOf(
-            "qwen/qwen3.6-27b"
+            "qwen/qwen3.8-27b"
         )
         HUGGING_FACE -> listOf(
             "google/gemma-4-31B-it",
@@ -181,7 +181,6 @@ enum class AIProvider {
             "openai/gpt-oss-120b",
             "llama-3.3-70b-versatile",
             "llama-3.1-8b-instant",
-            "qwen/qwen3.6-27b",
             "qwen/qwen3.8-27b"
         )
         TOGETHER_AI -> listOf(
@@ -219,6 +218,7 @@ enum class AIProvider {
     }
 
     fun supportedTextModelOrDefault(model: String?): String {
+        if (this == GROQ && model?.trim() == "qwen/qwen3.6-27b") return "qwen/qwen3.8-27b"
         val normalized = model?.let(::normalizeModelId)
         return when {
             normalized.isNullOrBlank() -> defaultTextModel
@@ -298,6 +298,23 @@ enum class AIProvider {
             get() = textProviders.filter { it != LOCAL_GEMMA }
 
         fun normalizedRequestTimeoutSeconds(value: Int): Int = value.coerceIn(30, 600)
+
+        /** The app's normal multi-photo meal limit. */
+        const val DEFAULT_MEAL_PHOTO_LIMIT = 10
+
+        /** Groq's Qwen vision models accept at most three images per request (#712). */
+        const val GROQ_REQUEST_IMAGE_LIMIT = 3
+
+        /**
+         * Photos one request to this provider/model accepts. Null means the provider
+         * takes the app's full ten-photo selection.
+         */
+        fun requestImageLimit(provider: AIProvider, model: String?): Int? =
+            if (provider == GROQ) GROQ_REQUEST_IMAGE_LIMIT else null
+
+        /** The smallest photo cap of the primary provider and the image fallback. */
+        fun mealPhotoLimit(primaryLimit: Int?, fallbackLimit: Int?): Int =
+            listOfNotNull(primaryLimit, fallbackLimit).minOrNull() ?: DEFAULT_MEAL_PHOTO_LIMIT
 
         fun normalizeModelId(model: String): String =
             when (model.trim()) {

@@ -22,6 +22,7 @@
     <string name="failed_meal_draft_discard">Discard draft</string>
     <string name="failed_meal_draft_error">Could not access the saved meal draft.</string>
     <string name="app_name">Fud AI</string>
+    <string name="ai_photo_limit_note">Your AI setup accepts up to %1$d photos per request.</string>
 
     <!-- Widgets -->
     <string name="widget_calorie_label">Fud AI Calories</string>

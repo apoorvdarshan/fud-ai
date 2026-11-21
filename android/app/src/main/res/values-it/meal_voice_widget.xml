@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="meal_voice_widget_label">Registra pasto a voce</string>
+    <string name="meal_voice_widget_description">Un tocco per registrare il pasto, un tocco per salvarlo. Mostra le calorie di oggi.</string>
+    <string name="meal_voice_mic_denied">Serve il permesso del microfono per registrare i pasti a voce.</string>
+    <string name="meal_voice_channel_progress">Registrazione pasto vocale</string>
+    <string name="meal_voice_channel_result">Esito pasto vocale</string>
+    <string name="meal_voice_notif_recording">Sto registrando il tuo pasto…</string>
+    <string name="meal_voice_notif_recording_text">Tocca di nuovo il widget per fermare</string>
+    <string name="meal_voice_notif_processing">Salvataggio del pasto…</string>
+    <string name="meal_voice_action_stop">Ferma</string>
+    <string name="meal_voice_saved_title">Pasto salvato</string>
+    <string name="meal_voice_failed_title">Pasto non salvato</string>
+    <string name="meal_voice_nothing_heard">Non ho sentito nulla. Riprova.</string>
+    <string name="meal_voice_failed_generic">Qualcosa è andato storto. Apri Fud AI e riprova.</string>
+</resources>

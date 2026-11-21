@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="meal_voice_widget_label">Zapsat jídlo hlasem</string>
+    <string name="meal_voice_widget_description">Jedno klepnutí jídlo nahraje, druhé ho uloží. Zobrazuje dnešní kalorie.</string>
+    <string name="meal_voice_mic_denied">K hlasovému zapisování jídel je potřeba oprávnění k mikrofonu.</string>
+    <string name="meal_voice_channel_progress">Hlasový záznam jídla</string>
+    <string name="meal_voice_channel_result">Výsledek hlasového jídla</string>
+    <string name="meal_voice_notif_recording">Nahrávám vaše jídlo…</string>
+    <string name="meal_voice_notif_recording_text">Klepnutím na widget znovu zastavíte</string>
+    <string name="meal_voice_notif_processing">Ukládám vaše jídlo…</string>
+    <string name="meal_voice_action_stop">Zastavit</string>
+    <string name="meal_voice_saved_title">Jídlo uloženo</string>
+    <string name="meal_voice_failed_title">Jídlo se neuložilo</string>
+    <string name="meal_voice_nothing_heard">Nic nebylo slyšet. Zkuste to znovu.</string>
+    <string name="meal_voice_failed_generic">Něco se pokazilo. Otevřete Fud AI a zkuste to znovu.</string>
+</resources>

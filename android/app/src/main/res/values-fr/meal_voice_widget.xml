@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="meal_voice_widget_label">Enregistrer un repas à la voix</string>
+    <string name="meal_voice_widget_description">Un appui pour enregistrer votre repas, un autre pour le sauvegarder. Affiche les calories du jour.</string>
+    <string name="meal_voice_mic_denied">L\'autorisation du micro est nécessaire pour enregistrer les repas à la voix.</string>
+    <string name="meal_voice_channel_progress">Enregistrement vocal du repas</string>
+    <string name="meal_voice_channel_result">Résultat du repas vocal</string>
+    <string name="meal_voice_notif_recording">Enregistrement de votre repas…</string>
+    <string name="meal_voice_notif_recording_text">Appuyez de nouveau sur le widget pour arrêter</string>
+    <string name="meal_voice_notif_processing">Sauvegarde de votre repas…</string>
+    <string name="meal_voice_action_stop">Arrêter</string>
+    <string name="meal_voice_saved_title">Repas enregistré</string>
+    <string name="meal_voice_failed_title">Repas non enregistré</string>
+    <string name="meal_voice_nothing_heard">Rien n\'a été entendu. Réessayez.</string>
+    <string name="meal_voice_failed_generic">Une erreur s\'est produite. Ouvrez Fud AI et réessayez.</string>
+</resources>

@@ -251,6 +251,13 @@ class HealthConnectManager(
     suspend fun hasNutritionHistory(): Boolean = supportsNutritionHistory() &&
         historyRead in granted()
 
+    suspend fun nutritionImportHistoryAccess(): Boolean {
+        val provider = client ?: throw IllegalStateException("Health Connect unavailable")
+        val access = provider.permissionController.getGrantedPermissions()
+        if (nutritionRead !in access) throw SecurityException("Nutrition read permission missing")
+        return historyRead in access
+    }
+
     /** History access is supported here but not granted (e.g. connected before it was asked). */
     suspend fun isHistoryAccessMissing(): Boolean = supportsNutritionHistory() &&
         historyRead !in granted()
@@ -272,9 +279,14 @@ class HealthConnectManager(
      * dropping the write is data loss the user never sees.
      */
     private suspend fun grantedOrNull(): Set<String>? =
-        runCatching { client?.permissionController?.getGrantedPermissions() }
-            .onFailure { Log.w(TAG, "Health Connect permission probe failed", it) }
-            .getOrNull()
+        try {
+            client?.permissionController?.getGrantedPermissions()
+        } catch (cancelled: CancellationException) {
+            throw cancelled
+        } catch (error: Exception) {
+            Log.w(TAG, "Health Connect permission probe failed", error)
+            null
+        }
 
     /** Fail-closed view of [grantedOrNull] for the read paths, where "assume nothing is
      *  granted" is the safe answer — a read that returns nothing loses no data. */
@@ -294,6 +306,8 @@ class HealthConnectManager(
      *  are valid — a read-only user still syncs the read direction. */
     suspend fun hasAnyPermission(): Boolean = granted().any { it in permissions }
 
+    suspend fun anyPermissionGrant(): Boolean? = grantedOrNull()?.any { it in permissions }
+
     suspend fun hasWeightRead(): Boolean = weightRead in granted()
     suspend fun hasWeightWrite(): Boolean = weightWrite in granted()
     suspend fun hasBodyFatRead(): Boolean = bodyFatRead in granted()
@@ -311,6 +325,10 @@ class HealthConnectManager(
     /** Exercise read access, or null when the permission probe itself failed — so a transient
      *  Health Connect outage is never mistaken for a revoked grant (which clears imports). */
     suspend fun exerciseReadGrant(): Boolean? = grantedOrNull()?.let { exerciseRead in it }
+
+    /** Energy read access, or null when the permission probe itself failed — a transient
+     *  Health Connect outage must not tear Energy Burn down as though access was revoked. */
+    suspend fun energyReadGrant(): Boolean? = grantedOrNull()?.let { activeEnergyRead in it && totalEnergyRead in it }
     suspend fun hasBackgroundRead(): Boolean = backgroundRead in granted()
 
     /** One permission read snapshotting every capability — used by the read-sync coordinator. */
@@ -563,22 +581,21 @@ class HealthConnectManager(
      *  Returns null when any page read fails (rate limit, binder error) so the
      *  caller can leave its one-shot flag unset and retry, instead of treating a
      *  partial read as the complete history. */
-    suspend fun readNutrition(from: Instant, to: Instant): List<ExternalNutrition>? {
+    suspend fun readNutrition(
+        from: Instant,
+        to: Instant,
+        onFailure: (Exception) -> Unit = {}
+    ): List<ExternalNutrition>? {
         val c = client ?: return null
-        val out = mutableListOf<ExternalNutrition>()
-        var pageToken: String? = null
-        do {
-            val response = runCatching {
-                c.readRecords(
-                    ReadRecordsRequest(
-                        recordType = NutritionRecord::class,
-                        timeRangeFilter = TimeRangeFilter.between(from, to),
-                        pageToken = pageToken
-                    )
+        return readAllPages(onFailure) { pageToken ->
+            val response = c.readRecords(
+                ReadRecordsRequest(
+                    recordType = NutritionRecord::class,
+                    timeRangeFilter = TimeRangeFilter.between(from, to),
+                    pageToken = pageToken
                 )
-            }.getOrNull() ?: return null
-            response.records.forEach {
-                out.add(
+            )
+            response.records.map {
                     ExternalNutrition(
                         time = it.startTime,
                         name = it.name,
@@ -612,11 +629,8 @@ class HealthConnectManager(
                         recordId = it.metadata.id,
                         originPackage = it.metadata.dataOrigin.packageName
                     )
-                )
-            }
-            pageToken = response.pageToken
-        } while (pageToken != null)
-        return out
+            } to response.pageToken
+        }
     }
 
     // -- Workout burn ------------------------------------------------------
@@ -728,7 +742,7 @@ class HealthConnectManager(
                 )
             }
             pageToken = response.pageToken
-        } while (pageToken != null)
+        } while (!pageToken.isNullOrEmpty())
         return out.sortedWith(compareBy<HealthWorkoutBurn> { it.diaryDateKey }.thenBy { it.healthSyncVersion })
     }
 
@@ -1114,8 +1128,12 @@ class HealthConnectManager(
 /** Follows a paged Health Connect read through every page. Null as soon as one page fails
  *  (rate limit, binder error), so the caller can retry later instead of treating the
  *  pages read so far as the complete history. */
-internal suspend fun <T> readAllPages(readPage: suspend (pageToken: String?) -> Pair<List<T>, String?>): List<T>? {
+internal suspend fun <T> readAllPages(
+    onFailure: (Exception) -> Unit = {},
+    readPage: suspend (pageToken: String?) -> Pair<List<T>, String?>
+): List<T>? {
     val out = mutableListOf<T>()
+    val seenTokens = mutableSetOf<String>()
     var pageToken: String? = null
     do {
         val (records, next) = try {
@@ -1123,11 +1141,16 @@ internal suspend fun <T> readAllPages(readPage: suspend (pageToken: String?) -> 
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
+            onFailure(e)
             return null
         }
         out += records
+        if (!next.isNullOrEmpty() && !seenTokens.add(next)) {
+            onFailure(IllegalStateException("Health Connect returned a repeated page token"))
+            return null
+        }
         pageToken = next
-    } while (pageToken != null)
+    } while (!pageToken.isNullOrEmpty())
     return out
 }
 

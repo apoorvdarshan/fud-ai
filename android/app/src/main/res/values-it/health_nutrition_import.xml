@@ -1,4 +1,8 @@
 <resources>
+    <string name="health_import_range_summary">Intervallo richiesto: dal %1$s al %2$s inclusi. Data del telefono: %3$s. Fuso orario: %4$s.</string>
+    <string name="health_import_history_unsupported">Health Connect non segnala il supporto all’accesso alla cronologia su questo dispositivo. L’intervallo richiesto supera gli ultimi 30 giorni: l’app non può confermare di poterlo leggere integralmente. Nessun dato è stato importato.</string>
+    <string name="health_import_rate_limited">Health Connect ha temporaneamente rifiutato le richieste perché la quota è esaurita. Non è un errore di validazione delle date. Attendi prima di riprovare; nessun dato è stato importato.</string>
+    <string name="health_import_read_failed">Impossibile leggere completamente l’anteprima nutrizionale. Questo non conferma un problema di date o autorizzazioni. Nessun dato è stato importato.</string>
     <string name="health_import_title">Importa la cronologia nutrizionale</string>
     <string name="health_import_action">Importa</string>
     <string name="health_import_description">Porta nel diario i dati alimentari di un’altra app. Visualizza l’anteprima dei dati disponibili, poi scegli una sola app di origine per non contare due volte i dati condivisi.</string>

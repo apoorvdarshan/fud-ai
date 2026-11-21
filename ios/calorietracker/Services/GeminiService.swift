@@ -164,6 +164,7 @@ struct GeminiService {
     enum AnalysisError: LocalizedError {
         case noAPIKey
         case imageConversionFailed
+        case photoLimit(provider: String, limit: Int)
         case networkError(Error)
         case invalidResponse
         case apiError(String)
@@ -173,6 +174,8 @@ struct GeminiService {
             switch self {
             case .noAPIKey:
                 return AIErrorKind.noKey.message
+            case .photoLimit(let provider, let limit):
+                return String(localized: "\(provider) accepts at most \(limit) photos per request. Keep your selection to \(limit) photos.")
             case .imageConversionFailed:
                 return AIErrorKind.imageConversion.message
             case .networkError(let error):
@@ -1135,10 +1138,26 @@ struct GeminiService {
             model: primary.model,
             estimateSeconds: primaryEstimate
         ))
-        // Some BYOK models accept fewer images than the app's picker allows
-        // (Groq's Qwen models take three); never send a request they reject.
-        let primaryImages = AIProvider.requestImageLimit(provider: primary.provider, model: primary.model)
-            .map { Array(imageDataList.prefix($0)) } ?? imageDataList
+        // Some BYOK models accept fewer images than the app's picker allows (Groq's
+        // Qwen models take three). Never analyze a silently truncated set: route to
+        // a capable fallback with the full set, or reject with the provider's limit.
+        let primaryLimit = AIProvider.requestImageLimit(provider: primary.provider, model: primary.model)
+        if let primaryLimit, images.count > primaryLimit {
+            if let fallback = AIProviderSettings.currentImageFallbackConfig(
+                excludingPrimary: primary.provider, model: primary.model),
+               AIProvider.requestImageLimit(provider: fallback.provider, model: fallback.model) == nil {
+                return try await dispatch(
+                    provider: fallback.provider,
+                    model: fallback.model,
+                    baseURL: fallback.baseURL,
+                    apiKey: fallback.apiKey,
+                    prompt: try await labelText?.prompt(prompt, for: fallback.provider) ?? prompt,
+                    imageDataList: imageDataList,
+                    jsonResponse: jsonResponse
+                )
+            }
+            throw AnalysisError.photoLimit(provider: primary.provider.displayName, limit: primaryLimit)
+        }
 
         do {
             let text = try await dispatch(
@@ -1147,7 +1166,7 @@ struct GeminiService {
                 baseURL: primary.baseURL,
                 apiKey: primary.apiKey,
                 prompt: try await labelText?.prompt(prompt, for: primary.provider) ?? prompt,
-                imageDataList: primaryImages,
+                imageDataList: imageDataList,
                 jsonResponse: jsonResponse
             )
             progress?(AnalysisProgressUpdate(stage: .responding))
@@ -1184,15 +1203,19 @@ struct GeminiService {
                 ))
             }
             do {
-                let fallbackImages = AIProvider.requestImageLimit(provider: fallback.provider, model: fallback.model)
-                    .map { Array(imageDataList.prefix($0)) } ?? imageDataList
+                // A fallback that cannot take the full photo set is no help: surface
+                // the original error rather than analyzing a truncated set.
+                if let fallbackLimit = AIProvider.requestImageLimit(provider: fallback.provider, model: fallback.model),
+                   images.count > fallbackLimit {
+                    throw error
+                }
                 let text = try await dispatch(
                     provider: fallback.provider,
                     model: fallback.model,
                     baseURL: fallback.baseURL,
                     apiKey: fallback.apiKey,
                     prompt: try await labelText?.prompt(prompt, for: fallback.provider) ?? prompt,
-                    imageDataList: fallbackImages,
+                    imageDataList: imageDataList,
                     jsonResponse: jsonResponse
                 )
                 progress?(AnalysisProgressUpdate(

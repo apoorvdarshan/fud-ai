@@ -105,7 +105,13 @@ internal class PhotoCaptureDraftViewModel(
             if (imported.any { it == null } || imported.none { it != null && it.isNotEmpty() }) {
                 throw IllegalStateException(failureMessage)
             }
-            imported.filterNotNull()
+            val additions = imported.filterNotNull()
+            // The picker limits to the remaining slots; anything larger that reaches
+            // this point is rejected whole, never silently truncated.
+            if (additions.size > (maxImages - _images.value.size).coerceAtLeast(0)) {
+                throw IllegalStateException(failureMessage)
+            }
+            additions
         }
     }
 
@@ -117,7 +123,6 @@ internal class PhotoCaptureDraftViewModel(
                 try {
                     if (generation != sessionGeneration) return@withLock
                     val additions = load().filter { it.isNotEmpty() }
-                        .take((maxImages - _images.value.size).coerceAtLeast(0))
                     if (additions.isEmpty()) return@withLock
                     val addedNames = mutableListOf<String>()
                     try {

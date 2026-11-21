@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hosted_trial_cta">Vyzkoušet 3 dny zdarma</string>
-    <string name="hosted_trial_disclosure">3 dny zdarma, poté %1$s/rok. Automatické obnovení. Zrušte před koncem zkušební doby, abyste se vyhnuli platbě.</string>
-    <string name="hosted_trial_limits">Zkouška: 20 akcí AI a %1$d hlasových minut/den (UTC). Poté plné limity tarifu. Další kredity jsou placené.</string>
-    <string name="hosted_trial_invite_body">Vyzkoušejte roční Plus nebo Pro bez klíčů API. Platí zkušební limity. Prohlédněte si ceny a podmínky nebo ponechte BYOK zdarma.</string>
+    <string name="hosted_trial_disclosure">3 dny zdarma, pak %1$s/rok. Předplatné se obnovuje automaticky. Zruš ho před koncem zkušební doby a nic nezaplatíš.</string>
+    <string name="hosted_trial_limits">Zkušební doba: 20 AI akcí a %1$d min hlasu denně (UTC). Potom platí plné limity plánu. Další kredity jsou placené.</string>
+    <string name="hosted_trial_invite_body">Vyzkoušej roční Plus nebo Pro bez API klíčů. Platí limity zkušební doby. Podívej se na ceny a podmínky, nebo zůstaň u BYOK zdarma.</string>
     <string name="hosted_trial_ends">Konec zkušební doby</string>
     <string name="hosted_trial_reminder_title">Zkušební doba končí zítra</string>
-    <string name="hosted_trial_reminder_body">Roční tarif se po zkušební době obnoví. Zkontrolujte nebo zrušte jej v nastavení obchodu.</string>
+    <string name="hosted_trial_reminder_body">Roční plán se po zkušební době obnoví. Zkontroluj nebo zruš ho v Google Play.</string>
     <string name="hosted_trial_invite_title">Vyzkoušet 3 dny zdarma</string>
 </resources>

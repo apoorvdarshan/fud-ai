@@ -15,7 +15,12 @@ struct CalorieRangeSettings: View {
     private var parsedCeiling: Int? { Self.bound(ceilingText, maxDigits: digitLimit) }
     private var valid: Bool {
         guard let lower = parsedFloor, let upper = parsedCeiling else { return false }
-        return lower == 0 || upper == 0 || lower <= upper
+        let lowerKcal = Self.storedKcal(displayed: lower, unit: unit)
+        let upperKcal = Self.storedKcal(displayed: upper, unit: unit)
+        // The six-digit kJ editor can reach values the storage cap cannot accept, so
+        // validate the converted kcal before enabling Save.
+        return (lowerKcal == 0 || upperKcal == 0 || lowerKcal <= upperKcal)
+            && lowerKcal <= Self.maxStoredKcal && upperKcal <= Self.maxStoredKcal
     }
 
     var body: some View {
@@ -61,6 +66,9 @@ struct CalorieRangeSettings: View {
     static func storedKcal(displayed: Int, unit: EnergyUnit) -> Int {
         unit.kcal(fromDisplayed: Double(displayed))
     }
+
+    /// The stored bound cap; both bounds are validated in kcal before Save enables.
+    static let maxStoredKcal = 99_999
 
     static func bound(_ text: String, maxDigits: Int = 5) -> Int? {
         if text.isEmpty { return 0 }

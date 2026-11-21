@@ -40,7 +40,13 @@ internal fun CalorieRangeSettings(prefs: PreferencesStore) {
         val digitLimit = if (unit == EnergyUnit.KJ) 6 else 5
         val floor = calorieBound(lower, digitLimit)
         val ceiling = calorieBound(upper, digitLimit)
-        val valid = floor != null && ceiling != null && (floor == 0 || ceiling == 0 || floor <= ceiling)
+        val floorKcal = floor?.let { calorieStoredKcal(it, unit) }
+        val ceilingKcal = ceiling?.let { calorieStoredKcal(it, unit) }
+        // The six-digit kJ editor can reach values the storage cap cannot accept, so
+        // validate the converted kcal before enabling Save.
+        val valid = floor != null && ceiling != null && floorKcal != null && ceilingKcal != null &&
+            (floorKcal == 0 || ceilingKcal == 0 || floorKcal <= ceilingKcal) &&
+            floorKcal <= MAX_STORED_RANGE_KCAL && ceilingKcal <= MAX_STORED_RANGE_KCAL
         AlertDialog(
             onDismissRequest = { editing = false },
             title = { Text(title) },
@@ -72,6 +78,9 @@ internal fun CalorieRangeSettings(prefs: PreferencesStore) {
 /** The range is edited in the user's display unit but stored in kcal. */
 internal fun calorieStoredKcal(displayed: Int, unit: EnergyUnit): Int =
     if (displayed == 0) 0 else unit.toKcal(displayed.toDouble())
+
+/** Mirrors the stored cap PreferencesStore.setCalorieDisplayRange requires. */
+internal const val MAX_STORED_RANGE_KCAL = 99_999
 
 internal fun calorieBound(text: String, maxDigits: Int = 5): Int? = when {
     text.isEmpty() -> 0

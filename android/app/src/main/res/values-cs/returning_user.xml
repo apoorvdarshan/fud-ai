@@ -8,7 +8,7 @@
     <string name="returning_drive_note">Přihlášení slouží jen k nalezení tvé zálohy. Dokud nebude aplikace ověřena, může Google zobrazit další upozornění.</string>
     <string name="returning_health_title">Importovat z Health Connect</string>
     <string name="returning_health_detail">Jídla, hmotnost, tělesný tuk a kalorie z tréninků uložené aplikací Fud AI v Health Connect. Spolu se zálohou se přidá jen to, co v ní chybí.</string>
-    <string name="returning_health_update">Nejdřív nainstaluj nebo aktualizuj Health Connect z Play Store.</string>
+    <string name="returning_health_update">Nejdřív nainstaluj nebo aktualizuj Health Connect z Google Play.</string>
     <string name="returning_start_fresh">Začít znovu</string>
     <string name="returning_continue_setup">Pokračovat v nastavení</string>
     <string name="returning_step_waiting">Na řadě</string>
@@ -17,8 +17,8 @@
     <string name="returning_step_failed">Nedokončeno</string>
     <string name="returning_drive_checking">Kontroluji Disk Google…</string>
     <string name="returning_drive_confirm_title">Obnovit zálohu?</string>
-    <string name="returning_drive_confirm_message_dated">Záloha z %1$s nahradí vše v tomto telefonu. Klíče API v zálohách nejsou, takže možná budeš muset přidat svůj klíč znovu.</string>
-    <string name="returning_drive_confirm_message">Záloha nahradí vše v tomto telefonu. Klíče API v zálohách nejsou, takže možná budeš muset přidat svůj klíč znovu.</string>
+    <string name="returning_drive_confirm_message_dated">Záloha z %1$s nahradí vše v tomto telefonu. API klíče v zálohách nejsou, takže možná budeš muset přidat svůj klíč znovu.</string>
+    <string name="returning_drive_confirm_message">Záloha nahradí vše v tomto telefonu. API klíče v zálohách nejsou, takže možná budeš muset přidat svůj klíč znovu.</string>
     <string name="returning_drive_restoring">Obnovuji…</string>
     <string name="returning_drive_no_backup">Pro tento účet nebyla na Disku Google nalezena žádná záloha.</string>
     <string name="returning_drive_unreachable">Disk Google není dostupný. Zkontroluj připojení a zkus to znovu.</string>

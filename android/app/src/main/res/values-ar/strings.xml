@@ -806,6 +806,7 @@
     <string name="settings_appearance_system">النظام</string>
     <string name="settings_appearance_light">فاتح</string>
     <string name="settings_appearance_dark">داكن</string>
+    <string name="settings_appearance_dark_gray">رمادي داكن</string>
     <string name="settings_app_language">اللغة</string>
     <string name="settings_app_language_system">الإعداد الافتراضي للنظام</string>
     <string name="sheet_app_language">اللغة</string>

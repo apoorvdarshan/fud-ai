@@ -774,6 +774,7 @@
     <string name="settings_appearance_system">सिस्टम</string>
     <string name="settings_appearance_light">लाइट</string>
     <string name="settings_appearance_dark">डार्क</string>
+    <string name="settings_appearance_dark_gray">डार्क ग्रे</string>
     <string name="settings_app_language">भाषा</string>
     <string name="settings_app_language_system">सिस्टम डिफ़ॉल्ट</string>
     <string name="sheet_app_language">भाषा</string>

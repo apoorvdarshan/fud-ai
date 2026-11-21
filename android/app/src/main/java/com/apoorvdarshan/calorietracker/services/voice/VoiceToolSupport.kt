@@ -213,7 +213,7 @@ sealed interface SettingValue {
         override val display: String get() = color.key
     }
 
-    /** `system`, `light` or `dark` (the stored appearance values). */
+    /** `system`, `light`, `dark` or `darkGray` (the stored appearance values). */
     data class Appearance(val mode: String) : SettingValue {
         override val display: String get() = mode
     }
@@ -260,7 +260,8 @@ object VoiceSettingValues {
                 "system", "auto", "automatic" -> SettingValue.Appearance("system")
                 "light" -> SettingValue.Appearance("light")
                 "dark" -> SettingValue.Appearance("dark")
-                else -> fail(ToolError.INVALID_ARGUMENTS, "appearance must be system, light or dark.")
+                "dark gray", "darkgray", "dark_gray", "dark-gray" -> SettingValue.Appearance("darkGray")
+                else -> fail(ToolError.INVALID_ARGUMENTS, "appearance must be system, light, dark or dark gray.")
             }
             VoiceSettingKey.UNITS -> when (value.lowercase(Locale.ROOT)) {
                 "metric" -> SettingValue.Units(metric = true)

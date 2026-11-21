@@ -40,7 +40,7 @@ struct calorietrackerApp: App {
     private var colorScheme: ColorScheme? {
         switch appearanceMode {
         case "light": return .light
-        case "dark": return .dark
+        case "dark", "darkGray": return .dark
         default: return nil
         }
     }
@@ -104,6 +104,9 @@ struct calorietrackerApp: App {
             }
             .tint(AppThemeColor.color(for: appThemeColorRaw).color)
             .preferredColorScheme(colorScheme)
+            .onChange(of: appearanceMode, initial: true) { _, mode in
+                AppAppearancePalette.shared.usesGray = mode == "darkGray"
+            }
             .onAppear {
                 guard !SimulatorTestEnvironment.isRunningTests else { return }
                 AppThemeColor.applyAppIconIfNeeded(for: AppThemeColor.color(for: appThemeColorRaw))

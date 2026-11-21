@@ -782,6 +782,7 @@
     <string name="settings_appearance_system">Sistem</string>
     <string name="settings_appearance_light">Luminos</string>
     <string name="settings_appearance_dark">Întunecat</string>
+    <string name="settings_appearance_dark_gray">Gri închis</string>
     <string name="settings_app_language">Limbă</string>
     <string name="settings_app_language_system">Implicit sistem</string>
     <string name="sheet_app_language">Limbă</string>

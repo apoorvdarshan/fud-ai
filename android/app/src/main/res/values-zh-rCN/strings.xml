@@ -768,6 +768,7 @@
     <string name="settings_appearance_system">跟随系统</string>
     <string name="settings_appearance_light">浅色</string>
     <string name="settings_appearance_dark">深色</string>
+    <string name="settings_appearance_dark_gray">深灰色</string>
     <string name="settings_app_language">语言</string>
     <string name="settings_app_language_system">系统默认</string>
     <string name="sheet_app_language">语言</string>

@@ -775,6 +775,7 @@
     <string name="settings_appearance_system">Système</string>
     <string name="settings_appearance_light">Clair</string>
     <string name="settings_appearance_dark">Sombre</string>
+    <string name="settings_appearance_dark_gray">Gris foncé</string>
     <string name="settings_app_language">Langue</string>
     <string name="settings_app_language_system">Valeur par défaut du système</string>
     <string name="sheet_app_language">Langue</string>

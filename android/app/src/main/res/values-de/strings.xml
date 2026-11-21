@@ -785,6 +785,7 @@
     <string name="settings_appearance_system">System</string>
     <string name="settings_appearance_light">Hell</string>
     <string name="settings_appearance_dark">Dunkel</string>
+    <string name="settings_appearance_dark_gray">Dunkelgrau</string>
     <string name="settings_app_language">Sprache</string>
     <string name="settings_app_language_system">Systemstandard</string>
     <string name="sheet_app_language">Sprache</string>

@@ -1,6 +1,10 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "Optional Calorie Range": {},
+    "Calorie floor (%@)": {},
+    "Calorie ceiling (%@)": {},
+    "Leave either bound blank to skip it. This range is for reference and does not change your targets.": {},
     "Dark gray": {
       "localizations": {
         "ar": {

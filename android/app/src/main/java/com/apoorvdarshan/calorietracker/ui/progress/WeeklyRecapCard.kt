@@ -76,6 +76,7 @@ internal fun WeeklyRecapCard(
     dayPlans: Map<String, WorkoutDayPlan>,
     calorieGoal: Int,
     proteinGoal: Int,
+    calorieDisplayRange: Pair<Int, Int> = 0 to 0,
     useMetric: Boolean,
     /** From Settings > Week starts on, like the Home and Workouts week strips. */
     firstDayOfWeek: DayOfWeek,
@@ -144,6 +145,14 @@ internal fun WeeklyRecapCard(
                         text = stringResource(R.string.weekly_recap_weight_change),
                         value = formatWeightChange(change, useMetric)
                     )
+                }
+                if (calorieDisplayRange != (0 to 0)) {
+                    val floor = calorieDisplayRange.first
+                    val ceiling = calorieDisplayRange.second
+                    val label = stringResource(R.string.optional_calorie_range)
+                    val low = if (floor == 0) "—" else com.apoorvdarshan.calorietracker.ui.components.energyText(floor)
+                    val high = if (ceiling == 0) "—" else com.apoorvdarshan.calorietracker.ui.components.energyText(ceiling)
+                    Text("$label: $low – $high", fontSize = 12.sp)
                 }
                 if (recap.highlights.isNotEmpty()) {
                     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {

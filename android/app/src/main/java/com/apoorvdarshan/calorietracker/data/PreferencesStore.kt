@@ -894,6 +894,17 @@ class PreferencesStore(
     suspend fun setHideBarcodePhoto(hidden: Boolean) { ds.edit { it[hideBarcodePhotoKey] = hidden } }
 
     // -- AI Provider selection --------------------------------------------
+    private val calorieFloorKey = intPreferencesKey("displayCalorieFloor")
+    private val calorieCeilingKey = intPreferencesKey("displayCalorieCeiling")
+    val calorieDisplayRange: Flow<Pair<Int, Int>> = ds.data.map {
+        (it[calorieFloorKey] ?: 0) to (it[calorieCeilingKey] ?: 0)
+    }
+
+    suspend fun setCalorieDisplayRange(floor: Int, ceiling: Int) {
+        require(floor in 0..99_999 && ceiling in 0..99_999 && (floor == 0 || ceiling == 0 || floor <= ceiling))
+        ds.edit { it[calorieFloorKey] = floor; it[calorieCeilingKey] = ceiling }
+    }
+
     val selectedAIProvider: Flow<AIProvider> = ds.data.map {
         val raw = it[Keys.SELECTED_AI_PROVIDER]
         executableAIProviderOrDefault(

@@ -5758,9 +5758,7 @@ struct ProfileView: View {
                         .tint(.secondary)
                         .id("primary-provider-\(localModelAvailabilityRevision)")
                         .onChange(of: selectedProvider) { _, newProvider in
-                            AIProviderSettings.selectedProvider = newProvider
-                            selectedModel = newProvider.defaultModel
-                            AIProviderSettings.selectedModel = newProvider.defaultModel
+                            selectedModel = AIProviderSettings.switchPrimaryProvider(to: newProvider)
                             apiKeyText = AIProviderSettings.apiKey(for: newProvider) ?? ""
                             customBaseURL = AIProviderSettings.customBaseURL(for: newProvider) ?? ""
                         }

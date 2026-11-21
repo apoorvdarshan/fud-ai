@@ -1503,6 +1503,21 @@ private var dailyStepsTaskKey: String {
     /// The diary scrolls behind these floating controls and can scroll fully above them.
     private var homeActionBar: some View {
         HStack(spacing: 12) {
+            if !foodStore.favorites.isEmpty, fastingStore.activeSession == nil,
+               AddMenuSettings.decode(addMenuConfigData).visibleMethods.contains(.favorites) {
+                Button {
+                    presentFoodDestination { performFoodLogMethod(.favorites) }
+                } label: {
+                    Image(systemName: FoodLogMethod.favorites.systemImageName)
+                        .font(.system(size: 20, weight: .semibold))
+                        .foregroundStyle(AppColors.calorie)
+                        .frame(width: 48, height: 48)
+                        .background(.regularMaterial, in: Circle())
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel("Favorites")
+                .accessibilityIdentifier("home.favorites")
+            }
             // The live session uses its own floating controls.
             if !voiceAssistant.isActive, !hideVoiceShortcut {
                 VoiceAssistantHomeButton(controller: voiceAssistant)

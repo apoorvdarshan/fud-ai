@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="meal_voice_widget_label">Mahlzeit per Sprache erfassen</string>
+    <string name="meal_voice_widget_description">Einmal tippen zum Aufnehmen, nochmal zum Speichern. Zeigt die heutigen Kalorien.</string>
+    <string name="meal_voice_mic_denied">Für die Spracherfassung wird die Mikrofonberechtigung benötigt.</string>
+    <string name="meal_voice_channel_progress">Mahlzeit-Sprachaufnahme</string>
+    <string name="meal_voice_channel_result">Ergebnis der Sprach-Mahlzeit</string>
+    <string name="meal_voice_notif_recording">Mahlzeit wird aufgenommen…</string>
+    <string name="meal_voice_notif_recording_text">Widget erneut antippen zum Stoppen</string>
+    <string name="meal_voice_notif_processing">Mahlzeit wird gespeichert…</string>
+    <string name="meal_voice_action_stop">Stopp</string>
+    <string name="meal_voice_saved_title">Mahlzeit gespeichert</string>
+    <string name="meal_voice_failed_title">Mahlzeit nicht gespeichert</string>
+    <string name="meal_voice_nothing_heard">Es wurde nichts verstanden. Versuche es erneut.</string>
+    <string name="meal_voice_failed_generic">Etwas ist schiefgelaufen. Öffne Fud AI und versuche es erneut.</string>
+</resources>

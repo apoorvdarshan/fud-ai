@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="meal_voice_widget_label">سجّل وجبتك بالصوت</string>
+    <string name="meal_voice_widget_description">لمسة واحدة لتسجيل وجبتك ولمسة أخرى لحفظها. يعرض سعرات اليوم.</string>
+    <string name="meal_voice_mic_denied">يلزم إذن الميكروفون لتسجيل الوجبات بالصوت.</string>
+    <string name="meal_voice_channel_progress">تسجيل الوجبة صوتيًا</string>
+    <string name="meal_voice_channel_result">نتيجة الوجبة الصوتية</string>
+    <string name="meal_voice_notif_recording">جارٍ تسجيل وجبتك…</string>
+    <string name="meal_voice_notif_recording_text">المس الأداة مرة أخرى للإيقاف</string>
+    <string name="meal_voice_notif_processing">جارٍ حفظ وجبتك…</string>
+    <string name="meal_voice_action_stop">إيقاف</string>
+    <string name="meal_voice_saved_title">تم حفظ الوجبة</string>
+    <string name="meal_voice_failed_title">لم يتم حفظ الوجبة</string>
+    <string name="meal_voice_nothing_heard">لم يُسمع شيء. حاول مرة أخرى.</string>
+    <string name="meal_voice_failed_generic">حدث خطأ ما. افتح Fud AI وحاول مرة أخرى.</string>
+</resources>

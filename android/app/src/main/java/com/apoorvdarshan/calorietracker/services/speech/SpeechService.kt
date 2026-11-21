@@ -29,8 +29,13 @@ class SpeechService(
      * [com.apoorvdarshan.calorietracker.services.ai.AiError] in Hosted AI mode.
      * Native on-device recognition never reaches here, so it stays free in Hosted mode.
      */
-    suspend fun transcribeRecordedAudio(audio: File): String {
-        val provider = prefs.selectedSpeechProvider.first()
+    /**
+     * @param capturedProvider the provider that recorded the file. A change in
+     *   Settings after recording started applies to the next recording, never
+     *   to a file already captured: native speech cannot transcribe a file.
+     */
+    suspend fun transcribeRecordedAudio(audio: File, capturedProvider: SpeechProvider? = null): String {
+        val provider = capturedProvider ?: prefs.selectedSpeechProvider.first()
         // On-device Whisper stays local (free); remote providers go through Hosted AI.
         if (hosted != null && provider != SpeechProvider.LOCAL_WHISPER &&
             prefs.aiAccessMode.first() == AiAccessMode.HOSTED

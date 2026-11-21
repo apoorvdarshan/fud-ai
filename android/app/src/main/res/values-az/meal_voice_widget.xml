@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="meal_voice_widget_label">Yeməyi səslə qeyd et</string>
+    <string name="meal_voice_widget_description">Yeməyi yazmaq üçün bir toxunuş, yadda saxlamaq üçün bir toxunuş daha. Bugünkü kalorilər göstərilir.</string>
+    <string name="meal_voice_mic_denied">Yeməkləri səslə qeyd etmək üçün mikrofon icazəsi lazımdır.</string>
+    <string name="meal_voice_channel_progress">Səsli yemək yazısı</string>
+    <string name="meal_voice_channel_result">Səsli yemək nəticəsi</string>
+    <string name="meal_voice_notif_recording">Yeməyiniz yazılır…</string>
+    <string name="meal_voice_notif_recording_text">Dayandırmaq üçün vidcetə yenidən toxunun</string>
+    <string name="meal_voice_notif_processing">Yeməyiniz yadda saxlanılır…</string>
+    <string name="meal_voice_action_stop">Dayandır</string>
+    <string name="meal_voice_saved_title">Yemək yadda saxlanıldı</string>
+    <string name="meal_voice_failed_title">Yemək yadda saxlanılmadı</string>
+    <string name="meal_voice_nothing_heard">Heç nə eşidilmədi. Yenidən cəhd edin.</string>
+    <string name="meal_voice_failed_generic">Nəsə səhv getdi. Fud AI-ı açıb yenidən cəhd edin.</string>
+</resources>

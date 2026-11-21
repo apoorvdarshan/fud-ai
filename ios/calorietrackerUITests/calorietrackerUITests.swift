@@ -303,8 +303,9 @@ final class calorietrackerUITests: XCTestCase {
         XCTAssertTrue(textProviderSection.waitForExistence(timeout: 3))
         XCTAssertTrue(app.staticTexts["AI Providers & Fallbacks"].exists)
         XCTAssertEqual(app.switches["Use Separate Text Provider"].value as? String, "1")
-        XCTAssertTrue(app.staticTexts["DeepSeek"].waitForExistence(timeout: 3))
-        XCTAssertTrue(app.staticTexts["deepseek-v4-flash"].waitForExistence(timeout: 3))
+        // Loaded runners materialize these rows late; 8s matches the file's other waits.
+        XCTAssertTrue(app.staticTexts["DeepSeek"].waitForExistence(timeout: 8))
+        XCTAssertTrue(app.staticTexts["deepseek-v4-flash"].waitForExistence(timeout: 8))
     }
 
     @MainActor

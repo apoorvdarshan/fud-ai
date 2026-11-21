@@ -859,7 +859,30 @@ class PreferencesStore(
         )
     }
     suspend fun setSelectedAIModel(model: String) {
-        ds.edit { it[Keys.SELECTED_AI_MODEL] = AIProvider.normalizeModelId(model) }
+        ds.edit {
+            val normalized = AIProvider.normalizeModelId(model)
+            it[Keys.SELECTED_AI_MODEL] = normalized
+            if (it[Keys.SELECTED_AI_PROVIDER] == AIProvider.CUSTOM_OPENAI.name) {
+                it[Keys.LAST_PRIMARY_CUSTOM_MODEL] = normalized
+            }
+        }
+    }
+
+    /** Settings switches both values together so analysis never sees a mismatched provider/model. */
+    suspend fun switchPrimaryAIProvider(provider: AIProvider): String {
+        val resolved = executableAIProviderOrDefault(provider.takeIf { it.supportsVision }, isLocalGemmaExecutable())
+        val updated = ds.edit { prefs ->
+            if (prefs[Keys.SELECTED_AI_PROVIDER] == AIProvider.CUSTOM_OPENAI.name) {
+                prefs[Keys.SELECTED_AI_MODEL]?.let { prefs[Keys.LAST_PRIMARY_CUSTOM_MODEL] = it }
+            }
+            prefs[Keys.SELECTED_AI_PROVIDER] = resolved.name
+            prefs[Keys.SELECTED_AI_MODEL] = if (resolved == AIProvider.CUSTOM_OPENAI) {
+                prefs[Keys.LAST_PRIMARY_CUSTOM_MODEL] ?: resolved.defaultModel
+            } else {
+                resolved.defaultModel
+            }
+        }
+        return updated[Keys.SELECTED_AI_MODEL] ?: resolved.defaultModel
     }
 
     val separateTextProviderEnabled: Flow<Boolean> = ds.data.map {
@@ -1755,6 +1778,7 @@ class PreferencesStore(
         val OPTIONAL_NUTRIENT_GOALS = stringPreferencesKey("optionalNutrientGoals")
         val SELECTED_AI_PROVIDER = stringPreferencesKey("selectedAIProvider")
         val SELECTED_AI_MODEL = stringPreferencesKey("selectedAIModel")
+        val LAST_PRIMARY_CUSTOM_MODEL = stringPreferencesKey("lastPrimaryCustomAIModel")
         val SEPARATE_TEXT_PROVIDER_ENABLED = booleanPreferencesKey("separateTextProviderEnabled")
         val SELECTED_TEXT_AI_PROVIDER = stringPreferencesKey("selectedTextAIProvider")
         val SELECTED_TEXT_AI_MODEL = stringPreferencesKey("selectedTextAIModel")

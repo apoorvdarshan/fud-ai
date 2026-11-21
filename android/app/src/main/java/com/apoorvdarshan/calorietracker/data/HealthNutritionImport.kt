@@ -3,8 +3,34 @@ package com.apoorvdarshan.calorietracker.data
 import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.FoodSource
 import com.apoorvdarshan.calorietracker.services.health.ExternalNutrition
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneId
 import java.util.UUID
 import kotlin.math.roundToInt
+
+internal data class HealthNutritionDateRange(
+    val from: LocalDate,
+    val through: LocalDate,
+    val start: Instant,
+    val endExclusive: Instant
+)
+
+internal fun healthNutritionDateRange(
+    fromText: String,
+    throughText: String,
+    now: Instant,
+    zone: ZoneId
+): HealthNutritionDateRange {
+    val from = LocalDate.parse(fromText.trim())
+    val through = LocalDate.parse(throughText.trim())
+    require(!from.isAfter(through))
+    require(!through.isAfter(now.atZone(zone).toLocalDate()))
+    val start = from.atStartOfDay(zone).toInstant()
+    val end = minOf(through.plusDays(1).atStartOfDay(zone).toInstant(), now)
+    require(start.isBefore(end))
+    return HealthNutritionDateRange(from, through, start, end)
+}
 
 internal fun healthImportKey(record: ExternalNutrition): String =
     "health-nutrition:${record.originPackage}:${record.recordId}"

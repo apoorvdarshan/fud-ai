@@ -194,10 +194,10 @@ open class MainActivity : AppCompatActivity() {
             val systemDark = isSystemInDarkTheme()
             val darkTheme = when (appearance) {
                 "light" -> false
-                "dark" -> true
+                "dark", "darkGray" -> true
                 else -> systemDark
             }
-            FudAITheme(darkTheme = darkTheme, themeColor = themeColor) {
+            FudAITheme(darkTheme = darkTheme, themeColor = themeColor, grayDarkTheme = appearance == "darkGray") {
                 // Above the NavHost and the shared-meal sheet so both show the chosen unit.
                 CompositionLocalProvider(LocalEnergyUnit provides energyUnit) {
                     Surface(

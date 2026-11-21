@@ -774,6 +774,7 @@
     <string name="settings_appearance_system">Sistem</string>
     <string name="settings_appearance_light">İşıqlı</string>
     <string name="settings_appearance_dark">Qaranlıq</string>
+    <string name="settings_appearance_dark_gray">Tünd boz</string>
     <string name="settings_app_language">Dil</string>
     <string name="settings_app_language_system">Sistem defoltu</string>
     <string name="sheet_app_language">Dil</string>

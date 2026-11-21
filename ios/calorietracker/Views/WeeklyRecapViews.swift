@@ -10,6 +10,8 @@ struct WeeklyRecapCard: View {
     @AppStorage("weightUnit") private var weightUnitRaw = "lbs"
     @AppStorage("weekStartsOnMonday") private var weekStartsOnMonday = true
     @AppStorage(EnergyUnit.storageKey) private var energyUnit = EnergyUnit.defaultUnit
+    @AppStorage("displayCalorieFloor") private var calorieFloor = 0
+    @AppStorage("displayCalorieCeiling") private var calorieCeiling = 0
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Environment(\.scenePhase) private var scenePhase
     /// Weeks stepped back from the most recent completed one; session-only.
@@ -67,6 +69,14 @@ struct WeeklyRecapCard: View {
 
             if recap.current.hasActivity {
                 stats(recap.current, previous: recap.previous)
+                if calorieFloor > 0 || calorieCeiling > 0 {
+                    let bounds = [calorieFloor, calorieCeiling].map { $0 > 0 ? energyUnit.format(kcal: $0) : "—" }
+                    LabeledContent("Optional Calorie Range") {
+                        Text(verbatim: bounds.joined(separator: " – "))
+                    }
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+                }
 
                 if let change = recap.current.weightChangeKg {
                     HStack {

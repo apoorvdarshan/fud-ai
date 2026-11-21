@@ -26,6 +26,7 @@ enum class AiErrorKind(val messageRes: Int, val defaultMessage: String) {
     GENERIC(R.string.ai_error_generic, "The AI request failed. Try again, or switch provider in Settings → AI Provider."),
     LOCAL_UNAVAILABLE(R.string.ai_error_local_unavailable, "The on-device AI runtime is unavailable. Check the downloaded model in Settings → AI Provider."),
     TRUNCATED(R.string.ai_error_truncated, "The AI response was truncated twice. Try a shorter input or another model."),
+    PHOTO_LIMIT(R.string.ai_error_photo_limit, "The selected AI provider accepts at most 3 photos per request. Keep your selection to that many photos."),
 
     // Hosted AI (Plus/Pro). The Worker meters and verifies; these map its error codes.
     HOSTED_SUBSCRIPTION_REQUIRED(R.string.hosted_error_subscription_required, "Subscribe to Plus or Pro to use Hosted AI, or switch to BYOK in Settings → AI Access."),
@@ -77,6 +78,9 @@ sealed class AiError(val kind: AiErrorKind) : Exception(kind.defaultMessage) {
     class Api(raw: String, kind: AiErrorKind = AiErrorKind.fromResponse(0, raw)) : AiError(kind)
     class Failure(kind: AiErrorKind) : AiError(kind)
     class InvalidUrl(val url: String) : AiError(AiErrorKind.INVALID_URL)
+    /** The selected provider or image fallback cannot take this many photos; the
+     *  app rejects the request instead of analyzing a truncated set. */
+    class PhotoLimit(val limit: Int) : AiError(AiErrorKind.PHOTO_LIMIT)
     class BothProvidersFailed(val primary: AIProvider, val fallback: AIProvider, val failure: Throwable) :
         AiError((failure as? AiError)?.kind ?: AiErrorKind.GENERIC)
     /** A Hosted AI Worker error; [code] is the Worker's machine-readable `error` value. */
@@ -86,6 +90,7 @@ sealed class AiError(val kind: AiErrorKind) : Exception(kind.defaultMessage) {
         is BothProvidersFailed -> context.getString(R.string.ai_error_both_failed,
             context.getString(primary.displayNameRes), context.getString(fallback.displayNameRes),
             (failure as? AiError)?.userMessage(context) ?: context.getString(R.string.ai_error_generic))
+        is PhotoLimit -> context.getString(R.string.ai_error_photo_limit, limit)
         else -> context.getString(kind.messageRes)
     }
 }

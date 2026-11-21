@@ -543,7 +543,8 @@ final class VoiceAssistantToolExecutor {
     private func pickPhotos(_ arguments: [String: Any]) async -> [String: Any] {
         guard let host else { return Self.failure(.unsupported, "The photo library isn't available.") }
         let limit = appDefaults.string(forKey: "aiAccessMode") == AIMode.hosted.rawValue
-            ? min(Self.maximumPickedPhotos, HostedAIConstants.maxHostedImages) : Self.maximumPickedPhotos
+            ? min(Self.maximumPickedPhotos, HostedAIConstants.maxHostedImages)
+            : min(Self.maximumPickedPhotos, AIProviderSettings.mealPhotoCaptureLimit)
         switch await host.pickPhotos(limit: limit, timeout: Self.waitTimeout) {
         case .value(let images):
             guard !isCancelled else { return Self.failure(.cancelled, "Cancelled.") }

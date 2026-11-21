@@ -54,6 +54,12 @@ internal class PhotoCaptureDraftViewModel(
     val error = _error.asStateFlow()
     /** Bumped on [clear] so in-flight imports from a prior session never publish. */
     private var sessionGeneration = 0L
+    /** Photo cap for the active AI setup; Groq's Qwen models accept three (#712). */
+    private var maxImages = 10
+
+    fun setMaxImages(value: Int) {
+        maxImages = value.coerceAtLeast(1)
+    }
     /** Ops queued before they acquire [mutex], so Analyze cannot race a pending import. */
     private var pendingOps = 0
 
@@ -99,7 +105,13 @@ internal class PhotoCaptureDraftViewModel(
             if (imported.any { it == null } || imported.none { it != null && it.isNotEmpty() }) {
                 throw IllegalStateException(failureMessage)
             }
-            imported.filterNotNull()
+            val additions = imported.filterNotNull()
+            // The picker limits to the remaining slots; anything larger that reaches
+            // this point is rejected whole, never silently truncated.
+            if (additions.size > (maxImages - _images.value.size).coerceAtLeast(0)) {
+                throw IllegalStateException(failureMessage)
+            }
+            additions
         }
     }
 
@@ -111,7 +123,6 @@ internal class PhotoCaptureDraftViewModel(
                 try {
                     if (generation != sessionGeneration) return@withLock
                     val additions = load().filter { it.isNotEmpty() }
-                        .take((10 - _images.value.size).coerceAtLeast(0))
                     if (additions.isEmpty()) return@withLock
                     val addedNames = mutableListOf<String>()
                     try {

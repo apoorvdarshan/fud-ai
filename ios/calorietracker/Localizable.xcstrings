@@ -1,6 +1,9 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "%@ accepts at most %lld photos per request. Keep your selection to %lld photos.": {},
+    "%lld of %lld photos": {},
+    "Your AI setup accepts up to %lld photos per request.": {},
     "Delete Food by Date": {},
     "Preview": {},
     "Delete the previewed food entries?": {},

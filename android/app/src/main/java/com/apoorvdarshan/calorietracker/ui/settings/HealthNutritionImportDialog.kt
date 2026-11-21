@@ -15,6 +15,7 @@ import com.apoorvdarshan.calorietracker.AppContainer
 import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.ui.components.LocalEnergyUnit
 import com.apoorvdarshan.calorietracker.data.nutritionImportCandidates
+import com.apoorvdarshan.calorietracker.data.healthNutritionDateRange
 import com.apoorvdarshan.calorietracker.services.health.ExternalNutrition
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.first
@@ -36,6 +37,7 @@ internal fun HealthNutritionImportDialog(container: AppContainer, onDismiss: () 
     var selectedSource by remember { mutableStateOf<String?>(null) }
     var busy by remember { mutableStateOf(false) }
     var message by remember { mutableStateOf<String?>(null) }
+    var rangeSummary by remember { mutableStateOf<String?>(null) }
     var finished by remember { mutableStateOf(false) }
     val selected = records.orEmpty().filter { it.originPackage == selectedSource }
     val permissionLauncher = rememberLauncherForActivityResult(container.health.permissionRequestContract()) {
@@ -46,32 +48,38 @@ internal fun HealthNutritionImportDialog(container: AppContainer, onDismiss: () 
     fun preview() {
         busy = true
         message = null
+        rangeSummary = null
         records = null
         selectedSource = null
         scope.launch {
             try {
-                if (!container.health.isAvailable() || !container.health.hasNutritionRead()) {
+                if (!container.health.isAvailable()) {
                     message = resources.getString(R.string.health_import_access_needed)
                     return@launch
                 }
+                val now = Instant.now()
+                val zone = ZoneId.systemDefault()
                 val range = runCatching {
-                    val from = LocalDate.parse(fromText)
-                    val to = LocalDate.parse(toText)
-                    require(!from.isAfter(to) && !to.isAfter(LocalDate.now()))
-                    from.atStartOfDay(ZoneId.systemDefault()).toInstant() to
-                        minOf(to.plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant(), Instant.now())
+                    healthNutritionDateRange(fromText, toText, now, zone)
                 }.getOrNull()
                 if (range == null) {
                     message = resources.getString(R.string.health_import_invalid_dates)
                     return@launch
                 }
-                // Conservative fallback: never imply older history was searched without access.
-                if (!container.health.hasNutritionHistory() &&
-                    range.first.isBefore(Instant.now().minus(30, ChronoUnit.DAYS))) {
-                    message = resources.getString(R.string.health_import_history_needed)
+                rangeSummary = resources.getString(
+                    R.string.health_import_range_summary,
+                    range.from.toString(), range.through.toString(),
+                    now.atZone(zone).toLocalDate().toString(), zone.id
+                )
+                val historyAccess = container.health.nutritionImportHistoryAccess()
+                if (!historyAccess && range.start.isBefore(now.minus(30, ChronoUnit.DAYS))) {
+                    message = resources.getString(
+                        if (container.health.supportsNutritionHistory()) R.string.health_import_history_needed
+                        else R.string.health_import_history_unsupported
+                    )
                     return@launch
                 }
-                val read = container.health.readNutrition(range.first, range.second)
+                val read = container.health.readNutrition(range.start, range.endExclusive, onFailure = { throw it })
                 if (read == null) {
                     message = resources.getString(R.string.health_import_failed)
                 } else {
@@ -81,8 +89,18 @@ internal fun HealthNutritionImportDialog(container: AppContainer, onDismiss: () 
                 }
             } catch (cancelled: CancellationException) {
                 throw cancelled
-            } catch (_: Exception) {
-                message = resources.getString(R.string.health_import_failed)
+            } catch (error: Exception) {
+                val failures = generateSequence<Throwable>(error) { it.cause }.take(10).toList()
+                val quotaExceeded = failures.any {
+                    val detail = it.message.orEmpty()
+                    detail.contains("quota", ignoreCase = true) ||
+                        detail.contains("rate limit", ignoreCase = true)
+                }
+                message = resources.getString(when {
+                    quotaExceeded -> R.string.health_import_rate_limited
+                    failures.any { it is SecurityException } -> R.string.health_import_access_needed
+                    else -> R.string.health_import_read_failed
+                })
             } finally {
                 busy = false
             }
@@ -96,10 +114,10 @@ internal fun HealthNutritionImportDialog(container: AppContainer, onDismiss: () 
                 if (!finished) {
                     Text(stringResource(R.string.health_import_description))
                     OutlinedTextField(fromText, {
-                        fromText = it; records = null; selectedSource = null; message = null
+                        fromText = it; records = null; selectedSource = null; message = null; rangeSummary = null
                     }, label = { Text(stringResource(R.string.health_import_from)) }, singleLine = true, enabled = !busy)
                     OutlinedTextField(toText, {
-                        toText = it; records = null; selectedSource = null; message = null
+                        toText = it; records = null; selectedSource = null; message = null; rangeSummary = null
                     }, label = { Text(stringResource(R.string.health_import_to)) }, singleLine = true, enabled = !busy)
                     Text(stringResource(R.string.health_import_history_hint), style = MaterialTheme.typography.bodySmall)
                     TextButton(enabled = !busy && container.health.isAvailable(), onClick = {
@@ -138,6 +156,7 @@ internal fun HealthNutritionImportDialog(container: AppContainer, onDismiss: () 
                     }
                 }
                 if (busy) CircularProgressIndicator()
+                rangeSummary?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
                 message?.let { Text(it) }
             }
         },

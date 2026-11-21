@@ -8,8 +8,41 @@ import kotlinx.serialization.json.Json
 import org.junit.Assert.*
 import org.junit.Test
 import java.time.Instant
+import java.time.ZoneId
 
 class HealthNutritionImportTest {
+    @Test fun recentRangeUsesLocalDatesAndIncludesTheEntireEndDay() {
+        val range = healthNutritionDateRange(
+            " 2026-11-16 ", "2026-11-16",
+            Instant.parse("2026-11-19T12:00:00Z"), ZoneId.of("Europe/Rome")
+        )
+        assertEquals(Instant.parse("2026-11-15T23:00:00Z"), range.start)
+        assertEquals(Instant.parse("2026-11-16T23:00:00Z"), range.endExclusive)
+    }
+
+    @Test fun historicalRangeIsNotSilentlyClampedToTheLastThirtyDays() {
+        val range = healthNutritionDateRange(
+            "2024-08-01", "2026-11-19",
+            Instant.parse("2026-11-19T12:00:00Z"), ZoneId.of("Europe/Rome")
+        )
+        assertEquals(Instant.parse("2024-07-31T22:00:00Z"), range.start)
+        assertEquals(Instant.parse("2026-11-19T12:00:00Z"), range.endExclusive)
+    }
+
+    @Test fun invalidReversedAndFutureDatesAreRejected() {
+        val now = Instant.parse("2026-11-19T12:00:00Z")
+        val zone = ZoneId.of("Europe/Rome")
+        assertThrows(java.time.format.DateTimeParseException::class.java) {
+            healthNutritionDateRange("2026-02-30", "2026-03-01", now, zone)
+        }
+        assertThrows(IllegalArgumentException::class.java) {
+            healthNutritionDateRange("2026-11-19", "2026-11-16", now, zone)
+        }
+        assertThrows(IllegalArgumentException::class.java) {
+            healthNutritionDateRange("2026-11-19", "2026-11-20", now, zone)
+        }
+    }
+
     private val own = "com.apoorvdarshan.calorietracker"
     private fun record(id: String = "hc-1", origin: String = "com.huami.watch.hmwatchmanager") = ExternalNutrition(
         time = Instant.parse("2025-03-04T12:00:00Z"), name = "Lunch", mealType = MealType.LUNCH,

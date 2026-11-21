@@ -480,7 +480,7 @@ class FoodStore {
         let removed = entries.filter(matches)
         guard !removed.isEmpty else { return [] }
         let previous = entries
-        entries.removeAll(matches)
+        entries.removeAll(where: matches)
         guard saveEntries() else {
             entries = previous
             return nil

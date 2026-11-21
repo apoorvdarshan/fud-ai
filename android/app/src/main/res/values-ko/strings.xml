@@ -768,6 +768,7 @@
     <string name="settings_appearance_system">시스템</string>
     <string name="settings_appearance_light">라이트</string>
     <string name="settings_appearance_dark">다크</string>
+    <string name="settings_appearance_dark_gray">다크 그레이</string>
     <string name="settings_app_language">언어</string>
     <string name="settings_app_language_system">시스템 기본값</string>
     <string name="sheet_app_language">언어</string>

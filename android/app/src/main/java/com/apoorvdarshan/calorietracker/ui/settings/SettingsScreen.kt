@@ -396,6 +396,7 @@ fun SettingsScreen(
     }
     var showDeleteDialog by remember { mutableStateOf(false) }
     var showClearFoodDialog by remember { mutableStateOf(false) }
+    var showDeleteFoodRange by remember { mutableStateOf(false) }
     var showExportSheet by remember { mutableStateOf(false) }
     var showImportSheet by remember { mutableStateOf(false) }
     var importPreview by remember { mutableStateOf<DiaryImportPreview?>(null) }
@@ -1833,6 +1834,10 @@ fun SettingsScreen(
                     )
                 }
                 HorizontalDivider()
+                TextButton(onClick = { showDeleteFoodRange = true }) {
+                    Text(stringResource(R.string.delete_food_by_date))
+                }
+                HorizontalDivider()
                 Row(
                     Modifier
                         .fillMaxWidth()
@@ -1945,6 +1950,9 @@ fun SettingsScreen(
         )
     }
 
+    if (showDeleteFoodRange) {
+        DeleteFoodRangeDialog(container.foodRepository) { showDeleteFoodRange = false }
+    }
     if (showClearFoodDialog) {
         FudGlassDialog(onDismissRequest = { showClearFoodDialog = false }) {
             Text(stringResource(R.string.settings_clear_food_title), fontSize = 21.sp, fontWeight = FontWeight.Bold)

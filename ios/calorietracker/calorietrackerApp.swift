@@ -401,7 +401,7 @@ struct calorietrackerApp: App {
         // onEntriesChanged (widgets/notifications) but not onEntryAdded, so
         // restored entries are NOT re-written to HealthKit.
         healthKitManager.restoreFoodEntriesFromHealthKitIfNeeded(
-            existingIDs: { [foodStore] in Set(foodStore.entries.map(\.id)) },
+            existingIDs: { [foodStore] in Set(foodStore.entries.map(\.id)).union(foodStore.locallyDeletedIDs) },
             importBatch: { [foodStore] entries in foodStore.mergeWithCloudEntries(entries) }
         )
         healthKitManager.synchronizeWorkoutBurnsWithHealthKit(

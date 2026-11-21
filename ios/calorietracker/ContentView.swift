@@ -4842,6 +4842,7 @@ struct ProfileView: View {
     @State private var showImportDiary = false
     @State private var showDeleteConfirmation = false
     @State private var showClearFoodLogConfirmation = false
+    @State private var showDeleteFoodRange = false
     @State private var showCalculationMethods = false
     @State private var showWaterGoalPicker = false
     @State private var showFastingGoalPicker = false
@@ -6555,6 +6556,12 @@ struct ProfileView: View {
                     }
                     .buttonStyle(.plain)
 
+                    Button(role: .destructive) {
+                        showDeleteFoodRange = true
+                    } label: {
+                        Label("Delete Food by Date", systemImage: "calendar.badge.minus")
+                    }
+
                     // Clear Food Log
                     Button(role: .destructive) {
                         showClearFoodLogConfirmation = true
@@ -6610,6 +6617,9 @@ struct ProfileView: View {
             }
             .sheet(isPresented: $showImportDiary) {
                 ImportDiaryView()
+            }
+            .sheet(isPresented: $showDeleteFoodRange) {
+                DeleteFoodRangeView()
             }
             .sheet(item: $activeSheet) { sheet in
                 switch sheet {

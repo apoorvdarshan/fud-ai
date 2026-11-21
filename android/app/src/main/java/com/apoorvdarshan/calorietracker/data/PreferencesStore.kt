@@ -1483,6 +1483,30 @@ class PreferencesStore(
         updateFoodEntries { entries }
     }
 
+    internal suspend fun removePreviewedFood(preview: List<FoodEntry>): List<java.util.UUID> {
+        // Old diaries can hold the same id at different times. Keep every previewed
+        // pair so confirmation deletes all previewed rows.
+        val previewed = preview.groupBy({ it.id }) { it.timestamp }.mapValues { (_, stamps) -> stamps.toSet() }
+        val matches: (FoodEntry) -> Boolean = { previewed[it.id]?.contains(it.timestamp) == true }
+        var removed = emptyList<java.util.UUID>()
+        ds.edit { prefs ->
+            val key = Keys.FOOD_ENTRIES
+            val decoded = decodeList(prefs[key], FoodEntry.serializer(), key.name)
+            preserveIfUnreadable(prefs, key, decoded)
+            // One unreadable row must not block deleting the readable ones; the guard
+            // above preserved the blob before this rewrite replaces it.
+            val entries = decoded.itemsOrEmpty
+            removed = entries.filter(matches).map { it.id }
+            if (removed.isNotEmpty()) {
+                val ids = removed.toSet()
+                prefs[key] = json.encodeToString(ListSerializer(FoodEntry.serializer()), entries.filterNot(matches))
+                // Keep after local deletion so a later Health recovery cannot resurrect them.
+                prefs[locallyDeletedFoodIdsKey] = (prefs[locallyDeletedFoodIdsKey].orEmpty() + ids.map { it.toString() })
+            }
+        }
+        return removed
+    }
+
     /**
      * Decode + mutate + encode the food log in one DataStore transaction.
      * Repositories must use this instead of `foodEntries.first()` followed by
@@ -1491,6 +1515,11 @@ class PreferencesStore(
      */
     suspend fun updateFoodEntries(transform: (List<FoodEntry>) -> List<FoodEntry>): List<FoodEntry> =
         updateJsonList(Keys.FOOD_ENTRIES, FoodEntry.serializer(), transform)
+
+    // Locally deleted ids that a Health recovery must skip; their Health copies may
+    // remain when the deletion was local-only or a recovery was still in flight.
+    private val locallyDeletedFoodIdsKey = stringSetPreferencesKey("locallyDeletedFoodIds")
+    val locallyDeletedFoodIds: Flow<Set<String>> = ds.data.map { it[locallyDeletedFoodIdsKey].orEmpty() }
 
     // Keep this ledger after local deletion so repeat imports never resurrect removed meals.
     private val nutritionImportLedgerKey = stringPreferencesKey("healthNutritionImportedKeys")

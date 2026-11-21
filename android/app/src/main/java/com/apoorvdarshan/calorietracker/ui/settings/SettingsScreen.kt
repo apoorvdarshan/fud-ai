@@ -285,7 +285,7 @@ private fun applyAppLanguage(tag: String?) {
 }
 
 private enum class HealthConnectPermissionAction {
-    SYNC, ENERGY_GOALS, DAILY_SUMMARY
+    SYNC, ENERGY_GOALS, DAILY_SUMMARY, HYDRATION
 }
 
 private data class PermissionDialogState(
@@ -438,10 +438,13 @@ fun SettingsScreen(
     }
     val settingsHomeScrollState = rememberScrollState()
     val settingsDetailScrollState = remember(selectedCategory) { ScrollState(initial = 0) }
-    var pendingHealthPermissionAction by remember { mutableStateOf<HealthConnectPermissionAction?>(null) }
+    // Saveable: a rotation while the Health Connect permission screen is open must not
+    // reset this to null, which made the result default to SYNC instead of HYDRATION.
+    var pendingHealthPermissionAction by rememberSaveable { mutableStateOf<HealthConnectPermissionAction?>(null) }
     val activityContext = LocalContext.current
     val resources = LocalResources.current
     val settingsScope = rememberCoroutineScope()
+    val hydrationSync by container.prefs.hydrationSyncEnabled.collectAsState(initial = false)
     val geminiTimeout by container.prefs.geminiTimeoutSeconds.collectAsState(initial = 0)
     val hideVoiceShortcut by container.prefs.hideVoiceShortcut.collectAsState(initial = false)
     val hideBarcodePhoto by container.prefs.hideBarcodePhoto.collectAsState(initial = false)
@@ -625,11 +628,24 @@ fun SettingsScreen(
     ) { granted ->
         val action = pendingHealthPermissionAction ?: HealthConnectPermissionAction.SYNC
         pendingHealthPermissionAction = null
+        if (action == HealthConnectPermissionAction.HYDRATION) {
+            if (granted.containsAll(container.health.hydrationWritePermissions)) {
+                settingsScope.launch {
+                    container.waterRepository.setHealthSync(true)
+                    // A hydration-only grant is a connection on its own.
+                    vm.setHealthConnectEnabled(true)
+                }
+            } else {
+                showHealthPermissionHelp = true
+            }
+            return@rememberLauncherForActivityResult
+        }
         if (granted.any { it in container.health.permissions }) {
             when (action) {
                 HealthConnectPermissionAction.SYNC -> vm.setHealthConnectEnabled(true)
                 HealthConnectPermissionAction.ENERGY_GOALS -> vm.setHealthEnergyGoalsEnabled(true)
                 HealthConnectPermissionAction.DAILY_SUMMARY -> vm.setDailySummaryEnabled(true)
+                HealthConnectPermissionAction.HYDRATION -> Unit
             }
         } else {
             showHealthPermissionHelp = true
@@ -1568,6 +1584,30 @@ fun SettingsScreen(
             if (selectedCategory == SettingsCategory.HEALTH_DATA) {
             SectionCard {
                 ToggleRow(stringResource(R.string.settings_health_connect), ui.healthConnectEnabled, icon = Icons.Outlined.Favorite, onChange = ::onHealthConnectToggle)
+                HorizontalDivider()
+                // Available before the main connection: a user who only wants water
+                // sharing must not first have to grant an unrelated permission.
+                ToggleRow(
+                    stringResource(R.string.settings_health_water_sync), hydrationSync, icon = Icons.Outlined.Favorite,
+                    onChange = { enabled ->
+                        if (enabled) {
+                            // The row is reachable before the main connection, so check
+                            // availability here too: a missing provider or a refused launch
+                            // must show the availability dialog, not close the app.
+                            if (!container.health.isAvailable()) {
+                                showHealthAvailabilityDialog()
+                                return@ToggleRow
+                            }
+                            runCatching {
+                                pendingHealthPermissionAction = HealthConnectPermissionAction.HYDRATION
+                                healthConnectLauncher.launch(container.health.hydrationWritePermissions)
+                            }.onFailure { showHealthAvailabilityDialog() }
+                        } else {
+                            settingsScope.launch { container.waterRepository.setHealthSync(false) }
+                        }
+                    }
+                )
+                Text(stringResource(R.string.settings_health_water_sync_note), modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp))
                 HorizontalDivider()
                 SettingRow(
                     stringResource(R.string.health_import_title),

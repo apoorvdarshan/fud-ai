@@ -614,7 +614,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "%1$@/7 dní\n%2$@ kJ"
+            "value": "%1$@ / 7 dní\n%2$@ kJ"
           }
         },
         "de": {
@@ -1648,7 +1648,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Počítá se lokálně. Nenahrávají se žádná nezpracovaná data o jídle, vodě, trénincích, zdraví, tělesné váze ani hubnutí."
+            "value": "Počítá se lokálně. Nenahrávají se žádná nezpracovaná data o jídle, vodě a trénincích, data z Apple Health, tělesná váha ani údaje o hubnutí."
           }
         }
       }
@@ -3654,7 +3654,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Fud AI počítá tyto souhrny v tomto zařízení. Nikdy nenahrává názvy jídel, jídla, časové údaje, záznamy vody, podrobnosti tréninků, zdravotní záznamy, tělesnou váhu ani hubnutí."
+            "value": "Fud AI počítá tyto souhrny v tomto zařízení. Nikdy nenahrává názvy jídel, jídla, časové údaje, záznamy vody, podrobnosti tréninků, záznamy z Apple Health, tělesnou váhu ani hubnutí."
           }
         }
       }
@@ -4008,7 +4008,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Fud AI si ponechala jen zabezpečený údaj pro smazání a odstranění tvých vzdálených dat výzvy zkusí znovu, až budeš online."
+            "value": "Fud AI si uchovává jen zabezpečený údaj pro smazání a odstranění tvých vzdálených dat výzvy zkusí znovu, až budeš online."
           }
         }
       }
@@ -7194,7 +7194,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nutriční hodnoty"
+            "value": "Výživa"
           }
         }
       }
@@ -11088,7 +11088,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Žebříček se nepodařilo aktualizovat. Stáhni dolů a zkus to znovu."
+            "value": "Žebříček se nepodařilo aktualizovat. Potáhni dolů a zkus to znovu."
           }
         }
       }
@@ -12858,7 +12858,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "dny"
+            "value": "dní"
           }
         }
       }
@@ -13094,7 +13094,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "body"
+            "value": "bodů"
           }
         }
       }

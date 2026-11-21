@@ -12,7 +12,7 @@
     <string name="health_import_history_needed">Toto období vyžaduje přístup k historii. Uděl ho na podporovaném zařízení, nebo vyber data z posledních 30 dnů.</string>
     <string name="health_import_preview">Zobrazit náhled dostupných záznamů</string>
     <string name="health_import_failed">Import se nepodařilo dokončit. Zkontroluj přístup k Health Connect a zkus to znovu.</string>
-    <string name="health_import_empty">V tomto období nebyly nalezeny žádné nové záznamy výživy z jiných aplikací. Zkontroluj, zda zdrojová aplikace sdílí výživu s Health Connect. Dříve importované záznamy se přeskočí, včetně těch, které jsi z deníku odstranil.</string>
+    <string name="health_import_empty">V tomto období nebyly nalezeny žádné nové záznamy výživy z jiných aplikací. Zkontroluj, zda zdrojová aplikace sdílí výživu s Health Connect. Dříve importované záznamy se přeskočí, včetně těch, které byly z deníku odstraněny.</string>
     <string name="health_import_count">Nové záznamy: %1$d · %2$d kcal</string>
     <string name="health_import_unnamed">Importované jídlo</string>
     <string name="health_import_local_only">Jde o místní kopie. Úpravy a smazání zůstanou ve Fud AI. Opakovaný import přeskočí dříve importované záznamy; neaktualizuje je.</string>

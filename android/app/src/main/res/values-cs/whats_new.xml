@@ -4,7 +4,7 @@
     <string name="whats_new_title">Novinka: Live Voice</string>
     <string name="whats_new_body">Mluv s Fud AI a zapisuj jídla, skenuj čárové kódy a sleduj svůj pokrok.</string>
     <string name="whats_new_tap_orb">Začni klepnutím na kouli na kartě Domů.</string>
-    <string name="whats_new_access_line">Součást Plus a Pro, nebo použij vlastní klíč k AI.</string>
+    <string name="whats_new_access_line">Součást Plus a Pro, nebo použij vlastní API klíč.</string>
     <string name="whats_new_video_cd">Ukázkové video Live Voice</string>
     <string name="whats_new_sound_on">Zapnout zvuk</string>
     <string name="whats_new_sound_off">Vypnout zvuk</string>
@@ -13,9 +13,9 @@
     <string name="whats_new_access_body_setup">Vyber si Plus nebo Pro a AI provozujeme za tebe, nebo přidej vlastní API klíč od Gemini, OpenAI, xAI nebo Qwen.</string>
     <string name="whats_new_access_body_key_only">Přidej vlastní API klíč od Gemini, OpenAI, xAI nebo Qwen a začni používat Live Voice.</string>
     <string name="whats_new_access_body_plans">Plus a Pro za tebe provozují AI, včetně Live Voice a bez nutnosti spravovat API klíče. S vlastními klíči zůstává Fud AI zdarma.</string>
-    <string name="whats_new_support_body">Fud AI je zdarma a tvoří ho jediný vývojář. Hodnocení, sdílení nebo malé spropitné mu pomáhá pokračovat.</string>
+    <string name="whats_new_support_body">Fud AI je zdarma a stojí za ním jediný vývojář. Hodnocení, sdílení nebo malé spropitné pomáhá aplikaci pokračovat dál.</string>
     <string name="whats_new_community_title">Přidej se ke komunitě Fud AI</string>
-    <string name="whats_new_community_body">Na Discordu získáš pomoc, sdílíš nápady a potkáš další uživatele Fud AI.</string>
+    <string name="whats_new_community_body">Na Discordu získáš pomoc, můžeš sdílet nápady a potkat další uživatele Fud AI.</string>
     <string name="whats_new_next">Další</string>
     <string name="whats_new_previous">Předchozí</string>
     <string name="notif_whats_new_title">Novinka ve Fud AI: Live Voice</string>

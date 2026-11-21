@@ -1,4 +1,8 @@
 <resources>
+    <string name="health_import_range_summary">Requested dates: %1$s through %2$s, inclusive. Device date: %3$s. Time zone: %4$s.</string>
+    <string name="health_import_history_unsupported">History access is not reported as supported by Health Connect on this device. The requested range extends beyond the last 30 days; this app cannot confirm full access to it. No records have been imported.</string>
+    <string name="health_import_rate_limited">Health Connect has temporarily rejected requests because its quota was exceeded. This is not a date validation error. Wait before trying again; no records have been imported.</string>
+    <string name="health_import_read_failed">The nutrition preview could not be read completely. This does not confirm a date or permission problem. No records have been imported.</string>
     <string name="health_import_title">Import nutrition history</string>
     <string name="health_import_action">Import</string>
     <string name="health_import_description">Bring food records from another app into your diary. Preview the available records, then choose one source app to avoid counting shared records twice.</string>

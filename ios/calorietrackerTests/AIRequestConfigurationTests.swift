@@ -96,7 +96,18 @@ struct AIRequestConfigurationTests {
         #expect(AIProviderSettings.requestTimeoutSeconds == 600)
         #expect(AIProviderSettings.requestTimeout(for: .ollama) == 600)
         #expect(AIProviderSettings.requestTimeout(for: .customOpenAI) == 600)
+    }
+
+    @Test func geminiTimeoutIsOptInAndDoesNotAffectOtherCloudProviders() {
+        let defaults = UserDefaults.standard
+        let key = AIProviderSettings.geminiTimeoutSecondsKey
+        let original = defaults.object(forKey: key)
+        defer { defaults.set(original, forKey: key) }
+        defaults.removeObject(forKey: key)
         #expect(AIProviderSettings.requestTimeout(for: .gemini) == nil)
+        defaults.set(300, forKey: key)
+        #expect(AIProviderSettings.requestTimeout(for: .gemini) == 300)
+        #expect(AIProviderSettings.requestTimeout(for: .openai) == nil)
     }
 
     @Test func separateTextProviderOnlyRoutesRequestsWithoutImages() {

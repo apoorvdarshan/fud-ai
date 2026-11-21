@@ -314,16 +314,22 @@ class AIRequestConfigurationTest {
     }
 
     @Test
-    fun configurableTimeoutOnlyChangesLocalAndCustomClients() {
+    fun configurableTimeoutPreservesDefaultsAndOnlyOverridesSupportedRoutes() {
         val base = OkHttpClient.Builder()
             .readTimeout(60, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
             .build()
 
-        val cloud = FoodAnalysisService.clientForProvider(base, AIProvider.GEMINI, 240)
+        val defaultGemini = FoodAnalysisService.clientForProvider(base, AIProvider.GEMINI, 0)
+        val extendedGemini = FoodAnalysisService.clientForProvider(base, AIProvider.GEMINI, 240)
+        val otherCloud = FoodAnalysisService.clientForProvider(base, AIProvider.OPENAI, 240)
         val local = FoodAnalysisService.clientForProvider(base, AIProvider.OLLAMA, 240)
 
-        assertSame(base, cloud)
+        assertSame(base, defaultGemini)
+        assertSame(base, otherCloud)
+        assertEquals(240_000, extendedGemini.readTimeoutMillis)
+        assertEquals(240_000, extendedGemini.callTimeoutMillis)
+        assertEquals(base.writeTimeoutMillis, extendedGemini.writeTimeoutMillis)
         assertEquals(240_000, local.readTimeoutMillis)
         assertEquals(240_000, local.writeTimeoutMillis)
         assertEquals(240_000, local.callTimeoutMillis)

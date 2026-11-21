@@ -688,7 +688,7 @@ class FoodAnalysisService(
                 finalPrompt,
                 primaryImages,
                 settings.maxTokens,
-                settings.requestTimeoutSeconds,
+                if (settings.provider == AIProvider.GEMINI) settings.geminiTimeoutSeconds else settings.requestTimeoutSeconds,
                 jsonResponse,
                 settings.openRouterReasoningEffort
             )
@@ -724,7 +724,7 @@ class FoodAnalysisService(
                     finalPrompt,
                     fallbackImages,
                     settings.maxTokens,
-                    settings.requestTimeoutSeconds,
+                    if (fallback.provider == AIProvider.GEMINI) settings.geminiTimeoutSeconds else settings.requestTimeoutSeconds,
                     jsonResponse,
                     settings.openRouterReasoningEffort
                 )
@@ -918,6 +918,13 @@ class FoodAnalysisService(
             provider: AIProvider,
             requestTimeoutSeconds: Int
         ): OkHttpClient {
+            if (provider == AIProvider.GEMINI) {
+                if (requestTimeoutSeconds !in 120..600) return client
+                return client.newBuilder()
+                    .callTimeout(requestTimeoutSeconds.toLong(), TimeUnit.SECONDS)
+                    .readTimeout(requestTimeoutSeconds.toLong(), TimeUnit.SECONDS)
+                    .build()
+            }
             if (!provider.usesConfigurableRequestTimeout) return client
             val seconds = AIProvider.normalizedRequestTimeoutSeconds(requestTimeoutSeconds).toLong()
             return client.newBuilder()

@@ -4867,6 +4867,7 @@ struct ProfileView: View {
     @AppStorage("openRouterReasoningEffort") private var openRouterReasoningEffort: OpenRouterReasoningEffort = .auto
     @State private var maxResponseTokensText: String = String(AIProviderSettings.maxResponseTokens)
     @State private var requestTimeoutSecondsText: String = String(AIProviderSettings.requestTimeoutSeconds)
+    @AppStorage(AIProviderSettings.geminiTimeoutSecondsKey) private var geminiTimeoutSeconds = 0
     @State private var showAPIKey = false
     @State private var separateTextProviderEnabled: Bool = AIProviderSettings.separateTextProviderEnabled
     @State private var selectedTextProvider: AIProvider = AIProviderSettings.selectedTextProvider
@@ -5907,6 +5908,17 @@ struct ProfileView: View {
                             }
                         }
 
+                        if selectedProvider == .gemini
+                            || (separateTextProviderEnabled && selectedTextProvider == .gemini)
+                            || (fallbackEnabled && selectedFallbackProvider == .gemini)
+                            || (textFallbackEnabled && selectedTextFallbackProvider == .gemini) {
+                            Picker("Gemini request timeout", selection: $geminiTimeoutSeconds) {
+                                Text("System default").tag(0)
+                                ForEach([120, 180, 300, 600], id: \.self) { seconds in
+                                    Text(verbatim: Duration.seconds(seconds).formatted(.units(allowed: [.minutes]))).tag(seconds)
+                                }
+                            }
+                        }
                         if selectedProvider == .openrouter
                             || (separateTextProviderEnabled && selectedTextProvider == .openrouter)
                             || (fallbackEnabled && selectedFallbackProvider == .openrouter)

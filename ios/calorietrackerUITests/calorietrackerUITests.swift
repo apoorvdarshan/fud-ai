@@ -305,7 +305,11 @@ final class calorietrackerUITests: XCTestCase {
         XCTAssertEqual(app.switches["Use Separate Text Provider"].value as? String, "1")
         // Loaded runners materialize these rows late; 8s matches the file's other waits.
         XCTAssertTrue(app.staticTexts["DeepSeek"].waitForExistence(timeout: 8))
-        XCTAssertTrue(app.staticTexts["deepseek-v4-flash"].waitForExistence(timeout: 8))
+        // The model row is a menu picker, not a static text: match any element
+        // whose label carries the selected model.
+        let textModelRow = app.descendants(matching: .any)
+            .matching(NSPredicate(format: "label CONTAINS %@", "deepseek-v4-flash")).firstMatch
+        XCTAssertTrue(textModelRow.waitForExistence(timeout: 8))
     }
 
     @MainActor

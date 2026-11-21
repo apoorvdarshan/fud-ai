@@ -775,6 +775,7 @@
     <string name="settings_appearance_system">Sistema</string>
     <string name="settings_appearance_light">Claro</string>
     <string name="settings_appearance_dark">Oscuro</string>
+    <string name="settings_appearance_dark_gray">Gris oscuro</string>
     <string name="settings_app_language">Idioma</string>
     <string name="settings_app_language_system">Predeterminado del sistema</string>
     <string name="sheet_app_language">Idioma</string>

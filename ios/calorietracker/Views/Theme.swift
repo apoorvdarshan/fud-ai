@@ -1,5 +1,6 @@
 import SwiftUI
 import UIKit
+import Observation
 
 enum AppThemeColor: String, CaseIterable, Identifiable {
     case fudPink
@@ -176,6 +177,12 @@ enum AppThemeColor: String, CaseIterable, Identifiable {
     }
 }
 
+@Observable
+final class AppAppearancePalette {
+    static let shared = AppAppearancePalette()
+    var usesGray = UserDefaults.standard.string(forKey: "appearanceMode") == "darkGray"
+}
+
 enum AppColors {
     // Calorie: Red → Pink
     static var calorieGradient: [Color] { AppThemeColor.current.gradientColors }
@@ -194,8 +201,8 @@ enum AppColors {
     static var fat: Color { calorie }
 
     // Background: warm cream in light, system dark in dark
-    static let appBackground = Color("appBackground")
-    static let appCard = Color("appCard")
+    static var appBackground: Color { AppAppearancePalette.shared.usesGray ? Color(hex: 0x202124) : Color("appBackground") }
+    static var appCard: Color { AppAppearancePalette.shared.usesGray ? Color(hex: 0x303136) : Color("appCard") }
 }
 
 extension Color {

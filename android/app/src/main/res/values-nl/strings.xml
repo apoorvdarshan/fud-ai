@@ -774,6 +774,7 @@
     <string name="settings_appearance_system">Systeem</string>
     <string name="settings_appearance_light">Licht</string>
     <string name="settings_appearance_dark">Donker</string>
+    <string name="settings_appearance_dark_gray">Donkergrijs</string>
     <string name="settings_app_language">Taal</string>
     <string name="settings_app_language_system">Systeemstandaard</string>
     <string name="sheet_app_language">Taal</string>

@@ -5364,6 +5364,7 @@ struct ProfileView: View {
                         Text("System").tag("system")
                         Text("Light").tag("light")
                         Text("Dark").tag("dark")
+                        Text("Dark gray").tag("darkGray")
                     } label: {
                         Label {
                             Text("Appearance")

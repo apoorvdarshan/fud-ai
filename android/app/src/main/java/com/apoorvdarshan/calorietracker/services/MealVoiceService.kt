@@ -233,7 +233,7 @@ class MealVoiceService : Service() {
         val text = if (provider == SpeechProvider.NATIVE) {
             nativeText
         } else {
-            audio?.let { container.speechService.transcribeRecordedAudio(it) }.orEmpty()
+            audio?.let { container.speechService.transcribeRecordedAudio(it, provider) }.orEmpty()
         }
         if (text.isBlank()) {
             return pendingError?.let { Outcome.Failed(it) } ?: Outcome.NothingHeard

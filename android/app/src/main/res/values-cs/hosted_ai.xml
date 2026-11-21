@@ -90,7 +90,7 @@
 
     <!-- One-time post-update upsell (existing users) -->
     <string name="hosted_upsell_title">Volitelné: nech AI klíče na nás</string>
-    <string name="hosted_upsell_body">Fud AI je zdarma s tvými vlastními API klíči (BYOK) — a vždycky bude. Pokud ti správa klíčů přijde složitá, plány Plus a Pro ti AI provozují za tebe a žádné klíče řešit nemusíš. Zcela volitelné, nic se nezmění, dokud sám nepřepneš.</string>
+    <string name="hosted_upsell_body">Fud AI je zdarma s tvými vlastními API klíči (BYOK) — a vždycky bude. Pokud ti správa klíčů přijde složitá, plány Plus a Pro provozují AI za tebe a žádné klíče řešit nemusíš. Zcela volitelné, nic se nezmění, dokud nepřepneš.</string>
     <string name="hosted_upsell_cta">Zobrazit plány Plus a Pro</string>
     <string name="hosted_upsell_keep">Zůstat u BYOK (zdarma)</string>
 

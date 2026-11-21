@@ -51,6 +51,24 @@ final class calorietrackerUITests: XCTestCase {
         XCTAssertTrue(element.isHittable, "Element is not tappable: \(element.identifier)")
     }
 
+    /// Typing races the sheet's focus animation on busy runners: a tap can land
+    /// before the field accepts the keyboard, and `typeText` then fails with
+    /// "Neither element nor any descendant has keyboard focus". Tap first so the
+    /// field takes focus even when a keyboard is already up, then confirm the
+    /// keyboard before typing.
+    @MainActor
+    private func type(_ text: String, into field: XCUIElement, app: XCUIApplication) {
+        for _ in 0..<3 {
+            field.tap()
+            if app.keyboards.firstMatch.waitForExistence(timeout: 2) { break }
+        }
+        XCTAssertTrue(
+            app.keyboards.firstMatch.waitForExistence(timeout: 5),
+            "The keyboard never appeared for \(field.identifier)"
+        )
+        field.typeText(text)
+    }
+
     @MainActor
     private func openSettingsCategory(_ identifier: String, in app: XCUIApplication) {
         let settings = app.tabBars.buttons["Settings"]
@@ -166,8 +184,7 @@ final class calorietrackerUITests: XCTestCase {
         if clearSearch.exists {
             clearSearch.tap()
         }
-        search.tap()
-        search.typeText("Barbell Full Squat")
+        type("Barbell Full Squat", into: search, app: app)
 
         let result = app.buttons["workouts.exercise.Barbell_Full_Squat"]
         XCTAssertTrue(result.waitForExistence(timeout: 5))
@@ -423,13 +440,11 @@ final class calorietrackerUITests: XCTestCase {
         XCTAssertTrue(name.waitForExistence(timeout: 5))
         let save = app.buttons["manual.save"]
         XCTAssertFalse(save.isEnabled, "A blank meal must not be saved")
-        name.tap()
-        name.typeText("CI oat bowl")
+        type("CI oat bowl", into: name, app: app)
         XCTAssertFalse(save.isEnabled, "Calories are required before saving")
 
         let calories = app.textFields["manual.calories"]
-        calories.tap()
-        calories.typeText("321")
+        type("321", into: calories, app: app)
         let done = app.buttons["Done"]
         if done.exists { done.tap() }
         reveal(save, in: app)

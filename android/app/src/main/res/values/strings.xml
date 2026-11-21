@@ -1,4 +1,8 @@
 <resources>
+    <string name="optional_calorie_range">Optional Calorie Range</string>
+    <string name="calorie_floor">Calorie floor (%1$s)</string>
+    <string name="calorie_ceiling">Calorie ceiling (%1$s)</string>
+    <string name="calorie_range_hint">Leave either bound blank to skip it. This range is for reference and does not change your targets.</string>
     <string name="settings_health_water_sync">Write water logs to Health Connect</string>
     <string name="settings_health_water_sync_note">Off by default. Writes new or changed Fud AI water logs, including changes from diary imports. Turning this off does not remove records already shared.</string>
     <string name="settings_hide_voice_shortcut">Hide in-app voice shortcut</string>

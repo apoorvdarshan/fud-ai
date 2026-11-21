@@ -5301,6 +5301,7 @@ struct ProfileView: View {
                 .listRowBackground(AppColors.appCard)
 
                 Section("Daily Targets") {
+                    CalorieRangeSettings()
                     lockableGoalRow(
                         icon: "flame",
                         label: "Calories",

@@ -226,6 +226,7 @@ private fun MyProgressContent(container: AppContainer) {
     val vm: ProgressViewModel = viewModel(factory = ProgressViewModel.Factory(container))
     val ui by vm.ui.collectAsState()
     val foods by container.foodRepository.entries.collectAsState(initial = emptyList())
+    val calorieDisplayRange by container.prefs.calorieDisplayRange.collectAsState(initial = 0 to 0)
     val weightUnit by container.prefs.weightUnit.collectAsState(initial = "kg")
     val optionalNutrientGoals by container.prefs.optionalNutrientGoals.collectAsState(
         initial = OptionalNutrientGoals.Default
@@ -404,6 +405,7 @@ private fun MyProgressContent(container: AppContainer) {
                         dayPlans = workoutDayPlans,
                         calorieGoal = profile.effectiveCalories,
                         proteinGoal = profile.effectiveProtein,
+                        calorieDisplayRange = calorieDisplayRange,
                         useMetric = weightMetric,
                         firstDayOfWeek = WeeklyRecapCalculator.firstDayOfWeek(weekStartsOnMonday),
                         today = recapToday,

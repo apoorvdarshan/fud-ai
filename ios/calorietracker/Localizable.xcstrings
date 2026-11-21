@@ -3,6 +3,10 @@
   "strings": {
     "%lld of %lld photos": {},
     "Your AI setup accepts up to %lld photos per request.": {},
+    "Optional Calorie Range": {},
+    "Calorie floor (%@)": {},
+    "Calorie ceiling (%@)": {},
+    "Leave either bound blank to skip it. This range is for reference and does not change your targets.": {},
     "Dark gray": {
       "localizations": {
         "ar": {

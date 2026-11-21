@@ -71,6 +71,8 @@ object MealVoiceState {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
     fun showAdded(context: Context, displayCalories: Int) {
+        // A retry that succeeds supersedes the failure mark still on its timer.
+        _failure.value = null
         _added.value = displayCalories
         val appContext = context.applicationContext
         scope.launch {
@@ -83,7 +85,11 @@ object MealVoiceState {
 
     fun set(context: Context, phase: Phase) {
         _phase.value = phase
-        if (phase != Phase.IDLE) _added.value = null
+        // IDLE keeps the marks (they were just set); a new attempt clears them.
+        if (phase != Phase.IDLE) {
+            _added.value = null
+            _failure.value = null
+        }
         val appContext = context.applicationContext
         scope.launch { runCatching { MealVoiceAppWidget().updateAll(appContext) } }
     }
@@ -174,10 +180,11 @@ private fun MealVoiceContent(
         endRgb = end,
         addedText = when {
             recording || processing -> null
-            failed -> "!"
             added != null -> "+$added"
+            failed -> "!"
             else -> null
-        }
+        },
+        failed = !recording && !processing && failed
     )
 
     Box(

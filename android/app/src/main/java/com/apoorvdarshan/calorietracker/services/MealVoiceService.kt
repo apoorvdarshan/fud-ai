@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker.services
 
+import com.apoorvdarshan.calorietracker.AppLocalization
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -22,6 +23,7 @@ import com.apoorvdarshan.calorietracker.models.FoodSource
 import com.apoorvdarshan.calorietracker.models.MealType
 import com.apoorvdarshan.calorietracker.models.SpeechProvider
 import com.apoorvdarshan.calorietracker.services.ai.AiError
+import com.apoorvdarshan.calorietracker.services.speech.SttApiError
 import com.apoorvdarshan.calorietracker.services.speech.AudioRecorder
 import com.apoorvdarshan.calorietracker.services.speech.NativeSpeechRecognizer
 import com.apoorvdarshan.calorietracker.services.speech.SttEvent
@@ -197,7 +199,9 @@ class MealVoiceService : Service() {
                 Outcome.Failed(
                     when (e) {
                         is AiError -> e.userMessage(this@MealVoiceService)
-                        else -> e.localizedMessage ?: getString(R.string.meal_voice_failed_generic)
+                        // English log text otherwise reaches users who picked another app language.
+                        is SttApiError -> e.userMessage(AppLocalization.context(this@MealVoiceService))
+                        else -> getString(R.string.meal_voice_failed_generic)
                     }
                 )
             }
@@ -234,7 +238,13 @@ class MealVoiceService : Service() {
         }
         // Same analysis and storage as Describe meal > Voice; only the "tap Save" step is skipped.
         val analysis = container.foodAnalysis.analyzeText(text)
-        val entry = analysis.toFoodEntry(source = FoodSource.TEXT_INPUT, mealType = MealType.currentMeal)
+        // The parser uses 1.0 as a working value when the AI gave no weight; without
+        // this the placeholder would be logged as a known serving of one gram.
+        val entry = analysis.toFoodEntry(
+            source = FoodSource.TEXT_INPUT,
+            mealType = MealType.currentMeal,
+            servingSizeIsKnown = analysis.servingSizeIsKnown
+        )
         return if (container.foodRepository.addEntry(entry)) {
             Outcome.Saved(entry.name, entry.calories)
         } else if (container.fastingRepository.active() != null) {

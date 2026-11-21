@@ -36,7 +36,8 @@ fun mealVoiceBadgeBitmap(
     processing: Boolean,
     startRgb: Int,
     endRgb: Int,
-    addedText: String? = null
+    addedText: String? = null,
+    failed: Boolean = false
 ): Bitmap {
     val s = sizePx.coerceAtLeast(2)
     val sf = s.toFloat()
@@ -73,7 +74,9 @@ fun mealVoiceBadgeBitmap(
     }
 
     val disc = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        // A failure mark shares the disc with its text, but never the success green.
         val (a, b) = when {
+            failed -> opaque(MEAL_VOICE_RED) to opaque(MEAL_VOICE_RED_END)
             addedText != null -> opaque(MEAL_VOICE_GREEN) to opaque(MEAL_VOICE_GREEN_END)
             recording -> opaque(MEAL_VOICE_RED) to opaque(MEAL_VOICE_RED_END)
             else -> opaque(startRgb) to opaque(endRgb)

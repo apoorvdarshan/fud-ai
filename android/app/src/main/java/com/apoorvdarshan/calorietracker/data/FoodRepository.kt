@@ -235,17 +235,20 @@ class FoodRepository(
     fun deletePreviewedFoodSurvivingUi(
         preview: List<FoodEntry>,
         alsoHealth: Boolean,
-        onFinished: (Boolean) -> Unit
+        onFinished: (localOk: Boolean, healthOk: Boolean) -> Unit
     ) {
         deletionScope.launch {
-            val ok = try {
-                deletePreviewedFood(preview, alsoHealth)
+            var localOk = true
+            var healthOk = true
+            try {
+                healthOk = deletePreviewedFood(preview, alsoHealth)
             } catch (cancelled: kotlinx.coroutines.CancellationException) {
                 throw cancelled
             } catch (_: Exception) {
-                false
+                // The diary write itself failed; entries may still be there.
+                localOk = false
             }
-            withContext(Dispatchers.Main) { onFinished(ok) }
+            withContext(Dispatchers.Main) { onFinished(localOk, healthOk) }
         }
     }
 

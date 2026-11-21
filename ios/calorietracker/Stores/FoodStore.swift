@@ -468,16 +468,19 @@ class FoodStore {
         return true
     }
 
-    /// Delete only rows present in the preview whose timestamps have not changed.
+    /// Delete every row present in the preview whose timestamp has not changed.
     func deletePreviewedEntries(_ preview: [FoodEntry]) -> [UUID]? {
         guard !isPersistenceBlocked else { return nil }
-        let timestamps = Dictionary(preview.map { ($0.id, $0.timestamp) }, uniquingKeysWith: { first, _ in first })
-        let removed = entries.filter { timestamps[$0.id] == $0.timestamp }
+        // Old diaries can hold the same id at different times (HealthKit restores).
+        // Keep every previewed pair so confirmation deletes all previewed rows and
+        // never a same-id row outside the selected range.
+        let previewed = Dictionary(grouping: preview.map { (id: $0.id, timestamp: $0.timestamp) }, by: \.id)
+            .mapValues { Set($0.map(\.timestamp)) }
+        let matches: (FoodEntry) -> Bool = { previewed[$0.id]?.contains($0.timestamp) == true }
+        let removed = entries.filter(matches)
         guard !removed.isEmpty else { return [] }
         let previous = entries
-        // Old diaries can hold duplicate ids (HealthKit restores). Remove exactly the
-        // previewed rows, never a same-id row outside the selected range.
-        entries.removeAll { timestamps[$0.id] == $0.timestamp }
+        entries.removeAll(matches)
         guard saveEntries() else {
             entries = previous
             return nil
@@ -487,8 +490,12 @@ class FoodStore {
         var deleted = locallyDeletedIDs
         deleted.formUnion(removed.map(\.id))
         defaults.set(Array(deleted.map(\.uuidString)), forKey: Self.locallyDeletedFoodIdsKey)
+        // The removed rows are already gone from `entries`, so any surviving row —
+        // including a kept same-id duplicate — counts as a reference now.
         for entry in removed {
-            for filename in entry.allImageFilenames where !isImageStillReferenced(filename: filename, excludingEntryID: entry.id) {
+            for filename in entry.allImageFilenames
+            where !entries.contains(where: { $0.allImageFilenames.contains(filename) })
+                  && !favorites.contains(where: { $0.allImageFilenames.contains(filename) }) {
                 FoodImageStore.shared.delete(filename: filename)
             }
         }

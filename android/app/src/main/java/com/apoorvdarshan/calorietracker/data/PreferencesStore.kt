@@ -1484,7 +1484,10 @@ class PreferencesStore(
     }
 
     internal suspend fun removePreviewedFood(preview: List<FoodEntry>): List<java.util.UUID> {
-        val timestamps = preview.associate { it.id to it.timestamp }
+        // Old diaries can hold the same id at different times. Keep every previewed
+        // pair so confirmation deletes all previewed rows.
+        val previewed = preview.groupBy({ it.id }) { it.timestamp }.mapValues { (_, stamps) -> stamps.toSet() }
+        val matches: (FoodEntry) -> Boolean = { previewed[it.id]?.contains(it.timestamp) == true }
         var removed = emptyList<java.util.UUID>()
         ds.edit { prefs ->
             val key = Keys.FOOD_ENTRIES
@@ -1493,10 +1496,10 @@ class PreferencesStore(
             // One unreadable row must not block deleting the readable ones; the guard
             // above preserved the blob before this rewrite replaces it.
             val entries = decoded.itemsOrEmpty
-            removed = entries.filter { timestamps[it.id] == it.timestamp }.map { it.id }
+            removed = entries.filter(matches).map { it.id }
             if (removed.isNotEmpty()) {
                 val ids = removed.toSet()
-                prefs[key] = json.encodeToString(ListSerializer(FoodEntry.serializer()), entries.filterNot { it.id in ids })
+                prefs[key] = json.encodeToString(ListSerializer(FoodEntry.serializer()), entries.filterNot(matches))
                 // Keep after local deletion so a later Health recovery cannot resurrect them.
                 prefs[locallyDeletedFoodIdsKey] = (prefs[locallyDeletedFoodIdsKey].orEmpty() + ids.map { it.toString() })
             }

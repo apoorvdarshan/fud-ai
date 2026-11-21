@@ -84,9 +84,14 @@ internal fun DeleteFoodRangeDialog(repository: FoodRepository, onDismiss: () -> 
                     // Outside the dialog's scope: rotating the screen must not cancel a
                     // deletion whose local rows are already gone, leaving Health records
                     // behind with no saved request to remove them.
-                    repository.deletePreviewedFoodSurvivingUi(selected, alsoHealth) { ok ->
+                    repository.deletePreviewedFoodSurvivingUi(selected, alsoHealth) { localOk, healthOk ->
                         busy = false
-                        if (ok) onDismiss() else resultMessage = R.string.delete_food_health_failed
+                        when {
+                            // A failed diary write must not claim entries were deleted.
+                            !localOk -> resultMessage = R.string.delete_food_failed
+                            !healthOk -> resultMessage = R.string.delete_food_health_failed
+                            else -> onDismiss()
+                        }
                     }
                 }) { Text(stringResource(R.string.action_delete)) }
                 else -> {

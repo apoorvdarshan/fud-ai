@@ -5932,9 +5932,11 @@ struct ProfileView: View {
                                 .foregroundStyle(.secondary)
                         }
 
-                        // Only OpenAI-compatible + Anthropic send a token cap; Gemini is
-                        // left uncapped, so hide this for Gemini.
-                        if selectedProvider.apiFormat != .gemini {
+                        // The shared limit already applies to compatible fallback requests, too.
+                        if selectedProvider.apiFormat != .gemini
+                            || (separateTextProviderEnabled && selectedTextProvider.apiFormat != .gemini)
+                            || (fallbackEnabled && selectedFallbackProvider.apiFormat != .gemini)
+                            || (textFallbackEnabled && selectedTextFallbackProvider.apiFormat != .gemini) {
                             HStack {
                                 Label {
                                     Text("Max Response Tokens")

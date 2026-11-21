@@ -756,10 +756,9 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
     fun selectProvider(p: AIProvider) {
         if (p !in _ui.value.availableVisionProviders) return
         viewModelScope.launch {
-            container.prefs.setSelectedAIProvider(p)
-            container.prefs.setSelectedAIModel(p.defaultModel)
+            val model = container.prefs.switchPrimaryAIProvider(p)
             val masked = maskKey(container.keyStore.apiKey(p))
-            _ui.value = _ui.value.copy(selectedAI = p, selectedModel = p.defaultModel, apiKeyMasked = masked)
+            _ui.value = _ui.value.copy(selectedAI = p, selectedModel = model, apiKeyMasked = masked)
         }
     }
 

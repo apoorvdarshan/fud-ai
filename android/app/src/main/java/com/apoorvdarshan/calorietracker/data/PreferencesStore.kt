@@ -398,8 +398,19 @@ class PreferencesStore(
         ds.edit { applyHydrationSync(enabled, it) }
     }
 
-    suspend fun completeHydration(id: String) {
-        ds.edit { it[hydrationPendingKey] = it[hydrationPendingKey].orEmpty() - id }
+    /**
+     * Drops [id] from the pending set only when the diary still holds exactly the
+     * entry that was written. A change queued while the write was in flight keeps
+     * the ID pending, so the newer value is written on the next drain.
+     */
+    suspend fun completeHydrationIfUnchanged(id: String, written: WaterEntry?) {
+        ds.edit { prefs ->
+            val current = decodeList(prefs[Keys.WATER_ENTRIES], WaterEntry.serializer(), Keys.WATER_ENTRIES.name)
+                .itemsOrEmpty.firstOrNull { it.id.toString() == id }
+            if (current == written) {
+                prefs[hydrationPendingKey] = prefs[hydrationPendingKey].orEmpty() - id
+            }
+        }
     }
 
     /**

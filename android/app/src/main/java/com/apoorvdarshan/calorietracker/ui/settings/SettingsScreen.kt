@@ -630,7 +630,11 @@ fun SettingsScreen(
         pendingHealthPermissionAction = null
         if (action == HealthConnectPermissionAction.HYDRATION) {
             if (granted.containsAll(container.health.hydrationWritePermissions)) {
-                settingsScope.launch { container.waterRepository.setHealthSync(true) }
+                settingsScope.launch {
+                    container.waterRepository.setHealthSync(true)
+                    // A hydration-only grant is a connection on its own.
+                    vm.setHealthConnectEnabled(true)
+                }
             } else {
                 showHealthPermissionHelp = true
             }
@@ -1579,21 +1583,21 @@ fun SettingsScreen(
             if (selectedCategory == SettingsCategory.HEALTH_DATA) {
             SectionCard {
                 ToggleRow(stringResource(R.string.settings_health_connect), ui.healthConnectEnabled, icon = Icons.Outlined.Favorite, onChange = ::onHealthConnectToggle)
-                if (ui.healthConnectEnabled) {
-                    HorizontalDivider()
-                    ToggleRow(
-                        stringResource(R.string.settings_health_water_sync), hydrationSync, icon = Icons.Outlined.Favorite,
-                        onChange = { enabled ->
-                            if (enabled) {
-                                pendingHealthPermissionAction = HealthConnectPermissionAction.HYDRATION
-                                healthConnectLauncher.launch(container.health.hydrationWritePermissions)
-                            } else {
-                                settingsScope.launch { container.waterRepository.setHealthSync(false) }
-                            }
+                HorizontalDivider()
+                // Available before the main connection: a user who only wants water
+                // sharing must not first have to grant an unrelated permission.
+                ToggleRow(
+                    stringResource(R.string.settings_health_water_sync), hydrationSync, icon = Icons.Outlined.Favorite,
+                    onChange = { enabled ->
+                        if (enabled) {
+                            pendingHealthPermissionAction = HealthConnectPermissionAction.HYDRATION
+                            healthConnectLauncher.launch(container.health.hydrationWritePermissions)
+                        } else {
+                            settingsScope.launch { container.waterRepository.setHealthSync(false) }
                         }
-                    )
-                    Text(stringResource(R.string.settings_health_water_sync_note), modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp))
-                }
+                    }
+                )
+                Text(stringResource(R.string.settings_health_water_sync_note), modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp))
                 HorizontalDivider()
                 SettingRow(
                     stringResource(R.string.health_import_title),

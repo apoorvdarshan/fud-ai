@@ -72,8 +72,9 @@ class WaterRepository(private val prefs: PreferencesStore, private val health: H
         for (id in ids) {
             // The opt-out (or a disconnect) may land while this batch runs; stop as soon as it did.
             if (!prefs.healthConnectEnabled.first() || !prefs.hydrationSyncEnabled.first()) return
-            if (connection.syncHydration(UUID.fromString(id), byId[id])) {
-                prefs.completeHydration(id)
+            val written = byId[id]
+            if (connection.syncHydration(UUID.fromString(id), written)) {
+                prefs.completeHydrationIfUnchanged(id, written)
                 consecutiveFailures = 0
             } else if (hydrationBatchShouldStop(++consecutiveFailures)) {
                 // Two in a row looks batch-wide; keep the rest pending for the next retry.

@@ -49,6 +49,8 @@ import kotlinx.coroutines.launch
 class MealVoiceService : Service() {
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+    /** The service context keeps the device language on Android 12 and earlier. */
+    private val localized: Context get() = AppLocalization.context(this)
     private var listenJob: Job? = null
     private var timeoutJob: Job? = null
     private var recorder: AudioRecorder? = null
@@ -98,7 +100,7 @@ class MealVoiceService : Service() {
         if (MealVoiceState.phase != MealVoiceState.Phase.IDLE) return
         if (!micGranted) {
             scope.launch {
-                notifyResult(Outcome.Failed(getString(R.string.meal_voice_mic_denied)))
+                notifyResult(Outcome.Failed(localized.getString(R.string.meal_voice_mic_denied)))
                 finish()
             }
             return
@@ -121,7 +123,7 @@ class MealVoiceService : Service() {
                 // the recorder and takes whatever it captured.
                 recorder = rec
                 if (rec.start() == null) {
-                    fatalError = getString(R.string.voice_mic_start_failed)
+                    fatalError = localized.getString(R.string.voice_mic_start_failed)
                     stopAndSave()
                 }
             }
@@ -201,7 +203,7 @@ class MealVoiceService : Service() {
                         is AiError -> e.userMessage(this@MealVoiceService)
                         // English log text otherwise reaches users who picked another app language.
                         is SttApiError -> e.userMessage(AppLocalization.context(this@MealVoiceService))
-                        else -> getString(R.string.meal_voice_failed_generic)
+                        else -> localized.getString(R.string.meal_voice_failed_generic)
                     }
                 )
             }
@@ -215,7 +217,7 @@ class MealVoiceService : Service() {
                 }
                 Outcome.NothingHeard ->
                     // Widget feedback survives a missing notification permission.
-                    MealVoiceState.showFailure(this@MealVoiceService, getString(R.string.meal_voice_nothing_heard))
+                    MealVoiceState.showFailure(this@MealVoiceService, localized.getString(R.string.meal_voice_nothing_heard))
                 is Outcome.Failed ->
                     MealVoiceState.showFailure(this@MealVoiceService, outcome.message)
             }
@@ -250,9 +252,9 @@ class MealVoiceService : Service() {
         } else if (container.fastingRepository.active() != null) {
             // Retrying cannot help while the fast stays active; say so instead of
             // telling the user to open the app and try again.
-            Outcome.Failed(getString(R.string.food_blocked_by_active_fast))
+            Outcome.Failed(localized.getString(R.string.food_blocked_by_active_fast))
         } else {
-            Outcome.Failed(getString(R.string.meal_voice_failed_generic))
+            Outcome.Failed(localized.getString(R.string.meal_voice_failed_generic))
         }
     }
 
@@ -270,10 +272,10 @@ class MealVoiceService : Service() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) return
         val mgr = getSystemService(NotificationManager::class.java)
         mgr.createNotificationChannel(
-            NotificationChannel(CHANNEL_PROGRESS, getString(R.string.meal_voice_channel_progress), NotificationManager.IMPORTANCE_LOW)
+            NotificationChannel(CHANNEL_PROGRESS, localized.getString(R.string.meal_voice_channel_progress), NotificationManager.IMPORTANCE_LOW)
         )
         mgr.createNotificationChannel(
-            NotificationChannel(CHANNEL_RESULT, getString(R.string.meal_voice_channel_result), NotificationManager.IMPORTANCE_DEFAULT)
+            NotificationChannel(CHANNEL_RESULT, localized.getString(R.string.meal_voice_channel_result), NotificationManager.IMPORTANCE_DEFAULT)
         )
     }
 
@@ -285,18 +287,18 @@ class MealVoiceService : Service() {
     private fun progressNotification(titleRes: Int, textRes: Int?, withStop: Boolean): Notification {
         val builder = NotificationCompat.Builder(this, CHANNEL_PROGRESS)
             .setSmallIcon(R.mipmap.ic_launcher)
-            .setContentTitle(getString(titleRes))
+            .setContentTitle(localized.getString(titleRes))
             .setOngoing(true)
             .setOnlyAlertOnce(true)
             .setCategory(NotificationCompat.CATEGORY_SERVICE)
-        textRes?.let { builder.setContentText(getString(it)) }
+        textRes?.let { builder.setContentText(localized.getString(it)) }
         if (withStop) {
             val stop = PendingIntent.getService(
                 this, 0,
                 Intent(this, MealVoiceService::class.java).setAction(ACTION_STOP),
                 PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
             )
-            builder.addAction(0, getString(R.string.meal_voice_action_stop), stop)
+            builder.addAction(0, localized.getString(R.string.meal_voice_action_stop), stop)
         }
         return builder.build()
     }
@@ -311,11 +313,11 @@ class MealVoiceService : Service() {
         val (title, text) = when (outcome) {
             is Outcome.Saved -> {
                 val unit = container.prefs.energyUnit.first()
-                getString(R.string.meal_voice_saved_title) to
-                    getString(R.string.meal_voice_saved_text, outcome.name, unit.format(resources, outcome.calories))
+                localized.getString(R.string.meal_voice_saved_title) to
+                    localized.getString(R.string.meal_voice_saved_text, outcome.name, unit.format(localized.resources, outcome.calories))
             }
-            Outcome.NothingHeard -> getString(R.string.meal_voice_failed_title) to getString(R.string.meal_voice_nothing_heard)
-            is Outcome.Failed -> getString(R.string.meal_voice_failed_title) to outcome.message
+            Outcome.NothingHeard -> localized.getString(R.string.meal_voice_failed_title) to localized.getString(R.string.meal_voice_nothing_heard)
+            is Outcome.Failed -> localized.getString(R.string.meal_voice_failed_title) to outcome.message
         }
         val open = PendingIntent.getActivity(
             this, 0, Intent(this, MainActivity::class.java),

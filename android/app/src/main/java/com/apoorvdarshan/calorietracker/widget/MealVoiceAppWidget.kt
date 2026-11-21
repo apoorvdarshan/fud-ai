@@ -69,15 +69,19 @@ object MealVoiceState {
     val failure: StateFlow<String?> = _failure
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+    /** Bumped on every feedback, so an older timer cannot erase a newer result. */
+    private var feedbackGeneration = 0L
 
     fun showAdded(context: Context, displayCalories: Int) {
         // A retry that succeeds supersedes the failure mark still on its timer.
         _failure.value = null
         _added.value = displayCalories
         val appContext = context.applicationContext
+        val generation = ++feedbackGeneration
         scope.launch {
             runCatching { MealVoiceAppWidget().updateAll(appContext) }
             delay(ADDED_VISIBLE_MS)
+            if (generation != feedbackGeneration) return@launch
             _added.value = null
             runCatching { MealVoiceAppWidget().updateAll(appContext) }
         }
@@ -97,9 +101,11 @@ object MealVoiceState {
     fun showFailure(context: Context, message: String) {
         _failure.value = message
         val appContext = context.applicationContext
+        val generation = ++feedbackGeneration
         scope.launch {
             runCatching { MealVoiceAppWidget().updateAll(appContext) }
             delay(ADDED_VISIBLE_MS)
+            if (generation != feedbackGeneration) return@launch
             _failure.value = null
             runCatching { MealVoiceAppWidget().updateAll(appContext) }
         }

@@ -113,6 +113,23 @@ class NutritionHealthRetry(
     }
 
     /**
+     * Runs [action] while no background write can observe the diary. A write that
+     * sees a row vanish between a local deletion and its queue clear would undo
+     * (delete) the Health record even when the user asked for a local-only delete.
+     * Callers that change the queue inside must use [forgetAllLocked]; the mutex
+     * is not reentrant.
+     */
+    suspend fun <T> excludingBackgroundWrites(action: suspend () -> T): T =
+        mutex.withLock { action() }
+
+    /** [forgetAll] for a caller already holding the mutex. */
+    suspend fun forgetAllLocked(ids: Collection<UUID>) {
+        if (ids.isEmpty()) return
+        val keys = ids.mapTo(mutableSetOf()) { it.toString() }
+        updateQueueLocked { it - keys }
+    }
+
+    /**
      * Re-attempt every queued write. Called from the app-foreground Health Connect
      * coordinator, alongside the workout deferred writes.
      */

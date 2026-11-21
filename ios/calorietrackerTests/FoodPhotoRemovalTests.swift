@@ -262,6 +262,21 @@ struct FoodPhotoRemovalTests {
         }
     }
 
+    @Test func bulkDeleteDoesNotDeleteUnpreviewedEntriesOrNotifyHealth() throws {
+        try withStore { store, _ in
+            let previewed = makeMeal()
+            let unpreviewed = makeMeal()
+            #expect(store.addEntry(previewed))
+            #expect(store.addEntry(unpreviewed))
+            var healthCallbacks: [UUID] = []
+            store.onEntryDeleted = { healthCallbacks.append($0) }
+
+            #expect(store.deletePreviewedEntries([previewed]) == [previewed.id])
+            #expect(store.entries.map(\.id) == [unpreviewed.id])
+            #expect(healthCallbacks.isEmpty)
+        }
+    }
+
     private func makeMeal() -> FoodEntry {
         FoodEntry(
             name: "Rice and beans", calories: 270, protein: 12, carbs: 52, fat: 2,

@@ -719,7 +719,7 @@ struct ReturningUserView: View {
         // and onboarding seeds a first entry when it finishes.
         let imports: [Task<Void, Never>?] = [
             healthKitManager.restoreFoodEntriesFromHealthKitIfNeeded(
-                existingIDs: { [foodStore] in Set(foodStore.entries.map(\.id)) },
+                existingIDs: { [foodStore] in Set(foodStore.entries.map(\.id)).union(foodStore.locallyDeletedIDs) },
                 importBatch: { [foodStore] entries in foodStore.mergeWithCloudEntries(entries) }
             ),
             healthKitManager.backfillWeightFromHealthKitIfNeeded { [weightStore] samples in

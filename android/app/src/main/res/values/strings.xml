@@ -8,6 +8,10 @@
     <string name="delete_food_health_warning">This deletes the previewed entries and also requests deletion of matching nutrition written by Fud AI in Health Connect.</string>
     <string name="delete_food_health_failed">Food entries were deleted in Fud AI, but some Health Connect records could not be removed.</string>
     <string name="delete_food_failed">Could not finish deleting food entries. Check your diary before trying again.</string>
+    <string name="optional_calorie_range">Optional Calorie Range</string>
+    <string name="calorie_floor">Calorie floor (%1$s)</string>
+    <string name="calorie_ceiling">Calorie ceiling (%1$s)</string>
+    <string name="calorie_range_hint">Leave either bound blank to skip it. This range is for reference and does not change your targets.</string>
     <string name="settings_health_water_sync">Write water logs to Health Connect</string>
     <string name="settings_health_water_sync_note">Off by default. Writes new or changed Fud AI water logs, including changes from diary imports. Turning this off does not remove records already shared.</string>
     <string name="settings_hide_voice_shortcut">Hide in-app voice shortcut</string>

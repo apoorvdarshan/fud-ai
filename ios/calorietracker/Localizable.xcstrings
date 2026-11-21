@@ -9,6 +9,10 @@
     "This also requests deletion of matching nutrition written by Fud AI in Apple Health.": {},
     "This deletes entries from Fud AI only. Copies in Apple Health are kept.": {},
     "Could Not Delete Food Entries": {},
+    "Optional Calorie Range": {},
+    "Calorie floor (%@)": {},
+    "Calorie ceiling (%@)": {},
+    "Leave either bound blank to skip it. This range is for reference and does not change your targets.": {},
     "Dark gray": {
       "localizations": {
         "ar": {

@@ -14,6 +14,9 @@ import androidx.health.connect.client.permission.HealthPermission
 import androidx.health.connect.client.records.ActiveCaloriesBurnedRecord
 import androidx.health.connect.client.records.BodyFatRecord
 import androidx.health.connect.client.records.ExerciseSessionRecord
+import androidx.health.connect.client.records.HydrationRecord
+import androidx.health.connect.client.units.Volume
+import com.apoorvdarshan.calorietracker.models.WaterEntry
 import androidx.health.connect.client.records.MealType as HCMealType
 import androidx.health.connect.client.records.NutritionRecord
 import androidx.health.connect.client.records.StepsRecord
@@ -234,6 +237,28 @@ class HealthConnectManager(
      *  granting it never re-asks for permissions the user declined in the connect flow. */
     val exerciseImportPermissions: Set<String> = setOf(exerciseRead)
 
+    val hydrationWritePermissions = setOf(HealthPermission.getWritePermission(HydrationRecord::class))
+    suspend fun hasHydrationWrite(): Boolean = granted().containsAll(hydrationWritePermissions)
+
+    /** A repository-owned durable queue retries these operations on later foregrounds. */
+    suspend fun syncHydration(id: UUID, entry: WaterEntry?): Boolean {
+        val provider = client ?: return false
+        return retryHealthWrite(deferred = {}, failed = {}) {
+            if (entry == null) {
+                provider.deleteRecords(HydrationRecord::class, emptyList(), listOf(tag(id)))
+            } else {
+                provider.insertRecords(listOf(HydrationRecord(
+                    startTime = entry.date.minusMillis(1),
+                    startZoneOffset = null,
+                    endTime = entry.date,
+                    endZoneOffset = null,
+                    volume = Volume.liters(entry.milliliters / 1_000.0),
+                    metadata = Metadata.manualEntry(clientRecordId = tag(id), clientRecordVersion = writeVersions.next())
+                )))
+            }
+        }
+    }
+
     /** Requested only when Daily Summary is enabled. Keeping it out of [permissions]
      *  avoids asking every Health Connect user for background access. */
     val dailySummaryPermissions: Set<String>
@@ -303,8 +328,10 @@ class HealthConnectManager(
     }
 
     /** The "connected" state: at least one Fud AI permission granted. Partial grants
-     *  are valid — a read-only user still syncs the read direction. */
-    suspend fun hasAnyPermission(): Boolean = granted().any { it in permissions }
+     *  are valid — a read-only user still syncs the read direction. A hydration-only
+     *  grant counts too: without it, Settings' reconcile turned the connection off
+     *  right after a user enabled only water sharing. */
+    suspend fun hasAnyPermission(): Boolean = granted().any { it in permissions || it in hydrationWritePermissions }
 
     suspend fun anyPermissionGrant(): Boolean? = grantedOrNull()?.any { it in permissions }
 

@@ -9,8 +9,10 @@ struct CalorieRangeSettings: View {
     @State private var ceilingText = ""
 
     private var unit: EnergyUnit { EnergyUnit(rawValue: energyUnitRaw) ?? .defaultUnit }
-    private var parsedFloor: Int? { Self.bound(floorText) }
-    private var parsedCeiling: Int? { Self.bound(ceilingText) }
+    /// kJ display needs six digits: 99,999 kcal reopens as 418,396 kJ.
+    private var digitLimit: Int { unit == .kj ? 6 : 5 }
+    private var parsedFloor: Int? { Self.bound(floorText, maxDigits: digitLimit) }
+    private var parsedCeiling: Int? { Self.bound(ceilingText, maxDigits: digitLimit) }
     private var valid: Bool {
         guard let lower = parsedFloor, let upper = parsedCeiling else { return false }
         return lower == 0 || upper == 0 || lower <= upper
@@ -60,10 +62,10 @@ struct CalorieRangeSettings: View {
         unit.kcal(fromDisplayed: Double(displayed))
     }
 
-    static func bound(_ text: String) -> Int? {
+    static func bound(_ text: String, maxDigits: Int = 5) -> Int? {
         if text.isEmpty { return 0 }
         let digits = text.compactMap(\.wholeNumberValue)
-        guard digits.count == text.count, digits.count <= 5, digits.allSatisfy({ $0 < 10 }),
+        guard digits.count == text.count, digits.count <= maxDigits, digits.allSatisfy({ $0 < 10 }),
               let value = Int(digits.map(String.init).joined()), value > 0 else { return nil }
         return value
     }

@@ -36,8 +36,10 @@ internal fun CalorieRangeSettings(prefs: PreferencesStore) {
         editing = true
     }) { Text("$title: $summary") }
     if (editing) {
-        val floor = calorieBound(lower)
-        val ceiling = calorieBound(upper)
+        // kJ display needs six digits: 99,999 kcal reopens as 418,396 kJ.
+        val digitLimit = if (unit == EnergyUnit.KJ) 6 else 5
+        val floor = calorieBound(lower, digitLimit)
+        val ceiling = calorieBound(upper, digitLimit)
         val valid = floor != null && ceiling != null && (floor == 0 || ceiling == 0 || floor <= ceiling)
         AlertDialog(
             onDismissRequest = { editing = false },
@@ -71,8 +73,8 @@ internal fun CalorieRangeSettings(prefs: PreferencesStore) {
 internal fun calorieStoredKcal(displayed: Int, unit: EnergyUnit): Int =
     if (displayed == 0) 0 else unit.toKcal(displayed.toDouble())
 
-internal fun calorieBound(text: String): Int? = when {
+internal fun calorieBound(text: String, maxDigits: Int = 5): Int? = when {
     text.isEmpty() -> 0
-    text.length > 5 || text.any { it.digitToIntOrNull() == null } -> null
+    text.length > maxDigits || text.any { it.digitToIntOrNull() == null } -> null
     else -> text.map { it.digitToInt() }.joinToString("").toIntOrNull()?.takeIf { it > 0 }
 }

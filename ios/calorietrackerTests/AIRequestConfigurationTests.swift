@@ -58,19 +58,27 @@ struct AIRequestConfigurationTests {
         AIProviderSettings.selectedModel = "gemini-3.5-flash-lite"
         #expect(AIProviderSettings.mealPhotoCaptureLimit == 10)
 
-        // Groq as the image fallback caps the selection too. The fallback only
-        // counts when its key is saved, so register one for the test.
+        // The fallback rule itself is pure and always covered.
+        #expect(AIProviderSettings.mealPhotoLimit(primaryLimit: nil, fallbackLimit: nil) == 10)
+        #expect(AIProviderSettings.mealPhotoLimit(primaryLimit: nil, fallbackLimit: 3) == 3)
+        #expect(AIProviderSettings.mealPhotoLimit(primaryLimit: 5, fallbackLimit: 3) == 3)
+
+        // Groq as the image fallback caps the selection too. Its key lives in the
+        // Keychain; when the host cannot store one the wiring below has nothing to
+        // observe, so run it only when the write actually lands.
         let originalGroqKey = AIProviderSettings.apiKey(for: .groq)
         defer { AIProviderSettings.setAPIKey(originalGroqKey, for: .groq) }
         AIProviderSettings.setAPIKey("test-key", for: .groq)
-        AIProviderSettings.fallbackEnabled = true
-        AIProviderSettings.selectedFallbackProvider = .groq
-        AIProviderSettings.selectedFallbackModel = "qwen/qwen3.8-27b"
-        #expect(AIProviderSettings.mealPhotoCaptureLimit == 3)
+        if AIProviderSettings.apiKey(for: .groq) != nil {
+            AIProviderSettings.fallbackEnabled = true
+            AIProviderSettings.selectedFallbackProvider = .groq
+            AIProviderSettings.selectedFallbackModel = "qwen/qwen3.8-27b"
+            #expect(AIProviderSettings.mealPhotoCaptureLimit == 3)
 
-        // Without the key the fallback can't serve requests, so the cap lifts.
-        AIProviderSettings.setAPIKey(nil, for: .groq)
-        #expect(AIProviderSettings.mealPhotoCaptureLimit == 10)
+            // Without the key the fallback can't serve requests, so the cap lifts.
+            AIProviderSettings.setAPIKey(nil, for: .groq)
+            #expect(AIProviderSettings.mealPhotoCaptureLimit == 10)
+        }
     }
 
     @Test func geminiUsesCurrentModelsAndFallsBackFromRetiredChoices() {

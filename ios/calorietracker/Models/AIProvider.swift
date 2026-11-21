@@ -946,7 +946,16 @@ struct AIProviderSettings {
            let fallbackLimit = AIProvider.requestImageLimit(provider: fallback.provider, model: fallback.model) {
             limits.append(fallbackLimit)
         }
-        return limits.min() ?? AIProvider.defaultMealPhotoLimit
+        return mealPhotoLimit(
+            primaryLimit: limits.first,
+            fallbackLimit: limits.count > 1 ? limits.last : nil
+        )
+    }
+
+    /** The smallest photo cap of the primary provider and the image fallback. Pure:
+     *  testable without the Keychain or UserDefaults-backed settings state. */
+    static func mealPhotoLimit(primaryLimit: Int?, fallbackLimit: Int?) -> Int {
+        [primaryLimit, fallbackLimit].compactMap { $0 }.min() ?? AIProvider.defaultMealPhotoLimit
     }
 
     static func currentImageFallbackConfig(excludingPrimary primary: AIProvider, model primaryModel: String) -> FallbackConfig? {

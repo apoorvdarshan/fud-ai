@@ -682,9 +682,24 @@ class FoodAnalysisService(
         if (primaryLimit != null && imageBytesList.size > primaryLimit) {
             val fallback = currentImageFallbackConfig(settings.provider, settings.model, settings.baseUrl)
             if (fallback != null && AIProvider.requestImageLimit(fallback.provider, fallback.model) == null) {
+                // Gemini honors its own longer opt-in timeout, like the normal dispatch paths.
+                val fallbackTimeout = if (fallback.provider == AIProvider.GEMINI) {
+                    settings.geminiTimeoutSeconds
+                } else {
+                    settings.requestTimeoutSeconds
+                }
+                progress?.onProgress(
+                    AnalysisProgressUpdate(
+                        stage = AnalysisStage.FALLBACK,
+                        attempt = 1,
+                        provider = fallback.provider,
+                        model = fallback.model,
+                        estimateSeconds = prefs.analysisDurationEstimate(fallback.provider, fallback.model, kind)
+                    )
+                )
                 return dispatch(
                     fallback.provider, fallback.model, fallback.baseUrl, fallback.apiKey,
-                    finalPrompt, uploadImages, settings.maxTokens, settings.requestTimeoutSeconds,
+                    finalPrompt, uploadImages, settings.maxTokens, fallbackTimeout,
                     jsonResponse, settings.openRouterReasoningEffort
                 )
             }

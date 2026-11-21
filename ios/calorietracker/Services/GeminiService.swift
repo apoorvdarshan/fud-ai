@@ -1146,6 +1146,19 @@ struct GeminiService {
             if let fallback = AIProviderSettings.currentImageFallbackConfig(
                 excludingPrimary: primary.provider, model: primary.model),
                AIProvider.requestImageLimit(provider: fallback.provider, model: fallback.model) == nil {
+                // Announce the provider that will actually run, so the progress UI and
+                // the duration sample attribute the wait to it, not to Groq.
+                progress?(AnalysisProgressUpdate(
+                    stage: .fallback,
+                    attempt: 2,
+                    provider: fallback.provider,
+                    model: fallback.model,
+                    estimateSeconds: durationStore.estimate(
+                        provider: fallback.provider,
+                        model: fallback.model,
+                        kind: kind
+                    )
+                ))
                 return try await dispatch(
                     provider: fallback.provider,
                     model: fallback.model,

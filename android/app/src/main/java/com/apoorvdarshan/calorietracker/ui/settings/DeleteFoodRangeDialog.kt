@@ -81,17 +81,12 @@ internal fun DeleteFoodRangeDialog(repository: FoodRepository, onDismiss: () -> 
                 confirming -> TextButton(enabled = !busy, onClick = {
                     val selected = preview ?: return@TextButton
                     busy = true
-                    scope.launch {
-                        try {
-                            if (repository.deletePreviewedFood(selected, alsoHealth)) onDismiss()
-                            else resultMessage = R.string.delete_food_health_failed
-                        } catch (cancelled: CancellationException) {
-                            throw cancelled
-                        } catch (_: Exception) {
-                            resultMessage = R.string.delete_food_failed
-                        } finally {
-                            busy = false
-                        }
+                    // Outside the dialog's scope: rotating the screen must not cancel a
+                    // deletion whose local rows are already gone, leaving Health records
+                    // behind with no saved request to remove them.
+                    repository.deletePreviewedFoodSurvivingUi(selected, alsoHealth) { ok ->
+                        busy = false
+                        if (ok) onDismiss() else resultMessage = R.string.delete_food_health_failed
                     }
                 }) { Text(stringResource(R.string.action_delete)) }
                 else -> {

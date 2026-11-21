@@ -474,13 +474,19 @@ class FoodStore {
         let timestamps = Dictionary(preview.map { ($0.id, $0.timestamp) }, uniquingKeysWith: { first, _ in first })
         let removed = entries.filter { timestamps[$0.id] == $0.timestamp }
         guard !removed.isEmpty else { return [] }
-        let ids = Set(removed.map(\.id))
         let previous = entries
-        entries.removeAll { ids.contains($0.id) }
+        // Old diaries can hold duplicate ids (HealthKit restores). Remove exactly the
+        // previewed rows, never a same-id row outside the selected range.
+        entries.removeAll { timestamps[$0.id] == $0.timestamp }
         guard saveEntries() else {
             entries = previous
             return nil
         }
+        // A later HealthKit recovery must not resurrect locally deleted meals whose
+        // Health copies remain (alsoHealth off, or an in-flight recovery).
+        var deleted = locallyDeletedIDs
+        deleted.formUnion(removed.map(\.id))
+        defaults.set(Array(deleted.map(\.uuidString)), forKey: Self.locallyDeletedFoodIdsKey)
         for entry in removed {
             for filename in entry.allImageFilenames where !isImageStillReferenced(filename: filename, excludingEntryID: entry.id) {
                 FoodImageStore.shared.delete(filename: filename)
@@ -489,6 +495,15 @@ class FoodStore {
         onEntriesChanged?()
         return removed.map(\.id)
     }
+
+    /// Ids deleted locally that a HealthKit recovery must skip; their Health copies
+    /// may still exist when the deletion was local-only or a recovery was in flight.
+    var locallyDeletedIDs: Set<UUID> {
+        Set((defaults.stringArray(forKey: Self.locallyDeletedFoodIdsKey) ?? [])
+            .compactMap(UUID.init(uuidString:)))
+    }
+
+    private static let locallyDeletedFoodIdsKey = "locallyDeletedFoodIds"
 
     /// Merge selected diary foods into one combined meal and remove the originals.
     @discardableResult

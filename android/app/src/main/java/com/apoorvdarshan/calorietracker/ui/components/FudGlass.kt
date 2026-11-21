@@ -54,8 +54,9 @@ fun FudGlassSurface(
 ) {
     val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
     val shape = RoundedCornerShape(cornerRadius)
-    val baseColor = if (isDark) Color(0xFF17171B).copy(alpha = 0.84f)
-                    else Color(0xFFFAF2EC).copy(alpha = 0.98f)
+    // The palette's own card color, so Dark gray cards follow the gray palette
+    // instead of the fixed near-black fill. The sheen and border stay.
+    val baseColor = MaterialTheme.colorScheme.surface.copy(alpha = if (isDark) 0.84f else 0.98f)
     val shadowColor = if (isDark) Color.Black.copy(alpha = 0.28f)
                       else Color.Black.copy(alpha = 0.11f)
     val sheen = Brush.verticalGradient(

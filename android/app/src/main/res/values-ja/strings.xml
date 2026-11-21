@@ -768,6 +768,7 @@
     <string name="settings_appearance_system">システム</string>
     <string name="settings_appearance_light">ライト</string>
     <string name="settings_appearance_dark">ダーク</string>
+    <string name="settings_appearance_dark_gray">ダークグレー</string>
     <string name="settings_app_language">言語</string>
     <string name="settings_app_language_system">システムのデフォルト</string>
     <string name="sheet_app_language">言語</string>

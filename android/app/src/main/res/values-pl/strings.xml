@@ -792,6 +792,7 @@
     <string name="settings_appearance_system">System</string>
     <string name="settings_appearance_light">Lekka</string>
     <string name="settings_appearance_dark">Ciemny</string>
+    <string name="settings_appearance_dark_gray">Ciemnoszary</string>
     <string name="settings_app_language">Język</string>
     <string name="settings_app_language_system">Domyślny systemowy</string>
     <string name="sheet_app_language">Język</string>

@@ -865,6 +865,7 @@
     <string name="settings_appearance_system">System</string>
     <string name="settings_appearance_light">Light</string>
     <string name="settings_appearance_dark">Dark</string>
+    <string name="settings_appearance_dark_gray">Dark gray</string>
     <string name="settings_app_language">Language</string>
     <string name="settings_app_language_system">System default</string>
     <string name="sheet_app_language">Language</string>

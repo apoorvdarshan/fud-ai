@@ -1477,10 +1477,15 @@ final class VoiceAssistantToolExecutor {
             apply = stringSetting(AppThemeColor.storageKey, to: color.rawValue, default: AppThemeColor.defaultColor.rawValue)
         case .appearance:
             let mode = text.lowercased()
-            guard ["system", "light", "dark"].contains(mode) else {
-                return Self.failure(.invalidArguments, "appearance must be system, light or dark.")
+            guard ["system", "light", "dark", "darkGray"].contains(mode) else {
+                return Self.failure(.invalidArguments, "appearance must be system, light, dark or dark gray.")
             }
-            valueText = mode == "light" ? String(localized: "Light") : mode == "dark" ? String(localized: "Dark") : String(localized: "System")
+            valueText = switch mode {
+            case "light": String(localized: "Light")
+            case "dark": String(localized: "Dark")
+            case "darkGray": String(localized: "Dark gray")
+            default: String(localized: "System")
+            }
             summaryValue = mode
             apply = stringSetting("appearanceMode", to: mode, default: "system")
         case .units:

@@ -798,6 +798,7 @@
     <string name="settings_appearance_system">Sistem</string>
     <string name="settings_appearance_light">Açık</string>
     <string name="settings_appearance_dark">Koyu</string>
+    <string name="settings_appearance_dark_gray">Koyu gri</string>
     <string name="settings_app_language">Dil</string>
     <string name="settings_app_language_system">Sistem varsayılanı</string>
     <string name="sheet_app_language">Dil</string>

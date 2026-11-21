@@ -1591,8 +1591,17 @@ fun SettingsScreen(
                     stringResource(R.string.settings_health_water_sync), hydrationSync, icon = Icons.Outlined.Favorite,
                     onChange = { enabled ->
                         if (enabled) {
-                            pendingHealthPermissionAction = HealthConnectPermissionAction.HYDRATION
-                            healthConnectLauncher.launch(container.health.hydrationWritePermissions)
+                            // The row is reachable before the main connection, so check
+                            // availability here too: a missing provider or a refused launch
+                            // must show the availability dialog, not close the app.
+                            if (!container.health.isAvailable()) {
+                                showHealthAvailabilityDialog()
+                                return@ToggleRow
+                            }
+                            runCatching {
+                                pendingHealthPermissionAction = HealthConnectPermissionAction.HYDRATION
+                                healthConnectLauncher.launch(container.health.hydrationWritePermissions)
+                            }.onFailure { showHealthAvailabilityDialog() }
                         } else {
                             settingsScope.launch { container.waterRepository.setHealthSync(false) }
                         }

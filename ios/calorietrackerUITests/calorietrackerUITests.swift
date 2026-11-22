@@ -303,8 +303,21 @@ final class calorietrackerUITests: XCTestCase {
         XCTAssertTrue(textProviderSection.waitForExistence(timeout: 3))
         XCTAssertTrue(app.staticTexts["AI Providers & Fallbacks"].exists)
         XCTAssertEqual(app.switches["Use Separate Text Provider"].value as? String, "1")
-        XCTAssertTrue(app.staticTexts["DeepSeek"].waitForExistence(timeout: 3))
-        XCTAssertTrue(app.staticTexts["deepseek-v4-flash"].waitForExistence(timeout: 3))
+        // Loaded runners materialize these rows late; 8s matches the file's other waits.
+        let deepSeekRow = app.staticTexts["DeepSeek"]
+        XCTAssertTrue(deepSeekRow.waitForExistence(timeout: 8))
+        // SwiftUI exposes each menu picker as a button labeled "Model, <selected>"
+        // (a CI dump showed the primary row as "Model, gemini-3.5-flash-lite"). The
+        // Text AI row sits below the fold of the lazy Form, so scroll until the
+        // hierarchy materializes it with the launch-argument model selected.
+        let textModelRow = app.buttons["Model, deepseek-v4-flash"]
+        for _ in 0..<10 where !textModelRow.exists {
+            app.swipeUp()
+        }
+        XCTAssertTrue(
+            textModelRow.waitForExistence(timeout: 5),
+            "The Text AI model row never appeared with deepseek-v4-flash selected"
+        )
     }
 
     @MainActor

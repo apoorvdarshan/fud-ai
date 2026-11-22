@@ -308,18 +308,18 @@ final class calorietrackerUITests: XCTestCase {
         XCTAssertTrue(deepSeekRow.waitForExistence(timeout: 8))
         // The Model row sits below the fold of the lazy Form: it is not even in the
         // hierarchy until the list materializes it, so scroll first.
-        let providerRowBottom = deepSeekRow.frame.maxY
         let modelControls = app.buttons.matching(NSPredicate(format: "label CONTAINS 'Model'"))
         for _ in 0..<6 where modelControls.count == 0 {
             app.swipeUp()
         }
         // SwiftUI menu pickers expose neither label nor value for the selected model,
-        // so open the model controls below the provider row and read their menus.
-        // The Text AI section is the one whose menu offers deepseek-v4-flash.
+        // so open every model menu. Only the DeepSeek picker can offer
+        // deepseek-v4-flash, so the menu contents identify the section on their own;
+        // a scrolled frame is stale and must not filter candidates out.
         var offeredModel = false
         for index in 0..<max(modelControls.count, 1) {
             let control = modelControls.element(boundBy: index)
-            guard control.exists, control.frame.minY > providerRowBottom else { continue }
+            guard control.exists else { continue }
             control.tap()
             if app.buttons["deepseek-v4-flash"].waitForExistence(timeout: 3) {
                 app.buttons["deepseek-v4-flash"].tap()

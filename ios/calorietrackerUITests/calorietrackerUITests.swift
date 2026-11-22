@@ -304,15 +304,26 @@ final class calorietrackerUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["AI Providers & Fallbacks"].exists)
         XCTAssertEqual(app.switches["Use Separate Text Provider"].value as? String, "1")
         // Loaded runners materialize these rows late; 8s matches the file's other waits.
-        XCTAssertTrue(app.staticTexts["DeepSeek"].waitForExistence(timeout: 8))
-        // The model row is a menu picker: the selected model can surface as the
-        // element's label or its value, so match either on any element type.
-        let modelPredicate = NSPredicate(
-            format: "label CONTAINS %@ OR value CONTAINS %@",
-            "deepseek-v4-flash", "deepseek-v4-flash"
-        )
-        let textModelRow = app.descendants(matching: .any).matching(modelPredicate).firstMatch
-        XCTAssertTrue(textModelRow.waitForExistence(timeout: 8))
+        let deepSeekRow = app.staticTexts["DeepSeek"]
+        XCTAssertTrue(deepSeekRow.waitForExistence(timeout: 8))
+        // SwiftUI menu pickers expose neither label nor value for the selected model,
+        // so open the model controls below the provider row and read their menus.
+        // The Text AI section is the one whose menu offers deepseek-v4-flash.
+        let modelControls = app.buttons.matching(NSPredicate(format: "label CONTAINS 'Model'"))
+        var offeredModel = false
+        for index in 0..<max(modelControls.count, 1) {
+            let control = modelControls.element(boundBy: index)
+            guard control.exists, control.frame.minY > deepSeekRow.frame.minY else { continue }
+            control.tap()
+            if app.buttons["deepseek-v4-flash"].waitForExistence(timeout: 3) {
+                app.buttons["deepseek-v4-flash"].tap()
+                offeredModel = true
+                break
+            }
+            // A different section's picker: dismiss its menu and keep looking.
+            app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.1)).tap()
+        }
+        XCTAssertTrue(offeredModel, "The Text AI model picker did not offer deepseek-v4-flash")
     }
 
     @MainActor

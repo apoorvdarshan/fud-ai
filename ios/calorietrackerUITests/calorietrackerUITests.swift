@@ -306,30 +306,18 @@ final class calorietrackerUITests: XCTestCase {
         // Loaded runners materialize these rows late; 8s matches the file's other waits.
         let deepSeekRow = app.staticTexts["DeepSeek"]
         XCTAssertTrue(deepSeekRow.waitForExistence(timeout: 8))
-        // The Model row sits below the fold of the lazy Form: it is not even in the
-        // hierarchy until the list materializes it, so scroll first.
-        let modelControls = app.buttons.matching(NSPredicate(format: "label CONTAINS 'Model'"))
-        for _ in 0..<6 where modelControls.count == 0 {
+        // SwiftUI exposes each menu picker as a button labeled "Model, <selected>"
+        // (a CI dump showed the primary row as "Model, gemini-3.5-flash-lite"). The
+        // Text AI row sits below the fold of the lazy Form, so scroll until the
+        // hierarchy materializes it with the launch-argument model selected.
+        let textModelRow = app.buttons["Model, deepseek-v4-flash"]
+        for _ in 0..<10 where !textModelRow.exists {
             app.swipeUp()
         }
-        // SwiftUI menu pickers expose neither label nor value for the selected model,
-        // so open every model menu. Only the DeepSeek picker can offer
-        // deepseek-v4-flash, so the menu contents identify the section on their own;
-        // a scrolled frame is stale and must not filter candidates out.
-        var offeredModel = false
-        for index in 0..<max(modelControls.count, 1) {
-            let control = modelControls.element(boundBy: index)
-            guard control.exists else { continue }
-            control.tap()
-            if app.buttons["deepseek-v4-flash"].waitForExistence(timeout: 3) {
-                app.buttons["deepseek-v4-flash"].tap()
-                offeredModel = true
-                break
-            }
-            // A different section's picker: dismiss its menu and keep looking.
-            app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.1)).tap()
-        }
-        XCTAssertTrue(offeredModel, "The Text AI model picker did not offer deepseek-v4-flash")
+        XCTAssertTrue(
+            textModelRow.waitForExistence(timeout: 5),
+            "The Text AI model row never appeared with deepseek-v4-flash selected"
+        )
     }
 
     @MainActor

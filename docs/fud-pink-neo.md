@@ -7,9 +7,23 @@ The approved direction is **04 Flash**: Fud Pink neo-brutalist Home with a right
 - **App shell:** Home, Progress, Coach, Settings, and Workouts use the right rail. Hidden-tab choices, Workouts mode, Settings reselect, update badge, onboarding, and system/assistant routes still use their existing state. Short windows can scroll the rail. The keyboard gives its space back to the content.
 - **Home and diary:** native date picker and the existing week pager both drive the current diary date. The wide energy panel and narrow goal panel use the existing unit preference, goals, and burn summaries. The grid still shows the user's chosen nutrients; Water remains an extra summary. Larger text can reflow the nutrition panels into fewer columns. Food, water, and fasting still share the diary, with food-only nutrition totals.
 - **Actions:** Log Food opens the existing configured add menu on each platform—photo, gallery, voice, text, barcode, manual, saved meals and other enabled actions. The rail's camera goes through the same camera shortcut as the launcher (today's diary, including the existing active-fast restrictions). The assistant and favorites remain available when enabled. Sorting, sharing, selection, combining, editing, and removal keep their existing handlers.
-- **Appearance:** Flash uses near-white paper `#FFFDFC` in light mode and near-black paper `#131114` in dark mode. The energy panel, selected day/tab, and Log Food action use flat fills, not gradients. The shared style also applies to Progress cards, Coach messages and composer, Workouts controls, Settings, onboarding, and in-app food, water, fasting, backup, workout, and subscription presentations. Existing routes and layouts are retained; Apple and Android still own permission prompts, keyboards, system pickers, and share sheets. iOS system menus and confirmation controls use native presentation rather than custom imitations. Photos, exercise illustrations, and live voice feedback retain their information-bearing visuals. Dark gray, other accent choices, energy/volume units and localizations are preserved.
+- **Appearance:** Flash uses near-white paper `#FFFDFC` in light mode and near-black paper `#131114` in dark mode. The energy panel, selected day/tab, and Log Food action use flat fills, not gradients. The shared style also applies to Progress cards, Coach messages and composer, Workouts controls, Settings, onboarding, and in-app food, water, fasting, backup, workout, and subscription presentations. Existing routes and layouts are retained. Photos, exercise illustrations, and live voice feedback retain their information-bearing visuals. Dark gray, other accent choices, energy/volume units and localizations are preserved.
 
 No change to persisted data, backup formats, nutrition calculations, AI provider selection, billing, or the server APIs.
+
+## Completion criteria
+
+Flash is an app-wide theme, not a Home or navigation skin. A screen or presentation is not complete just because it inherits the app background. Verify the actual visible typography, action states, borders, and fills in light and dark, including in nested dropdowns.
+
+| Area | Include in visual and interaction review |
+| --- | --- |
+| Home | Day picker, grouped and standalone Add Food methods, sort and serving-unit menus, analysis and result, diary edits and confirmations, water and fasting, saved meals, and nutrition picker |
+| Progress | Every destination, chart details, weight and body-fat editors, body measurements, workout history, and challenges |
+| Coach and voice | Empty, conversation, composing and attachment menus, voice panels, access notices, and confirmations |
+| Workouts | Both modes, exercise details, filters and sorting, date and set controls, routines, and all pickers and editors |
+| Settings and onboarding | Every category and onboarding step, appearance and unit selectors, model/provider menus, data import/export, subscription and credits, and first-run/update prompts |
+
+**Known remaining coverage:** iOS still uses native-styled `Menu`, `.pickerStyle(.menu)`, context menus, and alerts for some app-owned actions. Their content is functional, but their visible popup surfaces do not all match Flash yet. Treat these and any remaining screen-specific decorative gradients as open work. Do not mark the redesign complete until both platforms have been audited against the table. Only genuinely OS-owned UI, such as permission prompts, keyboards, system file/photo pickers, and share sheets, is exempt.
 
 ## Verify before release
 

@@ -406,6 +406,7 @@ struct EditFoodEntryView: View {
                                 .multilineTextAlignment(.trailing)
                         }
                     }
+                    .flashListRows()
 
                     // Allergen safety stays near the top for configured sensitivities;
                     // the longer product details sit at the end of the form (#426).
@@ -453,6 +454,7 @@ struct EditFoodEntryView: View {
                             }
                         }
                     }
+                    .flashListRows()
 
                     Section("Nutrition") {
                         NutritionDisplayRow(label: "Calories", value: "\(energyUnit.displayValue(kcal: scaledCalories))", unit: energyUnit.symbol)
@@ -460,6 +462,7 @@ struct EditFoodEntryView: View {
                         NutritionDisplayRow(label: "Carbs", value: MacroValueFormatter.string(scaledCarbs), unit: "g")
                         NutritionDisplayRow(label: "Fat", value: MacroValueFormatter.string(scaledFat), unit: "g")
                     }
+                    .flashListRows()
 
                     MealIngredientsSection(
                         ingredients: scaledIngredients,
@@ -624,6 +627,10 @@ struct EditFoodEntryView: View {
                 .disabled(isReprocessing)
                 .navigationTitle("Edit Food")
                 .navigationBarTitleDisplayMode(.inline)
+                .listStyle(.plain)
+                .listSectionSpacing(8)
+                .toolbarBackground(AppColors.appCard, for: .navigationBar)
+                .toolbarBackground(.visible, for: .navigationBar)
                 .alert("Delete Food Log?", isPresented: $isDeleteConfirmationPresented) {
                     Button("Delete", role: .destructive) {
                         foodStore.deleteEntry(entry)
@@ -642,12 +649,10 @@ struct EditFoodEntryView: View {
                             ProgressView()
                         } else if noteChanged {
                             Button("Reprocess", action: reprocess)
-                                .font(.system(.body, design: .rounded, weight: .semibold))
-                                .tint(AppColors.calorie)
+                                .buttonStyle(FlashActionButtonStyle())
                         } else {
                             Button("Save", action: saveChanges)
-                                .font(.system(.body, design: .rounded, weight: .semibold))
-                                .tint(AppColors.calorie)
+                                .buttonStyle(FlashActionButtonStyle())
                         }
                     }
                 }

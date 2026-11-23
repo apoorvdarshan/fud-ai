@@ -42,6 +42,15 @@ extension View {
             .background(AppColors.appBackground.ignoresSafeArea())
     }
 
+    func flashListRows() -> some View {
+        listRowBackground(
+            Rectangle()
+                .fill(AppColors.appCard)
+                .pinkNeoRule(AppColors.flashRule)
+        )
+        .listRowSeparator(.hidden)
+    }
+
     func flashActionFill() -> some View {
         foregroundStyle(AppColors.onAccent)
             .background(AppColors.calorie)

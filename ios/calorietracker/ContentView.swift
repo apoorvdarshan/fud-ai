@@ -4869,10 +4869,10 @@ private struct ProfileSettingsCategoryRow: View {
         NavigationLink(value: category) {
             Label {
                 Text(category.title)
-                    .font(.system(.body, design: .rounded, weight: .medium))
+                    .font(.system(.body, weight: .black).width(.condensed))
             } icon: {
                 Image(systemName: category.systemImage)
-                    .foregroundStyle(AppColors.calorie)
+                    .foregroundStyle(AppColors.accentText)
                     .frame(width: 24)
             }
         }
@@ -5123,14 +5123,14 @@ struct ProfileView: View {
                     ProfileSettingsCategoryRow(category: category)
                 }
             }
-            .listRowBackground(AppColors.appCard)
+            .flashListRows()
 
             Section {
                 ForEach(ProfileSettingsCategory.appInfoCases) { category in
                     ProfileSettingsCategoryRow(category: category)
                 }
             }
-            .listRowBackground(AppColors.appCard)
+            .flashListRows()
 
             AboutFooterSection()
 
@@ -5139,6 +5139,8 @@ struct ProfileView: View {
                 .listRowBackground(Color.clear)
                 .listRowSeparator(.hidden)
         }
+        .listStyle(.plain)
+        .listSectionSpacing(8)
         .scrollContentBackground(.hidden)
         .background(AppColors.appBackground)
         .toolbar(.hidden, for: .navigationBar)

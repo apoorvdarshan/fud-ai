@@ -503,6 +503,7 @@ struct FoodResultView: View {
                                 .multilineTextAlignment(.trailing)
                         }
                     }
+                    .flashListRows()
 
                     // Allergen safety stays near the top for configured sensitivities;
                     // the longer product details sit at the end of the form (#426).
@@ -701,6 +702,7 @@ struct FoodResultView: View {
                         .pickerStyle(.menu)
                         .tint(AppColors.calorie)
                     }
+                    .flashListRows()
 
                     Section("Date & Time") {
                         DatePicker("Date", selection: $loggedAt, displayedComponents: .date)
@@ -708,6 +710,7 @@ struct FoodResultView: View {
                         DatePicker("Time", selection: $loggedAt, displayedComponents: .hourAndMinute)
                             .tint(AppColors.calorie)
                     }
+                    .flashListRows()
 
                     if let productMetadata, productMetadata.hasDisplayDetails {
                         FoodProductMetadataSection(
@@ -731,6 +734,10 @@ struct FoodResultView: View {
                 }
                 .navigationTitle("Review Food")
                 .navigationBarTitleDisplayMode(.inline)
+                .listStyle(.plain)
+                .listSectionSpacing(8)
+                .toolbarBackground(AppColors.appCard, for: .navigationBar)
+                .toolbarBackground(.visible, for: .navigationBar)
                 .toolbar {
                     ToolbarItem(placement: .cancellationAction) {
                         Button("Cancel") { dismiss() }
@@ -741,8 +748,7 @@ struct FoodResultView: View {
                             .tint(AppColors.protein)
 
                         Button("Log", action: logFood)
-                            .font(.system(.body, design: .rounded, weight: .semibold))
-                            .tint(AppColors.calorie)
+                            .buttonStyle(FlashActionButtonStyle())
                             .disabled(submissionGate.isSubmitting)
                     }
                 }

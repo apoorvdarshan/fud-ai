@@ -155,8 +155,8 @@ class AppFlowsTest {
         assertEquals(addBounds.top, voiceBounds.top, 1f)
         assertEquals(addBounds.bottom, voiceBounds.bottom, 1f)
         assertTrue("Voice sits beside the add button", voiceBounds.right < addBounds.left)
-        assertTrue("The diary keeps its full viewport behind the floating controls",
-            compose.onNodeWithTag("home.diary").fetchSemanticsNode().boundsInRoot.bottom > addBounds.bottom)
+        assertTrue("The diary cannot scroll behind the pinned controls",
+            compose.onNodeWithTag("home.diary").fetchSemanticsNode().boundsInRoot.bottom <= addBounds.top)
         assertTrue("The right rail stays beside the action row", addBounds.right <=
             compose.onNodeWithTag("nav.home").fetchSemanticsNode().boundsInRoot.left)
         compose.onNodeWithTag("nav.camera").assertIsDisplayed()
@@ -291,9 +291,9 @@ class AppFlowsTest {
         compose.onNodeWithTag("voiceSettings.confirmSaves").performScrollTo().assertIsOn().performClick()
         awaitPreference(prefs.voiceAssistantPreferences) { !it.confirmSaves }
         val saveToCoach = compose.onNodeWithTag("voiceSettings.saveToCoach").performScrollTo().assertIsOn()
-        assertTrue("The switch must be above the floating tabs",
-            saveToCoach.fetchSemanticsNode().boundsInRoot.bottom <=
-                compose.onNodeWithTag("nav.workouts").fetchSemanticsNode().boundsInRoot.top)
+        assertTrue("The switch must stay to the left of the rail",
+            saveToCoach.fetchSemanticsNode().boundsInRoot.right <=
+                compose.onNodeWithTag("nav.workouts").fetchSemanticsNode().boundsInRoot.left)
         saveToCoach.performClick()
         awaitPreference(prefs.voiceAssistantPreferences) { !it.saveToCoach }
         compose.onNodeWithTag("voiceSettings.autoCapture").performScrollTo().assertIsOn().performClick()

@@ -210,17 +210,29 @@ enum AppColors {
         return AppThemeColor.current == .fudPink ? pinkNeoPanel : Color("appCard")
     }
 
-    private static let pinkNeoPaper = Color(uiColor: UIColor { traits in
-        traits.userInterfaceStyle == .dark
-            ? UIColor(red: 25.0 / 255, green: 15.0 / 255, blue: 22.0 / 255, alpha: 1)
-            : UIColor(red: 252.0 / 255, green: 241.0 / 255, blue: 243.0 / 255, alpha: 1)
-    })
+    private static let pinkNeoPaper = dynamicColor(light: PinkNeoFlash.paperLight, dark: PinkNeoFlash.paperDark)
+    private static let pinkNeoPanel = dynamicColor(light: PinkNeoFlash.panelLight, dark: PinkNeoFlash.panelDark)
 
-    private static let pinkNeoPanel = Color(uiColor: UIColor { traits in
-        traits.userInterfaceStyle == .dark
-            ? UIColor(red: 37.0 / 255, green: 22.0 / 255, blue: 32.0 / 255, alpha: 1)
-            : UIColor(red: 1, green: 248.0 / 255, blue: 249.0 / 255, alpha: 1)
-    })
+    private static func dynamicColor(light: UInt, dark: UInt) -> Color {
+        Color(uiColor: UIColor { traits in
+            let hex = traits.userInterfaceStyle == .dark ? dark : light
+            return UIColor(red: CGFloat((hex >> 16) & 255) / 255,
+                           green: CGFloat((hex >> 8) & 255) / 255,
+                           blue: CGFloat(hex & 255) / 255, alpha: 1)
+        })
+    }
+}
+
+/// The selected 04 Flash palette. Shared by the shell and its Home components.
+enum PinkNeoFlash {
+    static let paperLight: UInt = 0xFFFDFC
+    static let paperDark: UInt = 0x131114
+    static let panelLight: UInt = 0xFFFFFF
+    static let panelDark: UInt = 0x211C23
+    static let railDark: UInt = 0x221E26
+    static let inkLight: UInt = 0x171219
+    static let inkDark: UInt = 0xF9F5F7
+    static let pink: UInt = 0xFF006A
 }
 
 extension Color {

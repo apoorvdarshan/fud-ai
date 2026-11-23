@@ -7,33 +7,24 @@ struct PinkNeoPalette {
     let theme: AppThemeColor
 
     private var pink: Bool { theme == .fudPink }
-    var paper: Color { gray || !pink ? AppColors.appBackground : Color(hex: dark ? 0x190F16 : 0xFCF1F3) }
-    var panel: Color { gray || !pink ? AppColors.appCard : Color(hex: dark ? 0x251620 : 0xFFF8F9) }
-    var ink: Color { Color(hex: dark ? 0xFFF2F6 : (pink ? 0x361421 : 0x222024)) }
-    var rule: Color { ink.opacity(dark ? 0.75 : 0.82) }
-    var accent: Color { pink ? Color(hex: dark ? 0xFF92AC : 0xA81040) : theme.color }
-    var action: Color { theme.color }
-    var onAction: Color {
-        let rgb = theme.startHex
+    var paper: Color { gray || !pink ? AppColors.appBackground : Color(hex: dark ? PinkNeoFlash.paperDark : PinkNeoFlash.paperLight) }
+    var panel: Color { gray || !pink ? AppColors.appCard : Color(hex: dark ? PinkNeoFlash.panelDark : PinkNeoFlash.panelLight) }
+    var ink: Color { Color(hex: dark ? PinkNeoFlash.inkDark : PinkNeoFlash.inkLight) }
+    var rule: Color { pink && !gray ? ink : ink.opacity(dark ? 0.75 : 0.82) }
+    var accent: Color { action }
+    private var actionHex: UInt { pink ? PinkNeoFlash.pink : theme.startHex }
+    var action: Color { Color(hex: actionHex) }
+    private var usesLightActionInk: Bool {
         func linear(_ shift: UInt) -> Double {
-            let value = Double((rgb >> shift) & 255) / 255
+            let value = Double((actionHex >> shift) & 255) / 255
             return value <= 0.04045 ? value / 12.92 : pow((value + 0.055) / 1.055, 2.4)
         }
         let luminance = 0.2126 * linear(16) + 0.7152 * linear(8) + 0.0722 * linear(0)
-        return luminance < 0.179 ? .white : .black
+        return luminance < 0.179
     }
-    var wash: Color { pink && !gray ? Color(hex: dark ? 0x482337 : 0xF8D4DE) : panel }
-    var hero: some View {
-        ZStack {
-            Color(hex: dark ? 0x261620 : 0x2D1920)
-            if pink {
-                LinearGradient(colors: [Color(hex: 0xBF164E), Color(hex: 0x870E3C)],
-                               startPoint: .topLeading, endPoint: .bottomTrailing)
-            } else {
-                theme.color.opacity(0.22)
-            }
-        }
-    }
+    var onAction: Color { usesLightActionInk ? .white : .black }
+    var emptyActionSegment: Color { usesLightActionInk ? .black : .white }
+    var wash: Color { pink && dark && !gray ? Color(hex: PinkNeoFlash.railDark) : panel }
 }
 
 struct PinkNeoAppearance: DynamicProperty {
@@ -241,9 +232,9 @@ struct PinkNeoCalorieSummary: View {
                     HStack(spacing: 2) {
                         ForEach(0..<20) { index in
                             GeometryReader { proxy in
-                                Rectangle().fill(.white.opacity(0.24))
+                                Rectangle().fill(palette.emptyActionSegment)
                                     .overlay(alignment: .leading) {
-                                        Rectangle().fill(.white.opacity(0.94))
+                                        Rectangle().fill(palette.onAction)
                                             .frame(width: proxy.size.width * max(0, min(1, shown * 20 - Double(index))))
                                     }
                             }
@@ -254,8 +245,8 @@ struct PinkNeoCalorieSummary: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                 .padding(11)
-                .foregroundStyle(.white)
-                .background(palette.hero)
+                .foregroundStyle(palette.onAction)
+                .background(palette.action)
                 .pinkNeoRule(palette.rule, width: 1.5)
 
                 VStack(spacing: 5) {

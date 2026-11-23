@@ -40,9 +40,6 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
-import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -137,6 +134,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.Brush
@@ -473,8 +471,6 @@ DisposableEffect(lifecycleOwner, vm) {
     val actionGap = 12.dp
     val neo = pinkNeoPalette()
     val actionBottom = 8.dp
-    val diaryBottomClearance = actionBottom + actionSize + actionGap +
-        WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
 
     // The tab shell owns the status-bar inset.
     Scaffold(
@@ -533,13 +529,13 @@ DisposableEffect(lifecycleOwner, vm) {
             }
         },
     ) { padding ->
-        Box(Modifier.fillMaxSize().padding(padding)) {
+        Column(Modifier.fillMaxSize().padding(padding)) {
         LazyColumn(
             modifier = Modifier
-                .fillMaxSize().testTag("home.diary"),
+                .weight(1f).fillMaxWidth().testTag("home.diary"),
             contentPadding = androidx.compose.foundation.layout.PaddingValues(
                 top = 8.dp,
-                bottom = if (selectionMode) 8.dp else diaryBottomClearance
+                bottom = 8.dp
             )
         ) {
             // Week strip — verbatim port of WeekEnergyStrip in HomeComponents.swift,
@@ -692,10 +688,9 @@ DisposableEffect(lifecycleOwner, vm) {
                     }
                     items(group.items, key = { it.stableId }) { item ->
                         val index = group.items.indexOf(item)
-                        val isFirst = index == 0
                         val isLast = index == group.items.lastIndex
-                        val rowShape = sectionCardShape(isFirst, isLast)
-                        SectionCardWrapper(isFirst = isFirst, isLast = isLast, transparent = true) {
+                        val rowShape = RoundedCornerShape(0.dp)
+                        Box(Modifier.fillMaxWidth().padding(horizontal = 10.dp).clipToBounds()) {
                             when (item) {
                                 is HomeDiaryItem.Food -> {
                                     val entry = item.entry
@@ -752,14 +747,11 @@ DisposableEffect(lifecycleOwner, vm) {
             }
         }
 
-        // The dock stays beside the rail, and the diary reserves enough slack
-        // to scroll its final item above both the dock and system navigation.
+        // Give the pinned dock its own space so it can't intercept a diary swipe.
         if (!selectionMode) {
         Row(
             modifier = Modifier
-                .align(Alignment.BottomEnd)
                 .fillMaxWidth()
-                .navigationBarsPadding()
                 .padding(start = 10.dp, end = 10.dp, bottom = actionBottom)
                 .background(neo.paper),
             horizontalArrangement = Arrangement.spacedBy(actionGap),
@@ -772,20 +764,20 @@ DisposableEffect(lifecycleOwner, vm) {
                     modifier = Modifier
                         .testTag("home.favorites")
                         .size(48.dp)
-                        .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.surface)
+                        .background(neo.panel)
+                        .border(1.dp, neo.rule)
                         .clickable { performFoodLogMethod(FoodLogMethod.FAVORITES) },
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
                         FoodLogMethod.FAVORITES.icon,
                         contentDescription = stringResource(R.string.saved_meals_tab_favorites),
-                        tint = AppColors.Calorie
+                        tint = neo.ink
                     )
                 }
             }
             if (!voiceUi.visible && !hideVoiceShortcut) {
-                VoiceAssistantButton(onClick = container.voiceAssistant::requestStart)
+                VoiceAssistantButton(onClick = container.voiceAssistant::requestStart, flat = true)
             }
             Box(Modifier.weight(1f)) {
             Row(
@@ -794,7 +786,7 @@ DisposableEffect(lifecycleOwner, vm) {
                     .fillMaxWidth()
                     .heightIn(min = actionSize)
                     .background(neo.action)
-                    .border(1.dp, neo.rule)
+                    .border(1.5.dp, neo.rule)
                     .clickable(role = Role.Button) {
                         addMenuDestination = null
                         showAddMenu = true
@@ -1307,6 +1299,7 @@ private fun ActiveFastingRow(
     rowShape: RoundedCornerShape,
     onClick: () -> Unit
 ) {
+    val neo = pinkNeoPalette()
     var now by remember(session.id) { mutableStateOf(Instant.now()) }
     LaunchedEffect(session.id) {
         while (true) {
@@ -1325,14 +1318,8 @@ private fun ActiveFastingRow(
         Modifier
             .fillMaxWidth()
             .clip(rowShape)
-            .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.86f))
-            .border(
-                0.7.dp,
-                Brush.linearGradient(
-                    listOf(Color.White.copy(alpha = 0.14f), Color.White.copy(alpha = 0.035f))
-                ),
-                rowShape
-            )
+            .background(neo.panel)
+            .border(0.7.dp, neo.rule, rowShape)
             .clickable(onClick = onClick)
             .padding(horizontal = 14.dp, vertical = 12.dp)
     ) {
@@ -1378,6 +1365,7 @@ private fun CompletedFastingRow(
     rowShape: RoundedCornerShape,
     onClick: () -> Unit
 ) {
+    val neo = pinkNeoPalette()
     val context = LocalContext.current
     val timeFormatter = remember(context) {
         DateTimeFormatter.ofPattern(clockTimePattern(context), Locale.getDefault())
@@ -1387,14 +1375,8 @@ private fun CompletedFastingRow(
         Modifier
             .fillMaxWidth()
             .clip(rowShape)
-            .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.86f))
-            .border(
-                0.7.dp,
-                Brush.linearGradient(
-                    listOf(Color.White.copy(alpha = 0.14f), Color.White.copy(alpha = 0.035f))
-                ),
-                rowShape
-            )
+            .background(neo.panel)
+            .border(0.7.dp, neo.rule, rowShape)
             .clickable(onClick = onClick)
             .padding(horizontal = 14.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically
@@ -2194,14 +2176,12 @@ private fun SwipeableFoodRow(
     onToggleFavorite: () -> Unit
 ) {
     val density = LocalDensity.current
-    val favoriteTriggerPx = with(density) { 150.dp.toPx() }
-    val deleteTriggerPx = with(density) { 220.dp.toPx() }
     var offsetPx by remember(entry.id) { mutableFloatStateOf(0f) }
 
     BoxWithConstraints(
         modifier = Modifier.fillMaxWidth()
     ) {
-        val maxSwipePx = with(density) { maxWidth.toPx() * 0.72f }
+        val swipe = with(density) { diarySwipeThresholds(maxWidth.toPx(), 150.dp.toPx(), 220.dp.toPx()) }
         Box(Modifier.fillMaxWidth()) {
             if (!selectionMode) {
                 SwipeBackground(offsetPx = offsetPx, isFavorite = isFavorite)
@@ -2214,18 +2194,18 @@ private fun SwipeableFoodRow(
                             Modifier.clickable(onClick = onTap)
                         } else {
                             Modifier
-                                .pointerInput(entry.id, maxSwipePx) {
+                                .pointerInput(entry.id, swipe) {
                                     detectHorizontalDragGestures(
                                         onHorizontalDrag = { change, dragAmount ->
                                             change.consume()
-                                            offsetPx = (offsetPx + dragAmount).coerceIn(-maxSwipePx, maxSwipePx)
+                                            offsetPx = (offsetPx + dragAmount).coerceIn(-swipe.limit, swipe.limit)
                                         },
                                         onDragEnd = {
                                             val finalOffset = offsetPx
                                             offsetPx = 0f
                                             when {
-                                                finalOffset <= -deleteTriggerPx -> onDelete()
-                                                finalOffset >= favoriteTriggerPx -> onToggleFavorite()
+                                                finalOffset <= -swipe.delete -> onDelete()
+                                                finalOffset >= swipe.favorite -> onToggleFavorite()
                                             }
                                         },
                                         onDragCancel = {
@@ -2245,7 +2225,8 @@ private fun SwipeableFoodRow(
                     isFavorite = isFavorite,
                     rowShape = rowShape,
                     selectionMode = selectionMode,
-                    selected = selected
+                    selected = selected,
+                    usesPinkNeoStyle = true
                 )
             }
         }
@@ -2261,24 +2242,23 @@ private fun SwipeableWaterRow(
     onDelete: () -> Unit
 ) {
     val density = LocalDensity.current
-    val deleteTriggerPx = with(density) { 220.dp.toPx() }
     var offsetPx by remember(entry.id) { mutableFloatStateOf(0f) }
 
     BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
-        val maxSwipePx = with(density) { maxWidth.toPx() * 0.72f }
+        val swipe = with(density) { diarySwipeThresholds(maxWidth.toPx(), 150.dp.toPx(), 220.dp.toPx()) }
         Box(Modifier.fillMaxWidth()) {
             SwipeBackground(offsetPx = offsetPx, isFavorite = false)
             Box(
                 modifier = Modifier
                     .offset { IntOffset(offsetPx.roundToInt(), 0) }
-                    .pointerInput(entry.id, maxSwipePx) {
+                    .pointerInput(entry.id, swipe) {
                         detectHorizontalDragGestures(
                             onHorizontalDrag = { change, dragAmount ->
                                 change.consume()
-                                offsetPx = (offsetPx + dragAmount).coerceIn(-maxSwipePx, 0f)
+                                offsetPx = (offsetPx + dragAmount).coerceIn(-swipe.limit, 0f)
                             },
                             onDragEnd = {
-                                val shouldDelete = offsetPx <= -deleteTriggerPx
+                                val shouldDelete = offsetPx <= -swipe.delete
                                 offsetPx = 0f
                                 if (shouldDelete) onDelete()
                             },
@@ -2305,24 +2285,23 @@ private fun SwipeableFastingRow(
     }
 
     val density = LocalDensity.current
-    val deleteTriggerPx = with(density) { 220.dp.toPx() }
     var offsetPx by remember(session.id) { mutableFloatStateOf(0f) }
 
     BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
-        val maxSwipePx = with(density) { maxWidth.toPx() * 0.72f }
+        val swipe = with(density) { diarySwipeThresholds(maxWidth.toPx(), 150.dp.toPx(), 220.dp.toPx()) }
         Box(Modifier.fillMaxWidth()) {
             SwipeBackground(offsetPx = offsetPx, isFavorite = false)
             Box(
                 modifier = Modifier
                     .offset { IntOffset(offsetPx.roundToInt(), 0) }
-                    .pointerInput(session.id, maxSwipePx) {
+                    .pointerInput(session.id, swipe) {
                         detectHorizontalDragGestures(
                             onHorizontalDrag = { change, dragAmount ->
                                 change.consume()
-                                offsetPx = (offsetPx + dragAmount).coerceIn(-maxSwipePx, 0f)
+                                offsetPx = (offsetPx + dragAmount).coerceIn(-swipe.limit, 0f)
                             },
                             onDragEnd = {
-                                val shouldDelete = offsetPx <= -deleteTriggerPx
+                                val shouldDelete = offsetPx <= -swipe.delete
                                 offsetPx = 0f
                                 if (shouldDelete) onDelete()
                             },
@@ -2335,6 +2314,15 @@ private fun SwipeableFastingRow(
         }
     }
 }
+
+internal data class DiarySwipeThresholds(val limit: Float, val favorite: Float, val delete: Float)
+
+/** Keep the old distances on wide layouts and leave room to trigger either action on the narrow rail layout. */
+internal fun diarySwipeThresholds(widthPx: Float, favoritePx: Float, deletePx: Float) = DiarySwipeThresholds(
+    limit = widthPx * 0.72f,
+    favorite = minOf(favoritePx, widthPx * 0.44f),
+    delete = minOf(deletePx, widthPx * 0.60f)
+)
 
 @Composable
 private fun BoxScope.SwipeBackground(offsetPx: Float, isFavorite: Boolean) {
@@ -2383,6 +2371,7 @@ private fun WaterLogRow(
     unit: WaterUnit,
     rowShape: RoundedCornerShape
 ) {
+    val neo = pinkNeoPalette()
     val ctx = LocalContext.current
     val time = remember(entry.date, ctx) {
         DateTimeFormatter
@@ -2396,19 +2385,8 @@ private fun WaterLogRow(
             .testTag("diary.water.${entry.id}")
             .fillMaxWidth()
             .clip(rowShape)
-            .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.86f))
-            .background(AppColors.Calorie.copy(alpha = 0.025f))
-            .border(
-                0.7.dp,
-                Brush.linearGradient(
-                    listOf(
-                        Color.White.copy(alpha = 0.14f),
-                        Color.White.copy(alpha = 0.035f),
-                        AppColors.Calorie.copy(alpha = 0.07f)
-                    )
-                ),
-                rowShape
-            )
+            .background(neo.panel)
+            .border(0.7.dp, neo.rule, rowShape)
             .padding(horizontal = 14.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -2455,8 +2433,10 @@ private fun FoodRow(
     isFavorite: Boolean = false,
     rowShape: RoundedCornerShape = RoundedCornerShape(22.dp),
     selectionMode: Boolean = false,
-    selected: Boolean = false
+    selected: Boolean = false,
+    usesPinkNeoStyle: Boolean = false
 ) {
+    val neo = pinkNeoPalette()
     val ctx = LocalContext.current
     val timeFmt = remember(ctx) {
         DateTimeFormatter.ofPattern(clockTimePattern(ctx), Locale.getDefault()).withZone(ZoneId.systemDefault())
@@ -2475,22 +2455,23 @@ private fun FoodRow(
             .testTag("diary.food.${entry.id}")
             .fillMaxWidth()
             .clip(rowShape)
-            .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.86f))
-            .background(
-                if (selected) AppColors.Calorie.copy(alpha = 0.12f)
-                else AppColors.Calorie.copy(alpha = 0.025f)
-            )
-            .border(
-                0.7.dp,
-                Brush.linearGradient(
-                    listOf(
-                        Color.White.copy(alpha = 0.14f),
-                        Color.White.copy(alpha = 0.035f),
-                        AppColors.Calorie.copy(alpha = 0.07f)
+            .then(if (usesPinkNeoStyle) {
+                Modifier.background(neo.panel)
+                    .background(if (selected) neo.action.copy(alpha = 0.12f) else Color.Transparent)
+                    .border(0.7.dp, neo.rule, rowShape)
+            } else {
+                Modifier.background(MaterialTheme.colorScheme.surface.copy(alpha = 0.86f))
+                    .background(AppColors.Calorie.copy(alpha = 0.025f))
+                    .border(
+                        0.7.dp,
+                        Brush.linearGradient(listOf(
+                            Color.White.copy(alpha = 0.14f),
+                            Color.White.copy(alpha = 0.035f),
+                            AppColors.Calorie.copy(alpha = 0.07f)
+                        )),
+                        rowShape
                     )
-                ),
-                rowShape
-            )
+            })
             .padding(horizontal = 14.dp, vertical = 12.dp),
         verticalAlignment = Alignment.Top,
         horizontalArrangement = Arrangement.spacedBy(12.dp)

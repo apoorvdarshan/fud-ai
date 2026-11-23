@@ -24,8 +24,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
@@ -106,19 +104,19 @@ internal fun PinkNeoEnergyPanels(
         verticalArrangement = Arrangement.spacedBy(6.dp)) {
         val currentPanel: @Composable (Modifier) -> Unit = { modifier ->
             Column(
-                modifier.background(Brush.linearGradient(palette.hero)).border(1.5.dp, palette.rule).padding(11.dp),
+                modifier.background(palette.action).border(1.5.dp, palette.rule).padding(11.dp),
                 verticalArrangement = Arrangement.spacedBy(6.dp, Alignment.CenterVertically)
             ) {
-                Text(heading, color = Color.White, fontWeight = FontWeight.Black, fontSize = 12.sp, style = PinkNeoCondensed)
-                Text(amount, color = Color.White, fontWeight = FontWeight.Black, style = PinkNeoCondensed,
+                Text(heading, color = palette.onAction, fontWeight = FontWeight.Black, fontSize = 12.sp, style = PinkNeoCondensed)
+                Text(amount, color = palette.onAction, fontWeight = FontWeight.Black, style = PinkNeoCondensed,
                     maxLines = if (largeType) 2 else 1,
                     autoSize = TextAutoSize.StepBased(minFontSize = 18.sp, maxFontSize = 34.sp, stepSize = 1.sp))
-                Text(status, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 13.sp, style = PinkNeoCondensed)
+                Text(status, color = palette.onAction, fontWeight = FontWeight.Bold, fontSize = 13.sp, style = PinkNeoCondensed)
                 Row(Modifier.fillMaxWidth().height(10.dp), horizontalArrangement = Arrangement.spacedBy(2.dp)) {
                     for (index in 0 until 20) {
-                        Box(Modifier.weight(1f).fillMaxHeight().background(Color.White.copy(alpha = 0.24f))) {
+                        Box(Modifier.weight(1f).fillMaxHeight().background(palette.emptyActionSegment)) {
                             val fill = (progress() * 20 - index).coerceIn(0f, 1f)
-                            Box(Modifier.fillMaxWidth(fill).fillMaxHeight().background(Color.White.copy(alpha = 0.94f)))
+                            Box(Modifier.fillMaxWidth(fill).fillMaxHeight().background(palette.onAction))
                         }
                     }
                 }

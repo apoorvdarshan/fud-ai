@@ -1553,7 +1553,8 @@ private var dailyStepsTaskKey: String {
 
     /// The diary scrolls behind these floating controls and can scroll fully above them.
     private var homeActionBar: some View {
-        HStack(spacing: 12) {
+        let neo = neoAppearance.palette
+        return HStack(spacing: 12) {
             if !foodStore.favorites.isEmpty, fastingStore.activeSession == nil,
                AddMenuSettings.decode(addMenuConfigData).visibleMethods.contains(.favorites) {
                 Button {
@@ -1561,9 +1562,10 @@ private var dailyStepsTaskKey: String {
                 } label: {
                     Image(systemName: FoodLogMethod.favorites.systemImageName)
                         .font(.system(size: 20, weight: .semibold))
-                        .foregroundStyle(AppColors.calorie)
+                        .foregroundStyle(neo.ink)
                         .frame(width: 48, height: 48)
-                        .background(.regularMaterial, in: Circle())
+                        .background(neo.panel)
+                        .pinkNeoRule(neo.rule)
                 }
                 .buttonStyle(.plain)
                 .accessibilityLabel("Favorites")
@@ -1571,7 +1573,7 @@ private var dailyStepsTaskKey: String {
             }
             // The live session uses its own floating controls.
             if !voiceAssistant.isActive, !hideVoiceShortcut {
-                VoiceAssistantHomeButton(controller: voiceAssistant)
+                VoiceAssistantHomeButton(controller: voiceAssistant, pinkNeoPalette: neo)
             }
             Menu {
                 if fastingTrackingEnabled {
@@ -1621,10 +1623,10 @@ private var dailyStepsTaskKey: String {
                     .textCase(.uppercase)
                     .lineLimit(2)
                     .minimumScaleFactor(0.72)
-                    .foregroundStyle(neoAppearance.palette.onAction)
+                    .foregroundStyle(neo.onAction)
                     .frame(maxWidth: .infinity, minHeight: 60)
-                    .background(neoAppearance.palette.action)
-                    .pinkNeoRule(neoAppearance.palette.rule)
+                    .background(neo.action)
+                    .pinkNeoRule(neo.rule, width: 1.5)
             }
             .menuOrder(.fixed)
             .accessibilityIdentifier("home.add")

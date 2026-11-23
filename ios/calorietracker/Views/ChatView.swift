@@ -437,15 +437,18 @@ struct ChatView: View {
     }
 
     private var attachMenu: some View {
-        Menu {
-            Button { openCamera() } label: { Label("Camera", systemImage: "camera.fill") }
-            Button { showPhotoPicker = true } label: { Label("Photo Library", systemImage: "photo.on.rectangle") }
-        } label: {
+        FlashMenu(title: Text("Add Photo"), items: {
+            [
+                FlashMenuItem(Text("Camera"), icon: "camera.fill") { openCamera() },
+                FlashMenuItem(Text("Photo Library"), icon: "photo.on.rectangle") { showPhotoPicker = true }
+            ]
+        }) {
             Image(systemName: attachedImage == nil ? "plus.circle.fill" : "photo.fill")
                 .font(.system(size: 24, weight: .semibold))
                 .foregroundStyle(AppColors.calorie)
                 .frame(width: composerControlSize, height: composerControlSize)
         }
+        .accessibilityLabel("Add Photo")
         .disabled(isSending)
         .padding(.leading, 6)
     }

@@ -553,14 +553,10 @@ struct EditFoodEntryView: View {
                     }
 
                     Section("Meal") {
-                        Picker("Meal Type", selection: $mealType) {
-                            ForEach(MealType.allCases, id: \.self) { meal in
-                                Label(meal.displayName, systemImage: meal.icon)
-                                    .tag(meal)
-                            }
+                        FlashChoicePicker(title: Text("Meal Type"), selection: $mealType,
+                                          options: MealType.allCases, icon: { $0.icon }) {
+                            Text($0.displayName)
                         }
-                        .pickerStyle(.menu)
-                        .tint(AppColors.calorie)
                     }
 
                     Section("Date & Time") {

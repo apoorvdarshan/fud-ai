@@ -1496,7 +1496,6 @@ private var dailyStepsTaskKey: String {
         return true
     }
 
-    /// Lets the native menu finish its selection before presenting the chosen destination.
     /// The first presentation skips animation so cold setup cannot stretch the handoff;
     /// later selections retain the short transition that already feels responsive.
     private func presentFoodDestination(_ updates: @escaping () -> Void) {
@@ -1514,15 +1513,11 @@ private var dailyStepsTaskKey: String {
         }
     }
 
-    /// Loads the native menu and media authorization code paths while Home is idle.
+    /// Loads the media authorization code paths while Home is idle.
     /// Reading authorization status never prompts the user or starts camera/microphone capture.
     private func prewarmFoodDestinations() {
         guard !didPrewarmFoodDestinations else { return }
         didPrewarmFoodDestinations = true
-
-        let placeholderAction = UIAction(title: "") { _ in }
-        let placeholderSubmenu = UIMenu(title: "", children: [placeholderAction])
-        _ = UIMenu(title: "", children: [placeholderSubmenu])
 
         Task.detached(priority: .utility) {
             _ = PHPhotoLibrary.authorizationStatus(for: .readWrite)
@@ -1531,24 +1526,50 @@ private var dailyStepsTaskKey: String {
         }
     }
 
-    @ViewBuilder
-    private var waterQuickMenuItems: some View {
-        Button {
+    private var waterQuickMenuItems: [FlashMenuItem] {
+        let custom = FlashMenuItem(Text("Custom"), icon: "slider.horizontal.3") {
             presentFoodDestination {
                 showCustomWaterLog = true
             }
-        } label: {
-            Label("Custom", systemImage: "slider.horizontal.3")
         }
         // Largest first, as the fixed 3/2/1 glass presets were.
         let presets = WaterQuickAddPresets.decode(waterQuickAddPresetsRaw).reversed()
-        ForEach(Array(presets.enumerated()), id: \.offset) { _, milliliters in
-            Button {
+        return [custom] + presets.map { milliliters in
+            FlashMenuItem(Text(waterUnit.formatted(milliliters: milliliters)), icon: "drop.fill") {
                 logWater(milliliters)
-            } label: {
-                Label(waterUnit.formatted(milliliters: milliliters), systemImage: "drop.fill")
             }
         }
+    }
+
+    private var foodLogMenuItems: [FlashMenuItem] {
+        var items: [FlashMenuItem] = []
+        if fastingTrackingEnabled {
+            if fastingStore.activeSession != nil {
+                items.append(FlashMenuItem(Text("Fasting"), icon: "timer", children: [
+                    FlashMenuItem(Text("End Fast"), icon: "stop.fill") { endFast() },
+                    FlashMenuItem(Text("Cancel Fast"), icon: "trash", role: .destructive) {
+                        fastingStore.cancelActive()
+                        notificationManager.cancelFastingGoal()
+                    }
+                ]))
+            } else {
+                items.append(FlashMenuItem(Text("Start Fast"), icon: "timer") {
+                    presentFoodDestination { showFastingStart = true }
+                })
+            }
+        }
+        if waterTrackingEnabled {
+            items.append(FlashMenuItem(Text("Water"), icon: "drop.fill", children: waterQuickMenuItems))
+        }
+        if fastingStore.activeSession == nil {
+            let config = AddMenuSettings.decode(addMenuConfigData)
+            items += config.groups.filter { !$0.methods.isEmpty }.map { group in
+                FlashMenuItem(Text(group.name), icon: group.methods.first?.systemImageName ?? "folder.fill",
+                              children: group.methods.map(addMenuItem))
+            }
+            items += config.flatMethods.map(addMenuItem)
+        }
+        return items
     }
 
     /// The diary scrolls behind these floating controls and can scroll fully above them.
@@ -1575,49 +1596,7 @@ private var dailyStepsTaskKey: String {
             if !voiceAssistant.isActive, !hideVoiceShortcut {
                 VoiceAssistantHomeButton(controller: voiceAssistant, pinkNeoPalette: neo)
             }
-            Menu {
-                if fastingTrackingEnabled {
-                    Section {
-                        if fastingStore.activeSession != nil {
-                            Menu {
-                                Button {
-                                    endFast()
-                                } label: {
-                                    Label("End Fast", systemImage: "stop.fill")
-                                }
-                                Button(role: .destructive) {
-                                    fastingStore.cancelActive()
-                                    notificationManager.cancelFastingGoal()
-                                } label: {
-                                    Label("Cancel Fast", systemImage: "trash")
-                                }
-                            } label: {
-                                Label("Fasting", systemImage: "timer")
-                            }
-                        } else {
-                            Button {
-                                presentFoodDestination {
-                                    showFastingStart = true
-                                }
-                            } label: {
-                                Label("Start Fast", systemImage: "timer")
-                            }
-                        }
-                    }
-                }
-                if waterTrackingEnabled {
-                    Section {
-                        Menu {
-                            waterQuickMenuItems
-                        } label: {
-                            Label("Water", systemImage: "drop.fill")
-                        }
-                    }
-                }
-                if fastingStore.activeSession == nil {
-                    configuredFoodAddMenuContent
-                }
-            } label: {
+            FlashMenu(title: Text("Log Food"), items: { foodLogMenuItems }) {
                 Label("Log Food", systemImage: "plus")
                     .font(.system(.headline, weight: .black).width(.condensed))
                     .textCase(.uppercase)
@@ -1628,7 +1607,6 @@ private var dailyStepsTaskKey: String {
                     .background(neo.action)
                     .pinkNeoRule(neo.rule, width: 1.5)
             }
-            .menuOrder(.fixed)
             .accessibilityIdentifier("home.add")
             .flashPopover(isPresented: $showTextPopover) {
                 TextFoodInputView(
@@ -1957,13 +1935,14 @@ private var dailyStepsTaskKey: String {
                                     Label(group.meal.displayName, systemImage: group.meal.icon)
                                         .accessibilityIdentifier("home.meal.title")
                                     if group.id == mealGroups.first?.id {
-                                        Menu {
-                                            Picker("Food Log Order", selection: $foodLogSortOrderRaw) {
-                                                ForEach(FoodLogSortOrder.allCases) { order in
-                                                    Text(order.displayName).tag(order.rawValue)
-                                                }
+                                        FlashMenu(title: Text("Food Log Order"), items: {
+                                            FoodLogSortOrder.allCases.map { order in
+                                                FlashMenuItem(
+                                                    Text(order.displayName),
+                                                    isSelected: foodLogSortOrderRaw == order.rawValue
+                                                ) { foodLogSortOrderRaw = order.rawValue }
                                             }
-                                        } label: {
+                                        }) {
                                             HStack(spacing: 6) {
                                                 Image(systemName: "arrow.up.arrow.down")
                                                     .font(.system(.caption2, design: .rounded, weight: .semibold))
@@ -1971,7 +1950,7 @@ private var dailyStepsTaskKey: String {
                                                     .font(.system(.subheadline, design: .rounded, weight: .semibold))
                                             }
                                         }
-                                        .tint(AppColors.calorie)
+                                        .foregroundStyle(AppColors.accentText)
                                         .textCase(nil)
                                         .padding(.leading, 8)
                                     }
@@ -3003,38 +2982,11 @@ private var dailyStepsTaskKey: String {
 
 // Configurable + menu helpers (same file as HomeView so private state is accessible).
 extension HomeView {
-    @ViewBuilder
-    var configuredFoodAddMenuContent: some View {
-        let config = AddMenuSettings.decode(addMenuConfigData)
-        ForEach(config.groups.filter { !$0.methods.isEmpty }) { group in
-            Section {
-                Menu {
-                    ForEach(group.methods) { method in
-                        addMenuButton(for: method)
-                    }
-                } label: {
-                    Label(group.name, systemImage: addMenuGroupIcon(for: group))
-                }
-                .menuOrder(.fixed)
-            }
-        }
-        if !config.flatMethods.isEmpty {
-            Section {
-                ForEach(config.flatMethods) { method in
-                    addMenuButton(for: method)
-                }
-            }
-        }
-    }
-
-    @ViewBuilder
-    func addMenuButton(for method: FoodLogMethod) -> some View {
-        Button {
+    private func addMenuItem(for method: FoodLogMethod) -> FlashMenuItem {
+        FlashMenuItem(Text(method.title), icon: method.systemImageName) {
             presentFoodDestination {
                 performFoodLogMethod(method)
             }
-        } label: {
-            Label(method.title, systemImage: method.systemImageName)
         }
     }
 
@@ -3075,9 +3027,6 @@ extension HomeView {
         }
     }
 
-    private func addMenuGroupIcon(for group: AddMenuGroupConfig) -> String {
-        group.methods.first?.systemImageName ?? "folder.fill"
-    }
 }
 
 private extension Notification.Name {
@@ -5474,41 +5423,29 @@ struct ProfileView: View {
                 if settingsCategory == .appPreferences {
                 Section {
                     HomeShortcutVisibilitySettings()
-                    Picker(selection: $appearanceMode) {
-                        Text("System").tag("system")
-                        Text("Light").tag("light")
-                        Text("Dark").tag("dark")
-                        Text("Dark gray").tag("darkGray")
-                    } label: {
-                        Label {
-                            Text("Appearance")
-                        } icon: {
-                            Image(systemName: "circle.lefthalf.filled")
-                                .foregroundStyle(AppColors.calorie)
+                    FlashChoicePicker(
+                        title: Text("Appearance"),
+                        selection: $appearanceMode,
+                        options: ["system", "light", "dark", "darkGray"],
+                        titleIcon: "circle.lefthalf.filled"
+                    ) { appearance in
+                        switch appearance {
+                        case "light": return Text("Light")
+                        case "dark": return Text("Dark")
+                        case "darkGray": return Text("Dark gray")
+                        default: return Text("System")
                         }
                     }
-                    .pickerStyle(.menu)
-                    .tint(.secondary)
 
-                    Picker(selection: $appThemeColorRaw) {
-                        ForEach(AppThemeColor.allCases) { themeColor in
-                            Label {
-                                Text(themeColor.displayName)
-                            } icon: {
-                                Image(uiImage: themeColor.menuSwatchImage)
-                            }
-                            .tag(themeColor.rawValue)
-                        }
-                    } label: {
-                        Label {
-                            Text("Theme Color")
-                        } icon: {
-                            Image(systemName: "paintpalette.fill")
-                                .foregroundStyle(AppColors.calorie)
-                        }
+                    FlashChoicePicker(
+                        title: Text("Theme Color"),
+                        selection: $appThemeColorRaw,
+                        options: AppThemeColor.allCases.map(\.rawValue),
+                        titleIcon: "paintpalette.fill",
+                        swatch: { AppThemeColor.color(for: $0).color }
+                    ) {
+                        Text(AppThemeColor.color(for: $0).displayName)
                     }
-                    .pickerStyle(.menu)
-                    .tint(.secondary)
 
                     HStack {
                         Label {
@@ -5552,34 +5489,15 @@ struct ProfileView: View {
                             .padding(.leading, 32)
                     }
 
-                    Picker(selection: $weekStartsOnMonday) {
-                        Text("Sunday").tag(false)
-                        Text("Monday").tag(true)
-                    } label: {
-                        Label {
-                            Text("Week Starts On")
-                        } icon: {
-                            Image(systemName: "calendar")
-                                .foregroundStyle(AppColors.calorie)
-                        }
+                    FlashChoicePicker(title: Text("Week Starts On"), selection: $weekStartsOnMonday,
+                                      options: [false, true], titleIcon: "calendar") { isMonday in
+                        isMonday ? Text("Monday") : Text("Sunday")
                     }
-                    .pickerStyle(.menu)
-                    .tint(.secondary)
 
-                    Picker(selection: $energyUnit) {
-                        ForEach(EnergyUnit.allCases) { unit in
-                            Text(unit.title).tag(unit)
-                        }
-                    } label: {
-                        Label {
-                            Text("Energy Unit")
-                        } icon: {
-                            Image(systemName: "flame")
-                                .foregroundStyle(AppColors.calorie)
-                        }
+                    FlashChoicePicker(title: Text("Energy Unit"), selection: $energyUnit,
+                                      options: EnergyUnit.allCases, titleIcon: "flame") {
+                        Text($0.title)
                     }
-                    .pickerStyle(.menu)
-                    .tint(.secondary)
                     .accessibilityIdentifier("settings.energyUnit")
                     .onChange(of: energyUnit) { _, _ in
                         // Widgets, the Watch and the scheduled daily summary render
@@ -5593,23 +5511,17 @@ struct ProfileView: View {
                     }
 
                     VStack(alignment: .leading, spacing: 4) {
-                        Picker(selection: Binding(
-                            get: { mealShareLinkStyle ?? .defaultStyle },
-                            set: { mealShareLinkStyle = $0 }
-                        )) {
-                            ForEach(MealShareLinkStyle.allCases) { style in
-                                Text(style.title).tag(style)
-                            }
-                        } label: {
-                            Label {
-                                Text("Share Links")
-                            } icon: {
-                                Image(systemName: "link")
-                                    .foregroundStyle(AppColors.calorie)
-                            }
+                        FlashChoicePicker(
+                            title: Text("Share Links"),
+                            selection: Binding(
+                                get: { mealShareLinkStyle ?? .defaultStyle },
+                                set: { mealShareLinkStyle = $0 }
+                            ),
+                            options: MealShareLinkStyle.allCases,
+                            titleIcon: "link"
+                        ) {
+                            Text($0.title)
                         }
-                        .pickerStyle(.menu)
-                        .tint(.secondary)
                         .accessibilityIdentifier("settings.mealShareLinkStyle")
                         Text((mealShareLinkStyle ?? .defaultStyle).detail)
                             .font(.footnote)
@@ -5753,20 +5665,11 @@ struct ProfileView: View {
                         }
                         .buttonStyle(.plain)
 
-                        Picker(selection: $waterUnitRaw) {
-                            ForEach(WaterUnit.allCases) { unit in
-                                Text("\(unit.title) (\(unit.symbol))").tag(unit.rawValue)
-                            }
-                        } label: {
-                            Label {
-                                Text("Water Unit")
-                            } icon: {
-                                Image(systemName: "ruler")
-                                    .foregroundStyle(AppColors.calorie)
-                            }
+                        FlashChoicePicker(title: Text("Water Unit"), selection: $waterUnitRaw,
+                                          options: WaterUnit.allCases.map(\.rawValue), titleIcon: "ruler") {
+                            let unit = WaterUnit(rawValue: $0) ?? .defaultUnit
+                            return Text("\(unit.title) (\(unit.symbol))")
                         }
-                        .pickerStyle(.menu)
-                        .tint(.secondary)
                         .onChange(of: waterUnitRaw) { _, _ in
                             WidgetSnapshotWriter.publish(foods: foodStore.entries, profile: profile)
                         }

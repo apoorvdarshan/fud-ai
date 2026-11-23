@@ -62,15 +62,16 @@ struct ServingUnitEditor: View {
             }
 
             if pickerOptions.count > 1 {
-                Menu {
-                    ForEach(pickerOptions) { option in
-                        Button {
+                FlashMenu(title: Text("Unit"), items: {
+                    pickerOptions.map { option in
+                        FlashMenuItem(
+                            Text(displayUnit(for: option, quantity: option.id == selectedUnitID ? selectedQuantity : nil)),
+                            isSelected: option.id == selectedUnitID
+                        ) {
                             selectedUnitID = option.id
-                        } label: {
-                            Text(displayUnit(for: option, quantity: option.id == selectedUnitID ? selectedQuantity : nil))
                         }
                     }
-                } label: {
+                }) {
                     HStack(spacing: 3) {
                         Text(selectedUnitLabel)
                             .lineLimit(1)

@@ -376,7 +376,7 @@ final class calorietrackerUITests: XCTestCase {
 
     @MainActor
     func testHomeAddMenuFollowsTheSettingsOrder() {
-        let app = makeApp()
+        let app = makeApp(defaults: ["-appearanceMode", "light"])
         app.launch()
 
         let menu = app.buttons["home.add"]
@@ -391,6 +391,41 @@ final class calorietrackerUITests: XCTestCase {
         XCTAssertTrue(photos.exists)
         XCTAssertLessThan(reuse.frame.midY, describe.frame.midY)
         XCTAssertLessThan(describe.frame.midY, photos.frame.midY)
+
+        describe.tap()
+        XCTAssertTrue(app.buttons["Manual Entry"].waitForExistence(timeout: 5))
+        let menuScreenshot = XCTAttachment(screenshot: app.screenshot())
+        menuScreenshot.name = "Flash Log Food submenu - light"
+        menuScreenshot.lifetime = .keepAlways
+        add(menuScreenshot)
+        app.buttons["Back"].tap()
+        XCTAssertTrue(photos.waitForExistence(timeout: 5))
+        photos.tap()
+        XCTAssertTrue(app.buttons["Barcode"].waitForExistence(timeout: 5))
+        app.buttons["Close"].tap()
+        XCTAssertTrue(menu.waitForExistence(timeout: 5))
+        menu.tap()
+        XCTAssertTrue(reuse.waitForExistence(timeout: 5))
+        XCTAssertFalse(app.buttons["Barcode"].exists)
+    }
+
+    @MainActor
+    func testFlashEnergyUnitPickerAppliesSelection() {
+        let app = makeApp(defaults: ["-appearanceMode", "dark"])
+        app.launch()
+        openSettingsCategory("appPreferences", in: app)
+
+        let picker = app.buttons["settings.energyUnit"]
+        reveal(picker, in: app)
+        picker.tap()
+        let kilojoules = app.buttons["Kilojoules (kJ)"]
+        XCTAssertTrue(kilojoules.waitForExistence(timeout: 5))
+        let pickerScreenshot = XCTAttachment(screenshot: app.screenshot())
+        pickerScreenshot.name = "Flash energy unit picker - dark"
+        pickerScreenshot.lifetime = .keepAlways
+        add(pickerScreenshot)
+        kilojoules.tap()
+        waitForValue("Kilojoules (kJ)", in: picker)
     }
 
     @MainActor

@@ -23,7 +23,15 @@ Flash is an app-wide theme, not a Home or navigation skin. A screen or presentat
 | Workouts | Both modes, exercise details, filters and sorting, date and set controls, routines, and all pickers and editors |
 | Settings and onboarding | Every category and onboarding step, appearance and unit selectors, model/provider menus, data import/export, subscription and credits, and first-run/update prompts |
 
-**Known remaining coverage:** iOS still uses native-styled `Menu`, `.pickerStyle(.menu)`, context menus, and alerts for some app-owned actions. Their content is functional, but their visible popup surfaces do not all match Flash yet. Treat these and any remaining screen-specific decorative gradients as open work. Do not mark the redesign complete until both platforms have been audited against the table. Only genuinely OS-owned UI, such as permission prompts, keyboards, system file/photo pickers, and share sheets, is exempt.
+**App-owned menus migrated on iOS:** Log Food (including grouped, standalone, water, and fasting actions), diary sort, meal type and serving units, ingredient intake, Coach attachments, workout single-choice preferences, diary export range, and Settings appearance, theme color, week start, energy/water units, and share-link format. Menu selections hand off to the existing destinations after the Flash panel dismisses.
+
+**Known remaining coverage:** iOS still uses native-styled menus, menu pickers, context menus, and alerts for other app-owned actions. Treat these, remaining screen-specific decorative gradients, and unverified screens on both platforms as open work. Do not mark the redesign complete until both platforms have been audited against the table. Only genuinely OS-owned UI, such as permission prompts, keyboards, system file/photo pickers, and share sheets, is exempt.
+
+## Android performance check
+
+Startup reads one preferences snapshot off the UI thread and no longer waits indefinitely for a non-null profile. Diary filtering and sorting run off the UI thread, and the Home energy meter draws its 20 segments without re-laying out the panels on each animation frame.
+
+On an API 36 emulator with 1,000 synthetic diary entries, six requested cold launches per build gave a median first-frame time of 1.57 s before (five completed; one timed out) and 1.40 s after (six completed). The scrolling results varied across rounds, so this does not establish a smoother scroll or a speedup on a physical phone. Repeat cold launch, tab-switch, and diary scrolling measurements on the same Android phone before making those claims. For startup, compare both `am start -S -W` and the updated build's `Fully drawn` log; for scrolling, reset and compare `dumpsys gfxinfo`.
 
 ## Verify before release
 

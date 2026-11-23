@@ -12,23 +12,16 @@ struct WorkoutPreferenceMenuRow<Option: Hashable>: View {
 
     var body: some View {
         WorkoutPreferenceFieldRow(title: title, systemImage: systemImage) {
-            Menu {
-                ForEach(options, id: \.self) { option in
-                    Button {
+            FlashMenu(title: Text(title), items: {
+                options.map { option in
+                    FlashMenuItem(
+                        Text(label(option)),
+                        isSelected: option == selection
+                    ) {
                         selection = option
-                    } label: {
-                        if option == selection {
-                            Label {
-                                WorkoutPreferenceMenuOptionText(text: label(option))
-                            } icon: {
-                                Image(systemName: "checkmark")
-                            }
-                        } else {
-                            WorkoutPreferenceMenuOptionText(text: label(option))
-                        }
                     }
                 }
-            } label: {
+            }) {
                 WorkoutPreferenceMenuValueLabel(text: label(selection))
             }
             .workoutPressable()

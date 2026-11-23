@@ -189,6 +189,16 @@ class AppFlowsTest {
     }
 
     @Test
+    fun completedOnboardingWithoutSavedProfileDoesNotTrapTheSplash() {
+        FudAITestState.reset(onboarded = false)
+        runBlocking { prefs.setOnboardingCompleted(true) }
+
+        launchActivity()
+        waitForHome()
+        compose.onNodeWithTag("home.add").assertIsDisplayed()
+    }
+
+    @Test
     fun minimizingVoiceClosesCameraAndCancelsBarcodeWaitWithoutStartingAudio() {
         FudAITestState.reset()
         val controller = (context.applicationContext as FudAIApp).container.voiceAssistant

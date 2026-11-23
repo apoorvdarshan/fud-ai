@@ -130,6 +130,9 @@ import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
@@ -2431,6 +2434,7 @@ private fun WaterLogRow(
 
 private data class Quad<A, B, C, D>(val a: A, val b: B, val c: C, val d: D)
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun FoodRow(
     entry: FoodEntry,
@@ -2442,6 +2446,8 @@ private fun FoodRow(
 ) {
     val neo = pinkNeoPalette()
     val ctx = LocalContext.current
+    val compactDetails = LocalDensity.current.fontScale >= 1.3f ||
+        (usesPinkNeoStyle && LocalConfiguration.current.screenWidthDp < 360)
     val timeFmt = remember(ctx) {
         DateTimeFormatter.ofPattern(clockTimePattern(ctx), Locale.getDefault()).withZone(ZoneId.systemDefault())
     }
@@ -2452,8 +2458,6 @@ private fun FoodRow(
     val bitmap = thumbnail?.second
     var previewPhotos by remember { mutableStateOf<Pair<List<android.graphics.Bitmap>, Int>?>(null) }
     var isLoadingPreview by remember { mutableStateOf(false) }
-    // iOS layout: large 76dp square thumb · column with (Name + heart on left,
-    // time on right) · pink kcal · serving · macro tag pills row.
     Row(
         Modifier
             .testTag("diary.food.${entry.id}")
@@ -2492,7 +2496,7 @@ private fun FoodRow(
         }
         Box(
             Modifier
-                .size(76.dp)
+                .size(if (compactDetails) 44.dp else 76.dp)
                 .clip(RoundedCornerShape(14.dp))
                 .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.06f))
                 .then(
@@ -2528,7 +2532,7 @@ private fun FoodRow(
                     contentScale = androidx.compose.ui.layout.ContentScale.Crop,
                     modifier = Modifier.fillMaxSize().clip(RoundedCornerShape(14.dp))
                 )
-                entry.emoji != null -> Text(entry.emoji ?: "", fontSize = 36.sp)
+                entry.emoji != null -> Text(entry.emoji ?: "", fontSize = if (compactDetails) 18.sp else 36.sp)
                 else -> Icon(
                     Icons.Filled.Restaurant,
                     contentDescription = null,
@@ -2555,13 +2559,9 @@ private fun FoodRow(
             Modifier.weight(1f).padding(top = 2.dp),
             verticalArrangement = Arrangement.spacedBy(6.dp)
         ) {
-            // Name (+ heart) on the left, time on the top-right.
-            Row(
-                verticalAlignment = Alignment.Top,
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
+            val nameContent: @Composable (Modifier) -> Unit = { modifier ->
                 Row(
-                    Modifier.weight(1f),
+                    modifier,
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
@@ -2569,7 +2569,8 @@ private fun FoodRow(
                         entry.name,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.SemiBold,
-                        maxLines = 2,
+                        maxLines = if (compactDetails) Int.MAX_VALUE else 2,
+                        overflow = TextOverflow.Ellipsis,
                         modifier = Modifier.weight(1f, fill = false)
                     )
                     if (isFavorite) {
@@ -2581,17 +2582,30 @@ private fun FoodRow(
                         )
                     }
                 }
+            }
+            val timestamp: @Composable () -> Unit = {
                 Text(
                     timeFmt.format(entry.timestamp).lowercase(),
                     fontSize = 12.sp,
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.45f)
                 )
             }
+            if (compactDetails) {
+                nameContent(Modifier.fillMaxWidth())
+                timestamp()
+            } else {
+                Row(
+                    verticalAlignment = Alignment.Top,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    nameContent(Modifier.weight(1f))
+                    timestamp()
+                }
+            }
 
-            // Pink kcal · gray serving size.
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(6.dp)
+            FlowRow(
+                horizontalArrangement = Arrangement.spacedBy(6.dp),
+                verticalArrangement = Arrangement.spacedBy(3.dp)
             ) {
                 Text(
                     energyText(entry.calories),
@@ -2599,26 +2613,19 @@ private fun FoodRow(
                     fontWeight = FontWeight.SemiBold,
                     color = AppColors.Calorie
                 )
-                entry.servingSizeGrams?.takeIf { it > 0 }?.let { grams ->
-                    Text("·", color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f))
-                    Text(
-                        gramsText(grams),
-                        fontSize = 12.sp,
-                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
-                    )
-                } ?: run {
-                    Text("·", color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f))
-                    val quantity = ServingUnitOption.formatQuantity(entry.reviewServingReference)
-                    Text(
-                        "$quantity ${stringResource(R.string.sheet_serving)}",
-                        fontSize = 12.sp,
-                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
-                    )
-                }
+                val serving = entry.servingSizeGrams?.takeIf { it > 0 }?.let { gramsText(it) }
+                    ?: "${ServingUnitOption.formatQuantity(entry.reviewServingReference)} ${stringResource(R.string.sheet_serving)}"
+                Text(
+                    if (compactDetails) serving else "·  $serving",
+                    fontSize = 12.sp,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
+                )
             }
 
-            // Macro pills (P / C / F) — tinted dark capsules with gray text.
-            Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            FlowRow(
+                horizontalArrangement = Arrangement.spacedBy(6.dp),
+                verticalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
                 MacroChip(stringResource(R.string.macro_abbrev_protein), entry.protein)
                 MacroChip(stringResource(R.string.macro_abbrev_carbs), entry.carbs)
                 MacroChip(stringResource(R.string.macro_abbrev_fat), entry.fat)

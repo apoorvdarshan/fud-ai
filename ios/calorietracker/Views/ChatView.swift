@@ -36,6 +36,7 @@ struct ChatView: View {
     @ScaledMetric(relativeTo: .title2) private var coachHeroSize = 92.0
     @ScaledMetric(relativeTo: .title2) private var coachHeroIconSize = 38.0
     @ScaledMetric(relativeTo: .body) private var composerControlSize = 40.0
+    @Environment(\.dynamicTypeSize) private var composerTypeSize
 
     private var userProfile: UserProfile { profileStore.profile }
     private var messages: [ChatMessage] { chatStore.messages }
@@ -287,7 +288,7 @@ struct ChatView: View {
     }
 
     private var emptyPromptGrid: some View {
-        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
+        LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: composerTypeSize.isAccessibilitySize ? 1 : 2), spacing: 10) {
             ForEach(Array(suggestedPrompts.prefix(4)), id: \.self) { prompt in
                 Button {
                     draft = prompt
@@ -303,7 +304,7 @@ struct ChatView: View {
                             .font(.system(.footnote, design: .rounded, weight: .medium))
                             .foregroundStyle(.primary)
                             .multilineTextAlignment(.leading)
-                            .lineLimit(3)
+                            .lineLimit(composerTypeSize.isAccessibilitySize ? nil : 3)
                         Spacer(minLength: 0)
                     }
                     .padding(12)
@@ -408,18 +409,49 @@ struct ChatView: View {
     }
 
     private var inputBar: some View {
+        Group {
+            if composerTypeSize.isAccessibilitySize {
+                VStack(alignment: .leading, spacing: 0) {
+                    if voice.phase == .idle {
+                        composerField
+                    }
+                    HStack(spacing: 8) {
+                        if voice.phase == .idle {
+                            attachMenu
+                        } else {
+                            recordingIndicator
+                        }
+                        Spacer(minLength: 0)
+                        trailingControl
+                    }
+                }
+            } else {
+                inlineComposer
+            }
+        }
+        .flashPanel()
+        .padding(.horizontal, 12)
+        .padding(.bottom, 10)
+        .padding(.top, 4)
+    }
+
+    private var composerField: some View {
+        TextField("Ask Coach…", text: $draft, axis: .vertical)
+            .font(.body)
+            .lineLimit(1...5)
+            .padding(.horizontal, 8)
+            .padding(.vertical, 12)
+            .focused($isInputFocused)
+    }
+
+    private var inlineComposer: some View {
         HStack(spacing: 8) {
             // Left region: attach + text field, or the live recording indicator.
             Group {
                 if voice.phase == .idle {
                     HStack(spacing: 8) {
                         attachMenu
-                        TextField("Ask Coach…", text: $draft, axis: .vertical)
-                            .font(.system(.body, design: .rounded))
-                            .lineLimit(1...5)
-                            .padding(.horizontal, 8)
-                            .padding(.vertical, 12)
-                            .focused($isInputFocused)
+                        composerField
                     }
                 } else {
                     recordingIndicator
@@ -430,10 +462,6 @@ struct ChatView: View {
             // Trailing control (kept as the stable last child).
             trailingControl
         }
-        .flashPanel()
-        .padding(.horizontal, 12)
-        .padding(.bottom, 10)
-        .padding(.top, 4)
     }
 
     private var attachMenu: some View {
@@ -850,13 +878,14 @@ private struct MessageBubble: View {
     var onDismissProposal: (CoachExerciseProposal) -> Void = { _ in }
 
     private var isUser: Bool { message.role == .user }
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     var body: some View {
         HStack(alignment: .top, spacing: 8) {
             if !isUser {
                 CoachAssistantBadge()
             } else {
-                Spacer(minLength: 48)
+                Spacer(minLength: dynamicTypeSize.isAccessibilitySize ? 6 : 32)
             }
 
             if let proposals = message.exerciseProposals, !isUser, !proposals.isEmpty {
@@ -877,7 +906,7 @@ private struct MessageBubble: View {
             if isUser {
                 // no trailing icon
             } else {
-                Spacer(minLength: 48)
+                Spacer(minLength: dynamicTypeSize.isAccessibilitySize ? 6 : 32)
             }
         }
         .padding(.horizontal)

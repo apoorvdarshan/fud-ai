@@ -117,7 +117,7 @@ struct WeeklyRecapCard: View {
     }
 
     private func stats(_ current: WeeklyRecapWeekStats, previous: WeeklyRecapWeekStats) -> some View {
-        let columns = dynamicTypeSize.isAccessibilitySize ? 2 : 3
+        let columns = dynamicTypeSize.isAccessibilitySize ? 1 : 3
         // Energy shows in the chosen unit (#520); the comparisons stay kcal.
         let energy = WeeklyRecap.energyFigures(
             current: current,
@@ -178,6 +178,7 @@ struct WeeklyRecapCard: View {
 }
 
 private struct WeeklyRecapStatTile: View {
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     let value: String
     let label: LocalizedStringKey
     /// The secondary line: a change vs the previous week, or a plain caption.
@@ -210,13 +211,13 @@ private struct WeeklyRecapStatTile: View {
                 .font(.system(.caption2, design: .rounded))
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
-                .lineLimit(2, reservesSpace: true)
+                .lineLimit(dynamicTypeSize.isAccessibilitySize ? nil : 2)
                 .minimumScaleFactor(0.8)
             Text(detail)
                 .font(.system(.caption2, design: .rounded, weight: .semibold))
                 .foregroundStyle(isPositiveChange ? AppColors.calorie : Color.secondary)
                 .monospacedDigit()
-                .lineLimit(1)
+                .lineLimit(dynamicTypeSize.isAccessibilitySize ? nil : 1)
                 .minimumScaleFactor(0.7)
         }
         .frame(maxWidth: .infinity)

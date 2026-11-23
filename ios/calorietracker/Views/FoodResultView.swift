@@ -451,12 +451,11 @@ struct FoodResultView: View {
                             ScrollView(.horizontal, showsIndicators: false) {
                                 LazyHStack(spacing: 12) {
                                     ForEach(Array(images.enumerated()), id: \.offset) { index, image in
-                                        Image(uiImage: image)
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(width: 220, height: 200)
-                                            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                                            .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                                        FlashFoodPhoto(count: images.count) {
+                                            Image(uiImage: image)
+                                                .resizable()
+                                                .scaledToFill()
+                                        }
                                             .onTapGesture {
                                                 imagePreview = FullScreenImagePreview(images: images, initialIndex: index)
                                             }
@@ -496,12 +495,7 @@ struct FoodResultView: View {
                     }
 
                     Section("Food Details") {
-                        HStack {
-                            Text("Name")
-                            Spacer()
-                            TextField("Food name", text: $name)
-                                .multilineTextAlignment(.trailing)
-                        }
+                        FlashFoodNameField(name: $name)
                     }
                     .flashListRows()
 
@@ -519,12 +513,11 @@ struct FoodResultView: View {
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
+                        .flashListRows()
                     }
 
                     Section("Serving") {
-                        HStack {
-                            Text("Quantity")
-                            Spacer()
+                        FlashQuantityRow {
                             ServingUnitEditor(
                                 quantityText: $servingSizeText,
                                 servingSizeGrams: $servingSizeGrams,
@@ -551,6 +544,7 @@ struct FoodResultView: View {
                             }
                         }
                     }
+                    .flashListRows()
 
                     Section {
                         ReviewNutritionValueRow(
@@ -598,6 +592,7 @@ struct FoodResultView: View {
                             .accessibilityLabel(nutritionUnlocked ? "Lock nutrition editing" : "Unlock nutrition editing")
                         }
                     }
+                    .flashListRows()
 
                     MealIngredientsSection(
                         ingredients: scaledIngredients,
@@ -691,6 +686,7 @@ struct FoodResultView: View {
                         }
                         .tint(AppColors.calorie)
                     }
+                    .flashListRows()
 
                     Section("Meal") {
                         FlashChoicePicker(title: Text("Meal Type"), selection: $mealType,
@@ -716,8 +712,7 @@ struct FoodResultView: View {
                     }
 
                 }
-                .scrollContentBackground(.hidden)
-                .background(AppColors.appBackground)
+                .flashEditorSurface()
                 .background(KeyboardDismissTapInstaller())
                 .safeAreaInset(edge: .bottom) {
                     if isQuantityEditing {
@@ -728,24 +723,17 @@ struct FoodResultView: View {
                     guard editing else { return }
                     scrollQuantityIntoView(scrollProxy)
                 }
-                .navigationTitle("Review Food")
-                .navigationBarTitleDisplayMode(.inline)
-                .listStyle(.plain)
-                .listSectionSpacing(8)
-                .toolbarBackground(AppColors.appCard, for: .navigationBar)
-                .toolbarBackground(.visible, for: .navigationBar)
-                .toolbar {
-                    ToolbarItem(placement: .cancellationAction) {
-                        Button("Cancel") { dismiss() }
-                    }
-                    ToolbarItemGroup(placement: .confirmationAction) {
-                        Button("What if?") { showWhatIfSheet = true }
-                            .font(.system(.body, design: .rounded, weight: .semibold))
-                            .tint(AppColors.protein)
-
-                        Button("Log", action: logFood)
-                            .buttonStyle(FlashActionButtonStyle())
-                            .disabled(submissionGate.isSubmitting)
+                .safeAreaInset(edge: .top, spacing: 0) {
+                    FlashEditorHeader(title: "Review Food") {
+                        FlashEditorActions {
+                            Button("Cancel") { dismiss() }
+                                .buttonStyle(FlashSecondaryButtonStyle())
+                            Button("What if?") { showWhatIfSheet = true }
+                                .buttonStyle(FlashSecondaryButtonStyle())
+                            Button("Log", action: logFood)
+                                .buttonStyle(FlashActionButtonStyle())
+                                .disabled(submissionGate.isSubmitting)
+                        }
                     }
                 }
                 .flashSheet(isPresented: $showWhatIfSheet) {
@@ -905,13 +893,15 @@ struct MealIngredientsSection: View {
                                 .frame(width: 44, height: 44)
                                 .clipShape(RoundedRectangle(cornerRadius: 10))
                                 .accessibilityHidden(true)
-                                Text(ingredient.name)
-                                    .font(.system(.body, design: .rounded, weight: .semibold))
-                                    .foregroundStyle(.primary)
-                                Spacer()
-                                Text("\(MacroValueFormatter.string(ingredient.grams))g · \(energyUnit.format(kcal: ingredient.calories))")
-                                    .font(.subheadline)
-                                    .foregroundStyle(.secondary)
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text(ingredient.name)
+                                        .font(.body.weight(.semibold))
+                                        .foregroundStyle(.primary)
+                                    Text("\(MacroValueFormatter.string(ingredient.grams))g · \(energyUnit.format(kcal: ingredient.calories))")
+                                        .font(.subheadline)
+                                        .foregroundStyle(.secondary)
+                                }
+                                .frame(maxWidth: .infinity, alignment: .leading)
                                 Image(systemName: "chevron.right")
                                     .font(.caption.weight(.semibold))
                                     .foregroundStyle(.tertiary)
@@ -959,6 +949,7 @@ struct MealIngredientsSection: View {
                 }
             }
         }
+        .flashListRows()
     }
 
     private func macro(_ label: String, _ value: Double, _ color: Color) -> some View {
@@ -1029,15 +1020,17 @@ struct IngredientEditorSheet: View {
         NavigationStack {
             Form {
                 Section("Ingredient") {
-                    TextField("Name", text: $name)
+                    FlashFoodNameField(name: $name)
                     valueRow("Weight", text: Binding(get: { grams }, set: changeWeight), unit: "g")
                     valueRow("Calories", text: nutritionBinding($calories), unit: energyUnit.symbol)
                 }
+                .flashListRows()
                 Section("Macros") {
                     valueRow("Protein", text: nutritionBinding($protein), unit: "g")
                     valueRow("Carbs", text: nutritionBinding($carbs), unit: "g")
                     valueRow("Fat", text: nutritionBinding($fat), unit: "g")
                 }
+                .flashListRows()
                 if let onDelete {
                     Section {
                         Button("Remove Ingredient", role: .destructive) {
@@ -1045,25 +1038,23 @@ struct IngredientEditorSheet: View {
                             dismiss()
                         }
                     }
+                    .flashListRows()
                 }
             }
-            .scrollContentBackground(.hidden)
-            .background(AppColors.appBackground)
-            .navigationTitle(target.index == nil ? String(localized: "Add Ingredient") : String(localized: "Edit Ingredient"))
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") { dismiss() }
-                }
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Save") {
-                        guard let ingredient = parsedIngredient else { return }
-                        onSave(ingredient)
-                        dismiss()
+            .flashEditorSurface()
+            .safeAreaInset(edge: .top, spacing: 0) {
+                FlashEditorHeader(title: target.index == nil ? "Add Ingredient" : "Edit Ingredient") {
+                    FlashEditorActions {
+                        Button("Cancel") { dismiss() }
+                            .buttonStyle(FlashSecondaryButtonStyle())
+                        Button("Save") {
+                            guard let ingredient = parsedIngredient else { return }
+                            onSave(ingredient)
+                            dismiss()
+                        }
+                        .buttonStyle(FlashActionButtonStyle())
+                        .disabled(parsedIngredient == nil)
                     }
-                    .disabled(parsedIngredient == nil)
-                    .font(.system(.body, design: .rounded, weight: .semibold))
-                    .tint(AppColors.calorie)
                 }
             }
         }

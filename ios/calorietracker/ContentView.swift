@@ -1161,6 +1161,13 @@ struct HomeView: View {
         var isLoading: Bool { self != .result }
     }
     @State private var activeSheet: ActiveSheet?
+    #if DEBUG && targetEnvironment(simulator)
+    @State private var didOpenScreenshotEditor = false
+    private var screenshotEditorEntry: FoodEntry? {
+        guard ScreenshotMode.scene == .food else { return nil }
+        return foodStore.entries.first { $0.id == ScreenshotMode.yogurtID }
+    }
+    #endif
     @State private var foodLogPhase: FoodLogPhase = .result
     /// Bumped to drop a delayed log handoff if another destination starts in the 0.4s gap.
     @State private var loggingHandoffGeneration = 0
@@ -1693,6 +1700,14 @@ private var dailyStepsTaskKey: String {
             .onAppear {
                 handleAssistantRequests()
             }
+            #if DEBUG && targetEnvironment(simulator)
+            .onChange(of: screenshotEditorEntry?.id, initial: true) { _, _ in
+                guard !didOpenScreenshotEditor, let entry = screenshotEditorEntry else { return }
+                didOpenScreenshotEditor = true
+                editingEntry = entry
+                activeSheet = .editFood
+            }
+            #endif
     }
 
     /// The voice assistant shows a diary day or opens a logged food for editing.
@@ -4680,18 +4695,22 @@ private struct AISettingsSubsectionHeader: View {
     let infoTopic: AISettingsInfoTopic
 
     @State private var isShowingInfo = false
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     var body: some View {
-        HStack(spacing: 8) {
+        let layout = dynamicTypeSize.isAccessibilitySize
+            ? AnyLayout(VStackLayout(alignment: .leading, spacing: 4))
+            : AnyLayout(HStackLayout(spacing: 8))
+        layout {
             Label {
                 Text(title)
                     .textCase(.uppercase)
             } icon: {
                 Image(systemName: systemImage)
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .fixedSize(horizontal: false, vertical: true)
             .accessibilityAddTraits(.isHeader)
-
-            Spacer(minLength: 8)
 
             Button {
                 isShowingInfo = true
@@ -4830,6 +4849,7 @@ private struct ProfileSettingsCategoryRow: View {
 }
 
 struct ProfileView: View {
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Environment(ProfileStore.self) private var profileStore
     @Environment(ChatStore.self) private var chatStore
     @Environment(WeightStore.self) private var weightStore
@@ -5755,24 +5775,12 @@ struct ProfileView: View {
                             infoTopic: .primaryAI
                         )
 
-                        Picker(selection: $selectedProvider) {
-                            ForEach(AIProvider.visionProviders) { provider in
-                                Label {
-                                    Text(provider.displayName)
-                                } icon: {
-                                    AIProviderBrandIcon(provider: provider)
-                                }
-                                .tag(provider)
-                            }
-                        } label: {
-                            Label {
-                                Text("Provider")
-                            } icon: {
-                                AIProviderBrandIcon(provider: selectedProvider)
-                            }
+                        FlashChoicePicker(
+                            title: Text("Provider"), selection: $selectedProvider,
+                            options: AIProvider.visionProviders, titleIcon: "sparkles"
+                        ) {
+                            Text($0.displayName)
                         }
-                        .pickerStyle(.menu)
-                        .tint(.secondary)
                         .id("primary-provider-\(localModelAvailabilityRevision)")
                         .onChange(of: selectedProvider) { _, newProvider in
                             selectedModel = AIProviderSettings.switchPrimaryProvider(to: newProvider)
@@ -5821,20 +5829,10 @@ struct ProfileView: View {
                                 }
                             }
                         } else {
-                            Picker(selection: $selectedModel) {
-                                ForEach(selectedProvider.models, id: \.self) { model in
-                                    Text(model).tag(model)
-                                }
-                            } label: {
-                                Label {
-                                    Text("Model")
-                                } icon: {
-                                    Image(systemName: "brain")
-                                        .foregroundStyle(AppColors.calorie)
-                                }
+                            FlashChoicePicker(title: Text("Model"), selection: $selectedModel,
+                                              options: selectedProvider.models, titleIcon: "brain") {
+                                Text($0)
                             }
-                            .pickerStyle(.menu)
-                            .tint(.secondary)
                             .onAppear {
                                 if !selectedProvider.models.contains(selectedModel) {
                                     selectedModel = selectedProvider.defaultModel
@@ -5847,37 +5845,43 @@ struct ProfileView: View {
                         }
 
                         if selectedProvider.requiresAPIKey {
-                            HStack {
+                            let fieldLayout = dynamicTypeSize.isAccessibilitySize
+                                ? AnyLayout(VStackLayout(alignment: .leading, spacing: 6))
+                                : AnyLayout(HStackLayout(spacing: 8))
+                            fieldLayout {
                                 Label {
                                     Text("API Key")
                                 } icon: {
                                     Image(systemName: "key.fill")
                                         .foregroundStyle(AppColors.calorie)
                                 }
-                                Spacer()
-                                Group {
-                                    if showAPIKey {
-                                        TextField(selectedProvider.apiKeyPlaceholder, text: $apiKeyText)
-                                    } else {
-                                        SecureField(selectedProvider.apiKeyPlaceholder, text: $apiKeyText)
+                                HStack(spacing: 6) {
+                                    Group {
+                                        if showAPIKey {
+                                            TextField(selectedProvider.apiKeyPlaceholder, text: $apiKeyText)
+                                        } else {
+                                            SecureField(selectedProvider.apiKeyPlaceholder, text: $apiKeyText)
+                                        }
                                     }
+                                    .textFieldStyle(.plain)
+                                    .multilineTextAlignment(dynamicTypeSize.isAccessibilitySize ? .leading : .trailing)
+                                    .autocorrectionDisabled()
+                                    .textInputAutocapitalization(.never)
+                                    .onChange(of: apiKeyText) { _, newValue in
+                                        let t = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
+                                        AIProviderSettings.setAPIKey(t.isEmpty ? nil : t, for: selectedProvider)
+                                    }
+                                    Button {
+                                        showAPIKey.toggle()
+                                    } label: {
+                                        Image(systemName: showAPIKey ? "eye.fill" : "eye.slash.fill")
+                                            .foregroundStyle(.secondary)
+                                            .font(.system(size: 14))
+                                            .frame(minWidth: 44, minHeight: 44)
+                                            .contentShape(Rectangle())
+                                    }
+                                    .buttonStyle(.plain)
                                 }
-                                .textFieldStyle(.plain)
-                                .multilineTextAlignment(.trailing)
-                                .autocorrectionDisabled()
-                                .textInputAutocapitalization(.never)
-                                .onChange(of: apiKeyText) { _, newValue in
-                                    let t = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
-                                    AIProviderSettings.setAPIKey(t.isEmpty ? nil : t, for: selectedProvider)
-                                }
-                                Button {
-                                    showAPIKey.toggle()
-                                } label: {
-                                    Image(systemName: showAPIKey ? "eye.fill" : "eye.slash.fill")
-                                        .foregroundStyle(.secondary)
-                                        .font(.system(size: 14))
-                                }
-                                .buttonStyle(.plain)
                             }
                         }
 

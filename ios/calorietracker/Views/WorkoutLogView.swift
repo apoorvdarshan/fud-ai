@@ -76,6 +76,7 @@ private struct WorkoutLogCardFramePreferenceKey: PreferenceKey {
 /// separate from the food diary, while the visual language is bridged through
 /// Fud AI's existing workout theme tokens.
 struct WorkoutLogView: View {
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @AppStorage("hideVoiceShortcut") private var hideVoiceShortcut = false
     @Environment(StrengthWorkoutStore.self) private var workoutStore
     @Environment(ImportedHealthWorkoutStore.self) private var importedHealthWorkoutStore
@@ -426,13 +427,19 @@ struct WorkoutLogView: View {
                             }
                         }
                     } header: {
-                        HStack(alignment: .center) {
+                        let layout = dynamicTypeSize.isAccessibilitySize
+                            ? AnyLayout(VStackLayout(alignment: .leading, spacing: 4))
+                            : AnyLayout(HStackLayout())
+                        layout {
                             Label(selectedDateTitle, systemImage: "dumbbell.fill")
-                            Spacer()
-                            Text(workoutCountText(selectedExercises.count))
-                                .font(.caption.weight(.bold))
-                            if selectedExercises.count > 1 {
-                                reorderButton
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            HStack {
+                                Text(workoutCountText(selectedExercises.count))
+                                    .font(.caption.weight(.bold))
+                                    .fixedSize(horizontal: false, vertical: true)
+                                if selectedExercises.count > 1 {
+                                    reorderButton
+                                }
                             }
                         }
                         .textCase(nil)
@@ -445,7 +452,6 @@ struct WorkoutLogView: View {
                 .background(Color.workoutBackground.ignoresSafeArea())
                 .listSectionSpacing(8)
                 .scrollDismissesKeyboard(.interactively)
-                .contentMargins(.bottom, 96, for: .scrollContent)
                 // Pinned below the navigation bar so it stays visible above the
                 // keyboard while the next set is being typed.
                 .safeAreaInset(edge: .top, spacing: 0) {
@@ -491,14 +497,17 @@ struct WorkoutLogView: View {
                         }
                     }
                 }
-                .overlay(alignment: .bottomTrailing) {
+                .safeAreaInset(edge: .bottom, spacing: 0) {
                     HStack(spacing: 12) {
+                        Spacer(minLength: 0)
                         if !voiceAssistant.isActive, !hideVoiceShortcut {
                             VoiceAssistantHomeButton(controller: voiceAssistant)
                         }
                         addExerciseMenu
                     }
-                    .padding(24)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 6)
+                    .background(Color.workoutBackground)
                     .simultaneousGesture(
                         TapGesture().onEnded(dismissSetKeyboard)
                     )
@@ -965,10 +974,14 @@ private struct WorkoutLogWeekStrip: View {
             VStack(spacing: 6) {
                 Text(date.formatted(.dateTime.weekday(.narrow)))
                     .font(.system(.caption2, design: .rounded, weight: .medium))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.6)
                     .foregroundStyle(isSelected ? Color.workoutAccent : Color.workoutMutedText.opacity(0.62))
 
                 Text(date.formatted(.dateTime.day()))
                     .font(.system(.body, design: .rounded, weight: .semibold))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.6)
                     .foregroundStyle(isSelected ? Color.workoutOnAccent : (isToday ? Color.workoutAccent : Color.workoutCharcoal))
                     .frame(width: 36, height: 36)
                     .background {
@@ -988,6 +1001,7 @@ private struct WorkoutLogWeekStrip: View {
             }
         }
         .buttonStyle(.plain)
+        .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
         .frame(maxWidth: .infinity)
         .accessibilityLabel(date.formatted(date: .complete, time: .omitted))
         .accessibilityValue(calendarAccessibilityValue(workoutCount: workoutCount, isSelected: isSelected))

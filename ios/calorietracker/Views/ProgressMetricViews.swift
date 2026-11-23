@@ -51,52 +51,40 @@ struct ProgressOverviewModeSelector: View {
     @Binding var selection: ProgressOverviewMode
 
     var body: some View {
-        ScrollViewReader { proxy in
-            ScrollView(.horizontal) {
-                HStack(spacing: 6) {
-                    ForEach(ProgressOverviewMode.allCases) { mode in
-                        Button {
-                            withAnimation(.snappy) { selection = mode }
-                        } label: {
-                            Label(mode.title, systemImage: mode.icon)
-                                .font(.system(.subheadline, design: .rounded, weight: .semibold))
-                                .foregroundStyle(selection == mode ? Color.white : Color.secondary)
-                                .lineLimit(1)
-                                .padding(.horizontal, 14)
-                                .frame(minHeight: 44)
-                                .background {
-                                    if selection == mode {
-                                        Capsule().fill(
-                                            LinearGradient(
-                                                colors: AppColors.calorieGradient,
-                                                startPoint: .leading,
-                                                endPoint: .trailing
-                                            )
-                                        )
-                                    } else {
-                                        Capsule().fill(Color.clear)
-                                    }
-                                }
-                        }
-                        .buttonStyle(.plain)
-                        .accessibilityAddTraits(selection == mode ? .isSelected : [])
-                        .id(mode)
-                    }
+        ViewThatFits(in: .horizontal) {
+            HStack(spacing: 6) {
+                modeButtons
+            }
+            .fixedSize(horizontal: true, vertical: false)
+            VStack(alignment: .leading, spacing: 6) {
+                modeButtons
+            }
+        }
+        .padding(4)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .flashPanel()
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel(WeeklyChallengeL10n.text("Progress view"))
+    }
+
+    private var modeButtons: some View {
+        ForEach(ProgressOverviewMode.allCases) { mode in
+            Button {
+                withAnimation(.snappy) { selection = mode }
+            } label: {
+                Label(mode.title, systemImage: mode.icon)
+                    .font(.system(.subheadline, weight: .bold).width(.condensed))
+                    .foregroundStyle(selection == mode ? AppColors.onAccent : Color.primary)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 4)
+                    .frame(minHeight: 44, alignment: .leading)
+                    .background(selection == mode ? AppColors.calorie : AppColors.appCard)
+                    .pinkNeoRule(AppColors.flashRule)
+                    .contentShape(Rectangle())
                 }
-                .padding(4)
-            }
-            .scrollIndicators(.hidden)
-            .background(AppColors.appCard, in: Capsule())
-            .overlay {
-                Capsule().stroke(AppColors.calorie.opacity(0.12), lineWidth: 0.75)
-            }
-            .accessibilityElement(children: .contain)
-            .accessibilityLabel(WeeklyChallengeL10n.text("Progress view"))
-            .onChange(of: selection) { _, selected in
-                withAnimation(.snappy) {
-                    proxy.scrollTo(selected, anchor: .center)
-                }
-            }
+            .buttonStyle(.plain)
+            .accessibilityAddTraits(selection == mode ? .isSelected : [])
         }
     }
 }

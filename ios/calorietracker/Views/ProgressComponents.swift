@@ -126,7 +126,7 @@ struct ProgressPeriodNavigator: View {
             Button(action: onPrevious) {
                 Image(systemName: "chevron.backward")
                     .font(.system(.subheadline, weight: .semibold))
-                    .frame(width: 44, height: 36)
+                    .frame(width: 44, height: 44)
                     .contentShape(Rectangle())
             }
             .accessibilityLabel(Text(previousLabel))
@@ -134,14 +134,14 @@ struct ProgressPeriodNavigator: View {
             Text(label)
                 .font(.system(.subheadline, design: .rounded, weight: .semibold))
                 .monospacedDigit()
-                .lineLimit(1)
-                .minimumScaleFactor(0.75)
+                .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
                 .frame(maxWidth: .infinity)
 
             Button(action: onNext) {
                 Image(systemName: "chevron.forward")
                     .font(.system(.subheadline, weight: .semibold))
-                    .frame(width: 44, height: 36)
+                    .frame(width: 44, height: 44)
                     .contentShape(Rectangle())
             }
             .disabled(!canGoForward)

@@ -111,10 +111,13 @@ struct WeekEnergyStrip: View {
             VStack(spacing: 6) {
                 Text(date.formatted(.dateTime.weekday(.narrow)))
                     .font(.system(.caption2, weight: .bold).width(.condensed))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.6)
                     .foregroundStyle(palette.ink)
 
                 Text(date.formatted(.dateTime.day()))
                     .font(.system(.subheadline, weight: .black).width(.condensed))
+                    .lineLimit(1)
                     .minimumScaleFactor(0.6)
                     .foregroundStyle(isSelected ? palette.onAction : palette.ink)
                     .frame(maxWidth: .infinity, minHeight: 27)
@@ -131,6 +134,9 @@ struct WeekEnergyStrip: View {
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
+        // Seven numbers must fit without splitting digits. The full-size
+        // selected date remains in the heading and the accessible label.
+        .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
         .frame(maxWidth: .infinity)
         .accessibilityLabel(Text(date, style: .date))
         .accessibilityAddTraits(isSelected ? .isSelected : [])

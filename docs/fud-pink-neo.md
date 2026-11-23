@@ -27,6 +27,12 @@ Flash is an app-wide theme, not a Home or navigation skin. A screen or presentat
 
 **Known remaining coverage:** iOS still uses native-styled menus, menu pickers, context menus, and alerts for other app-owned actions. Treat these, remaining screen-specific decorative gradients, and unverified screens on both platforms as open work. Do not mark the redesign complete until both platforms have been audited against the table. Only genuinely OS-owned UI, such as permission prompts, keyboards, system file/photo pickers, and share sheets, is exempt.
 
+### Responsive layout pass
+
+- Food editors must render a single action surface. On iOS, Edit Food, Review Food, and the ingredient editor own their header instead of adding filled buttons to a Liquid Glass toolbar. On Android, editor actions wrap when measured space or font scale requires it.
+- Enter a long food name, try alternate serving units, open the keyboard, and verify Cancel, Save/Log, and any secondary action are visible, distinct, and tappable. Repeat with a photo and without one. Check that section edges and the pinned header do not obscure editable fields while scrolling.
+- At accessibility text sizes, verify calendar dates remain single-line, recap labels can wrap, Coach's message input has its own usable width, and workout controls reserve scroll space instead of covering the diary. Automated layout cases check narrow Android editor actions and iOS editor button geometry; they do not replace device review.
+
 ## Android performance check
 
 Startup reads one preferences snapshot off the UI thread and no longer waits indefinitely for a non-null profile. Diary filtering and sorting run off the UI thread, and the Home energy meter draws its 20 segments without re-laying out the panels on each animation frame.

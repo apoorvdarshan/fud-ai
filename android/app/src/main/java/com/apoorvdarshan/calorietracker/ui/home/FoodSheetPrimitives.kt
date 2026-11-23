@@ -5,11 +5,15 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -42,10 +46,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
@@ -87,6 +94,7 @@ import java.util.Locale
 // `Sheet*`-prefixed so they don't collide with the look-alike privates in
 // HomeScreen.kt and NutritionDetailSheet.kt.
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun SheetReviewToolbar(
     title: String,
@@ -97,69 +105,91 @@ internal fun SheetReviewToolbar(
     onPrimary: () -> Unit,
     onSecondary: (() -> Unit)? = null
 ) {
-    val compact = LocalConfiguration.current.screenWidthDp < 380
-    val outerPadding = if (compact) 8.dp else 14.dp
-    val itemGap = if (compact) 6.dp else 8.dp
-    Row(
-        Modifier.fillMaxWidth().padding(horizontal = outerPadding, vertical = 6.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        SheetToolbarPill(stringResource(R.string.action_cancel), compact = compact, onClick = onCancel)
-        Spacer(Modifier.width(itemGap))
+    val neo = pinkNeoPalette()
+    val cancel = stringResource(R.string.action_cancel)
+    val fontScale = LocalDensity.current.fontScale
+    val titleContent: @Composable (Modifier) -> Unit = { modifier ->
         Text(
-            title,
-            fontSize = if (compact) 16.sp else 17.sp,
+            text = title,
+            fontSize = 17.sp,
             fontWeight = FontWeight.Black,
             style = PinkNeoCondensed,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.weight(1f)
+            modifier = modifier.semantics { heading() }
         )
-        Spacer(Modifier.width(itemGap))
-        if (secondaryLabel != null && onSecondary != null) {
-            SheetToolbarPill(secondaryLabel, compact = compact, onClick = onSecondary)
-            Spacer(Modifier.width(itemGap))
+    }
+    val actions: @Composable () -> Unit = {
+        FlowRow(
+            horizontalArrangement = Arrangement.spacedBy(6.dp, Alignment.End),
+            verticalArrangement = Arrangement.spacedBy(6.dp)
+        ) {
+            SheetToolbarButton(cancel, onClick = onCancel)
+            if (secondaryLabel != null && onSecondary != null) {
+                SheetToolbarButton(secondaryLabel, onClick = onSecondary)
+            }
+            SheetToolbarButton(primaryLabel, primary = true, enabled = primaryEnabled, onClick = onPrimary)
         }
-        SheetToolbarPill(
-            primaryLabel,
-            bold = true,
-            compact = compact,
-            enabled = primaryEnabled,
-            onClick = onPrimary
+    }
+    BoxWithConstraints(
+        Modifier.fillMaxWidth().background(neo.panel).padding(horizontal = 12.dp, vertical = 8.dp)
+    ) {
+        if (maxWidth >= 440.dp && fontScale <= 1.2f) {
+            Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
+                titleContent(Modifier.weight(1f))
+                actions()
+            }
+        } else {
+            Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                titleContent(Modifier)
+                Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterEnd) { actions() }
+            }
+        }
+    }
+}
+
+@Composable
+private fun SheetToolbarButton(
+    label: String,
+    primary: Boolean = false,
+    enabled: Boolean = true,
+    onClick: () -> Unit
+) {
+    val neo = pinkNeoPalette()
+    Box(
+        Modifier
+            .background(if (primary && enabled) neo.action else neo.panel)
+            .border(1.dp, neo.rule)
+            .alpha(if (enabled) 1f else 0.55f)
+            .clickable(enabled = enabled, onClick = onClick)
+            .defaultMinSize(minWidth = 48.dp, minHeight = 48.dp)
+            .padding(horizontal = 10.dp, vertical = 6.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            label,
+            color = if (primary && enabled) neo.onAction else neo.ink,
+            fontSize = 15.sp,
+            style = PinkNeoCondensed,
+            fontWeight = if (primary) FontWeight.Black else FontWeight.SemiBold,
+            textAlign = TextAlign.Center
         )
     }
 }
 
 @Composable
-private fun SheetToolbarPill(
-    label: String,
-    bold: Boolean = false,
-    compact: Boolean = false,
-    enabled: Boolean = true,
-    onClick: () -> Unit
-) {
-    val neo = pinkNeoPalette()
-    val horizontalPadding = when {
-        compact && bold -> 12.dp
-        compact -> 10.dp
-        else -> 16.dp
-    }
-    val modifier = Modifier
-        .background(if (bold && enabled) neo.action else neo.panel)
-        .border(1.dp, neo.rule)
-    Box(
-        modifier
-            .alpha(if (enabled) 1f else 0.55f)
-            .clickable(enabled = enabled, onClick = onClick)
-            .padding(horizontal = horizontalPadding, vertical = 8.dp)
-    ) {
-        Text(
-            label,
-            color = if (bold && enabled) neo.onAction else neo.ink,
-            fontSize = if (compact) 15.sp else 16.sp,
-            fontWeight = if (bold) FontWeight.SemiBold else FontWeight.Medium
-        )
+internal fun SheetFoodNameField(name: String, onNameChange: (String) -> Unit) {
+    val label = stringResource(R.string.sheet_name)
+    SheetPillCard {
+        Column(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 10.dp)) {
+            Text(label, style = MaterialTheme.typography.labelLarge)
+            BasicTextField(
+                value = name,
+                onValueChange = { onNameChange(it.replace('\n', ' ').replace('\r', ' ')) },
+                maxLines = 3,
+                textStyle = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onSurface),
+                cursorBrush = SolidColor(AppColors.Calorie),
+                modifier = Modifier.fillMaxWidth().padding(top = 4.dp).semantics { contentDescription = label }
+            )
+        }
     }
 }
 

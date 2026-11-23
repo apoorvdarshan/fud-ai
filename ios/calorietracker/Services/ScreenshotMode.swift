@@ -214,18 +214,11 @@ enum ScreenshotMode {
 
     static func show(_ scene: Scene, navigator: VoiceAssistantNavigator, voiceAssistant: VoiceAssistantController) {
         switch scene {
-        case .home, .nutrition:
+        case .home, .nutrition, .food:
             navigator.show(.home)
         case .voice:
             navigator.show(.home)
             voiceAssistant.showScreenshotConversation()
-        case .food:
-            navigator.show(.home)
-            // After Home has settled, so it takes the request.
-            Task {
-                try? await Task.sleep(for: .seconds(1.5))
-                navigator.openFoodEntry(FoodEntry(id: yogurtID, name: "", calories: 0, protein: 0, carbs: 0, fat: 0, source: .snapFood))
-            }
         case .progress:
             navigator.show(.progress)
         case .coach:

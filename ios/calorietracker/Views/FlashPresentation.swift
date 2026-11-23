@@ -46,9 +46,21 @@ extension View {
         listRowBackground(
             Rectangle()
                 .fill(AppColors.appCard)
-                .pinkNeoRule(AppColors.flashRule)
+                .overlay(alignment: .bottom) {
+                    Rectangle()
+                        .fill(AppColors.flashRule.opacity(0.32))
+                        .frame(height: 1)
+                }
         )
         .listRowSeparator(.hidden)
+    }
+
+    func flashEditorSurface() -> some View {
+        flashScreenSurface()
+            .listStyle(.plain)
+            .listSectionSpacing(12)
+            .contentMargins(.horizontal, 12, for: .scrollContent)
+            .toolbar(.hidden, for: .navigationBar)
     }
 
     func flashActionFill() -> some View {
@@ -78,6 +90,122 @@ struct FlashActionButtonStyle: ButtonStyle {
             .background(isEnabled ? AppColors.calorie : AppColors.appCard)
             .pinkNeoRule(AppColors.flashRule)
             .opacity(configuration.isPressed ? 0.8 : 1)
+    }
+}
+
+/// Own the entire header rather than painting controls over Liquid Glass.
+/// The title moves to its own line before it or an action can be clipped.
+struct FlashEditorHeader<Actions: View>: View {
+    let title: LocalizedStringKey
+    @ViewBuilder let actions: () -> Actions
+
+    private var heading: some View {
+        Text(title)
+            .font(.system(.headline, weight: .black).width(.condensed))
+            .accessibilityAddTraits(.isHeader)
+    }
+
+    var body: some View {
+        ViewThatFits(in: .horizontal) {
+            HStack(spacing: 12) {
+                heading.fixedSize()
+                Spacer(minLength: 0)
+                actions()
+            }
+            VStack(alignment: .leading, spacing: 8) {
+                heading.fixedSize(horizontal: false, vertical: true)
+                actions()
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 8)
+        .background(AppColors.appCard)
+        .overlay(alignment: .bottom) {
+            Rectangle()
+                .fill(AppColors.flashRule)
+                .frame(height: 1)
+                .allowsHitTesting(false)
+        }
+        .accessibilityElement(children: .contain)
+        .accessibilityIdentifier("flash.editor.header")
+    }
+}
+
+struct FlashEditorActions<Content: View>: View {
+    @ViewBuilder let content: () -> Content
+
+    var body: some View {
+        ViewThatFits(in: .horizontal) {
+            HStack(spacing: 8, content: content)
+                .fixedSize(horizontal: true, vertical: false)
+            VStack(alignment: .leading, spacing: 6, content: content)
+        }
+    }
+}
+
+struct FlashSecondaryButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .font(.system(.subheadline, weight: .semibold).width(.condensed))
+            .padding(.horizontal, 10)
+            .padding(.vertical, 7)
+            .frame(minWidth: 44, minHeight: 44)
+            .contentShape(Rectangle())
+            .flashPanel()
+            .opacity(configuration.isPressed ? 0.7 : 1)
+    }
+}
+
+struct FlashFoodPhoto<Content: View>: View {
+    let count: Int
+    @ViewBuilder let content: () -> Content
+
+    var body: some View {
+        Rectangle()
+            .fill(AppColors.appCard)
+            .aspectRatio(4.0 / 3, contentMode: .fit)
+            .containerRelativeFrame(.horizontal) { width, _ in
+                min(width * (count > 1 ? 0.84 : 1), 440)
+            }
+            .overlay { content() }
+            .clipped()
+            .contentShape(Rectangle())
+    }
+}
+
+struct FlashFoodNameField: View {
+    @Binding var name: String
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text("Name")
+                .font(.subheadline.weight(.semibold))
+                .accessibilityHidden(true)
+            TextField("Food name", text: Binding(
+                get: { name },
+                set: { name = $0.replacingOccurrences(of: "\n", with: " ") }
+            ), axis: .vertical)
+                .lineLimit(1...3)
+                .accessibilityIdentifier("food.editor.name")
+        }
+        .padding(.vertical, 5)
+    }
+}
+
+struct FlashQuantityRow<Content: View>: View {
+    @ViewBuilder let content: () -> Content
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
+    var body: some View {
+        let layout = dynamicTypeSize.isAccessibilitySize
+            ? AnyLayout(VStackLayout(alignment: .leading, spacing: 4))
+            : AnyLayout(HStackLayout(spacing: 12))
+        layout {
+            Text("Quantity")
+                .frame(maxWidth: .infinity, alignment: .leading)
+            content()
+        }
     }
 }
 
@@ -259,6 +387,29 @@ struct FlashChoicePicker<Value: Hashable>: View {
     var swatch: ((Value) -> Color?)? = nil
     let optionTitle: (Value) -> Text
 
+    private var titleLabel: some View {
+        HStack(spacing: 8) {
+            if let titleIcon {
+                Image(systemName: titleIcon)
+                    .foregroundStyle(AppColors.accentText)
+                    .frame(width: 24)
+                    .accessibilityHidden(true)
+            }
+            title
+        }
+    }
+
+    private var currentValue: some View {
+        HStack(spacing: 6) {
+            optionTitle(selection)
+                .fixedSize(horizontal: false, vertical: true)
+            Image(systemName: "chevron.up.chevron.down")
+                .font(.caption.weight(.semibold))
+                .accessibilityHidden(true)
+        }
+        .foregroundStyle(AppColors.accentText)
+    }
+
     var body: some View {
         FlashMenu(title: title, items: {
             options.map { option in
@@ -267,23 +418,18 @@ struct FlashChoicePicker<Value: Hashable>: View {
                 }
             }
         }) {
-            HStack(spacing: 8) {
-                if let titleIcon {
-                    Image(systemName: titleIcon)
-                        .foregroundStyle(AppColors.accentText)
-                        .frame(width: 24)
-                        .accessibilityHidden(true)
+            ViewThatFits(in: .horizontal) {
+                HStack(spacing: 8) {
+                    titleLabel.fixedSize()
+                    Spacer(minLength: 4)
+                    currentValue.fixedSize()
                 }
-                title
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                optionTitle(selection)
-                    .foregroundStyle(AppColors.accentText)
-                Image(systemName: "chevron.up.chevron.down")
-                    .font(.caption.weight(.semibold))
-                    .foregroundStyle(AppColors.accentText)
-                    .accessibilityHidden(true)
+                VStack(alignment: .leading, spacing: 4) {
+                    titleLabel
+                    currentValue
+                }
             }
-            .frame(minHeight: 44)
+            .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
             .contentShape(Rectangle())
         }
         .accessibilityLabel(title)

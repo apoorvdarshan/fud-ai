@@ -177,7 +177,8 @@ private fun DayTile(
             date.dayOfWeek.getDisplayName(TextStyle.NARROW, locale),
             fontSize = 11.sp,
             fontWeight = FontWeight.Bold,
-            color = neo.ink
+            color = neo.ink,
+            maxLines = 1
         )
         Box(
             modifier = Modifier
@@ -192,9 +193,12 @@ private fun DayTile(
         ) {
             Text(
                 java.text.NumberFormat.getIntegerInstance(locale).format(date.dayOfMonth),
-                fontSize = 14.sp,
                 fontWeight = FontWeight.Black,
-                color = if (isSelected) neo.onAction else neo.ink
+                color = if (isSelected) neo.onAction else neo.ink,
+                maxLines = 1,
+                autoSize = androidx.compose.foundation.text.TextAutoSize.StepBased(
+                    minFontSize = 8.sp, maxFontSize = 14.sp, stepSize = 0.5.sp
+                )
             )
         }
     }

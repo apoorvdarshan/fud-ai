@@ -43,7 +43,7 @@ struct ServingUnitEditor: View {
                 },
                 showsCalculatorToolbar: true
             )
-            .frame(width: 104)
+            .frame(minWidth: 44, idealWidth: 76, maxWidth: 104)
             .onChange(of: quantityText) { _, newValue in
                 guard let parsed = ServingAmountExpression.evaluate(newValue), parsed > 0 else { return }
                 servingSizeGrams = parsed * selectedOption.gramsPerUnit
@@ -56,6 +56,8 @@ struct ServingUnitEditor: View {
                 Button(action: onClear) {
                     Image(systemName: "xmark.circle.fill")
                         .foregroundStyle(.secondary)
+                        .frame(minWidth: 44, minHeight: 44)
+                        .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)
                 .accessibilityLabel("Clear quantity")
@@ -74,24 +76,20 @@ struct ServingUnitEditor: View {
                 }) {
                     HStack(spacing: 3) {
                         Text(selectedUnitLabel)
-                            .lineLimit(1)
-                            .minimumScaleFactor(0.78)
-                            .allowsTightening(true)
+                            .fixedSize(horizontal: false, vertical: true)
                         Image(systemName: "chevron.up.chevron.down")
                             .font(.caption.weight(.semibold))
                     }
-                    .foregroundStyle(AppColors.calorie)
-                    .frame(width: 90, alignment: .trailing)
+                    .foregroundStyle(AppColors.accentText)
+                    .frame(minWidth: 44, minHeight: 44, alignment: .trailing)
+                    .contentShape(Rectangle())
                 }
-                .buttonStyle(.plain)
-                .fixedSize(horizontal: true, vertical: false)
+                .accessibilityLabel("Unit")
+                .accessibilityValue(selectedUnitLabel)
             } else {
                 Text(selectedUnitLabel)
                     .foregroundStyle(.secondary)
-                    .frame(
-                        width: selectedOption.normalizedUnit == "serving" ? 90 : 36,
-                        alignment: .leading
-                    )
+                    .fixedSize(horizontal: false, vertical: true)
             }
         }
     }

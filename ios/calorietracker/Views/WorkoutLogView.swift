@@ -1052,7 +1052,7 @@ private struct WorkoutLogBurnHero: View {
     let changeDay: (Int) -> Void
 
     var body: some View {
-        VStack(spacing: 22) {
+        VStack(spacing: 10) {
             WorkoutLogBurnButton(isCalculating: isCalculatingBurn, action: calculateBurn)
 
             WorkoutLogStatsStrip(
@@ -1063,8 +1063,7 @@ private struct WorkoutLogBurnHero: View {
             )
         }
         .frame(maxWidth: .infinity)
-        .padding(.top, 18)
-        .padding(.bottom, 10)
+        .padding(.vertical, 8)
         .contentShape(Rectangle())
         .simultaneousGesture(daySwipeGesture)
     }
@@ -1084,58 +1083,27 @@ private struct WorkoutLogBurnButton: View {
 
     var body: some View {
         Button(action: action) {
-            VStack(spacing: 5) {
-                Group {
-                    if isCalculating {
-                        ProgressView()
-                            .tint(.white)
-                            .scaleEffect(1.05)
-                    } else {
-                        Image(systemName: "flame.fill")
-                            .font(.system(size: 27, weight: .black))
-                            .foregroundStyle(Color.white)
-                            .shadow(color: Color.black.opacity(0.52), radius: 2, y: 1)
-                    }
+            HStack(spacing: 10) {
+                if isCalculating {
+                    ProgressView().tint(AppColors.flashRule)
+                } else {
+                    Image(systemName: "flame.fill")
+                        .accessibilityHidden(true)
                 }
-                .frame(height: 32)
-
-                Text(isCalculating ? String(localized: "Calculating…") : String(localized: "Calculate"))
-                    .font(.system(size: isCalculating ? 18 : 22, weight: .black, design: .rounded))
-                    .foregroundStyle(Color.white)
-                    .contentTransition(.opacity)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.9)
-                    .frame(width: 118)
-                    .shadow(color: Color.black.opacity(0.62), radius: 2, y: 1)
-
-                Text("CALORIE BURN")
-                    .font(.system(size: 9, weight: .black, design: .rounded))
-                    .tracking(0.4)
-                    .foregroundStyle(Color.white.opacity(0.90))
-                    .lineLimit(1)
-            }
-            .frame(width: 156, height: 156)
-            .background {
-                Image("timer_button_red")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 176, height: 176)
-                    .shadow(color: Color.black.opacity(0.34), radius: 16, y: 8)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(isCalculating ? "Calculating…" : "Calculate")
+                    Text("CALORIE BURN")
+                        .font(.caption.weight(.bold).width(.condensed))
+                }
+                .fixedSize(horizontal: false, vertical: true)
+                Spacer(minLength: 0)
             }
         }
-        .buttonStyle(WorkoutLogBurnButtonStyle())
+        .buttonStyle(FlashActionButtonStyle())
         .disabled(isCalculating)
         .accessibilityLabel("Calculate calorie burn")
         .accessibilityValue(isCalculating ? String(localized: "Calculating") : String(localized: "Ready"))
         .accessibilityHint("Uses saved exercise duration and intensity, or strength sets, repetitions and load, with current body weight")
-    }
-}
-
-private struct WorkoutLogBurnButtonStyle: ButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .scaleEffect(configuration.isPressed ? 0.88 : 1)
-            .animation(.snappy(duration: 0.12), value: configuration.isPressed)
     }
 }
 
@@ -1144,17 +1112,15 @@ private struct WorkoutLogStatsStrip: View {
     let workoutCount: Int
     let repCount: Int
     let caloriesBurned: Int?
-    @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @AppStorage(EnergyUnit.storageKey) private var energyUnit = EnergyUnit.defaultUnit
 
     var body: some View {
-        HStack(spacing: 0) {
+        let minimumWidth: CGFloat = dynamicTypeSize.isAccessibilitySize ? 118 : 60
+        LazyVGrid(columns: [GridItem(.adaptive(minimum: minimumWidth), spacing: 5)], spacing: 5) {
             metric(label: "Sets", value: setCount.formatted(), systemImage: "checklist", active: setCount > 0)
-            divider
             metric(label: "Workouts", value: workoutCount.formatted(), systemImage: "dumbbell.fill", active: workoutCount > 0)
-            divider
             metric(label: "Reps", value: repCount.formatted(), systemImage: "repeat", active: repCount > 0)
-            divider
             metric(
                 label: "Burn",
                 value: caloriesBurned.map { energyUnit.format(kcal: $0) } ?? "-- \(energyUnit.symbol)",
@@ -1162,28 +1128,7 @@ private struct WorkoutLogStatsStrip: View {
                 active: caloriesBurned != nil
             )
         }
-        .frame(maxWidth: .infinity)
-        .padding(.horizontal, 8)
-        .padding(.vertical, 10)
-        .background(Color.workoutPanel.opacity(0.84), in: RoundedRectangle(cornerRadius: 26, style: .continuous))
-        .overlay {
-            RoundedRectangle(cornerRadius: 26, style: .continuous)
-                .stroke(Color.workoutHairline.opacity(0.72), lineWidth: 0.8)
-        }
-        .shadow(color: shadowColor, radius: colorScheme == .light ? 0 : 12, x: 0, y: colorScheme == .light ? 0 : 8)
         .accessibilityElement(children: .contain)
-    }
-
-    private var shadowColor: Color {
-        colorScheme == .light ? .clear : Color.black.opacity(0.18)
-    }
-
-    private var divider: some View {
-        Rectangle()
-            .fill(Color.workoutHairline.opacity(0.52))
-            .frame(width: 1, height: 44)
-            .padding(.horizontal, 2)
-            .accessibilityHidden(true)
     }
 
     private func metric(label: String, value: String, systemImage: String, active: Bool) -> some View {
@@ -1195,21 +1140,20 @@ private struct WorkoutLogStatsStrip: View {
                     .foregroundStyle(active ? Color.workoutAccent : Color.workoutMutedText.opacity(0.72))
                     .frame(width: 14, height: 14)
                 Text(localizedLabel)
-                    .font(.system(size: 10, weight: .heavy, design: .rounded))
+                    .font(.system(.caption2, weight: .bold).width(.condensed))
                     .foregroundStyle(Color.workoutMutedText)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.7)
+                    .fixedSize(horizontal: false, vertical: true)
             }
 
             Text(value)
-                .font(.system(size: 24, weight: .black, design: .rounded))
+                .font(.system(.headline, weight: .black).width(.condensed))
                 .foregroundStyle(active ? Color.workoutAccent : Color.workoutCharcoal)
                 .contentTransition(.numericText())
-                .minimumScaleFactor(0.5)
-                .lineLimit(1)
+                .fixedSize(horizontal: false, vertical: true)
         }
         .frame(maxWidth: .infinity, minHeight: 58, alignment: .leading)
-        .padding(.horizontal, 7)
+        .padding(8)
+        .flashPanel()
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(localizedLabel)
         .accessibilityValue(value)

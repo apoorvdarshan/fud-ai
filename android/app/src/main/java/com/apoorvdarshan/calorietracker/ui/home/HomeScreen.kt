@@ -1858,77 +1858,91 @@ private fun MealSectionHeader(
             .border(1.dp, neo.rule)
             .padding(horizontal = 8.dp, vertical = 4.dp)
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Icon(
-                mealIcon(meal),
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.55f),
-                modifier = Modifier.size(16.dp).testTag("home.mealHeader.${meal.name}.icon")
-            )
-            Spacer(Modifier.width(8.dp))
-            Text(
-                stringResource(meal.displayNameRes),
-                fontSize = 15.sp,
-                fontWeight = FontWeight.Black,
-                color = neo.ink,
-                modifier = Modifier.weight(1f, fill = false).testTag("home.mealHeader.${meal.name}.title")
-            )
-            if (showSortMenu) {
-                Spacer(Modifier.width(if (compactActions) 4.dp else 8.dp))
-                Box {
-                    Row(
-                        modifier = Modifier
-                            .clickable(role = Role.Button, onClick = onSortClick)
-                            .sizeIn(minWidth = 48.dp, minHeight = 48.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(6.dp, Alignment.CenterHorizontally)
-                    ) {
-                        Icon(
-                            Icons.Filled.SwapVert,
-                            contentDescription = if (compactActions) sortLabel else null,
-                            tint = AppColors.Calorie,
-                            modifier = Modifier.size(16.dp)
-                        )
-                        if (!compactActions) {
-                            Text(
-                                sortLabel,
-                                fontSize = 17.sp,
-                                fontWeight = FontWeight.SemiBold,
-                                color = AppColors.Calorie
+        val mealTitle: @Composable (Modifier) -> Unit = { modifier ->
+            Row(modifier, verticalAlignment = Alignment.CenterVertically) {
+                Icon(
+                    mealIcon(meal),
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.55f),
+                    modifier = Modifier.size(16.dp).testTag("home.mealHeader.${meal.name}.icon")
+                )
+                Spacer(Modifier.width(8.dp))
+                Text(
+                    stringResource(meal.displayNameRes),
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Black,
+                    color = neo.ink,
+                    modifier = Modifier.weight(1f, fill = false).testTag("home.mealHeader.${meal.name}.title")
+                )
+            }
+        }
+        val mealActions: @Composable () -> Unit = {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                if (showSortMenu) {
+                    if (!compactActions) Spacer(Modifier.width(8.dp))
+                    Box {
+                        Row(
+                            modifier = Modifier
+                                .clickable(role = Role.Button, onClick = onSortClick)
+                                .sizeIn(minWidth = 48.dp, minHeight = 48.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(6.dp, Alignment.CenterHorizontally)
+                        ) {
+                            Icon(
+                                Icons.Filled.SwapVert,
+                                contentDescription = if (compactActions) sortLabel else null,
+                                tint = AppColors.Calorie,
+                                modifier = Modifier.size(16.dp)
                             )
+                            if (!compactActions) {
+                                Text(
+                                    sortLabel,
+                                    fontSize = 17.sp,
+                                    fontWeight = FontWeight.SemiBold,
+                                    color = AppColors.Calorie
+                                )
+                            }
+                        }
+                        SheetGlassDropdownMenu(
+                            expanded = sortMenuExpanded,
+                            onDismissRequest = onSortDismiss,
+                            menuWidth = 226.dp
+                        ) {
+                            for (order in FoodLogSortOrder.values()) {
+                                SheetGlassDropdownMenuItem(
+                                    label = stringResource(order.displayNameRes),
+                                    selected = order == sortOrder,
+                                    reserveSelectionSlot = true,
+                                    onClick = { onSortOrderSelected(order) }
+                                )
+                            }
                         }
                     }
-                    SheetGlassDropdownMenu(
-                        expanded = sortMenuExpanded,
-                        onDismissRequest = onSortDismiss,
-                        menuWidth = 226.dp
+                }
+                if (onShare != null) {
+                    Box(
+                        modifier = Modifier
+                            .clickable(role = Role.Button, onClick = onShare)
+                            .size(48.dp),
+                        contentAlignment = Alignment.Center
                     ) {
-                        for (order in FoodLogSortOrder.values()) {
-                            SheetGlassDropdownMenuItem(
-                                label = stringResource(order.displayNameRes),
-                                selected = order == sortOrder,
-                                reserveSelectionSlot = true,
-                                onClick = { onSortOrderSelected(order) }
-                            )
-                        }
+                        Icon(
+                            Icons.Filled.IosShare,
+                            contentDescription = stringResource(R.string.cd_share_meal),
+                            tint = AppColors.Calorie,
+                            modifier = Modifier.size(18.dp)
+                        )
                     }
                 }
             }
-            // Share remains a separate target next to the title and sort control.
-            if (onShare != null) {
-                Box(
-                    modifier = Modifier
-                        .clickable(role = Role.Button, onClick = onShare)
-                        .size(48.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        Icons.Filled.IosShare,
-                        contentDescription = stringResource(R.string.cd_share_meal),
-                        tint = AppColors.Calorie,
-                        modifier = Modifier.size(18.dp)
-                    )
-                }
+        }
+        if (compactActions) {
+            mealTitle(Modifier.fillMaxWidth())
+            if (showSortMenu || onShare != null) mealActions()
+        } else {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                mealTitle(Modifier.weight(1f, fill = false))
+                mealActions()
             }
         }
         // Keep the combined meal totals below the heading on its leading edge.

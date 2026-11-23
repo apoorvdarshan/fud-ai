@@ -1190,6 +1190,7 @@ private struct WhatIfMealImpactSheet: View {
                 } footer: {
                     Text("This does not log the meal. It shows what today would look like if you logged \(entry.name).")
                 }
+                .flashListRows()
 
                 Section("AI Suggestion") {
                     if isLoadingSuggestion {
@@ -1216,9 +1217,9 @@ private struct WhatIfMealImpactSheet: View {
                         }
                     }
                 }
+                .flashListRows()
             }
-            .scrollContentBackground(.hidden)
-            .background(AppColors.appBackground)
+            .flashEditorSurface()
             .navigationTitle("What if?")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

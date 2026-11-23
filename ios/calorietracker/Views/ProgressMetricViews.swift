@@ -94,14 +94,11 @@ struct ProgressMetricSelector: View {
     @Binding var selection: ProgressMetric
 
     var body: some View {
-        Picker("Progress metric", selection: $selection) {
-            ForEach(metrics) { metric in
-                Text(metric.title).tag(metric)
-            }
+        FlashChoicePicker(title: Text("Progress metric"), selection: $selection, options: metrics) {
+            Text($0.title)
         }
-        .pickerStyle(.segmented)
-        .tint(AppColors.calorie)
-        .accessibilityLabel("Progress metric")
+        .padding(.horizontal, 10)
+        .flashPanel()
         .onChange(of: metrics) { _, available in
             if !available.contains(selection), let first = available.first {
                 selection = first

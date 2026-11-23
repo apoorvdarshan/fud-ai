@@ -4368,14 +4368,12 @@ struct ProgressTabView: View {
                     WeeklyRecapCard()
                         .padding(.horizontal)
 
-                    // Segmented Picker
-                    Picker("Time Range", selection: timeRangeSelection) {
-                        ForEach(TimeRange.allCases, id: \.self) { range in
-                            Text(range.title).tag(range)
-                        }
+                    FlashChoicePicker(title: Text("Time Range"), selection: timeRangeSelection,
+                                      options: TimeRange.allCases, titleIcon: "calendar") {
+                        Text($0.title)
                     }
-                    .pickerStyle(.segmented)
-                    .tint(AppColors.calorie)
+                    .padding(.horizontal, 10)
+                    .flashPanel()
                     .padding(.horizontal)
 
                     if timeRange.supportsPeriodNavigation {

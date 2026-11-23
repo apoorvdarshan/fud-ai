@@ -53,6 +53,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.withContext
@@ -177,8 +178,11 @@ internal class FoodSubmissionGate {
 }
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class HomeViewModel(private val container: AppContainer) : ViewModel() {
-    private val _ui = MutableStateFlow(HomeUiState())
+class HomeViewModel(
+    private val container: AppContainer,
+    initialProfile: UserProfile? = null
+) : ViewModel() {
+    private val _ui = MutableStateFlow(HomeUiState(profile = initialProfile))
     val ui: StateFlow<HomeUiState> = _ui.asStateFlow()
     // App-wide, so the voice assistant sees and sets the same diary day. A new Home still
     // opens on today, even when the process (and the navigator) outlived the last one.
@@ -231,19 +235,21 @@ private val _stepsRefreshEpoch = MutableStateFlow(0)
                 }
             }
         }
-        combine(
-            container.profileRepository.profile,
-            container.foodRepository.entries,
-            container.foodRepository.favoriteKeys,
-            container.prefs.foodLogSortOrder,
-            _selectedDate
-        ) { p, entries, favKeys, sortOrder, day ->
+        val dailyFood = combine(container.foodRepository.entries, _selectedDate) { entries, day ->
             val zone = ZoneId.systemDefault()
-            val dayEntries = entries
+            day to entries
                 .filter { it.timestamp.atZone(zone).toLocalDate() == day }
                 .sortedByDescending { it.timestamp }
+        }.flowOn(Dispatchers.Default)
+
+        combine(
+            container.profileRepository.profile,
+            dailyFood,
+            container.foodRepository.favoriteKeys,
+            container.prefs.foodLogSortOrder
+        ) { profile, (day, dayEntries), favKeys, sortOrder ->
             _ui.value.copy(
-                profile = p,
+                profile = profile,
                 date = day,
                 todayEntries = dayEntries,
                 foodLogSortOrder = FoodLogSortOrder.fromStorage(sortOrder),
@@ -334,6 +340,7 @@ private val _stepsRefreshEpoch = MutableStateFlow(0)
                 .sortedByDescending { it.date }
             dailyEntries to dailyEntries.sumOf { it.milliliters }
         }
+            .flowOn(Dispatchers.Default)
             .onEach { (entries, total) ->
                 _ui.value = _ui.value.copy(
                     waterTodayMl = total,
@@ -379,6 +386,7 @@ viewModelScope.launch {
             .flatMapLatest { inputs ->
                 flow { emit(computeHomeBurnSummary(inputs)) }
             }
+            .flowOn(Dispatchers.Default)
             .onEach { summary ->
                 _ui.value = _ui.value.copy(homeBurnSummary = summary)
             }
@@ -1397,10 +1405,13 @@ viewModelScope.launch {
         }
     }
 
-    class Factory(private val container: AppContainer) : ViewModelProvider.Factory {
+    class Factory(
+        private val container: AppContainer,
+        private val initialProfile: UserProfile? = null
+    ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T =
-            HomeViewModel(container) as T
+            HomeViewModel(container, initialProfile) as T
     }
 
     suspend fun reprocessFoodEntry(entry: FoodEntry, updatedNote: String): FoodAnalysis {

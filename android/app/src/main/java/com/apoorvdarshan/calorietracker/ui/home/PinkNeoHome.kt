@@ -1,6 +1,7 @@
 package com.apoorvdarshan.calorietracker.ui.home
 
 import android.app.DatePickerDialog
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -24,6 +25,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
@@ -112,17 +115,7 @@ internal fun PinkNeoEnergyPanels(
                     maxLines = if (largeType) 2 else 1,
                     autoSize = TextAutoSize.StepBased(minFontSize = 18.sp, maxFontSize = 34.sp, stepSize = 1.sp))
                 Text(status, color = palette.onAction, fontWeight = FontWeight.Bold, fontSize = 13.sp, style = PinkNeoCondensed)
-                Row(
-                    Modifier.fillMaxWidth().height(10.dp).testTag("home.calorieSegments"),
-                    horizontalArrangement = Arrangement.spacedBy(2.dp)
-                ) {
-                    for (index in 0 until 20) {
-                        Box(Modifier.weight(1f).fillMaxHeight().background(palette.emptyActionSegment)) {
-                            val fill = (progress() * 20 - index).coerceIn(0f, 1f)
-                            Box(Modifier.fillMaxWidth(fill).fillMaxHeight().background(palette.onAction))
-                        }
-                    }
-                }
+                PinkNeoEnergySegments(progress)
             }
         }
         val goalPanel: @Composable (Modifier) -> Unit = { modifier ->
@@ -164,6 +157,29 @@ internal fun PinkNeoEnergyPanels(
         }
         if (burnLine != null) {
             Text(burnLine, color = palette.ink, fontSize = 11.sp)
+        }
+    }
+}
+
+@Composable
+private fun PinkNeoEnergySegments(progress: () -> Float) {
+    val palette = pinkNeoPalette()
+    Canvas(Modifier.fillMaxWidth().height(10.dp).testTag("home.calorieSegments")) {
+        val count = 20
+        val gap = minOf(2.dp.toPx(), size.width / (2 * count))
+        val width = (size.width - gap * (count - 1)) / count
+        // Read the animation in the draw phase. It invalidates this canvas, not
+        // composition and measurement of the surrounding panels and text.
+        val filled = progress().coerceIn(0f, 1f) * count
+        val rtl = layoutDirection == androidx.compose.ui.unit.LayoutDirection.Rtl
+        for (index in 0 until count) {
+            val x = (if (rtl) count - 1 - index else index) * (width + gap)
+            drawRect(palette.emptyActionSegment, Offset(x, 0f), Size(width, size.height))
+            val fillWidth = width * (filled - index).coerceIn(0f, 1f)
+            if (fillWidth > 0f) {
+                val start = if (rtl) x + width - fillWidth else x
+                drawRect(palette.onAction, Offset(start, 0f), Size(fillWidth, size.height))
+            }
         }
     }
 }

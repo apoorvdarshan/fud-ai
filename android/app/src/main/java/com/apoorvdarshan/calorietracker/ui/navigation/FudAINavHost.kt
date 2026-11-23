@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker.ui.navigation
 
+import androidx.activity.compose.ReportDrawnWhen
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,12 +16,15 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
@@ -54,6 +58,7 @@ import com.apoorvdarshan.calorietracker.ui.settings.SettingsScreen
 import com.apoorvdarshan.calorietracker.ui.settings.SettingsViewModel
 import com.apoorvdarshan.calorietracker.ui.workouts.WorkoutsScreen
 import com.apoorvdarshan.calorietracker.models.WorkoutTabMode
+import com.apoorvdarshan.calorietracker.models.UserProfile
 import com.apoorvdarshan.calorietracker.models.QuickActionRequest
 import com.apoorvdarshan.calorietracker.models.QuickAction
 import com.apoorvdarshan.calorietracker.ui.settings.AddMenuSettingsScreen
@@ -80,7 +85,8 @@ fun FudAINavHost(
     quickActionRequest: QuickActionRequest? = null,
     onQuickActionHandled: (Long) -> Unit = {},
     voiceLaunchRequest: Long? = null,
-    onVoiceLaunchHandled: (Long) -> Unit = {}
+    onVoiceLaunchHandled: (Long) -> Unit = {},
+    initialHomeProfile: UserProfile? = null
 ) {
     val nav = rememberNavController()
     // Warm the app-scoped Settings state while Home is visible. By the time the user changes
@@ -110,7 +116,9 @@ fun FudAINavHost(
     // so re-tapping the Settings icon can return to the hub (iOS parity).
     val selectedTabRoute = FudAIRoutes.selectedBottomTab(currentRoute)
     // The expanded voice assistant dims the whole app; hide the rail behind it.
-    val voiceUi by container.voiceAssistant.ui.collectAsState()
+    val voiceExpanded by remember(container) {
+        container.voiceAssistant.ui.map { it.visible && it.expanded }.distinctUntilChanged()
+    }.collectAsState(initial = container.voiceAssistant.ui.value.let { it.visible && it.expanded })
     // A workout rest can end on any tab; mark it with a haptic while the app is open.
     val haptic = LocalHapticFeedback.current
     LaunchedEffect(container.workoutRestTimer) {
@@ -120,9 +128,16 @@ fun FudAINavHost(
     }
     // Null until the stored choice is read, so a hidden tab never flashes in the rail.
     val hiddenTabs by container.prefs.hiddenTabs.collectAsState(initial = null)
-    val keyboardVisible = WindowInsets.ime.getBottom(LocalDensity.current) > 0
+    val ime = WindowInsets.ime
+    val density = LocalDensity.current
+    val keyboardVisible by remember(ime, density) {
+        derivedStateOf { ime.getBottom(density) > 0 }
+    }
     val showTabs = selectedTabRoute != null && hiddenTabs != null && !analyzing &&
-        !(voiceUi.visible && voiceUi.expanded) && !keyboardVisible
+        !voiceExpanded && !keyboardVisible
+    ReportDrawnWhen {
+        currentRoute == FudAIRoutes.ONBOARDING || (selectedTabRoute != null && hiddenTabs != null)
+    }
     var railCameraRequest by remember { mutableStateOf<QuickActionRequest?>(null) }
     val homeActionRequest = quickActionRequest ?: railCameraRequest
     // Bumped when the Settings tab is re-tapped so SettingsScreen can pop back to the hub
@@ -295,6 +310,7 @@ fun FudAINavHost(
                     TabInset {
                         HomeScreen(
                             container = container,
+                            initialProfile = initialHomeProfile,
                             quickActionRequest = homeActionRequest,
                             onQuickActionHandled = { id ->
                                 if (railCameraRequest?.id == id) railCameraRequest = null

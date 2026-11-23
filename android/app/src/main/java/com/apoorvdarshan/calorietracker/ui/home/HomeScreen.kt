@@ -174,6 +174,7 @@ import com.apoorvdarshan.calorietracker.models.displayName
 import com.apoorvdarshan.calorietracker.models.QuickAction
 import com.apoorvdarshan.calorietracker.models.QuickActionRequest
 import com.apoorvdarshan.calorietracker.models.ServingUnitOption
+import com.apoorvdarshan.calorietracker.models.UserProfile
 import com.apoorvdarshan.calorietracker.models.WaterEntry
 import com.apoorvdarshan.calorietracker.models.WaterUnit
 import com.apoorvdarshan.calorietracker.services.ai.AnalysisProgressState
@@ -210,6 +211,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
@@ -225,9 +228,10 @@ private sealed interface AddMenuDestination {
 fun HomeScreen(
     container: AppContainer,
     quickActionRequest: QuickActionRequest? = null,
-    onQuickActionHandled: (Long) -> Unit = {}
+    onQuickActionHandled: (Long) -> Unit = {},
+    initialProfile: UserProfile? = null
 ) {
-    val vm: HomeViewModel = viewModel(factory = HomeViewModel.Factory(container))
+    val vm: HomeViewModel = viewModel(factory = HomeViewModel.Factory(container, initialProfile))
     val ui by vm.ui.collectAsState()
     val lifecycleOwner = LocalLifecycleOwner.current
 DisposableEffect(lifecycleOwner, vm) {
@@ -428,7 +432,9 @@ DisposableEffect(lifecycleOwner, vm) {
     }
 
     // The voice assistant opens a logged food's edit sheet here (open_food_entry).
-    val voiceUi by container.voiceAssistant.ui.collectAsState()
+    val voiceVisible by remember(container) {
+        container.voiceAssistant.ui.map { it.visible }.distinctUntilChanged()
+    }.collectAsState(initial = container.voiceAssistant.ui.value.visible)
     val hideVoiceShortcut by container.prefs.hideVoiceShortcut.collectAsState(initial = false)
     val pendingVoiceEntry by container.navigator.pendingFoodEntry.collectAsState()
     LaunchedEffect(pendingVoiceEntry, allEntries) {
@@ -775,7 +781,7 @@ DisposableEffect(lifecycleOwner, vm) {
                     )
                 }
             }
-            if (!voiceUi.visible && !hideVoiceShortcut) {
+            if (!voiceVisible && !hideVoiceShortcut) {
                 VoiceAssistantButton(onClick = container.voiceAssistant::requestStart, flat = true)
             }
             Box(Modifier.weight(1f)) {

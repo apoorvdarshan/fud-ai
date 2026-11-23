@@ -171,6 +171,24 @@ class AppFlowsTest {
     }
 
     @Test
+    fun startupUsesPersistedEnergyUnitAndGoal() {
+        FudAITestState.reset()
+        val target = 2_137
+        runBlocking {
+            prefs.setEnergyUnit(EnergyUnit.KJ)
+            prefs.updateUserProfile { it.copy(customCalories = target) }
+        }
+        val goal = hasText(string(EnergyUnit.KJ.valueFormatRes, EnergyUnit.KJ.displayValue(target)))
+        launchActivity()
+        waitForHome()
+        waitFor(goal)
+        compose.onNode(goal).assertIsDisplayed()
+        activity!!.recreate()
+        waitForHome()
+        compose.onNode(goal).assertIsDisplayed()
+    }
+
+    @Test
     fun minimizingVoiceClosesCameraAndCancelsBarcodeWaitWithoutStartingAudio() {
         FudAITestState.reset()
         val controller = (context.applicationContext as FudAIApp).container.voiceAssistant
@@ -518,6 +536,7 @@ class AppFlowsTest {
 
     private fun waitForHome() {
         waitFor(hasTestTag("home.add"))
+        waitFor(hasTestTag("nav.home") and isSelected())
         compose.onNodeWithTag("nav.home").assertIsSelected()
     }
 

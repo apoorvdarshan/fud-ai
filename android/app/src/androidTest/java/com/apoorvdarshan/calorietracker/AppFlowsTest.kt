@@ -506,6 +506,28 @@ class AppFlowsTest {
     }
 
     @Test
+    fun workoutRestTimerSelectsFromAnAnchoredPopup() {
+        launchFresh()
+        openTab("settings")
+        val category = "settings.category.WORKOUT"
+        waitFor(hasTestTag(category))
+        compose.onNodeWithTag(category).performScrollTo().performClick()
+
+        val timer = "settings.workout.restTimer"
+        waitFor(hasTestTag(timer))
+        compose.onNodeWithTag(timer).performScrollTo().performClick()
+        val off = string(R.string.workout_rest_off)
+        val popupOption = hasText(off) and hasAnyAncestor(isPopup())
+        waitFor(popupOption)
+        compose.onNode(popupOption).assertIsDisplayed().performClick()
+
+        waitFor(hasTestTag(timer) and hasText(off))
+        compose.onNode(isPopup()).assertDoesNotExist()
+        val workouts = (context.applicationContext as FudAIApp).container.workoutRepository
+        awaitPreference(workouts.preferences) { it.restTimerSeconds == 0 }
+    }
+
+    @Test
     fun workoutLibrarySearchOpensRealExerciseDetails() {
         launchFresh()
         openTab("workouts")

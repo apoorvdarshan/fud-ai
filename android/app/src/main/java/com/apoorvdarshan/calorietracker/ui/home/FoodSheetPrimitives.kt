@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -44,7 +45,6 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
@@ -52,6 +52,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.font.FontWeight
@@ -590,14 +591,15 @@ internal fun SheetGlassDropdownMenuItem(
     reserveSelectionSlot: Boolean = false,
     onClick: () -> Unit
 ) {
-    val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
-    val checkTint = if (isDark) Color.White else AppColors.Calorie
+    val neo = pinkNeoPalette()
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 7.dp, vertical = 1.dp)
-            .clip(RoundedCornerShape(14.dp))
+            .heightIn(min = 48.dp)
+            .then(if (selected) Modifier.background(neo.wash).border(1.dp, neo.rule) else Modifier)
             .clickable(onClick = onClick)
+            .semantics { if (selected) this.selected = true }
             // ~48dp tap target per row (Material menu guidance), matching the
             // roomier iOS add-menu rows instead of the old cramped ~36dp.
             .padding(horizontal = 10.dp, vertical = 12.dp),
@@ -614,7 +616,7 @@ internal fun SheetGlassDropdownMenuItem(
                 Icon(
                     leadingIcon,
                     contentDescription = null,
-                    tint = AppColors.Calorie,
+                    tint = neo.accent,
                     modifier = Modifier.size(19.dp)
                 )
                 Spacer(Modifier.width(10.dp))
@@ -625,7 +627,7 @@ internal fun SheetGlassDropdownMenuItem(
                         Icon(
                             Icons.Filled.Check,
                             contentDescription = null,
-                            tint = checkTint,
+                            tint = neo.accent,
                             modifier = Modifier.size(17.dp)
                         )
                     }
@@ -637,11 +639,9 @@ internal fun SheetGlassDropdownMenuItem(
         Text(
             label,
             fontSize = 16.sp,
-            fontWeight = FontWeight.Medium,
-            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.94f),
-            lineHeight = 19.sp,
-            maxLines = 2,
-            overflow = TextOverflow.Ellipsis,
+            style = PinkNeoCondensed,
+            fontWeight = FontWeight.SemiBold,
+            color = neo.ink,
             modifier = Modifier.weight(1f)
         )
 
@@ -650,7 +650,7 @@ internal fun SheetGlassDropdownMenuItem(
             Icon(
                 Icons.Filled.Check,
                 contentDescription = null,
-                tint = checkTint,
+                tint = neo.accent,
                 modifier = Modifier.size(17.dp)
             )
         } else if (trailingIcon != null) {

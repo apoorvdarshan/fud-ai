@@ -11,22 +11,8 @@ struct WorkoutPreferenceMenuRow<Option: Hashable>: View {
     let label: (Option) -> String
 
     var body: some View {
-        WorkoutPreferenceFieldRow(title: title, systemImage: systemImage) {
-            FlashMenu(title: Text(title), items: {
-                options.map { option in
-                    FlashMenuItem(
-                        Text(label(option)),
-                        isSelected: option == selection
-                    ) {
-                        selection = option
-                    }
-                }
-            }) {
-                WorkoutPreferenceMenuValueLabel(text: label(selection))
-            }
-            .workoutPressable()
-            .accessibilityLabel(title)
-            .accessibilityValue(label(selection))
+        FlashChoicePicker(title: Text(title), selection: $selection, options: options, titleIcon: systemImage) {
+            Text(label($0))
         }
     }
 }
@@ -153,24 +139,6 @@ private struct WorkoutPreferenceFieldRow<Content: View>: View {
             }
             .contentShape(Rectangle())
         }
-    }
-}
-
-private struct WorkoutPreferenceMenuOptionText: View {
-    let text: String
-
-    private var nonWrappingText: String {
-        text
-            .replacingOccurrences(of: " ", with: "\u{00A0}")
-            .map(String.init)
-            .joined(separator: "\u{2060}")
-    }
-
-    var body: some View {
-        Text(nonWrappingText)
-            .lineLimit(1)
-            .fixedSize(horizontal: true, vertical: false)
-            .accessibilityLabel(text)
     }
 }
 

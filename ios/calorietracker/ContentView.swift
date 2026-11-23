@@ -6672,9 +6672,8 @@ struct ProfileView: View {
                     )
                 }
             }
-            .scrollContentBackground(.hidden)
+            .flashEditorSurface()
             .modifier(SettingsKeyboardDismissalModifier())
-            .background(AppColors.appBackground)
             .flashSheet(isPresented: $showExportDiary) {
                 ExportDiaryView()
             }

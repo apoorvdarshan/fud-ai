@@ -26,9 +26,8 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.structuralEqualityPolicy
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.map
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
@@ -120,9 +119,10 @@ fun FudAINavHost(
     // so re-tapping the Settings icon can return to the hub (iOS parity).
     val selectedTabRoute = FudAIRoutes.selectedBottomTab(currentRoute)
     // The expanded voice assistant dims the whole app; hide the rail behind it.
-    val voiceExpanded by remember(container) {
-        container.voiceAssistant.ui.map { it.visible && it.expanded }.distinctUntilChanged()
-    }.collectAsState(initial = container.voiceAssistant.ui.value.let { it.visible && it.expanded })
+    val voiceUi = container.voiceAssistant.ui.collectAsState()
+    val voiceExpanded by remember(voiceUi) {
+        derivedStateOf(structuralEqualityPolicy()) { voiceUi.value.let { it.visible && it.expanded } }
+    }
     // A workout rest can end on any tab; mark it with a haptic while the app is open.
     val haptic = LocalHapticFeedback.current
     LaunchedEffect(container.workoutRestTimer) {

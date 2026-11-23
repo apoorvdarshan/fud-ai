@@ -1222,9 +1222,11 @@ struct AllWeightHistoryView: View {
                     HStack {
                         VStack(alignment: .leading, spacing: 2) {
                             Text(displayWeight(entry.weightKg, useMetric: useMetric))
-                                .font(.system(.body, design: .rounded, weight: .medium))
+                                .font(.system(.body, weight: .bold).width(.condensed))
+                                .foregroundStyle(AppColors.accentText)
+                                .monospacedDigit()
                             Text(weightHistoryFormatter.string(from: entry.date))
-                                .font(.system(.caption, design: .rounded))
+                                .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
                         Spacer()
@@ -1235,12 +1237,13 @@ struct AllWeightHistoryView: View {
                             Image(systemName: "trash")
                                 .font(.system(size: 15, weight: .medium))
                                 .foregroundStyle(.secondary)
-                                .frame(width: 32, height: 32)
+                                .frame(width: 44, height: 44)
                                 .contentShape(Rectangle())
                         }
                         .buttonStyle(.borderless)
                         .accessibilityLabel(Text("Delete"))
                     }
+                    .flashSectionRows()
                     .swipeActions(edge: .trailing) {
                         Button(role: .destructive) {
                             pendingDeletion = entry
@@ -1250,7 +1253,7 @@ struct AllWeightHistoryView: View {
                     }
                 }
             }
-            .listStyle(.insetGrouped)
+            .flashEditorSurface()
             .navigationTitle("Weight History")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -1345,13 +1348,16 @@ struct AllBodyFatHistoryView: View {
                     HStack {
                         VStack(alignment: .leading, spacing: 2) {
                             Text(displayBodyFat(entry.bodyFatFraction))
-                                .font(.system(.body, design: .rounded, weight: .medium))
+                                .font(.system(.body, weight: .bold).width(.condensed))
+                                .foregroundStyle(AppColors.accentText)
+                                .monospacedDigit()
                             Text(weightHistoryFormatter.string(from: entry.date))
-                                .font(.system(.caption, design: .rounded))
+                                .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
                         Spacer()
                     }
+                    .flashSectionRows()
                     .swipeActions(edge: .trailing) {
                         Button(role: .destructive) {
                             pendingDeletion = entry
@@ -1361,7 +1367,7 @@ struct AllBodyFatHistoryView: View {
                     }
                 }
             }
-            .listStyle(.insetGrouped)
+            .flashEditorSurface()
             .navigationTitle("Body Fat History")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -2061,11 +2067,12 @@ struct AllBodyMeasurementsHistoryView: View {
                 ForEach(visibleEntries) { entry in
                     VStack(alignment: .leading, spacing: 4) {
                         Text(weightHistoryFormatter.string(from: entry.date))
-                            .font(.system(.subheadline, design: .rounded, weight: .semibold))
+                            .font(.system(.subheadline, weight: .bold).width(.condensed))
                         Text(summary(entry))
-                            .font(.system(.caption, design: .rounded))
+                            .font(.caption)
                             .foregroundStyle(.secondary)
                     }
+                    .flashSectionRows()
                     .swipeActions(edge: .trailing) {
                         Button(role: .destructive) {
                             pendingDeletion = entry
@@ -2075,7 +2082,7 @@ struct AllBodyMeasurementsHistoryView: View {
                     }
                 }
             }
-            .listStyle(.insetGrouped)
+            .flashEditorSurface()
             .navigationTitle("Measurement History")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

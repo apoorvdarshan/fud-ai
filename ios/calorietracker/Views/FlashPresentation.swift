@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 extension View {
     /// The system still manages presentation, focus, detents and dismissal.
@@ -206,11 +207,12 @@ struct FlashQuantityRow<Content: View>: View {
     }
 }
 
-/// Unlike a system Menu, these rows keep the app's colors, border and type at
-/// every level. A single presentation owns the entire menu stack.
+/// Shared menu content. SwiftUI owns the anchored menu, including its glass,
+/// submenu navigation, focus, dismissal, and adaptation at large text sizes.
 struct FlashMenuItem {
     fileprivate let title: Text
     fileprivate let icon: String?
+    fileprivate let iconAsset: String?
     fileprivate let swatch: Color?
     fileprivate let isSelected: Bool
     fileprivate let role: ButtonRole?
@@ -224,6 +226,7 @@ struct FlashMenuItem {
     init(
         _ title: Text,
         icon: String? = nil,
+        iconAsset: String? = nil,
         swatch: Color? = nil,
         isSelected: Bool = false,
         role: ButtonRole? = nil,
@@ -231,6 +234,7 @@ struct FlashMenuItem {
     ) {
         self.title = title
         self.icon = icon
+        self.iconAsset = iconAsset
         self.swatch = swatch
         self.isSelected = isSelected
         self.role = role
@@ -240,6 +244,7 @@ struct FlashMenuItem {
     init(_ title: Text, icon: String, children: [FlashMenuItem]) {
         self.title = title
         self.icon = icon
+        iconAsset = nil
         swatch = nil
         isSelected = false
         role = nil
@@ -252,145 +257,72 @@ struct FlashMenu<Trigger: View>: View {
     let items: () -> [FlashMenuItem]
     @ViewBuilder let label: () -> Trigger
 
-    @State private var presentation: FlashMenuPage?
-    @State private var pendingAction: (() -> Void)?
-
     var body: some View {
-        Button {
-            // The first sheet render receives the actual rows instead of reading
-            // a second piece of state captured by an isPresented closure.
-            presentation = FlashMenuPage(title: title, items: items())
+        Menu {
+            let rows = items()
+            if rows.isEmpty {
+                Button("None", action: {}).disabled(true)
+            }
+            ForEach(Array(rows.enumerated()), id: \.offset) { _, item in
+                FlashNativeMenuRow(item: item)
+            }
         } label: {
             label()
         }
-        .buttonStyle(.plain)
-        .flashSheet(item: $presentation, onDismiss: menuDidDismiss) { root in
-            FlashMenuPanel(root: root) { action in
-                pendingAction = action
-                presentation = nil
-            }
-        }
-    }
-
-    private func menuDidDismiss() {
-        let action = pendingAction
-        pendingAction = nil
-        // Destinations may themselves present a sheet or the photo picker.
-        action?()
+        .menuStyle(.borderlessButton)
+        .menuIndicator(.hidden)
+        .menuOrder(.fixed)
+        .accessibilityLabel(title)
     }
 }
 
-private struct FlashMenuPage: Identifiable {
-    let id = UUID()
-    let title: Text
-    let items: [FlashMenuItem]
-}
-
-private struct FlashMenuPanel: View {
-    let root: FlashMenuPage
-    let onDismiss: ((() -> Void)?) -> Void
-    @State private var subpages: [FlashMenuPage] = []
-    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+private struct FlashNativeMenuRow: View {
+    let item: FlashMenuItem
 
     var body: some View {
-        let page = subpages.last ?? root
-        VStack(spacing: 0) {
-            HStack(spacing: 8) {
-                if !subpages.isEmpty {
-                    Button {
-                        subpages.removeLast()
-                    } label: {
-                        Image(systemName: "chevron.backward")
-                            .frame(width: 44, height: 44)
-                    }
-                    .buttonStyle(.plain)
-                    .accessibilityLabel("Back")
-                }
-                page.title
-                    .font(.system(.title2, weight: .black).width(.condensed))
-                    .accessibilityAddTraits(.isHeader)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                Button {
-                    onDismiss(nil)
-                } label: {
-                    Image(systemName: "xmark")
-                        .frame(width: 44, height: 44)
-                }
-                .buttonStyle(.plain)
-                .accessibilityLabel("Close")
+        switch item.destination {
+        case .action(let action):
+            Button(role: item.role, action: action) {
+                FlashNativeMenuLabel(title: item.title,
+                                     icon: item.isSelected ? "checkmark" : item.icon,
+                                     iconAsset: item.iconAsset, swatch: item.isSelected ? nil : item.swatch)
             }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 4)
-            .foregroundStyle(AppColors.onAccent)
-            .background(AppColors.calorie)
-            .pinkNeoRule(AppColors.flashRule)
-
-            ScrollView {
-                VStack(spacing: 6) {
-                    if page.items.isEmpty {
-                        Text("None")
-                            .foregroundStyle(.secondary)
-                            .frame(maxWidth: .infinity, minHeight: 46, alignment: .leading)
-                            .padding(.horizontal, 12)
-                            .flashPanel()
-                    }
-                    ForEach(Array(page.items.enumerated()), id: \.offset) { _, item in
-                        menuRow(item)
-                    }
+            .accessibilityAddTraits(item.isSelected ? .isSelected : [])
+        case .group(let children):
+            Menu {
+                ForEach(Array(children.enumerated()), id: \.offset) { _, child in
+                    FlashNativeMenuRow(item: child)
                 }
-                .padding(12)
+            } label: {
+                FlashNativeMenuLabel(title: item.title, icon: item.icon)
             }
-            .id(page.id)
         }
-        .background(AppColors.appBackground.ignoresSafeArea())
-        .accessibilityIdentifier("flash.menu")
-        .presentationDragIndicator(.hidden)
-        .presentationDetents(dynamicTypeSize.isAccessibilitySize ? [.large] : [.medium, .large])
     }
+}
 
-    private func menuRow(_ item: FlashMenuItem) -> some View {
-        Button(role: item.role) {
-            switch item.destination {
-            case .action(let action):
-                onDismiss(action)
-            case .group(let children):
-                subpages.append(FlashMenuPage(title: item.title, items: children))
+private struct FlashNativeMenuLabel: View {
+    let title: Text
+    var icon: String? = nil
+    var iconAsset: String? = nil
+    var swatch: Color? = nil
+
+    var body: some View {
+        if let swatch {
+            let color = UIColor(swatch)
+            let image = UIImage(systemName: "square.fill")?.withTintColor(color, renderingMode: .alwaysOriginal)
+            if let image {
+                Label { title } icon: { Image(uiImage: image) }
+            } else {
+                title
             }
-        } label: {
-            HStack(spacing: 10) {
-                if let swatch = item.swatch {
-                    Rectangle()
-                        .fill(swatch)
-                        .frame(width: 22, height: 22)
-                        .pinkNeoRule(AppColors.flashRule)
-                        .accessibilityHidden(true)
-                } else if let icon = item.icon {
-                    Image(systemName: icon)
-                        .frame(width: 24)
-                        .accessibilityHidden(true)
-                }
-                item.title
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                if item.isSelected {
-                    Image(systemName: "checkmark")
-                        .accessibilityHidden(true)
-                } else if case .group = item.destination {
-                    Image(systemName: "chevron.forward")
-                        .accessibilityHidden(true)
-                }
-            }
-            .font(.system(.body, weight: .bold).width(.condensed))
-            .foregroundStyle(item.role == .destructive ? Color.red : Color.primary)
-            .padding(.horizontal, 12)
-            .padding(.vertical, 8)
-            .frame(minHeight: 46)
-            .contentShape(Rectangle())
-            .flashPanel()
+        } else if let icon {
+            Label { title } icon: { Image(systemName: icon) }
+        } else if let iconAsset {
+            Label { title } icon: { Image(iconAsset) }
+        } else {
+            title
         }
-        .buttonStyle(.plain)
-        .accessibilityAddTraits(item.isSelected ? .isSelected : [])
     }
-
 }
 
 struct FlashChoicePicker<Value: Hashable>: View {
@@ -411,12 +343,14 @@ struct FlashChoicePicker<Value: Hashable>: View {
                     .accessibilityHidden(true)
             }
             title
+                .font(.system(.body, weight: .semibold).width(.condensed))
         }
     }
 
     private var currentValue: some View {
         HStack(spacing: 6) {
             optionTitle(selection)
+                .font(.system(.subheadline, weight: .semibold).width(.condensed))
                 .fixedSize(horizontal: false, vertical: true)
             Image(systemName: "chevron.up.chevron.down")
                 .font(.caption.weight(.semibold))
@@ -426,13 +360,17 @@ struct FlashChoicePicker<Value: Hashable>: View {
     }
 
     var body: some View {
-        FlashMenu(title: title, items: {
-            options.map { option in
-                FlashMenuItem(optionTitle(option), icon: icon?(option), swatch: swatch?(option), isSelected: selection == option) {
-                    selection = option
+        Menu {
+            Picker(selection: $selection) {
+                ForEach(options, id: \.self) { option in
+                    FlashNativeMenuLabel(title: optionTitle(option), icon: icon?(option), swatch: swatch?(option))
+                        .tag(option)
                 }
+            } label: {
+                title
             }
-        }) {
+            .pickerStyle(.inline)
+        } label: {
             ViewThatFits(in: .horizontal) {
                 HStack(spacing: 8) {
                     titleLabel.fixedSize()
@@ -447,6 +385,9 @@ struct FlashChoicePicker<Value: Hashable>: View {
             .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
             .contentShape(Rectangle())
         }
+        .menuStyle(.borderlessButton)
+        .menuIndicator(.hidden)
+        .menuOrder(.fixed)
         .accessibilityLabel(title)
         .accessibilityValue(optionTitle(selection))
     }

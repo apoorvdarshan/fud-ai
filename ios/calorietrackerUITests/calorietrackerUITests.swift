@@ -405,14 +405,19 @@ final class calorietrackerUITests: XCTestCase {
         describe.tap()
         XCTAssertTrue(app.buttons["Manual Entry"].waitForExistence(timeout: 5))
         let menuScreenshot = XCTAttachment(screenshot: app.screenshot())
-        menuScreenshot.name = "Flash Log Food submenu - light"
+        menuScreenshot.name = "Native Log Food submenu - light"
         menuScreenshot.lifetime = .keepAlways
         add(menuScreenshot)
-        app.buttons["Back"].tap()
+        // Tap the diary behind the anchored menu to dismiss it.
+        app.coordinate(withNormalizedOffset: CGVector(dx: 0.22, dy: 0.15)).tap()
+        XCTAssertTrue(app.buttons["Manual Entry"].waitForNonExistence(timeout: 5))
+        XCTAssertTrue(menu.isHittable)
+        menu.tap()
         XCTAssertTrue(photos.waitForExistence(timeout: 5))
         photos.tap()
         XCTAssertTrue(app.buttons["Barcode"].waitForExistence(timeout: 5))
-        app.buttons["Close"].tap()
+        app.coordinate(withNormalizedOffset: CGVector(dx: 0.22, dy: 0.15)).tap()
+        XCTAssertTrue(app.buttons["Barcode"].waitForNonExistence(timeout: 5))
         XCTAssertTrue(menu.waitForExistence(timeout: 5))
         menu.tap()
         XCTAssertTrue(reuse.waitForExistence(timeout: 5))
@@ -436,6 +441,25 @@ final class calorietrackerUITests: XCTestCase {
         add(pickerScreenshot)
         kilojoules.tap()
         waitForValue("Kilojoules (kJ)", in: picker)
+
+        // Also cover the picker that regressed to a bottom sheet, without
+        // relaunching the entire app for a second settings test.
+        app.navigationBars["App Settings"].buttons.firstMatch.tap()
+        let workout = app.buttons["settings.category.workout"]
+        reveal(workout, in: app)
+        workout.tap()
+        let timer = app.buttons["Rest Timer"]
+        reveal(timer, in: app)
+        timer.tap()
+        let off = app.buttons["Off"]
+        XCTAssertTrue(off.waitForExistence(timeout: 5))
+        XCTAssertTrue(app.navigationBars["Workout"].exists)
+        let timerScreenshot = XCTAttachment(screenshot: app.screenshot())
+        timerScreenshot.name = "Native Rest Timer dropdown - dark"
+        timerScreenshot.lifetime = .keepAlways
+        add(timerScreenshot)
+        off.tap()
+        waitForValue("Off", in: timer)
     }
 
     @MainActor
@@ -507,7 +531,7 @@ final class calorietrackerUITests: XCTestCase {
 
     @MainActor
     func testManualFoodEntryValidatesRequiredFieldsAndPersists() throws {
-        let app = makeApp()
+        let app = makeApp(defaults: ["-appearanceMode", "dark"])
         app.launch()
         let addButton = app.buttons["home.add"]
         XCTAssertTrue(addButton.waitForExistence(timeout: 15))

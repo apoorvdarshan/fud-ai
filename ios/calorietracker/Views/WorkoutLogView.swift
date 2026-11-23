@@ -622,87 +622,53 @@ struct WorkoutLogView: View {
         }
 
     private var addExerciseMenu: some View {
-        Menu {
-            Button { workoutInputUsesVoice = false; isTextSheetPresented = true } label: {
-                Label("Text", systemImage: "text.bubble")
-            }
-            Button { workoutInputUsesVoice = true; isTextSheetPresented = true } label: {
-                Label("Voice", systemImage: "mic")
-            }
-            Section {
-                Button {
+        FlashMenu(title: Text("Add workout"), items: {
+            var items = [
+                FlashMenuItem(Text("Text"), icon: "text.bubble") {
+                    workoutInputUsesVoice = false
+                    isTextSheetPresented = true
+                },
+                FlashMenuItem(Text("Voice"), icon: "mic") {
+                    workoutInputUsesVoice = true
+                    isTextSheetPresented = true
+                },
+                FlashMenuItem(Text(WorkoutLogPickerContext.saved.title), icon: "bookmark.fill") {
                     pickerRequest = WorkoutLogPickerRequest(context: .saved, initialSource: .saved)
-                } label: {
-                    WorkoutLogPickerContextMenuLabel(context: .saved)
-                }
-
-                Button {
+                },
+                FlashMenuItem(Text("Create exercise"), icon: "plus.circle") {
                     isCreateExercisePresented = true
-                } label: {
-                    Label("Create exercise", systemImage: "plus.circle")
-                }
-
-                Button {
+                },
+                FlashMenuItem(Text("Copy from day"), icon: "calendar.badge.plus") {
                     isCopySheetPresented = true
-                } label: {
-                    Label("Copy from day", systemImage: "calendar.badge.plus")
-                }
-
-                Button {
+                },
+                FlashMenuItem(Text("Start from routine"), icon: "list.bullet.rectangle.portrait") {
                     isRoutinesSheetPresented = true
-                } label: {
-                    Label("Start from routine", systemImage: "list.bullet.rectangle.portrait")
                 }
-
-                if !selectedExercises.isEmpty {
-                    Button {
-                        routineName = ""
-                        isSaveRoutinePresented = true
-                    } label: {
-                        Label("Save as routine", systemImage: "square.and.arrow.down")
-                    }
-                }
-
-                if walkRunQuickLogEnabled {
-                    Button {
-                        outdoorActivitySheet = .walking
-                    } label: {
-                        Label("Walking", systemImage: "figure.walk")
-                    }
-                    Button {
-                        outdoorActivitySheet = .running
-                    } label: {
-                        Label("Running", systemImage: "figure.run")
-                    }
-                }
-
-                if splitGroups.isEmpty {
-                    Button {
-                        pickerRequest = WorkoutLogPickerRequest(context: .all, initialSource: .dataset)
-                    } label: {
-                        WorkoutLogPickerContextMenuLabel(context: .all)
-                    }
-                } else {
-                    ForEach(splitGroups) { group in
-                        Button {
-                            pickerRequest = WorkoutLogPickerRequest(
-                                context: WorkoutLogPickerContext(title: group.title, muscles: group.muscles),
-                                initialSource: .dataset
-                            )
-                        } label: {
-                            WorkoutLogPickerContextMenuLabel(
-                                context: WorkoutLogPickerContext(title: group.title, muscles: group.muscles)
-                            )
-                        }
-                    }
+            ]
+            if !selectedExercises.isEmpty {
+                items.append(FlashMenuItem(Text("Save as routine"), icon: "square.and.arrow.down") {
+                    routineName = ""
+                    isSaveRoutinePresented = true
+                })
+            }
+            if walkRunQuickLogEnabled {
+                items.append(FlashMenuItem(Text("Walking"), icon: "figure.walk") { outdoorActivitySheet = .walking })
+                items.append(FlashMenuItem(Text("Running"), icon: "figure.run") { outdoorActivitySheet = .running })
+            }
+            let contexts = splitGroups.isEmpty ? [.all] : splitGroups.map {
+                WorkoutLogPickerContext(title: $0.title, muscles: $0.muscles)
+            }
+            items += contexts.map { context in
+                FlashMenuItem(Text(context.title), iconAsset: MuscleGlyphAsset.name(title: context.title, muscles: context.muscles)) {
+                    pickerRequest = WorkoutLogPickerRequest(context: context, initialSource: .dataset)
                 }
             }
-        } label: {
+            return items
+        }) {
             Image(systemName: "plus")
                 .font(.system(size: 26, weight: .semibold))
-                .foregroundStyle(.white)
                 .frame(width: 60, height: 60)
-                .background(Color.workoutAccent, in: Circle())
+                .flashActionFill()
         }
         .tint(Color.workoutAccent)
         .accessibilityLabel("Add workout")
@@ -1391,16 +1357,15 @@ private struct WorkoutLogExerciseCard: View {
 
     private var effortMenu: some View {
         let effort = StrengthWorkoutBurnEstimator.timerIntensity(for: exercise, defaultRPEScale: rpeScale)
-        return Menu {
-            Picker("Effort", selection: Binding(get: { effort }, set: { if $0 != effort { setEffort($0) } })) {
-                ForEach(StrengthWorkoutIntensity.allCases) { option in
-                    Text(option.localizedTitle).tag(option)
+        return FlashMenu(title: Text("Effort"), items: {
+            StrengthWorkoutIntensity.allCases.map { option in
+                FlashMenuItem(Text(option.localizedTitle), isSelected: effort == option) {
+                    if option != effort { setEffort(option) }
                 }
             }
-        } label: {
+        }) {
             HStack(spacing: 3) {
                 Text("Effort: \(effort.localizedTitle)")
-                    .lineLimit(1)
                 Image(systemName: "chevron.up.chevron.down")
                     .font(.caption2.weight(.bold))
             }
@@ -1408,12 +1373,10 @@ private struct WorkoutLogExerciseCard: View {
             .foregroundStyle(Color.workoutAccent)
             .padding(.horizontal, 10)
             .padding(.vertical, 6)
-            .background(Color.workoutAccent.opacity(0.12), in: Capsule())
             .frame(minHeight: 44)
+            .flashPanel()
             .contentShape(Rectangle())
         }
-        .menuStyle(.button)
-        .buttonStyle(.plain)
         .accessibilityLabel("Effort")
         .accessibilityValue(effort.localizedTitle)
     }
@@ -1763,21 +1726,6 @@ private struct WorkoutLogPickerRequest: Identifiable {
     let id = UUID()
     let context: WorkoutLogPickerContext
     let initialSource: WorkoutLogPickerSource
-}
-
-private struct WorkoutLogPickerContextMenuLabel: View {
-    let context: WorkoutLogPickerContext
-
-    var body: some View {
-        if context.id == WorkoutLogPickerContext.saved.id {
-            Label(context.title, systemImage: "bookmark.fill")
-        } else {
-            Label(
-                context.title,
-                image: MuscleGlyphAsset.name(title: context.title, muscles: context.muscles)
-            )
-        }
-    }
 }
 
 private struct WorkoutLogPickerFilterState: Codable, Equatable {

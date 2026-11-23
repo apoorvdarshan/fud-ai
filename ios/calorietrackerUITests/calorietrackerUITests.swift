@@ -37,18 +37,23 @@ final class calorietrackerUITests: XCTestCase {
     }
 
     @MainActor
-    private func reveal(_ element: XCUIElement, in app: XCUIApplication) {
-        for _ in 0..<10 {
-            if element.isHittable { break }
-            app.swipeUp()
+    private func reveal(
+        _ element: XCUIElement, in app: XCUIApplication,
+        file: StaticString = #filePath, line: UInt = #line
+    ) {
+        // Each accessibility lookup can take seconds on a busy CI simulator.
+        // Return as soon as the element is already tappable; only diagnose an
+        // absent element after checking both scroll directions.
+        for attempt in 0...20 {
+            if element.isHittable { return }
+            if attempt < 10 {
+                app.swipeUp()
+            } else if attempt < 20 {
+                app.swipeDown()
+            }
         }
-        // A previous category may have left the Settings list below the target.
-        for _ in 0..<10 {
-            if element.isHittable { break }
-            app.swipeDown()
-        }
-        XCTAssertTrue(element.exists, "Missing element: \(element.identifier)")
-        XCTAssertTrue(element.isHittable, "Element is not tappable: \(element.identifier)")
+        let reason = element.exists ? "Element is not tappable" : "Missing element"
+        XCTFail("\(reason): \(element.identifier)", file: file, line: line)
     }
 
     /// Typing races the sheet's focus animation on busy runners: a tap can land

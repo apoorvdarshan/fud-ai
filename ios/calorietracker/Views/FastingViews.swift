@@ -10,8 +10,9 @@ struct ActiveFastingRow: View {
             VStack(alignment: .leading, spacing: 8) {
                 HStack(spacing: 12) {
                     ZStack {
-                        RoundedRectangle(cornerRadius: 14)
-                            .fill(.ultraThinMaterial)
+                        Rectangle()
+                            .fill(AppColors.appCard)
+                            .pinkNeoRule(AppColors.flashRule)
                         Text("⏳")
                             .font(.system(size: 28))
                     }
@@ -59,8 +60,9 @@ struct CompletedFastingRow: View {
     var body: some View {
         HStack(spacing: 12) {
             ZStack {
-                RoundedRectangle(cornerRadius: 14)
-                    .fill(.ultraThinMaterial)
+                Rectangle()
+                    .fill(AppColors.appCard)
+                    .pinkNeoRule(AppColors.flashRule)
                 Text("⏳")
                     .font(.system(size: 28))
             }

@@ -66,6 +66,7 @@ import com.apoorvdarshan.calorietracker.ui.components.energyUnitLabel
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialogActions
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassSurface
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 
 /**
  * Verbatim port of struct NutritionDetailView in
@@ -435,36 +436,12 @@ private fun HomeTopNutrientPickerDialog(
             }
             items(HomeTopNutrient.values().toList()) { nutrient ->
                 val checked = nutrient in draft
-                val shape = RoundedCornerShape(16.dp)
-                val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
+                val neo = pinkNeoPalette()
                 Row(
                     Modifier
                         .fillMaxWidth()
-                        .clip(shape)
-                        .background(
-                            if (checked) AppColors.Calorie.copy(alpha = 0.11f)
-                            else if (isDark) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.36f)
-                            else Color(0xFFEDE3DD).copy(alpha = 0.76f)
-                        )
-                        .background(
-                            Brush.verticalGradient(
-                                listOf(
-                                    Color.White.copy(alpha = if (isDark) 0.08f else 0.18f),
-                                    Color.White.copy(alpha = if (isDark) 0.02f else 0.04f),
-                                    AppColors.Calorie.copy(alpha = if (checked) 0.065f else if (isDark) 0.025f else 0.050f)
-                                )
-                            )
-                        )
-                        .border(
-                            0.7.dp,
-                            Brush.linearGradient(
-                                listOf(
-                                    Color.White.copy(alpha = if (isDark) 0.16f else 0.46f),
-                                    AppColors.Calorie.copy(alpha = if (checked) 0.22f else if (isDark) 0.08f else 0.16f)
-                                )
-                            ),
-                            shape
-                        )
+                        .background(neo.panel)
+                        .border(if (checked) 2.dp else 1.dp, if (checked) neo.accent else neo.rule)
                         .clickable { toggle(nutrient) }
                         .padding(horizontal = 14.dp, vertical = 12.dp),
                     verticalAlignment = Alignment.CenterVertically
@@ -472,29 +449,15 @@ private fun HomeTopNutrientPickerDialog(
                     Box(
                         Modifier
                             .size(28.dp)
-                            .clip(RoundedCornerShape(8.dp))
-                            .background(
-                                if (checked) Brush.linearGradient(listOf(AppColors.CalorieStart, AppColors.CalorieEnd))
-                                else Brush.linearGradient(
-                                    listOf(
-                                        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.55f),
-                                        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.32f)
-                                    )
-                                )
-                            )
-                            .border(
-                                1.dp,
-                                if (checked) AppColors.Calorie.copy(alpha = 0.40f)
-                                else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.24f),
-                                RoundedCornerShape(8.dp)
-                            ),
+                            .background(if (checked) neo.action else neo.panel)
+                            .border(1.dp, neo.rule),
                         contentAlignment = Alignment.Center
                     ) {
                         if (checked) {
                             Icon(
                                 Icons.Filled.Check,
                                 contentDescription = null,
-                                tint = Color.White,
+                                tint = neo.onAction,
                                 modifier = Modifier.size(20.dp)
                             )
                         }

@@ -819,9 +819,7 @@ struct OnboardingView: View {
 
                     Image(systemName: "heart.fill")
                         .font(.system(size: 48))
-                        .foregroundStyle(
-                            LinearGradient(colors: [.pink, .red], startPoint: .topLeading, endPoint: .bottomTrailing)
-                        )
+                        .foregroundStyle(AppColors.accentText)
                 }
 
                 VStack(spacing: 8) {

@@ -102,8 +102,9 @@ struct WaterLogRow: View {
     var body: some View {
         HStack(spacing: 12) {
             ZStack {
-                RoundedRectangle(cornerRadius: 14)
-                    .fill(.ultraThinMaterial)
+                Rectangle()
+                    .fill(AppColors.appCard)
+                    .pinkNeoRule(AppColors.flashRule)
                 Text("💧")
                     .font(.system(size: 28))
             }

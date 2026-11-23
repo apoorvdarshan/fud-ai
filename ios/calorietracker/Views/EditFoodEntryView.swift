@@ -375,7 +375,7 @@ struct EditFoodEntryView: View {
                                                     .font(.caption2.weight(.semibold))
                                                     .padding(.horizontal, 8)
                                                     .padding(.vertical, 5)
-                                                    .background(.ultraThinMaterial, in: Capsule())
+                                                    .flashPanel()
                                                     .padding(8)
                                             }
                                         }

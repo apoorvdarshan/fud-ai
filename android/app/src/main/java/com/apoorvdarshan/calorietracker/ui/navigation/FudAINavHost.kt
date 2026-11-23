@@ -1,14 +1,14 @@
 package com.apoorvdarshan.calorietracker.ui.navigation
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
@@ -24,7 +24,10 @@ import kotlinx.coroutines.flow.first
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
@@ -52,6 +55,7 @@ import com.apoorvdarshan.calorietracker.ui.settings.SettingsViewModel
 import com.apoorvdarshan.calorietracker.ui.workouts.WorkoutsScreen
 import com.apoorvdarshan.calorietracker.models.WorkoutTabMode
 import com.apoorvdarshan.calorietracker.models.QuickActionRequest
+import com.apoorvdarshan.calorietracker.models.QuickAction
 import com.apoorvdarshan.calorietracker.ui.settings.AddMenuSettingsScreen
 import com.apoorvdarshan.calorietracker.ui.settings.ProductInfoSettingsScreen
 import com.apoorvdarshan.calorietracker.ui.settings.QuickActionsScreen
@@ -70,7 +74,6 @@ private const val WORKOUT_UI_PREFS = "fudai_workouts"
 private const val WORKOUT_MODE_V2_DEFAULT_KEY = "mode.diary_default.v2"
 
 @Composable
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 fun FudAINavHost(
     container: AppContainer,
     startOnboarding: Boolean,
@@ -106,8 +109,7 @@ fun FudAINavHost(
     // Nested settings/* screens keep the tab bar visible and highlight Settings,
     // so re-tapping the Settings icon can return to the hub (iOS parity).
     val selectedTabRoute = FudAIRoutes.selectedBottomTab(currentRoute)
-    // The expanded voice assistant dims the whole app, tab bar included; its compact
-    // bubble sits above the bar.
+    // The expanded voice assistant dims the whole app; hide the rail behind it.
     val voiceUi by container.voiceAssistant.ui.collectAsState()
     // A workout rest can end on any tab; mark it with a haptic while the app is open.
     val haptic = LocalHapticFeedback.current
@@ -116,10 +118,13 @@ fun FudAINavHost(
             haptic.performHapticFeedback(HapticFeedbackType.Confirm)
         }
     }
-    // Null until the stored choice is read, so a hidden tab never flashes in the bar.
+    // Null until the stored choice is read, so a hidden tab never flashes in the rail.
     val hiddenTabs by container.prefs.hiddenTabs.collectAsState(initial = null)
+    val keyboardVisible = WindowInsets.ime.getBottom(LocalDensity.current) > 0
     val showTabs = selectedTabRoute != null && hiddenTabs != null && !analyzing &&
-        !(voiceUi.visible && voiceUi.expanded)
+        !(voiceUi.visible && voiceUi.expanded) && !keyboardVisible
+    var railCameraRequest by remember { mutableStateOf<QuickActionRequest?>(null) }
+    val homeActionRequest = quickActionRequest ?: railCameraRequest
     // Bumped when the Settings tab is re-tapped so SettingsScreen can pop back to the hub
     // (matches iOS TabView + NavigationStack reselect → root behavior).
     var settingsPopToRootTick by remember { mutableIntStateOf(0) }
@@ -136,8 +141,8 @@ fun FudAINavHost(
         }
     }
 
-    LaunchedEffect(quickActionRequest?.id, currentRoute) {
-        if (quickActionRequest != null &&
+    LaunchedEffect(homeActionRequest?.id, currentRoute) {
+        if (homeActionRequest != null &&
             currentRoute != FudAIRoutes.HOME &&
             currentRoute != FudAIRoutes.ONBOARDING
         ) {
@@ -271,22 +276,9 @@ fun FudAINavHost(
         onVoiceLaunchHandled(request)
     }
 
-    CompositionLocalProvider(LocalLaunchFillEpoch provides launchFillEpoch) {
-    Scaffold(
-        bottomBar = {
-            if (showTabs) {
-                FudAIBottomNavBar(
-                    currentRoute = selectedTabRoute,
-                    showAboutBadge = updateAvailable,
-                    workoutMode = workoutMode,
-                    hiddenRoutes = hiddenTabs.orEmpty(),
-                    onTap = ::selectTab
-                )
-            }
-        }
-    ) { _ ->
-        Box(Modifier.fillMaxSize()) {
-            NavHost(
+    val tabContent: @Composable () -> Unit = {
+        NavHost(
+                modifier = Modifier.fillMaxSize(),
                 navController = nav,
                 startDestination = if (startOnboarding) FudAIRoutes.ONBOARDING else FudAIRoutes.HOME
             ) {
@@ -303,8 +295,11 @@ fun FudAINavHost(
                     TabInset {
                         HomeScreen(
                             container = container,
-                            quickActionRequest = quickActionRequest,
-                            onQuickActionHandled = onQuickActionHandled
+                            quickActionRequest = homeActionRequest,
+                            onQuickActionHandled = { id ->
+                                if (railCameraRequest?.id == id) railCameraRequest = null
+                                else onQuickActionHandled(id)
+                            }
                         )
                     }
                 }
@@ -356,6 +351,29 @@ fun FudAINavHost(
                 }
                 composable(FudAIRoutes.WORKOUTS) { TabInset { WorkoutsScreen(container = container) } }
             }
+    }
+    val layoutDirection = LocalLayoutDirection.current
+    CompositionLocalProvider(LocalLaunchFillEpoch provides launchFillEpoch) {
+        Box(Modifier.fillMaxSize()) {
+            // Keep the rail physically on the right, without changing the
+            // direction of translated content within either pane.
+            CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+                Row(Modifier.fillMaxSize()) {
+                    CompositionLocalProvider(LocalLayoutDirection provides layoutDirection) {
+                        Box(Modifier.weight(1f), propagateMinConstraints = true) { tabContent() }
+                        if (showTabs) {
+                            PinkNeoRail(
+                                currentRoute = selectedTabRoute,
+                                showAboutBadge = updateAvailable,
+                                workoutMode = workoutMode,
+                                hiddenRoutes = hiddenTabs.orEmpty(),
+                                onTap = ::selectTab,
+                                onCamera = { railCameraRequest = QuickActionRequest(QuickAction.CAMERA) }
+                            )
+                        }
+                    }
+                }
+            }
             // One-time post-update prompts for existing users; never during (or right after)
             // a fresh onboarding — those users are marked as "seen" on completion.
             PostUpdatePromptsHost(
@@ -371,16 +389,11 @@ fun FudAINavHost(
             HostedUiHost(container = container)
         }
     }
-    }
 }
 
 /**
- * Reserves the status-bar space above a tab's content. The top-level Scaffold
- * renders the NavHost full-screen (it discards its inset padding), so each tab
- * would otherwise draw under the status bar. This used to be handled by the ad
- * banner strip that sat above the content; with ads removed, this keeps the
- * exact same clearance. The content Box consumes the status-bar inset so a tab's
- * own Scaffold/TopAppBar doesn't pad for it a second time.
+ * Reserves the status bar above each primary page; nested Scaffolds see the
+ * inset as consumed, while the rail handles its own system bars.
  */
 @Composable
 private fun TabInset(content: @Composable () -> Unit) {

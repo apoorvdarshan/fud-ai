@@ -281,9 +281,7 @@ fun CoachScreen(container: AppContainer) {
     ) { padding ->
         // The app is edge-to-edge, so the IME would otherwise overlay the input bar.
         // Lift the whole column above the keyboard (imePadding) with a small gap; when
-        // the keyboard is down, keep the docked-nav clearance instead.
-        // Keyboard-down clearance = the nav-bar system inset (from the Scaffold) plus the
-        // docked-control padding, so the bar clears the floating bottom nav.
+        // the keyboard is down, leave a small gap above system navigation instead.
         val restClearance = padding.calculateBottomPadding() + BottomNavDockedControlPadding
         Column(
             Modifier

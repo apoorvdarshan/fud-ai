@@ -6,6 +6,7 @@ struct WeekEnergyStrip: View {
     @Binding var selectedDate: Date
     let caloriesForDate: (Date) -> Int
     let calorieGoal: Int
+    private var neoAppearance = PinkNeoAppearance()
     @AppStorage("weekStartsOnMonday") private var weekStartsOnMonday = true
     /// Two-way scroll position (the visible week's index). Driven programmatically when the selected
     /// day moves to another week, and updated by the user's own paging.
@@ -99,6 +100,7 @@ struct WeekEnergyStrip: View {
         let cal = Calendar.current
         let isSelected = cal.isDate(date, inSameDayAs: selectedDate)
         let isToday = cal.isDateInToday(date)
+        let palette = neoAppearance.palette
 
         return Button {
             UIImpactFeedbackGenerator(style: .light).impactOccurred()
@@ -108,27 +110,30 @@ struct WeekEnergyStrip: View {
         } label: {
             VStack(spacing: 6) {
                 Text(date.formatted(.dateTime.weekday(.narrow)))
-                    .font(.system(.caption2, design: .rounded, weight: .medium))
-                    .foregroundStyle(isSelected ? AppColors.calorie : Color.secondary.opacity(0.6))
+                    .font(.system(.caption2, weight: .bold).width(.condensed))
+                    .foregroundStyle(palette.ink)
 
                 Text(date.formatted(.dateTime.day()))
-                    .font(.system(.body, design: .rounded, weight: .semibold))
-                    .foregroundStyle(isSelected ? .white : (isToday ? AppColors.calorie : .primary))
-                    .frame(width: 36, height: 36)
+                    .font(.system(.subheadline, weight: .black).width(.condensed))
+                    .minimumScaleFactor(0.6)
+                    .foregroundStyle(isSelected ? palette.onAction : palette.ink)
+                    .frame(maxWidth: .infinity, minHeight: 27)
                     .background {
                         if isSelected {
-                            Circle()
-                                .fill(LinearGradient(colors: AppColors.calorieGradient, startPoint: .topLeading, endPoint: .bottomTrailing))
-                                .shadow(color: AppColors.calorie.opacity(0.35), radius: 6, y: 3)
+                            Rectangle().fill(palette.action)
                         } else if isToday {
-                            Circle()
-                                .strokeBorder(AppColors.calorie.opacity(0.35), lineWidth: 1.5)
+                            Rectangle().strokeBorder(palette.rule)
                         }
                     }
             }
+            .padding(.horizontal, 2)
+            .frame(minHeight: 44)
+            .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
         .frame(maxWidth: .infinity)
+        .accessibilityLabel(Text(date, style: .date))
+        .accessibilityAddTraits(isSelected ? .isSelected : [])
     }
 }
 

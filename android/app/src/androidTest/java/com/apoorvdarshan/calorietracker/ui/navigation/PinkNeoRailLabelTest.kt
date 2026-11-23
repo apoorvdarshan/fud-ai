@@ -2,6 +2,7 @@ package com.apoorvdarshan.calorietracker.ui.navigation
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.CompositionLocalProvider
@@ -17,17 +18,17 @@ import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.unit.dp
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import java.util.Locale
-import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class BottomNavLabelTest {
+class PinkNeoRailLabelTest {
     @get:Rule val compose = createComposeRule()
 
     @Test
-    fun frenchWorkoutLabelStaysOnOneLineInANarrowBar() {
+    fun frenchWorkoutLabelFitsTheNarrowRailWithoutTruncation() {
         compose.setContent {
             val configuration = Configuration(LocalConfiguration.current).apply { setLocale(Locale.FRENCH) }
             val context = LocalContext.current.createConfigurationContext(configuration)
@@ -37,8 +38,8 @@ class BottomNavLabelTest {
                 LocalResources provides context.resources
             ) {
                 MaterialTheme {
-                    Box(Modifier.width(300.dp)) {
-                        FudAIBottomNavBar(currentRoute = FudAIRoutes.WORKOUTS, onTap = {})
+                    Box(Modifier.width(100.dp).height(650.dp)) {
+                        PinkNeoRail(currentRoute = FudAIRoutes.WORKOUTS, onTap = {}, onCamera = {})
                     }
                 }
             }
@@ -47,6 +48,7 @@ class BottomNavLabelTest {
         val layouts = mutableListOf<TextLayoutResult>()
         compose.onNodeWithText("Entraînements", useUnmergedTree = true)
             .performSemanticsAction(SemanticsActions.GetTextLayoutResult) { it(layouts) }
-        assertEquals(1, layouts.single().lineCount)
+        assertTrue(layouts.single().lineCount <= 2)
+        assertTrue(!layouts.single().hasVisualOverflow)
     }
 }

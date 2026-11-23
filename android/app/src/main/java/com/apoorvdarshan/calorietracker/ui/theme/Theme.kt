@@ -14,11 +14,11 @@ private fun lightColors(themeColor: AppThemeColor) = lightColorScheme(
     onSecondary = AppColors.OnDark,
     tertiary = themeColor.start,
     onTertiary = AppColors.OnDark,
-    background = AppColors.AppBackgroundLight,
+    background = if (themeColor == AppThemeColor.FUD_PINK) PinkNeoPaperLight else AppColors.AppBackgroundLight,
     onBackground = AppColors.OnLight,
-    surface = AppColors.AppCardLight,
+    surface = if (themeColor == AppThemeColor.FUD_PINK) PinkNeoPanelLight else AppColors.AppCardLight,
     onSurface = AppColors.OnLight,
-    surfaceVariant = AppColors.AppCardLight,
+    surfaceVariant = if (themeColor == AppThemeColor.FUD_PINK) PinkNeoPanelLight else AppColors.AppCardLight,
     onSurfaceVariant = AppColors.MutedLight,
     outline = AppColors.DividerLight
 )
@@ -30,11 +30,23 @@ private fun darkColors(themeColor: AppThemeColor, gray: Boolean) = darkColorSche
     onSecondary = AppColors.OnDark,
     tertiary = themeColor.start,
     onTertiary = AppColors.OnDark,
-    background = if (gray) Color(0xFF202124) else AppColors.AppBackgroundDark,
+    background = when {
+        gray -> Color(0xFF202124)
+        themeColor == AppThemeColor.FUD_PINK -> PinkNeoPaperDark
+        else -> AppColors.AppBackgroundDark
+    },
     onBackground = AppColors.OnDark,
-    surface = if (gray) Color(0xFF303136) else AppColors.AppCardDark,
+    surface = when {
+        gray -> Color(0xFF303136)
+        themeColor == AppThemeColor.FUD_PINK -> PinkNeoPanelDark
+        else -> AppColors.AppCardDark
+    },
     onSurface = AppColors.OnDark,
-    surfaceVariant = if (gray) Color(0xFF303136) else AppColors.AppCardDark,
+    surfaceVariant = when {
+        gray -> Color(0xFF303136)
+        themeColor == AppThemeColor.FUD_PINK -> PinkNeoPanelDark
+        else -> AppColors.AppCardDark
+    },
     onSurfaceVariant = AppColors.MutedDark,
     outline = if (gray) Color(0xFF777980) else AppColors.DividerDark
 )

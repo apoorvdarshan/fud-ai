@@ -157,8 +157,10 @@ class AppFlowsTest {
         assertTrue("Voice sits beside the add button", voiceBounds.right < addBounds.left)
         assertTrue("The diary keeps its full viewport behind the floating controls",
             compose.onNodeWithTag("home.diary").fetchSemanticsNode().boundsInRoot.bottom > addBounds.bottom)
-        assertTrue("The action row stays above the tabs", addBounds.bottom <=
-            compose.onNodeWithTag("nav.home").fetchSemanticsNode().boundsInRoot.top)
+        assertTrue("The right rail stays beside the action row", addBounds.right <=
+            compose.onNodeWithTag("nav.home").fetchSemanticsNode().boundsInRoot.left)
+        compose.onNodeWithTag("nav.camera").assertIsDisplayed()
+        compose.onNodeWithTag("home.calendar").assertIsDisplayed()
         for (tab in listOf("progress", "coach", "settings", "workouts", "home")) {
             openTab(tab)
             compose.onNodeWithTag("nav.$tab").assertIsSelected()
@@ -336,7 +338,7 @@ class AppFlowsTest {
         val totalsBounds = compose.onNodeWithTag("home.mealHeader.${saved.mealType.name}.totals").fetchSemanticsNode().boundsInRoot
         assertEquals("Meal totals align with the leading edge of the header", iconBounds.left, totalsBounds.left, 1f)
         assertTrue("Meal totals sit below the title", totalsBounds.top >= titleBounds.bottom)
-        assertTrue("Meal totals avoid the floating buttons' trailing area", totalsBounds.right < voiceBounds.left)
+        assertTrue("Meal totals stay clear of the pinned dock", totalsBounds.bottom <= voiceBounds.top)
 
         activity!!.recreate()
         waitForHome()

@@ -47,14 +47,8 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.material3.FloatingActionButton
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.PathEffect
-import androidx.compose.ui.graphics.StrokeCap
-import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -76,7 +70,6 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.AddAPhoto
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.Calculate
-import androidx.compose.material.icons.filled.LocalFireDepartment
 import androidx.compose.material.icons.filled.DriveFileRenameOutline
 import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.CameraAlt
@@ -160,7 +153,6 @@ import com.apoorvdarshan.calorietracker.ui.util.formattedWholeNumber
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -195,7 +187,6 @@ import com.apoorvdarshan.calorietracker.models.EnergyUnit
 import com.apoorvdarshan.calorietracker.ui.components.FullScreenImageViewer
 import com.apoorvdarshan.calorietracker.ui.components.rememberFoodThumbnailCandidate
 import com.apoorvdarshan.calorietracker.ui.components.foodPhotoViewerInitialIndex
-import com.apoorvdarshan.calorietracker.ui.components.MacroCard
 import com.apoorvdarshan.calorietracker.ui.components.DateWheelPicker
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialog
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialogActions
@@ -203,8 +194,10 @@ import com.apoorvdarshan.calorietracker.ui.components.FudGlassPrimaryButton
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassSurface
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassTextField
 import com.apoorvdarshan.calorietracker.ui.components.WeekEnergyStrip
-import com.apoorvdarshan.calorietracker.ui.navigation.BottomNavDockedControlPadding
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
+import com.apoorvdarshan.calorietracker.ui.theme.PinkNeoCondensed
+import com.apoorvdarshan.calorietracker.ui.util.valueWithUnit
 import com.apoorvdarshan.calorietracker.ui.voice.VoiceAssistantButton
 import java.time.DayOfWeek
 import java.time.Instant
@@ -478,14 +471,14 @@ DisposableEffect(lifecycleOwner, vm) {
 
     val actionSize = 60.dp
     val actionGap = 12.dp
-    val actionBottom = 100.dp
+    val neo = pinkNeoPalette()
+    val actionBottom = 8.dp
     val diaryBottomClearance = actionBottom + actionSize + actionGap +
         WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
 
-    // No topBar: the empty TopAppBar used to act as the status-bar spacer, but the
-    // ad strip above this screen (TabWithBanner) now owns that inset.
+    // The tab shell owns the status-bar inset.
     Scaffold(
-        containerColor = MaterialTheme.colorScheme.background,
+        containerColor = neo.paper,
         bottomBar = {
             if (selectionMode) {
                 Column(
@@ -493,7 +486,6 @@ DisposableEffect(lifecycleOwner, vm) {
                         .fillMaxWidth()
                         .background(MaterialTheme.colorScheme.background)
                         .navigationBarsPadding()
-                        .padding(bottom = BottomNavDockedControlPadding)
                 ) {
                     Row(
                         modifier = Modifier
@@ -553,11 +545,16 @@ DisposableEffect(lifecycleOwner, vm) {
             // Week strip — verbatim port of WeekEnergyStrip in HomeComponents.swift,
             // with horizontal pagination across 53 weeks of history.
             item {
-                Box(Modifier.padding(horizontal = 16.dp, vertical = 4.dp)) {
+                Column(
+                    Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    PinkNeoDateHeader(date = selectedDate, onPick = vm::setSelectedDate)
                     WeekEnergyStrip(
                         selectedDate = selectedDate,
                         onSelect = { vm.setSelectedDate(it) },
-                        weekStartsOnMonday = weekStartsOnMonday
+                        weekStartsOnMonday = weekStartsOnMonday,
+                        modifier = Modifier.background(neo.panel).border(1.dp, neo.rule).padding(3.dp)
                     )
                 }
             }
@@ -586,8 +583,8 @@ DisposableEffect(lifecycleOwner, vm) {
                         )
                     }
                 ) {
-                    Spacer(Modifier.height(32.dp))
-CalorieHero(
+                    Spacer(Modifier.height(4.dp))
+                    CalorieHero(
                         current = ui.caloriesToday,
                         goal = ui.profile?.effectiveCalories ?: 2000,
                         burnSummary = ui.homeBurnSummary
@@ -597,28 +594,29 @@ CalorieHero(
                         DailyStepsRow(steps = steps)
                     }
                     Spacer(Modifier.height(12.dp))
-                    Row(
-                        Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp),
-                        horizontalArrangement = Arrangement.spacedBy(4.dp)
-                    ) {
-                        ui.homeTopNutrients.take(4).forEach { nutrient ->
-                            MacroCard(
-                                label = stringResource(nutrient.displayNameRes),
-                                current = nutrient.current(ui.todayEntries),
-                                goal = nutrient.goal(ui.profile, ui.optionalNutrientGoals).toDouble(),
-                                unit = nutrient.unit,
-                                modifier = Modifier.weight(1f)
-                            )
+                    Column(Modifier.fillMaxWidth().padding(horizontal = 10.dp)) {
+                        val nutrients = ui.homeTopNutrients.take(4)
+                        nutrients.chunked(if (LocalDensity.current.fontScale >= 1.45f) 2 else 4).forEach { row ->
+                            Row(Modifier.fillMaxWidth()) {
+                                row.forEach { nutrient ->
+                                    PinkNeoNutrient(
+                                        label = stringResource(nutrient.displayNameRes),
+                                        current = nutrient.current(ui.todayEntries),
+                                        goal = nutrient.goal(ui.profile, ui.optionalNutrientGoals).toDouble(),
+                                        unit = nutrient.unit,
+                                        modifier = Modifier.weight(1f)
+                                    )
+                                }
+                            }
                         }
                         if (ui.waterTrackingEnabled) {
-                            MacroCard(
+                            Spacer(Modifier.height(5.dp))
+                            PinkNeoNutrient(
                                 label = stringResource(R.string.water),
                                 current = ui.waterUnit.displayAmount(ui.waterTodayMl),
                                 goal = ui.waterUnit.displayAmount(ui.waterDailyGoalMl),
                                 unit = if (ui.waterUnit == WaterUnit.FLUID_OUNCES) " fl oz" else "ml",
-                                modifier = Modifier.weight(1f)
+                                modifier = Modifier.fillMaxWidth()
                             )
                         }
                     }
@@ -628,7 +626,11 @@ CalorieHero(
                             .padding(vertical = 8.dp),
                         contentAlignment = Alignment.Center
                     ) {
-                        Box(modifier = Modifier.clickable { showNutritionDetail = true }) {
+                        Box(
+                            modifier = Modifier.fillMaxWidth().padding(horizontal = 10.dp)
+                                .background(neo.panel).border(1.dp, neo.rule)
+                                .clickable(role = Role.Button) { showNutritionDetail = true }
+                        ) {
                             ViewMoreButton()
                         }
                     }
@@ -749,13 +751,16 @@ CalorieHero(
             }
         }
 
-        // Transparent floating controls preserve the full scrolling diary.
+        // The dock stays beside the rail, and the diary reserves enough slack
+        // to scroll its final item above both the dock and system navigation.
         if (!selectionMode) {
         Row(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
+                .fillMaxWidth()
                 .navigationBarsPadding()
-                .padding(end = 24.dp, bottom = actionBottom),
+                .padding(start = 10.dp, end = 10.dp, bottom = actionBottom)
+                .background(neo.paper),
             horizontalArrangement = Arrangement.spacedBy(actionGap),
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -781,25 +786,31 @@ CalorieHero(
             if (!voiceUi.visible && !hideVoiceShortcut) {
                 VoiceAssistantButton(onClick = container.voiceAssistant::requestStart)
             }
-            Box {
-            Box(
+            Box(Modifier.weight(1f)) {
+            Row(
                 modifier = Modifier
                     .testTag("home.add")
-                    .size(actionSize)
-                    .clip(CircleShape)
-                    .background(AppColors.Calorie)
-                    .clickable {
+                    .fillMaxWidth()
+                    .heightIn(min = actionSize)
+                    .background(neo.action)
+                    .border(1.dp, neo.rule)
+                    .clickable(role = Role.Button) {
                         addMenuDestination = null
                         showAddMenu = true
-                    },
-                contentAlignment = Alignment.Center
+                    }
+                    .padding(horizontal = 8.dp, vertical = 5.dp),
+                horizontalArrangement = Arrangement.spacedBy(6.dp, Alignment.CenterHorizontally),
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
                     Icons.Filled.Add,
-                    contentDescription = stringResource(R.string.cd_add_food),
-                    tint = Color.White,
-                    modifier = Modifier.size(30.dp)
+                    contentDescription = null,
+                    tint = neo.onAction,
+                    modifier = Modifier.size(19.dp)
                 )
+                Text(stringResource(R.string.cd_add_food).uppercase(LocalConfiguration.current.locales[0]),
+                    color = neo.onAction, fontWeight = FontWeight.Black, fontSize = 14.sp, maxLines = 2,
+                    style = PinkNeoCondensed)
             }
             // Glass-styled, progressive add menu. Actions read in task order from
             // top to bottom, with the most common choice first.
@@ -1750,103 +1761,16 @@ private fun CalorieHero(
         current > goal -> stringResource(R.string.home_macro_over_format, (shownCurrent - shownGoal).formattedWholeNumber())
         else -> stringResource(R.string.home_macro_goal_reached)
     }
-    val gradientColors = listOf(AppColors.CalorieStart, AppColors.CalorieEnd)
-    val trackColor = AppColors.Calorie.copy(alpha = 0.12f)
-
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 4.dp),
-        contentAlignment = Alignment.TopCenter
-    ) {
-        // Segmented (dashed) semicircle speedometer arc. The compact 240dp dome keeps
-        // the calorie readout dominant while returning more of the first meal to the
-        // initial viewport. iOS uses the same 240pt / 14pt geometry.
-        Canvas(
-            modifier = Modifier
-                .width(240.dp)
-                .aspectRatio(2f)
-        ) {
-            val stroke = 14.dp.toPx()
-            val inset = stroke / 2f
-            val arcSize = Size(size.width - stroke, size.width - stroke)
-            val topLeft = Offset(inset, inset)
-            val dash = PathEffect.dashPathEffect(floatArrayOf(4.dp.toPx(), 6.dp.toPx()), 0f)
-            drawArc(
-                color = trackColor,
-                startAngle = 180f,
-                sweepAngle = 180f,
-                useCenter = false,
-                topLeft = topLeft,
-                size = arcSize,
-                style = Stroke(width = stroke, cap = StrokeCap.Butt, pathEffect = dash)
-            )
-            drawArc(
-                brush = Brush.horizontalGradient(gradientColors),
-                startAngle = 180f,
-                sweepAngle = 180f * animatedRatio.value,
-                useCenter = false,
-                topLeft = topLeft,
-                size = arcSize,
-                style = Stroke(width = stroke, cap = StrokeCap.Butt, pathEffect = dash)
-            )
-        }
-
-        // Centered readout, sitting inside the dome
-        Column(
-            modifier = Modifier.padding(top = 39.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(2.dp)
-        ) {
-            // The dome's numbers carry no unit, so its heading names the unit in use.
-            Text(
-                stringResource(
-                    if (energyUnit == EnergyUnit.KJ) R.string.home_kilojoules else R.string.widget_calories
-                ).uppercase(LocalConfiguration.current.locales[0]),
-                fontSize = 12.sp,
-                fontWeight = FontWeight.SemiBold,
-                letterSpacing = 0.5.sp,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
-            )
-            Text(
-                formattedCurrent,
-                style = TextStyle(
-                    brush = Brush.linearGradient(gradientColors),
-                    fontSize = 50.sp,
-                    fontWeight = FontWeight.Bold
-                ),
-                maxLines = 1
-            )
-            // Flame + calorie status, mirroring iOS HStack(spacing: 5) { flame.fill (11pt) ;
-            // Text(statusText) } tinted to AppColors.calorie — a pink monochrome
-            // glyph, not a multicolor emoji.
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(5.dp)
-            ) {
-                Icon(
-                    Icons.Filled.LocalFireDepartment,
-                    contentDescription = null,
-                    tint = AppColors.Calorie,
-                    modifier = Modifier.size(13.dp)
-                )
-                Text(
-                    statusText,
-                    fontSize = 13.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    color = AppColors.Calorie
-                )
-            }
-            burnSummary?.let { summary ->
-                Text(
-                    text = homeBurnLineText(summary),
-                    fontSize = 11.sp,
-                    fontWeight = FontWeight.Medium,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.45f)
-                )
-            }
-        }
-    }
+    PinkNeoEnergyPanels(
+        heading = stringResource(
+            if (energyUnit == EnergyUnit.KJ) R.string.home_kilojoules else R.string.widget_calories
+        ).uppercase(LocalConfiguration.current.locales[0]),
+        amount = valueWithUnit(formattedCurrent, stringResource(energyUnit.symbolRes)),
+        goal = if (goal > 0) valueWithUnit(shownGoal.formattedWholeNumber(), stringResource(energyUnit.symbolRes)) else "—",
+        status = statusText,
+        progress = { animatedRatio.value },
+        burnLine = if (burnSummary == null) null else homeBurnLineText(burnSummary)
+    )
 }
 
 @Composable
@@ -1880,22 +1804,23 @@ private fun homeBurnLineText(summary: HomeBurnSummary): String {
 
 @Composable
 private fun ViewMoreButton() {
+    val neo = pinkNeoPalette()
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
-            .padding(horizontal = 10.dp, vertical = 8.dp)
+            .fillMaxWidth().heightIn(min = 44.dp).padding(horizontal = 10.dp, vertical = 8.dp)
     ) {
         Text(
             stringResource(R.string.home_view_more),
             fontSize = 15.sp,
-            fontWeight = FontWeight.Medium,
-            color = AppColors.Calorie.copy(alpha = 0.6f)
+            fontWeight = FontWeight.Black,
+            color = neo.ink
         )
-        Spacer(Modifier.width(5.dp))
+        Spacer(Modifier.weight(1f))
         Icon(
             Icons.Filled.ChevronRight,
             contentDescription = null,
-            tint = AppColors.Calorie.copy(alpha = 0.6f),
+            tint = neo.ink,
             modifier = Modifier.size(11.dp)
         )
     }
@@ -1931,10 +1856,14 @@ private fun MealSectionHeader(
     onSortDismiss: () -> Unit = {},
     onSortOrderSelected: (FoodLogSortOrder) -> Unit = {}
 ) {
+    val neo = pinkNeoPalette()
     Column(
         Modifier
             .fillMaxWidth()
-            .padding(start = 22.dp, end = 30.dp, top = 18.dp, bottom = 10.dp)
+            .padding(start = 10.dp, end = 10.dp, top = 10.dp, bottom = 3.dp)
+            .background(neo.wash)
+            .border(1.dp, neo.rule)
+            .padding(horizontal = 8.dp, vertical = 4.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(
@@ -1946,9 +1875,9 @@ private fun MealSectionHeader(
             Spacer(Modifier.width(8.dp))
             Text(
                 stringResource(meal.displayNameRes),
-                fontSize = 17.sp,
-                fontWeight = FontWeight.Medium,
-                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.85f),
+                fontSize = 15.sp,
+                fontWeight = FontWeight.Black,
+                color = neo.ink,
                 modifier = Modifier.weight(1f, fill = false).testTag("home.mealHeader.${meal.name}.title")
             )
             if (showSortMenu) {
@@ -2002,13 +1931,12 @@ private fun MealSectionHeader(
                 )
             }
         }
-        // Keep the combined meal totals under the title on the leading half, clear
-        // of the floating voice/+ controls even while this header scrolls past them.
+        // Keep the combined meal totals below the heading on its leading edge.
         if (totalCalories != null) {
             Column(
                 modifier = Modifier
                     .padding(top = 4.dp)
-                    .fillMaxWidth(0.5f)
+                    .fillMaxWidth()
                     .testTag("home.mealHeader.${meal.name}.totals"),
                 horizontalAlignment = Alignment.Start
             ) {

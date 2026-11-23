@@ -131,6 +131,9 @@ struct ContentView: View {
     @AppStorage(TabBarSettings.hiddenTabsKey) private var hiddenTabsRaw = ""
     @State private var appUpdateState: AppUpdateState = .idle
     @State private var selectedTab: AppTab = .home
+    @State private var keyboardVisible = false
+    @Environment(\.layoutDirection) private var layoutDirection
+    private var neoAppearance = PinkNeoAppearance()
     @State private var quickActionRequest: QuickActionRequest?
     @State private var foodLogMethodRequest: FoodLogMethodRequest?
     // One-time post-update prompts for existing users (see PostUpdatePrompts).
@@ -152,9 +155,29 @@ struct ContentView: View {
     }
 
     var body: some View {
-        standardTabView
+        HStack(spacing: 0) {
+            standardTabView
+                .environment(\.layoutDirection, layoutDirection)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            if !keyboardVisible {
+                PinkNeoRail(items: railItems) {
+                    selectedTab = .home
+                    quickActionRequest = QuickActionRequest(action: .camera)
+                }
+                .environment(\.layoutDirection, layoutDirection)
+                .padding(.trailing, 7)
+            }
+        }
+            .environment(\.layoutDirection, .leftToRight)
+            .background(neoAppearance.palette.paper)
             .tint(AppThemeColor.color(for: appThemeColorRaw).color)
             .background(VoiceAssistantWindowInstaller(controller: voiceAssistant))
+            .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
+                keyboardVisible = true
+            }
+            .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
+                keyboardVisible = false
+            }
             .task {
                 attachVoiceAssistant()
                 consumePendingLaunchRoutes()
@@ -311,6 +334,26 @@ struct ContentView: View {
         }
     }
 
+    private var railItems: [PinkNeoRailItem] {
+        AppTab.allCases.filter { tab in
+            tab.hideableTab.map { !hiddenTabs.contains($0) } ?? true
+        }.map { tab in
+            PinkNeoRailItem(
+                id: "nav.\(tab.rawValue)",
+                title: tab.title,
+                icon: tab == .workouts ? workoutsTabIcon : tab.icon,
+                selected: tab == selectedTab,
+                badge: tab == .settings && appUpdateState.isUpdateAvailable
+            ) {
+                if tab == .settings && selectedTab == .settings {
+                    assistantNavigator.show(.settings)
+                } else {
+                    selectedTab = tab
+                }
+            }
+        }
+    }
+
     private var standardTabView: some View {
         TabView(selection: $selectedTab) {
             HomeView(
@@ -323,28 +366,19 @@ struct ContentView: View {
                     if foodLogMethodRequest?.id == requestID { foodLogMethodRequest = nil }
                 }
             )
+                .toolbar(.hidden, for: .tabBar)
                 .tag(AppTab.home)
-                .tabItem {
-                    Image(systemName: "house.fill")
-                    Text("Home")
-                }
 
             if !hiddenTabs.contains(.progress) {
                 ProgressTabView()
+                    .toolbar(.hidden, for: .tabBar)
                     .tag(AppTab.progress)
-                    .tabItem {
-                        Image(systemName: "chart.bar.fill")
-                        Text("Progress")
-                    }
             }
 
             if !hiddenTabs.contains(.coach) {
                 ChatView()
+                    .toolbar(.hidden, for: .tabBar)
                     .tag(AppTab.coach)
-                    .tabItem {
-                        Image(systemName: "bubble.left.and.bubble.right.fill")
-                        Text("Coach")
-                    }
             }
 
             ProfileView(
@@ -353,25 +387,18 @@ struct ContentView: View {
                     await refreshAppUpdateState(force: true)
                 }
             )
+                .toolbar(.hidden, for: .tabBar)
                 .tag(AppTab.settings)
-                .tabItem {
-                    Image(systemName: "gearshape.fill")
-                    Text("Settings")
-                }
-                .badge(appUpdateState.isUpdateAvailable ? "!" : nil)
 
             if !hiddenTabs.contains(.workouts) {
                 WorkoutsView()
+                    .toolbar(.hidden, for: .tabBar)
                     .tag(AppTab.workouts)
-                    .tabItem {
-                        Image(systemName: workoutsTabIcon)
-                        Text("Workouts")
-                    }
             }
         }
     }
 
-    private enum AppTab: String, Hashable {
+    private enum AppTab: String, Hashable, CaseIterable {
         case home
         case progress
         case coach
@@ -380,6 +407,26 @@ struct ContentView: View {
 
         /// Nil for Home and Settings, which can't be hidden.
         var hideableTab: HideableTab? { HideableTab(rawValue: rawValue) }
+
+        var title: LocalizedStringKey {
+            switch self {
+            case .home: "Home"
+            case .progress: "Progress"
+            case .coach: "Coach"
+            case .settings: "Settings"
+            case .workouts: "Workouts"
+            }
+        }
+
+        var icon: String {
+            switch self {
+            case .home: "house.fill"
+            case .progress: "chart.bar.fill"
+            case .coach: "bubble.left.and.bubble.right.fill"
+            case .settings: "gearshape"
+            case .workouts: "dumbbell"
+            }
+        }
     }
 
     private func consumePendingLaunchRoutes() {
@@ -1037,6 +1084,8 @@ private struct SafariView: UIViewControllerRepresentable {
 
 // MARK: - Home View (Main Dashboard)
 struct HomeView: View {
+    private var neoAppearance = PinkNeoAppearance()
+    @Environment(\.dynamicTypeSize) private var neoTypeSize
     let quickActionRequest: QuickActionRequest?
     let onQuickActionHandled: (UUID) -> Void
     var foodLogMethodRequest: FoodLogMethodRequest?
@@ -1567,11 +1616,15 @@ private var dailyStepsTaskKey: String {
                     configuredFoodAddMenuContent
                 }
             } label: {
-                Image(systemName: "plus")
-                    .font(.system(size: 26, weight: .semibold))
-                    .foregroundStyle(.white)
-                    .frame(width: 60, height: 60)
-                    .background(AppColors.calorie, in: Circle())
+                Label("Log Food", systemImage: "plus")
+                    .font(.system(.headline, weight: .black).width(.condensed))
+                    .textCase(.uppercase)
+                    .lineLimit(2)
+                    .minimumScaleFactor(0.72)
+                    .foregroundStyle(neoAppearance.palette.onAction)
+                    .frame(maxWidth: .infinity, minHeight: 60)
+                    .background(neoAppearance.palette.action)
+                    .pinkNeoRule(neoAppearance.palette.rule)
             }
             .menuOrder(.fixed)
             .accessibilityIdentifier("home.add")
@@ -1623,7 +1676,9 @@ private var dailyStepsTaskKey: String {
                 .presentationCompactAdaptation(.popover)
             }
         }
-        .padding(24)
+        .padding(.horizontal, 10)
+        .padding(.vertical, 7)
+        .background(neoAppearance.palette.paper)
     }
 
     var body: some View {
@@ -1681,36 +1736,42 @@ private var dailyStepsTaskKey: String {
         // Explicit observation tracking — reads profileStore.profile at body root
         // so SwiftUI invalidates this view on every profile mutation.
         let _ = profileStore.profile
+        let neo = neoAppearance.palette
         return NavigationStack {
             List {
                 // Week energy strip
                 Section {
+                    PinkNeoDateHeader(date: $selectedDate)
+                        .listRowBackground(Color.clear)
+                        .listRowSeparator(.hidden)
+                        .listRowInsets(EdgeInsets(top: 4, leading: 10, bottom: 4, trailing: 10))
                     WeekEnergyStrip(
                         selectedDate: $selectedDate,
                         caloriesForDate: { foodStore.calories(for: $0) },
                         calorieGoal: calorieGoal
                     )
+                    .padding(.vertical, 4)
+                    .background(neo.panel)
+                    .pinkNeoRule(neo.rule)
                     .listRowBackground(Color.clear)
                     .listRowSeparator(.hidden)
-                    .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                    .listRowInsets(EdgeInsets(top: 4, leading: 10, bottom: 4, trailing: 10))
                 }
 
-                // Nutrition summary. Keeping the dome, macros, water and detail affordance in
-                // one section removes an unhelpful List section gap and matches Android's
-                // compact top-region hierarchy.
+                // Keep energy, nutrients, water and details in one compact section.
                 Section {
-                    CalorieGauge(
+                    PinkNeoCalorieSummary(
                         eaten: selectedCalories,
                         goal: calorieGoal,
                         burnLine: homeBurnLine,
                         launchFillEpoch: launchFillEpoch
                     )
                         .frame(maxWidth: .infinity)
-                        .padding(.top, -8)
                         .contentShape(Rectangle())
                         .simultaneousGesture(daySwipeGesture)
                         .listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)
+                        .listRowInsets(EdgeInsets(top: 4, leading: 10, bottom: 4, trailing: 10))
                         .task(id: homeBurnRefreshToken) {
                             await refreshHomeBurnLine()
                         }
@@ -1721,49 +1782,56 @@ private var dailyStepsTaskKey: String {
                             .listRowSeparator(.hidden)
                     }
 
-                    HStack(alignment: .top, spacing: 4) {
+                    LazyVGrid(columns: Array(repeating: GridItem(.flexible(minimum: 0), spacing: 0),
+                                            count: neoTypeSize.isAccessibilitySize ? 2 : max(1, displayedHomeNutrients.count)),
+                              spacing: 0) {
                         ForEach(displayedHomeNutrients) { nutrient in
-                            MacroVerticalBar(
+                            PinkNeoNutrient(
                                 label: nutrient.displayName,
                                 current: nutrient.value(from: foodStore, on: selectedDate),
                                 goal: nutrient.goal(for: userProfile, optionalGoals: optionalNutrientGoals),
                                 unit: nutrient.unit,
-                                gradient: nutrient.gradientColors,
-                                launchFillEpoch: launchFillEpoch
-                            )
-                        }
-                        if waterTrackingEnabled {
-                            MacroVerticalBar(
-                                label: "Water",
-                                current: waterUnit.displayAmount(
-                                    forMilliliters: waterStore.total(on: selectedDate)
-                                ),
-                                goal: waterUnit.displayAmount(forMilliliters: waterDailyGoal),
-                                unit: waterPillarUnit,
-                                gradient: AppColors.calorieGradient,
-                                launchFillEpoch: launchFillEpoch
+                                palette: neo
                             )
                         }
                     }
-                    .padding(.vertical, 4)
+                    .listRowInsets(EdgeInsets(top: 3, leading: 10, bottom: 3, trailing: 10))
                     .contentShape(Rectangle())
                     .simultaneousGesture(daySwipeGesture)
                     .listRowBackground(Color.clear)
                     .listRowSeparator(.hidden)
 
+                    if waterTrackingEnabled {
+                        PinkNeoNutrient(
+                            label: "Water",
+                            current: waterUnit.displayAmount(forMilliliters: waterStore.total(on: selectedDate)),
+                            goal: waterUnit.displayAmount(forMilliliters: waterDailyGoal),
+                            unit: waterPillarUnit,
+                            palette: neo
+                        )
+                        .listRowInsets(EdgeInsets(top: 3, leading: 10, bottom: 3, trailing: 10))
+                        .listRowBackground(Color.clear)
+                        .listRowSeparator(.hidden)
+                    }
+
                     Button {
                         showNutritionDetail = true
                     } label: {
                         HStack {
-                            Spacer()
                             Text("View More")
-                                .font(.system(.subheadline, design: .rounded, weight: .medium))
-                            Image(systemName: "chevron.right")
-                                .font(.caption2)
+                                .font(.system(.subheadline, weight: .black).width(.condensed))
                             Spacer()
+                            Image(systemName: "chevron.forward").font(.caption2.weight(.bold))
                         }
-                        .foregroundStyle(AppColors.calorie.opacity(0.6))
+                        .foregroundStyle(neo.ink)
+                        .padding(.horizontal, 10)
+                        .frame(minHeight: 44)
+                        .background(neo.panel)
+                        .pinkNeoRule(neo.rule)
+                        .contentShape(Rectangle())
                     }
+                    .buttonStyle(.plain)
+                    .listRowInsets(EdgeInsets(top: 3, leading: 10, bottom: 3, trailing: 10))
                     .listRowBackground(Color.clear)
                     .listRowSeparator(.hidden)
                 }
@@ -1785,7 +1853,7 @@ private var dailyStepsTaskKey: String {
                     Section(isToday ? "Today's Diary" : "Diary") {
                         Text("No diary entries")
                             .foregroundStyle(.secondary)
-                            .listRowBackground(AppColors.appCard)
+                            .listRowBackground(neo.panel)
                     }
                 } else {
                     ForEach(mealGroups) { group in
@@ -1800,7 +1868,7 @@ private var dailyStepsTaskKey: String {
                                                     .font(.title2)
                                                     .foregroundStyle(selectedFoodIDs.contains(entry.id) ? AppColors.calorie : .secondary)
                                             }
-                                            FoodRow(entry: entry)
+                                            FoodRow(entry: entry, usesPinkNeoStyle: true)
                                         }
                                         .contentShape(Rectangle())
                                         .onTapGesture {
@@ -1880,7 +1948,8 @@ private var dailyStepsTaskKey: String {
                                         }
                                     }
                                 }
-                                .listRowBackground(AppColors.appCard)
+                                .listRowInsets(EdgeInsets(top: 4, leading: 12, bottom: 4, trailing: 12))
+                                .listRowBackground(neo.panel)
                             }
                         } header: {
                             VStack(alignment: .leading, spacing: 4) {
@@ -1921,7 +1990,7 @@ private var dailyStepsTaskKey: String {
                                     Spacer(minLength: 0)
                                 }
                                 if !group.foodEntries.isEmpty {
-                                    // Keep food totals on the leading side, clear of the floating controls.
+                                    // Keep food totals below the meal title and controls.
                                     VStack(alignment: .leading, spacing: 1) {
                                         Text(energyUnit.format(kcal: group.totalCalories))
                                             .font(.system(.subheadline, design: .rounded, weight: .semibold))
@@ -1934,23 +2003,29 @@ private var dailyStepsTaskKey: String {
                                     }
                                     .fixedSize(horizontal: false, vertical: true)
                                     .frame(maxWidth: .infinity, alignment: .leading)
-                                    .padding(.trailing, isFoodSelectionMode ? 0 : (voiceAssistant.isActive ? 72 : 144))
                                     .textCase(nil)
                                 }
                             }
+                            .font(.system(.subheadline, weight: .black).width(.condensed))
+                            .foregroundStyle(neo.ink)
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 4)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(neo.wash)
+                            .pinkNeoRule(neo.rule)
                         }
                     }
                 }
             }
             .scrollContentBackground(.hidden)
-            .background(AppColors.appBackground)
+            .background(neo.paper)
             .readableWidth()
-            .background(AppColors.appBackground)
+            .background(neo.paper)
             .animation(.snappy, value: selectedDate)
             .task(id: dailyStepsTaskKey) {
                 await refreshDailySteps()
             }
-            .contentMargins(.bottom, isFoodSelectionMode ? 8 : 96, for: .scrollContent)
+            .contentMargins(.bottom, 8, for: .scrollContent)
             .sensoryFeedback(.selection, trigger: selectedFoodIDs) { _, selection in
                 !selection.isEmpty
             }
@@ -1976,7 +2051,8 @@ private var dailyStepsTaskKey: String {
             }
             .navigationTitle("")
             .navigationBarTitleDisplayMode(.inline)
-            .overlay(alignment: .bottomTrailing) {
+            .toolbar(.hidden, for: .navigationBar)
+            .safeAreaInset(edge: .bottom, spacing: 0) {
                 if !isFoodSelectionMode {
                     homeActionBar
                 }
@@ -4063,6 +4139,7 @@ final class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOut
 // MARK: - Food Row
 struct FoodRow: View {
     let entry: FoodEntry
+    var usesPinkNeoStyle = false
     @Environment(FoodStore.self) private var foodStore
     @AppStorage(EnergyUnit.storageKey) private var energyUnit = EnergyUnit.defaultUnit
     @State private var imagePreview: FullScreenImagePreview?
@@ -4126,7 +4203,9 @@ struct FoodRow: View {
                 HStack {
                     HStack(spacing: 4) {
                         Text(entry.name)
-                            .font(.system(.body, design: .rounded, weight: .medium))
+                            .font(usesPinkNeoStyle
+                                  ? .system(.body, weight: .black).width(.condensed)
+                                  : .system(.body, design: .rounded, weight: .medium))
                             .fixedSize(horizontal: false, vertical: true)
                         if foodStore.isFavorite(entry) {
                             Image(systemName: "heart.fill")
@@ -4142,8 +4221,10 @@ struct FoodRow: View {
 
                 HStack(spacing: 6) {
                     Text(energyUnit.format(kcal: entry.calories))
-                        .font(.system(.subheadline, design: .rounded, weight: .semibold))
-                        .foregroundStyle(AppColors.calorie)
+                        .font(usesPinkNeoStyle
+                              ? .system(.subheadline, weight: .black).width(.condensed)
+                              : .system(.subheadline, design: .rounded, weight: .semibold))
+                        .foregroundStyle(usesPinkNeoStyle ? Color.primary : AppColors.calorie)
 
                     if let serving = servingText {
                         Text("·")
@@ -4154,15 +4235,26 @@ struct FoodRow: View {
                     }
                 }
 
-                HStack(spacing: 8) {
-                    MacroPill(label: String(localized: "P", comment: "Abbreviation for protein."), value: entry.protein)
-                    MacroPill(label: String(localized: "C", comment: "Abbreviation for carbs."), value: entry.carbs)
-                    MacroPill(label: String(localized: "F", comment: "Abbreviation for fat."), value: entry.fat)
+                ViewThatFits(in: .horizontal) {
+                    HStack(spacing: 3) {
+                        macroPills
+                    }
+                    VStack(alignment: .leading, spacing: 3) {
+                        macroPills
+                    }
                 }
             }
         }
         .padding(.vertical, 4)
         .fullScreenImagePreview($imagePreview)
+    }
+
+    private var macroPills: some View {
+        Group {
+            MacroPill(label: String(localized: "P", comment: "Abbreviation for protein."), value: entry.protein)
+            MacroPill(label: String(localized: "C", comment: "Abbreviation for carbs."), value: entry.carbs)
+            MacroPill(label: String(localized: "F", comment: "Abbreviation for fat."), value: entry.fat)
+        }
     }
 }
 

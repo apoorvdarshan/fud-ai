@@ -71,7 +71,7 @@ final class calorietrackerUITests: XCTestCase {
 
     @MainActor
     private func openSettingsCategory(_ identifier: String, in app: XCUIApplication) {
-        let settings = app.tabBars.buttons["Settings"]
+        let settings = app.buttons["nav.settings"]
         XCTAssertTrue(settings.waitForExistence(timeout: 15))
         settings.tap()
         let category = app.buttons["settings.category.\(identifier)"]
@@ -174,7 +174,7 @@ final class calorietrackerUITests: XCTestCase {
         ]
         app.launch()
 
-        let workouts = app.tabBars.buttons["Workouts"]
+        let workouts = app.buttons["nav.workouts"]
         XCTAssertTrue(workouts.waitForExistence(timeout: 8))
         workouts.tap()
 
@@ -241,7 +241,7 @@ final class calorietrackerUITests: XCTestCase {
             ("legal", "Legal", "Privacy Policy"),
         ]
 
-        let settings = app.tabBars.buttons["Settings"]
+        let settings = app.buttons["nav.settings"]
         XCTAssertTrue(settings.waitForExistence(timeout: 8))
         settings.tap()
 
@@ -472,10 +472,10 @@ final class calorietrackerUITests: XCTestCase {
         XCTAssertTrue(voiceButton.exists)
         XCTAssertEqual(voiceButton.frame.midY, addButton.frame.midY, accuracy: 2)
         XCTAssertEqual(addButton.frame.minX - voiceButton.frame.maxX, 12, accuracy: 2)
-        XCTAssertLessThan(addButton.frame.maxY, app.tabBars.firstMatch.frame.minY)
+        XCTAssertLessThan(addButton.frame.maxX, app.buttons["nav.home"].frame.minX)
 
-        // The last diary row can scroll above both floating controls. Its meal
-        // summary stays beneath the title on the leading side, away from them.
+        // The last diary row can scroll above the pinned dock. Its meal
+        // summary stays aligned beneath the title.
         app.swipeUp()
         let mealCell = app.cells.containing(.staticText, identifier: "CI oat bowl").firstMatch
         XCTAssertTrue(mealCell.exists)
@@ -490,8 +490,8 @@ final class calorietrackerUITests: XCTestCase {
         XCTAssertGreaterThanOrEqual(mealCalories.frame.minY, mealTitle.frame.maxY)
         XCTAssertLessThanOrEqual(mealCalories.frame.minX, mealTitle.frame.minX)
         XCTAssertEqual(mealCalories.frame.minX, mealMacros.frame.minX, accuracy: 1)
-        XCTAssertLessThan(mealCalories.frame.maxX, voiceButton.frame.minX)
-        XCTAssertLessThan(mealMacros.frame.maxX, voiceButton.frame.minX)
+        XCTAssertLessThan(mealCalories.frame.maxY, voiceButton.frame.minY)
+        XCTAssertLessThan(mealMacros.frame.maxY, voiceButton.frame.minY)
 
         relaunchPreservingData(app)
         reveal(meal, in: app)
@@ -581,7 +581,7 @@ final class calorietrackerUITests: XCTestCase {
         let app = makeApp()
         app.launch()
 
-        let settings = app.tabBars.buttons["Settings"]
+        let settings = app.buttons["nav.settings"]
         XCTAssertTrue(settings.waitForExistence(timeout: 15))
         settings.tap()
         let combined = app.buttons["settings.category.trackingNotifications"]

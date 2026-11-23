@@ -200,9 +200,27 @@ enum AppColors {
     static var fatGradient: [Color] { calorieGradient }
     static var fat: Color { calorie }
 
-    // Background: warm cream in light, system dark in dark
-    static var appBackground: Color { AppAppearancePalette.shared.usesGray ? Color(hex: 0x202124) : Color("appBackground") }
-    static var appCard: Color { AppAppearancePalette.shared.usesGray ? Color(hex: 0x303136) : Color("appCard") }
+    // Preserve the user's Dark gray and alternate accents; Fud Pink gets its own paper/ink surfaces.
+    static var appBackground: Color {
+        if AppAppearancePalette.shared.usesGray { return Color(hex: 0x202124) }
+        return AppThemeColor.current == .fudPink ? pinkNeoPaper : Color("appBackground")
+    }
+    static var appCard: Color {
+        if AppAppearancePalette.shared.usesGray { return Color(hex: 0x303136) }
+        return AppThemeColor.current == .fudPink ? pinkNeoPanel : Color("appCard")
+    }
+
+    private static let pinkNeoPaper = Color(uiColor: UIColor { traits in
+        traits.userInterfaceStyle == .dark
+            ? UIColor(red: 25.0 / 255, green: 15.0 / 255, blue: 22.0 / 255, alpha: 1)
+            : UIColor(red: 252.0 / 255, green: 241.0 / 255, blue: 243.0 / 255, alpha: 1)
+    })
+
+    private static let pinkNeoPanel = Color(uiColor: UIColor { traits in
+        traits.userInterfaceStyle == .dark
+            ? UIColor(red: 37.0 / 255, green: 22.0 / 255, blue: 32.0 / 255, alpha: 1)
+            : UIColor(red: 1, green: 248.0 / 255, blue: 249.0 / 255, alpha: 1)
+    })
 }
 
 extension Color {

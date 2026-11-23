@@ -420,9 +420,9 @@ struct ContentView: View {
 
         var icon: String {
             switch self {
-            case .home: "house.fill"
-            case .progress: "chart.bar.fill"
-            case .coach: "bubble.left.and.bubble.right.fill"
+            case .home: "house"
+            case .progress: "chart.xyaxis.line"
+            case .coach: "sparkles"
             case .settings: "gearshape"
             case .workouts: "dumbbell"
             }
@@ -1739,7 +1739,8 @@ private var dailyStepsTaskKey: String {
         let neo = neoAppearance.palette
         return NavigationStack {
             List {
-                // Week energy strip
+                // Keep the calendar and nutrition summary together without a
+                // system section gutter between the calendar and energy.
                 Section {
                     PinkNeoDateHeader(date: $selectedDate)
                         .listRowBackground(Color.clear)
@@ -1756,10 +1757,6 @@ private var dailyStepsTaskKey: String {
                     .listRowBackground(Color.clear)
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets(top: 4, leading: 10, bottom: 4, trailing: 10))
-                }
-
-                // Keep energy, nutrients, water and details in one compact section.
-                Section {
                     PinkNeoCalorieSummary(
                         eaten: selectedCalories,
                         goal: calorieGoal,
@@ -1807,7 +1804,8 @@ private var dailyStepsTaskKey: String {
                             current: waterUnit.displayAmount(forMilliliters: waterStore.total(on: selectedDate)),
                             goal: waterUnit.displayAmount(forMilliliters: waterDailyGoal),
                             unit: waterPillarUnit,
-                            palette: neo
+                            palette: neo,
+                            compact: true
                         )
                         .listRowInsets(EdgeInsets(top: 3, leading: 10, bottom: 3, trailing: 10))
                         .listRowBackground(Color.clear)
@@ -2017,6 +2015,8 @@ private var dailyStepsTaskKey: String {
                     }
                 }
             }
+            .listStyle(.plain)
+            .listSectionSpacing(8)
             .scrollContentBackground(.hidden)
             .background(neo.paper)
             .readableWidth()

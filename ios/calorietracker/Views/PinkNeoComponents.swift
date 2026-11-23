@@ -75,7 +75,9 @@ struct PinkNeoRail: View {
                 VStack(spacing: 4) {
                     Image("onboardingLogo")
                         .resizable().scaledToFit()
-                        .frame(width: 34, height: 34)
+                        .frame(width: 27, height: 27)
+                        .frame(width: 36, height: 36)
+                        .background(Color.black, in: RoundedRectangle(cornerRadius: 7))
                         .padding(.top, 5)
                         .accessibilityHidden(true)
                     Text(verbatim: "FUD AI")
@@ -301,6 +303,7 @@ struct PinkNeoNutrient: View {
     let goal: Double
     let unit: String
     let palette: PinkNeoPalette
+    var compact = false
     @Environment(\.dynamicTypeSize) private var typeSize
 
     private var progress: Double { goal > 0 ? max(0, min(1, current / goal)) : 0 }
@@ -313,17 +316,22 @@ struct PinkNeoNutrient: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
-            Text(LocalizedDisplayText.text(label))
-                .font(.system(.caption2, weight: .black).width(.condensed))
-                .textCase(.uppercase)
-                .lineLimit(typeSize.isAccessibilitySize ? nil : 1)
-                .minimumScaleFactor(0.65)
-                .accessibilityLabel(LocalizedDisplayText.text(label))
-            Text("\(MacroValueFormatter.string(current))\(unit.hasPrefix(" ") ? "" : " ")\(unit)")
-                .font(.system(.headline, weight: .black).width(.condensed))
-                .monospacedDigit()
-                .lineLimit(typeSize.isAccessibilitySize ? nil : 1)
-                .minimumScaleFactor(0.6)
+            let layout = compact && !typeSize.isAccessibilitySize
+                ? AnyLayout(HStackLayout(alignment: .firstTextBaseline, spacing: 6))
+                : AnyLayout(VStackLayout(alignment: .leading, spacing: 5))
+            layout {
+                Text(LocalizedDisplayText.text(label))
+                    .font(.system(.caption2, weight: .black).width(.condensed))
+                    .textCase(.uppercase)
+                    .lineLimit(typeSize.isAccessibilitySize ? nil : 1)
+                    .minimumScaleFactor(0.65)
+                    .accessibilityLabel(LocalizedDisplayText.text(label))
+                Text("\(MacroValueFormatter.string(current))\(unit.hasPrefix(" ") ? "" : " ")\(unit)")
+                    .font(.system(.headline, weight: .black).width(.condensed))
+                    .monospacedDigit()
+                    .lineLimit(typeSize.isAccessibilitySize ? nil : 1)
+                    .minimumScaleFactor(0.6)
+            }
             GeometryReader { proxy in
                 Rectangle().fill(palette.ink.opacity(0.14))
                     .overlay(alignment: .leading) {

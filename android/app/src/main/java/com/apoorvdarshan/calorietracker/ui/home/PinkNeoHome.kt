@@ -160,7 +160,8 @@ internal fun PinkNeoNutrient(
     current: Double,
     goal: Double,
     unit: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    compact: Boolean = false
 ) {
     val palette = pinkNeoPalette()
     val fraction = if (goal > 0) (current / goal).toFloat().coerceIn(0f, 1f) else 0f
@@ -177,12 +178,25 @@ internal fun PinkNeoNutrient(
         modifier.background(palette.panel).border(0.5.dp, palette.rule).padding(6.dp),
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
-        Text(label.uppercase(locale), color = palette.ink, fontWeight = FontWeight.Black, maxLines = 2,
-            autoSize = TextAutoSize.StepBased(minFontSize = 8.sp, maxFontSize = 11.sp, stepSize = 1.sp),
-            overflow = TextOverflow.Ellipsis)
-        Text(valueWithUnit(MacroValueFormatter.display(current), unit), color = palette.ink,
-            fontWeight = FontWeight.Black, maxLines = 2,
-            autoSize = TextAutoSize.StepBased(minFontSize = 11.sp, maxFontSize = 17.sp, stepSize = 1.sp))
+        val name: @Composable () -> Unit = {
+            Text(label.uppercase(locale), color = palette.ink, fontWeight = FontWeight.Black, maxLines = 2,
+                autoSize = TextAutoSize.StepBased(minFontSize = 8.sp, maxFontSize = 11.sp, stepSize = 1.sp),
+                overflow = TextOverflow.Ellipsis)
+        }
+        val amount: @Composable () -> Unit = {
+            Text(valueWithUnit(MacroValueFormatter.display(current), unit), color = palette.ink,
+                fontWeight = FontWeight.Black, maxLines = 2,
+                autoSize = TextAutoSize.StepBased(minFontSize = 11.sp, maxFontSize = 17.sp, stepSize = 1.sp))
+        }
+        if (compact && LocalDensity.current.fontScale < 1.45f) {
+            Row(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalAlignment = Alignment.CenterVertically) {
+                name()
+                amount()
+            }
+        } else {
+            name()
+            amount()
+        }
         Box(Modifier.fillMaxWidth().height(3.dp).background(palette.ink.copy(alpha = 0.14f))) {
             Box(Modifier.fillMaxWidth(fraction).fillMaxHeight().background(palette.accent))
         }

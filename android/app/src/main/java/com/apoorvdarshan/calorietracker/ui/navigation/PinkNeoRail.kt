@@ -26,12 +26,12 @@ import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CameraAlt
-import androidx.compose.material.icons.filled.BarChart
+import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.FitnessCenter
-import androidx.compose.material.icons.filled.Forum
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.ShowChart
 import androidx.compose.material.icons.filled.SportsGymnastics
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -62,10 +62,10 @@ data class BottomTab(val route: String, val icon: ImageVector, @get:StringRes va
 
 // Also used by Settings > Tab Bar; the stored visibility keys stay unchanged.
 val BottomTabs = listOf(
-    BottomTab(FudAIRoutes.HOME, Icons.Filled.Home, R.string.nav_home),
-    BottomTab(FudAIRoutes.PROGRESS, Icons.Filled.BarChart, R.string.nav_progress),
-    BottomTab(FudAIRoutes.COACH, Icons.Filled.Forum, R.string.nav_coach),
-    BottomTab(FudAIRoutes.SETTINGS, Icons.Filled.Settings, R.string.nav_settings),
+    BottomTab(FudAIRoutes.HOME, Icons.Outlined.Home, R.string.nav_home),
+    BottomTab(FudAIRoutes.PROGRESS, Icons.Filled.ShowChart, R.string.nav_progress),
+    BottomTab(FudAIRoutes.COACH, Icons.Filled.AutoAwesome, R.string.nav_coach),
+    BottomTab(FudAIRoutes.SETTINGS, Icons.Outlined.Settings, R.string.nav_settings),
     BottomTab(FudAIRoutes.WORKOUTS, Icons.Filled.FitnessCenter, R.string.nav_workouts)
 )
 
@@ -112,8 +112,12 @@ internal fun PinkNeoRail(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
-            Image(painterResource(R.drawable.ic_logo), contentDescription = null,
-                modifier = Modifier.padding(top = 5.dp).size(34.dp).clip(RoundedCornerShape(7.dp)))
+            Box(
+                Modifier.padding(top = 5.dp).size(36.dp).background(Color.Black, itemShape),
+                contentAlignment = Alignment.Center
+            ) {
+                Image(painterResource(R.drawable.ic_logo), contentDescription = null, modifier = Modifier.size(27.dp))
+            }
             Text("FUD AI", color = palette.ink, fontSize = 9.sp, fontWeight = FontWeight.Black)
             HorizontalDivider(Modifier.padding(vertical = 3.dp), color = palette.rule)
             Column(Modifier.selectableGroup(), verticalArrangement = Arrangement.spacedBy(4.dp)) {

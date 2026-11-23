@@ -616,7 +616,8 @@ DisposableEffect(lifecycleOwner, vm) {
                                 current = ui.waterUnit.displayAmount(ui.waterTodayMl),
                                 goal = ui.waterUnit.displayAmount(ui.waterDailyGoalMl),
                                 unit = if (ui.waterUnit == WaterUnit.FLUID_OUNCES) " fl oz" else "ml",
-                                modifier = Modifier.fillMaxWidth()
+                                modifier = Modifier.fillMaxWidth(),
+                                compact = true
                             )
                         }
                     }

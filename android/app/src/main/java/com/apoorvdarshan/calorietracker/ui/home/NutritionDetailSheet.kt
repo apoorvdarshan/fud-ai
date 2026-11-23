@@ -16,7 +16,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Bolt
 import androidx.compose.material.icons.filled.Check
@@ -42,10 +42,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.luminance
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -64,7 +62,6 @@ import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialog
 import com.apoorvdarshan.calorietracker.ui.components.LocalEnergyUnit
 import com.apoorvdarshan.calorietracker.ui.components.energyUnitLabel
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialogActions
-import com.apoorvdarshan.calorietracker.ui.components.FudGlassSurface
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
 import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 
@@ -129,16 +126,13 @@ fun NutritionDetailSheet(
     val folate = entries.sumOf { it.folate ?: 0.0 }
     val omega3 = entries.sumOf { it.omega3 ?: 0.0 }
     val aminoAcidTotals = AminoAcidEstimates.dailyTotals(entries)
-    val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
-    val sheetSurface = if (isDark) MaterialTheme.colorScheme.surface else Color(0xFFFAF3EE)
+    val neo = pinkNeoPalette()
 
     fun fmt(v: Double): String = if (v == 0.0) "—" else String.format("%.1f", v)
 
     ModalBottomSheet(
         onDismissRequest = onDismiss,
-        sheetState = state,
-        shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
-        containerColor = sheetSurface
+        sheetState = state
     ) {
         LazyColumn(
             modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp).padding(bottom = 16.dp),
@@ -146,9 +140,13 @@ fun NutritionDetailSheet(
         ) {
             item {
                 Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                    Text(stringResource(R.string.nutrition_details_title), fontSize = 17.sp, fontWeight = FontWeight.SemiBold)
-                    Spacer(Modifier.weight(1f))
-                    TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_done), color = AppColors.Calorie) }
+                    Text(
+                        stringResource(R.string.nutrition_details_title),
+                        fontSize = 21.sp,
+                        fontWeight = FontWeight.Black,
+                        modifier = Modifier.weight(1f).padding(end = 8.dp)
+                    )
+                    TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_done), color = neo.accent) }
                 }
             }
 
@@ -299,13 +297,8 @@ fun NutritionDetailSheet(
 
 @Composable
 private fun Card(content: @Composable () -> Unit) {
-    FudGlassSurface(
-        modifier = Modifier.fillMaxWidth(),
-        cornerRadius = 20.dp,
-        padding = 0.dp
-    ) {
-        Column { content() }
-    }
+    val neo = pinkNeoPalette()
+    Column(Modifier.fillMaxWidth().background(neo.panel).border(1.dp, neo.rule)) { content() }
 }
 
 @Composable
@@ -313,8 +306,8 @@ private fun SectionHeader(title: String) {
     Text(
         title.uppercase(),
         fontSize = 12.sp,
-        fontWeight = FontWeight.SemiBold,
-        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f),
+        fontWeight = FontWeight.Black,
+        color = pinkNeoPalette().ink,
         letterSpacing = 0.sp,
         modifier = Modifier.padding(start = 14.dp, top = 6.dp, bottom = 4.dp)
     )
@@ -336,7 +329,7 @@ private fun HomeCardsRow(
     ) {
         Icon(Icons.Filled.Spa, null, tint = AppColors.Calorie, modifier = Modifier.size(20.dp))
         Column(Modifier.weight(1f)) {
-            Text(stringResource(R.string.home_nutrient_cards), fontSize = 17.sp)
+            Text(stringResource(R.string.home_nutrient_cards), fontSize = 17.sp, fontWeight = FontWeight.Black)
             val nutrientNames = selected
                 .take(4)
                 .map { stringResource(it.displayNameRes) }
@@ -369,6 +362,7 @@ private fun HomeTopNutrientPickerDialog(
 ) {
     val normalizedSelection = remember(selected) { HomeTopNutrient.normalized(selected) }
     val selectionLimit = 4
+    val neo = pinkNeoPalette()
     var draft by remember(selected) {
         mutableStateOf(normalizedSelection.take(selectionLimit))
     }
@@ -400,13 +394,11 @@ private fun HomeTopNutrientPickerDialog(
         ) {
             if (waterTrackingEnabled) {
                 item(key = "fixed-water") {
-                    val shape = RoundedCornerShape(16.dp)
                     Row(
                         Modifier
                             .fillMaxWidth()
-                            .clip(shape)
-                            .background(AppColors.Calorie.copy(alpha = 0.11f))
-                            .border(0.7.dp, AppColors.Calorie.copy(alpha = 0.22f), shape)
+                            .background(neo.paper)
+                            .border(1.dp, neo.rule)
                             .padding(horizontal = 14.dp, vertical = 12.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
@@ -436,13 +428,12 @@ private fun HomeTopNutrientPickerDialog(
             }
             items(HomeTopNutrient.values().toList()) { nutrient ->
                 val checked = nutrient in draft
-                val neo = pinkNeoPalette()
                 Row(
                     Modifier
                         .fillMaxWidth()
                         .background(neo.panel)
                         .border(if (checked) 2.dp else 1.dp, if (checked) neo.accent else neo.rule)
-                        .clickable { toggle(nutrient) }
+                        .toggleable(value = checked, role = Role.Checkbox) { toggle(nutrient) }
                         .padding(horizontal = 14.dp, vertical = 12.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -487,13 +478,6 @@ private fun HomeTopNutrientPickerDialog(
     }
 }
 
-/**
- * Row layout: icon (24dp pink, optional) + label (17sp) + value (17sp pink semibold)
- * + unit (13sp secondary) + optional '/ goal' (12sp tertiary).
- *
- * iOS uses LinearGradient on the SF Symbol; Compose uses a flat tint
- * since Material icons aren't text-paintable.
- */
 @Composable
 private fun DetailRow(
     icon: ImageVector?,
@@ -503,38 +487,48 @@ private fun DetailRow(
     goal: String? = null,
     labelGlyph: String? = null
 ) {
+    val neo = pinkNeoPalette()
+    val largeText = LocalDensity.current.fontScale >= 1.3f
+    val reading: @Composable () -> Unit = {
+        Text(
+            "$value $unit",
+            fontSize = 17.sp,
+            fontWeight = FontWeight.Bold,
+            color = neo.accent
+        )
+        goal?.let {
+            Text("/ $it", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        }
+    }
     Row(
         Modifier.fillMaxWidth().padding(horizontal = 14.dp, vertical = 14.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         if (icon != null) {
-            Icon(icon, null, tint = AppColors.Calorie, modifier = Modifier.size(20.dp))
+            Icon(icon, null, tint = neo.accent, modifier = Modifier.size(20.dp))
         } else if (labelGlyph != null) {
             Box(
                 Modifier
                     .size(20.dp)
-                    .clip(RoundedCornerShape(10.dp))
-                    .background(AppColors.Calorie),
+                    .background(neo.action),
                 contentAlignment = Alignment.Center
             ) {
-                Text(labelGlyph, fontSize = 11.sp, fontWeight = FontWeight.Bold, color = androidx.compose.ui.graphics.Color.White)
+                Text(labelGlyph, fontSize = 11.sp, fontWeight = FontWeight.Bold, color = neo.onAction)
             }
         } else {
             Spacer(Modifier.width(20.dp))
         }
-        Text(label, fontSize = 17.sp, modifier = Modifier.weight(1f))
-        Row(verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(3.dp)) {
-            Text(value, fontSize = 17.sp, fontWeight = FontWeight.SemiBold, color = AppColors.Calorie)
-            Text(unit, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f))
-        }
-        goal?.let {
-            Text(
-                "/ $it",
-                fontSize = 12.sp,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f),
-                modifier = Modifier.padding(start = 6.dp)
-            )
+        if (largeText) {
+            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                Text(label, fontSize = 17.sp, fontWeight = FontWeight.SemiBold)
+                reading()
+            }
+        } else {
+            Text(label, fontSize = 17.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(1f))
+            Row(verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                reading()
+            }
         }
     }
 }
@@ -581,6 +575,6 @@ private fun Hairline() {
             .padding(start = 14.dp)
             .fillMaxWidth()
             .height(0.5.dp)
-            .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f))
+            .background(pinkNeoPalette().rule.copy(alpha = 0.24f))
     )
 }

@@ -62,6 +62,28 @@ extension View {
             .contentMargins(.horizontal, 12, for: .scrollContent)
     }
 
+    func flashSectionRows() -> some View {
+        listRowBackground(
+            Rectangle()
+                .fill(AppColors.appCard)
+                .overlay(alignment: .leading) {
+                    Rectangle().fill(AppColors.flashRule).frame(width: 1)
+                }
+                .overlay(alignment: .trailing) {
+                    Rectangle().fill(AppColors.flashRule).frame(width: 1)
+                }
+        )
+        .listRowSeparatorTint(AppColors.flashRule.opacity(0.24))
+        .listSectionSeparatorTint(AppColors.flashRule)
+    }
+
+    func flashSectionHeading() -> some View {
+        font(.system(.subheadline, weight: .black).width(.condensed))
+            .textCase(.uppercase)
+            .foregroundStyle(Color.primary)
+            .accessibilityAddTraits(.isHeader)
+    }
+
     func flashActionFill() -> some View {
         foregroundStyle(AppColors.onAccent)
             .background(AppColors.calorie)

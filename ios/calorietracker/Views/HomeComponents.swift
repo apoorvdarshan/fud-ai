@@ -383,15 +383,15 @@ struct HomeNutrientPickerSheet: View {
     var body: some View {
         NavigationStack {
             List {
-                Section("Shown on Home") {
+                Section {
                     ForEach(Array(draftSelection.enumerated()), id: \.element.id) { index, nutrient in
                         HStack(spacing: 12) {
                             Label(nutrient.displayName, systemImage: nutrient.iconName)
                                 .foregroundStyle(.primary)
                             Spacer()
                             Text("\(index + 1)")
-                                .font(.system(.caption, design: .rounded, weight: .semibold))
-                                .foregroundStyle(.secondary)
+                                .font(.system(.subheadline, weight: .black).width(.condensed))
+                                .foregroundStyle(AppColors.accentText)
                         }
                     }
 
@@ -410,8 +410,10 @@ struct HomeNutrientPickerSheet: View {
                         .accessibilityElement(children: .combine)
                         .accessibilityLabel("Water, shown after selected nutrients")
                     }
+                } header: {
+                    Text("Shown on Home").flashSectionHeading()
                 }
-                .listRowBackground(AppColors.appCard)
+                .flashSectionRows()
 
                 Section {
                     ForEach(HomeTopNutrient.allCases) { nutrient in
@@ -420,20 +422,24 @@ struct HomeNutrientPickerSheet: View {
                         } label: {
                             HStack(spacing: 12) {
                                 Label(nutrient.displayName, systemImage: nutrient.iconName)
+                                    .font(.system(.body, weight: .semibold).width(.condensed))
                                     .foregroundStyle(.primary)
                                 Spacer()
                                 if draftSelection.contains(nutrient) {
-                                    Image(systemName: "checkmark.circle.fill")
-                                        .foregroundStyle(AppColors.calorie)
+                                    Image(systemName: "checkmark.square.fill")
+                                        .foregroundStyle(AppColors.accentText)
+                                        .accessibilityHidden(true)
                                 }
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
+                            .frame(minHeight: 44)
                             .contentShape(Rectangle())
                         }
                         .buttonStyle(.plain)
+                        .accessibilityAddTraits(draftSelection.contains(nutrient) ? .isSelected : [])
                     }
                 } header: {
-                    Text("Choose 1–4 Nutrients")
+                    Text("Choose 1–4 Nutrients").flashSectionHeading()
                 } footer: {
                     if waterTrackingEnabled {
                         Text("Pick one to four nutrients. Water is shown after them while tracking is enabled.")
@@ -441,10 +447,9 @@ struct HomeNutrientPickerSheet: View {
                         Text("Pick one to four nutrients for the Home summary row.")
                     }
                 }
-                .listRowBackground(AppColors.appCard)
+                .flashSectionRows()
             }
-            .scrollContentBackground(.hidden)
-            .background(AppColors.appBackground)
+            .flashEditorSurface()
             .navigationTitle("Home Nutrients")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

@@ -3333,8 +3333,8 @@ struct NutritionDetailView: View {
     private var waterUnit: WaterUnit { WaterUnit(rawValue: waterUnitRaw) ?? .defaultUnit }
     private var homeTopNutrientNames: String {
         let nutrientNames = homeTopNutrients.map(\.displayName)
-        return (waterTrackingEnabled ? nutrientNames + ["Water"] : nutrientNames)
-            .joined(separator: ", ")
+        return (waterTrackingEnabled ? nutrientNames + [String(localized: "Water")] : nutrientNames)
+            .formatted(.list(type: .and))
     }
 
     var body: some View {
@@ -3346,21 +3346,32 @@ struct NutritionDetailView: View {
                         showHomeNutrientPicker = true
                     } label: {
                         HStack(spacing: 12) {
-                            Label("Home Nutrient Cards", systemImage: "square.grid.3x1.fill")
-                                .foregroundStyle(.primary)
-                            Spacer()
-                            Text(homeTopNutrientNames)
-                                .font(.system(.footnote, design: .rounded))
-                                .foregroundStyle(.secondary)
-                                .lineLimit(1)
-                            Image(systemName: "chevron.right")
-                                .font(.caption2)
-                                .foregroundStyle(.tertiary)
+                            Image(systemName: "square.grid.3x1.fill")
+                                .foregroundStyle(AppColors.accentText)
+                                .accessibilityHidden(true)
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("Home Nutrient Cards")
+                                    .font(.system(.headline, weight: .black).width(.condensed))
+                                Text(homeTopNutrientNames)
+                                    .font(.subheadline)
+                                    .foregroundStyle(.secondary)
+                            }
+                            .fixedSize(horizontal: false, vertical: true)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            Image(systemName: "chevron.forward")
+                                .font(.caption.weight(.bold))
+                                .accessibilityHidden(true)
                         }
+                        .padding(.vertical, 6)
+                        .frame(minHeight: 44)
+                        .contentShape(Rectangle())
                     }
                     .buttonStyle(.plain)
+                    .accessibilityLabel("Home Nutrient Cards")
+                    .accessibilityValue(homeTopNutrientNames)
+                    .accessibilityIdentifier("nutrition.homeCards")
                 }
-                .listRowBackground(AppColors.appCard)
+                .flashSectionRows()
 
                 if waterTrackingEnabled {
                     Section {
@@ -3372,22 +3383,24 @@ struct NutritionDetailView: View {
                             goal: waterUnit.displayValue(forMilliliters: waterDailyGoal)
                         )
                     } header: {
-                        Text("Water")
+                        Text("Water").flashSectionHeading()
                     } footer: {
                         Text("Water is shown after your selected nutrients while Water Tracking is enabled.")
                     }
-                    .listRowBackground(AppColors.appCard)
+                    .flashSectionRows()
                 }
 
-                Section("Macros") {
+                Section {
                     NutritionDetailRow(icon: "flame.fill", label: "Calories", value: "\(energyUnit.displayValue(kcal: foodStore.calories(for: date)))", unit: energyUnit.symbol, goal: "\(energyUnit.displayValue(kcal: userProfile.effectiveCalories))")
                     NutritionDetailRow(icon: "p.circle.fill", label: "Protein", value: MacroValueFormatter.string(foodStore.protein(for: date)), unit: "g", goal: "\(userProfile.effectiveProtein)")
                     NutritionDetailRow(icon: "c.circle.fill", label: "Carbs", value: MacroValueFormatter.string(foodStore.carbs(for: date)), unit: "g", goal: "\(userProfile.effectiveCarbs)")
                     NutritionDetailRow(icon: "f.circle.fill", label: "Fat", value: MacroValueFormatter.string(foodStore.fat(for: date)), unit: "g", goal: "\(userProfile.effectiveFat)")
+                } header: {
+                    Text("Macros").flashSectionHeading()
                 }
-                .listRowBackground(AppColors.appCard)
+                .flashSectionRows()
 
-                Section("Detailed Nutrition") {
+                Section {
                     optionalNutritionRow(.sugar, value: foodStore.sugar(for: date))
                     optionalNutritionRow(.addedSugar, value: foodStore.addedSugar(for: date))
                     optionalNutritionRow(.fiber, value: foodStore.fiber(for: date))
@@ -3417,19 +3430,20 @@ struct NutritionDetailView: View {
                             value: foodStore.supplementalNutrient(nutrient, for: date)
                         )
                     }
+                } header: {
+                    Text("Detailed Nutrition").flashSectionHeading()
                 }
-                .listRowBackground(AppColors.appCard)
+                .flashSectionRows()
 
                 if aminoAcidsEnabled {
                     AminoAcidDailySection(
                         totals: foodStore.aminoAcidTotals(for: date),
                         bodyWeightKg: userProfile.weightKg
                     )
-                    .listRowBackground(AppColors.appCard)
+                    .flashSectionRows()
                 }
             }
-            .scrollContentBackground(.hidden)
-            .background(AppColors.appBackground)
+            .flashEditorSurface()
             .navigationTitle("Nutrition Details")
             .navigationBarTitleDisplayMode(.inline)
             .flashSheet(isPresented: $showHomeNutrientPicker) {
@@ -3447,7 +3461,7 @@ struct NutritionDetailView: View {
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Done") { dismiss() }
-                        .tint(AppColors.calorie)
+                        .tint(AppColors.accentText)
                 }
             }
         }
@@ -3479,34 +3493,65 @@ struct NutritionDetailRow: View {
     let unit: String
     var goal: String? = nil
 
-    var body: some View {
-        HStack(spacing: 12) {
+    private var title: some View {
+        HStack(spacing: 8) {
             if let icon {
                 Image(systemName: icon)
                     .font(.system(size: 15, weight: .semibold))
-                    .foregroundStyle(
-                        LinearGradient(colors: AppColors.calorieGradient, startPoint: .topLeading, endPoint: .bottomTrailing)
-                    )
+                    .foregroundStyle(AppColors.accentText)
                     .frame(width: 24)
+                    .accessibilityHidden(true)
             }
             Text(LocalizedDisplayText.text(label))
-                .font(.system(.body, design: .rounded))
-            Spacer()
-            HStack(alignment: .firstTextBaseline, spacing: 3) {
-                Text(value)
-                    .font(.system(.body, design: .rounded, weight: .semibold))
-                    .foregroundStyle(AppColors.calorie)
-                    .contentTransition(.numericText())
-                Text(unit)
-                    .font(.system(.footnote, design: .rounded))
-                    .foregroundStyle(.secondary)
+                .font(.system(.body, weight: .semibold).width(.condensed))
+        }
+    }
+
+    private var reading: some View {
+        ViewThatFits(in: .horizontal) {
+            HStack(alignment: .firstTextBaseline, spacing: 8) {
+                amount
+                target
             }
-            if let goal {
-                Text("/ \(goal)")
-                    .font(.system(.caption, design: .rounded))
-                    .foregroundStyle(.tertiary)
+            .fixedSize(horizontal: true, vertical: false)
+            VStack(alignment: .leading, spacing: 3) {
+                amount
+                target
             }
         }
+    }
+
+    private var amount: some View {
+        Text("\(value) \(unit)")
+            .font(.system(.body, weight: .bold).width(.condensed))
+            .foregroundStyle(AppColors.accentText)
+            .monospacedDigit()
+            .contentTransition(.numericText())
+    }
+
+    @ViewBuilder private var target: some View {
+        if let goal {
+            Text("/ \(goal)")
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+        }
+    }
+
+    var body: some View {
+        ViewThatFits(in: .horizontal) {
+            HStack(spacing: 12) {
+                title.fixedSize()
+                Spacer(minLength: 0)
+                reading.fixedSize()
+            }
+            VStack(alignment: .leading, spacing: 4) {
+                title
+                reading
+            }
+        }
+        .frame(maxWidth: .infinity, minHeight: 40, alignment: .leading)
+        .padding(.vertical, 4)
+        .accessibilityElement(children: .combine)
     }
 }
 

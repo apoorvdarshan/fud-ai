@@ -354,6 +354,7 @@ final class calorietrackerUITests: XCTestCase {
         app.launchArguments += [
             "-AppleLanguages", "(en)",
             "-waterTrackingEnabled", "YES",
+            "-appearanceMode", "dark",
         ]
         app.launch()
 
@@ -362,13 +363,21 @@ final class calorietrackerUITests: XCTestCase {
         app.staticTexts["View More"].tap()
 
         XCTAssertTrue(app.navigationBars["Nutrition Details"].waitForExistence(timeout: 5))
-        XCTAssertTrue(app.staticTexts["Protein, Carbs, Fat, Fiber, Water"].waitForExistence(timeout: 3))
+        let cardPicker = app.buttons["nutrition.homeCards"]
+        XCTAssertTrue(cardPicker.waitForExistence(timeout: 3))
+        let selectedNutrients = cardPicker.value as? String ?? ""
+        XCTAssertTrue(selectedNutrients.contains("Fiber") && selectedNutrients.contains("Water"))
         XCTAssertTrue(
             app.staticTexts["Water is shown after your selected nutrients while Water Tracking is enabled."]
                 .waitForExistence(timeout: 3)
         )
 
-        app.staticTexts["Home Nutrient Cards"].tap()
+        let details = XCTAttachment(screenshot: app.screenshot())
+        details.name = "Flash Nutrition Details - dark"
+        details.lifetime = .keepAlways
+        add(details)
+
+        cardPicker.tap()
         XCTAssertTrue(app.navigationBars["Home Nutrients"].waitForExistence(timeout: 3))
         XCTAssertTrue(app.staticTexts["Choose 1–4 Nutrients"].waitForExistence(timeout: 3))
         XCTAssertTrue(app.descendants(matching: .any)["Water, shown after selected nutrients"].waitForExistence(timeout: 3))

@@ -53,11 +53,11 @@ struct ProgressOverviewModeSelector: View {
     var body: some View {
         ViewThatFits(in: .horizontal) {
             HStack(spacing: 6) {
-                modeButtons
+                modeButtons(expands: false)
             }
             .fixedSize(horizontal: true, vertical: false)
             VStack(alignment: .leading, spacing: 6) {
-                modeButtons
+                modeButtons(expands: true)
             }
         }
         .padding(4)
@@ -67,7 +67,7 @@ struct ProgressOverviewModeSelector: View {
         .accessibilityLabel(WeeklyChallengeL10n.text("Progress view"))
     }
 
-    private var modeButtons: some View {
+    private func modeButtons(expands: Bool) -> some View {
         ForEach(ProgressOverviewMode.allCases) { mode in
             Button {
                 withAnimation(.snappy) { selection = mode }
@@ -78,7 +78,7 @@ struct ProgressOverviewModeSelector: View {
                     .fixedSize(horizontal: false, vertical: true)
                     .padding(.horizontal, 10)
                     .padding(.vertical, 4)
-                    .frame(minHeight: 44, alignment: .leading)
+                    .frame(maxWidth: expands ? .infinity : nil, minHeight: 44, alignment: .leading)
                     .background(selection == mode ? AppColors.calorie : AppColors.appCard)
                     .pinkNeoRule(AppColors.flashRule)
                     .contentShape(Rectangle())

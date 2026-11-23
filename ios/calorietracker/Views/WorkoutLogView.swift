@@ -983,7 +983,7 @@ private struct WorkoutLogWeekStrip: View {
                     .lineLimit(1)
                     .minimumScaleFactor(0.6)
                     .foregroundStyle(isSelected ? Color.workoutOnAccent : (isToday ? Color.workoutAccent : Color.workoutCharcoal))
-                    .frame(width: 36, height: 36)
+                    .frame(maxWidth: .infinity, minHeight: 36)
                     .background {
                         if isSelected {
                             Circle()
@@ -1080,23 +1080,26 @@ private struct WorkoutLogBurnHero: View {
 private struct WorkoutLogBurnButton: View {
     let isCalculating: Bool
     let action: () -> Void
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     var body: some View {
         Button(action: action) {
             HStack(spacing: 10) {
                 if isCalculating {
                     ProgressView().tint(AppColors.flashRule)
-                } else {
+                } else if !dynamicTypeSize.isAccessibilitySize {
                     Image(systemName: "flame.fill")
                         .accessibilityHidden(true)
                 }
                 VStack(alignment: .leading, spacing: 2) {
                     Text(isCalculating ? "Calculating…" : "Calculate")
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.7)
                     Text("CALORIE BURN")
                         .font(.caption.weight(.bold).width(.condensed))
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .fixedSize(horizontal: false, vertical: true)
-                Spacer(minLength: 0)
             }
         }
         .buttonStyle(FlashActionButtonStyle())

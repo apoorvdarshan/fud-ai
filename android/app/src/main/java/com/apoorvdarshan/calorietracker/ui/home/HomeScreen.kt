@@ -195,7 +195,6 @@ import com.apoorvdarshan.calorietracker.ui.components.WeekEnergyStrip
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
 import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 import com.apoorvdarshan.calorietracker.ui.theme.PinkNeoCondensed
-import com.apoorvdarshan.calorietracker.ui.util.valueWithUnit
 import com.apoorvdarshan.calorietracker.ui.voice.VoiceAssistantButton
 import java.time.DayOfWeek
 import java.time.Instant
@@ -1718,7 +1717,6 @@ private fun CalorieHero(
     val energyUnit = LocalEnergyUnit.current
     val shownCurrent = energyUnit.displayValue(current)
     val shownGoal = energyUnit.displayValue(goal)
-    val formattedCurrent = shownCurrent.formattedWholeNumber()
     // Fill-from-zero on app open. lastEpoch is saveable so it survives tab switches
     // (where Home leaves/re-enters composition) — only a real app-open (new epoch)
     // replays the sweep; tab returns snap to the current value.
@@ -1748,8 +1746,8 @@ private fun CalorieHero(
         heading = stringResource(
             if (energyUnit == EnergyUnit.KJ) R.string.home_kilojoules else R.string.widget_calories
         ).uppercase(LocalConfiguration.current.locales[0]),
-        amount = valueWithUnit(formattedCurrent, stringResource(energyUnit.symbolRes)),
-        goal = if (goal > 0) valueWithUnit(shownGoal.formattedWholeNumber(), stringResource(energyUnit.symbolRes)) else "—",
+        amount = energyText(current),
+        goal = if (goal > 0) energyText(goal) else "—",
         status = statusText,
         progress = { animatedRatio.value },
         burnLine = if (burnSummary == null) null else homeBurnLineText(burnSummary)

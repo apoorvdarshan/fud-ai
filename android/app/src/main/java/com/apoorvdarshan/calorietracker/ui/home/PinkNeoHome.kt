@@ -6,8 +6,8 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -104,7 +104,7 @@ internal fun PinkNeoEnergyPanels(
         verticalArrangement = Arrangement.spacedBy(6.dp)) {
         val currentPanel: @Composable (Modifier) -> Unit = { modifier ->
             Column(
-                modifier.background(palette.action).border(1.5.dp, palette.rule).padding(11.dp),
+                modifier.padding(11.dp),
                 verticalArrangement = Arrangement.spacedBy(6.dp, Alignment.CenterVertically)
             ) {
                 Text(heading, color = palette.onAction, fontWeight = FontWeight.Black, fontSize = 12.sp, style = PinkNeoCondensed)
@@ -112,7 +112,10 @@ internal fun PinkNeoEnergyPanels(
                     maxLines = if (largeType) 2 else 1,
                     autoSize = TextAutoSize.StepBased(minFontSize = 18.sp, maxFontSize = 34.sp, stepSize = 1.sp))
                 Text(status, color = palette.onAction, fontWeight = FontWeight.Bold, fontSize = 13.sp, style = PinkNeoCondensed)
-                Row(Modifier.fillMaxWidth().height(10.dp), horizontalArrangement = Arrangement.spacedBy(2.dp)) {
+                Row(
+                    Modifier.fillMaxWidth().height(10.dp).testTag("home.calorieSegments"),
+                    horizontalArrangement = Arrangement.spacedBy(2.dp)
+                ) {
                     for (index in 0 until 20) {
                         Box(Modifier.weight(1f).fillMaxHeight().background(palette.emptyActionSegment)) {
                             val fill = (progress() * 20 - index).coerceIn(0f, 1f)
@@ -124,7 +127,7 @@ internal fun PinkNeoEnergyPanels(
         }
         val goalPanel: @Composable (Modifier) -> Unit = { modifier ->
             Column(
-                modifier.background(palette.panel).border(1.5.dp, palette.rule).padding(7.dp),
+                modifier.padding(7.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(5.dp, Alignment.CenterVertically)
             ) {
@@ -137,13 +140,26 @@ internal fun PinkNeoEnergyPanels(
             }
         }
         if (largeType) {
-            currentPanel(Modifier.fillMaxWidth())
-            goalPanel(Modifier.fillMaxWidth())
+            currentPanel(Modifier.fillMaxWidth().background(palette.action).border(1.5.dp, palette.rule))
+            goalPanel(Modifier.fillMaxWidth().background(palette.panel).border(1.5.dp, palette.rule))
         } else {
-            Row(Modifier.fillMaxWidth().height(IntrinsicSize.Min),
-                horizontalArrangement = Arrangement.spacedBy(7.dp)) {
-                currentPanel(Modifier.weight(1f).fillMaxHeight())
-                goalPanel(Modifier.width(85.dp).fillMaxHeight())
+            val gap = Arrangement.spacedBy(7.dp)
+            val goalWidth = 85.dp
+            Box(Modifier.fillMaxWidth()) {
+                // TextAutoSize can need more height than its intrinsic estimate.
+                // Measure the foreground first; the two frames follow its height.
+                Row(Modifier.matchParentSize(), horizontalArrangement = gap) {
+                    Spacer(Modifier.weight(1f).fillMaxHeight().background(palette.action).border(1.5.dp, palette.rule))
+                    Spacer(Modifier.width(goalWidth).fillMaxHeight().background(palette.panel).border(1.5.dp, palette.rule))
+                }
+                Row(
+                    Modifier.fillMaxWidth(),
+                    horizontalArrangement = gap,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    currentPanel(Modifier.weight(1f))
+                    goalPanel(Modifier.width(goalWidth))
+                }
             }
         }
         if (burnLine != null) {

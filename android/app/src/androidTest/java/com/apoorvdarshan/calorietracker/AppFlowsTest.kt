@@ -161,6 +161,7 @@ class AppFlowsTest {
             compose.onNodeWithTag("nav.home").fetchSemanticsNode().boundsInRoot.left)
         compose.onNodeWithTag("nav.camera").assertIsDisplayed()
         compose.onNodeWithTag("home.calendar").assertIsDisplayed()
+        compose.onNodeWithTag("home.calorieSegments").assertIsDisplayed()
         for (tab in listOf("progress", "coach", "settings", "workouts", "home")) {
             openTab(tab)
             compose.onNodeWithTag("nav.$tab").assertIsSelected()

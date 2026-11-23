@@ -227,10 +227,10 @@ private struct ExerciseLibraryBrowserView: View {
                 } : nil
             )
         }
-        .sheet(isPresented: $isCreateExercisePresented) {
+        .flashSheet(isPresented: $isCreateExercisePresented) {
             UserExerciseEditorView()
         }
-        .sheet(item: $editingExerciseRequest) { request in
+        .flashSheet(item: $editingExerciseRequest) { request in
             UserExerciseEditorView(
                 existingItemID: request.id,
                 onSaved: { saved in
@@ -271,7 +271,7 @@ private struct ExerciseLibraryBrowserView: View {
                             Label("Create exercise", systemImage: "plus.circle.fill")
                                 .font(.headline.weight(.semibold))
                         }
-                        .buttonStyle(.borderedProminent)
+                        .buttonStyle(FlashActionButtonStyle())
                         .tint(Color.workoutAccent)
                     }
                     .frame(maxWidth: .infinity, minHeight: 260)
@@ -1096,7 +1096,7 @@ private struct ExerciseHeroMetricOverlay: View {
             } else {
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
                     .fill(fillColor)
-                    .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                    .flashPanel()
             }
         }
         .overlay {

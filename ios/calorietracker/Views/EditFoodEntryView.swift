@@ -651,7 +651,7 @@ struct EditFoodEntryView: View {
                         }
                     }
                 }
-                .sheet(item: $ingredientEditor) { target in
+                .flashSheet(item: $ingredientEditor) { target in
                     IngredientEditorSheet(
                         target: target,
                         onSave: { ingredient in

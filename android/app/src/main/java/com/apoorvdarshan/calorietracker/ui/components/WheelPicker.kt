@@ -29,7 +29,6 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.text.font.FontWeight
@@ -37,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.flow.distinctUntilChanged
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 import java.time.LocalDate
 import java.time.YearMonth
 import kotlin.math.abs
@@ -206,49 +206,13 @@ fun DateWheelPicker(
 
 @Composable
 private fun WheelSelectionHighlight(modifier: Modifier = Modifier) {
-    val shape = RoundedCornerShape(14.dp)
-    val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
-    val fill = if (isDark) {
-        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.42f)
-    } else {
-        Color(0xFFE2D6CF).copy(alpha = 0.96f)
-    }
-    val sheen = Brush.verticalGradient(
-        colors = if (isDark) {
-            listOf(
-                Color.White.copy(alpha = 0.10f),
-                Color.White.copy(alpha = 0.025f),
-                AppColors.Calorie.copy(alpha = 0.045f)
-            )
-        } else {
-            listOf(
-                Color.White.copy(alpha = 0.22f),
-                Color.White.copy(alpha = 0.06f),
-                AppColors.Calorie.copy(alpha = 0.070f)
-            )
-        }
-    )
-    val stroke = Brush.linearGradient(
-        colors = if (isDark) {
-            listOf(
-                Color.White.copy(alpha = 0.18f),
-                AppColors.Calorie.copy(alpha = 0.14f)
-            )
-        } else {
-            listOf(
-                Color.White.copy(alpha = 0.50f),
-                AppColors.Calorie.copy(alpha = 0.22f)
-            )
-        }
-    )
+    val neo = pinkNeoPalette()
     Box(
         modifier
             .fillMaxWidth()
             .height(ITEM_HEIGHT)
-            .clip(shape)
-            .background(fill)
-            .background(sheen)
-            .border(0.7.dp, stroke, shape)
+            .background(neo.panel)
+            .border(1.dp, neo.accent)
     )
 }
 

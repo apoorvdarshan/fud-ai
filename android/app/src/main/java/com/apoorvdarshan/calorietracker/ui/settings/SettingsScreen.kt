@@ -123,13 +123,13 @@ import androidx.compose.material.icons.outlined.Tune
 import androidx.compose.material.icons.outlined.Warning
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.material3.AlertDialog
+import com.apoorvdarshan.calorietracker.ui.components.FlashAlertDialog as AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDefaults
-import androidx.compose.material3.DropdownMenu
+import com.apoorvdarshan.calorietracker.ui.components.FlashDropdownMenu as DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
@@ -137,7 +137,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
+import com.apoorvdarshan.calorietracker.ui.components.FlashBottomSheet as ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
@@ -238,6 +238,7 @@ import com.apoorvdarshan.calorietracker.ui.components.SplitDecimalWheelPicker
 import com.apoorvdarshan.calorietracker.ui.components.UnitToggle
 import com.apoorvdarshan.calorietracker.ui.navigation.BottomNavScrollPadding
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 import com.apoorvdarshan.calorietracker.ui.theme.AppThemeColor
 import com.apoorvdarshan.calorietracker.ui.navigation.FudAIRoutes
 import com.apoorvdarshan.calorietracker.ui.util.clockTimePattern
@@ -3701,7 +3702,7 @@ private fun <T> ListSheet(
     footer: String? = null,
     customField: ((String) -> Unit)? = null
 ) {
-    val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
+    val neo = pinkNeoPalette()
     Text(title, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
     Spacer(Modifier.height(12.dp))
     LazyColumn(Modifier.fillMaxWidth().heightIn(max = 420.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -3709,35 +3710,11 @@ private fun <T> ListSheet(
             val isSel = selected(item)
             val rowIcon = icon?.invoke(item)
             val sub = subtitle?.invoke(item)
-            val shape = RoundedCornerShape(16.dp)
             Row(
                 Modifier
                     .fillMaxWidth()
-                    .clip(shape)
-                    .background(
-                        if (isSel) AppColors.Calorie.copy(alpha = 0.13f)
-                        else if (isDark) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.38f)
-                        else Color(0xFFEDE3DD).copy(alpha = 0.76f)
-                    )
-                    .background(
-                        Brush.verticalGradient(
-                            listOf(
-                                Color.White.copy(alpha = if (isDark) 0.08f else 0.18f),
-                                Color.White.copy(alpha = if (isDark) 0.02f else 0.04f),
-                                AppColors.Calorie.copy(alpha = if (isSel) 0.065f else if (isDark) 0.025f else 0.050f)
-                            )
-                        )
-                    )
-                    .border(
-                        0.7.dp,
-                        Brush.linearGradient(
-                            listOf(
-                                Color.White.copy(alpha = if (isDark) 0.16f else 0.46f),
-                                AppColors.Calorie.copy(alpha = if (isSel) 0.22f else if (isDark) 0.08f else 0.16f)
-                            )
-                        ),
-                        shape
-                    )
+                    .background(neo.panel)
+                    .border(if (isSel) 2.dp else 1.dp, if (isSel) neo.accent else neo.rule)
                     .clickable { onSelect(item) }
                     .padding(horizontal = 14.dp, vertical = 14.dp),
                 verticalAlignment = Alignment.CenterVertically
@@ -5214,11 +5191,6 @@ private fun appearanceIcon(key: String): ImageVector = when (key) {
     else -> Icons.Outlined.SettingsBrightness
 }
 
-/**
- * Pink-gradient capsule "Save" button matching the iOS picker sheets
- * (`LinearGradient(colors: AppColors.calorieGradient)` over a 14dp rounded
- * rectangle, white semibold label).
- */
 @Composable
 private fun GradientSaveButton(
     text: String? = null,
@@ -5226,26 +5198,10 @@ private fun GradientSaveButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
-    val brush = Brush.linearGradient(listOf(AppColors.CalorieStart, AppColors.CalorieEnd))
-    val shape = RoundedCornerShape(14.dp)
-    Box(
-        modifier
-            .fillMaxWidth()
-            .clip(shape)
-            .background(if (enabled) brush else Brush.linearGradient(listOf(AppColors.Calorie.copy(alpha = 0.4f), AppColors.Calorie.copy(alpha = 0.4f))))
-            .background(
-                Brush.verticalGradient(
-                    listOf(
-                        Color.White.copy(alpha = 0.24f),
-                        Color.White.copy(alpha = 0.04f)
-                    )
-                )
-            )
-            .border(0.7.dp, Color.White.copy(alpha = 0.22f), shape)
-            .clickable(enabled = enabled, onClick = onClick)
-            .padding(vertical = 14.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(text ?: stringResource(R.string.action_save), color = Color.White, fontWeight = FontWeight.SemiBold, fontSize = 16.sp)
-    }
+    FudGlassPrimaryButton(
+        text = text ?: stringResource(R.string.action_save),
+        enabled = enabled,
+        modifier = modifier.fillMaxWidth(),
+        onClick = onClick
+    )
 }

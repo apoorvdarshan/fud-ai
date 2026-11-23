@@ -14,16 +14,8 @@ struct PinkNeoPalette {
     var accent: Color { action }
     private var actionHex: UInt { pink ? PinkNeoFlash.pink : theme.startHex }
     var action: Color { Color(hex: actionHex) }
-    private var usesLightActionInk: Bool {
-        func linear(_ shift: UInt) -> Double {
-            let value = Double((actionHex >> shift) & 255) / 255
-            return value <= 0.04045 ? value / 12.92 : pow((value + 0.055) / 1.055, 2.4)
-        }
-        let luminance = 0.2126 * linear(16) + 0.7152 * linear(8) + 0.0722 * linear(0)
-        return luminance < 0.179
-    }
-    var onAction: Color { usesLightActionInk ? .white : .black }
-    var emptyActionSegment: Color { usesLightActionInk ? .black : .white }
+    var onAction: Color { AppColors.contrastInk(on: actionHex) }
+    var emptyActionSegment: Color { onAction == .white ? .black : .white }
     var wash: Color { pink && dark && !gray ? Color(hex: PinkNeoFlash.railDark) : panel }
 }
 
@@ -174,7 +166,7 @@ struct PinkNeoDateHeader: View {
             .accessibilityLabel("Date")
             .accessibilityValue(Text(date, style: .date))
             .accessibilityIdentifier("home.calendar")
-            .popover(isPresented: $showCalendar) {
+            .flashPopover(isPresented: $showCalendar) {
                 DatePicker("Date", selection: $calendarDate, in: ...Date.now, displayedComponents: .date)
                     .datePickerStyle(.graphical)
                     .padding()

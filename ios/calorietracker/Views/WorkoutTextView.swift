@@ -67,7 +67,7 @@ struct WorkoutTextView: View {
                         HStack {
                             Button("Edit description") { draft = nil; error = nil; clarification = nil; followUps = [] }
                                 .buttonStyle(.bordered)
-                            Button("Add to diary", action: save).buttonStyle(.borderedProminent)
+                            Button("Add to diary", action: save).buttonStyle(FlashActionButtonStyle())
                                 .disabled(binding.wrappedValue.exercises.isEmpty)
                         }
                     } else if clarification != nil || !followUps.isEmpty {
@@ -91,7 +91,7 @@ struct WorkoutTextView: View {
                             Text(busy ? "Finding exercises…" : (error == nil ? "Analyze" : "Retry"))
                                 .font(.headline).frame(maxWidth: .infinity)
                         }
-                        .buttonStyle(.borderedProminent).controlSize(.large)
+                        .buttonStyle(FlashActionButtonStyle())
                         .disabled(description.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                         Button("Cancel") { dismiss() }.foregroundStyle(.secondary)
                         if busy { ProgressView() }
@@ -131,7 +131,7 @@ struct WorkoutTextView: View {
                 }
             HStack {
                 Button("Voice reply", systemImage: "mic") { voiceReply = true }.buttonStyle(.bordered)
-                Button("Continue") { answer(reply) }.buttonStyle(.borderedProminent)
+                Button("Continue") { answer(reply) }.buttonStyle(FlashActionButtonStyle())
                     .disabled(reply.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
             }
         } else {
@@ -139,7 +139,7 @@ struct WorkoutTextView: View {
                 Text(busy ? "Finding exercises…" : (error == nil ? "Analyze" : "Retry"))
                     .font(.headline).frame(maxWidth: .infinity)
             }
-            .buttonStyle(.borderedProminent).controlSize(.large)
+            .buttonStyle(FlashActionButtonStyle())
             if busy { ProgressView() }
         }
     }

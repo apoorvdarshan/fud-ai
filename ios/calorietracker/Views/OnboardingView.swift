@@ -267,12 +267,10 @@ struct OnboardingView: View {
 
                 VStack(spacing: 8) {
                     Text("Eat Smart,")
-                        .font(.system(size: 32, weight: .bold, design: .rounded))
+                        .font(.system(.largeTitle, weight: .black).width(.condensed))
                     Text("Live Better")
-                        .font(.system(size: 32, weight: .bold, design: .rounded))
-                        .foregroundStyle(
-                            LinearGradient(colors: AppColors.calorieGradient, startPoint: .leading, endPoint: .trailing)
-                        )
+                        .font(.system(.largeTitle, weight: .black).width(.condensed))
+                        .foregroundStyle(AppColors.accentText)
                 }
                 Text("Just snap, track, and thrive.\nYour nutrition, simplified.")
                     .font(.system(.callout, design: .rounded))
@@ -295,14 +293,10 @@ struct OnboardingView: View {
                     withAnimation(.snappy) { step += 1 }
                 } label: {
                     Text("Get Started")
-                        .font(.system(.headline, design: .rounded, weight: .semibold))
+                        .font(.system(.headline, weight: .black).width(.condensed))
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 16)
-                        .background(
-                            LinearGradient(colors: AppColors.calorieGradient, startPoint: .leading, endPoint: .trailing)
-                        )
-                        .foregroundStyle(.white)
-                        .clipShape(RoundedRectangle(cornerRadius: 14))
+                        .flashActionFill()
                 }
 
                 Button {
@@ -944,7 +938,7 @@ struct OnboardingView: View {
             await rc.refreshCustomerInfo()
             await rc.loadOfferings()
         }
-        .sheet(isPresented: $showHostedPaywall) {
+        .flashSheet(isPresented: $showHostedPaywall) {
             HostedPaywallView(onSubscribed: {
                 aiSubstep = .hosted
             })
@@ -955,19 +949,18 @@ struct OnboardingView: View {
         VStack(spacing: 18) {
             ZStack {
                 Circle()
-                    .fill(.ultraThinMaterial)
+                    .fill(AppColors.appCard)
                     .frame(width: 104, height: 104)
+                    .pinkNeoRule(AppColors.flashRule)
 
                 Image(systemName: "sparkles")
                     .font(.system(size: 42))
-                    .foregroundStyle(
-                        LinearGradient(colors: AppColors.calorieGradient, startPoint: .topLeading, endPoint: .bottomTrailing)
-                    )
+                    .foregroundStyle(AppColors.accentText)
             }
 
             VStack(spacing: 8) {
                 Text("Set Up Your AI")
-                    .font(.system(size: 28, weight: .bold, design: .rounded))
+                    .font(.system(.title, weight: .black).width(.condensed))
                     .multilineTextAlignment(.center)
 
                 Text(aiProviderSubtitle)
@@ -1192,15 +1185,10 @@ struct OnboardingView: View {
                 }
             } label: {
                 Text(aiProviderContinueLabel)
-                    .font(.system(.body, design: .rounded, weight: .semibold))
-                    .foregroundStyle(.white)
+                    .font(.system(.headline, weight: .black).width(.condensed))
                     .frame(maxWidth: .infinity)
-                    .frame(height: 54)
-                    .background(
-                        LinearGradient(colors: AppColors.calorieGradient, startPoint: .leading, endPoint: .trailing),
-                        in: RoundedRectangle(cornerRadius: 16)
-                    )
-                    .shadow(color: AppColors.calorie.opacity(0.3), radius: 8, y: 4)
+                    .frame(minHeight: 54)
+                    .flashActionFill()
             }
             .disabled(!hasAcceptedTerms)
             .opacity(hasAcceptedTerms ? 1 : 0.45)
@@ -1614,7 +1602,7 @@ struct OnboardingView: View {
             .padding(.bottom, 36)
         }
         .onAppear { initPlanValues() }
-        .sheet(isPresented: $showCalculationSources) {
+        .flashSheet(isPresented: $showCalculationSources) {
             CalculationMethodsView()
         }
     }

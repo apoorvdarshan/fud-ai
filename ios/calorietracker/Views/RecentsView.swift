@@ -210,13 +210,13 @@ private struct SavedMealRow: View {
                 Text(emoji)
                     .font(.system(size: 28))
                     .frame(width: 56, height: 56)
-                    .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                    .flashPanel()
             } else {
                 Image(systemName: "fork.knife")
                     .font(.title3)
                     .foregroundStyle(AppColors.calorie)
                     .frame(width: 56, height: 56)
-                    .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                    .flashPanel()
             }
 
             // Info

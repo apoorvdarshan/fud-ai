@@ -170,7 +170,7 @@ struct ContentView: View {
         }
             .environment(\.layoutDirection, .leftToRight)
             .background(neoAppearance.palette.paper)
-            .tint(AppThemeColor.color(for: appThemeColorRaw).color)
+            .tint(AppColors.accentText)
             .background(VoiceAssistantWindowInstaller(controller: voiceAssistant))
             .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
                 keyboardVisible = true
@@ -205,10 +205,10 @@ struct ContentView: View {
             } message: {
                 Text("Try Plus or Pro yearly without API keys. Trial limits apply. See prices and terms, or keep BYOK free.")
             }
-            .sheet(isPresented: $showHostedUpsellPaywall, onDismiss: { continueToMeetDeveloperPrompt() }) {
+            .flashSheet(isPresented: $showHostedUpsellPaywall, onDismiss: { continueToMeetDeveloperPrompt() }) {
                 HostedPaywallView()
             }
-            .sheet(isPresented: $showMeetDeveloperPrompt, onDismiss: {
+            .flashSheet(isPresented: $showMeetDeveloperPrompt, onDismiss: {
                 // Done marks the prompt seen before dismiss. Anything else (system
                 // tear-down after opening Instagram, etc.) must bring it back.
                 if PostUpdatePrompts.hasSeenMeetDeveloper {
@@ -224,7 +224,7 @@ struct ContentView: View {
                     showMeetDeveloperPrompt = false
                 }
             }
-            .sheet(isPresented: $showWhatsNew, onDismiss: {
+            .flashSheet(isPresented: $showWhatsNew, onDismiss: {
                 if PostUpdatePrompts.hasSeenWhatsNew {
                     continueToProductHuntLaunchPrompt()
                 } else {
@@ -248,7 +248,7 @@ struct ContentView: View {
                     }
                 )
             }
-            .sheet(isPresented: $showProductHuntLaunchPrompt) {
+            .flashSheet(isPresented: $showProductHuntLaunchPrompt) {
                 ProductHuntLaunchSheet(
                     onVote: {
                         PostUpdatePrompts.hasSeenProductHuntLaunchPrompt = true
@@ -1630,7 +1630,7 @@ private var dailyStepsTaskKey: String {
             }
             .menuOrder(.fixed)
             .accessibilityIdentifier("home.add")
-            .popover(isPresented: $showTextPopover) {
+            .flashPopover(isPresented: $showTextPopover) {
                 TextFoodInputView(
                     onCancel: {
                         showTextPopover = false
@@ -1648,7 +1648,7 @@ private var dailyStepsTaskKey: String {
                 )
                 .presentationCompactAdaptation(.popover)
             }
-            .popover(isPresented: $showVoicePopover) {
+            .flashPopover(isPresented: $showVoicePopover) {
                 VoiceInputView(
                     onCancel: {
                         showVoicePopover = false
@@ -1666,7 +1666,7 @@ private var dailyStepsTaskKey: String {
                 )
                 .presentationCompactAdaptation(.popover)
             }
-            .popover(isPresented: $showManualPopover) {
+            .flashPopover(isPresented: $showManualPopover) {
                 ManualEntryView(
                     logDate: logDateForSelectedDay,
                     onCancel: { showManualPopover = false },
@@ -2111,7 +2111,7 @@ private var dailyStepsTaskKey: String {
                     showMultiPhotoCaptureSheet = true
                 }
             }
-            .sheet(isPresented: $showMultiPhotoCaptureSheet, onDismiss: {
+            .flashSheet(isPresented: $showMultiPhotoCaptureSheet, onDismiss: {
                 // Removing the last photo or swiping the sheet down leaves the
                 // label scan, so its barcode must not reach a later photo log (#485).
                 labelScanBarcode.captureSheetDismissed()
@@ -2165,7 +2165,7 @@ private var dailyStepsTaskKey: String {
                 .presentationDetents([.large])
                 .presentationDragIndicator(.visible)
             }
-            .sheet(isPresented: $showContextSheet) {
+            .flashSheet(isPresented: $showContextSheet) {
                 ContextDescriptionSheet(
                     image: pendingContextImage,
                     description: $contextDescription,
@@ -2193,7 +2193,7 @@ private var dailyStepsTaskKey: String {
                     }
                 )
             }
-            .sheet(item: $activeSheet) { sheet in
+            .flashSheet(item: $activeSheet) { sheet in
                 switch sheet {
                 case .analyzing, .analyzingText, .lookingUpBarcode, .foodResult:
                     // Drive content from foodLogPhase, not the captured `sheet`
@@ -2283,7 +2283,7 @@ private var dailyStepsTaskKey: String {
                     }
                 }
             }
-            .sheet(item: $savedMealsMode, content: { mode in
+            .flashSheet(item: $savedMealsMode, content: { mode in
                 RecentsView(mode: mode, logDate: logDateForSelectedDay, onReview: { entry in
                     afterLoggingPresentationDismisses {
                         labelScanBarcode.clear()
@@ -2299,15 +2299,15 @@ private var dailyStepsTaskKey: String {
                     }
                 })
             })
-            .sheet(isPresented: $showCopyFromDaySheet) {
+            .flashSheet(isPresented: $showCopyFromDaySheet) {
                 CopyFromDaySheet(targetDate: selectedDate)
             }
-            .sheet(isPresented: $showFastingStart) {
+            .flashSheet(isPresented: $showFastingStart) {
                 FastingStartSheet(defaultGoalMinutes: fastingDefaultGoalMinutes) { goalMinutes in
                     startFast(goalMinutes: goalMinutes)
                 }
             }
-            .sheet(item: $editingFastingSession) { session in
+            .flashSheet(item: $editingFastingSession) { session in
                 FastingSessionEditorView(
                     session: session,
                     onSave: { updated in
@@ -2325,7 +2325,7 @@ private var dailyStepsTaskKey: String {
                     }
                 )
             }
-            .sheet(isPresented: $showSiriPhrases) {
+            .flashSheet(isPresented: $showSiriPhrases) {
                 NavigationStack {
                     SiriPhrasesSettingsView()
                         .toolbar {
@@ -2377,7 +2377,7 @@ private var dailyStepsTaskKey: String {
             } message: {
                 Text(errorMessage)
             }
-            .sheet(isPresented: $showHostedQuotaPaywall) {
+            .flashSheet(isPresented: $showHostedQuotaPaywall) {
                 HostedQuotaSoftPaywall(
                     onBuyCreditsOrUpgrade: {
                         if RevenueCatManager.shared.hasHostedEntitlement {
@@ -2389,10 +2389,10 @@ private var dailyStepsTaskKey: String {
                     onSwitchBYOK: {}
                 )
             }
-            .sheet(isPresented: $showHostedPaywall) {
+            .flashSheet(isPresented: $showHostedPaywall) {
                 HostedPaywallView()
             }
-            .sheet(isPresented: $showHostedCredits) {
+            .flashSheet(isPresented: $showHostedCredits) {
                 HostedCreditsSheet()
             }
             .alert("Food logging paused", isPresented: $showFoodLoggingBlocked) {
@@ -2405,11 +2405,11 @@ private var dailyStepsTaskKey: String {
             } message: {
                 Text("Enable Fasting Tracking in Settings to use this shortcut.")
             }
-            .sheet(isPresented: $showNutritionDetail) {
+            .flashSheet(isPresented: $showNutritionDetail) {
                 NutritionDetailView(date: selectedDate, homeTopNutrientsRaw: $homeTopNutrientsRaw)
             }
             .task { await openScreenshotNutritionIfRequested() }
-            .sheet(isPresented: $showCustomWaterLog) {
+            .flashSheet(isPresented: $showCustomWaterLog) {
                 WaterCustomAmountSheet(unit: waterUnit, onAdd: logWater)
             }
             .onOpenURL { url in
@@ -3468,7 +3468,7 @@ struct NutritionDetailView: View {
             .background(AppColors.appBackground)
             .navigationTitle("Nutrition Details")
             .navigationBarTitleDisplayMode(.inline)
-            .sheet(isPresented: $showHomeNutrientPicker) {
+            .flashSheet(isPresented: $showHomeNutrientPicker) {
                 HomeNutrientPickerSheet(
                     selectionRawValue: $homeTopNutrientsRaw,
                     waterTrackingEnabled: waterTrackingEnabled
@@ -4191,13 +4191,13 @@ struct FoodRow: View {
                 Text(emoji)
                     .font(.system(size: 28))
                     .frame(width: 56, height: 56)
-                    .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                    .flashPanel()
             } else {
                 Image(systemName: "fork.knife")
                     .font(.title3)
                     .foregroundStyle(AppColors.calorie)
                     .frame(width: 56, height: 56)
-                    .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                    .flashPanel()
             }
 
             // Info
@@ -4614,14 +4614,14 @@ struct ProgressTabView: View {
                     progressMetric = .weight
                 }
             }
-            .sheet(isPresented: $showLogWeight) {
+            .flashSheet(isPresented: $showLogWeight) {
                 LogWeightSheet(
                     currentWeightKg: weightStore.latestEntry?.weightKg ?? userProfile.weightKg
                 ) { weightKg, date in
                     weightStore.addEntry(WeightEntry(date: date, weightKg: weightKg))
                 }
             }
-            .sheet(isPresented: $showLogBodyFat) {
+            .flashSheet(isPresented: $showLogBodyFat) {
                 // Seed from latest entry → profile current → sane default,
                 // mirroring the LogWeightSheet seeding chain.
                 let seed = bodyFatStore.latestEntry?.bodyFatFraction
@@ -4639,20 +4639,20 @@ struct ProgressTabView: View {
             .onReceive(NotificationCenter.default.publisher(for: .weightGoalReached)) { _ in
                 showGoalReached = true
             }
-            .sheet(isPresented: $showAllWeights) {
+            .flashSheet(isPresented: $showAllWeights) {
                 AllWeightHistoryView(
                     entries: weightStore.entries.sorted { $0.date > $1.date },
                     useMetric: weightUnitRaw == "kg",
                     onDelete: { entry in weightStore.deleteEntry(entry) }
                 )
             }
-            .sheet(isPresented: $showAllBodyFat) {
+            .flashSheet(isPresented: $showAllBodyFat) {
                 AllBodyFatHistoryView(
                     entries: bodyFatStore.entries.sorted { $0.date > $1.date },
                     onDelete: { entry in bodyFatStore.deleteEntry(entry) }
                 )
             }
-            .sheet(isPresented: $showWorkoutHistory) {
+            .flashSheet(isPresented: $showWorkoutHistory) {
                 WorkoutHistoryView(
                     sessions: workoutCalorieSessions,
                     onDelete: { session in
@@ -4660,7 +4660,7 @@ struct ProgressTabView: View {
                     }
                 )
             }
-            .sheet(isPresented: $showImportedHealthWorkoutHistory) {
+            .flashSheet(isPresented: $showImportedHealthWorkoutHistory) {
                 ImportedHealthWorkoutHistoryView(workouts: importedHealthWorkouts)
             }
         }
@@ -6723,16 +6723,16 @@ struct ProfileView: View {
             .scrollContentBackground(.hidden)
             .modifier(SettingsKeyboardDismissalModifier())
             .background(AppColors.appBackground)
-            .sheet(isPresented: $showExportDiary) {
+            .flashSheet(isPresented: $showExportDiary) {
                 ExportDiaryView()
             }
-            .sheet(isPresented: $showImportDiary) {
+            .flashSheet(isPresented: $showImportDiary) {
                 ImportDiaryView()
             }
-            .sheet(isPresented: $showDeleteFoodRange) {
+            .flashSheet(isPresented: $showDeleteFoodRange) {
                 DeleteFoodRangeView()
             }
-            .sheet(item: $activeSheet) { sheet in
+            .flashSheet(item: $activeSheet) { sheet in
                 switch sheet {
                 case .editBirthday:
                     NavigationStack {
@@ -6906,16 +6906,16 @@ struct ProfileView: View {
             } message: {
                 Text(adaptiveGoalAlertMessage)
             }
-            .sheet(isPresented: $showCalculationMethods) {
+            .flashSheet(isPresented: $showCalculationMethods) {
                 CalculationMethodsView()
             }
-            .sheet(isPresented: $showWaterGoalPicker) {
+            .flashSheet(isPresented: $showWaterGoalPicker) {
                 WaterGoalPickerSheet(currentGoal: waterDailyGoal, unit: waterUnit) {
                     waterDailyGoal = $0
                     WidgetSnapshotWriter.publish(foods: foodStore.entries, profile: profile)
                 }
             }
-            .sheet(isPresented: $showFastingGoalPicker) {
+            .flashSheet(isPresented: $showFastingGoalPicker) {
                 FastingGoalPickerSheet(currentGoalMinutes: fastingDefaultGoalMinutes) {
                     fastingDefaultGoalMinutes = $0
                 }
@@ -7918,7 +7918,7 @@ private struct AllergenSensitivitiesDetailView: View {
                     Color.black.opacity(0.28).ignoresSafeArea()
                     ProgressView("Reading lab report…")
                         .padding(20)
-                        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                        .flashPanel()
                 }
             }
         }
@@ -7943,7 +7943,7 @@ private struct AllergenSensitivitiesDetailView: View {
                 Task { await importLabReport(from: result) }
             }
         )
-        .sheet(isPresented: Binding(
+        .flashSheet(isPresented: Binding(
             get: { pendingImportCandidates != nil },
             set: { if !$0 { clearPendingImport() } }
         )) {

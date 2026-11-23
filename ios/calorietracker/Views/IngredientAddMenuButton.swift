@@ -88,7 +88,7 @@ struct IngredientAddMenuButton: View {
         } message: {
             Text(errorMessage ?? "")
         }
-        .sheet(isPresented: $showText) {
+        .flashSheet(isPresented: $showText) {
             NavigationStack {
                 Form {
                     TextField("Describe the food", text: $textDraft, axis: .vertical)
@@ -114,7 +114,7 @@ struct IngredientAddMenuButton: View {
             }
             .presentationDetents([.medium])
         }
-        .sheet(isPresented: $showVoice) {
+        .flashSheet(isPresented: $showVoice) {
             VoiceInputView(
                 onCancel: { showVoice = false },
                 onSubmit: { text in
@@ -173,7 +173,7 @@ struct IngredientAddMenuButton: View {
                 }
             }
         }
-        .sheet(item: $savedMode) { mode in
+        .flashSheet(item: $savedMode) { mode in
             RecentsView(mode: mode, logDate: Date()) { entry in
                 onIngredient(entry.asMealIngredient())
             }

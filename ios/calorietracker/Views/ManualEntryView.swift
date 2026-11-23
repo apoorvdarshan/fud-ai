@@ -79,7 +79,7 @@ struct ManualEntryView: View {
                             .labelsHidden()
                         }
                         .padding(10)
-                        .background(RoundedRectangle(cornerRadius: 10).fill(Color(.quaternarySystemFill)))
+                        .flashPanel()
                     }
 
                     Button {
@@ -101,7 +101,7 @@ struct ManualEntryView: View {
                             .font(.headline)
                             .frame(maxWidth: .infinity)
                     }
-                    .buttonStyle(.borderedProminent)
+                    .buttonStyle(FlashActionButtonStyle())
                     .tint(AppColors.calorie)
                     .controlSize(.large)
                     .disabled(!canSave || submissionGate.isSubmitting)
@@ -143,7 +143,7 @@ struct ManualEntryView: View {
                 .autocorrectionDisabled()
                 .focused($focused, equals: focus)
                 .padding(10)
-                .background(RoundedRectangle(cornerRadius: 10).fill(Color(.quaternarySystemFill)))
+                .flashPanel()
         }
     }
 
@@ -159,7 +159,7 @@ struct ManualEntryView: View {
                 .textFieldStyle(.plain)
                 .focused($focused, equals: focus)
                 .padding(10)
-                .background(RoundedRectangle(cornerRadius: 10).fill(Color(.quaternarySystemFill)))
+                .flashPanel()
         }
     }
 }

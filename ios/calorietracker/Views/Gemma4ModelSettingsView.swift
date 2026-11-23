@@ -48,7 +48,7 @@ struct Gemma4ModelSettingsView: View {
                             }
                         }
                     }
-                    .buttonStyle(.borderedProminent)
+                    .buttonStyle(FlashActionButtonStyle())
                     .tint(AppColors.calorie)
                     .disabled(
                         !modelManager.isEligible

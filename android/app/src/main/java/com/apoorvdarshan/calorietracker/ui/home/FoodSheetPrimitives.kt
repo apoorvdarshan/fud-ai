@@ -38,7 +38,6 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.luminance
@@ -75,6 +74,8 @@ import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialog
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialogActions
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassTextField
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import com.apoorvdarshan.calorietracker.ui.theme.PinkNeoCondensed
+import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 import com.apoorvdarshan.calorietracker.ui.util.clockTimePattern
 import com.apoorvdarshan.calorietracker.ui.util.mediumDateFormatter
 import java.time.LocalDate
@@ -108,7 +109,8 @@ internal fun SheetReviewToolbar(
         Text(
             title,
             fontSize = if (compact) 16.sp else 17.sp,
-            fontWeight = FontWeight.SemiBold,
+            fontWeight = FontWeight.Black,
+            style = PinkNeoCondensed,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             textAlign = TextAlign.Center,
@@ -137,29 +139,15 @@ private fun SheetToolbarPill(
     enabled: Boolean = true,
     onClick: () -> Unit
 ) {
-    val shape = CircleShape
-    val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
+    val neo = pinkNeoPalette()
     val horizontalPadding = when {
         compact && bold -> 12.dp
         compact -> 10.dp
         else -> 16.dp
     }
     val modifier = Modifier
-        .clip(shape)
-        .background(if (isDark) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.42f) else Color(0xFFEDE3DD).copy(alpha = 0.82f))
-        .background(
-            Brush.verticalGradient(
-                listOf(
-                    Color.White.copy(alpha = if (isDark) 0.08f else 0.24f),
-                    Color.White.copy(alpha = if (isDark) 0.02f else 0.06f)
-                )
-            )
-        )
-        .border(
-            0.7.dp,
-            Color.White.copy(alpha = if (isDark) 0.10f else 0.48f),
-            shape
-        )
+        .background(if (bold && enabled) neo.action else neo.panel)
+        .border(1.dp, neo.rule)
     Box(
         modifier
             .alpha(if (enabled) 1f else 0.55f)
@@ -168,7 +156,7 @@ private fun SheetToolbarPill(
     ) {
         Text(
             label,
-            color = AppColors.Calorie,
+            color = if (bold && enabled) neo.onAction else neo.ink,
             fontSize = if (compact) 15.sp else 16.sp,
             fontWeight = if (bold) FontWeight.SemiBold else FontWeight.Medium
         )
@@ -191,32 +179,11 @@ internal fun SheetPillRow(
     onClick: (() -> Unit)? = null,
     content: @Composable RowScope.() -> Unit
 ) {
-    val shape = RoundedCornerShape(24.dp)
-    val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
-    val rowFill = if (isDark) {
-        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.38f)
-    } else {
-        Color(0xFFE9DCD5).copy(alpha = 0.82f)
-    }
-    val rowSheen = Brush.verticalGradient(
-        listOf(
-            Color.White.copy(alpha = if (isDark) 0.075f else 0.18f),
-            Color.White.copy(alpha = if (isDark) 0.018f else 0.04f),
-            AppColors.Calorie.copy(alpha = if (isDark) 0.022f else 0.060f)
-        )
-    )
-    val rowBorder = Brush.linearGradient(
-        listOf(
-            Color.White.copy(alpha = if (isDark) 0.14f else 0.50f),
-            AppColors.Calorie.copy(alpha = if (isDark) 0.07f else 0.18f)
-        )
-    )
+    val neo = pinkNeoPalette()
     val base = Modifier
         .fillMaxWidth()
-        .clip(shape)
-        .background(rowFill)
-        .background(rowSheen)
-        .border(0.7.dp, rowBorder, shape)
+        .background(neo.panel)
+        .border(1.dp, neo.rule)
     val withClick = if (onClick != null) base.clickable(onClick = onClick) else base
     Row(
         withClick.padding(horizontal = 18.dp, vertical = 15.dp),
@@ -227,33 +194,12 @@ internal fun SheetPillRow(
 
 @Composable
 internal fun SheetPillCard(content: @Composable ColumnScope.() -> Unit) {
-    val shape = RoundedCornerShape(24.dp)
-    val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
-    val cardFill = if (isDark) {
-        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.38f)
-    } else {
-        Color(0xFFE9DCD5).copy(alpha = 0.82f)
-    }
-    val cardSheen = Brush.verticalGradient(
-        listOf(
-            Color.White.copy(alpha = if (isDark) 0.075f else 0.18f),
-            Color.White.copy(alpha = if (isDark) 0.018f else 0.04f),
-            AppColors.Calorie.copy(alpha = if (isDark) 0.022f else 0.060f)
-        )
-    )
-    val cardBorder = Brush.linearGradient(
-        listOf(
-            Color.White.copy(alpha = if (isDark) 0.14f else 0.50f),
-            AppColors.Calorie.copy(alpha = if (isDark) 0.07f else 0.18f)
-        )
-    )
+    val neo = pinkNeoPalette()
     Column(
         Modifier
             .fillMaxWidth()
-            .clip(shape)
-            .background(cardFill)
-            .background(cardSheen)
-            .border(0.7.dp, cardBorder, shape)
+            .background(neo.panel)
+            .border(1.dp, neo.rule)
             .padding(vertical = 4.dp),
         content = content
     )
@@ -586,51 +532,19 @@ internal fun SheetGlassDropdownMenu(
     menuWidth: Dp? = null,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    val shape = RoundedCornerShape(22.dp)
+    val neo = pinkNeoPalette()
+    val shape = androidx.compose.ui.graphics.RectangleShape
     val sizedModifier = if (menuWidth != null) modifier.width(menuWidth) else modifier
-    val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
-    val menuContainer = if (isDark) Color(0xF2141416) else Color(0xFFFAF3EE).copy(alpha = 0.98f)
-    val menuSheen = Brush.verticalGradient(
-        colors = if (isDark) {
-            listOf(
-                Color.White.copy(alpha = 0.045f),
-                Color.White.copy(alpha = 0.015f),
-                AppColors.Calorie.copy(alpha = 0.025f)
-            )
-        } else {
-            listOf(
-                Color.White.copy(alpha = 0.70f),
-                Color.White.copy(alpha = 0.24f),
-                AppColors.Calorie.copy(alpha = 0.040f)
-            )
-        }
-    )
-    val menuBorder = Brush.linearGradient(
-        colors = if (isDark) {
-            listOf(
-                Color.White.copy(alpha = 0.18f),
-                Color.White.copy(alpha = 0.055f),
-                AppColors.Calorie.copy(alpha = 0.08f)
-            )
-        } else {
-            listOf(
-                Color.White.copy(alpha = 0.95f),
-                Color.White.copy(alpha = 0.40f),
-                AppColors.Calorie.copy(alpha = 0.14f)
-            )
-        }
-    )
 
     DropdownMenu(
         expanded = expanded,
         onDismissRequest = onDismissRequest,
         shape = shape,
-        containerColor = menuContainer,
+        containerColor = neo.panel,
         tonalElevation = 0.dp,
         shadowElevation = 0.dp,
         modifier = sizedModifier
-            .background(menuSheen, shape)
-            .border(0.8.dp, menuBorder, shape)
+            .border(1.dp, neo.rule, shape)
             .padding(vertical = 5.dp),
         content = content
     )

@@ -246,24 +246,9 @@ private struct TrendXAxis {
     }
 }
 
-private struct ProgressCardStyle: ViewModifier {
-    let cornerRadius: CGFloat
-
-    func body(content: Content) -> some View {
-        let shape = RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-        content
-            .background(AppColors.appCard)
-            .overlay {
-                shape.stroke(AppColors.calorie.opacity(0.09), lineWidth: 0.75)
-            }
-            .compositingGroup()
-            .clipShape(shape)
-    }
-}
-
 extension View {
     func progressCardStyle(cornerRadius: CGFloat = 20) -> some View {
-        modifier(ProgressCardStyle(cornerRadius: cornerRadius))
+        flashPanel()
     }
 }
 
@@ -510,7 +495,7 @@ struct WeightChartSection: View {
         }
         .padding(.horizontal, 10)
         .padding(.vertical, 6)
-        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+        .flashPanel()
         .overlay {
             RoundedRectangle(cornerRadius: 10, style: .continuous)
                 .stroke(AppColors.calorie.opacity(0.22), lineWidth: 0.75)
@@ -703,7 +688,7 @@ struct CalorieChartSection: View {
         }
         .padding(.horizontal, 10)
         .padding(.vertical, 6)
-        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+        .flashPanel()
         .overlay {
             RoundedRectangle(cornerRadius: 10, style: .continuous)
                 .stroke(AppColors.calorie.opacity(0.22), lineWidth: 0.75)
@@ -1742,7 +1727,7 @@ struct BodyFatChartSection: View {
         }
         .padding(.horizontal, 10)
         .padding(.vertical, 6)
-        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+        .flashPanel()
         .overlay {
             RoundedRectangle(cornerRadius: 10, style: .continuous)
                 .stroke(AppColors.calorie.opacity(0.22), lineWidth: 0.75)
@@ -1963,7 +1948,7 @@ struct BodyMeasurementsDetailView: View {
         .background(AppColors.appBackground)
         .navigationTitle("Body Measurements")
         .navigationBarTitleDisplayMode(.inline)
-        .sheet(item: $editingSite) { site in
+        .flashSheet(item: $editingSite) { site in
             MeasurementEditSheet(
                 site: site,
                 currentCm: latest?.value(for: site),
@@ -1971,7 +1956,7 @@ struct BodyMeasurementsDetailView: View {
                 onClear: { store.setValue(site, cm: nil) }
             )
         }
-        .sheet(isPresented: $showHistory) {
+        .flashSheet(isPresented: $showHistory) {
             AllBodyMeasurementsHistoryView(
                 entries: store.sortedEntries,
                 gender: gender,

@@ -77,10 +77,10 @@ struct HostedAISettingsView: View {
                 await quotaManager.refresh()
             }
         }
-        .sheet(isPresented: $showPaywall) {
+        .flashSheet(isPresented: $showPaywall) {
             HostedPaywallView()
         }
-        .sheet(isPresented: $showCredits) {
+        .flashSheet(isPresented: $showCredits) {
             HostedCreditsSheet()
         }
         .alert("Restore Purchases", isPresented: Binding(

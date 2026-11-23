@@ -285,7 +285,7 @@ struct WorkoutEquipmentImagePickerRow: View {
             .workoutPressable()
             .accessibilityLabel(title)
             .accessibilityValue(summary)
-            .sheet(isPresented: $isPickerPresented) {
+            .flashSheet(isPresented: $isPickerPresented) {
                 WorkoutEquipmentImagePickerSheet(
                     title: title,
                     options: imageOptions,

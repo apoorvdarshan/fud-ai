@@ -746,7 +746,7 @@ struct FoodResultView: View {
                             .disabled(submissionGate.isSubmitting)
                     }
                 }
-                .sheet(isPresented: $showWhatIfSheet) {
+                .flashSheet(isPresented: $showWhatIfSheet) {
                     WhatIfMealImpactSheet(
                         entry: makeFoodEntry(includeImage: false),
                         dayEntries: whatIfDayEntries,
@@ -754,7 +754,7 @@ struct FoodResultView: View {
                         weightMetric: weightMetric
                     )
                 }
-                .sheet(item: $ingredientEditor) { target in
+                .flashSheet(item: $ingredientEditor) { target in
                     IngredientEditorSheet(
                         target: target,
                         onSave: { ingredient in

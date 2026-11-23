@@ -64,7 +64,7 @@ import androidx.compose.material.icons.filled.PhotoLibrary
 import androidx.compose.material.icons.filled.Replay
 import androidx.compose.material.icons.filled.NorthEast
 import androidx.compose.material.icons.filled.Warning
-import androidx.compose.material3.AlertDialog
+import com.apoorvdarshan.calorietracker.ui.components.FlashAlertDialog as AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -101,7 +101,6 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.asImageBitmap
@@ -134,6 +133,8 @@ import com.apoorvdarshan.calorietracker.models.SpeechLanguage
 import com.apoorvdarshan.calorietracker.models.SpeechProvider
 import com.apoorvdarshan.calorietracker.ui.navigation.BottomNavDockedControlPadding
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import com.apoorvdarshan.calorietracker.ui.theme.PinkNeoCondensed
+import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 import java.io.ByteArrayOutputStream
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
@@ -408,6 +409,7 @@ private fun EmptyState(
     onPromptTap: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val neo = pinkNeoPalette()
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -419,21 +421,8 @@ private fun EmptyState(
         Box(
             Modifier
                 .size(92.dp)
-                .shadow(
-                    elevation = 14.dp,
-                    shape = CircleShape,
-                    ambientColor = AppColors.Calorie.copy(alpha = 0.18f),
-                    spotColor = AppColors.Calorie.copy(alpha = 0.18f)
-                )
-                .clip(CircleShape)
-                .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.85f))
-                .border(
-                    0.8.dp,
-                    Brush.linearGradient(
-                        listOf(Color.White.copy(alpha = 0.35f), Color.White.copy(alpha = 0.05f))
-                    ),
-                    CircleShape
-                ),
+                .background(neo.panel)
+                .border(1.dp, neo.rule),
             contentAlignment = Alignment.Center
         ) {
             Icon(
@@ -447,7 +436,8 @@ private fun EmptyState(
         Text(
             stringResource(R.string.coach_empty_title),
             fontSize = 22.sp,
-            fontWeight = FontWeight.SemiBold
+            fontWeight = FontWeight.Black,
+            style = PinkNeoCondensed
         )
         Spacer(Modifier.height(8.dp))
         Text(
@@ -490,17 +480,17 @@ private fun EmptyPromptCard(
     onTap: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val neo = pinkNeoPalette()
     Surface(
         onClick = onTap,
         enabled = enabled,
         modifier = modifier.heightIn(min = 70.dp),
-        shape = RoundedCornerShape(16.dp),
-        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.88f),
-        border = BorderStroke(0.6.dp, AppColors.Calorie.copy(alpha = 0.18f))
+        shape = androidx.compose.ui.graphics.RectangleShape,
+        color = neo.panel,
+        border = BorderStroke(1.dp, neo.rule)
     ) {
         Row(
             modifier = Modifier
-                .background(AppColors.Calorie.copy(alpha = 0.045f))
                 .padding(12.dp),
             horizontalArrangement = Arrangement.spacedBy(9.dp),
             verticalAlignment = Alignment.Top
@@ -838,71 +828,15 @@ private fun proposalDetails(proposal: CoachExerciseProposal): List<String> {
     return lines
 }
 
-/**
- * Verbatim port of `bubble`.
- *   .font(.system(.body, design: .rounded))            -> 17sp
- *   .padding(.horizontal, 16).padding(.vertical, 11)    -> same
- *   user background = LinearGradient(calorieGradient)
- *   assistant background = ultraThinMaterial + Calorie 0.035 tint
- *   stroke = LinearGradient white 0.45->0.05 user / 0.22->0.04 assistant
- *   user has top white 0.35->0 highlight (fakes .blendMode(.plusLighter))
- *   shadow user: Calorie 0.28, radius 10, y 6
- *   shadow asst: Black 0.12, radius 6, y 3
- */
 @Composable
 private fun Bubble(content: String, isUser: Boolean, attachmentImageBase64: String? = null) {
-    val shape = RoundedCornerShape(
-        topStart = if (isUser) 20.dp else 8.dp,
-        topEnd = if (isUser) 8.dp else 20.dp,
-        bottomEnd = 20.dp,
-        bottomStart = 20.dp
-    )
-    val borderBrush = Brush.linearGradient(
-        listOf(
-            Color.White.copy(alpha = if (isUser) 0.45f else 0.22f),
-            Color.White.copy(alpha = if (isUser) 0.05f else 0.04f)
-        )
-    )
-    val shadowElevation = if (isUser) 9.dp else 5.dp
-    val shadowColor = if (isUser) AppColors.Calorie.copy(alpha = 0.18f) else Color.Black.copy(alpha = 0.08f)
-
+    val neo = pinkNeoPalette()
     Box(
         modifier = Modifier
             .widthIn(max = 320.dp)
-            .shadow(
-                elevation = shadowElevation,
-                shape = shape,
-                ambientColor = shadowColor,
-                spotColor = shadowColor
-            )
-            .clip(shape)
-            .then(
-                if (isUser) {
-                    Modifier.background(AppColors.CalorieGradient)
-                } else {
-                    Modifier
-                        .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.85f))
-                        .background(AppColors.Calorie.copy(alpha = 0.035f))
-                }
-            )
-            .border(0.7.dp, borderBrush, shape)
+            .background(if (isUser) neo.action else neo.panel)
+            .border(1.dp, neo.rule)
     ) {
-        if (isUser) {
-            // Top white highlight — fakes SwiftUI .blendMode(.plusLighter).
-            Box(
-                Modifier
-                    .fillMaxWidth()
-                    .height(28.dp)
-                    .background(
-                        Brush.verticalGradient(
-                            colors = listOf(
-                                Color.White.copy(alpha = 0.35f),
-                                Color.Transparent
-                            )
-                        )
-                    )
-            )
-        }
         Column(Modifier.padding(horizontal = 16.dp, vertical = 11.dp)) {
             attachmentImageBase64?.let { encoded ->
                 val bitmap by produceState<Bitmap?>(initialValue = null, encoded) {
@@ -931,7 +865,7 @@ private fun Bubble(content: String, isUser: Boolean, attachmentImageBase64: Stri
                 Text(
                     content,
                     fontSize = 17.sp,
-                    color = Color.White,
+                    color = neo.onAction,
                     lineHeight = 22.sp,
                     style = TextStyle(fontWeight = FontWeight.Normal)
                 )
@@ -983,19 +917,11 @@ private fun PromptChipRow(chips: List<ResolvedPrompt>, enabled: Boolean, onTap: 
 
 @Composable
 private fun PromptChip(prompt: ResolvedPrompt, enabled: Boolean, onTap: (Int) -> Unit) {
-    val shape = RoundedCornerShape(20.dp)
-    val strokeBrush = Brush.linearGradient(
-        listOf(
-            AppColors.Calorie.copy(alpha = 0.35f),
-            AppColors.Calorie.copy(alpha = 0.10f)
-        )
-    )
+    val neo = pinkNeoPalette()
     Box(
         Modifier
-            .clip(shape)
-            .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.85f))
-            .background(AppColors.Calorie.copy(alpha = 0.10f))
-            .border(0.6.dp, strokeBrush, shape)
+            .background(neo.panel)
+            .border(1.dp, neo.rule)
             .clickable(enabled = enabled) { onTap(prompt.resourceId) }
             .heightIn(min = 44.dp)
             .padding(horizontal = 14.dp),
@@ -1005,17 +931,11 @@ private fun PromptChip(prompt: ResolvedPrompt, enabled: Boolean, onTap: (Int) ->
             prompt.label,
             fontSize = 13.sp,
             fontWeight = FontWeight.Medium,
-            color = AppColors.Calorie
+            color = neo.ink
         )
     }
 }
 
-/**
- * Capsule input bar. Verbatim port of `inputBar`.
- *   capsule containing TextField + 34dp gradient send button
- *   ultraThinMaterial fill + glassy stroke + drop shadow
- *   send: arrow.up icon, 16sp bold, white-on-gradient when canSend, gray otherwise
- */
 @Composable
 private fun InputBar(
     value: String,
@@ -1029,28 +949,15 @@ private fun InputBar(
     onSend: () -> Unit
 ) {
     val canSend = !sending && (value.trim().isNotEmpty() || attachedImageBytes != null)
-    val capsule = RoundedCornerShape(24.dp)
+    val neo = pinkNeoPalette()
 
     Column(
         modifier = Modifier
             .padding(horizontal = 12.dp)
             .padding(top = 4.dp, bottom = 10.dp)
             .fillMaxWidth()
-            .shadow(
-                elevation = 14.dp,
-                shape = capsule,
-                ambientColor = Color.Black.copy(alpha = 0.18f),
-                spotColor = Color.Black.copy(alpha = 0.18f)
-            )
-            .clip(capsule)
-            .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.85f))
-            .border(
-                0.8.dp,
-                Brush.linearGradient(
-                    listOf(Color.White.copy(alpha = 0.25f), Color.White.copy(alpha = 0.05f))
-                ),
-                capsule
-            )
+            .background(neo.panel)
+            .border(1.dp, neo.rule)
             .padding(start = 4.dp, end = 5.dp, top = 4.dp, bottom = 4.dp),
     ) {
         attachedImageBytes?.let { bytes ->
@@ -1174,24 +1081,12 @@ private fun CoachMediaActionButton(
     enabled: Boolean,
     onClick: () -> Unit
 ) {
+    val neo = pinkNeoPalette()
     Box(
         modifier = Modifier
             .size(40.dp)
-            .clip(CircleShape)
-            .background(
-                if (enabled) AppColors.Calorie.copy(alpha = 0.11f)
-                else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.06f)
-            )
-            .border(
-                0.7.dp,
-                Brush.linearGradient(
-                    listOf(
-                        Color.White.copy(alpha = if (enabled) 0.18f else 0.08f),
-                        AppColors.Calorie.copy(alpha = if (enabled) 0.2f else 0.06f)
-                    )
-                ),
-                CircleShape
-            )
+            .background(neo.panel)
+            .border(1.dp, neo.rule)
             .clickable(enabled = enabled, onClick = onClick),
         contentAlignment = Alignment.Center
     ) {
@@ -1207,37 +1102,19 @@ private fun CoachMediaActionButton(
 @Composable
 private fun SendButton(canSend: Boolean, onClick: () -> Unit) {
     val size: Dp = 40.dp
-    val shape = CircleShape
+    val neo = pinkNeoPalette()
     Box(
         Modifier
             .size(size)
-            .then(
-                if (canSend) {
-                    Modifier.shadow(
-                        elevation = 8.dp,
-                        shape = shape,
-                        ambientColor = AppColors.Calorie.copy(alpha = 0.35f),
-                        spotColor = AppColors.Calorie.copy(alpha = 0.35f)
-                    )
-                } else Modifier
-            )
-            .clip(shape)
-            .then(
-                if (canSend) Modifier.background(AppColors.CalorieGradient)
-                else Modifier.background(Color.Gray.copy(alpha = 0.35f))
-            )
-            .border(
-                0.6.dp,
-                Color.White.copy(alpha = if (canSend) 0.25f else 0.10f),
-                shape
-            )
+            .background(if (canSend) neo.action else neo.panel)
+            .border(1.dp, neo.rule)
             .clickable(enabled = canSend, onClick = onClick),
         contentAlignment = Alignment.Center
     ) {
         Icon(
             Icons.Filled.ArrowUpward,
             contentDescription = stringResource(R.string.coach_send_a11y),
-            tint = Color.White,
+            tint = if (canSend) neo.onAction else neo.ink.copy(alpha = 0.6f),
             modifier = Modifier.size(16.dp)
         )
     }

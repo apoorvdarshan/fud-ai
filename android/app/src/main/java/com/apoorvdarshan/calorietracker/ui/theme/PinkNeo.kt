@@ -13,10 +13,13 @@ internal val PinkNeoPaperDark = Color(0xFF131114)
 internal val PinkNeoPanelLight = Color.White
 internal val PinkNeoPanelDark = Color(0xFF211C23)
 private val FlashRailDark = Color(0xFF221E26)
-private val FlashInkLight = Color(0xFF171219)
-private val FlashInkDark = Color(0xFFF9F5F7)
-private val FlashPink = Color(0xFFFF006A)
+internal val FlashInkLight = Color(0xFF171219)
+internal val FlashInkDark = Color(0xFFF9F5F7)
+internal val FlashPink = Color(0xFFFF006A)
 internal val PinkNeoCondensed = TextStyle(textGeometricTransform = TextGeometricTransform(scaleX = 0.9f))
+
+internal fun contrastingActionInk(action: Color): Color =
+    if (action.luminance() < 0.179f) Color.White else Color.Black
 
 internal data class PinkNeoPalette(
     val paper: Color,
@@ -38,7 +41,7 @@ internal fun pinkNeoPalette(): PinkNeoPalette {
     val pink = scheme.primary == AppThemeColor.FUD_PINK.start
     val ink = if (dark) FlashInkDark else FlashInkLight
     val action = if (pink) FlashPink else scheme.primary
-    val lightActionInk = action.luminance() < 0.179f
+    val actionInk = contrastingActionInk(action)
     return PinkNeoPalette(
         paper = scheme.background,
         panel = scheme.surface,
@@ -46,8 +49,8 @@ internal fun pinkNeoPalette(): PinkNeoPalette {
         rule = if (pink && !gray) ink else ink.copy(alpha = if (dark) 0.75f else 0.82f),
         accent = action,
         action = action,
-        onAction = if (lightActionInk) Color.White else Color.Black,
-        emptyActionSegment = if (lightActionInk) Color.Black else Color.White,
+        onAction = actionInk,
+        emptyActionSegment = if (actionInk == Color.White) Color.Black else Color.White,
         wash = if (pink && dark && !gray) FlashRailDark else scheme.surface
     )
 }

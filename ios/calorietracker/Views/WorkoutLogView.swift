@@ -544,7 +544,7 @@ struct WorkoutLogView: View {
             } message: {
                 Text("Stop and save an exercise timer, or enter reps for a strength exercise on \(selectedDateTitle), before calculating workout calories.")
             }
-            .sheet(item: $pickerRequest) { request in
+            .flashSheet(item: $pickerRequest) { request in
                 WorkoutLogExercisePickerSheet(
                     request: request,
                     selectedDate: selectedDate,
@@ -553,10 +553,10 @@ struct WorkoutLogView: View {
                 .presentationDetents([.large])
                 .presentationDragIndicator(.visible)
             }
-            .sheet(isPresented: $isCreateExercisePresented) {
+            .flashSheet(isPresented: $isCreateExercisePresented) {
                 UserExerciseEditorView()
             }
-            .sheet(isPresented: $isRoutinesSheetPresented) {
+            .flashSheet(isPresented: $isRoutinesSheetPresented) {
                 WorkoutRoutinesSheet(
                     onApply: { routine in
                         workoutStore.applyRoutine(routine.id, to: selectedDate)
@@ -577,7 +577,7 @@ struct WorkoutLogView: View {
             } message: {
                 Text("Saves this day's exercises with their planned sets, reps and weights.")
             }
-            .sheet(isPresented: $isCopySheetPresented) {
+            .flashSheet(isPresented: $isCopySheetPresented) {
                 WorkoutLogCopySheet(
                     days: copyableDays,
                     targetTitle: selectedDateTitle,
@@ -590,7 +590,7 @@ struct WorkoutLogView: View {
                 .presentationDetents([.medium, .large])
                 .presentationDragIndicator(.visible)
             }
-            .sheet(item: $historyRequest) { request in
+            .flashSheet(item: $historyRequest) { request in
                 WorkoutLogExerciseHistorySheet(
                     request: request,
                     selectedDate: selectedDate,
@@ -605,7 +605,7 @@ struct WorkoutLogView: View {
                 .presentationDetents([.medium, .large])
                 .presentationDragIndicator(.visible)
             }
-            .sheet(item: $outdoorActivitySheet) { activity in
+            .flashSheet(item: $outdoorActivitySheet) { activity in
                 OutdoorActivityDurationSheet(activity: activity) { minutes, intensity in
                     logQuickOutdoorActivity(activity, minutes: minutes, intensity: intensity)
                 }
@@ -697,7 +697,7 @@ struct WorkoutLogView: View {
         }
         .tint(Color.workoutAccent)
         .accessibilityLabel("Add workout")
-        .popover(isPresented: $isTextSheetPresented) {
+        .flashPopover(isPresented: $isTextSheetPresented) {
             WorkoutTextView(selectedDate: selectedDate, unit: weightUnit, bodyWeightKg: currentBodyWeightKg,
                 onAdded: { selectedDate = $0 }, startsWithVoice: workoutInputUsesVoice)
                 .presentationCompactAdaptation(.popover)
@@ -2071,12 +2071,12 @@ private struct WorkoutLogExercisePickerSheet: View {
                         .foregroundStyle(Color.workoutAccent)
                 }
             }
-            .sheet(isPresented: $isCreateExercisePresented) {
+            .flashSheet(isPresented: $isCreateExercisePresented) {
                 UserExerciseEditorView { item in
                     workoutStore.toggleExercise(item, on: selectedDate)
                 }
             }
-            .sheet(item: $editingExerciseRequest) { request in
+            .flashSheet(item: $editingExerciseRequest) { request in
                 UserExerciseEditorView(
                     existingItemID: request.id,
                     onSaved: { saved in
@@ -2656,7 +2656,7 @@ private struct WorkoutLogPreviewActionBar: View {
         .padding(.horizontal, 20)
         .padding(.top, 10)
         .padding(.bottom, 12)
-        .background(.ultraThinMaterial)
+        .flashPanel()
     }
 }
 

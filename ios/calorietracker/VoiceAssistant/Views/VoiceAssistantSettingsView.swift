@@ -52,7 +52,7 @@ struct VoiceAssistantSettingsView: View {
         .background(AppColors.appBackground)
         .navigationTitle("Voice Assistant")
         .navigationBarTitleDisplayMode(.inline)
-        .sheet(item: $sheet) { sheet in
+        .flashSheet(item: $sheet) { sheet in
             switch sheet {
             case .paywall: HostedPaywallView()
             case .credits: HostedCreditsSheet()

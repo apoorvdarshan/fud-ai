@@ -132,7 +132,7 @@ enum AppThemeColor: String, CaseIterable, Identifiable {
     // the Watch, which has no AppThemeColor and rebuilds Colors from the values.
     var startHex: UInt {
         switch self {
-        case .fudPink: return 0xFF375F
+        case .fudPink: return PinkNeoFlash.pink
         case .red: return 0xFF3B30
         case .orange: return 0xFF9500
         case .green: return 0x34C759
@@ -155,7 +155,7 @@ enum AppThemeColor: String, CaseIterable, Identifiable {
 
     var endHex: UInt {
         switch self {
-        case .fudPink: return 0xFF6B8A
+        case .fudPink: return PinkNeoFlash.pink
         case .red: return 0xFF6961
         case .orange: return 0xFFB340
         case .green: return 0x62D46F
@@ -184,9 +184,13 @@ final class AppAppearancePalette {
 }
 
 enum AppColors {
-    // Calorie: Red → Pink
-    static var calorieGradient: [Color] { AppThemeColor.current.gradientColors }
+    // The duplicate endpoint keeps existing chart/shape APIs on a solid fill.
+    static var calorieGradient: [Color] { [calorie, calorie] }
     static var calorie: Color { AppThemeColor.current.color }
+    static var onAccent: Color { contrastInk(on: AppThemeColor.current.startHex) }
+    static var accentText: Color { AppThemeColor.current == .fudPink ? flashAccentText : calorie }
+    static let flashRule = dynamicColor(light: PinkNeoFlash.inkLight, dark: PinkNeoFlash.inkDark)
+    private static let flashAccentText = dynamicColor(light: 0xC50051, dark: 0xFF5B9D)
 
     // Protein
     static var proteinGradient: [Color] { calorieGradient }
@@ -220,6 +224,15 @@ enum AppColors {
                            green: CGFloat((hex >> 8) & 255) / 255,
                            blue: CGFloat(hex & 255) / 255, alpha: 1)
         })
+    }
+
+    static func contrastInk(on rgb: UInt) -> Color {
+        func linear(_ shift: UInt) -> Double {
+            let value = Double((rgb >> shift) & 255) / 255
+            return value <= 0.04045 ? value / 12.92 : pow((value + 0.055) / 1.055, 2.4)
+        }
+        let luminance = 0.2126 * linear(16) + 0.7152 * linear(8) + 0.0722 * linear(0)
+        return luminance < 0.179 ? .white : .black
     }
 }
 

@@ -22,7 +22,7 @@ struct ImportDiaryView: View {
                             .frame(maxWidth: .infinity)
                             .font(.system(.body, design: .rounded, weight: .semibold))
                     }
-                    .buttonStyle(.borderedProminent)
+                    .buttonStyle(FlashActionButtonStyle())
                     .tint(AppColors.calorie)
                     .listRowInsets(EdgeInsets())
                     .listRowBackground(Color.clear)
@@ -45,7 +45,7 @@ struct ImportDiaryView: View {
                                 .frame(maxWidth: .infinity)
                                 .font(.system(.body, design: .rounded, weight: .semibold))
                         }
-                        .buttonStyle(.borderedProminent)
+                        .buttonStyle(FlashActionButtonStyle())
                         .tint(AppColors.calorie)
                         .listRowInsets(EdgeInsets())
                         .listRowBackground(Color.clear)

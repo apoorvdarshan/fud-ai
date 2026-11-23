@@ -103,7 +103,7 @@ struct WeeklyChallengeView: View {
                 }
             }
         }
-        .sheet(item: $profileSheetMode) { mode in
+        .flashSheet(item: $profileSheetMode) { mode in
             WeeklyChallengeProfileSheet(
                 mode: mode,
                 profile: store.publicProfile,
@@ -129,7 +129,7 @@ struct WeeklyChallengeView: View {
                 }
             }
         }
-        .sheet(item: $reportTarget) { participant in
+        .flashSheet(item: $reportTarget) { participant in
             WeeklyChallengeReportView(
                 participant: participant,
                 isSubmitting: store.isSubmittingReport,
@@ -144,7 +144,7 @@ struct WeeklyChallengeView: View {
                 return reported
             }
         }
-        .sheet(isPresented: $showBlockedParticipants) {
+        .flashSheet(isPresented: $showBlockedParticipants) {
             WeeklyChallengeBlockedParticipantsView(
                 store: store,
                 knownParticipants: store.knownParticipants
@@ -227,7 +227,7 @@ struct WeeklyChallengeView: View {
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 12)
                 }
-                .buttonStyle(.borderedProminent)
+                .buttonStyle(FlashActionButtonStyle())
                 .tint(AppColors.calorie)
                 .accessibilityHint(
                     WeeklyChallengeL10n.text("Opens the optional public profile and consent form.")
@@ -263,7 +263,7 @@ struct WeeklyChallengeView: View {
             Button(WeeklyChallengeL10n.text("Retry Deletion")) {
                 Task { await store.retryPendingDeletionIfNeeded() }
             }
-            .buttonStyle(.borderedProminent)
+            .buttonStyle(FlashActionButtonStyle())
             .tint(AppColors.calorie)
         }
     }
@@ -703,7 +703,7 @@ private struct WeeklyChallengeViewerCard: View {
 
             HStack(spacing: 8) {
                 Button(WeeklyChallengeL10n.text("Edit Public Profile"), action: onEditProfile)
-                    .buttonStyle(.borderedProminent)
+                    .buttonStyle(FlashActionButtonStyle())
                     .tint(AppColors.calorie)
                     .frame(maxWidth: .infinity)
                 Button(
@@ -1269,7 +1269,7 @@ private struct WeeklyChallengeProfileSheet: View {
                 if isSaving {
                     ProgressView()
                         .padding(18)
-                        .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 14))
+                        .flashPanel()
                         .accessibilityLabel(WeeklyChallengeL10n.text("Saving public profile"))
                 }
             }

@@ -86,7 +86,7 @@ struct ChatView: View {
             } message: {
                 Text("Clear all messages and start fresh? This can't be undone.")
             }
-            .sheet(isPresented: $showHostedQuotaPaywall) {
+            .flashSheet(isPresented: $showHostedQuotaPaywall) {
                 HostedQuotaSoftPaywall(
                     onBuyCreditsOrUpgrade: {
                         if RevenueCatManager.shared.hasHostedEntitlement {
@@ -98,10 +98,10 @@ struct ChatView: View {
                     onSwitchBYOK: { errorMessage = nil }
                 )
             }
-            .sheet(isPresented: $showHostedPaywall) {
+            .flashSheet(isPresented: $showHostedPaywall) {
                 HostedPaywallView()
             }
-            .sheet(isPresented: $showHostedCredits) {
+            .flashSheet(isPresented: $showHostedCredits) {
                 HostedCreditsSheet()
             }
             .fullScreenCover(isPresented: $showCamera) {
@@ -147,30 +147,19 @@ struct ChatView: View {
                 Spacer()
                     .frame(height: 54)
                 ZStack {
-                    Circle()
-                        .fill(.ultraThinMaterial)
+                    Rectangle()
+                        .fill(AppColors.appCard)
                         .frame(width: coachHeroSize, height: coachHeroSize)
-                        .overlay(
-                            Circle().stroke(
-                                LinearGradient(
-                                    colors: [Color.white.opacity(0.35), Color.white.opacity(0.05)],
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                ),
-                                lineWidth: 0.8
-                            )
-                        )
-                    Image(systemName: "bubble.left.and.bubble.right.fill")
+                        .pinkNeoRule(AppColors.flashRule)
+                    Image(systemName: "sparkles")
                         .font(.system(size: coachHeroIconSize, weight: .medium))
-                        .foregroundStyle(
-                            LinearGradient(colors: AppColors.calorieGradient, startPoint: .topLeading, endPoint: .bottomTrailing)
-                        )
+                        .foregroundStyle(AppColors.accentText)
                 }
                 .accessibilityHidden(true)
                 .padding(.bottom, 18)
                 VStack(spacing: 8) {
                     Text("Ask your Coach")
-                        .font(.system(.title2, design: .rounded, weight: .semibold))
+                        .font(.system(.title2, weight: .black).width(.condensed))
                     Text("Your coach can see your nutrition, goals, and workout diary. Ask about food, progress, recovery, or your training plan.")
                         .font(.system(.subheadline, design: .rounded))
                         .foregroundStyle(.secondary)
@@ -209,17 +198,7 @@ struct ChatView: View {
                             TypingIndicator()
                                 .padding(.horizontal, 14)
                                 .padding(.vertical, 12)
-                                .background(.ultraThinMaterial, in: UnevenRoundedRectangle(
-                                    cornerRadii: .init(topLeading: 8, bottomLeading: 18, bottomTrailing: 18, topTrailing: 18),
-                                    style: .continuous
-                                ))
-                                .overlay(
-                                    UnevenRoundedRectangle(
-                                        cornerRadii: .init(topLeading: 8, bottomLeading: 18, bottomTrailing: 18, topTrailing: 18),
-                                        style: .continuous
-                                    )
-                                        .stroke(Color.white.opacity(0.15), lineWidth: 0.5)
-                                )
+                                .flashPanel()
                             Spacer(minLength: 48)
                         }
                         .padding(.horizontal)
@@ -236,11 +215,7 @@ struct ChatView: View {
                         .padding(.horizontal, 14)
                         .padding(.vertical, 10)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 14, style: .continuous)
-                                .stroke(Color.red.opacity(0.25), lineWidth: 0.6)
-                        )
+                        .flashPanel()
                         .padding(.horizontal)
                     }
                 }
@@ -333,15 +308,7 @@ struct ChatView: View {
                     }
                     .padding(12)
                     .frame(maxWidth: .infinity, minHeight: 70, alignment: .topLeading)
-                    .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 16, style: .continuous)
-                            .fill(AppColors.calorie.opacity(0.045))
-                    )
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 16, style: .continuous)
-                            .stroke(AppColors.calorie.opacity(0.18), lineWidth: 0.6)
-                    )
+                    .flashPanel()
                 }
                 .buttonStyle(.plain)
                 .disabled(isSending)
@@ -371,25 +338,8 @@ struct ChatView: View {
                             .font(.system(.footnote, design: .rounded, weight: .medium))
                             .padding(.horizontal, 14)
                             .frame(minHeight: 44)
-                            .foregroundStyle(AppColors.calorie)
-                            .background(
-                                Capsule().fill(.ultraThinMaterial)
-                            )
-                            .overlay(
-                                Capsule()
-                                    .fill(AppColors.calorie.opacity(0.10))
-                            )
-                            .overlay(
-                                Capsule()
-                                    .stroke(
-                                        LinearGradient(
-                                            colors: [AppColors.calorie.opacity(0.35), AppColors.calorie.opacity(0.10)],
-                                            startPoint: .topLeading,
-                                            endPoint: .bottomTrailing
-                                        ),
-                                        lineWidth: 0.6
-                                    )
-                            )
+                            .foregroundStyle(.primary)
+                            .flashPanel()
                     }
                     .buttonStyle(.plain)
                     .disabled(isSending)
@@ -447,17 +397,13 @@ struct ChatView: View {
                     .font(.system(size: 12, weight: .bold))
                     .foregroundStyle(.secondary)
                     .frame(width: 36, height: 36)
-                    .background(.ultraThinMaterial, in: Circle())
+                    .flashPanel()
             }
             .buttonStyle(.plain)
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 9)
-        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
-        .overlay(
-            RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .stroke(AppColors.calorie.opacity(0.18), lineWidth: 0.7)
-        )
+        .flashPanel()
         .padding(.horizontal, 12)
     }
 
@@ -484,19 +430,7 @@ struct ChatView: View {
             // Trailing control (kept as the stable last child).
             trailingControl
         }
-        .background(RoundedRectangle(cornerRadius: 24, style: .continuous).fill(.ultraThinMaterial))
-        .overlay(
-            RoundedRectangle(cornerRadius: 24, style: .continuous)
-                .stroke(
-                    LinearGradient(
-                        colors: [Color.white.opacity(0.25), Color.white.opacity(0.05)],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    ),
-                    lineWidth: 0.8
-                )
-        )
-        .shadow(color: Color.black.opacity(0.18), radius: 14, x: 0, y: 6)
+        .flashPanel()
         .padding(.horizontal, 12)
         .padding(.bottom, 10)
         .padding(.top, 4)
@@ -544,16 +478,10 @@ struct ChatView: View {
         } label: {
             Image(systemName: "arrow.up")
                 .font(.system(size: 16, weight: .bold))
-                .foregroundStyle(.white)
+                .foregroundStyle(AppColors.onAccent)
                 .frame(width: composerControlSize, height: composerControlSize)
-                .background(
-                    canSend
-                        ? AnyShapeStyle(LinearGradient(colors: AppColors.calorieGradient, startPoint: .topLeading, endPoint: .bottomTrailing))
-                        : AnyShapeStyle(Color.secondary.opacity(0.35)),
-                    in: Circle()
-                )
-                .overlay(Circle().stroke(Color.white.opacity(canSend ? 0.25 : 0.10), lineWidth: 0.6))
-                .shadow(color: canSend ? AppColors.calorie.opacity(0.35) : .clear, radius: 8, x: 0, y: 4)
+                .background(canSend ? AppColors.calorie : AppColors.appCard)
+                .pinkNeoRule(AppColors.flashRule)
         }
         .disabled(!canSend)
     }
@@ -604,13 +532,10 @@ struct ChatView: View {
         } label: {
             Image(systemName: "arrow.up")
                 .font(.system(size: 16, weight: .bold))
-                .foregroundStyle(.white)
+                .foregroundStyle(AppColors.onAccent)
                 .frame(width: composerControlSize, height: composerControlSize)
-                .background(
-                    LinearGradient(colors: AppColors.calorieGradient, startPoint: .topLeading, endPoint: .bottomTrailing),
-                    in: Circle()
-                )
-                .shadow(color: AppColors.calorie.opacity(0.35), radius: 8, x: 0, y: 4)
+                .background(AppColors.calorie)
+                .pinkNeoRule(AppColors.flashRule)
         }
     }
 
@@ -922,17 +847,6 @@ private struct MessageBubble: View {
     var onDismissProposal: (CoachExerciseProposal) -> Void = { _ in }
 
     private var isUser: Bool { message.role == .user }
-    private var bubbleShape: UnevenRoundedRectangle {
-        UnevenRoundedRectangle(
-            cornerRadii: .init(
-                topLeading: isUser ? 20 : 8,
-                bottomLeading: 20,
-                bottomTrailing: 20,
-                topTrailing: isUser ? 8 : 20
-            ),
-            style: .continuous
-        )
-    }
 
     var body: some View {
         HStack(alignment: .top, spacing: 8) {
@@ -986,7 +900,7 @@ private struct MessageBubble: View {
                 Text(message.content)
                     .font(.system(.body, design: .rounded))
                     .textSelection(.enabled)
-                    .foregroundStyle(.white)
+                    .foregroundStyle(AppColors.onAccent)
             } else {
                 // Coach replies often use markdown — render it.
                 MarkdownMessageText(text: message.content)
@@ -996,54 +910,9 @@ private struct MessageBubble: View {
         }
             .padding(.horizontal, 16)
             .padding(.vertical, 11)
-            .background(bubbleBackground)
-            .overlay(bubbleStroke)
-            .overlay(alignment: .top) {
-                if isUser { bubbleHighlight }
-            }
-            .clipShape(bubbleShape)
-            .shadow(color: isUser ? AppColors.calorie.opacity(0.18) : Color.black.opacity(0.08),
-                    radius: isUser ? 9 : 5, x: 0, y: isUser ? 5 : 3)
+            .background(isUser ? AppColors.calorie : AppColors.appCard)
+            .pinkNeoRule(AppColors.flashRule)
             .fixedSize(horizontal: false, vertical: true)
-    }
-
-    @ViewBuilder
-    private var bubbleBackground: some View {
-        if isUser {
-            LinearGradient(colors: AppColors.calorieGradient, startPoint: .topLeading, endPoint: .bottomTrailing)
-        } else {
-            ZStack {
-                bubbleShape
-                    .fill(.ultraThinMaterial)
-                bubbleShape
-                    .fill(AppColors.calorie.opacity(0.035))
-            }
-        }
-    }
-
-    private var bubbleStroke: some View {
-        bubbleShape
-            .stroke(
-                LinearGradient(
-                    colors: isUser
-                        ? [Color.white.opacity(0.45), Color.white.opacity(0.05)]
-                        : [Color.white.opacity(0.22), Color.white.opacity(0.04)],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                ),
-                lineWidth: 0.7
-            )
-    }
-
-    /// Glassy top highlight on user bubbles — makes the gradient read as polished glass, not flat paint.
-    private var bubbleHighlight: some View {
-        LinearGradient(
-            colors: [Color.white.opacity(0.35), Color.white.opacity(0)],
-            startPoint: .top,
-            endPoint: .center
-        )
-        .blendMode(.plusLighter)
-        .allowsHitTesting(false)
     }
 }
 
@@ -1095,7 +964,7 @@ private struct CoachProposalCard: View {
             RoundedRectangle(cornerRadius: 16, style: .continuous)
                 .fill(AppColors.calorie.opacity(0.045))
         )
-        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .flashPanel()
         .overlay(
             RoundedRectangle(cornerRadius: 16, style: .continuous)
                 .stroke(AppColors.calorie.opacity(0.18), lineWidth: 0.6)
@@ -1109,7 +978,7 @@ private struct CoachProposalCard: View {
                 Button(action: onAdd) {
                     Text("Add").frame(maxWidth: .infinity)
                 }
-                .buttonStyle(.borderedProminent)
+                .buttonStyle(FlashActionButtonStyle())
                 .tint(AppColors.calorie)
                 // VoiceOver hears which exercise each card's button acts on; Voice Control still
                 // answers to the visible word.
@@ -1209,10 +1078,10 @@ private struct CoachProposalCard: View {
 private struct CoachAssistantBadge: View {
     var body: some View {
         ZStack {
-            Circle()
-                .fill(.ultraThinMaterial)
+            Rectangle()
+                .fill(AppColors.appCard)
                 .frame(width: 28, height: 28)
-                .overlay(Circle().stroke(Color.white.opacity(0.18), lineWidth: 0.5))
+                .pinkNeoRule(AppColors.flashRule)
             Image(systemName: "sparkles")
                 .font(.system(size: 11, weight: .semibold))
                 .foregroundStyle(

@@ -65,6 +65,13 @@ trap cleanup EXIT
 export TEST_RUNNER_FUDAI_TESTING=1
 export SIMCTL_CHILD_FUDAI_TESTING=1
 
+# `simctl boot` returns when startup starts, not when SpringBoard is ready.
+# Let the sole test simulator boot while Xcode resolves packages and compiles,
+# instead of making the first test pay the full startup cost after the build.
+if [[ "${CI:-}" == "true" ]]; then
+  xcrun simctl boot "$simulator_id"
+fi
+
 # CI sets IOS_COMPILATION_CACHE to a directory it restores and saves, so
 # unchanged Swift and C files reuse earlier compiler outputs. The tests always run.
 cache_settings=()
@@ -90,6 +97,7 @@ xcodebuild test \
   -parallel-testing-enabled NO \
   -maximum-concurrent-test-simulator-destinations 1 \
   -collect-test-diagnostics never \
+  -showBuildTimingSummary \
   -jobs 2 \
   ${cache_settings[@]+"${cache_settings[@]}"} \
   CODE_SIGNING_ALLOWED=NO WORKOUT_VECTORS=sample \

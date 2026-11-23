@@ -387,8 +387,9 @@ final class calorietrackerUITests: XCTestCase {
         let describe = app.buttons["Describe Meal"]
         let photos = app.buttons["Photo & Scan"]
         XCTAssertTrue(reuse.waitForExistence(timeout: 5))
-        XCTAssertTrue(describe.exists)
-        XCTAssertTrue(photos.exists)
+        XCTAssertTrue(reuse.isHittable)
+        XCTAssertTrue(describe.isHittable)
+        XCTAssertTrue(photos.isHittable)
         XCTAssertLessThan(reuse.frame.midY, describe.frame.midY)
         XCTAssertLessThan(describe.frame.midY, photos.frame.midY)
 

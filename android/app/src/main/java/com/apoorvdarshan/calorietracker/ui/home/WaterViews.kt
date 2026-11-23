@@ -2,17 +2,15 @@ package com.apoorvdarshan.calorietracker.ui.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.WaterDrop
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import com.apoorvdarshan.calorietracker.ui.components.FlashBottomSheet as ModalBottomSheet
@@ -25,14 +23,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.apoorvdarshan.calorietracker.R
-import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import com.apoorvdarshan.calorietracker.ui.components.FlashSheetAction
 import com.apoorvdarshan.calorietracker.models.WaterUnit
 import androidx.compose.ui.res.stringResource
 
@@ -47,20 +44,13 @@ fun WaterCustomAmountSheet(unit: WaterUnit, onDismiss: () -> Unit, onAdd: (Int) 
 
     ModalBottomSheet(
         onDismissRequest = onDismiss,
-        sheetState = sheetState,
-        shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp)
+        sheetState = sheetState
     ) {
         Column(
-            Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 8.dp),
-            verticalArrangement = Arrangement.spacedBy(18.dp)
+            Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 8.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) }
-                Spacer(Modifier.weight(1f))
-                Text(stringResource(R.string.water_log_title), fontWeight = FontWeight.Bold, fontSize = 20.sp)
-                Spacer(Modifier.weight(1f))
-                Spacer(Modifier.padding(horizontal = 31.dp))
-            }
+            Text(stringResource(R.string.water_log_title), fontWeight = FontWeight.Black, fontSize = 21.sp)
 
             Text(stringResource(R.string.water_how_much), fontWeight = FontWeight.SemiBold, fontSize = 18.sp)
 
@@ -81,18 +71,18 @@ fun WaterCustomAmountSheet(unit: WaterUnit, onDismiss: () -> Unit, onAdd: (Int) 
                 )
             )
 
-            Button(
+            FlashSheetAction(
                 onClick = {
                     amountMl?.let(onAdd)
                     onDismiss()
                 },
                 enabled = amountMl != null,
-                modifier = Modifier.fillMaxWidth().height(54.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = AppColors.Calorie)
+                modifier = Modifier.fillMaxWidth()
             ) {
                 Icon(Icons.Filled.WaterDrop, contentDescription = null)
                 Text(stringResource(R.string.water_add), modifier = Modifier.padding(start = 8.dp), fontWeight = FontWeight.SemiBold)
             }
+            TextButton(onClick = onDismiss, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.action_cancel)) }
             Spacer(Modifier.height(16.dp))
         }
     }

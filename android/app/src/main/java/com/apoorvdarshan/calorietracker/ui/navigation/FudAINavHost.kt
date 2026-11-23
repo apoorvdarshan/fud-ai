@@ -1,6 +1,10 @@
 package com.apoorvdarshan.calorietracker.ui.navigation
 
 import androidx.activity.compose.ReportDrawnWhen
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -236,7 +240,7 @@ fun FudAINavHost(
         // the stack and skips re-emitting currentBackStackEntry, so
         // the bar stays selected on the previous tab.
         if (target == FudAIRoutes.HOME) {
-            nav.popBackStack(FudAIRoutes.HOME, inclusive = false)
+            nav.popBackStack(FudAIRoutes.HOME, inclusive = false, saveState = true)
         } else {
             nav.navigate(target) {
                 popUpTo(FudAIRoutes.HOME) { saveState = true }
@@ -295,7 +299,19 @@ fun FudAINavHost(
         NavHost(
                 modifier = Modifier.fillMaxSize(),
                 navController = nav,
-                startDestination = if (startOnboarding) FudAIRoutes.ONBOARDING else FudAIRoutes.HOME
+                 startDestination = if (startOnboarding) FudAIRoutes.ONBOARDING else FudAIRoutes.HOME,
+                 // The rail already indicates a new tab. Do not cross-fade two
+                 // full screens or keep both composed through a tab switch.
+                 enterTransition = {
+                     if (FudAIRoutes.isTabSwitch(initialState.destination.route, targetState.destination.route)) {
+                         EnterTransition.None
+                     } else fadeIn()
+                 },
+                 exitTransition = {
+                     if (FudAIRoutes.isTabSwitch(initialState.destination.route, targetState.destination.route)) {
+                         ExitTransition.None
+                     } else fadeOut()
+                 }
             ) {
                 composable(FudAIRoutes.ONBOARDING) {
                     OnboardingScreen(container = container, onComplete = {

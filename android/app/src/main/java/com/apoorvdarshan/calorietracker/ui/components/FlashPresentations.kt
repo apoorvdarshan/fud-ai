@@ -2,8 +2,12 @@ package com.apoorvdarshan.calorietracker.ui.components
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.BottomSheetDefaults
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
@@ -12,10 +16,36 @@ import androidx.compose.material3.SheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
+
+@Composable
+internal fun FlashSheetAction(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    primary: Boolean = true,
+    content: @Composable RowScope.() -> Unit
+) {
+    val neo = pinkNeoPalette()
+    Button(
+        onClick = onClick,
+        modifier = modifier.heightIn(min = 48.dp),
+        enabled = enabled,
+        shape = RectangleShape,
+        border = BorderStroke(1.dp, neo.rule),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = if (primary) neo.action else neo.panel,
+            contentColor = if (primary) neo.onAction else neo.ink,
+            disabledContainerColor = neo.panel,
+            disabledContentColor = neo.ink.copy(alpha = 0.6f)
+        ),
+        content = content
+    )
+}
 
 // The presentation adapters preserve the host's dismissal policy, gestures,
 // focus and sheet state. Flash owns the frame and fill, not where a sheet goes.

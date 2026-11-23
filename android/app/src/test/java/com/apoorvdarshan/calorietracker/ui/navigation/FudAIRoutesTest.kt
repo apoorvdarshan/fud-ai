@@ -9,6 +9,14 @@ import org.junit.Test
 
 class FudAIRoutesTest {
     @Test
+    fun onlyMovesAcrossTabsSkipTheScreenTransition() {
+        assertTrue(FudAIRoutes.isTabSwitch(FudAIRoutes.HOME, FudAIRoutes.PROGRESS))
+        assertTrue(FudAIRoutes.isTabSwitch(FudAIRoutes.QUICK_ACTIONS, FudAIRoutes.HOME))
+        assertFalse(FudAIRoutes.isTabSwitch(FudAIRoutes.SETTINGS, FudAIRoutes.QUICK_ACTIONS))
+        assertFalse(FudAIRoutes.isTabSwitch(FudAIRoutes.ONBOARDING, FudAIRoutes.HOME))
+    }
+
+    @Test
     fun selectedBottomTabMapsNestedSettingsToSettings() {
         assertEquals(FudAIRoutes.SETTINGS, FudAIRoutes.selectedBottomTab(FudAIRoutes.SETTINGS))
         assertEquals(

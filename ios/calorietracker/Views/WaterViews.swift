@@ -311,52 +311,36 @@ struct WaterGoalPickerSheet: View {
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: 20) {
-                Text("Daily Water Goal")
-                    .font(.system(.title2, design: .rounded, weight: .bold))
-
-                HStack(spacing: 4) {
+            FlashGoalPickerBody(
+                heading: "Daily Water Goal", actionTitle: "Save",
+                action: {
+                    onSave(unit.milliliters(fromDisplayedValue: Double(selectedGoalDisplay)))
+                    dismiss()
+                }
+            ) {
+                VStack(spacing: 0) {
                     Picker(unit.title, selection: $selectedGoalDisplay) {
                         ForEach(unit == .milliliters ? Array(stride(from: 50, through: 10_000, by: 50)) : Array(2...338), id: \.self) { amount in
                             Text(amount.formatted())
                                 .tag(amount)
-                                .font(.system(.title2, design: .rounded, weight: .medium))
                         }
                     }
                     .pickerStyle(.wheel)
-                    .frame(width: 180, height: 190)
+                    .frame(height: 156)
                     .clipped()
 
                     Text(unit.symbol)
-                        .font(.system(.title3, design: .rounded))
+                        .font(.subheadline)
                         .foregroundStyle(.secondary)
+                        .padding(.bottom, 8)
+                        .accessibilityHidden(true)
                 }
-
-                Button {
-                    onSave(unit.milliliters(fromDisplayedValue: Double(selectedGoalDisplay)))
-                    dismiss()
-                } label: {
-                    Text("Save")
-                        .font(.system(.headline, design: .rounded, weight: .semibold))
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 14)
-                        .background(
-                            LinearGradient(colors: AppColors.calorieGradient, startPoint: .leading, endPoint: .trailing)
-                        )
-                        .foregroundStyle(.white)
-                        .clipShape(RoundedRectangle(cornerRadius: 14))
-                }
-                .padding(.horizontal, 24)
-
-                Spacer()
             }
-            .padding(.top, 24)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") { dismiss() }
                 }
             }
         }
-        .presentationDetents([.medium])
     }
 }

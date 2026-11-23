@@ -92,6 +92,46 @@ struct FlashActionButtonStyle: ButtonStyle {
     }
 }
 
+/// A scrollable panel keeps the wheel and its action reachable at larger
+/// text sizes. The navigation toolbar remains native.
+struct FlashGoalPickerBody<Wheel: View>: View {
+    let heading: LocalizedStringKey
+    let actionTitle: LocalizedStringKey
+    var actionIcon: String? = nil
+    let action: () -> Void
+    @ViewBuilder let wheel: () -> Wheel
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 12) {
+                Text(heading)
+                    .font(.system(.title2, weight: .black).width(.condensed))
+                    .accessibilityAddTraits(.isHeader)
+                wheel()
+                    .frame(maxWidth: .infinity)
+                    .flashPanel()
+                Button(action: action) {
+                    Group {
+                        if let actionIcon {
+                            Label(actionTitle, systemImage: actionIcon)
+                        } else {
+                            Text(actionTitle)
+                        }
+                    }
+                    .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(FlashActionButtonStyle())
+            }
+            .frame(maxWidth: 520)
+            .padding(16)
+            .frame(maxWidth: .infinity)
+        }
+        .flashScreenSurface()
+        .presentationDetents(dynamicTypeSize.isAccessibilitySize ? [.large] : [.medium, .large])
+    }
+}
+
 struct FlashFoodPhoto<Content: View>: View {
     let count: Int
     @ViewBuilder let content: () -> Content
@@ -190,36 +230,53 @@ struct FlashMenu<Trigger: View>: View {
     let items: () -> [FlashMenuItem]
     @ViewBuilder let label: () -> Trigger
 
-    @State private var isPresented = false
-    @State private var pages: [Page] = []
+    @State private var presentation: FlashMenuPage?
     @State private var pendingAction: (() -> Void)?
-
-    private struct Page {
-        let title: Text
-        let items: [FlashMenuItem]
-    }
 
     var body: some View {
         Button {
-            pages = [Page(title: title, items: items())]
-            isPresented = true
+            // The first sheet render receives the actual rows instead of reading
+            // a second piece of state captured by an isPresented closure.
+            presentation = FlashMenuPage(title: title, items: items())
         } label: {
             label()
         }
         .buttonStyle(.plain)
-        .flashSheet(isPresented: $isPresented, onDismiss: menuDidDismiss) {
-            menuPanel
-                .presentationDetents([.medium, .large])
+        .flashSheet(item: $presentation, onDismiss: menuDidDismiss) { root in
+            FlashMenuPanel(root: root) { action in
+                pendingAction = action
+                presentation = nil
+            }
         }
     }
 
-    private var menuPanel: some View {
-        let page = pages.last ?? Page(title: title, items: [])
-        return VStack(spacing: 0) {
+    private func menuDidDismiss() {
+        let action = pendingAction
+        pendingAction = nil
+        // Destinations may themselves present a sheet or the photo picker.
+        action?()
+    }
+}
+
+private struct FlashMenuPage: Identifiable {
+    let id = UUID()
+    let title: Text
+    let items: [FlashMenuItem]
+}
+
+private struct FlashMenuPanel: View {
+    let root: FlashMenuPage
+    let onDismiss: ((() -> Void)?) -> Void
+    @State private var subpages: [FlashMenuPage] = []
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
+    var body: some View {
+        let page = subpages.last ?? root
+        VStack(spacing: 0) {
             HStack(spacing: 8) {
-                if pages.count > 1 {
+                if !subpages.isEmpty {
                     Button {
-                        pages.removeLast()
+                        subpages.removeLast()
                     } label: {
                         Image(systemName: "chevron.backward")
                             .frame(width: 44, height: 44)
@@ -232,7 +289,7 @@ struct FlashMenu<Trigger: View>: View {
                     .accessibilityAddTraits(.isHeader)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Button {
-                    isPresented = false
+                    onDismiss(nil)
                 } label: {
                     Image(systemName: "xmark")
                         .frame(width: 44, height: 44)
@@ -248,26 +305,34 @@ struct FlashMenu<Trigger: View>: View {
 
             ScrollView {
                 VStack(spacing: 6) {
+                    if page.items.isEmpty {
+                        Text("None")
+                            .foregroundStyle(.secondary)
+                            .frame(maxWidth: .infinity, minHeight: 46, alignment: .leading)
+                            .padding(.horizontal, 12)
+                            .flashPanel()
+                    }
                     ForEach(Array(page.items.enumerated()), id: \.offset) { _, item in
                         menuRow(item)
                     }
                 }
                 .padding(12)
             }
-            .id(pages.count)
+            .id(page.id)
         }
         .background(AppColors.appBackground.ignoresSafeArea())
         .accessibilityIdentifier("flash.menu")
+        .presentationDragIndicator(.hidden)
+        .presentationDetents(dynamicTypeSize.isAccessibilitySize ? [.large] : [.medium, .large])
     }
 
     private func menuRow(_ item: FlashMenuItem) -> some View {
         Button(role: item.role) {
             switch item.destination {
             case .action(let action):
-                pendingAction = action
-                isPresented = false
+                onDismiss(action)
             case .group(let children):
-                pages.append(Page(title: item.title, items: children))
+                subpages.append(FlashMenuPage(title: item.title, items: children))
             }
         } label: {
             HStack(spacing: 10) {
@@ -304,13 +369,6 @@ struct FlashMenu<Trigger: View>: View {
         .accessibilityAddTraits(item.isSelected ? .isSelected : [])
     }
 
-    private func menuDidDismiss() {
-        let action = pendingAction
-        pendingAction = nil
-        pages = []
-        // Destinations may themselves present a sheet or the photo picker.
-        action?()
-    }
 }
 
 struct FlashChoicePicker<Value: Hashable>: View {

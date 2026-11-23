@@ -39,6 +39,8 @@ Flash is an app-wide theme, not a Home or navigation skin. A screen or presentat
 
 Startup reads one preferences snapshot off the UI thread and no longer waits indefinitely for a non-null profile. Diary filtering and sorting run off the UI thread, and the Home energy meter draws its 20 segments without re-laying out the panels on each animation frame.
 
+Peer-tab switches no longer cross-fade two full screens. Navigating Home saves the inactive tab's state just like switching to another peer tab, while nested navigation retains its transitions. Measure first and repeat visits separately on physical hardware; removing the animation does not make first-time chart, diary, or exercise loading free.
+
 On an API 36 emulator with 1,000 synthetic diary entries, six requested cold launches per build gave a median first-frame time of 1.57 s before (five completed; one timed out) and 1.40 s after (six completed). The scrolling results varied across rounds, so this does not establish a smoother scroll or a speedup on a physical phone. Repeat cold launch, tab-switch, and diary scrolling measurements on the same Android phone before making those claims. For startup, compare both `am start -S -W` and the updated build's `Fully drawn` log; for scrolling, reset and compare `dumpsys gfxinfo`.
 
 ## Verify before release
@@ -48,3 +50,4 @@ On an API 36 emulator with 1,000 synthetic diary entries, six requested cold lau
 3. Log via the dock and via the rail camera. Edit a result, cancel and retry capture, sort and share a meal, combine entries, and remove food/water/fasting entries using the existing confirmations.
 4. Inspect both appearances, Dark gray, another accent, a small phone, a large font size, right-to-left layout, and an open keyboard. Confirm the first and last diary rows remain reachable and the rail does not obscure any control.
 5. Inspect an app panel and a popup from each area: Home logging and edit, Progress and weight logging, Coach and attachment actions, Workouts and the exercise picker, Settings and a preference picker, and onboarding and its first dialog. Inspect the hosted plan picker without starting a purchase.
+6. On a fresh iOS launch, open Log Food and confirm the first visible frame has tappable options. Open a group, go back, dismiss and reopen, then open Manual Entry. If all methods have been intentionally hidden, the menu should show an empty state instead of a blank panel.

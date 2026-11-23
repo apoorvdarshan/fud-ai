@@ -60,7 +60,6 @@ extension View {
             .listStyle(.plain)
             .listSectionSpacing(12)
             .contentMargins(.horizontal, 12, for: .scrollContent)
-            .toolbar(.hidden, for: .navigationBar)
     }
 
     func flashActionFill() -> some View {
@@ -90,70 +89,6 @@ struct FlashActionButtonStyle: ButtonStyle {
             .background(isEnabled ? AppColors.calorie : AppColors.appCard)
             .pinkNeoRule(AppColors.flashRule)
             .opacity(configuration.isPressed ? 0.8 : 1)
-    }
-}
-
-/// Own the entire header rather than painting controls over Liquid Glass.
-/// The title moves to its own line before it or an action can be clipped.
-struct FlashEditorHeader<Actions: View>: View {
-    let title: LocalizedStringKey
-    @ViewBuilder let actions: () -> Actions
-
-    private var heading: some View {
-        Text(title)
-            .font(.system(.headline, weight: .black).width(.condensed))
-            .accessibilityAddTraits(.isHeader)
-    }
-
-    var body: some View {
-        ViewThatFits(in: .horizontal) {
-            HStack(spacing: 12) {
-                heading.fixedSize()
-                Spacer(minLength: 0)
-                actions()
-            }
-            VStack(alignment: .leading, spacing: 8) {
-                heading.fixedSize(horizontal: false, vertical: true)
-                actions()
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-        }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 8)
-        .background(AppColors.appCard)
-        .overlay(alignment: .bottom) {
-            Rectangle()
-                .fill(AppColors.flashRule)
-                .frame(height: 1)
-                .allowsHitTesting(false)
-        }
-        .accessibilityElement(children: .contain)
-        .accessibilityIdentifier("flash.editor.header")
-    }
-}
-
-struct FlashEditorActions<Content: View>: View {
-    @ViewBuilder let content: () -> Content
-
-    var body: some View {
-        ViewThatFits(in: .horizontal) {
-            HStack(spacing: 8, content: content)
-                .fixedSize(horizontal: true, vertical: false)
-            VStack(alignment: .leading, spacing: 6, content: content)
-        }
-    }
-}
-
-struct FlashSecondaryButtonStyle: ButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .font(.system(.subheadline, weight: .semibold).width(.condensed))
-            .padding(.horizontal, 10)
-            .padding(.vertical, 7)
-            .frame(minWidth: 44, minHeight: 44)
-            .contentShape(Rectangle())
-            .flashPanel()
-            .opacity(configuration.isPressed ? 0.7 : 1)
     }
 }
 

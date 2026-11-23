@@ -55,6 +55,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -1847,6 +1848,8 @@ private fun MealSectionHeader(
     onSortOrderSelected: (FoodLogSortOrder) -> Unit = {}
 ) {
     val neo = pinkNeoPalette()
+    val compactActions = LocalDensity.current.fontScale >= 1.3f
+    val sortLabel = stringResource(R.string.sort)
     Column(
         Modifier
             .fillMaxWidth()
@@ -1871,25 +1874,29 @@ private fun MealSectionHeader(
                 modifier = Modifier.weight(1f, fill = false).testTag("home.mealHeader.${meal.name}.title")
             )
             if (showSortMenu) {
-                Spacer(Modifier.width(12.dp))
+                Spacer(Modifier.width(if (compactActions) 4.dp else 8.dp))
                 Box {
                     Row(
-                        modifier = Modifier.clickable { onSortClick() },
+                        modifier = Modifier
+                            .clickable(role = Role.Button, onClick = onSortClick)
+                            .sizeIn(minWidth = 48.dp, minHeight = 48.dp),
                         verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(6.dp)
+                        horizontalArrangement = Arrangement.spacedBy(6.dp, Alignment.CenterHorizontally)
                     ) {
                         Icon(
                             Icons.Filled.SwapVert,
-                            contentDescription = null,
+                            contentDescription = if (compactActions) sortLabel else null,
                             tint = AppColors.Calorie,
                             modifier = Modifier.size(16.dp)
                         )
-                        Text(
-                            stringResource(R.string.sort),
-                            fontSize = 17.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            color = AppColors.Calorie
-                        )
+                        if (!compactActions) {
+                            Text(
+                                sortLabel,
+                                fontSize = 17.sp,
+                                fontWeight = FontWeight.SemiBold,
+                                color = AppColors.Calorie
+                            )
+                        }
                     }
                     SheetGlassDropdownMenu(
                         expanded = sortMenuExpanded,
@@ -1909,16 +1916,19 @@ private fun MealSectionHeader(
             }
             // Share remains a separate target next to the title and sort control.
             if (onShare != null) {
-                Spacer(Modifier.width(8.dp))
-                Icon(
-                    Icons.Filled.IosShare,
-                    contentDescription = stringResource(R.string.cd_share_meal),
-                    tint = AppColors.Calorie,
+                Box(
                     modifier = Modifier
                         .clickable(role = Role.Button, onClick = onShare)
-                        .padding(4.dp)
-                        .size(18.dp),
-                )
+                        .size(48.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        Icons.Filled.IosShare,
+                        contentDescription = stringResource(R.string.cd_share_meal),
+                        tint = AppColors.Calorie,
+                        modifier = Modifier.size(18.dp)
+                    )
+                }
             }
         }
         // Keep the combined meal totals below the heading on its leading edge.

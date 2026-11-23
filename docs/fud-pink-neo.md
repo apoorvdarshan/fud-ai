@@ -29,7 +29,7 @@ Flash is an app-wide theme, not a Home or navigation skin. A screen or presentat
 
 ### Responsive layout pass
 
-- Food editors must render a single action surface. On iOS, Edit Food, Review Food, and the ingredient editor own their header instead of adding filled buttons to a Liquid Glass toolbar. On Android, editor actions wrap when measured space or font scale requires it.
+- Food editors must render a single action surface. Throughout iOS, existing native Liquid Glass controls (including toolbar Cancel, Save, and Log) stay native; do not add filled Flash buttons inside them. Apply Flash to the app-owned page and sheet content around those controls. On Android, editor actions wrap when measured space or font scale requires it.
 - Enter a long food name, try alternate serving units, open the keyboard, and verify Cancel, Save/Log, and any secondary action are visible, distinct, and tappable. Repeat with a photo and without one. Check that section edges and the pinned header do not obscure editable fields while scrolling.
 - At accessibility text sizes, verify calendar dates remain single-line, recap labels can wrap, Coach's message input has its own usable width, and workout controls reserve scroll space instead of covering the diary. Automated layout cases check narrow Android editor actions and iOS editor button geometry; they do not replace device review.
 

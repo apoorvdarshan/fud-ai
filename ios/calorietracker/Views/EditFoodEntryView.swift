@@ -613,21 +613,23 @@ struct EditFoodEntryView: View {
                     scrollQuantityIntoView(scrollProxy)
                 }
                 .disabled(isReprocessing)
-                .safeAreaInset(edge: .top, spacing: 0) {
-                    FlashEditorHeader(title: "Edit Food") {
-                        FlashEditorActions {
-                            Button("Cancel") { dismiss() }
-                                .buttonStyle(FlashSecondaryButtonStyle())
-                            if isReprocessing {
-                                ProgressView()
-                                    .frame(minWidth: 44, minHeight: 44)
-                            } else if noteChanged {
-                                Button("Reprocess", action: reprocess)
-                                    .buttonStyle(FlashActionButtonStyle())
-                            } else {
-                                Button("Save", action: saveChanges)
-                                    .buttonStyle(FlashActionButtonStyle())
-                            }
+                .navigationTitle("Edit Food")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button("Cancel") { dismiss() }
+                    }
+                    // Let iOS own this surface. Flash fills belong in view content,
+                    // not inside the system's Liquid Glass toolbar grouping.
+                    ToolbarItem(placement: .confirmationAction) {
+                        if isReprocessing {
+                            ProgressView()
+                        } else if noteChanged {
+                            Button("Reprocess", action: reprocess)
+                                .tint(AppColors.accentText)
+                        } else {
+                            Button("Save", action: saveChanges)
+                                .tint(AppColors.accentText)
                         }
                     }
                 }

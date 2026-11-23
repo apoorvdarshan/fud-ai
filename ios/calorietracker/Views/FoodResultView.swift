@@ -723,17 +723,18 @@ struct FoodResultView: View {
                     guard editing else { return }
                     scrollQuantityIntoView(scrollProxy)
                 }
-                .safeAreaInset(edge: .top, spacing: 0) {
-                    FlashEditorHeader(title: "Review Food") {
-                        FlashEditorActions {
-                            Button("Cancel") { dismiss() }
-                                .buttonStyle(FlashSecondaryButtonStyle())
-                            Button("What if?") { showWhatIfSheet = true }
-                                .buttonStyle(FlashSecondaryButtonStyle())
-                            Button("Log", action: logFood)
-                                .buttonStyle(FlashActionButtonStyle())
-                                .disabled(submissionGate.isSubmitting)
-                        }
+                .navigationTitle("Review Food")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button("Cancel") { dismiss() }
+                    }
+                    ToolbarItemGroup(placement: .confirmationAction) {
+                        Button("What if?") { showWhatIfSheet = true }
+                            .tint(AppColors.protein)
+                        Button("Log", action: logFood)
+                            .tint(AppColors.accentText)
+                            .disabled(submissionGate.isSubmitting)
                     }
                 }
                 .flashSheet(isPresented: $showWhatIfSheet) {
@@ -1042,19 +1043,20 @@ struct IngredientEditorSheet: View {
                 }
             }
             .flashEditorSurface()
-            .safeAreaInset(edge: .top, spacing: 0) {
-                FlashEditorHeader(title: target.index == nil ? "Add Ingredient" : "Edit Ingredient") {
-                    FlashEditorActions {
-                        Button("Cancel") { dismiss() }
-                            .buttonStyle(FlashSecondaryButtonStyle())
-                        Button("Save") {
-                            guard let ingredient = parsedIngredient else { return }
-                            onSave(ingredient)
-                            dismiss()
-                        }
-                        .buttonStyle(FlashActionButtonStyle())
-                        .disabled(parsedIngredient == nil)
+            .navigationTitle(target.index == nil ? String(localized: "Add Ingredient") : String(localized: "Edit Ingredient"))
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") { dismiss() }
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Save") {
+                        guard let ingredient = parsedIngredient else { return }
+                        onSave(ingredient)
+                        dismiss()
                     }
+                    .tint(AppColors.accentText)
+                    .disabled(parsedIngredient == nil)
                 }
             }
         }

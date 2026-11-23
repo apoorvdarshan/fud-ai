@@ -12,11 +12,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import com.apoorvdarshan.calorietracker.data.StartupPreferences
 import com.apoorvdarshan.calorietracker.models.FoodEntry
@@ -190,6 +192,14 @@ open class MainActivity : AppCompatActivity() {
                 "light" -> false
                 "dark", "darkGray" -> true
                 else -> systemDark
+            }
+            SideEffect {
+                // Edge-to-edge defaults follow the device, but the app can
+                // select an independent background behind the system bars.
+                WindowCompat.getInsetsController(window, window.decorView).apply {
+                    isAppearanceLightStatusBars = !darkTheme
+                    isAppearanceLightNavigationBars = !darkTheme
+                }
             }
             FudAITheme(darkTheme = darkTheme, themeColor = themeColor, grayDarkTheme = appearance == "darkGray") {
                 // Above the NavHost and the shared-meal sheet so both show the chosen unit.

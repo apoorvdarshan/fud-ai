@@ -429,24 +429,20 @@ final class calorietrackerUITests: XCTestCase {
     }
 
     @MainActor
-    func testEditFoodHeaderKeepsSaveAndCancelSeparateAtLargeTextSize() {
+    func testEditFoodNativeToolbarKeepsSaveAndCancelSeparateAtLargeTextSize() {
         let app = makeApp(defaults: [
             "--screenshot-demo", "-screenshotScene", "food", "-appearanceMode", "dark",
             "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"
         ])
         app.launch()
 
-        let title = app.staticTexts["Edit Food"]
-        let cancel = app.buttons["Cancel"]
-        let save = app.buttons["Save"]
-        XCTAssertTrue(title.waitForExistence(timeout: 15))
+        let toolbar = app.navigationBars["Edit Food"]
+        XCTAssertTrue(toolbar.waitForExistence(timeout: 15))
+        let cancel = toolbar.buttons["Cancel"]
+        let save = toolbar.buttons["Save"]
         XCTAssertTrue(cancel.isHittable)
         XCTAssertTrue(save.isHittable)
-        XCTAssertFalse(title.frame.intersects(cancel.frame))
-        XCTAssertFalse(title.frame.intersects(save.frame))
         XCTAssertFalse(cancel.frame.intersects(save.frame))
-        XCTAssertGreaterThanOrEqual(save.frame.height, 44)
-        XCTAssertGreaterThanOrEqual(cancel.frame.height, 44)
         XCTAssertTrue(app.textFields["food.editor.name"].exists || app.textViews["food.editor.name"].exists)
 
         let screenshot = XCTAttachment(screenshot: app.screenshot())

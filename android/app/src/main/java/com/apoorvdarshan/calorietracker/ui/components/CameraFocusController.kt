@@ -440,7 +440,7 @@ internal class CameraFocusController(context: Context, private val scope: Corout
         macroOverride = false
         val interop = runCatching { Camera2CameraControl.from(camera.cameraControl) }.getOrNull() ?: return
         // The app sets no other Camera2 options, so clearing all of them only drops the AF mode.
-        val pinned = runCatching { interop.captureRequestOptions.getCaptureRequestOption(CaptureRequest.CONTROL_AF_MODE) }.getOrNull()
+        val pinned = runCatching { interop.getCaptureRequestOptions().getCaptureRequestOption(CaptureRequest.CONTROL_AF_MODE) }.getOrNull()
         if (pinned != null) interop.clearCaptureRequestOptions()
     }
 

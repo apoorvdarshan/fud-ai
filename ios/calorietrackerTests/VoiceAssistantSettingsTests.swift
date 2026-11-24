@@ -304,6 +304,10 @@ struct VoiceAssistantInstructionsTests {
         )
         #expect(text.contains("Your name for this session is \"Toastie\""))
         #expect(text.contains("patient, gentle and reassuring"))
+        #expect(text.contains("“How am I doing?”"))
+        #expect(text.contains("call get_app_state and wait for its result before answering"))
+        #expect(text.contains("do not treat an empty diary as proof the user consumed nothing"))
+        #expect(text.contains("Say it only when the user explicitly asks your name or who you are"))
         #expect(text.contains("Never call a tool with user_confirmed: true unless the user agreed"))
     }
 

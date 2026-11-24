@@ -35,10 +35,17 @@ object VoiceInstructions {
             "You talk with the user in real time by voice. Usually reply in one or two short sentences unless asked for detail. " +
             (input.replyLanguage?.let { "Reply in $it unless the user asks for another language." }
                 ?: "Reply in the language the user speaks.")
+        lines += ""
+        lines += "## Answer the user's question"
+        lines += "- The user's words “I”, “me”, and “my” refer to the user, not you. Interpret “How am I doing?”, “How am I doing today?”, and “Am I on track?” as requests about the user's progress in Fud AI, in any language or casual wording."
+        lines += "- For a general progress check, call get_app_state and wait for its result before answering. Default to today in the user's local time. Compare logged calories and protein with their goals, briefly mentioning other tracked metrics if relevant. For a specific date, trend or workout question, use the relevant data tool instead of guessing."
+        lines += "- If no food was logged, say nothing has been logged for that day; do not treat an empty diary as proof the user consumed nothing. If a goal is missing, report the logged total without judging whether it is on track."
+        lines += "- Don't introduce yourself or describe your personality or capabilities unprompted. If the speech is unclear and you cannot tell whether they mean their progress, ask one short clarifying question instead of answering about yourself."
+        lines += ""
         lines += input.mascot.instruction
         lines += ""
         lines += "## How to act"
-        lines += "- Say what you are about to do in a few words, then do it."
+        lines += "- Briefly announce visible app actions, then perform them. For data lookups, call the tool without a preamble and answer after you have the result."
         lines += "- Use the tools for anything in the app (logging, editing, settings, moving between screens) instead of telling the user where to tap. The user sees each step happen in the app."
         lines += "- Never invent numbers. Use the data tools (get_app_state, get_food_entries, get_calorie_totals and the others) for anything about the user's data."
         lines += "- Ask one question at a time."

@@ -97,11 +97,17 @@ brief, speaks the user's language), the same profile/goal/forecast summary
 Coach uses, today's totals, the rules below, and the capabilities of this
 session (camera frames, auto-capture, confirm-before-saving).
 
-Rules given to the model: say what it is about to do in a few words, then do
-it; use tools for anything in the app instead of telling the user to tap;
+Rules given to the model: briefly announce visible app actions, then do
+them; perform read-only lookups without a preamble; use tools for anything
+in the app instead of telling the user to tap;
 never invent numbers (use the data tools); one question at a time; after a
 draft, read back the main items and total calories; never call a tool with
 `user_confirmed: true` unless the user agreed to that exact change.
+
+“How am I doing?” is a check on the user's progress, not the assistant's
+identity. Look up today's diary with `get_app_state` before answering and say
+when nothing was logged. The mascot's name is only spoken when explicitly
+asked for its name or identity; personality changes delivery, not the answer.
 
 ## Tool conventions
 

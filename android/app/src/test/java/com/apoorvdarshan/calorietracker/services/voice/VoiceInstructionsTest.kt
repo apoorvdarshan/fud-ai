@@ -65,6 +65,10 @@ class VoiceInstructionsTest {
         val text = VoiceInstructions.build(input().copy(mascot = reloaded.profile))
         assertTrue(text.contains("Your name for this session is \"Nova 星\""))
         assertTrue(text.contains("lighthearted and energetic"))
+        assertTrue(text.contains("“How am I doing?”"))
+        assertTrue(text.contains("call get_app_state and wait for its result before answering"))
+        assertTrue(text.contains("do not treat an empty diary as proof the user consumed nothing"))
+        assertTrue(text.contains("Say it only when the user explicitly asks your name or who you are"))
         assertTrue(text.contains("Never call a tool with user_confirmed: true unless the user agreed"))
     }
 

@@ -34,7 +34,7 @@ class CompactFlashLayoutTest {
     @get:Rule val compose = createComposeRule()
 
     @Test
-    fun modelSourceKeepsItsNaturalWidthBesideTheLicenseOnANarrowPage() {
+    fun modelSourceKeepsItsNaturalWidthOnANarrowPage() {
         val state = LocalModelState(
             descriptor = LocalModelCatalog.gemma4E2b, eligible = false,
             status = LocalModelInstallStatus.NotInstalled,
@@ -56,8 +56,9 @@ class CompactFlashLayoutTest {
                 SemanticsMatcher.keyIsDefined(SemanticsActions.GetTextLayoutResult),
             useUnmergedTree = true
         ).assertIsDisplayed().performSemanticsAction(SemanticsActions.GetTextLayoutResult) { it(result) }
-        assertEquals(1, result.single().lineCount)
-        assertFalse(result.single().hasVisualOverflow)
+        val text = result.single()
+        assertEquals(1, text.lineCount)
+        assertFalse("Model source clipped: ${text.layoutInput.constraints}, laid out at ${text.size}", text.hasVisualOverflow)
     }
 
     @Test

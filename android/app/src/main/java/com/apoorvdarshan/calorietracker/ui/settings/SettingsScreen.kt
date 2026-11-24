@@ -33,6 +33,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -4557,7 +4558,7 @@ internal fun LocalModelRow(
             TextButton(
                 onClick = { uriHandler.openUri(state.descriptor.licenseUrl) },
                 contentPadding = PaddingValues(0.dp),
-                modifier = Modifier.heightIn(min = FlashSpacing.MinTouchTarget)
+                modifier = Modifier.width(IntrinsicSize.Max).heightIn(min = FlashSpacing.MinTouchTarget)
             ) {
                 Text(
                     stringResource(
@@ -4571,7 +4572,7 @@ internal fun LocalModelRow(
             TextButton(
                 onClick = { uriHandler.openUri(state.descriptor.sourceUrl) },
                 contentPadding = PaddingValues(0.dp),
-                modifier = Modifier.heightIn(min = FlashSpacing.MinTouchTarget)
+                modifier = Modifier.width(IntrinsicSize.Max).heightIn(min = FlashSpacing.MinTouchTarget)
             ) {
                 Text(
                     stringResource(R.string.settings_model_source),

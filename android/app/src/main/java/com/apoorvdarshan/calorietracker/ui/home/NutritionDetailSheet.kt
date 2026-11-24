@@ -474,6 +474,7 @@ private fun HomeTopNutrientPickerDialog(
         }
         FudGlassDialogActions(
             primaryText = stringResource(R.string.action_done),
+            modifier = Modifier.testTag("nutrition.picker.actions"),
             onPrimary = {
                 onSave(HomeTopNutrient.normalized(draft))
                 onDismiss()

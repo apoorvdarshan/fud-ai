@@ -495,7 +495,8 @@ class AppFlowsTest {
         fiber.assertIsOn().performClick()
         fiber.assertIsOff()
         compose.onNode(
-            hasText(string(R.string.action_done)) and hasClickAction() and hasAnyAncestor(isDialog())
+            hasText(string(R.string.action_done)) and hasClickAction() and
+                hasAnyAncestor(hasTestTag("nutrition.picker.actions"))
         ).performClick()
         waitForAbsent(hasTestTag("nutrition.picker.options"))
 

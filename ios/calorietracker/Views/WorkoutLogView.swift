@@ -457,8 +457,8 @@ struct WorkoutLogView: View {
                 .background(Color.workoutBackground.ignoresSafeArea())
                 .listSectionSpacing(8)
                 .scrollDismissesKeyboard(.interactively)
-                // Pinned below the navigation bar so it stays visible above the
-                // keyboard while the next set is being typed.
+                // Pinned at the top so it stays visible above the keyboard
+                // while the next set is being typed.
                 .safeAreaInset(edge: .top, spacing: 0) {
                     if let timer = restTimer.timer {
                         WorkoutRestTimerBar(
@@ -521,7 +521,7 @@ struct WorkoutLogView: View {
             // Keep the chrome quiet: the date strip and burn calculator lead.
             .navigationTitle("")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar(.visible, for: .navigationBar)
+            .toolbar(.hidden, for: .navigationBar)
             .toolbar {
                 if focusedSetField != nil {
                     ToolbarItemGroup(placement: .keyboard) {

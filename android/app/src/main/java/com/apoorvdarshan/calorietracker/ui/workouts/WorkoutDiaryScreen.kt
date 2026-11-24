@@ -266,7 +266,7 @@ internal fun WorkoutDiaryScreen(
             contentPadding = PaddingValues(
                 start = FlashSpacing.PageInset,
                 // Room for the pinned rest countdown while it runs.
-                top = if (restTimer != null) 136.dp else 64.dp,
+                top = FlashSpacing.ItemGap + (if (restTimer != null) 72.dp else 0.dp),
                 end = FlashSpacing.PageInset
             ),
             verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap)
@@ -440,7 +440,7 @@ internal fun WorkoutDiaryScreen(
                 modifier = Modifier
                     .align(Alignment.TopCenter)
                     .fillMaxWidth()
-                    .padding(top = 60.dp)
+                    .padding(top = FlashSpacing.ItemGap)
                     .background(MaterialTheme.colorScheme.background)
                     .padding(start = 16.dp, end = 16.dp, top = 4.dp, bottom = 8.dp)
             ) {

@@ -929,6 +929,7 @@ struct ExerciseLibraryDetailView: View {
         .workoutScreen()
         .navigationTitle(item.name)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar(.visible, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .toolbarBackground(Color.workoutBackground, for: .navigationBar)
         .toolbar {

@@ -90,8 +90,8 @@ internal fun PinkNeoRail(
     val scale = LocalDensity.current.fontScale
     val width = (64 * scale.coerceIn(1f, 1.19f)).dp
     val showText = scale < 1.6f
-    val railShape = RoundedCornerShape(13.dp)
-    val itemShape = RoundedCornerShape(7.dp)
+    val railShape = RoundedCornerShape(9.dp)
+    val itemShape = RoundedCornerShape(5.dp)
     Column(
         modifier
             .testTag("nav.rail")

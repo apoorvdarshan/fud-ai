@@ -202,6 +202,11 @@ final class calorietrackerUITests: XCTestCase {
         screenshot.name = "Barbell Full Squat Details"
         screenshot.lifetime = .keepAlways
         add(screenshot)
+
+        app.buttons["nav.home"].tap()
+        XCTAssertTrue(app.buttons["home.add"].waitForExistence(timeout: 5))
+        workouts.tap()
+        XCTAssertTrue(visual.waitForExistence(timeout: 5), "Switching tabs should preserve the open exercise detail")
     }
 
     @MainActor

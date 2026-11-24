@@ -355,6 +355,15 @@ struct StrengthWorkoutStoreTests {
         let history = store.exerciseLiftHistory(itemID: bench.id, name: bench.name, before: today)
         #expect(history.count == 1)
         #expect(history[0].dateKey == StrengthWorkoutStore.dateKey(for: yesterday))
+
+        // The result was already cached. An edit must invalidate both the
+        // per-day session index and the displayed summary for this same date.
+        store.updateSet(
+            exerciseID: planned.id, setID: set.id, on: yesterday, weight: "65", weightUnit: .kg, reps: "8"
+        )
+        _ = store.upsertCalculatedWorkout(on: yesterday, caloriesBurned: 180, weightUnit: .kg)
+        #expect(store.lastExerciseLiftSummary(itemID: bench.id, name: bench.name,
+                                              before: today, displayUnit: .kg) == "65 kg × 8")
     }
 
     @Test func plannedSetWeightDisplayFollowsGlobalUnitWithoutMutatingStoredLoad() {

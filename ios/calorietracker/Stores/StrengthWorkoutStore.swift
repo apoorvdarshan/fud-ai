@@ -20,15 +20,20 @@ final class StrengthWorkoutStore {
     static let defaultStorageKey = "fudai.workouts.diary.state.v1"
 
     private(set) var dayPlans: [String: StrengthWorkoutDayPlan] = [:]
-    private(set) var completedSessions: [StrengthWorkoutSession] = []
+    private(set) var completedSessions: [StrengthWorkoutSession] = [] {
+        didSet {
+            liftHistoryByDay = nil
+            liftSummaryCache.removeAll(keepingCapacity: true)
+        }
+    }
     private(set) var savedExerciseIDs: Set<String> = []
     private(set) var preferences = StrengthWorkoutPreferences()
     private(set) var customActivities: [StrengthPlannedExercise] = []
     private(set) var userExercises: [StrengthPlannedExercise] = []
     private(set) var routines: [StrengthWorkoutRoutine] = []
 
-    private var cachedExerciseLibrary: ExerciseLibraryService?
-    private var exerciseLibraryFingerprint: Int = 0
+    @ObservationIgnored private var cachedExerciseLibrary: ExerciseLibraryService?
+    @ObservationIgnored private var exerciseLibraryFingerprint: Int = 0
 
     var exerciseLibrary: ExerciseLibraryService {
         let fingerprint = exerciseLibrarySourceFingerprint
@@ -75,8 +80,17 @@ final class StrengthWorkoutStore {
     private let defaults: UserDefaults
     private let storageKey: String
     private let stateBlob: PersistedBlobGuard
-    private var liftSummaryCacheKey: String?
-    private var liftSummaryCache: [String: String] = [:]
+    @ObservationIgnored private var liftSummaryCacheKey: String?
+    @ObservationIgnored private var liftSummaryCache: [String: String] = [:]
+    @ObservationIgnored private var liftHistoryByDay: [String: [StrengthWorkoutSession]]?
+
+    private var historySessionsByDay: [String: [StrengthWorkoutSession]] {
+        let sessions = completedSessions
+        if let liftHistoryByDay { return liftHistoryByDay }
+        let grouped = Dictionary(grouping: sessions, by: \.stableDiaryDateKey)
+        liftHistoryByDay = grouped
+        return grouped
+    }
 
     /// Set when the persisted state was written by a build with a newer
     /// schema. Unlike a corrupt blob (which is safe to replace once backed up)
@@ -487,7 +501,7 @@ final class StrengthWorkoutStore {
         limit: Int = 90
     ) -> [StrengthExerciseLiftDay] {
         let beforeKey = Self.dateKey(for: date)
-        let priorKeys = Set(completedSessions.map(\.stableDiaryDateKey))
+        let priorKeys = historySessionsByDay.keys
             .filter { $0 < beforeKey }
             .sorted(by: >)
 
@@ -508,7 +522,10 @@ final class StrengthWorkoutStore {
         displayUnit: WeightUnit
     ) -> String? {
         let beforeKey = Self.dateKey(for: date)
-        let token = "\(beforeKey)|\(displayUnit.rawValue)|\(liftSummaryHistoryToken)"
+        // Observe edits even when the summary is already cached. Actual history
+        // mutations invalidate it; rendering doesn't fingerprint every past set.
+        let _ = completedSessions
+        let token = "\(beforeKey)|\(displayUnit.rawValue)"
         if liftSummaryCacheKey != token {
             liftSummaryCache = [:]
             liftSummaryCacheKey = token
@@ -802,8 +819,7 @@ final class StrengthWorkoutStore {
     }
 
     private func preferredHistorySession(on dateKey: String) -> StrengthWorkoutSession? {
-        let sessions = completedSessions.filter { $0.stableDiaryDateKey == dateKey }
-        guard !sessions.isEmpty else { return nil }
+        guard let sessions = historySessionsByDay[dateKey] else { return nil }
         let burns = sessions.filter { $0.caloriesBurned != nil }
         if let latestBurn = burns.max(by: {
             let left = $0.healthSyncVersion ?? 0
@@ -902,18 +918,6 @@ final class StrengthWorkoutStore {
         userExercises = state.userExercises ?? []
         routines = state.routines ?? []
         preferences = state.preferences
-    }
-
-    private var liftSummaryHistoryToken: Int {
-        completedSessions.reduce(into: 0) { token, session in
-            token = 31 &* token &+ session.stableDiaryDateKey.hashValue
-            token = 31 &* token &+ session.completedAt.hashValue
-            token = 31 &* token &+ (session.healthSyncVersion ?? 0)
-            for exercise in session.exercises {
-                token = 31 &* token &+ exercise.itemID.hashValue
-                token = 31 &* token &+ exercise.sets.filter(\.isPerformed).count
-            }
-        }
     }
 
     private func resetInMemoryState() {

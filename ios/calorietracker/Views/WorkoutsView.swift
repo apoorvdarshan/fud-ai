@@ -19,7 +19,6 @@ struct WorkoutsView: View {
                         embedsInNavigationStack: false,
                         onShowLibrary: { showMode(.library) }
                     )
-                    .transition(.opacity)
                 } else {
                     ExerciseLibraryBrowserView(
                         onShowWorkoutLog: { showMode(.log) }
@@ -28,7 +27,6 @@ struct WorkoutsView: View {
                     .navigationTitle("Workouts")
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar(.hidden, for: .navigationBar)
-                    .transition(.opacity)
                 }
             }
             .readableWidth()
@@ -43,9 +41,7 @@ struct WorkoutsView: View {
     }
 
     private func showMode(_ mode: WorkoutTabMode) {
-        withAnimation(.easeInOut(duration: 0.2)) {
-            selectedModeRaw = mode.rawValue
-        }
+        selectedModeRaw = mode.rawValue
     }
 }
 
@@ -56,6 +52,7 @@ private struct ExerciseLibraryBrowserView: View {
     @State private var searchText = ""
     @State private var debouncedSearchText = ""
     @State private var displayItems: [ExerciseLibraryItem] = []
+    @State private var restoredFilters = false
     @State private var filterGeneration = 0
     @State private var searchDebounceTask: Task<Void, Never>?
     @State private var filterPersistTask: Task<Void, Never>?
@@ -179,12 +176,14 @@ private struct ExerciseLibraryBrowserView: View {
         }
         .workoutScreen()
         .onAppear {
+            guard !restoredFilters else { return }
+            restoredFilters = true
             applyFilterState(ExerciseFilterStateStore.load(key: ExerciseFilterStateStore.workoutsKey))
             debouncedSearchText = searchText
-            refreshDisplayItems()
             normalizeSplitGroupSelection()
             normalizePrimaryFilterSelection()
             normalizeEquipmentFilterSelection()
+            refreshDisplayItems()
         }
         .onDisappear {
             filterPersistTask?.cancel()
@@ -725,13 +724,13 @@ private struct FilterMenuPill: View {
 
             VStack(alignment: .leading, spacing: 1) {
                 Text(title)
-                    .font(.caption2.weight(.bold))
+                    .font(.system(.caption2, weight: .bold).width(.condensed))
                     .foregroundStyle(Color.workoutMutedText)
                     .textCase(.uppercase)
                     .lineLimit(1)
 
                 Text(value)
-                    .font(.subheadline.weight(.bold))
+                    .font(.system(.subheadline, weight: .bold).width(.condensed))
                     .foregroundStyle(Color.workoutCharcoal)
                     .lineLimit(1)
                     .minimumScaleFactor(0.78)
@@ -744,18 +743,9 @@ private struct FilterMenuPill: View {
         }
         .padding(.horizontal, 12)
         .frame(minWidth: 112, minHeight: 46, alignment: .leading)
-        .background(
-            Color.workoutPanel.opacity(isDefaultValue ? 0.30 : 0.46),
-            in: RoundedRectangle(cornerRadius: 17, style: .continuous)
-        )
-        .overlay {
-            RoundedRectangle(cornerRadius: 17, style: .continuous)
-                .stroke(
-                    (isDefaultValue ? Color.workoutHairline : Color.workoutAccent).opacity(isDefaultValue ? 0.30 : 0.42),
-                    lineWidth: 0.5
-                )
-        }
-        .contentShape(RoundedRectangle(cornerRadius: 17, style: .continuous))
+        .background(isDefaultValue ? AppColors.flashInset : Color.workoutPanel)
+        .pinkNeoRule(isDefaultValue ? Color.workoutHairline.opacity(0.45) : AppColors.accentText)
+        .contentShape(Rectangle())
     }
 }
 

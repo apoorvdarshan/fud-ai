@@ -744,11 +744,12 @@ internal fun PeriodNavigator(
     val context = LocalContext.current
     val label = remember(start, end) { formatProgressPeriod(context, start, end) }
     if (embedded) {
+        val neo = pinkNeoPalette()
         Box(
             Modifier
                 .fillMaxWidth()
-                .clip(RoundedCornerShape(12.dp))
-                .background(AppColors.Calorie.copy(alpha = 0.055f))
+                .background(neo.inset)
+                .border(1.dp, neo.rule.copy(alpha = 0.32f))
         ) {
             PeriodNavigatorRow(label, canGoForward, onPrevious, onNext, previousDescription, nextDescription)
         }

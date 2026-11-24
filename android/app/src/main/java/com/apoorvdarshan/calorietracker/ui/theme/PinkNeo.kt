@@ -9,10 +9,12 @@ import androidx.compose.ui.text.style.TextGeometricTransform
 
 // 04 Flash: neutral paper and ink with a solid electric-pink accent.
 internal val PinkNeoPaperLight = Color(0xFFFFFDFC)
-internal val PinkNeoPaperDark = Color(0xFF131114)
+internal val PinkNeoPaperDark = Color(0xFF121214)
 internal val PinkNeoPanelLight = Color.White
-internal val PinkNeoPanelDark = Color(0xFF211C23)
-private val FlashRailDark = Color(0xFF221E26)
+internal val PinkNeoPanelDark = Color(0xFF19191B)
+private val FlashRailDark = Color(0xFF18181A)
+private val FlashInsetLight = Color(0xFFF6F4F3)
+private val FlashInsetDark = Color(0xFF141416)
 internal val FlashInkLight = Color(0xFF171219)
 internal val FlashInkDark = Color(0xFFF9F5F7)
 internal val FlashPink = Color(0xFFFF006A)
@@ -30,7 +32,8 @@ internal data class PinkNeoPalette(
     val action: Color,
     val onAction: Color,
     val emptyActionSegment: Color,
-    val wash: Color
+    val wash: Color,
+    val inset: Color
 )
 
 @Composable
@@ -47,10 +50,15 @@ internal fun pinkNeoPalette(): PinkNeoPalette {
         panel = scheme.surface,
         ink = ink,
         rule = if (pink && !gray) ink else ink.copy(alpha = if (dark) 0.75f else 0.82f),
-        accent = action,
+        accent = if (!pink) action else if (dark) Color(0xFFFF4D91) else Color(0xFFC50051),
         action = action,
         onAction = actionInk,
         emptyActionSegment = if (actionInk == Color.White) Color.Black else Color.White,
-        wash = if (pink && dark && !gray) FlashRailDark else scheme.surface
+        wash = if (pink && dark && !gray) FlashRailDark else scheme.surface,
+        inset = when {
+            gray -> Color(0xFF26272B)
+            pink -> if (dark) FlashInsetDark else FlashInsetLight
+            else -> scheme.background
+        }
     )
 }

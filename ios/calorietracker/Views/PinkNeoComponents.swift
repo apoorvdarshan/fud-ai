@@ -84,8 +84,8 @@ struct PinkNeoRail: View {
         .padding(4)
         .frame(width: min(railWidth, 76))
         .foregroundStyle(palette.ink)
-        .background(palette.wash, in: RoundedRectangle(cornerRadius: 13))
-        .overlay(RoundedRectangle(cornerRadius: 13).strokeBorder(palette.rule, lineWidth: 1))
+        .background(palette.wash, in: RoundedRectangle(cornerRadius: 9))
+        .overlay(RoundedRectangle(cornerRadius: 9).strokeBorder(palette.rule, lineWidth: 1).allowsHitTesting(false))
         .padding(.vertical, 7)
         .accessibilityElement(children: .contain)
         .accessibilityIdentifier("nav.rail")
@@ -116,9 +116,12 @@ struct PinkNeoRail: View {
             .frame(maxWidth: .infinity, minHeight: 48)
             .foregroundStyle(item.selected ? palette.onAction : palette.ink)
             .background(item.selected ? palette.action : (outlined ? palette.panel : Color.clear),
-                        in: RoundedRectangle(cornerRadius: 7))
+                         in: RoundedRectangle(cornerRadius: 5))
             .overlay {
-                if outlined { RoundedRectangle(cornerRadius: 7).strokeBorder(palette.rule, lineWidth: 1) }
+                if outlined {
+                    RoundedRectangle(cornerRadius: 5).strokeBorder(palette.rule, lineWidth: 1)
+                        .allowsHitTesting(false)
+                }
             }
             .contentShape(Rectangle())
         }
@@ -221,17 +224,7 @@ struct PinkNeoCalorieSummary: View {
                         .minimumScaleFactor(0.55)
                     Text(status)
                         .font(.system(.footnote, weight: .bold).width(.condensed))
-                    HStack(spacing: 2) {
-                        ForEach(0..<20) { index in
-                            GeometryReader { proxy in
-                                Rectangle().fill(palette.emptyActionSegment)
-                                    .overlay(alignment: .leading) {
-                                        Rectangle().fill(palette.onAction)
-                                            .frame(width: proxy.size.width * max(0, min(1, shown * 20 - Double(index))))
-                                    }
-                            }
-                        }
-                    }
+                     PinkNeoEnergySegments(progress: shown, ink: palette.onAction, track: palette.emptyActionSegment)
                     .frame(height: 10)
                     .accessibilityHidden(true)
                 }
@@ -277,6 +270,42 @@ struct PinkNeoCalorieSummary: View {
         if replay || reduceMotion { shown = reduceMotion ? progress : 0 }
         guard !reduceMotion else { return }
         withAnimation(.easeOut(duration: 0.45)) { shown = progress }
+    }
+}
+
+/// One animatable drawing instead of measuring twenty SwiftUI subtrees on each frame.
+private struct PinkNeoEnergySegments: View, Animatable {
+    var progress: Double
+    let ink: Color
+    let track: Color
+
+    var animatableData: Double {
+        get { progress }
+        set { progress = newValue }
+    }
+
+    var body: some View {
+        Canvas { context, size in
+            let count = 20
+            let gap = min(2, size.width / 40)
+            let width = (size.width - gap * CGFloat(count - 1)) / CGFloat(count)
+            guard width > 0 else { return }
+            var filled = Path()
+            var unfilled = Path()
+            for index in 0..<count {
+                let x = CGFloat(index) * (width + gap)
+                let fraction = max(0, min(1, progress * Double(count) - Double(index)))
+                let fillWidth = width * CGFloat(fraction)
+                if fillWidth > 0 {
+                    filled.addRect(CGRect(x: x, y: 0, width: fillWidth, height: size.height))
+                }
+                if fillWidth < width {
+                    unfilled.addRect(CGRect(x: x + fillWidth, y: 0, width: width - fillWidth, height: size.height))
+                }
+            }
+            context.fill(unfilled, with: .color(track))
+            context.fill(filled, with: .color(ink))
+        }
     }
 }
 

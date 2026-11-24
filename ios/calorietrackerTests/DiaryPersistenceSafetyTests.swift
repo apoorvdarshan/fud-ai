@@ -6,6 +6,35 @@ import Testing
 /// the duplicate-id trap in `Dictionary(uniqueKeysWithValues:)`.
 @MainActor
 struct DiaryPersistenceSafetyTests {
+    @Test func foodDayLookupRefreshesAfterEditsAndTimeZoneChanges() throws {
+        try withDefaults { defaults, backupDir in
+            let store = FoodStore(observesExternalChanges: false, defaults: defaults, corruptBackupDirectory: backupDir)
+            var utc = Calendar(identifier: .gregorian)
+            utc.timeZone = try #require(TimeZone(secondsFromGMT: 0))
+            var west = utc
+            west.timeZone = try #require(TimeZone(secondsFromGMT: -8 * 3600))
+            let midnight = try #require(utc.date(from: DateComponents(year: 2026, month: 1, day: 2)))
+            let earlier = midnight.addingTimeInterval(-30 * 60)
+            let later = midnight.addingTimeInterval(30 * 60)
+            let snack = FoodEntry(name: "Snack", calories: 80, protein: 1, carbs: 16, fat: 0,
+                                  timestamp: later, source: .manual)
+            let meal = FoodEntry(name: "Meal", calories: 300, protein: 20, carbs: 30, fat: 10,
+                                 timestamp: earlier, source: .manual)
+            store.replaceAllEntries([snack, meal])
+            #expect(store.entries(for: later, calendar: utc).map(\.id) == [snack.id])
+            #expect(store.entries(for: later, calendar: west).map(\.id) == [snack.id, meal.id])
+            #expect(store.entries(for: later, calendar: utc).map(\.id) == [snack.id])
+
+            let previousRevision = store.entriesRevision
+            let moved = FoodEntry(id: snack.id, name: snack.name, calories: 80, protein: 1, carbs: 16,
+                                  fat: 0, timestamp: earlier.addingTimeInterval(-1), source: .manual)
+            #expect(store.updateEntry(moved))
+            #expect(store.entriesRevision != previousRevision)
+            #expect(store.entries(for: later, calendar: utc).isEmpty)
+            #expect(store.entries(for: earlier, calendar: utc).map(\.id) == [meal.id, snack.id])
+        }
+    }
+
     // MARK: - PersistedBlobGuard
 
     @Test func missingKeyIsReportedAsMissingNotCorrupt() throws {

@@ -3615,7 +3615,8 @@ struct MultiPhotoCaptureSheet: View {
                                     .resizable()
                                     .scaledToFill()
                                     .frame(width: 240, height: 260)
-                                    .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+                                    .clipped()
+                                    .pinkNeoRule(AppColors.flashRule)
                                     .overlay(alignment: .topTrailing) {
                                         Button {
                                             onRemove(index)
@@ -3666,8 +3667,8 @@ struct MultiPhotoCaptureSheet: View {
                     HStack(spacing: 12) {
                         VStack(alignment: .leading, spacing: 5) {
                             HStack(spacing: 6) {
-                                Text("Progressive Meal")
-                                    .font(.system(.body, design: .rounded, weight: .semibold))
+                                 Text("Progressive Meal")
+                                     .font(.system(.body, weight: .bold).width(.condensed))
                                 Button {
                                     showProgressiveInfo = true
                                 } label: {
@@ -3687,30 +3688,27 @@ struct MultiPhotoCaptureSheet: View {
                             .labelsHidden()
                             .tint(AppColors.calorie)
                             .disabled(images.count < 2)
-                    }
-                    .padding(14)
-                    .background(
-                        Color(.secondarySystemGroupedBackground),
-                        in: RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    )
+                     }
+                     .padding(14)
+                     .flashPanel()
 
                     VStack(alignment: .leading, spacing: 8) {
-                        Text("Note for food analysis (optional)")
-                            .font(.system(.subheadline, design: .rounded, weight: .semibold))
-                            .foregroundStyle(.secondary)
+                         Text("Note for food analysis (optional)")
+                             .flashSectionHeading()
                         TextField(
                             "e.g. chicken is 180g, rice is 220g, use half the sauce",
                             text: $description,
                             axis: .vertical
                         )
-                        .lineLimit(3...6)
-                        .padding(14)
-                        .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 14))
+                         .lineLimit(3...6)
+                         .textFieldStyle(.plain)
+                         .padding(14)
+                         .flashPanel()
                     }
                 }
                 .padding()
             }
-            .background(Color(.systemGroupedBackground))
+             .background(AppColors.appBackground)
             .navigationTitle("Meal Photos")
             .navigationBarTitleDisplayMode(.inline)
             .photosPicker(
@@ -3762,20 +3760,15 @@ struct ContextDescriptionSheet: View {
                 VStack(spacing: 20) {
                     if let image {
                         Image(uiImage: image)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(maxHeight: 240)
-                            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                                    .strokeBorder(AppColors.calorie.opacity(0.15), lineWidth: 1)
-                            )
+                             .resizable()
+                             .scaledToFit()
+                             .frame(maxHeight: 240)
+                             .pinkNeoRule(AppColors.flashRule)
                     }
 
                     VStack(alignment: .leading, spacing: 8) {
-                        Text("Note for food analysis (optional)")
-                            .font(.system(.subheadline, design: .rounded, weight: .semibold))
-                            .foregroundStyle(.secondary)
+                         Text("Note for food analysis (optional)")
+                             .flashSectionHeading()
 
                         ZStack(alignment: .topLeading) {
                             if description.isEmpty {
@@ -3793,18 +3786,15 @@ struct ContextDescriptionSheet: View {
                                 .focused($isFocused)
                                 .padding(.horizontal, 6)
                                 .padding(.vertical, 10)
-                        }
-                        .padding(12)
-                        .background(
-                            RoundedRectangle(cornerRadius: 12, style: .continuous)
-                                .fill(Color(.secondarySystemGroupedBackground))
-                        )
+                         }
+                         .padding(12)
+                         .flashPanel()
                     }
 
                 }
                 .padding()
             }
-            .background(Color(.systemGroupedBackground))
+             .background(AppColors.appBackground)
             .navigationTitle("Add Description")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -4296,6 +4286,7 @@ struct ProgressTabView: View {
     @AppStorage("healthKitEnabled") private var healthKitEnabled = false
     /// Off ends the calorie chart and nutrition averages yesterday (#514).
     @AppStorage("progressIncludeToday") private var includeToday = true
+    @AppStorage(OptionalNutrientGoals.storageKey) private var optionalGoalsData = Data()
     @State private var timeRange: TimeRange = .week
     /// Whole windows stepped back from the current one; session-only, reset
     /// whenever the range changes.
@@ -4309,8 +4300,7 @@ struct ProgressTabView: View {
     @State private var showImportedHealthWorkoutHistory = false
     @State private var progressMetric: ProgressMetric = .weight
     @State private var progressOverviewMode: ProgressOverviewMode = .myProgress
-    @State private var foodRangeStats: ProgressFoodRangeStats?
-    @State private var isLoadingFoodRangeStats = false
+    @State private var loadedFoodRange: (key: FoodRangeKey, stats: ProgressFoodRangeStats)?
     /// Daily steps for the selected window; nil while loading.
     @State private var stepDays: [StepDay]?
     /// The window `stepDays` belongs to, so a refresh of the same window keeps
@@ -4324,9 +4314,12 @@ struct ProgressTabView: View {
 
     private var userProfile: UserProfile { profileStore.profile }
 
-    private var foodRangeStatsTaskKey: String {
-        let latest = foodStore.entries.first?.id.uuidString ?? "none"
-        return "\(timeRange.rawValue)|\(periodOffset)|\(includeToday)|\(foodStore.entries.count)|\(latest)"
+    private struct FoodRangeKey: Equatable {
+        let dayCount: Int
+        let lastDay: Date
+        let diaryRevision: Int
+        let profile: UserProfile
+        let optionalGoalsData: Data
     }
 
     /// Switching ranges always lands on the current window, in the same
@@ -4399,7 +4392,14 @@ struct ProgressTabView: View {
     }
 
     var body: some View {
-        let _ = profileStore.profile
+        let rangeKey = FoodRangeKey(
+            dayCount: timeRange.days,
+            lastDay: nutritionDateRange.upperBound,
+            diaryRevision: foodStore.entriesRevision,
+            profile: userProfile,
+            optionalGoalsData: optionalGoalsData
+        )
+        let foodRangeStats = loadedFoodRange?.key == rangeKey ? loadedFoodRange?.stats : nil
         return NavigationStack {
             VStack(spacing: 0) {
                 ProgressOverviewModeSelector(selection: $progressOverviewMode)
@@ -4409,7 +4409,7 @@ struct ProgressTabView: View {
 
                 if progressOverviewMode == .myProgress {
                     ScrollView {
-                        VStack(spacing: 18) {
+                        LazyVStack(spacing: 18) {
                     WeeklyRecapCard()
                         .padding(.horizontal)
 
@@ -4516,25 +4516,14 @@ struct ProgressTabView: View {
                     )
                     .padding(.horizontal)
 
-                    // Calorie / macro / nutrient stats load asynchronously so the
-                    // range picker stays instant and interruptible mid-load.
-                    if isLoadingFoodRangeStats && foodRangeStats == nil {
-                        ProgressNutritionLoadingCard()
-                            .padding(.horizontal)
-                    } else if let foodRangeStats {
+                    // Keep a visited range warm, but don't display its numbers
+                    // when the selected range or source data has changed.
+                    if let foodRangeStats {
                         CalorieChartSection(
                             dailyCalories: foodRangeStats.dailyCalories,
                             calorieGoal: userProfile.effectiveCalories
                         )
                         .padding(.horizontal)
-                        .opacity(isLoadingFoodRangeStats ? 0.45 : 1)
-                        .overlay(alignment: .topTrailing) {
-                            if isLoadingFoodRangeStats {
-                                ProgressView()
-                                    .tint(AppColors.calorie)
-                                    .padding(12)
-                            }
-                        }
 
                         MacroAveragesSection(
                             avgProtein: foodRangeStats.avgProtein,
@@ -4545,12 +4534,10 @@ struct ProgressTabView: View {
                             fatGoal: userProfile.effectiveFat
                         )
                         .padding(.horizontal)
-                        .opacity(isLoadingFoodRangeStats ? 0.45 : 1)
 
                         if !foodRangeStats.nutrientItems.isEmpty {
                             NutrientAveragesSection(items: foodRangeStats.nutrientItems)
                                 .padding(.horizontal)
-                                .opacity(isLoadingFoodRangeStats ? 0.45 : 1)
                         }
                     } else {
                         ProgressNutritionLoadingCard()
@@ -4568,24 +4555,20 @@ struct ProgressTabView: View {
             .readableWidth()
             .background(AppColors.appBackground)
             .navigationBarHidden(true)
-            .task(id: foodRangeStatsTaskKey) {
-                isLoadingFoodRangeStats = true
-                // Drop stale nutrition for a different range so charts don't lie
-                // while a longer window is still computing. Switching ranges
-                // cancels this task immediately via task(id:).
-                foodRangeStats = nil
-                // Let the picker / loading card paint before the (now single-pass) work.
+            .task(id: rangeKey) {
+                guard loadedFoodRange?.key != rangeKey else { return }
+                // Defer the aggregate until the tab controls are ready.
                 await Task.yield()
+                guard !Task.isCancelled else { return }
                 let stats = ProgressFoodRangeStats.compute(
                     entries: foodStore.entries,
-                    dayCount: timeRange.days,
-                    endDay: nutritionDateRange.upperBound,
-                    profile: userProfile,
-                    optionalGoals: .current
+                    dayCount: rangeKey.dayCount,
+                    endDay: rangeKey.lastDay,
+                    profile: rangeKey.profile,
+                    optionalGoals: .decoded(from: rangeKey.optionalGoalsData)
                 )
                 guard !Task.isCancelled else { return }
-                foodRangeStats = stats
-                isLoadingFoodRangeStats = false
+                loadedFoodRange = (rangeKey, stats)
             }
             .task(id: stepsTaskKey) {
                 // Steps come from Apple Health on demand, only while the Steps
@@ -4984,7 +4967,7 @@ struct ProfileView: View {
     @State private var invalidGoalWeightMessage = ""
     @State private var selectedProvider: AIProvider = AIProviderSettings.selectedProvider
     @State private var selectedModel: String = AIProviderSettings.selectedModel
-    @State private var apiKeyText: String = AIProviderSettings.apiKey(for: AIProviderSettings.selectedProvider) ?? ""
+    @State private var apiKeyText = ""
     @State private var customBaseURL: String = AIProviderSettings.customBaseURL(for: AIProviderSettings.selectedProvider) ?? ""
     @AppStorage("openRouterReasoningEffort") private var openRouterReasoningEffort: OpenRouterReasoningEffort = .auto
     @State private var maxResponseTokensText: String = String(AIProviderSettings.maxResponseTokens)
@@ -4994,7 +4977,7 @@ struct ProfileView: View {
     @State private var separateTextProviderEnabled: Bool = AIProviderSettings.separateTextProviderEnabled
     @State private var selectedTextProvider: AIProvider = AIProviderSettings.selectedTextProvider
     @State private var selectedTextModel: String = AIProviderSettings.selectedTextModel
-    @State private var textApiKeyText: String = AIProviderSettings.apiKey(for: AIProviderSettings.selectedTextProvider) ?? ""
+    @State private var textApiKeyText = ""
     @State private var textBaseURL: String = AIProviderSettings.customBaseURL(for: AIProviderSettings.selectedTextProvider) ?? ""
     @State private var showTextAPIKey = false
     @State private var customAIInstructions: String = AIProviderSettings.userContext
@@ -5003,25 +4986,26 @@ struct ProfileView: View {
     @State private var fallbackEnabled: Bool = AIProviderSettings.fallbackEnabled
     @State private var selectedFallbackProvider: AIProvider = AIProviderSettings.selectedFallbackProvider
     @State private var selectedFallbackModel: String = AIProviderSettings.selectedFallbackModel
-    @State private var fallbackApiKeyText: String = AIProviderSettings.apiKey(for: AIProviderSettings.selectedFallbackProvider) ?? ""
+    @State private var fallbackApiKeyText = ""
     @State private var fallbackBaseURL: String = AIProviderSettings.fallbackCustomBaseURL(for: AIProviderSettings.selectedFallbackProvider) ?? ""
     @State private var showFallbackAPIKey = false
     @State private var textFallbackEnabled: Bool = AIProviderSettings.textFallbackEnabled
     @State private var selectedTextFallbackProvider: AIProvider = AIProviderSettings.selectedTextFallbackProvider
     @State private var selectedTextFallbackModel: String = AIProviderSettings.selectedTextFallbackModel
-    @State private var textFallbackApiKeyText: String = AIProviderSettings.apiKey(for: AIProviderSettings.selectedTextFallbackProvider) ?? ""
+    @State private var textFallbackApiKeyText = ""
     @State private var textFallbackBaseURL: String = AIProviderSettings.fallbackCustomBaseURL(for: AIProviderSettings.selectedTextFallbackProvider) ?? ""
     @State private var showTextFallbackAPIKey = false
     @State private var localModelAvailabilityRevision = 0
     @State private var selectedSpeechProvider: SpeechProvider = SpeechSettings.selectedProvider
     @State private var selectedSpeechLanguage: SpeechLanguage = SpeechSettings.selectedLanguage(for: SpeechSettings.selectedProvider)
-    @State private var speechApiKeyText: String = SpeechSettings.apiKey(for: SpeechSettings.selectedProvider) ?? ""
+    @State private var speechApiKeyText = ""
     @State private var showSpeechAPIKey = false
     @State private var speechFallbackEnabled: Bool = SpeechSettings.fallbackEnabled
     @State private var selectedSpeechFallbackProvider: SpeechProvider = SpeechSettings.selectedFallbackProvider
     @State private var selectedSpeechFallbackLanguage: SpeechLanguage = SpeechSettings.selectedLanguage(for: SpeechSettings.selectedFallbackProvider)
-    @State private var speechFallbackApiKeyText: String = SpeechSettings.apiKey(for: SpeechSettings.selectedFallbackProvider) ?? ""
+    @State private var speechFallbackApiKeyText = ""
     @State private var showSpeechFallbackAPIKey = false
+    @State private var didLoadProviderCredentials = false
 
     private var heightMetric: Bool { heightUnitRaw == "cm" }
     private var weightMetric: Bool { weightUnitRaw == "kg" }
@@ -5080,7 +5064,15 @@ struct ProfileView: View {
     var body: some View {
         Group {
             if let settingsCategory {
-                settingsList
+                Group {
+                    if needsProviderCredentials && !didLoadProviderCredentials {
+                        ProgressView()
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    } else {
+                        settingsList
+                    }
+                }
+                    .task { loadProviderCredentialsIfNeeded() }
                     .readableWidth()
                     .background(AppColors.appBackground)
                     .navigationTitle(Text(settingsCategory.title))
@@ -5122,6 +5114,27 @@ struct ProfileView: View {
         }
     }
 
+    private var needsProviderCredentials: Bool {
+        settingsCategory == .aiProviders || settingsCategory == .speechToText
+    }
+
+    private func loadProviderCredentialsIfNeeded() {
+        guard needsProviderCredentials, !didLoadProviderCredentials else { return }
+        // Constructing the Settings tab or another category must not do
+        // synchronous Keychain I/O. Seed fields before mounting their change
+        // handlers so programmatic reads never save an empty placeholder.
+        if settingsCategory == .aiProviders {
+            apiKeyText = AIProviderSettings.apiKey(for: selectedProvider) ?? ""
+            textApiKeyText = AIProviderSettings.apiKey(for: selectedTextProvider) ?? ""
+            fallbackApiKeyText = AIProviderSettings.apiKey(for: selectedFallbackProvider) ?? ""
+            textFallbackApiKeyText = AIProviderSettings.apiKey(for: selectedTextFallbackProvider) ?? ""
+        } else {
+            speechApiKeyText = SpeechSettings.apiKey(for: selectedSpeechProvider) ?? ""
+            speechFallbackApiKeyText = SpeechSettings.apiKey(for: selectedSpeechFallbackProvider) ?? ""
+        }
+        didLoadProviderCredentials = true
+    }
+
     /// The voice assistant opens a Settings section (or the Settings list).
     private func applyAssistantSettingsRequest() {
         guard let request = assistantNavigator.takeSettingsRequest() else { return }
@@ -5130,6 +5143,17 @@ struct ProfileView: View {
 
     private var settingsHub: some View {
         List {
+            Text("Settings")
+                .font(.system(.largeTitle, weight: .black).width(.condensed))
+                .textCase(.uppercase)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(10)
+                .flashPanel()
+                .accessibilityAddTraits(.isHeader)
+                .listRowInsets(EdgeInsets(top: 4, leading: 10, bottom: 4, trailing: 10))
+                .listRowBackground(Color.clear)
+                .listRowSeparator(.hidden)
+
             Section {
                 ForEach(ProfileSettingsCategory.preferenceCases) { category in
                     ProfileSettingsCategoryRow(category: category)

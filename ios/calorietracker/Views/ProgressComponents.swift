@@ -107,15 +107,13 @@ struct ProgressPeriodNavigator: View {
     let onNext: () -> Void
     var previousLabel: LocalizedStringKey = "Previous period"
     var nextLabel: LocalizedStringKey = "Next period"
-    /// Inside another card: a tinted fill instead of a second card frame.
+    /// Inside another card: an inset strip with a fine rule.
     var isEmbedded = false
 
     var body: some View {
         if isEmbedded {
-            arrows.background(
-                AppColors.calorie.opacity(0.055),
-                in: RoundedRectangle(cornerRadius: 12, style: .continuous)
-            )
+            arrows.background(AppColors.flashInset)
+                .pinkNeoRule(AppColors.flashRule.opacity(0.32))
         } else {
             arrows.progressCardStyle(cornerRadius: 14)
         }
@@ -132,7 +130,7 @@ struct ProgressPeriodNavigator: View {
             .accessibilityLabel(Text(previousLabel))
 
             Text(label)
-                .font(.system(.subheadline, design: .rounded, weight: .semibold))
+                .font(.system(.subheadline, weight: .semibold).width(.condensed))
                 .monospacedDigit()
                 .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
@@ -768,14 +766,14 @@ struct ProgressFoodRangeStats {
         calendar: Calendar = .current
     ) -> ProgressFoodRangeStats {
         let lastDay = calendar.startOfDay(for: endDay)
-        guard let rangeStart = calendar.date(byAdding: .day, value: -(dayCount - 1), to: lastDay) else {
+        guard let rangeStart = calendar.date(byAdding: .day, value: -(dayCount - 1), to: lastDay),
+              let rangeEnd = calendar.date(byAdding: .day, value: 1, to: lastDay) else {
             return .empty
         }
 
         var buckets: [Date: [FoodEntry]] = [:]
-        for entry in entries {
+        for entry in entries where entry.timestamp >= rangeStart && entry.timestamp < rangeEnd {
             let day = calendar.startOfDay(for: entry.timestamp)
-            guard day >= rangeStart, day <= lastDay else { continue }
             buckets[day, default: []].append(entry)
         }
 

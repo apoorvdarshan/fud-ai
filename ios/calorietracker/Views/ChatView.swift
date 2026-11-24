@@ -162,7 +162,7 @@ struct ChatView: View {
                     Text("Ask your Coach")
                         .font(.system(.title2, weight: .black).width(.condensed))
                     Text("Your coach can see your nutrition, goals, and workout diary. Ask about food, progress, recovery, or your training plan.")
-                        .font(.system(.subheadline, design: .rounded))
+                        .font(.subheadline)
                         .foregroundStyle(.secondary)
                         .multilineTextAlignment(.center)
                         .lineSpacing(2)
@@ -182,8 +182,8 @@ struct ChatView: View {
 
     private var messageList: some View {
         ScrollViewReader { proxy in
-            ScrollView {
-                VStack(spacing: 14) {
+            let conversation = ScrollView {
+                LazyVStack(spacing: 14) {
                     ForEach(messages) { msg in
                         MessageBubble(
                             message: msg,
@@ -224,10 +224,15 @@ struct ChatView: View {
                 .padding(.bottom, 16)
             }
             .scrollDismissesKeyboard(.immediately)
-            .onAppear {
-                guard let lastID = messages.last?.id else { return }
-                DispatchQueue.main.async {
-                    proxy.scrollTo(lastID, anchor: .bottom)
+
+            Group {
+                if #available(iOS 18, *) {
+                    conversation.defaultScrollAnchor(.bottom, for: .initialOffset)
+                } else {
+                    conversation.onAppear {
+                        guard let lastID = messages.last?.id else { return }
+                        DispatchQueue.main.async { proxy.scrollTo(lastID, anchor: .bottom) }
+                    }
                 }
             }
             .onChange(of: messages.count) { _, _ in

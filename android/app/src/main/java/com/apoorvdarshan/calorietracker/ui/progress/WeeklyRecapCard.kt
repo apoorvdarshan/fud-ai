@@ -1,6 +1,7 @@
 package com.apoorvdarshan.calorietracker.ui.progress
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,7 +14,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AutoAwesome
@@ -36,7 +36,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.pluralStringResource
@@ -58,6 +57,8 @@ import com.apoorvdarshan.calorietracker.ui.components.FudGlassSurface
 import com.apoorvdarshan.calorietracker.ui.components.LocalEnergyUnit
 import com.apoorvdarshan.calorietracker.ui.components.energyTextDisplayed
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import com.apoorvdarshan.calorietracker.ui.theme.PinkNeoCondensed
+import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 import java.text.NumberFormat
 import java.time.DayOfWeek
 import java.time.LocalDate
@@ -252,11 +253,12 @@ private data class RecapTile(val value: String, val label: String, val detail: R
 @Composable
 private fun WeeklyRecapTile(tile: RecapTile, modifier: Modifier = Modifier) {
     val (value, label, detail) = tile
+    val neo = pinkNeoPalette()
     Column(
         modifier = modifier
             .fillMaxHeight()
-            .clip(RoundedCornerShape(10.dp))
-            .background(AppColors.Calorie.copy(alpha = 0.055f))
+            .background(neo.inset)
+            .border(1.dp, neo.rule.copy(alpha = 0.32f))
             .padding(horizontal = 4.dp, vertical = 8.dp)
             .clearAndSetSemantics { contentDescription = "$value, $label, ${detail.text}" },
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -266,7 +268,8 @@ private fun WeeklyRecapTile(tile: RecapTile, modifier: Modifier = Modifier) {
             value,
             modifier = Modifier.fillMaxWidth(),
             fontSize = 15.sp,
-            fontWeight = FontWeight.Bold,
+            fontWeight = FontWeight.Black,
+            style = PinkNeoCondensed,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             textAlign = TextAlign.Center,
@@ -277,6 +280,7 @@ private fun WeeklyRecapTile(tile: RecapTile, modifier: Modifier = Modifier) {
             label,
             fontSize = 11.sp,
             lineHeight = 13.sp,
+            style = PinkNeoCondensed,
             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
             minLines = 2,
             maxLines = 2,

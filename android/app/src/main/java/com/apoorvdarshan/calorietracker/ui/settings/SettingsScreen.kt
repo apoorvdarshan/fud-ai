@@ -238,6 +238,7 @@ import com.apoorvdarshan.calorietracker.ui.components.SplitDecimalWheelPicker
 import com.apoorvdarshan.calorietracker.ui.components.UnitToggle
 import com.apoorvdarshan.calorietracker.ui.navigation.BottomNavScrollPadding
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import com.apoorvdarshan.calorietracker.ui.theme.PinkNeoCondensed
 import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 import com.apoorvdarshan.calorietracker.ui.theme.AppThemeColor
 import com.apoorvdarshan.calorietracker.ui.navigation.FudAIRoutes
@@ -2298,7 +2299,15 @@ fun SettingsScreen(
 
 @Composable
 private fun SettingsCategoryHub(onSelect: (SettingsCategory) -> Unit) {
+    val neo = pinkNeoPalette()
     Column(verticalArrangement = Arrangement.spacedBy(18.dp)) {
+        Text(
+            stringResource(R.string.nav_settings),
+            modifier = Modifier.fillMaxWidth().background(neo.panel).border(1.dp, neo.rule).padding(12.dp),
+            fontSize = 30.sp,
+            fontWeight = FontWeight.Black,
+            style = PinkNeoCondensed
+        )
         SectionCard {
             SettingsCategoryRows(SettingsCategory.preferenceEntries, onSelect)
         }

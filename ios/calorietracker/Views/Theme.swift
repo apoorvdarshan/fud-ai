@@ -190,7 +190,12 @@ enum AppColors {
     static var onAccent: Color { contrastInk(on: AppThemeColor.current.startHex) }
     static var accentText: Color { AppThemeColor.current == .fudPink ? flashAccentText : calorie }
     static let flashRule = dynamicColor(light: PinkNeoFlash.inkLight, dark: PinkNeoFlash.inkDark)
-    private static let flashAccentText = dynamicColor(light: 0xC50051, dark: 0xFF5B9D)
+    private static let flashAccentText = dynamicColor(light: 0xC50051, dark: 0xFF4D91)
+    /// Inset information areas are neutral; pink is for actions and meaningful values.
+    static var flashInset: Color {
+        if AppAppearancePalette.shared.usesGray { return Color(hex: 0x26272B) }
+        return AppThemeColor.current == .fudPink ? pinkNeoInset : appBackground
+    }
 
     // Protein
     static var proteinGradient: [Color] { calorieGradient }
@@ -216,6 +221,7 @@ enum AppColors {
 
     private static let pinkNeoPaper = dynamicColor(light: PinkNeoFlash.paperLight, dark: PinkNeoFlash.paperDark)
     private static let pinkNeoPanel = dynamicColor(light: PinkNeoFlash.panelLight, dark: PinkNeoFlash.panelDark)
+    private static let pinkNeoInset = dynamicColor(light: PinkNeoFlash.insetLight, dark: PinkNeoFlash.insetDark)
 
     private static func dynamicColor(light: UInt, dark: UInt) -> Color {
         Color(uiColor: UIColor { traits in
@@ -239,10 +245,12 @@ enum AppColors {
 /// The selected 04 Flash palette. Shared by the shell and its Home components.
 enum PinkNeoFlash {
     static let paperLight: UInt = 0xFFFDFC
-    static let paperDark: UInt = 0x131114
+    static let paperDark: UInt = 0x121214
     static let panelLight: UInt = 0xFFFFFF
-    static let panelDark: UInt = 0x211C23
-    static let railDark: UInt = 0x221E26
+    static let panelDark: UInt = 0x19191B
+    static let railDark: UInt = 0x18181A
+    static let insetLight: UInt = 0xF6F4F3
+    static let insetDark: UInt = 0x141416
     static let inkLight: UInt = 0x171219
     static let inkDark: UInt = 0xF9F5F7
     static let pink: UInt = 0xFF006A

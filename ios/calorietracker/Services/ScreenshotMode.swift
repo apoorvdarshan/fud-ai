@@ -14,6 +14,7 @@ enum ScreenshotMode {
         case progress
         case coach
         case workouts
+        case settings
         case aiProviders
         case voiceSettings
     }
@@ -225,6 +226,8 @@ enum ScreenshotMode {
             navigator.show(.coach)
         case .workouts:
             navigator.show(.workouts)
+        case .settings:
+            navigator.show(.settings)
         case .aiProviders:
             navigator.show(.settings, settingsSection: .aiProviders)
         case .voiceSettings:

@@ -61,6 +61,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
@@ -116,6 +118,7 @@ internal fun VoiceAssistantSettings(container: AppContainer, onOpenAiProviders: 
     val selectedAi by container.prefs.selectedAIProvider.collectAsState(initial = AIProvider.GEMINI)
     val entitlement by container.billing.entitlement.collectAsState()
     val context = LocalContext.current
+    val haptics = LocalHapticFeedback.current
     val preview = container.voicePreview
     val previewState by preview.state.collectAsState()
     val assistantState by container.voiceAssistant.ui.collectAsState()
@@ -170,9 +173,16 @@ internal fun VoiceAssistantSettings(container: AppContainer, onOpenAiProviders: 
     LaunchedEffect(assistantActive) { if (assistantActive) preview.stop() }
 
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        SectionCard {
+        SectionCard(title = stringResource(R.string.voice_mascot)) {
+            VoiceMascotGallery(mascot) { selection ->
+                if (selection != mascot.selected) {
+                    haptics.performHapticFeedback(HapticFeedbackType.SegmentTick)
+                    scope.launch { container.prefs.selectVoiceMascot(selection) }
+                }
+            }
+            HorizontalDivider()
             SettingRow(
-                stringResource(R.string.voice_mascot), mascot.profile.name, icon = Icons.Outlined.Face
+                stringResource(R.string.settings_meal_times_customize), mascot.profile.name, icon = Icons.Outlined.Face
             ) { sheet = VoiceSheet.MASCOT }
         }
         SectionCard {
@@ -293,7 +303,6 @@ internal fun VoiceAssistantSettings(container: AppContainer, onOpenAiProviders: 
                 when (current) {
                     VoiceSheet.MASCOT -> VoiceMascotSettingsContent(
                         preferences = mascot,
-                        onSelect = { selection -> scope.launch { container.prefs.selectVoiceMascot(selection) } },
                         onEdit = { selection, change -> scope.launch { container.prefs.editVoiceMascot(selection, change) } }
                     )
                     VoiceSheet.PROVIDER -> VoiceListSheet(

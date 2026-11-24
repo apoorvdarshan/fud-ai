@@ -81,9 +81,12 @@ struct PinkNeoRailItem: Identifiable {
 struct PinkNeoRail: View {
     let items: [PinkNeoRailItem]
     let onVoice: (() -> Void)?
+    let voiceMascot: VoiceMascotProfile
+    let voiceMode: LiveOrbMode
+    let voiceLevel: () -> Double
+    let voiceMotionEnabled: Bool
     private var appearance = PinkNeoAppearance()
     @Environment(\.dynamicTypeSize) private var typeSize
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.scenePhase) private var scenePhase
     @ScaledMetric(relativeTo: .caption2) private var railWidth = 64.0
 
@@ -112,15 +115,15 @@ struct PinkNeoRail: View {
             .scrollIndicators(.hidden)
             if let onVoice {
                 Button(action: onVoice) {
-                    Image(systemName: "waveform")
-                        .font(.system(size: 24, weight: .semibold))
-                        .symbolEffect(.variableColor.iterative.reversing, options: .repeating,
-                                      isActive: scenePhase == .active && !reduceMotion)
+                    VoiceMascotView(mode: voiceMode, profile: voiceMascot, level: voiceLevel, compact: true)
+                        .environment(\.voiceAssistantAnimationActive, scenePhase == .active && voiceMotionEnabled)
+                        .frame(width: 44, height: 44)
                         .frame(maxWidth: .infinity, minHeight: 48)
                         .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)
                 .accessibilityLabel("Talk to Fud AI")
+                .accessibilityValue(Text(verbatim: voiceMascot.name))
                 .accessibilityIdentifier("nav.voice")
             }
         }

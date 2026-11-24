@@ -86,7 +86,10 @@ data class VoiceMascotPreferences(
     val selected: VoiceMascot = VoiceMascot.BRULEE,
     val profiles: Map<VoiceMascot, VoiceMascotOptions> = emptyMap()
 ) {
-    val profile: VoiceMascotProfile get() = VoiceMascotProfile(selected, profiles[selected] ?: VoiceMascotOptions())
+    val profile: VoiceMascotProfile get() = profileFor(selected)
+
+    fun profileFor(mascot: VoiceMascot): VoiceMascotProfile =
+        VoiceMascotProfile(mascot, profiles[mascot] ?: VoiceMascotOptions())
 
     fun editing(mascot: VoiceMascot, update: (VoiceMascotOptions) -> VoiceMascotOptions): VoiceMascotPreferences {
         val options = update(profiles[mascot] ?: VoiceMascotOptions())

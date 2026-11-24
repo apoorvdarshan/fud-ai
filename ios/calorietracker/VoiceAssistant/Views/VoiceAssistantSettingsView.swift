@@ -37,16 +37,24 @@ struct VoiceAssistantSettingsView: View {
     }
 
     var body: some View {
+        let mascots = VoiceMascotPreferences.decode(mascotRaw)
         List {
             Section {
+                VoiceMascotGallery(preferences: mascots) { selection in
+                    guard selection != mascots.selected else { return }
+                    var updated = VoiceMascotPreferences.decode(mascotRaw)
+                    updated.selected = selection
+                    mascotRaw = updated.encoded
+                    AppHaptics.selection()
+                }
                 NavigationLink {
                     VoiceMascotSettingsView()
                 } label: {
                     Label {
                         HStack {
-                            Text("Mascot", tableName: "VoiceMascot")
+                            Text("Customize")
                             Spacer()
-                            Text(verbatim: VoiceMascotPreferences.decode(mascotRaw).profile.name)
+                            Text(verbatim: mascots.profile.name)
                                 .foregroundStyle(.secondary)
                         }
                     } icon: {
@@ -54,6 +62,8 @@ struct VoiceAssistantSettingsView: View {
                     }
                 }
                 .accessibilityIdentifier("settings.voiceAssistant.mascot")
+            } header: {
+                Text("Mascot", tableName: "VoiceMascot")
             }
             .listRowBackground(AppColors.appCard)
             providerSection

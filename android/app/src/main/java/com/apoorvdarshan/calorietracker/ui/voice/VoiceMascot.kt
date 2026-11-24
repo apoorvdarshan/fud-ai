@@ -1,6 +1,7 @@
 package com.apoorvdarshan.calorietracker.ui.voice
 
 import android.animation.ValueAnimator
+import androidx.compose.animation.core.withInfiniteAnimationFrameNanos
 import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -9,7 +10,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -58,6 +58,7 @@ internal fun VoiceMascot(
     modifier: Modifier = Modifier,
     profile: VoiceMascotProfile = VoiceMascotProfile(),
     motionEnabled: Boolean = true,
+    compact: Boolean = false,
     level: () -> Float = { 0f }
 ) {
     val mascot = profile.mascot
@@ -78,8 +79,9 @@ internal fun VoiceMascot(
         }
         var last = Long.MIN_VALUE
         while (true) {
-            withFrameNanos { now ->
-                if (last == Long.MIN_VALUE || now - last >= 30_000_000L) {
+            withInfiniteAnimationFrameNanos { now ->
+                val interval = if (compact && currentMode == OrbMode.IDLE) 56_000_000L else 30_000_000L
+                if (last == Long.MIN_VALUE || now - last >= interval) {
                     pose = VoiceMascotPose.sample(currentMode, now / 1e9, currentLevel(), animated = true)
                     last = now
                 }
@@ -91,9 +93,11 @@ internal fun VoiceMascot(
         val side = size.minDimension.toInt()
         if (side <= 0) return@Canvas
         val spriteSize = IntSize(side, side)
+        val bob = frame.bob * (if (compact) 1.85f else 1f)
+        val tilt = frame.tilt * (if (compact) 1.45f else 1f)
         withTransform({
-            translate((size.width - side) / 2, (size.height - side) / 2 + side * frame.bob)
-            rotate(frame.tilt, Offset(side / 2f, side / 2f))
+            translate((size.width - side) / 2, (size.height - side) / 2 + side * bob)
+            rotate(tilt, Offset(side / 2f, side / 2f))
         }) {
             drawImage(body, dstSize = spriteSize)
             if (colorLayer != null) drawImage(colorLayer, dstSize = spriteSize, colorFilter = tint)

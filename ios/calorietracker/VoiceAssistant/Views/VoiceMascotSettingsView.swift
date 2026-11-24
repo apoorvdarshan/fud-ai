@@ -1,5 +1,56 @@
 import SwiftUI
 
+struct VoiceMascotGallery: View {
+    let preferences: VoiceMascotPreferences
+    let select: (VoiceMascot) -> Void
+    @Environment(\.dynamicTypeSize) private var typeSize
+
+    var body: some View {
+        LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 6),
+                                  count: typeSize.isAccessibilitySize ? 2 : 4), spacing: 6) {
+            ForEach(VoiceMascot.allCases) { mascot in
+                let selected = preferences.selected == mascot
+                let profile = preferences.profile(for: mascot)
+                Button { select(mascot) } label: {
+                    VStack(spacing: 2) {
+                        VoiceMascotView(mode: .idle, profile: profile)
+                            .frame(height: 55)
+                        Text(verbatim: mascot.displayName)
+                            .font(.caption2.weight(selected ? .bold : .medium))
+                            .multilineTextAlignment(.center)
+                            .lineLimit(2, reservesSpace: true)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                    .padding(.horizontal, 2)
+                    .padding(.vertical, 6)
+                    .frame(maxWidth: .infinity, minHeight: 44)
+                    .foregroundStyle(.primary)
+                    .background(selected ? AppColors.calorie.opacity(0.12) : AppColors.appBackground)
+                    .overlay {
+                        Rectangle().strokeBorder(selected ? AppColors.accentText : AppColors.flashRule.opacity(0.25),
+                                                 lineWidth: selected ? 1.5 : 1)
+                    }
+                    .overlay(alignment: .topTrailing) {
+                        if selected {
+                            Image(systemName: "checkmark.circle.fill")
+                                .font(.caption2.weight(.bold))
+                                .foregroundStyle(AppColors.accentText)
+                                .padding(4)
+                                .accessibilityHidden(true)
+                        }
+                    }
+                    .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel(Text(verbatim: mascot.displayName))
+                .accessibilityAddTraits(selected ? .isSelected : [])
+                .accessibilityIdentifier("settings.voiceMascot.gallery.\(mascot.rawValue)")
+            }
+        }
+        .padding(.vertical, 4)
+    }
+}
+
 struct VoiceMascotSettingsView: View {
     @AppStorage(VoiceMascotPreferences.storageKey) private var stored = ""
     @State private var nameDraft = ""
@@ -17,21 +68,6 @@ struct VoiceMascotSettingsView: View {
                     Text(verbatim: profile.name).font(.headline)
                 }
                 .frame(maxWidth: .infinity)
-                FlashChoicePicker(
-                    title: Text("Mascot", tableName: "VoiceMascot"),
-                    selection: Binding(
-                        get: { preferences.selected },
-                        set: { selection in
-                            saveName()
-                            var updated = preferences
-                            updated.selected = selection
-                            stored = updated.encoded
-                            nameDraft = updated.profile.options.name
-                        }
-                    ),
-                    options: VoiceMascot.allCases
-                ) { Text(verbatim: $0.displayName) }
-                .accessibilityIdentifier("settings.voiceMascot.character")
                 TextField("Name", text: $nameDraft, prompt: Text(verbatim: profile.mascot.displayName))
                     .focused($editingName)
                     .submitLabel(.done)

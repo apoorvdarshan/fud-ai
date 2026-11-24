@@ -874,6 +874,36 @@ final class calorietrackerUITests: XCTestCase {
     }
 
     @MainActor
+    func testVoiceMascotGallerySelectsThePinnedCharacter() {
+        let app = makeApp()
+        app.launch()
+        openSettingsCategory("voiceAssistant", in: app)
+
+        let gallery = "settings.voiceMascot.gallery."
+        let brulee = app.buttons[gallery + "brulee"]
+        let jam = app.buttons[gallery + "jam"]
+        XCTAssertTrue(brulee.waitForExistence(timeout: 5))
+        for id in ["brulee", "alien", "star", "croissantCat", "bomboloni", "cherry", "teddy", "jam"] {
+            XCTAssertTrue(app.buttons[gallery + id].isHittable, "Missing gallery tile: \(id)")
+        }
+        XCTAssertTrue(brulee.isSelected)
+        XCTAssertEqual(app.buttons["nav.voice"].value as? String, "Brulee")
+        jam.tap()
+        XCTAssertTrue(jam.isSelected)
+        XCTAssertFalse(brulee.isSelected)
+        XCTAssertEqual(app.buttons["nav.voice"].value as? String, "Jam")
+
+        let customize = app.buttons["settings.voiceAssistant.mascot"]
+        reveal(customize, in: app)
+        customize.tap()
+        XCTAssertTrue(app.textFields["settings.voiceMascot.name"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["settings.voiceMascot.color"].exists)
+        XCTAssertTrue(app.buttons["settings.voiceMascot.personality"].exists)
+        relaunchPreservingData(app)
+        XCTAssertEqual(app.buttons["nav.voice"].value as? String, "Jam")
+    }
+
+    @MainActor
     func testVoicePreviewRequiresConfiguredKeyAndOffersSavedVoicePicker() throws {
         let app = makeApp(defaults: ["-voiceAssistant.provider", "gemini"])
         app.launch()

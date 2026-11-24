@@ -50,6 +50,7 @@ import com.apoorvdarshan.calorietracker.services.hosted.HostedPrompt
 import com.apoorvdarshan.calorietracker.services.update.AndroidUpdateChecker
 import com.apoorvdarshan.calorietracker.services.update.AndroidUpdateState
 import com.apoorvdarshan.calorietracker.services.voice.VoiceSettingsSection
+import com.apoorvdarshan.calorietracker.services.voice.VoiceMascotPreferences
 import com.apoorvdarshan.calorietracker.ui.about.AboutSettingsCategory
 import com.apoorvdarshan.calorietracker.ui.coach.CoachScreen
 import com.apoorvdarshan.calorietracker.ui.components.PostUpdatePromptsHost
@@ -113,6 +114,9 @@ fun FudAINavHost(
     val voiceExpanded by remember(voiceUi) {
         derivedStateOf(structuralEqualityPolicy()) { voiceUi.value.let { it.visible && it.expanded } }
     }
+    val voiceMascots by container.prefs.voiceMascotPreferences.collectAsState(initial = VoiceMascotPreferences())
+    val sessionMascot by remember(voiceUi) { derivedStateOf(structuralEqualityPolicy()) { voiceUi.value.mascot } }
+    val voiceMode by remember(voiceUi) { derivedStateOf(structuralEqualityPolicy()) { voiceUi.value.orb } }
     // Nested settings/* screens keep the tab bar visible and highlight Settings,
     // so re-tapping the Settings icon can return to the hub (iOS parity).
     val selectedTabRoute = FudAIRoutes.selectedBottomTab(currentRoute)
@@ -410,6 +414,9 @@ fun FudAINavHost(
                                 showAboutBadge = updateAvailable,
                                 hiddenRoutes = hiddenTabs.orEmpty(),
                                 navigationEnabled = !analyzing && !voiceExpanded,
+                                voiceMascot = sessionMascot ?: voiceMascots.profile,
+                                voiceMode = voiceMode,
+                                voiceLevel = container.voiceAssistant::orbLevel,
                                 onUpgrade = if (accessMode == AiAccessMode.BYOK && entitlement.loaded && !entitlement.isEntitled) {
                                     {
                                         focus.clearFocus()

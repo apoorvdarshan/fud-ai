@@ -1,12 +1,6 @@
 package com.apoorvdarshan.calorietracker.ui.navigation
 
-import android.animation.ValueAnimator
 import androidx.annotation.StringRes
-import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -36,7 +30,6 @@ import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.EmojiEvents
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FitnessCenter
-import androidx.compose.material.icons.filled.GraphicEq
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.ShowChart
 import androidx.compose.material.icons.filled.SportsGymnastics
@@ -47,12 +40,10 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
@@ -67,11 +58,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.compose.LocalLifecycleOwner
-import androidx.lifecycle.compose.currentStateAsState
 import com.apoorvdarshan.calorietracker.R
+import com.apoorvdarshan.calorietracker.services.voice.OrbMode
+import com.apoorvdarshan.calorietracker.services.voice.VoiceMascotProfile
 import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
+import com.apoorvdarshan.calorietracker.ui.voice.VoiceMascot
 
 data class BottomTab(val route: String, val icon: ImageVector, @get:StringRes val labelRes: Int)
 
@@ -100,7 +91,10 @@ internal fun PinkNeoRail(
     showAboutBadge: Boolean = false,
     hiddenRoutes: Set<String> = emptySet(),
     navigationEnabled: Boolean = true,
-    onUpgrade: (() -> Unit)? = null
+    onUpgrade: (() -> Unit)? = null,
+    voiceMascot: VoiceMascotProfile = VoiceMascotProfile(),
+    voiceMode: OrbMode = OrbMode.IDLE,
+    voiceLevel: () -> Float = { 0f }
 ) {
     val palette = pinkNeoPalette()
     val scale = LocalDensity.current.fontScale
@@ -185,30 +179,23 @@ internal fun PinkNeoRail(
                     .heightIn(min = 48.dp)
                     .clip(itemShape)
                     .clickable(enabled = navigationEnabled, role = Role.Button, onClick = onVoice)
-                    .semantics { contentDescription = voiceLabel },
+                    .semantics {
+                        contentDescription = voiceLabel
+                        stateDescription = voiceMascot.name
+                    },
                 contentAlignment = Alignment.Center
             ) {
-                RailVoiceWaveform(palette.ink, navigationEnabled)
+                VoiceMascot(
+                    mode = voiceMode,
+                    modifier = Modifier.size(44.dp),
+                    profile = voiceMascot,
+                    motionEnabled = navigationEnabled,
+                    compact = true,
+                    level = voiceLevel
+                )
             }
         }
     }
-}
-
-@Composable
-private fun RailVoiceWaveform(color: Color, enabled: Boolean) {
-    val lifecycle by LocalLifecycleOwner.current.lifecycle.currentStateAsState()
-    val size = Modifier.size(26.dp)
-    val icon = if (enabled && lifecycle.isAtLeast(Lifecycle.State.RESUMED) && ValueAnimator.areAnimatorsEnabled()) {
-        val pulse = rememberInfiniteTransition(label = "Rail voice waveform")
-        val amplitude = pulse.animateFloat(
-            initialValue = 0.8f,
-            targetValue = 1.12f,
-            animationSpec = infiniteRepeatable(tween(640), RepeatMode.Reverse),
-            label = "Waveform amplitude"
-        )
-        size.graphicsLayer { scaleY = amplitude.value }
-    } else size
-    Icon(Icons.Filled.GraphicEq, contentDescription = null, tint = color, modifier = icon)
 }
 
 @Composable

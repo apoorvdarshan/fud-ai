@@ -129,6 +129,7 @@ struct ContentView: View {
     @AppStorage(AppThemeColor.storageKey) private var appThemeColorRaw = AppThemeColor.defaultColor.rawValue
     @AppStorage(TabBarSettings.hiddenTabsKey) private var hiddenTabsRaw = ""
     @AppStorage("hideVoiceShortcut") private var hideVoiceShortcut = false
+    @AppStorage(VoiceMascotPreferences.storageKey) private var voiceMascotRaw = ""
     @State private var appUpdateState: AppUpdateState = .idle
     @State private var selectedTab: AppTab = .home
     @State private var progressDestination: AppTab = .progress
@@ -163,7 +164,16 @@ struct ContentView: View {
             standardTabView
                 .environment(\.layoutDirection, layoutDirection)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-            PinkNeoRail(items: railItems, onVoice: onVoice)
+            PinkNeoRail(
+                items: railItems,
+                onVoice: onVoice,
+                voiceMascot: voiceAssistant.isActive
+                    ? voiceAssistant.sessionMascot : VoiceMascotPreferences.decode(voiceMascotRaw).profile,
+                voiceMode: voiceAssistant.orbMode,
+                voiceLevel: voiceAssistant.currentLevel,
+                voiceMotionEnabled: voiceAssistant.presentation == .hidden
+                    || (voiceAssistant.isActive && !voiceAssistant.isExpanded)
+            )
                 .environment(\.layoutDirection, layoutDirection)
                 .padding(.trailing, 7)
         }

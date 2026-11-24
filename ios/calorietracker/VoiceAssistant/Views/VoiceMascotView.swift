@@ -34,6 +34,7 @@ struct VoiceMascotView: View {
     var mode: LiveOrbMode
     var profile = VoiceMascotProfile()
     var level: () -> Double = { 0 }
+    var compact = false
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.voiceAssistantAnimationActive) private var animationActive
     @State private var time = 0.0
@@ -99,8 +100,8 @@ struct VoiceMascotView: View {
                     }
                 }
                 .frame(width: side, height: side)
-                .rotationEffect(.degrees(pose.tilt))
-                .offset(y: side * pose.bob)
+                .rotationEffect(.degrees(pose.tilt * (compact ? 1.45 : 1)))
+                .offset(y: side * pose.bob * (compact ? 1.85 : 1))
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .task(id: animated) {
@@ -110,7 +111,7 @@ struct VoiceMascotView: View {
             let start = ProcessInfo.processInfo.systemUptime
             while !Task.isCancelled {
                 time = ProcessInfo.processInfo.systemUptime - start
-                do { try await Task.sleep(for: .milliseconds(33)) }
+                do { try await Task.sleep(for: .milliseconds(compact && mode == .idle ? 60 : 33)) }
                 catch { return }
             }
         }

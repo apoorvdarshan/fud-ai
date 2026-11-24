@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.compose.ui.unit.dp
@@ -25,6 +26,7 @@ import com.apoorvdarshan.calorietracker.models.HomeTopNutrient
 import com.apoorvdarshan.calorietracker.models.WaterUnit
 import com.apoorvdarshan.calorietracker.services.MealShare
 import com.apoorvdarshan.calorietracker.services.voice.VoiceEntryPoints
+import com.apoorvdarshan.calorietracker.services.voice.VoiceMascot
 import com.apoorvdarshan.calorietracker.services.voice.VoiceCameraHandle
 import com.apoorvdarshan.calorietracker.services.voice.VoiceCameraMode
 import com.apoorvdarshan.calorietracker.services.voice.BarcodeOutcome
@@ -202,6 +204,31 @@ class AppFlowsTest {
         first.assertContentDescriptionEquals(string(FoodLogMethod.MANUAL.titleRes)).performClick()
         second.assertContentDescriptionEquals(string(FoodLogMethod.BARCODE.titleRes))
         waitFor(hasTestTag("manual.name"))
+    }
+
+    @Test
+    fun voiceMascotGallerySelectsThePinnedCharacter() {
+        launchFresh()
+        openVoiceSettings()
+        for (mascot in VoiceMascot.entries) {
+            compose.onNodeWithTag("settings.voiceMascot.gallery.${mascot.name}").assertIsDisplayed()
+        }
+        val brulee = compose.onNodeWithTag("settings.voiceMascot.gallery.BRULEE")
+        val jam = compose.onNodeWithTag("settings.voiceMascot.gallery.JAM")
+        val shortcut = compose.onNodeWithTag("nav.voice")
+        brulee.assertIsSelected()
+        shortcut.assert(SemanticsMatcher.expectValue(SemanticsProperties.StateDescription, "Brulee"))
+        jam.performClick()
+        awaitPreference(prefs.voiceMascotPreferences) { it.selected == VoiceMascot.JAM }
+        jam.assertIsSelected()
+        brulee.assertIsNotSelected()
+        shortcut.assert(SemanticsMatcher.expectValue(SemanticsProperties.StateDescription, "Jam"))
+        compose.onNodeWithText(string(R.string.settings_meal_times_customize)).performScrollTo().performClick()
+        waitFor(hasTestTag("settings.voiceMascot.name"))
+        compose.onNodeWithTag("settings.voiceMascot.color").assertExists()
+        compose.onNodeWithTag("settings.voiceMascot.personality").assertExists()
+        relaunchActivity()
+        shortcut.assert(SemanticsMatcher.expectValue(SemanticsProperties.StateDescription, "Jam"))
     }
 
     @Test

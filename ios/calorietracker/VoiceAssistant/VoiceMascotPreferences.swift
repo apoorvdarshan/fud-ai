@@ -134,7 +134,11 @@ struct VoiceMascotPreferences: Codable, Equatable {
     }
 
     var profile: VoiceMascotProfile {
-        VoiceMascotProfile(mascot: selected, options: profiles[selected.rawValue] ?? VoiceMascotOptions())
+        profile(for: selected)
+    }
+
+    func profile(for mascot: VoiceMascot) -> VoiceMascotProfile {
+        VoiceMascotProfile(mascot: mascot, options: profiles[mascot.rawValue] ?? VoiceMascotOptions())
     }
 
     mutating func edit(_ edit: (inout VoiceMascotOptions) -> Void) {

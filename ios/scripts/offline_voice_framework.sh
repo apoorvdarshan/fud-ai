@@ -3,7 +3,12 @@
 # simulator bridge needs no download or dylib.
 set -eu
 
-[ "${PLATFORM_NAME:-}" = "iphoneos" ] || exit 0
+if [ "${PLATFORM_NAME:-}" != "iphoneos" ]; then
+    if [ "${1:-}" = "embed" ]; then
+        touch "${SCRIPT_OUTPUT_FILE_0:?}"
+    fi
+    exit 0
+fi
 root="${DERIVED_FILE_DIR:?}/OfflineVoice"
 tag=b11960
 checksum=feba05e0b7cb5e682ae3354abb455bf9723ae2cc95c69e24d073264e6a34d759
@@ -35,7 +40,7 @@ case "${1:-}" in
         printf '%s\n' "$checksum" > "$root/checksum"
         ;;
     embed)
-        dest="${TARGET_BUILD_DIR:?}/${FRAMEWORKS_FOLDER_PATH:?}/llama.framework"
+        dest="${SCRIPT_OUTPUT_FILE_0:?}"
         test -f "$framework/llama"
         mkdir -p "$(dirname "$dest")"
         rm -rf "$dest"

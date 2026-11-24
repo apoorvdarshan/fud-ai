@@ -648,6 +648,9 @@
 			files = (
 			);
 			name = "Embed Offline Voice Runtime";
+			outputPaths = (
+				"$(OFFLINE_VOICE_FRAMEWORK_OUTPUT)",
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/bin/sh \"${SRCROOT}/scripts/offline_voice_framework.sh\" embed\n";
@@ -826,6 +829,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 8.1.1;
+				OFFLINE_VOICE_FRAMEWORK_OUTPUT = "$(DERIVED_FILE_DIR)/OfflineVoiceSimulator";
+				"OFFLINE_VOICE_FRAMEWORK_OUTPUT[sdk=iphoneos*]" = "$(TARGET_BUILD_DIR)/$(FRAMEWORKS_FOLDER_PATH)/llama.framework";
 				"OTHER_LDFLAGS[sdk=iphoneos*]" = "$(inherited) -framework llama";
 				PRODUCT_BUNDLE_IDENTIFIER = com.apoorvdarshan.calorietracker.debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -883,6 +888,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 8.1.1;
+				OFFLINE_VOICE_FRAMEWORK_OUTPUT = "$(DERIVED_FILE_DIR)/OfflineVoiceSimulator";
+				"OFFLINE_VOICE_FRAMEWORK_OUTPUT[sdk=iphoneos*]" = "$(TARGET_BUILD_DIR)/$(FRAMEWORKS_FOLDER_PATH)/llama.framework";
 				"OTHER_LDFLAGS[sdk=iphoneos*]" = "$(inherited) -framework llama";
 				PRODUCT_BUNDLE_IDENTIFIER = com.apoorvdarshan.calorietracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -28,7 +28,7 @@ class PinkNeoRailLabelTest {
     @get:Rule val compose = createComposeRule()
 
     @Test
-    fun frenchWorkoutLabelFitsTheNarrowRailWithoutTruncation() {
+    fun frenchWorkoutLogLabelFitsTheNarrowRailWithoutTruncation() {
         compose.setContent {
             val configuration = Configuration(LocalConfiguration.current).apply { setLocale(Locale.FRENCH) }
             val context = LocalContext.current.createConfigurationContext(configuration)
@@ -46,7 +46,7 @@ class PinkNeoRailLabelTest {
         }
 
         val layouts = mutableListOf<TextLayoutResult>()
-        compose.onNodeWithText("Entraînements", useUnmergedTree = true)
+        compose.onNodeWithText("Journal sportif", useUnmergedTree = true)
             .performSemanticsAction(SemanticsActions.GetTextLayoutResult) { it(layouts) }
         assertTrue(layouts.single().lineCount <= 2)
         assertTrue(!layouts.single().hasVisualOverflow)

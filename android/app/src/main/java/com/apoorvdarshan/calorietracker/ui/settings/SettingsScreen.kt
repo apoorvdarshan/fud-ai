@@ -1330,18 +1330,22 @@ fun SettingsScreen(
             // independent provider, model, key, and routing preferences.
             if (selectedCategory == SettingsCategory.AI_PROVIDERS) {
             SectionCard {
-                ui.localModelStates[LocalModelId.GEMMA_4_E2B]?.let { localModel ->
+                val localAI = listOf(LocalModelId.GEMMA_4_E2B, LocalModelId.GEMMA_4_E4B)
+                    .mapNotNull(ui.localModelStates::get)
+                if (localAI.isNotEmpty()) {
                     SettingsSubsectionHeader(
                         title = stringResource(R.string.settings_on_device_models),
                         icon = Icons.Outlined.Download,
                         infoText = stringResource(R.string.settings_on_device_models_info)
                     )
-                    LocalModelRow(
-                        state = localModel,
-                        onDownload = { vm.downloadLocalModel(localModel.descriptor.id) },
-                        onDelete = { vm.deleteLocalModel(localModel.descriptor.id) }
-                    )
-                    HorizontalDivider()
+                    for (localModel in localAI) {
+                        LocalModelRow(
+                            state = localModel,
+                            onDownload = { vm.downloadLocalModel(localModel.descriptor.id) },
+                            onDelete = { vm.deleteLocalModel(localModel.descriptor.id) }
+                        )
+                        HorizontalDivider()
+                    }
                 }
                 SettingsSubsectionHeader(
                     title = stringResource(R.string.settings_section_ai),
@@ -1555,18 +1559,22 @@ fun SettingsScreen(
 
             if (selectedCategory == SettingsCategory.SPEECH_TO_TEXT) {
             SectionCard {
-                ui.localModelStates[LocalModelId.WHISPER_BASE]?.let { localModel ->
+                val localSpeech = listOf(LocalModelId.WHISPER_BASE, LocalModelId.PARAKEET_V3, LocalModelId.QWEN3_ASR)
+                    .mapNotNull(ui.localModelStates::get)
+                if (localSpeech.isNotEmpty()) {
                     SettingsSubsectionHeader(
                         title = stringResource(R.string.settings_on_device_models),
                         icon = Icons.Outlined.Download,
                         infoText = stringResource(R.string.settings_on_device_models_info)
                     )
-                    LocalModelRow(
-                        state = localModel,
-                        onDownload = { vm.downloadLocalModel(localModel.descriptor.id) },
-                        onDelete = { vm.deleteLocalModel(localModel.descriptor.id) }
-                    )
-                    HorizontalDivider()
+                    for (localModel in localSpeech) {
+                        LocalModelRow(
+                            state = localModel,
+                            onDownload = { vm.downloadLocalModel(localModel.descriptor.id) },
+                            onDelete = { vm.deleteLocalModel(localModel.descriptor.id) }
+                        )
+                        HorizontalDivider()
+                    }
                 }
                 SettingsSubsectionHeader(
                     title = stringResource(R.string.settings_section_speech),
@@ -4569,9 +4577,12 @@ internal fun LocalModelRow(
     onDelete: () -> Unit
 ) {
     val uriHandler = LocalUriHandler.current
+    val ramRequirement = state.descriptor.minimumMemoryClassGb?.let { ram ->
+        if (ram == 8) stringResource(R.string.settings_model_requires_8gb)
+        else stringResource(R.string.settings_model_requires_ram, ram)
+    }
     val unavailableText = when (state.ineligibility) {
-        LocalModelIneligibility.INSUFFICIENT_MEMORY ->
-            stringResource(R.string.settings_model_requires_8gb)
+        LocalModelIneligibility.INSUFFICIENT_MEMORY -> ramRequirement
         LocalModelIneligibility.LOW_RAM_DEVICE ->
             stringResource(R.string.settings_model_low_ram_unsupported)
         LocalModelIneligibility.UNSUPPORTED_ABI ->
@@ -4581,7 +4592,7 @@ internal fun LocalModelRow(
     val statusText = unavailableText ?: when (val status = state.status) {
         LocalModelInstallStatus.NotInstalled -> stringResource(
             R.string.settings_local_model_not_downloaded_format,
-            formatModelBytes(state.descriptor.expectedBytes)
+            formatModelBytes(state.descriptor.totalBytes)
         )
         is LocalModelInstallStatus.Downloading -> stringResource(
             R.string.settings_local_model_downloading_format,
@@ -4603,7 +4614,8 @@ internal fun LocalModelRow(
                 fontWeight = FontWeight.Medium
             )
             Text(
-                statusText,
+                if (unavailableText == null) statusText
+                else "$unavailableText · ${formatModelBytes(state.descriptor.totalBytes)}",
                 style = MaterialTheme.typography.bodySmall,
                 color = if (state.status is LocalModelInstallStatus.Failed) {
                     MaterialTheme.colorScheme.error
@@ -4611,6 +4623,10 @@ internal fun LocalModelRow(
                     MaterialTheme.colorScheme.onSurface.copy(alpha = 0.58f)
                 }
             )
+            if (ramRequirement != null && ramRequirement != unavailableText) {
+                Text(ramRequirement, style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.58f))
+            }
         }
         FlowRow(
             horizontalArrangement = Arrangement.spacedBy(12.dp),

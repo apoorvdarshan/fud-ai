@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "catalogVersion": "2026.08.31.2",
-  "observedAt": "2026-08-31",
+  "catalogVersion": "2026.11.25.1",
+  "observedAt": "2026-11-25",
   "downloadPolicy": {
     "checksumAlgorithm": "sha256",
     "minimumHeadroomBytes": 268435456,
@@ -45,6 +45,29 @@
       "license": {
         "spdx": "Apache-2.0",
         "declaredByURL": "https://huggingface.co/litert-community/gemma-4-E2B-it-litert-lm/blob/6b78abd019e61a1ca4cbe3b212d2c9ce8ff38a94/README.md",
+        "textURL": "https://www.apache.org/licenses/LICENSE-2.0.txt"
+      }
+    },
+    {
+      "id": "gemma-4-e4b-it-litertlm",
+      "displayName": "Gemma 4 E4B",
+      "platforms": ["android", "ios"],
+      "runtime": {"family": "LiteRT-LM", "version": "0.16.0"},
+      "format": "litertlm",
+      "capabilities": ["text", "image"],
+      "memoryPolicy": {"minimumPhysicalMemoryBytes": 12884901888},
+      "artifact": {
+        "repository": "litert-community/gemma-4-E4B-it-litert-lm",
+        "revision": "f254b5ba6e36f7d89cc7892e268e9877bc20f0a0",
+        "filename": "gemma-4-E4B-it.litertlm",
+        "url": "https://huggingface.co/litert-community/gemma-4-E4B-it-litert-lm/resolve/f254b5ba6e36f7d89cc7892e268e9877bc20f0a0/gemma-4-E4B-it.litertlm",
+        "sizeBytes": 3659530240,
+        "sha256": "0b2a8980ce155fd97673d8e820b4d29d9c7d99b8fa6806f425d969b145bd52e0",
+        "access": {"anonymous": true, "gated": false, "supportsByteRanges": true}
+      },
+      "license": {
+        "spdx": "Apache-2.0",
+        "declaredByURL": "https://huggingface.co/litert-community/gemma-4-E4B-it-litert-lm/blob/f254b5ba6e36f7d89cc7892e268e9877bc20f0a0/README.md",
         "textURL": "https://www.apache.org/licenses/LICENSE-2.0.txt"
       }
     }

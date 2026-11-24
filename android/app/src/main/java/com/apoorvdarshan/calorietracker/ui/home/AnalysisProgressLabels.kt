@@ -23,7 +23,7 @@ fun analysisStageLabelRes(progress: AnalysisProgressState): Int = when {
         R.string.analysis_stage_preparing_image
     progress.stage == AnalysisStage.PREPARING -> R.string.analysis_stage_preparing
     // The on-device model runs here, it does not wait for a provider.
-    progress.stage == AnalysisStage.REQUESTING && progress.provider == AIProvider.LOCAL_GEMMA ->
+    progress.stage == AnalysisStage.REQUESTING && progress.provider?.localModelId != null ->
         R.string.analysis_stage_on_device
     progress.stage == AnalysisStage.REQUESTING -> R.string.analysis_stage_requesting
     progress.stage == AnalysisStage.RESPONDING -> R.string.analysis_stage_responding

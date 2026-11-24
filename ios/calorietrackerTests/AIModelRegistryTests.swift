@@ -113,6 +113,10 @@ struct AIModelRegistryTests {
         }
         if Gemma4LocalModelManager.isCurrentDeviceSelectable {
             registries.insert((.gemma4Local, [Gemma4LocalModelManager.modelID]), at: visionInsertIndex)
+            visionInsertIndex += 1
+        }
+        if Gemma4LocalModelManager.isCurrentDeviceSelectable(.e4b) {
+            registries.insert((.gemma4E4BLocal, ["gemma-4-E4B-it"]), at: visionInsertIndex)
         }
 
         #expect(registries.map(\.provider) == AIProvider.visionProviders)
@@ -141,6 +145,8 @@ struct AIModelRegistryTests {
         #expect(!AIProvider.appleIntelligence.requiresAPIKey)
         #expect(AIProvider.gemma4Local.models == [Gemma4LocalModelManager.modelID])
         #expect(!AIProvider.gemma4Local.requiresAPIKey)
+        #expect(AIProvider.gemma4E4BLocal.models == ["gemma-4-E4B-it"])
+        #expect(!AIProvider.gemma4E4BLocal.requiresAPIKey)
         #expect(AIProvider.deepseek.textModels == ["deepseek-v4-flash", "deepseek-v4-pro"])
         #expect(AIProvider.cerebras.textModels == ["gpt-oss-120b", "gemma-4-31b"])
         #expect(AIProvider.qwen.textModels == ["qwen3.8-flash", "qwen3.7-plus", "qwen3.8-max"])
@@ -275,6 +281,8 @@ struct AIModelRegistryTests {
         let defaults: [(provider: SpeechProvider, model: String)] = [
             (.nativeIOS, ""),
             (.whisperBase, "base"),
+            (.parakeetV3, "parakeet-tdt-0.6b-v3"),
+            (.qwen3ASR, "qwen3-asr-0.6b"),
             (.gemini, "gemini-3.5-transcribe"),
             (.openai, "gpt-transcribe"),
             (.groq, "whisper-large-v3"),

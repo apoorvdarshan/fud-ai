@@ -51,7 +51,7 @@ import com.apoorvdarshan.calorietracker.services.hosted.HostedQuotaStore
 import com.apoorvdarshan.calorietracker.services.hosted.HostedUiRouter
 import com.apoorvdarshan.calorietracker.services.hosted.SharedPreferencesQuotaPersistence
 import com.apoorvdarshan.calorietracker.services.ondevice.LocalGemmaRuntime
-import com.apoorvdarshan.calorietracker.services.ondevice.LocalModelId
+import com.apoorvdarshan.calorietracker.services.ondevice.LocalSpeechRuntime
 import com.apoorvdarshan.calorietracker.services.ondevice.LocalModelManager
 import com.apoorvdarshan.calorietracker.services.ondevice.LocalWhisperRuntime
 import com.apoorvdarshan.calorietracker.services.speech.SpeechService
@@ -261,8 +261,7 @@ class AppContainer(app: FudAIApp) {
     val localModels = LocalModelManager(app, FoodAnalysisService.defaultClient)
     val prefs = PreferencesStore(
         app,
-        isLocalGemmaExecutable = { localModels.isExecutable(LocalModelId.GEMMA_4_E2B) },
-        isLocalWhisperExecutable = { localModels.isExecutable(LocalModelId.WHISPER_BASE) }
+        isLocalModelExecutable = localModels::isExecutable
     )
     private val interactionScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     val hapticsEnabled = prefs.hapticsEnabled.stateIn(interactionScope, SharingStarted.Eagerly, true)
@@ -366,6 +365,7 @@ class AppContainer(app: FudAIApp) {
 
     val localGemma = LocalGemmaRuntime(app, localModels)
     val localWhisper = LocalWhisperRuntime(app, localModels)
+    val localSpeech = LocalSpeechRuntime(localModels)
 
     // Hosted AI (Plus/Pro): RevenueCat entitlements + the fud-ai.app Worker ledger.
     private val hostedScope = CoroutineScope(
@@ -383,7 +383,9 @@ class AppContainer(app: FudAIApp) {
 
     val foodAnalysis by lazy { FoodAnalysisService(prefs, keyStore, localGemma = localGemma, hosted = hostedAccess) }
     val chatService by lazy { ChatService(prefs, keyStore, localGemma = localGemma, hosted = hostedAccess) }
-    val speechService by lazy { SpeechService(prefs, keyStore, localWhisper = localWhisper, hosted = hostedAccess) }
+    val speechService by lazy {
+        SpeechService(prefs, keyStore, localWhisper = localWhisper, hosted = hostedAccess, localSpeech = localSpeech)
+    }
 
     val widgetSnapshotWriter = WidgetSnapshotWriter(app, prefs, foodRepository, profileRepository)
 

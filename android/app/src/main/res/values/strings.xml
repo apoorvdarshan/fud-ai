@@ -189,6 +189,7 @@
     <string name="ai_provider_qwen">Alibaba Qwen</string>
     <string name="ai_provider_cerebras">Cerebras</string>
     <string name="ai_provider_local_gemma">Gemma 4 E2B (On-Device)</string>
+    <string name="ai_provider_local_gemma_e4b">Gemma 4 E4B (On-Device)</string>
     <string name="ai_provider_ollama">Ollama (Local)</string>
     <string name="ai_provider_custom">Custom (OpenAI-compatible)</string>
 
@@ -214,6 +215,8 @@
     <!-- Speech Provider -->
     <string name="speech_provider_native">Native (On-Device)</string>
     <string name="speech_provider_local_whisper">Whisper Base (On-Device)</string>
+    <string name="speech_provider_local_parakeet">Parakeet v3 (On-Device)</string>
+    <string name="speech_provider_local_qwen3_asr">Qwen3-ASR 0.6B (On-Device)</string>
     <string name="speech_provider_gemini">Gemini Audio</string>
     <string name="speech_provider_openai">OpenAI GPT-Transcribe</string>
     <string name="speech_provider_groq">Groq (Whisper)</string>
@@ -232,6 +235,8 @@
 
     <string name="speech_description_native">Android\'s on-device speech recognition. Free, works offline on most phones, real-time partial results. Recommended default.</string>
     <string name="speech_description_local_whisper">Downloaded multilingual Whisper Base. Audio stays on this device and no API key is needed.</string>
+    <string name="speech_description_local_parakeet">Transcribes recordings on this device in 25 European languages. Automatically detects the language.</string>
+    <string name="speech_description_local_qwen3_asr">Transcribes recordings on this device in 30 languages, including Hindi. Automatically detects the language.</string>
     <string name="speech_description_gemini">Gemini 3.5 Transcribe for accurate batch transcription with automatic language detection.</string>
     <string name="speech_description_openai">OpenAI GPT-Transcribe, the current high-accuracy model for recorded audio.</string>
     <string name="speech_description_groq">Groq-hosted Whisper Large v3. Very fast inference, has a free tier.</string>
@@ -819,6 +824,8 @@
     <string name="settings_model_source">Model source</string>
     <string name="settings_model_license_format">%1$s license</string>
     <string name="settings_model_requires_8gb">Requires an 8 GB RAM device</string>
+    <string name="settings_model_requires_ram">Requires a %1$d GB RAM device</string>
+    <string name="stt_api_error_local_model_unavailable">This speech model is not ready. Check its download in Settings → Speech-to-Text.</string>
     <string name="settings_model_low_ram_unsupported">Not supported on low-RAM devices</string>
     <string name="settings_model_processor_unsupported">This device’s processor is not supported</string>
     <string name="settings_section_text_ai">Text AI</string>
@@ -1607,6 +1614,8 @@
     <string name="settings_quick_actions_footer">Hold the Fud AI app icon to use these shortcuts. Each slot opens its selected action directly.</string>
     <string name="about_whisper_notices">Whisper Base third-party notices</string>
     <string name="about_whisper_notices_load_error">Could not load the Whisper Base third-party notices.</string>
+    <string name="about_sherpa_notices">Sherpa-ONNX and speech model notices</string>
+    <string name="about_sherpa_notices_load_error">Could not load the Sherpa-ONNX notices.</string>
     <string name="import_water_entries">Water entries</string>
     <string name="import_diary_success">Imported %1$d diary entries.</string>
     <string name="import_replace_with_water_explanation">Replace removes food logs within the exported date range and restores them from this file. Water logs in that range are also replaced when the file includes water data. Older food-only files leave water logs unchanged. Matching food entries keep their photos. Add keeps the current diary and creates duplicates as new entries.</string>

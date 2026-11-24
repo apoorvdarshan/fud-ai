@@ -8,6 +8,6 @@ enum AIRequestErrorPolicy {
         primaryError: Error,
         fallbackError: Error
     ) -> Error {
-        primaryProvider == .gemma4Local ? primaryError : fallbackError
+        primaryProvider.localGemmaVariant != nil ? primaryError : fallbackError
     }
 }

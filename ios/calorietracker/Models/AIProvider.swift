@@ -3,6 +3,7 @@ import Foundation
 enum AIProvider: String, CaseIterable, Codable, Identifiable {
     case appleIntelligence = "Apple Intelligence (On-Device)"
     case gemma4Local = "Gemma 4 E2B (On-Device)"
+    case gemma4E4BLocal = "Gemma 4 E4B (On-Device)"
     case gemini = "Google Gemini"
     case openai = "OpenAI"
     case anthropic = "Anthropic Claude"
@@ -45,7 +46,7 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
 
     var logoAssetName: String? {
         switch self {
-        case .appleIntelligence, .gemma4Local, .customOpenAI: nil
+        case .appleIntelligence, .gemma4Local, .gemma4E4BLocal, .customOpenAI: nil
         case .gemini: "provider_gemini"
         case .openai: "provider_openai"
         case .anthropic: "provider_anthropic"
@@ -67,7 +68,7 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
     var fallbackSystemImage: String {
         switch self {
         case .appleIntelligence: "apple.logo"
-        case .gemma4Local: "cpu"
+        case .gemma4Local, .gemma4E4BLocal: "cpu"
         case .customOpenAI: "wrench.and.screwdriver.fill"
         default: "sparkles"
         }
@@ -75,7 +76,7 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
 
     var baseURL: String {
         switch self {
-        case .appleIntelligence, .gemma4Local: ""
+        case .appleIntelligence, .gemma4Local, .gemma4E4BLocal: ""
         case .gemini: "https://generativelanguage.googleapis.com/v1beta"
         case .openai: "https://api.openai.com/v1"
         case .anthropic: "https://api.anthropic.com/v1"
@@ -117,7 +118,15 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
     }
 
     var isAvailableOnCurrentDevice: Bool {
-        self != .gemma4Local || Gemma4LocalModelManager.isCurrentDeviceSelectable
+        localGemmaVariant.map(Gemma4LocalModelManager.isCurrentDeviceSelectable) ?? true
+    }
+
+    var localGemmaVariant: Gemma4LocalModelManager.Variant? {
+        switch self {
+        case .gemma4Local: .e2b
+        case .gemma4E4BLocal: .e4b
+        default: nil
+        }
     }
 
     var supportsVision: Bool {
@@ -216,6 +225,7 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
                 [String]()
             }
         case .gemma4Local: [Gemma4LocalModelManager.modelID]
+        case .gemma4E4BLocal: [Gemma4LocalModelManager.Variant.e4b.modelID]
         case .gemini: [
             "gemini-3.5-flash-lite",         // vision, cheapest current stable model (default)
             "gemini-3.8-flash",              // vision, latest Flash model (GA 2026-09-02)
@@ -362,7 +372,7 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
     }
 
     var requiresAPIKey: Bool {
-        self != .ollama && self != .appleIntelligence && self != .gemma4Local
+        self != .ollama && self != .appleIntelligence && localGemmaVariant == nil
     }
 
     /// True for providers where the user supplies the base URL and model name themselves.
@@ -399,7 +409,7 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
     var apiFormat: APIFormat {
         switch self {
         case .appleIntelligence: .onDevice
-        case .gemma4Local: .liteRTLocal
+        case .gemma4Local, .gemma4E4BLocal: .liteRTLocal
         case .gemini: .gemini
         case .anthropic: .anthropic
         case .openai, .xai, .openrouter, .togetherai, .groq, .huggingface, .fireworks, .deepinfra, .mistral, .deepseek, .qwen, .cerebras, .ollama, .customOpenAI: .openaiCompatible
@@ -433,13 +443,13 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
         case .qwen: "Qwen"
         case .cerebras: "Cerebras"
         case .customOpenAI: "API"
-        case .appleIntelligence, .gemma4Local, .ollama: "API"
+        case .appleIntelligence, .gemma4Local, .gemma4E4BLocal, .ollama: "API"
         }
     }
 
     var apiKeyPlaceholder: String {
         switch self {
-        case .appleIntelligence, .gemma4Local, .ollama: String(localized: "No key needed")
+        case .appleIntelligence, .gemma4Local, .gemma4E4BLocal, .ollama: String(localized: "No key needed")
         case .customOpenAI: String(localized: "API key (or anything if endpoint doesn't need one)")
         default: String(localized: "Paste \(apiKeyBrandName) API key")
         }
@@ -618,7 +628,8 @@ struct AIProviderSettings {
             guard let raw = UserDefaults.standard.string(forKey: textProviderKey),
                   let provider = AIProvider(rawValue: raw),
                   AIProvider.textProviders.contains(provider) else {
-                if UserDefaults.standard.string(forKey: textProviderKey) == AIProvider.gemma4Local.rawValue {
+                if let raw = UserDefaults.standard.string(forKey: textProviderKey),
+                   AIProvider(rawValue: raw)?.localGemmaVariant != nil {
                     UserDefaults.standard.set(false, forKey: separateTextProviderEnabledKey)
                 }
                 UserDefaults.standard.set(AIProvider.gemini.rawValue, forKey: textProviderKey)
@@ -843,7 +854,8 @@ struct AIProviderSettings {
             guard let raw = UserDefaults.standard.string(forKey: fallbackProviderKey),
                   let provider = AIProvider(rawValue: raw),
                   AIProvider.visionProviders.contains(provider) else {
-                if UserDefaults.standard.string(forKey: fallbackProviderKey) == AIProvider.gemma4Local.rawValue {
+                if let raw = UserDefaults.standard.string(forKey: fallbackProviderKey),
+                   AIProvider(rawValue: raw)?.localGemmaVariant != nil {
                     UserDefaults.standard.set(false, forKey: fallbackEnabledKey)
                 }
                 let resolved = providersWithSavedKeys(excluding: selectedProvider).first ?? .gemini
@@ -884,7 +896,8 @@ struct AIProviderSettings {
             guard let raw = UserDefaults.standard.string(forKey: textFallbackProviderKey),
                   let provider = AIProvider(rawValue: raw),
                   AIProvider.textProviders.contains(provider) else {
-                if UserDefaults.standard.string(forKey: textFallbackProviderKey) == AIProvider.gemma4Local.rawValue {
+                if let raw = UserDefaults.standard.string(forKey: textFallbackProviderKey),
+                   AIProvider(rawValue: raw)?.localGemmaVariant != nil {
                     UserDefaults.standard.set(false, forKey: textFallbackEnabledKey)
                 }
                 UserDefaults.standard.set(AIProvider.gemini.rawValue, forKey: textFallbackProviderKey)
@@ -1014,22 +1027,24 @@ struct AIProviderSettings {
         UserDefaults.standard.removeObject(forKey: geminiTimeoutSecondsKey)
     }
 
-    static func replaceDeletedLocalGemmaSelections(defaults: UserDefaults = .standard) {
-        if defaults.string(forKey: providerKey) == AIProvider.gemma4Local.rawValue {
+    static func replaceDeletedLocalGemmaSelections(
+        provider: AIProvider = .gemma4Local, defaults: UserDefaults = .standard
+    ) {
+        if defaults.string(forKey: providerKey) == provider.rawValue {
             defaults.set(AIProvider.gemini.rawValue, forKey: providerKey)
             defaults.set(AIProvider.gemini.defaultModel, forKey: modelKey)
         }
-        if defaults.string(forKey: textProviderKey) == AIProvider.gemma4Local.rawValue {
+        if defaults.string(forKey: textProviderKey) == provider.rawValue {
             defaults.set(AIProvider.gemini.rawValue, forKey: textProviderKey)
             defaults.set(AIProvider.gemini.defaultTextModel, forKey: textModelKey)
             defaults.set(false, forKey: separateTextProviderEnabledKey)
         }
-        if defaults.string(forKey: fallbackProviderKey) == AIProvider.gemma4Local.rawValue {
+        if defaults.string(forKey: fallbackProviderKey) == provider.rawValue {
             defaults.set(AIProvider.gemini.rawValue, forKey: fallbackProviderKey)
             defaults.set(AIProvider.gemini.defaultModel, forKey: fallbackModelKey)
             defaults.set(false, forKey: fallbackEnabledKey)
         }
-        if defaults.string(forKey: textFallbackProviderKey) == AIProvider.gemma4Local.rawValue {
+        if defaults.string(forKey: textFallbackProviderKey) == provider.rawValue {
             defaults.set(AIProvider.gemini.rawValue, forKey: textFallbackProviderKey)
             defaults.set(AIProvider.gemini.defaultTextModel, forKey: textFallbackModelKey)
             defaults.set(false, forKey: textFallbackEnabledKey)

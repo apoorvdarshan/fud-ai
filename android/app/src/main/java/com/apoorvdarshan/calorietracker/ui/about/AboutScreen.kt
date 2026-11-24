@@ -148,6 +148,7 @@ fun AboutSettingsRows(category: AboutSettingsCategory, billing: BillingManager? 
     var updateState by remember { mutableStateOf<AndroidUpdateState>(AndroidUpdateState.Idle) }
     var showLiteRtNotices by remember { mutableStateOf(false) }
     var showWhisperNotices by remember { mutableStateOf(false) }
+    var showSherpaNotices by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
 
     fun open(url: String) =
@@ -323,6 +324,13 @@ fun AboutSettingsRows(category: AboutSettingsCategory, billing: BillingManager? 
                 ) {
                     showWhisperNotices = true
                 }
+                Hairline()
+                AboutRow(
+                    Icons.Filled.Description,
+                    stringResource(R.string.about_sherpa_notices)
+                ) {
+                    showSherpaNotices = true
+                }
             }
         }
     }
@@ -341,6 +349,14 @@ fun AboutSettingsRows(category: AboutSettingsCategory, billing: BillingManager? 
             loadErrorRes = R.string.about_whisper_notices_load_error,
             assetName = WHISPER_NOTICE_ASSET,
             onDismiss = { showWhisperNotices = false }
+        )
+    }
+    if (showSherpaNotices) {
+        ThirdPartyNoticesDialog(
+            titleRes = R.string.about_sherpa_notices,
+            loadErrorRes = R.string.about_sherpa_notices_load_error,
+            assetName = SHERPA_NOTICE_ASSET,
+            onDismiss = { showSherpaNotices = false }
         )
     }
 }
@@ -433,6 +449,7 @@ private fun readNoticeChunks(
 
 private const val LITERT_NOTICE_ASSET = "THIRD_PARTY_NOTICES_LiteRTLM_v0.16.0.txt"
 private const val WHISPER_NOTICE_ASSET = "THIRD_PARTY_NOTICES_WhisperBase.txt"
+private const val SHERPA_NOTICE_ASSET = "THIRD_PARTY_NOTICES_SherpaONNX.txt"
 private const val NOTICE_CHUNK_CHARACTERS = 8 * 1024
 
 @Composable

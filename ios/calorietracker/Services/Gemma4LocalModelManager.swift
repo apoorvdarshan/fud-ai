@@ -38,6 +38,7 @@ final class Gemma4LocalModelManager {
 
     enum LocalModelError: LocalizedError {
         case unsupportedDevice
+        case unsupportedE4BDevice
         case notDownloaded
         case busy
         case insufficientStorage(required: Int64, available: Int64)
@@ -52,6 +53,8 @@ final class Gemma4LocalModelManager {
                     "gemma.error.unsupportedDevice",
                     defaultValue: "Gemma 4 requires an iPhone with at least 8 GB of memory."
                 )
+            case .unsupportedE4BDevice:
+                String(localized: "Gemma 4 E4B requires a device with at least 12 GB of RAM.")
             case .notDownloaded:
                 LocalModelStrings.text(
                     "gemma.error.notDownloaded",
@@ -98,7 +101,36 @@ final class Gemma4LocalModelManager {
         let sha256: String
     }
 
+    enum Variant: Sendable {
+        case e2b, e4b
+
+        var directory: String { self == .e2b ? "Gemma4E2B" : "Gemma4E4B" }
+        var name: String { self == .e2b ? "Gemma 4 E2B" : "Gemma 4 E4B" }
+        var minimumRAM: UInt64 { self == .e2b ? 8 : 12 }
+        var modelID: String { self == .e2b ? Gemma4LocalModelManager.modelID : "gemma-4-E4B-it" }
+        var filename: String { "\(modelID).litertlm" }
+        var byteCount: Int64 { self == .e2b ? Gemma4LocalModelManager.artifactByteCount : 3_659_530_240 }
+        var sha256: String {
+            self == .e2b ? Gemma4LocalModelManager.artifactSHA256
+                : "0b2a8980ce155fd97673d8e820b4d29d9c7d99b8fa6806f425d969b145bd52e0"
+        }
+        var marker: String { "LiteRTLM-0.16.0-\(sha256)" }
+        var sourceURL: URL {
+            self == .e2b ? Gemma4LocalModelManager.sourceURL
+                : URL(string: "https://huggingface.co/litert-community/gemma-4-E4B-it-litert-lm/tree/f254b5ba6e36f7d89cc7892e268e9877bc20f0a0")!
+        }
+        var downloadURL: URL {
+            self == .e2b ? Gemma4LocalModelManager.artifactURL
+                : URL(string: "https://huggingface.co/litert-community/gemma-4-E4B-it-litert-lm/resolve/f254b5ba6e36f7d89cc7892e268e9877bc20f0a0/gemma-4-E4B-it.litertlm")!
+        }
+    }
+
     static let shared = Gemma4LocalModelManager()
+    static let e4b = Gemma4LocalModelManager(variant: .e4b)
+
+    static func manager(for provider: AIProvider) -> Gemma4LocalModelManager {
+        provider == .gemma4E4BLocal ? e4b : shared
+    }
 
     nonisolated static let minimumMemoryClassGB: UInt64 = 8
     nonisolated static let minimumPhysicalMemoryBytes: UInt64 = 8 * 1_024 * 1_024 * 1_024
@@ -123,22 +155,26 @@ final class Gemma4LocalModelManager {
         isEligible(physicalMemoryBytes: ProcessInfo.processInfo.physicalMemory)
     }
 
-    static var isCurrentDeviceSelectable: Bool {
-        guard isCurrentDeviceEligible else { return false }
+    static var isCurrentDeviceSelectable: Bool { isCurrentDeviceSelectable(.e2b) }
+
+    static func isCurrentDeviceSelectable(_ variant: Variant) -> Bool {
+        guard isEligible(physicalMemoryBytes: ProcessInfo.processInfo.physicalMemory, variant: variant) else { return false }
         let fileManager = FileManager.default
-        let root = defaultRootDirectory(fileManager: fileManager)
+        let root = defaultRootDirectory(fileManager: fileManager, variant: variant)
         return hasPreparedInstall(
-            modelURL: root.appendingPathComponent(artifactFilename),
+            modelURL: root.appendingPathComponent(variant.filename),
             verificationMarkerURL: root.appendingPathComponent("verified.sha256"),
             preparedMarkerURL: root.appendingPathComponent("prepared.version"),
-            expectedByteCount: artifactByteCount,
-            expectedSHA256: artifactSHA256,
+            expectedByteCount: variant.byteCount,
+            expectedSHA256: variant.sha256,
+            expectedPreparedMarker: variant.marker,
             fileManager: fileManager
         )
     }
 
     private(set) var state: InstallState = .notDownloaded
     private(set) var installedByteCount: Int64 = 0
+    let variant: Variant
 
     @ObservationIgnored private let fileManager: FileManager
     @ObservationIgnored private let rootDirectory: URL
@@ -148,26 +184,28 @@ final class Gemma4LocalModelManager {
     @ObservationIgnored private var retryWait: Task<Void, Error>?
 
     init(
+        variant: Variant = .e2b,
         rootDirectory: URL? = nil,
         physicalMemoryBytes: UInt64 = ProcessInfo.processInfo.physicalMemory,
         fileManager: FileManager = .default
     ) {
+        self.variant = variant
         self.fileManager = fileManager
-        self.rootDirectory = rootDirectory ?? Self.defaultRootDirectory(fileManager: fileManager)
+        self.rootDirectory = rootDirectory ?? Self.defaultRootDirectory(fileManager: fileManager, variant: variant)
         self.physicalMemoryBytes = physicalMemoryBytes
         refresh()
     }
 
     var isEligible: Bool {
-        Self.isEligible(physicalMemoryBytes: physicalMemoryBytes)
+        Self.isEligible(physicalMemoryBytes: physicalMemoryBytes, variant: variant)
     }
 
     var isDownloaded: Bool {
         Self.hasVerifiedInstall(
             modelURL: modelURL,
             verificationMarkerURL: verificationMarkerURL,
-            expectedByteCount: Self.artifactByteCount,
-            expectedSHA256: Self.artifactSHA256,
+            expectedByteCount: variant.byteCount,
+            expectedSHA256: variant.sha256,
             fileManager: fileManager
         )
     }
@@ -177,8 +215,9 @@ final class Gemma4LocalModelManager {
             modelURL: modelURL,
             verificationMarkerURL: verificationMarkerURL,
             preparedMarkerURL: preparedMarkerURL,
-            expectedByteCount: Self.artifactByteCount,
-            expectedSHA256: Self.artifactSHA256,
+            expectedByteCount: variant.byteCount,
+            expectedSHA256: variant.sha256,
+            expectedPreparedMarker: variant.marker,
             fileManager: fileManager
         )
     }
@@ -209,7 +248,7 @@ final class Gemma4LocalModelManager {
     func download() async {
         guard !state.isBusy else { return }
         guard isEligible else {
-            state = .failed(LocalModelError.unsupportedDevice.localizedDescription)
+            state = .failed(unsupportedDeviceError.localizedDescription)
             return
         }
         guard !isDownloaded else {
@@ -223,14 +262,14 @@ final class Gemma4LocalModelManager {
             let keptBytes = partialByteCount
             try requireDownloadHeadroom(keptBytes: keptBytes)
 
-            state = .downloading(Double(keptBytes) / Double(Self.artifactByteCount))
+            state = .downloading(Double(keptBytes) / Double(variant.byteCount))
             // The partial file survives failures and relaunches. Every attempt asks the pinned
             // resolve URL for the remaining range, so a resume never replays an expired CDN link.
             var retry = GemmaDownloadRetryState()
-            while partialByteCount < Self.artifactByteCount {
+            while partialByteCount < variant.byteCount {
                 let download = GemmaArtifactDownloadOperation(
                     fileURL: partialModelURL,
-                    expectedByteCount: Self.artifactByteCount,
+                    expectedByteCount: variant.byteCount,
                     fileManager: fileManager
                 ) { [weak self] progress in
                     Task { @MainActor [weak self] in
@@ -240,7 +279,7 @@ final class Gemma4LocalModelManager {
                 }
                 activeDownload = download
                 do {
-                    try await download.start(url: Self.artifactURL)
+                    try await download.start(url: variant.downloadURL)
                     activeDownload = nil
                 } catch {
                     activeDownload = nil
@@ -266,17 +305,17 @@ final class Gemma4LocalModelManager {
             let verification = try await Task.detached(priority: .utility) {
                 try Self.verifyArtifact(at: partialURL)
             }.value
-            guard verification.byteCount == Self.artifactByteCount else {
+            guard verification.byteCount == variant.byteCount else {
                 throw LocalModelError.invalidDownload(
                     LocalModelStrings.format(
                         "gemma.verification.wrongSize",
                         defaultValue: "expected %@ bytes, received %@",
-                        String(Self.artifactByteCount),
+                        String(variant.byteCount),
                         String(verification.byteCount)
                     )
                 )
             }
-            guard verification.sha256 == Self.artifactSHA256 else {
+            guard verification.sha256 == variant.sha256 else {
                 throw LocalModelError.invalidDownload(LocalModelStrings.text(
                     "gemma.verification.hashMismatch",
                     defaultValue: "SHA-256 mismatch"
@@ -284,7 +323,7 @@ final class Gemma4LocalModelManager {
             }
 
             try fileManager.moveItem(at: partialModelURL, to: modelURL)
-            try Data(Self.artifactSHA256.utf8).write(to: verificationMarkerURL, options: .atomic)
+            try Data(variant.sha256.utf8).write(to: verificationMarkerURL, options: .atomic)
             installedByteCount = Self.directorySize(at: rootDirectory, fileManager: fileManager)
 
             _ = try await ensureEngine()
@@ -347,7 +386,7 @@ final class Gemma4LocalModelManager {
         maxOutputTokens: Int = 1_024
     ) async throws -> String {
         guard !state.isBusy else { throw LocalModelError.busy }
-        guard isEligible else { throw LocalModelError.unsupportedDevice }
+        guard isEligible else { throw unsupportedDeviceError }
         guard isDownloaded else { throw LocalModelError.notDownloaded }
 
         let loadedEngine: Engine
@@ -385,8 +424,8 @@ final class Gemma4LocalModelManager {
         }
     }
 
-    nonisolated static func isEligible(physicalMemoryBytes: UInt64) -> Bool {
-        memoryClassGB(physicalMemoryBytes: physicalMemoryBytes) >= minimumMemoryClassGB
+    nonisolated static func isEligible(physicalMemoryBytes: UInt64, variant: Variant = .e2b) -> Bool {
+        memoryClassGB(physicalMemoryBytes: physicalMemoryBytes) >= variant.minimumRAM
     }
 
     /// iOS can report slightly less memory than the phone's marketed RAM because
@@ -465,6 +504,7 @@ final class Gemma4LocalModelManager {
         preparedMarkerURL: URL,
         expectedByteCount: Int64,
         expectedSHA256: String,
+        expectedPreparedMarker: String = preparedMarkerContents,
         fileManager: FileManager
     ) -> Bool {
         guard hasVerifiedInstall(
@@ -477,7 +517,7 @@ final class Gemma4LocalModelManager {
            let marker = String(data: markerData, encoding: .utf8) else {
             return false
         }
-        return marker.trimmingCharacters(in: .whitespacesAndNewlines) == preparedMarkerContents
+        return marker.trimmingCharacters(in: .whitespacesAndNewlines) == expectedPreparedMarker
     }
 
     nonisolated static func verifyArtifact(
@@ -522,12 +562,12 @@ final class Gemma4LocalModelManager {
     }
 
     private var modelURL: URL {
-        rootDirectory.appendingPathComponent(Self.artifactFilename)
+        rootDirectory.appendingPathComponent(variant.filename)
     }
 
     /// Named after the pinned artifact hash so a partial never continues a different artifact.
     private var partialModelURL: URL {
-        rootDirectory.appendingPathComponent("\(Self.artifactSHA256).partial")
+        rootDirectory.appendingPathComponent("\(variant.sha256).partial")
     }
 
     /// Bytes an interrupted download left for the next attempt to resume after.
@@ -550,7 +590,7 @@ final class Gemma4LocalModelManager {
         rootDirectory.appendingPathComponent("Cache", isDirectory: true)
     }
 
-    private static func defaultRootDirectory(fileManager: FileManager) -> URL {
+    private static func defaultRootDirectory(fileManager: FileManager, variant: Variant) -> URL {
         let applicationSupport = (try? fileManager.url(
             for: .applicationSupportDirectory,
             in: .userDomainMask,
@@ -561,7 +601,7 @@ final class Gemma4LocalModelManager {
         return applicationSupport
             .appendingPathComponent("FudAI", isDirectory: true)
             .appendingPathComponent("LocalModels", isDirectory: true)
-            .appendingPathComponent("Gemma4E2B", isDirectory: true)
+            .appendingPathComponent(variant.directory, isDirectory: true)
     }
 
     private func prepareRootDirectory() throws {
@@ -579,7 +619,7 @@ final class Gemma4LocalModelManager {
         }
         // A partial of another artifact revision, or one longer than the artifact, can never
         // verify. The current partial is kept so this download resumes it.
-        if partialByteCount > Self.artifactByteCount {
+        if partialByteCount > variant.byteCount {
             try fileManager.removeItem(at: partialModelURL)
         }
         let contents = (try? fileManager.contentsOfDirectory(
@@ -597,19 +637,27 @@ final class Gemma4LocalModelManager {
         guard let available = values.volumeAvailableCapacityForImportantUsage else {
             throw LocalModelError.storageCapacityUnavailable
         }
-        guard Self.hasRequiredStorage(availableBytes: available, keptBytes: keptBytes) else {
+        guard Self.hasRequiredStorage(availableBytes: available, keptBytes: keptBytes, artifactBytes: variant.byteCount) else {
             throw LocalModelError.insufficientStorage(
-                required: Self.requiredStorageBytes(keptBytes: keptBytes),
+                required: Self.requiredStorageBytes(keptBytes: keptBytes, artifactBytes: variant.byteCount),
                 available: available
             )
         }
     }
 
+    private var unsupportedDeviceError: LocalModelError {
+        variant == .e2b ? .unsupportedDevice : .unsupportedE4BDevice
+    }
+
     private func ensureEngine() async throws -> Engine {
-        guard isEligible else { throw LocalModelError.unsupportedDevice }
+        guard isEligible else { throw unsupportedDeviceError }
         guard isDownloaded else { throw LocalModelError.notDownloaded }
         if let engine { return engine }
 
+        let other = variant == .e2b ? Self.e4b : Self.shared
+        guard other.state != .generating && other.state != .preparing else { throw LocalModelError.busy }
+        other.engine = nil
+        if other.state == .ready { other.refresh() }
         state = .preparing
         do {
             let loadedEngine: Engine
@@ -640,7 +688,7 @@ final class Gemma4LocalModelManager {
                 loadedEngine = cpuEngine
             }
 
-            try Data(Self.preparedMarkerContents.utf8).write(to: preparedMarkerURL, options: .atomic)
+            try Data(variant.marker.utf8).write(to: preparedMarkerURL, options: .atomic)
             engine = loadedEngine
             state = .ready
             return loadedEngine

@@ -170,7 +170,7 @@ fun VoiceInputSheet(
                         file.copyTo(it, overwrite = true)
                     }
                 }
-                transcript = container.speechService.transcribeRecordedAudio(copy)
+                transcript = container.speechService.transcribeRecordedAudio(copy, provider)
                 committed = transcript
                 phase = VoicePhase.REVIEWING
             } catch (cancelled: CancellationException) {

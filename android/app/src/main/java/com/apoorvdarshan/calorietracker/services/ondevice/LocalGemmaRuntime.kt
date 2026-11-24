@@ -22,22 +22,25 @@ class LocalGemmaRuntime(
     private val cacheDir = context.applicationContext.cacheDir.absolutePath
     private val mutex = Mutex()
     private var engine: Engine? = null
+    private var engineModel: LocalModelId? = null
 
     init {
-        models.registerReleaseHook(LocalModelId.GEMMA_4_E2B, ::close)
+        for (id in listOf(LocalModelId.GEMMA_4_E2B, LocalModelId.GEMMA_4_E4B)) {
+            models.registerReleaseHook(id) { close(id) }
+        }
     }
 
-    fun isReady(): Boolean = models.isExecutable(LocalModelId.GEMMA_4_E2B)
-
     suspend fun generate(
+        id: LocalModelId,
         prompt: String,
         images: List<ByteArray> = emptyList(),
         maxOutputTokens: Int,
         systemInstruction: String? = null
     ): String = mutex.withLock {
-        check(isReady()) { "Gemma 4 E2B is not installed on this device." }
+        check(models.isExecutable(id)) { "This Gemma model is not installed on this device." }
         withContext(Dispatchers.IO) {
-            val activeEngine = engine ?: initializeEngine().also { engine = it }
+            if (engineModel != id) closeEngine()
+            val activeEngine = engine ?: initializeEngine(id).also { engine = it; engineModel = id }
             val config = ConversationConfig(
                 systemInstruction = systemInstruction?.takeIf(String::isNotBlank)?.let(Contents::of)
                     ?: Contents.of("You are a helpful assistant."),
@@ -58,32 +61,38 @@ class LocalGemmaRuntime(
         }
     }
 
-    suspend fun close() = mutex.withLock {
+    private suspend fun close(id: LocalModelId) = mutex.withLock {
         withContext(Dispatchers.IO) {
-            engine?.close()
-            engine = null
+            if (engineModel == id) closeEngine()
         }
     }
 
-    private fun initializeEngine(): Engine = try {
+    private fun closeEngine() {
+        val previous = engine
+        engine = null
+        engineModel = null
+        previous?.close()
+    }
+
+    private fun initializeEngine(id: LocalModelId): Engine = try {
         // Google's Android model allowlist recommends GPU for both the Gemma 4 decoder and
         // vision encoder. Some vendor drivers still fail during initialization, so retain a
         // complete CPU multimodal fallback rather than making the downloaded model unusable.
-        initializedEngine(Backend.GPU(), Backend.GPU())
+        initializedEngine(id, Backend.GPU(), Backend.GPU())
     } catch (gpuError: Throwable) {
         Log.w(TAG, "GPU initialization failed; retrying Gemma on CPU.", gpuError)
         try {
-            initializedEngine(Backend.CPU(), Backend.CPU())
+            initializedEngine(id, Backend.CPU(), Backend.CPU())
         } catch (cpuError: Throwable) {
             cpuError.addSuppressed(gpuError)
             throw cpuError
         }
     }
 
-    private fun initializedEngine(backend: Backend, visionBackend: Backend): Engine {
+    private fun initializedEngine(id: LocalModelId, backend: Backend, visionBackend: Backend): Engine {
         val candidate = Engine(
             EngineConfig(
-                modelPath = models.modelFile(LocalModelId.GEMMA_4_E2B).absolutePath,
+                modelPath = models.modelFile(id).absolutePath,
                 backend = backend,
                 visionBackend = visionBackend,
                 maxNumTokens = 4_096,

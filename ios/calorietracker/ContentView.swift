@@ -1104,6 +1104,13 @@ private struct AboutSettingsSections: View {
                     Label("Whisper Base · MIT", systemImage: "doc.text.magnifyingglass")
                 }
                 .tint(.primary)
+
+                NavigationLink {
+                    SherpaONNXNoticesView()
+                } label: {
+                    Label(SherpaONNXNoticesView.title, systemImage: "doc.text.magnifyingglass")
+                }
+                .tint(.primary)
                 }
                 .listRowBackground(AppColors.appCard)
             }
@@ -6192,20 +6199,9 @@ struct ProfileView: View {
                             .textCase(.uppercase)
                             .accessibilityAddTraits(.isHeader)
 
-                        Gemma4ModelSettingsView {
-                            selectedProvider = AIProviderSettings.selectedProvider
-                            selectedModel = AIProviderSettings.selectedModel
-                            selectedTextProvider = AIProviderSettings.selectedTextProvider
-                            selectedTextModel = AIProviderSettings.selectedTextModel
-                            separateTextProviderEnabled = AIProviderSettings.separateTextProviderEnabled
-                            selectedFallbackProvider = AIProviderSettings.selectedFallbackProvider
-                            selectedFallbackModel = AIProviderSettings.selectedFallbackModel
-                            fallbackEnabled = AIProviderSettings.fallbackEnabled
-                            selectedTextFallbackProvider = AIProviderSettings.selectedTextFallbackProvider
-                            selectedTextFallbackModel = AIProviderSettings.selectedTextFallbackModel
-                            textFallbackEnabled = AIProviderSettings.textFallbackEnabled
-                            localModelAvailabilityRevision += 1
-                        }
+                        Gemma4ModelSettingsView(onAvailabilityChange: refreshLocalAIModels)
+                        Divider()
+                        Gemma4ModelSettingsView(modelManager: .e4b, onAvailabilityChange: refreshLocalAIModels)
 
                         AISettingsSubsectionHeader(
                             title: "Text AI",
@@ -6614,17 +6610,16 @@ struct ProfileView: View {
                             }
                         }
 
-                        WhisperBaseModelSettingsView(selectedProvider: $selectedSpeechProvider) {
-                            selectedSpeechProvider = SpeechSettings.selectedProvider
-                            selectedSpeechFallbackProvider = SpeechSettings.selectedFallbackProvider
-                            speechFallbackEnabled = SpeechSettings.fallbackEnabled
-                            selectedSpeechLanguage = SpeechSettings.selectedLanguage(for: selectedSpeechProvider)
-                            selectedSpeechFallbackLanguage = SpeechSettings.selectedLanguage(for: selectedSpeechFallbackProvider)
-                            localModelAvailabilityRevision += 1
-                        }
+                        WhisperBaseModelSettingsView(
+                            selectedProvider: $selectedSpeechProvider, onAvailabilityChange: refreshLocalSpeechModels
+                        )
+                        Divider()
+                        LocalSpeechModelSettingsView(manager: .parakeet, onAvailabilityChange: refreshLocalSpeechModels)
+                        Divider()
+                        LocalSpeechModelSettingsView(manager: .qwen, onAvailabilityChange: refreshLocalSpeechModels)
 
                         Picker(selection: $selectedSpeechLanguage) {
-                            ForEach(SpeechLanguage.allCases) { language in
+                            ForEach(selectedSpeechProvider.localModel == nil ? SpeechLanguage.allCases : [.automatic]) { language in
                                 Text(language.displayName).tag(language)
                             }
                         } label: {
@@ -7287,7 +7282,7 @@ struct ProfileView: View {
                 }
 
                 Picker(selection: $selectedSpeechFallbackLanguage) {
-                    ForEach(SpeechLanguage.allCases) { language in
+                    ForEach(selectedSpeechFallbackProvider.localModel == nil ? SpeechLanguage.allCases : [.automatic]) { language in
                         Text(language.displayName).tag(language)
                     }
                 } label: {
@@ -7449,6 +7444,30 @@ struct ProfileView: View {
 
     private func saveProfile() {
         profile.save()
+    }
+
+    private func refreshLocalAIModels() {
+        selectedProvider = AIProviderSettings.selectedProvider
+        selectedModel = AIProviderSettings.selectedModel
+        selectedTextProvider = AIProviderSettings.selectedTextProvider
+        selectedTextModel = AIProviderSettings.selectedTextModel
+        separateTextProviderEnabled = AIProviderSettings.separateTextProviderEnabled
+        selectedFallbackProvider = AIProviderSettings.selectedFallbackProvider
+        selectedFallbackModel = AIProviderSettings.selectedFallbackModel
+        fallbackEnabled = AIProviderSettings.fallbackEnabled
+        selectedTextFallbackProvider = AIProviderSettings.selectedTextFallbackProvider
+        selectedTextFallbackModel = AIProviderSettings.selectedTextFallbackModel
+        textFallbackEnabled = AIProviderSettings.textFallbackEnabled
+        localModelAvailabilityRevision += 1
+    }
+
+    private func refreshLocalSpeechModels() {
+        selectedSpeechProvider = SpeechSettings.selectedProvider
+        selectedSpeechFallbackProvider = SpeechSettings.selectedFallbackProvider
+        speechFallbackEnabled = SpeechSettings.fallbackEnabled
+        selectedSpeechLanguage = SpeechSettings.selectedLanguage(for: selectedSpeechProvider)
+        selectedSpeechFallbackLanguage = SpeechSettings.selectedLanguage(for: selectedSpeechFallbackProvider)
+        localModelAvailabilityRevision += 1
     }
 
     private func selectFallbackProvider(_ newProvider: AIProvider) {

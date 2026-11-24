@@ -13,6 +13,54 @@ import org.junit.Test
 
 class LocalModelEligibilityTest {
     @Test
+    fun newModelsAreGatedIndependently() {
+        val abi = setOf("arm64-v8a")
+        val gib = 1_073_741_824L
+        val e4b = LocalModelCatalog.gemma4E4b
+        val parakeet = LocalModelCatalog.parakeetV3
+        val qwen = LocalModelCatalog.qwen3Asr
+        assertFalse(LocalModelEligibility.isEligible(e4b, 8 * gib, abi))
+        assertTrue(LocalModelEligibility.isEligible(e4b, 12 * gib, abi))
+        assertFalse(LocalModelEligibility.isEligible(parakeet, 4 * gib, abi))
+        assertTrue(LocalModelEligibility.isEligible(parakeet, 6 * gib, abi))
+        assertFalse(LocalModelEligibility.isEligible(qwen, 6 * gib, abi))
+        assertTrue(LocalModelEligibility.isEligible(qwen, 8 * gib, abi))
+        assertFalse(LocalModelEligibility.isEligible(qwen, 12 * gib, setOf("armeabi-v7a")))
+        assertEquals(AIProvider.GEMINI, executableAIProviderOrDefault(AIProvider.LOCAL_GEMMA_E4B, {
+            it == LocalModelId.GEMMA_4_E2B
+        }))
+        assertEquals(SpeechProvider.LOCAL_QWEN3_ASR, executableSpeechProviderOrDefault(
+            SpeechProvider.LOCAL_QWEN3_ASR, { it == LocalModelId.QWEN3_ASR }, SpeechProvider.NATIVE
+        ))
+        assertEquals(SpeechProvider.NATIVE, executableSpeechProviderOrDefault(
+            SpeechProvider.LOCAL_PARAKEET, { it == LocalModelId.QWEN3_ASR }, SpeechProvider.NATIVE
+        ))
+    }
+
+    @Test
+    fun multiFileSpeechArtifactsHaveDistinctPathsAndExactTotals() {
+        val parakeet = LocalModelCatalog.parakeetV3
+        val qwen = LocalModelCatalog.qwen3Asr
+        assertEquals(670_576_784L, parakeet.totalBytes)
+        assertEquals(987_015_347L, qwen.totalBytes)
+        val parts = parakeet.parts() + qwen.parts()
+        assertEquals(10, parts.map { it.fileName }.toSet().size)
+        assertTrue(parts.all { it.sha256.matches(Regex("[a-f0-9]{64}")) && it.expectedBytes > 0 })
+        assertTrue(qwen.parts().any { it.fileName == "qwen3_asr/tokenizer/vocab.json" })
+    }
+
+    @Test
+    fun longSpeechIsChunkedWithoutDroppingSamplesAndPrefersAPause() {
+        val samples = FloatArray(45 * 16_000) { 0.5f }
+        samples.fill(0f, 18 * 16_000, 18 * 16_000 + 640)
+        val chunks = speechChunks(samples, 16_000)
+        assertEquals(0, chunks.first().first)
+        assertTrue(chunks.first().last in 18 * 16_000..18 * 16_000 + 640)
+        assertEquals(samples.lastIndex, chunks.last().last)
+        assertTrue(chunks.zipWithNext().all { (a, b) -> a.last + 1 == b.first })
+        assertTrue(chunks.all { it.last - it.first + 1 <= 320_000 })
+    }
+    @Test
     fun exactPublishedArtifactsArePinned() {
         assertEquals("gemma-4-E2B-it.litertlm", LocalModelCatalog.gemma4E2b.fileName)
         assertEquals(
@@ -127,18 +175,18 @@ class LocalModelEligibilityTest {
     fun stalePersistedLocalRoutesResolveToSafeDefaultsBeforeReconciliationFinishes() {
         assertEquals(
             AIProvider.GEMINI,
-            executableAIProviderOrDefault(AIProvider.LOCAL_GEMMA, localGemmaExecutable = false)
+            executableAIProviderOrDefault(AIProvider.LOCAL_GEMMA, isExecutable = { false })
         )
         assertEquals(
             AIProvider.LOCAL_GEMMA,
-            executableAIProviderOrDefault(AIProvider.LOCAL_GEMMA, localGemmaExecutable = true)
+            executableAIProviderOrDefault(AIProvider.LOCAL_GEMMA, isExecutable = { it == LocalModelId.GEMMA_4_E2B })
         )
         assertEquals(
             AIProvider.GEMINI.defaultModel,
             executableAIModelOrDefault(
                 provider = AIProvider.LOCAL_GEMMA,
                 model = AIProvider.LOCAL_GEMMA.defaultModel,
-                localGemmaExecutable = false,
+                isExecutable = { false },
                 defaultModel = AIProvider.GEMINI.defaultModel
             )
         )
@@ -147,7 +195,7 @@ class LocalModelEligibilityTest {
             executableAIModelOrDefault(
                 provider = AIProvider.LOCAL_GEMMA,
                 model = AIProvider.LOCAL_GEMMA.defaultModel,
-                localGemmaExecutable = true,
+                isExecutable = { it == LocalModelId.GEMMA_4_E2B },
                 defaultModel = AIProvider.GEMINI.defaultModel
             )
         )
@@ -155,7 +203,7 @@ class LocalModelEligibilityTest {
             SpeechProvider.NATIVE,
             executableSpeechProviderOrDefault(
                 SpeechProvider.LOCAL_WHISPER,
-                localWhisperExecutable = false,
+                isExecutable = { false },
                 default = SpeechProvider.NATIVE
             )
         )
@@ -163,7 +211,7 @@ class LocalModelEligibilityTest {
             SpeechProvider.LOCAL_WHISPER,
             executableSpeechProviderOrDefault(
                 SpeechProvider.LOCAL_WHISPER,
-                localWhisperExecutable = true,
+                isExecutable = { it == LocalModelId.WHISPER_BASE },
                 default = SpeechProvider.NATIVE
             )
         )

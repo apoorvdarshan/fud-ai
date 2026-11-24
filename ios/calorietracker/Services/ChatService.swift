@@ -161,7 +161,8 @@ struct ChatService {
                 ON-DEVICE MODE
                 You cannot call data tools in this mode. Answer only from the profile, forecast, and data summary above. If the question requires unavailable detailed history, say that briefly instead of inventing facts.
                 """
-                return try await Gemma4LocalModelManager.shared.generate(
+                let manager = await Gemma4LocalModelManager.manager(for: provider)
+                return try await manager.generate(
                     prompt: newUserMessage,
                     images: imageData.map { [$0] } ?? [],
                     systemPrompt: localInstructions,

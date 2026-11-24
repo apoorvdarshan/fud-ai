@@ -998,7 +998,7 @@ struct GeminiService {
                     primaryProvider: primary.provider, primaryError: error, fallbackError: fallbackError
                 )
                 let detail = (chosenError as? AnalysisError)?.localizedDescription
-                    ?? (primary.provider == .gemma4Local ? chosenError.localizedDescription : AIErrorKind.generic.message)
+                    ?? (primary.provider.localGemmaVariant != nil ? chosenError.localizedDescription : AIErrorKind.generic.message)
                 throw AnalysisFallbackError(primaryName: primary.provider.displayName,
                     fallbackName: fallback.provider.displayName, detail: detail)
             }
@@ -1244,7 +1244,7 @@ struct GeminiService {
                     primaryProvider: primary.provider, primaryError: error, fallbackError: fallbackError
                 )
                 let detail = (chosenError as? AnalysisError)?.localizedDescription
-                    ?? (primary.provider == .gemma4Local ? chosenError.localizedDescription : AIErrorKind.generic.message)
+                    ?? (primary.provider.localGemmaVariant != nil ? chosenError.localizedDescription : AIErrorKind.generic.message)
                 throw AnalysisFallbackError(primaryName: primary.provider.displayName,
                     fallbackName: fallback.provider.displayName, detail: detail)
             }
@@ -1302,7 +1302,8 @@ struct GeminiService {
             #endif
             throw AnalysisError.requestFailed(.unsupportedDevice)
         case .liteRTLocal:
-            return try await Gemma4LocalModelManager.shared.generate(
+            let manager = await Gemma4LocalModelManager.manager(for: provider)
+            return try await manager.generate(
                 prompt: prompt,
                 images: imageDataList,
                 systemPrompt: AIProviderSettings.currentUserContext,

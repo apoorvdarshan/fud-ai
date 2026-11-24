@@ -44,8 +44,9 @@ struct SpeechService {
 
     /// Transcribe an audio file using the selected batch provider, with an optional
     /// independently configured remote STT fallback.
-    static func transcribe(audioURL: URL) async throws -> String {
-        if AIModeSettings.isHosted {
+    static func transcribe(audioURL: URL, capturedProvider: SpeechProvider? = nil) async throws -> String {
+        let provider = capturedProvider ?? SpeechSettings.selectedProvider
+        if AIModeSettings.isHosted && !provider.isLocalBatch {
             guard let audioData = try? Data(contentsOf: audioURL) else {
                 throw SpeechError.fileReadFailed
             }
@@ -59,13 +60,8 @@ struct SpeechService {
             }
         }
 
-        let provider: SpeechProvider = SpeechSettings.selectedProvider
-        guard let audioData = try? Data(contentsOf: audioURL) else {
-            throw SpeechError.fileReadFailed
-        }
-
         do {
-            return try await transcribe(audioURL: audioURL, audioData: audioData, provider: provider)
+            return try await transcribe(audioURL: audioURL, provider: provider)
         } catch {
             if error is CancellationError { throw error }
             guard SpeechSettings.fallbackEnabled else { throw error }
@@ -74,11 +70,15 @@ struct SpeechService {
                   !fallback.requiresAPIKey || SpeechSettings.apiKey(for: fallback)?.isEmpty == false else {
                 throw error
             }
-            return try await transcribe(audioURL: audioURL, audioData: audioData, provider: fallback)
+            return try await transcribe(audioURL: audioURL, provider: fallback)
         }
     }
 
-    private static func transcribe(audioURL: URL, audioData: Data, provider: SpeechProvider) async throws -> String {
+    private static func transcribe(audioURL: URL, provider: SpeechProvider) async throws -> String {
+        if let model = provider.localModel {
+            let manager = await LocalSpeechModelManager.forModel(model)
+            return try await manager.transcribe(audioURL)
+        }
         let selectedLanguage = SpeechSettings.selectedLanguage(for: provider)
         let languageCode = selectedLanguage.apiLanguageCode
         if provider == .whisperBase {
@@ -90,6 +90,7 @@ struct SpeechService {
         guard provider.requiresAPIKey else {
             throw SpeechError.apiError("Native iOS transcription is handled in-view, not via SpeechService.")
         }
+        guard let audioData = try? Data(contentsOf: audioURL) else { throw SpeechError.fileReadFailed }
         let apiKey = SpeechSettings.apiKey(for: provider)
         if apiKey == nil || apiKey?.isEmpty == true {
             throw SpeechError.noAPIKey
@@ -98,8 +99,8 @@ struct SpeechService {
         switch provider {
         case .nativeIOS:
             throw SpeechError.apiError("Native iOS transcription is handled in-view.")
-        case .whisperBase:
-            throw SpeechError.apiError("Whisper Base could not be initialized.")
+        case .whisperBase, .parakeetV3, .qwen3ASR:
+            throw SpeechError.invalidResponse
         case .gemini:
             return try await callGeminiAudio(
                 model: provider.defaultModel,

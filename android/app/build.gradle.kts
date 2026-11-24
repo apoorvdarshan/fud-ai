@@ -422,6 +422,7 @@ dependencies {
     implementation(libs.play.services.auth)
     implementation(libs.vico.compose.m3)
     implementation(libs.litert.lm.android)
+    implementation("com.k2fsa.sherpa:sherpa-onnx-static-link-onnxruntime:2.0.3@aar")
     implementation(libs.whisper.android)
     implementation(libs.revenuecat.purchases)
 

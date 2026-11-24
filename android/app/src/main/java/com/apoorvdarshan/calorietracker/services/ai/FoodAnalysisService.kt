@@ -871,8 +871,9 @@ class FoodAnalysisService(
         jsonResponse: Boolean,
         openRouterReasoningEffort: OpenRouterReasoningEffort = OpenRouterReasoningEffort.AUTO
     ): String {
-        if (provider == AIProvider.LOCAL_GEMMA) {
+        provider.localModelId?.let { id ->
             return localGemma?.generate(
+                id = id,
                 prompt = prompt,
                 images = imageBytesList,
                 maxOutputTokens = maxTokens
@@ -914,7 +915,7 @@ class FoodAnalysisService(
         if (provider == primary && model == primaryModel && baseUrl == primaryBaseUrl) return null
         val key = keyStore.apiKey(provider)
         if (provider.requiresApiKey && key.isNullOrEmpty()) return null
-        if (provider != AIProvider.LOCAL_GEMMA && baseUrl.isEmpty()) return null
+        if (provider.localModelId == null && baseUrl.isEmpty()) return null
         return FallbackConfig(provider, model, baseUrl, key)
     }
 
@@ -931,7 +932,7 @@ class FoodAnalysisService(
         if (provider == primary && model == primaryModel && baseUrl == primaryBaseUrl) return null
         val key = keyStore.apiKey(provider)
         if (provider.requiresApiKey && key.isNullOrEmpty()) return null
-        if (provider != AIProvider.LOCAL_GEMMA && baseUrl.isEmpty()) return null
+        if (provider.localModelId == null && baseUrl.isEmpty()) return null
         return FallbackConfig(provider, model, baseUrl, key)
     }
 

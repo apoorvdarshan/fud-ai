@@ -1,5 +1,5 @@
 {
-  "originHash" : "aaa1c36cbbde118d957a8631323691d6103b0d55627e485dc92a7a9904cac0fa",
+  "originHash" : "ff1e4a0c1192e9dbf0d42c78978267f11bcacaeac10b081010334d5086702172",
   "pins" : [
     {
       "identity" : "argmax-oss-swift",
@@ -11,12 +11,30 @@
       }
     },
     {
+      "identity" : "onnxruntime-libs",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/csukuangfj/onnxruntime-libs",
+      "state" : {
+        "revision" : "8ebc5ebf92190903c274a7621ba4c96a732335ec",
+        "version" : "1.28.2"
+      }
+    },
+    {
       "identity" : "purchases-ios",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/RevenueCat/purchases-ios.git",
       "state" : {
         "revision" : "6fcd89a5d6db067081148f0436a7c55d54f36d21",
         "version" : "5.80.2"
+      }
+    },
+    {
+      "identity" : "sherpa-onnx",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/k2-fsa/sherpa-onnx.git",
+      "state" : {
+        "revision" : "38016c6e0622e90bf417c35e8b47e0eb805af417",
+        "version" : "2.0.3"
       }
     },
     {

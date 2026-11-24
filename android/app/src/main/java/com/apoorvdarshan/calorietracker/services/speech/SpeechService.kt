@@ -7,6 +7,7 @@ import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysisService
 import com.apoorvdarshan.calorietracker.services.hosted.AiAccessMode
 import com.apoorvdarshan.calorietracker.services.hosted.HostedAiAccess
 import com.apoorvdarshan.calorietracker.services.ondevice.LocalWhisperRuntime
+import com.apoorvdarshan.calorietracker.services.ondevice.LocalSpeechRuntime
 import kotlinx.coroutines.flow.first
 import okhttp3.OkHttpClient
 import java.io.File
@@ -21,7 +22,8 @@ class SpeechService(
     private val keyStore: KeyStore,
     private val okHttp: OkHttpClient = FoodAnalysisService.defaultClient,
     private val localWhisper: LocalWhisperRuntime? = null,
-    private val hosted: HostedAiAccess? = null
+    private val hosted: HostedAiAccess? = null,
+    private val localSpeech: LocalSpeechRuntime? = null
 ) {
 
     /**
@@ -36,8 +38,8 @@ class SpeechService(
      */
     suspend fun transcribeRecordedAudio(audio: File, capturedProvider: SpeechProvider? = null): String {
         val provider = capturedProvider ?: prefs.selectedSpeechProvider.first()
-        // On-device Whisper stays local (free); remote providers go through Hosted AI.
-        if (hosted != null && provider != SpeechProvider.LOCAL_WHISPER &&
+        // Local recorded providers stay local; remote providers go through Hosted AI.
+        if (hosted != null && provider.localModelId == null &&
             prefs.aiAccessMode.first() == AiAccessMode.HOSTED
         ) {
             return try {
@@ -65,7 +67,7 @@ class SpeechService(
 
     private suspend fun transcribe(audio: File, provider: SpeechProvider): String {
         val languageCode = prefs.selectedSpeechLanguage(provider).first().remoteLanguageCode()
-        val apiKey = keyStore.speechApiKey(provider)
+        val apiKey = if (provider.requiresApiKey) keyStore.speechApiKey(provider) else null
 
         if (provider.requiresApiKey && apiKey.isNullOrEmpty()) throw SttApiError.NoApiKey
 
@@ -74,6 +76,11 @@ class SpeechService(
                 // Whisper Base is a runtime object even before its model is downloaded.
                 val runtime = localWhisper?.takeIf { it.isReady() } ?: throw SttApiError.LocalUnavailable
                 runtime.transcribe(audio, languageCode).ifBlank { throw SttApiError.EmptyTranscript }
+            }
+            SpeechProvider.LOCAL_PARAKEET, SpeechProvider.LOCAL_QWEN3_ASR -> {
+                val id = checkNotNull(provider.localModelId)
+                val runtime = localSpeech?.takeIf { it.isReady(id) } ?: throw SttApiError.LocalModelUnavailable
+                runtime.transcribe(id, audio).ifBlank { throw SttApiError.EmptyTranscript }
             }
             SpeechProvider.GEMINI -> GeminiAudioClient.transcribe(
                 client = okHttp,
@@ -128,6 +135,8 @@ class SpeechService(
     private fun isUsableRecordedProvider(provider: SpeechProvider): Boolean = when (provider) {
         SpeechProvider.NATIVE -> false
         SpeechProvider.LOCAL_WHISPER -> localWhisper?.isReady() == true
+        SpeechProvider.LOCAL_PARAKEET, SpeechProvider.LOCAL_QWEN3_ASR ->
+            localSpeech?.isReady(checkNotNull(provider.localModelId)) == true
         else -> !keyStore.speechApiKey(provider).isNullOrEmpty()
     }
 }

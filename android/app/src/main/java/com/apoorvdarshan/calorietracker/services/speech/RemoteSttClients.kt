@@ -35,6 +35,7 @@ sealed class SttApiError(message: String) : Exception(message) {
     object InvalidResponse : SttApiError("Could not understand the transcription response.")
     object Timeout : SttApiError("Transcription timed out.")
     object LocalUnavailable : SttApiError("The on-device Whisper runtime is unavailable.")
+    object LocalModelUnavailable : SttApiError("The selected on-device speech model is unavailable.")
     object EmptyTranscript : SttApiError("The recording contained no recognizable speech.")
 
     fun userMessage(context: Context): String = when (this) {
@@ -45,6 +46,7 @@ sealed class SttApiError(message: String) : Exception(message) {
         InvalidResponse -> context.getString(R.string.stt_api_error_invalid_response)
         Timeout -> context.getString(R.string.stt_api_error_timeout)
         LocalUnavailable -> context.getString(R.string.stt_api_error_local_unavailable)
+        LocalModelUnavailable -> context.getString(R.string.stt_api_error_local_model_unavailable)
         EmptyTranscript -> context.getString(R.string.stt_error_no_match)
     }
 }

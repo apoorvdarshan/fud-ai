@@ -38,6 +38,18 @@ struct WhisperBaseNoticesView: View {
     }
 }
 
+struct SherpaONNXNoticesView: View {
+    static var title: String { String(localized: "Sherpa-ONNX and speech model notices") }
+
+    var body: some View {
+        BundledNoticesView(
+            url: Bundle.main.url(forResource: "THIRD_PARTY_NOTICES_SherpaONNX", withExtension: "txt"),
+            title: Self.title,
+            accessibilityLabel: Self.title
+        )
+    }
+}
+
 private struct BundledNoticesView: View {
     private enum LoadState {
         case loading

@@ -176,7 +176,7 @@ class ChatService(
         requestTimeoutSeconds: Int,
         toolFreeSystemPrompt: () -> String
     ): String {
-        if (provider == AIProvider.LOCAL_GEMMA) {
+        provider.localModelId?.let { id ->
             val conversation = buildString {
                 history.takeLast(12).forEach { message ->
                     append(if (message.role == ChatMessage.Role.USER) "User: " else "Assistant: ")
@@ -186,6 +186,7 @@ class ChatService(
                 append(newUserMessage)
             }
             return localGemma?.generate(
+                id = id,
                 prompt = conversation,
                 images = imageBytes?.let(::listOf).orEmpty(),
                 maxOutputTokens = maxTokens,
@@ -242,7 +243,7 @@ class ChatService(
         if (provider == primary && model == primaryModel && baseUrl == primaryBaseUrl) return null
         val apiKey = keyStore.apiKey(provider)
         if (provider.requiresApiKey && apiKey.isNullOrEmpty()) return null
-        if (provider != AIProvider.LOCAL_GEMMA && baseUrl.isEmpty()) return null
+        if (provider.localModelId == null && baseUrl.isEmpty()) return null
         return ChatFallbackConfig(provider, model, baseUrl, apiKey)
     }
 

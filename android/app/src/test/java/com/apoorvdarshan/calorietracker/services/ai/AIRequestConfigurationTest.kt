@@ -101,6 +101,7 @@ class AIRequestConfigurationTest {
                 "qwen3-vl-plus"
             ),
             AIProvider.LOCAL_GEMMA to listOf("gemma-4-E2B-it"),
+            AIProvider.LOCAL_GEMMA_E4B to listOf("gemma-4-E4B-it"),
             AIProvider.OLLAMA to listOf(
                 "qwen3-vl",
                 "qwen3.8",
@@ -219,6 +220,8 @@ class AIRequestConfigurationTest {
         val defaults = linkedMapOf(
             SpeechProvider.NATIVE to "",
             SpeechProvider.LOCAL_WHISPER to "ggml-base",
+            SpeechProvider.LOCAL_PARAKEET to "parakeet-tdt-0.6b-v3",
+            SpeechProvider.LOCAL_QWEN3_ASR to "qwen3-asr-0.6b",
             SpeechProvider.GEMINI to "gemini-3.5-transcribe",
             SpeechProvider.OPENAI to "gpt-transcribe",
             SpeechProvider.GROQ to "whisper-large-v3",

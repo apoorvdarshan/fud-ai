@@ -1,5 +1,7 @@
 package com.apoorvdarshan.calorietracker.models
 
+import com.apoorvdarshan.calorietracker.services.ondevice.LocalModelId
+
 import androidx.annotation.StringRes
 import com.apoorvdarshan.calorietracker.R
 import kotlinx.serialization.SerialName
@@ -22,6 +24,7 @@ enum class AIProvider {
     @SerialName("Alibaba Qwen") QWEN,
     @SerialName("Cerebras") CEREBRAS,
     @SerialName("Gemma 4 E2B (On-Device)") LOCAL_GEMMA,
+    @SerialName("Gemma 4 E4B (On-Device)") LOCAL_GEMMA_E4B,
     @SerialName("Ollama (Local)") OLLAMA,
     @SerialName("Custom (OpenAI-compatible)") CUSTOM_OPENAI;
 
@@ -42,6 +45,7 @@ enum class AIProvider {
         QWEN -> R.string.ai_provider_qwen
         CEREBRAS -> R.string.ai_provider_cerebras
         LOCAL_GEMMA -> R.string.ai_provider_local_gemma
+        LOCAL_GEMMA_E4B -> R.string.ai_provider_local_gemma_e4b
         OLLAMA -> R.string.ai_provider_ollama
         CUSTOM_OPENAI -> R.string.ai_provider_custom
     }
@@ -62,7 +66,7 @@ enum class AIProvider {
         // Model Studio's public international (Singapore) endpoint.
         QWEN -> "https://dashscope-intl.aliyuncs.com/compatible-mode/v1"
         CEREBRAS -> "https://api.cerebras.ai/v1"
-        LOCAL_GEMMA -> ""
+        LOCAL_GEMMA, LOCAL_GEMMA_E4B -> ""
         OLLAMA -> "http://localhost:11434/v1"
         CUSTOM_OPENAI -> ""
     }
@@ -161,6 +165,7 @@ enum class AIProvider {
             "qwen3-vl-plus"
         )
         LOCAL_GEMMA -> listOf("gemma-4-E2B-it")
+        LOCAL_GEMMA_E4B -> listOf("gemma-4-E4B-it")
         OLLAMA -> listOf(
             "qwen3-vl",
             "qwen3.8",
@@ -228,7 +233,14 @@ enum class AIProvider {
         }
     }
 
-    val requiresApiKey: Boolean get() = this != OLLAMA && this != LOCAL_GEMMA
+    val localModelId: LocalModelId?
+        get() = when (this) {
+            LOCAL_GEMMA -> LocalModelId.GEMMA_4_E2B
+            LOCAL_GEMMA_E4B -> LocalModelId.GEMMA_4_E4B
+            else -> null
+        }
+
+    val requiresApiKey: Boolean get() = this != OLLAMA && localModelId == null
     val requiresCustomEndpoint: Boolean get() = this == CUSTOM_OPENAI
     val requiresCustomModelName: Boolean get() = this == CUSTOM_OPENAI
     val usesConfigurableRequestTimeout: Boolean get() = this == OLLAMA || this == CUSTOM_OPENAI
@@ -238,7 +250,7 @@ enum class AIProvider {
     val apiFormat: ApiFormat get() = when (this) {
         GEMINI -> ApiFormat.GEMINI
         ANTHROPIC -> ApiFormat.ANTHROPIC
-        LOCAL_GEMMA -> ApiFormat.LOCAL
+        LOCAL_GEMMA, LOCAL_GEMMA_E4B -> ApiFormat.LOCAL
         OPENAI, XAI, OPENROUTER, TOGETHER_AI, GROQ, HUGGING_FACE,
         FIREWORKS, DEEP_INFRA, MISTRAL, DEEPSEEK, QWEN, CEREBRAS, OLLAMA, CUSTOM_OPENAI -> ApiFormat.OPENAI_COMPATIBLE
     }
@@ -260,7 +272,7 @@ enum class AIProvider {
         QWEN -> "Qwen"
         CEREBRAS -> "Cerebras"
         CUSTOM_OPENAI -> "API"
-        LOCAL_GEMMA, OLLAMA -> "API"
+        LOCAL_GEMMA, LOCAL_GEMMA_E4B, OLLAMA -> "API"
     }
 
     @get:StringRes
@@ -279,7 +291,7 @@ enum class AIProvider {
         DEEPSEEK -> R.string.ai_key_placeholder_deepseek
         QWEN -> R.string.ai_key_placeholder_qwen
         CEREBRAS -> R.string.ai_key_placeholder_cerebras
-        LOCAL_GEMMA -> R.string.ai_key_placeholder_local
+        LOCAL_GEMMA, LOCAL_GEMMA_E4B -> R.string.ai_key_placeholder_local
         OLLAMA -> R.string.ai_key_placeholder_ollama
         CUSTOM_OPENAI -> R.string.ai_key_placeholder_custom
     }
@@ -291,11 +303,11 @@ enum class AIProvider {
 
         val visionProviders: List<AIProvider> get() = values().filter { it.supportsVision }
         val remoteVisionProviders: List<AIProvider>
-            get() = visionProviders.filter { it != LOCAL_GEMMA }
+            get() = visionProviders.filter { it.localModelId == null }
         val textProviders: List<AIProvider>
             get() = values().filter { it.textModels.isNotEmpty() || it.requiresCustomModelName }
         val remoteTextProviders: List<AIProvider>
-            get() = textProviders.filter { it != LOCAL_GEMMA }
+            get() = textProviders.filter { it.localModelId == null }
 
         fun normalizedRequestTimeoutSeconds(value: Int): Int = value.coerceIn(30, 600)
 

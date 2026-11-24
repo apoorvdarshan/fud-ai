@@ -176,18 +176,14 @@ struct PinkNeoDateHeader: View {
     var body: some View {
         let palette = appearance.palette
         HStack(spacing: 8) {
-            VStack(alignment: .leading, spacing: 1) {
-                Group {
-                    if Calendar.current.isDateInToday(date) { Text("Today") }
-                    else { Text(date, format: .dateTime.weekday(.wide)) }
-                }
-                .textCase(.uppercase)
-                .font(.system(.largeTitle, weight: .black).width(.condensed))
-                .accessibilityAddTraits(.isHeader)
-
-                Text(date, format: .dateTime.weekday(.wide).month(.wide).day())
-                    .font(.system(.subheadline, weight: .semibold).width(.condensed))
+            Group {
+                if Calendar.current.isDateInToday(date) { Text("Today") }
+                else { Text(date, format: .dateTime.weekday(.abbreviated).month(.abbreviated).day()) }
             }
+            .font(.system(.headline, weight: .black).width(.condensed))
+            .fixedSize(horizontal: false, vertical: true)
+            .accessibilityAddTraits(.isHeader)
+            .accessibilityIdentifier("home.dateHeading")
             Spacer(minLength: 0)
             Button {
                 calendarDate = min(date, .now)
@@ -196,8 +192,7 @@ struct PinkNeoDateHeader: View {
                 Image(systemName: "calendar")
                     .font(.body.weight(.semibold))
                     .frame(width: 44, height: 44)
-                    .background(palette.wash)
-                    .pinkNeoRule(palette.rule)
+                    .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
             .accessibilityLabel("Date")
@@ -213,10 +208,8 @@ struct PinkNeoDateHeader: View {
                     }
             }
         }
-        .padding(10)
+        .padding(.leading, 2)
         .foregroundStyle(palette.ink)
-        .background(palette.panel)
-        .pinkNeoRule(palette.rule, width: 1.5)
     }
 }
 

@@ -131,7 +131,6 @@ struct ContentView: View {
     @AppStorage(TabBarSettings.hiddenTabsKey) private var hiddenTabsRaw = ""
     @State private var appUpdateState: AppUpdateState = .idle
     @State private var selectedTab: AppTab = .home
-    @State private var keyboardVisible = false
     @Environment(\.layoutDirection) private var layoutDirection
     private var neoAppearance = PinkNeoAppearance()
     @State private var quickActionRequest: QuickActionRequest?
@@ -159,25 +158,17 @@ struct ContentView: View {
             standardTabView
                 .environment(\.layoutDirection, layoutDirection)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-            if !keyboardVisible {
-                PinkNeoRail(items: railItems) {
-                    selectedTab = .home
-                    quickActionRequest = QuickActionRequest(action: .camera)
-                }
-                .environment(\.layoutDirection, layoutDirection)
-                .padding(.trailing, 7)
+            PinkNeoRail(items: railItems) {
+                selectedTab = .home
+                quickActionRequest = QuickActionRequest(action: .camera)
             }
+            .environment(\.layoutDirection, layoutDirection)
+            .padding(.trailing, 7)
         }
             .environment(\.layoutDirection, .leftToRight)
             .background(neoAppearance.palette.paper)
             .tint(AppColors.accentText)
             .background(VoiceAssistantWindowInstaller(controller: voiceAssistant))
-            .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
-                keyboardVisible = true
-            }
-            .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
-                keyboardVisible = false
-            }
             .task {
                 attachVoiceAssistant()
                 consumePendingLaunchRoutes()
@@ -6120,9 +6111,8 @@ struct ProfileView: View {
                         }
 
                         if selectedTextProvider == .appleIntelligence {
-                            HStack {
+                            FlashAdaptiveStack {
                                 Label("Model", systemImage: "brain")
-                                Spacer()
                                 Text(selectedTextProvider.defaultTextModel)
                                     .foregroundStyle(.secondary)
                                     .accessibilityIdentifier("settings.ai.systemTextModel")

@@ -91,6 +91,29 @@ class AppFlowsTest {
     }
 
     @Test
+    fun coachKeyboardKeepsTheRailInPlaceAndAllowsSwitchingTabs() {
+        launchFresh()
+        openTab("coach")
+        val home = compose.onNodeWithTag("nav.home")
+        val initialLeft = home.assertIsDisplayed().fetchSemanticsNode().boundsInRoot.left
+        val imeVisible = AtomicReference(false)
+        compose.onNodeWithTag("coach.input").performClick()
+        compose.waitUntil(timeoutMillis = 8_000) {
+            activity!!.onActivity { main ->
+                imeVisible.set(
+                    ViewCompat.getRootWindowInsets(main.window.decorView)
+                        ?.isVisible(WindowInsetsCompat.Type.ime()) == true
+                )
+            }
+            imeVisible.get()
+        }
+        assertEquals(initialLeft, home.assertIsDisplayed().fetchSemanticsNode().boundsInRoot.left, 1f)
+        home.performClick()
+        waitForHome()
+        home.assertIsSelected()
+    }
+
+    @Test
     fun progressDateRangeUsesOneAnchoredControlAndRetainsItsSelection() {
         launchFresh()
         openTab("progress")

@@ -441,6 +441,7 @@ struct ChatView: View {
     private var composerField: some View {
         TextField("Ask Coach…", text: $draft, axis: .vertical)
             .font(.body)
+            .accessibilityIdentifier("coach.input")
             .lineLimit(1...5)
             .padding(.horizontal, 8)
             .padding(.vertical, 12)

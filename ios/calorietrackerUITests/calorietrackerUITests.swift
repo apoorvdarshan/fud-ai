@@ -243,6 +243,10 @@ final class calorietrackerUITests: XCTestCase {
 
         openSettingsCategory("speechToText", in: app)
 
+        let source = app.descendants(matching: .any)["settings.localModel.whisper.source"].firstMatch
+        reveal(source, in: app)
+        XCTAssertTrue(source.isHittable)
+
         let speechSection = app.staticTexts["Speech-to-Text"]
         for _ in 0..<12 {
             if speechSection.exists { break }
@@ -313,6 +317,29 @@ final class calorietrackerUITests: XCTestCase {
             XCTAssertTrue(app.buttons["settings.category.\(identifier)"].waitForExistence(timeout: 3))
         }
         reveal(app.staticTexts["Made by Apoorv Darshan"], in: app)
+    }
+
+    @MainActor
+    func testCoachKeyboardKeepsNavigationRailOnTheRight() {
+        let app = makeApp()
+        app.launch()
+        let home = app.buttons["nav.home"]
+        let coach = app.buttons["nav.coach"]
+        XCTAssertTrue(coach.waitForExistence(timeout: 15))
+        coach.tap()
+        let railX = home.frame.minX
+        let input = app.descendants(matching: .any)["coach.input"].firstMatch
+        XCTAssertTrue(input.waitForExistence(timeout: 5))
+        input.tap()
+        XCTAssertTrue(app.keyboards.firstMatch.waitForExistence(timeout: 5))
+        XCTAssertTrue(home.isHittable)
+        XCTAssertEqual(home.frame.minX, railX, accuracy: 1)
+        let screenshot = XCTAttachment(screenshot: app.screenshot())
+        screenshot.name = "Coach keyboard with the right rail"
+        screenshot.lifetime = .keepAlways
+        add(screenshot)
+        home.tap()
+        XCTAssertTrue(app.buttons["home.calendar"].waitForExistence(timeout: 5))
     }
 
     @MainActor

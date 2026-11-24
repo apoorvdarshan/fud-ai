@@ -1,6 +1,7 @@
 package com.apoorvdarshan.calorietracker.ui.home
 
 import android.app.DatePickerDialog
+import android.text.format.DateFormat
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -23,6 +24,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -47,8 +49,6 @@ import com.apoorvdarshan.calorietracker.ui.util.valueWithUnit
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
-import java.time.format.TextStyle
 
 @Composable
 internal fun PinkNeoDateHeader(date: LocalDate, onPick: (LocalDate) -> Unit) {
@@ -57,22 +57,19 @@ internal fun PinkNeoDateHeader(date: LocalDate, onPick: (LocalDate) -> Unit) {
     val locale = LocalConfiguration.current.locales[0]
     val today = LocalDate.now()
     Row(
-        Modifier.fillMaxWidth().background(palette.panel).border(1.5.dp, palette.rule).padding(10.dp),
+        Modifier.fillMaxWidth().padding(start = 2.dp),
         horizontalArrangement = Arrangement.spacedBy(6.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Column(Modifier.weight(1f)) {
-            val heading = if (date == today) stringResource(R.string.widget_today)
-                else date.dayOfWeek.getDisplayName(TextStyle.FULL, locale)
-            Text(
-                heading.uppercase(locale), color = palette.ink, fontWeight = FontWeight.Black,
-                fontSize = 30.sp, style = PinkNeoCondensed, modifier = Modifier.semantics { heading() }
-            )
-            Text(
-                date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL).withLocale(locale)),
-                color = palette.ink, fontWeight = FontWeight.SemiBold, fontSize = 12.sp
-            )
+        val dateFormatter = remember(locale) {
+            DateTimeFormatter.ofPattern(DateFormat.getBestDateTimePattern(locale, "EEEMMMd"), locale)
         }
+        Text(
+            if (date == today) stringResource(R.string.widget_today) else date.format(dateFormatter),
+            color = palette.ink, fontWeight = FontWeight.Black, fontSize = 18.sp,
+            lineHeight = 22.sp, style = PinkNeoCondensed,
+            modifier = Modifier.weight(1f).testTag("home.dateHeading").semantics { heading() }
+        )
         IconButton(
             onClick = {
                 val initial = minOf(date, today)
@@ -84,7 +81,7 @@ internal fun PinkNeoDateHeader(date: LocalDate, onPick: (LocalDate) -> Unit) {
                     .toInstant().toEpochMilli() - 1
                 dialog.show()
             },
-            modifier = Modifier.testTag("home.calendar").size(48.dp).background(palette.wash).border(1.dp, palette.rule)
+            modifier = Modifier.testTag("home.calendar").size(48.dp)
         ) {
             Icon(Icons.Filled.CalendarToday, stringResource(R.string.label_date), tint = palette.ink,
                 modifier = Modifier.size(18.dp))

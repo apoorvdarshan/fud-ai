@@ -31,6 +31,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
@@ -167,7 +170,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
@@ -4497,8 +4499,9 @@ private fun SettingsSubsectionHeader(
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun LocalModelRow(
+internal fun LocalModelRow(
     state: LocalModelState,
     onDownload: () -> Unit,
     onDelete: () -> Unit
@@ -4525,13 +4528,13 @@ private fun LocalModelRow(
         LocalModelInstallStatus.Installed -> stringResource(R.string.settings_local_model_installed)
         is LocalModelInstallStatus.Failed -> status.message
     }
-    Row(
+    Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 11.dp),
-        verticalAlignment = Alignment.CenterVertically
+            .padding(horizontal = FlashSpacing.PageInset, vertical = FlashSpacing.ItemGap),
+        verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
-        Column(Modifier.weight(1f).padding(end = 8.dp)) {
+        Column {
             Text(
                 state.descriptor.displayName,
                 style = MaterialTheme.typography.bodyLarge,
@@ -4544,13 +4547,17 @@ private fun LocalModelRow(
                     MaterialTheme.colorScheme.error
                 } else {
                     MaterialTheme.colorScheme.onSurface.copy(alpha = 0.58f)
-                },
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis
+                }
             )
-            Row(
-                modifier = Modifier.padding(top = 3.dp),
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
+        }
+        FlowRow(
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            itemVerticalAlignment = Alignment.CenterVertically
+        ) {
+            TextButton(
+                onClick = { uriHandler.openUri(state.descriptor.licenseUrl) },
+                contentPadding = PaddingValues(0.dp),
+                modifier = Modifier.heightIn(min = FlashSpacing.MinTouchTarget)
             ) {
                 Text(
                     stringResource(
@@ -4558,43 +4565,50 @@ private fun LocalModelRow(
                         state.descriptor.licenseName
                     ),
                     color = AppColors.Calorie,
-                    style = MaterialTheme.typography.labelMedium,
-                    modifier = Modifier.clickable {
-                        uriHandler.openUri(state.descriptor.licenseUrl)
-                    }
+                    style = MaterialTheme.typography.labelMedium
                 )
+            }
+            TextButton(
+                onClick = { uriHandler.openUri(state.descriptor.sourceUrl) },
+                contentPadding = PaddingValues(0.dp),
+                modifier = Modifier.heightIn(min = FlashSpacing.MinTouchTarget)
+            ) {
                 Text(
                     stringResource(R.string.settings_model_source),
                     color = AppColors.Calorie,
-                    style = MaterialTheme.typography.labelMedium,
-                    modifier = Modifier.clickable {
-                        uriHandler.openUri(state.descriptor.sourceUrl)
-                    }
+                    style = MaterialTheme.typography.labelMedium
                 )
             }
         }
-        when (val status = state.status) {
-            is LocalModelInstallStatus.Downloading -> {
-                CircularProgressIndicator(
-                    progress = {
-                        status.downloadedBytes.toFloat() / status.totalBytes.coerceAtLeast(1L).toFloat()
-                    },
-                    modifier = Modifier.size(24.dp),
-                    strokeWidth = 2.dp,
-                    color = AppColors.Calorie
-                )
-                TextButton(onClick = onDelete) { Text(stringResource(R.string.action_cancel)) }
-            }
-            LocalModelInstallStatus.Installed ->
-                TextButton(onClick = onDelete) { Text(stringResource(R.string.action_delete)) }
-            LocalModelInstallStatus.NotInstalled,
-            is LocalModelInstallStatus.Failed -> {
-                TextButton(onClick = onDownload, enabled = state.eligible) {
-                    Text(stringResource(R.string.action_download))
-                }
-                // An interrupted download keeps its bytes for resuming; Delete frees them.
-                if (state.keptBytes > 0L) {
-                    TextButton(onClick = onDelete) { Text(stringResource(R.string.action_delete)) }
+        if (state.eligible || state.status != LocalModelInstallStatus.NotInstalled || state.keptBytes > 0L) {
+            FlowRow(
+                horizontalArrangement = Arrangement.spacedBy(FlashSpacing.ItemGap),
+                itemVerticalAlignment = Alignment.CenterVertically
+            ) {
+                when (val status = state.status) {
+                    is LocalModelInstallStatus.Downloading -> {
+                        CircularProgressIndicator(
+                            progress = {
+                                status.downloadedBytes.toFloat() / status.totalBytes.coerceAtLeast(1L).toFloat()
+                            },
+                            modifier = Modifier.size(24.dp),
+                            strokeWidth = 2.dp,
+                            color = AppColors.Calorie
+                        )
+                        TextButton(onClick = onDelete) { Text(stringResource(R.string.action_cancel)) }
+                    }
+                    LocalModelInstallStatus.Installed ->
+                        TextButton(onClick = onDelete) { Text(stringResource(R.string.action_delete)) }
+                    LocalModelInstallStatus.NotInstalled,
+                    is LocalModelInstallStatus.Failed -> {
+                        TextButton(onClick = onDownload, enabled = state.eligible) {
+                            Text(stringResource(R.string.action_download))
+                        }
+                        // An interrupted download keeps its bytes for resuming; Delete frees them.
+                        if (state.keptBytes > 0L) {
+                            TextButton(onClick = onDelete) { Text(stringResource(R.string.action_delete)) }
+                        }
+                    }
                 }
             }
         }
@@ -4671,6 +4685,7 @@ private fun <T> SettingChoiceRow(
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun SettingRow(
     label: String,
@@ -4683,16 +4698,6 @@ internal fun SettingRow(
     inlineMenu: Boolean = false,
     onClick: () -> Unit
 ) {
-    val largeText = androidx.compose.ui.platform.LocalDensity.current.fontScale >= 1.3f
-    val valueText: @Composable (Modifier) -> Unit = { modifier ->
-        Text(
-            value,
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.65f),
-            textAlign = if (largeText) TextAlign.Start else TextAlign.End,
-            modifier = modifier
-        )
-    }
     Row(
         Modifier
             .fillMaxWidth()
@@ -4709,15 +4714,17 @@ internal fun SettingRow(
             FudIconBubble(icon = icon, size = 22.dp, iconSize = 14.dp)
             Spacer(Modifier.width(10.dp))
         }
-        if (largeText && value.isNotEmpty()) {
-            Column(Modifier.weight(1f)) {
-                Text(label, style = MaterialTheme.typography.bodyLarge)
-                valueText(Modifier)
-            }
-        } else {
-            Text(label, modifier = Modifier.weight(1f), style = MaterialTheme.typography.bodyLarge)
+        FlowRow(
+            modifier = Modifier.weight(1f),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalArrangement = Arrangement.spacedBy(2.dp),
+            itemVerticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(label, modifier = Modifier.padding(end = if (value.isEmpty()) 0.dp else 8.dp),
+                style = MaterialTheme.typography.bodyLarge)
             if (value.isNotEmpty()) {
-                valueText(Modifier.weight(0.8f).padding(start = 6.dp))
+                Text(value, style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.65f))
             }
         }
         Spacer(Modifier.width(6.dp))

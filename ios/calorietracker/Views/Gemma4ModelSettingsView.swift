@@ -8,10 +8,9 @@ struct Gemma4ModelSettingsView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            HStack(alignment: .firstTextBaseline) {
+            FlashAdaptiveStack {
                 Label(localized("gemma.name", "Gemma 4 E2B"), systemImage: "cpu")
                     .font(.body.weight(.medium))
-                Spacer()
                 Text(statusLabel)
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(statusColor)
@@ -32,7 +31,7 @@ struct Gemma4ModelSettingsView: View {
                     .accessibilityLabel(localized("gemma.verifyingDownload", "Verifying Gemma 4 download"))
             }
 
-            HStack {
+            FlashAdaptiveStack {
                 if isDownloading {
                     Button(localized("common.cancel", "Cancel"), role: .cancel) {
                         modelManager.cancelDownload()
@@ -66,15 +65,16 @@ struct Gemma4ModelSettingsView: View {
                 }
             }
 
-            HStack(spacing: 12) {
+            FlashAdaptiveStack(spacing: 12) {
                 Link("Apache 2.0", destination: Gemma4LocalModelManager.licenseURL)
-                    .font(.caption2)
 
                 Link(destination: Gemma4LocalModelManager.sourceURL) {
                     Label(localized("gemma.modelSource", "Model source"), systemImage: "arrow.up.right.square")
-                        .font(.caption2)
                 }
+                .accessibilityIdentifier("settings.localModel.gemma.source")
             }
+            .font(.caption)
+            .buttonStyle(.borderless)
         }
         .padding(.vertical, 4)
         .onAppear { modelManager.refresh() }

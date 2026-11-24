@@ -99,6 +99,23 @@ extension View {
     }
 }
 
+/// Measure the whole row before deciding whether to stack. Without the ideal
+/// width probe SwiftUI can squeeze each label until its words break apart.
+struct FlashAdaptiveStack<Content: View>: View {
+    var spacing: CGFloat = 8
+    @ViewBuilder let content: () -> Content
+
+    var body: some View {
+        ViewThatFits(in: .horizontal) {
+            HStack(alignment: .center, spacing: spacing, content: content)
+                .fixedSize(horizontal: true, vertical: false)
+            VStack(alignment: .leading, spacing: 4, content: content)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+}
+
 struct FlashActionButtonStyle: ButtonStyle {
     @Environment(\.isEnabled) private var isEnabled
 

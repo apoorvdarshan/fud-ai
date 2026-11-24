@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -84,7 +85,8 @@ internal fun PinkNeoRail(
     modifier: Modifier = Modifier,
     showAboutBadge: Boolean = false,
     workoutMode: WorkoutTabMode = WorkoutTabMode.Default,
-    hiddenRoutes: Set<String> = emptySet()
+    hiddenRoutes: Set<String> = emptySet(),
+    navigationEnabled: Boolean = true
 ) {
     val palette = pinkNeoPalette()
     val scale = LocalDensity.current.fontScale
@@ -98,6 +100,7 @@ internal fun PinkNeoRail(
             .fillMaxHeight()
             .statusBarsPadding()
             .navigationBarsPadding()
+            .imePadding()
             .absolutePadding(top = 7.dp, bottom = 7.dp, right = 7.dp)
             .width(width)
             .clip(railShape)
@@ -136,7 +139,7 @@ internal fun PinkNeoRail(
                             .testTag("nav.${tab.route}")
                             .clip(itemShape)
                             .background(if (selected) palette.action else Color.Transparent)
-                            .selectable(selected, role = Role.Tab) { onTap(tab.route) }
+                            .selectable(selected, enabled = navigationEnabled, role = Role.Tab) { onTap(tab.route) }
                             .semantics {
                                 contentDescription = label
                                 if (badge) stateDescription = update
@@ -154,7 +157,7 @@ internal fun PinkNeoRail(
                 .clip(itemShape)
                 .background(palette.panel)
                 .border(1.dp, palette.rule, itemShape)
-                .clickable(role = Role.Button, onClick = onCamera)
+                .clickable(enabled = navigationEnabled, role = Role.Button, onClick = onCamera)
                 .semantics { contentDescription = camera }
         )
     }

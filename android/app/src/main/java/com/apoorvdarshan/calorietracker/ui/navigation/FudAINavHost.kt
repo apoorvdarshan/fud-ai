@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
@@ -31,9 +30,10 @@ import kotlinx.coroutines.flow.first
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -100,11 +100,14 @@ fun FudAINavHost(
     )
     val backStack by nav.currentBackStackEntryAsState()
     val currentRoute = backStack?.destination?.route
-    // Hide the bar while a food analysis is in flight so the AnalyzingOverlay
-    // is the only thing on screen — matches iOS, where the analyzing sheet
-    // covers the tab bar.
     val context = LocalContext.current
+    val focus = LocalFocusManager.current
+    val keyboard = LocalSoftwareKeyboardController.current
     val analyzing by container.analyzingFood.collectAsState()
+    val voiceUi = container.voiceAssistant.ui.collectAsState()
+    val voiceExpanded by remember(voiceUi) {
+        derivedStateOf(structuralEqualityPolicy()) { voiceUi.value.let { it.visible && it.expanded } }
+    }
     val persistedWorkoutMode by container.workoutRepository.mode.collectAsState(initial = WorkoutTabMode.Default)
     val workoutUiPrefs = remember(context) {
         context.getSharedPreferences(WORKOUT_UI_PREFS, android.content.Context.MODE_PRIVATE)
@@ -118,11 +121,6 @@ fun FudAINavHost(
     // Nested settings/* screens keep the tab bar visible and highlight Settings,
     // so re-tapping the Settings icon can return to the hub (iOS parity).
     val selectedTabRoute = FudAIRoutes.selectedBottomTab(currentRoute)
-    // The expanded voice assistant dims the whole app; hide the rail behind it.
-    val voiceUi = container.voiceAssistant.ui.collectAsState()
-    val voiceExpanded by remember(voiceUi) {
-        derivedStateOf(structuralEqualityPolicy()) { voiceUi.value.let { it.visible && it.expanded } }
-    }
     // A workout rest can end on any tab; mark it with a haptic while the app is open.
     val haptic = LocalHapticFeedback.current
     LaunchedEffect(container.workoutRestTimer) {
@@ -132,13 +130,9 @@ fun FudAINavHost(
     }
     // Null until the stored choice is read, so a hidden tab never flashes in the rail.
     val hiddenTabs by container.prefs.hiddenTabs.collectAsState(initial = null)
-    val ime = WindowInsets.ime
-    val density = LocalDensity.current
-    val keyboardVisible by remember(ime, density) {
-        derivedStateOf { ime.getBottom(density) > 0 }
-    }
-    val showTabs = selectedTabRoute != null && hiddenTabs != null && !analyzing &&
-        !voiceExpanded && !keyboardVisible
+    // Keep the content width stable. The rail handles IME insets itself;
+    // full-screen presentations can still cover the underlying navigation.
+    val showTabs = selectedTabRoute != null && hiddenTabs != null
     ReportDrawnWhen {
         currentRoute == FudAIRoutes.ONBOARDING || (selectedTabRoute != null && hiddenTabs != null)
     }
@@ -399,8 +393,17 @@ fun FudAINavHost(
                                 showAboutBadge = updateAvailable,
                                 workoutMode = workoutMode,
                                 hiddenRoutes = hiddenTabs.orEmpty(),
-                                onTap = ::selectTab,
-                                onCamera = { railCameraRequest = QuickActionRequest(QuickAction.CAMERA) }
+                                navigationEnabled = !analyzing && !voiceExpanded,
+                                onTap = {
+                                    focus.clearFocus()
+                                    keyboard?.hide()
+                                    selectTab(it)
+                                },
+                                onCamera = {
+                                    focus.clearFocus()
+                                    keyboard?.hide()
+                                    railCameraRequest = QuickActionRequest(QuickAction.CAMERA)
+                                }
                             )
                         }
                     }

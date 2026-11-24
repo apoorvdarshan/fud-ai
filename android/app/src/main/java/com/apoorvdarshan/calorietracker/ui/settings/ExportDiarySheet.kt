@@ -48,6 +48,7 @@ import com.apoorvdarshan.calorietracker.export.DiaryRange
 import com.apoorvdarshan.calorietracker.models.MealType
 import com.apoorvdarshan.calorietracker.models.UserProfile
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
 import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -87,8 +88,9 @@ fun ExportDiarySheet(
         sheetState = state
     ) {
         Column(
-            Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
+            Modifier.fillMaxWidth().verticalScroll(rememberScrollState())
+                .padding(horizontal = FlashSpacing.SheetInset, vertical = FlashSpacing.ItemGap),
+            verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap),
         ) {
             Text(stringResource(R.string.export_diary_title), fontSize = 22.sp, fontWeight = FontWeight.Black)
 

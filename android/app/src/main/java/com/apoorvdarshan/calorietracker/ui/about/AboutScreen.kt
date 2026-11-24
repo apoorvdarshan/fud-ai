@@ -84,6 +84,7 @@ import com.apoorvdarshan.calorietracker.ui.components.TIP_TIERS
 import com.apoorvdarshan.calorietracker.ui.hosted.findActivity
 import com.revenuecat.purchases.models.StoreProduct
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import com.apoorvdarshan.calorietracker.ui.theme.flashListRow
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -572,7 +573,7 @@ private fun AboutRow(
         Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick)
-            .padding(horizontal = 16.dp, vertical = 12.dp),
+            .flashListRow(),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Box(Modifier.size(28.dp), contentAlignment = Alignment.Center) {
@@ -587,7 +588,7 @@ private fun AboutRow(
                 )
             }
         }
-        Spacer(Modifier.width(14.dp))
+        Spacer(Modifier.width(10.dp))
         Column(Modifier.weight(1f)) {
             Text(label, fontSize = 17.sp, color = MaterialTheme.colorScheme.onSurface)
             if (!subtitle.isNullOrBlank()) {

@@ -238,6 +238,8 @@ import com.apoorvdarshan.calorietracker.ui.components.SplitDecimalWheelPicker
 import com.apoorvdarshan.calorietracker.ui.components.UnitToggle
 import com.apoorvdarshan.calorietracker.ui.navigation.BottomNavScrollPadding
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
+import com.apoorvdarshan.calorietracker.ui.theme.flashListRow
 import com.apoorvdarshan.calorietracker.ui.theme.PinkNeoCondensed
 import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 import com.apoorvdarshan.calorietracker.ui.theme.AppThemeColor
@@ -759,8 +761,8 @@ fun SettingsScreen(
                     if (selectedCategory == null) settingsHomeScrollState
                     else settingsDetailScrollState
                 )
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(18.dp)
+                .padding(FlashSpacing.PageInset),
+            verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap)
         ) {
             if (selectedCategory == null) {
                 SettingsCategoryHub(onSelect = { selectedCategory = it })
@@ -2300,7 +2302,7 @@ fun SettingsScreen(
 @Composable
 private fun SettingsCategoryHub(onSelect: (SettingsCategory) -> Unit) {
     val neo = pinkNeoPalette()
-    Column(verticalArrangement = Arrangement.spacedBy(18.dp)) {
+    Column(verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap)) {
         Text(
             stringResource(R.string.nav_settings),
             modifier = Modifier.fillMaxWidth().background(neo.panel).border(1.dp, neo.rule).padding(12.dp),
@@ -2329,16 +2331,16 @@ private fun SettingsCategoryRows(
                 .testTag("settings.category.${category.name}")
                 .fillMaxWidth()
                 .clickable { onSelect(category) }
-                .padding(horizontal = 16.dp, vertical = 14.dp),
+                .flashListRow(),
             verticalAlignment = Alignment.CenterVertically
         ) {
             FudIconBubble(
                 icon = category.icon,
-                size = 28.dp,
+                size = 22.dp,
                 iconSize = 17.dp,
                 tint = AppColors.Calorie
             )
-            Spacer(Modifier.width(14.dp))
+            Spacer(Modifier.width(10.dp))
             Text(
                 text = stringResource(category.titleRes),
                 style = MaterialTheme.typography.bodyLarge,
@@ -2372,7 +2374,8 @@ private fun SettingsDetailHeader(backLabel: String, title: String, onBack: () ->
             modifier = Modifier
                 .clip(RoundedCornerShape(16.dp))
                 .clickable(onClick = onBack)
-                .padding(horizontal = 2.dp, vertical = 8.dp),
+                .heightIn(min = FlashSpacing.MinTouchTarget)
+                .padding(horizontal = 2.dp, vertical = 4.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
@@ -2390,8 +2393,7 @@ private fun SettingsDetailHeader(backLabel: String, title: String, onBack: () ->
         }
         Text(
             text = title,
-            fontSize = 28.sp,
-            fontWeight = FontWeight.Bold,
+            style = MaterialTheme.typography.headlineLarge,
             color = MaterialTheme.colorScheme.onBackground
         )
     }
@@ -4622,8 +4624,7 @@ private fun <T> SettingChoiceRow(
         Row(
             modifier = modifier.fillMaxWidth()
                 .clickable { expanded = true }
-                .heightIn(min = 48.dp)
-                .padding(horizontal = 16.dp, vertical = 10.dp),
+                .flashListRow(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
@@ -4681,42 +4682,47 @@ internal fun SettingRow(
     inlineMenu: Boolean = false,
     onClick: () -> Unit
 ) {
+    val largeText = androidx.compose.ui.platform.LocalDensity.current.fontScale >= 1.3f
+    val valueText: @Composable (Modifier) -> Unit = { modifier ->
+        Text(
+            value,
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.65f),
+            modifier = modifier
+        )
+    }
     Row(
         Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick)
-            .padding(horizontal = 16.dp, vertical = 13.dp),
+            .flashListRow(),
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (leadingContent != null) {
             Box(Modifier.size(22.dp), contentAlignment = Alignment.Center) {
                 leadingContent()
             }
-            Spacer(Modifier.width(14.dp))
+            Spacer(Modifier.width(10.dp))
         } else if (icon != null) {
             FudIconBubble(icon = icon, size = 22.dp, iconSize = 14.dp)
-            Spacer(Modifier.width(14.dp))
+            Spacer(Modifier.width(10.dp))
         }
-        Text(
-            label,
-            modifier = Modifier.weight(1f),
-            style = MaterialTheme.typography.bodyLarge
-        )
-        if (value.isNotEmpty()) {
-            Text(
-                value,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.58f),
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                modifier = Modifier.padding(start = 12.dp)
-            )
+        if (largeText && value.isNotEmpty()) {
+            Column(Modifier.weight(1f)) {
+                Text(label, style = MaterialTheme.typography.bodyLarge)
+                valueText(Modifier)
+            }
+        } else {
+            Text(label, modifier = Modifier.weight(1f), style = MaterialTheme.typography.bodyLarge)
+            if (value.isNotEmpty()) {
+                valueText(Modifier.weight(0.65f, fill = false).padding(start = 8.dp))
+            }
         }
         Icon(
             if (inlineMenu) Icons.Filled.UnfoldMore else Icons.Filled.ChevronRight,
             contentDescription = null,
             tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f),
-            modifier = if (inlineMenu) Modifier.size(18.dp) else Modifier
+            modifier = Modifier.size(18.dp)
         )
     }
 }
@@ -4730,11 +4736,11 @@ private fun ActivityLevelSettingRow(
         Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick)
-            .padding(horizontal = 16.dp, vertical = 11.dp),
+            .flashListRow(),
         verticalAlignment = Alignment.CenterVertically
     ) {
         FudIconBubble(icon = Icons.AutoMirrored.Outlined.DirectionsRun, size = 22.dp, iconSize = 14.dp)
-        Spacer(Modifier.width(14.dp))
+        Spacer(Modifier.width(10.dp))
         Column(
             modifier = Modifier
                 .weight(1f)
@@ -4781,11 +4787,11 @@ private fun LockableGoalRow(
         Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick)
-            .padding(horizontal = 16.dp, vertical = 13.dp),
+            .flashListRow(),
         verticalAlignment = Alignment.CenterVertically
     ) {
         FudIconBubble(icon = icon, size = 22.dp, iconSize = 14.dp)
-        Spacer(Modifier.width(14.dp))
+        Spacer(Modifier.width(10.dp))
         Text(
             label,
             modifier = Modifier.weight(1f),
@@ -4838,11 +4844,11 @@ private fun MaintenanceEstimateRow(
         Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick)
-            .padding(horizontal = 16.dp, vertical = 11.dp),
+            .flashListRow(),
         verticalAlignment = Alignment.CenterVertically
     ) {
         FudIconBubble(icon = Icons.Outlined.Speed, size = 22.dp, iconSize = 14.dp)
-        Spacer(Modifier.width(14.dp))
+        Spacer(Modifier.width(10.dp))
         Column(Modifier.weight(1f)) {
             Text(
                 stringResource(R.string.settings_estimated_maintenance),
@@ -4930,12 +4936,12 @@ internal fun ToggleRow(
     onChange: (Boolean) -> Unit
 ) {
     Row(
-        Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
+        Modifier.fillMaxWidth().padding(horizontal = FlashSpacing.PageInset, vertical = 2.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (icon != null) {
             FudIconBubble(icon = icon, size = 22.dp, iconSize = 14.dp)
-            Spacer(Modifier.width(14.dp))
+            Spacer(Modifier.width(10.dp))
         }
         Column(modifier = Modifier.weight(1f)) {
             Text(label, style = MaterialTheme.typography.bodyLarge)
@@ -4961,7 +4967,7 @@ private fun ToggleRowWithInfo(
     enabled: Boolean = true
 ) {
     Row(
-        Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
+        Modifier.fillMaxWidth().padding(horizontal = FlashSpacing.PageInset, vertical = 2.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (icon != null) {
@@ -4973,7 +4979,7 @@ private fun ToggleRowWithInfo(
             modifier = Modifier.weight(1f),
             style = MaterialTheme.typography.bodyLarge
         )
-        IconButton(onClick = onInfo, modifier = Modifier.size(36.dp)) {
+        IconButton(onClick = onInfo, modifier = Modifier.size(FlashSpacing.MinTouchTarget)) {
             Icon(
                 Icons.Outlined.Info,
                 contentDescription = stringResource(R.string.action_info),

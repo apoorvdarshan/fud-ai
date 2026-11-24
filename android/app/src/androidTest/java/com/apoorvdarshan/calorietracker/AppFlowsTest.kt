@@ -91,6 +91,25 @@ class AppFlowsTest {
     }
 
     @Test
+    fun progressDateRangeUsesOneAnchoredControlAndRetainsItsSelection() {
+        launchFresh()
+        openTab("progress")
+        val scroll = compose.onNodeWithTag("progress.content")
+        val selector = hasTestTag("progress.timeRange")
+        val week = string(R.string.progress_range_week)
+        val month = string(R.string.progress_range_month)
+        scroll.performScrollToNode(selector)
+        compose.onNode(selector and hasText(week)).assertIsDisplayed().performClick()
+        compose.onNodeWithText(month).assertIsDisplayed().performClick()
+        compose.onNode(selector and hasText(month)).assertIsDisplayed()
+
+        openTab("home")
+        openTab("progress")
+        scroll.performScrollToNode(selector)
+        compose.onNode(selector and hasText(month)).assertIsDisplayed()
+    }
+
+    @Test
     fun freshInstallShowsOnboardingAndAdvancesThroughProfileSteps() {
         launchFresh(onboarded = false)
         waitFor(hasTestTag("onboarding.WELCOME"))

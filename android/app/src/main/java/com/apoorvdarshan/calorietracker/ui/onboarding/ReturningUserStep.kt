@@ -86,6 +86,7 @@ import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialogActions
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassSurface
 import com.apoorvdarshan.calorietracker.ui.hosted.findActivity
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
 import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -227,7 +228,7 @@ internal fun ReturningUserStep(container: AppContainer, vm: OnboardingViewModel,
             Image(
                 painter = painterResource(id = R.drawable.ic_logo),
                 contentDescription = stringResource(R.string.onboarding_logo_description),
-                modifier = Modifier.size(120.dp)
+                modifier = Modifier.size(88.dp)
             )
             Spacer(Modifier.height(20.dp))
             Text(
@@ -254,7 +255,7 @@ internal fun ReturningUserStep(container: AppContainer, vm: OnboardingViewModel,
                         .fillMaxWidth()
                         .padding(bottom = 10.dp)
                 )
-                Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                Column(verticalArrangement = Arrangement.spacedBy(FlashSpacing.ItemGap)) {
                     ReturningSourceCard(
                         icon = Icons.Outlined.CloudDownload,
                         title = stringResource(R.string.returning_drive_title),
@@ -397,7 +398,7 @@ private fun ReturningSourceCard(
             .then(if (selected) Modifier.border(2.dp, neo.accent) else Modifier)
             .then(interaction),
         cornerRadius = 20.dp,
-        padding = 16.dp
+        padding = FlashSpacing.PageInset
     ) {
         Row(verticalAlignment = Alignment.Top) {
             ReturningSourceIcon(icon = icon, alpha = contentAlpha)
@@ -482,8 +483,8 @@ private fun SelectionCheck(selected: Boolean, animate: Boolean) {
 /** One row per picked source: waiting, working, then how it went. */
 @Composable
 private fun ReturningStepList(state: ReturningUserState, animate: Boolean) {
-    FudGlassSurface(modifier = Modifier.fillMaxWidth(), cornerRadius = 20.dp, padding = 18.dp) {
-        Column(verticalArrangement = Arrangement.spacedBy(18.dp)) {
+    FudGlassSurface(modifier = Modifier.fillMaxWidth(), cornerRadius = 20.dp, padding = FlashSpacing.PageInset) {
+        Column(verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap)) {
             for (step in state.steps) {
                 val title = stringResource(
                     when (step.source) {

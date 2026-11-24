@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker.ui.workouts
 
+import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -127,7 +128,7 @@ fun ExerciseDetailScreen(
                     InstructionSection(
                         exerciseName = item.name,
                         instructions = item.instructions,
-                        modifier = Modifier.padding(horizontal = 20.dp, vertical = 24.dp)
+                        modifier = Modifier.padding(horizontal = FlashSpacing.PageInset, vertical = FlashSpacing.SectionGap)
                     )
                 }
                 item(key = "pad") { Spacer(Modifier.size(40.dp)) }
@@ -244,7 +245,7 @@ private fun InstructionSection(
 ) {
     val colors = workoutsColors()
     val context = LocalContext.current
-    Column(modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+    Column(modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap)) {
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             Box(
                 Modifier.size(30.dp).clip(RoundedCornerShape(10.dp)).background(colors.accent.copy(alpha = 0.12f)),

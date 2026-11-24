@@ -135,6 +135,9 @@ import com.apoorvdarshan.calorietracker.models.SpeechLanguage
 import com.apoorvdarshan.calorietracker.models.SpeechProvider
 import com.apoorvdarshan.calorietracker.ui.navigation.BottomNavDockedControlPadding
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import com.apoorvdarshan.calorietracker.ui.theme.PinkNeoCondensed
 import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 import java.io.ByteArrayOutputStream
@@ -410,14 +413,14 @@ private fun EmptyState(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp)
-            .padding(top = 54.dp),
+            .verticalScroll(rememberScrollState())
+            .padding(horizontal = FlashSpacing.PageInset, vertical = FlashSpacing.SectionGap),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
         Box(
             Modifier
-                .size(92.dp)
+                .size(60.dp)
                 .background(neo.panel)
                 .border(1.dp, neo.rule),
             contentAlignment = Alignment.Center
@@ -425,11 +428,11 @@ private fun EmptyState(
             Icon(
                 Icons.Filled.Forum,
                 contentDescription = null,
-                modifier = Modifier.size(38.dp),
+                modifier = Modifier.size(27.dp),
                 tint = AppColors.Calorie
             )
         }
-        Spacer(Modifier.height(18.dp))
+        Spacer(Modifier.height(FlashSpacing.ItemGap))
         Text(
             stringResource(R.string.coach_empty_title),
             fontSize = 22.sp,
@@ -445,14 +448,14 @@ private fun EmptyState(
             lineHeight = 21.sp,
             modifier = Modifier.padding(horizontal = 8.dp)
         )
-        Spacer(Modifier.height(26.dp))
+        Spacer(Modifier.height(FlashSpacing.SectionGap))
         BoxWithConstraints(Modifier.fillMaxWidth()) {
             val columns = if (maxWidth < 246.dp || LocalDensity.current.fontScale >= 1.3f) 1 else 2
-            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            Column(verticalArrangement = Arrangement.spacedBy(FlashSpacing.ItemGap)) {
                 prompts.take(4).chunked(columns).forEach { rowPrompts ->
                     Row(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(10.dp),
+                        horizontalArrangement = Arrangement.spacedBy(FlashSpacing.ItemGap),
                         verticalAlignment = Alignment.Top
                     ) {
                         rowPrompts.forEach { prompt ->
@@ -484,14 +487,14 @@ private fun EmptyPromptCard(
     Surface(
         onClick = onTap,
         enabled = enabled,
-        modifier = modifier.heightIn(min = 70.dp),
+        modifier = modifier.heightIn(min = FlashSpacing.MinTouchTarget),
         shape = androidx.compose.ui.graphics.RectangleShape,
         color = neo.panel,
         border = BorderStroke(1.dp, neo.rule)
     ) {
         Row(
             modifier = Modifier
-                .padding(12.dp),
+                .padding(horizontal = 10.dp, vertical = FlashSpacing.ItemGap),
             horizontalArrangement = Arrangement.spacedBy(9.dp),
             verticalAlignment = Alignment.Top
         ) {
@@ -527,8 +530,8 @@ private fun MessageList(
     LazyColumn(
         state = listState,
         modifier = modifier.fillMaxWidth(),
-        contentPadding = PaddingValues(top = 14.dp, bottom = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(14.dp)
+        contentPadding = PaddingValues(vertical = FlashSpacing.ItemGap),
+        verticalArrangement = Arrangement.spacedBy(FlashSpacing.ItemGap)
     ) {
         items(messages, key = { it.id }) { message ->
             MessageBubble(

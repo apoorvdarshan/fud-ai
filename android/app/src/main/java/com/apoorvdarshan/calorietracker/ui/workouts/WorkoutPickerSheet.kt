@@ -532,7 +532,7 @@ internal fun WorkoutPickerSheet(
                             HorizontalDivider(
                                 color = workoutsColors().hairline.copy(alpha = 0.28f),
                                 thickness = 0.5.dp,
-                                modifier = Modifier.padding(start = 144.dp, end = 20.dp)
+                                modifier = Modifier.padding(start = ExerciseRowTextInset, end = 12.dp)
                             )
                         }
                     }

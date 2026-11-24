@@ -106,6 +106,7 @@ import com.apoorvdarshan.calorietracker.models.WeeklyChallengeWeek
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassSurface
 import com.apoorvdarshan.calorietracker.ui.navigation.BottomNavScrollPadding
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
 import java.text.DateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -169,12 +170,12 @@ internal fun WeeklyChallengeScreen(container: AppContainer) {
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(
-                start = 16.dp,
-                top = 12.dp,
-                end = 16.dp,
+                start = FlashSpacing.PageInset,
+                top = FlashSpacing.ItemGap,
+                end = FlashSpacing.PageInset,
                 bottom = BottomNavScrollPadding
             ),
-            verticalArrangement = Arrangement.spacedBy(14.dp)
+            verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap)
         ) {
             item {
                 ChallengeHeader(
@@ -421,7 +422,7 @@ private fun WeekCalendarStrip(weekStart: LocalDate) {
 
 @Composable
 private fun ChallengeIntroduction(onJoin: () -> Unit) {
-    Column(verticalArrangement = Arrangement.spacedBy(14.dp)) {
+    Column(verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap)) {
         FudGlassSurface(modifier = Modifier.fillMaxWidth(), cornerRadius = 22.dp, padding = 22.dp) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,

@@ -92,6 +92,7 @@ import com.apoorvdarshan.calorietracker.ui.components.LocalEnergyUnit
 import com.apoorvdarshan.calorietracker.ui.components.energyText
 import com.apoorvdarshan.calorietracker.ui.components.energyUnitLabel
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
 import kotlin.math.roundToInt
 import java.time.Instant
 import java.time.LocalDate
@@ -509,9 +510,9 @@ fun FoodResultSheet(
                 .pointerInput(Unit) {
                     detectTapGestures(onTap = { dismissKeyboard() })
                 }
-                .padding(horizontal = 20.dp)
+                .padding(horizontal = FlashSpacing.SheetInset)
                 .padding(bottom = 28.dp),
-            verticalArrangement = Arrangement.spacedBy(18.dp)
+            verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap)
         ) {
             // Swipeable original-photo gallery OR 80sp emoji fallback.
             item {

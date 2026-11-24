@@ -94,6 +94,7 @@ import com.apoorvdarshan.calorietracker.models.WorkoutWeightUnit
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassSurface
 import com.apoorvdarshan.calorietracker.ui.navigation.BottomNavScrollPadding
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -320,8 +321,8 @@ private fun WorkoutLibraryScreen(
             .background(workoutsColors().background)
     ) {
         Column(
-            Modifier.padding(start = 20.dp, end = 20.dp, top = 14.dp, bottom = 18.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+            Modifier.padding(horizontal = FlashSpacing.PageInset, vertical = FlashSpacing.ItemGap),
+            verticalArrangement = Arrangement.spacedBy(FlashSpacing.ItemGap)
         ) {
             WorkoutLibrarySearchRow(
                 value = vm.searchInput,
@@ -337,7 +338,7 @@ private fun WorkoutLibraryScreen(
             onReset = vm::reset,
             selectedSort = vm.sort,
             onSort = { vm.sort = it },
-            modifier = Modifier.padding(horizontal = 20.dp, vertical = 4.dp)
+            modifier = Modifier.padding(horizontal = FlashSpacing.PageInset, vertical = 4.dp)
         )
         LazyColumn(
             state = listState,
@@ -356,7 +357,7 @@ private fun WorkoutLibraryScreen(
                     HorizontalDivider(
                         color = workoutsColors().hairline.copy(alpha = 0.28f),
                         thickness = 0.5.dp,
-                        modifier = Modifier.padding(start = 144.dp, end = 20.dp)
+                        modifier = Modifier.padding(start = ExerciseRowTextInset, end = FlashSpacing.PageInset)
                     )
                 }
             }
@@ -661,24 +662,25 @@ internal fun ExerciseRow(
         modifier = Modifier
             .fillMaxWidth()
             .clickable { onClick() }
-            .padding(horizontal = 20.dp, vertical = 15.dp),
+            .padding(horizontal = FlashSpacing.PageInset, vertical = FlashSpacing.ItemGap),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
+        horizontalArrangement = Arrangement.spacedBy(FlashSpacing.ItemGap)
     ) {
         Box(
             Modifier
-                .size(104.dp)
-                .clip(RoundedCornerShape(18.dp))
+                .size(ExerciseRowThumbnail)
+                .clip(RoundedCornerShape(10.dp))
                 .background(colors.panel.copy(alpha = 0.32f))
-                .border(0.5.dp, colors.hairline.copy(alpha = 0.38f), RoundedCornerShape(18.dp))
+                .border(0.5.dp, colors.hairline.copy(alpha = 0.38f), RoundedCornerShape(10.dp))
         ) {
             AnimatedExerciseImage(visual, Modifier.fillMaxSize(), animatesFrames = false)
         }
-        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(9.dp)) {
-            Text(item.name, color = colors.charcoal, fontSize = 17.sp, fontWeight = FontWeight.SemiBold, maxLines = 2, overflow = TextOverflow.Ellipsis)
+        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            Text(item.name, color = colors.charcoal, fontSize = 16.sp, lineHeight = 20.sp,
+                fontWeight = FontWeight.Bold)
             FlowRow(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalArrangement = Arrangement.spacedBy(5.dp)
+                horizontalArrangement = Arrangement.spacedBy(5.dp),
+                verticalArrangement = Arrangement.spacedBy(3.dp)
             ) {
                 Tag(item.primaryMusclesTitle, Icons.Filled.GpsFixed)
                 Tag(item.equipment, Icons.Filled.FitnessCenter)
@@ -692,6 +694,9 @@ internal fun ExerciseRow(
         trailingContent()
     }
 }
+
+private val ExerciseRowThumbnail = 64.dp
+internal val ExerciseRowTextInset = FlashSpacing.PageInset + ExerciseRowThumbnail + FlashSpacing.ItemGap
 
 @Composable
 private fun Tag(title: String, icon: ImageVector) {

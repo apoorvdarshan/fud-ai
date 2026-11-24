@@ -45,6 +45,8 @@ import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.automirrored.filled.ListAlt
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.ChevronRight
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.UnfoldMore
 import androidx.compose.material.icons.filled.Delete
 import com.apoorvdarshan.calorietracker.ui.components.FlashAlertDialog as AlertDialog
 import androidx.compose.material3.Button
@@ -146,6 +148,10 @@ import com.apoorvdarshan.calorietracker.models.WorkoutSession
 import com.apoorvdarshan.calorietracker.ui.home.SheetDatePickerDialog
 import com.apoorvdarshan.calorietracker.ui.navigation.BottomNavScrollPadding
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
+import com.apoorvdarshan.calorietracker.ui.theme.flashListRow
+import com.apoorvdarshan.calorietracker.ui.home.SheetGlassDropdownMenu
+import com.apoorvdarshan.calorietracker.ui.home.SheetGlassDropdownMenuItem
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
@@ -210,7 +216,12 @@ fun ProgressScreen(container: AppContainer) {
         ProgressDestinationSelector(
             selected = destination,
             onSelect = { destination = it },
-            modifier = Modifier.padding(start = 16.dp, top = 12.dp, end = 16.dp, bottom = 4.dp)
+            modifier = Modifier.padding(
+                start = FlashSpacing.PageInset,
+                top = FlashSpacing.ItemGap,
+                end = FlashSpacing.PageInset,
+                bottom = 4.dp
+            )
         )
         Box(Modifier.weight(1f)) {
             destinationState.SaveableStateProvider(destination.name) {
@@ -389,14 +400,14 @@ private fun MyProgressContent(container: AppContainer) {
 
     Scaffold(containerColor = MaterialTheme.colorScheme.background) { padding ->
         LazyColumn(
-            modifier = Modifier.fillMaxSize().padding(padding),
+            modifier = Modifier.fillMaxSize().padding(padding).testTag("progress.content"),
             contentPadding = androidx.compose.foundation.layout.PaddingValues(
-                start = 16.dp,
-                top = 16.dp,
-                end = 16.dp,
+                start = FlashSpacing.PageInset,
+                top = FlashSpacing.ItemGap,
+                end = FlashSpacing.PageInset,
                 bottom = BottomNavScrollPadding
             ),
-            verticalArrangement = Arrangement.spacedBy(18.dp)
+            verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap)
         ) {
             // 0. Recap of the last completed week (#431); waits for the profile's targets.
             ui.profile?.let { profile ->
@@ -460,7 +471,7 @@ private fun MyProgressContent(container: AppContainer) {
                             goalFraction = ui.profile?.goalBodyFatPercentage,
                             onLogBodyFat = { showAddBodyFatDialog = true }
                         )
-                        ProgressMetric.WORKOUTS -> Column(verticalArrangement = Arrangement.spacedBy(18.dp)) {
+                        ProgressMetric.WORKOUTS -> Column(verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap)) {
                             val showsCalculated = reliableWorkoutBurnSessions.isNotEmpty() || importedWorkouts.isEmpty()
                             if (showsCalculated) WorkoutProgressSection(filteredWorkouts)
                             if (importedWorkouts.isNotEmpty()) {
@@ -669,12 +680,45 @@ private fun MyProgressContent(container: AppContainer) {
 
 @Composable
 private fun TimeRangePicker(selected: TimeRange, onSelect: (TimeRange) -> Unit) {
-    FlashProgressSegments(
-        options = TimeRange.values().toList(),
-        selected = selected,
-        label = { stringResource(it.labelRes) },
-        onSelect = onSelect
-    )
+    var expanded by remember { mutableStateOf(false) }
+    val neo = pinkNeoPalette()
+    Box {
+        Row(
+            Modifier
+                .testTag("progress.timeRange")
+                .fillMaxWidth()
+                .background(neo.panel)
+                .border(1.dp, neo.rule)
+                .clickable(role = Role.Button) { expanded = true }
+                .flashListRow(),
+            horizontalArrangement = Arrangement.spacedBy(FlashSpacing.ItemGap),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(Icons.Filled.DateRange, contentDescription = null, tint = neo.accent,
+                modifier = Modifier.size(18.dp))
+            Text(stringResource(R.string.import_date_range), modifier = Modifier.weight(1f),
+                style = MaterialTheme.typography.titleSmall)
+            Text(stringResource(selected.labelRes), color = neo.accent,
+                style = MaterialTheme.typography.labelLarge)
+            Icon(Icons.Filled.UnfoldMore, contentDescription = null, tint = neo.accent,
+                modifier = Modifier.size(16.dp))
+        }
+        Box(Modifier.align(Alignment.BottomEnd)) {
+            SheetGlassDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+                TimeRange.entries.forEach { range ->
+                    SheetGlassDropdownMenuItem(
+                        label = stringResource(range.labelRes),
+                        selected = range == selected,
+                        reserveSelectionSlot = true,
+                        onClick = {
+                            expanded = false
+                            onSelect(range)
+                        }
+                    )
+                }
+            }
+        }
+    }
 }
 
 @OptIn(ExperimentalLayoutApi::class)

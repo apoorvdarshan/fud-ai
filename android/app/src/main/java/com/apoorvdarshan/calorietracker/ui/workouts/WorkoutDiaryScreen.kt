@@ -142,6 +142,7 @@ import com.apoorvdarshan.calorietracker.ui.home.SheetGlassDropdownMenu
 import com.apoorvdarshan.calorietracker.ui.home.SheetGlassDropdownMenuItem
 import com.apoorvdarshan.calorietracker.ui.navigation.BottomNavScrollPadding
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
 import com.apoorvdarshan.calorietracker.ui.util.formattedWholeNumber
 import com.apoorvdarshan.calorietracker.ui.util.weekdayMonthDayFormatter
 import coil.compose.AsyncImage
@@ -264,12 +265,12 @@ internal fun WorkoutDiaryScreen(
             state = listState,
             modifier = Modifier.fillMaxSize().imePadding().padding(bottom = dockHeight),
             contentPadding = PaddingValues(
-                start = 16.dp,
+                start = FlashSpacing.PageInset,
                 // Room for the pinned rest countdown while it runs.
                 top = if (restTimer != null) 136.dp else 64.dp,
-                end = 16.dp
+                end = FlashSpacing.PageInset
             ),
-            verticalArrangement = Arrangement.spacedBy(14.dp)
+            verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap)
         ) {
             item(key = "workout-week-strip") {
                 WorkoutWeekStrip(
@@ -850,7 +851,7 @@ private fun WorkoutLogBurnButton(
                 }
             }
             .heightIn(min = 48.dp)
-            .padding(horizontal = 12.dp, vertical = 8.dp),
+            .padding(horizontal = FlashSpacing.PageInset, vertical = 5.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(10.dp)
     ) {
@@ -864,12 +865,14 @@ private fun WorkoutLogBurnButton(
                 text = if (isCalculating) "Calculating…" else "Calculate",
                 color = ink,
                 fontSize = 17.sp,
+                lineHeight = 20.sp,
                 fontWeight = FontWeight.Black
             )
             Text(
                 text = "CALORIE BURN",
                 color = ink,
                 fontSize = 11.sp,
+                lineHeight = 14.sp,
                 fontWeight = FontWeight.Black,
                 letterSpacing = 0.4.sp
             )
@@ -888,8 +891,8 @@ private fun WorkoutMetric(
     val neo = pinkNeoPalette()
     val color = if (active) AppColors.Calorie else neo.ink
     Column(
-        modifier = modifier.background(neo.panel).border(1.dp, neo.rule).padding(8.dp),
-        verticalArrangement = Arrangement.spacedBy(6.dp)
+        modifier = modifier.background(neo.panel).border(1.dp, neo.rule).padding(6.dp),
+        verticalArrangement = Arrangement.spacedBy(3.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
             Icon(icon, contentDescription = null, tint = color, modifier = Modifier.size(14.dp))
@@ -897,6 +900,7 @@ private fun WorkoutMetric(
                 text = label,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f),
                 fontSize = 10.sp,
+                lineHeight = 13.sp,
                 fontWeight = FontWeight.Bold
             )
         }
@@ -904,6 +908,7 @@ private fun WorkoutMetric(
             text = value,
             color = color,
             fontSize = 17.sp,
+            lineHeight = 21.sp,
             fontWeight = FontWeight.ExtraBold
         )
     }
@@ -1226,8 +1231,8 @@ private fun WorkoutExerciseCard(
         padding = 0.dp
     ) {
         Column(
-            modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(10.dp)
+            modifier = Modifier.padding(FlashSpacing.PageInset),
+            verticalArrangement = Arrangement.spacedBy(FlashSpacing.ItemGap)
         ) {
             Row(
                 modifier = Modifier

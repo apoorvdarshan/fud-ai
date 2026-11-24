@@ -132,6 +132,7 @@ import com.apoorvdarshan.calorietracker.ui.components.FeetInchesWheelPicker
 import com.apoorvdarshan.calorietracker.ui.components.NumericWheelPicker
 import com.apoorvdarshan.calorietracker.ui.components.UnitToggle
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
 import com.apoorvdarshan.calorietracker.ui.theme.PinkNeoCondensed
 import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 import java.time.LocalDate
@@ -182,22 +183,25 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
         // iOS shows a chevron-left back button + a thin Capsule progress bar at
         // the top, only on steps 1..N-2 (hidden on Welcome and Review).
         if (ui.step != OnboardingStep.WELCOME && ui.step != OnboardingStep.BUILDING_PLAN) {
-            Spacer(Modifier.height(12.dp))
+            Spacer(Modifier.height(4.dp))
             Row(
                 Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 24.dp),
+                    .padding(horizontal = FlashSpacing.SheetInset),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
+                horizontalArrangement = Arrangement.spacedBy(FlashSpacing.ItemGap)
             ) {
-                Icon(
-                    imageVector = Icons.Outlined.ChevronLeft,
-                    contentDescription = stringResource(R.string.onboarding_back),
-                    tint = MaterialTheme.colorScheme.onBackground,
-                    modifier = Modifier
-                        .size(28.dp)
-                        .clickable { vm.back() }
-                )
+                Box(
+                    modifier = Modifier.size(FlashSpacing.MinTouchTarget).clickable { vm.back() },
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.ChevronLeft,
+                        contentDescription = stringResource(R.string.onboarding_back),
+                        tint = MaterialTheme.colorScheme.onBackground,
+                        modifier = Modifier.size(24.dp)
+                    )
+                }
                 val totalSteps = OnboardingStep.values().size
                 val progress = ui.step.ordinal.toFloat() / (totalSteps - 1).toFloat()
                 Box(
@@ -218,10 +222,10 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
             }
             Spacer(Modifier.height(8.dp))
         } else {
-            Spacer(Modifier.height(24.dp))
+            Spacer(Modifier.height(FlashSpacing.SectionGap))
         }
 
-        Box(Modifier.weight(1f).fillMaxWidth().padding(horizontal = 24.dp)) {
+        Box(Modifier.weight(1f).fillMaxWidth().padding(horizontal = FlashSpacing.SheetInset)) {
             when (ui.step) {
                 OnboardingStep.WELCOME -> Crossfade(
                     targetState = showReturning,
@@ -308,7 +312,7 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
                 Column(
                     Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 24.dp)
+                        .padding(horizontal = FlashSpacing.SheetInset)
                         .padding(top = 28.dp, bottom = 16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
@@ -357,7 +361,7 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 24.dp)
+                        .padding(horizontal = FlashSpacing.SheetInset)
                         .padding(bottom = 36.dp)
                         .height(54.dp)
                         .background(neo.action)
@@ -388,7 +392,7 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 24.dp)
+                            .padding(horizontal = FlashSpacing.SheetInset)
                             .padding(bottom = 36.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
@@ -492,9 +496,9 @@ private fun WelcomeStep() {
             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f),
             textAlign = androidx.compose.ui.text.style.TextAlign.Center
         )
-        Spacer(Modifier.height(24.dp))
+        Spacer(Modifier.height(FlashSpacing.SectionGap))
         // Quick feature tour — everything is free and already unlocked (iOS parity).
-        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        Column(verticalArrangement = Arrangement.spacedBy(FlashSpacing.ItemGap)) {
             WelcomeFeatureRow(Icons.Outlined.PhotoCamera, stringResource(R.string.onboarding_feature_snap))
             WelcomeFeatureRow(Icons.Outlined.Forum, stringResource(R.string.onboarding_feature_coach))
             WelcomeFeatureRow(Icons.Outlined.FitnessCenter, stringResource(R.string.onboarding_feature_library))

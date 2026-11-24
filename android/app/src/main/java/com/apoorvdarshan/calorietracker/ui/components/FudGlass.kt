@@ -11,15 +11,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -40,6 +39,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
 import com.apoorvdarshan.calorietracker.ui.theme.PinkNeoCondensed
 import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 
@@ -47,7 +47,7 @@ import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 fun FudGlassSurface(
     modifier: Modifier = Modifier,
     cornerRadius: Dp = 24.dp,
-    padding: Dp = 16.dp,
+    padding: Dp = FlashSpacing.PageInset,
     contentAlignment: Alignment = Alignment.TopStart,
     content: @Composable BoxScope.() -> Unit
 ) {
@@ -70,7 +70,7 @@ fun FudGlassSurface(
 fun FudGlassColumn(
     modifier: Modifier = Modifier,
     cornerRadius: Dp = 24.dp,
-    padding: Dp = 16.dp,
+    padding: Dp = FlashSpacing.PageInset,
     content: @Composable ColumnScope.() -> Unit
 ) {
     FudGlassSurface(
@@ -136,10 +136,10 @@ fun FudGlassTextField(
         cursorBrush = SolidColor(AppColors.Calorie),
         modifier = modifier
             .fillMaxWidth()
-            .heightIn(min = if (singleLine) 52.dp else 118.dp)
+            .heightIn(min = if (singleLine) FlashSpacing.MinTouchTarget else 88.dp)
             .background(neo.paper)
             .border(1.dp, neo.rule)
-            .padding(horizontal = 16.dp, vertical = 14.dp),
+            .padding(horizontal = FlashSpacing.PageInset, vertical = 10.dp),
         decorationBox = { inner ->
             Box(
                 modifier = Modifier.fillMaxWidth(),
@@ -149,8 +149,7 @@ fun FudGlassTextField(
                     Text(
                         placeholder,
                         color = neo.ink.copy(alpha = 0.64f),
-                        fontSize = textStyle.fontSize,
-                        fontWeight = FontWeight.Medium
+                        style = textStyle
                     )
                 }
                 inner()
@@ -172,12 +171,12 @@ fun FudGlassDialog(
         FudGlassSurface(
             modifier = modifier
                 .fillMaxWidth()
-                .padding(horizontal = 24.dp),
+                .padding(horizontal = FlashSpacing.SheetInset),
             cornerRadius = 28.dp,
-            padding = 20.dp
+            padding = FlashSpacing.SheetInset
         ) {
             Column(
-                verticalArrangement = Arrangement.spacedBy(16.dp),
+                verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap),
                 content = content
             )
         }
@@ -190,13 +189,13 @@ fun FudGlassPrimaryButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier.fillMaxWidth(),
     enabled: Boolean = true,
-    height: Dp = 50.dp,
+    height: Dp = FlashSpacing.MinTouchTarget,
     content: (@Composable RowScope.() -> Unit)? = null
 ) {
     val neo = pinkNeoPalette()
     Row(
         modifier
-            .heightIn(min = height)
+            .heightIn(min = height.coerceAtLeast(FlashSpacing.MinTouchTarget))
             .background(if (enabled) neo.action else neo.panel)
             .border(1.dp, neo.rule)
             .clickable(enabled = enabled, onClick = onClick)
@@ -230,7 +229,8 @@ fun FudGlassTextButton(
             .background(neo.panel)
             .border(1.dp, neo.rule)
             .clickable(enabled = enabled, onClick = onClick)
-            .padding(horizontal = 14.dp, vertical = 10.dp),
+            .heightIn(min = FlashSpacing.MinTouchTarget)
+            .padding(horizontal = 12.dp, vertical = 6.dp),
         contentAlignment = Alignment.Center
     ) {
         Text(
@@ -242,6 +242,7 @@ fun FudGlassTextButton(
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun FudGlassDialogActions(
     primaryText: String,
@@ -252,10 +253,11 @@ fun FudGlassDialogActions(
     destructive: Boolean = false,
     primaryEnabled: Boolean = true
 ) {
-    Row(
+    FlowRow(
         modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.End,
-        verticalAlignment = Alignment.CenterVertically
+        horizontalArrangement = Arrangement.spacedBy(6.dp, Alignment.End),
+        verticalArrangement = Arrangement.spacedBy(6.dp),
+        itemVerticalAlignment = Alignment.CenterVertically
     ) {
         if (dismissText != null && onDismiss != null) {
             FudGlassTextButton(
@@ -263,7 +265,6 @@ fun FudGlassDialogActions(
                 onClick = onDismiss,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.68f)
             )
-            Spacer(Modifier.width(6.dp))
         }
         if (destructive) {
             FudGlassTextButton(
@@ -277,7 +278,6 @@ fun FudGlassDialogActions(
                 text = primaryText,
                 onClick = onPrimary,
                 modifier = Modifier,
-                height = 46.dp,
                 enabled = primaryEnabled
             )
         }

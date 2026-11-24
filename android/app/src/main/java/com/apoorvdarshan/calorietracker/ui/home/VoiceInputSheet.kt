@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker.ui.home
 
+import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
 import android.Manifest
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -319,7 +320,7 @@ fun VoiceInputSheet(
         Column(
             Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 20.dp, vertical = 24.dp),
+                .padding(horizontal = FlashSpacing.SheetInset, vertical = FlashSpacing.SectionGap),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             // Provider pill — pink capsule with a bolt + provider name (mirrors iOS).

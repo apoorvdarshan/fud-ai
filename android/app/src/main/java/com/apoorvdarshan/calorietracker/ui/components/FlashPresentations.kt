@@ -7,9 +7,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -66,7 +66,7 @@ internal fun FlashBottomSheet(
     sheetGesturesEnabled: Boolean = true,
     shape: Shape = RectangleShape,
     containerColor: Color = Color.Unspecified,
-    dragHandle: @Composable (() -> Unit)? = { BottomSheetDefaults.DragHandle() },
+    dragHandle: @Composable (() -> Unit)? = { CompactSheetHandle() },
     properties: ModalBottomSheetProperties = ModalBottomSheetProperties(),
     content: @Composable ColumnScope.() -> Unit
 ) {
@@ -84,6 +84,14 @@ internal fun FlashBottomSheet(
         properties = properties,
         content = content
     )
+}
+
+@Composable
+private fun CompactSheetHandle() {
+    val neo = pinkNeoPalette()
+    Box(Modifier.padding(top = 9.dp, bottom = 8.dp)) {
+        Box(Modifier.size(width = 28.dp, height = 3.dp).background(neo.ink.copy(alpha = 0.36f)))
+    }
 }
 
 @Suppress("UNUSED_PARAMETER")

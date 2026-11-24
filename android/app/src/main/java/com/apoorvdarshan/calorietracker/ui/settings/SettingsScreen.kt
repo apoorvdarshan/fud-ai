@@ -201,6 +201,8 @@ import com.apoorvdarshan.calorietracker.models.WaterQuickAddPresets
 import com.apoorvdarshan.calorietracker.models.EnergyUnit
 import com.apoorvdarshan.calorietracker.models.WaterUnit
 import com.apoorvdarshan.calorietracker.models.WorkoutRestTimerSetting
+import com.apoorvdarshan.calorietracker.models.WorkoutDockAction
+import com.apoorvdarshan.calorietracker.models.WorkoutDockShortcuts
 import com.apoorvdarshan.calorietracker.models.WorkoutRpeScale
 import com.apoorvdarshan.calorietracker.models.WorkoutSplit
 import com.apoorvdarshan.calorietracker.export.DiaryImportMode
@@ -1286,6 +1288,34 @@ fun SettingsScreen(
                     fontSize = 12.sp,
                     lineHeight = 18.sp,
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f),
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)
+                )
+            }
+            val dockShortcuts by container.prefs.workoutDockShortcuts.collectAsState(initial = WorkoutDockShortcuts.Default)
+            Text(
+                stringResource(R.string.settings_workout_shortcuts),
+                style = MaterialTheme.typography.titleSmall,
+                fontWeight = FontWeight.SemiBold,
+                modifier = Modifier.padding(horizontal = 4.dp)
+            )
+            SectionCard {
+                dockShortcuts.actions.forEachIndexed { slot, action ->
+                    if (slot > 0) HorizontalDivider()
+                    SettingChoiceRow(
+                        label = stringResource(R.string.settings_home_food_shortcut, slot + 1),
+                        selection = action,
+                        options = WorkoutDockAction.entries,
+                        icon = action.icon,
+                        modifier = Modifier.testTag("settings.workoutShortcut.$slot"),
+                        optionLabel = { stringResource(it.titleRes) },
+                        optionIcon = { it.icon },
+                        onSelect = { vm.setWorkoutDockShortcut(slot, it) }
+                    )
+                }
+                Text(
+                    stringResource(R.string.settings_home_food_shortcuts_detail),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)
                 )
             }

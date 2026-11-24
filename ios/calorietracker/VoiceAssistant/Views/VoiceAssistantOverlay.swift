@@ -92,7 +92,7 @@ struct VoiceAssistantOverlay: View {
 
 // MARK: - Expanded
 
-/// The full-screen assistant: a large orb, live captions, the camera when open,
+/// The full-screen assistant: the animated mascot, live captions, the camera when open,
 /// and cards.
 private struct VoiceAssistantExpandedView: View {
     @Bindable var controller: VoiceAssistantController
@@ -110,13 +110,13 @@ private struct VoiceAssistantExpandedView: View {
                     VoiceAssistantCameraPanel(controller: controller)
                         .padding(.horizontal, 20)
                     HStack(spacing: 14) {
-                        orb(size: 72)
+                        mascot(size: 72)
                         VoiceAssistantCaptions(controller: controller, compact: true)
                     }
                     .padding(.horizontal, 20)
                 } else {
                     Spacer(minLength: 0)
-                    orb(size: 280)
+                    mascot(size: 280)
                     VoiceAssistantCaptions(controller: controller, compact: false)
                         .padding(.horizontal, 28)
                     Spacer(minLength: 0)
@@ -176,15 +176,9 @@ private struct VoiceAssistantExpandedView: View {
         .padding(.top, 4)
     }
 
-    private func orb(size: CGFloat) -> some View {
-        LiveOrbView(
-            mode: controller.orbMode,
-            levelSource: { controller.currentLevel() },
-            tint: AppColors.calorie
-        )
-        .frame(width: size, height: size)
-        .mask(RadialGradient(colors: [.black, .black, .clear], center: .center, startRadius: 0, endRadius: size / 2))
-        .accessibilityHidden(true)
+    private func mascot(size: CGFloat) -> some View {
+        VoiceMascotView(mode: controller.orbMode, level: controller.currentLevel)
+            .frame(maxWidth: size, maxHeight: size)
     }
 }
 
@@ -276,7 +270,7 @@ private struct VoiceAssistantCompactView: View {
                 Button {
                     controller.isExpanded = true
                 } label: {
-                    VoiceAssistantOrbBubble(controller: controller)
+                    VoiceAssistantMascotBubble(controller: controller)
                 }
                 .buttonStyle(.plain)
                 .accessibilityLabel(Text("Voice assistant"))
@@ -332,20 +326,15 @@ private struct VoiceAssistantCompactView: View {
     }
 }
 
-/// The floating orb in the compact assistant, without a surrounding disc.
-struct VoiceAssistantOrbBubble: View {
+/// The mascot is also the button that expands a minimized session.
+private struct VoiceAssistantMascotBubble: View {
     let controller: VoiceAssistantController
     var size: CGFloat = 60
 
     var body: some View {
-        LiveOrbView(
-            mode: controller.orbMode,
-            levelSource: { controller.currentLevel() },
-            tint: AppColors.calorie,
-            clearBackground: true
-        )
+        VoiceMascotView(mode: controller.orbMode, level: controller.currentLevel)
         .frame(width: size, height: size)
-        .contentShape(Circle())
+        .contentShape(Rectangle())
     }
 }
 
@@ -672,10 +661,8 @@ private struct VoiceAssistantPanel<Content: View>: View {
                 .onTapGesture { controller.dismiss() }
                 .accessibilityHidden(true)
             VStack(spacing: 18) {
-                LiveOrbView(mode: .idle, tint: AppColors.calorie, minimumFrameInterval: 1.0 / 30)
+                VoiceMascotView(mode: .idle)
                     .frame(width: 96, height: 96)
-                    .clipShape(Circle())
-                    .accessibilityHidden(true)
                 content
             }
             .padding(24)

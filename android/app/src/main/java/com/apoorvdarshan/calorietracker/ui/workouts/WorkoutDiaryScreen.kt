@@ -40,8 +40,6 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
-import androidx.compose.material.icons.automirrored.filled.DirectionsRun
-import androidx.compose.material.icons.automirrored.outlined.DirectionsWalk
 import androidx.compose.material.icons.automirrored.outlined.ListAlt
 import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.Add
@@ -128,6 +126,8 @@ import com.apoorvdarshan.calorietracker.models.WorkoutBurnEstimator
 import com.apoorvdarshan.calorietracker.models.WorkoutSetInput
 import com.apoorvdarshan.calorietracker.models.PlannedSet
 import com.apoorvdarshan.calorietracker.models.WorkoutWeightUnit
+import com.apoorvdarshan.calorietracker.models.WorkoutDockAction
+import com.apoorvdarshan.calorietracker.models.WorkoutDockShortcuts
 import com.apoorvdarshan.calorietracker.models.workoutDiaryBurnCalories
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialog
 import com.apoorvdarshan.calorietracker.ui.components.energyText
@@ -137,7 +137,6 @@ import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassTextButton
 import com.apoorvdarshan.calorietracker.ui.home.OutdoorActivityDurationSheet
 import com.apoorvdarshan.calorietracker.ui.home.OutdoorActivityKind
-import com.apoorvdarshan.calorietracker.ui.voice.VoiceAssistantButton
 import com.apoorvdarshan.calorietracker.ui.home.SheetGlassDropdownMenu
 import com.apoorvdarshan.calorietracker.ui.home.SheetGlassDropdownMenuItem
 import com.apoorvdarshan.calorietracker.ui.navigation.BottomNavScrollPadding
@@ -186,13 +185,12 @@ internal fun WorkoutDiaryScreen(
     var addMenuExpanded by remember { mutableStateOf(false) }
     var outdoorActivitySheet by remember { mutableStateOf<OutdoorActivityKind?>(null) }
     val walkRunQuickLogEnabled by container.prefs.walkRunQuickLogEnabled.collectAsState(initial = false)
+    val dockShortcuts by container.prefs.workoutDockShortcuts.collectAsState(initial = WorkoutDockShortcuts.Default)
     val importedWorkouts by container.importedHealthWorkoutRepository.workouts.collectAsState(initial = emptyList())
     val importedWorkoutsForDay = remember(importedWorkouts, state.selectedDate) {
         importedWorkoutsOn(importedWorkouts, state.selectedDate)
     }
     val heightUnit by container.prefs.heightUnit.collectAsState(initial = "cm")
-    val voiceUi by container.voiceAssistant.ui.collectAsState()
-    val hideVoiceShortcut by container.prefs.hideVoiceShortcut.collectAsState(initial = false)
     val listState = rememberLazyListState()
     val focusManager = LocalFocusManager.current
     val keyboard = LocalSoftwareKeyboardController.current
@@ -214,6 +212,26 @@ internal fun WorkoutDiaryScreen(
     fun dismissKeyboard() {
         focusManager.clearFocus()
         keyboard?.hide()
+    }
+
+    fun openWorkoutShortcut(action: WorkoutDockAction) {
+        dismissKeyboard()
+        addMenuExpanded = false
+        when (action) {
+            WorkoutDockAction.VOICE -> {
+                workoutStartsWithVoice = true
+                workoutVoiceVisible = true
+            }
+            WorkoutDockAction.TEXT -> {
+                workoutStartsWithVoice = false
+                workoutTextInputVisible = true
+            }
+            WorkoutDockAction.SAVED -> pickerRequest = WorkoutPickerRequest.saved()
+            WorkoutDockAction.WALKING -> outdoorActivitySheet = OutdoorActivityKind.WALKING
+            WorkoutDockAction.RUNNING -> outdoorActivitySheet = OutdoorActivityKind.RUNNING
+            WorkoutDockAction.ROUTINE -> routinesSheetVisible = true
+            WorkoutDockAction.COPY -> copySheetVisible = true
+        }
     }
 
     // Focus relocation and IME resizing also scroll the list. Only a user's
@@ -452,26 +470,38 @@ internal fun WorkoutDiaryScreen(
             }
         }
 
-        Row(
+        BoxWithConstraints(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .fillMaxWidth()
                 .imePadding()
                 .background(palette.paper)
-                .padding(horizontal = 16.dp, vertical = 8.dp),
-            horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.End),
-            verticalAlignment = Alignment.CenterVertically
+                .padding(horizontal = 10.dp, vertical = 8.dp)
         ) {
-            if (!voiceUi.visible && !hideVoiceShortcut) {
-                VoiceAssistantButton(flat = true, onClick = {
-                    dismissKeyboard()
-                    container.voiceAssistant.requestStart()
-                })
+            val count = ((maxWidth - WorkoutDockShortcuts.AddSide) / (WorkoutDockShortcuts.Side + WorkoutDockShortcuts.Gap))
+                .toInt().coerceIn(0, dockShortcuts.actions.size)
+            val overflow = dockShortcuts.actions.drop(count)
+            Row(
+                Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(WorkoutDockShortcuts.Gap, Alignment.End),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+            dockShortcuts.actions.take(count).forEachIndexed { slot, action ->
+                Box(
+                    Modifier.size(WorkoutDockShortcuts.Side)
+                        .testTag("workouts.shortcut.$slot")
+                        .background(palette.panel)
+                        .border(1.dp, palette.rule)
+                        .clickable(role = Role.Button) { openWorkoutShortcut(action) },
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(action.icon, contentDescription = stringResource(action.titleRes), tint = palette.ink)
+                }
             }
             Box {
                 Box(
                     modifier = Modifier
-                        .size(60.dp)
+                        .size(WorkoutDockShortcuts.AddSide)
                         .testTag("workouts.add")
                         .background(palette.action)
                         .border(1.dp, palette.rule)
@@ -517,18 +547,12 @@ internal fun WorkoutDiaryScreen(
                     SheetGlassDropdownMenuItem(
                         label = "Copy from day",
                         leadingIcon = Icons.Filled.ContentCopy,
-                        onClick = {
-                            addMenuExpanded = false
-                            copySheetVisible = true
-                        }
+                        onClick = { openWorkoutShortcut(WorkoutDockAction.COPY) }
                     )
                     SheetGlassDropdownMenuItem(
                         label = stringResource(R.string.workout_routine_start),
                         leadingIcon = Icons.AutoMirrored.Outlined.ListAlt,
-                        onClick = {
-                            addMenuExpanded = false
-                            routinesSheetVisible = true
-                        }
+                        onClick = { openWorkoutShortcut(WorkoutDockAction.ROUTINE) }
                     )
                     if (state.exercises.isNotEmpty()) {
                         SheetGlassDropdownMenuItem(
@@ -541,29 +565,16 @@ internal fun WorkoutDiaryScreen(
                         )
                     }
                     SheetGlassDropdownMenuItem(
-                        label = "Saved",
+                        label = stringResource(WorkoutDockAction.SAVED.titleRes),
                         leadingIcon = Icons.Filled.Bookmark,
-                        onClick = {
-                            addMenuExpanded = false
-                            pickerRequest = WorkoutPickerRequest.saved()
-                        }
+                        onClick = { openWorkoutShortcut(WorkoutDockAction.SAVED) }
                     )
-                    if (walkRunQuickLogEnabled) {
+                    for (action in listOf(WorkoutDockAction.WALKING, WorkoutDockAction.RUNNING)) {
+                        if (!walkRunQuickLogEnabled && action !in overflow) continue
                         SheetGlassDropdownMenuItem(
-                            label = stringResource(R.string.outdoor_activity_walking),
-                            leadingIcon = Icons.AutoMirrored.Outlined.DirectionsWalk,
-                            onClick = {
-                                addMenuExpanded = false
-                                outdoorActivitySheet = OutdoorActivityKind.WALKING
-                            }
-                        )
-                        SheetGlassDropdownMenuItem(
-                            label = stringResource(R.string.outdoor_activity_running),
-                            leadingIcon = Icons.AutoMirrored.Filled.DirectionsRun,
-                            onClick = {
-                                addMenuExpanded = false
-                                outdoorActivitySheet = OutdoorActivityKind.RUNNING
-                            }
+                            label = stringResource(action.titleRes),
+                            leadingIcon = action.icon,
+                            onClick = { openWorkoutShortcut(action) }
                         )
                     }
                     SheetGlassDropdownMenuItem(
@@ -576,16 +587,13 @@ internal fun WorkoutDiaryScreen(
                     )
                     HorizontalDivider(color = workoutsColors().hairline.copy(alpha = 0.45f))
                     SheetGlassDropdownMenuItem(label = stringResource(R.string.workout_text_voice), leadingIcon = Icons.Filled.Mic, onClick = {
-                        addMenuExpanded = false
-                        workoutStartsWithVoice = true
-                        workoutVoiceVisible = true
+                        openWorkoutShortcut(WorkoutDockAction.VOICE)
                     })
                     SheetGlassDropdownMenuItem(label = stringResource(R.string.workout_text_menu), leadingIcon = Icons.Filled.Add, onClick = {
-                        addMenuExpanded = false
-                        workoutStartsWithVoice = false
-                        workoutTextInputVisible = true
+                        openWorkoutShortcut(WorkoutDockAction.TEXT)
                     })
                 }
+            }
             }
         }
     }

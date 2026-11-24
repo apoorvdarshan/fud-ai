@@ -1,4 +1,5 @@
 <resources>
+    <string name="settings_workout_shortcuts">Comenzi rapide pentru antrenament</string>
     <string name="settings_home_food_shortcuts">Comenzi rapide pe ecranul principal</string>
     <string name="settings_home_food_shortcut">Comanda rapidă %1$d</string>
     <string name="settings_home_food_shortcuts_detail">Pe ecranele mai late apar mai multe comenzi rapide.</string>

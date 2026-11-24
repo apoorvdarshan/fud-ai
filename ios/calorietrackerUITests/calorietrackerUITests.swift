@@ -265,6 +265,14 @@ final class calorietrackerUITests: XCTestCase {
         reveal(workouts, in: app)
         workouts.tap()
         XCTAssertTrue(app.buttons["Add workout"].waitForExistence(timeout: 5))
+        let voiceEntry = app.buttons["workouts.shortcut.0"]
+        let saved = app.buttons["workouts.shortcut.1"]
+        XCTAssertEqual(voiceEntry.label, "Voice")
+        XCTAssertEqual(saved.label, "Saved")
+        XCTAssertEqual(voiceEntry.frame.width, voiceEntry.frame.height, accuracy: 1)
+        XCTAssertEqual(voiceEntry.frame.width, saved.frame.width, accuracy: 1)
+        XCTAssertFalse(app.buttons["voiceAssistantButton"].exists)
+        XCTAssertTrue(app.buttons["nav.voice"].isHittable)
         let library = app.buttons["nav.exerciseLibrary"]
         reveal(library, in: app)
         library.tap()

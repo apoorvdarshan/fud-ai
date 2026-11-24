@@ -1,4 +1,5 @@
 <resources>
+    <string name="settings_workout_shortcuts">Antrenman kısayolları</string>
     <string name="settings_home_food_shortcuts">Ana ekran kısayolları</string>
     <string name="settings_home_food_shortcut">Kısayol %1$d</string>
     <string name="settings_home_food_shortcuts_detail">Daha geniş ekranlarda daha fazla kısayol görünür.</string>

@@ -1,4 +1,5 @@
 <resources>
+    <string name="settings_workout_shortcuts">训练快捷操作</string>
     <string name="settings_home_food_shortcuts">主页快捷操作</string>
     <string name="settings_home_food_shortcut">快捷操作 %1$d</string>
     <string name="settings_home_food_shortcuts_detail">屏幕越宽，显示的快捷操作越多。</string>

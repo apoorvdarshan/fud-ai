@@ -12,6 +12,7 @@ import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.models.AIProvider
 import com.apoorvdarshan.calorietracker.models.AddMenuConfig
 import com.apoorvdarshan.calorietracker.models.FoodLogMethod
+import com.apoorvdarshan.calorietracker.models.WorkoutDockAction
 import com.apoorvdarshan.calorietracker.models.AutoBalanceMacro
 import com.apoorvdarshan.calorietracker.models.CurrentMealSchedule
 import com.apoorvdarshan.calorietracker.models.EnergyUnit
@@ -701,6 +702,10 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
 
     fun setHomeFoodShortcut(slot: Int, method: FoodLogMethod) {
         viewModelScope.launch { container.prefs.setHomeFoodShortcut(slot, method) }
+    }
+
+    fun setWorkoutDockShortcut(slot: Int, action: WorkoutDockAction) {
+        viewModelScope.launch { container.prefs.setWorkoutDockShortcut(slot, action) }
     }
 
     fun setTabHidden(route: String, hidden: Boolean) {

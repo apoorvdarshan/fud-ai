@@ -77,7 +77,6 @@ private struct WorkoutLogCardFramePreferenceKey: PreferenceKey {
 /// Fud AI's existing workout theme tokens.
 struct WorkoutLogView: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-    @AppStorage("hideVoiceShortcut") private var hideVoiceShortcut = false
     @Environment(StrengthWorkoutStore.self) private var workoutStore
     @Environment(ImportedHealthWorkoutStore.self) private var importedHealthWorkoutStore
     @Environment(WeightStore.self) private var weightStore
@@ -85,6 +84,7 @@ struct WorkoutLogView: View {
     @AppStorage(WeightUnit.storageKey) private var weightUnitRaw = WeightUnit.lbs.rawValue
     @AppStorage(AppThemeColor.storageKey) private var appThemeColorRaw = AppThemeColor.defaultColor.rawValue
     @AppStorage(OutdoorActivitySettings.enabledKey) private var walkRunQuickLogEnabled = false
+    @AppStorage(WorkoutDockShortcuts.storageKey) private var dockShortcutsRaw = ""
 
     @State private var pickerRequest: WorkoutLogPickerRequest?
     @State private var outdoorActivitySheet: OutdoorActivityDurationSheet.ActivityKind?
@@ -92,7 +92,7 @@ struct WorkoutLogView: View {
     @State private var isCopySheetPresented = false
     @State private var isTextSheetPresented = false
     @State private var workoutInputUsesVoice = false
-    @State private var voiceAssistant = VoiceAssistantController.shared
+    @State private var visibleDockShortcutCount = 3
     @State private var restTimer = WorkoutRestTimerController.shared
     @State private var isRoutinesSheetPresented = false
     @State private var isSaveRoutinePresented = false
@@ -503,19 +503,7 @@ struct WorkoutLogView: View {
                     }
                 }
                 .safeAreaInset(edge: .bottom, spacing: 0) {
-                    HStack(spacing: 12) {
-                        Spacer(minLength: 0)
-                        if !voiceAssistant.isActive, !hideVoiceShortcut {
-                            VoiceAssistantHomeButton(controller: voiceAssistant)
-                        }
-                        addExerciseMenu
-                    }
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 6)
-                    .background(Color.workoutBackground)
-                    .simultaneousGesture(
-                        TapGesture().onEnded(dismissSetKeyboard)
-                    )
+                    workoutDock
                 }
             }
             // Keep the chrome quiet: the date strip and burn calculator lead.
@@ -608,29 +596,69 @@ struct WorkoutLogView: View {
             }
         }
 
-    private var addExerciseMenu: some View {
+    private var workoutDock: some View {
+        let shortcuts = WorkoutDockShortcuts(stored: dockShortcutsRaw).actions
+        let count = min(visibleDockShortcutCount, shortcuts.count)
+        let side = WorkoutDockShortcuts.side
+        let gap = WorkoutDockShortcuts.gap
+        let addSide = WorkoutDockShortcuts.addSide
+        let slotCount = shortcuts.count
+        return HStack(spacing: gap) {
+            ForEach(0..<count, id: \.self) { slot in
+                let action = shortcuts[slot]
+                Button { openWorkoutShortcut(action) } label: {
+                    Image(systemName: action.icon)
+                        .font(.system(size: 20, weight: .semibold))
+                        .foregroundStyle(Color.workoutCharcoal)
+                        .frame(width: side, height: side)
+                        .flashPanel()
+                        .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel(Text(action.title))
+                .accessibilityIdentifier("workouts.shortcut.\(slot)")
+            }
+            addExerciseMenu(overflow: Set(shortcuts.dropFirst(count)))
+        }
+        .frame(maxWidth: .infinity, alignment: .trailing)
+        .onGeometryChange(for: Int.self) { geometry in
+            max(0, min(slotCount, Int((geometry.size.width - addSide) / (side + gap))))
+        } action: { visibleDockShortcutCount = $0 }
+        .padding(.horizontal, 10)
+        .padding(.vertical, 6)
+        .background(Color.workoutBackground)
+        .simultaneousGesture(TapGesture().onEnded(dismissSetKeyboard))
+    }
+
+    private func openWorkoutShortcut(_ action: WorkoutDockAction) {
+        dismissSetKeyboard()
+        switch action {
+        case .voice, .text:
+            workoutInputUsesVoice = action == .voice
+            isTextSheetPresented = true
+        case .saved: pickerRequest = WorkoutLogPickerRequest(context: .saved, initialSource: .saved)
+        case .walking: outdoorActivitySheet = .walking
+        case .running: outdoorActivitySheet = .running
+        case .routine: isRoutinesSheetPresented = true
+        case .copy: isCopySheetPresented = true
+        }
+    }
+
+    private func workoutMenuItem(_ action: WorkoutDockAction) -> FlashMenuItem {
+        FlashMenuItem(Text(action.title), icon: action.icon) { openWorkoutShortcut(action) }
+    }
+
+    private func addExerciseMenu(overflow: Set<WorkoutDockAction>) -> some View {
         FlashMenu(title: Text("Add workout"), items: {
             var items = [
-                FlashMenuItem(Text("Text"), icon: "text.bubble") {
-                    workoutInputUsesVoice = false
-                    isTextSheetPresented = true
-                },
-                FlashMenuItem(Text("Voice"), icon: "mic") {
-                    workoutInputUsesVoice = true
-                    isTextSheetPresented = true
-                },
-                FlashMenuItem(Text(WorkoutLogPickerContext.saved.title), icon: "bookmark.fill") {
-                    pickerRequest = WorkoutLogPickerRequest(context: .saved, initialSource: .saved)
-                },
+                workoutMenuItem(.text),
+                workoutMenuItem(.voice),
+                workoutMenuItem(.saved),
                 FlashMenuItem(Text("Create exercise"), icon: "plus.circle") {
                     isCreateExercisePresented = true
                 },
-                FlashMenuItem(Text("Copy from day"), icon: "calendar.badge.plus") {
-                    isCopySheetPresented = true
-                },
-                FlashMenuItem(Text("Start from routine"), icon: "list.bullet.rectangle.portrait") {
-                    isRoutinesSheetPresented = true
-                }
+                workoutMenuItem(.copy),
+                workoutMenuItem(.routine),
             ]
             if !selectedExercises.isEmpty {
                 items.append(FlashMenuItem(Text("Save as routine"), icon: "square.and.arrow.down") {
@@ -638,9 +666,8 @@ struct WorkoutLogView: View {
                     isSaveRoutinePresented = true
                 })
             }
-            if walkRunQuickLogEnabled {
-                items.append(FlashMenuItem(Text("Walking"), icon: "figure.walk") { outdoorActivitySheet = .walking })
-                items.append(FlashMenuItem(Text("Running"), icon: "figure.run") { outdoorActivitySheet = .running })
+            for action in [WorkoutDockAction.walking, .running] where walkRunQuickLogEnabled || overflow.contains(action) {
+                items.append(workoutMenuItem(action))
             }
             let contexts = splitGroups.isEmpty ? [.all] : splitGroups.map {
                 WorkoutLogPickerContext(title: $0.title, muscles: $0.muscles)
@@ -654,7 +681,7 @@ struct WorkoutLogView: View {
         }) {
             Image(systemName: "plus")
                 .font(.system(size: 26, weight: .semibold))
-                .frame(width: 60, height: 60)
+                .frame(width: WorkoutDockShortcuts.addSide, height: WorkoutDockShortcuts.addSide)
                 .flashActionFill()
         }
         .tint(Color.workoutAccent)

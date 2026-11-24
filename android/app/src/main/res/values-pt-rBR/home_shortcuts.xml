@@ -1,4 +1,5 @@
 <resources>
+    <string name="settings_workout_shortcuts">Atalhos de treino</string>
     <string name="settings_home_food_shortcuts">Atalhos da tela inicial</string>
     <string name="settings_home_food_shortcut">Atalho %1$d</string>
     <string name="settings_home_food_shortcuts_detail">Mais atalhos aparecem em telas mais largas.</string>

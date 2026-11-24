@@ -41552,6 +41552,28 @@
         }
       }
     },
+    "Workout Shortcuts": {
+      "localizations": {
+        "ar": { "stringUnit": { "state": "translated", "value": "اختصارات التمارين" } },
+        "az": { "stringUnit": { "state": "translated", "value": "Məşq qısayolları" } },
+        "cs": { "stringUnit": { "state": "translated", "value": "Tréninkové zkratky" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Trainingskurzbefehle" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Atajos de entrenamiento" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Raccourcis d’entraînement" } },
+        "hi": { "stringUnit": { "state": "translated", "value": "वर्कआउट शॉर्टकट" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Scorciatoie di allenamento" } },
+        "ja": { "stringUnit": { "state": "translated", "value": "ワークアウトのショートカット" } },
+        "ko": { "stringUnit": { "state": "translated", "value": "운동 바로가기" } },
+        "nl": { "stringUnit": { "state": "translated", "value": "Trainingssnelkoppelingen" } },
+        "pl": { "stringUnit": { "state": "translated", "value": "Skróty treningowe" } },
+        "pt-BR": { "stringUnit": { "state": "translated", "value": "Atalhos de treino" } },
+        "ro": { "stringUnit": { "state": "translated", "value": "Comenzi rapide pentru antrenament" } },
+        "ru": { "stringUnit": { "state": "translated", "value": "Быстрые действия для тренировок" } },
+        "tr": { "stringUnit": { "state": "translated", "value": "Antrenman kısayolları" } },
+        "uk": { "stringUnit": { "state": "translated", "value": "Швидкі дії для тренувань" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "训练快捷操作" } }
+      }
+    },
     "Home Shortcuts": {
       "localizations": {
         "ar": { "stringUnit": { "state": "translated", "value": "اختصارات الشاشة الرئيسية" } },

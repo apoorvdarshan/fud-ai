@@ -312,7 +312,6 @@ class LiveAudioEngine(context: Context) : LiveAudioIO {
                 continue
             }
             if (chunk.generation != generation.get()) continue
-            speakerLevel = loudness(chunk.bytes)
             var offset = 0
             // Small slices keep a barge-in from letting much stale audio through.
             while (offset < chunk.bytes.size && running.get() && chunk.generation == generation.get()) {
@@ -327,6 +326,7 @@ class LiveAudioEngine(context: Context) : LiveAudioIO {
                     }
                     break
                 }
+                speakerLevel = loudness(chunk.bytes, offset, written)
                 offset += written
             }
             synchronized(playbackLock) {
@@ -426,13 +426,13 @@ class LiveAudioEngine(context: Context) : LiveAudioIO {
         )
 
         /** Maps -55 dBFS (room noise) ... -15 dBFS (close speech) onto 0...1, like the iOS orb. */
-        fun loudness(pcm16: ByteArray): Float {
-            val samples = pcm16.size / 2
+        fun loudness(pcm16: ByteArray, offset: Int = 0, length: Int = pcm16.size): Float {
+            val samples = length / 2
             if (samples == 0) return 0f
             var sum = 0.0
             for (index in 0 until samples) {
-                val low = pcm16[index * 2].toInt() and 0xFF
-                val high = pcm16[index * 2 + 1].toInt()
+                val low = pcm16[offset + index * 2].toInt() and 0xFF
+                val high = pcm16[offset + index * 2 + 1].toInt()
                 val value = ((high shl 8) or low).toShort() / 32_768.0
                 sum += value * value
             }

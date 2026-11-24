@@ -385,6 +385,16 @@ class AppFlowsTest {
             compose.onNodeWithTag("nav.$tab").assertIsSelected()
             if (tab == "workouts") {
                 waitFor(hasTestTag("workouts.add"))
+                val voiceEntry = compose.onNodeWithTag("workouts.shortcut.0")
+                    .assertContentDescriptionEquals(string(R.string.workout_text_voice))
+                    .assertIsDisplayed().fetchSemanticsNode().boundsInRoot
+                val saved = compose.onNodeWithTag("workouts.shortcut.1")
+                    .assertContentDescriptionEquals(string(R.string.workout_source_saved))
+                    .assertIsDisplayed().fetchSemanticsNode().boundsInRoot
+                assertEquals(voiceEntry.width, voiceEntry.height, 1f)
+                assertEquals(voiceEntry.width, saved.width, 1f)
+                compose.onNodeWithTag("voiceAssistantButton").assertDoesNotExist()
+                compose.onNodeWithTag("nav.voice").assertIsDisplayed()
                 val workoutAdd = compose.onNodeWithTag("workouts.add")
                     .assertIsDisplayed().fetchSemanticsNode().boundsInWindow
                 activity!!.onActivity { main ->

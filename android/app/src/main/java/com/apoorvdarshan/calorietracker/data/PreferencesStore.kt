@@ -14,6 +14,8 @@ import androidx.datastore.preferences.core.stringSetPreferencesKey
 import com.apoorvdarshan.calorietracker.models.AddMenuConfig
 import com.apoorvdarshan.calorietracker.models.FoodLogMethod
 import com.apoorvdarshan.calorietracker.models.HomeFoodShortcuts
+import com.apoorvdarshan.calorietracker.models.WorkoutDockAction
+import com.apoorvdarshan.calorietracker.models.WorkoutDockShortcuts
 import com.apoorvdarshan.calorietracker.models.ImportedHealthWorkout
 import com.apoorvdarshan.calorietracker.models.TabBarSettings
 import com.apoorvdarshan.calorietracker.models.AIProvider
@@ -475,6 +477,17 @@ class PreferencesStore(
 
     val walkRunQuickLogEnabled: Flow<Boolean> = ds.data.map { it[Keys.WALK_RUN_QUICK_LOG_ENABLED] ?: false }
     suspend fun setWalkRunQuickLogEnabled(v: Boolean) { ds.edit { it[Keys.WALK_RUN_QUICK_LOG_ENABLED] = v } }
+
+    val workoutDockShortcuts: Flow<WorkoutDockShortcuts> = ds.data.map {
+        WorkoutDockShortcuts.decode(it[Keys.WORKOUT_DOCK_SHORTCUTS])
+    }
+
+    suspend fun setWorkoutDockShortcut(slot: Int, action: WorkoutDockAction) {
+        ds.edit { prefs ->
+            val current = WorkoutDockShortcuts.decode(prefs[Keys.WORKOUT_DOCK_SHORTCUTS])
+            prefs[Keys.WORKOUT_DOCK_SHORTCUTS] = current.assigning(slot, action).encode()
+        }
+    }
 
     val fastingDefaultGoalMinutes: Flow<Int> = ds.data.map {
         (it[Keys.FASTING_DEFAULT_GOAL_MINUTES] ?: 16 * 60).coerceIn(60, 7 * 24 * 60)
@@ -1852,6 +1865,7 @@ class PreferencesStore(
         val WATER_ENTRIES = stringPreferencesKey("waterEntries")
         val FASTING_TRACKING_ENABLED = booleanPreferencesKey("fastingTrackingEnabled")
         val WALK_RUN_QUICK_LOG_ENABLED = booleanPreferencesKey("walkRunQuickLogEnabled")
+        val WORKOUT_DOCK_SHORTCUTS = stringPreferencesKey(WorkoutDockShortcuts.STORAGE_KEY)
         val FASTING_DEFAULT_GOAL_MINUTES = intPreferencesKey("fastingDefaultGoalMinutes")
         val FASTING_GOAL_NOTIFICATION_ENABLED = booleanPreferencesKey("fastingGoalNotificationEnabled")
         val FASTING_SESSIONS = stringPreferencesKey("fastingSessions")

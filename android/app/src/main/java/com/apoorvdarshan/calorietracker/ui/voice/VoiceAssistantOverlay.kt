@@ -254,25 +254,21 @@ private fun ExpandedOverlay(
                                 onShutter = controller::captureFromShutter,
                                 modifier = Modifier.fillMaxWidth().aspectRatio(3f / 4f)
                             )
-                            LiveOrb(
+                            VoiceMascot(
                                 mode = ui.orb,
-                                tint = AppColors.Calorie,
                                 level = controller::orbLevel,
                                 modifier = Modifier
                                     .align(Alignment.TopStart)
                                     .padding(10.dp)
                                     .size(56.dp)
-                                    .clip(CircleShape)
                             )
                         }
                     }
                     else -> {
                         val side = min(min(maxWidth, maxHeight) * 0.92f, 360.dp)
-                        LiveOrb(
+                        VoiceMascot(
                             mode = ui.orb,
-                            tint = AppColors.Calorie,
                             level = controller::orbLevel,
-                            clearBackground = true,
                             modifier = Modifier
                                 .size(side)
                                 .clickableNoRipple { if (ui.phase == VoicePhase.IDLE) controller.requestStart() }
@@ -460,12 +456,11 @@ private fun CompactOverlay(
                 Box(
                     Modifier
                         .size(56.dp)
-                        .clip(CircleShape)
                         .clickable(onClick = controller::expand)
                         .semantics { contentDescription = expandLabel }
                         .testTag("voiceAssistantBubble")
                 ) {
-                    LiveOrb(mode = ui.orb, tint = AppColors.Calorie, level = controller::orbLevel, modifier = Modifier.fillMaxSize(), clearBackground = true)
+                    VoiceMascot(mode = ui.orb, level = controller::orbLevel, modifier = Modifier.fillMaxSize())
                 }
                 Spacer(Modifier.width(8.dp))
                 val caption = ui.assistantCaption.ifBlank { ui.userCaption }.ifBlank { statusText(ui) }
@@ -609,13 +604,13 @@ private fun NoticeView(notice: VoiceNotice, actions: NoticeActions) {
             .testTag("voiceAssistantNotice"),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Box(Modifier.size(84.dp).clip(CircleShape)) {
+        Box(Modifier.size(84.dp)) {
             if (notice == VoiceNotice.MicrophoneDenied || notice == VoiceNotice.MicrophoneUnavailable) {
-                Box(Modifier.fillMaxSize().background(Color.White.copy(alpha = 0.06f)), contentAlignment = Alignment.Center) {
+                Box(Modifier.fillMaxSize().background(Color.White.copy(alpha = 0.06f), CircleShape), contentAlignment = Alignment.Center) {
                     Icon(Icons.Filled.MicOff, contentDescription = null, tint = AppColors.Calorie, modifier = Modifier.size(34.dp))
                 }
             } else {
-                LiveOrb(mode = OrbMode.IDLE, tint = AppColors.Calorie, modifier = Modifier.fillMaxSize())
+                VoiceMascot(mode = OrbMode.IDLE, modifier = Modifier.fillMaxSize())
             }
         }
         Spacer(Modifier.height(14.dp))

@@ -15,6 +15,7 @@ import androidx.test.espresso.Espresso.closeSoftKeyboard
 import androidx.test.espresso.Espresso.pressBack
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import com.apoorvdarshan.calorietracker.models.ChatMessage
 import com.apoorvdarshan.calorietracker.models.EnergyUnit
 import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.FoodSource
@@ -149,6 +150,42 @@ class AppFlowsTest {
         appSettings.performScrollTo().performClick()
         toggle.performScrollTo().assertIsOff().performClick()
         awaitPreference(prefs.hapticsEnabled) { it }
+    }
+
+    @Test
+    fun coachOpensAtTheNewestMessageAndKeepsHistoryReadable() {
+        FudAITestState.reset(onboarded = true)
+        val messages = (1..40).map { index ->
+            ChatMessage(role = ChatMessage.Role.ASSISTANT, content = "History message $index")
+        }
+        val repository = (context.applicationContext as FudAIApp).container.chatRepository
+        runBlocking { repository.replaceAll(messages) }
+        launchActivity()
+        waitForHome()
+        openTab("coach")
+
+        val latest = "History message 40"
+        val older = "History message 39"
+        val oldest = "History message 1"
+        waitFor(hasText(latest))
+        val latestBounds = compose.onNodeWithText(latest).assertIsDisplayed().fetchSemanticsNode().boundsInRoot
+        val olderBounds = compose.onNodeWithText(older).assertIsDisplayed().fetchSemanticsNode().boundsInRoot
+        assertTrue(latestBounds.top > olderBounds.top)
+        compose.onNodeWithText(oldest).assertIsNotDisplayed()
+
+        compose.onNodeWithTag("coach.messages").performScrollToIndex(messages.size)
+        compose.onNodeWithText(oldest).assertIsDisplayed()
+        runBlocking { repository.append(ChatMessage(role = ChatMessage.Role.ASSISTANT, content = "New reply")) }
+        compose.onNodeWithText(oldest).assertIsDisplayed()
+        compose.onNodeWithText("New reply").assertIsNotDisplayed()
+
+        openTab("home")
+        openTab("coach")
+        waitFor(hasText("New reply"))
+        compose.onNodeWithText("New reply").assertIsDisplayed()
+        runBlocking { repository.append(ChatMessage(role = ChatMessage.Role.USER, content = "Newest message")) }
+        waitFor(hasText("Newest message"))
+        compose.onNodeWithText("Newest message").assertIsDisplayed()
     }
 
     @Test

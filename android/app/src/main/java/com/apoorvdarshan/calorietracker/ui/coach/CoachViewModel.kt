@@ -41,6 +41,7 @@ sealed class CoachError {
 
 data class CoachUiState(
     val messages: List<ChatMessage> = emptyList(),
+    val historyLoaded: Boolean = false,
     val sending: Boolean = false,
     val error: String? = null,
     val errorRes: Int? = null,
@@ -55,7 +56,7 @@ class CoachViewModel(private val container: AppContainer) : ViewModel() {
 
     init {
         container.chatRepository.messages
-            .onEach { _ui.value = _ui.value.copy(messages = it) }
+            .onEach { _ui.value = _ui.value.copy(messages = it, historyLoaded = true) }
             .launchIn(viewModelScope)
 
         // Keep chips current when either the user's goal or their workout history changes.

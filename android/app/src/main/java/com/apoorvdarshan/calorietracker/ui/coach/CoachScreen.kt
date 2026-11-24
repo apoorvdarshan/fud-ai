@@ -46,9 +46,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.interaction.DragInteraction
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -171,7 +171,8 @@ fun CoachScreen(container: AppContainer) {
     var input by remember { mutableStateOf("") }
     var attachedImageBytes by remember { mutableStateOf<ByteArray?>(null) }
     var showCameraCapture by remember { mutableStateOf(false) }
-    val listState = rememberLazyListState()
+    // Always enter at the newest end, not at a saved offset in older history.
+    val listState = remember { LazyListState() }
     var showResetConfirm by remember { mutableStateOf(false) }
     val ctx = LocalContext.current
     val configuration = LocalConfiguration.current
@@ -179,8 +180,7 @@ fun CoachScreen(container: AppContainer) {
     val focusManager = LocalFocusManager.current
     val keyboard = LocalSoftwareKeyboardController.current
 
-    // Dismiss the keyboard when the USER drags the chat (DragInteraction only —
-    // the auto-scroll after sending a message must not steal focus).
+    // Only a user's drag dismisses the keyboard.
     LaunchedEffect(listState) {
         listState.interactionSource.interactions.collect { interaction ->
             if (interaction is DragInteraction.Start) {
@@ -233,6 +233,7 @@ fun CoachScreen(container: AppContainer) {
         scope.launch {
             val imageForAi = image?.let { resizedJpeg(it, maxDimension = 1600, quality = 78) ?: it }
             val thumbnail = image?.let { resizedJpeg(it, maxDimension = 700, quality = 68) ?: it }
+            listState.requestScrollToItem(0)
             vm.send(trimmed, imageBytes = imageForAi, thumbnailBytes = thumbnail)
         }
     }
@@ -248,10 +249,6 @@ fun CoachScreen(container: AppContainer) {
     LaunchedEffect(voiceProvider, voiceLanguage) {
         voice.provider = voiceProvider
         voice.nativeLocale = voiceLanguage.nativeLocaleTag()
-    }
-
-    LaunchedEffect(ui.messages.size, ui.sending) {
-        if (ui.messages.isNotEmpty()) listState.animateScrollToItem(ui.messages.size - 1)
     }
 
     Scaffold(
@@ -315,6 +312,7 @@ fun CoachScreen(container: AppContainer) {
                     setLocale(Locale.ENGLISH)
                 }
                 val englishContext = ctx.createConfigurationContext(englishConfiguration)
+                listState.requestScrollToItem(0)
                 vm.send(englishContext.getString(promptResourceId))
             }
 
@@ -327,14 +325,14 @@ fun CoachScreen(container: AppContainer) {
                         detectTapGestures(onTap = { hideKeyboard() })
                     }
             ) {
-                if (ui.messages.isEmpty()) {
+                if (ui.historyLoaded && ui.messages.isEmpty()) {
                     EmptyState(
                         prompts = resolvedChips,
                         enabled = !ui.sending,
                         onPromptTap = onPromptTap,
                         modifier = Modifier.fillMaxSize()
                     )
-                } else {
+                } else if (ui.messages.isNotEmpty()) {
                     val resolvedError = ui.error ?: ui.errorRes?.let { stringResource(it) }
                     MessageList(
                         messages = ui.messages,
@@ -393,6 +391,7 @@ fun CoachScreen(container: AppContainer) {
             text = { Text(stringResource(R.string.coach_reset_dialog_message)) },
             confirmButton = {
                 TextButton(onClick = {
+                    listState.requestScrollToItem(0)
                     vm.resetConversation()
                     showResetConfirm = false
                 }) { Text(stringResource(R.string.coach_reset_confirm), color = Color(0xFFD32F2F)) }
@@ -524,7 +523,7 @@ private fun MessageList(
     messages: List<ChatMessage>,
     sending: Boolean,
     error: String?,
-    listState: androidx.compose.foundation.lazy.LazyListState,
+    listState: LazyListState,
     resolvingProposalIds: Set<String>,
     onAddProposal: (ChatMessage, CoachExerciseProposal) -> Unit,
     onDismissProposal: (ChatMessage, CoachExerciseProposal) -> Unit,
@@ -532,17 +531,15 @@ private fun MessageList(
 ) {
     LazyColumn(
         state = listState,
-        modifier = modifier.fillMaxWidth(),
-        contentPadding = PaddingValues(vertical = FlashSpacing.ItemGap),
-        verticalArrangement = Arrangement.spacedBy(FlashSpacing.ItemGap)
+        modifier = modifier.fillMaxWidth().testTag("coach.messages"),
+        reverseLayout = true,
+        contentPadding = PaddingValues(top = FlashSpacing.ItemGap),
+        verticalArrangement = Arrangement.spacedBy(FlashSpacing.ItemGap, Alignment.Bottom)
     ) {
-        items(messages, key = { it.id }) { message ->
-            MessageBubble(
-                msg = message,
-                resolvingProposalIds = resolvingProposalIds,
-                onAddProposal = { onAddProposal(message, it) },
-                onDismissProposal = { onDismissProposal(message, it) }
-            )
+        // Keep the viewport attached to the bottom when content arrives there,
+        // without interrupting someone reading older messages.
+        item("latest") {
+            Spacer(Modifier.height(1.dp))
         }
 
         if (sending) {
@@ -592,6 +589,15 @@ private fun MessageList(
                     Text(error, fontSize = 12.sp, fontWeight = FontWeight.Medium, color = Color(0xFFD32F2F))
                 }
             }
+        }
+
+        items(messages.asReversed(), key = { it.id }) { message ->
+            MessageBubble(
+                msg = message,
+                resolvingProposalIds = resolvingProposalIds,
+                onAddProposal = { onAddProposal(message, it) },
+                onDismissProposal = { onDismissProposal(message, it) }
+            )
         }
     }
 }

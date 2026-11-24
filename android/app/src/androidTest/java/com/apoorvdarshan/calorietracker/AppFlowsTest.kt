@@ -16,6 +16,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.apoorvdarshan.calorietracker.models.EnergyUnit
 import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.FoodSource
+import com.apoorvdarshan.calorietracker.models.HomeTopNutrient
 import com.apoorvdarshan.calorietracker.models.WaterUnit
 import com.apoorvdarshan.calorietracker.services.MealShare
 import com.apoorvdarshan.calorietracker.services.voice.VoiceEntryPoints
@@ -500,11 +501,16 @@ class AppFlowsTest {
         ).performClick()
         waitForAbsent(hasTestTag("nutrition.picker.options"))
 
+        val expected = HomeTopNutrient.DefaultSelection - HomeTopNutrient.FIBER
+        awaitPreference(prefs.homeTopNutrients) { HomeTopNutrient.fromStorage(it) == expected }
         val summary = "nutrition.homeCards.summary"
-        waitFor(hasTestTag(cards) and hasText(string(R.string.water), substring = true))
-        compose.onNodeWithTag(summary, useUnmergedTree = true)
-            .assert(hasText(string(R.string.water), substring = true))
-            .assert(!hasText(string(R.string.nutrition_label_fiber), substring = true))
+        val expectedSummary = (expected.map { string(it.displayNameRes) } + string(R.string.water))
+            .joinToString(", ")
+        val updatedSummary = hasTestTag(summary) and hasText(expectedSummary)
+        // Picker dismissal, disk persistence and the ViewModel's next UI
+        // frame are separate events. Match the new text, not the old Water row.
+        waitFor(updatedSummary, useUnmergedTree = true)
+        compose.onNode(updatedSummary, useUnmergedTree = true).assertIsDisplayed()
     }
 
     @Test
@@ -708,9 +714,10 @@ class AppFlowsTest {
 
     private fun string(resource: Int, vararg args: Any): String = context.getString(resource, *args)
 
-    private fun waitFor(matcher: SemanticsMatcher) {
+    private fun waitFor(matcher: SemanticsMatcher, useUnmergedTree: Boolean = false) {
         compose.waitUntil(timeoutMillis = 15_000) {
-            compose.onAllNodes(matcher).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+            compose.onAllNodes(matcher, useUnmergedTree = useUnmergedTree)
+                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
         }
     }
 

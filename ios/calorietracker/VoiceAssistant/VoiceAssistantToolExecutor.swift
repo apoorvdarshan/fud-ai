@@ -132,7 +132,7 @@ final class VoiceAssistantToolExecutor {
 
     /// Every catalog tool this executor runs; the catalog parity test checks it.
     static let handledToolNames: Set<String> = [
-        "get_app_state", "open_screen", "set_diary_date", "open_food_entry", "open_camera",
+        "get_app_state", "get_coach_history", "open_screen", "set_diary_date", "open_food_entry", "open_camera",
         "capture_photo", "close_camera", "pick_photos", "scan_barcode", "describe_food",
         "search_foods", "log_food", "update_food_entry", "delete_food_entry", "log_water",
         "start_fast", "end_fast", "log_weight", "log_body_fat", "describe_workout",

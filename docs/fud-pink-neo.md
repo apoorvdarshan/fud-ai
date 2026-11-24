@@ -15,6 +15,8 @@ No change to persisted data, backup formats, nutrition calculations, AI provider
 
 ## Completion criteria
 
+On Android, the first frame after the splash includes the destination and right rail together; saved hidden tabs, Live Voice visibility, and the mascot are applied before that frame. Onboarding remains rail-free.
+
 Flash is an app-wide theme, not a Home or navigation skin. A screen or presentation is not complete just because it inherits the app background. Verify the actual visible typography, action states, borders, and fills in light and dark, including in nested dropdowns.
 
 | Area | Include in visual and interaction review |

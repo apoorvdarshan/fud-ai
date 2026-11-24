@@ -161,7 +161,11 @@ internal data class StartupPreferences(
     val appearanceMode: String,
     val themeColorKey: String,
     val energyUnit: EnergyUnit,
-    val profile: UserProfile?
+    val profile: UserProfile?,
+    val hiddenTabs: Set<String>,
+    val hideVoiceShortcut: Boolean,
+    val voiceMascots: VoiceMascotPreferences,
+    val aiAccessMode: AiAccessMode
 )
 
 class PreferencesStore(
@@ -277,7 +281,11 @@ class PreferencesStore(
             appearanceMode = prefs[Keys.APPEARANCE_MODE] ?: "system",
             themeColorKey = prefs[Keys.APP_THEME_COLOR] ?: AppThemeColor.DEFAULT_KEY,
             energyUnit = EnergyUnit.fromStorage(prefs[Keys.ENERGY_UNIT]),
-            profile = if (startOnboarding) null else decodeProfile(prefs[Keys.USER_PROFILE])
+            profile = if (startOnboarding) null else decodeProfile(prefs[Keys.USER_PROFILE]),
+            hiddenTabs = TabBarSettings.decode(prefs[Keys.HIDDEN_TABS]),
+            hideVoiceShortcut = prefs[hideVoiceShortcutKey] ?: false,
+            voiceMascots = VoiceMascotPreferences.decode(prefs[Keys.VOICE_MASCOTS]),
+            aiAccessMode = AiAccessMode.fromStorage(prefs[Keys.AI_ACCESS_MODE])
         )
     }
 

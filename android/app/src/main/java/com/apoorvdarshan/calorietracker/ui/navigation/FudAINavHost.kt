@@ -29,6 +29,7 @@ import androidx.compose.runtime.structuralEqualityPolicy
 import kotlinx.coroutines.flow.first
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalHapticFeedback
@@ -45,11 +46,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.apoorvdarshan.calorietracker.AppContainer
+import com.apoorvdarshan.calorietracker.data.StartupPreferences
 import com.apoorvdarshan.calorietracker.services.hosted.AiAccessMode
 import com.apoorvdarshan.calorietracker.services.hosted.HostedPrompt
 import com.apoorvdarshan.calorietracker.services.update.AndroidUpdateChecker
 import com.apoorvdarshan.calorietracker.services.update.AndroidUpdateState
-import com.apoorvdarshan.calorietracker.services.voice.VoiceMascotPreferences
 import com.apoorvdarshan.calorietracker.ui.about.AboutSettingsCategory
 import com.apoorvdarshan.calorietracker.ui.coach.CoachScreen
 import com.apoorvdarshan.calorietracker.ui.components.PostUpdatePromptsHost
@@ -67,7 +68,6 @@ import com.apoorvdarshan.calorietracker.ui.settings.SettingsScreen
 import com.apoorvdarshan.calorietracker.ui.settings.SettingsViewModel
 import com.apoorvdarshan.calorietracker.ui.workouts.WorkoutsScreen
 import com.apoorvdarshan.calorietracker.models.WorkoutTabMode
-import com.apoorvdarshan.calorietracker.models.UserProfile
 import com.apoorvdarshan.calorietracker.models.QuickActionRequest
 import com.apoorvdarshan.calorietracker.ui.settings.AddMenuSettingsScreen
 import com.apoorvdarshan.calorietracker.ui.settings.ProductInfoSettingsScreen
@@ -85,14 +85,14 @@ val LocalLaunchFillEpoch = compositionLocalOf { 1 }
 
 
 @Composable
-fun FudAINavHost(
+internal fun FudAINavHost(
     container: AppContainer,
-    startOnboarding: Boolean,
+    startup: StartupPreferences,
+    onFirstLayoutReady: () -> Unit,
     quickActionRequest: QuickActionRequest? = null,
     onQuickActionHandled: (Long) -> Unit = {},
     voiceLaunchRequest: Long? = null,
-    onVoiceLaunchHandled: (Long) -> Unit = {},
-    initialHomeProfile: UserProfile? = null
+    onVoiceLaunchHandled: (Long) -> Unit = {}
 ) {
     val nav = rememberNavController()
     // Warm the app-scoped Settings state while Home is visible. By the time the user changes
@@ -103,7 +103,7 @@ fun FudAINavHost(
     )
     val backStack by nav.currentBackStackEntryAsState()
     val currentRoute = backStack?.destination?.route
-    val accessMode by container.prefs.aiAccessMode.collectAsState(initial = null)
+    val accessMode by container.prefs.aiAccessMode.collectAsState(initial = startup.aiAccessMode)
     val entitlement by container.billing.entitlement.collectAsState()
     val context = LocalContext.current
     val focus = LocalFocusManager.current
@@ -113,7 +113,7 @@ fun FudAINavHost(
     val voiceExpanded by remember(voiceUi) {
         derivedStateOf(structuralEqualityPolicy()) { voiceUi.value.let { it.visible && it.expanded } }
     }
-    val voiceMascots by container.prefs.voiceMascotPreferences.collectAsState(initial = VoiceMascotPreferences())
+    val voiceMascots by container.prefs.voiceMascotPreferences.collectAsState(initial = startup.voiceMascots)
     val sessionMascot by remember(voiceUi) { derivedStateOf(structuralEqualityPolicy()) { voiceUi.value.mascot } }
     val voiceMode by remember(voiceUi) { derivedStateOf(structuralEqualityPolicy()) { voiceUi.value.orb } }
     // Nested settings/* screens keep the tab bar visible and highlight Settings,
@@ -126,15 +126,11 @@ fun FudAINavHost(
             haptic.performHapticFeedback(HapticFeedbackType.Confirm)
         }
     }
-    // Null until the stored choice is read, so a hidden tab never flashes in the rail.
-    val hiddenTabs by container.prefs.hiddenTabs.collectAsState(initial = null)
-    val hideVoiceShortcut by container.prefs.hideVoiceShortcut.collectAsState(initial = false)
-    // Keep the content width stable. The rail handles IME insets itself;
-    // full-screen presentations can still cover the underlying navigation.
-    val showTabs = selectedTabRoute != null && hiddenTabs != null
-    ReportDrawnWhen {
-        currentRoute == FudAIRoutes.ONBOARDING || (selectedTabRoute != null && hiddenTabs != null)
-    }
+    val hiddenTabs by container.prefs.hiddenTabs.collectAsState(initial = startup.hiddenTabs)
+    val hideVoiceShortcut by container.prefs.hideVoiceShortcut.collectAsState(initial = startup.hideVoiceShortcut)
+    val showTabs = selectedTabRoute != null
+    var firstLayoutReady by remember { mutableStateOf(false) }
+    ReportDrawnWhen { firstLayoutReady }
     // Bumped when the Settings tab is re-tapped so SettingsScreen can pop back to the hub
     // (matches iOS TabView + NavigationStack reselect → root behavior).
     var settingsPopToRootTick by remember { mutableIntStateOf(0) }
@@ -249,9 +245,8 @@ fun FudAINavHost(
 
     // A tab hidden in Settings (or by a restored backup) can't stay on screen.
     LaunchedEffect(hiddenTabs, currentRoute) {
-        val hidden = hiddenTabs ?: return@LaunchedEffect
-        container.navigator.hiddenTabs.value = hidden
-        if (FudAIRoutes.isHiddenTab(currentRoute, hidden)) {
+        container.navigator.hiddenTabs.value = hiddenTabs
+        if (FudAIRoutes.isHiddenTab(currentRoute, hiddenTabs)) {
             nav.popBackStack(FudAIRoutes.HOME, inclusive = false)
         }
     }
@@ -298,7 +293,7 @@ fun FudAINavHost(
         NavHost(
                 modifier = Modifier.fillMaxSize(),
                 navController = nav,
-                 startDestination = if (startOnboarding) FudAIRoutes.ONBOARDING else FudAIRoutes.HOME,
+                 startDestination = if (startup.startOnboarding) FudAIRoutes.ONBOARDING else FudAIRoutes.HOME,
                  // The rail already indicates a new tab. Do not cross-fade two
                  // full screens or keep both composed through a tab switch.
                  enterTransition = {
@@ -325,7 +320,7 @@ fun FudAINavHost(
                     TabInset {
                         HomeScreen(
                             container = container,
-                            initialProfile = initialHomeProfile,
+                            initialProfile = startup.profile,
                             quickActionRequest = quickActionRequest,
                             onQuickActionHandled = onQuickActionHandled
                         )
@@ -401,19 +396,33 @@ fun FudAINavHost(
             }
     }
     val layoutDirection = LocalLayoutDirection.current
+    // Release the system splash only once the active screen and, outside
+    // onboarding, its rail have been laid out together. The badge and paywall
+    // eligibility can refresh later; neither blocks the first visible frame.
+    val firstLayoutGate = if (!firstLayoutReady && (
+            currentRoute == FudAIRoutes.ONBOARDING ||
+                (showTabs && !FudAIRoutes.isHiddenTab(selectedTabRoute, hiddenTabs))
+            )) {
+        Modifier.onGloballyPositioned { coordinates ->
+            if (coordinates.size.width > 0 && coordinates.size.height > 0 && !firstLayoutReady) {
+                firstLayoutReady = true
+                onFirstLayoutReady()
+            }
+        }
+    } else Modifier
     CompositionLocalProvider(LocalLaunchFillEpoch provides launchFillEpoch) {
         Box(Modifier.fillMaxSize()) {
             // Keep the rail physically on the right, without changing the
             // direction of translated content within either pane.
             CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
-                Row(Modifier.fillMaxSize()) {
+                Row(Modifier.fillMaxSize().then(firstLayoutGate)) {
                     CompositionLocalProvider(LocalLayoutDirection provides layoutDirection) {
                         Box(Modifier.weight(1f), propagateMinConstraints = true) { tabContent() }
                         if (showTabs) {
                             PinkNeoRail(
                                 currentRoute = selectedTabRoute,
                                 showAboutBadge = updateAvailable,
-                                hiddenRoutes = hiddenTabs.orEmpty(),
+                                hiddenRoutes = hiddenTabs,
                                 navigationEnabled = !analyzing && !voiceExpanded,
                                 voiceMascot = sessionMascot ?: voiceMascots.profile,
                                 voiceMode = voiceMode,
@@ -449,7 +458,7 @@ fun FudAINavHost(
             // a fresh onboarding — those users are marked as "seen" on completion.
             PostUpdatePromptsHost(
                 container = container,
-                enabled = !startOnboarding && container.backgroundServicesEnabled
+                enabled = !startup.startOnboarding && container.backgroundServicesEnabled
             )
             // The live voice assistant over every tab (never during onboarding).
             if (currentRoute != null && currentRoute != FudAIRoutes.ONBOARDING) {

@@ -181,12 +181,11 @@ open class MainActivity : AppCompatActivity() {
                 if (resetOnboarding) container.prefs.setOnboardingCompleted(false)
                 container.prefs.startupPreferences()
             }
-            showContent(container, startup)
-            contentReady = true
+            showContent(container, startup) { contentReady = true }
         }
     }
 
-    private fun showContent(container: AppContainer, startup: StartupPreferences) {
+    private fun showContent(container: AppContainer, startup: StartupPreferences, onFirstLayoutReady: () -> Unit) {
         setContent {
             val platformHaptics = LocalHapticFeedback.current
             val hapticsEnabled by container.hapticsEnabled.collectAsState()
@@ -227,8 +226,8 @@ open class MainActivity : AppCompatActivity() {
                     ) {
                         FudAINavHost(
                             container = container,
-                            startOnboarding = startup.startOnboarding,
-                            initialHomeProfile = startup.profile,
+                            startup = startup,
+                            onFirstLayoutReady = onFirstLayoutReady,
                             quickActionRequest = pendingQuickAction,
                             onQuickActionHandled = { requestID ->
                                 if (pendingQuickAction?.id == requestID) pendingQuickAction = null

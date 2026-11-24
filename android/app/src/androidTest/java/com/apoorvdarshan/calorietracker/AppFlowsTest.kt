@@ -438,6 +438,28 @@ class AppFlowsTest {
     }
 
     @Test
+    fun startupRailUsesPersistedVisibilityAndMascot() {
+        FudAITestState.reset()
+        runBlocking {
+            prefs.setTabHidden("progress", true)
+            prefs.selectVoiceMascot(VoiceMascot.JAM)
+        }
+        launchActivity()
+        waitForHome()
+        compose.onNodeWithTag("nav.progress").assertDoesNotExist()
+        compose.onNodeWithTag("nav.weeklyChallenge").assertDoesNotExist()
+        compose.onNodeWithTag("nav.voice").assert(
+            SemanticsMatcher.expectValue(SemanticsProperties.StateDescription, "Jam")
+        )
+
+        runBlocking { prefs.setHideVoiceShortcut(true) }
+        activity!!.recreate()
+        waitForHome()
+        compose.onNodeWithTag("nav.progress").assertDoesNotExist()
+        compose.onNodeWithTag("nav.voice").assertDoesNotExist()
+    }
+
+    @Test
     fun startupUsesPersistedEnergyUnitAndGoal() {
         FudAITestState.reset()
         val target = 2_137

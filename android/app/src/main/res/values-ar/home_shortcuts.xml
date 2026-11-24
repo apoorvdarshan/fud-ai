@@ -1,0 +1,5 @@
+<resources>
+    <string name="settings_home_food_shortcuts">اختصارات الشاشة الرئيسية</string>
+    <string name="settings_home_food_shortcut">الاختصار %1$d</string>
+    <string name="settings_home_food_shortcuts_detail">تظهر اختصارات إضافية على الشاشات الأعرض.</string>
+</resources>

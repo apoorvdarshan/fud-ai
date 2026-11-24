@@ -3,6 +3,15 @@ import Testing
 @testable import calorietracker
 
 struct AddMenuConfigTests {
+    @Test func homeShortcutsDefaultSwapAndPersistWithoutDuplicates() {
+        var shortcuts = HomeFoodShortcuts(stored: "")
+        #expect(shortcuts.methods == [.camera, .barcode, .text, .favorites])
+        shortcuts.assign(.favorites, to: 0)
+        shortcuts.assign(.manual, to: 1)
+        #expect(HomeFoodShortcuts(stored: shortcuts.stored).methods == [.favorites, .manual, .text, .camera])
+        #expect(HomeFoodShortcuts(stored: "camera,camera,text,favorites").methods == HomeFoodShortcuts.defaults)
+    }
+
     @Test func defaultMatchesLegacyThreeGroups() {
         let config = AddMenuConfig.iOSDefault
         #expect(config.groups.count == 3)

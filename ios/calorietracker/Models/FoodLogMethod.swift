@@ -86,6 +86,30 @@ enum FoodLogMethod: String, CaseIterable, Codable, Identifiable, Sendable {
     }
 }
 
+/// Dock slots in display order. Assigning a method already in use swaps the slots.
+struct HomeFoodShortcuts {
+    static let storageKey = "home.foodShortcuts"
+    static let defaults: [FoodLogMethod] = [.camera, .barcode, .text, .favorites]
+    private(set) var methods: [FoodLogMethod]
+
+    init(stored: String) {
+        let parts = stored.split(separator: ",", omittingEmptySubsequences: false)
+        let decoded = parts.compactMap { FoodLogMethod(rawValue: String($0)) }
+        methods = parts.count == Self.defaults.count && Set(decoded).count == Self.defaults.count ? decoded : Self.defaults
+    }
+
+    mutating func assign(_ method: FoodLogMethod, to slot: Int) {
+        guard methods.indices.contains(slot) else { return }
+        if let existing = methods.firstIndex(of: method) {
+            methods.swapAt(slot, existing)
+        } else {
+            methods[slot] = method
+        }
+    }
+
+    var stored: String { methods.map(\.rawValue).joined(separator: ",") }
+}
+
 extension Notification.Name {
     static let foodLogMethodRequested = Notification.Name("FudAI.foodLogMethodRequested")
 }

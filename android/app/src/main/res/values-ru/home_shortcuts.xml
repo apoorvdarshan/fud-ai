@@ -1,0 +1,5 @@
+<resources>
+    <string name="settings_home_food_shortcuts">Быстрые действия на главном экране</string>
+    <string name="settings_home_food_shortcut">Быстрое действие %1$d</string>
+    <string name="settings_home_food_shortcuts_detail">На более широких экранах отображается больше быстрых действий.</string>
+</resources>

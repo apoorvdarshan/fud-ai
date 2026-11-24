@@ -75,15 +75,16 @@ struct PinkNeoRailItem: Identifiable {
     let icon: String
     var selected = false
     var badge = false
-    var accessibilityTitle: Text? = nil
     let action: () -> Void
 }
 
 struct PinkNeoRail: View {
     let items: [PinkNeoRailItem]
-    let voiceShortcut: PinkNeoRailItem?
+    let onVoice: (() -> Void)?
     private var appearance = PinkNeoAppearance()
     @Environment(\.dynamicTypeSize) private var typeSize
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.scenePhase) private var scenePhase
     @ScaledMetric(relativeTo: .caption2) private var railWidth = 64.0
 
     var body: some View {
@@ -109,9 +110,18 @@ struct PinkNeoRail: View {
                 }
             }
             .scrollIndicators(.hidden)
-            if let voiceShortcut {
-                Rectangle().fill(palette.rule).frame(height: 1).accessibilityHidden(true)
-                railButton(voiceShortcut, palette: palette, outlined: true)
+            if let onVoice {
+                Button(action: onVoice) {
+                    Image(systemName: "waveform")
+                        .font(.system(size: 24, weight: .semibold))
+                        .symbolEffect(.variableColor.iterative.reversing, options: .repeating,
+                                      isActive: scenePhase == .active && !reduceMotion)
+                        .frame(maxWidth: .infinity, minHeight: 48)
+                        .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel("Talk to Fud AI")
+                .accessibilityIdentifier("nav.voice")
             }
         }
         .padding(4)
@@ -124,7 +134,7 @@ struct PinkNeoRail: View {
         .accessibilityIdentifier("nav.rail")
     }
 
-    private func railButton(_ item: PinkNeoRailItem, palette: PinkNeoPalette, outlined: Bool = false) -> some View {
+    private func railButton(_ item: PinkNeoRailItem, palette: PinkNeoPalette) -> some View {
         Button(action: item.action) {
             VStack(spacing: 3) {
                 Image(systemName: item.icon)
@@ -148,18 +158,12 @@ struct PinkNeoRail: View {
             .padding(.vertical, 5)
             .frame(maxWidth: .infinity, minHeight: 48)
             .foregroundStyle(item.selected ? palette.onAction : palette.ink)
-            .background(item.selected ? palette.action : (outlined ? palette.panel : Color.clear),
+            .background(item.selected ? palette.action : Color.clear,
                          in: RoundedRectangle(cornerRadius: 5))
-            .overlay {
-                if outlined {
-                    RoundedRectangle(cornerRadius: 5).strokeBorder(palette.rule, lineWidth: 1)
-                        .allowsHitTesting(false)
-                }
-            }
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
-        .accessibilityLabel(item.accessibilityTitle ?? item.title)
+        .accessibilityLabel(item.title)
         .accessibilityValue(item.badge ? Text("Update Available") : Text(verbatim: ""))
         .accessibilityAddTraits(item.selected ? .isSelected : [])
         .accessibilityIdentifier(item.id)

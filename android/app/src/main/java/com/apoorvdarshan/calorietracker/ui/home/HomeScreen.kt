@@ -142,6 +142,7 @@ import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.shadow
@@ -181,6 +182,7 @@ import com.apoorvdarshan.calorietracker.models.CurrentMealSchedule
 import com.apoorvdarshan.calorietracker.models.MealType
 import com.apoorvdarshan.calorietracker.models.FoodLogMethod
 import com.apoorvdarshan.calorietracker.models.FoodLogMethodDefaultGroupIcon
+import com.apoorvdarshan.calorietracker.models.HomeFoodShortcuts
 import com.apoorvdarshan.calorietracker.models.displayName
 import com.apoorvdarshan.calorietracker.models.QuickAction
 import com.apoorvdarshan.calorietracker.models.QuickActionRequest
@@ -239,6 +241,7 @@ fun HomeScreen(
 ) {
     val vm: HomeViewModel = viewModel(factory = HomeViewModel.Factory(container, initialProfile))
     val ui by vm.ui.collectAsState()
+    val foodShortcuts by container.prefs.homeFoodShortcuts.collectAsState(initial = HomeFoodShortcuts.Default)
     val lifecycleOwner = LocalLifecycleOwner.current
 DisposableEffect(lifecycleOwner, vm) {
         val observer = LifecycleEventObserver { _, event ->
@@ -482,7 +485,9 @@ DisposableEffect(lifecycleOwner, vm) {
     }
 
     val actionSize = 60.dp
-    val actionGap = 12.dp
+    val shortcutSize = 52.dp
+    val actionGap = 6.dp
+    val minLogFoodWidth = if (LocalDensity.current.fontScale >= 1.3f) 112.dp else 84.dp
     val neo = pinkNeoPalette()
     val actionBottom = 8.dp
 
@@ -761,29 +766,33 @@ DisposableEffect(lifecycleOwner, vm) {
 
         // Give the pinned dock its own space so it can't intercept a diary swipe.
         if (!selectionMode) {
+        BoxWithConstraints(Modifier.fillMaxWidth().padding(start = 10.dp, end = 10.dp, bottom = actionBottom)) {
+        val shortcutCount = ((maxWidth - minLogFoodWidth) / (shortcutSize + actionGap)).toInt()
+            .coerceIn(0, foodShortcuts.methods.size)
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 10.dp, end = 10.dp, bottom = actionBottom)
                 .background(neo.paper),
             horizontalArrangement = Arrangement.spacedBy(actionGap),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            val favorites by container.foodRepository.favorites.collectAsState(initial = emptyList())
-            if (favorites.isNotEmpty() && ui.activeFast == null &&
-                FoodLogMethod.FAVORITES in ui.addMenuConfig.visibleMethods()) {
+            val foodLoggingEnabled = ui.activeFast == null
+            foodShortcuts.methods.take(shortcutCount).forEachIndexed { slot, method ->
                 Box(
                     modifier = Modifier
-                        .testTag("home.favorites")
-                        .size(48.dp)
+                        .testTag("home.foodShortcut.$slot")
+                        .size(shortcutSize)
+                        .alpha(if (foodLoggingEnabled) 1f else 0.5f)
                         .background(neo.panel)
                         .border(1.dp, neo.rule)
-                        .clickable { performFoodLogMethod(FoodLogMethod.FAVORITES) },
+                        .clickable(enabled = foodLoggingEnabled, role = Role.Button) {
+                            performFoodLogMethod(method)
+                        },
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
-                        FoodLogMethod.FAVORITES.icon,
-                        contentDescription = stringResource(R.string.saved_meals_tab_favorites),
+                        method.icon,
+                        contentDescription = stringResource(method.titleRes),
                         tint = neo.ink
                     )
                 }
@@ -918,6 +927,7 @@ DisposableEffect(lifecycleOwner, vm) {
                     }
                 }
             }
+        }
         }
         }
         }

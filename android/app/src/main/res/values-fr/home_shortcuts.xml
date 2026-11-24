@@ -1,0 +1,5 @@
+<resources>
+    <string name="settings_home_food_shortcuts">Raccourcis de l’accueil</string>
+    <string name="settings_home_food_shortcut">Raccourci %1$d</string>
+    <string name="settings_home_food_shortcuts_detail">Plus de raccourcis s’affichent sur les écrans plus larges.</string>
+</resources>

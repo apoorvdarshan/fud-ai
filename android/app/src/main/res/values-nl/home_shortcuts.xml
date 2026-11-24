@@ -1,0 +1,5 @@
+<resources>
+    <string name="settings_home_food_shortcuts">Snelkoppelingen op het beginscherm</string>
+    <string name="settings_home_food_shortcut">Snelkoppeling %1$d</string>
+    <string name="settings_home_food_shortcuts_detail">Op bredere schermen verschijnen meer snelkoppelingen.</string>
+</resources>

@@ -1,0 +1,5 @@
+<resources>
+    <string name="settings_home_food_shortcuts">Scorciatoie della schermata Home</string>
+    <string name="settings_home_food_shortcut">Scorciatoia %1$d</string>
+    <string name="settings_home_food_shortcuts_detail">Sui dispositivi con schermi più larghi compaiono più scorciatoie.</string>
+</resources>

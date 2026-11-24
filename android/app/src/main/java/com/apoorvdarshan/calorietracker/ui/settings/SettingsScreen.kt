@@ -4653,7 +4653,7 @@ private fun formatModelBytes(bytes: Long): String = if (bytes >= 1_000_000_000L)
 }
 
 @Composable
-private fun <T> SettingChoiceRow(
+internal fun <T> SettingChoiceRow(
     label: String,
     selection: T,
     options: List<T>,

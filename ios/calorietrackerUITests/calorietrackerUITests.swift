@@ -794,6 +794,39 @@ final class calorietrackerUITests: XCTestCase {
     }
 
     @MainActor
+    func testHomeFoodShortcutsAreSquareAndCustomizable() {
+        let app = makeApp()
+        app.launch()
+        let first = app.buttons["home.foodShortcut.0"]
+        let second = app.buttons["home.foodShortcut.1"]
+        XCTAssertTrue(second.waitForExistence(timeout: 10))
+        XCTAssertEqual(first.label, "Camera")
+        XCTAssertEqual(second.label, "Barcode")
+        XCTAssertEqual(first.frame.width, first.frame.height, accuracy: 1)
+        XCTAssertEqual(first.frame.width, second.frame.width, accuracy: 1)
+        XCTAssertEqual(first.frame.height, second.frame.height, accuracy: 1)
+        XCTAssertLessThan(second.frame.maxX, app.buttons["home.add"].frame.minX)
+
+        openSettingsCategory("appPreferences", in: app)
+        let addMenu = app.buttons["settings.addMenu"]
+        reveal(addMenu, in: app)
+        addMenu.tap()
+        let picker = app.buttons["settings.homeShortcut.0"]
+        XCTAssertTrue(picker.waitForExistence(timeout: 5))
+        picker.tap()
+        let option = app.buttons["Manual Entry"]
+        XCTAssertTrue(option.waitForExistence(timeout: 5))
+        option.tap()
+
+        relaunchPreservingData(app)
+        XCTAssertTrue(first.waitForExistence(timeout: 10))
+        XCTAssertEqual(first.label, "Manual Entry")
+        XCTAssertEqual(second.label, "Barcode")
+        first.tap()
+        XCTAssertTrue(app.textFields["manual.name"].waitForExistence(timeout: 5))
+    }
+
+    @MainActor
     func testPinnedVoiceExplainsAccessWithoutLeavingTheCurrentTab() {
         let app = makeApp()
         app.launch()

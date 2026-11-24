@@ -3,6 +3,4 @@
     <string name="nav_workout_log">Workout Log</string>
     <string name="nav_exercise_library">Exercise Library</string>
     <string name="nav_upgrade_plans" translatable="false">Plus / Pro</string>
-    <!-- Live Voice is the feature name in every locale; the accessibility label is translated. -->
-    <string name="nav_live_voice" translatable="false">Live Voice</string>
 </resources>

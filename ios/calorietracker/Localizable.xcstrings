@@ -41552,6 +41552,72 @@
         }
       }
     },
+    "Home Shortcuts": {
+      "localizations": {
+        "ar": { "stringUnit": { "state": "translated", "value": "اختصارات الشاشة الرئيسية" } },
+        "az": { "stringUnit": { "state": "translated", "value": "Əsas ekran qısayolları" } },
+        "cs": { "stringUnit": { "state": "translated", "value": "Zkratky na hlavní obrazovce" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Kurzbefehle auf der Startseite" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Atajos de inicio" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Raccourcis de l’accueil" } },
+        "hi": { "stringUnit": { "state": "translated", "value": "होम शॉर्टकट" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Scorciatoie della schermata Home" } },
+        "ja": { "stringUnit": { "state": "translated", "value": "ホームのショートカット" } },
+        "ko": { "stringUnit": { "state": "translated", "value": "홈 바로가기" } },
+        "nl": { "stringUnit": { "state": "translated", "value": "Snelkoppelingen op het beginscherm" } },
+        "pl": { "stringUnit": { "state": "translated", "value": "Skróty na ekranie głównym" } },
+        "pt-BR": { "stringUnit": { "state": "translated", "value": "Atalhos da tela inicial" } },
+        "ro": { "stringUnit": { "state": "translated", "value": "Comenzi rapide pe ecranul principal" } },
+        "ru": { "stringUnit": { "state": "translated", "value": "Быстрые действия на главном экране" } },
+        "tr": { "stringUnit": { "state": "translated", "value": "Ana ekran kısayolları" } },
+        "uk": { "stringUnit": { "state": "translated", "value": "Швидкі дії на головному екрані" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "主页快捷操作" } }
+      }
+    },
+    "Shortcut %lld": {
+      "localizations": {
+        "ar": { "stringUnit": { "state": "translated", "value": "الاختصار %lld" } },
+        "az": { "stringUnit": { "state": "translated", "value": "Qısayol %lld" } },
+        "cs": { "stringUnit": { "state": "translated", "value": "Zkratka %lld" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Kurzbefehl %lld" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Atajo %lld" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Raccourci %lld" } },
+        "hi": { "stringUnit": { "state": "translated", "value": "शॉर्टकट %lld" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Scorciatoia %lld" } },
+        "ja": { "stringUnit": { "state": "translated", "value": "ショートカット%lld" } },
+        "ko": { "stringUnit": { "state": "translated", "value": "바로가기 %lld" } },
+        "nl": { "stringUnit": { "state": "translated", "value": "Snelkoppeling %lld" } },
+        "pl": { "stringUnit": { "state": "translated", "value": "Skrót %lld" } },
+        "pt-BR": { "stringUnit": { "state": "translated", "value": "Atalho %lld" } },
+        "ro": { "stringUnit": { "state": "translated", "value": "Comanda rapidă %lld" } },
+        "ru": { "stringUnit": { "state": "translated", "value": "Быстрое действие %lld" } },
+        "tr": { "stringUnit": { "state": "translated", "value": "Kısayol %lld" } },
+        "uk": { "stringUnit": { "state": "translated", "value": "Швидка дія %lld" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "快捷操作 %lld" } }
+      }
+    },
+    "More shortcuts appear on wider screens.": {
+      "localizations": {
+        "ar": { "stringUnit": { "state": "translated", "value": "تظهر اختصارات إضافية على الشاشات الأعرض." } },
+        "az": { "stringUnit": { "state": "translated", "value": "Daha geniş ekranlarda daha çox qısayol görünür." } },
+        "cs": { "stringUnit": { "state": "translated", "value": "Na širších obrazovkách se zobrazí více zkratek." } },
+        "de": { "stringUnit": { "state": "translated", "value": "Auf breiteren Bildschirmen erscheinen mehr Kurzbefehle." } },
+        "es": { "stringUnit": { "state": "translated", "value": "En pantallas más anchas aparecen más atajos." } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Plus de raccourcis s’affichent sur les écrans plus larges." } },
+        "hi": { "stringUnit": { "state": "translated", "value": "चौड़ी स्क्रीन पर ज़्यादा शॉर्टकट दिखते हैं।" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Sui dispositivi con schermi più larghi compaiono più scorciatoie." } },
+        "ja": { "stringUnit": { "state": "translated", "value": "画面が広いほど、表示されるショートカットが増えます。" } },
+        "ko": { "stringUnit": { "state": "translated", "value": "화면이 넓을수록 더 많은 바로가기가 표시됩니다." } },
+        "nl": { "stringUnit": { "state": "translated", "value": "Op bredere schermen verschijnen meer snelkoppelingen." } },
+        "pl": { "stringUnit": { "state": "translated", "value": "Na szerszych ekranach widać więcej skrótów." } },
+        "pt-BR": { "stringUnit": { "state": "translated", "value": "Mais atalhos aparecem em telas mais largas." } },
+        "ro": { "stringUnit": { "state": "translated", "value": "Pe ecranele mai late apar mai multe comenzi rapide." } },
+        "ru": { "stringUnit": { "state": "translated", "value": "На более широких экранах отображается больше быстрых действий." } },
+        "tr": { "stringUnit": { "state": "translated", "value": "Daha geniş ekranlarda daha fazla kısayol görünür." } },
+        "uk": { "stringUnit": { "state": "translated", "value": "На ширших екранах відображається більше швидких дій." } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "屏幕越宽，显示的快捷操作越多。" } }
+      }
+    },
     "Home": {
       "localizations": {
         "ar": {

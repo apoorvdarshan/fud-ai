@@ -1,0 +1,5 @@
+<resources>
+    <string name="settings_home_food_shortcuts">Atajos de inicio</string>
+    <string name="settings_home_food_shortcut">Atajo %1$d</string>
+    <string name="settings_home_food_shortcuts_detail">En pantallas más anchas aparecen más atajos.</string>
+</resources>

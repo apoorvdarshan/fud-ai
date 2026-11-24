@@ -1,0 +1,5 @@
+<resources>
+    <string name="settings_home_food_shortcuts">Əsas ekran qısayolları</string>
+    <string name="settings_home_food_shortcut">Qısayol %1$d</string>
+    <string name="settings_home_food_shortcuts_detail">Daha geniş ekranlarda daha çox qısayol görünür.</string>
+</resources>

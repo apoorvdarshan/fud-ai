@@ -19,6 +19,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.apoorvdarshan.calorietracker.models.ChatMessage
 import com.apoorvdarshan.calorietracker.models.EnergyUnit
 import com.apoorvdarshan.calorietracker.models.FoodEntry
+import com.apoorvdarshan.calorietracker.models.FoodLogMethod
 import com.apoorvdarshan.calorietracker.models.FoodSource
 import com.apoorvdarshan.calorietracker.models.HomeTopNutrient
 import com.apoorvdarshan.calorietracker.models.WaterUnit
@@ -172,6 +173,35 @@ class AppFlowsTest {
         openTab("support")
         compose.onNodeWithText(string(R.string.about_rate)).performScrollTo().assertIsDisplayed()
         compose.onNodeWithTag("nav.voice").assertIsDisplayed()
+    }
+
+    @Test
+    fun homeFoodShortcutsAreSquareAndCustomizable() {
+        launchFresh()
+        val first = compose.onNodeWithTag("home.foodShortcut.0")
+        val second = compose.onNodeWithTag("home.foodShortcut.1")
+        val firstBounds = first.assertContentDescriptionEquals(string(FoodLogMethod.CAMERA.titleRes))
+            .assertIsDisplayed().fetchSemanticsNode().boundsInRoot
+        val secondBounds = second.assertContentDescriptionEquals(string(FoodLogMethod.BARCODE.titleRes))
+            .assertIsDisplayed().fetchSemanticsNode().boundsInRoot
+        assertEquals(firstBounds.width, firstBounds.height, 1f)
+        assertEquals(firstBounds.width, secondBounds.width, 1f)
+        assertEquals(firstBounds.height, secondBounds.height, 1f)
+        assertTrue(secondBounds.right < compose.onNodeWithTag("home.add").fetchSemanticsNode().boundsInRoot.left)
+
+        openTab("settings")
+        compose.onNodeWithTag("settings.category.APP_PREFERENCES").performScrollTo().performClick()
+        compose.onNodeWithText(string(R.string.settings_add_menu_title)).performScrollTo().performClick()
+        val picker = hasTestTag("settings.homeShortcut.0")
+        waitFor(picker)
+        compose.onNode(picker).performClick()
+        clickText(R.string.home_menu_manual_entry)
+        awaitPreference(prefs.homeFoodShortcuts) { it.methods.first() == FoodLogMethod.MANUAL }
+
+        relaunchActivity()
+        first.assertContentDescriptionEquals(string(FoodLogMethod.MANUAL.titleRes)).performClick()
+        second.assertContentDescriptionEquals(string(FoodLogMethod.BARCODE.titleRes))
+        waitFor(hasTestTag("manual.name"))
     }
 
     @Test

@@ -157,23 +157,21 @@ struct ContentView: View {
         TabBarSettings.decode(hiddenTabsRaw)
     }
 
-    var body: some View {
-        HStack(spacing: 0) {
+    private var appShell: some View {
+        let onVoice: (() -> Void)? = hideVoiceShortcut ? nil : { startRailVoice() }
+        return HStack(spacing: 0) {
             standardTabView
                 .environment(\.layoutDirection, layoutDirection)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-            PinkNeoRail(items: railItems, voiceShortcut: hideVoiceShortcut ? nil : PinkNeoRailItem(
-                id: "nav.voice", title: Text(verbatim: "Live Voice"), icon: "waveform",
-                accessibilityTitle: Text("Talk to Fud AI")
-            ) {
-                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                AppHaptics.impact(.medium)
-                voiceAssistant.start()
-            })
-            .environment(\.layoutDirection, layoutDirection)
-            .padding(.trailing, 7)
+            PinkNeoRail(items: railItems, onVoice: onVoice)
+                .environment(\.layoutDirection, layoutDirection)
+                .padding(.trailing, 7)
         }
-            .environment(\.layoutDirection, .leftToRight)
+        .environment(\.layoutDirection, .leftToRight)
+    }
+
+    var body: some View {
+        appShell
             .background(neoAppearance.palette.paper)
             .tint(AppColors.accentText)
             .background(VoiceAssistantWindowInstaller(controller: voiceAssistant))
@@ -296,6 +294,12 @@ struct ContentView: View {
                     selectTab(.home)
                 }
             }
+    }
+
+    private func startRailVoice() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        AppHaptics.impact(.medium)
+        voiceAssistant.start()
     }
 
     /// Hands the app's stores to the voice assistant.
@@ -1449,6 +1453,8 @@ struct HomeView: View {
     @AppStorage(FastingSettings.notificationEnabledKey) private var fastingGoalNotificationEnabled = true
     /// Observed so + menu edits in Settings refresh Home right away.
     @AppStorage(AddMenuConfig.storageKey) private var addMenuConfigData: Data?
+    @AppStorage(HomeFoodShortcuts.storageKey) private var homeShortcutsRaw = ""
+    @State private var visibleHomeShortcutCount = 2
     @AppStorage("hideBarcodePhoto") private var hideBarcodePhoto = false
     @AppStorage("notificationsEnabled") private var notificationsEnabled = false
     @Environment(ProfileStore.self) private var profileStore
@@ -1741,22 +1747,31 @@ private var dailyStepsTaskKey: String {
     /// The diary scrolls behind these floating controls and can scroll fully above them.
     private var homeActionBar: some View {
         let neo = neoAppearance.palette
-        return HStack(spacing: 12) {
-            if !foodStore.favorites.isEmpty, fastingStore.activeSession == nil,
-               AddMenuSettings.decode(addMenuConfigData).visibleMethods.contains(.favorites) {
+        let shortcuts = HomeFoodShortcuts(stored: homeShortcutsRaw)
+        let side: CGFloat = 52
+        let gap: CGFloat = 6
+        let logFoodWidth: CGFloat = neoTypeSize >= .xxLarge ? 112 : 84
+        let slotCount = shortcuts.methods.count
+        return HStack(spacing: gap) {
+            ForEach(0..<min(visibleHomeShortcutCount, shortcuts.methods.count), id: \.self) { slot in
+                let method = shortcuts.methods[slot]
                 Button {
-                    presentFoodDestination { performFoodLogMethod(.favorites) }
+                    guard canBeginFoodLogging() else { return }
+                    presentFoodDestination { performFoodLogMethod(method) }
                 } label: {
-                    Image(systemName: FoodLogMethod.favorites.systemImageName)
+                    Image(systemName: method.systemImageName)
                         .font(.system(size: 20, weight: .semibold))
                         .foregroundStyle(neo.ink)
-                        .frame(width: 48, height: 48)
+                        .frame(width: side, height: side)
                         .background(neo.panel)
                         .pinkNeoRule(neo.rule)
+                        .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)
-                .accessibilityLabel("Favorites")
-                .accessibilityIdentifier("home.favorites")
+                .disabled(fastingStore.activeSession != nil)
+                .opacity(fastingStore.activeSession == nil ? 1 : 0.5)
+                .accessibilityLabel(Text(method.title))
+                .accessibilityIdentifier("home.foodShortcut.\(slot)")
             }
             FlashMenu(title: Text("Log Food"), items: { foodLogMenuItems }) {
                 Label("Log Food", systemImage: "plus")
@@ -1818,6 +1833,11 @@ private var dailyStepsTaskKey: String {
                 .presentationCompactAdaptation(.popover)
             }
         }
+        .frame(maxWidth: .infinity)
+        .onGeometryChange(for: Int.self) { proxy in
+            // Keep Log Food readable before allocating any of the remaining width to shortcuts.
+            max(0, min(slotCount, Int((proxy.size.width - logFoodWidth) / (side + gap))))
+        } action: { visibleHomeShortcutCount = $0 }
         .padding(.horizontal, 10)
         .padding(.vertical, 7)
         .background(neoAppearance.palette.paper)
@@ -5752,6 +5772,7 @@ struct ProfileView: View {
                                 .foregroundStyle(AppColors.calorie)
                         }
                     }
+                    .accessibilityIdentifier("settings.addMenu")
 
                     NavigationLink {
                         ProductInfoSettingsView()

@@ -6,6 +6,16 @@ import org.junit.Test
 
 class AddMenuConfigTest {
     @Test
+    fun homeShortcutsDefaultSwapAndPersistWithoutDuplicates() {
+        val shortcuts = HomeFoodShortcuts.decode(null)
+        assertEquals(listOf(FoodLogMethod.CAMERA, FoodLogMethod.BARCODE, FoodLogMethod.TEXT, FoodLogMethod.FAVORITES), shortcuts.methods)
+        val updated = shortcuts.assigning(0, FoodLogMethod.FAVORITES).assigning(1, FoodLogMethod.MANUAL)
+        assertEquals(listOf(FoodLogMethod.FAVORITES, FoodLogMethod.MANUAL, FoodLogMethod.TEXT, FoodLogMethod.CAMERA),
+            HomeFoodShortcuts.decode(updated.encode()).methods)
+        assertEquals(shortcuts, HomeFoodShortcuts.decode("camera,camera,text,favorites"))
+    }
+
+    @Test
     fun defaultMatchesLegacyThreeGroups() {
         val config = AddMenuConfig.Default
         assertEquals(3, config.groups.size)

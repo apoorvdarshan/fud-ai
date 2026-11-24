@@ -22,6 +22,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -108,6 +109,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.TextStyle
@@ -397,11 +399,6 @@ fun CoachScreen(container: AppContainer) {
 
 }
 
-/**
- * Verbatim port of `emptyState` in ChatView.swift.
- * 108dp glassy disc with bubble.left.and.bubble.right.fill (44sp) icon,
- * "Ask your Coach" title (rounded title2 semibold), subtitle.
- */
 @Composable
 private fun EmptyState(
     prompts: List<ResolvedPrompt>,
@@ -413,7 +410,7 @@ private fun EmptyState(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 32.dp)
+            .padding(horizontal = 16.dp)
             .padding(top = 54.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
@@ -449,22 +446,25 @@ private fun EmptyState(
             modifier = Modifier.padding(horizontal = 8.dp)
         )
         Spacer(Modifier.height(26.dp))
-        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-            prompts.take(4).chunked(2).forEach { rowPrompts ->
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(10.dp),
-                    verticalAlignment = Alignment.Top
-                ) {
-                    rowPrompts.forEach { prompt ->
-                        EmptyPromptCard(
-                            text = prompt.label,
-                            enabled = enabled,
-                            onTap = { onPromptTap(prompt.resourceId) },
-                            modifier = Modifier.weight(1f)
-                        )
+        BoxWithConstraints(Modifier.fillMaxWidth()) {
+            val columns = if (maxWidth < 246.dp || LocalDensity.current.fontScale >= 1.3f) 1 else 2
+            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                prompts.take(4).chunked(columns).forEach { rowPrompts ->
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(10.dp),
+                        verticalAlignment = Alignment.Top
+                    ) {
+                        rowPrompts.forEach { prompt ->
+                            EmptyPromptCard(
+                                text = prompt.label,
+                                enabled = enabled,
+                                onTap = { onPromptTap(prompt.resourceId) },
+                                modifier = Modifier.weight(1f)
+                            )
+                        }
+                        if (rowPrompts.size < columns) Spacer(Modifier.weight(1f))
                     }
-                    if (rowPrompts.size == 1) Spacer(Modifier.weight(1f))
                 }
             }
         }
@@ -507,8 +507,7 @@ private fun EmptyPromptCard(
                 color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 13.sp,
                 fontWeight = FontWeight.Medium,
-                lineHeight = 18.sp,
-                maxLines = 3
+                lineHeight = 18.sp
             )
         }
     }

@@ -22,6 +22,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
@@ -98,6 +99,7 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -237,6 +239,7 @@ internal fun WorkoutDiaryScreen(
         modifier = modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
+            .navigationBarsPadding()
             .onGloballyPositioned { diaryRootOrigin = it.boundsInRoot().topLeft }
             .pointerInput(diaryRootOrigin) {
                 // Observe completed pointers without consuming them, so set
@@ -480,6 +483,7 @@ internal fun WorkoutDiaryScreen(
                 Box(
                     modifier = Modifier
                         .size(60.dp)
+                        .testTag("workouts.add")
                         .background(palette.action)
                         .border(1.dp, palette.rule)
                         .clickable(role = Role.Button) {
@@ -784,7 +788,11 @@ private fun WorkoutBurnHero(
         BoxWithConstraints(Modifier.fillMaxWidth()) {
             FlowRow(
                 modifier = Modifier.fillMaxWidth(),
-                maxItemsInEachRow = if (maxWidth < 280.dp || largeText) 2 else 4,
+                maxItemsInEachRow = when {
+                    LocalDensity.current.fontScale >= 1.8f || maxWidth < 180.dp -> 1
+                    maxWidth < 342.dp || largeText -> 2
+                    else -> 4
+                },
                 horizontalArrangement = Arrangement.spacedBy(5.dp),
                 verticalArrangement = Arrangement.spacedBy(5.dp)
             ) {

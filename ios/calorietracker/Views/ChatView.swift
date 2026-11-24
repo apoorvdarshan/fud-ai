@@ -309,7 +309,7 @@ struct ChatView: View {
                             .font(.system(.footnote, design: .rounded, weight: .medium))
                             .foregroundStyle(.primary)
                             .multilineTextAlignment(.leading)
-                            .lineLimit(composerTypeSize.isAccessibilitySize ? nil : 3)
+                            .fixedSize(horizontal: false, vertical: true)
                         Spacer(minLength: 0)
                     }
                     .padding(12)

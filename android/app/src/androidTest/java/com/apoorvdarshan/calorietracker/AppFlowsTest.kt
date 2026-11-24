@@ -6,6 +6,8 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.closeSoftKeyboard
 import androidx.test.espresso.Espresso.pressBack
@@ -165,6 +167,17 @@ class AppFlowsTest {
         for (tab in listOf("progress", "coach", "settings", "workouts", "home")) {
             openTab(tab)
             compose.onNodeWithTag("nav.$tab").assertIsSelected()
+            if (tab == "workouts") {
+                val workoutAdd = compose.onNodeWithTag("workouts.add")
+                    .assertIsDisplayed().fetchSemanticsNode().boundsInWindow
+                activity!!.onActivity { main ->
+                    val decor = main.window.decorView
+                    val navigation = checkNotNull(ViewCompat.getRootWindowInsets(decor))
+                        .getInsets(WindowInsetsCompat.Type.navigationBars())
+                    assertTrue("The workout dock stays above the system navigation bar",
+                        workoutAdd.bottom <= decor.height - navigation.bottom)
+                }
+            }
         }
         compose.onNodeWithTag("home.add").assertIsDisplayed()
         compose.onNodeWithTag("onboarding.WELCOME").assertDoesNotExist()

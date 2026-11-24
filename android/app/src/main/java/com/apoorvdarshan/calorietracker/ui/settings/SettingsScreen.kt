@@ -167,6 +167,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
@@ -4688,6 +4689,7 @@ internal fun SettingRow(
             value,
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.65f),
+            textAlign = if (largeText) TextAlign.Start else TextAlign.End,
             modifier = modifier
         )
     }
@@ -4715,9 +4717,10 @@ internal fun SettingRow(
         } else {
             Text(label, modifier = Modifier.weight(1f), style = MaterialTheme.typography.bodyLarge)
             if (value.isNotEmpty()) {
-                valueText(Modifier.weight(0.65f, fill = false).padding(start = 8.dp))
+                valueText(Modifier.weight(0.8f).padding(start = 6.dp))
             }
         }
+        Spacer(Modifier.width(6.dp))
         Icon(
             if (inlineMenu) Icons.Filled.UnfoldMore else Icons.Filled.ChevronRight,
             contentDescription = null,

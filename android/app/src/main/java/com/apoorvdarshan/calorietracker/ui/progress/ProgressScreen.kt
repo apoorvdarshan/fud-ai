@@ -36,7 +36,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
-import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -59,7 +58,6 @@ import androidx.compose.material3.MaterialTheme
 import com.apoorvdarshan.calorietracker.ui.components.FlashBottomSheet as ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -163,8 +161,7 @@ import kotlin.math.roundToInt
  * including the per-section components in ProgressComponents.swift.
  *
  * Layout (top -> bottom):
- *   0. WeeklyRecapCard — the last completed week vs the one before (WeeklyRecapCard.kt)
- *   1. Segmented TimeRange picker — 1W / 1M / 3M / 6M / 1Y / All
+ *   1. Time range menu — 1W / 1M / 3M / 6M / 1Y / All
  *   2. WeightChartSection — Weight title + Log Weight pill + StatBadges
  *      (Current, Goal, Net Change, Average) + line chart with green dashed goal rule
  *   3. WeightHistoryLink — only shown if any weight entries exist; shows
@@ -193,15 +190,6 @@ enum class TimeRange(@StringRes val labelRes: Int, val days: Int) {
         return start to end
     }
 
-    /** The calorie / nutrition window. Excluding today ends it yesterday — and shifts
-     *  past periods by the same day so they stay contiguous — so a still-in-progress
-     *  log doesn't drag the averages down. */
-    fun nutritionDateRange(
-        today: LocalDate = LocalDate.now(),
-        offset: Int = 0,
-        includeToday: Boolean = true
-    ): Pair<LocalDate, LocalDate> = dateRange(if (includeToday) today else today.minusDays(1), offset)
-
     /** All has no earlier window to step back to. */
     val supportsPeriodNavigation: Boolean get() = this != ALL_TIME
 }
@@ -212,20 +200,15 @@ fun ProgressScreen(container: AppContainer) {
     val vm: ProgressViewModel = viewModel(factory = ProgressViewModel.Factory(container))
     val ui by vm.ui.collectAsState()
     val foods by container.foodRepository.entries.collectAsState(initial = emptyList())
-    val calorieDisplayRange by container.prefs.calorieDisplayRange.collectAsState(initial = 0 to 0)
     val weightUnit by container.prefs.weightUnit.collectAsState(initial = "kg")
     val optionalNutrientGoals by container.prefs.optionalNutrientGoals.collectAsState(
         initial = OptionalNutrientGoals.Default
     )
-    val includeToday by container.prefs.progressIncludeToday.collectAsState(initial = true)
-    val weekStartsOnMonday by container.prefs.weekStartsOnMonday.collectAsState(initial = true)
-    val workoutDayPlans by container.workoutRepository.dayPlans.collectAsState(initial = emptyMap())
     // Read-only sessions other apps shared with Health Connect (#479); never part of the burn math.
     val importedWorkouts by container.importedHealthWorkoutRepository.workouts.collectAsState(initial = emptyList())
     val heightUnit by container.prefs.heightUnit.collectAsState(initial = "cm")
     // null until DataStore answers, so a restored Steps selection isn't reset early.
     val healthConnectEnabled by container.prefs.healthConnectEnabled.collectAsState(initial = null)
-    val prefsScope = rememberCoroutineScope()
     // Bumped when the app returns to the foreground (ON_START after ON_STOP, so not on
     // first show): re-probes the steps grant, which may have changed in Health Connect
     // meanwhile, and re-reads the steps on screen, which keep counting while away.
@@ -247,10 +230,6 @@ fun ProgressScreen(container: AppContainer) {
         onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
     }
     val weightMetric = weightUnit == "kg"
-    // The Weekly Recap's time zone and "today", re-read on each return to the app,
-    // so a finished week rolls over and travel regroups late-night entries.
-    val recapZone = remember(foregroundEpoch) { ZoneId.systemDefault() }
-    val recapToday = remember(foregroundEpoch) { LocalDate.now(recapZone) }
 
     var range by rememberSaveable { mutableStateOf(TimeRange.WEEK) }
     // Whole windows stepped back from the current one. Session-only and keyed on
@@ -267,8 +246,6 @@ fun ProgressScreen(container: AppContainer) {
 
     // Filter weights + body fats to range
     val (rangeStartDate, rangeEndDate) = range.dateRange(offset = periodOffset)
-    val (nutritionStartDate, nutritionEndDate) =
-        range.nutritionDateRange(offset = periodOffset, includeToday = includeToday)
     val zone = ZoneId.systemDefault()
     val rangeStart = rangeStartDate.atStartOfDay(zone).toInstant()
     val rangeEndExclusive = rangeEndDate.plusDays(1).atStartOfDay(zone).toInstant()
@@ -353,14 +330,14 @@ fun ProgressScreen(container: AppContainer) {
     // cancels the previous LaunchedEffect so the picker stays interruptible.
     var foodRangeStats by remember { mutableStateOf<ProgressFoodRangeStats?>(null) }
     var isLoadingFoodRangeStats by remember { mutableStateOf(false) }
-    LaunchedEffect(foods, range, periodOffset, includeToday, ui.profile, optionalNutrientGoals) {
+    LaunchedEffect(foods, range, rangeEndDate, zone, ui.profile, optionalNutrientGoals) {
         isLoadingFoodRangeStats = true
         foodRangeStats = null
         val computed = withContext(Dispatchers.Default) {
             computeProgressFoodRangeStats(
                 foods = foods,
                 dayCount = range.days,
-                endDay = nutritionEndDate,
+                endDay = rangeEndDate,
                 zone = zone,
                 profile = ui.profile,
                 optionalGoals = optionalNutrientGoals
@@ -381,26 +358,7 @@ fun ProgressScreen(container: AppContainer) {
             ),
             verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap)
         ) {
-            // 0. Recap of the last completed week (#431); waits for the profile's targets.
-            ui.profile?.let { profile ->
-                item {
-                    WeeklyRecapCard(
-                        foods = foods,
-                        weights = ui.entries,
-                        burnSessions = ui.workoutBurnSessions,
-                        dayPlans = workoutDayPlans,
-                        calorieGoal = profile.effectiveCalories,
-                        proteinGoal = profile.effectiveProtein,
-                        calorieDisplayRange = calorieDisplayRange,
-                        useMetric = weightMetric,
-                        firstDayOfWeek = WeeklyRecapCalculator.firstDayOfWeek(weekStartsOnMonday),
-                        today = recapToday,
-                        zone = recapZone
-                    )
-                }
-            }
-
-            // 1. Segmented TimeRange picker
+            // 1. Time range menu
             item { TimeRangePicker(selected = range, onSelect = { range = it }) }
 
             if (range.supportsPeriodNavigation) {
@@ -484,16 +442,6 @@ fun ProgressScreen(container: AppContainer) {
                     }
                 }
                 ProgressMetric.STEPS -> Unit
-            }
-
-            item {
-                IncludeTodayToggle(
-                    checked = includeToday,
-                    // Spell out the shifted window while it differs from the label above.
-                    nutritionRange = if (includeToday || !range.supportsPeriodNavigation) null
-                        else nutritionStartDate to nutritionEndDate,
-                    onCheckedChange = { prefsScope.launch { container.prefs.setProgressIncludeToday(it) } }
-                )
             }
 
             // 5–7. Nutrition sections: show a loading card while computing so
@@ -836,49 +784,6 @@ private fun formatProgressPeriod(
         end.atTime(12, 0).atZone(zone).toInstant().toEpochMilli(),
         DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_ABBREV_MONTH or yearFlag
     )
-}
-
-/** Switch for leaving today's still-in-progress log out of the calorie chart and
- *  nutrition averages. */
-@Composable
-private fun IncludeTodayToggle(
-    checked: Boolean,
-    nutritionRange: Pair<LocalDate, LocalDate>?,
-    onCheckedChange: (Boolean) -> Unit
-) {
-    val context = LocalContext.current
-    val scope = stringResource(R.string.progress_include_today_caption)
-    val caption = remember(scope, nutritionRange) {
-        nutritionRange?.let { (start, end) -> "$scope · ${formatProgressPeriod(context, start, end)}" } ?: scope
-    }
-    FudGlassSurface(
-        modifier = Modifier.fillMaxWidth(),
-        cornerRadius = 14.dp,
-        padding = 0.dp
-    ) {
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .toggleable(value = checked, role = Role.Switch, onValueChange = onCheckedChange)
-                .padding(horizontal = 16.dp, vertical = 10.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                Text(
-                    stringResource(R.string.progress_include_today),
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight.SemiBold
-                )
-                Text(
-                    caption,
-                    fontSize = 12.sp,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
-                )
-            }
-            Spacer(Modifier.width(12.dp))
-            Switch(checked = checked, onCheckedChange = null)
-        }
-    }
 }
 
 @Composable

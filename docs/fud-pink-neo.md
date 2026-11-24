@@ -57,7 +57,7 @@ Home keeps recent day lookups warm and draws the animated energy meter in one pa
 
 ## Verify before release
 
-1. Open all seven destinations, reselect Settings from a nested page, then hide and re-enable the Progress and Workouts pairs. Confirm that Progress keeps its date range and Exercise Library keeps its search when switching tabs. Exercise a system shortcut and an assistant route.
+1. Open all seven destinations, reselect Settings from a nested page, then hide and re-enable the Progress and Workouts pairs. Confirm that Progress opens with the date range, keeps it when switching tabs, and uses that same range for nutrition and other charts. Confirm Exercise Library keeps its search when switching tabs. Exercise a system shortcut and an assistant route.
 2. Pick a historical day, change weeks, and return to today. Compare Home, Nutrition Details, and persisted entries with kcal/kJ, custom nutrients, Water, and Fasting enabled.
 3. Log via the dock and via the rail camera. Edit a result, cancel and retry capture, sort and share a meal, combine entries, and remove food/water/fasting entries using the existing confirmations.
 4. Inspect both appearances, Dark gray, another accent, a small phone, a large font size, right-to-left layout, and an open keyboard. Confirm the diary's first and last rows remain reachable and the rail stays on the physical right without widening the active page. Native sheets and other full-screen presentations may cover the rail; dismissing them returns to the same layout.

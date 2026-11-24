@@ -80,46 +80,31 @@ class ProgressRangeTest {
     }
 
     @Test
-    fun nutritionWindowEndsYesterdayWhenTodayIsExcluded() {
-        assertEquals(
-            LocalDate.parse("2026-10-11") to today,
-            TimeRange.WEEK.nutritionDateRange(today, offset = 0, includeToday = true)
-        )
-        assertEquals(
-            LocalDate.parse("2026-10-10") to LocalDate.parse("2026-10-16"),
-            TimeRange.WEEK.nutritionDateRange(today, offset = 0, includeToday = false)
-        )
-        assertEquals(
-            LocalDate.parse("2026-10-03") to LocalDate.parse("2026-10-09"),
-            TimeRange.WEEK.nutritionDateRange(today, offset = 1, includeToday = false)
-        )
-    }
-
-    @Test
-    fun excludingTodayKeepsAPartialDayOutOfTheAverages() {
+    fun nutritionIncludesTodayOnlyInTheCurrentWindow() {
         val foods = listOf(
             food(calories = 2_000, protein = 120.0, at = "2026-10-15T13:00"),
             food(calories = 2_200, protein = 140.0, at = "2026-10-16T19:00"),
             // Breakfast only so far today.
-            food(calories = 400, protein = 20.0, at = "2026-10-17T08:00")
+            food(calories = 400, protein = 20.0, at = "2026-10-17T08:00"),
+            food(calories = 1_800, protein = 100.0, at = "2026-10-10T20:00")
         )
 
-        fun stats(includeToday: Boolean) = computeProgressFoodRangeStats(
+        fun stats(offset: Int) = computeProgressFoodRangeStats(
             foods = foods,
             dayCount = TimeRange.WEEK.days,
-            endDay = TimeRange.WEEK.nutritionDateRange(today, includeToday = includeToday).second,
+            endDay = TimeRange.WEEK.dateRange(today, offset).second,
             zone = zone,
             profile = null,
             optionalGoals = OptionalNutrientGoals.Default
         )
 
-        val withToday = stats(includeToday = true)
-        val withoutToday = stats(includeToday = false)
+        val current = stats(offset = 0)
+        val previous = stats(offset = 1)
 
-        assertEquals(listOf(2_000, 2_200, 400), withToday.dailyCalories.map { it.second })
-        assertEquals(280.0 / 3, withToday.avgProtein, 0.0001)
-        assertEquals(listOf(2_000, 2_200), withoutToday.dailyCalories.map { it.second })
-        assertEquals(130.0, withoutToday.avgProtein, 0.0001)
+        assertEquals(listOf(2_000, 2_200, 400), current.dailyCalories.map { it.second })
+        assertEquals(280.0 / 3, current.avgProtein, 0.0001)
+        assertEquals(listOf(1_800), previous.dailyCalories.map { it.second })
+        assertEquals(100.0, previous.avgProtein, 0.0001)
     }
 
     @Test

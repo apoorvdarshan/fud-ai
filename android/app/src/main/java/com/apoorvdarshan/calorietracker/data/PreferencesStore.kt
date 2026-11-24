@@ -754,11 +754,6 @@ class PreferencesStore(
     }
     suspend fun setWeightUnit(v: String) { ds.edit { it[Keys.WEIGHT_UNIT] = v } }
 
-    /** Progress calorie chart + nutrition averages include today's still-in-progress log
-     *  (default). Off ends those windows yesterday so a partial day can't drag them down. */
-    val progressIncludeToday: Flow<Boolean> = ds.data.map { it[Keys.PROGRESS_INCLUDE_TODAY] ?: true }
-    suspend fun setProgressIncludeToday(v: Boolean) { ds.edit { it[Keys.PROGRESS_INCLUDE_TODAY] = v } }
-
     val preferGramsByDefault: Flow<Boolean> = ds.data.map { it[Keys.PREFER_GRAMS_BY_DEFAULT] ?: false }
     suspend fun setPreferGramsByDefault(v: Boolean) { ds.edit { it[Keys.PREFER_GRAMS_BY_DEFAULT] = v } }
 
@@ -1879,7 +1874,6 @@ class PreferencesStore(
         val USE_METRIC = booleanPreferencesKey("useMetric")
         val HEIGHT_UNIT = stringPreferencesKey("heightUnit")
         val WEIGHT_UNIT = stringPreferencesKey("weightUnit")
-        val PROGRESS_INCLUDE_TODAY = booleanPreferencesKey("progressIncludeToday")
         val PREFER_GRAMS_BY_DEFAULT = booleanPreferencesKey("foodMeasurementPreferGramsByDefault")
         val AMINO_ACID_ESTIMATES_ENABLED = booleanPreferencesKey("aminoAcidEstimatesEnabled")
         val PRODUCT_INFO_SHOWN = booleanPreferencesKey("productInfoShown")

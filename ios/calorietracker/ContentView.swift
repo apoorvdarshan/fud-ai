@@ -4345,8 +4345,6 @@ struct ProgressTabView: View {
     @Environment(HealthKitManager.self) private var healthKitManager
     @AppStorage("weightUnit") private var weightUnitRaw = "lbs"
     @AppStorage("healthKitEnabled") private var healthKitEnabled = false
-    /// Off ends the calorie chart and nutrition averages yesterday (#514).
-    @AppStorage("progressIncludeToday") private var includeToday = true
     @AppStorage(OptionalNutrientGoals.storageKey) private var optionalGoalsData = Data()
     @State private var timeRange: TimeRange = .week
     /// Whole windows stepped back from the current one; session-only, reset
@@ -4400,11 +4398,6 @@ struct ProgressTabView: View {
     /// Selected window through the last instant of its final day (for timestamped readings).
     private var timestampRange: ClosedRange<Date> { timeRange.timestampRange(offset: periodOffset) }
 
-    /// Window for the calorie chart and nutrition averages.
-    private var nutritionDateRange: ClosedRange<Date> {
-        timeRange.nutritionDayRange(offset: periodOffset, includeToday: includeToday)
-    }
-
     private var filteredWeightEntries: [WeightEntry] {
         weightStore.entries(in: timestampRange)
     }
@@ -4454,7 +4447,7 @@ struct ProgressTabView: View {
     var body: some View {
         let rangeKey = FoodRangeKey(
             dayCount: timeRange.days,
-            lastDay: nutritionDateRange.upperBound,
+            lastDay: dateRange.upperBound,
             diaryRevision: foodStore.entriesRevision,
             profile: userProfile,
             optionalGoalsData: optionalGoalsData
@@ -4463,9 +4456,6 @@ struct ProgressTabView: View {
         return NavigationStack {
             ScrollView {
                 LazyVStack(spacing: 18) {
-                    WeeklyRecapCard()
-                        .padding(.horizontal)
-
                     FlashChoicePicker(title: Text("Time Range"), selection: timeRangeSelection,
                                       options: TimeRange.allCases, titleIcon: "calendar") {
                         Text($0.title)
@@ -4559,14 +4549,6 @@ struct ProgressTabView: View {
                             EmptyView()
                         }
                     }
-                    .padding(.horizontal)
-
-                    ProgressIncludeTodayToggle(
-                        isOn: $includeToday,
-                        rangeLabel: includeToday || !timeRange.supportsPeriodNavigation
-                            ? nil
-                            : TimeRange.periodLabel(for: nutritionDateRange)
-                    )
                     .padding(.horizontal)
 
                     // Keep a visited range warm, but don't display its numbers

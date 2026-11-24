@@ -121,7 +121,7 @@ class AppFlowsTest {
         val selector = hasTestTag("progress.timeRange")
         val week = string(R.string.progress_range_week)
         val month = string(R.string.progress_range_month)
-        scroll.performScrollToNode(selector)
+        compose.onNodeWithText(string(R.string.weekly_recap_title)).assertDoesNotExist()
         compose.onNode(selector and hasText(week)).assertIsDisplayed().performClick()
         compose.onNodeWithText(month).assertIsDisplayed().performClick()
         compose.onNode(selector and hasText(month)).assertIsDisplayed()

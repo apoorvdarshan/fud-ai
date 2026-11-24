@@ -179,6 +179,7 @@ final class calorietrackerUITests: XCTestCase {
         progress.tap()
         XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label == %@", "Time Range"))
             .firstMatch.waitForExistence(timeout: 5))
+        XCTAssertFalse(app.staticTexts["Weekly Recap"].exists)
 
         let weekly = app.buttons["nav.weeklyChallenge"]
         reveal(weekly, in: app)

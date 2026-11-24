@@ -1704,17 +1704,27 @@ private var dailyStepsTaskKey: String {
                 showCustomWaterLog = true
             }
         }
-        // Largest first, as the fixed 3/2/1 glass presets were.
-        let presets = WaterQuickAddPresets.decode(waterQuickAddPresetsRaw).reversed()
-        return [custom] + presets.map { milliliters in
+        let presets = WaterQuickAddPresets.decode(waterQuickAddPresetsRaw)
+        return presets.map { milliliters in
             FlashMenuItem(Text(waterUnit.formatted(milliliters: milliliters)), icon: "drop.fill") {
                 logWater(milliliters)
             }
-        }
+        } + [custom]
     }
 
     private var foodLogMenuItems: [FlashMenuItem] {
         var items: [FlashMenuItem] = []
+        if fastingStore.activeSession == nil {
+            let config = AddMenuSettings.decode(addMenuConfigData)
+            items += config.groups.filter { !$0.methods.isEmpty }.map { group in
+                FlashMenuItem(Text(group.name), icon: group.methods.first?.systemImageName ?? "folder.fill",
+                              children: group.methods.map(addMenuItem))
+            }
+            items += config.flatMethods.map(addMenuItem)
+        }
+        if waterTrackingEnabled {
+            items.append(FlashMenuItem(Text("Water"), icon: "drop.fill", children: waterQuickMenuItems))
+        }
         if fastingTrackingEnabled {
             if fastingStore.activeSession != nil {
                 items.append(FlashMenuItem(Text("Fasting"), icon: "timer", children: [
@@ -1729,17 +1739,6 @@ private var dailyStepsTaskKey: String {
                     presentFoodDestination { showFastingStart = true }
                 })
             }
-        }
-        if waterTrackingEnabled {
-            items.append(FlashMenuItem(Text("Water"), icon: "drop.fill", children: waterQuickMenuItems))
-        }
-        if fastingStore.activeSession == nil {
-            let config = AddMenuSettings.decode(addMenuConfigData)
-            items += config.groups.filter { !$0.methods.isEmpty }.map { group in
-                FlashMenuItem(Text(group.name), icon: group.methods.first?.systemImageName ?? "folder.fill",
-                              children: group.methods.map(addMenuItem))
-            }
-            items += config.flatMethods.map(addMenuItem)
         }
         return items
     }

@@ -583,6 +583,12 @@ final class calorietrackerUITests: XCTestCase {
         let app = makeApp(defaults: ["-appearanceMode", "light"])
         app.launch()
 
+        func menuButton(_ label: String) -> XCUIElement {
+            app.buttons.matching(NSPredicate(
+                format: "label == %@ AND NOT (identifier BEGINSWITH %@)", label, "home.foodShortcut."
+            )).firstMatch
+        }
+
         let menu = app.buttons["home.add"]
         XCTAssertTrue(menu.waitForExistence(timeout: 15))
         menu.tap()
@@ -594,18 +600,18 @@ final class calorietrackerUITests: XCTestCase {
         XCTAssertTrue(reuse.isHittable)
         XCTAssertTrue(describe.isHittable)
         XCTAssertTrue(photos.isHittable)
-        XCTAssertLessThan(reuse.frame.midY, describe.frame.midY)
-        XCTAssertLessThan(describe.frame.midY, photos.frame.midY)
+        XCTAssertLessThan(photos.frame.midY, describe.frame.midY)
+        XCTAssertLessThan(describe.frame.midY, reuse.frame.midY)
 
         describe.tap()
-        let manual = app.buttons["Manual Entry"]
-        let voice = app.buttons["Voice"]
-        let text = app.buttons["Text Input"]
+        let manual = menuButton("Manual Entry")
+        let voice = menuButton("Voice")
+        let text = menuButton("Text Input")
         XCTAssertTrue(manual.waitForExistence(timeout: 5))
         XCTAssertTrue(voice.isHittable)
         XCTAssertTrue(text.isHittable)
-        XCTAssertLessThan(manual.frame.midY, voice.frame.midY)
-        XCTAssertLessThan(voice.frame.midY, text.frame.midY)
+        XCTAssertLessThan(text.frame.midY, voice.frame.midY)
+        XCTAssertLessThan(voice.frame.midY, manual.frame.midY)
         let menuScreenshot = XCTAttachment(screenshot: app.screenshot())
         menuScreenshot.name = "Native Log Food submenu - light"
         menuScreenshot.lifetime = .keepAlways
@@ -617,13 +623,20 @@ final class calorietrackerUITests: XCTestCase {
         menu.tap()
         XCTAssertTrue(photos.waitForExistence(timeout: 5))
         photos.tap()
-        XCTAssertTrue(app.buttons["Barcode"].waitForExistence(timeout: 5))
+        let camera = menuButton("Camera")
+        let library = menuButton("Photos")
+        let barcode = menuButton("Barcode")
+        XCTAssertTrue(barcode.waitForExistence(timeout: 5))
+        XCTAssertTrue(camera.isHittable)
+        XCTAssertTrue(library.isHittable)
+        XCTAssertLessThan(camera.frame.midY, library.frame.midY)
+        XCTAssertLessThan(library.frame.midY, barcode.frame.midY)
         app.coordinate(withNormalizedOffset: CGVector(dx: 0.22, dy: 0.15)).tap()
-        XCTAssertTrue(app.buttons["Barcode"].waitForNonExistence(timeout: 5))
+        XCTAssertTrue(barcode.waitForNonExistence(timeout: 5))
         XCTAssertTrue(menu.waitForExistence(timeout: 5))
         menu.tap()
         XCTAssertTrue(reuse.waitForExistence(timeout: 5))
-        XCTAssertFalse(app.buttons["Barcode"].exists)
+        XCTAssertFalse(barcode.exists)
     }
 
     @MainActor

@@ -444,7 +444,14 @@ final class calorietrackerUITests: XCTestCase {
         XCTAssertLessThan(describe.frame.midY, photos.frame.midY)
 
         describe.tap()
-        XCTAssertTrue(app.buttons["Manual Entry"].waitForExistence(timeout: 5))
+        let manual = app.buttons["Manual Entry"]
+        let voice = app.buttons["Voice"]
+        let text = app.buttons["Text Input"]
+        XCTAssertTrue(manual.waitForExistence(timeout: 5))
+        XCTAssertTrue(voice.isHittable)
+        XCTAssertTrue(text.isHittable)
+        XCTAssertLessThan(manual.frame.midY, voice.frame.midY)
+        XCTAssertLessThan(voice.frame.midY, text.frame.midY)
         let menuScreenshot = XCTAttachment(screenshot: app.screenshot())
         menuScreenshot.name = "Native Log Food submenu - light"
         menuScreenshot.lifetime = .keepAlways

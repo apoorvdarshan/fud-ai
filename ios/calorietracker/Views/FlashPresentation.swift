@@ -296,6 +296,7 @@ private struct FlashNativeMenuRow: View {
             } label: {
                 FlashNativeMenuLabel(title: item.title, icon: item.icon)
             }
+            .menuOrder(.fixed)
         }
     }
 }

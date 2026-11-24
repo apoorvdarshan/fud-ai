@@ -91,6 +91,48 @@ class AppFlowsTest {
     }
 
     @Test
+    fun homeSummarySwipesFromViewMoreAndCalendarOpensAsAPopup() {
+        launchFresh()
+        val diary = compose.onNodeWithTag("home.diary")
+        val viewMore = compose.onNodeWithTag("home.viewMore")
+        val todayLabel = hasTestTag("home.dateHeading") and hasText(string(R.string.widget_today))
+        diary.performScrollToNode(hasTestTag("home.viewMore"))
+        viewMore.assertIsDisplayed().performTouchInput { swipeRight() }
+        diary.performScrollToIndex(0)
+        waitFor(hasTestTag("home.dateHeading") and !hasText(string(R.string.widget_today)))
+        diary.performScrollToNode(hasTestTag("home.viewMore"))
+        viewMore.performTouchInput { swipeLeft() }
+        diary.performScrollToIndex(0)
+        waitFor(todayLabel)
+        diary.performScrollToNode(hasTestTag("home.viewMore"))
+        viewMore.performTouchInput { swipeLeft() }
+
+        diary.performScrollToIndex(0)
+        compose.onNode(todayLabel).assertIsDisplayed()
+        compose.onNodeWithTag("home.calendar").performClick()
+        compose.onNodeWithTag("home.calendarPopup").assertIsDisplayed()
+        compose.onNodeWithText(string(R.string.action_cancel)).performClick()
+        compose.onNodeWithTag("home.calendarPopup").assertDoesNotExist()
+        compose.onNode(todayLabel).assertIsDisplayed()
+    }
+
+    @Test
+    fun hapticsAreOnByDefaultAndCanBeTurnedOff() {
+        launchFresh()
+        openTab("settings")
+        val appSettings = compose.onNodeWithTag("settings.category.APP_PREFERENCES")
+        appSettings.performScrollTo().performClick()
+        val toggle = compose.onNodeWithTag("settings.haptics")
+        toggle.performScrollTo().assertIsOn().performClick()
+        awaitPreference(prefs.hapticsEnabled) { !it }
+        relaunchActivity()
+        openTab("settings")
+        appSettings.performScrollTo().performClick()
+        toggle.performScrollTo().assertIsOff().performClick()
+        awaitPreference(prefs.hapticsEnabled) { it }
+    }
+
+    @Test
     fun coachKeyboardKeepsTheRailInPlaceAndAllowsSwitchingTabs() {
         launchFresh()
         openTab("coach")

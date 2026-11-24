@@ -31,6 +31,10 @@ import androidx.compose.material.icons.filled.IosShare
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.outlined.Circle
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.foundation.gestures.awaitEachGesture
+import androidx.compose.foundation.gestures.awaitFirstDown
+import androidx.compose.foundation.gestures.awaitHorizontalDragOrCancellation
+import androidx.compose.foundation.gestures.awaitHorizontalTouchSlopOrCancellation
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.rememberScrollState
@@ -150,6 +154,8 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
 import com.apoorvdarshan.calorietracker.ui.util.clockTimePattern
 import com.apoorvdarshan.calorietracker.ui.util.gramsText
 import com.apoorvdarshan.calorietracker.ui.util.localizedDatePattern
@@ -451,6 +457,13 @@ DisposableEffect(lifecycleOwner, vm) {
 
     val today = LocalDate.now()
     val selectedDate = ui.date
+    val haptics = LocalHapticFeedback.current
+    val pickDay: (LocalDate) -> Unit = { day ->
+        if (day != selectedDate && !day.isAfter(today)) {
+            vm.setSelectedDate(day)
+            haptics.performHapticFeedback(HapticFeedbackType.SegmentTick)
+        }
+    }
     val isToday = selectedDate == today
     val completedFasts = remember(ui.fastingSessions, selectedDate) {
         ui.fastingSessions.filter { session ->
@@ -554,38 +567,37 @@ DisposableEffect(lifecycleOwner, vm) {
                     Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    PinkNeoDateHeader(date = selectedDate, onPick = vm::setSelectedDate)
+                    PinkNeoDateHeader(date = selectedDate, onPick = pickDay)
                     WeekEnergyStrip(
                         selectedDate = selectedDate,
-                        onSelect = { vm.setSelectedDate(it) },
+                        onSelect = pickDay,
                         weekStartsOnMonday = weekStartsOnMonday,
                         modifier = Modifier.background(neo.panel).border(1.dp, neo.rule).padding(3.dp)
                     )
                 }
             }
 
-            // Calorie hero + macros + View More — grouped so the day-swipe gesture covers only
-            // this top region, not the food log below "View More". Swipe left/right to change day;
-            // the horizontal-only detector lets the LazyColumn keep scrolling vertically.
+            // The entire summary is a single swipe region, separate from the week
+            // strip and diary. Measure from initial touch to lift, as on iOS.
             item {
                 Column(
-                    modifier = Modifier.pointerInput(selectedDate) {
-                        var accum = 0f
-                        val threshold = 80.dp.toPx()
-                        detectHorizontalDragGestures(
-                            onDragStart = { accum = 0f },
-                            onDragCancel = { accum = 0f },
-                            onHorizontalDrag = { change, amount -> accum += amount; change.consume() },
-                            onDragEnd = {
-                                if (accum > threshold) {
-                                    vm.setSelectedDate(selectedDate.minusDays(1))
-                                } else if (accum < -threshold) {
-                                    val next = selectedDate.plusDays(1)
-                                    if (!next.isAfter(today)) vm.setSelectedDate(next)
-                                }
-                                accum = 0f
+                    modifier = Modifier.fillMaxWidth().pointerInput(selectedDate, today) {
+                        val threshold = 60.dp.toPx()
+                        awaitEachGesture {
+                            val down = awaitFirstDown(requireUnconsumed = false)
+                            var change = awaitHorizontalTouchSlopOrCancellation(down.id) { crossing, _ ->
+                                crossing.consume()
+                            } ?: return@awaitEachGesture
+                            while (change.pressed) {
+                                change = awaitHorizontalDragOrCancellation(change.id) ?: return@awaitEachGesture
+                                if (change.pressed) change.consume()
                             }
-                        )
+                            val dx = change.position.x - down.position.x
+                            val dy = change.position.y - down.position.y
+                            if (kotlin.math.abs(dx) > threshold && kotlin.math.abs(dx) > kotlin.math.abs(dy) * 1.5f) {
+                                pickDay(selectedDate.plusDays(if (dx < 0) 1 else -1))
+                            }
+                        }
                     }
                 ) {
                     Spacer(Modifier.height(4.dp))
@@ -635,6 +647,7 @@ DisposableEffect(lifecycleOwner, vm) {
                         Box(
                             modifier = Modifier.fillMaxWidth().padding(horizontal = 10.dp)
                                 .background(neo.panel).border(1.dp, neo.rule)
+                                .testTag("home.viewMore")
                                 .clickable(role = Role.Button) { showNutritionDetail = true }
                         ) {
                             ViewMoreButton()
@@ -725,7 +738,10 @@ DisposableEffect(lifecycleOwner, vm) {
                                             selectedFoodIds = selectedFoodIds + entry.id
                                         },
                                         onDelete = { pendingDiaryDeletion = item },
-                                        onToggleFavorite = { vm.toggleFavorite(entry) }
+                                        onToggleFavorite = {
+                                            vm.toggleFavorite(entry)
+                                            haptics.performHapticFeedback(HapticFeedbackType.Confirm)
+                                        }
                                     )
                                 }
                                 is HomeDiaryItem.Water -> {
@@ -969,6 +985,7 @@ DisposableEffect(lifecycleOwner, vm) {
                 primaryText = stringResource(R.string.action_delete),
                 onPrimary = {
                     pendingDiaryDeletion = null
+                    haptics.performHapticFeedback(HapticFeedbackType.Confirm)
                     when (target) {
                         is HomeDiaryItem.Food -> vm.deleteEntry(target.entry.id)
                         is HomeDiaryItem.Water -> vm.deleteWater(target.entry.id)

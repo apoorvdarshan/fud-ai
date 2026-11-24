@@ -16,8 +16,13 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.hapticfeedback.HapticFeedback
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import com.apoorvdarshan.calorietracker.data.StartupPreferences
@@ -183,6 +188,16 @@ open class MainActivity : AppCompatActivity() {
 
     private fun showContent(container: AppContainer, startup: StartupPreferences) {
         setContent {
+            val platformHaptics = LocalHapticFeedback.current
+            val hapticsEnabled by container.hapticsEnabled.collectAsState()
+            val enabled = rememberUpdatedState(hapticsEnabled)
+            val appHaptics = remember(platformHaptics) {
+                object : HapticFeedback {
+                    override fun performHapticFeedback(hapticFeedbackType: HapticFeedbackType) {
+                        if (enabled.value) platformHaptics.performHapticFeedback(hapticFeedbackType)
+                    }
+                }
+            }
             val appearance by container.prefs.appearanceMode.collectAsState(initial = startup.appearanceMode)
             val themeColorKey by container.prefs.appThemeColor.collectAsState(initial = startup.themeColorKey)
             val themeColor = AppThemeColor.fromKey(themeColorKey)
@@ -202,8 +217,10 @@ open class MainActivity : AppCompatActivity() {
                 }
             }
             FudAITheme(darkTheme = darkTheme, themeColor = themeColor, grayDarkTheme = appearance == "darkGray") {
-                // Above the NavHost and the shared-meal sheet so both show the chosen unit.
-                CompositionLocalProvider(LocalEnergyUnit provides energyUnit) {
+                CompositionLocalProvider(
+                    LocalEnergyUnit provides energyUnit,
+                    LocalHapticFeedback provides appHaptics
+                ) {
                     Surface(
                         modifier = Modifier.fillMaxSize(),
                         color = MaterialTheme.colorScheme.background

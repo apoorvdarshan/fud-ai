@@ -336,6 +336,7 @@ struct ContentView: View {
                 selected: tab == selectedTab,
                 badge: tab == .settings && appUpdateState.isUpdateAvailable
             ) {
+                if tab != selectedTab { AppHaptics.selection() }
                 if tab == .settings && selectedTab == .settings {
                     assistantNavigator.show(.settings)
                 } else {
@@ -1376,10 +1377,8 @@ struct HomeView: View {
         return selectedDate.formatted(.dateTime.weekday(.wide).month(.abbreviated).day())
     }
 
-    /// Horizontal swipe → previous/next day. Attached only to the top section (calorie hero +
-    /// macros), not the food log below "View More", so it never competes with the food rows'
-    /// own swipe actions or vertical scrolling there. `.simultaneousGesture` lets the List still
-    /// scroll; we act only on a clearly horizontal flick.
+    /// The summary is one swipe region, including its gaps and View More.
+    /// Keep this separate from the week strip and diary-row swipe actions.
     private var daySwipeGesture: some Gesture {
         DragGesture(minimumDistance: 24)
             .onEnded { value in
@@ -1397,7 +1396,7 @@ struct HomeView: View {
         let calendar = Calendar.current
         guard let newDate = calendar.date(byAdding: .day, value: delta, to: selectedDate) else { return }
         if delta > 0 && calendar.startOfDay(for: newDate) > calendar.startOfDay(for: .now) { return }
-        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        AppHaptics.impact(.light)
         selectedDate = newDate
     }
 
@@ -1522,7 +1521,7 @@ private var dailyStepsTaskKey: String {
 
     private func logWater(_ milliliters: Int) {
         _ = waterStore.add(milliliters: milliliters, on: logDateForSelectedDay)
-        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        AppHaptics.impact(.light)
     }
 
     private func refreshFastingGoalNotification() {
@@ -1535,14 +1534,14 @@ private var dailyStepsTaskKey: String {
     private func startFast(goalMinutes: Int) {
         guard fastingStore.start(goalMinutes: goalMinutes) != nil else { return }
         refreshFastingGoalNotification()
-        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        AppHaptics.impact(.medium)
     }
 
     @discardableResult
     private func endFast() -> Bool {
         guard fastingStore.endActive() != nil else { return false }
         notificationManager.cancelFastingGoal()
-        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        AppHaptics.impact(.medium)
         return true
     }
 
@@ -1804,79 +1803,71 @@ private var dailyStepsTaskKey: String {
                     .listRowBackground(Color.clear)
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets(top: 4, leading: 10, bottom: 4, trailing: 10))
-                    PinkNeoCalorieSummary(
-                        eaten: selectedCalories,
-                        goal: calorieGoal,
-                        burnLine: homeBurnLine,
-                        launchFillEpoch: launchFillEpoch
-                    )
-                        .frame(maxWidth: .infinity)
-                        .contentShape(Rectangle())
-                        .simultaneousGesture(daySwipeGesture)
-                        .listRowBackground(Color.clear)
-                        .listRowSeparator(.hidden)
-                        .listRowInsets(EdgeInsets(top: 4, leading: 10, bottom: 4, trailing: 10))
+                    VStack(spacing: 6) {
+                        PinkNeoCalorieSummary(
+                            eaten: selectedCalories,
+                            goal: calorieGoal,
+                            burnLine: homeBurnLine,
+                            launchFillEpoch: launchFillEpoch
+                        )
                         .task(id: homeBurnRefreshToken) {
                             await refreshHomeBurnLine()
                         }
 
-                    if let dailySteps {
-                        DailyStepsRow(steps: dailySteps)
-                            .listRowBackground(Color.clear)
-                            .listRowSeparator(.hidden)
-                    }
+                        if let dailySteps {
+                            DailyStepsRow(steps: dailySteps)
+                        }
 
-                    LazyVGrid(columns: Array(repeating: GridItem(.flexible(minimum: 0), spacing: 0),
-                                            count: neoTypeSize.isAccessibilitySize ? 2 : max(1, displayedHomeNutrients.count)),
-                              spacing: 0) {
-                        ForEach(displayedHomeNutrients) { nutrient in
+                        LazyVGrid(columns: Array(repeating: GridItem(.flexible(minimum: 0), spacing: 0),
+                                                count: neoTypeSize.isAccessibilitySize ? 2 : max(1, displayedHomeNutrients.count)),
+                                  spacing: 0) {
+                            ForEach(displayedHomeNutrients) { nutrient in
+                                PinkNeoNutrient(
+                                    label: nutrient.displayName,
+                                    current: nutrient.value(from: foodStore, on: selectedDate),
+                                    goal: nutrient.goal(for: userProfile, optionalGoals: optionalNutrientGoals),
+                                    unit: nutrient.unit,
+                                    palette: neo
+                                )
+                            }
+                        }
+
+                        if waterTrackingEnabled {
                             PinkNeoNutrient(
-                                label: nutrient.displayName,
-                                current: nutrient.value(from: foodStore, on: selectedDate),
-                                goal: nutrient.goal(for: userProfile, optionalGoals: optionalNutrientGoals),
-                                unit: nutrient.unit,
-                                palette: neo
+                                label: "Water",
+                                current: waterUnit.displayAmount(forMilliliters: waterStore.total(on: selectedDate)),
+                                goal: waterUnit.displayAmount(forMilliliters: waterDailyGoal),
+                                unit: waterPillarUnit,
+                                palette: neo,
+                                compact: true
                             )
                         }
+
+                        Button {
+                            showNutritionDetail = true
+                        } label: {
+                            HStack {
+                                Text("View More")
+                                    .font(.system(.subheadline, weight: .black).width(.condensed))
+                                Spacer()
+                                Image(systemName: "chevron.forward").font(.caption2.weight(.bold))
+                            }
+                            .foregroundStyle(neo.ink)
+                            .padding(.horizontal, 10)
+                            .frame(minHeight: 44)
+                            .background(neo.panel)
+                            .pinkNeoRule(neo.rule)
+                            .contentShape(Rectangle())
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityIdentifier("home.viewMore")
                     }
-                    .listRowInsets(EdgeInsets(top: 3, leading: 10, bottom: 3, trailing: 10))
+                    .frame(maxWidth: .infinity)
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 4)
                     .contentShape(Rectangle())
                     .simultaneousGesture(daySwipeGesture)
-                    .listRowBackground(Color.clear)
-                    .listRowSeparator(.hidden)
-
-                    if waterTrackingEnabled {
-                        PinkNeoNutrient(
-                            label: "Water",
-                            current: waterUnit.displayAmount(forMilliliters: waterStore.total(on: selectedDate)),
-                            goal: waterUnit.displayAmount(forMilliliters: waterDailyGoal),
-                            unit: waterPillarUnit,
-                            palette: neo,
-                            compact: true
-                        )
-                        .listRowInsets(EdgeInsets(top: 3, leading: 10, bottom: 3, trailing: 10))
-                        .listRowBackground(Color.clear)
-                        .listRowSeparator(.hidden)
-                    }
-
-                    Button {
-                        showNutritionDetail = true
-                    } label: {
-                        HStack {
-                            Text("View More")
-                                .font(.system(.subheadline, weight: .black).width(.condensed))
-                            Spacer()
-                            Image(systemName: "chevron.forward").font(.caption2.weight(.bold))
-                        }
-                        .foregroundStyle(neo.ink)
-                        .padding(.horizontal, 10)
-                        .frame(minHeight: 44)
-                        .background(neo.panel)
-                        .pinkNeoRule(neo.rule)
-                        .contentShape(Rectangle())
-                    }
-                    .buttonStyle(.plain)
-                    .listRowInsets(EdgeInsets(top: 3, leading: 10, bottom: 3, trailing: 10))
+                    .listRowInsets(EdgeInsets())
                     .listRowBackground(Color.clear)
                     .listRowSeparator(.hidden)
                 }
@@ -2075,7 +2066,7 @@ private var dailyStepsTaskKey: String {
             }
             .contentMargins(.bottom, 8, for: .scrollContent)
             .sensoryFeedback(.selection, trigger: selectedFoodIDs) { _, selection in
-                !selection.isEmpty
+                AppHaptics.isEnabled() && !selection.isEmpty
             }
             .safeAreaInset(edge: .bottom, spacing: 0) {
                 if isFoodSelectionMode {
@@ -4189,7 +4180,7 @@ final class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOut
               !code.isEmpty else { return }
 
         didScan = true
-        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        AppHaptics.impact(.medium)
         let session = session
         DispatchQueue.global(qos: .userInitiated).async {
             session?.stopRunning()
@@ -4928,6 +4919,7 @@ struct ProfileView: View {
         Binding(get: { profileStore.profile }, set: { profileStore.profile = $0 })
     }
     @AppStorage("appearanceMode") private var appearanceMode = "system"
+    @AppStorage(AppHaptics.storageKey) private var hapticsEnabled = true
     @AppStorage("heightUnit") private var heightUnitRaw = "ftin"
     @AppStorage("weightUnit") private var weightUnitRaw = "lbs"
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = true
@@ -5536,10 +5528,20 @@ struct ProfileView: View {
                 }
 
                 // Section 3: Display and input preferences. Tracking features are grouped
-                // separately below so the card does not read as one long control wall.
+            // separately below so the card does not read as one long control wall.
                 if settingsCategory == .appPreferences {
                 Section {
                     HomeShortcutVisibilitySettings()
+                    Toggle(isOn: $hapticsEnabled) {
+                        Label {
+                            Text("Haptics", tableName: "Haptics")
+                        } icon: {
+                            Image(systemName: "waveform")
+                                .foregroundStyle(AppColors.calorie)
+                        }
+                    }
+                    .tint(AppColors.calorie)
+                    .accessibilityIdentifier("settings.haptics")
                     FlashChoicePicker(
                         title: Text("Appearance"),
                         selection: $appearanceMode,

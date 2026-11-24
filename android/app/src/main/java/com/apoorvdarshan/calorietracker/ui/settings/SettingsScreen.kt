@@ -456,6 +456,7 @@ fun SettingsScreen(
     val hydrationSync by container.prefs.hydrationSyncEnabled.collectAsState(initial = false)
     val geminiTimeout by container.prefs.geminiTimeoutSeconds.collectAsState(initial = 0)
     val hideVoiceShortcut by container.prefs.hideVoiceShortcut.collectAsState(initial = false)
+    val hapticsEnabled by container.hapticsEnabled.collectAsState()
     val hideBarcodePhoto by container.prefs.hideBarcodePhoto.collectAsState(initial = false)
     val importReadFailedMessage = stringResource(R.string.import_read_failed)
     val importTooLargeMessage = stringResource(R.string.import_file_too_large)
@@ -1001,6 +1002,13 @@ fun SettingsScreen(
                     icon = Icons.Outlined.Mic, onChange = { settingsScope.launch { container.prefs.setHideVoiceShortcut(it) } })
                 ToggleRow(stringResource(R.string.settings_hide_barcode_photo), hideBarcodePhoto,
                     icon = Icons.Outlined.Tune, onChange = { settingsScope.launch { container.prefs.setHideBarcodePhoto(it) } })
+                HorizontalDivider()
+                ToggleRow(
+                    stringResource(R.string.settings_haptics),
+                    hapticsEnabled,
+                    switchModifier = Modifier.testTag("settings.haptics"),
+                    onChange = { settingsScope.launch { container.prefs.setHapticsEnabled(it) } }
+                )
                 HorizontalDivider()
                 SettingChoiceRow(
                     label = stringResource(R.string.settings_appearance),

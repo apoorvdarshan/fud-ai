@@ -463,7 +463,7 @@ struct WeightChartSection: View {
         guard let nearest, nearest != inspectedPoint else { return }
 
         inspectedPoint = nearest
-        UISelectionFeedbackGenerator().selectionChanged()
+        AppHaptics.selection()
     }
 
     @ViewBuilder
@@ -589,7 +589,7 @@ struct CalorieChartSection: View {
                                                 selectedDay = nil
                                             } else {
                                                 selectedDay = day
-                                                UISelectionFeedbackGenerator().selectionChanged()
+                                                AppHaptics.selection()
                                             }
                                         }
                                 )
@@ -604,7 +604,7 @@ struct CalorieChartSection: View {
                                                   let day = nearestDay(at: value.location.x - plotFrame.minX, proxy: proxy),
                                                   day != selectedDay else { return }
                                             selectedDay = day
-                                            UISelectionFeedbackGenerator().selectionChanged()
+                                            AppHaptics.selection()
                                         }
                                         .onEnded { value in
                                             guard let lock = dragLock, lock.start == value.startLocation else { return }
@@ -1669,7 +1669,7 @@ struct BodyFatChartSection: View {
         guard let nearest, nearest != inspectedPoint else { return }
 
         inspectedPoint = nearest
-        UISelectionFeedbackGenerator().selectionChanged()
+        AppHaptics.selection()
     }
 
     @ViewBuilder

@@ -779,6 +779,8 @@ class PreferencesStore(
 
     /** "system" | "light" | "dark". Mirrors iOS @AppStorage("appearanceMode"). */
     val appearanceMode: Flow<String> = ds.data.map { it[Keys.APPEARANCE_MODE] ?: "system" }
+    val hapticsEnabled: Flow<Boolean> = ds.data.map { it[Keys.HAPTICS_ENABLED] ?: true }
+    suspend fun setHapticsEnabled(enabled: Boolean) { ds.edit { it[Keys.HAPTICS_ENABLED] = enabled } }
     suspend fun setAppearanceMode(v: String) { ds.edit { it[Keys.APPEARANCE_MODE] = v } }
 
     /** Mirrors iOS @AppStorage("appThemeColor"). */
@@ -1880,6 +1882,7 @@ class PreferencesStore(
         val PRODUCT_INFO_HIDDEN_FIELDS = stringPreferencesKey("productInfoHiddenFields")
         val SAVE_MEAL_PHOTOS_TO_GALLERY = booleanPreferencesKey("saveMealPhotosToGallery")
         val APPEARANCE_MODE = stringPreferencesKey("appearanceMode")
+        val HAPTICS_ENABLED = booleanPreferencesKey("hapticsEnabled")
         val APP_THEME_COLOR = stringPreferencesKey("appThemeColor")
         val WEEK_STARTS_MONDAY = booleanPreferencesKey("weekStartsOnMonday")
         val ENERGY_UNIT = stringPreferencesKey("energyUnit")

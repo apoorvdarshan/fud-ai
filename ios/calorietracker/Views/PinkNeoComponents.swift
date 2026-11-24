@@ -201,8 +201,13 @@ struct PinkNeoDateHeader: View {
             .flashPopover(isPresented: $showCalendar) {
                 DatePicker("Date", selection: $calendarDate, in: ...Date.now, displayedComponents: .date)
                     .datePickerStyle(.graphical)
-                    .padding()
+                    .frame(idealWidth: 304)
+                    .padding(6)
+                    .accessibilityIdentifier("home.calendarPopup")
+                    .presentationCompactAdaptation(.popover)
                     .onChange(of: calendarDate) { _, day in
+                        guard !Calendar.current.isDate(date, inSameDayAs: day) else { return }
+                        AppHaptics.selection()
                         date = day
                         showCalendar = false
                     }

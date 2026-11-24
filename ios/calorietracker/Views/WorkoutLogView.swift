@@ -699,7 +699,7 @@ struct WorkoutLogView: View {
         withAnimation(.snappy(duration: 0.25)) {
             workoutStore.moveExercise(exercise.id, by: offset, on: selectedDate)
         }
-        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        AppHaptics.impact(.light)
     }
 
     private var selectedDateTitle: String {
@@ -764,7 +764,7 @@ struct WorkoutLogView: View {
         guard focusedSetField == nil,
               session.moveSelectedDay(by: delta)
         else { return }
-        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        AppHaptics.impact(.light)
     }
 
     private func logQuickOutdoorActivity(
@@ -791,7 +791,7 @@ struct WorkoutLogView: View {
                 weightUnit: weightUnit
             )
         }
-        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        AppHaptics.impact(.medium)
     }
 
     private func calculateBurn() {
@@ -812,7 +812,7 @@ struct WorkoutLogView: View {
         let calculationDate = selectedDate
         let calculationWeightUnit = weightUnit
         isCalculatingBurn = true
-        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        AppHaptics.impact(.medium)
 
         Task { @MainActor in
             // Keep the local calculation state visible long enough to read rather
@@ -934,7 +934,7 @@ private struct WorkoutLogWeekStrip: View {
         let workoutCount = workoutCountForDate(date)
 
         return Button {
-            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            AppHaptics.impact(.light)
             withAnimation(.snappy(duration: 0.3)) {
                 selectedDate = date
             }

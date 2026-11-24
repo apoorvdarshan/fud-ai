@@ -1,0 +1,29 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Haptics" : {
+      "comment" : "Settings switch for app-generated tactile feedback.",
+      "localizations" : {
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "ردود الفعل اللمسية" } },
+        "az" : { "stringUnit" : { "state" : "translated", "value" : "Toxunma reaksiyası" } },
+        "cs" : { "stringUnit" : { "state" : "translated", "value" : "Haptická odezva" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Haptisches Feedback" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Respuesta háptica" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Retour haptique" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "हैप्टिक फ़ीडबैक" } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Feedback aptico" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "触覚フィードバック" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "햅틱 피드백" } },
+        "nl" : { "stringUnit" : { "state" : "translated", "value" : "Haptische feedback" } },
+        "pl" : { "stringUnit" : { "state" : "translated", "value" : "Reakcje haptyczne" } },
+        "pt-BR" : { "stringUnit" : { "state" : "translated", "value" : "Resposta tátil" } },
+        "ro" : { "stringUnit" : { "state" : "translated", "value" : "Feedback haptic" } },
+        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Тактильный отклик" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Dokunsal geri bildirim" } },
+        "uk" : { "stringUnit" : { "state" : "translated", "value" : "Тактильний відгук" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "触感反馈" } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

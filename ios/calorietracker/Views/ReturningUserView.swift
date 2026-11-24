@@ -267,8 +267,10 @@ struct ReturningUserView: View {
         .animation(spring, value: phase)
         .animation(spring, value: steps)
         .animation(spring, value: backupCheck)
-        .sensoryFeedback(.selection, trigger: selection)
-        .sensoryFeedback(trigger: phase) { _, new in new == .finished && anyDone ? .success : nil }
+        .sensoryFeedback(.selection, trigger: selection) { _, _ in AppHaptics.isEnabled() }
+        .sensoryFeedback(trigger: phase) { _, new in
+            AppHaptics.isEnabled() && new == .finished && anyDone ? .success : nil
+        }
         .onAppear { appeared = true }
     }
 

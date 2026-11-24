@@ -65,10 +65,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.time.Duration
 import java.time.Instant
@@ -257,6 +259,8 @@ class AppContainer(app: FudAIApp) {
         isLocalGemmaExecutable = { localModels.isExecutable(LocalModelId.GEMMA_4_E2B) },
         isLocalWhisperExecutable = { localModels.isExecutable(LocalModelId.WHISPER_BASE) }
     )
+    private val interactionScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+    val hapticsEnabled = prefs.hapticsEnabled.stateIn(interactionScope, SharingStarted.Eagerly, true)
     val keyStore = KeyStore(app)
     val imageStore = FoodImageStore(app)
     val notifications = NotificationService(app)
@@ -327,14 +331,15 @@ class AppContainer(app: FudAIApp) {
     )
     /** The rest countdown after a logged set; main-thread scoped so the UI and its end agree. */
     val workoutRestTimer = WorkoutRestTimerController(
-        scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate),
+        scope = interactionScope,
         alarms = object : WorkoutRestAlarms {
             override fun schedule(timer: WorkoutRestTimer) =
                 notifications.scheduleWorkoutRest(timer.endsAt.toEpochMilli(), timer.exerciseName)
 
             override fun cancel() = notifications.cancelWorkoutRest()
         },
-        store = SharedPreferencesWorkoutRestTimerStore(app)
+        store = SharedPreferencesWorkoutRestTimerStore(app),
+        canPlayForegroundHaptic = { hapticsEnabled.value }
     )
     val weeklyChallengeRepository = WeeklyChallengeRepository(app, keyStore)
     val cloudBackup = CloudBackupCoordinator(

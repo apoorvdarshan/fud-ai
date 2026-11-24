@@ -171,6 +171,50 @@ final class calorietrackerUITests: XCTestCase {
     }
 
     @MainActor
+    func testHomeSummarySwipesFromViewMoreAndCalendarOpensAsAPopup() {
+        let app = makeApp()
+        app.launch()
+
+        let date = app.staticTexts["home.dateHeading"]
+        XCTAssertTrue(date.waitForExistence(timeout: 8))
+        let today = date.label
+        XCTAssertEqual(today, "Today")
+        let viewMore = app.buttons["home.viewMore"]
+        reveal(viewMore, in: app)
+        viewMore.swipeRight()
+        reveal(app.buttons["home.calendar"], in: app)
+        XCTAssertNotEqual(date.label, today)
+        reveal(viewMore, in: app)
+        viewMore.swipeLeft()
+        reveal(viewMore, in: app)
+        viewMore.swipeLeft()
+
+        let calendar = app.buttons["home.calendar"]
+        reveal(calendar, in: app)
+        XCTAssertEqual(date.label, today)
+        calendar.tap()
+        let popup = app.descendants(matching: .any)["home.calendarPopup"].firstMatch
+        XCTAssertTrue(popup.waitForExistence(timeout: 5))
+        XCTAssertLessThan(popup.frame.height, app.frame.height * 0.8)
+    }
+
+    @MainActor
+    func testHapticsAreOnByDefaultAndCanBeTurnedOff() {
+        let app = makeApp()
+        app.launch()
+        openSettingsCategory("appPreferences", in: app)
+        let toggle = app.switches["settings.haptics"]
+        reveal(toggle, in: app)
+        waitForValue("1", in: toggle)
+        toggle.tap()
+        waitForValue("0", in: toggle)
+        relaunchPreservingData(app)
+        openSettingsCategory("appPreferences", in: app)
+        reveal(toggle, in: app)
+        waitForValue("0", in: toggle)
+    }
+
+    @MainActor
     func testProgressAndWeeklyChallengeHaveSeparateRailDestinations() {
         let app = makeApp()
         app.launch()

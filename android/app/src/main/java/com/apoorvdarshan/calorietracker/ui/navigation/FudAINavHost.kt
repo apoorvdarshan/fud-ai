@@ -376,6 +376,7 @@ fun FudAINavHost(
                                 hiddenRoutes = hiddenTabs.orEmpty(),
                                 navigationEnabled = !analyzing && !voiceExpanded,
                                 onTap = {
+                                    if (it != selectedTabRoute) haptic.performHapticFeedback(HapticFeedbackType.SegmentTick)
                                     focus.clearFocus()
                                     keyboard?.hide()
                                     selectTab(it)

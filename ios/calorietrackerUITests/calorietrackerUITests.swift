@@ -364,7 +364,22 @@ final class calorietrackerUITests: XCTestCase {
         reveal(provider, in: app)
         provider.tap()
         let appleIntelligence = app.buttons["Apple Intelligence (On-Device)"]
-        XCTAssertTrue(appleIntelligence.waitForExistence(timeout: 5))
+        if !appleIntelligence.isHittable {
+            // Long native menus may open scrolled to their selected row.
+            // Scroll the popup collection, not the AI settings list behind it.
+            let settingsWidth = app.navigationBars["AI Providers & Fallbacks"].frame.width
+            let menu = try XCTUnwrap(
+                app.collectionViews.allElementsBoundByIndex.first {
+                    $0.frame.width < settingsWidth && $0.isHittable
+                },
+                "Expected an anchored provider menu"
+            )
+            for _ in 0..<3 {
+                if appleIntelligence.isHittable { break }
+                menu.swipeDown()
+            }
+        }
+        XCTAssertTrue(appleIntelligence.isHittable)
         appleIntelligence.tap()
         waitForValue("Apple Intelligence (On-Device)", in: provider)
         let systemModel = app.staticTexts["settings.ai.systemTextModel"]

@@ -6101,26 +6101,15 @@ struct ProfileView: View {
                     }
 
                     if separateTextProviderEnabled {
-                        Picker(selection: $selectedTextProvider) {
-                            ForEach(AIProvider.textProviders) { provider in
-                                Label {
-                                    Text(provider.displayName)
-                                } icon: {
-                                    AIProviderBrandIcon(provider: provider)
-                                }
-                                .tag(provider)
-                            }
-                        } label: {
-                            Label {
-                                Text("Provider")
-                            } icon: {
-                                AIProviderBrandIcon(provider: selectedTextProvider)
-                            }
+                        FlashChoicePicker(
+                            title: Text("Provider"), selection: $selectedTextProvider,
+                            options: AIProvider.textProviders, titleIcon: "text.bubble.fill",
+                            icon: { $0.logoAssetName == nil ? $0.fallbackSystemImage : nil },
+                            iconAsset: { $0.logoAssetName }
+                        ) {
+                            Text($0.displayName)
                         }
-                        .pickerStyle(.menu)
-                        .tint(.secondary)
                         .accessibilityIdentifier("settings.ai.textProvider")
-                        .accessibilityValue(Text(selectedTextProvider.displayName))
                         .id("text-provider-\(localModelAvailabilityRevision)")
                         .onChange(of: selectedTextProvider) { _, newProvider in
                             AIProviderSettings.selectedTextProvider = newProvider

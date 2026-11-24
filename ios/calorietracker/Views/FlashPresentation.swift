@@ -331,6 +331,7 @@ struct FlashChoicePicker<Value: Hashable>: View {
     let options: [Value]
     var titleIcon: String? = nil
     var icon: ((Value) -> String?)? = nil
+    var iconAsset: ((Value) -> String?)? = nil
     var swatch: ((Value) -> Color?)? = nil
     let optionTitle: (Value) -> Text
 
@@ -364,7 +365,10 @@ struct FlashChoicePicker<Value: Hashable>: View {
         Menu {
             Picker(selection: $selection) {
                 ForEach(options, id: \.self) { option in
-                    FlashNativeMenuLabel(title: optionTitle(option), icon: icon?(option), swatch: swatch?(option))
+                    FlashNativeMenuLabel(
+                        title: optionTitle(option), icon: icon?(option),
+                        iconAsset: iconAsset?(option), swatch: swatch?(option)
+                    )
                         .tag(option)
                 }
             } label: {

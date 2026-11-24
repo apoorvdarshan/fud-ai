@@ -16,7 +16,9 @@ struct VoiceAssistantToolTests {
 
     @Test func everyBundledToolHasAHandler() async throws {
         let specs = try VoiceAssistantToolCatalog.load()
-        #expect(specs.count == 25)
+        #expect(specs.count == 26)
+        let history = try #require(specs.first { $0.name == "get_coach_history" })
+        #expect(history.effect == .read && history.confirm == .never)
         #expect(Set(specs.map(\.name)) == VoiceAssistantToolExecutor.handledToolNames)
 
         let harness = VoiceAssistantHarness(confirmSaves: false)

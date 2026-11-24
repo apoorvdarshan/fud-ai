@@ -179,12 +179,14 @@ fun HostedPaywallSheet(
     var restoring by remember { mutableStateOf(false) }
     var message by remember { mutableStateOf<HostedMessage?>(null) }
 
-    LaunchedEffect(Unit) {
+    suspend fun refreshPlans() {
         billing.refreshCustomerInfo()
         billing.loadOfferings()
     }
+    LaunchedEffect(billing) { refreshPlans() }
 
-    val catalog = (offerings as? OfferingsState.Loaded)?.catalog?.takeIf { it.hasPurchasablePlans }
+    val catalog = (offerings as? OfferingsState.Loaded)?.catalog
+        ?.takeIf { entitlement.loaded && it.hasPurchasablePlans }
     // The user's picks, snapped to what the store actually offers (yearly preferred;
     // subscribers start on Pro, so a Plus subscriber sees the upgrade first).
     val selected: PlanOption? = catalog?.let { c ->
@@ -290,7 +292,7 @@ fun HostedPaywallSheet(
                         }
                     }
                     offerings is OfferingsState.Failed || (offerings is OfferingsState.Loaded && catalog == null) ->
-                        PlansUnavailable(onRetry = { scope.launch { billing.loadOfferings() } })
+                        PlansUnavailable(onRetry = { scope.launch { refreshPlans() } })
                     else -> PlansLoading()
                 }
                 Spacer(Modifier.height(4.dp))

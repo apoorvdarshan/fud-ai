@@ -155,20 +155,20 @@ internal fun PinkNeoRail(
                     )
                 }
             }
-            if (onUpgrade != null) {
-                val label = stringResource(R.string.nav_upgrade_plans)
-                RailControl(
-                    title = label,
-                    icon = Icons.Filled.WorkspacePremium,
-                    color = palette.ink,
-                    showText = showText,
-                    modifier = Modifier
-                        .testTag("nav.upgrade")
-                        .clip(itemShape)
-                        .clickable(enabled = navigationEnabled, role = Role.Button, onClick = onUpgrade)
-                        .semantics { contentDescription = label }
-                )
-            }
+        }
+        if (onUpgrade != null) {
+            val label = stringResource(R.string.nav_upgrade_plans)
+            RailControl(
+                title = label,
+                icon = Icons.Filled.WorkspacePremium,
+                color = palette.ink,
+                showText = showText,
+                modifier = Modifier
+                    .testTag("nav.upgrade")
+                    .clip(itemShape)
+                    .clickable(enabled = navigationEnabled, role = Role.Button, onClick = onUpgrade)
+                    .semantics { contentDescription = label }
+            )
         }
         if (onVoice != null) {
             val voiceLabel = stringResource(R.string.voice_talk_to_fud_ai)

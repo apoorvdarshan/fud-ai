@@ -205,6 +205,8 @@ class BillingManager(
 
     suspend fun purchasePlan(activity: Activity, option: PlanOption): PurchaseOutcome = guarded {
         val current = _entitlement.value
+        // A failed initial refresh is not proof that this is a new subscription.
+        if (!current.loaded) return@guarded PurchaseOutcome.Failed
         val builder = PurchaseParams.Builder(activity, option.pkg)
         val change = planChange(current, option.plan, option.period)
         if (change == PlanChange.CURRENT) return@guarded PurchaseOutcome.AlreadyOwned

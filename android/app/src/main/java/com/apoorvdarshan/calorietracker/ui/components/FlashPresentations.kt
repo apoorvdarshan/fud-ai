@@ -55,7 +55,8 @@ internal fun FlashSheetAction(
 }
 
 // The presentation adapters preserve the host's dismissal policy, gestures,
-// focus and sheet state. Flash owns the frame and fill, not where a sheet goes.
+// focus and sheet state. Keep the modal sheet modifier unframed: Material
+// applies its vertical offset inside it, so a border here floats over the app.
 @OptIn(ExperimentalMaterial3Api::class)
 @Suppress("UNUSED_PARAMETER") // Old call sites may still supply a surface or shape.
 @Composable
@@ -68,14 +69,13 @@ internal fun FlashBottomSheet(
     containerColor: Color = Color.Unspecified,
     dragHandle: @Composable (() -> Unit)? = { CompactSheetHandle() },
     properties: ModalBottomSheetProperties = ModalBottomSheetProperties(),
-    showOutline: Boolean = true,
     content: @Composable ColumnScope.() -> Unit
 ) {
     val neo = pinkNeoPalette()
     ModalBottomSheet(
         onDismissRequest = onDismissRequest,
         sheetState = sheetState,
-        modifier = if (showOutline) modifier.border(1.dp, neo.rule) else modifier,
+        modifier = modifier,
         sheetGesturesEnabled = sheetGesturesEnabled,
         shape = RectangleShape,
         containerColor = neo.panel,
@@ -158,11 +158,12 @@ internal fun FlashDropdownMenu(
     DropdownMenu(
         expanded = expanded,
         onDismissRequest = onDismissRequest,
-        modifier = modifier.border(1.dp, neo.rule),
+        modifier = modifier,
         shape = RectangleShape,
         containerColor = neo.panel,
         tonalElevation = 0.dp,
         shadowElevation = 0.dp,
+        border = BorderStroke(1.dp, neo.rule),
         content = content
     )
 }

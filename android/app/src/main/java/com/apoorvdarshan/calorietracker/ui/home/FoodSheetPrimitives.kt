@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker.ui.home
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -577,9 +578,8 @@ internal fun SheetGlassDropdownMenu(
         containerColor = neo.panel,
         tonalElevation = 0.dp,
         shadowElevation = 0.dp,
-        modifier = sizedModifier
-            .border(1.dp, neo.rule, shape)
-            .padding(vertical = 5.dp),
+        modifier = sizedModifier.padding(vertical = 5.dp),
+        border = BorderStroke(1.dp, neo.rule),
         content = content
     )
 }

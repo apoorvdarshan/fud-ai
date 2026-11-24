@@ -23,8 +23,10 @@ import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.FoodLogMethod
 import com.apoorvdarshan.calorietracker.models.FoodSource
 import com.apoorvdarshan.calorietracker.models.HomeTopNutrient
+import com.apoorvdarshan.calorietracker.models.SpeechProvider
 import com.apoorvdarshan.calorietracker.models.WaterUnit
 import com.apoorvdarshan.calorietracker.services.MealShare
+import com.apoorvdarshan.calorietracker.services.hosted.AiAccessMode
 import com.apoorvdarshan.calorietracker.services.voice.VoiceEntryPoints
 import com.apoorvdarshan.calorietracker.services.voice.VoiceMascot
 import com.apoorvdarshan.calorietracker.services.voice.VoiceCameraHandle
@@ -34,8 +36,10 @@ import com.apoorvdarshan.calorietracker.services.voice.PhotoOutcome
 import com.apoorvdarshan.calorietracker.services.voice.CameraOutcome
 import com.apoorvdarshan.calorietracker.testing.FudAITestState
 import java.io.File
+import java.util.concurrent.FutureTask
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicReference
+import kotlin.concurrent.thread
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.CompletableDeferred
@@ -131,6 +135,67 @@ class AppFlowsTest {
     }
 
     @Test
+    fun nutritionAndFavoritesSheetsDoNotOutlineTheScreenBehindThem() {
+        FudAITestState.reset()
+        runBlocking { prefs.setAppearanceMode("dark") }
+        launchActivity()
+        waitForHome()
+        compose.onNodeWithTag("home.diary").performScrollToNode(hasTestTag("home.viewMore"))
+        compose.onNodeWithTag("home.viewMore").performClick()
+        val nutritionTitle = hasText(string(R.string.nutrition_details_title))
+        waitFor(nutritionTitle)
+        assertNoStrandedSheetOutline()
+        pressBack()
+        waitForAbsent(nutritionTitle)
+
+        compose.onNodeWithTag("home.add").performClick()
+        clickText(R.string.home_menu_reuse_meal)
+        clickText(R.string.saved_meals_tab_favorites)
+        waitFor(hasText(string(R.string.saved_meals_search_placeholder)))
+        assertNoStrandedSheetOutline()
+    }
+
+    @Test
+    fun mealDictationSheetDoesNotOutlineTheScreenBehindIt() {
+        FudAITestState.reset()
+        runBlocking {
+            prefs.setAppearanceMode("dark")
+            prefs.setSelectedSpeechProvider(SpeechProvider.GEMINI)
+        }
+        instrumentation.uiAutomation.grantRuntimePermission(context.packageName, Manifest.permission.RECORD_AUDIO)
+        launchActivity()
+        waitForHome()
+        compose.onNodeWithTag("home.foodShortcut.2").performClick()
+        val provider = hasText(string(SpeechProvider.GEMINI.displayNameRes))
+        waitFor(provider)
+        assertNoStrandedSheetOutline()
+        // Dismiss the local recording without submitting it to a provider.
+        pressBack()
+        waitForAbsent(provider)
+    }
+
+    private fun assertNoStrandedSheetOutline() {
+        compose.waitForIdle()
+        val screenshot = checkNotNull(instrumentation.uiAutomation.takeScreenshot())
+        try {
+            // The misplaced frame was a continuous white stripe along the window
+            // edges. Sample below the status bar, away from legitimate card borders.
+            val rows = (screenshot.height / 12)..(screenshot.height * 5 / 12)
+            val edges = (0..3) + (screenshot.width - 4 until screenshot.width)
+            for (x in edges) {
+                val white = rows.count { y ->
+                    val pixel = screenshot.getPixel(x, y)
+                    ((pixel shr 16) and 255) > 210 &&
+                        ((pixel shr 8) and 255) > 210 && (pixel and 255) > 210
+                }
+                assertTrue("A white outline is stranded at window edge x=$x", white < rows.count() / 3)
+            }
+        } finally {
+            screenshot.recycle()
+        }
+    }
+
+    @Test
     fun homeCalendarOpensAsAPopup() {
         launchFresh()
         compose.onNodeWithTag("home.calendar").performClick()
@@ -154,6 +219,27 @@ class AppFlowsTest {
         appSettings.performScrollTo().performClick()
         toggle.performScrollTo().assertIsOff().performClick()
         awaitPreference(prefs.hapticsEnabled) { it }
+    }
+
+    @Test
+    fun byokRailPinsPlansEvenWhenBillingIsUnavailable() {
+        launchFresh()
+        val plans = compose.onNodeWithTag("nav.upgrade")
+        val voice = compose.onNodeWithTag("nav.voice")
+        assertTrue(plans.assertIsDisplayed().fetchSemanticsNode().boundsInRoot.bottom <=
+            voice.assertIsDisplayed().fetchSemanticsNode().boundsInRoot.top)
+
+        plans.performClick()
+        val unavailable = hasText(string(R.string.hosted_plans_unavailable_title))
+        waitFor(unavailable)
+        compose.onNode(unavailable).assertIsDisplayed()
+        compose.onNodeWithContentDescription(string(R.string.hosted_close)).performClick()
+        waitForAbsent(unavailable)
+        plans.assertIsDisplayed()
+
+        runBlocking { prefs.setAiAccessMode(AiAccessMode.HOSTED) }
+        waitForAbsent(hasTestTag("nav.upgrade"))
+        voice.assertIsDisplayed()
     }
 
     @Test
@@ -291,6 +377,8 @@ class AppFlowsTest {
         val initialLeft = home.assertIsDisplayed().fetchSemanticsNode().boundsInRoot.left
         val voice = compose.onNodeWithTag("nav.voice")
         val initialVoiceLeft = voice.assertIsDisplayed().fetchSemanticsNode().boundsInRoot.left
+        val plans = compose.onNodeWithTag("nav.upgrade")
+        val initialPlansLeft = plans.assertIsDisplayed().fetchSemanticsNode().boundsInRoot.left
         val imeVisible = AtomicReference(false)
         compose.onNodeWithTag("coach.input").performClick()
         compose.waitUntil(timeoutMillis = 8_000) {
@@ -304,6 +392,7 @@ class AppFlowsTest {
         }
         assertEquals(initialLeft, home.assertIsDisplayed().fetchSemanticsNode().boundsInRoot.left, 1f)
         assertEquals(initialVoiceLeft, voice.assertIsDisplayed().fetchSemanticsNode().boundsInRoot.left, 1f)
+        assertEquals(initialPlansLeft, plans.assertIsDisplayed().fetchSemanticsNode().boundsInRoot.left, 1f)
         home.performClick()
         waitForHome()
         home.assertIsSelected()
@@ -338,6 +427,7 @@ class AppFlowsTest {
         launchFresh(onboarded = false)
         waitFor(hasTestTag("onboarding.WELCOME"))
         compose.onNodeWithTag("nav.home").assertDoesNotExist()
+        compose.onNodeWithTag("nav.upgrade").assertDoesNotExist()
 
         clickText(R.string.action_get_started)
         waitFor(hasTestTag("onboarding.GENDER"))
@@ -885,9 +975,20 @@ class AppFlowsTest {
     }
 
     private fun launchActivity() {
-        activity = ActivityScenario.launch(
-            Intent(context, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        )
+        val launch = FutureTask {
+            ActivityScenario.launch<MainActivity>(
+                Intent(context, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            )
+        }
+        // ActivityScenario waits for the native splash to dismiss. The splash
+        // in turn waits for the shell, so keep the Compose test clock advancing.
+        thread(name = "fud-test-activity-launch", isDaemon = true) { launch.run() }
+        try {
+            compose.waitUntil(timeoutMillis = 15_000) { launch.isDone }
+            activity = launch.get()
+        } finally {
+            launch.cancel(true)
+        }
     }
 
     private fun relaunchActivity() {

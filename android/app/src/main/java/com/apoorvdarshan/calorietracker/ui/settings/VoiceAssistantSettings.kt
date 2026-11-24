@@ -297,8 +297,7 @@ internal fun VoiceAssistantSettings(container: AppContainer, onOpenAiProviders: 
     sheet?.let { current ->
         ModalBottomSheet(
             onDismissRequest = { sheet = null },
-            sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
-            showOutline = false
+            sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
         ) {
             Column(Modifier.fillMaxWidth().navigationBarsPadding().padding(horizontal = 20.dp).padding(bottom = 20.dp)) {
                 when (current) {

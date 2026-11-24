@@ -16,6 +16,7 @@ No change to persisted data, backup formats, nutrition calculations, AI provider
 ## Completion criteria
 
 On Android, the first frame after the splash includes the destination and right rail together; saved hidden tabs, Live Voice visibility, and the mascot are applied before that frame. Onboarding remains rail-free.
+The Android **Plus / Pro** shortcut is pinned above Live Voice for BYOK users without a known active plan. Opening it doesn't require a billing response; buying still requires loaded subscription status and store plans. Debug builds without a Test Store key can open the page but cannot buy.
 
 Flash is an app-wide theme, not a Home or navigation skin. A screen or presentation is not complete just because it inherits the app background. Verify the actual visible typography, action states, borders, and fills in light and dark, including in nested dropdowns.
 
@@ -35,7 +36,7 @@ Flash is an app-wide theme, not a Home or navigation skin. A screen or presentat
 
 - Keep one visual hierarchy inside a presentation: a readable heading, one prominent action, and quieter secondary tasks. Prefer a single frame and subtle row rules over framing every row in a framed sheet. Use solid accents for selection and progress; keep gradients only when they help read a chart, photo, or live voice state.
 - Standard iOS app sheets and popovers share `FlashPresentation`; the sheet body still needs its own layout review. Native menus, Cancel/Done/navigation toolbars, alerts, and system share and web controllers are intentional platform surfaces. Full-screen camera and scanner previews keep legible controls over the image rather than taking on the surrounding page's paper color.
-- Standard Android sheets and alerts use `FlashPresentations`; anchored selectors stay anchored. Custom dialogs need separate review: the nutrient picker keeps its action row outside the scrollable list; photo-loading dialogs share the Flash panel; camera, barcode and photo-viewer content keep a neutral preview background.
+- Standard Android sheets and alerts use `FlashPresentations`; anchored selectors stay anchored. Never put a border on the outer modal sheet modifier: it can stay in place while Material slides the sheet. Anchored dropdowns put their outline on the menu surface itself. Custom dialogs need separate review: the nutrient picker keeps its action row outside the scrollable list; photo-loading dialogs share the Flash panel; camera, barcode and photo-viewer content keep a neutral preview background.
 - Workout text review uses dividers between exercises instead of a stack of cards on both platforms. The action rows and set fields reflow at large text sizes. Android's Health Connect nutrition import uses the shared alert frame, and the custom-exercise fields keep their anchored menus and selection behavior.
 - Test an actual change, not just opening a surface. The nutrient-picker regressions remove a selected nutrient, save, and verify the summary updates while Water remains. The iOS provider regression chooses Apple Intelligence from the native menu and checks the resulting system model without requiring the device model to be available.
 

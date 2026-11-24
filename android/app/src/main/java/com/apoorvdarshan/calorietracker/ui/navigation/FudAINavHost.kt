@@ -408,7 +408,9 @@ internal fun FudAINavHost(
                                 voiceMascot = sessionMascot ?: voiceMascots.profile,
                                 voiceMode = voiceMode,
                                 voiceLevel = container.voiceAssistant::orbLevel,
-                                onUpgrade = if (accessMode == AiAccessMode.BYOK && entitlement.loaded && !entitlement.isEntitled) {
+                                // Opening the plans page is safe while billing is loading or offline.
+                                // The paywall still requires verified state before starting a purchase.
+                                onUpgrade = if (accessMode == AiAccessMode.BYOK && !entitlement.isEntitled) {
                                     {
                                         focus.clearFocus()
                                         keyboard?.hide()

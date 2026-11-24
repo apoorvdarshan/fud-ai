@@ -243,10 +243,6 @@ final class calorietrackerUITests: XCTestCase {
 
         openSettingsCategory("speechToText", in: app)
 
-        let source = app.descendants(matching: .any)["settings.localModel.whisper.source"].firstMatch
-        reveal(source, in: app)
-        XCTAssertTrue(source.isHittable)
-
         let speechSection = app.staticTexts["Speech-to-Text"]
         for _ in 0..<12 {
             if speechSection.exists { break }
@@ -261,7 +257,12 @@ final class calorietrackerUITests: XCTestCase {
         }
         XCTAssertTrue(providerPicker.waitForExistence(timeout: 3))
         providerPicker.tap()
-        XCTAssertTrue(app.staticTexts["Native iOS (On-Device)"].waitForExistence(timeout: 3))
+        let native = app.staticTexts["Native iOS (On-Device)"]
+        XCTAssertTrue(native.waitForExistence(timeout: 3))
+        native.tap()
+        let source = app.descendants(matching: .any)["settings.localModel.whisper.source"].firstMatch
+        reveal(source, in: app)
+        XCTAssertGreaterThanOrEqual(source.frame.height, 44)
     }
 
     @MainActor
@@ -360,6 +361,14 @@ final class calorietrackerUITests: XCTestCase {
         let primary = app.buttons["settings.ai.primaryProvider"]
         reveal(primary, in: app)
         waitForValue("Google Gemini", in: primary)
+
+        let source = app.descendants(matching: .any)["settings.localModel.gemma.source"].firstMatch
+        reveal(source, in: app)
+        XCTAssertGreaterThanOrEqual(source.frame.height, 44)
+        let modelScreenshot = XCTAttachment(screenshot: app.screenshot())
+        modelScreenshot.name = "AI Providers model source"
+        modelScreenshot.lifetime = .keepAlways
+        add(modelScreenshot)
 
         // Scroll to the actual controls: the lazy section header may appear
         // before its rows, and a native picker combines its label and value.

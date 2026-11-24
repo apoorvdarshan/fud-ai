@@ -7,9 +7,10 @@ struct Gemma4ModelSettingsView: View {
     @State private var showDeleteConfirmation = false
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: 6) {
             FlashAdaptiveStack {
                 Label(localized("gemma.name", "Gemma 4 E2B"), systemImage: "cpu")
+                    .labelStyle(.titleAndIcon)
                     .font(.body.weight(.medium))
                 Text(statusLabel)
                     .font(.caption.weight(.semibold))
@@ -70,12 +71,13 @@ struct Gemma4ModelSettingsView: View {
 
                 Link(destination: Gemma4LocalModelManager.sourceURL) {
                     Label(localized("gemma.modelSource", "Model source"), systemImage: "arrow.up.right.square")
+                        .labelStyle(.titleAndIcon)
                 }
                 .accessibilityIdentifier("settings.localModel.gemma.source")
             }
-            .font(.caption)
-            .buttonStyle(.borderless)
+            .buttonStyle(FlashModelLinkStyle())
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.vertical, 4)
         .onAppear { modelManager.refresh() }
         .onChange(of: modelManager.isSelectable) { _, _ in

@@ -1014,29 +1014,32 @@ private fun InputBar(
                     onCaptureImage = onCaptureImage
                 )
 
-                Box(Modifier.weight(1f).padding(horizontal = 2.dp, vertical = 8.dp)) {
-                    if (value.isEmpty()) {
-                        Text(
-                            stringResource(R.string.coach_input_placeholder),
-                            fontSize = 17.sp,
-                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.45f)
-                        )
+                BasicTextField(
+                    value = value,
+                    onValueChange = onValueChange,
+                    textStyle = LocalTextStyle.current.copy(
+                        color = MaterialTheme.colorScheme.onSurface,
+                        fontSize = 17.sp,
+                        fontWeight = FontWeight.Normal
+                    ),
+                    cursorBrush = SolidColor(AppColors.Calorie),
+                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Send),
+                    keyboardActions = KeyboardActions(onSend = { onSend() }),
+                    maxLines = 5,
+                    modifier = Modifier.weight(1f).testTag("coach.input"),
+                    decorationBox = { innerTextField ->
+                        Box(Modifier.fillMaxWidth().padding(horizontal = 2.dp, vertical = 8.dp)) {
+                            if (value.isEmpty()) {
+                                Text(
+                                    stringResource(R.string.coach_input_placeholder),
+                                    fontSize = 17.sp,
+                                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.45f)
+                                )
+                            }
+                            innerTextField()
+                        }
                     }
-                    BasicTextField(
-                        value = value,
-                        onValueChange = onValueChange,
-                        textStyle = LocalTextStyle.current.copy(
-                            color = MaterialTheme.colorScheme.onSurface,
-                            fontSize = 17.sp,
-                            fontWeight = FontWeight.Normal
-                        ),
-                        cursorBrush = SolidColor(AppColors.Calorie),
-                        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Send),
-                        keyboardActions = KeyboardActions(onSend = { onSend() }),
-                        maxLines = 5,
-                        modifier = Modifier.fillMaxWidth().testTag("coach.input")
-                    )
-                }
+                )
             }
 
             // Trailing control. Keep the mic at a stable call site (the else branch)

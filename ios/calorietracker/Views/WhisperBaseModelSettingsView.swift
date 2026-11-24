@@ -16,9 +16,10 @@ struct WhisperBaseModelSettingsView: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: 6) {
             FlashAdaptiveStack {
                 Label(localized("whisper.name", "Whisper Base"), systemImage: "waveform.badge.mic")
+                    .labelStyle(.titleAndIcon)
                     .font(.body.weight(.medium))
                 Text(statusLabel)
                     .font(.caption.weight(.semibold))
@@ -63,9 +64,9 @@ struct WhisperBaseModelSettingsView: View {
             FlashAdaptiveStack(spacing: 12) {
                 attributionLinks
             }
-            .font(.caption)
-            .buttonStyle(.borderless)
+            .buttonStyle(FlashModelLinkStyle())
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.vertical, 4)
         .onAppear { modelManager.refresh() }
         .onChange(of: modelManager.isDownloaded) { _, _ in
@@ -161,6 +162,7 @@ struct WhisperBaseModelSettingsView: View {
                 localized("gemma.modelSource", "Model Source"),
                 systemImage: "shippingbox"
             )
+            .labelStyle(.titleAndIcon)
         }
         .accessibilityIdentifier("settings.localModel.whisper.source")
         Link("Whisper Base · MIT", destination: WhisperBaseModelManager.modelLicenseURL)

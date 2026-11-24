@@ -1,6 +1,7 @@
 package com.apoorvdarshan.calorietracker
 
 import android.app.Application
+import android.os.SystemClock
 import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 import com.apoorvdarshan.calorietracker.R
@@ -100,6 +101,7 @@ open class FudAIApp : Application() {
     )
 
     override fun onCreate() {
+        val processStart = SystemClock.elapsedRealtime()
         super.onCreate()
         // Re-apply the AndroidX per-app locale list on API 32 and below, where
         // AppCompat stores it. Empty list = follow the system language.
@@ -167,6 +169,9 @@ open class FudAIApp : Application() {
         // updates — without this, a user who enabled Notifications once would
         // silently stop receiving the reminder after the next reboot.
         appScope.launch { container.rescheduleReminders() }
+        if (BuildConfig.DEBUG) {
+            Log.d("FudStartup", "Application: onCreate=${SystemClock.elapsedRealtime() - processStart}ms")
+        }
     }
 }
 
@@ -261,7 +266,9 @@ class AppContainer(app: FudAIApp) {
     )
     private val interactionScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     val hapticsEnabled = prefs.hapticsEnabled.stateIn(interactionScope, SharingStarted.Eagerly, true)
-    val keyStore = KeyStore(app)
+    // Keystore initialization can perform disk I/O and wait for the system
+    // service. Home doesn't need it; existing background warmup still primes it.
+    val keyStore by lazy { KeyStore(app) }
     val imageStore = FoodImageStore(app)
     val notifications = NotificationService(app)
     val health = HealthConnectManager(app)
@@ -341,11 +348,13 @@ class AppContainer(app: FudAIApp) {
         store = SharedPreferencesWorkoutRestTimerStore(app),
         canPlayForegroundHaptic = { hapticsEnabled.value }
     )
-    val weeklyChallengeRepository = WeeklyChallengeRepository(app, keyStore)
-    val cloudBackup = CloudBackupCoordinator(
-        app, prefs, imageStore, keyStore,
-        pruneUnusedPhotos = { foodRepository.pruneOrphanedImages() },
-    )
+    val weeklyChallengeRepository by lazy { WeeklyChallengeRepository(app, keyStore) }
+    val cloudBackup by lazy {
+        CloudBackupCoordinator(
+            app, prefs, imageStore, keyStore,
+            pruneUnusedPhotos = { foodRepository.pruneOrphanedImages() },
+        )
+    }
     val storageMaintenance by lazy {
         StorageMaintenance(
             photos = imageStore,
@@ -372,9 +381,9 @@ class AppContainer(app: FudAIApp) {
     val hostedAccess = HostedAiAccess(hostedAiClient) { billing.entitlement.value }
     val hostedUi = HostedUiRouter()
 
-    val foodAnalysis = FoodAnalysisService(prefs, keyStore, localGemma = localGemma, hosted = hostedAccess)
-    val chatService = ChatService(prefs, keyStore, localGemma = localGemma, hosted = hostedAccess)
-    val speechService = SpeechService(prefs, keyStore, localWhisper = localWhisper, hosted = hostedAccess)
+    val foodAnalysis by lazy { FoodAnalysisService(prefs, keyStore, localGemma = localGemma, hosted = hostedAccess) }
+    val chatService by lazy { ChatService(prefs, keyStore, localGemma = localGemma, hosted = hostedAccess) }
+    val speechService by lazy { SpeechService(prefs, keyStore, localWhisper = localWhisper, hosted = hostedAccess) }
 
     val widgetSnapshotWriter = WidgetSnapshotWriter(app, prefs, foodRepository, profileRepository)
 

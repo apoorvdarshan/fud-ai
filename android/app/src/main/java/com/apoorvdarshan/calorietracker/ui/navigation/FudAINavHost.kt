@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.derivedStateOf
@@ -29,7 +30,6 @@ import androidx.compose.runtime.structuralEqualityPolicy
 import kotlinx.coroutines.flow.first
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalHapticFeedback
@@ -39,6 +39,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -88,19 +89,20 @@ val LocalLaunchFillEpoch = compositionLocalOf { 1 }
 internal fun FudAINavHost(
     container: AppContainer,
     startup: StartupPreferences,
-    onFirstLayoutReady: () -> Unit,
+    onFirstContentReady: () -> Unit,
     quickActionRequest: QuickActionRequest? = null,
     onQuickActionHandled: (Long) -> Unit = {},
     voiceLaunchRequest: Long? = null,
     onVoiceLaunchHandled: (Long) -> Unit = {}
 ) {
     val nav = rememberNavController()
-    // Warm the app-scoped Settings state while Home is visible. By the time the user changes
-    // tabs, its local profile/preferences are already ready and the page opens like every other
-    // tab instead of constructing empty cards on first entry.
-    val settingsViewModel: SettingsViewModel = viewModel(
-        factory = SettingsViewModel.Factory(container)
-    )
+    // Share one activity-scoped Settings model across its pages, but don't start
+    // its preference, key and workout observers just to draw Home.
+    val settingsOwner = checkNotNull(LocalViewModelStoreOwner.current)
+    val settingsFactory = remember(container) { SettingsViewModel.Factory(container) }
+    val settingsModel: @Composable () -> SettingsViewModel = {
+        viewModel(viewModelStoreOwner = settingsOwner, factory = settingsFactory)
+    }
     val backStack by nav.currentBackStackEntryAsState()
     val currentRoute = backStack?.destination?.route
     val accessMode by container.prefs.aiAccessMode.collectAsState(initial = startup.aiAccessMode)
@@ -129,23 +131,13 @@ internal fun FudAINavHost(
     val hiddenTabs by container.prefs.hiddenTabs.collectAsState(initial = startup.hiddenTabs)
     val hideVoiceShortcut by container.prefs.hideVoiceShortcut.collectAsState(initial = startup.hideVoiceShortcut)
     val showTabs = selectedTabRoute != null
-    var firstLayoutReady by remember { mutableStateOf(false) }
-    ReportDrawnWhen { firstLayoutReady }
+    var firstContentReady by remember { mutableStateOf(false) }
+    ReportDrawnWhen { firstContentReady }
     // Bumped when the Settings tab is re-tapped so SettingsScreen can pop back to the hub
     // (matches iOS TabView + NavigationStack reselect → root behavior).
     var settingsPopToRootTick by remember { mutableIntStateOf(0) }
     val currentVersion = remember(context) { AndroidUpdateChecker.currentVersion(context) }
     var updateAvailable by remember { mutableStateOf(false) }
-
-    // Settings is intentionally warmed before onboarding finishes. Reload the values that
-    // onboarding can change outside Settings so the first visit never shows the pre-onboarding
-    // provider/model/API-key snapshot (issue #170). Re-running this on later visits also keeps
-    // the app-scoped ViewModel honest if another flow updates the stored AI configuration.
-    LaunchedEffect(currentRoute) {
-        if (currentRoute == FudAIRoutes.SETTINGS) {
-            settingsViewModel.refreshAiConfiguration()
-        }
-    }
 
     LaunchedEffect(quickActionRequest?.id, currentRoute) {
         if (quickActionRequest != null &&
@@ -309,7 +301,6 @@ internal fun FudAINavHost(
             ) {
                 composable(FudAIRoutes.ONBOARDING) {
                     OnboardingScreen(container = container, onComplete = {
-                        settingsViewModel.refreshAiConfiguration()
                         nav.navigate(FudAIRoutes.HOME) {
                             popUpTo(FudAIRoutes.ONBOARDING) { inclusive = true }
                             launchSingleTop = true
@@ -330,6 +321,9 @@ internal fun FudAINavHost(
                 composable(FudAIRoutes.WEEKLY_CHALLENGE) { TabInset { WeeklyChallengeScreen(container = container) } }
                 composable(FudAIRoutes.COACH) { TabInset { CoachScreen(container = container) } }
                 composable(FudAIRoutes.SETTINGS) {
+                    val settingsViewModel = settingsModel()
+                    // Other flows can change provider settings between visits.
+                    LaunchedEffect(settingsViewModel) { settingsViewModel.refreshAiConfiguration() }
                     TabInset {
                         SettingsScreen(
                             container = container,
@@ -365,17 +359,17 @@ internal fun FudAINavHost(
                     CalculationMethodsScreen(onBack = { nav.popBackStack() })
                 }
                 composable(FudAIRoutes.QUICK_ACTIONS) {
-                    QuickActionsScreen(vm = settingsViewModel, onBack = { nav.popBackStack() })
+                    QuickActionsScreen(vm = settingsModel(), onBack = { nav.popBackStack() })
                 }
                 composable(FudAIRoutes.ADD_MENU) {
-                    AddMenuSettingsScreen(vm = settingsViewModel, onBack = { nav.popBackStack() })
+                    AddMenuSettingsScreen(vm = settingsModel(), onBack = { nav.popBackStack() })
                 }
                 composable(FudAIRoutes.PRODUCT_INFO) {
                     ProductInfoSettingsScreen(container = container, onBack = { nav.popBackStack() })
                 }
                 composable(FudAIRoutes.TAB_BAR) {
                     TabBarSettingsScreen(
-                        vm = settingsViewModel,
+                        vm = settingsModel(),
                         onBack = { nav.popBackStack() }
                     )
                 }
@@ -383,6 +377,7 @@ internal fun FudAINavHost(
                     BodyMeasurementsScreen(container = container, onBack = { nav.popBackStack() })
                 }
                 composable(FudAIRoutes.ALLERGEN_SENSITIVITIES) {
+                    val settingsViewModel = settingsModel()
                     val settingsUi by settingsViewModel.ui.collectAsState()
                     AllergenSensitivitiesScreen(
                         current = settingsUi.profile?.allergenSensitivities.orEmpty(),
@@ -396,26 +391,12 @@ internal fun FudAINavHost(
             }
     }
     val layoutDirection = LocalLayoutDirection.current
-    // Release the system splash only once the active screen and, outside
-    // onboarding, its rail have been laid out together. The badge and paywall
-    // eligibility can refresh later; neither blocks the first visible frame.
-    val firstLayoutGate = if (!firstLayoutReady && (
-            currentRoute == FudAIRoutes.ONBOARDING ||
-                (showTabs && !FudAIRoutes.isHiddenTab(selectedTabRoute, hiddenTabs))
-            )) {
-        Modifier.onGloballyPositioned { coordinates ->
-            if (coordinates.size.width > 0 && coordinates.size.height > 0 && !firstLayoutReady) {
-                firstLayoutReady = true
-                onFirstLayoutReady()
-            }
-        }
-    } else Modifier
     CompositionLocalProvider(LocalLaunchFillEpoch provides launchFillEpoch) {
         Box(Modifier.fillMaxSize()) {
             // Keep the rail physically on the right, without changing the
             // direction of translated content within either pane.
             CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
-                Row(Modifier.fillMaxSize().then(firstLayoutGate)) {
+                Row(Modifier.fillMaxSize()) {
                     CompositionLocalProvider(LocalLayoutDirection provides layoutDirection) {
                         Box(Modifier.weight(1f), propagateMinConstraints = true) { tabContent() }
                         if (showTabs) {
@@ -467,6 +448,16 @@ internal fun FudAINavHost(
             // Paywall, credits, and out-of-quota UI for Hosted AI, reachable from any screen
             // (including onboarding).
             HostedUiHost(container = container)
+        }
+    }
+    // Release the native splash after applying the shell composition that has
+    // both the destination and its rail. Pre-draw is still blocked here; waiting
+    // for a global positioning or draw callback can stall the handoff.
+    if (!firstContentReady && (currentRoute == FudAIRoutes.ONBOARDING ||
+            (showTabs && !FudAIRoutes.isHiddenTab(selectedTabRoute, hiddenTabs)))) {
+        SideEffect {
+            firstContentReady = true
+            onFirstContentReady()
         }
     }
 }

@@ -2,6 +2,8 @@ package com.apoorvdarshan.calorietracker
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.SystemClock
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
@@ -125,6 +127,7 @@ open class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val activityStart = SystemClock.elapsedRealtime()
         // Must run before super.onCreate so the system swaps the splash theme
         // back to Theme.FudAI before the first frame, preventing a white flash
         // on cold start. The splash uses a transparent foreground mark over
@@ -177,15 +180,24 @@ open class MainActivity : AppCompatActivity() {
         var contentReady = false
         splashScreen.setKeepOnScreenCondition { !contentReady }
         lifecycleScope.launch {
+            val prefsStart = SystemClock.elapsedRealtime()
             val startup = withContext(Dispatchers.Default) {
                 if (resetOnboarding) container.prefs.setOnboardingCompleted(false)
                 container.prefs.startupPreferences()
             }
-            showContent(container, startup) { contentReady = true }
+            val prefsEnd = SystemClock.elapsedRealtime()
+            showContent(container, startup) {
+                contentReady = true
+                if (BuildConfig.DEBUG) {
+                    Log.d("FudStartup", "Activity: preferences=${prefsEnd - prefsStart}ms; " +
+                        "composition=${SystemClock.elapsedRealtime() - prefsEnd}ms; " +
+                        "total=${SystemClock.elapsedRealtime() - activityStart}ms")
+                }
+            }
         }
     }
 
-    private fun showContent(container: AppContainer, startup: StartupPreferences, onFirstLayoutReady: () -> Unit) {
+    private fun showContent(container: AppContainer, startup: StartupPreferences, onFirstContentReady: () -> Unit) {
         setContent {
             val platformHaptics = LocalHapticFeedback.current
             val hapticsEnabled by container.hapticsEnabled.collectAsState()
@@ -227,7 +239,7 @@ open class MainActivity : AppCompatActivity() {
                         FudAINavHost(
                             container = container,
                             startup = startup,
-                            onFirstLayoutReady = onFirstLayoutReady,
+                            onFirstContentReady = onFirstContentReady,
                             quickActionRequest = pendingQuickAction,
                             onQuickActionHandled = { requestID ->
                                 if (pendingQuickAction?.id == requestID) pendingQuickAction = null

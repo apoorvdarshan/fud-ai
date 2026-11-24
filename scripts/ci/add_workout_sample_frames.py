@@ -5,6 +5,8 @@ CI checks out shared/workout-vectors without its ~7,000 *_v2_*.png frames
 (1.2 GB). Debug builds, unit tests and instrumentation tests only use the small
 sample pack listed in sample-pack.txt, so this adds exactly those frames.
 """
+import base64
+import os
 import pathlib
 import re
 import subprocess
@@ -31,11 +33,24 @@ for line in SAMPLE_PACK.read_text().splitlines():
 if not patterns:
     raise SystemExit("Workout sample pack must not be empty")
 
+git_env = os.environ.copy()
+token = git_env.pop("WORKOUT_SAMPLE_CHECKOUT_TOKEN", None)
+if token:
+    # A blobless checkout can fetch the frames on demand. On GitHub Actions,
+    # checkout deliberately removes its credentials before this step runs.
+    # Authenticate only this Git command and its lazy-fetch child processes.
+    count = int(git_env.get("GIT_CONFIG_COUNT", "0"))
+    auth = base64.b64encode(f"x-access-token:{token}".encode()).decode()
+    git_env[f"GIT_CONFIG_KEY_{count}"] = "http.https://github.com/.extraheader"
+    git_env[f"GIT_CONFIG_VALUE_{count}"] = f"AUTHORIZATION: basic {auth}"
+    git_env["GIT_CONFIG_COUNT"] = str(count + 1)
+
 subprocess.run(
     ["git", "sparse-checkout", "add", "--stdin"],
     input="\n".join(patterns) + "\n",
     text=True,
     check=True,
+    env=git_env,
 )
 missing = [p for p in patterns if not pathlib.Path(p.lstrip("/")).is_file()]
 if missing:

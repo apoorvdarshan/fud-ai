@@ -210,6 +210,29 @@ final class calorietrackerUITests: XCTestCase {
     }
 
     @MainActor
+    func testWorkoutLogReorderButtonStaysCompactAndTappable() {
+        let app = makeApp(defaults: [
+            "--screenshot-demo", "-screenshotScene", "workouts",
+            "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryL",
+        ])
+        app.launch()
+
+        let reorder = app.buttons["workout.log.reorder"]
+        XCTAssertTrue(reorder.waitForExistence(timeout: 15))
+        reveal(reorder, in: app)
+        XCTAssertEqual(reorder.label, "Reorder")
+        XCTAssertLessThan(reorder.frame.height, 64, "The reorder action must not stretch the section header")
+        reorder.tap()
+        let done = app.buttons.matching(NSPredicate(format: "identifier == %@ AND label == %@",
+                                                    "workout.log.reorder", "Done")).firstMatch
+        XCTAssertTrue(done.waitForExistence(timeout: 5))
+        done.tap()
+        XCTAssertTrue(app.buttons.matching(NSPredicate(format: "identifier == %@ AND label == %@",
+                                                       "workout.log.reorder", "Reorder")).firstMatch
+            .waitForExistence(timeout: 5))
+    }
+
+    @MainActor
     func testSpeechProviderPickerOpensInFocusedCategory() throws {
         let app = makeApp()
         app.launchArguments += [

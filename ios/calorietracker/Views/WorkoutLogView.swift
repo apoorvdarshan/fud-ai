@@ -427,21 +427,29 @@ struct WorkoutLogView: View {
                             }
                         }
                     } header: {
-                        let layout = dynamicTypeSize.isAccessibilitySize
-                            ? AnyLayout(VStackLayout(alignment: .leading, spacing: 4))
-                            : AnyLayout(HStackLayout())
-                        layout {
+                        VStack(alignment: .leading, spacing: 4) {
                             Label(selectedDateTitle, systemImage: "dumbbell.fill")
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                            HStack {
-                                Text(workoutCountText(selectedExercises.count))
-                                    .font(.caption.weight(.bold))
-                                    .fixedSize(horizontal: false, vertical: true)
-                                if selectedExercises.count > 1 {
-                                    reorderButton
+                                .font(.system(.headline, weight: .black).width(.condensed))
+                                .foregroundStyle(Color.workoutCharcoal)
+                                .accessibilityAddTraits(.isHeader)
+                            if selectedExercises.count > 1 {
+                                ViewThatFits(in: .horizontal) {
+                                    HStack {
+                                        workoutCountLabel.fixedSize()
+                                        Spacer(minLength: 8)
+                                        reorderButton.fixedSize()
+                                    }
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        workoutCountLabel
+                                        reorderButton
+                                    }
                                 }
+                            } else {
+                                workoutCountLabel
                             }
                         }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.vertical, 4)
                         .textCase(nil)
                         .contentShape(Rectangle())
                         .simultaneousGesture(daySwipeGesture)
@@ -688,11 +696,24 @@ struct WorkoutLogView: View {
             }
         } label: {
             Label(isReordering ? "Done" : "Reorder", systemImage: isReordering ? "checkmark" : "arrow.up.arrow.down")
-                .font(.system(.subheadline, design: .rounded, weight: .bold))
+                .font(.system(.subheadline, weight: .bold).width(.condensed))
+                .foregroundStyle(isReordering ? Color.workoutOnAccent : Color.workoutCharcoal)
+                .padding(.horizontal, 10)
+                .padding(.vertical, 5)
+                .frame(minHeight: 44)
+                .background(isReordering ? Color.workoutAccent : AppColors.appCard)
+                .pinkNeoRule(AppColors.flashRule)
+                .contentShape(Rectangle())
         }
-        .buttonStyle(.bordered)
-        .buttonBorderShape(.capsule)
-        .tint(Color.workoutAccent)
+        .buttonStyle(.plain)
+        .accessibilityIdentifier("workout.log.reorder")
+    }
+
+    private var workoutCountLabel: some View {
+        Text(workoutCountText(selectedExercises.count))
+            .font(.system(.subheadline, weight: .semibold).width(.condensed))
+            .foregroundStyle(Color.workoutMutedText)
+            .fixedSize(horizontal: false, vertical: true)
     }
 
     private func moveExercise(_ exercise: StrengthPlannedExercise, by offset: Int) {
@@ -914,6 +935,8 @@ private struct WorkoutLogWeekStrip: View {
                 withAnimation(.snappy) { scrolledWeek = target }
             }
         }
+        .padding(.vertical, 8)
+        .flashPanel()
         .accessibilityElement(children: .contain)
         .accessibilityLabel("Workout diary dates")
     }
@@ -939,29 +962,29 @@ private struct WorkoutLogWeekStrip: View {
         } label: {
             VStack(spacing: 6) {
                 Text(date.formatted(.dateTime.weekday(.narrow)))
-                    .font(.system(.caption2, design: .rounded, weight: .medium))
+                    .font(.system(.caption2, weight: .bold).width(.condensed))
                     .lineLimit(1)
                     .minimumScaleFactor(0.6)
-                    .foregroundStyle(isSelected ? Color.workoutAccent : Color.workoutMutedText.opacity(0.62))
+                    .foregroundStyle(Color.workoutMutedText)
 
                 Text(date.formatted(.dateTime.day()))
-                    .font(.system(.body, design: .rounded, weight: .semibold))
+                    .font(.system(.body, weight: .black).width(.condensed))
                     .lineLimit(1)
                     .minimumScaleFactor(0.6)
                     .foregroundStyle(isSelected ? Color.workoutOnAccent : (isToday ? Color.workoutAccent : Color.workoutCharcoal))
                     .frame(maxWidth: .infinity, minHeight: 36)
                     .background {
                         if isSelected {
-                            Circle()
+                            Rectangle()
                                 .fill(Color.workoutAccent)
-                                .shadow(color: Color.workoutAccent.opacity(0.28), radius: 6, y: 3)
                         } else if isToday {
-                            Circle()
-                                .strokeBorder(Color.workoutAccent.opacity(0.35), lineWidth: 1.5)
+                            Rectangle()
+                                .strokeBorder(Color.workoutAccent, lineWidth: 1)
                         }
                     }
+                    .padding(.horizontal, 2)
 
-                Circle()
+                Rectangle()
                     .fill(workoutCount > 0 ? Color.workoutAccent : Color.clear)
                     .frame(width: 4, height: 4)
             }
@@ -1085,19 +1108,29 @@ private struct WorkoutLogStatsStrip: View {
     @AppStorage(EnergyUnit.storageKey) private var energyUnit = EnergyUnit.defaultUnit
 
     var body: some View {
-        let minimumWidth: CGFloat = dynamicTypeSize.isAccessibilitySize ? 118 : 60
-        LazyVGrid(columns: [GridItem(.adaptive(minimum: minimumWidth), spacing: 5)], spacing: 5) {
-            metric(label: "Sets", value: setCount.formatted(), systemImage: "checklist", active: setCount > 0)
-            metric(label: "Workouts", value: workoutCount.formatted(), systemImage: "dumbbell.fill", active: workoutCount > 0)
-            metric(label: "Reps", value: repCount.formatted(), systemImage: "repeat", active: repCount > 0)
-            metric(
-                label: "Burn",
-                value: caloriesBurned.map { energyUnit.format(kcal: $0) } ?? "-- \(energyUnit.symbol)",
-                systemImage: "flame.fill",
-                active: caloriesBurned != nil
-            )
+        ViewThatFits(in: .horizontal) {
+            if !dynamicTypeSize.isAccessibilitySize {
+                HStack(spacing: 6) {
+                    metrics
+                }
+            }
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 116), spacing: 6)], spacing: 6) {
+                metrics
+            }
         }
         .accessibilityElement(children: .contain)
+    }
+
+    @ViewBuilder private var metrics: some View {
+        metric(label: "Sets", value: setCount.formatted(), systemImage: "checklist", active: setCount > 0)
+        metric(label: "Workouts", value: workoutCount.formatted(), systemImage: "dumbbell.fill", active: workoutCount > 0)
+        metric(label: "Reps", value: repCount.formatted(), systemImage: "repeat", active: repCount > 0)
+        metric(
+            label: "Burn",
+            value: caloriesBurned.map { energyUnit.format(kcal: $0) } ?? "-- \(energyUnit.symbol)",
+            systemImage: "flame.fill",
+            active: caloriesBurned != nil
+        )
     }
 
     private func metric(label: String, value: String, systemImage: String, active: Bool) -> some View {
@@ -1120,8 +1153,8 @@ private struct WorkoutLogStatsStrip: View {
                 .contentTransition(.numericText())
                 .fixedSize(horizontal: false, vertical: true)
         }
-        .frame(maxWidth: .infinity, minHeight: 58, alignment: .leading)
         .padding(8)
+        .frame(minWidth: 78, maxWidth: .infinity, minHeight: 60, alignment: .leading)
         .flashPanel()
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(localizedLabel)

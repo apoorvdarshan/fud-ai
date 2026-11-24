@@ -12,6 +12,7 @@ on:
       - 'shared/workout-vectors/**'
       - 'local-models/legal/**'
       - 'scripts/test-ios.sh'
+      - 'scripts/ci/add_workout_sample_frames.py'
       - 'scripts/ci/ensure_metal_toolchain.sh'
       - 'scripts/ci/check_ios_test_counts.py'
       - 'scripts/ci/test_check_ios_test_counts.py'
@@ -23,6 +24,7 @@ on:
       - 'shared/workout-vectors/**'
       - 'local-models/legal/**'
       - 'scripts/test-ios.sh'
+      - 'scripts/ci/add_workout_sample_frames.py'
       - 'scripts/ci/ensure_metal_toolchain.sh'
       - 'scripts/ci/check_ios_test_counts.py'
       - 'scripts/ci/test_check_ios_test_counts.py'
@@ -59,6 +61,7 @@ jobs:
             /ios/
             /local-models/legal/
             /scripts/test-ios.sh
+            /scripts/ci/add_workout_sample_frames.py
             /scripts/ci/ensure_metal_toolchain.sh
             /scripts/ci/check_ios_test_counts.py
             /scripts/ci/test_check_ios_test_counts.py
@@ -66,24 +69,9 @@ jobs:
             /shared/workout-vectors/exercise-visual-manifest.json
       - name: Check out only the workout sample frames
         # Keep the 1.2 GB full image corpus out of the runner checkout.
-        run: |
-          python3 - <<'PY'
-          import pathlib, re, subprocess
-          patterns = []
-          for line in pathlib.Path('shared/workout-vectors/sample-pack.txt').read_text().splitlines():
-              exercise = line.split('#', 1)[0].strip()
-              if not exercise:
-                  continue
-              if not re.fullmatch(r'[A-Za-z0-9_-]+', exercise):
-                  raise SystemExit('Invalid exercise name in sample pack')
-              for gender in ('male', 'female'):
-                  for frame in range(4):
-                      patterns.append(f'/shared/workout-vectors/{exercise}_{gender}_v2_{frame}.png')
-          if not patterns:
-              raise SystemExit('Workout sample pack must not be empty')
-          subprocess.run(['git', 'sparse-checkout', 'add', '--stdin'],
-                         input='\n'.join(patterns) + '\n', text=True, check=True)
-          PY
+        env:
+          WORKOUT_SAMPLE_CHECKOUT_TOKEN: ${{ github.token }}
+        run: python3 scripts/ci/add_workout_sample_frames.py
       - name: Test the zero-test guard (offline)
         run: python3 -m unittest scripts/ci/test_check_ios_test_counts.py
       - name: Ensure the Metal shader compiler is available

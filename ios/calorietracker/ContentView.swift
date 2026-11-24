@@ -3363,6 +3363,7 @@ struct NutritionDetailView: View {
                                 .accessibilityHidden(true)
                         }
                         .padding(.vertical, 6)
+                        .padding(.trailing, 12)
                         .frame(minHeight: 44)
                         .contentShape(Rectangle())
                     }
@@ -3549,6 +3550,7 @@ struct NutritionDetailRow: View {
                 reading
             }
         }
+        .padding(.trailing, 12)
         .frame(maxWidth: .infinity, minHeight: 40, alignment: .leading)
         .padding(.vertical, 4)
         .accessibilityElement(children: .combine)

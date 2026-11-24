@@ -58,6 +58,7 @@ internal fun ProgressDestinationSelector(
             Row(
                 modifier = Modifier
                     .weight(1f)
+                    .fillMaxRowHeight()
                     .heightIn(min = 48.dp)
                     .background(if (isSelected) neo.action else neo.panel)
                     .border(1.dp, neo.rule)
@@ -66,7 +67,7 @@ internal fun ProgressDestinationSelector(
                         onClick = { onSelect(destination) },
                         role = Role.Tab
                     )
-                    .padding(horizontal = 8.dp, vertical = 10.dp),
+                    .padding(horizontal = 8.dp, vertical = 6.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
@@ -83,6 +84,7 @@ internal fun ProgressDestinationSelector(
                         .weight(1f),
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 14.sp,
+                    lineHeight = 17.sp,
                     color = if (isSelected) neo.onAction else neo.ink
                 )
             }

@@ -10,8 +10,11 @@ import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -56,6 +59,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import android.content.Intent
@@ -67,8 +71,6 @@ import com.apoorvdarshan.calorietracker.data.ExerciseVisual
 import com.apoorvdarshan.calorietracker.ui.workouts.AnimatedExerciseImage
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
-
-private val HERO_HEIGHT = 294.dp
 
 @Composable
 fun ExerciseDetailScreen(
@@ -118,12 +120,13 @@ fun ExerciseDetailScreen(
         }
 
         // Pinned hero over scrollable instructions (mirrors the iOS ZStack).
-        Box(Modifier.fillMaxSize()) {
+        BoxWithConstraints(Modifier.fillMaxSize()) {
+            val heroHeight = minOf(224.dp, maxHeight * 0.44f)
             LazyColumn(
                 Modifier.fillMaxSize(),
                 contentPadding = PaddingValues(bottom = BottomNavScrollPadding)
             ) {
-                item(key = "herospace") { Spacer(Modifier.height(HERO_HEIGHT)) }
+                item(key = "herospace") { Spacer(Modifier.height(heroHeight)) }
                 item(key = "instructions") {
                     InstructionSection(
                         exerciseName = item.name,
@@ -134,20 +137,21 @@ fun ExerciseDetailScreen(
                 item(key = "pad") { Spacer(Modifier.size(40.dp)) }
             }
 
-            Hero(item = item, visual = visual, showMetrics = showMetrics, onToggle = { showMetrics = !showMetrics })
+            Hero(item = item, visual = visual, height = heroHeight, showMetrics = showMetrics,
+                onToggle = { showMetrics = !showMetrics })
         }
     }
 }
 
 @Composable
-private fun Hero(item: ExerciseItem, visual: ExerciseVisual, showMetrics: Boolean, onToggle: () -> Unit) {
+private fun Hero(item: ExerciseItem, visual: ExerciseVisual, height: Dp, showMetrics: Boolean, onToggle: () -> Unit) {
     val colors = workoutsColors()
     // Opaque screen background so transparent PNG cutouts don't let
     // instructions show through when this pinned hero covers the scroll.
     Box(
         Modifier
             .fillMaxWidth()
-            .height(HERO_HEIGHT)
+            .height(height)
             .clip(RoundedCornerShape(20.dp))
             .background(colors.background)
             .border(0.5.dp, colors.hairline.copy(alpha = 0.35f), RoundedCornerShape(20.dp))
@@ -165,11 +169,15 @@ private fun Hero(item: ExerciseItem, visual: ExerciseVisual, showMetrics: Boolea
 
         AnimatedVisibility(
             visible = showMetrics,
-            modifier = Modifier.align(Alignment.TopStart),
+            modifier = Modifier.align(Alignment.TopStart).height(height),
             enter = slideInHorizontally(tween(280)) { it } + fadeIn(tween(280)),
             exit = slideOutHorizontally(tween(280)) { it } + fadeOut(tween(280))
         ) {
-            MetricGrid(item, Modifier.padding(start = 24.dp, top = 8.dp, end = 84.dp))
+            MetricGrid(
+                item,
+                Modifier.verticalScroll(rememberScrollState())
+                    .padding(start = FlashSpacing.PageInset, top = 8.dp, end = 68.dp, bottom = 8.dp)
+            )
         }
 
         Icon(
@@ -178,13 +186,13 @@ private fun Hero(item: ExerciseItem, visual: ExerciseVisual, showMetrics: Boolea
             tint = colors.accent,
             modifier = Modifier
                 .align(Alignment.TopEnd)
-                .padding(16.dp)
-                .size(44.dp)
+                .padding(8.dp)
+                .size(FlashSpacing.MinTouchTarget)
                 .clip(CircleShape)
                 .background(colors.background.copy(alpha = 0.78f))
                 .border(0.7.dp, colors.hairline.copy(alpha = 0.42f), CircleShape)
                 .clickable { onToggle() }
-                .padding(12.dp)
+                .padding(14.dp)
         )
     }
 }

@@ -77,7 +77,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -688,7 +687,8 @@ internal fun ExerciseRow(
             }
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
                 Icon(Icons.Filled.Storage, null, tint = colors.secondaryAccent, modifier = Modifier.size(13.dp))
-                Text(item.databaseMetadataSummary, color = colors.secondaryAccent, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                Text(item.databaseMetadataSummary, color = colors.secondaryAccent, fontSize = 12.sp,
+                    lineHeight = 15.sp, fontWeight = FontWeight.SemiBold)
             }
         }
         trailingContent()
@@ -706,12 +706,12 @@ private fun Tag(title: String, icon: ImageVector) {
             .clip(CircleShape)
             .background(colors.panel.copy(alpha = 0.28f))
             .border(0.5.dp, colors.hairline.copy(alpha = 0.22f), CircleShape)
-            .padding(horizontal = 9.dp, vertical = 4.dp),
+            .padding(horizontal = 5.dp, vertical = 2.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         Icon(icon, null, tint = colors.mutedText, modifier = Modifier.size(11.dp))
-        Text(title, color = colors.mutedText, fontSize = 11.sp, fontWeight = FontWeight.Bold, maxLines = 1, overflow = TextOverflow.Ellipsis)
+        Text(title, color = colors.mutedText, fontSize = 11.sp, lineHeight = 13.sp, fontWeight = FontWeight.SemiBold)
     }
 }
 

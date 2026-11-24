@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker.ui.progress
 
+import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -113,9 +114,9 @@ internal fun WeeklyRecapCard(
     FudGlassSurface(
         modifier = Modifier.fillMaxWidth(),
         cornerRadius = 20.dp,
-        padding = 16.dp
+        padding = FlashSpacing.PageInset
     ) {
-        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        Column(verticalArrangement = Arrangement.spacedBy(FlashSpacing.ItemGap)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
                     Icons.Filled.AutoAwesome,
@@ -169,7 +170,7 @@ internal fun WeeklyRecapCard(
                 )
             } else {
                 Box(
-                    Modifier.fillMaxWidth().padding(vertical = 24.dp),
+                    Modifier.fillMaxWidth().padding(vertical = FlashSpacing.SectionGap),
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
@@ -233,11 +234,11 @@ private fun WeeklyRecapStats(
     )
     // Large text gets two tiles per row, like the other Progress stat rows.
     val columns = if (shouldUseTwoRowProgressStats(LocalDensity.current.fontScale)) 2 else 3
-    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
         tiles.chunked(columns).forEach { row ->
             Row(
                 modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                horizontalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 row.forEach { tile -> WeeklyRecapTile(tile, Modifier.weight(1f)) }
             }
@@ -259,7 +260,7 @@ private fun WeeklyRecapTile(tile: RecapTile, modifier: Modifier = Modifier) {
             .fillMaxHeight()
             .background(neo.inset)
             .border(1.dp, neo.rule.copy(alpha = 0.32f))
-            .padding(horizontal = 4.dp, vertical = 8.dp)
+            .padding(horizontal = 4.dp, vertical = 5.dp)
             .clearAndSetSemantics { contentDescription = "$value, $label, ${detail.text}" },
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(2.dp)
@@ -268,6 +269,7 @@ private fun WeeklyRecapTile(tile: RecapTile, modifier: Modifier = Modifier) {
             value,
             modifier = Modifier.fillMaxWidth(),
             fontSize = 15.sp,
+            lineHeight = 17.sp,
             fontWeight = FontWeight.Black,
             style = PinkNeoCondensed,
             maxLines = 1,
@@ -275,26 +277,21 @@ private fun WeeklyRecapTile(tile: RecapTile, modifier: Modifier = Modifier) {
             textAlign = TextAlign.Center,
             autoSize = TextAutoSize.StepBased(minFontSize = 10.sp, maxFontSize = 15.sp, stepSize = 0.5.sp)
         )
-        // Two lines reserved in every tile keep the details on one baseline.
         Text(
             label,
             fontSize = 11.sp,
             lineHeight = 13.sp,
             style = PinkNeoCondensed,
             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
-            minLines = 2,
-            maxLines = 2,
-            overflow = TextOverflow.Ellipsis,
             textAlign = TextAlign.Center
         )
         Text(
             detail.text,
             fontSize = 11.sp,
+            lineHeight = 13.sp,
             fontWeight = FontWeight.SemiBold,
             color = if (detail.isImprovement) AppColors.Calorie
             else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
             textAlign = TextAlign.Center
         )
     }
@@ -305,10 +302,10 @@ private fun WeeklyRecapRow(icon: ImageVector, text: String, value: String? = nul
     Row(verticalAlignment = Alignment.CenterVertically) {
         Icon(icon, contentDescription = null, tint = AppColors.Calorie, modifier = Modifier.size(18.dp))
         Spacer(Modifier.width(8.dp))
-        Text(text, modifier = Modifier.weight(1f), fontSize = 15.sp, fontWeight = FontWeight.Medium)
+        Text(text, modifier = Modifier.weight(1f), fontSize = 15.sp, lineHeight = 18.sp, fontWeight = FontWeight.Medium)
         if (value != null) {
             Spacer(Modifier.width(8.dp))
-            Text(value, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)
+            Text(value, fontSize = 15.sp, lineHeight = 18.sp, fontWeight = FontWeight.SemiBold)
         }
     }
 }

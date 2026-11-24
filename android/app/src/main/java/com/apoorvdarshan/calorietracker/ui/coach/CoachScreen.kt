@@ -37,6 +37,8 @@ import androidx.compose.foundation.layout.union
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -454,7 +456,7 @@ private fun EmptyState(
             Column(verticalArrangement = Arrangement.spacedBy(FlashSpacing.ItemGap)) {
                 prompts.take(4).chunked(columns).forEach { rowPrompts ->
                     Row(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min),
                         horizontalArrangement = Arrangement.spacedBy(FlashSpacing.ItemGap),
                         verticalAlignment = Alignment.Top
                     ) {
@@ -463,7 +465,7 @@ private fun EmptyState(
                                 text = prompt.label,
                                 enabled = enabled,
                                 onTap = { onPromptTap(prompt.resourceId) },
-                                modifier = Modifier.weight(1f)
+                                modifier = Modifier.weight(1f).fillMaxHeight()
                             )
                         }
                         if (rowPrompts.size < columns) Spacer(Modifier.weight(1f))

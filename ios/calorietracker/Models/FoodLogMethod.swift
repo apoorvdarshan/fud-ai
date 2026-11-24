@@ -89,7 +89,7 @@ enum FoodLogMethod: String, CaseIterable, Codable, Identifiable, Sendable {
 /// Dock slots in display order. Assigning a method already in use swaps the slots.
 struct HomeFoodShortcuts {
     static let storageKey = "home.foodShortcuts"
-    static let defaults: [FoodLogMethod] = [.camera, .barcode, .text, .favorites]
+    static let defaults: [FoodLogMethod] = [.camera, .barcode, .voice, .favorites]
     private(set) var methods: [FoodLogMethod]
 
     init(stored: String) {

@@ -84,7 +84,7 @@ data class HomeFoodShortcuts private constructor(val methods: List<FoodLogMethod
     companion object {
         const val STORAGE_KEY = "home.foodShortcuts"
         val Default = HomeFoodShortcuts(
-            listOf(FoodLogMethod.CAMERA, FoodLogMethod.BARCODE, FoodLogMethod.TEXT, FoodLogMethod.FAVORITES)
+            listOf(FoodLogMethod.CAMERA, FoodLogMethod.BARCODE, FoodLogMethod.VOICE, FoodLogMethod.FAVORITES)
         )
 
         fun decode(raw: String?): HomeFoodShortcuts {

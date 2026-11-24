@@ -5,11 +5,12 @@ import Testing
 struct AddMenuConfigTests {
     @Test func homeShortcutsDefaultSwapAndPersistWithoutDuplicates() {
         var shortcuts = HomeFoodShortcuts(stored: "")
-        #expect(shortcuts.methods == [.camera, .barcode, .text, .favorites])
+        #expect(shortcuts.methods == [.camera, .barcode, .voice, .favorites])
         shortcuts.assign(.favorites, to: 0)
         shortcuts.assign(.manual, to: 1)
-        #expect(HomeFoodShortcuts(stored: shortcuts.stored).methods == [.favorites, .manual, .text, .camera])
-        #expect(HomeFoodShortcuts(stored: "camera,camera,text,favorites").methods == HomeFoodShortcuts.defaults)
+        #expect(HomeFoodShortcuts(stored: shortcuts.stored).methods == [.favorites, .manual, .voice, .camera])
+        #expect(HomeFoodShortcuts(stored: "camera,camera,voice,favorites").methods == HomeFoodShortcuts.defaults)
+        #expect(HomeFoodShortcuts(stored: "camera,barcode,text,favorites").methods[2] == .text)
     }
 
     @Test func defaultMatchesAndroidOrderAndKeepsSiriPhrases() {

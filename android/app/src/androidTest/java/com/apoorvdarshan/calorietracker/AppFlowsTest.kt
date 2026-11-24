@@ -549,7 +549,7 @@ class AppFlowsTest {
         )
 
         runBlocking { prefs.setHideVoiceShortcut(true) }
-        activity!!.recreate()
+        recreateActivity()
         waitForHome()
         compose.onNodeWithTag("nav.progress").assertDoesNotExist()
         compose.onNodeWithTag("nav.voice").assertDoesNotExist()
@@ -568,7 +568,7 @@ class AppFlowsTest {
         waitForHome()
         waitFor(goal)
         compose.onNode(goal).assertIsDisplayed()
-        activity!!.recreate()
+        recreateActivity()
         waitForHome()
         compose.onNode(goal).assertIsDisplayed()
     }
@@ -683,7 +683,7 @@ class AppFlowsTest {
         FudAITestState.reset(onboarded = false)
         // The extra also requests voice. Keep the action stable because ActivityScenario matches
         // lifecycle events by intent, while MainActivity consumes the TALK action during onCreate.
-        activity = ActivityScenario.launch(VoiceEntryPoints.launchIntent(context).setAction(null))
+        launchActivity(VoiceEntryPoints.launchIntent(context).setAction(null))
         waitFor(hasTestTag("onboarding.WELCOME"))
         compose.waitForIdle()
         val saved = Bundle()
@@ -691,7 +691,7 @@ class AppFlowsTest {
         assertTrue(saved.containsKey("pendingVoiceLaunch"))
         assertTrue(!(context.applicationContext as FudAIApp).container.voiceAssistant.isActive)
 
-        activity!!.recreate()
+        recreateActivity()
         waitFor(hasTestTag("onboarding.WELCOME"))
         val restored = Bundle()
         activity!!.onActivity { instrumentation.callActivityOnSaveInstanceState(it, restored) }
@@ -713,7 +713,7 @@ class AppFlowsTest {
         compose.onNodeWithTag("voiceSettings.autoCapture").performScrollTo().assertIsOn().performClick()
         awaitPreference(prefs.voiceAssistantPreferences) { !it.autoCapture }
 
-        activity!!.recreate()
+        recreateActivity()
         openVoiceSettings()
         compose.onNodeWithTag("voiceSettings.autoCapture").performScrollTo().assertIsOff()
         compose.onNodeWithTag("voiceSettings.confirmSaves").performScrollTo().assertIsOff()
@@ -754,7 +754,7 @@ class AppFlowsTest {
         assertTrue("Meal totals sit below the title", totalsBounds.top >= titleBounds.bottom)
         assertTrue("Meal totals stay clear of the pinned dock", totalsBounds.bottom <= addBounds.top)
 
-        activity!!.recreate()
+        recreateActivity()
         waitForHome()
         assertFoodVisible(saved.name)
         relaunchActivity()
@@ -827,7 +827,7 @@ class AppFlowsTest {
         compose.onNodeWithTag("settings.water.enabled").assertIsOff().performClick()
         waitForWaterSetting(true)
 
-        activity!!.recreate()
+        recreateActivity()
         // Settings saves its selected category in the real navigation state.
         openTab("home")
         openWaterSettings()
@@ -894,7 +894,7 @@ class AppFlowsTest {
             FoodEntry(name = "Shared Eggs", calories = 124, protein = 10.0, carbs = 1.0,
                 fat = 8.0, source = FoodSource.MANUAL)
         )
-        activity = ActivityScenario.launch(
+        launchActivity(
             Intent(Intent.ACTION_VIEW, Uri.parse(MealShare.link(meals)), context, MainActivity::class.java)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         )
@@ -980,20 +980,24 @@ class AppFlowsTest {
         if (onboarded) waitForHome()
     }
 
-    private fun launchActivity() {
-        val launch = FutureTask {
-            ActivityScenario.launch<MainActivity>(
-                Intent(context, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            )
-        }
-        // ActivityScenario waits for the native splash to dismiss. The splash
-        // in turn waits for the shell, so keep the Compose test clock advancing.
-        thread(name = "fud-test-activity-launch", isDaemon = true) { launch.run() }
+    private fun launchActivity(
+        intent: Intent = Intent(context, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    ) {
+        activity = withActivityTransition { ActivityScenario.launch<MainActivity>(intent) }
+    }
+
+    private fun recreateActivity() = withActivityTransition { checkNotNull(activity).recreate() }
+
+    private fun <T> withActivityTransition(action: () -> T): T {
+        val transition = FutureTask(action)
+        // ActivityScenario waits for the native splash to dismiss on launch and
+        // recreation. Keep advancing Compose frames so the shell can release it.
+        thread(name = "fud-test-activity-transition", isDaemon = true) { transition.run() }
         try {
-            compose.waitUntil(timeoutMillis = 15_000) { launch.isDone }
-            activity = launch.get()
+            compose.waitUntil(timeoutMillis = 15_000) { transition.isDone }
+            return transition.get()
         } finally {
-            launch.cancel(true)
+            transition.cancel(true)
         }
     }
 

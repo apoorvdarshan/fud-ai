@@ -11,7 +11,7 @@ framework="$root/llama.framework"
 
 case "${1:-}" in
     prepare)
-        if [ -f "$framework/llama" ] && [ -f "$root/checksum" ] &&
+        if [ -f "$framework/llama" ] && [ -d "$root/llama.framework.dSYM" ] && [ -f "$root/checksum" ] &&
             [ "$(cat "$root/checksum")" = "$checksum" ]; then
             exit 0
         fi
@@ -28,12 +28,10 @@ case "${1:-}" in
         ditto -x -k "$work/runtime.zip" "$work"
         slice="$work/build-apple/llama.xcframework/ios-arm64"
         test -f "$slice/llama.framework/llama"
-        rm -rf "$framework"
+        test -f "$slice/dSYMs/llama.dSYM/Contents/Resources/DWARF/llama"
+        rm -rf "$framework" "$root/llama.framework.dSYM"
         mv "$slice/llama.framework" "$framework"
-        if [ -d "$slice/dSYMs/llama.framework.dSYM" ]; then
-            rm -rf "$root/llama.framework.dSYM"
-            mv "$slice/dSYMs/llama.framework.dSYM" "$root/llama.framework.dSYM"
-        fi
+        mv "$slice/dSYMs/llama.dSYM" "$root/llama.framework.dSYM"
         printf '%s\n' "$checksum" > "$root/checksum"
         ;;
     embed)

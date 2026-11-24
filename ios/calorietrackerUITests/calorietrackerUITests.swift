@@ -253,7 +253,7 @@ final class calorietrackerUITests: XCTestCase {
         XCTAssertFalse(progress.isSelected)
         progress.tap()
         XCTAssertTrue(progress.isSelected)
-        XCTAssertTrue(app.buttons["nav.camera"].isHittable)
+        XCTAssertTrue(app.buttons["nav.voice"].isHittable)
     }
 
     @MainActor
@@ -429,7 +429,7 @@ final class calorietrackerUITests: XCTestCase {
         support.tap()
         XCTAssertTrue(app.navigationBars["Support Fud AI"].waitForExistence(timeout: 5))
         reveal(app.staticTexts["Rate the App"], in: app)
-        XCTAssertTrue(app.buttons["nav.camera"].isHittable)
+        XCTAssertTrue(app.buttons["nav.voice"].isHittable)
     }
 
     @MainActor
@@ -441,12 +441,17 @@ final class calorietrackerUITests: XCTestCase {
         XCTAssertTrue(coach.waitForExistence(timeout: 15))
         coach.tap()
         let railX = home.frame.minX
+        let voice = app.buttons["nav.voice"]
+        let voiceX = voice.frame.minX
         let input = app.descendants(matching: .any)["coach.input"].firstMatch
         XCTAssertTrue(input.waitForExistence(timeout: 5))
         input.tap()
         XCTAssertTrue(app.keyboards.firstMatch.waitForExistence(timeout: 5))
         XCTAssertTrue(home.isHittable)
         XCTAssertEqual(home.frame.minX, railX, accuracy: 1)
+        XCTAssertTrue(voice.isHittable)
+        XCTAssertEqual(voice.frame.minX, voiceX, accuracy: 1)
+        XCTAssertLessThanOrEqual(voice.frame.maxY, app.keyboards.firstMatch.frame.minY)
         let screenshot = XCTAttachment(screenshot: app.screenshot())
         screenshot.name = "Coach keyboard with the right rail"
         screenshot.lifetime = .keepAlways
@@ -759,11 +764,10 @@ final class calorietrackerUITests: XCTestCase {
         reveal(meal, in: app)
         XCTAssertTrue(app.staticTexts.matching(identifier: "321 kcal").firstMatch.exists)
 
-        let voiceButton = app.buttons["voiceAssistantButton"]
-        XCTAssertTrue(voiceButton.exists)
-        XCTAssertEqual(voiceButton.frame.midY, addButton.frame.midY, accuracy: 2)
-        XCTAssertEqual(addButton.frame.minX - voiceButton.frame.maxX, 12, accuracy: 2)
-        XCTAssertLessThan(addButton.frame.maxX, app.buttons["nav.home"].frame.minX)
+        XCTAssertFalse(app.buttons["voiceAssistantButton"].exists, "Home should not duplicate the rail shortcut")
+        let voice = app.buttons["nav.voice"]
+        XCTAssertTrue(voice.isHittable)
+        XCTAssertLessThan(addButton.frame.maxX, voice.frame.minX)
 
         // The last diary row can scroll above the pinned dock. Its meal
         // summary stays aligned beneath the title.
@@ -771,7 +775,7 @@ final class calorietrackerUITests: XCTestCase {
         let mealCell = app.cells.containing(.staticText, identifier: "CI oat bowl").firstMatch
         XCTAssertTrue(mealCell.exists)
         XCTAssertTrue(meal.isHittable)
-        XCTAssertLessThan(mealCell.frame.maxY, voiceButton.frame.minY)
+        XCTAssertLessThan(mealCell.frame.maxY, addButton.frame.minY)
         let mealTitle = app.descendants(matching: .any).matching(identifier: "home.meal.title").firstMatch
         let mealCalories = app.staticTexts.matching(identifier: "home.meal.calories").firstMatch
         let mealMacros = app.staticTexts.matching(identifier: "home.meal.macros").firstMatch
@@ -781,8 +785,8 @@ final class calorietrackerUITests: XCTestCase {
         XCTAssertGreaterThanOrEqual(mealCalories.frame.minY, mealTitle.frame.maxY)
         XCTAssertLessThanOrEqual(mealCalories.frame.minX, mealTitle.frame.minX)
         XCTAssertEqual(mealCalories.frame.minX, mealMacros.frame.minX, accuracy: 1)
-        XCTAssertLessThan(mealCalories.frame.maxY, voiceButton.frame.minY)
-        XCTAssertLessThan(mealMacros.frame.maxY, voiceButton.frame.minY)
+        XCTAssertLessThan(mealCalories.frame.maxY, addButton.frame.minY)
+        XCTAssertLessThan(mealMacros.frame.maxY, addButton.frame.minY)
 
         relaunchPreservingData(app)
         reveal(meal, in: app)
@@ -790,13 +794,16 @@ final class calorietrackerUITests: XCTestCase {
     }
 
     @MainActor
-    func testHomeOrbExplainsVoiceAccessWithoutSubscriptionOrKey() throws {
+    func testPinnedVoiceExplainsAccessWithoutLeavingTheCurrentTab() {
         let app = makeApp()
         app.launch()
+        let coach = app.buttons["nav.coach"]
+        reveal(coach, in: app)
+        coach.tap()
 
-        let orb = app.buttons["voiceAssistantButton"]
-        XCTAssertTrue(orb.waitForExistence(timeout: 15))
-        orb.tap()
+        let voice = app.buttons["nav.voice"]
+        XCTAssertTrue(voice.isHittable)
+        voice.tap()
 
         // UI tests run without a subscription or a Gemini, OpenAI or xAI key, so the
         // assistant explains both ways to get voice instead of starting a session.
@@ -808,7 +815,8 @@ final class calorietrackerUITests: XCTestCase {
 
         app.buttons["voiceAssistant.access.notNow"].tap()
         XCTAssertTrue(explanation.waitForNonExistence(timeout: 5))
-        XCTAssertTrue(orb.waitForExistence(timeout: 5))
+        XCTAssertTrue(voice.isHittable)
+        XCTAssertTrue(coach.isSelected)
     }
 
     @MainActor

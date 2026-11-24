@@ -128,6 +128,7 @@ struct ContentView: View {
     @State private var assistantNavigator = VoiceAssistantNavigator.shared
     @AppStorage(AppThemeColor.storageKey) private var appThemeColorRaw = AppThemeColor.defaultColor.rawValue
     @AppStorage(TabBarSettings.hiddenTabsKey) private var hiddenTabsRaw = ""
+    @AppStorage("hideVoiceShortcut") private var hideVoiceShortcut = false
     @State private var appUpdateState: AppUpdateState = .idle
     @State private var selectedTab: AppTab = .home
     @State private var progressDestination: AppTab = .progress
@@ -161,10 +162,14 @@ struct ContentView: View {
             standardTabView
                 .environment(\.layoutDirection, layoutDirection)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-            PinkNeoRail(items: railItems) {
-                selectTab(.home)
-                quickActionRequest = QuickActionRequest(action: .camera)
-            }
+            PinkNeoRail(items: railItems, voiceShortcut: hideVoiceShortcut ? nil : PinkNeoRailItem(
+                id: "nav.voice", title: Text(verbatim: "Live Voice"), icon: "waveform",
+                accessibilityTitle: Text("Talk to Fud AI")
+            ) {
+                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                AppHaptics.impact(.medium)
+                voiceAssistant.start()
+            })
             .environment(\.layoutDirection, layoutDirection)
             .padding(.trailing, 7)
         }
@@ -1283,7 +1288,6 @@ struct HomeView: View {
     @State private var showMultiPhotoCaptureSheet = false
     @State private var contextDescription: String = ""
     @State private var showContextSheet = false
-    @State private var voiceAssistant = VoiceAssistantController.shared
     @State private var assistantNavigator = VoiceAssistantNavigator.shared
 
     enum ActiveSheet: String, Identifiable {
@@ -1445,7 +1449,6 @@ struct HomeView: View {
     @AppStorage(FastingSettings.notificationEnabledKey) private var fastingGoalNotificationEnabled = true
     /// Observed so + menu edits in Settings refresh Home right away.
     @AppStorage(AddMenuConfig.storageKey) private var addMenuConfigData: Data?
-    @AppStorage("hideVoiceShortcut") private var hideVoiceShortcut = false
     @AppStorage("hideBarcodePhoto") private var hideBarcodePhoto = false
     @AppStorage("notificationsEnabled") private var notificationsEnabled = false
     @Environment(ProfileStore.self) private var profileStore
@@ -1754,10 +1757,6 @@ private var dailyStepsTaskKey: String {
                 .buttonStyle(.plain)
                 .accessibilityLabel("Favorites")
                 .accessibilityIdentifier("home.favorites")
-            }
-            // The live session uses its own floating controls.
-            if !voiceAssistant.isActive, !hideVoiceShortcut {
-                VoiceAssistantHomeButton(controller: voiceAssistant, pinkNeoPalette: neo)
             }
             FlashMenu(title: Text("Log Food"), items: { foodLogMenuItems }) {
                 Label("Log Food", systemImage: "plus")

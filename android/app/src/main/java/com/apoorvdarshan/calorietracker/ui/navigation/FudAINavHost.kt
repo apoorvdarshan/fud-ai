@@ -69,7 +69,6 @@ import com.apoorvdarshan.calorietracker.ui.workouts.WorkoutsScreen
 import com.apoorvdarshan.calorietracker.models.WorkoutTabMode
 import com.apoorvdarshan.calorietracker.models.UserProfile
 import com.apoorvdarshan.calorietracker.models.QuickActionRequest
-import com.apoorvdarshan.calorietracker.models.QuickAction
 import com.apoorvdarshan.calorietracker.ui.settings.AddMenuSettingsScreen
 import com.apoorvdarshan.calorietracker.ui.settings.ProductInfoSettingsScreen
 import com.apoorvdarshan.calorietracker.ui.settings.QuickActionsScreen
@@ -126,14 +125,13 @@ fun FudAINavHost(
     }
     // Null until the stored choice is read, so a hidden tab never flashes in the rail.
     val hiddenTabs by container.prefs.hiddenTabs.collectAsState(initial = null)
+    val hideVoiceShortcut by container.prefs.hideVoiceShortcut.collectAsState(initial = false)
     // Keep the content width stable. The rail handles IME insets itself;
     // full-screen presentations can still cover the underlying navigation.
     val showTabs = selectedTabRoute != null && hiddenTabs != null
     ReportDrawnWhen {
         currentRoute == FudAIRoutes.ONBOARDING || (selectedTabRoute != null && hiddenTabs != null)
     }
-    var railCameraRequest by remember { mutableStateOf<QuickActionRequest?>(null) }
-    val homeActionRequest = quickActionRequest ?: railCameraRequest
     // Bumped when the Settings tab is re-tapped so SettingsScreen can pop back to the hub
     // (matches iOS TabView + NavigationStack reselect → root behavior).
     var settingsPopToRootTick by remember { mutableIntStateOf(0) }
@@ -150,8 +148,8 @@ fun FudAINavHost(
         }
     }
 
-    LaunchedEffect(homeActionRequest?.id, currentRoute) {
-        if (homeActionRequest != null &&
+    LaunchedEffect(quickActionRequest?.id, currentRoute) {
+        if (quickActionRequest != null &&
             currentRoute != FudAIRoutes.HOME &&
             currentRoute != FudAIRoutes.ONBOARDING
         ) {
@@ -323,11 +321,8 @@ fun FudAINavHost(
                         HomeScreen(
                             container = container,
                             initialProfile = initialHomeProfile,
-                            quickActionRequest = homeActionRequest,
-                            onQuickActionHandled = { id ->
-                                if (railCameraRequest?.id == id) railCameraRequest = null
-                                else onQuickActionHandled(id)
-                            }
+                            quickActionRequest = quickActionRequest,
+                            onQuickActionHandled = onQuickActionHandled
                         )
                     }
                 }
@@ -429,10 +424,13 @@ fun FudAINavHost(
                                     keyboard?.hide()
                                     selectTab(it)
                                 },
-                                onCamera = {
-                                    focus.clearFocus()
-                                    keyboard?.hide()
-                                    railCameraRequest = QuickActionRequest(QuickAction.CAMERA)
+                                onVoice = if (hideVoiceShortcut) null else {
+                                    {
+                                        focus.clearFocus()
+                                        keyboard?.hide()
+                                        haptic.performHapticFeedback(HapticFeedbackType.Confirm)
+                                        container.voiceAssistant.requestStart()
+                                    }
                                 }
                             )
                         }

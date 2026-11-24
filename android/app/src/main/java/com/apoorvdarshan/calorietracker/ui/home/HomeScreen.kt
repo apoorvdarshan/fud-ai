@@ -128,7 +128,6 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableFloatStateOf
@@ -137,7 +136,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.structuralEqualityPolicy
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
@@ -209,7 +207,6 @@ import com.apoorvdarshan.calorietracker.ui.components.WeekEnergyStrip
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
 import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 import com.apoorvdarshan.calorietracker.ui.theme.PinkNeoCondensed
-import com.apoorvdarshan.calorietracker.ui.voice.VoiceAssistantButton
 import java.time.DayOfWeek
 import java.time.Instant
 import java.time.LocalDate
@@ -441,11 +438,6 @@ DisposableEffect(lifecycleOwner, vm) {
     }
 
     // The voice assistant opens a logged food's edit sheet here (open_food_entry).
-    val voiceUi = container.voiceAssistant.ui.collectAsState()
-    val voiceVisible by remember(voiceUi) {
-        derivedStateOf(structuralEqualityPolicy()) { voiceUi.value.visible }
-    }
-    val hideVoiceShortcut by container.prefs.hideVoiceShortcut.collectAsState(initial = false)
     val pendingVoiceEntry by container.navigator.pendingFoodEntry.collectAsState()
     LaunchedEffect(pendingVoiceEntry, allEntries) {
         val id = pendingVoiceEntry ?: return@LaunchedEffect
@@ -795,9 +787,6 @@ DisposableEffect(lifecycleOwner, vm) {
                         tint = neo.ink
                     )
                 }
-            }
-            if (!voiceVisible && !hideVoiceShortcut) {
-                VoiceAssistantButton(onClick = container.voiceAssistant::requestStart, flat = true)
             }
             Box(Modifier.weight(1f)) {
             Row(

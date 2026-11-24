@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker
 
+import android.Manifest
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
@@ -170,7 +171,23 @@ class AppFlowsTest {
 
         openTab("support")
         compose.onNodeWithText(string(R.string.about_rate)).performScrollTo().assertIsDisplayed()
-        compose.onNodeWithTag("nav.camera").assertIsDisplayed()
+        compose.onNodeWithTag("nav.voice").assertIsDisplayed()
+    }
+
+    @Test
+    fun pinnedVoiceExplainsAccessWithoutLeavingTheCurrentTab() {
+        launchFresh()
+        instrumentation.uiAutomation.grantRuntimePermission(context.packageName, Manifest.permission.RECORD_AUDIO)
+        openTab("coach")
+        val voice = compose.onNodeWithTag("nav.voice")
+        voice.assertIsDisplayed().performClick()
+        waitFor(hasText(string(R.string.voice_notice_setup_title)))
+        compose.onNodeWithText(string(R.string.voice_action_see_plans)).assertIsDisplayed()
+        compose.onNodeWithText(string(R.string.voice_action_add_key)).assertIsDisplayed()
+        compose.onNodeWithTag("voiceAssistantClose").performClick()
+        waitForAbsent(hasTestTag("voiceAssistantOverlay"))
+        compose.onNodeWithTag("nav.coach").assertIsSelected()
+        voice.assertIsDisplayed()
     }
 
     @Test
@@ -215,6 +232,8 @@ class AppFlowsTest {
         openTab("coach")
         val home = compose.onNodeWithTag("nav.home")
         val initialLeft = home.assertIsDisplayed().fetchSemanticsNode().boundsInRoot.left
+        val voice = compose.onNodeWithTag("nav.voice")
+        val initialVoiceLeft = voice.assertIsDisplayed().fetchSemanticsNode().boundsInRoot.left
         val imeVisible = AtomicReference(false)
         compose.onNodeWithTag("coach.input").performClick()
         compose.waitUntil(timeoutMillis = 8_000) {
@@ -227,6 +246,7 @@ class AppFlowsTest {
             imeVisible.get()
         }
         assertEquals(initialLeft, home.assertIsDisplayed().fetchSemanticsNode().boundsInRoot.left, 1f)
+        assertEquals(initialVoiceLeft, voice.assertIsDisplayed().fetchSemanticsNode().boundsInRoot.left, 1f)
         home.performClick()
         waitForHome()
         home.assertIsSelected()
@@ -248,7 +268,7 @@ class AppFlowsTest {
         openTab("weeklyChallenge")
         waitFor(hasText(string(R.string.challenge_title)))
         compose.onNodeWithTag("nav.progress").assertIsNotSelected()
-        compose.onNodeWithTag("nav.camera").assertIsDisplayed()
+        compose.onNodeWithTag("nav.voice").assertIsDisplayed()
         compose.onNodeWithTag("progress.timeRange").assertDoesNotExist()
         openTab("home")
         openTab("progress")
@@ -320,15 +340,14 @@ class AppFlowsTest {
         compose.onNodeWithTag("nav.home").assertIsSelected()
         compose.onNodeWithTag("home.add").assertIsDisplayed()
         val addBounds = compose.onNodeWithTag("home.add").fetchSemanticsNode().boundsInRoot
-        val voiceBounds = compose.onNodeWithTag("voiceAssistantButton").assertIsDisplayed().fetchSemanticsNode().boundsInRoot
-        assertEquals(addBounds.top, voiceBounds.top, 1f)
-        assertEquals(addBounds.bottom, voiceBounds.bottom, 1f)
-        assertTrue("Voice sits beside the add button", voiceBounds.right < addBounds.left)
+        val voiceBounds = compose.onNodeWithTag("nav.voice").assertIsDisplayed().fetchSemanticsNode().boundsInRoot
+        assertTrue("Voice stays in the right rail", addBounds.right <= voiceBounds.left)
+        compose.onNodeWithTag("voiceAssistantButton").assertDoesNotExist()
+        compose.onNodeWithTag("nav.camera").assertDoesNotExist()
         assertTrue("The diary cannot scroll behind the pinned controls",
             compose.onNodeWithTag("home.diary").fetchSemanticsNode().boundsInRoot.bottom <= addBounds.top)
         assertTrue("The right rail stays beside the action row", addBounds.right <=
             compose.onNodeWithTag("nav.home").fetchSemanticsNode().boundsInRoot.left)
-        compose.onNodeWithTag("nav.camera").assertIsDisplayed()
         compose.onNodeWithTag("home.calendar").assertIsDisplayed()
         compose.onNodeWithTag("home.calorieSegments").assertIsDisplayed()
         for (tab in listOf("progress", "weeklyChallenge", "coach", "settings", "workouts", "exerciseLibrary", "home")) {
@@ -539,16 +558,16 @@ class AppFlowsTest {
         compose.onNodeWithTag("home.diary").performTouchInput {
             swipeUp(startY = height * 0.55f, endY = height * 0.15f)
         }
-        val voiceBounds = compose.onNodeWithTag("voiceAssistantButton").fetchSemanticsNode().boundsInRoot
+        val addBounds = compose.onNodeWithTag("home.add").fetchSemanticsNode().boundsInRoot
         val cardBounds = compose.onNodeWithTag("diary.food.${saved.id}", useUnmergedTree = true)
             .assertIsDisplayed().fetchSemanticsNode().boundsInRoot
-        assertTrue("The final meal card can scroll completely above both buttons", cardBounds.bottom <= voiceBounds.top)
+        assertTrue("The final meal card can scroll completely above Log Food", cardBounds.bottom <= addBounds.top)
         val titleBounds = compose.onNodeWithTag("home.mealHeader.${saved.mealType.name}.title").fetchSemanticsNode().boundsInRoot
         val iconBounds = compose.onNodeWithTag("home.mealHeader.${saved.mealType.name}.icon").fetchSemanticsNode().boundsInRoot
         val totalsBounds = compose.onNodeWithTag("home.mealHeader.${saved.mealType.name}.totals").fetchSemanticsNode().boundsInRoot
         assertEquals("Meal totals align with the leading edge of the header", iconBounds.left, totalsBounds.left, 1f)
         assertTrue("Meal totals sit below the title", totalsBounds.top >= titleBounds.bottom)
-        assertTrue("Meal totals stay clear of the pinned dock", totalsBounds.bottom <= voiceBounds.top)
+        assertTrue("Meal totals stay clear of the pinned dock", totalsBounds.bottom <= addBounds.top)
 
         activity!!.recreate()
         waitForHome()

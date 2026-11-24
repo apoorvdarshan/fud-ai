@@ -75,12 +75,13 @@ struct PinkNeoRailItem: Identifiable {
     let icon: String
     var selected = false
     var badge = false
+    var accessibilityTitle: Text? = nil
     let action: () -> Void
 }
 
 struct PinkNeoRail: View {
     let items: [PinkNeoRailItem]
-    let onCamera: () -> Void
+    let voiceShortcut: PinkNeoRailItem?
     private var appearance = PinkNeoAppearance()
     @Environment(\.dynamicTypeSize) private var typeSize
     @ScaledMetric(relativeTo: .caption2) private var railWidth = 64.0
@@ -108,12 +109,10 @@ struct PinkNeoRail: View {
                 }
             }
             .scrollIndicators(.hidden)
-            Rectangle().fill(palette.rule).frame(height: 1).accessibilityHidden(true)
-            railButton(
-                PinkNeoRailItem(id: "nav.camera", title: Text("Camera"), icon: "camera", action: onCamera),
-                palette: palette,
-                outlined: true
-            )
+            if let voiceShortcut {
+                Rectangle().fill(palette.rule).frame(height: 1).accessibilityHidden(true)
+                railButton(voiceShortcut, palette: palette, outlined: true)
+            }
         }
         .padding(4)
         .frame(width: min(railWidth, 76))
@@ -160,7 +159,7 @@ struct PinkNeoRail: View {
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
-        .accessibilityLabel(item.title)
+        .accessibilityLabel(item.accessibilityTitle ?? item.title)
         .accessibilityValue(item.badge ? Text("Update Available") : Text(verbatim: ""))
         .accessibilityAddTraits(item.selected ? .isSelected : [])
         .accessibilityIdentifier(item.id)

@@ -27,10 +27,10 @@ import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AutoAwesome
-import androidx.compose.material.icons.filled.CameraAlt
 import androidx.compose.material.icons.filled.EmojiEvents
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FitnessCenter
+import androidx.compose.material.icons.filled.GraphicEq
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.ShowChart
 import androidx.compose.material.icons.filled.SportsGymnastics
@@ -84,7 +84,7 @@ val BottomNavDockedControlPadding = 8.dp
 internal fun PinkNeoRail(
     currentRoute: String?,
     onTap: (String) -> Unit,
-    onCamera: () -> Unit,
+    onVoice: (() -> Unit)? = null,
     modifier: Modifier = Modifier,
     showAboutBadge: Boolean = false,
     hiddenRoutes: Set<String> = emptySet(),
@@ -165,18 +165,21 @@ internal fun PinkNeoRail(
                 )
             }
         }
-        HorizontalDivider(color = palette.rule)
-        val camera = stringResource(R.string.home_menu_camera)
-        RailControl(
-            title = camera, icon = Icons.Filled.CameraAlt, color = palette.ink, showText = showText,
-            modifier = Modifier
-                .testTag("nav.camera")
-                .clip(itemShape)
-                .background(palette.panel)
-                .border(1.dp, palette.rule, itemShape)
-                .clickable(enabled = navigationEnabled, role = Role.Button, onClick = onCamera)
-                .semantics { contentDescription = camera }
-        )
+        if (onVoice != null) {
+            HorizontalDivider(color = palette.rule)
+            val voiceLabel = stringResource(R.string.voice_talk_to_fud_ai)
+            RailControl(
+                title = stringResource(R.string.nav_live_voice),
+                icon = Icons.Filled.GraphicEq, color = palette.ink, showText = showText,
+                modifier = Modifier
+                    .testTag("nav.voice")
+                    .clip(itemShape)
+                    .background(palette.panel)
+                    .border(1.dp, palette.rule, itemShape)
+                    .clickable(enabled = navigationEnabled, role = Role.Button, onClick = onVoice)
+                    .semantics { contentDescription = voiceLabel }
+            )
+        }
     }
 }
 

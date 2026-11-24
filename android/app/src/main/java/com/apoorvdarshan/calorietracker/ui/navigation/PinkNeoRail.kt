@@ -160,7 +160,6 @@ internal fun PinkNeoRail(
                     modifier = Modifier
                         .testTag("nav.upgrade")
                         .clip(itemShape)
-                        .border(1.dp, palette.rule, itemShape)
                         .clickable(enabled = navigationEnabled, role = Role.Button, onClick = onUpgrade)
                         .semantics { contentDescription = label }
                 )

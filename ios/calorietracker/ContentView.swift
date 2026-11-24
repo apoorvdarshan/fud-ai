@@ -382,7 +382,7 @@ struct ContentView: View {
         }
         if aiMode == .byok, billing.hasLoadedCustomerInfo, !billing.hasHostedEntitlement {
             items.append(PinkNeoRailItem(
-                id: "nav.upgrade", title: Text(verbatim: "Plus / Pro"), icon: "sparkle", outlined: true
+                id: "nav.upgrade", title: Text(verbatim: "Plus / Pro"), icon: "sparkle"
             ) {
                 AppHaptics.selection()
                 showRailPaywall = true

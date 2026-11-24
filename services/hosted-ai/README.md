@@ -24,6 +24,18 @@ Only RevenueCat **anonymous** ids are accepted. They carry 122 random bits (a UU
 
 There is **no shared client secret**. The previous `FUD_HOSTED_AI_APP_SECRET` was embedded in the public iOS source and is treated as compromised: the Worker no longer reads it, and the value should be deleted from the Worker (`npx wrangler secret delete FUD_HOSTED_AI_APP_SECRET`). The `Authorization` and `X-Fud-Plan` headers sent by older builds are ignored.
 
+## Model pins and allowances
+
+- Generation and Coach use `gemini-3.5-flash-lite`; Live defaults to `gemini-3.8-live`.
+- Recorded dictation defaults to `nova-2`. Set `HOSTED_AI_TRANSCRIBE_MODEL=nova-3`
+  in a staging Worker to compare it. A fixed `language` is passed through;
+  omitting it requests Deepgram detection, not English. Each app request makes
+  at most one billed Deepgram request. The client cannot select a model.
+- Paid Plus/Pro receive 30/60 actions per UTC day and 20/100 voice minutes per
+  UTC calendar month. Active trials receive 20 actions per UTC day and 2/5
+  voice minutes per UTC day. Credits can extend those allowances for entitled
+  users; they do not grant access without an entitlement.
+
 ## Security model
 
 1. **Server-side entitlement verification.** The Worker calls `GET https://api.revenuecat.com/v1/subscribers/{app_user_id}` with a RevenueCat **secret** API key held only in Worker env, derives the plan (`pro` > `plus` > `none`), and caches the result in D1 for 15 min (2 min for `none`). If RevenueCat is unreachable, a previously verified plan is honoured for up to 24 h. A client cannot assert its own plan.
@@ -171,6 +183,7 @@ Set on the `fud-ai` worker (Dashboard → Workers → fud-ai → Settings → Va
 | `GEMINI_API_KEY` | Google AI Studio key for Flash-Lite and for the voice relay (Gemini Live, sent in the `x-goog-api-key` header) | Production time |
 | `DEEPGRAM_API_KEY` | Deepgram API key for hosted voice STT | Production time |
 | `HOSTED_AI_LIVE_MODEL` | *Optional plain variable, not a secret.* Gemini Live model the voice relay pins, without the `models/` prefix; defaults to `gemini-3.8-live`. Set it under `[vars]` in `web/wrangler.toml` (a dashboard-only value is wiped by the next deploy). A malformed value makes `/live` answer 503 `voice_unavailable`. | Only to change the model |
+| `HOSTED_AI_TRANSCRIBE_MODEL` | *Optional plain variable, not a secret.* `nova-2` (default) or `nova-3`. Anything else fails before the request is charged. Compare WAV/m4a, fixed language, Automatic, latency and metering on staging before promoting `nova-3`. | Only to change recorded dictation |
 
 ```bash
 cd web
@@ -184,7 +197,7 @@ Until the provider keys are set, the proxy responds `503 gemini_not_configured` 
 
 ## Deploy checklist
 
-1. Apply the D1 migrations to the `fud-ai-challenge` database (the hosted ledger shares it) **before** deploying the Worker. The current Worker reads the voice columns from `0004_hosted_ai_voice.sql` on every hosted request and needs the receipts table from `0005_hosted_ai_voice_spends.sql` to charge live sessions. Apply both before deployment; they are additive, so the previous Worker keeps working once they are applied.
+1. Apply the D1 migrations to the `fud-ai-challenge` database (the hosted ledger shares it) **before** deploying the Worker. Apply `0004_hosted_ai_voice.sql` for voice columns, `0005_hosted_ai_voice_spends.sql` for voice receipts, and `0006_hosted_ai_trials.sql` for the `trial_expires_at` allowance data. These migrations are additive.
 
    ```bash
    cd web

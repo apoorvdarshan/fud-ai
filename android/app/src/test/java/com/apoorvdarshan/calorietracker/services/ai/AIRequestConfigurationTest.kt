@@ -16,14 +16,21 @@ import org.junit.Test
 
 class AIRequestConfigurationTest {
     @Test
+    fun optionalRecordedModelsDoNotChangeExistingDefaults() {
+        assertEquals("whisper-large-v3", SpeechProvider.GROQ.recordedModelOrDefault(null))
+        assertEquals("whisper-large-v3-turbo", SpeechProvider.GROQ.recordedModelOrDefault("whisper-large-v3-turbo"))
+        assertEquals("voxtral-small-transcribe-3-0", SpeechProvider.MISTRAL.recordedModelOrDefault("voxtral-small-transcribe-3-0"))
+        assertEquals("voxtral-mini-transcribe-3-0", SpeechProvider.MISTRAL.recordedModelOrDefault("foreign-model"))
+    }
+
+    @Test
     fun modelPresetsAndDefaultsMatchIosRegistryOrder() {
         val registries = linkedMapOf(
             AIProvider.GEMINI to listOf(
                 "gemini-3.5-flash-lite",
                 "gemini-3.8-flash",
-                "gemini-3.7-flash",
                 "gemini-3.6-flash",
-                "gemini-3.5-flash",
+                "gemini-4-hydrogen", "gemini-4-neon", "gemini-4-argon", "gemini-4-carbon",
                 "gemini-flash-latest",
                 "gemini-flash-lite-latest",
                 "gemini-3.1-pro-preview"
@@ -32,23 +39,21 @@ class AIRequestConfigurationTest {
                 "gpt-5.4-mini",
                 "gpt-6-luna",
                 "gpt-6-sol",
+                "gpt-6.1-terra", "gpt-6.2-sol", "gpt-6.2-astra",
                 "gpt-5.6-sol",
                 "gpt-5.6-terra",
                 "gpt-5.6-luna",
-                "gpt-5.5",
-                "gpt-5.4-nano",
-                "gpt-4.1",
-                "gpt-4.1-mini",
-                "gpt-4o-mini"
+                "gpt-5.5"
             ),
             AIProvider.ANTHROPIC to listOf(
                 "claude-sonnet-5",
+                "claude-sonnet-5-5", "claude-haiku-5-5", "claude-opus-5-5",
                 "claude-opus-5",
                 "claude-fable-5",
                 "claude-opus-4-8",
                 "claude-haiku-4-5"
             ),
-            AIProvider.XAI to listOf("grok-4.6", "grok-4.3"),
+            AIProvider.XAI to listOf("grok-4.6", "grok-4.3", "grok-4.7"),
             AIProvider.OPENROUTER to listOf(
                 "openrouter/free",
                 "google/gemini-3.5-flash-lite",
@@ -58,14 +63,12 @@ class AIRequestConfigurationTest {
                 "qwen/qwen3.8-27b",
                 "openai/gpt-5-mini",
                 "anthropic/claude-sonnet-5",
-                "qwen/qwen3-vl-8b-instruct"
+                "qwen/qwen3-vl-8b-instruct", "deepseek/deepseek-v4.1-flash"
             ),
             AIProvider.TOGETHER_AI to listOf(
                 "Qwen/Qwen3.5-9B",
                 "moonshotai/Kimi-K3",
-                "Qwen/Qwen3.8-2.4T-A95B",
-                "google/gemma-4-31B-it",
-                "MiniMaxAI/MiniMax-M3"
+                "moonshotai/Kimi-K3.1-Pro"
             ),
             AIProvider.GROQ to listOf("qwen/qwen3.8-27b"),
             AIProvider.HUGGING_FACE to listOf(
@@ -76,11 +79,9 @@ class AIRequestConfigurationTest {
                 "Qwen/Qwen3.5-9B"
             ),
             AIProvider.FIREWORKS to listOf(
-                "accounts/fireworks/models/qwen3p7-plus",
                 "accounts/fireworks/models/kimi-k3",
-                "accounts/fireworks/models/muse-glimmer-30b",
-                "accounts/fireworks/models/minimax-m3",
-                "accounts/fireworks/models/kimi-k2p6"
+                "accounts/fireworks/models/minimax-m3p1-flash",
+                "accounts/fireworks/models/kimi-k3p1-pro"
             ),
             AIProvider.DEEP_INFRA to listOf(
                 "google/gemma-3-27b-it",
@@ -91,21 +92,24 @@ class AIRequestConfigurationTest {
             ),
             AIProvider.MISTRAL to listOf(
                 "mistral-small-2603",
-                "mistral-medium-3-5",
-                "mistral-large-2512",
-                "ministral-14b-2512"
+                "mistral-large-4-0",
+                "ministral-14b-2512", "ministral-8b-2512"
             ),
+            AIProvider.DEEPSEEK to listOf("deepseek-flash"),
             AIProvider.QWEN to listOf(
                 "qwen3.7-plus",
+                "qwen3.8-flash",
                 "qwen3.8-max",
-                "qwen3-vl-plus"
+                "qwen3-vl-plus", "qwen4-max"
             ),
+            AIProvider.CEREBRAS to listOf("qwen-3.8-27b"),
             AIProvider.LOCAL_GEMMA to listOf("gemma-4-E2B-it"),
             AIProvider.LOCAL_GEMMA_E4B to listOf("gemma-4-E4B-it"),
             AIProvider.OLLAMA to listOf(
                 "qwen3-vl",
                 "qwen3.8",
                 "gemma4",
+                "gemma4:e2b", "qwen3-vl:2b",
                 "llama3.2-vision",
                 "llava",
                 "moondream"
@@ -123,19 +127,22 @@ class AIRequestConfigurationTest {
     @Test
     fun textProvidersExposeCurrentTextOnlyModelsOutsideVisionRegistry() {
         assertEquals(AIProvider.values().toList(), AIProvider.textProviders)
-        assertEquals(false, AIProvider.visionProviders.contains(AIProvider.DEEPSEEK))
-        assertEquals(false, AIProvider.visionProviders.contains(AIProvider.CEREBRAS))
-        assertEquals(listOf("deepseek-v4-flash", "deepseek-v4-pro"), AIProvider.DEEPSEEK.textModels)
-        assertEquals(listOf("gpt-oss-120b", "gemma-4-31b"), AIProvider.CEREBRAS.textModels)
-        assertEquals(listOf("qwen3.8-flash", "qwen3.7-plus", "qwen3.8-max"), AIProvider.QWEN.textModels)
+        assertEquals(listOf("deepseek-flash"), AIProvider.DEEPSEEK.models)
+        assertEquals(listOf("qwen-3.8-27b"), AIProvider.CEREBRAS.models)
+        assertEquals(listOf("deepseek-flash", "deepseek-v4-pro"), AIProvider.DEEPSEEK.textModels)
+        assertEquals(listOf("gpt-oss-120b", "qwen-3.8-27b"), AIProvider.CEREBRAS.textModels)
+        assertEquals(listOf("qwen3.8-flash", "qwen3.7-plus", "qwen3.8-max", "qwen4-max"), AIProvider.QWEN.textModels)
         assertEquals(AIProvider.ApiFormat.OPENAI_COMPATIBLE, AIProvider.QWEN.apiFormat)
         assertEquals("https://dashscope-intl.aliyuncs.com/compatible-mode/v1", AIProvider.QWEN.baseUrl)
         assertEquals(mapOf("enable_thinking" to false), OpenAICompatibleClient.providerOptions(AIProvider.QWEN))
         assertEquals(emptyMap<String, Any>(), OpenAICompatibleClient.providerOptions(AIProvider.OPENAI))
         assertEquals("openai/gpt-oss-20b", AIProvider.GROQ.defaultTextModel)
         assertEquals(true, AIProvider.GROQ.textModels.contains("openai/gpt-oss-120b"))
-        assertEquals(true, AIProvider.TOGETHER_AI.textModels.contains("deepseek-ai/DeepSeek-V4-Pro"))
-        assertEquals("deepseek-v4-flash", AIProvider.DEEPSEEK.supportedTextModelOrDefault("retired-model"))
+        assertEquals("Qwen/Qwen3.5-9B", AIProvider.TOGETHER_AI.defaultTextModel)
+        assertEquals(true, AIProvider.TOGETHER_AI.textModels.contains("deepseek-ai/DeepSeek-V4-Pro-0813"))
+        assertEquals("deepseek-flash", AIProvider.DEEPSEEK.supportedTextModelOrDefault("retired-model"))
+        assertEquals(2, AIProvider.requestImageLimit(AIProvider.CEREBRAS, "qwen-3.8-27b"))
+        assertEquals(null, AIProvider.requestImageLimit(AIProvider.CEREBRAS, "gpt-oss-120b"))
     }
 
     @Test
@@ -144,22 +151,20 @@ class AIRequestConfigurationTest {
             "gemini-3.5-flash-lite",
             AIProvider.upgradedLegacyModel(AIProvider.GEMINI, "gemini-3.1-flash-lite")
         )
-        assertEquals(
-            "google/gemini-3.5-flash-lite",
+        assertNull(
             AIProvider.upgradedLegacyModel(
                 AIProvider.OPENROUTER,
                 "google/gemini-3.1-flash-lite"
             )
         )
-        assertEquals(
-            "Qwen/Qwen3.8-27B",
+        assertNull(
             AIProvider.upgradedLegacyModel(
                 AIProvider.HUGGING_FACE,
                 "Qwen/Qwen2.5-VL-72B-Instruct"
             )
         )
         assertEquals(
-            "mistral-medium-3-5",
+            "mistral-large-4-0",
             AIProvider.upgradedLegacyModel(AIProvider.MISTRAL, "mistral-medium-2604")
         )
         assertEquals(
@@ -225,9 +230,9 @@ class AIRequestConfigurationTest {
             SpeechProvider.GEMINI to "gemini-3.5-transcribe",
             SpeechProvider.OPENAI to "gpt-transcribe",
             SpeechProvider.GROQ to "whisper-large-v3",
-            SpeechProvider.MISTRAL to "voxtral-mini-2602",
+            SpeechProvider.MISTRAL to "voxtral-mini-transcribe-3-0",
             SpeechProvider.DEEPGRAM to "nova-3",
-            SpeechProvider.ASSEMBLY_AI to "universal-3-pro"
+            SpeechProvider.ASSEMBLY_AI to "assemblyai-stt-3-7"
         )
 
         assertEquals(SpeechProvider.values().toList(), defaults.keys.toList())
@@ -290,7 +295,8 @@ class AIRequestConfigurationTest {
         val transcriptionConfig = payload.getValue("generation_config").jsonObject
             .getValue("transcription_config").jsonObject
         assertEquals("hi", transcriptionConfig.getValue("language_codes").jsonArray.first().jsonPrimitive.content)
-        assertEquals("smart", transcriptionConfig.getValue("mode").jsonObject.getValue("type").jsonPrimitive.content)
+        assertEquals("verbatim", transcriptionConfig.getValue("mode").jsonObject.getValue("type").jsonPrimitive.content)
+        assertEquals("false", payload.getValue("store").jsonPrimitive.content)
     }
 
     @Test

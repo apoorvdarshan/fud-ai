@@ -216,7 +216,7 @@
     <string name="ai_key_placeholder_custom">API açarı (və ya endpoint tələb etmirsə hər şey)</string>
 
     <!-- Speech Provider -->
-    <string name="speech_provider_native">Yerli (Cihazda)</string>
+    <string name="speech_provider_native">Sistem nitq tanıma</string>
     <string name="speech_provider_openai">OpenAI GPT-Transcribe</string>
     <string name="speech_provider_groq">Groq (Whisper)</string>
     <string name="speech_provider_mistral">Mistral Voxtral</string>
@@ -230,12 +230,12 @@
     <string name="speech_key_placeholder_deepgram">Token deepgram-açarınız</string>
     <string name="speech_key_placeholder_assemblyai">AssemblyAI açarınız</string>
 
-    <string name="speech_description_native">Android-un cihazda nitq tanıma sistemi. Pulsuz, əksər telefonlarda oflayn işləyir, real vaxtda qismən nəticələr. Tövsiyə olunan defolt.</string>
+    <string name="speech_description_native">Android nitq tanıması nəticələri danışdıqca göstərir. Cihazdan və dildən asılı olaraq internet tələb oluna bilər.</string>
     <string name="speech_description_openai">OpenAI GPT-Transcribe API. Yüksək dəqiqlik, 99+ dil, dəqiqə üzrə ödənişli.</string>
     <string name="speech_description_groq">Groq tərəfindən yerləşdirilən Whisper Large v3. Çox sürətli emal, pulsuz paket var.</string>
-    <string name="speech_description_mistral">Dəqiq çoxdilli paket transkripsiyası üçün Voxtral Mini Transcribe 2.</string>
-    <string name="speech_description_deepgram">Deepgram Nova. Real vaxt və paket rejimləri, sürətli və dəqiq.</string>
-    <string name="speech_description_assemblyai">AssemblyAI Universal modeli. Güclü dəqiqlik, pulsuz paket mövcuddur.</string>
+    <string name="speech_description_mistral">Voxtral Mini Transcribe 3 səs yazısını bir neçə dildə mətnə çevirir.</string>
+    <string name="speech_description_deepgram">Deepgram Nova-3 səs yazısını mətnə çevirir.</string>
+    <string name="speech_description_assemblyai">Daha çox dil üçün Universal-2 ehtiyat modeli ilə AssemblyAI STT 3.7.</string>
 
     <!-- Bottom navigation -->
     <string name="nav_home">Ana Səhifə</string>

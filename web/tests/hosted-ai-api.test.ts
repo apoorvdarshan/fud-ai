@@ -817,6 +817,30 @@ describe("hosted-ai upstream error hygiene", () => {
     expect(response.headers.get("X-Fud-Quota-Daily-Used")).toBe("1");
     const upstream = harness.calls.find((c) => c.url.includes("deepgram"));
     expect(upstream?.url).toContain("language=en");
+    expect(upstream?.url).toContain("model=nova-2");
+    expect(upstream?.url).not.toContain("detect_language");
+  });
+
+  it("supports a server-side Nova-3 canary, detects Automatic, and calls Deepgram once", async () => {
+    const harness = createHarness();
+    harness.env.HOSTED_AI_TRANSCRIBE_MODEL = "nova-3";
+    const response = await call(harness, post("/transcribe", { audio: wavBase64(1), model: "nova-2" }));
+    expect(response.status).toBe(200);
+    const calls = harness.calls.filter((c) => c.url.includes("deepgram"));
+    expect(calls).toHaveLength(1);
+    const params = new URL(calls[0].url).searchParams;
+    expect(params.get("model")).toBe("nova-3");
+    expect(params.get("detect_language")).toBe("true");
+    expect(params.has("language")).toBe(false);
+    expect(response.headers.get("X-Fud-Quota-Daily-Used")).toBe("1");
+  });
+
+  it("rejects an unsupported configured dictation model before calling Deepgram", async () => {
+    const harness = createHarness();
+    harness.env.HOSTED_AI_TRANSCRIBE_MODEL = "not-a-model";
+    const response = await call(harness, post("/transcribe", { audio: wavBase64(1) }));
+    expect(response.status).toBe(503);
+    expect(harness.calls.some((c) => c.url.includes("deepgram"))).toBe(false);
   });
 
   it("rejects unsupported audio mime types and languages", async () => {

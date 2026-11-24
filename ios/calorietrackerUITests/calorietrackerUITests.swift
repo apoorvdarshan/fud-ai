@@ -354,7 +354,7 @@ final class calorietrackerUITests: XCTestCase {
         }
         XCTAssertTrue(providerPicker.waitForExistence(timeout: 3))
         providerPicker.tap()
-        let native = app.staticTexts["Native iOS (On-Device)"]
+        let native = app.staticTexts["System Speech Recognition"]
         XCTAssertTrue(native.waitForExistence(timeout: 3))
         native.tap()
         let source = app.descendants(matching: .any)["settings.localModel.whisper.source"].firstMatch

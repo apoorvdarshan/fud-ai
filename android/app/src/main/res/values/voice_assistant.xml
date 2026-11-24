@@ -120,7 +120,7 @@
     <string name="voice_settings_key_missing">No %1$s API key saved</string>
     <string name="voice_settings_needs_plan">Fud AI voice needs a Plus or Pro plan</string>
     <string name="voice_settings_needs_setup">Subscribe to Plus or Pro, or add a Gemini, OpenAI, xAI or Qwen API key</string>
-    <string name="voice_settings_automatic_footer">Automatic uses the provider selected in AI Providers when it\'s Gemini, OpenAI, xAI or Qwen and its key is saved; otherwise Fud AI with a Plus or Pro plan. Own keys are the ones saved in AI Providers.</string>
+    <string name="voice_settings_automatic_footer">Automatic uses the selected voice-capable AI provider when configured. Otherwise, it uses Fud AI with a Plus or Pro plan.</string>
     <string name="voice_settings_auto_capture">Auto-Capture Photos</string>
     <string name="voice_settings_auto_capture_footer">When the camera is open, the assistant takes the photo as soon as it sees the food. Gemini, Qwen and Fud AI see the camera continuously; OpenAI each time you speak; xAI and GPT-Live can\'t see it.</string>
     <string name="voice_settings_confirm_saves">Confirm Before Saving</string>

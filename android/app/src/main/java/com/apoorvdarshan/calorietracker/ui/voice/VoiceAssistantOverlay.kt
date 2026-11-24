@@ -541,6 +541,11 @@ private fun NoticeView(notice: VoiceNotice, actions: NoticeActions, mascot: Voic
             stringResource(R.string.voice_notice_missing_key_body, providerName(notice.provider)),
             listOf(aiProviders, voiceSettings)
         )
+        VoiceNotice.NeedsQwenSetup -> Triple(
+            stringResource(R.string.voice_qwen_workspace_required),
+            stringResource(R.string.voice_qwen_workspace_help),
+            listOf(voiceSettings, close)
+        )
         VoiceNotice.NeedsSubscription -> Triple(
             stringResource(R.string.voice_notice_subscription_title),
             stringResource(R.string.voice_notice_subscription_body),

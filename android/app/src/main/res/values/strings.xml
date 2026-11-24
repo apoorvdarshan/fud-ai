@@ -213,7 +213,15 @@
     <string name="ai_key_placeholder_custom">API key (or anything if endpoint doesn\'t need one)</string>
 
     <!-- Speech Provider -->
-    <string name="speech_provider_native">Native (On-Device)</string>
+    <string name="speech_provider_native">System Speech Recognition</string>
+    <string name="settings_speech_model">Transcription model</string>
+    <string name="voice_qwen_workspace">Qwen Live workspace ID</string>
+    <string name="voice_qwen_workspace_key">Workspace API key</string>
+    <string name="voice_qwen_workspace_key_saved">A workspace key is saved.</string>
+    <string name="voice_qwen_workspace_required">Set up Qwen Live</string>
+    <string name="voice_qwen_workspace_help">Enter the workspace ID and a key for that workspace in Alibaba Model Studio’s Singapore region. Qwen Live does not use your chat API key.</string>
+    <string name="voice_qwen_workspace_save">Save workspace</string>
+    <string name="voice_qwen_workspace_clear">Clear workspace</string>
     <string name="speech_provider_local_whisper">Whisper Base (On-Device)</string>
     <string name="speech_provider_local_parakeet">Parakeet v3 (On-Device)</string>
     <string name="speech_provider_local_qwen3_asr">Qwen3-ASR 0.6B (On-Device)</string>
@@ -233,16 +241,16 @@
     <string name="speech_key_placeholder_deepgram">Token your-deepgram-key</string>
     <string name="speech_key_placeholder_assemblyai">Your AssemblyAI key</string>
 
-    <string name="speech_description_native">Android\'s on-device speech recognition. Free, works offline on most phones, real-time partial results. Recommended default.</string>
+    <string name="speech_description_native">Android speech recognition with live partial results. It may need a network connection, depending on your device and language.</string>
     <string name="speech_description_local_whisper">Downloaded multilingual Whisper Base. Audio stays on this device and no API key is needed.</string>
     <string name="speech_description_local_parakeet">Transcribes recordings on this device in 25 European languages. Automatically detects the language.</string>
     <string name="speech_description_local_qwen3_asr">Transcribes recordings on this device in 30 languages, including Hindi. Automatically detects the language.</string>
     <string name="speech_description_gemini">Gemini 3.5 Transcribe for accurate batch transcription with automatic language detection.</string>
     <string name="speech_description_openai">OpenAI GPT-Transcribe, the current high-accuracy model for recorded audio.</string>
     <string name="speech_description_groq">Groq-hosted Whisper Large v3. Very fast inference, has a free tier.</string>
-    <string name="speech_description_mistral">Voxtral Mini Transcribe 2 for accurate multilingual batch transcription.</string>
-    <string name="speech_description_deepgram">Deepgram Nova. Real-time and batch modes, fast and accurate.</string>
-    <string name="speech_description_assemblyai">AssemblyAI Universal model. Strong accuracy, free tier available.</string>
+    <string name="speech_description_mistral">Voxtral Mini Transcribe 3 for multilingual transcription after recording.</string>
+    <string name="speech_description_deepgram">Deepgram Nova-3 for transcription after recording.</string>
+    <string name="speech_description_assemblyai">AssemblyAI STT 3.7 with Universal-2 fallback for broader language support.</string>
 
     <!-- Bottom navigation -->
     <string name="nav_home">Home</string>

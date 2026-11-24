@@ -17,14 +17,18 @@ struct VoiceAssistantWireTests {
         ),
     ]
 
-    private static func config(_ provider: LiveProvider, credential: LiveSessionConfig.Credential = .apiKey("secret-key")) -> LiveSessionConfig {
+    private static func config(
+        _ provider: LiveProvider, credential: LiveSessionConfig.Credential = .apiKey("secret-key"),
+        model: String? = nil, qwenWorkspace: String = "llm-demo"
+    ) -> LiveSessionConfig {
         LiveSessionConfig(
             provider: provider,
-            model: provider.defaultModel,
+            model: model ?? provider.defaultModel,
             voice: provider.defaultVoice,
             credential: credential,
             instructions: "Be brief.",
-            tools: tools
+            tools: tools,
+            qwenWorkspace: qwenWorkspace
         )
     }
 
@@ -211,7 +215,7 @@ struct VoiceAssistantWireTests {
         let wire = QwenRealtimeWire()
         let request = wire.request(for: Self.config(.qwen))
         #expect(request.value(forHTTPHeaderField: "Authorization") == "Bearer secret-key")
-        #expect(request.url?.host == "dashscope-intl.aliyuncs.com")
+        #expect(request.url?.host == "llm-demo.ap-southeast-1.maas.aliyuncs.com")
         #expect(request.url?.path == "/api-ws/v1/realtime")
         #expect(request.url?.query == "model=qwen3.8-omni-flash-realtime")
         #expect(!(request.url?.absoluteString.contains("secret-key") ?? true))
@@ -221,7 +225,8 @@ struct VoiceAssistantWireTests {
         let messages = try wire.setupMessages(for: Self.config(.qwen), resumptionHandle: nil).map(Self.json)
         #expect(messages.count == 3)
         let session = try #require(messages[0]["session"] as? [String: Any])
-        #expect(session["voice"] as? String == "Tina")
+        let audioSettings = session["audio"] as? [String: [String: String]]
+        #expect(audioSettings?["output"]?["voice"] == "Tina")
         #expect(session["instructions"] as? String == "Be brief.")
         #expect(session["input_audio_format"] as? String == "pcm")
         #expect(session["modalities"] as? [String] == ["text", "audio"])
@@ -257,6 +262,26 @@ struct VoiceAssistantWireTests {
         ])
         let audio = wire.parse(#"{"type":"response.audio.delta","delta":"AAE="}"#)
         #expect(audio == [.audio(Data([0, 1]), itemID: nil)])
+    }
+
+    @Test func qwenDoesNotAttachAKeyToAnInvalidWorkspace() {
+        for workspace in ["", "example.com", "a/redirect", "host@other.com", "-invalid", String(repeating: "a", count: 64)] {
+            let request = QwenRealtimeWire().request(for: Self.config(.qwen, qwenWorkspace: workspace))
+            #expect(!QwenRealtimeWire.isValidWorkspace(workspace))
+            #expect(request.url?.host == nil)
+            #expect(request.value(forHTTPHeaderField: "Authorization") == nil)
+        }
+    }
+
+    @Test func extendedThinkingRequestUsesNonBlockingToolsOnlyForByok() throws {
+        let model = "gemini-3.8-live-extended-thinking"
+        let setup = GeminiLiveWire.setup(for: Self.config(.gemini, model: model), resumptionHandle: nil)
+        let generation = try #require(setup["generationConfig"] as? [String: Any])
+        #expect((generation["thinkingConfig"] as? [String: String])?["thinkingLevel"] == "LOW")
+        let tools = try #require(setup["tools"] as? [[String: [[String: Any]]]])
+        #expect(tools.first?["functionDeclarations"]?.first?["behavior"] as? String == "NON_BLOCKING")
+        let hosted = GeminiLiveWire.setup(for: Self.config(.hosted, model: model), resumptionHandle: nil)
+        #expect((hosted["generationConfig"] as? [String: Any])?["thinkingConfig"] == nil)
     }
 
     // MARK: GPT-Live

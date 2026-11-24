@@ -714,7 +714,11 @@ private struct VoiceAssistantAccessContent: View {
                     .fixedSize(horizontal: false, vertical: true)
             }
             VStack(spacing: 10) {
-                if case .missingKey = reason {
+                if reason == .needsQwenSetup {
+                    VoiceAssistantPanelButton(title: String(localized: "Set up Qwen Live"), prominent: true, identifier: "voiceAssistant.access.qwenSetup") {
+                        controller.openVoiceSettings()
+                    }
+                } else if case .missingKey = reason {
                     VoiceAssistantPanelButton(title: String(localized: "Add an API Key"), prominent: true, identifier: "voiceAssistant.access.addKey") {
                         controller.openAISettings()
                     }
@@ -750,6 +754,8 @@ private struct VoiceAssistantAccessContent: View {
             String(localized: "Fud AI voice is included with Plus and Pro. Subscribe, or add your own Gemini, OpenAI, xAI or Qwen API key and choose it in Settings → Voice Assistant.")
         case .missingKey(let provider):
             String(localized: "Add your \(provider.displayName) API key in AI settings to talk through \(provider.displayName), or subscribe to Plus or Pro to use Fud AI voice.")
+        case .needsQwenSetup:
+            String(localized: "Add your Singapore workspace ID and workspace API key in Settings → Voice Assistant.")
         }
     }
 }

@@ -216,7 +216,7 @@
     <string name="ai_key_placeholder_custom">API-sleutel (of wat dan ook als endpoint er geen nodig heeft)</string>
 
     <!-- Speech Provider -->
-    <string name="speech_provider_native">Native (op apparaat)</string>
+    <string name="speech_provider_native">Spraakherkenning van het systeem</string>
     <string name="speech_provider_openai">OpenAI GPT-Transcribe</string>
     <string name="speech_provider_groq">Groq (Whisper)</string>
     <string name="speech_provider_mistral">Mistral Voxtral</string>
@@ -230,12 +230,12 @@
     <string name="speech_key_placeholder_deepgram">Token jouw-deepgram-sleutel</string>
     <string name="speech_key_placeholder_assemblyai">Jouw AssemblyAI-sleutel</string>
 
-    <string name="speech_description_native">Spraakherkenning op het apparaat van Android. Gratis, werkt offline op de meeste telefoons, real-time tussentijdse resultaten. Aanbevolen standaard.</string>
+    <string name="speech_description_native">Android-spraakherkenning met live tussentijdse resultaten. Afhankelijk van het apparaat en de taal kan internet nodig zijn.</string>
     <string name="speech_description_openai">OpenAI GPT-Transcribe API. Hoge nauwkeurigheid, 99+ talen, betaald per minuut.</string>
     <string name="speech_description_groq">Door Groq gehoste Whisper Large v3. Zeer snelle inference, heeft een gratis abonnement.</string>
-    <string name="speech_description_mistral">Voxtral Mini Transcribe 2 voor nauwkeurige meertalige batchtranscriptie.</string>
-    <string name="speech_description_deepgram">Deepgram Nova. Real-time en batchmodus, snel en nauwkeurig.</string>
-    <string name="speech_description_assemblyai">AssemblyAI Universal-model. Sterke nauwkeurigheid, gratis abonnement beschikbaar.</string>
+    <string name="speech_description_mistral">Voxtral Mini Transcribe 3 voor transcriptie van opnamen in meerdere talen.</string>
+    <string name="speech_description_deepgram">Deepgram Nova-3 voor transcriptie na de opname.</string>
+    <string name="speech_description_assemblyai">AssemblyAI STT 3.7 met Universal-2 als reserve voor meer talen.</string>
 
     <!-- Bottom navigation -->
     <string name="nav_home">Home</string>

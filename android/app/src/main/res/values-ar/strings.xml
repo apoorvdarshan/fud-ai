@@ -216,7 +216,7 @@
     <string name="ai_key_placeholder_custom">مفتاح API (أو أي شيء إذا لم تكن نقطة النهاية بحاجة إلى مفتاح)</string>
 
     <!-- Speech Provider -->
-    <string name="speech_provider_native">أصلي (على الجهاز)</string>
+    <string name="speech_provider_native">التعرف على الكلام في النظام</string>
     <string name="speech_provider_openai">OpenAI GPT-Transcribe</string>
     <string name="speech_provider_groq">Groq (Whisper)</string>
     <string name="speech_provider_mistral">Mistral Voxtral</string>
@@ -230,12 +230,12 @@
     <string name="speech_key_placeholder_deepgram">Token your-deepgram-key</string>
     <string name="speech_key_placeholder_assemblyai">مفتاح AssemblyAI الخاص بك</string>
 
-    <string name="speech_description_native">التعرف على الكلام على جهاز Android. مجاني، يعمل دون اتصال على معظم الهواتف، ويعرض نتائج جزئية في الوقت الفعلي. الإعداد الافتراضي الموصى به.</string>
+    <string name="speech_description_native">التعرف على الكلام في Android مع نتائج جزئية مباشرة. قد يتطلب اتصالًا بالإنترنت حسب الجهاز واللغة.</string>
     <string name="speech_description_openai">واجهة OpenAI GPT-Transcribe. دقة عالية، يدعم أكثر من 99 لغة، مدفوع لكل دقيقة.</string>
     <string name="speech_description_groq">Whisper Large v3 المستضاف على Groq. استدلال سريع جدًا، ويوفر طبقة مجانية.</string>
-    <string name="speech_description_mistral">Voxtral Mini Transcribe 2 لنسخ دفعي دقيق متعدد اللغات.</string>
-    <string name="speech_description_deepgram">Deepgram Nova. أوضاع فورية ودفعية، سريع ودقيق.</string>
-    <string name="speech_description_assemblyai">نموذج AssemblyAI Universal. دقة قوية، مع توفر طبقة مجانية.</string>
+    <string name="speech_description_mistral">Voxtral Mini Transcribe 3 لنسخ الكلام بعد التسجيل بعدة لغات.</string>
+    <string name="speech_description_deepgram">Deepgram Nova-3 لنسخ الكلام بعد التسجيل.</string>
+    <string name="speech_description_assemblyai">AssemblyAI STT 3.7 مع Universal-2 كخيار احتياطي لدعم لغات أكثر.</string>
 
     <!-- Bottom navigation -->
     <string name="nav_home">الرئيسية</string>

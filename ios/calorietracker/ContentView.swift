@@ -6619,7 +6619,7 @@ struct ProfileView: View {
                         LocalSpeechModelSettingsView(manager: .qwen, onAvailabilityChange: refreshLocalSpeechModels)
 
                         Picker(selection: $selectedSpeechLanguage) {
-                            ForEach(selectedSpeechProvider.localModel == nil ? SpeechLanguage.allCases : [.automatic]) { language in
+                            ForEach(selectedSpeechProvider.languageChoices) { language in
                                 Text(language.displayName).tag(language)
                             }
                         } label: {
@@ -6634,6 +6634,13 @@ struct ProfileView: View {
                         .tint(.secondary)
                         .onChange(of: selectedSpeechLanguage) { _, newLanguage in
                             SpeechSettings.setLanguage(newLanguage, for: selectedSpeechProvider)
+                        }
+
+                        if #available(iOS 26.0, *), selectedSpeechProvider == .appleSpeechAnalyzer {
+                            AppleSpeechAnalyzerAssetRow(language: selectedSpeechLanguage)
+                        }
+                        if selectedSpeechProvider.recordedModelChoices.count > 1 {
+                            RecordedSpeechModelPicker(provider: selectedSpeechProvider).id(selectedSpeechProvider)
                         }
 
                         if selectedSpeechProvider.requiresAPIKey {
@@ -7282,7 +7289,7 @@ struct ProfileView: View {
                 }
 
                 Picker(selection: $selectedSpeechFallbackLanguage) {
-                    ForEach(selectedSpeechFallbackProvider.localModel == nil ? SpeechLanguage.allCases : [.automatic]) { language in
+                    ForEach(selectedSpeechFallbackProvider.languageChoices) { language in
                         Text(language.displayName).tag(language)
                     }
                 } label: {
@@ -7292,6 +7299,13 @@ struct ProfileView: View {
                 .tint(.secondary)
                 .onChange(of: selectedSpeechFallbackLanguage) { _, newLanguage in
                     SpeechSettings.setLanguage(newLanguage, for: selectedSpeechFallbackProvider)
+                }
+
+                if #available(iOS 26.0, *), selectedSpeechFallbackProvider == .appleSpeechAnalyzer {
+                    AppleSpeechAnalyzerAssetRow(language: selectedSpeechFallbackLanguage)
+                }
+                if selectedSpeechFallbackProvider.recordedModelChoices.count > 1 {
+                    RecordedSpeechModelPicker(provider: selectedSpeechFallbackProvider).id(selectedSpeechFallbackProvider)
                 }
 
                 if selectedSpeechFallbackProvider.requiresAPIKey {

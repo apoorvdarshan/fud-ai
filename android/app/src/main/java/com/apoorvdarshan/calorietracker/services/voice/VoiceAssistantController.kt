@@ -48,6 +48,7 @@ sealed interface VoiceNotice {
     /** Automatic found neither a plan nor a key: subscribe, or add a Gemini/OpenAI/xAI key. */
     data object NeedsSetup : VoiceNotice
     data class MissingKey(val provider: LiveProvider) : VoiceNotice
+    data object NeedsQwenSetup : VoiceNotice
     data object NeedsSubscription : VoiceNotice
     data object OutOfMinutes : VoiceNotice
     data object SessionLimit : VoiceNotice
@@ -259,7 +260,7 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
             prefs.choice,
             selectedAiProvider = { container.prefs.selectedAIProvider.first() },
             loadKey = { provider ->
-                withContext(Dispatchers.IO) { provider.aiProvider?.let(container.keyStore::apiKey) }
+                withContext(Dispatchers.IO) { container.keyStore.liveApiKey(provider) }
             },
             hostedEntitled = {
                 val billing = container.billing
@@ -267,13 +268,15 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
                 else (withTimeoutOrNull(ENTITLEMENT_WAIT_MS) {
                     billing.entitlement.first { it.loaded }
                 } ?: billing.entitlement.value).isEntitled
-            }
+            },
+            qwenWorkspaceConfigured = QwenRealtimeWire.isValidWorkspace(prefs.qwenWorkspace)
         )
         if (number != sessionNumber) return
         val access = startup.access
         val provider = when (access) {
             is VoiceAccess.Ready -> access.provider
             is VoiceAccess.MissingKey -> return end(VoiceNotice.MissingKey(access.provider))
+            VoiceAccess.NeedsQwenSetup -> return end(VoiceNotice.NeedsQwenSetup)
             VoiceAccess.NeedsSubscription -> return end(VoiceNotice.NeedsSubscription)
             VoiceAccess.NeedsSetup -> return end(VoiceNotice.NeedsSetup)
         }
@@ -297,7 +300,8 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
             instructions = instructions,
             tools = VoiceToolCatalog.declared(catalog, context.workoutDiaryEnabled),
             apiKey = startup.key,
-            hostedUserId = hostedUserId
+            hostedUserId = hostedUserId,
+            qwenWorkspace = prefs.qwenWorkspace
         )
         val executor = VoiceToolExecutor(ports, catalog, context).also {
             it.onEndConversation = { endAfterSpeech(number) }

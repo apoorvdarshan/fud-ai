@@ -30,11 +30,11 @@ enum class LiveProvider(val storageValue: String) {
     val models: List<String>
         get() = when (this) {
             HOSTED -> listOf(HOSTED_MODEL)
-            GEMINI -> listOf("gemini-3.8-live", "gemini-3.1-flash-live-preview")
+            GEMINI -> listOf("gemini-3.8-live", "gemini-3.8-live-extended-thinking", "gemini-3.1-flash-live-preview")
             OPENAI -> listOf("gpt-realtime-2.1-mini", "gpt-realtime-2.1")
             XAI -> listOf("grok-voice-latest", "grok-voice-3.0")
             QWEN -> listOf("qwen3.8-omni-flash-realtime")
-            GPT_LIVE -> listOf("gpt-live-1")
+            GPT_LIVE -> listOf("gpt-live-1", "gpt-live-1.1")
         }
 
     val defaultModel: String get() = models.first()
@@ -130,6 +130,7 @@ sealed interface VoiceAccess {
     data class Ready(val provider: LiveProvider) : VoiceAccess
     /** An own-key provider was chosen explicitly but its key is not saved. */
     data class MissingKey(val provider: LiveProvider) : VoiceAccess
+    data object NeedsQwenSetup : VoiceAccess
     /** Fud AI hosting was chosen explicitly without a Plus/Pro plan. */
     data object NeedsSubscription : VoiceAccess
     /** Automatic found neither a usable key nor a plan: explain both options. */
@@ -146,20 +147,28 @@ object VoiceProviderResolver {
         choice: VoiceProviderChoice,
         selectedAiProvider: AIProvider,
         hasKey: (LiveProvider) -> Boolean,
-        hostedEntitled: Boolean
+        hostedEntitled: Boolean,
+        qwenWorkspaceConfigured: Boolean = false
     ): VoiceAccess = when (choice) {
         VoiceProviderChoice.HOSTED ->
             if (hostedEntitled) VoiceAccess.Ready(LiveProvider.HOSTED) else VoiceAccess.NeedsSubscription
         VoiceProviderChoice.GEMINI, VoiceProviderChoice.OPENAI, VoiceProviderChoice.XAI, VoiceProviderChoice.QWEN,
         VoiceProviderChoice.GPT_LIVE -> {
             val provider = choice.provider!!
-            if (hasKey(provider)) VoiceAccess.Ready(provider) else VoiceAccess.MissingKey(provider)
+            when {
+                provider == LiveProvider.QWEN && (!qwenWorkspaceConfigured || !hasKey(provider)) ->
+                    VoiceAccess.NeedsQwenSetup
+                hasKey(provider) -> VoiceAccess.Ready(provider)
+                else -> VoiceAccess.MissingKey(provider)
+            }
         }
         VoiceProviderChoice.AUTOMATIC -> {
             val selected = LiveProvider.forAiProvider(selectedAiProvider)
             when {
-                selected != null && hasKey(selected) -> VoiceAccess.Ready(selected)
+                selected != null && hasKey(selected) &&
+                    (selected != LiveProvider.QWEN || qwenWorkspaceConfigured) -> VoiceAccess.Ready(selected)
                 hostedEntitled -> VoiceAccess.Ready(LiveProvider.HOSTED)
+                selected == LiveProvider.QWEN -> VoiceAccess.NeedsQwenSetup
                 else -> VoiceAccess.NeedsSetup
             }
         }
@@ -170,18 +179,21 @@ object VoiceProviderResolver {
         choice: VoiceProviderChoice,
         selectedAiProvider: suspend () -> AIProvider,
         loadKey: suspend (LiveProvider) -> String?,
-        hostedEntitled: suspend () -> Boolean
+        hostedEntitled: suspend () -> Boolean,
+        qwenWorkspaceConfigured: Boolean = false
     ): StartupAccess {
         val automaticProvider = if (choice == VoiceProviderChoice.AUTOMATIC) selectedAiProvider() else null
         val candidate = automaticProvider?.let { LiveProvider.forAiProvider(it) } ?: choice.provider
         val key = candidate?.takeIf(LiveProvider::usesOwnKey)?.let { loadKey(it)?.trim()?.takeIf(String::isNotEmpty) }
         val checkHosted = choice == VoiceProviderChoice.HOSTED ||
-            (choice == VoiceProviderChoice.AUTOMATIC && key == null)
+            (choice == VoiceProviderChoice.AUTOMATIC &&
+                (key == null || (candidate == LiveProvider.QWEN && !qwenWorkspaceConfigured)))
         val access = resolve(
             choice,
             automaticProvider ?: AIProvider.GEMINI,
             { it == candidate && key != null },
-            checkHosted && hostedEntitled()
+            checkHosted && hostedEntitled(),
+            qwenWorkspaceConfigured
         )
         return StartupAccess(access, key)
     }

@@ -216,7 +216,7 @@
     <string name="ai_key_placeholder_custom">Chave de API (ou qualquer coisa se o endpoint não exigir)</string>
 
     <!-- Speech Provider -->
-    <string name="speech_provider_native">Nativo (no dispositivo)</string>
+    <string name="speech_provider_native">Reconhecimento de voz do sistema</string>
     <string name="speech_provider_openai">OpenAI GPT-Transcribe</string>
     <string name="speech_provider_groq">Groq (Whisper)</string>
     <string name="speech_provider_mistral">Mistral Voxtral</string>
@@ -230,12 +230,12 @@
     <string name="speech_key_placeholder_deepgram">Token sua-chave-deepgram</string>
     <string name="speech_key_placeholder_assemblyai">Sua chave AssemblyAI</string>
 
-    <string name="speech_description_native">Reconhecimento de voz no dispositivo do Android. Grátis, funciona offline na maioria dos celulares, com resultados parciais em tempo real. Padrão recomendado.</string>
+    <string name="speech_description_native">Reconhecimento de voz do Android com resultados parciais ao vivo. Pode exigir internet, dependendo do dispositivo e do idioma.</string>
     <string name="speech_description_openai">API do OpenAI GPT-Transcribe. Alta precisão, mais de 99 idiomas, cobrado por minuto.</string>
     <string name="speech_description_groq">Whisper Large v3 hospedado no Groq. Inferência muito rápida, com camada gratuita.</string>
-    <string name="speech_description_mistral">Voxtral Mini Transcribe 2 para transcrição em lote multilíngue precisa.</string>
-    <string name="speech_description_deepgram">Deepgram Nova. Modos em tempo real e em lote, rápido e preciso.</string>
-    <string name="speech_description_assemblyai">Modelo Universal da AssemblyAI. Boa precisão, com camada gratuita disponível.</string>
+    <string name="speech_description_mistral">Voxtral Mini Transcribe 3 para transcrever gravações em vários idiomas.</string>
+    <string name="speech_description_deepgram">Deepgram Nova-3 para transcrição após a gravação.</string>
+    <string name="speech_description_assemblyai">AssemblyAI STT 3.7 com Universal-2 como alternativa para mais idiomas.</string>
 
     <!-- Bottom navigation -->
     <string name="nav_home">Início</string>

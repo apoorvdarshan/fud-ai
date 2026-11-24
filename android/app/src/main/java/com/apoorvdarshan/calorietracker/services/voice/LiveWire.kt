@@ -32,7 +32,8 @@ data class LiveSessionConfig(
     val apiKey: String? = null,
     /** Hosted: the RevenueCat anonymous app user id. */
     val hostedUserId: String? = null,
-    val hostedUrl: String = HostedLiveWire.DEFAULT_URL
+    val hostedUrl: String = HostedLiveWire.DEFAULT_URL,
+    val qwenWorkspace: String = ""
 )
 
 /** A function call from the model. [arguments] is always an object (empty when missing or malformed). */
@@ -169,10 +170,13 @@ open class GeminiLiveWire : LiveWire {
 
     override fun setupMessages(config: LiveSessionConfig, resumptionHandle: String?): List<String> {
         val model = if (config.model.startsWith("models/")) config.model else "models/${config.model}"
+        val extendedThinking = config.provider == LiveProvider.GEMINI &&
+            model == "models/gemini-3.8-live-extended-thinking"
         val setup = buildJsonObject {
             put("model", model)
             putJsonObject("generationConfig") {
                 putJsonArray("responseModalities") { add(JsonPrimitive("AUDIO")) }
+                if (extendedThinking) putJsonObject("thinkingConfig") { put("thinkingLevel", "LOW") }
                 putJsonObject("speechConfig") {
                     putJsonObject("voiceConfig") {
                         putJsonObject("prebuiltVoiceConfig") { put("voiceName", config.voice) }
@@ -182,7 +186,7 @@ open class GeminiLiveWire : LiveWire {
             putJsonObject("systemInstruction") {
                 putJsonArray("parts") { add(buildJsonObject { put("text", config.instructions) }) }
             }
-            if (config.tools.isNotEmpty()) put("tools", VoiceToolCatalog.geminiTools(config.tools))
+            if (config.tools.isNotEmpty()) put("tools", VoiceToolCatalog.geminiTools(config.tools, extendedThinking))
             putJsonObject("inputAudioTranscription") {}
             putJsonObject("outputAudioTranscription") {}
             // Without compression an audio session ends after 15 minutes, and one with
@@ -639,7 +643,14 @@ class XAIVoiceWire : OpenAIRealtimeWire() {
  */
 class QwenRealtimeWire : OpenAIRealtimeWire() {
     override val provider: LiveProvider = LiveProvider.QWEN
-    override val endpoint: String = "https://dashscope-intl.aliyuncs.com/api-ws/v1/realtime"
+
+    override fun request(config: LiveSessionConfig): Request {
+        val workspace = config.qwenWorkspace.trim()
+        require(isValidWorkspace(workspace)) { "Qwen Live requires a Singapore workspace ID." }
+        val url = "https://$workspace.ap-southeast-1.maas.aliyuncs.com/api-ws/v1/realtime"
+            .toHttpUrl().newBuilder().addQueryParameter("model", config.model).build()
+        return Request.Builder().url(url).header("Authorization", "Bearer ${config.apiKey.orEmpty()}").build()
+    }
 
     // Audio replies carry their words as audio transcripts; reading only those keeps
     // captions from doubling if text deltas arrive too.
@@ -651,7 +662,7 @@ class QwenRealtimeWire : OpenAIRealtimeWire() {
     override fun setupMessages(config: LiveSessionConfig, resumptionHandle: String?): List<String> {
         val session = buildJsonObject {
             putJsonArray("modalities") { add("text"); add("audio") }
-            put("voice", config.voice)
+            putJsonObject("audio") { putJsonObject("output") { put("voice", config.voice) } }
             put("instructions", config.instructions)
             put("input_audio_format", "pcm")
             put("output_audio_format", "pcm")
@@ -695,6 +706,9 @@ class QwenRealtimeWire : OpenAIRealtimeWire() {
 
         /** Transcribes what the user says; Model Studio fixes this model for Qwen Omni Realtime. */
         const val TRANSCRIPTION_MODEL = "qwen3-asr-flash-realtime"
+        private val workspaceLabel = Regex("[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?")
+
+        fun isValidWorkspace(value: String): Boolean = workspaceLabel.matches(value.trim())
     }
 }
 

@@ -320,7 +320,8 @@ final class VoiceAssistantController {
             voice: settings.voice(for: provider),
             credential: credential,
             instructions: instructions,
-            tools: VoiceAssistantToolCatalog.declarations(workoutDiaryEnabled: workoutDiary)
+            tools: VoiceAssistantToolCatalog.declarations(workoutDiaryEnabled: workoutDiary),
+            qwenWorkspace: settings.qwenWorkspace
         )
 
         cards.clear()
@@ -883,6 +884,12 @@ final class VoiceAssistantController {
         if isActive { end(.user) }
         presentation = .hidden
         navigator.show(.settings, settingsSection: .aiProviders)
+    }
+
+    func openVoiceSettings() {
+        if isActive { end(.user) }
+        presentation = .hidden
+        navigator.show(.settings, settingsSection: .voiceAssistant)
     }
 
     func openSystemSettings() {

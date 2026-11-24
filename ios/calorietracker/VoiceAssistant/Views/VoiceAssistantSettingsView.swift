@@ -22,6 +22,8 @@ struct VoiceAssistantSettingsView: View {
     @State private var voiceQuota: HostedVoiceQuota?
     @State private var quotaLoaded = false
     @State private var sheet: VoiceAssistantSheet?
+    @State private var qwenWorkspace = VoiceAssistantSettings().qwenWorkspace
+    @State private var qwenKey = ""
 
     private var route: VoiceAssistantRoute {
         _ = revision
@@ -134,10 +136,13 @@ struct VoiceAssistantSettingsView: View {
             }
 
             routeStatus
+            if choice == .qwen || (choice == .automatic && AIProviderSettings.selectedProvider == .qwen) {
+                qwenWorkspaceFields
+            }
         } header: {
             Text("Provider")
         } footer: {
-            Text("Automatic uses the provider selected in AI Providers when it's Gemini, OpenAI, xAI or Qwen and its key is saved; otherwise Fud AI with a Plus or Pro plan. Own keys are the ones saved in AI Providers.")
+            Text("Automatic uses the selected voice-capable AI provider when configured. Otherwise, it uses Fud AI with a Plus or Pro plan. Qwen Live requires its own workspace setup.")
         }
         .listRowBackground(AppColors.appCard)
     }
@@ -166,6 +171,9 @@ struct VoiceAssistantSettingsView: View {
                 }
                 .foregroundStyle(.secondary)
                 addKeyLink
+            case .needsQwenSetup:
+                Label("Set up Qwen Live", systemImage: "key.slash")
+                    .foregroundStyle(.secondary)
             case .needsSubscription:
                 Label {
                     Text("Fud AI voice needs a Plus or Pro plan")
@@ -185,6 +193,45 @@ struct VoiceAssistantSettingsView: View {
                 .foregroundStyle(.secondary)
                 subscribeButton
                 addKeyLink
+            }
+        }
+    }
+
+    private var qwenWorkspaceFields: some View {
+        let workspace = qwenWorkspace.trimmingCharacters(in: .whitespacesAndNewlines)
+        let key = qwenKey.trimmingCharacters(in: .whitespacesAndNewlines)
+        let hasKey = VoiceAssistantSettings.qwenAPIKey?.isEmpty == false
+        return VStack(alignment: .leading, spacing: 8) {
+            Text("Qwen Live uses a workspace and API key from Alibaba Model Studio’s Singapore region.")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+            TextField("Qwen Live workspace ID", text: $qwenWorkspace)
+                .textInputAutocapitalization(.never)
+                .autocorrectionDisabled()
+            SecureField("Workspace API key", text: $qwenKey)
+                .textInputAutocapitalization(.never)
+                .autocorrectionDisabled()
+            if hasKey { Text("A workspace key is saved.").font(.caption) }
+            Button("Save workspace") {
+                preview.stop()
+                if !key.isEmpty { settings.setQwenAPIKey(key) }
+                settings.qwenWorkspace = workspace
+                qwenKey = ""
+                revision += 1
+            }
+            .buttonStyle(.borderless)
+            .disabled(!QwenRealtimeWire.isValidWorkspace(workspace) ||
+                      (key.isEmpty && (!hasKey || workspace != settings.qwenWorkspace)))
+            if hasKey || !settings.qwenWorkspace.isEmpty {
+                Button("Clear workspace", role: .destructive) {
+                    preview.stop()
+                    settings.setQwenAPIKey(nil)
+                    settings.qwenWorkspace = ""
+                    qwenWorkspace = ""
+                    qwenKey = ""
+                    revision += 1
+                }
+                .buttonStyle(.borderless)
             }
         }
     }

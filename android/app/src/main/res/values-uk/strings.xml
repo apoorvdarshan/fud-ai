@@ -183,7 +183,7 @@
     <string name="ai_key_placeholder_custom">Ключ API (або будь-що, якщо кінцевій точці він не потрібен)</string>
 
     <!-- Speech Provider -->
-    <string name="speech_provider_native">Вбудований (на пристрої)</string>
+    <string name="speech_provider_native">Системне розпізнавання мовлення</string>
     <string name="speech_provider_local_whisper">Whisper Base (на пристрої)</string>
     <string name="speech_provider_gemini">Gemini Audio</string>
     <string name="speech_provider_openai">OpenAI Whisper</string>
@@ -201,14 +201,14 @@
     <string name="speech_key_placeholder_deepgram">Токен your-deepgram-key</string>
     <string name="speech_key_placeholder_assemblyai">Ваш ключ AssemblyAI</string>
 
-    <string name="speech_description_native">Розпізнавання мовлення Android на пристрої. Безкоштовне, працює офлайн на більшості телефонів, часткові результати в реальному часі. Рекомендовано за замовчуванням.</string>
+    <string name="speech_description_native">Розпізнавання мовлення Android із проміжними результатами. Залежно від пристрою та мови може знадобитися інтернет.</string>
     <string name="speech_description_local_whisper">Завантажений багатомовний Whisper Base. Аудіо залишається на цьому пристрої, ключ API не потрібен.</string>
     <string name="speech_description_gemini">Транскрибування аудіо через Gemini API. Використовує пакетне розпізнавання аудіо, а не API Google Cloud Speech-to-Text у реальному часі.</string>
     <string name="speech_description_openai">OpenAI Whisper API. Висока точність, понад 99 мов, оплата за хвилину.</string>
     <string name="speech_description_groq">Whisper Large v3, розміщений у Groq. Дуже швидке опрацювання, є безкоштовний тариф.</string>
-    <string name="speech_description_mistral">Voxtral Mini Transcribe 2 для точної багатомовної пакетної транскрипції.</string>
-    <string name="speech_description_deepgram">Deepgram Nova. Підтримує режими реального часу й пакетної обробки; працює швидко й точно.</string>
-    <string name="speech_description_assemblyai">Універсальна модель AssemblyAI. Висока точність, доступний безкоштовний тариф.</string>
+    <string name="speech_description_mistral">Voxtral Mini Transcribe 3 для транскрипції записів кількома мовами.</string>
+    <string name="speech_description_deepgram">Deepgram Nova-3 для транскрипції після запису.</string>
+    <string name="speech_description_assemblyai">AssemblyAI STT 3.7 із резервною моделлю Universal-2 для більшої кількості мов.</string>
 
     <!-- Bottom navigation -->
     <string name="nav_home">Головна</string>

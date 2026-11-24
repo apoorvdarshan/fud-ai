@@ -216,7 +216,7 @@
     <string name="ai_key_placeholder_custom">APIキー（エンドポイントが不要なら任意の文字列）</string>
 
     <!-- Speech Provider -->
-    <string name="speech_provider_native">ネイティブ（オンデバイス）</string>
+    <string name="speech_provider_native">システムの音声認識</string>
     <string name="speech_provider_openai">OpenAI GPT-Transcribe</string>
     <string name="speech_provider_groq">Groq (Whisper)</string>
     <string name="speech_provider_mistral">Mistral Voxtral</string>
@@ -230,12 +230,12 @@
     <string name="speech_key_placeholder_deepgram">Token your-deepgram-key</string>
     <string name="speech_key_placeholder_assemblyai">あなたのAssemblyAIキー</string>
 
-    <string name="speech_description_native">Androidのオンデバイス音声認識。無料で、ほとんどの端末でオフライン動作し、リアルタイムで部分結果を表示します。デフォルトとしておすすめ。</string>
+    <string name="speech_description_native">Androidの音声認識で途中結果を表示します。端末や言語によってはインターネット接続が必要です。</string>
     <string name="speech_description_openai">OpenAI GPT-Transcribe API。高精度で99以上の言語に対応、分単位の有料サービス。</string>
     <string name="speech_description_groq">Groqがホストする Whisper Large v3。非常に高速な推論、無料プランあり。</string>
-    <string name="speech_description_mistral">高精度な多言語の一括文字起こしにVoxtral Mini Transcribe 2を使用します。</string>
-    <string name="speech_description_deepgram">Deepgram Nova。リアルタイムとバッチの両方に対応、高速かつ高精度。</string>
-    <string name="speech_description_assemblyai">AssemblyAI Universal モデル。高い精度、無料プランあり。</string>
+    <string name="speech_description_mistral">Voxtral Mini Transcribe 3で録音後に多言語の文字起こしを行います。</string>
+    <string name="speech_description_deepgram">Deepgram Nova-3で録音後に文字起こしを行います。</string>
+    <string name="speech_description_assemblyai">AssemblyAI STT 3.7を使用し、より多くの言語に対応するためUniversal-2を予備にします。</string>
 
     <!-- Bottom navigation -->
     <string name="nav_home">ホーム</string>

@@ -22,6 +22,9 @@ import com.apoorvdarshan.calorietracker.services.hosted.HostedAiAccess
 import com.apoorvdarshan.calorietracker.services.hosted.HostedAiConstants
 import com.apoorvdarshan.calorietracker.services.ondevice.LocalGemmaRuntime
 import kotlinx.coroutines.flow.first
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.jsonArray
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -202,6 +205,9 @@ class ChatService(
                 val url = "$baseUrl/models/$model:generateContent"
                 val key = apiKey!!
                 runGeminiToolLoop(systemPrompt, history, newUserMessage, tools, imageBytes) { body ->
+                    if (model.startsWith("gemini-4-")) {
+                        body.put("generationConfig", JSONObject().put("thinkingConfig", JSONObject().put("thinkingLevel", "low")))
+                    }
                     RetryPolicy.execute {
                         requestClient.newCall(
                             Request.Builder()
@@ -215,7 +221,14 @@ class ChatService(
                 }
             }
             AIProvider.ApiFormat.ANTHROPIC -> runAnthropicToolLoop(requestClient, baseUrl, model, apiKey!!, systemPrompt, history, newUserMessage, tools, imageBytes, maxTokens)
-            AIProvider.ApiFormat.OPENAI_COMPATIBLE -> runOpenAIToolLoop(requestClient, baseUrl, model, apiKey, systemPrompt, history, newUserMessage, provider, tools, imageBytes, maxTokens)
+            AIProvider.ApiFormat.OPENAI_COMPATIBLE ->
+                if (provider.needsResponsesForTools(model)) runOpenAIResponsesToolLoop(
+                    requestClient, baseUrl, model, checkNotNull(apiKey), systemPrompt, history,
+                    newUserMessage, tools, imageBytes, maxTokens
+                ) else runOpenAIToolLoop(
+                    requestClient, baseUrl, model, apiKey, systemPrompt, history,
+                    newUserMessage, provider, tools, imageBytes, maxTokens
+                )
             AIProvider.ApiFormat.LOCAL -> error("Local inference must be dispatched before network setup.")
         }
     }
@@ -366,7 +379,7 @@ class ChatService(
                     put("tools", toolsArr)
                     put("tool_choice", "auto")
                     put(OpenAICompatibleClient.tokenLimitParameter(provider, model), maxTokens)
-                    OpenAICompatibleClient.applyProviderOptions(this, provider)
+                    OpenAICompatibleClient.applyProviderOptions(this, provider, model)
                     OpenAICompatibleClient.toolReasoningEffort(provider, model)?.let {
                         put("reasoning_effort", it)
                     }
@@ -376,10 +389,11 @@ class ChatService(
                         }
                     }
                 }
+                val requestBody = OpenAICompatibleClient.encodedBody(body, provider)
                 val builder = Request.Builder()
                     .url(url)
                     .addHeader("Content-Type", "application/json")
-                    .post(body.toString().toRequestBody(JSON_MEDIA))
+                    .post(requestBody.toRequestBody(JSON_MEDIA))
                 if (!apiKey.isNullOrEmpty()) builder.addHeader("Authorization", "Bearer $apiKey")
                 if (provider == AIProvider.OPENROUTER) {
                     builder.addHeader("HTTP-Referer", "https://github.com/apoorvdarshan/fud-ai")
@@ -399,7 +413,7 @@ class ChatService(
 
             var (choice, message) = request(compactRetry = false)
             val hasToolCalls = (message.optJSONArray("tool_calls")?.length() ?: 0) > 0
-            val hasContent = message.optString("content").isNotBlank()
+            val hasContent = OpenAICompatibleClient.visibleText(message) != null
             val hasReasoning = message.optString("reasoning").isNotBlank() ||
                 message.optString("reasoning_content").isNotBlank() ||
                 (message.optJSONArray("reasoning_details")?.length() ?: 0) > 0
@@ -432,9 +446,58 @@ class ChatService(
                 }
                 return@repeat
             }
-            val content = message.optString("content")
-            if (content.isNotEmpty()) return content.trim()
-            throw AiError.InvalidResponse
+            return OpenAICompatibleClient.visibleText(message) ?: throw AiError.InvalidResponse
+        }
+        throw AiError.Api("Coach exceeded the tool-call round limit. Try rephrasing your question.")
+    }
+
+    /** OpenAI 6.1/6.2 use flattened Responses tools, not Chat Completions tools. */
+    private suspend fun runOpenAIResponsesToolLoop(
+        requestClient: OkHttpClient,
+        baseUrl: String,
+        model: String,
+        apiKey: String,
+        systemPrompt: String,
+        history: List<ChatMessage>,
+        userMessage: String,
+        tools: CoachTools,
+        imageBytes: ByteArray?,
+        maxTokens: Int
+    ): String {
+        val input = JSONArray()
+        history.forEach { msg ->
+            input.put(JSONObject().put("role", if (msg.role == ChatMessage.Role.USER) "user" else "assistant")
+                .put("content", msg.contextContent))
+        }
+        val userContent = JSONArray().put(JSONObject().put("type", "input_text").put("text", userMessage))
+        imageBytes?.let { jpeg ->
+            userContent.put(JSONObject().put("type", "input_image").put("detail", "auto")
+                .put("image_url", "data:image/jpeg;base64,${Base64.getEncoder().encodeToString(jpeg)}"))
+        }
+        input.put(JSONObject().put("role", "user").put("content", userContent))
+        val declarations = JSONArray()
+        tools.availableToolNames.forEach { name ->
+            declarations.put(JSONObject().put("type", "function").put("name", name)
+                .put("description", CoachTools.TOOL_DESCRIPTIONS[name].orEmpty())
+                .put("strict", false).put("parameters", JSONObject(CoachTools.parameterSchemaFor(name))))
+        }
+        val turnInput = Json.parseToJsonElement(input.toString()).jsonArray.toMutableList()
+        val responseTools = Json.parseToJsonElement(declarations.toString()).jsonArray
+        val seenCalls = mutableSetOf<String>()
+        repeat(MAX_TOOL_ROUNDS) {
+            val body = OpenAIResponsesWire.request(model, systemPrompt, JsonArray(turnInput), responseTools, maxTokens)
+            val request = Request.Builder().url("$baseUrl/responses")
+                .header("Authorization", "Bearer $apiKey")
+                .post(body.toString().toRequestBody(JSON_MEDIA))
+                .build()
+            val raw = RetryPolicy.execute { requestClient.newCall(request) }
+            val turn = OpenAIResponsesWire.decode(raw)
+            if (turn.calls.isEmpty()) return turn.text ?: throw AiError.InvalidResponse
+            if (turn.calls.any { !seenCalls.add(it.id) }) throw AiError.InvalidResponse
+            turnInput.addAll(turn.items)
+            for (call in turn.calls) {
+                turnInput.add(OpenAIResponsesWire.toolOutput(call.id, tools.execute(call.name, JSONObject(call.arguments.toString()))))
+            }
         }
         throw AiError.Api("Coach exceeded the tool-call round limit. Try rephrasing your question.")
     }

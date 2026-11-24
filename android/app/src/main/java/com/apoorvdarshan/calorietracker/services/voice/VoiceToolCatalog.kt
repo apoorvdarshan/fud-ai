@@ -110,7 +110,7 @@ object VoiceToolCatalog {
         (catalog + coachDataTools()).filter { workoutDiaryEnabled || !it.workout }
 
     /** Gemini Live / hosted: `tools: [{functionDeclarations: [...]}]`. */
-    fun geminiTools(tools: List<VoiceToolSpec>): JsonArray = buildJsonArray {
+    fun geminiTools(tools: List<VoiceToolSpec>, nonBlocking: Boolean = false): JsonArray = buildJsonArray {
         add(buildJsonObject {
             put("functionDeclarations", buildJsonArray {
                 tools.forEach { tool ->
@@ -118,6 +118,7 @@ object VoiceToolCatalog {
                         put("name", tool.name)
                         put("description", tool.description)
                         put("parameters", tool.parameters)
+                        if (nonBlocking) put("behavior", "NON_BLOCKING")
                     })
                 }
             })

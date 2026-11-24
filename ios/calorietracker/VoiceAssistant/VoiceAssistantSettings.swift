@@ -34,6 +34,7 @@ nonisolated enum VoiceAssistantAccessReason: Equatable, Sendable {
     case noProvider
     /// The chosen own-key provider has no key saved in AI provider settings.
     case missingKey(LiveProvider)
+    case needsQwenSetup
     /// Fud AI hosting was chosen without a Plus/Pro subscription.
     case needsSubscription
 }
@@ -54,18 +55,24 @@ nonisolated enum VoiceAssistantRouting {
         choice: VoiceAssistantProviderChoice,
         selectedOwnKeyProvider: LiveProvider?,
         providersWithKeys: Set<LiveProvider>,
-        hasHostedEntitlement: Bool
+        hasHostedEntitlement: Bool,
+        qwenWorkspaceConfigured: Bool = false
     ) -> VoiceAssistantRoute {
         switch choice {
         case .automatic:
-            if let selected = selectedOwnKeyProvider, selected != .hosted, providersWithKeys.contains(selected) {
+            if let selected = selectedOwnKeyProvider, selected != .hosted, providersWithKeys.contains(selected),
+               selected != .qwen || qwenWorkspaceConfigured {
                 return .ready(selected)
             }
-            return hasHostedEntitlement ? .ready(.hosted) : .needsAccess(.noProvider)
+            if hasHostedEntitlement { return .ready(.hosted) }
+            return .needsAccess(selectedOwnKeyProvider == .qwen ? .needsQwenSetup : .noProvider)
         case .hosted:
             return hasHostedEntitlement ? .ready(.hosted) : .needsAccess(.needsSubscription)
         case .gemini, .openai, .xai, .qwen, .gptLive:
             let provider = choice.fixedProvider ?? .gemini
+            if provider == .qwen, !qwenWorkspaceConfigured || !providersWithKeys.contains(provider) {
+                return .needsAccess(.needsQwenSetup)
+            }
             return providersWithKeys.contains(provider) ? .ready(provider) : .needsAccess(.missingKey(provider))
         }
     }
@@ -125,6 +132,8 @@ nonisolated struct VoiceAssistantSettings {
     static let autoCaptureKey = "voiceAssistant.autoCapture"
     static let confirmSavesKey = "voiceAssistant.confirmSaves"
     static let saveToCoachKey = "voiceAssistant.saveToCoach"
+    static let qwenWorkspaceKey = "voiceAssistant.qwenWorkspace"
+    private static let qwenCredentialKey = "voiceAssistant.qwenWorkspaceCredential"
 
     static func modelKey(for provider: LiveProvider) -> String {
         "voiceAssistant.model.\(provider.settingsProvider.rawValue)"
@@ -143,6 +152,21 @@ nonisolated struct VoiceAssistantSettings {
     var providerChoice: VoiceAssistantProviderChoice {
         get { defaults.string(forKey: Self.providerKey).flatMap(VoiceAssistantProviderChoice.init(rawValue:)) ?? .automatic }
         nonmutating set { defaults.set(newValue.rawValue, forKey: Self.providerKey) }
+    }
+
+    var qwenWorkspace: String {
+        get { defaults.string(forKey: Self.qwenWorkspaceKey) ?? "" }
+        nonmutating set { defaults.set(newValue.trimmingCharacters(in: .whitespacesAndNewlines), forKey: Self.qwenWorkspaceKey) }
+    }
+
+    static var qwenAPIKey: String? { KeychainHelper.load(key: qwenCredentialKey) }
+
+    func setQwenAPIKey(_ key: String?) {
+        if let key, !key.isEmpty {
+            KeychainHelper.save(key: Self.qwenCredentialKey, value: key)
+        } else {
+            KeychainHelper.delete(key: Self.qwenCredentialKey)
+        }
     }
 
     /// The model an own-key session uses. Hosted sessions use the Worker's model.
@@ -222,6 +246,7 @@ extension LiveProvider {
 
     /// The saved key, trimmed, or nil when none is saved.
     var savedKey: String? {
+        if self == .qwen { return VoiceAssistantSettings.qwenAPIKey }
         guard let keyProvider,
               let key = AIProviderSettings.apiKey(for: keyProvider)?.trimmingCharacters(in: .whitespacesAndNewlines),
               !key.isEmpty else { return nil }
@@ -260,7 +285,8 @@ extension VoiceAssistantRouting {
             choice: choice,
             selectedOwnKeyProvider: selected,
             providersWithKeys: providersWithKeys,
-            hasHostedEntitlement: RevenueCatManager.shared.hasHostedEntitlement
+            hasHostedEntitlement: RevenueCatManager.shared.hasHostedEntitlement,
+            qwenWorkspaceConfigured: QwenRealtimeWire.isValidWorkspace(settings.qwenWorkspace)
         )
     }
 }

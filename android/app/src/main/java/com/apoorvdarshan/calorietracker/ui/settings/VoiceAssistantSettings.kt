@@ -40,6 +40,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import com.apoorvdarshan.calorietracker.ui.components.FlashBottomSheet as ModalBottomSheet
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -69,6 +70,7 @@ import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -81,6 +83,7 @@ import com.apoorvdarshan.calorietracker.models.AppLanguage
 import com.apoorvdarshan.calorietracker.services.hosted.HostedPrompt
 import com.apoorvdarshan.calorietracker.services.hosted.HostedVoiceQuota
 import com.apoorvdarshan.calorietracker.services.voice.LiveProvider
+import com.apoorvdarshan.calorietracker.services.voice.QwenRealtimeWire
 import com.apoorvdarshan.calorietracker.services.voice.VoiceAccess
 import com.apoorvdarshan.calorietracker.services.voice.VoiceAssistantTileService
 import com.apoorvdarshan.calorietracker.services.voice.shownAppLanguage
@@ -153,7 +156,7 @@ internal fun VoiceAssistantSettings(container: AppContainer, onOpenAiProviders: 
     LaunchedEffect(keyEpoch, selectedAi) {
         keys = withContext(Dispatchers.IO) {
             LiveProvider.ownKeyProviders.filter { provider ->
-                provider.aiProvider?.let { container.keyStore.apiKey(it) }?.isNotBlank() == true
+                container.keyStore.liveApiKey(provider)?.isNotBlank() == true
             }.toSet()
         }
     }
@@ -164,7 +167,10 @@ internal fun VoiceAssistantSettings(container: AppContainer, onOpenAiProviders: 
             runCatching { withContext(Dispatchers.IO) { container.hostedAiClient.fetchVoiceQuota() } }.getOrNull()
     }
 
-    val access = VoiceProviderResolver.resolve(prefs.choice, selectedAi, { it in keys }, entitlement.isEntitled)
+    val access = VoiceProviderResolver.resolve(
+        prefs.choice, selectedAi, { it in keys }, entitlement.isEntitled,
+        qwenWorkspaceConfigured = QwenRealtimeWire.isValidWorkspace(prefs.qwenWorkspace)
+    )
     val provider = (access as? VoiceAccess.Ready)?.provider ?: prefs.choice.provider ?: LiveProvider.GEMINI
     // What a session would use: a stored model or voice the provider no longer offers falls back.
     val model = provider.supportedModelOrDefault(prefs.model(provider))
@@ -197,6 +203,26 @@ internal fun VoiceAssistantSettings(container: AppContainer, onOpenAiProviders: 
                 onAddKey = onOpenAiProviders,
                 onSeePlans = { container.hostedUi.show(HostedPrompt.Paywall) }
             )
+            if (prefs.choice == VoiceProviderChoice.QWEN ||
+                (prefs.choice == VoiceProviderChoice.AUTOMATIC && selectedAi == AIProvider.QWEN)
+            ) {
+                HorizontalDivider()
+                QwenWorkspaceFields(prefs.qwenWorkspace, LiveProvider.QWEN in keys, onSave = { workspace, key ->
+                    preview.stop()
+                    scope.launch {
+                        if (key.isNotBlank()) withContext(Dispatchers.IO) { container.keyStore.setQwenLiveApiKey(key) }
+                        container.prefs.setQwenLiveWorkspace(workspace)
+                        keyEpoch++
+                    }
+                }, onClear = {
+                    preview.stop()
+                    scope.launch {
+                        withContext(Dispatchers.IO) { container.keyStore.setQwenLiveApiKey(null) }
+                        container.prefs.setQwenLiveWorkspace("")
+                        keyEpoch++
+                    }
+                })
+            }
             if (provider.usesOwnKey) {
                 HorizontalDivider()
                 SettingRow(stringResource(R.string.voice_settings_model), model, icon = Icons.Outlined.Tune) {
@@ -350,6 +376,41 @@ internal fun VoiceAssistantSettings(container: AppContainer, onOpenAiProviders: 
 }
 
 @Composable
+private fun QwenWorkspaceFields(
+    savedWorkspace: String,
+    hasSavedKey: Boolean,
+    onSave: (String, String) -> Unit,
+    onClear: () -> Unit
+) {
+    var workspace by remember(savedWorkspace) { mutableStateOf(savedWorkspace) }
+    var key by remember { mutableStateOf("") }
+    Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+        Text(stringResource(R.string.voice_qwen_workspace_help), style = MaterialTheme.typography.bodySmall)
+        OutlinedTextField(
+            workspace, { workspace = it }, Modifier.fillMaxWidth(), singleLine = true,
+            label = { Text(stringResource(R.string.voice_qwen_workspace)) },
+            isError = workspace.isNotBlank() && !QwenRealtimeWire.isValidWorkspace(workspace)
+        )
+        OutlinedTextField(
+            key, { key = it }, Modifier.fillMaxWidth(), singleLine = true,
+            label = { Text(stringResource(R.string.voice_qwen_workspace_key)) },
+            visualTransformation = PasswordVisualTransformation()
+        )
+        if (hasSavedKey) Text(stringResource(R.string.voice_qwen_workspace_key_saved))
+        Row {
+            TextButton(
+                onClick = { onSave(workspace, key); key = "" },
+                enabled = QwenRealtimeWire.isValidWorkspace(workspace) &&
+                    (key.isNotBlank() || (hasSavedKey && workspace.trim() == savedWorkspace))
+            ) { Text(stringResource(R.string.voice_qwen_workspace_save)) }
+            if (hasSavedKey || savedWorkspace.isNotBlank()) {
+                TextButton(onClick = { key = ""; onClear() }) { Text(stringResource(R.string.voice_qwen_workspace_clear)) }
+            }
+        }
+    }
+}
+
+@Composable
 private fun AccessRow(access: VoiceAccess, onAddKey: () -> Unit, onSeePlans: () -> Unit) {
     val (text, action, icon) = when (access) {
         is VoiceAccess.Ready -> Triple(stringResource(R.string.voice_settings_using, providerName(access.provider)), null, Icons.Filled.Check)
@@ -357,6 +418,9 @@ private fun AccessRow(access: VoiceAccess, onAddKey: () -> Unit, onSeePlans: () 
             stringResource(R.string.voice_settings_add_key, providerName(access.provider)),
             onAddKey,
             Icons.Outlined.Key
+        )
+        VoiceAccess.NeedsQwenSetup -> Triple(
+            stringResource(R.string.voice_qwen_workspace_required), null, Icons.Outlined.Key
         )
         VoiceAccess.NeedsSubscription -> Triple(stringResource(R.string.voice_settings_needs_plan), onSeePlans, Icons.Outlined.WorkspacePremium)
         VoiceAccess.NeedsSetup -> Triple(stringResource(R.string.voice_settings_needs_setup), onAddKey, Icons.Outlined.Key)

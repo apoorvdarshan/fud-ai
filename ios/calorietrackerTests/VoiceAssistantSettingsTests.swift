@@ -28,7 +28,7 @@ struct VoiceAssistantSettingsTests {
 
     @Test func fixedChoicesNeedTheirKeyOrPlan() {
         func route(_ choice: VoiceAssistantProviderChoice, keys: Set<LiveProvider>, hosted: Bool) -> VoiceAssistantRoute {
-            VoiceAssistantRouting.resolve(choice: choice, selectedOwnKeyProvider: .gemini, providersWithKeys: keys, hasHostedEntitlement: hosted)
+            VoiceAssistantRouting.resolve(choice: choice, selectedOwnKeyProvider: .gemini, providersWithKeys: keys, hasHostedEntitlement: hosted, qwenWorkspaceConfigured: true)
         }
         #expect(route(.hosted, keys: [.gemini], hosted: true) == .ready(.hosted))
         #expect(route(.hosted, keys: [.gemini], hosted: false) == .needsAccess(.needsSubscription))
@@ -36,7 +36,9 @@ struct VoiceAssistantSettingsTests {
         #expect(route(.openai, keys: [.gemini], hosted: true) == .needsAccess(.missingKey(.openai)))
         #expect(route(.xai, keys: [.xai], hosted: true) == .ready(.xai))
         #expect(route(.qwen, keys: [.qwen], hosted: false) == .ready(.qwen))
-        #expect(route(.qwen, keys: [.gemini], hosted: true) == .needsAccess(.missingKey(.qwen)))
+        #expect(route(.qwen, keys: [.gemini], hosted: true) == .needsAccess(.needsQwenSetup))
+        #expect(VoiceAssistantRouting.resolve(choice: .qwen, selectedOwnKeyProvider: nil,
+            providersWithKeys: [.qwen], hasHostedEntitlement: false) == .needsAccess(.needsQwenSetup))
         #expect(LiveProvider(aiProvider: .qwen) == .qwen)
         #expect(LiveProvider.qwen.keyProvider == .qwen)
         // GPT-Live uses the OpenAI key; Automatic keeps OpenAI on its realtime models.
@@ -113,7 +115,7 @@ struct VoiceAssistantSettingsTests {
     }
 
     @Test func builtInModelsAndVoicesMatchTheContract() {
-        #expect(LiveProvider.gemini.models == ["gemini-3.8-live", "gemini-3.1-flash-live-preview"])
+        #expect(LiveProvider.gemini.models == ["gemini-3.8-live", "gemini-3.8-live-extended-thinking", "gemini-3.1-flash-live-preview"])
         #expect(LiveProvider.openai.models == ["gpt-realtime-2.1-mini", "gpt-realtime-2.1"])
         #expect(LiveProvider.xai.models == ["grok-voice-latest", "grok-voice-3.0"])
         #expect(LiveProvider.gemini.voices.count == 12)
@@ -122,7 +124,7 @@ struct VoiceAssistantSettingsTests {
         #expect(LiveProvider.qwen.models == ["qwen3.8-omni-flash-realtime"])
         #expect(LiveProvider.qwen.defaultVoice == "Tina")
         #expect(LiveProvider.qwen.voices.count == 10)
-        #expect(LiveProvider.gptLive.models == ["gpt-live-1"])
+        #expect(LiveProvider.gptLive.models == ["gpt-live-1", "gpt-live-1.1"])
         #expect(LiveProvider.gptLive.defaultVoice == "quartz")
         #expect(LiveProvider.hosted.voices == LiveProvider.gemini.voices)
     }

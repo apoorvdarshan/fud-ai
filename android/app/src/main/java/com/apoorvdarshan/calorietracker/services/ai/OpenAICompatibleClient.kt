@@ -70,7 +70,7 @@ object OpenAICompatibleClient {
                         .put("model", model)
                         .put("messages", JSONArray().put(JSONObject().put("role", "user").put("content", content)))
                         .put(tokenLimitParameter(provider, model), maxTokens)
-                    applyProviderOptions(body, provider)
+                    applyProviderOptions(body, provider, model)
                     if (provider == AIProvider.OPENROUTER) {
                         body.put(
                             "reasoning",
@@ -81,7 +81,7 @@ object OpenAICompatibleClient {
                     val builder = Request.Builder()
                         .url(url)
                         .addHeader("Content-Type", "application/json")
-                        .post(body.toString().toRequestBody(jsonMedia))
+                        .post(encodedBody(body, provider).toRequestBody(jsonMedia))
                     if (!apiKey.isNullOrEmpty()) builder.addHeader("Authorization", "Bearer $apiKey")
                     if (provider == AIProvider.OPENROUTER) {
                         builder.addHeader("HTTP-Referer", "https://github.com/apoorvdarshan/fud-ai")
@@ -131,12 +131,12 @@ object OpenAICompatibleClient {
             .put("model", model)
             .put("messages", messages)
             .put(tokenLimitParameter(provider, model), maxTokens)
-        applyProviderOptions(body, provider)
+        applyProviderOptions(body, provider, model)
 
         val builder = Request.Builder()
             .url(url)
             .addHeader("Content-Type", "application/json")
-            .post(body.toString().toRequestBody(jsonMedia))
+            .post(encodedBody(body, provider).toRequestBody(jsonMedia))
         if (!apiKey.isNullOrEmpty()) builder.addHeader("Authorization", "Bearer $apiKey")
         if (provider == AIProvider.OPENROUTER) {
             builder.addHeader("HTTP-Referer", "https://github.com/apoorvdarshan/fud-ai")
@@ -154,12 +154,42 @@ object OpenAICompatibleClient {
      * Qwen's hybrid models think by default, which slows replies and is refused for
      * non-streaming requests, so their requests turn it off. Mirrors iOS.
      */
-    fun providerOptions(provider: AIProvider): Map<String, Any> =
-        if (provider == AIProvider.QWEN) mapOf("enable_thinking" to false) else emptyMap()
+    fun providerOptions(provider: AIProvider, model: String = ""): Map<String, Any> = when {
+        provider == AIProvider.QWEN -> mapOf("enable_thinking" to false)
+        provider == AIProvider.DEEPSEEK -> mapOf("thinking" to JSONObject().put("type", "disabled"))
+        provider == AIProvider.MISTRAL && model == "mistral-large-4-0" -> mapOf("reasoning_effort" to "low")
+        provider == AIProvider.XAI && model == "grok-4.7" -> mapOf("reasoning_effort" to "low")
+        provider == AIProvider.OPENAI && model == "gpt-6-luna" -> mapOf("reasoning_effort" to "none")
+        provider == AIProvider.OPENAI && provider.needsResponsesForTools(model) -> mapOf("reasoning_effort" to "low")
+        else -> emptyMap()
+    }
 
-    fun applyProviderOptions(body: JSONObject, provider: AIProvider): JSONObject {
-        providerOptions(provider).forEach { (key, value) -> body.put(key, value) }
+    fun applyProviderOptions(body: JSONObject, provider: AIProvider, model: String = ""): JSONObject {
+        providerOptions(provider, model).forEach { (key, value) -> body.put(key, value) }
         return body
+    }
+
+    internal fun encodedBody(body: JSONObject, provider: AIProvider): String {
+        val encoded = body.toString()
+        val limit = when (provider) {
+            AIProvider.CEREBRAS -> 10 * 1024 * 1024
+            AIProvider.DEEPSEEK -> 48 * 1024 * 1024
+            else -> return encoded
+        }
+        if (encoded.toByteArray(Charsets.UTF_8).size > limit) {
+            throw AiError.Api("The AI request is too large for this provider. Try fewer or smaller photos.")
+        }
+        return encoded
+    }
+
+    /** Mistral may return an array containing both user-visible text and thinking blocks. */
+    internal fun visibleText(message: JSONObject): String? = when (val content = message.opt("content")) {
+        is String -> content.trim().takeIf { it.isNotEmpty() }
+        is JSONArray -> (0 until content.length()).mapNotNull { index ->
+            content.optJSONObject(index)?.takeIf { it.optString("type", "text") in setOf("text", "output_text") }
+                ?.optString("text")?.trim()?.takeIf { it.isNotEmpty() }
+        }.joinToString("\n").takeIf { it.isNotEmpty() }
+        else -> null
     }
 
     fun tokenLimitParameter(provider: AIProvider, model: String): String {
@@ -223,7 +253,11 @@ internal object OpenAIResponseParser {
         val text = when (val content = message["content"]) {
             is JsonPrimitive -> content.contentOrNull?.trim()?.takeIf { it.isNotEmpty() }
             is JsonArray -> content.mapNotNull { element ->
-                runCatching { element.jsonObject["text"]?.jsonPrimitive?.contentOrNull }
+                runCatching {
+                    val block = element.jsonObject
+                    val type = block["type"]?.jsonPrimitive?.contentOrNull ?: "text"
+                    if (type == "text" || type == "output_text") block["text"]?.jsonPrimitive?.contentOrNull else null
+                }
                     .getOrNull()?.trim()?.takeIf { it.isNotEmpty() }
             }.joinToString("\n").takeIf { it.isNotEmpty() }
             else -> null

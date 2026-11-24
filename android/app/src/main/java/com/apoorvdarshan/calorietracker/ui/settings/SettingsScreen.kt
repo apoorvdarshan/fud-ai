@@ -266,7 +266,7 @@ private enum class SettingsSheet {
     TEXT_PROVIDER, TEXT_MODEL, TEXT_KEY, TEXT_BASE_URL,
     TEXT_FALLBACK_PROVIDER, TEXT_FALLBACK_MODEL, TEXT_FALLBACK_KEY, TEXT_FALLBACK_BASE_URL,
     FALLBACK_PROVIDER, FALLBACK_MODEL, FALLBACK_KEY, FALLBACK_BASE_URL,
-    SPEECH_FALLBACK_PROVIDER, SPEECH_FALLBACK_LANGUAGE, SPEECH_FALLBACK_KEY,
+    SPEECH_FALLBACK_PROVIDER, SPEECH_FALLBACK_LANGUAGE, SPEECH_FALLBACK_KEY, SPEECH_MODEL, SPEECH_FALLBACK_MODEL,
     GENDER, BIRTHDAY, HEIGHT, WEIGHT, BODY_FAT, GOAL_BODY_FAT, ACTIVITY, GOAL, GOAL_WEIGHT, GOAL_SPEED,
     CALORIES, PROTEIN, CARBS, FAT, OPTIONAL_NUTRIENTS,
     APP_LANGUAGE, MEAL_TIMES, WATER_GOAL, WATER_UNIT, WATER_QUICK_ADD, FASTING_GOAL
@@ -1592,6 +1592,14 @@ fun SettingsScreen(
                     stringResource(ui.selectedSpeechLanguage.displayNameRes),
                     icon = Icons.Outlined.Language
                 ) { sheet = SettingsSheet.SPEECH_LANGUAGE }
+                if (ui.selectedSpeech.recordedModelChoices.size > 1) {
+                    val model by remember(ui.selectedSpeech) { container.prefs.selectedRecordedSpeechModel(ui.selectedSpeech) }
+                        .collectAsState(initial = ui.selectedSpeech.defaultModel)
+                    HorizontalDivider()
+                    SettingRow(stringResource(R.string.settings_speech_model), model, icon = Icons.Outlined.Tune) {
+                        sheet = SettingsSheet.SPEECH_MODEL
+                    }
+                }
                 if (ui.selectedSpeech.requiresApiKey) {
                     HorizontalDivider()
                     SettingRow(
@@ -1626,6 +1634,15 @@ fun SettingsScreen(
                             stringResource(ui.speechFallbackLanguage.displayNameRes),
                             icon = Icons.Outlined.Language
                         ) { sheet = SettingsSheet.SPEECH_FALLBACK_LANGUAGE }
+                        if (ui.speechFallbackProvider.recordedModelChoices.size > 1) {
+                            val model by remember(ui.speechFallbackProvider) {
+                                container.prefs.selectedRecordedSpeechModel(ui.speechFallbackProvider)
+                            }.collectAsState(initial = ui.speechFallbackProvider.defaultModel)
+                            HorizontalDivider()
+                            SettingRow(stringResource(R.string.settings_speech_model), model, icon = Icons.Outlined.Tune) {
+                                sheet = SettingsSheet.SPEECH_FALLBACK_MODEL
+                            }
+                        }
                         if (ui.speechFallbackProvider.requiresApiKey) {
                             HorizontalDivider()
                             SettingRow(
@@ -3246,6 +3263,18 @@ private fun SettingsSheets(
                         }
                     }
                 )
+                SettingsSheet.SPEECH_MODEL, SettingsSheet.SPEECH_FALLBACK_MODEL -> {
+                    val provider = if (sheet == SettingsSheet.SPEECH_MODEL) ui.selectedSpeech else ui.speechFallbackProvider
+                    val model by remember(provider) { vm.container.prefs.selectedRecordedSpeechModel(provider) }
+                        .collectAsState(initial = provider.defaultModel)
+                    ListSheet(
+                        title = stringResource(R.string.settings_speech_model),
+                        items = provider.recordedModelChoices,
+                        label = { it },
+                        selected = { it == model },
+                        onSelect = { vm.selectRecordedSpeechModel(provider, it); onDismiss() }
+                    )
+                }
                 SettingsSheet.SPEECH_KEY -> ApiKeySheet(
                     title = stringResource(R.string.sheet_speech_api_key_format, stringResource(ui.selectedSpeech.displayNameRes)),
                     placeholder = stringResource(ui.selectedSpeech.apiKeyPlaceholderRes),

@@ -476,6 +476,13 @@ struct ChatService {
     }
 
     private static func callOpenAICompatible(baseURL: String, model: String, apiKey: String?, systemPrompt: String, history: [ChatMessage], newUserMessage: String, imageData: Data?, provider: AIProvider, tools: CoachTools) async throws -> String {
+        if provider.needsResponsesForTools(model) {
+            guard let apiKey else { throw ChatError.invalidResponse }
+            return try await callOpenAIResponses(
+                baseURL: baseURL, model: model, apiKey: apiKey, systemPrompt: systemPrompt,
+                history: history, userMessage: newUserMessage, imageData: imageData, tools: tools
+            )
+        }
         guard let url = URL(string: "\(baseURL)/chat/completions") else {
             throw ChatError.apiError("Invalid API URL.")
         }
@@ -510,7 +517,7 @@ struct ChatService {
                     "tool_choice": "auto",
                 ]
                 body[provider.openAICompatibleTokenLimitKey(for: model)] = AIProviderSettings.maxResponseTokens
-                body.merge(provider.openAICompatibleExtraBody) { current, _ in current }
+                body.merge(provider.openAICompatibleExtraBody(model: model)) { current, _ in current }
                 if let effort = provider.openAICompatibleToolReasoningEffort(for: model) {
                     body["reasoning_effort"] = effort
                 }
@@ -535,7 +542,7 @@ struct ChatService {
 
             var (choice, message) = try await request(compactRetry: false)
             let hasToolCalls = !((message["tool_calls"] as? [[String: Any]]) ?? []).isEmpty
-            let hasContent = !((message["content"] as? String) ?? "").trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+            let hasContent = GeminiService.compatibleVisibleText(message) != nil
             let hasReasoning = !((message["reasoning"] as? String) ?? "").isEmpty
                 || !((message["reasoning_content"] as? String) ?? "").isEmpty
                 || !((message["reasoning_details"] as? [[String: Any]]) ?? []).isEmpty
@@ -567,10 +574,70 @@ struct ChatService {
                 continue
             }
 
-            if let content = message["content"] as? String {
-                return content.trimmingCharacters(in: .whitespacesAndNewlines)
+            if let content = GeminiService.compatibleVisibleText(message) {
+                return content
             }
             throw ChatError.invalidResponse
+        }
+        throw ChatError.apiError("Coach exceeded the tool-call round limit. Try rephrasing your question.")
+    }
+
+    /// Responses uses flattened tool declarations and stateless replay of the
+    /// complete output items, including encrypted reasoning needed by the next round.
+    private static func callOpenAIResponses(
+        baseURL: String, model: String, apiKey: String, systemPrompt: String,
+        history: [ChatMessage], userMessage: String, imageData: Data?, tools: CoachTools
+    ) async throws -> String {
+        guard let url = URL(string: "\(baseURL)/responses") else { throw ChatError.invalidResponse }
+        var input: [[String: Any]] = history.map { ["role": $0.role.rawValue, "content": $0.contextContent] }
+        var userContent: [[String: Any]] = [["type": "input_text", "text": userMessage]]
+        if let imageData {
+            userContent.append([
+                "type": "input_image", "detail": "auto",
+                "image_url": "data:image/jpeg;base64,\(imageData.base64EncodedString())",
+            ])
+        }
+        input.append(["role": "user", "content": userContent])
+        let declarations = openAIToolsArray(for: tools).compactMap { declaration -> [String: Any]? in
+            guard var function = declaration["function"] as? [String: Any] else { return nil }
+            function["type"] = "function"
+            function["strict"] = false
+            return function
+        }
+        var seenCalls = Set<String>()
+        for _ in 0..<maxToolRounds {
+            let body = OpenAIResponsesWire.request(
+                model: model, instructions: systemPrompt, input: input,
+                tools: declarations, maxTokens: AIProviderSettings.maxResponseTokens
+            )
+            let data = try await send(
+                url: url, headers: ["Content-Type": "application/json", "Authorization": "Bearer \(apiKey)"],
+                body: body, provider: .openai
+            )
+            let turn: OpenAIResponsesWire.Turn
+            do {
+                turn = try OpenAIResponsesWire.decode(data)
+            } catch OpenAIResponsesWire.DecodingError.incomplete {
+                throw ChatError.apiError(String(localized: "The AI response was incomplete. Try a shorter question or a different model."))
+            } catch {
+                throw ChatError.invalidResponse
+            }
+            if turn.calls.isEmpty {
+                guard let text = turn.text else { throw ChatError.invalidResponse }
+                return text
+            }
+            input.append(contentsOf: turn.items)
+            let validated = try turn.calls.map { call -> (OpenAIResponsesWire.Call, [String: Any]) in
+                guard seenCalls.insert(call.id).inserted,
+                      let arguments = try? JSONSerialization.jsonObject(with: Data(call.arguments.utf8)) as? [String: Any]
+                else { throw ChatError.invalidResponse }
+                return (call, arguments)
+            }
+            for (call, arguments) in validated {
+                input.append(OpenAIResponsesWire.toolOutput(
+                    callID: call.id, result: tools.execute(name: call.name, arguments: arguments)
+                ))
+            }
         }
         throw ChatError.apiError("Coach exceeded the tool-call round limit. Try rephrasing your question.")
     }
@@ -733,11 +800,14 @@ struct ChatService {
         let toolsObj = geminiToolsObject(for: tools)
 
         for _ in 0..<maxToolRounds {
-            let body: [String: Any] = [
+            var body: [String: Any] = [
                 "systemInstruction": ["parts": [["text": systemPrompt]]],
                 "contents": contents,
                 "tools": [toolsObj],
             ]
+            if model.hasPrefix("gemini-4-") {
+                body["generationConfig"] = ["thinkingConfig": ["thinkingLevel": "low"]]
+            }
             let data = try await send(
                 url: url,
                 headers: ["Content-Type": "application/json", "X-goog-api-key": apiKey],
@@ -968,7 +1038,11 @@ struct ChatService {
             request.timeoutInterval = timeout
         }
         for (k, v) in headers { request.setValue(v, forHTTPHeaderField: k) }
-        request.httpBody = try? JSONSerialization.data(withJSONObject: body)
+        let encoded = try JSONSerialization.data(withJSONObject: body)
+        if let limit = provider.compatibleRequestByteLimit, encoded.count > limit {
+            throw ChatError.apiError(String(localized: "The AI request is too large. Try fewer or smaller photos."))
+        }
+        request.httpBody = encoded
 
         // Retry transient overload responses (503/429/529) with exponential backoff: 1s, 2s, 4s.
         let retryDelaysNs: [UInt64] = [1_000_000_000, 2_000_000_000, 4_000_000_000]

@@ -216,7 +216,7 @@
     <string name="ai_key_placeholder_custom">API 키 (엔드포인트가 키를 요구하지 않으면 아무 값)</string>
 
     <!-- Speech Provider -->
-    <string name="speech_provider_native">기본 (기기 내장)</string>
+    <string name="speech_provider_native">시스템 음성 인식</string>
     <string name="speech_provider_openai">OpenAI GPT-Transcribe</string>
     <string name="speech_provider_groq">Groq (Whisper)</string>
     <string name="speech_provider_mistral">Mistral Voxtral</string>
@@ -230,12 +230,12 @@
     <string name="speech_key_placeholder_deepgram">Token your-deepgram-key</string>
     <string name="speech_key_placeholder_assemblyai">AssemblyAI 키</string>
 
-    <string name="speech_description_native">Android의 기기 내장 음성 인식. 무료이며 대부분의 기기에서 오프라인으로 작동하고 실시간 부분 결과를 제공합니다. 권장 기본값.</string>
+    <string name="speech_description_native">Android 음성 인식이 말하는 중에 결과를 표시합니다. 기기와 언어에 따라 인터넷 연결이 필요할 수 있습니다.</string>
     <string name="speech_description_openai">OpenAI GPT-Transcribe API. 높은 정확도, 99개 이상의 언어 지원, 분당 유료.</string>
     <string name="speech_description_groq">Groq에서 호스팅하는 Whisper Large v3. 매우 빠른 추론, 무료 등급 제공.</string>
-    <string name="speech_description_mistral">정확한 다국어 일괄 전사를 위한 Voxtral Mini Transcribe 2.</string>
-    <string name="speech_description_deepgram">Deepgram Nova. 실시간 및 일괄 모드 지원, 빠르고 정확함.</string>
-    <string name="speech_description_assemblyai">AssemblyAI Universal 모델. 높은 정확도, 무료 등급 제공.</string>
+    <string name="speech_description_mistral">Voxtral Mini Transcribe 3로 녹음 후 여러 언어의 음성을 텍스트로 변환합니다.</string>
+    <string name="speech_description_deepgram">Deepgram Nova-3로 녹음 후 음성을 텍스트로 변환합니다.</string>
+    <string name="speech_description_assemblyai">AssemblyAI STT 3.7을 사용하며 더 많은 언어를 위해 Universal-2를 예비 모델로 둡니다.</string>
 
     <!-- Bottom navigation -->
     <string name="nav_home">홈</string>

@@ -72,10 +72,19 @@ enum class SpeechProvider {
         GEMINI -> "gemini-3.5-transcribe"
         OPENAI -> "gpt-transcribe"
         GROQ -> "whisper-large-v3"
-        MISTRAL -> "voxtral-mini-2602"
+        MISTRAL -> "voxtral-mini-transcribe-3-0"
         DEEPGRAM -> "nova-3"
-        ASSEMBLY_AI -> "universal-3-pro"
+        ASSEMBLY_AI -> "assemblyai-stt-3-7"
     }
+
+    val recordedModelChoices: List<String>
+        get() = when (this) {
+            GROQ -> listOf(defaultModel, "whisper-large-v3-turbo")
+            MISTRAL -> listOf(defaultModel, "voxtral-small-transcribe-3-0")
+            else -> listOf(defaultModel)
+        }
+
+    fun recordedModelOrDefault(raw: String?): String = raw?.takeIf { it in recordedModelChoices } ?: defaultModel
 
     @get:StringRes
     val descriptionRes: Int get() = when (this) {

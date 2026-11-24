@@ -101,6 +101,7 @@ type HostedAIEnv = Pick<
   | "DEEPGRAM_API_KEY"
   | "REVENUECAT_API_KEY"
   | "HOSTED_AI_LIVE_MODEL"
+  | "HOSTED_AI_TRANSCRIBE_MODEL"
   | "CHALLENGE_DB"
   | "HOSTED_AI_USER_RATE_LIMITER"
   | "HOSTED_AI_ADDRESS_RATE_LIMITER"
@@ -639,8 +640,13 @@ async function prepareTranscribe(request: Request, env: HostedAIEnv): Promise<Pr
     throw new HostedAIError(400, "audio_too_long", { maxSeconds: MAX_TRANSCRIBE_AUDIO_SECONDS });
   }
 
-  const params = new URLSearchParams({ model: "nova-2", smart_format: "true" });
+  const model = env.HOSTED_AI_TRANSCRIBE_MODEL ?? "nova-2";
+  if (model !== "nova-2" && model !== "nova-3") {
+    throw new HostedAIError(503, "deepgram_not_configured");
+  }
+  const params = new URLSearchParams({ model, smart_format: "true" });
   if (language) params.set("language", language);
+  else params.set("detect_language", "true");
 
   return {
     execute: async (fetchImpl) => {

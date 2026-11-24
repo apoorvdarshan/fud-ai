@@ -888,6 +888,10 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
         }
     }
 
+    fun selectRecordedSpeechModel(provider: SpeechProvider, model: String) {
+        viewModelScope.launch { container.prefs.setRecordedSpeechModel(provider, model) }
+    }
+
     fun setSpeechApiKey(raw: String) {
         viewModelScope.launch {
             val p = _ui.value.selectedSpeech

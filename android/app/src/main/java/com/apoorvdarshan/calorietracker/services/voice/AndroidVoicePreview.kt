@@ -18,7 +18,7 @@ fun createVoicePreviewController(container: AppContainer): VoicePreviewControlle
             prefs.choice,
             selectedAiProvider = { container.prefs.selectedAIProvider.first() },
             loadKey = { provider ->
-                withContext(Dispatchers.IO) { provider.aiProvider?.let(container.keyStore::apiKey) }
+                withContext(Dispatchers.IO) { container.keyStore.liveApiKey(provider) }
             },
             hostedEntitled = {
                 val billing = container.billing
@@ -26,7 +26,8 @@ fun createVoicePreviewController(container: AppContainer): VoicePreviewControlle
                 else (withTimeoutOrNull(2_000) {
                     billing.entitlement.first { it.loaded }
                 } ?: billing.entitlement.value).isEntitled
-            }
+            },
+            qwenWorkspaceConfigured = QwenRealtimeWire.isValidWorkspace(prefs.qwenWorkspace)
         )
         val provider = (startup.access as? VoiceAccess.Ready)?.provider ?: error("Voice access unavailable")
         val userId = if (provider == LiveProvider.HOSTED) {
@@ -65,6 +66,7 @@ internal fun voicePreviewConfig(
             "Speak only that sample. Do not add an introduction, explanation or follow-up question.",
         tools = emptyList(),
         apiKey = if (provider.usesOwnKey) apiKey else null,
-        hostedUserId = if (provider == LiveProvider.HOSTED) hostedUserId else null
+        hostedUserId = if (provider == LiveProvider.HOSTED) hostedUserId else null,
+        qwenWorkspace = prefs.qwenWorkspace
     )
 }

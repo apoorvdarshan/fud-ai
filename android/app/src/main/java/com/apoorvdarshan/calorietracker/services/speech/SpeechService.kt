@@ -44,7 +44,7 @@ class SpeechService(
         ) {
             return try {
                 hosted.requireEntitlement()
-                val language = prefs.selectedSpeechLanguage(provider).first().remoteLanguageCode()
+                val language = prefs.selectedSpeechLanguage(SpeechProvider.DEEPGRAM).first().remoteLanguageCode()
                 hosted.client.transcribe(audio, mimeType = "audio/wav", language = language)
             } finally {
                 runCatching { audio.delete() }
@@ -95,13 +95,14 @@ class SpeechService(
                 apiKey = apiKey!!,
                 model = provider.defaultModel,
                 audio = audio,
-                languageCode = languageCode
+                languageCode = languageCode,
+                languageField = "languages[]"
             )
             SpeechProvider.GROQ -> WhisperClient.transcribe(
                 client = okHttp,
                 baseUrl = "https://api.groq.com/openai/v1",
                 apiKey = apiKey!!,
-                model = provider.defaultModel,
+                model = prefs.selectedRecordedSpeechModel(provider).first(),
                 audio = audio,
                 languageCode = languageCode
             )
@@ -109,9 +110,9 @@ class SpeechService(
                 client = okHttp,
                 baseUrl = "https://api.mistral.ai/v1",
                 apiKey = apiKey!!,
-                model = provider.defaultModel,
+                model = prefs.selectedRecordedSpeechModel(provider).first(),
                 audio = audio,
-                languageCode = languageCode
+                languageCode = languageCode?.substringBefore('-')?.takeIf { it.length == 2 }
             )
             SpeechProvider.DEEPGRAM -> DeepgramClient.transcribe(
                 client = okHttp,

@@ -24,18 +24,25 @@ Worker (`web/`). Change it here first, then on every platform.
 | OpenAI (own key) | Realtime WebSocket, `Authorization: Bearer` | User |
 | xAI (own key) | Grok Voice realtime WebSocket, `Authorization: Bearer` | User |
 | OpenAI GPT-Live (own OpenAI key) | GPT-Live WebSocket (`wss://api.openai.com/v1/live/sessions`), `Authorization: Bearer`; tools run through Responses delegation to `gpt-6-luna` | User |
-| Qwen (own key) | Qwen Omni Realtime WebSocket (`wss://dashscope-intl.aliyuncs.com/api-ws/v1/realtime`, international region), `Authorization: Bearer` | User |
+| Qwen (own workspace key) | Qwen Omni Realtime WebSocket (`wss://{workspace}.ap-southeast-1.maas.aliyuncs.com/api-ws/v1/realtime`, Singapore), `Authorization: Bearer` | User |
 
 Settings offer **Automatic** (default): the selected own-key provider when its key
 is saved, otherwise Fud AI hosting when subscribed, otherwise an explanation of
-both options (subscribe, or add a Gemini/OpenAI/xAI/Qwen key). Own keys reuse the
-keys already saved in AI provider settings; nothing new is stored.
+both options. Gemini, OpenAI and xAI reuse keys in AI Providers. For Qwen,
+enter the Singapore workspace ID and its matching key in Voice Assistant
+settings. The workspace ID must be one DNS label. The key is stored separately
+in the platform credential store and sent only in the Authorization header.
+Qwen chat uses its own key; it does not configure Qwen Live. An explicitly
+chosen but incomplete Qwen setup never starts a Hosted session.
 
 Built-in models (first is the default): Gemini `gemini-3.8-live`,
-`gemini-3.1-flash-live-preview`; OpenAI `gpt-realtime-2.1-mini`,
+`gemini-3.8-live-extended-thinking`, `gemini-3.1-flash-live-preview`;
+OpenAI `gpt-realtime-2.1-mini`,
 `gpt-realtime-2.1`; xAI `grok-voice-latest`, `grok-voice-3.0`; Qwen
-`qwen3.8-omni-flash-realtime`; GPT-Live `gpt-live-1`. Hosted sessions
-always use the Worker's model.
+`qwen3.8-omni-flash-realtime`; GPT-Live `gpt-live-1`, `gpt-live-1.1`. Extended
+Thinking sends low thinking and non-blocking tools on the BYOK route only.
+Hosted sessions always use the Worker's model. GPT-Live 1.1 is opt-in and does
+not add camera or change the delegated tool model.
 
 Voices: Gemini Kore (default), Puck, Charon, Fenrir, Aoede, Leda, Orus, Zephyr,
 Sulafat, Achird, Despina, Gacrux; OpenAI marin (default), cedar, coral, sage,

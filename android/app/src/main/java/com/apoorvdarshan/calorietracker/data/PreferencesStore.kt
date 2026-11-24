@@ -88,7 +88,8 @@ data class VoiceAssistantPreferences(
     /** On by default: the model takes the photo as soon as it sees the food. */
     val autoCapture: Boolean = true,
     val confirmSaves: Boolean = true,
-    val saveToCoach: Boolean = true
+    val saveToCoach: Boolean = true,
+    val qwenWorkspace: String = ""
 ) {
     fun model(provider: LiveProvider): String = models[provider] ?: provider.defaultModel
     fun voice(provider: LiveProvider): String = voices[provider] ?: provider.defaultVoice
@@ -991,7 +992,7 @@ class PreferencesStore(
     }
     suspend fun setSelectedAIModel(model: String) {
         ds.edit {
-            val normalized = AIProvider.normalizeModelId(model)
+            val normalized = model
             it[Keys.SELECTED_AI_MODEL] = normalized
             if (it[Keys.SELECTED_AI_PROVIDER] == AIProvider.CUSTOM_OPENAI.name) {
                 it[Keys.LAST_PRIMARY_CUSTOM_MODEL] = normalized
@@ -1047,7 +1048,7 @@ class PreferencesStore(
         )
     }
     suspend fun setSelectedTextAIModel(model: String) {
-        ds.edit { it[Keys.SELECTED_TEXT_AI_MODEL] = AIProvider.normalizeModelId(model) }
+        ds.edit { it[Keys.SELECTED_TEXT_AI_MODEL] = model }
     }
 
     /** Upgrade removed AI model presets exactly once, including the fallback model. */
@@ -1075,23 +1076,22 @@ class PreferencesStore(
                 prefs[Keys.GEMINI_MODEL_MIGRATION_VERSION] = 1
             }
 
-            if ((prefs[Keys.AI_MODEL_REGISTRY_MIGRATION_VERSION] ?: 0) < 2) {
-                val primaryProvider = storedAIProvider(
-                    prefs[Keys.SELECTED_AI_PROVIDER]
-                ) ?: AIProvider.GEMINI
-                AIProvider.upgradedLegacyModel(
-                    primaryProvider,
-                    prefs[Keys.SELECTED_AI_MODEL]
-                )?.let { prefs[Keys.SELECTED_AI_MODEL] = it }
-
-                storedAIProvider(prefs[Keys.FALLBACK_PROVIDER])?.let { fallbackProvider ->
-                    AIProvider.upgradedLegacyModel(
-                        fallbackProvider,
-                        prefs[Keys.FALLBACK_MODEL]
-                    )?.let { prefs[Keys.FALLBACK_MODEL] = it }
+            if ((prefs[Keys.AI_MODEL_REGISTRY_MIGRATION_VERSION] ?: 0) < 3) {
+                for ((providerKey, modelKey, text) in listOf(
+                    Triple(Keys.SELECTED_AI_PROVIDER, Keys.SELECTED_AI_MODEL, false),
+                    Triple(Keys.FALLBACK_PROVIDER, Keys.FALLBACK_MODEL, false),
+                    Triple(Keys.SELECTED_TEXT_AI_PROVIDER, Keys.SELECTED_TEXT_AI_MODEL, true),
+                    Triple(Keys.TEXT_FALLBACK_PROVIDER, Keys.TEXT_FALLBACK_MODEL, true)
+                )) {
+                    val provider = storedAIProvider(prefs[providerKey])
+                        ?: AIProvider.GEMINI.takeIf { providerKey == Keys.SELECTED_AI_PROVIDER }
+                        ?: continue
+                    AIProvider.upgradedLegacyModel(provider, prefs[modelKey], text)?.let {
+                        prefs[modelKey] = it
+                    }
                 }
 
-                prefs[Keys.AI_MODEL_REGISTRY_MIGRATION_VERSION] = 2
+                prefs[Keys.AI_MODEL_REGISTRY_MIGRATION_VERSION] = 3
             }
         }
     }
@@ -1453,7 +1453,7 @@ class PreferencesStore(
         )
     }
     suspend fun setSelectedFallbackModel(model: String) {
-        ds.edit { it[Keys.FALLBACK_MODEL] = AIProvider.normalizeModelId(model) }
+        ds.edit { it[Keys.FALLBACK_MODEL] = model }
     }
 
     // -- Text AI fallback -------------------------------------------------
@@ -1487,7 +1487,7 @@ class PreferencesStore(
         )
     }
     suspend fun setSelectedTextFallbackModel(model: String) {
-        ds.edit { it[Keys.TEXT_FALLBACK_MODEL] = AIProvider.normalizeModelId(model) }
+        ds.edit { it[Keys.TEXT_FALLBACK_MODEL] = model }
     }
 
     // -- Speech Provider selection ---------------------------------------
@@ -1536,6 +1536,14 @@ class PreferencesStore(
         val raw = it[Keys.selectedSpeechLanguage(provider)]
         SpeechLanguage.optionsFor(provider).firstOrNull { language -> language.name == raw }
             ?: SpeechLanguage.defaultFor(provider)
+    }
+
+    fun selectedRecordedSpeechModel(provider: SpeechProvider): Flow<String> = ds.data.map {
+        provider.recordedModelOrDefault(it[Keys.recordedSpeechModel(provider)])
+    }
+
+    suspend fun setRecordedSpeechModel(provider: SpeechProvider, model: String) {
+        ds.edit { it[Keys.recordedSpeechModel(provider)] = provider.recordedModelOrDefault(model) }
     }
 
     suspend fun setSelectedSpeechLanguage(provider: SpeechProvider, language: SpeechLanguage) {
@@ -1819,6 +1827,10 @@ class PreferencesStore(
         ds.edit { it[Keys.VOICE_PROVIDER] = choice.storageValue }
     }
 
+    suspend fun setQwenLiveWorkspace(workspace: String) {
+        ds.edit { it[Keys.QWEN_LIVE_WORKSPACE] = workspace.trim() }
+    }
+
     suspend fun setVoiceAssistantModel(provider: LiveProvider, model: String) {
         ds.edit { it[Keys.voiceModel(provider)] = provider.supportedModelOrDefault(model) }
     }
@@ -1981,6 +1993,8 @@ class PreferencesStore(
             intPreferencesKey("matchingSpeechProviderMigrationVersion")
         fun selectedSpeechLanguage(provider: SpeechProvider) =
             stringPreferencesKey("selectedSpeechLanguage_${provider.name}")
+        fun recordedSpeechModel(provider: SpeechProvider) =
+            stringPreferencesKey("recordedSpeechModel_${provider.name}")
         val FOOD_ENTRIES = stringPreferencesKey("foodEntries")
         val FAVORITE_KEYS = stringPreferencesKey("favorites")
         val FAVORITE_ENTRIES = stringPreferencesKey("favoriteFoodEntries")
@@ -1995,6 +2009,7 @@ class PreferencesStore(
         val VOICE_AUTO_CAPTURE = booleanPreferencesKey("voiceAssistantAutoCapture")
         val VOICE_CONFIRM_SAVES = booleanPreferencesKey("voiceAssistantConfirmSaves")
         val VOICE_SAVE_TO_COACH = booleanPreferencesKey("voiceAssistantSaveToCoach")
+        val QWEN_LIVE_WORKSPACE = stringPreferencesKey("voiceAssistantQwenWorkspace")
         fun voiceModel(provider: LiveProvider) = stringPreferencesKey("voiceAssistantModel_${provider.storageValue}")
         fun voiceVoice(provider: LiveProvider) = stringPreferencesKey("voiceAssistantVoice_${provider.storageValue}")
     }
@@ -2012,7 +2027,8 @@ class PreferencesStore(
             language = prefs[Keys.VOICE_LANGUAGE] ?: VoiceAssistantPreferences.LANGUAGE_APP,
             autoCapture = prefs[Keys.VOICE_AUTO_CAPTURE] ?: true,
             confirmSaves = prefs[Keys.VOICE_CONFIRM_SAVES] ?: true,
-            saveToCoach = prefs[Keys.VOICE_SAVE_TO_COACH] ?: true
+            saveToCoach = prefs[Keys.VOICE_SAVE_TO_COACH] ?: true,
+            qwenWorkspace = prefs[Keys.QWEN_LIVE_WORKSPACE].orEmpty()
         )
 
         private const val TAG = "PreferencesStore"

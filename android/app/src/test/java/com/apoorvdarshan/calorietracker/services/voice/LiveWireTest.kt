@@ -360,8 +360,8 @@ class LiveWireTest {
     @Test
     fun qwenKeepsTheKeyInAHeaderAndSendsToolsSeparately() {
         val wire = QwenRealtimeWire()
-        val request = wire.request(config(LiveProvider.QWEN))
-        assertEquals("dashscope-intl.aliyuncs.com", request.url.host)
+        val request = wire.request(config(LiveProvider.QWEN).copy(qwenWorkspace = "llm-demo"))
+        assertEquals("llm-demo.ap-southeast-1.maas.aliyuncs.com", request.url.host)
         assertEquals("/api-ws/v1/realtime", request.url.encodedPath)
         assertEquals("qwen3.8-omni-flash-realtime", request.url.queryParameter("model"))
         assertEquals("Bearer test-key", request.header("Authorization"))
@@ -372,7 +372,7 @@ class LiveWireTest {
         val messages = wire.setupMessages(config(LiveProvider.QWEN), null).map(::json)
         assertEquals(3, messages.size)
         val session = messages[0]["session"]!!.jsonObject
-        assertEquals("Tina", session["voice"]!!.jsonPrimitive.content)
+        assertEquals("Tina", session["audio"]!!.jsonObject["output"]!!.jsonObject["voice"]!!.jsonPrimitive.content)
         assertEquals("pcm", session["input_audio_format"]!!.jsonPrimitive.content)
         assertEquals(listOf("text", "audio"), session["modalities"]!!.jsonArray.map { it.jsonPrimitive.content })
         assertEquals("semantic_vad", session["turn_detection"]!!.jsonObject["type"]!!.jsonPrimitive.content)
@@ -382,6 +382,30 @@ class LiveWireTest {
             "qwen3-asr-flash-realtime",
             messages[2]["session"]!!.jsonObject["input_audio_transcription"]!!.jsonObject["model"]!!.jsonPrimitive.content
         )
+    }
+
+    @Test
+    fun qwenRejectsUntrustedWorkspaceHosts() {
+        listOf("", "example.com", "-bad", "host@attacker.com", "abc/def", "a".repeat(64)).forEach {
+            assertFalse(QwenRealtimeWire.isValidWorkspace(it))
+            assertTrue(runCatching {
+                QwenRealtimeWire().request(config(LiveProvider.QWEN).copy(qwenWorkspace = it))
+            }.isFailure)
+        }
+    }
+
+    @Test
+    fun onlyByokGeminiExtendedThinkingSendsThinkingAndNonBlockingTools() {
+        val model = "gemini-3.8-live-extended-thinking"
+        val wire = GeminiLiveWire()
+        val setup = json(wire.setupMessages(config(LiveProvider.GEMINI).copy(model = model), null).single())
+            .getValue("setup").jsonObject
+        assertEquals("LOW", setup.getValue("generationConfig").jsonObject
+            .getValue("thinkingConfig").jsonObject.getValue("thinkingLevel").jsonPrimitive.content)
+        assertEquals("NON_BLOCKING", setup.getValue("tools").jsonArray.first().jsonObject
+            .getValue("functionDeclarations").jsonArray.first().jsonObject.getValue("behavior").jsonPrimitive.content)
+        val defaultSetup = json(wire.setupMessages(config(LiveProvider.GEMINI), null).single()).getValue("setup").jsonObject
+        assertFalse(defaultSetup.getValue("generationConfig").jsonObject.containsKey("thinkingConfig"))
     }
 
     @Test

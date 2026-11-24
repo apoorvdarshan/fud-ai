@@ -1413,24 +1413,26 @@ struct GeminiService {
             throw AnalysisError.invalidResponse
         }
 
-        let text: String?
-        if let string = message["content"] as? String {
-            let trimmed = string.trimmingCharacters(in: .whitespacesAndNewlines)
-            text = trimmed.isEmpty ? nil : trimmed
-        } else if let blocks = message["content"] as? [[String: Any]] {
-            let joined = blocks
-                .compactMap { ($0["text"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines) }
-                .filter { !$0.isEmpty }
-                .joined(separator: "\n")
-            text = joined.isEmpty ? nil : joined
-        } else {
-            text = nil
-        }
+        let text = compatibleVisibleText(message)
 
         let hasReasoning = !(message["reasoning"] as? String ?? "").isEmpty
             || !(message["reasoning_content"] as? String ?? "").isEmpty
             || !((message["reasoning_details"] as? [[String: Any]]) ?? []).isEmpty
         return OpenAITextResponse(text: text, finishReason: finishReason, hasReasoning: hasReasoning)
+    }
+
+    static func compatibleVisibleText(_ message: [String: Any]) -> String? {
+        let text: String
+        if let string = message["content"] as? String {
+            text = string.trimmingCharacters(in: .whitespacesAndNewlines)
+        } else {
+            text = ((message["content"] as? [[String: Any]]) ?? [])
+                .filter { ["text", "output_text"].contains(($0["type"] as? String) ?? "text") }
+                .compactMap { ($0["text"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines) }
+                .filter { !$0.isEmpty }
+                .joined(separator: "\n")
+        }
+        return text.isEmpty ? nil : text
     }
 
     private static func compactOpenAIRetryPrompt(_ prompt: String) -> String {
@@ -1475,7 +1477,11 @@ struct GeminiService {
                 "messages": messages,
             ]
             body[provider.openAICompatibleTokenLimitKey(for: model)] = AIProviderSettings.maxResponseTokens
-            body.merge(provider.openAICompatibleExtraBody) { current, _ in current }
+            body.merge(provider.openAICompatibleExtraBody(model: model)) { current, _ in current }
+            if let limit = provider.compatibleRequestByteLimit,
+               try JSONSerialization.data(withJSONObject: body).count > limit {
+                throw AnalysisError.apiError(String(localized: "The AI request is too large. Try fewer or smaller photos."))
+            }
             if provider == .openrouter {
                 body["reasoning"] = AIProviderSettings.openRouterReasoningEffort.requestOptions(compactRetry: compactRetry, exclude: true)
             }

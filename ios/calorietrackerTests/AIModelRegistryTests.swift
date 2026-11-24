@@ -9,9 +9,8 @@ struct AIModelRegistryTests {
             (.gemini, [
                 "gemini-3.5-flash-lite",
                 "gemini-3.8-flash",
-                "gemini-3.7-flash",
                 "gemini-3.6-flash",
-                "gemini-3.5-flash",
+                "gemini-4-hydrogen", "gemini-4-neon", "gemini-4-argon", "gemini-4-carbon",
                 "gemini-flash-latest",
                 "gemini-flash-lite-latest",
                 "gemini-3.1-pro-preview",
@@ -20,17 +19,15 @@ struct AIModelRegistryTests {
                 "gpt-5.4-mini",
                 "gpt-6-luna",
                 "gpt-6-sol",
+                "gpt-6.1-terra", "gpt-6.2-sol", "gpt-6.2-astra",
                 "gpt-5.6-sol",
                 "gpt-5.6-terra",
                 "gpt-5.6-luna",
                 "gpt-5.5",
-                "gpt-5.4-nano",
-                "gpt-4.1",
-                "gpt-4.1-mini",
-                "gpt-4o-mini",
             ]),
             (.anthropic, [
                 "claude-sonnet-5",
+                "claude-sonnet-5-5", "claude-haiku-5-5", "claude-opus-5-5",
                 "claude-opus-5",
                 "claude-fable-5",
                 "claude-opus-4-8",
@@ -39,6 +36,7 @@ struct AIModelRegistryTests {
             (.xai, [
                 "grok-4.6",
                 "grok-4.3",
+                "grok-4.7",
             ]),
             (.openrouter, [
                 "openrouter/free",
@@ -49,14 +47,12 @@ struct AIModelRegistryTests {
                 "qwen/qwen3.8-27b",
                 "openai/gpt-5-mini",
                 "anthropic/claude-sonnet-5",
-                "qwen/qwen3-vl-8b-instruct",
+                "qwen/qwen3-vl-8b-instruct", "deepseek/deepseek-v4.1-flash",
             ]),
             (.togetherai, [
                 "Qwen/Qwen3.5-9B",
                 "moonshotai/Kimi-K3",
-                "Qwen/Qwen3.8-2.4T-A95B",
-                "google/gemma-4-31B-it",
-                "MiniMaxAI/MiniMax-M3",
+                "moonshotai/Kimi-K3.1-Pro",
             ]),
             (.groq, [
                 "qwen/qwen3.8-27b",
@@ -69,11 +65,9 @@ struct AIModelRegistryTests {
                 "Qwen/Qwen3.5-9B",
             ]),
             (.fireworks, [
-                "accounts/fireworks/models/qwen3p7-plus",
                 "accounts/fireworks/models/kimi-k3",
-                "accounts/fireworks/models/muse-glimmer-30b",
-                "accounts/fireworks/models/minimax-m3",
-                "accounts/fireworks/models/kimi-k2p6",
+                "accounts/fireworks/models/minimax-m3p1-flash",
+                "accounts/fireworks/models/kimi-k3p1-pro",
             ]),
             (.deepinfra, [
                 "google/gemma-3-27b-it",
@@ -84,19 +78,22 @@ struct AIModelRegistryTests {
             ]),
             (.mistral, [
                 "mistral-small-2603",
-                "mistral-medium-3-5",
-                "mistral-large-2512",
-                "ministral-14b-2512",
+                "mistral-large-4-0",
+                "ministral-14b-2512", "ministral-8b-2512",
             ]),
+            (.deepseek, ["deepseek-flash"]),
             (.qwen, [
                 "qwen3.7-plus",
+                "qwen3.8-flash",
                 "qwen3.8-max",
-                "qwen3-vl-plus",
+                "qwen3-vl-plus", "qwen4-max",
             ]),
+            (.cerebras, ["qwen-3.8-27b"]),
             (.ollama, [
                 "qwen3-vl",
                 "qwen3.8",
                 "gemma4",
+                "gemma4:e2b", "qwen3-vl:2b",
                 "llama3.2-vision",
                 "llava",
                 "moondream",
@@ -126,7 +123,7 @@ struct AIModelRegistryTests {
         }
     }
 
-    @Test func textProvidersExposeCurrentTextOnlyChoicesWithoutEnteringVisionRegistry() {
+    @Test func providersLimitPhotoSupportToDocumentedModels() {
         #expect(AIProvider.textProviders == AIProvider.allCases.filter(\.isAvailableOnCurrentDevice))
         if #available(iOS 27.0, *) {
             if AIProvider.appleIntelligence.supportsVision {
@@ -139,32 +136,35 @@ struct AIModelRegistryTests {
             #expect(!AIProvider.visionProviders.contains(.appleIntelligence))
             #expect(!AIProvider.appleIntelligence.supportsVision)
         }
-        #expect(!AIProvider.visionProviders.contains(.deepseek))
-        #expect(!AIProvider.visionProviders.contains(.cerebras))
+        #expect(AIProvider.deepseek.models == ["deepseek-flash"])
+        #expect(AIProvider.cerebras.models == ["qwen-3.8-27b"])
         #expect(AIProvider.appleIntelligence.textModels == ["System Language Model"])
         #expect(!AIProvider.appleIntelligence.requiresAPIKey)
         #expect(AIProvider.gemma4Local.models == [Gemma4LocalModelManager.modelID])
         #expect(!AIProvider.gemma4Local.requiresAPIKey)
         #expect(AIProvider.gemma4E4BLocal.models == ["gemma-4-E4B-it"])
         #expect(!AIProvider.gemma4E4BLocal.requiresAPIKey)
-        #expect(AIProvider.deepseek.textModels == ["deepseek-v4-flash", "deepseek-v4-pro"])
-        #expect(AIProvider.cerebras.textModels == ["gpt-oss-120b", "gemma-4-31b"])
-        #expect(AIProvider.qwen.textModels == ["qwen3.8-flash", "qwen3.7-plus", "qwen3.8-max"])
+        #expect(AIProvider.deepseek.textModels == ["deepseek-flash", "deepseek-v4-pro"])
+        #expect(AIProvider.cerebras.textModels == ["gpt-oss-120b", "qwen-3.8-27b"])
+        #expect(AIProvider.qwen.textModels == ["qwen3.8-flash", "qwen3.7-plus", "qwen3.8-max", "qwen4-max"])
         #expect(AIProvider.qwen.apiFormat == .openaiCompatible)
         #expect(AIProvider.qwen.baseURL == "https://dashscope-intl.aliyuncs.com/compatible-mode/v1")
         #expect(AIProvider.qwen.openAICompatibleExtraBody["enable_thinking"] as? Bool == false)
         #expect(AIProvider.openai.openAICompatibleExtraBody.isEmpty)
         #expect(AIProvider.groq.defaultTextModel == "openai/gpt-oss-20b")
         #expect(AIProvider.groq.textModels.contains("openai/gpt-oss-120b"))
-        #expect(AIProvider.togetherai.textModels.contains("deepseek-ai/DeepSeek-V4-Pro"))
-        #expect(AIProvider.deepseek.supportedTextModelOrDefault("retired-model") == "deepseek-v4-flash")
+        #expect(AIProvider.togetherai.defaultTextModel == "Qwen/Qwen3.5-9B")
+        #expect(AIProvider.togetherai.textModels.contains("deepseek-ai/DeepSeek-V4-Pro-0813"))
+        #expect(AIProvider.deepseek.supportedTextModelOrDefault("retired-model") == "deepseek-flash")
+        #expect(AIProvider.requestImageLimit(provider: .cerebras, model: "qwen-3.8-27b") == 2)
+        #expect(AIProvider.requestImageLimit(provider: .cerebras, model: "gpt-oss-120b") == nil)
     }
 
     @Test func removedPresetsHaveProviderScopedReplacements() {
         #expect(AIProvider.upgradedLegacyModel(for: .gemini, model: "gemini-3.1-flash-lite") == "gemini-3.5-flash-lite")
-        #expect(AIProvider.upgradedLegacyModel(for: .openrouter, model: "google/gemini-3.1-flash-lite") == "google/gemini-3.5-flash-lite")
-        #expect(AIProvider.upgradedLegacyModel(for: .huggingface, model: "Qwen/Qwen2.5-VL-72B-Instruct") == "Qwen/Qwen3.8-27B")
-        #expect(AIProvider.upgradedLegacyModel(for: .mistral, model: "mistral-medium-2604") == "mistral-medium-3-5")
+        #expect(AIProvider.upgradedLegacyModel(for: .openrouter, model: "google/gemini-3.1-flash-lite") == nil)
+        #expect(AIProvider.upgradedLegacyModel(for: .huggingface, model: "Qwen/Qwen2.5-VL-72B-Instruct") == nil)
+        #expect(AIProvider.upgradedLegacyModel(for: .mistral, model: "mistral-medium-2604") == "mistral-large-4-0")
         #expect(AIProvider.upgradedLegacyModel(for: .anthropic, model: "claude-sonnet-4-6") == "claude-sonnet-5")
         #expect(AIProvider.upgradedLegacyModel(for: .anthropic, model: "claude-opus-4-7") == "claude-opus-5")
 
@@ -176,9 +176,9 @@ struct AIModelRegistryTests {
     @Test func modelRegistryMigrationUpgradesPrimaryAndFallbackExactlyOnce() throws {
         let migrations: [(provider: AIProvider, old: String, new: String)] = [
             (.gemini, "gemini-3.1-flash-lite", "gemini-3.5-flash-lite"),
-            (.openrouter, "google/gemini-3.1-flash-lite", "google/gemini-3.5-flash-lite"),
-            (.huggingface, "Qwen/Qwen2.5-VL-72B-Instruct", "Qwen/Qwen3.8-27B"),
-            (.mistral, "mistral-medium-2604", "mistral-medium-3-5"),
+            (.gemini, "gemini-3.7-flash", "gemini-3.8-flash"),
+            (.openai, "gpt-4.1-mini", "gpt-6-luna"),
+            (.mistral, "mistral-medium-2604", "mistral-large-4-0"),
             (.anthropic, "claude-sonnet-4-6", "claude-sonnet-5"),
             (.anthropic, "claude-opus-4-7", "claude-opus-5"),
         ]
@@ -192,12 +192,19 @@ struct AIModelRegistryTests {
             defaults.set(migration.old, forKey: "selectedAIModel")
             defaults.set(migration.provider.rawValue, forKey: "selectedFallbackAIProvider")
             defaults.set(migration.old, forKey: "selectedFallbackAIModel")
+            defaults.set(AIProvider.groq.rawValue, forKey: "selectedTextAIProvider")
+            defaults.set("llama-3.3-70b-versatile", forKey: "selectedTextAIModel")
+            defaults.set(AIProvider.togetherai.rawValue, forKey: "selectedTextFallbackAIProvider")
+            defaults.set("MiniMaxAI/MiniMax-M2.7", forKey: "selectedTextFallbackAIModel")
+            defaults.set(2, forKey: "aiModelRegistryMigrationVersion")
             defaults.set("preserved", forKey: "unrelatedUserData")
 
             AIProviderSettings.migrateModelRegistryIfNeeded(defaults: defaults)
 
             #expect(defaults.string(forKey: "selectedAIModel") == migration.new)
             #expect(defaults.string(forKey: "selectedFallbackAIModel") == migration.new)
+            #expect(defaults.string(forKey: "selectedTextAIModel") == "openai/gpt-oss-120b")
+            #expect(defaults.string(forKey: "selectedTextFallbackAIModel") == "Qwen/Qwen3.5-9B")
             #expect(defaults.string(forKey: "unrelatedUserData") == "preserved")
 
             defaults.set(migration.old, forKey: "selectedAIModel")
@@ -242,12 +249,12 @@ struct AIModelRegistryTests {
         defer { defaults.removePersistentDomain(forName: suiteName) }
 
         defaults.set(AIProvider.gemini.rawValue, forKey: "selectedAIProvider")
-        defaults.set("gemini-3.5-flash", forKey: "selectedAIModel")
+        defaults.set("gemini-3.6-flash", forKey: "selectedAIModel")
         defaults.set("google/gemini-3.1-flash-lite", forKey: "selectedFallbackAIModel")
 
         AIProviderSettings.migrateLegacyGeminiModelsIfNeeded(defaults: defaults)
 
-        #expect(defaults.string(forKey: "selectedAIModel") == "gemini-3.5-flash")
+        #expect(defaults.string(forKey: "selectedAIModel") == "gemini-3.6-flash")
         #expect(defaults.string(forKey: "selectedFallbackAIModel") == "google/gemini-3.1-flash-lite")
     }
 
@@ -264,7 +271,7 @@ struct AIModelRegistryTests {
         AIProviderSettings.migrateLegacyGeminiModelsIfNeeded(defaults: defaults)
 
         #expect(defaults.string(forKey: "selectedAIModel") == "gemini-3.5-flash-lite")
-        #expect(defaults.string(forKey: "selectedFallbackAIModel") == "google/gemini-3.5-flash-lite")
+        #expect(defaults.string(forKey: "selectedFallbackAIModel") == "google/gemini-3.1-flash-lite")
     }
 
     @Test func openAI56ModelsUseTheCompletionTokenLimitKey() {
@@ -280,21 +287,29 @@ struct AIModelRegistryTests {
     @Test func speechProviderDefaultsMatchTheApprovedModels() {
         let defaults: [(provider: SpeechProvider, model: String)] = [
             (.nativeIOS, ""),
+            (.appleSpeechAnalyzer, ""),
             (.whisperBase, "base"),
             (.parakeetV3, "parakeet-tdt-0.6b-v3"),
             (.qwen3ASR, "qwen3-asr-0.6b"),
             (.gemini, "gemini-3.5-transcribe"),
             (.openai, "gpt-transcribe"),
             (.groq, "whisper-large-v3"),
-            (.mistral, "voxtral-mini-2602"),
+            (.mistral, "voxtral-mini-transcribe-3-0"),
             (.deepgram, "nova-3"),
-            (.assemblyai, "universal-3-pro"),
+            (.assemblyai, "assemblyai-stt-3-7"),
         ]
 
         #expect(defaults.map(\.provider) == SpeechProvider.allCases)
         for entry in defaults {
             #expect(entry.provider.defaultModel == entry.model)
         }
+    }
+
+    @Test func optionalRecordedModelsDoNotChangeExistingDefaults() {
+        #expect(SpeechProvider.groq.recordedModelOrDefault(nil) == "whisper-large-v3")
+        #expect(SpeechProvider.groq.recordedModelOrDefault("whisper-large-v3-turbo") == "whisper-large-v3-turbo")
+        #expect(SpeechProvider.mistral.recordedModelOrDefault("voxtral-small-transcribe-3-0") == "voxtral-small-transcribe-3-0")
+        #expect(SpeechProvider.mistral.recordedModelOrDefault("foreign-model") == "voxtral-mini-transcribe-3-0")
     }
 
     @Test func geminiSpeechInteractionUsesTheDedicatedTranscriptionSchema() throws {
@@ -313,7 +328,8 @@ struct AIModelRegistryTests {
         let generationConfig = try #require(body["generation_config"] as? [String: Any])
         let transcriptionConfig = try #require(generationConfig["transcription_config"] as? [String: Any])
         #expect(transcriptionConfig["language_codes"] as? [String] == ["hi"])
-        #expect((transcriptionConfig["mode"] as? [String: String])?["type"] == "smart")
+        #expect((transcriptionConfig["mode"] as? [String: String])?["type"] == "verbatim")
+        #expect(body["store"] as? Bool == false)
     }
 
     @Test func geminiSpeechResponseParserSupportsCurrentInteractionShapes() throws {
@@ -336,7 +352,8 @@ struct AIModelRegistryTests {
         )
 
         #expect(body["audio_url"] as? String == "https://upload.example/audio")
-        #expect(body["speech_models"] as? [String] == ["universal-3-pro", "universal-2"])
+        #expect(body["speech_models"] as? [String] == ["assemblyai-stt-3-7", "universal-2"])
+        #expect(body["disfluencies"] as? Bool == false)
         #expect(body["language_detection"] as? Bool == true)
         #expect(body["language_code"] == nil)
     }
@@ -348,7 +365,7 @@ struct AIModelRegistryTests {
             languageCode: "hi"
         )
 
-        #expect(body["speech_models"] as? [String] == ["universal-3-pro", "universal-2"])
+        #expect(body["speech_models"] as? [String] == ["assemblyai-stt-3-7", "universal-2"])
         #expect(body["language_code"] as? String == "hi")
         #expect(body["language_detection"] == nil)
     }
@@ -361,6 +378,15 @@ struct AIModelRegistryTests {
             #expect(!AIProvider.appleIntelligence.supportsVision)
             #expect(AIProvider.appleIntelligence.models.isEmpty)
         }
+    }
+
+    @Test func appleSpeechAnalyzerIsLocalBatchAndRequiresALanguage() {
+        let provider = SpeechProvider.appleSpeechAnalyzer
+        #expect(provider.isLocalBatch)
+        #expect(!provider.requiresAPIKey)
+        #expect(!provider.languageChoices.contains(.automatic))
+        #expect(provider.languageChoices.contains(.device))
+        #expect(SpeechSettings.defaultLanguage(for: provider) == .device)
     }
 
     @Test func geminiFunctionResponsesEchoCallIdentifiers() throws {

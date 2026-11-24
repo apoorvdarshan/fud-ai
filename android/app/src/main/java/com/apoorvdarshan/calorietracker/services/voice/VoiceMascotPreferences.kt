@@ -27,7 +27,7 @@ enum class VoiceMascot(
     STAR("Star", R.drawable.voice_mascot_star, R.drawable.voice_mascot_star_color,
         R.drawable.voice_mascot_star_blink, R.drawable.voice_mascot_star_blinkcolor, 0.514f, 0.576f),
     @SerialName("croissantCat")
-    CROISSANT_CAT("Croissant Cat", R.drawable.voice_mascot_croissant_cat, R.drawable.voice_mascot_croissant_cat_color,
+    CROISSANT_CAT("Croissant", R.drawable.voice_mascot_croissant_cat, R.drawable.voice_mascot_croissant_cat_color,
         R.drawable.voice_mascot_croissant_cat_blink, R.drawable.voice_mascot_croissant_cat_blinkcolor, 0.501f, 0.606f),
     @SerialName("bomboloni")
     BOMBOLONI("Bomboloni", R.drawable.voice_mascot_bomboloni, R.drawable.voice_mascot_bomboloni_color,

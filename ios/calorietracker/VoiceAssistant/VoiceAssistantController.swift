@@ -223,7 +223,7 @@ final class VoiceAssistantController {
             // Right after launch the subscription may not be loaded yet; check once
             // before telling a subscriber to subscribe.
             if case .needsAccess(let reason) = route, reason == .noProvider || reason == .needsSubscription,
-               !didRefreshEntitlement, Purchases.isConfigured {
+               !RevenueCatManager.shared.hasLoadedCustomerInfo, !didRefreshEntitlement, Purchases.isConfigured {
                 didRefreshEntitlement = await RevenueCatManager.shared.refreshCustomerInfo()
                 route = VoiceAssistantRouting.current(settings: settings)
             }
@@ -278,7 +278,10 @@ final class VoiceAssistantController {
                 fail(VoiceAssistantFailure(message: String(localized: "Fud AI couldn't check your subscription. Try again in a moment."), action: .retry), session: number)
                 return
             }
-            credential = .hostedUser(await RevenueCatManager.shared.appUserID())
+            // The relay still rechecks entitlement. Reuse the same identity from
+            // the local SDK cache instead of waiting for a second billing request.
+            let purchases = Purchases.shared
+            credential = .hostedUser(purchases.cachedCustomerInfo?.originalAppUserId ?? purchases.appUserID)
         } else {
             guard let key = provider.savedKey else {
                 presentation = .access(.missingKey(provider))
@@ -540,7 +543,6 @@ final class VoiceAssistantController {
             // The relay closes right after; its close code then belongs to an ended session.
             end(Self.endReason(forHostedError: code))
         case .error(let message, let code):
-            logger.error("[Voice] Provider error \(code ?? "-", privacy: .public): \(message, privacy: .public)")
             // Benign races with the response lifecycle; nothing for the user to do.
             if code == "conversation_already_has_active_response" {
                 // Our response.create lost to one the provider started; ask again once it finishes.
@@ -549,6 +551,14 @@ final class VoiceAssistantController {
                 return
             }
             if code == "response_cancel_not_active" { return }
+            logger.error("[Voice] The provider reported an error")
+            if phase == .connecting {
+                end(.failure(VoiceAssistantFailure(
+                    message: String(localized: "The voice service had a problem. Try again."),
+                    action: .retry
+                )))
+                return
+            }
             showBanner(message)
         case .closed(let reason):
             handleClose(reason)

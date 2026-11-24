@@ -252,19 +252,24 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
     }
 
     private suspend fun start(number: Int) {
+        val preparingAt = SystemClock.elapsedRealtime()
         val prefs = container.prefs.voiceAssistantPreferences.first()
-        val mascot = container.prefs.voiceMascotPreferences.first().profile
-        val selectedAi = container.prefs.selectedAIProvider.first()
-        val entitlement = withTimeoutOrNull(ENTITLEMENT_WAIT_MS) {
-            container.billing.entitlement.first { it.loaded }
-        } ?: container.billing.entitlement.value
-        val keys = withContext(Dispatchers.IO) {
-            LiveProvider.ownKeyProviders.associateWith { provider ->
-                provider.aiProvider?.let { container.keyStore.apiKey(it) }?.trim()?.takeIf { it.isNotEmpty() }
+        val startup = VoiceProviderResolver.resolveStartup(
+            prefs.choice,
+            selectedAiProvider = { container.prefs.selectedAIProvider.first() },
+            loadKey = { provider ->
+                withContext(Dispatchers.IO) { provider.aiProvider?.let(container.keyStore::apiKey) }
+            },
+            hostedEntitled = {
+                val billing = container.billing
+                if (!billing.isAvailable) false
+                else (withTimeoutOrNull(ENTITLEMENT_WAIT_MS) {
+                    billing.entitlement.first { it.loaded }
+                } ?: billing.entitlement.value).isEntitled
             }
-        }
+        )
         if (number != sessionNumber) return
-        val access = VoiceProviderResolver.resolve(prefs.choice, selectedAi, { keys[it] != null }, entitlement.isEntitled)
+        val access = startup.access
         val provider = when (access) {
             is VoiceAccess.Ready -> access.provider
             is VoiceAccess.MissingKey -> return end(VoiceNotice.MissingKey(access.provider))
@@ -277,6 +282,7 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
             null
         }
 
+        val mascot = container.prefs.voiceMascotPreferences.first().profile
         val catalog = withContext(Dispatchers.IO) { VoiceToolCatalog.bundled(container.appContext) }
         val context = VoiceSessionContext(provider, prefs.confirmSaves, prefs.autoCapture, workoutDiaryEnabled = true)
         val instructions = withContext(Dispatchers.Default) { buildInstructions(context, prefs, mascot) }
@@ -284,11 +290,11 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
 
         val config = LiveSessionConfig(
             provider = provider,
-            model = if (provider == LiveProvider.HOSTED) LiveProvider.HOSTED_MODEL else prefs.model(provider),
-            voice = prefs.voice(provider),
+            model = provider.supportedModelOrDefault(prefs.model(provider)),
+            voice = provider.supportedVoiceOrDefault(prefs.voice(provider)),
             instructions = instructions,
             tools = VoiceToolCatalog.declared(catalog, context.workoutDiaryEnabled),
-            apiKey = keys[provider],
+            apiKey = startup.key,
             hostedUserId = hostedUserId
         )
         val executor = VoiceToolExecutor(ports, catalog, context).also {
@@ -369,6 +375,7 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
                 }
             }
         }
+        VoiceLog.info(TAG, "Connecting to ${provider.storageValue}; preparation ${startedAt - preparingAt}ms")
         session.connect()
     }
 
@@ -485,6 +492,9 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
     private fun handle(event: LiveEvent) {
         when (event) {
             LiveEvent.Ready -> {
+                if (_ui.value.phase == VoicePhase.CONNECTING) {
+                    VoiceLog.info(TAG, "Voice ready after ${SystemClock.elapsedRealtime() - startedAt}ms")
+                }
                 _ui.update { it.copy(phase = VoicePhase.LIVE) }
                 noteActivity()
                 updateOrb()
@@ -692,6 +702,7 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
             val now = SystemClock.elapsedRealtime()
             val state = _ui.value
             if (state.phase == VoicePhase.CONNECTING && now - startedAt > CONNECT_TIMEOUT_MS) {
+                VoiceLog.warn(TAG, "Voice setup timed out before provider readiness")
                 end(VoiceNotice.ConnectionFailed)
                 return
             }

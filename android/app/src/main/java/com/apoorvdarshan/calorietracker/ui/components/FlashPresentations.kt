@@ -68,13 +68,14 @@ internal fun FlashBottomSheet(
     containerColor: Color = Color.Unspecified,
     dragHandle: @Composable (() -> Unit)? = { CompactSheetHandle() },
     properties: ModalBottomSheetProperties = ModalBottomSheetProperties(),
+    showOutline: Boolean = true,
     content: @Composable ColumnScope.() -> Unit
 ) {
     val neo = pinkNeoPalette()
     ModalBottomSheet(
         onDismissRequest = onDismissRequest,
         sheetState = sheetState,
-        modifier = modifier.border(1.dp, neo.rule),
+        modifier = if (showOutline) modifier.border(1.dp, neo.rule) else modifier,
         sheetGesturesEnabled = sheetGesturesEnabled,
         shape = RectangleShape,
         containerColor = neo.panel,

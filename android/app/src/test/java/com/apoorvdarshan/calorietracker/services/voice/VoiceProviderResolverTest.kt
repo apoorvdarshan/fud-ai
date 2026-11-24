@@ -1,7 +1,9 @@
 package com.apoorvdarshan.calorietracker.services.voice
 
 import com.apoorvdarshan.calorietracker.models.AIProvider
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Test
 
 class VoiceProviderResolverTest {
@@ -56,6 +58,46 @@ class VoiceProviderResolverTest {
         assertEquals(VoiceAccess.Ready(LiveProvider.GEMINI), resolve(VoiceProviderChoice.GEMINI, keys = setOf(LiveProvider.GEMINI)))
         assertEquals(VoiceAccess.NeedsSubscription, resolve(VoiceProviderChoice.HOSTED, keys = setOf(LiveProvider.GEMINI)))
         assertEquals(VoiceAccess.Ready(LiveProvider.HOSTED), resolve(VoiceProviderChoice.HOSTED, entitled = true))
+    }
+
+    @Test
+    fun startupWithAnOwnKeyDoesNotWaitForBilling() = runTest {
+        val explicit = VoiceProviderResolver.resolveStartup(
+            VoiceProviderChoice.XAI,
+            selectedAiProvider = { error("Explicit choice must not look up the selected AI provider") },
+            loadKey = { provider -> assertEquals(LiveProvider.XAI, provider); " demo-key " },
+            hostedEntitled = { error("Explicit own-key choice must not wait for billing") }
+        )
+        assertEquals(VoiceAccess.Ready(LiveProvider.XAI), explicit.access)
+        assertEquals("demo-key", explicit.key)
+
+        val automatic = VoiceProviderResolver.resolveStartup(
+            VoiceProviderChoice.AUTOMATIC,
+            selectedAiProvider = { AIProvider.GEMINI },
+            loadKey = { provider -> assertEquals(LiveProvider.GEMINI, provider); "demo-key" },
+            hostedEntitled = { error("Automatic with the selected provider's key must not wait for billing") }
+        )
+        assertEquals(VoiceAccess.Ready(LiveProvider.GEMINI), automatic.access)
+    }
+
+    @Test
+    fun startupUsesHostedOnlyWhenTheChoiceAllowsIt() = runTest {
+        val hosted = VoiceProviderResolver.resolveStartup(
+            VoiceProviderChoice.AUTOMATIC,
+            selectedAiProvider = { AIProvider.GEMINI },
+            loadKey = { " " },
+            hostedEntitled = { true }
+        )
+        assertEquals(VoiceAccess.Ready(LiveProvider.HOSTED), hosted.access)
+        assertNull(hosted.key)
+
+        val missing = VoiceProviderResolver.resolveStartup(
+            VoiceProviderChoice.GEMINI,
+            selectedAiProvider = { error("Explicit choice must not look up the selected AI provider") },
+            loadKey = { null },
+            hostedEntitled = { error("Missing an explicitly selected key must not check billing") }
+        )
+        assertEquals(VoiceAccess.MissingKey(LiveProvider.GEMINI), missing.access)
     }
 
     @Test

@@ -252,10 +252,13 @@ extension VoiceAssistantRouting {
     /// Resolves the route from the app's saved settings, keys and subscription.
     @MainActor
     static func current(settings: VoiceAssistantSettings = VoiceAssistantSettings()) -> VoiceAssistantRoute {
-        let providersWithKeys = Set(LiveProvider.allCases.filter { $0.savedKey != nil })
+        let choice = settings.providerChoice
+        let selected = choice == .automatic ? LiveProvider(aiProvider: AIProviderSettings.selectedProvider) : nil
+        let candidate = selected ?? choice.fixedProvider
+        let providersWithKeys: Set<LiveProvider> = if let candidate, candidate.savedKey != nil { [candidate] } else { [] }
         return resolve(
-            choice: settings.providerChoice,
-            selectedOwnKeyProvider: LiveProvider(aiProvider: AIProviderSettings.selectedProvider),
+            choice: choice,
+            selectedOwnKeyProvider: selected,
             providersWithKeys: providersWithKeys,
             hasHostedEntitlement: RevenueCatManager.shared.hasHostedEntitlement
         )

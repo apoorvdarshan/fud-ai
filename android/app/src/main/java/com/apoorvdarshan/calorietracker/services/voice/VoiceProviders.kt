@@ -164,4 +164,27 @@ object VoiceProviderResolver {
             }
         }
     }
+
+    /** The chosen own key is enough to start; only a possible hosted route needs billing. */
+    internal suspend fun resolveStartup(
+        choice: VoiceProviderChoice,
+        selectedAiProvider: suspend () -> AIProvider,
+        loadKey: suspend (LiveProvider) -> String?,
+        hostedEntitled: suspend () -> Boolean
+    ): StartupAccess {
+        val automaticProvider = if (choice == VoiceProviderChoice.AUTOMATIC) selectedAiProvider() else null
+        val candidate = automaticProvider?.let { LiveProvider.forAiProvider(it) } ?: choice.provider
+        val key = candidate?.takeIf(LiveProvider::usesOwnKey)?.let { loadKey(it)?.trim()?.takeIf(String::isNotEmpty) }
+        val checkHosted = choice == VoiceProviderChoice.HOSTED ||
+            (choice == VoiceProviderChoice.AUTOMATIC && key == null)
+        val access = resolve(
+            choice,
+            automaticProvider ?: AIProvider.GEMINI,
+            { it == candidate && key != null },
+            checkHosted && hostedEntitled()
+        )
+        return StartupAccess(access, key)
+    }
+
+    internal class StartupAccess(val access: VoiceAccess, val key: String?)
 }

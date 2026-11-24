@@ -10,7 +10,7 @@ enum VoiceMascot: String, CaseIterable, Codable, Identifiable {
         case .brulee: "Brulee"
         case .alien: "Alien"
         case .star: "Star"
-        case .croissantCat: "Croissant Cat"
+        case .croissantCat: "Croissant"
         case .bomboloni: "Bomboloni"
         case .cherry: "Cherry"
         case .teddy: "Teddy"

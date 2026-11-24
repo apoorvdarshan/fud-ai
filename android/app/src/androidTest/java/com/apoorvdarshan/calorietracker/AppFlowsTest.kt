@@ -126,6 +126,11 @@ class AppFlowsTest {
         compose.onNodeWithText(month).assertIsDisplayed().performClick()
         compose.onNode(selector and hasText(month)).assertIsDisplayed()
 
+        openTab("weeklyChallenge")
+        waitFor(hasText(string(R.string.challenge_title)))
+        compose.onNodeWithTag("nav.progress").assertIsNotSelected()
+        compose.onNodeWithTag("nav.camera").assertIsDisplayed()
+        compose.onNodeWithTag("progress.timeRange").assertDoesNotExist()
         openTab("home")
         openTab("progress")
         scroll.performScrollToNode(selector)
@@ -207,10 +212,11 @@ class AppFlowsTest {
         compose.onNodeWithTag("nav.camera").assertIsDisplayed()
         compose.onNodeWithTag("home.calendar").assertIsDisplayed()
         compose.onNodeWithTag("home.calorieSegments").assertIsDisplayed()
-        for (tab in listOf("progress", "coach", "settings", "workouts", "home")) {
+        for (tab in listOf("progress", "weeklyChallenge", "coach", "settings", "workouts", "exerciseLibrary", "home")) {
             openTab(tab)
             compose.onNodeWithTag("nav.$tab").assertIsSelected()
             if (tab == "workouts") {
+                waitFor(hasTestTag("workouts.add"))
                 val workoutAdd = compose.onNodeWithTag("workouts.add")
                     .assertIsDisplayed().fetchSemanticsNode().boundsInWindow
                 activity!!.onActivity { main ->
@@ -624,8 +630,9 @@ class AppFlowsTest {
     fun workoutLibrarySearchOpensRealExerciseDetails() {
         launchFresh()
         openTab("workouts")
-        waitFor(hasContentDescription("Show exercise library"))
-        compose.onNodeWithContentDescription("Show exercise library").performClick()
+        waitFor(hasTestTag("workouts.add"))
+        openTab("exerciseLibrary")
+        compose.onNodeWithTag("nav.workouts").assertIsNotSelected()
         waitFor(hasTestTag("workouts.search"))
         compose.onNodeWithTag("workouts.search").performTextReplacement("Barbell Full Squat")
         closeSoftKeyboard()
@@ -635,6 +642,10 @@ class AppFlowsTest {
         compose.onNode(result).assertIsDisplayed().performClick()
         waitFor(hasTestTag("workouts.detail"))
         compose.onNodeWithText("Barbell Full Squat").assertIsDisplayed()
+        openTab("workouts")
+        waitFor(hasTestTag("workouts.add"))
+        openTab("exerciseLibrary")
+        waitFor(hasTestTag("workouts.detail"))
         compose.onNodeWithContentDescription(string(R.string.back)).performClick()
         waitFor(hasTestTag("workouts.search"))
         compose.onNodeWithTag("workouts.search").assertTextEquals("Barbell Full Squat")
@@ -667,7 +678,7 @@ class AppFlowsTest {
 
     private fun openTab(tab: String) {
         waitFor(hasTestTag("nav.$tab"))
-        compose.onNodeWithTag("nav.$tab").performClick()
+        compose.onNodeWithTag("nav.$tab").performScrollTo().performClick()
         waitFor(hasTestTag("nav.$tab") and isSelected())
     }
 

@@ -71,7 +71,7 @@ private struct NativeTabBarSuppressor: UIViewControllerRepresentable {
 
 struct PinkNeoRailItem: Identifiable {
     let id: String
-    let title: LocalizedStringKey
+    let title: Text
     let icon: String
     var selected = false
     var badge = false
@@ -110,7 +110,7 @@ struct PinkNeoRail: View {
             .scrollIndicators(.hidden)
             Rectangle().fill(palette.rule).frame(height: 1).accessibilityHidden(true)
             railButton(
-                PinkNeoRailItem(id: "nav.camera", title: "Camera", icon: "camera", action: onCamera),
+                PinkNeoRailItem(id: "nav.camera", title: Text("Camera"), icon: "camera", action: onCamera),
                 palette: palette,
                 outlined: true
             )
@@ -139,7 +139,7 @@ struct PinkNeoRail: View {
                         }
                     }
                 if !typeSize.isAccessibilitySize {
-                    Text(item.title)
+                    item.title
                         .font(.caption2.weight(.semibold))
                         .lineLimit(2)
                         .minimumScaleFactor(0.75)
@@ -160,7 +160,7 @@ struct PinkNeoRail: View {
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
-        .accessibilityLabel(Text(item.title))
+        .accessibilityLabel(item.title)
         .accessibilityValue(item.badge ? Text("Update Available") : Text(verbatim: ""))
         .accessibilityAddTraits(item.selected ? .isSelected : [])
         .accessibilityIdentifier(item.id)

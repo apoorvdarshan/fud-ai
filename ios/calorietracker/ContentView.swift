@@ -127,10 +127,11 @@ struct ContentView: View {
     @State private var voiceAssistant = VoiceAssistantController.shared
     @State private var assistantNavigator = VoiceAssistantNavigator.shared
     @AppStorage(AppThemeColor.storageKey) private var appThemeColorRaw = AppThemeColor.defaultColor.rawValue
-    @AppStorage(WorkoutTabMode.storageKey) private var workoutTabModeRaw = WorkoutTabMode.defaultMode.rawValue
     @AppStorage(TabBarSettings.hiddenTabsKey) private var hiddenTabsRaw = ""
     @State private var appUpdateState: AppUpdateState = .idle
     @State private var selectedTab: AppTab = .home
+    @State private var progressDestination: AppTab = .progress
+    @State private var workoutDestination: AppTab = .workouts
     @Environment(\.layoutDirection) private var layoutDirection
     private var neoAppearance = PinkNeoAppearance()
     @State private var quickActionRequest: QuickActionRequest?
@@ -145,10 +146,6 @@ struct ContentView: View {
     @State private var whatsNewAccess: WhatsNewAccess?
     @State private var whatsNewPage = 0
 
-    private var workoutsTabIcon: String {
-        WorkoutTabMode.mode(for: workoutTabModeRaw).tabIcon
-    }
-
     private var hiddenTabs: Set<HideableTab> {
         TabBarSettings.decode(hiddenTabsRaw)
     }
@@ -159,7 +156,7 @@ struct ContentView: View {
                 .environment(\.layoutDirection, layoutDirection)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             PinkNeoRail(items: railItems) {
-                selectedTab = .home
+                selectTab(.home)
                 quickActionRequest = QuickActionRequest(action: .camera)
             }
             .environment(\.layoutDirection, layoutDirection)
@@ -179,7 +176,9 @@ struct ContentView: View {
                         fasting: fastingStore, chat: chatStore, strength: strengthWorkoutStore, profile: profileStore
                     )
                     try? await Task.sleep(for: .milliseconds(600))
-                    ScreenshotMode.show(scene, navigator: assistantNavigator, voiceAssistant: voiceAssistant)
+                    ScreenshotMode.show(scene, navigator: assistantNavigator, voiceAssistant: voiceAssistant) { split in
+                        selectTab(split == .weeklyChallenge ? .weeklyChallenge : .exerciseLibrary)
+                    }
                     return
                 }
                 #endif
@@ -277,7 +276,7 @@ struct ContentView: View {
             .onChange(of: hiddenTabsRaw, initial: true) { _, _ in
                 // A tab hidden while it is selected falls back to Home.
                 if let tab = selectedTab.hideableTab, hiddenTabs.contains(tab) {
-                    selectedTab = .home
+                    selectTab(.home)
                 }
             }
     }
@@ -306,22 +305,23 @@ struct ContentView: View {
         guard let screen = assistantNavigator.takeScreenRequest(),
               TabBarSettings.hiddenTab(for: screen, in: hiddenTabs) == nil
         else { return }
-        selectedTab = switch screen {
+        let tab: AppTab = switch screen {
         case .home: .home
         case .progress: .progress
         case .coach: .coach
         case .workouts: .workouts
         case .settings: .settings
         }
+        selectTab(tab)
     }
 
     private static func screen(for tab: AppTab) -> VoiceAssistantScreen {
         switch tab {
         case .home: .home
-        case .progress: .progress
+        case .progress, .weeklyChallenge: .progress
         case .coach: .coach
         case .settings: .settings
-        case .workouts: .workouts
+        case .workouts, .exerciseLibrary: .workouts
         }
     }
 
@@ -332,21 +332,44 @@ struct ContentView: View {
             PinkNeoRailItem(
                 id: "nav.\(tab.rawValue)",
                 title: tab.title,
-                icon: tab == .workouts ? workoutsTabIcon : tab.icon,
+                icon: tab.icon,
                 selected: tab == selectedTab,
                 badge: tab == .settings && appUpdateState.isUpdateAvailable
             ) {
                 if tab == .settings && selectedTab == .settings {
                     assistantNavigator.show(.settings)
                 } else {
-                    selectedTab = tab
+                    selectTab(tab)
                 }
             }
         }
     }
 
+    private func selectTab(_ tab: AppTab) {
+        if tab.group == .progress { progressDestination = tab }
+        if tab.group == .workouts { workoutDestination = tab }
+        selectedTab = tab
+    }
+
+    private var shellTabSelection: Binding<AppTab> {
+        Binding(
+            get: { selectedTab.group },
+            set: { tab in
+                guard tab != selectedTab.group else { return }
+                switch tab {
+                case .progress: selectTab(progressDestination)
+                case .workouts: selectTab(workoutDestination)
+                default: selectTab(tab)
+                }
+            }
+        )
+    }
+
     private var standardTabView: some View {
-        TabView(selection: $selectedTab) {
+        // A phone's native TabView adds a More stack after five entries,
+        // even when its tab bar is hidden. Group the two pairs internally
+        // so each page keeps its own navigation stack without a More button.
+        TabView(selection: shellTabSelection) {
             HomeView(
                 quickActionRequest: quickActionRequest,
                 onQuickActionHandled: { requestID in
@@ -361,9 +384,18 @@ struct ContentView: View {
                 .tag(AppTab.home)
 
             if !hiddenTabs.contains(.progress) {
-                ProgressTabView()
-                    .rightRailDestination()
-                    .tag(AppTab.progress)
+                TabView(selection: $progressDestination) {
+                    ProgressTabView()
+                        .rightRailDestination()
+                        .tag(AppTab.progress)
+
+                    WeeklyChallengeView()
+                        .readableWidth()
+                        .rightRailDestination()
+                        .tag(AppTab.weeklyChallenge)
+                }
+                .rightRailDestination()
+                .tag(AppTab.progress)
             }
 
             if !hiddenTabs.contains(.coach) {
@@ -382,9 +414,17 @@ struct ContentView: View {
                 .tag(AppTab.settings)
 
             if !hiddenTabs.contains(.workouts) {
-                WorkoutsView()
-                    .rightRailDestination()
-                    .tag(AppTab.workouts)
+                TabView(selection: $workoutDestination) {
+                    WorkoutsView(mode: .log)
+                        .rightRailDestination()
+                        .tag(AppTab.workouts)
+
+                    WorkoutsView(mode: .library)
+                        .rightRailDestination()
+                        .tag(AppTab.exerciseLibrary)
+                }
+                .rightRailDestination()
+                .tag(AppTab.workouts)
             }
         }
     }
@@ -392,20 +432,32 @@ struct ContentView: View {
     private enum AppTab: String, Hashable, CaseIterable {
         case home
         case progress
+        case weeklyChallenge
         case coach
         case settings
         case workouts
+        case exerciseLibrary
 
-        /// Nil for Home and Settings, which can't be hidden.
-        var hideableTab: HideableTab? { HideableTab(rawValue: rawValue) }
-
-        var title: LocalizedStringKey {
+        var group: AppTab {
             switch self {
-            case .home: "Home"
-            case .progress: "Progress"
-            case .coach: "Coach"
-            case .settings: "Settings"
-            case .workouts: "Workouts"
+            case .weeklyChallenge: .progress
+            case .exerciseLibrary: .workouts
+            default: self
+            }
+        }
+
+        /// Keep the existing visibility preferences for the two split groups.
+        var hideableTab: HideableTab? { HideableTab(rawValue: group.rawValue) }
+
+        var title: Text {
+            switch self {
+            case .home: Text("Home")
+            case .progress: Text("Progress")
+            case .weeklyChallenge: Text(WeeklyChallengeL10n.text("Weekly Challenge"))
+            case .coach: Text("Coach")
+            case .settings: Text("Settings")
+            case .workouts: Text("Workout log")
+            case .exerciseLibrary: Text("Exercise library")
             }
         }
 
@@ -413,9 +465,11 @@ struct ContentView: View {
             switch self {
             case .home: "house"
             case .progress: "chart.xyaxis.line"
+            case .weeklyChallenge: "trophy"
             case .coach: "sparkles"
             case .settings: "gearshape"
-            case .workouts: "dumbbell"
+            case .workouts: WorkoutTabMode.log.tabIcon
+            case .exerciseLibrary: WorkoutTabMode.library.tabIcon
             }
         }
     }
@@ -4306,7 +4360,6 @@ struct ProgressTabView: View {
     @State private var showWorkoutHistory = false
     @State private var showImportedHealthWorkoutHistory = false
     @State private var progressMetric: ProgressMetric = .weight
-    @State private var progressOverviewMode: ProgressOverviewMode = .myProgress
     @State private var loadedFoodRange: (key: FoodRangeKey, stats: ProgressFoodRangeStats)?
     /// Daily steps for the selected window; nil while loading.
     @State private var stepDays: [StepDay]?
@@ -4408,15 +4461,8 @@ struct ProgressTabView: View {
         )
         let foodRangeStats = loadedFoodRange?.key == rangeKey ? loadedFoodRange?.stats : nil
         return NavigationStack {
-            VStack(spacing: 0) {
-                ProgressOverviewModeSelector(selection: $progressOverviewMode)
-                .padding(.horizontal)
-                .padding(.top, 10)
-                .padding(.bottom, 4)
-
-                if progressOverviewMode == .myProgress {
-                    ScrollView {
-                        LazyVStack(spacing: 18) {
+            ScrollView {
+                LazyVStack(spacing: 18) {
                     WeeklyRecapCard()
                         .padding(.horizontal)
 
@@ -4551,13 +4597,8 @@ struct ProgressTabView: View {
                             .padding(.horizontal)
                     }
 
-                        }
-                        .padding(.vertical)
-                    }
-                    .background(AppColors.appBackground)
-                } else {
-                    WeeklyChallengeView()
                 }
+                .padding(.vertical)
             }
             .readableWidth()
             .background(AppColors.appBackground)

@@ -168,7 +168,6 @@ internal fun WorkoutDiaryScreen(
     viewModel: WorkoutsViewModel,
     modifier: Modifier = Modifier,
     weekStartsOnMonday: Boolean = true,
-    onShowLibrary: () -> Unit,
     onCreateExercise: () -> Unit = {},
     onEditUserExercise: (String) -> Unit = {}
 ) {
@@ -452,17 +451,6 @@ internal fun WorkoutDiaryScreen(
                 )
             }
         }
-
-        WorkoutModeToggleButton(
-            mode = com.apoorvdarshan.calorietracker.models.WorkoutTabMode.LOG,
-            onToggle = {
-                dismissKeyboard()
-                onShowLibrary()
-            },
-            modifier = Modifier
-                .align(Alignment.TopEnd)
-                .padding(top = 8.dp, end = 16.dp)
-        )
 
         Row(
             modifier = Modifier

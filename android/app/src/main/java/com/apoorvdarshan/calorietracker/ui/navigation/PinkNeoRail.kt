@@ -26,8 +26,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CameraAlt
 import androidx.compose.material.icons.filled.AutoAwesome
+import androidx.compose.material.icons.filled.CameraAlt
+import androidx.compose.material.icons.filled.EmojiEvents
 import androidx.compose.material.icons.filled.FitnessCenter
 import androidx.compose.material.icons.filled.ShowChart
 import androidx.compose.material.icons.filled.SportsGymnastics
@@ -56,22 +57,19 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.apoorvdarshan.calorietracker.R
-import com.apoorvdarshan.calorietracker.models.WorkoutTabMode
 import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 
 data class BottomTab(val route: String, val icon: ImageVector, @get:StringRes val labelRes: Int)
 
-// Also used by Settings > Tab Bar; the stored visibility keys stay unchanged.
 val BottomTabs = listOf(
     BottomTab(FudAIRoutes.HOME, Icons.Outlined.Home, R.string.nav_home),
     BottomTab(FudAIRoutes.PROGRESS, Icons.Filled.ShowChart, R.string.nav_progress),
+    BottomTab(FudAIRoutes.WEEKLY_CHALLENGE, Icons.Filled.EmojiEvents, R.string.challenge_destination_weekly),
     BottomTab(FudAIRoutes.COACH, Icons.Filled.AutoAwesome, R.string.nav_coach),
     BottomTab(FudAIRoutes.SETTINGS, Icons.Outlined.Settings, R.string.nav_settings),
-    BottomTab(FudAIRoutes.WORKOUTS, Icons.Filled.FitnessCenter, R.string.nav_workouts)
+    BottomTab(FudAIRoutes.WORKOUTS, Icons.Filled.SportsGymnastics, R.string.nav_workout_log),
+    BottomTab(FudAIRoutes.EXERCISE_LIBRARY, Icons.Filled.FitnessCenter, R.string.nav_exercise_library)
 )
-
-fun workoutsTabIcon(mode: WorkoutTabMode): ImageVector =
-    if (mode == WorkoutTabMode.LOG) Icons.Filled.SportsGymnastics else Icons.Filled.FitnessCenter
 
 // Vertical clearances are no longer sized for an overlaid bottom navigation bar.
 val BottomNavScrollPadding = 24.dp
@@ -84,7 +82,6 @@ internal fun PinkNeoRail(
     onCamera: () -> Unit,
     modifier: Modifier = Modifier,
     showAboutBadge: Boolean = false,
-    workoutMode: WorkoutTabMode = WorkoutTabMode.Default,
     hiddenRoutes: Set<String> = emptySet(),
     navigationEnabled: Boolean = true
 ) {
@@ -131,7 +128,7 @@ internal fun PinkNeoRail(
                     val update = stringResource(R.string.settings_tap_to_update)
                     RailControl(
                         title = label,
-                        icon = if (tab.route == FudAIRoutes.WORKOUTS) workoutsTabIcon(workoutMode) else tab.icon,
+                        icon = tab.icon,
                         color = if (selected) palette.onAction else palette.ink,
                         showText = showText,
                         badge = if (!badge) null else if (selected) palette.onAction else palette.action,

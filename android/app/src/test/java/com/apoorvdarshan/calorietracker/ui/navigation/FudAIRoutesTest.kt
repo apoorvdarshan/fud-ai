@@ -11,6 +11,8 @@ class FudAIRoutesTest {
     @Test
     fun onlyMovesAcrossTabsSkipTheScreenTransition() {
         assertTrue(FudAIRoutes.isTabSwitch(FudAIRoutes.HOME, FudAIRoutes.PROGRESS))
+        assertTrue(FudAIRoutes.isTabSwitch(FudAIRoutes.PROGRESS, FudAIRoutes.WEEKLY_CHALLENGE))
+        assertTrue(FudAIRoutes.isTabSwitch(FudAIRoutes.WORKOUTS, FudAIRoutes.EXERCISE_LIBRARY))
         assertTrue(FudAIRoutes.isTabSwitch(FudAIRoutes.QUICK_ACTIONS, FudAIRoutes.HOME))
         assertFalse(FudAIRoutes.isTabSwitch(FudAIRoutes.SETTINGS, FudAIRoutes.QUICK_ACTIONS))
         assertFalse(FudAIRoutes.isTabSwitch(FudAIRoutes.ONBOARDING, FudAIRoutes.HOME))
@@ -37,7 +39,7 @@ class FudAIRoutesTest {
     fun hiddenTabsLeaveHomeAndSettingsInTheBar() {
         assertEquals(FudAIRoutes.bottomTabs, FudAIRoutes.visibleBottomTabs(emptySet()))
         assertEquals(
-            listOf(FudAIRoutes.HOME, FudAIRoutes.PROGRESS, FudAIRoutes.SETTINGS),
+            listOf(FudAIRoutes.HOME, FudAIRoutes.PROGRESS, FudAIRoutes.WEEKLY_CHALLENGE, FudAIRoutes.SETTINGS),
             FudAIRoutes.visibleBottomTabs(setOf(FudAIRoutes.COACH, FudAIRoutes.WORKOUTS))
         )
         val everything = FudAIRoutes.bottomTabs.toSet()
@@ -46,6 +48,8 @@ class FudAIRoutesTest {
         assertFalse(FudAIRoutes.isHiddenTab(FudAIRoutes.SETTINGS, everything))
         assertFalse(FudAIRoutes.isHiddenTab(null, everything))
         assertTrue(FudAIRoutes.isHiddenTab(FudAIRoutes.COACH, setOf(FudAIRoutes.COACH)))
+        assertTrue(FudAIRoutes.isHiddenTab(FudAIRoutes.WEEKLY_CHALLENGE, setOf(FudAIRoutes.PROGRESS)))
+        assertTrue(FudAIRoutes.isHiddenTab(FudAIRoutes.EXERCISE_LIBRARY, setOf(FudAIRoutes.WORKOUTS)))
     }
 
     @Test

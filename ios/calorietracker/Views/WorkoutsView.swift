@@ -2,29 +2,22 @@ import SwiftUI
 import UIKit
 
 struct WorkoutsView: View {
-    @AppStorage(WorkoutTabMode.storageKey) private var selectedModeRaw = WorkoutTabMode.defaultMode.rawValue
+    let mode: WorkoutTabMode
     @AppStorage(AppThemeColor.storageKey) private var appThemeColorRaw = AppThemeColor.defaultColor.rawValue
     @State private var workoutLogSession = WorkoutLogSessionState()
-
-    private var selectedMode: WorkoutTabMode {
-        WorkoutTabMode.mode(for: selectedModeRaw)
-    }
 
     var body: some View {
         NavigationStack {
             Group {
-                if selectedMode == .log {
+                if mode == .log {
                     WorkoutLogView(
                         session: workoutLogSession,
-                        embedsInNavigationStack: false,
-                        onShowLibrary: { showMode(.library) }
+                        embedsInNavigationStack: false
                     )
                 } else {
-                    ExerciseLibraryBrowserView(
-                        onShowWorkoutLog: { showMode(.log) }
-                    )
+                    ExerciseLibraryBrowserView()
                     .background(WorkoutsScreenBackground())
-                    .navigationTitle("Workouts")
+                    .navigationTitle("Exercise library")
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar(.hidden, for: .navigationBar)
                 }
@@ -36,18 +29,15 @@ struct WorkoutsView: View {
         // discarding its route and session-only timer state.
         .animation(.easeInOut(duration: 0.2), value: appThemeColorRaw)
         .onChange(of: workoutLogSession.selectedDate, initial: true) { _, day in
-            VoiceAssistantNavigator.shared.workoutDiaryDate = day
+            if mode == .log {
+                VoiceAssistantNavigator.shared.workoutDiaryDate = day
+            }
         }
-    }
-
-    private func showMode(_ mode: WorkoutTabMode) {
-        selectedModeRaw = mode.rawValue
     }
 }
 
 private struct ExerciseLibraryBrowserView: View {
     @Environment(StrengthWorkoutStore.self) private var workoutStore
-    var onShowWorkoutLog: (() -> Void)?
 
     @State private var searchText = ""
     @State private var debouncedSearchText = ""
@@ -303,24 +293,7 @@ private struct ExerciseLibraryBrowserView: View {
 
     private var filters: some View {
         VStack(alignment: .leading, spacing: 12) {
-            HStack(spacing: 10) {
-                WorkoutsSearchPill(searchText: $searchText)
-
-                if let onShowWorkoutLog {
-                    Button(action: onShowWorkoutLog) {
-                        Image(systemName: "figure.strengthtraining.traditional")
-                            .font(.system(size: 18, weight: .bold))
-                            .foregroundStyle(Color.workoutAccent)
-                            .frame(width: 50, height: 50)
-                            .contentShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
-                    }
-                    .buttonStyle(.plain)
-                    .workoutPressable()
-                    .workoutLiquidBarSurface(cornerRadius: 22)
-                    .accessibilityLabel("Workout log")
-                    .accessibilityHint("Opens your workout diary")
-                }
-            }
+            WorkoutsSearchPill(searchText: $searchText)
 
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 9) {

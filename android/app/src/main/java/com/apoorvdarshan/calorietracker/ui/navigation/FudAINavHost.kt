@@ -54,6 +54,7 @@ import com.apoorvdarshan.calorietracker.ui.home.HomeScreen
 import com.apoorvdarshan.calorietracker.ui.onboarding.OnboardingScreen
 import com.apoorvdarshan.calorietracker.ui.progress.BodyMeasurementsScreen
 import com.apoorvdarshan.calorietracker.ui.progress.ProgressScreen
+import com.apoorvdarshan.calorietracker.ui.progress.WeeklyChallengeScreen
 import com.apoorvdarshan.calorietracker.ui.settings.AllergenSensitivitiesScreen
 import com.apoorvdarshan.calorietracker.ui.settings.CalculationMethodsScreen
 import com.apoorvdarshan.calorietracker.ui.settings.OptionalNutrientGoalsScreen
@@ -78,8 +79,6 @@ import com.apoorvdarshan.calorietracker.ui.voice.VoiceAssistantHost
  */
 val LocalLaunchFillEpoch = compositionLocalOf { 1 }
 
-private const val WORKOUT_UI_PREFS = "fudai_workouts"
-private const val WORKOUT_MODE_V2_DEFAULT_KEY = "mode.diary_default.v2"
 
 @Composable
 fun FudAINavHost(
@@ -108,16 +107,6 @@ fun FudAINavHost(
     val voiceExpanded by remember(voiceUi) {
         derivedStateOf(structuralEqualityPolicy()) { voiceUi.value.let { it.visible && it.expanded } }
     }
-    val persistedWorkoutMode by container.workoutRepository.mode.collectAsState(initial = WorkoutTabMode.Default)
-    val workoutUiPrefs = remember(context) {
-        context.getSharedPreferences(WORKOUT_UI_PREFS, android.content.Context.MODE_PRIVATE)
-    }
-    var workoutModeV2Initialized by remember(context) {
-        mutableStateOf(workoutUiPrefs.getBoolean(WORKOUT_MODE_V2_DEFAULT_KEY, false))
-    }
-    // Match iOS's versioned AppStorage key: reset the former library-first
-    // default once, then keep every user switch persistent after that.
-    val workoutMode = if (workoutModeV2Initialized) persistedWorkoutMode else WorkoutTabMode.LOG
     // Nested settings/* screens keep the tab bar visible and highlight Settings,
     // so re-tapping the Settings icon can return to the hub (iOS parity).
     val selectedTabRoute = FudAIRoutes.selectedBottomTab(currentRoute)
@@ -163,14 +152,6 @@ fun FudAINavHost(
                 popUpTo(FudAIRoutes.HOME) { inclusive = false }
                 launchSingleTop = true
             }
-        }
-    }
-
-    LaunchedEffect(container.workoutRepository, workoutModeV2Initialized) {
-        if (!workoutModeV2Initialized) {
-            container.workoutRepository.setMode(WorkoutTabMode.LOG)
-            workoutUiPrefs.edit().putBoolean(WORKOUT_MODE_V2_DEFAULT_KEY, true).apply()
-            workoutModeV2Initialized = true
         }
     }
 
@@ -330,6 +311,7 @@ fun FudAINavHost(
                     }
                 }
                 composable(FudAIRoutes.PROGRESS) { TabInset { ProgressScreen(container = container) } }
+                composable(FudAIRoutes.WEEKLY_CHALLENGE) { TabInset { WeeklyChallengeScreen(container = container) } }
                 composable(FudAIRoutes.COACH) { TabInset { CoachScreen(container = container) } }
                 composable(FudAIRoutes.SETTINGS) {
                     TabInset {
@@ -359,7 +341,6 @@ fun FudAINavHost(
                 composable(FudAIRoutes.TAB_BAR) {
                     TabBarSettingsScreen(
                         vm = settingsViewModel,
-                        workoutMode = workoutMode,
                         onBack = { nav.popBackStack() }
                     )
                 }
@@ -375,7 +356,8 @@ fun FudAINavHost(
                         foodAnalysis = container.foodAnalysis
                     )
                 }
-                composable(FudAIRoutes.WORKOUTS) { TabInset { WorkoutsScreen(container = container) } }
+                composable(FudAIRoutes.WORKOUTS) { TabInset { WorkoutsScreen(container, WorkoutTabMode.LOG) } }
+                composable(FudAIRoutes.EXERCISE_LIBRARY) { TabInset { WorkoutsScreen(container, WorkoutTabMode.LIBRARY) } }
             }
     }
     val layoutDirection = LocalLayoutDirection.current
@@ -391,7 +373,6 @@ fun FudAINavHost(
                             PinkNeoRail(
                                 currentRoute = selectedTabRoute,
                                 showAboutBadge = updateAvailable,
-                                workoutMode = workoutMode,
                                 hiddenRoutes = hiddenTabs.orEmpty(),
                                 navigationEnabled = !analyzing && !voiceExpanded,
                                 onTap = {

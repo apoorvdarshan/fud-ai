@@ -78,7 +78,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.runtime.setValue
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
@@ -210,33 +209,6 @@ enum class TimeRange(@StringRes val labelRes: Int, val days: Int) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProgressScreen(container: AppContainer) {
-    var destination by rememberSaveable { mutableStateOf(ProgressDestination.MY_PROGRESS) }
-    val destinationState = rememberSaveableStateHolder()
-    Column(Modifier.fillMaxSize()) {
-        ProgressDestinationSelector(
-            selected = destination,
-            onSelect = { destination = it },
-            modifier = Modifier.padding(
-                start = FlashSpacing.PageInset,
-                top = FlashSpacing.ItemGap,
-                end = FlashSpacing.PageInset,
-                bottom = 4.dp
-            )
-        )
-        Box(Modifier.weight(1f)) {
-            destinationState.SaveableStateProvider(destination.name) {
-                when (destination) {
-                    ProgressDestination.MY_PROGRESS -> MyProgressContent(container)
-                    ProgressDestination.WEEKLY_CHALLENGE -> WeeklyChallengeScreen(container)
-                }
-            }
-        }
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun MyProgressContent(container: AppContainer) {
     val vm: ProgressViewModel = viewModel(factory = ProgressViewModel.Factory(container))
     val ui by vm.ui.collectAsState()
     val foods by container.foodRepository.entries.collectAsState(initial = emptyList())

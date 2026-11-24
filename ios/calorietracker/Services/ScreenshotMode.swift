@@ -14,8 +14,10 @@ enum ScreenshotMode {
         case homeNutrients
         case hostedQuota
         case progress
+        case weeklyChallenge
         case coach
         case workouts
+        case exerciseLibrary
         case settings
         case aiProviders
         case voiceSettings
@@ -215,7 +217,10 @@ enum ScreenshotMode {
 
     // MARK: - Screens
 
-    static func show(_ scene: Scene, navigator: VoiceAssistantNavigator, voiceAssistant: VoiceAssistantController) {
+    static func show(
+        _ scene: Scene, navigator: VoiceAssistantNavigator, voiceAssistant: VoiceAssistantController,
+        showSplitDestination: (Scene) -> Void
+    ) {
         switch scene {
         case .home, .nutrition, .homeNutrients, .hostedQuota, .food:
             navigator.show(.home)
@@ -224,6 +229,8 @@ enum ScreenshotMode {
             voiceAssistant.showScreenshotConversation()
         case .progress:
             navigator.show(.progress)
+        case .weeklyChallenge, .exerciseLibrary:
+            showSplitDestination(scene)
         case .coach:
             navigator.show(.coach)
         case .workouts:

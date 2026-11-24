@@ -15,6 +15,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.BarChart
 import androidx.compose.material.icons.filled.Forum
+import androidx.compose.material.icons.filled.SportsGymnastics
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -32,25 +33,22 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.apoorvdarshan.calorietracker.R
-import com.apoorvdarshan.calorietracker.models.WorkoutTabMode
 import com.apoorvdarshan.calorietracker.ui.navigation.BottomNavScrollPadding
 import com.apoorvdarshan.calorietracker.ui.navigation.FudAIRoutes
-import com.apoorvdarshan.calorietracker.ui.navigation.workoutsTabIcon
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
 
 /** Settings > App Settings > Tab Bar: show or hide Progress, Coach and Workouts. */
 @Composable
 fun TabBarSettingsScreen(
     vm: SettingsViewModel,
-    workoutMode: WorkoutTabMode,
     onBack: () -> Unit
 ) {
     val ui by vm.ui.collectAsState()
-    // The same icons the bottom bar shows, including the Workouts icon for the current mode.
+    // Progress and Workouts each control the visibility of both related pages.
     val tabs = listOf(
         Triple(FudAIRoutes.PROGRESS, R.string.nav_progress, Icons.Filled.BarChart),
         Triple(FudAIRoutes.COACH, R.string.nav_coach, Icons.Filled.Forum),
-        Triple(FudAIRoutes.WORKOUTS, R.string.nav_workouts, workoutsTabIcon(workoutMode))
+        Triple(FudAIRoutes.WORKOUTS, R.string.nav_workouts, Icons.Filled.SportsGymnastics)
     )
 
     Scaffold(containerColor = MaterialTheme.colorScheme.background) { padding ->

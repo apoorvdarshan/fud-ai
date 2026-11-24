@@ -121,16 +121,13 @@ struct WorkoutLogView: View {
     private var library: ExerciseLibraryService { workoutStore.exerciseLibrary }
     private let session: WorkoutLogSessionState
     private let embedsInNavigationStack: Bool
-    private let onShowLibrary: (() -> Void)?
 
     init(
         session: WorkoutLogSessionState = WorkoutLogSessionState(),
-        embedsInNavigationStack: Bool = true,
-        onShowLibrary: (() -> Void)? = nil
+        embedsInNavigationStack: Bool = true
     ) {
         self.session = session
         self.embedsInNavigationStack = embedsInNavigationStack
-        self.onShowLibrary = onShowLibrary
     }
 
     private var selectedDate: Date {
@@ -526,24 +523,6 @@ struct WorkoutLogView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(.visible, for: .navigationBar)
             .toolbar {
-                if let onShowLibrary {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button {
-                            guard focusedSetField == nil else {
-                                dismissSetKeyboard()
-                                return
-                            }
-                            onShowLibrary()
-                        } label: {
-                            Image(systemName: "dumbbell.fill")
-                                .font(.system(size: 18, weight: .bold))
-                        }
-                        .tint(Color.workoutAccent)
-                        .accessibilityLabel("Exercise library")
-                        .accessibilityHint("Switches back to the workout library")
-                    }
-                }
-
                 if focusedSetField != nil {
                     ToolbarItemGroup(placement: .keyboard) {
                         Spacer()

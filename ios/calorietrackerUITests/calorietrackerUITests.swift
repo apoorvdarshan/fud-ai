@@ -171,20 +171,43 @@ final class calorietrackerUITests: XCTestCase {
     }
 
     @MainActor
+    func testProgressAndWeeklyChallengeHaveSeparateRailDestinations() {
+        let app = makeApp()
+        app.launch()
+        let progress = app.buttons["nav.progress"]
+        reveal(progress, in: app)
+        progress.tap()
+        XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label == %@", "Time Range"))
+            .firstMatch.waitForExistence(timeout: 5))
+
+        let weekly = app.buttons["nav.weeklyChallenge"]
+        reveal(weekly, in: app)
+        weekly.tap()
+        XCTAssertTrue(app.staticTexts["Weekly Challenge"].waitForExistence(timeout: 5))
+        XCTAssertTrue(weekly.isSelected)
+        XCTAssertFalse(progress.isSelected)
+        progress.tap()
+        XCTAssertTrue(progress.isSelected)
+        XCTAssertTrue(app.buttons["nav.camera"].isHittable)
+    }
+
+    @MainActor
     func testWorkoutSearchOpensExerciseDetails() throws {
         let app = makeApp()
-        app.launchArguments += [
-            "-AppleLanguages", "(en)",
-            "-fudai.workouts.tab.mode.v2", "library",
-        ]
         app.launch()
 
         let workouts = app.buttons["nav.workouts"]
-        XCTAssertTrue(workouts.waitForExistence(timeout: 8))
+        reveal(workouts, in: app)
         workouts.tap()
+        XCTAssertTrue(app.buttons["Add workout"].waitForExistence(timeout: 5))
+        let library = app.buttons["nav.exerciseLibrary"]
+        reveal(library, in: app)
+        library.tap()
 
         let search = app.textFields["workouts.search"]
         XCTAssertTrue(search.waitForExistence(timeout: 5))
+        XCTAssertTrue(library.isSelected)
+        XCTAssertFalse(workouts.isSelected)
         let clearSearch = app.buttons["workouts.search.clear"]
         if clearSearch.exists {
             clearSearch.tap()
@@ -205,7 +228,8 @@ final class calorietrackerUITests: XCTestCase {
 
         app.buttons["nav.home"].tap()
         XCTAssertTrue(app.buttons["home.add"].waitForExistence(timeout: 5))
-        workouts.tap()
+        reveal(library, in: app)
+        library.tap()
         XCTAssertTrue(visual.waitForExistence(timeout: 5), "Switching tabs should preserve the open exercise detail")
     }
 

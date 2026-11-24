@@ -45,7 +45,6 @@ import androidx.compose.material.icons.filled.Storage
 import androidx.compose.material.icons.filled.SwapHoriz
 import androidx.compose.material.icons.filled.SwapVert
 import androidx.compose.material.icons.filled.Tag
-import androidx.compose.material.icons.filled.SportsGymnastics
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import com.apoorvdarshan.calorietracker.ui.components.FlashDropdownMenu as DropdownMenu
@@ -90,7 +89,6 @@ import com.apoorvdarshan.calorietracker.data.ExerciseVisual
 import com.apoorvdarshan.calorietracker.models.UserExercise
 import com.apoorvdarshan.calorietracker.models.WorkoutTabMode
 import com.apoorvdarshan.calorietracker.models.WorkoutWeightUnit
-import com.apoorvdarshan.calorietracker.ui.components.FudGlassSurface
 import com.apoorvdarshan.calorietracker.ui.navigation.BottomNavScrollPadding
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
 import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
@@ -98,7 +96,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 @Composable
-fun WorkoutsScreen(container: AppContainer, modifier: Modifier = Modifier) {
+fun WorkoutsScreen(container: AppContainer, mode: WorkoutTabMode, modifier: Modifier = Modifier) {
     val context = LocalContext.current
     var catalog by remember { mutableStateOf(ExerciseRepository.peek()) }
     LaunchedEffect(Unit) {
@@ -186,13 +184,7 @@ fun WorkoutsScreen(container: AppContainer, modifier: Modifier = Modifier) {
         return
     }
 
-    val toggleMode = {
-        vm.setMode(
-            if (vm.diaryUiState.mode == WorkoutTabMode.LOG) WorkoutTabMode.LIBRARY else WorkoutTabMode.LOG
-        )
-    }
-
-    if (vm.diaryUiState.mode == WorkoutTabMode.LOG) {
+    if (mode == WorkoutTabMode.LOG) {
         WorkoutDiaryScreen(
             container = container,
             bodyWeightKg = bodyWeightKg,
@@ -200,7 +192,6 @@ fun WorkoutsScreen(container: AppContainer, modifier: Modifier = Modifier) {
             exerciseRepository = repo,
             viewModel = vm,
             weekStartsOnMonday = weekStartsOnMonday,
-            onShowLibrary = toggleMode,
             onCreateExercise = { showCreateUserExercise = true },
             onEditUserExercise = { editingUserExerciseId = it },
             modifier = modifier
@@ -209,49 +200,9 @@ fun WorkoutsScreen(container: AppContainer, modifier: Modifier = Modifier) {
         WorkoutLibraryScreen(
             repo = repo,
             vm = vm,
-            onShowLog = toggleMode,
             onCreateExercise = { showCreateUserExercise = true },
             modifier = modifier
         )
-    }
-}
-
-@Composable
-internal fun WorkoutModeToggleButton(
-    mode: WorkoutTabMode,
-    onToggle: () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    FudGlassSurface(
-        modifier = modifier
-            .size(48.dp)
-            .clickable(onClick = onToggle),
-        cornerRadius = 18.dp,
-        padding = 0.dp,
-        contentAlignment = Alignment.Center
-    ) {
-        Icon(
-            imageVector = if (mode == WorkoutTabMode.LOG) Icons.Filled.FitnessCenter else Icons.Filled.SportsGymnastics,
-            contentDescription = if (mode == WorkoutTabMode.LOG) "Show exercise library" else "Show workout log",
-            tint = AppColors.Calorie,
-            modifier = Modifier.size(24.dp)
-        )
-    }
-}
-
-@Composable
-private fun WorkoutLibrarySearchRow(
-    value: String,
-    onValueChange: (String) -> Unit,
-    onShowLog: () -> Unit
-) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(10.dp)
-    ) {
-        SearchPill(value = value, onValueChange = onValueChange, modifier = Modifier.weight(1f))
-        WorkoutModeToggleButton(mode = WorkoutTabMode.LIBRARY, onToggle = onShowLog)
     }
 }
 
@@ -271,7 +222,6 @@ private fun filterByWorkoutSplit(items: List<ExerciseItem>, vm: WorkoutsViewMode
 private fun WorkoutLibraryScreen(
     repo: ExerciseRepository,
     vm: WorkoutsViewModel,
-    onShowLog: () -> Unit,
     onCreateExercise: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -323,10 +273,10 @@ private fun WorkoutLibraryScreen(
             Modifier.padding(horizontal = FlashSpacing.PageInset, vertical = FlashSpacing.ItemGap),
             verticalArrangement = Arrangement.spacedBy(FlashSpacing.ItemGap)
         ) {
-            WorkoutLibrarySearchRow(
+            SearchPill(
                 value = vm.searchInput,
                 onValueChange = { vm.searchInput = it },
-                onShowLog = onShowLog
+                modifier = Modifier.fillMaxWidth()
             )
             FilterRow(repo, vm)
         }

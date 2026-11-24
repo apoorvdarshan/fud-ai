@@ -1,0 +1,4 @@
+<resources>
+    <string name="nav_workout_log">ワークアウト記録</string>
+    <string name="nav_exercise_library">種目ライブラリ</string>
+</resources>

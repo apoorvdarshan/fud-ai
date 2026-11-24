@@ -76,9 +76,9 @@ class AndroidVoiceAppPorts(
         val route = navigator.currentRoute.value
         val screen = when (FudAIRoutes.selectedBottomTab(route)) {
             FudAIRoutes.HOME -> VoiceScreen.HOME
-            FudAIRoutes.PROGRESS -> VoiceScreen.PROGRESS
+            FudAIRoutes.PROGRESS, FudAIRoutes.WEEKLY_CHALLENGE -> VoiceScreen.PROGRESS
             FudAIRoutes.COACH -> VoiceScreen.COACH
-            FudAIRoutes.WORKOUTS -> VoiceScreen.WORKOUTS
+            FudAIRoutes.WORKOUTS, FudAIRoutes.EXERCISE_LIBRARY -> VoiceScreen.WORKOUTS
             FudAIRoutes.SETTINGS -> VoiceScreen.SETTINGS
             else -> null
         }

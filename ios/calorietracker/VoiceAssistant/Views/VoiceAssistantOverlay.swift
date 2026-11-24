@@ -5,6 +5,7 @@ import SwiftUI
 /// or the screens shown when it can't run.
 struct VoiceAssistantOverlay: View {
     @Bindable var controller: VoiceAssistantController
+    let windowActivity: VoiceAssistantWindowActivity
     /// Reports where the assistant's controls are, and whether it covers the app.
     let reportRegions: ([CGRect], Bool) -> Void
     let onStatusBarStyle: (UIStatusBarStyle) -> Void
@@ -56,6 +57,7 @@ struct VoiceAssistantOverlay: View {
                 onStatusBarStyle(covers ? .lightContent : .default)
             }
             .tint(AppThemeColor.color(for: appThemeColorRaw).color)
+            .environment(\.voiceAssistantAnimationActive, windowActivity.isActive)
             .preferredColorScheme(colorScheme)
             .animation(.spring(response: 0.42, dampingFraction: 0.86), value: controller.isExpanded)
             .animation(.easeInOut(duration: 0.25), value: controller.presentation)

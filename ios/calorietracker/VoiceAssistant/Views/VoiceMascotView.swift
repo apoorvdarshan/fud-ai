@@ -1,5 +1,9 @@
 import SwiftUI
 
+extension EnvironmentValues {
+    @Entry var voiceAssistantAnimationActive = false
+}
+
 struct VoiceMascotPose {
     let bob: Double
     let tilt: Double
@@ -30,12 +34,12 @@ struct VoiceMascotView: View {
     var mode: LiveOrbMode
     var level: () -> Double = { 0 }
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
-    @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.voiceAssistantAnimationActive) private var animationActive
 
     var body: some View {
         GeometryReader { geometry in
             let side = min(geometry.size.width, geometry.size.height)
-            let animated = !reduceMotion && scenePhase == .active
+            let animated = !reduceMotion && animationActive
             TimelineView(.animation(minimumInterval: 1.0 / 30, paused: !animated)) { context in
                 let pose = VoiceMascotPose.sample(mode: mode, time: context.date.timeIntervalSinceReferenceDate,
                                                   level: animated ? level() : 0, animated: animated)

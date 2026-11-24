@@ -10,7 +10,6 @@ import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Mic
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.unit.dp
 import com.apoorvdarshan.calorietracker.R
 
 enum class WorkoutDockAction(val key: String, @StringRes val titleRes: Int, val icon: ImageVector) {
@@ -37,9 +36,6 @@ data class WorkoutDockShortcuts private constructor(val actions: List<WorkoutDoc
 
     companion object {
         const val STORAGE_KEY = "workout.dockShortcuts"
-        val Side = 52.dp
-        val Gap = 6.dp
-        val AddSide = 60.dp
         val Default = WorkoutDockShortcuts(listOf(
             WorkoutDockAction.VOICE, WorkoutDockAction.SAVED, WorkoutDockAction.WALKING, WorkoutDockAction.RUNNING
         ))

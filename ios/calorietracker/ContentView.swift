@@ -271,6 +271,9 @@ struct ContentView: View {
             .onReceive(NotificationCenter.default.publisher(for: VoiceAssistantLaunchRequest.notification)) { _ in
                 consumePendingLaunchRoutes()
             }
+            .onChange(of: scenePhase, initial: true) { _, newPhase in
+                VoiceAssistantWindowManager.shared.setSceneActive(newPhase == .active)
+            }
             .onChange(of: scenePhase) { _, newPhase in
                 if newPhase == .active {
                     consumePendingLaunchRoutes()

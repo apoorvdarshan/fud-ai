@@ -478,17 +478,16 @@ internal fun WorkoutDiaryScreen(
                 .background(palette.paper)
                 .padding(horizontal = 10.dp, vertical = 8.dp)
         ) {
-            val count = ((maxWidth - WorkoutDockShortcuts.AddSide) / (WorkoutDockShortcuts.Side + WorkoutDockShortcuts.Gap))
-                .toInt().coerceIn(0, dockShortcuts.actions.size)
-            val overflow = dockShortcuts.actions.drop(count)
+            val dockLayout = WorkoutDockLayout.fit(maxWidth, dockShortcuts.actions.size)
+            val overflow = dockShortcuts.actions.drop(dockLayout.count)
             Row(
                 Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(WorkoutDockShortcuts.Gap, Alignment.End),
+                horizontalArrangement = Arrangement.spacedBy(dockLayout.gap, Alignment.End),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-            dockShortcuts.actions.take(count).forEachIndexed { slot, action ->
+            dockShortcuts.actions.take(dockLayout.count).forEachIndexed { slot, action ->
                 Box(
-                    Modifier.size(WorkoutDockShortcuts.Side)
+                    Modifier.size(dockLayout.side)
                         .testTag("workouts.shortcut.$slot")
                         .background(palette.panel)
                         .border(1.dp, palette.rule)
@@ -501,7 +500,7 @@ internal fun WorkoutDiaryScreen(
             Box {
                 Box(
                     modifier = Modifier
-                        .size(WorkoutDockShortcuts.AddSide)
+                        .size(WorkoutDockLayout.AddSide)
                         .testTag("workouts.add")
                         .background(palette.action)
                         .border(1.dp, palette.rule)

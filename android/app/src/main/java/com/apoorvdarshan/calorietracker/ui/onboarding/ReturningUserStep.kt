@@ -11,7 +11,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -32,7 +31,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
@@ -58,7 +56,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalConfiguration
@@ -83,20 +80,16 @@ import com.apoorvdarshan.calorietracker.AppContainer
 import com.apoorvdarshan.calorietracker.MainActivity
 import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.services.health.HealthConnectAvailability
+import com.apoorvdarshan.calorietracker.ui.components.FlashSheetAction
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialog
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialogActions
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassSurface
 import com.apoorvdarshan.calorietracker.ui.hosted.findActivity
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
-
-/** Google Drive's blue into its green, for the restore tile. */
-private val DriveTileGradient = listOf(Color(0xFF4285F4), Color(0xFF34A853))
-
-/** Health Connect's pink into red, for the import tile. */
-private val HealthTileGradient = listOf(Color(0xFFFF6F91), Color(0xFFE5304F))
 
 /** False when the system turned animations off (Developer options or accessibility). */
 internal fun animationsEnabled(context: Context): Boolean =
@@ -264,7 +257,6 @@ internal fun ReturningUserStep(container: AppContainer, vm: OnboardingViewModel,
                 Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     ReturningSourceCard(
                         icon = Icons.Outlined.CloudDownload,
-                        tile = DriveTileGradient,
                         title = stringResource(R.string.returning_drive_title),
                         detail = stringResource(R.string.returning_drive_detail),
                         note = stringResource(R.string.returning_drive_note),
@@ -275,7 +267,6 @@ internal fun ReturningUserStep(container: AppContainer, vm: OnboardingViewModel,
                     )
                     ReturningSourceCard(
                         icon = Icons.Filled.Favorite,
-                        tile = HealthTileGradient,
                         title = stringResource(R.string.returning_health_title),
                         detail = stringResource(R.string.returning_health_detail),
                         note = when (healthAvailability) {
@@ -309,7 +300,7 @@ internal fun ReturningUserStep(container: AppContainer, vm: OnboardingViewModel,
         ) {
             when (state.phase) {
                 ReturningPhase.SELECTING -> {
-                    GradientButton(
+                    ReturningContinueButton(
                         text = stringResource(R.string.action_continue),
                         enabled = state.canContinue,
                         onClick = onContinue
@@ -326,7 +317,7 @@ internal fun ReturningUserStep(container: AppContainer, vm: OnboardingViewModel,
                 }
                 ReturningPhase.RUNNING -> Spacer(Modifier.height(56.dp + 4.dp + 48.dp))
                 ReturningPhase.FINISHED -> {
-                    GradientButton(
+                    ReturningContinueButton(
                         text = stringResource(
                             if (state.restoredSetup) R.string.action_continue else R.string.returning_continue_setup
                         ),
@@ -383,7 +374,6 @@ internal fun ReturningUserStep(container: AppContainer, vm: OnboardingViewModel,
 @Composable
 private fun ReturningSourceCard(
     icon: ImageVector,
-    tile: List<Color>,
     title: String,
     detail: String,
     note: String?,
@@ -393,13 +383,7 @@ private fun ReturningSourceCard(
     onToggle: () -> Unit,
     onDisabledClick: (() -> Unit)? = null
 ) {
-    // The onboarding card surface and outline; picked cards get a solid accent border.
-    val shape = RoundedCornerShape(20.dp)
-    val border = if (selected) {
-        Modifier.border(BorderStroke(2.dp, AppColors.Calorie), shape)
-    } else {
-        Modifier.border(BorderStroke(1.dp, MaterialTheme.colorScheme.onBackground.copy(alpha = 0.08f)), shape)
-    }
+    val neo = pinkNeoPalette()
     val interaction = when {
         enabled -> Modifier.toggleable(value = selected, role = Role.Checkbox, onValueChange = { onToggle() })
         onDisabledClick != null -> Modifier.clickable(role = Role.Button, onClick = onDisabledClick)
@@ -410,13 +394,13 @@ private fun ReturningSourceCard(
         modifier = Modifier
             .fillMaxWidth()
             .heightIn(min = 48.dp)
-            .then(border)
+            .then(if (selected) Modifier.border(2.dp, neo.accent) else Modifier)
             .then(interaction),
         cornerRadius = 20.dp,
         padding = 16.dp
     ) {
         Row(verticalAlignment = Alignment.Top) {
-            GradientTile(icon = icon, colors = tile, alpha = contentAlpha)
+            ReturningSourceIcon(icon = icon, alpha = contentAlpha)
             Spacer(Modifier.width(14.dp))
             Column(Modifier.weight(1f)) {
                 Text(
@@ -447,15 +431,16 @@ private fun ReturningSourceCard(
 }
 
 @Composable
-private fun GradientTile(icon: ImageVector, colors: List<Color>, alpha: Float, size: Dp = 56.dp) {
+private fun ReturningSourceIcon(icon: ImageVector, alpha: Float, size: Dp = 48.dp) {
+    val neo = pinkNeoPalette()
     Box(
         Modifier
             .size(size)
-            .clip(RoundedCornerShape(16.dp))
-            .background(Brush.linearGradient(colors.map { it.copy(alpha = it.alpha * alpha) })),
+            .background(neo.wash),
         contentAlignment = Alignment.Center
     ) {
-        Icon(icon, contentDescription = null, tint = Color.White, modifier = Modifier.size(size * 0.5f))
+        Icon(icon, contentDescription = null, tint = neo.accent.copy(alpha = alpha),
+            modifier = Modifier.size(size * 0.5f))
     }
 }
 
@@ -523,10 +508,6 @@ private fun ReturningStepList(state: ReturningUserState, animate: Boolean) {
                         step.message?.let { returningMessageText(it) } ?: stringResource(R.string.returning_step_failed)
                 }
                 ReturningStepRow(
-                    tile = when (step.source) {
-                        ReturningSource.DRIVE -> DriveTileGradient
-                        ReturningSource.HEALTH -> HealthTileGradient
-                    },
                     icon = when (step.source) {
                         ReturningSource.DRIVE -> Icons.Outlined.CloudDownload
                         ReturningSource.HEALTH -> Icons.Filled.Favorite
@@ -543,7 +524,6 @@ private fun ReturningStepList(state: ReturningUserState, animate: Boolean) {
 
 @Composable
 private fun ReturningStepRow(
-    tile: List<Color>,
     icon: ImageVector,
     title: String,
     detail: String,
@@ -551,7 +531,7 @@ private fun ReturningStepRow(
     animate: Boolean
 ) {
     Row(verticalAlignment = Alignment.CenterVertically) {
-        GradientTile(icon = icon, colors = tile, alpha = if (status == ReturningStepStatus.WAITING) 0.45f else 1f, size = 44.dp)
+        ReturningSourceIcon(icon = icon, alpha = if (status == ReturningStepStatus.WAITING) 0.45f else 1f, size = 44.dp)
         Spacer(Modifier.width(14.dp))
         Column(
             Modifier
@@ -635,28 +615,18 @@ private fun StatusDot(pop: Float, background: Color, icon: ImageVector, descript
     }
 }
 
-/** Onboarding's calorie-gradient Get Started capsule; disabled, it uses the same faded fill
- *  as the Health Connect step's unavailable button. */
 @Composable
-private fun GradientButton(text: String, enabled: Boolean, onClick: () -> Unit) {
-    val disabled = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.15f)
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(56.dp)
-            .clip(RoundedCornerShape(14.dp))
-            .background(
-                if (enabled) Brush.horizontalGradient(listOf(AppColors.CalorieStart, AppColors.CalorieEnd))
-                else Brush.horizontalGradient(listOf(disabled, disabled))
-            )
-            .clickable(enabled = enabled, role = Role.Button, onClick = onClick),
-        contentAlignment = Alignment.Center
+private fun ReturningContinueButton(text: String, enabled: Boolean, onClick: () -> Unit) {
+    FlashSheetAction(
+        modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp),
+        onClick = onClick,
+        enabled = enabled
     ) {
         Text(
             text,
-            color = Color.White,
             style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.SemiBold
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Center
         )
     }
 }

@@ -348,13 +348,15 @@ final class calorietrackerUITests: XCTestCase {
     }
 
     @MainActor
-    func testAppleIntelligenceAppearsAsTextProvider() throws {
+    func testAppleIntelligenceAppearsAsTextProvider() {
         let app = makeApp()
         app.launchArguments += [
             "-AppleLanguages", "(en)",
             "-separateTextProviderEnabled", "YES",
-            "-selectedTextAIProvider", "DeepSeek",
-            "-selectedTextAIModel", "deepseek-v4-flash",
+            // A long native menu can open scrolled to its selection. Start
+            // near Apple Intelligence so this test does not depend on the
+            // OS's popup hierarchy or scroll position.
+            "-selectedTextAIProvider", "Google Gemini",
         ]
         app.launch()
 
@@ -362,24 +364,10 @@ final class calorietrackerUITests: XCTestCase {
 
         let provider = app.buttons["settings.ai.textProvider"]
         reveal(provider, in: app)
+        waitForValue("Google Gemini", in: provider)
         provider.tap()
         let appleIntelligence = app.buttons["Apple Intelligence (On-Device)"]
-        if !appleIntelligence.isHittable {
-            // Long native menus may open scrolled to their selected row.
-            // Scroll the popup collection, not the AI settings list behind it.
-            let settingsWidth = app.navigationBars["AI Providers & Fallbacks"].frame.width
-            let menu = try XCTUnwrap(
-                app.collectionViews.allElementsBoundByIndex.first {
-                    $0.frame.width < settingsWidth && $0.isHittable
-                },
-                "Expected an anchored provider menu"
-            )
-            for _ in 0..<3 {
-                if appleIntelligence.isHittable { break }
-                menu.swipeDown()
-            }
-        }
-        XCTAssertTrue(appleIntelligence.isHittable)
+        XCTAssertTrue(appleIntelligence.waitForExistence(timeout: 5))
         appleIntelligence.tap()
         waitForValue("Apple Intelligence (On-Device)", in: provider)
         let systemModel = app.staticTexts["settings.ai.systemTextModel"]

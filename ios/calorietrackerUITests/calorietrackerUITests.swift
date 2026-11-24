@@ -171,7 +171,7 @@ final class calorietrackerUITests: XCTestCase {
     }
 
     @MainActor
-    func testHomeSummarySwipesFromViewMoreAndCalendarOpensAsAPopup() {
+    func testHomeViewMoreChangesDaysOnSwipesAndOpensOnlyOnTap() {
         let app = makeApp()
         app.launch()
 
@@ -180,18 +180,38 @@ final class calorietrackerUITests: XCTestCase {
         let today = date.label
         XCTAssertEqual(today, "Today")
         let viewMore = app.buttons["home.viewMore"]
+        let details = app.navigationBars["Nutrition Details"]
+        reveal(viewMore, in: app)
+        let start = viewMore.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5))
+        let shortDragEnd = start.withOffset(CGVector(dx: 30, dy: 0))
+        start.press(forDuration: 0.05, thenDragTo: shortDragEnd)
+        XCTAssertFalse(details.exists)
+        reveal(app.buttons["home.calendar"], in: app)
+        XCTAssertEqual(date.label, today)
         reveal(viewMore, in: app)
         viewMore.swipeRight()
+        XCTAssertFalse(details.exists)
         reveal(app.buttons["home.calendar"], in: app)
         XCTAssertNotEqual(date.label, today)
         reveal(viewMore, in: app)
         viewMore.swipeLeft()
+        XCTAssertFalse(details.exists)
         reveal(viewMore, in: app)
         viewMore.swipeLeft()
+        XCTAssertFalse(details.exists)
+        reveal(app.buttons["home.calendar"], in: app)
+        XCTAssertEqual(date.label, today)
+        reveal(viewMore, in: app)
+        viewMore.tap()
+        XCTAssertTrue(details.waitForExistence(timeout: 5))
+    }
 
+    @MainActor
+    func testHomeCalendarOpensAsAPopup() {
+        let app = makeApp()
+        app.launch()
         let calendar = app.buttons["home.calendar"]
         reveal(calendar, in: app)
-        XCTAssertEqual(date.label, today)
         calendar.tap()
         let popup = app.descendants(matching: .any)["home.calendarPopup"].firstMatch
         XCTAssertTrue(popup.waitForExistence(timeout: 5))
@@ -491,8 +511,9 @@ final class calorietrackerUITests: XCTestCase {
         app.launch()
 
         XCTAssertTrue(app.staticTexts["Water"].waitForExistence(timeout: 8))
-        XCTAssertTrue(app.staticTexts["View More"].waitForExistence(timeout: 3))
-        app.staticTexts["View More"].tap()
+        let viewMore = app.buttons["home.viewMore"]
+        reveal(viewMore, in: app)
+        viewMore.tap()
 
         XCTAssertTrue(app.navigationBars["Nutrition Details"].waitForExistence(timeout: 5))
         let cardPicker = app.buttons["nutrition.homeCards"]

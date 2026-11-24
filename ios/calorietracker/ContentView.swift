@@ -1377,16 +1377,23 @@ struct HomeView: View {
         return selectedDate.formatted(.dateTime.weekday(.wide).month(.abbreviated).day())
     }
 
-    /// The summary is one swipe region, including its gaps and View More.
-    /// Keep this separate from the week strip and diary-row swipe actions.
     private var daySwipeGesture: some Gesture {
         DragGesture(minimumDistance: 24)
-            .onEnded { value in
-                let dx = value.translation.width
-                let dy = value.translation.height
-                guard abs(dx) > 60, abs(dx) > abs(dy) * 1.5 else { return }
-                changeDay(by: dx < 0 ? 1 : -1)
-            }
+            .onEnded { finishDaySwipe($0.translation) }
+    }
+
+    private func finishDaySwipe(_ translation: CGSize) {
+        let dx = translation.width
+        guard abs(dx) > 60, abs(dx) > abs(translation.height) * 1.5 else { return }
+        changeDay(by: dx < 0 ? 1 : -1)
+    }
+
+    /// On this control a drag must cancel the tap, even if it is too short
+    /// to change days or starts on today and heads into the future.
+    private var nutritionLinkGesture: some Gesture {
+        DragGesture(minimumDistance: 10)
+            .onEnded { finishDaySwipe($0.translation) }
+            .exclusively(before: TapGesture().onEnded { showNutritionDetail = true })
     }
 
     /// Step the selected day by `delta` (−1 previous, +1 next), from the swipe gesture. Won't move
@@ -1803,70 +1810,74 @@ private var dailyStepsTaskKey: String {
                     .listRowBackground(Color.clear)
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets(top: 4, leading: 10, bottom: 4, trailing: 10))
-                    VStack(spacing: 6) {
-                        PinkNeoCalorieSummary(
-                            eaten: selectedCalories,
-                            goal: calorieGoal,
-                            burnLine: homeBurnLine,
-                            launchFillEpoch: launchFillEpoch
-                        )
-                        .task(id: homeBurnRefreshToken) {
-                            await refreshHomeBurnLine()
-                        }
+                    VStack(spacing: 0) {
+                        VStack(spacing: 6) {
+                            PinkNeoCalorieSummary(
+                                eaten: selectedCalories,
+                                goal: calorieGoal,
+                                burnLine: homeBurnLine,
+                                launchFillEpoch: launchFillEpoch
+                            )
+                            .task(id: homeBurnRefreshToken) {
+                                await refreshHomeBurnLine()
+                            }
 
-                        if let dailySteps {
-                            DailyStepsRow(steps: dailySteps)
-                        }
+                            if let dailySteps {
+                                DailyStepsRow(steps: dailySteps)
+                            }
 
-                        LazyVGrid(columns: Array(repeating: GridItem(.flexible(minimum: 0), spacing: 0),
-                                                count: neoTypeSize.isAccessibilitySize ? 2 : max(1, displayedHomeNutrients.count)),
-                                  spacing: 0) {
-                            ForEach(displayedHomeNutrients) { nutrient in
+                            LazyVGrid(columns: Array(repeating: GridItem(.flexible(minimum: 0), spacing: 0),
+                                                    count: neoTypeSize.isAccessibilitySize ? 2 : max(1, displayedHomeNutrients.count)),
+                                      spacing: 0) {
+                                ForEach(displayedHomeNutrients) { nutrient in
+                                    PinkNeoNutrient(
+                                        label: nutrient.displayName,
+                                        current: nutrient.value(from: foodStore, on: selectedDate),
+                                        goal: nutrient.goal(for: userProfile, optionalGoals: optionalNutrientGoals),
+                                        unit: nutrient.unit,
+                                        palette: neo
+                                    )
+                                }
+                            }
+
+                            if waterTrackingEnabled {
                                 PinkNeoNutrient(
-                                    label: nutrient.displayName,
-                                    current: nutrient.value(from: foodStore, on: selectedDate),
-                                    goal: nutrient.goal(for: userProfile, optionalGoals: optionalNutrientGoals),
-                                    unit: nutrient.unit,
-                                    palette: neo
+                                    label: "Water",
+                                    current: waterUnit.displayAmount(forMilliliters: waterStore.total(on: selectedDate)),
+                                    goal: waterUnit.displayAmount(forMilliliters: waterDailyGoal),
+                                    unit: waterPillarUnit,
+                                    palette: neo,
+                                    compact: true
                                 )
                             }
                         }
+                        .frame(maxWidth: .infinity)
+                        .padding(.horizontal, 10)
+                        .padding(.top, 4)
+                        .padding(.bottom, 6)
+                        .contentShape(Rectangle())
+                        .simultaneousGesture(daySwipeGesture)
 
-                        if waterTrackingEnabled {
-                            PinkNeoNutrient(
-                                label: "Water",
-                                current: waterUnit.displayAmount(forMilliliters: waterStore.total(on: selectedDate)),
-                                goal: waterUnit.displayAmount(forMilliliters: waterDailyGoal),
-                                unit: waterPillarUnit,
-                                palette: neo,
-                                compact: true
-                            )
+                        HStack {
+                            Text("View More")
+                                .font(.system(.subheadline, weight: .black).width(.condensed))
+                            Spacer()
+                            Image(systemName: "chevron.forward").font(.caption2.weight(.bold))
                         }
-
-                        Button {
-                            showNutritionDetail = true
-                        } label: {
-                            HStack {
-                                Text("View More")
-                                    .font(.system(.subheadline, weight: .black).width(.condensed))
-                                Spacer()
-                                Image(systemName: "chevron.forward").font(.caption2.weight(.bold))
-                            }
-                            .foregroundStyle(neo.ink)
-                            .padding(.horizontal, 10)
-                            .frame(minHeight: 44)
-                            .background(neo.panel)
-                            .pinkNeoRule(neo.rule)
-                            .contentShape(Rectangle())
+                        .foregroundStyle(neo.ink)
+                        .padding(.horizontal, 10)
+                        .frame(minHeight: 44)
+                        .background(neo.panel)
+                        .pinkNeoRule(neo.rule)
+                        .padding(.horizontal, 10)
+                        .padding(.bottom, 4)
+                        .contentShape(Rectangle())
+                        .simultaneousGesture(nutritionLinkGesture)
+                        .accessibilityRepresentation {
+                            Button("View More") { showNutritionDetail = true }
                         }
-                        .buttonStyle(.plain)
                         .accessibilityIdentifier("home.viewMore")
                     }
-                    .frame(maxWidth: .infinity)
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 4)
-                    .contentShape(Rectangle())
-                    .simultaneousGesture(daySwipeGesture)
                     .listRowInsets(EdgeInsets())
                     .listRowBackground(Color.clear)
                     .listRowSeparator(.hidden)

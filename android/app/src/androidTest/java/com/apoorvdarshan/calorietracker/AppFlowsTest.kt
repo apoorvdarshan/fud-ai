@@ -4,8 +4,10 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
+import androidx.compose.ui.unit.dp
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.test.core.app.ActivityScenario
@@ -91,29 +93,46 @@ class AppFlowsTest {
     }
 
     @Test
-    fun homeSummarySwipesFromViewMoreAndCalendarOpensAsAPopup() {
+    fun homeViewMoreChangesDaysOnSwipesAndOpensOnlyOnTap() {
         launchFresh()
         val diary = compose.onNodeWithTag("home.diary")
         val viewMore = compose.onNodeWithTag("home.viewMore")
         val todayLabel = hasTestTag("home.dateHeading") and hasText(string(R.string.widget_today))
+        val details = hasText(string(R.string.nutrition_details_title))
+        diary.performScrollToNode(hasTestTag("home.viewMore"))
+        viewMore.performTouchInput { swipe(center, center + Offset(30.dp.toPx(), 0f)) }
+        compose.onNode(details).assertDoesNotExist()
+        diary.performScrollToIndex(0)
+        compose.onNode(todayLabel).assertIsDisplayed()
         diary.performScrollToNode(hasTestTag("home.viewMore"))
         viewMore.assertIsDisplayed().performTouchInput { swipeRight() }
+        compose.onNode(details).assertDoesNotExist()
         diary.performScrollToIndex(0)
         waitFor(hasTestTag("home.dateHeading") and !hasText(string(R.string.widget_today)))
         diary.performScrollToNode(hasTestTag("home.viewMore"))
         viewMore.performTouchInput { swipeLeft() }
+        compose.onNode(details).assertDoesNotExist()
         diary.performScrollToIndex(0)
         waitFor(todayLabel)
         diary.performScrollToNode(hasTestTag("home.viewMore"))
         viewMore.performTouchInput { swipeLeft() }
-
+        compose.onNode(details).assertDoesNotExist()
         diary.performScrollToIndex(0)
         compose.onNode(todayLabel).assertIsDisplayed()
+        diary.performScrollToNode(hasTestTag("home.viewMore"))
+        viewMore.performTouchInput { click(center) }
+        waitFor(details)
+        compose.onNode(details).assertIsDisplayed()
+    }
+
+    @Test
+    fun homeCalendarOpensAsAPopup() {
+        launchFresh()
         compose.onNodeWithTag("home.calendar").performClick()
         compose.onNodeWithTag("home.calendarPopup").assertIsDisplayed()
         compose.onNodeWithText(string(R.string.action_cancel)).performClick()
         compose.onNodeWithTag("home.calendarPopup").assertDoesNotExist()
-        compose.onNode(todayLabel).assertIsDisplayed()
+        compose.onNodeWithTag("home.dateHeading").assertTextEquals(string(R.string.widget_today))
     }
 
     @Test

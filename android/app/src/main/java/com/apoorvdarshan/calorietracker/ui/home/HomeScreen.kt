@@ -590,7 +590,8 @@ DisposableEffect(lifecycleOwner, vm) {
                             } ?: return@awaitEachGesture
                             while (change.pressed) {
                                 change = awaitHorizontalDragOrCancellation(change.id) ?: return@awaitEachGesture
-                                if (change.pressed) change.consume()
+                                // A claimed drag must never finish as a View More tap.
+                                change.consume()
                             }
                             val dx = change.position.x - down.position.x
                             val dy = change.position.y - down.position.y

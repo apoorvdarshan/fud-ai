@@ -103,7 +103,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-private enum class VoiceSheet { MASCOT, PROVIDER, MODEL, VOICE, LANGUAGE }
+private enum class VoiceSheet { MASCOT, PROVIDER, MODEL, VOICE, LANGUAGE, OFFLINE }
 
 /** Languages offered for replies: the app's languages. */
 private val REPLY_LANGUAGES: List<String> = AppLanguage.supportedTags
@@ -179,6 +179,14 @@ internal fun VoiceAssistantSettings(container: AppContainer, onOpenAiProviders: 
     LaunchedEffect(assistantActive) { if (assistantActive) preview.stop() }
 
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        SectionCard {
+            SettingRow(
+                stringResource(R.string.offline_voice), "LFM3-Audio-2B", icon = Icons.Outlined.RecordVoiceOver
+            ) {
+                preview.stop()
+                sheet = VoiceSheet.OFFLINE
+            }
+        }
         SectionCard(title = stringResource(R.string.voice_mascot)) {
             VoiceMascotGallery(mascot) { selection ->
                 if (selection != mascot.selected) {
@@ -327,6 +335,7 @@ internal fun VoiceAssistantSettings(container: AppContainer, onOpenAiProviders: 
         ) {
             Column(Modifier.fillMaxWidth().navigationBarsPadding().padding(horizontal = 20.dp).padding(bottom = 20.dp)) {
                 when (current) {
+                    VoiceSheet.OFFLINE -> OfflineVoiceSettings(container.localModels, assistantActive)
                     VoiceSheet.MASCOT -> VoiceMascotSettingsContent(
                         preferences = mascot,
                         onEdit = { selection, change -> scope.launch { container.prefs.editVoiceMascot(selection, change) } }

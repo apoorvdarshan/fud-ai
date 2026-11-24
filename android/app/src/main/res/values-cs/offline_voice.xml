@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="offline_voice">Hlas offline</string>
+    <string name="offline_voice_description">Pouze anglicky, vždy jedna otázka a odpověď. Bez přístupu k deníku, ukládání konverzace nebo přepnutí do cloudu.</string>
+    <string name="offline_voice_speak">Mluvit</string>
+    <string name="offline_voice_send">Odeslat nahrávku</string>
+    <string name="offline_voice_preparing">Příprava odpovědi v tomto zařízení…</string>
+    <string name="offline_voice_stop">Zastavit zvuk</string>
+    <string name="offline_voice_recording_error">Nepodařilo se nahrát zvuk. Zkuste mluvit alespoň jednu sekundu.</string>
+    <string name="offline_voice_reply_error">Nepodařilo se vytvořit nebo přehrát hlasovou odpověď.</string>
+    <string name="offline_voice_notices">Oznámení k hlasu offline</string>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="offline_voice">Offline-Stimme</string>
+    <string name="offline_voice_description">Nur auf Englisch, jeweils eine Frage und Antwort. Kein Zugriff auf das Tagebuch, kein Chatverlauf und kein Wechsel in die Cloud.</string>
+    <string name="offline_voice_speak">Sprechen</string>
+    <string name="offline_voice_send">Aufnahme senden</string>
+    <string name="offline_voice_preparing">Antwort wird auf diesem Gerät erstellt…</string>
+    <string name="offline_voice_stop">Audio stoppen</string>
+    <string name="offline_voice_recording_error">Audio konnte nicht aufgenommen werden. Sprich mindestens eine Sekunde lang.</string>
+    <string name="offline_voice_reply_error">Die Sprachantwort konnte nicht erstellt oder abgespielt werden.</string>
+    <string name="offline_voice_notices">Lizenzhinweise zur Offline-Stimme</string>
+</resources>

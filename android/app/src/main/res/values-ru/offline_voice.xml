@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="offline_voice">Офлайн-голос</string>
+    <string name="offline_voice_description">Только на английском, один вопрос и ответ за раз. Без доступа к дневнику, сохранения разговоров и перехода в облако.</string>
+    <string name="offline_voice_speak">Говорить</string>
+    <string name="offline_voice_send">Отправить запись</string>
+    <string name="offline_voice_preparing">Ответ готовится на этом устройстве…</string>
+    <string name="offline_voice_stop">Остановить звук</string>
+    <string name="offline_voice_recording_error">Не удалось записать звук. Попробуйте говорить не менее одной секунды.</string>
+    <string name="offline_voice_reply_error">Не удалось создать или воспроизвести голосовой ответ.</string>
+    <string name="offline_voice_notices">Лицензии офлайн-голоса</string>
+</resources>

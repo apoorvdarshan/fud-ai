@@ -1111,6 +1111,12 @@ private struct AboutSettingsSections: View {
                     Label(SherpaONNXNoticesView.title, systemImage: "doc.text.magnifyingglass")
                 }
                 .tint(.primary)
+                NavigationLink {
+                    OfflineVoiceNoticesView()
+                } label: {
+                    Label(OfflineVoiceNoticesView.title, systemImage: "doc.text.magnifyingglass")
+                }
+                .tint(.primary)
                 }
                 .listRowBackground(AppColors.appCard)
             }

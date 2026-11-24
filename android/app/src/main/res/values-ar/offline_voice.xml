@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="offline_voice">الصوت بلا إنترنت</string>
+    <string name="offline_voice_description">بالإنجليزية فقط، جولة واحدة في كل مرة. لا وصول إلى اليوميات أو حفظ للمحادثة أو استخدام للسحابة عند التعذر.</string>
+    <string name="offline_voice_speak">تحدّث</string>
+    <string name="offline_voice_send">إرسال التسجيل</string>
+    <string name="offline_voice_preparing">جارٍ إعداد الرد على هذا الجهاز…</string>
+    <string name="offline_voice_stop">إيقاف الصوت</string>
+    <string name="offline_voice_recording_error">تعذّر تسجيل الصوت. حاول التحدث لمدة ثانية واحدة على الأقل.</string>
+    <string name="offline_voice_reply_error">تعذّر إنشاء رد صوتي أو تشغيله.</string>
+    <string name="offline_voice_notices">إشعارات الصوت بلا إنترنت</string>
+</resources>

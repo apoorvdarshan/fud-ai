@@ -363,6 +363,21 @@ final class calorietrackerUITests: XCTestCase {
     }
 
     @MainActor
+    func testOfflineVoiceSetupIsSeparateAndDoesNotStartAudio() throws {
+        let app = makeApp()
+        app.launchArguments += ["-AppleLanguages", "(en)"]
+        app.launch()
+        openSettingsCategory("voiceAssistant", in: app)
+
+        let link = app.buttons["settings.offlineVoice"]
+        reveal(link, in: app)
+        link.tap()
+        XCTAssertTrue(app.navigationBars["Offline Voice"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["LFM3-Audio-2B"].exists)
+        XCTAssertFalse(app.buttons["settings.offlineVoice.speak"].exists)
+    }
+
+    @MainActor
     func testAboutAndSupportAreSeparateFromSettings() throws {
         let app = makeApp()
         app.launchArguments += ["-AppleLanguages", "(en)"]

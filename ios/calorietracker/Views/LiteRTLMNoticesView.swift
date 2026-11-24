@@ -50,6 +50,18 @@ struct SherpaONNXNoticesView: View {
     }
 }
 
+struct OfflineVoiceNoticesView: View {
+    static var title: String { String(localized: "Offline Voice notices", table: "OfflineVoice") }
+
+    var body: some View {
+        BundledNoticesView(
+            url: Bundle.main.url(forResource: "THIRD_PARTY_NOTICES_OfflineVoice", withExtension: "txt"),
+            title: Self.title,
+            accessibilityLabel: Self.title
+        )
+    }
+}
+
 private struct BundledNoticesView: View {
     private enum LoadState {
         case loading

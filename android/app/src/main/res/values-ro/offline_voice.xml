@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="offline_voice">Voce offline</string>
+    <string name="offline_voice_description">Doar în engleză, câte o întrebare și un răspuns. Fără acces la jurnal, salvarea conversației sau trecerea la cloud.</string>
+    <string name="offline_voice_speak">Vorbește</string>
+    <string name="offline_voice_send">Trimite înregistrarea</string>
+    <string name="offline_voice_preparing">Se pregătește răspunsul pe acest dispozitiv…</string>
+    <string name="offline_voice_stop">Oprește sunetul</string>
+    <string name="offline_voice_recording_error">Nu s-a putut înregistra sunetul. Încearcă să vorbești cel puțin o secundă.</string>
+    <string name="offline_voice_reply_error">Nu s-a putut genera sau reda un răspuns vocal.</string>
+    <string name="offline_voice_notices">Notificări de licență pentru Voce offline</string>
+</resources>

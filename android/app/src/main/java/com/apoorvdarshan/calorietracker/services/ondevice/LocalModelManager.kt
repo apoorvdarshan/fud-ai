@@ -110,6 +110,13 @@ class LocalModelManager(
     fun isExecutable(id: LocalModelId): Boolean = id !in deleting && state(id).executable
 
     fun modelFile(id: LocalModelId): File = artifactFile(LocalModelCatalog.descriptor(id).parts().first())
+    private val offlineVoiceFiles = Mutex()
+
+    suspend fun <T> useOfflineVoiceFiles(run: (List<File>) -> T): T = offlineVoiceFiles.withLock {
+        val id = LocalModelId.LFM3_AUDIO
+        check(isExecutable(id))
+        run(LocalModelCatalog.descriptor(id).parts().map(::artifactFile))
+    }
 
     /** Disk space used by downloaded (or partially downloaded) models (Settings → Storage). */
     fun storedBytes(): Long = modelDir.walkTopDown().filter { it.isFile }.sumOf { it.length() }
@@ -143,17 +150,20 @@ class LocalModelManager(
             activeCalls.remove(id)?.cancel()
             downloadJob?.join()
             releaseHooks[id]?.invoke()
-            withContext(Dispatchers.IO) {
-                val descriptor = LocalModelCatalog.descriptor(id)
-                for (part in descriptor.parts()) {
-                    artifactFile(part).delete()
-                    ModelDownloader.discardPartial(partialFile(part))
-                    markerFile(part).delete()
-                }
-            }
+            if (id == LocalModelId.LFM3_AUDIO) offlineVoiceFiles.withLock { deleteFiles(id) }
+            else deleteFiles(id)
             update(id, LocalModelInstallStatus.NotInstalled)
         } finally {
             deleting.remove(id)
+        }
+    }
+
+    private suspend fun deleteFiles(id: LocalModelId) = withContext(Dispatchers.IO) {
+        val descriptor = LocalModelCatalog.descriptor(id)
+        for (part in descriptor.parts()) {
+            artifactFile(part).delete()
+            ModelDownloader.discardPartial(partialFile(part))
+            markerFile(part).delete()
         }
     }
 

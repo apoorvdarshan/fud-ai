@@ -152,6 +152,12 @@ Pick how voice input is transcribed. System Speech Recognition shows live partia
 | Deepgram | Nova-3 for BYOK; explicit language detection with Automatic |
 | AssemblyAI | STT 3.7 with Universal-2 for broader language coverage |
 
+**Offline Voice** is a separate experimental option under **Settings → Voice Assistant**.
+On eligible iPhones and Android phones, [LFM3‑Audio‑2B](local-models/README.md#offline-voice-liquid-lfm3-audio-2b)
+answers English speech with a spoken reply, entirely on the device after the
+1.40 GB model download. It handles one turn at a time and does not access the
+diary or replace cloud Live Voice.
+
 For Android phones where native speech is inconsistent, Groq (Whisper) or Deepgram are recommended alternatives; the developer currently uses Groq.
 
 API keys are stored encrypted on-device: **iOS Keychain** on iOS and **EncryptedSharedPreferences backed by Android Keystore** on Android.

@@ -69,6 +69,19 @@ struct VoiceAssistantSettingsView: View {
             }
             .listRowBackground(AppColors.appCard)
             providerSection
+            Section {
+                NavigationLink {
+                    OfflineVoiceView()
+                } label: {
+                    Label {
+                        Text("Offline Voice", tableName: "OfflineVoice")
+                    } icon: {
+                        Image(systemName: "waveform")
+                    }
+                }
+                .accessibilityIdentifier("settings.offlineVoice")
+            }
+            .listRowBackground(AppColors.appCard)
             if let provider = configuredProvider {
                 modelAndVoiceSection(provider)
             }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="offline_voice">オフライン音声</string>
+    <string name="offline_voice_description">英語のみ、1回につき1往復。日記へのアクセス、会話の保存、クラウドへの切り替えは行いません。</string>
+    <string name="offline_voice_speak">話す</string>
+    <string name="offline_voice_send">録音を送信</string>
+    <string name="offline_voice_preparing">このデバイスで返答を準備しています…</string>
+    <string name="offline_voice_stop">音声を停止</string>
+    <string name="offline_voice_recording_error">録音できませんでした。1秒以上話してみてください。</string>
+    <string name="offline_voice_reply_error">音声での返答を作成または再生できませんでした。</string>
+    <string name="offline_voice_notices">オフライン音声のライセンス</string>
+</resources>

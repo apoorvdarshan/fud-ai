@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="offline_voice">Çevrimdışı ses</string>
+    <string name="offline_voice_description">Yalnızca İngilizce, her seferinde bir soru ve yanıt. Günlüğe erişmez, konuşmaları kaydetmez ve buluta geçmez.</string>
+    <string name="offline_voice_speak">Konuş</string>
+    <string name="offline_voice_send">Kaydı gönder</string>
+    <string name="offline_voice_preparing">Yanıt bu cihazda hazırlanıyor…</string>
+    <string name="offline_voice_stop">Sesi durdur</string>
+    <string name="offline_voice_recording_error">Ses kaydedilemedi. En az bir saniye konuşmayı deneyin.</string>
+    <string name="offline_voice_reply_error">Sesli yanıt oluşturulamadı veya oynatılamadı.</string>
+    <string name="offline_voice_notices">Çevrimdışı ses lisans bildirimleri</string>
+</resources>

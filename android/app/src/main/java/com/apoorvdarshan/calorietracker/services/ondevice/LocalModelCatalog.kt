@@ -7,7 +7,8 @@ enum class LocalModelId {
     GEMMA_4_E4B,
     WHISPER_BASE,
     PARAKEET_V3,
-    QWEN3_ASR
+    QWEN3_ASR,
+    LFM3_AUDIO
 }
 
 data class LocalModelFile(val path: String, val url: String, val bytes: Long, val sha256: String)
@@ -126,7 +127,27 @@ object LocalModelCatalog {
         )
     }
 
-    val all: List<LocalModelDescriptor> = listOf(gemma4E2b, gemma4E4b, whisperBase, parakeetV3, qwen3Asr)
+    private const val lfmSource = "https://huggingface.co/LiquidAI/LFM3-Audio-2B-GGUF"
+    private const val lfmRevision = "39670cb5c42e9c4bfe046519ba7ffbe47f9552ad"
+    private const val lfmFiles = "$lfmSource/resolve/$lfmRevision"
+    val lfm3Audio = LocalModelDescriptor(
+        id = LocalModelId.LFM3_AUDIO,
+        displayName = "LFM3-Audio-2B",
+        fileName = "LFM3-Audio-2B-Q4_K_M.gguf",
+        downloadUrl = "$lfmFiles/LFM3-Audio-2B-Q4_K_M.gguf",
+        expectedBytes = 1_099_626_016L,
+        sha256 = "9a773289bd321ed879cd3a76545f6aca506e403851a45fb315420aee45625be2",
+        licenseName = "LFM Open License v1.0",
+        licenseUrl = "$lfmSource/blob/$lfmRevision/LICENSE",
+        sourceUrl = "$lfmSource/tree/$lfmRevision",
+        minimumMemoryClassGb = 8,
+        supportedAbis = setOf("arm64-v8a"),
+        companionFiles = listOf(
+            file(lfmFiles, "mmproj-LFM3-Audio-2B-Q8_0.gguf", 303_811_840, "2b6648b1fd48af16aa0877b0592b144d15070783673e038a379fdbc51d40e365")
+        )
+    )
+
+    val all: List<LocalModelDescriptor> = listOf(gemma4E2b, gemma4E4b, whisperBase, parakeetV3, qwen3Asr, lfm3Audio)
 
     fun descriptor(id: LocalModelId): LocalModelDescriptor = all.first { it.id == id }
 

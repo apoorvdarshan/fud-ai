@@ -722,6 +722,16 @@ class AppFlowsTest {
     }
 
     @Test
+    fun offlineVoiceSetupDoesNotStartLiveVoiceOrPromptForAMicrophone() {
+        launchFresh()
+        openVoiceSettings()
+        compose.onNodeWithText("Offline Voice").performScrollTo().performClick()
+        compose.onNodeWithText("English only, one turn at a time.", substring = true).assertIsDisplayed()
+        compose.onNodeWithTag("voiceSettings.offline.speak").assertDoesNotExist()
+        assertTrue(!(context.applicationContext as FudAIApp).container.voiceAssistant.isActive)
+    }
+
+    @Test
     fun manualFoodRequiresNameAndCaloriesAndPersistsAcrossActivityRestarts() {
         launchFresh()
         openManualEntry()

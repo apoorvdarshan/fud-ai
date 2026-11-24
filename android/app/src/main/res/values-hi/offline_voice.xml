@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="offline_voice">ऑफ़लाइन आवाज़</string>
+    <string name="offline_voice_description">सिर्फ़ अंग्रेज़ी में, एक बार में एक सवाल और जवाब। डायरी या सहेजी गई बातचीत का इस्तेमाल नहीं होता और यह क्लाउड पर नहीं जाता।</string>
+    <string name="offline_voice_speak">बोलें</string>
+    <string name="offline_voice_send">रिकॉर्डिंग भेजें</string>
+    <string name="offline_voice_preparing">इस डिवाइस पर जवाब तैयार हो रहा है…</string>
+    <string name="offline_voice_stop">ऑडियो रोकें</string>
+    <string name="offline_voice_recording_error">आवाज़ रिकॉर्ड नहीं हो सकी। कम से कम एक सेकंड बोलकर देखें।</string>
+    <string name="offline_voice_reply_error">आवाज़ में जवाब तैयार या चलाया नहीं जा सका।</string>
+    <string name="offline_voice_notices">ऑफ़लाइन आवाज़ के लाइसेंस</string>
+</resources>

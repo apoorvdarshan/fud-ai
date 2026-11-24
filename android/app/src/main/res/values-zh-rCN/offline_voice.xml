@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="offline_voice">离线语音</string>
+    <string name="offline_voice_description">仅支持英语，每次一问一答。不访问日记，不保存对话，也不会切换到云端。</string>
+    <string name="offline_voice_speak">说话</string>
+    <string name="offline_voice_send">发送录音</string>
+    <string name="offline_voice_preparing">正在此设备上准备回复…</string>
+    <string name="offline_voice_stop">停止播放</string>
+    <string name="offline_voice_recording_error">无法录制音频，请尝试至少说一秒。</string>
+    <string name="offline_voice_reply_error">无法生成或播放语音回复。</string>
+    <string name="offline_voice_notices">离线语音许可声明</string>
+</resources>

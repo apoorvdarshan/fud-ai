@@ -1,0 +1,226 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "Allow microphone access in Settings.": {
+      "localizations": {
+        "ar": {"stringUnit": {"state": "translated", "value": "اسمح بالوصول إلى الميكروفون في الإعدادات."}},
+        "az": {"stringUnit": {"state": "translated", "value": "Ayarlarda mikrofona girişə icazə verin."}},
+        "cs": {"stringUnit": {"state": "translated", "value": "Povolte přístup k mikrofonu v Nastavení."}},
+        "de": {"stringUnit": {"state": "translated", "value": "Erlaube den Mikrofonzugriff in den Einstellungen."}},
+        "es": {"stringUnit": {"state": "translated", "value": "Permite el acceso al micrófono en Ajustes."}},
+        "fr": {"stringUnit": {"state": "translated", "value": "Autorisez l’accès au microphone dans Réglages."}},
+        "hi": {"stringUnit": {"state": "translated", "value": "सेटिंग्स में माइक्रोफ़ोन की अनुमति दें।"}},
+        "it": {"stringUnit": {"state": "translated", "value": "Consenti l’accesso al microfono nelle impostazioni."}},
+        "ja": {"stringUnit": {"state": "translated", "value": "設定でマイクへのアクセスを許可してください。"}},
+        "ko": {"stringUnit": {"state": "translated", "value": "설정에서 마이크 접근을 허용하세요."}},
+        "nl": {"stringUnit": {"state": "translated", "value": "Sta microfoontoegang toe in Instellingen."}},
+        "pl": {"stringUnit": {"state": "translated", "value": "Zezwól na dostęp do mikrofonu w Ustawieniach."}},
+        "pt-BR": {"stringUnit": {"state": "translated", "value": "Permita o acesso ao microfone nos Ajustes."}},
+        "ro": {"stringUnit": {"state": "translated", "value": "Permite accesul la microfon în Configurări."}},
+        "ru": {"stringUnit": {"state": "translated", "value": "Разрешите доступ к микрофону в настройках."}},
+        "tr": {"stringUnit": {"state": "translated", "value": "Ayarlardan mikrofon erişimine izin verin."}},
+        "uk": {"stringUnit": {"state": "translated", "value": "Дозвольте доступ до мікрофона в Налаштуваннях."}},
+        "zh-Hans": {"stringUnit": {"state": "translated", "value": "请在设置中允许访问麦克风。"}}
+      }
+    },
+    "Couldn’t capture audio. Try speaking for at least one second.": {
+      "localizations": {
+        "ar": {"stringUnit": {"state": "translated", "value": "تعذّر تسجيل الصوت. حاول التحدث لمدة ثانية واحدة على الأقل."}},
+        "az": {"stringUnit": {"state": "translated", "value": "Səsi yazmaq olmadı. Ən azı bir saniyə danışmağa çalışın."}},
+        "cs": {"stringUnit": {"state": "translated", "value": "Nepodařilo se nahrát zvuk. Zkuste mluvit alespoň jednu sekundu."}},
+        "de": {"stringUnit": {"state": "translated", "value": "Audio konnte nicht aufgenommen werden. Sprich mindestens eine Sekunde lang."}},
+        "es": {"stringUnit": {"state": "translated", "value": "No se pudo grabar el audio. Intenta hablar al menos un segundo."}},
+        "fr": {"stringUnit": {"state": "translated", "value": "L’enregistrement a échoué. Essayez de parler pendant au moins une seconde."}},
+        "hi": {"stringUnit": {"state": "translated", "value": "आवाज़ रिकॉर्ड नहीं हो सकी। कम से कम एक सेकंड बोलकर देखें।"}},
+        "it": {"stringUnit": {"state": "translated", "value": "Impossibile registrare l’audio. Prova a parlare per almeno un secondo."}},
+        "ja": {"stringUnit": {"state": "translated", "value": "録音できませんでした。1秒以上話してみてください。"}},
+        "ko": {"stringUnit": {"state": "translated", "value": "녹음하지 못했습니다. 1초 이상 말해 보세요."}},
+        "nl": {"stringUnit": {"state": "translated", "value": "Opnemen is niet gelukt. Probeer minimaal één seconde te spreken."}},
+        "pl": {"stringUnit": {"state": "translated", "value": "Nie udało się nagrać dźwięku. Spróbuj mówić przez co najmniej sekundę."}},
+        "pt-BR": {"stringUnit": {"state": "translated", "value": "Não foi possível gravar o áudio. Tente falar por pelo menos um segundo."}},
+        "ro": {"stringUnit": {"state": "translated", "value": "Nu s-a putut înregistra sunetul. Încearcă să vorbești cel puțin o secundă."}},
+        "ru": {"stringUnit": {"state": "translated", "value": "Не удалось записать звук. Попробуйте говорить не менее одной секунды."}},
+        "tr": {"stringUnit": {"state": "translated", "value": "Ses kaydedilemedi. En az bir saniye konuşmayı deneyin."}},
+        "uk": {"stringUnit": {"state": "translated", "value": "Не вдалося записати звук. Спробуйте говорити щонайменше секунду."}},
+        "zh-Hans": {"stringUnit": {"state": "translated", "value": "无法录制音频，请尝试至少说一秒。"}}
+      }
+    },
+    "Couldn’t generate or play a spoken reply.": {
+      "localizations": {
+        "ar": {"stringUnit": {"state": "translated", "value": "تعذّر إنشاء رد صوتي أو تشغيله."}},
+        "az": {"stringUnit": {"state": "translated", "value": "Səsli cavabı yaratmaq və ya səsləndirmək olmadı."}},
+        "cs": {"stringUnit": {"state": "translated", "value": "Nepodařilo se vytvořit nebo přehrát hlasovou odpověď."}},
+        "de": {"stringUnit": {"state": "translated", "value": "Die Sprachantwort konnte nicht erstellt oder abgespielt werden."}},
+        "es": {"stringUnit": {"state": "translated", "value": "No se pudo generar o reproducir una respuesta de voz."}},
+        "fr": {"stringUnit": {"state": "translated", "value": "Impossible de générer ou de lire une réponse vocale."}},
+        "hi": {"stringUnit": {"state": "translated", "value": "आवाज़ में जवाब तैयार या चलाया नहीं जा सका।"}},
+        "it": {"stringUnit": {"state": "translated", "value": "Impossibile generare o riprodurre una risposta vocale."}},
+        "ja": {"stringUnit": {"state": "translated", "value": "音声での返答を作成または再生できませんでした。"}},
+        "ko": {"stringUnit": {"state": "translated", "value": "음성 답변을 생성하거나 재생하지 못했습니다."}},
+        "nl": {"stringUnit": {"state": "translated", "value": "Kon geen gesproken antwoord maken of afspelen."}},
+        "pl": {"stringUnit": {"state": "translated", "value": "Nie udało się utworzyć lub odtworzyć odpowiedzi głosowej."}},
+        "pt-BR": {"stringUnit": {"state": "translated", "value": "Não foi possível gerar ou reproduzir uma resposta falada."}},
+        "ro": {"stringUnit": {"state": "translated", "value": "Nu s-a putut genera sau reda un răspuns vocal."}},
+        "ru": {"stringUnit": {"state": "translated", "value": "Не удалось создать или воспроизвести голосовой ответ."}},
+        "tr": {"stringUnit": {"state": "translated", "value": "Sesli yanıt oluşturulamadı veya oynatılamadı."}},
+        "uk": {"stringUnit": {"state": "translated", "value": "Не вдалося створити або відтворити голосову відповідь."}},
+        "zh-Hans": {"stringUnit": {"state": "translated", "value": "无法生成或播放语音回复。"}}
+      }
+    },
+    "English only, one turn at a time. No diary access, saved conversation, or cloud fallback.": {
+      "localizations": {
+        "ar": {"stringUnit": {"state": "translated", "value": "بالإنجليزية فقط، جولة واحدة في كل مرة. لا وصول إلى اليوميات أو حفظ للمحادثة أو استخدام للسحابة عند التعذر."}},
+        "az": {"stringUnit": {"state": "translated", "value": "Yalnız ingiliscə, hər dəfə bir sual və cavab. Gündəliyə giriş, söhbətlərin saxlanması və buluda keçid yoxdur."}},
+        "cs": {"stringUnit": {"state": "translated", "value": "Pouze anglicky, vždy jedna otázka a odpověď. Bez přístupu k deníku, ukládání konverzace nebo přepnutí do cloudu."}},
+        "de": {"stringUnit": {"state": "translated", "value": "Nur auf Englisch, jeweils eine Frage und Antwort. Kein Zugriff auf das Tagebuch, kein Chatverlauf und kein Wechsel in die Cloud."}},
+        "es": {"stringUnit": {"state": "translated", "value": "Solo en inglés, un turno a la vez. Sin acceso al diario, historial ni respaldo en la nube."}},
+        "fr": {"stringUnit": {"state": "translated", "value": "En anglais uniquement, un échange à la fois. Aucun accès au journal, aucun historique et aucun recours au cloud."}},
+        "hi": {"stringUnit": {"state": "translated", "value": "सिर्फ़ अंग्रेज़ी में, एक बार में एक सवाल और जवाब। डायरी या सहेजी गई बातचीत का इस्तेमाल नहीं होता और यह क्लाउड पर नहीं जाता।"}},
+        "it": {"stringUnit": {"state": "translated", "value": "Solo in inglese, un turno alla volta. Nessun accesso al diario, salvataggio delle conversazioni o passaggio al cloud."}},
+        "ja": {"stringUnit": {"state": "translated", "value": "英語のみ、1回につき1往復。日記へのアクセス、会話の保存、クラウドへの切り替えは行いません。"}},
+        "ko": {"stringUnit": {"state": "translated", "value": "영어로만 한 번씩 질문하고 답합니다. 일기 접근, 대화 저장 또는 클라우드 전환은 하지 않습니다."}},
+        "nl": {"stringUnit": {"state": "translated", "value": "Alleen Engels, één vraag en antwoord per keer. Geen toegang tot je dagboek, geen opgeslagen gesprekken en geen uitwijk naar de cloud."}},
+        "pl": {"stringUnit": {"state": "translated", "value": "Tylko po angielsku, po jednym pytaniu i odpowiedzi. Bez dostępu do dziennika, zapisywania rozmów i przełączania na chmurę."}},
+        "pt-BR": {"stringUnit": {"state": "translated", "value": "Somente em inglês, um turno por vez. Sem acesso ao diário, histórico de conversas ou uso da nuvem como alternativa."}},
+        "ro": {"stringUnit": {"state": "translated", "value": "Doar în engleză, câte o întrebare și un răspuns. Fără acces la jurnal, salvarea conversației sau trecerea la cloud."}},
+        "ru": {"stringUnit": {"state": "translated", "value": "Только на английском, один вопрос и ответ за раз. Без доступа к дневнику, сохранения разговоров и перехода в облако."}},
+        "tr": {"stringUnit": {"state": "translated", "value": "Yalnızca İngilizce, her seferinde bir soru ve yanıt. Günlüğe erişmez, konuşmaları kaydetmez ve buluta geçmez."}},
+        "uk": {"stringUnit": {"state": "translated", "value": "Лише англійською, одне запитання й відповідь за раз. Без доступу до щоденника, збереження розмов і переходу в хмару."}},
+        "zh-Hans": {"stringUnit": {"state": "translated", "value": "仅支持英语，每次一问一答。不访问日记，不保存对话，也不会切换到云端。"}}
+      }
+    },
+    "Offline Voice": {
+      "localizations": {
+        "ar": {"stringUnit": {"state": "translated", "value": "الصوت بلا إنترنت"}},
+        "az": {"stringUnit": {"state": "translated", "value": "Oflayn səs"}},
+        "cs": {"stringUnit": {"state": "translated", "value": "Hlas offline"}},
+        "de": {"stringUnit": {"state": "translated", "value": "Offline-Stimme"}},
+        "es": {"stringUnit": {"state": "translated", "value": "Voz sin conexión"}},
+        "fr": {"stringUnit": {"state": "translated", "value": "Voix hors ligne"}},
+        "hi": {"stringUnit": {"state": "translated", "value": "ऑफ़लाइन आवाज़"}},
+        "it": {"stringUnit": {"state": "translated", "value": "Voce offline"}},
+        "ja": {"stringUnit": {"state": "translated", "value": "オフライン音声"}},
+        "ko": {"stringUnit": {"state": "translated", "value": "오프라인 음성"}},
+        "nl": {"stringUnit": {"state": "translated", "value": "Offline stem"}},
+        "pl": {"stringUnit": {"state": "translated", "value": "Głos offline"}},
+        "pt-BR": {"stringUnit": {"state": "translated", "value": "Voz offline"}},
+        "ro": {"stringUnit": {"state": "translated", "value": "Voce offline"}},
+        "ru": {"stringUnit": {"state": "translated", "value": "Офлайн-голос"}},
+        "tr": {"stringUnit": {"state": "translated", "value": "Çevrimdışı ses"}},
+        "uk": {"stringUnit": {"state": "translated", "value": "Офлайн-голос"}},
+        "zh-Hans": {"stringUnit": {"state": "translated", "value": "离线语音"}}
+      }
+    },
+    "Offline Voice notices": {
+      "localizations": {
+        "ar": {"stringUnit": {"state": "translated", "value": "إشعارات الصوت بلا إنترنت"}},
+        "az": {"stringUnit": {"state": "translated", "value": "Oflayn səs bildirişləri"}},
+        "cs": {"stringUnit": {"state": "translated", "value": "Oznámení k hlasu offline"}},
+        "de": {"stringUnit": {"state": "translated", "value": "Lizenzhinweise zur Offline-Stimme"}},
+        "es": {"stringUnit": {"state": "translated", "value": "Avisos de Voz sin conexión"}},
+        "fr": {"stringUnit": {"state": "translated", "value": "Mentions de Voix hors ligne"}},
+        "hi": {"stringUnit": {"state": "translated", "value": "ऑफ़लाइन आवाज़ के लाइसेंस"}},
+        "it": {"stringUnit": {"state": "translated", "value": "Avvisi di Voce offline"}},
+        "ja": {"stringUnit": {"state": "translated", "value": "オフライン音声のライセンス"}},
+        "ko": {"stringUnit": {"state": "translated", "value": "오프라인 음성 고지"}},
+        "nl": {"stringUnit": {"state": "translated", "value": "Licentiemeldingen voor Offline stem"}},
+        "pl": {"stringUnit": {"state": "translated", "value": "Informacje o licencjach funkcji Głos offline"}},
+        "pt-BR": {"stringUnit": {"state": "translated", "value": "Avisos da Voz offline"}},
+        "ro": {"stringUnit": {"state": "translated", "value": "Notificări de licență pentru Voce offline"}},
+        "ru": {"stringUnit": {"state": "translated", "value": "Лицензии офлайн-голоса"}},
+        "tr": {"stringUnit": {"state": "translated", "value": "Çevrimdışı ses lisans bildirimleri"}},
+        "uk": {"stringUnit": {"state": "translated", "value": "Ліцензії офлайн-голосу"}},
+        "zh-Hans": {"stringUnit": {"state": "translated", "value": "离线语音许可声明"}}
+      }
+    },
+    "Preparing reply on this device…": {
+      "localizations": {
+        "ar": {"stringUnit": {"state": "translated", "value": "جارٍ إعداد الرد على هذا الجهاز…"}},
+        "az": {"stringUnit": {"state": "translated", "value": "Cavab bu cihazda hazırlanır…"}},
+        "cs": {"stringUnit": {"state": "translated", "value": "Příprava odpovědi v tomto zařízení…"}},
+        "de": {"stringUnit": {"state": "translated", "value": "Antwort wird auf diesem Gerät erstellt…"}},
+        "es": {"stringUnit": {"state": "translated", "value": "Preparando la respuesta en este dispositivo…"}},
+        "fr": {"stringUnit": {"state": "translated", "value": "Préparation de la réponse sur cet appareil…"}},
+        "hi": {"stringUnit": {"state": "translated", "value": "इस डिवाइस पर जवाब तैयार हो रहा है…"}},
+        "it": {"stringUnit": {"state": "translated", "value": "Preparazione della risposta su questo dispositivo…"}},
+        "ja": {"stringUnit": {"state": "translated", "value": "このデバイスで返答を準備しています…"}},
+        "ko": {"stringUnit": {"state": "translated", "value": "이 기기에서 답변 준비 중…"}},
+        "nl": {"stringUnit": {"state": "translated", "value": "Antwoord wordt op dit apparaat voorbereid…"}},
+        "pl": {"stringUnit": {"state": "translated", "value": "Przygotowywanie odpowiedzi na tym urządzeniu…"}},
+        "pt-BR": {"stringUnit": {"state": "translated", "value": "Preparando a resposta neste dispositivo…"}},
+        "ro": {"stringUnit": {"state": "translated", "value": "Se pregătește răspunsul pe acest dispozitiv…"}},
+        "ru": {"stringUnit": {"state": "translated", "value": "Ответ готовится на этом устройстве…"}},
+        "tr": {"stringUnit": {"state": "translated", "value": "Yanıt bu cihazda hazırlanıyor…"}},
+        "uk": {"stringUnit": {"state": "translated", "value": "Відповідь готується на цьому пристрої…"}},
+        "zh-Hans": {"stringUnit": {"state": "translated", "value": "正在此设备上准备回复…"}}
+      }
+    },
+    "Send recording": {
+      "localizations": {
+        "ar": {"stringUnit": {"state": "translated", "value": "إرسال التسجيل"}},
+        "az": {"stringUnit": {"state": "translated", "value": "Yazını göndər"}},
+        "cs": {"stringUnit": {"state": "translated", "value": "Odeslat nahrávku"}},
+        "de": {"stringUnit": {"state": "translated", "value": "Aufnahme senden"}},
+        "es": {"stringUnit": {"state": "translated", "value": "Enviar grabación"}},
+        "fr": {"stringUnit": {"state": "translated", "value": "Envoyer l’enregistrement"}},
+        "hi": {"stringUnit": {"state": "translated", "value": "रिकॉर्डिंग भेजें"}},
+        "it": {"stringUnit": {"state": "translated", "value": "Invia registrazione"}},
+        "ja": {"stringUnit": {"state": "translated", "value": "録音を送信"}},
+        "ko": {"stringUnit": {"state": "translated", "value": "녹음 보내기"}},
+        "nl": {"stringUnit": {"state": "translated", "value": "Opname verzenden"}},
+        "pl": {"stringUnit": {"state": "translated", "value": "Wyślij nagranie"}},
+        "pt-BR": {"stringUnit": {"state": "translated", "value": "Enviar gravação"}},
+        "ro": {"stringUnit": {"state": "translated", "value": "Trimite înregistrarea"}},
+        "ru": {"stringUnit": {"state": "translated", "value": "Отправить запись"}},
+        "tr": {"stringUnit": {"state": "translated", "value": "Kaydı gönder"}},
+        "uk": {"stringUnit": {"state": "translated", "value": "Надіслати запис"}},
+        "zh-Hans": {"stringUnit": {"state": "translated", "value": "发送录音"}}
+      }
+    },
+    "Speak": {
+      "localizations": {
+        "ar": {"stringUnit": {"state": "translated", "value": "تحدّث"}},
+        "az": {"stringUnit": {"state": "translated", "value": "Danış"}},
+        "cs": {"stringUnit": {"state": "translated", "value": "Mluvit"}},
+        "de": {"stringUnit": {"state": "translated", "value": "Sprechen"}},
+        "es": {"stringUnit": {"state": "translated", "value": "Hablar"}},
+        "fr": {"stringUnit": {"state": "translated", "value": "Parler"}},
+        "hi": {"stringUnit": {"state": "translated", "value": "बोलें"}},
+        "it": {"stringUnit": {"state": "translated", "value": "Parla"}},
+        "ja": {"stringUnit": {"state": "translated", "value": "話す"}},
+        "ko": {"stringUnit": {"state": "translated", "value": "말하기"}},
+        "nl": {"stringUnit": {"state": "translated", "value": "Spreken"}},
+        "pl": {"stringUnit": {"state": "translated", "value": "Mów"}},
+        "pt-BR": {"stringUnit": {"state": "translated", "value": "Falar"}},
+        "ro": {"stringUnit": {"state": "translated", "value": "Vorbește"}},
+        "ru": {"stringUnit": {"state": "translated", "value": "Говорить"}},
+        "tr": {"stringUnit": {"state": "translated", "value": "Konuş"}},
+        "uk": {"stringUnit": {"state": "translated", "value": "Говорити"}},
+        "zh-Hans": {"stringUnit": {"state": "translated", "value": "说话"}}
+      }
+    },
+    "Stop audio": {
+      "localizations": {
+        "ar": {"stringUnit": {"state": "translated", "value": "إيقاف الصوت"}},
+        "az": {"stringUnit": {"state": "translated", "value": "Səsi dayandır"}},
+        "cs": {"stringUnit": {"state": "translated", "value": "Zastavit zvuk"}},
+        "de": {"stringUnit": {"state": "translated", "value": "Audio stoppen"}},
+        "es": {"stringUnit": {"state": "translated", "value": "Detener audio"}},
+        "fr": {"stringUnit": {"state": "translated", "value": "Arrêter le son"}},
+        "hi": {"stringUnit": {"state": "translated", "value": "ऑडियो रोकें"}},
+        "it": {"stringUnit": {"state": "translated", "value": "Interrompi audio"}},
+        "ja": {"stringUnit": {"state": "translated", "value": "音声を停止"}},
+        "ko": {"stringUnit": {"state": "translated", "value": "오디오 정지"}},
+        "nl": {"stringUnit": {"state": "translated", "value": "Audio stoppen"}},
+        "pl": {"stringUnit": {"state": "translated", "value": "Zatrzymaj dźwięk"}},
+        "pt-BR": {"stringUnit": {"state": "translated", "value": "Parar áudio"}},
+        "ro": {"stringUnit": {"state": "translated", "value": "Oprește sunetul"}},
+        "ru": {"stringUnit": {"state": "translated", "value": "Остановить звук"}},
+        "tr": {"stringUnit": {"state": "translated", "value": "Sesi durdur"}},
+        "uk": {"stringUnit": {"state": "translated", "value": "Зупинити звук"}},
+        "zh-Hans": {"stringUnit": {"state": "translated", "value": "停止播放"}}
+      }
+    }
+  },
+  "version": "1.0"
+}

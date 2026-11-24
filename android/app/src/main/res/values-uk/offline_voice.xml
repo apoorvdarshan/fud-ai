@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="offline_voice">Офлайн-голос</string>
+    <string name="offline_voice_description">Лише англійською, одне запитання й відповідь за раз. Без доступу до щоденника, збереження розмов і переходу в хмару.</string>
+    <string name="offline_voice_speak">Говорити</string>
+    <string name="offline_voice_send">Надіслати запис</string>
+    <string name="offline_voice_preparing">Відповідь готується на цьому пристрої…</string>
+    <string name="offline_voice_stop">Зупинити звук</string>
+    <string name="offline_voice_recording_error">Не вдалося записати звук. Спробуйте говорити щонайменше секунду.</string>
+    <string name="offline_voice_reply_error">Не вдалося створити або відтворити голосову відповідь.</string>
+    <string name="offline_voice_notices">Ліцензії офлайн-голосу</string>
+</resources>

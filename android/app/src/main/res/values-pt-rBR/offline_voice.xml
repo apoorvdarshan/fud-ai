@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="offline_voice">Voz offline</string>
+    <string name="offline_voice_description">Somente em inglês, um turno por vez. Sem acesso ao diário, histórico de conversas ou uso da nuvem como alternativa.</string>
+    <string name="offline_voice_speak">Falar</string>
+    <string name="offline_voice_send">Enviar gravação</string>
+    <string name="offline_voice_preparing">Preparando a resposta neste dispositivo…</string>
+    <string name="offline_voice_stop">Parar áudio</string>
+    <string name="offline_voice_recording_error">Não foi possível gravar o áudio. Tente falar por pelo menos um segundo.</string>
+    <string name="offline_voice_reply_error">Não foi possível gerar ou reproduzir uma resposta falada.</string>
+    <string name="offline_voice_notices">Avisos da Voz offline</string>
+</resources>

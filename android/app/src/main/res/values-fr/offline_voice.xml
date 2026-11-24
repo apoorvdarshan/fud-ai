@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="offline_voice">Voix hors ligne</string>
+    <string name="offline_voice_description">En anglais uniquement, un échange à la fois. Aucun accès au journal, aucun historique et aucun recours au cloud.</string>
+    <string name="offline_voice_speak">Parler</string>
+    <string name="offline_voice_send">Envoyer l’enregistrement</string>
+    <string name="offline_voice_preparing">Préparation de la réponse sur cet appareil…</string>
+    <string name="offline_voice_stop">Arrêter le son</string>
+    <string name="offline_voice_recording_error">L’enregistrement a échoué. Essayez de parler pendant au moins une seconde.</string>
+    <string name="offline_voice_reply_error">Impossible de générer ou de lire une réponse vocale.</string>
+    <string name="offline_voice_notices">Mentions de Voix hors ligne</string>
+</resources>

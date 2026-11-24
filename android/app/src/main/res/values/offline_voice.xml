@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="offline_voice">Offline Voice</string>
+    <string name="offline_voice_notices">Offline Voice notices</string>
+    <string name="offline_voice_description">English only, one turn at a time. No diary access, saved conversation, or cloud fallback.</string>
+    <string name="offline_voice_speak">Speak</string>
+    <string name="offline_voice_send">Send recording</string>
+    <string name="offline_voice_preparing">Preparing reply on this device…</string>
+    <string name="offline_voice_stop">Stop audio</string>
+    <string name="offline_voice_recording_error">Couldn’t capture audio. Try speaking for at least one second.</string>
+    <string name="offline_voice_reply_error">Couldn’t generate or play a spoken reply.</string>
+</resources>

@@ -5,7 +5,7 @@ import SherpaOnnxC
 import WhisperKit
 
 nonisolated enum LocalSpeechModel: String, CaseIterable, Identifiable, Sendable {
-    case parakeetV3, qwen3ASR
+    case parakeetV3, qwen3ASR, lfm3Audio
 
     struct File: Sendable {
         let path: String
@@ -20,22 +20,42 @@ nonisolated enum LocalSpeechModel: String, CaseIterable, Identifiable, Sendable 
     }
 
     var id: Self { self }
-    var name: String { self == .parakeetV3 ? "Parakeet v3" : "Qwen3-ASR 0.6B" }
+    var name: String {
+        switch self {
+        case .parakeetV3: "Parakeet v3"
+        case .qwen3ASR: "Qwen3-ASR 0.6B"
+        case .lfm3Audio: "LFM3-Audio-2B"
+        }
+    }
     var minimumRAM: UInt64 { self == .parakeetV3 ? 6 : 8 }
     var repository: String {
-        self == .parakeetV3
-            ? "csukuangfj/sherpa-onnx-nemo-parakeet-tdt-0.6b-v3-int8"
-            : "csukuangfj2/sherpa-onnx-qwen3-asr-0.6B-int8-2026-03-25"
+        switch self {
+        case .parakeetV3: "csukuangfj/sherpa-onnx-nemo-parakeet-tdt-0.6b-v3-int8"
+        case .qwen3ASR: "csukuangfj2/sherpa-onnx-qwen3-asr-0.6B-int8-2026-03-25"
+        case .lfm3Audio: "LiquidAI/LFM3-Audio-2B-GGUF"
+        }
     }
     var revision: String {
-        self == .parakeetV3 ? "ed5d745623472f97cfc2e6c2916ee248798fc5a8" : "68818b2313fe77bd06f6a7c5068ff3ef59d02b8a"
+        switch self {
+        case .parakeetV3: "ed5d745623472f97cfc2e6c2916ee248798fc5a8"
+        case .qwen3ASR: "68818b2313fe77bd06f6a7c5068ff3ef59d02b8a"
+        case .lfm3Audio: "39670cb5c42e9c4bfe046519ba7ffbe47f9552ad"
+        }
     }
     var source: URL { URL(string: "https://huggingface.co/\(repository)/tree/\(revision)")! }
-    var licenseName: String { self == .parakeetV3 ? "CC BY 4.0" : "Apache 2.0" }
+    var licenseName: String {
+        switch self {
+        case .parakeetV3: "CC BY 4.0"
+        case .qwen3ASR: "Apache 2.0"
+        case .lfm3Audio: "LFM Open License v1.0"
+        }
+    }
     var licenseURL: URL {
-        URL(string: self == .parakeetV3
-            ? "https://creativecommons.org/licenses/by/4.0/"
-            : "https://github.com/QwenLM/Qwen3-ASR/blob/main/LICENSE")!
+        switch self {
+        case .parakeetV3: URL(string: "https://creativecommons.org/licenses/by/4.0/")!
+        case .qwen3ASR: URL(string: "https://github.com/QwenLM/Qwen3-ASR/blob/main/LICENSE")!
+        case .lfm3Audio: URL(string: "https://huggingface.co/\(repository)/blob/\(revision)/LICENSE")!
+        }
     }
     var files: [File] {
         switch self {
@@ -53,12 +73,26 @@ nonisolated enum LocalSpeechModel: String, CaseIterable, Identifiable, Sendable 
             File("tokenizer/tokenizer_config.json", 12_487, "4942d005604266809309cabc9f4e9cb89ce855d59b14681fdc0e1cc62ea26c4c"),
             File("tokenizer/vocab.json", 2_776_833, "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910")
         ]
+        case .lfm3Audio: [
+            File("LFM3-Audio-2B-Q4_K_M.gguf", 1_099_626_016, "9a773289bd321ed879cd3a76545f6aca506e403851a45fb315420aee45625be2"),
+            File("mmproj-LFM3-Audio-2B-Q8_0.gguf", 303_811_840, "2b6648b1fd48af16aa0877b0592b144d15070783673e038a379fdbc51d40e365")
+        ]
         }
     }
     var downloadBytes: Int64 { files.reduce(0) { $0 + $1.bytes } }
     func url(for file: File) -> URL { URL(string: "https://huggingface.co/\(repository)/resolve/\(revision)/\(file.path)")! }
-    func isEligible(memory: UInt64 = ProcessInfo.processInfo.physicalMemory) -> Bool {
-        Gemma4LocalModelManager.memoryClassGB(physicalMemoryBytes: memory) >= minimumRAM
+    func isEligible(memory: UInt64 = ProcessInfo.processInfo.physicalMemory,
+                    physicalDevice: Bool = Self.isPhysicalDevice) -> Bool {
+        (self != .lfm3Audio || physicalDevice) &&
+            Gemma4LocalModelManager.memoryClassGB(physicalMemoryBytes: memory) >= minimumRAM
+    }
+
+    static var isPhysicalDevice: Bool {
+        #if targetEnvironment(simulator)
+        false
+        #else
+        true
+        #endif
     }
 }
 
@@ -67,9 +101,14 @@ nonisolated enum LocalSpeechModel: String, CaseIterable, Identifiable, Sendable 
 final class LocalSpeechModelManager {
     static let parakeet = LocalSpeechModelManager(model: .parakeetV3)
     static let qwen = LocalSpeechModelManager(model: .qwen3ASR)
+    static let lfm3 = LocalSpeechModelManager(model: .lfm3Audio)
 
     static func forModel(_ model: LocalSpeechModel) -> LocalSpeechModelManager {
-        model == .parakeetV3 ? parakeet : qwen
+        switch model {
+        case .parakeetV3: parakeet
+        case .qwen3ASR: qwen
+        case .lfm3Audio: lfm3
+        }
     }
 
     let model: LocalSpeechModel
@@ -80,7 +119,7 @@ final class LocalSpeechModelManager {
     private(set) var errorMessage: String?
     private var activeDownload: GemmaArtifactDownloadOperation?
     private var cancelled = false
-    private static var isTranscribing = false
+    private static var engineInUse = false
 
     private init(model: LocalSpeechModel) {
         self.model = model
@@ -201,7 +240,7 @@ final class LocalSpeechModelManager {
     }
 
     func delete() {
-        guard progress == nil, !Self.isTranscribing else { return }
+        guard progress == nil, !Self.engineInUse else { return }
         do {
             try FileManager.default.removeItem(at: storageDirectory)
             errorMessage = nil
@@ -212,20 +251,28 @@ final class LocalSpeechModelManager {
     }
 
     func transcribe(_ audio: URL) async throws -> String {
-        guard model.isEligible(), isInstalled else { throw LocalSpeechError.unavailable }
-        guard !Self.isTranscribing else { throw LocalSpeechError.busy }
-        Self.isTranscribing = true
-        defer { Self.isTranscribing = false }
+        guard model != .lfm3Audio else { throw LocalSpeechError.unavailable }
         let model = model
-        let directory = storageDirectory
-        let task = Task.detached(priority: .userInitiated) {
-            try Self.decode(audio, model: model, directory: directory)
+        return try await useVerifiedFiles { directory in
+            let task = Task.detached(priority: .userInitiated) {
+                try Self.decode(audio, model: model, directory: directory)
+            }
+            return try await withTaskCancellationHandler {
+                try await task.value
+            } onCancel: {
+                task.cancel()
+            }
         }
-        return try await withTaskCancellationHandler {
-            try await task.value
-        } onCancel: {
-            task.cancel()
+    }
+
+    func useVerifiedFiles<T>(_ run: (URL) async throws -> T) async throws -> T {
+        guard model.isEligible(), Self.hasCompleteInstall(model, directory: storageDirectory) else {
+            throw LocalSpeechError.unavailable
         }
+        guard !Self.engineInUse else { throw LocalSpeechError.busy }
+        Self.engineInUse = true
+        defer { Self.engineInUse = false }
+        return try await run(storageDirectory)
     }
 
     nonisolated private static func decode(_ audio: URL, model: LocalSpeechModel, directory: URL) throws -> String {

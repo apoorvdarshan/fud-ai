@@ -222,11 +222,13 @@ class AppFlowsTest {
     }
 
     @Test
-    fun byokRailPinsPlansEvenWhenBillingIsUnavailable() {
+    fun byokRailShowsPlansEvenWhenBillingIsUnavailable() {
         launchFresh()
         val plans = compose.onNodeWithTag("nav.upgrade")
         val voice = compose.onNodeWithTag("nav.voice")
-        assertTrue(plans.assertIsDisplayed().fetchSemanticsNode().boundsInRoot.bottom <=
+        plans.assert(hasAnyAncestor(hasScrollAction()))
+        voice.assert(!hasAnyAncestor(hasScrollAction()))
+        assertTrue(plans.performScrollTo().assertIsDisplayed().fetchSemanticsNode().boundsInRoot.bottom <=
             voice.assertIsDisplayed().fetchSemanticsNode().boundsInRoot.top)
 
         plans.performClick()
@@ -283,7 +285,9 @@ class AppFlowsTest {
         val picker = hasTestTag("settings.homeShortcut.0")
         waitFor(picker)
         compose.onNode(picker).performClick()
-        clickText(R.string.home_menu_manual_entry)
+        val manualOption = hasText(string(R.string.home_menu_manual_entry)) and hasClickAction()
+        waitFor(manualOption)
+        compose.onNode(manualOption).performClick()
         awaitPreference(prefs.homeFoodShortcuts) { it.methods.first() == FoodLogMethod.MANUAL }
 
         relaunchActivity()
@@ -378,7 +382,7 @@ class AppFlowsTest {
         val voice = compose.onNodeWithTag("nav.voice")
         val initialVoiceLeft = voice.assertIsDisplayed().fetchSemanticsNode().boundsInRoot.left
         val plans = compose.onNodeWithTag("nav.upgrade")
-        val initialPlansLeft = plans.assertIsDisplayed().fetchSemanticsNode().boundsInRoot.left
+        plans.assertExists()
         val imeVisible = AtomicReference(false)
         compose.onNodeWithTag("coach.input").performClick()
         compose.waitUntil(timeoutMillis = 8_000) {
@@ -392,7 +396,9 @@ class AppFlowsTest {
         }
         assertEquals(initialLeft, home.assertIsDisplayed().fetchSemanticsNode().boundsInRoot.left, 1f)
         assertEquals(initialVoiceLeft, voice.assertIsDisplayed().fetchSemanticsNode().boundsInRoot.left, 1f)
-        assertEquals(initialPlansLeft, plans.assertIsDisplayed().fetchSemanticsNode().boundsInRoot.left, 1f)
+        plans.performScrollTo().assertIsDisplayed()
+        assertEquals(initialVoiceLeft, voice.assertIsDisplayed().fetchSemanticsNode().boundsInRoot.left, 1f)
+        home.performScrollTo()
         home.performClick()
         waitForHome()
         home.assertIsSelected()

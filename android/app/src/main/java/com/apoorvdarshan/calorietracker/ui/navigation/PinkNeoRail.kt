@@ -116,22 +116,22 @@ internal fun PinkNeoRail(
             .border(1.dp, palette.rule, railShape)
             .padding(4.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(4.dp)
+        verticalArrangement = Arrangement.spacedBy(2.dp)
     ) {
         Column(
             Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(4.dp)
+            verticalArrangement = Arrangement.spacedBy(2.dp)
         ) {
             Box(
-                Modifier.padding(top = 5.dp).size(36.dp).background(Color.Black, itemShape),
+                Modifier.padding(top = 3.dp).size(32.dp).background(Color.Black, itemShape),
                 contentAlignment = Alignment.Center
             ) {
-                Image(painterResource(R.drawable.ic_logo), contentDescription = null, modifier = Modifier.size(27.dp))
+                Image(painterResource(R.drawable.ic_logo), contentDescription = null, modifier = Modifier.size(24.dp))
             }
-            Text("FUD AI", color = palette.ink, fontSize = 9.sp, fontWeight = FontWeight.Black)
-            HorizontalDivider(Modifier.padding(vertical = 3.dp), color = palette.rule)
-            Column(Modifier.selectableGroup(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            Text("FUD AI", color = palette.ink, fontSize = 9.sp, lineHeight = 11.sp, fontWeight = FontWeight.Black)
+            HorizontalDivider(Modifier.padding(vertical = 2.dp), color = palette.rule)
+            Column(Modifier.selectableGroup(), verticalArrangement = Arrangement.spacedBy(2.dp)) {
                 BottomTabs.filterNot { FudAIRoutes.isHiddenTab(it.route, hiddenRoutes) }.forEach { tab ->
                     val label = stringResource(tab.labelRes)
                     val selected = currentRoute == tab.route
@@ -155,20 +155,20 @@ internal fun PinkNeoRail(
                     )
                 }
             }
-        }
-        if (onUpgrade != null) {
-            val label = stringResource(R.string.nav_upgrade_plans)
-            RailControl(
-                title = label,
-                icon = Icons.Filled.WorkspacePremium,
-                color = palette.ink,
-                showText = showText,
-                modifier = Modifier
-                    .testTag("nav.upgrade")
-                    .clip(itemShape)
-                    .clickable(enabled = navigationEnabled, role = Role.Button, onClick = onUpgrade)
-                    .semantics { contentDescription = label }
-            )
+            if (onUpgrade != null) {
+                val label = stringResource(R.string.nav_upgrade_plans)
+                RailControl(
+                    title = label,
+                    icon = Icons.Filled.WorkspacePremium,
+                    color = palette.ink,
+                    showText = showText,
+                    modifier = Modifier
+                        .testTag("nav.upgrade")
+                        .clip(itemShape)
+                        .clickable(enabled = navigationEnabled, role = Role.Button, onClick = onUpgrade)
+                        .semantics { contentDescription = label }
+                )
+            }
         }
         if (onVoice != null) {
             val voiceLabel = stringResource(R.string.voice_talk_to_fud_ai)
@@ -208,19 +208,19 @@ private fun RailControl(
     badge: Color? = null
 ) {
     Column(
-        modifier.fillMaxWidth().heightIn(min = 48.dp).padding(horizontal = 2.dp, vertical = 4.dp),
+        modifier.fillMaxWidth().heightIn(min = 48.dp).padding(horizontal = 2.dp, vertical = 2.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(2.dp, Alignment.CenterVertically)
     ) {
         Box {
-            Icon(icon, contentDescription = null, tint = color, modifier = Modifier.size(19.dp))
+            Icon(icon, contentDescription = null, tint = color, modifier = Modifier.size(18.dp))
             if (badge != null) {
                 Box(Modifier.align(Alignment.TopEnd).size(6.dp).background(badge, CircleShape))
             }
         }
         if (showText) {
             Text(title, color = color, fontWeight = FontWeight.SemiBold,
-                maxLines = 2, textAlign = TextAlign.Center, overflow = TextOverflow.Ellipsis,
+                maxLines = 2, lineHeight = 12.sp, textAlign = TextAlign.Center, overflow = TextOverflow.Ellipsis,
                 autoSize = TextAutoSize.StepBased(minFontSize = 9.sp, maxFontSize = 11.sp, stepSize = 1.sp))
         }
     }

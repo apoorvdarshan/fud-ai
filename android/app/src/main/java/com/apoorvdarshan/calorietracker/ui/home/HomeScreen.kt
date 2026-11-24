@@ -96,6 +96,7 @@ import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material.icons.filled.Stop
 import androidx.compose.material.icons.filled.PlayArrow
 import com.apoorvdarshan.calorietracker.ui.components.FlashAlertDialog as AlertDialog
+import com.apoorvdarshan.calorietracker.ui.components.FlashLoadingDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -218,8 +219,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
-import androidx.compose.ui.window.Dialog
-import androidx.compose.ui.window.DialogProperties
 
 private sealed interface AddMenuDestination {
     data class FoodGroup(val index: Int) : AddMenuDestination
@@ -2258,7 +2257,6 @@ private fun SwipeableFoodRow(
                     rowShape = rowShape,
                     selectionMode = selectionMode,
                     selected = selected,
-                    usesPinkNeoStyle = true
                 )
             }
         }
@@ -2466,13 +2464,12 @@ private fun FoodRow(
     isFavorite: Boolean = false,
     rowShape: RoundedCornerShape = RoundedCornerShape(22.dp),
     selectionMode: Boolean = false,
-    selected: Boolean = false,
-    usesPinkNeoStyle: Boolean = false
+    selected: Boolean = false
 ) {
     val neo = pinkNeoPalette()
     val ctx = LocalContext.current
     val compactDetails = LocalDensity.current.fontScale >= 1.3f ||
-        (usesPinkNeoStyle && LocalConfiguration.current.screenWidthDp < 360)
+        LocalConfiguration.current.screenWidthDp < 360
     val timeFmt = remember(ctx) {
         DateTimeFormatter.ofPattern(clockTimePattern(ctx), Locale.getDefault()).withZone(ZoneId.systemDefault())
     }
@@ -2488,23 +2485,9 @@ private fun FoodRow(
             .testTag("diary.food.${entry.id}")
             .fillMaxWidth()
             .clip(rowShape)
-            .then(if (usesPinkNeoStyle) {
-                Modifier.background(neo.panel)
-                    .background(if (selected) neo.action.copy(alpha = 0.12f) else Color.Transparent)
-                    .border(0.7.dp, neo.rule, rowShape)
-            } else {
-                Modifier.background(MaterialTheme.colorScheme.surface.copy(alpha = 0.86f))
-                    .background(AppColors.Calorie.copy(alpha = 0.025f))
-                    .border(
-                        0.7.dp,
-                        Brush.linearGradient(listOf(
-                            Color.White.copy(alpha = 0.14f),
-                            Color.White.copy(alpha = 0.035f),
-                            AppColors.Calorie.copy(alpha = 0.07f)
-                        )),
-                        rowShape
-                    )
-            })
+            .background(neo.panel)
+            .background(if (selected) neo.action.copy(alpha = 0.12f) else Color.Transparent)
+            .border(0.7.dp, neo.rule, rowShape)
             .padding(horizontal = 14.dp, vertical = 12.dp),
         verticalAlignment = Alignment.Top,
         horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -2658,20 +2641,7 @@ private fun FoodRow(
         }
     }
     if (isLoadingPreview) {
-        Dialog(
-            onDismissRequest = {},
-            properties = DialogProperties(dismissOnBackPress = false, dismissOnClickOutside = false)
-        ) {
-            Box(
-                Modifier
-                    .size(96.dp)
-                    .clip(RoundedCornerShape(16.dp))
-                    .background(Color.Black.copy(alpha = 0.72f)),
-                contentAlignment = Alignment.Center
-            ) {
-                CircularProgressIndicator(color = Color.White, modifier = Modifier.size(36.dp))
-            }
-        }
+        FlashLoadingDialog(onDismissRequest = {}, dismissOnBackPress = false)
     }
     previewPhotos?.let { (bitmaps, index) ->
         FullScreenImageViewer(
@@ -2830,10 +2800,9 @@ private fun CopyFromDaySheet(
                         val index = group.entries.indexOf(entry)
                         val isFirst = index == 0
                         val isLast = index == group.entries.lastIndex
-                        val rowShape = sectionCardShape(isFirst, isLast)
                         SectionCardWrapper(isFirst = isFirst, isLast = isLast, transparent = true) {
                             Box(Modifier.clickable { onCopy(listOf(entry)) }) {
-                                FoodRow(entry = entry, rowShape = rowShape)
+                                FoodRow(entry = entry, rowShape = RoundedCornerShape(0.dp))
                             }
                             if (index != group.entries.lastIndex) Divider()
                         }
@@ -2961,6 +2930,7 @@ private fun AnalyzingOverlay(
 
 @Composable
 private fun CameraPairTransitionOverlay() {
+    val neo = pinkNeoPalette()
     var entered by remember { mutableStateOf(false) }
     val scale by animateFloatAsState(
         targetValue = if (entered) 1f else 0.86f,
@@ -2996,14 +2966,13 @@ private fun CameraPairTransitionOverlay() {
                 Box(
                     modifier = Modifier
                         .size(58.dp)
-                        .clip(CircleShape)
-                        .background(AppColors.CalorieGradient),
+                        .background(neo.action),
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
                         Icons.Filled.AddAPhoto,
                         contentDescription = null,
-                        tint = Color.White,
+                        tint = neo.onAction,
                         modifier = Modifier.size(30.dp)
                     )
                 }

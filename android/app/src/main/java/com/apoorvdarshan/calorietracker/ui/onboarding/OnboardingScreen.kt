@@ -25,6 +25,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -69,7 +70,6 @@ import com.apoorvdarshan.calorietracker.ui.components.OptionPickerSheet
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Icon
-import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import com.apoorvdarshan.calorietracker.ui.components.FlashAlertDialog as AlertDialog
@@ -78,6 +78,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -92,7 +93,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
@@ -1920,19 +1920,13 @@ private fun BuildingPlanStep(vm: OnboardingViewModel, onComplete: () -> Unit) {
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
                 .height(10.dp)
-                .clip(RoundedCornerShape(5.dp))
                 .background(MaterialTheme.colorScheme.onBackground.copy(alpha = 0.08f))
         ) {
             Box(
                 Modifier
                     .fillMaxHeight()
                     .fillMaxWidth(animatedProgress)
-                    .clip(RoundedCornerShape(5.dp))
-                    .background(
-                        Brush.horizontalGradient(
-                            listOf(AppColors.CalorieStart, AppColors.CalorieEnd)
-                        )
-                    )
+                    .background(AppColors.Calorie)
             )
         }
         Spacer(Modifier.height(18.dp))
@@ -1977,13 +1971,15 @@ private fun BuildingPlanStep(vm: OnboardingViewModel, onComplete: () -> Unit) {
 }
 
 /**
- * iOS planReadyStep: large gradient-filled calorie number with "daily calories"
+ * iOS planReadyStep: large calorie number with "daily calories"
  * caption, and three macro cards (Protein, Carbs, Fat) below. Each value is tappable —
  * opens an edit dialog whose value lands in customCalories/customProtein/customCarbs/customFat
  * on the profile that ProfileRepository persists at the end of onboarding.
  */
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun PlanReadyStep(state: OnboardingState, vm: OnboardingViewModel) {
+    val neo = pinkNeoPalette()
     val profile = state.buildProfile()
     var editing by remember { mutableStateOf<PlanField?>(null) }
     Column(Modifier.fillMaxSize()) {
@@ -2010,13 +2006,10 @@ private fun PlanReadyStep(state: OnboardingState, vm: OnboardingViewModel) {
         ) {
             Text(
                 "${profile.effectiveCalories}",
-                fontSize = 64.sp,
-                fontWeight = FontWeight.Bold,
-                style = LocalTextStyle.current.copy(
-                    brush = Brush.linearGradient(
-                        listOf(AppColors.CalorieStart, AppColors.CalorieEnd)
-                    )
-                )
+                fontSize = 44.sp,
+                fontWeight = FontWeight.Black,
+                color = neo.accent,
+                style = PinkNeoCondensed
             )
             Text(
                 stringResource(R.string.onboarding_plan_daily_calories),
@@ -2025,27 +2018,25 @@ private fun PlanReadyStep(state: OnboardingState, vm: OnboardingViewModel) {
             )
         }
         Spacer(Modifier.height(28.dp))
-        Row(
+        FlowRow(
             Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            maxItemsInEachRow = if (LocalDensity.current.fontScale >= 1.5f) 1 else 3
         ) {
-            val macroGradient = listOf(AppColors.CalorieStart, AppColors.CalorieEnd)
             MacroCard(
                 label = stringResource(R.string.macro_protein),
                 value = profile.effectiveProtein,
-                gradient = macroGradient,
                 modifier = Modifier.weight(1f).clickable { editing = PlanField.PROTEIN }
             )
             MacroCard(
                 label = stringResource(R.string.macro_carbs),
                 value = profile.effectiveCarbs,
-                gradient = macroGradient,
                 modifier = Modifier.weight(1f).clickable { editing = PlanField.CARBS }
             )
             MacroCard(
                 label = stringResource(R.string.macro_fat),
                 value = profile.effectiveFat,
-                gradient = macroGradient,
                 modifier = Modifier.weight(1f).clickable { editing = PlanField.FAT }
             )
         }
@@ -2129,14 +2120,15 @@ private fun PlanReadyStep(state: OnboardingState, vm: OnboardingViewModel) {
 private fun MacroCard(
     label: String,
     value: Int,
-    gradient: List<Color>,
     modifier: Modifier = Modifier
 ) {
+    val neo = pinkNeoPalette()
     Box(
         modifier
-            .clip(RoundedCornerShape(14.dp))
-            .background(MaterialTheme.colorScheme.surface)
-            .padding(vertical = 14.dp),
+            .widthIn(min = 88.dp)
+            .background(neo.panel)
+            .border(1.dp, neo.rule)
+            .padding(horizontal = 6.dp, vertical = 14.dp),
         contentAlignment = Alignment.Center
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -2144,17 +2136,17 @@ private fun MacroCard(
                 label,
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.55f),
-                fontWeight = FontWeight.Medium
+                fontWeight = FontWeight.Medium,
+                textAlign = androidx.compose.ui.text.style.TextAlign.Center
             )
             Spacer(Modifier.height(4.dp))
             Row(verticalAlignment = Alignment.Bottom) {
                 Text(
                     "$value",
                     fontSize = 22.sp,
-                    fontWeight = FontWeight.Bold,
-                    style = LocalTextStyle.current.copy(
-                        brush = Brush.linearGradient(gradient)
-                    )
+                    fontWeight = FontWeight.Black,
+                    color = neo.ink,
+                    style = PinkNeoCondensed
                 )
                 Spacer(Modifier.width(2.dp))
                 Text(

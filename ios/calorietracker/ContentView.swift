@@ -1459,12 +1459,19 @@ private var dailyStepsTaskKey: String {
         return calendar.date(from: components) ?? day
     }
 
-    /// ScreenshotMode's nutrition scene: the View More sheet, once Home has loaded.
-    private func openScreenshotNutritionIfRequested() async {
+    /// Open the requested demo sheet after Home is attached to its presenter.
+    private func openScreenshotHomeSheetIfRequested() async {
         #if DEBUG && targetEnvironment(simulator)
-        guard ScreenshotMode.scene == .nutrition else { return }
-        try? await Task.sleep(for: .seconds(1.2))
-        showNutritionDetail = true
+        switch ScreenshotMode.scene {
+        case .nutrition, .homeNutrients:
+            try? await Task.sleep(for: .seconds(1.2))
+            if !Task.isCancelled { showNutritionDetail = true }
+        case .hostedQuota:
+            try? await Task.sleep(for: .seconds(1.2))
+            if !Task.isCancelled { showHostedQuotaPaywall = true }
+        default:
+            break
+        }
         #endif
     }
 
@@ -2402,7 +2409,7 @@ private var dailyStepsTaskKey: String {
             .flashSheet(isPresented: $showNutritionDetail) {
                 NutritionDetailView(date: selectedDate, homeTopNutrientsRaw: $homeTopNutrientsRaw)
             }
-            .task { await openScreenshotNutritionIfRequested() }
+            .task { await openScreenshotHomeSheetIfRequested() }
             .flashSheet(isPresented: $showCustomWaterLog) {
                 WaterCustomAmountSheet(unit: waterUnit, onAdd: logWater)
             }
@@ -3453,6 +3460,13 @@ struct NutritionDetailView: View {
                     waterTrackingEnabled: waterTrackingEnabled
                 )
             }
+            #if DEBUG && targetEnvironment(simulator)
+            .task {
+                guard ScreenshotMode.scene == .homeNutrients else { return }
+                try? await Task.sleep(for: .seconds(0.8))
+                if !Task.isCancelled { showHomeNutrientPicker = true }
+            }
+            #endif
             .onChange(of: homeTopNutrientsRaw) { _, _ in
                 refreshWidgetSnapshot()
             }
@@ -5850,6 +5864,7 @@ struct ProfileView: View {
                         ) {
                             Text($0.displayName)
                         }
+                        .accessibilityIdentifier("settings.ai.primaryProvider")
                         .id("primary-provider-\(localModelAvailabilityRevision)")
                         .onChange(of: selectedProvider) { _, newProvider in
                             selectedModel = AIProviderSettings.switchPrimaryProvider(to: newProvider)
@@ -6080,6 +6095,7 @@ struct ProfileView: View {
                         }
                     }
                     .tint(AppColors.calorie)
+                    .accessibilityIdentifier("settings.ai.useSeparateText")
                     .onChange(of: separateTextProviderEnabled) { _, isEnabled in
                         AIProviderSettings.separateTextProviderEnabled = isEnabled
                     }
@@ -6103,6 +6119,8 @@ struct ProfileView: View {
                         }
                         .pickerStyle(.menu)
                         .tint(.secondary)
+                        .accessibilityIdentifier("settings.ai.textProvider")
+                        .accessibilityValue(Text(selectedTextProvider.displayName))
                         .id("text-provider-\(localModelAvailabilityRevision)")
                         .onChange(of: selectedTextProvider) { _, newProvider in
                             AIProviderSettings.selectedTextProvider = newProvider
@@ -6118,6 +6136,7 @@ struct ProfileView: View {
                                 Spacer()
                                 Text(selectedTextProvider.defaultTextModel)
                                     .foregroundStyle(.secondary)
+                                    .accessibilityIdentifier("settings.ai.systemTextModel")
                             }
 
                             appleIntelligenceAvailabilityRow
@@ -6148,15 +6167,11 @@ struct ProfileView: View {
                                 }
                             }
                         } else {
-                            Picker(selection: $selectedTextModel) {
-                                ForEach(selectedTextProvider.textModels, id: \.self) { model in
-                                    Text(model).tag(model)
-                                }
-                            } label: {
-                                Label("Model", systemImage: "brain")
+                            FlashChoicePicker(title: Text("Model"), selection: $selectedTextModel,
+                                              options: selectedTextProvider.textModels, titleIcon: "brain") {
+                                Text($0)
                             }
-                            .pickerStyle(.menu)
-                            .tint(.secondary)
+                            .accessibilityIdentifier("settings.ai.textModel")
                             .onAppear {
                                 if !selectedTextProvider.textModels.contains(selectedTextModel) {
                                     selectedTextModel = selectedTextProvider.defaultTextModel

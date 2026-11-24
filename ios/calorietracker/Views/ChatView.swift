@@ -326,24 +326,22 @@ struct ChatView: View {
     /// Context-aware suggested prompts — pick a different set based on goal to keep them relevant.
     private var promptChips: some View {
 
-        return ScrollView(.horizontal, showsIndicators: false) {
+        ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
-                Image(systemName: "sparkles")
-                    .font(.system(size: 13, weight: .semibold))
-                    .foregroundStyle(AppColors.calorie)
-                    .frame(width: 32, height: 44)
-                    .background(AppColors.calorie.opacity(0.08), in: Circle())
-                    .accessibilityHidden(true)
-
                 ForEach(suggestedPrompts, id: \.self) { chip in
                     Button {
                         draft = chip
                         send()
                     } label: {
                         Text(LocalizedDisplayText.text(chip))
-                            .font(.system(.footnote, design: .rounded, weight: .medium))
-                            .padding(.horizontal, 14)
-                            .frame(minHeight: 44)
+                            .font(.system(.footnote, weight: .semibold).width(.condensed))
+                            .multilineTextAlignment(.leading)
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 8)
+                            .frame(minHeight: 44, alignment: .leading)
+                            .containerRelativeFrame(.horizontal) { width, _ in
+                                min(280, width * 0.86)
+                            }
                             .foregroundStyle(.primary)
                             .flashPanel()
                     }
@@ -351,9 +349,9 @@ struct ChatView: View {
                     .disabled(isSending)
                 }
             }
-            .padding(.horizontal)
             .padding(.vertical, 6)
         }
+        .contentMargins(.horizontal, 12, for: .scrollContent)
     }
 
     private var inputArea: some View {
@@ -1121,9 +1119,7 @@ private struct CoachAssistantBadge: View {
                 .pinkNeoRule(AppColors.flashRule)
             Image(systemName: "sparkles")
                 .font(.system(size: 11, weight: .semibold))
-                .foregroundStyle(
-                    LinearGradient(colors: AppColors.calorieGradient, startPoint: .topLeading, endPoint: .bottomTrailing)
-                )
+                .foregroundStyle(AppColors.accentText)
         }
         .padding(.top, 8)
         .accessibilityHidden(true)
@@ -1136,9 +1132,7 @@ private struct TypingIndicator: View {
         HStack(spacing: 5) {
             ForEach(0..<3) { i in
                 Circle()
-                    .fill(
-                        LinearGradient(colors: AppColors.calorieGradient, startPoint: .topLeading, endPoint: .bottomTrailing)
-                    )
+                    .fill(AppColors.accentText)
                     .frame(width: 7, height: 7)
                     .opacity(phase == i ? 1 : 0.3)
                     .scaleEffect(phase == i ? 1.15 : 1.0)

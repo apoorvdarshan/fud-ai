@@ -27,6 +27,13 @@ Flash is an app-wide theme, not a Home or navigation skin. A screen or presentat
 
 **Known remaining coverage:** Remaining screen-specific surfaces, decorative gradients, and unverified screens on both platforms are open work. Do not mark the redesign complete until both platforms have been audited against the table. Preserve appropriate iOS Liquid Glass for menus, alerts and toolbar actions, along with OS-owned UI such as permission prompts, keyboards, system file/photo pickers, and share sheets.
 
+### Presentation review
+
+- Keep one visual hierarchy inside a presentation: a readable heading, one prominent action, and quieter secondary tasks. Prefer a single frame and subtle row rules over framing every row in a framed sheet. Use solid accents for selection and progress; keep gradients only when they help read a chart, photo, or live voice state.
+- Standard iOS app sheets and popovers share `FlashPresentation`; the sheet body still needs its own layout review. Native menus, Cancel/Done/navigation toolbars, alerts, and system share and web controllers are intentional platform surfaces. Full-screen camera and scanner previews keep legible controls over the image rather than taking on the surrounding page's paper color.
+- Standard Android sheets and alerts use `FlashPresentations`; anchored selectors stay anchored. Custom dialogs need separate review: the nutrient picker keeps its action row outside the scrollable list; photo-loading dialogs share the Flash panel; camera, barcode and photo-viewer content keep a neutral preview background.
+- Test an actual change, not just opening a surface. The nutrient-picker regressions remove a selected nutrient, save, and verify the summary updates while Water remains. The iOS provider regression chooses Apple Intelligence from the native menu and checks the resulting system model without requiring the device model to be available.
+
 ### Responsive layout pass
 
 - Food editors must render a single action surface. Throughout iOS, existing native Liquid Glass controls (including toolbar Cancel, Save, and Log) stay native; do not add filled Flash buttons inside them. Apply Flash to the app-owned page and sheet content around those controls. On Android, editor actions wrap when measured space or font scale requires it.

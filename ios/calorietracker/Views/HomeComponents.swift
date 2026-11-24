@@ -436,6 +436,7 @@ struct HomeNutrientPickerSheet: View {
                             .contentShape(Rectangle())
                         }
                         .buttonStyle(.plain)
+                        .accessibilityIdentifier("nutrition.picker.\(nutrient.id)")
                         .accessibilityAddTraits(draftSelection.contains(nutrient) ? .isSelected : [])
                     }
                 } header: {

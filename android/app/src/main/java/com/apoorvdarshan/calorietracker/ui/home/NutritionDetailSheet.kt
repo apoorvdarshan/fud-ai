@@ -30,6 +30,7 @@ import androidx.compose.material.icons.filled.WaterDrop
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.HorizontalDivider
 import com.apoorvdarshan.calorietracker.ui.components.FlashBottomSheet as ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -43,6 +44,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
@@ -64,6 +66,7 @@ import com.apoorvdarshan.calorietracker.ui.components.energyUnitLabel
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialogActions
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
 import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
+import com.apoorvdarshan.calorietracker.ui.theme.PinkNeoCondensed
 
 /**
  * Verbatim port of struct NutritionDetailView in
@@ -322,6 +325,7 @@ private fun HomeCardsRow(
     Row(
         Modifier
             .fillMaxWidth()
+            .testTag("nutrition.homeCards")
             .clickable(onClick = onClick)
             .padding(horizontal = 14.dp, vertical = 14.dp),
         verticalAlignment = Alignment.CenterVertically,
@@ -340,6 +344,7 @@ private fun HomeCardsRow(
             }
             Text(
                 displayedNames.joinToString(", "),
+                modifier = Modifier.testTag("nutrition.homeCards.summary"),
                 fontSize = 13.sp,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f)
             )
@@ -377,7 +382,8 @@ private fun HomeTopNutrientPickerDialog(
     }
 
     FudGlassDialog(onDismissRequest = onDismiss) {
-        Text(stringResource(R.string.home_nutrients), fontSize = 22.sp, fontWeight = FontWeight.Bold)
+        Text(stringResource(R.string.home_nutrients), fontSize = 22.sp, fontWeight = FontWeight.Black,
+            style = PinkNeoCondensed)
         Text(
             stringResource(
                 if (waterTrackingEnabled) R.string.home_nutrients_pick_three_water
@@ -389,8 +395,9 @@ private fun HomeTopNutrientPickerDialog(
         LazyColumn(
             Modifier
                 .fillMaxWidth()
-                .heightIn(max = 430.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+                .heightIn(max = 430.dp)
+                .weight(1f, fill = false)
+                .testTag("nutrition.picker.options")
         ) {
             if (waterTrackingEnabled) {
                 item(key = "fixed-water") {
@@ -398,7 +405,6 @@ private fun HomeTopNutrientPickerDialog(
                         Modifier
                             .fillMaxWidth()
                             .background(neo.paper)
-                            .border(1.dp, neo.rule)
                             .padding(horizontal = 14.dp, vertical = 12.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
@@ -426,13 +432,13 @@ private fun HomeTopNutrientPickerDialog(
                     }
                 }
             }
-            items(HomeTopNutrient.values().toList()) { nutrient ->
+            items(HomeTopNutrient.values().toList(), key = { it.name }) { nutrient ->
                 val checked = nutrient in draft
                 Row(
                     Modifier
                         .fillMaxWidth()
                         .background(neo.panel)
-                        .border(if (checked) 2.dp else 1.dp, if (checked) neo.accent else neo.rule)
+                        .testTag("nutrition.picker.${nutrient.name}")
                         .toggleable(value = checked, role = Role.Checkbox) { toggle(nutrient) }
                         .padding(horizontal = 14.dp, vertical = 12.dp),
                     verticalAlignment = Alignment.CenterVertically
@@ -463,6 +469,7 @@ private fun HomeTopNutrientPickerDialog(
                         )
                     }
                 }
+                HorizontalDivider(color = neo.ink.copy(alpha = 0.16f))
             }
         }
         FudGlassDialogActions(

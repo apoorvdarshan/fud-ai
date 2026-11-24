@@ -320,6 +320,7 @@ final class calorietrackerUITests: XCTestCase {
         let app = makeApp()
         app.launchArguments += [
             "-AppleLanguages", "(en)",
+            "-selectedAIProvider", "Google Gemini",
             "-separateTextProviderEnabled", "YES",
             "-selectedTextAIProvider", "DeepSeek",
             "-selectedTextAIModel", "deepseek-v4-flash",
@@ -328,29 +329,22 @@ final class calorietrackerUITests: XCTestCase {
 
         openSettingsCategory("aiProviders", in: app)
 
-        let textProviderSection = app.staticTexts["Text AI"]
-        for _ in 0..<10 {
-            if textProviderSection.exists { break }
-            app.swipeUp()
-        }
-        XCTAssertTrue(textProviderSection.waitForExistence(timeout: 3))
-        XCTAssertTrue(app.staticTexts["AI Providers & Fallbacks"].exists)
-        XCTAssertEqual(app.switches["Use Separate Text Provider"].value as? String, "1")
-        // Loaded runners materialize these rows late; 8s matches the file's other waits.
-        let deepSeekRow = app.staticTexts["DeepSeek"]
-        XCTAssertTrue(deepSeekRow.waitForExistence(timeout: 8))
-        // SwiftUI exposes each menu picker as a button labeled "Model, <selected>"
-        // (a CI dump showed the primary row as "Model, gemini-3.5-flash-lite"). The
-        // Text AI row sits below the fold of the lazy Form, so scroll until the
-        // hierarchy materializes it with the launch-argument model selected.
-        let textModelRow = app.buttons["Model, deepseek-v4-flash"]
-        for _ in 0..<10 where !textModelRow.exists {
-            app.swipeUp()
-        }
-        XCTAssertTrue(
-            textModelRow.waitForExistence(timeout: 5),
-            "The Text AI model row never appeared with deepseek-v4-flash selected"
-        )
+        XCTAssertTrue(app.navigationBars["AI Providers & Fallbacks"].exists)
+        let primary = app.buttons["settings.ai.primaryProvider"]
+        reveal(primary, in: app)
+        waitForValue("Google Gemini", in: primary)
+
+        // Scroll to the actual controls: the lazy section header may appear
+        // before its rows, and a native picker combines its label and value.
+        let separate = app.switches["settings.ai.useSeparateText"]
+        reveal(separate, in: app)
+        waitForValue("1", in: separate)
+        let textProvider = app.buttons["settings.ai.textProvider"]
+        reveal(textProvider, in: app)
+        waitForValue("DeepSeek", in: textProvider)
+        let textModel = app.buttons["settings.ai.textModel"]
+        reveal(textModel, in: app)
+        waitForValue("deepseek-v4-flash", in: textModel)
     }
 
     @MainActor
@@ -359,26 +353,23 @@ final class calorietrackerUITests: XCTestCase {
         app.launchArguments += [
             "-AppleLanguages", "(en)",
             "-separateTextProviderEnabled", "YES",
-            "-selectedTextAIProvider", "Apple Intelligence (On-Device)",
-            "-selectedTextAIModel", "System Language Model",
+            "-selectedTextAIProvider", "DeepSeek",
+            "-selectedTextAIModel", "deepseek-v4-flash",
         ]
         app.launch()
 
         openSettingsCategory("aiProviders", in: app)
 
-        let textProviderSection = app.staticTexts["Text AI"]
-        for _ in 0..<10 {
-            if textProviderSection.exists { break }
-            app.swipeUp()
-        }
-        XCTAssertTrue(textProviderSection.waitForExistence(timeout: 3))
-        XCTAssertTrue(app.staticTexts["Apple Intelligence (On-Device)"].waitForExistence(timeout: 3))
-        let systemModel = app.staticTexts["System Language Model"]
-        for _ in 0..<4 {
-            if systemModel.exists { break }
-            app.swipeUp()
-        }
-        XCTAssertTrue(systemModel.waitForExistence(timeout: 3))
+        let provider = app.buttons["settings.ai.textProvider"]
+        reveal(provider, in: app)
+        provider.tap()
+        let appleIntelligence = app.buttons["Apple Intelligence (On-Device)"]
+        XCTAssertTrue(appleIntelligence.waitForExistence(timeout: 5))
+        appleIntelligence.tap()
+        waitForValue("Apple Intelligence (On-Device)", in: provider)
+        let systemModel = app.staticTexts["settings.ai.systemTextModel"]
+        reveal(systemModel, in: app)
+        XCTAssertEqual(systemModel.label, "System Language Model")
     }
 
     @MainActor
@@ -411,9 +402,19 @@ final class calorietrackerUITests: XCTestCase {
         add(details)
 
         cardPicker.tap()
-        XCTAssertTrue(app.navigationBars["Home Nutrients"].waitForExistence(timeout: 3))
-        XCTAssertTrue(app.staticTexts["Choose 1–4 Nutrients"].waitForExistence(timeout: 3))
+        let pickerToolbar = app.navigationBars["Home Nutrients"]
+        XCTAssertTrue(pickerToolbar.waitForExistence(timeout: 5))
         XCTAssertTrue(app.descendants(matching: .any)["Water, shown after selected nutrients"].waitForExistence(timeout: 3))
+        let fiber = app.buttons["nutrition.picker.fiber"]
+        reveal(fiber, in: app)
+        XCTAssertTrue(fiber.isSelected)
+        fiber.tap()
+        XCTAssertFalse(fiber.isSelected)
+        pickerToolbar.buttons["Done"].tap()
+        XCTAssertTrue(pickerToolbar.waitForNonExistence(timeout: 5))
+        let updatedSelection = cardPicker.value as? String ?? ""
+        XCTAssertFalse(updatedSelection.contains("Fiber"))
+        XCTAssertTrue(updatedSelection.contains("Water"))
     }
 
     @MainActor

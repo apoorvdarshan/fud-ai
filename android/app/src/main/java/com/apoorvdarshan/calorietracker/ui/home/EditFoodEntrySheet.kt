@@ -36,6 +36,7 @@ import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.UnfoldMore
 import com.apoorvdarshan.calorietracker.ui.components.FlashAlertDialog as AlertDialog
+import com.apoorvdarshan.calorietracker.ui.components.FlashLoadingDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -915,23 +916,7 @@ fun EditFoodEntrySheet(
     previewPhotoIndex?.let { index ->
         val images = viewerBitmaps
         if (images == null) {
-            androidx.compose.ui.window.Dialog(
-                onDismissRequest = { previewPhotoIndex = null },
-                properties = androidx.compose.ui.window.DialogProperties(
-                    dismissOnBackPress = true,
-                    dismissOnClickOutside = false
-                )
-            ) {
-                Box(
-                    Modifier
-                        .size(96.dp)
-                        .clip(RoundedCornerShape(16.dp))
-                        .background(Color.Black.copy(alpha = 0.72f)),
-                    contentAlignment = Alignment.Center
-                ) {
-                    CircularProgressIndicator(color = Color.White, modifier = Modifier.size(36.dp))
-                }
-            }
+            FlashLoadingDialog(onDismissRequest = { previewPhotoIndex = null })
         } else if (images.isNotEmpty()) {
             FullScreenImageViewer(
                 bitmaps = images,

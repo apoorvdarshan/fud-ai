@@ -86,8 +86,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.geometry.Offset
@@ -1667,7 +1665,10 @@ private fun WorkoutWeekStrip(
         if (state.firstVisibleItemIndex != targetWeek) state.animateScrollToItem(targetWeek)
     }
 
-    BoxWithConstraints(modifier.fillMaxWidth()) {
+    val neo = pinkNeoPalette()
+    BoxWithConstraints(
+        modifier.fillMaxWidth().background(neo.panel).border(1.dp, neo.rule).padding(vertical = 8.dp)
+    ) {
         val pageWidth = maxWidth
         LazyRow(state = state, flingBehavior = fling, modifier = Modifier.fillMaxWidth()) {
             items((0 until WORKOUT_WEEKS).toList()) { weekIndex ->
@@ -1705,6 +1706,7 @@ private fun WorkoutDayTile(
     modifier: Modifier = Modifier
 ) {
     val locale = LocalConfiguration.current.locales[0]
+    val neo = pinkNeoPalette()
     Column(
         modifier = modifier
             .alpha(if (enabled) 1f else 0.32f)
@@ -1719,20 +1721,20 @@ private fun WorkoutDayTile(
     ) {
         Text(
             date.dayOfWeek.getDisplayName(java.time.format.TextStyle.NARROW, locale),
-            color = if (isSelected) AppColors.Calorie else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.42f),
+            color = neo.ink.copy(alpha = 0.72f),
             fontSize = 11.sp,
-            fontWeight = FontWeight.Medium
+            fontWeight = FontWeight.Bold,
+            maxLines = 1
         )
         Box(
             modifier = Modifier
-                .size(36.dp)
+                .fillMaxWidth()
+                .padding(horizontal = 2.dp)
+                .heightIn(min = 36.dp)
                 .then(
                     when {
-                        isSelected -> Modifier
-                            .shadow(6.dp, CircleShape, ambientColor = AppColors.Calorie.copy(alpha = 0.3f))
-                            .clip(CircleShape)
-                            .background(Brush.linearGradient(listOf(AppColors.CalorieStart, AppColors.CalorieEnd)))
-                        isToday -> Modifier.border(1.5.dp, AppColors.Calorie.copy(alpha = 0.35f), CircleShape)
+                        isSelected -> Modifier.background(neo.action)
+                        isToday -> Modifier.border(1.dp, neo.accent)
                         else -> Modifier
                     }
                 ),
@@ -1741,19 +1743,19 @@ private fun WorkoutDayTile(
             Text(
                 date.dayOfMonth.toString(),
                 color = when {
-                    isSelected -> Color.White
-                    isToday -> AppColors.Calorie
-                    else -> MaterialTheme.colorScheme.onSurface
+                    isSelected -> neo.onAction
+                    isToday -> neo.accent
+                    else -> neo.ink
                 },
                 fontSize = 16.sp,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.Black,
+                maxLines = 1
             )
         }
         Box(
             Modifier
                 .size(4.dp)
-                .clip(CircleShape)
-                .background(if (count > 0) AppColors.Calorie else Color.Transparent)
+                .background(if (count > 0) neo.action else Color.Transparent)
         )
     }
 }

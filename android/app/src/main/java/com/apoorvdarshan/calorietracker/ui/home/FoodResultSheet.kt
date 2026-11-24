@@ -26,6 +26,7 @@ import androidx.compose.material.icons.filled.LockOpen
 import androidx.compose.material.icons.filled.UnfoldMore
 import androidx.compose.material.icons.outlined.QrCodeScanner
 import com.apoorvdarshan.calorietracker.ui.components.FlashAlertDialog as AlertDialog
+import com.apoorvdarshan.calorietracker.ui.components.FlashLoadingDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -43,8 +44,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import androidx.compose.ui.window.Dialog
-import androidx.compose.ui.window.DialogProperties
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -948,20 +947,7 @@ fun FoodResultSheet(
     previewPhotoIndex?.let { index ->
         val images = viewerBitmaps
         if (images == null) {
-            Dialog(
-                onDismissRequest = { previewPhotoIndex = null },
-                properties = DialogProperties(dismissOnBackPress = true, dismissOnClickOutside = false)
-            ) {
-                Box(
-                    Modifier
-                        .size(96.dp)
-                        .clip(RoundedCornerShape(16.dp))
-                        .background(Color.Black.copy(alpha = 0.72f)),
-                    contentAlignment = Alignment.Center
-                ) {
-                    CircularProgressIndicator(color = Color.White, modifier = Modifier.size(36.dp))
-                }
-            }
+            FlashLoadingDialog(onDismissRequest = { previewPhotoIndex = null })
         } else if (images.isNotEmpty()) {
             FullScreenImageViewer(
                 bitmaps = images,

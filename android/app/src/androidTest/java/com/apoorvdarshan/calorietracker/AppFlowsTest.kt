@@ -463,6 +463,37 @@ class AppFlowsTest {
     }
 
     @Test
+    fun nutritionPickerSavesTheEditedCardsAndKeepsFixedWater() {
+        FudAITestState.reset()
+        runBlocking { prefs.setWaterTrackingEnabled(true) }
+        launchActivity()
+        waitForHome()
+
+        val viewMore = string(R.string.home_view_more)
+        waitFor(hasText(viewMore) and hasClickAction())
+        compose.onNode(hasText(viewMore) and hasClickAction()).performClick()
+        val cards = "nutrition.homeCards"
+        waitFor(hasTestTag(cards))
+        compose.onNodeWithTag(cards).performClick()
+        waitFor(hasText(string(R.string.home_nutrients_water_fixed_short)))
+
+        val fiber = compose.onNodeWithTag("nutrition.picker.FIBER")
+        compose.onNodeWithTag("nutrition.picker.options").performScrollToKey("FIBER")
+        fiber.assertIsOn().performClick()
+        fiber.assertIsOff()
+        compose.onNode(
+            hasText(string(R.string.action_done)) and hasClickAction() and hasAnyAncestor(isDialog())
+        ).performClick()
+        waitForAbsent(hasTestTag("nutrition.picker.options"))
+
+        val summary = "nutrition.homeCards.summary"
+        waitFor(hasTestTag(cards) and hasText(string(R.string.water), substring = true))
+        compose.onNodeWithTag(summary, useUnmergedTree = true)
+            .assert(hasText(string(R.string.water), substring = true))
+            .assert(!hasText(string(R.string.nutrition_label_fiber), substring = true))
+    }
+
+    @Test
     fun sharedMealLinkSheetShowsTheChosenEnergyUnit() {
         FudAITestState.reset()
         runBlocking { prefs.setEnergyUnit(EnergyUnit.KJ) }

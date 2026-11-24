@@ -149,7 +149,7 @@ struct VoiceInputView: View {
                     .font(.headline)
                     .frame(maxWidth: .infinity)
             }
-            .buttonStyle(.borderedProminent)
+            .buttonStyle(FlashActionButtonStyle())
             .tint(AppColors.calorie)
             .controlSize(.large)
             .disabled(analyzeButtonDisabled)

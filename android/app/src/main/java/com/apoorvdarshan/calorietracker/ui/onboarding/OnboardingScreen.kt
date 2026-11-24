@@ -25,6 +25,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -69,15 +70,15 @@ import com.apoorvdarshan.calorietracker.ui.components.OptionPickerSheet
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Icon
-import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.AlertDialog
+import com.apoorvdarshan.calorietracker.ui.components.FlashAlertDialog as AlertDialog
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -92,7 +93,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
@@ -132,12 +132,15 @@ import com.apoorvdarshan.calorietracker.ui.components.FeetInchesWheelPicker
 import com.apoorvdarshan.calorietracker.ui.components.NumericWheelPicker
 import com.apoorvdarshan.calorietracker.ui.components.UnitToggle
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import com.apoorvdarshan.calorietracker.ui.theme.PinkNeoCondensed
+import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 import java.time.LocalDate
 import java.time.Period
 import java.util.Locale
 
 @Composable
 fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
+    val neo = pinkNeoPalette()
     val vm: OnboardingViewModel = viewModel(factory = OnboardingViewModel.Factory(container))
     val ui by vm.ui.collectAsState()
     var showMissingApiKey by remember { mutableStateOf(false) }
@@ -302,7 +305,6 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
         when (ui.step) {
             // Welcome back draws its own actions.
             OnboardingStep.WELCOME -> if (!showReturning) {
-                // iOS Welcome: full-width pink-gradient "Get Started" capsule.
                 Column(
                     Modifier
                         .fillMaxWidth()
@@ -314,20 +316,17 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(56.dp)
-                            .clip(RoundedCornerShape(14.dp))
-                            .background(
-                                Brush.horizontalGradient(
-                                    listOf(AppColors.CalorieStart, AppColors.CalorieEnd)
-                                )
-                            )
+                            .background(neo.action)
+                            .border(1.dp, neo.rule)
                             .clickable { vm.next() },
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
                             stringResource(R.string.action_get_started),
-                            color = Color.White,
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.SemiBold
+                            color = neo.onAction,
+                            style = PinkNeoCondensed,
+                            fontWeight = FontWeight.Black,
+                            fontSize = 17.sp
                         )
                     }
                     Spacer(Modifier.height(4.dp))
@@ -361,20 +360,17 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
                         .padding(horizontal = 24.dp)
                         .padding(bottom = 36.dp)
                         .height(54.dp)
-                        .clip(RoundedCornerShape(28.dp))
-                        .background(
-                            Brush.horizontalGradient(
-                                listOf(AppColors.CalorieStart, AppColors.CalorieEnd)
-                            )
-                        )
+                        .background(neo.action)
+                        .border(1.dp, neo.rule)
                         .clickable { vm.complete(onComplete) },
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
                         stringResource(R.string.action_get_started),
-                        color = Color.White,
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.SemiBold
+                        color = neo.onAction,
+                        style = PinkNeoCondensed,
+                        fontWeight = FontWeight.Black,
+                        fontSize = 17.sp
                     )
                 }
             }
@@ -477,21 +473,17 @@ private fun WelcomeStep() {
         Text(
             stringResource(R.string.onboarding_welcome_line1),
             fontSize = 32.sp,
-            fontWeight = FontWeight.Bold,
+            fontWeight = FontWeight.Black,
+            style = PinkNeoCondensed,
             color = MaterialTheme.colorScheme.onBackground
         )
         Spacer(Modifier.height(8.dp))
-        // Second line of the headline uses the pink gradient as a foreground
-        // brush — matches iOS .foregroundStyle(LinearGradient(...)).
         Text(
             stringResource(R.string.onboarding_welcome_line2),
             fontSize = 32.sp,
-            fontWeight = FontWeight.Bold,
-            style = LocalTextStyle.current.copy(
-                brush = androidx.compose.ui.graphics.Brush.horizontalGradient(
-                    listOf(AppColors.CalorieStart, AppColors.CalorieEnd)
-                )
-            )
+            fontWeight = FontWeight.Black,
+            style = PinkNeoCondensed,
+            color = MaterialTheme.colorScheme.onSurface
         )
         Spacer(Modifier.height(20.dp))
         Text(
@@ -1102,6 +1094,7 @@ private fun PaceIcon(icon: ImageVector, label: String, selected: Boolean) {
 
 @Composable
 private fun NotificationsStep(enabled: Boolean, onToggle: (Boolean) -> Unit) {
+    val neo = pinkNeoPalette()
     // iOS notificationsStep: centered bell.badge.fill in pink + big headline
     // "Be reminded to\nlog meals" + subtitle + pink CTA.
     val notifLauncher = rememberLauncherForActivityResult(
@@ -1137,10 +1130,8 @@ private fun NotificationsStep(enabled: Boolean, onToggle: (Boolean) -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(52.dp)
-                .clip(RoundedCornerShape(14.dp))
-                .background(
-                    Brush.horizontalGradient(listOf(AppColors.CalorieStart, AppColors.CalorieEnd))
-                )
+                .background(neo.action)
+                .border(1.dp, neo.rule)
                 .clickable {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                         notifLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
@@ -1152,7 +1143,7 @@ private fun NotificationsStep(enabled: Boolean, onToggle: (Boolean) -> Unit) {
         ) {
             Text(
                 if (enabled) stringResource(R.string.onboarding_notifications_enabled) else stringResource(R.string.onboarding_notifications_allow),
-                color = Color.White,
+                color = neo.onAction,
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.SemiBold
             )
@@ -1168,6 +1159,7 @@ private fun NotificationsStep(enabled: Boolean, onToggle: (Boolean) -> Unit) {
 
 @Composable
 private fun HealthConnectStep(container: AppContainer, enabled: Boolean, onToggle: (Boolean) -> Unit) {
+    val neo = pinkNeoPalette()
     // iOS appleHealthStep: heart.fill in pink circle, title "Connect to\nApple Health",
     // feature row list, pink CTA "Connect". Android maps Apple Health → Health Connect.
     val hcLauncher = rememberLauncherForActivityResult(
@@ -1236,16 +1228,8 @@ private fun HealthConnectStep(container: AppContainer, enabled: Boolean, onToggl
             modifier = Modifier
                 .fillMaxWidth()
                 .height(52.dp)
-                .clip(RoundedCornerShape(14.dp))
-                .background(
-                    if (available)
-                        Brush.horizontalGradient(listOf(AppColors.CalorieStart, AppColors.CalorieEnd))
-                    else
-                        Brush.horizontalGradient(listOf(
-                            MaterialTheme.colorScheme.onBackground.copy(alpha = 0.15f),
-                            MaterialTheme.colorScheme.onBackground.copy(alpha = 0.15f)
-                        ))
-                )
+                .background(if (available) neo.action else neo.panel)
+                .border(1.dp, neo.rule)
                 .clickable(enabled = available) {
                     openHealthConnect { hcLauncher.launch(container.health.connectPermissions) }
                 },
@@ -1257,7 +1241,7 @@ private fun HealthConnectStep(container: AppContainer, enabled: Boolean, onToggl
                     enabled -> stringResource(R.string.onboarding_health_connected)
                     else -> stringResource(R.string.onboarding_health_connect)
                 },
-                color = Color.White,
+                color = if (available) neo.onAction else neo.ink.copy(alpha = 0.6f),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.SemiBold
             )
@@ -1936,19 +1920,13 @@ private fun BuildingPlanStep(vm: OnboardingViewModel, onComplete: () -> Unit) {
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
                 .height(10.dp)
-                .clip(RoundedCornerShape(5.dp))
                 .background(MaterialTheme.colorScheme.onBackground.copy(alpha = 0.08f))
         ) {
             Box(
                 Modifier
                     .fillMaxHeight()
                     .fillMaxWidth(animatedProgress)
-                    .clip(RoundedCornerShape(5.dp))
-                    .background(
-                        Brush.horizontalGradient(
-                            listOf(AppColors.CalorieStart, AppColors.CalorieEnd)
-                        )
-                    )
+                    .background(AppColors.Calorie)
             )
         }
         Spacer(Modifier.height(18.dp))
@@ -1993,13 +1971,15 @@ private fun BuildingPlanStep(vm: OnboardingViewModel, onComplete: () -> Unit) {
 }
 
 /**
- * iOS planReadyStep: large gradient-filled calorie number with "daily calories"
+ * iOS planReadyStep: large calorie number with "daily calories"
  * caption, and three macro cards (Protein, Carbs, Fat) below. Each value is tappable —
  * opens an edit dialog whose value lands in customCalories/customProtein/customCarbs/customFat
  * on the profile that ProfileRepository persists at the end of onboarding.
  */
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun PlanReadyStep(state: OnboardingState, vm: OnboardingViewModel) {
+    val neo = pinkNeoPalette()
     val profile = state.buildProfile()
     var editing by remember { mutableStateOf<PlanField?>(null) }
     Column(Modifier.fillMaxSize()) {
@@ -2026,13 +2006,10 @@ private fun PlanReadyStep(state: OnboardingState, vm: OnboardingViewModel) {
         ) {
             Text(
                 "${profile.effectiveCalories}",
-                fontSize = 64.sp,
-                fontWeight = FontWeight.Bold,
-                style = LocalTextStyle.current.copy(
-                    brush = Brush.linearGradient(
-                        listOf(AppColors.CalorieStart, AppColors.CalorieEnd)
-                    )
-                )
+                fontSize = 44.sp,
+                fontWeight = FontWeight.Black,
+                color = neo.accent,
+                style = PinkNeoCondensed
             )
             Text(
                 stringResource(R.string.onboarding_plan_daily_calories),
@@ -2041,27 +2018,25 @@ private fun PlanReadyStep(state: OnboardingState, vm: OnboardingViewModel) {
             )
         }
         Spacer(Modifier.height(28.dp))
-        Row(
+        FlowRow(
             Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            maxItemsInEachRow = if (LocalDensity.current.fontScale >= 1.5f) 1 else 3
         ) {
-            val macroGradient = listOf(AppColors.CalorieStart, AppColors.CalorieEnd)
             MacroCard(
                 label = stringResource(R.string.macro_protein),
                 value = profile.effectiveProtein,
-                gradient = macroGradient,
                 modifier = Modifier.weight(1f).clickable { editing = PlanField.PROTEIN }
             )
             MacroCard(
                 label = stringResource(R.string.macro_carbs),
                 value = profile.effectiveCarbs,
-                gradient = macroGradient,
                 modifier = Modifier.weight(1f).clickable { editing = PlanField.CARBS }
             )
             MacroCard(
                 label = stringResource(R.string.macro_fat),
                 value = profile.effectiveFat,
-                gradient = macroGradient,
                 modifier = Modifier.weight(1f).clickable { editing = PlanField.FAT }
             )
         }
@@ -2145,14 +2120,15 @@ private fun PlanReadyStep(state: OnboardingState, vm: OnboardingViewModel) {
 private fun MacroCard(
     label: String,
     value: Int,
-    gradient: List<Color>,
     modifier: Modifier = Modifier
 ) {
+    val neo = pinkNeoPalette()
     Box(
         modifier
-            .clip(RoundedCornerShape(14.dp))
-            .background(MaterialTheme.colorScheme.surface)
-            .padding(vertical = 14.dp),
+            .widthIn(min = 88.dp)
+            .background(neo.panel)
+            .border(1.dp, neo.rule)
+            .padding(horizontal = 6.dp, vertical = 14.dp),
         contentAlignment = Alignment.Center
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -2160,17 +2136,17 @@ private fun MacroCard(
                 label,
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.55f),
-                fontWeight = FontWeight.Medium
+                fontWeight = FontWeight.Medium,
+                textAlign = androidx.compose.ui.text.style.TextAlign.Center
             )
             Spacer(Modifier.height(4.dp))
             Row(verticalAlignment = Alignment.Bottom) {
                 Text(
                     "$value",
                     fontSize = 22.sp,
-                    fontWeight = FontWeight.Bold,
-                    style = LocalTextStyle.current.copy(
-                        brush = Brush.linearGradient(gradient)
-                    )
+                    fontWeight = FontWeight.Black,
+                    color = neo.ink,
+                    style = PinkNeoCondensed
                 )
                 Spacer(Modifier.width(2.dp))
                 Text(
@@ -2241,16 +2217,12 @@ private fun SelectionCard(
 
 @Composable
 private fun ChoiceRow(label: String, subtitle: String? = null, selected: Boolean, onClick: () -> Unit) {
-    val bg = if (selected) {
-        Brush.linearGradient(listOf(AppColors.CalorieStart.copy(alpha = 0.18f), AppColors.CalorieEnd.copy(alpha = 0.10f)))
-    } else {
-        Brush.linearGradient(listOf(MaterialTheme.colorScheme.surface, MaterialTheme.colorScheme.surface))
-    }
+    val neo = pinkNeoPalette()
     Box(
         Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(16.dp))
-            .background(bg)
+            .background(neo.panel)
+            .border(if (selected) 2.dp else 1.dp, if (selected) neo.accent else neo.rule)
             .clickable(onClick = onClick)
             .padding(horizontal = 18.dp, vertical = 16.dp)
     ) {

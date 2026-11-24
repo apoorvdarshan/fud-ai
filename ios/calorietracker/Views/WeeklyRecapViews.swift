@@ -53,9 +53,10 @@ struct WeeklyRecapCard: View {
                 Text("Weekly Recap")
             } icon: {
                 Image(systemName: "sparkles")
-                    .foregroundStyle(AppColors.calorie)
+                    .foregroundStyle(AppColors.accentText)
             }
-            .font(.system(.headline, design: .rounded, weight: .semibold))
+            .font(.system(.title3, weight: .black).width(.condensed))
+            .accessibilityAddTraits(.isHeader)
 
             ProgressPeriodNavigator(
                 label: TimeRange.periodLabel(for: recap.days),
@@ -81,10 +82,10 @@ struct WeeklyRecapCard: View {
                 if let change = recap.current.weightChangeKg {
                     HStack {
                         Label("Weight change", systemImage: "scalemass.fill")
-                            .font(.system(.subheadline, design: .rounded, weight: .medium))
+                            .font(.system(.subheadline, weight: .semibold).width(.condensed))
                         Spacer()
                         Text(formattedWeightChange(change))
-                            .font(.system(.subheadline, design: .rounded, weight: .semibold))
+                            .font(.system(.subheadline, weight: .bold).width(.condensed))
                             .monospacedDigit()
                     }
                     .accessibilityElement(children: .combine)
@@ -106,7 +107,7 @@ struct WeeklyRecapCard: View {
                 }
 
                 Text("Changes are compared with the previous week.")
-                    .font(.system(.caption2, design: .rounded))
+                    .font(.caption2)
                     .foregroundStyle(.secondary)
             } else {
                 ProgressMetricEmptyState("Nothing logged this week")
@@ -117,7 +118,7 @@ struct WeeklyRecapCard: View {
     }
 
     private func stats(_ current: WeeklyRecapWeekStats, previous: WeeklyRecapWeekStats) -> some View {
-        let columns = dynamicTypeSize.isAccessibilitySize ? 2 : 3
+        let columns = dynamicTypeSize.isAccessibilitySize ? 1 : 3
         // Energy shows in the chosen unit (#520); the comparisons stay kcal.
         let energy = WeeklyRecap.energyFigures(
             current: current,
@@ -178,6 +179,7 @@ struct WeeklyRecapCard: View {
 }
 
 private struct WeeklyRecapStatTile: View {
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     let value: String
     let label: LocalizedStringKey
     /// The secondary line: a change vs the previous week, or a plain caption.
@@ -198,34 +200,39 @@ private struct WeeklyRecapStatTile: View {
         isPositiveChange = false
     }
 
+    private var labelText: some View {
+        Text(label)
+            .font(.system(.caption2, weight: .semibold).width(.condensed))
+            .foregroundStyle(.secondary)
+            .multilineTextAlignment(.center)
+    }
+
     var body: some View {
         VStack(spacing: 2) {
             Text(value)
-                .font(.system(.subheadline, design: .rounded, weight: .bold))
+                .font(.system(.subheadline, weight: .black).width(.condensed))
                 .monospacedDigit()
                 .lineLimit(1)
                 .minimumScaleFactor(0.7)
             // Two lines reserved in every tile keep the grid's rows even.
-            Text(label)
-                .font(.system(.caption2, design: .rounded))
-                .foregroundStyle(.secondary)
-                .multilineTextAlignment(.center)
-                .lineLimit(2, reservesSpace: true)
-                .minimumScaleFactor(0.8)
+            if dynamicTypeSize.isAccessibilitySize {
+                labelText
+            } else {
+                labelText.lineLimit(2, reservesSpace: true)
+                    .minimumScaleFactor(0.8)
+            }
             Text(detail)
-                .font(.system(.caption2, design: .rounded, weight: .semibold))
-                .foregroundStyle(isPositiveChange ? AppColors.calorie : Color.secondary)
+                .font(.system(.caption2, weight: .semibold).width(.condensed))
+                .foregroundStyle(isPositiveChange ? AppColors.accentText : Color.secondary)
                 .monospacedDigit()
-                .lineLimit(1)
+                .lineLimit(dynamicTypeSize.isAccessibilitySize ? nil : 1)
                 .minimumScaleFactor(0.7)
         }
         .frame(maxWidth: .infinity)
         .padding(.horizontal, 4)
         .padding(.vertical, 8)
-        .background(
-            AppColors.calorie.opacity(0.055),
-            in: RoundedRectangle(cornerRadius: 10, style: .continuous)
-        )
+        .background(AppColors.flashInset)
+        .pinkNeoRule(AppColors.flashRule.opacity(0.32))
         .accessibilityElement(children: .combine)
     }
 }

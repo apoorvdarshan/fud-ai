@@ -1,8 +1,5 @@
 package com.apoorvdarshan.calorietracker.ui.workouts
 
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -10,12 +7,13 @@ import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsDraggedAsState
-import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -24,8 +22,8 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -40,7 +38,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.automirrored.filled.DirectionsRun
@@ -90,9 +87,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.scale
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.geometry.Offset
@@ -105,9 +99,9 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.CustomAccessibilityAction
 import androidx.compose.ui.semantics.contentDescription
@@ -139,6 +133,7 @@ import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialog
 import com.apoorvdarshan.calorietracker.ui.components.energyText
 import com.apoorvdarshan.calorietracker.ui.components.energyUnitLabel
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassSurface
+import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassTextButton
 import com.apoorvdarshan.calorietracker.ui.home.OutdoorActivityDurationSheet
 import com.apoorvdarshan.calorietracker.ui.home.OutdoorActivityKind
@@ -213,6 +208,8 @@ internal fun WorkoutDiaryScreen(
     }
     val moveUpLabel = stringResource(R.string.workout_move_up)
     val moveDownLabel = stringResource(R.string.workout_move_down)
+    val palette = pinkNeoPalette()
+    val dockHeight = 76.dp
 
     fun dismissKeyboard() {
         focusManager.clearFocus()
@@ -242,6 +239,7 @@ internal fun WorkoutDiaryScreen(
         modifier = modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
+            .navigationBarsPadding()
             .onGloballyPositioned { diaryRootOrigin = it.boundsInRoot().topLeft }
             .pointerInput(diaryRootOrigin) {
                 // Observe completed pointers without consuming them, so set
@@ -264,7 +262,7 @@ internal fun WorkoutDiaryScreen(
     ) {
         LazyColumn(
             state = listState,
-            modifier = Modifier.fillMaxSize().imePadding().padding(bottom = 8.dp),
+            modifier = Modifier.fillMaxSize().imePadding().padding(bottom = dockHeight),
             contentPadding = PaddingValues(
                 start = 16.dp,
                 // Room for the pinned rest countdown while it runs.
@@ -432,7 +430,7 @@ internal fun WorkoutDiaryScreen(
 
             // Real scrollable space lets the final set move clear of the IME.
             item(key = "workout-extra-space") {
-                Spacer(Modifier.height(BottomNavScrollPadding + 100.dp))
+                Spacer(Modifier.height(BottomNavScrollPadding))
             }
         }
 
@@ -467,14 +465,16 @@ internal fun WorkoutDiaryScreen(
 
         Row(
             modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .navigationBarsPadding()
-                .padding(end = 24.dp, bottom = 100.dp),
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
+                .align(Alignment.BottomCenter)
+                .fillMaxWidth()
+                .imePadding()
+                .background(palette.paper)
+                .padding(horizontal = 16.dp, vertical = 8.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.End),
             verticalAlignment = Alignment.CenterVertically
         ) {
             if (!voiceUi.visible && !hideVoiceShortcut) {
-                VoiceAssistantButton(onClick = {
+                VoiceAssistantButton(flat = true, onClick = {
                     dismissKeyboard()
                     container.voiceAssistant.requestStart()
                 })
@@ -483,8 +483,9 @@ internal fun WorkoutDiaryScreen(
                 Box(
                     modifier = Modifier
                         .size(60.dp)
-                        .clip(CircleShape)
-                        .background(AppColors.Calorie)
+                        .testTag("workouts.add")
+                        .background(palette.action)
+                        .border(1.dp, palette.rule)
                         .clickable(role = Role.Button) {
                             dismissKeyboard()
                             addMenuExpanded = true
@@ -492,7 +493,7 @@ internal fun WorkoutDiaryScreen(
                         .semantics { contentDescription = "Add workout" },
                     contentAlignment = Alignment.Center
                 ) {
-                    Icon(Icons.Filled.Add, contentDescription = null, tint = Color.White, modifier = Modifier.size(30.dp))
+                    Icon(Icons.Filled.Add, contentDescription = null, tint = palette.onAction, modifier = Modifier.size(30.dp))
                 }
 
                 SheetGlassDropdownMenu(
@@ -766,6 +767,7 @@ private fun workoutMenuGlyphAsset(title: String, muscles: Set<String>): String {
     return "file:///android_asset/muscle/muscle_icon_$key.png"
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun WorkoutBurnHero(
     state: WorkoutDiaryUiState,
@@ -774,24 +776,26 @@ private fun WorkoutBurnHero(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier.fillMaxWidth().padding(top = 18.dp, bottom = 10.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(22.dp)
+        modifier = modifier.fillMaxWidth().padding(vertical = 8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        Box(modifier = Modifier.fillMaxWidth().height(176.dp)) {
-            WorkoutLogBurnButton(
-                isCalculating = state.isCalculatingBurn,
-                onCalculate = onCalculate,
-                modifier = Modifier.align(Alignment.Center)
-            )
-        }
-
-        FudGlassSurface(
-            modifier = Modifier.fillMaxWidth(),
-            cornerRadius = 26.dp,
-            padding = 10.dp
-        ) {
-            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+        WorkoutLogBurnButton(
+            isCalculating = state.isCalculatingBurn,
+            onCalculate = onCalculate,
+            modifier = Modifier.fillMaxWidth()
+        )
+        val largeText = LocalDensity.current.fontScale >= 1.3f
+        BoxWithConstraints(Modifier.fillMaxWidth()) {
+            FlowRow(
+                modifier = Modifier.fillMaxWidth(),
+                maxItemsInEachRow = when {
+                    LocalDensity.current.fontScale >= 1.8f || maxWidth < 180.dp -> 1
+                    maxWidth < 342.dp || largeText -> 2
+                    else -> 4
+                },
+                horizontalArrangement = Arrangement.spacedBy(5.dp),
+                verticalArrangement = Arrangement.spacedBy(5.dp)
+            ) {
                 WorkoutMetric(
                     label = "Sets",
                     value = state.performedSetCount.formattedWholeNumber(),
@@ -799,7 +803,6 @@ private fun WorkoutBurnHero(
                     active = state.performedSetCount > 0,
                     modifier = Modifier.weight(1f)
                 )
-                MetricDivider()
                 WorkoutMetric(
                     label = "Workouts",
                     value = state.exercises.size.formattedWholeNumber(),
@@ -807,7 +810,6 @@ private fun WorkoutBurnHero(
                     active = state.exercises.isNotEmpty(),
                     modifier = Modifier.weight(1f)
                 )
-                MetricDivider()
                 WorkoutMetric(
                     label = "Reps",
                     value = state.repCount.formattedWholeNumber(),
@@ -815,7 +817,6 @@ private fun WorkoutBurnHero(
                     active = state.repCount > 0,
                     modifier = Modifier.weight(1f)
                 )
-                MetricDivider()
                 WorkoutMetric(
                     label = "Burn",
                     value = displayedBurnCalories?.let { energyText(it) } ?: "-- ${energyUnitLabel()}",
@@ -834,72 +835,43 @@ private fun WorkoutLogBurnButton(
     onCalculate: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val interactionSource = remember { MutableInteractionSource() }
-    val isPressed by interactionSource.collectIsPressedAsState()
-    val scale by animateFloatAsState(
-        targetValue = if (isPressed) 0.88f else 1f,
-        animationSpec = tween(durationMillis = 120),
-        label = "workout-burn-press"
-    )
-    Box(
+    val neo = pinkNeoPalette()
+    val ink = if (isCalculating) neo.ink else neo.onAction
+    Row(
         modifier = modifier
-            .size(176.dp)
-            .scale(scale)
-            .clickable(
-                enabled = !isCalculating,
-                interactionSource = interactionSource,
-                indication = null,
-                role = Role.Button,
-                onClick = onCalculate
-            )
+            .background(if (isCalculating) neo.panel else neo.action)
+            .border(1.dp, neo.rule)
+            .clickable(enabled = !isCalculating, role = Role.Button, onClick = onCalculate)
             .semantics {
                 contentDescription = if (isCalculating) {
                     "Calculating calorie burn"
                 } else {
                     "Calculate calorie burn"
                 }
-            },
-        contentAlignment = Alignment.Center
-    ) {
-        Image(
-            painter = painterResource(R.drawable.timer_button_red),
-            contentDescription = null,
-            modifier = Modifier.fillMaxSize()
-        )
-        Column(
-            modifier = Modifier.size(156.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            if (isCalculating) {
-                CircularProgressIndicator(
-                    modifier = Modifier.size(27.dp),
-                    color = Color.White,
-                    strokeWidth = 2.5.dp
-                )
-            } else {
-                Icon(
-                    Icons.Filled.LocalFireDepartment,
-                    contentDescription = null,
-                    tint = Color.White,
-                    modifier = Modifier.size(27.dp)
-                )
             }
-            Spacer(Modifier.height(5.dp))
+            .heightIn(min = 48.dp)
+            .padding(horizontal = 12.dp, vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(10.dp)
+    ) {
+        if (isCalculating) {
+            CircularProgressIndicator(modifier = Modifier.size(20.dp), color = ink, strokeWidth = 2.dp)
+        } else {
+            Icon(Icons.Filled.LocalFireDepartment, contentDescription = null, tint = ink, modifier = Modifier.size(20.dp))
+        }
+        Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
             Text(
                 text = if (isCalculating) "Calculating…" else "Calculate",
-                color = Color.White,
-                fontSize = if (isCalculating) 18.sp else 22.sp,
-                fontWeight = FontWeight.Black,
-                maxLines = 1
+                color = ink,
+                fontSize = 17.sp,
+                fontWeight = FontWeight.Black
             )
             Text(
                 text = "CALORIE BURN",
-                color = Color.White.copy(alpha = 0.9f),
-                fontSize = 9.sp,
+                color = ink,
+                fontSize = 11.sp,
                 fontWeight = FontWeight.Black,
-                letterSpacing = 0.4.sp,
-                maxLines = 1
+                letterSpacing = 0.4.sp
             )
         }
     }
@@ -913,9 +885,10 @@ private fun WorkoutMetric(
     active: Boolean,
     modifier: Modifier = Modifier
 ) {
-    val color = if (active) AppColors.Calorie else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f)
+    val neo = pinkNeoPalette()
+    val color = if (active) AppColors.Calorie else neo.ink
     Column(
-        modifier = modifier.padding(horizontal = 7.dp, vertical = 7.dp),
+        modifier = modifier.background(neo.panel).border(1.dp, neo.rule).padding(8.dp),
         verticalArrangement = Arrangement.spacedBy(6.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
@@ -924,33 +897,16 @@ private fun WorkoutMetric(
                 text = label,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f),
                 fontSize = 10.sp,
-                fontWeight = FontWeight.Bold,
-                maxLines = 1
+                fontWeight = FontWeight.Bold
             )
         }
         Text(
             text = value,
             color = color,
-            fontSize = 24.sp,
-            fontWeight = FontWeight.ExtraBold,
-            maxLines = 1,
-            autoSize = TextAutoSize.StepBased(
-                minFontSize = 14.sp,
-                maxFontSize = 24.sp,
-                stepSize = 0.5.sp
-            )
+            fontSize = 17.sp,
+            fontWeight = FontWeight.ExtraBold
         )
     }
-}
-
-@Composable
-private fun MetricDivider() {
-    Box(
-        Modifier
-            .width(1.dp)
-            .height(44.dp)
-            .background(MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.46f))
-    )
 }
 
 @Composable
@@ -1717,7 +1673,10 @@ private fun WorkoutWeekStrip(
         if (state.firstVisibleItemIndex != targetWeek) state.animateScrollToItem(targetWeek)
     }
 
-    BoxWithConstraints(modifier.fillMaxWidth()) {
+    val neo = pinkNeoPalette()
+    BoxWithConstraints(
+        modifier.fillMaxWidth().background(neo.panel).border(1.dp, neo.rule).padding(vertical = 8.dp)
+    ) {
         val pageWidth = maxWidth
         LazyRow(state = state, flingBehavior = fling, modifier = Modifier.fillMaxWidth()) {
             items((0 until WORKOUT_WEEKS).toList()) { weekIndex ->
@@ -1755,6 +1714,7 @@ private fun WorkoutDayTile(
     modifier: Modifier = Modifier
 ) {
     val locale = LocalConfiguration.current.locales[0]
+    val neo = pinkNeoPalette()
     Column(
         modifier = modifier
             .alpha(if (enabled) 1f else 0.32f)
@@ -1769,20 +1729,20 @@ private fun WorkoutDayTile(
     ) {
         Text(
             date.dayOfWeek.getDisplayName(java.time.format.TextStyle.NARROW, locale),
-            color = if (isSelected) AppColors.Calorie else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.42f),
+            color = neo.ink.copy(alpha = 0.72f),
             fontSize = 11.sp,
-            fontWeight = FontWeight.Medium
+            fontWeight = FontWeight.Bold,
+            maxLines = 1
         )
         Box(
             modifier = Modifier
-                .size(36.dp)
+                .fillMaxWidth()
+                .padding(horizontal = 2.dp)
+                .heightIn(min = 36.dp)
                 .then(
                     when {
-                        isSelected -> Modifier
-                            .shadow(6.dp, CircleShape, ambientColor = AppColors.Calorie.copy(alpha = 0.3f))
-                            .clip(CircleShape)
-                            .background(Brush.linearGradient(listOf(AppColors.CalorieStart, AppColors.CalorieEnd)))
-                        isToday -> Modifier.border(1.5.dp, AppColors.Calorie.copy(alpha = 0.35f), CircleShape)
+                        isSelected -> Modifier.background(neo.action)
+                        isToday -> Modifier.border(1.dp, neo.accent)
                         else -> Modifier
                     }
                 ),
@@ -1791,19 +1751,19 @@ private fun WorkoutDayTile(
             Text(
                 date.dayOfMonth.toString(),
                 color = when {
-                    isSelected -> Color.White
-                    isToday -> AppColors.Calorie
-                    else -> MaterialTheme.colorScheme.onSurface
+                    isSelected -> neo.onAction
+                    isToday -> neo.accent
+                    else -> neo.ink
                 },
                 fontSize = 16.sp,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.Black,
+                maxLines = 1
             )
         }
         Box(
             Modifier
                 .size(4.dp)
-                .clip(CircleShape)
-                .background(if (count > 0) AppColors.Calorie else Color.Transparent)
+                .background(if (count > 0) neo.action else Color.Transparent)
         )
     }
 }

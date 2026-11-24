@@ -39,7 +39,15 @@ struct FoodLogMealGroup: Identifiable {
 
 @Observable
 class FoodStore {
-    private(set) var entries: [FoodEntry] = []
+    private(set) var entries: [FoodEntry] = [] {
+        didSet {
+            daysByStart.removeAll(keepingCapacity: true)
+            entriesRevision &+= 1
+        }
+    }
+    private(set) var entriesRevision = 0
+    @ObservationIgnored private var dayLookupCalendar: Calendar?
+    @ObservationIgnored private var daysByStart: [Date: [FoodEntry]] = [:]
     var onEntriesChanged: (() -> Void)?
     var onEntryAdded: ((FoodEntry) -> Void)?
     var onEntryDeleted: ((UUID) -> Void)?
@@ -97,19 +105,11 @@ class FoodStore {
     }
 
     var todayEntries: [FoodEntry] {
-        let calendar = Calendar.current
-        return entries
-            .filter { calendar.isDateInToday($0.timestamp) }
-            .sorted { $0.timestamp > $1.timestamp }
+        entries(for: .now)
     }
 
     var todayEntriesByMeal: [FoodLogMealGroup] {
-        let calendar = Calendar.current
-        let today = entries
-            .filter { calendar.isDateInToday($0.timestamp) }
-            .sorted { $0.timestamp > $1.timestamp }
-
-        return groupedEntries(today, order: .standard)
+        groupedEntries(todayEntries, order: .standard)
     }
 
     var todayCalories: Int {
@@ -130,11 +130,24 @@ class FoodStore {
 
     // MARK: - Date-parameterized queries
 
-    func entries(for date: Date) -> [FoodEntry] {
-        let calendar = Calendar.current
-        return entries
-            .filter { calendar.isDate($0.timestamp, inSameDayAs: date) }
+    func entries(for date: Date, calendar: Calendar = .current) -> [FoodEntry] {
+        // Track changes even when the lookup hits the cache.
+        let entries = self.entries
+        guard let day = calendar.dateInterval(of: .day, for: date) else { return [] }
+        if calendar != dayLookupCalendar {
+            dayLookupCalendar = calendar
+            daysByStart.removeAll(keepingCapacity: true)
+        }
+        if let cached = daysByStart[day.start] { return cached }
+
+        let matches = entries
+            .filter { $0.timestamp >= day.start && $0.timestamp < day.end }
             .sorted { $0.timestamp > $1.timestamp }
+        // Home repeatedly requests the same day for each nutrient and the week
+        // strip. Keep a few weeks warm without retaining the full diary twice.
+        if daysByStart.count >= 28 { daysByStart.removeAll(keepingCapacity: true) }
+        daysByStart[day.start] = matches
+        return matches
     }
 
     func entriesByMeal(for date: Date, order: FoodLogSortOrder = .standard) -> [FoodLogMealGroup] {

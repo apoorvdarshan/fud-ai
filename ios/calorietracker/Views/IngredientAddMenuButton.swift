@@ -38,44 +38,28 @@ struct IngredientAddMenuButton: View {
     @State private var errorMessage: String?
 
     var body: some View {
-        Menu {
-            Button { showCamera = true } label: {
-                Label("Camera", systemImage: "camera.fill")
-            }
-            Button { showPhotoPicker = true } label: {
-                Label("Photos", systemImage: "photo.on.rectangle")
-            }
-            Button { showBarcode = true } label: {
-                Label("Barcode", systemImage: "barcode.viewfinder")
-            }
-            Button {
-                textDraft = ""
-                showText = true
-            } label: {
-                Label("Text", systemImage: "character.cursor.ibeam")
-            }
-            Button { showVoice = true } label: {
-                Label("Voice", systemImage: "mic.fill")
-            }
-            Button(action: onManual) {
-                Label("Manual", systemImage: "square.and.pencil")
-            }
-            Button { savedMode = .favorites } label: {
-                Label("Favorites", systemImage: "heart.fill")
-            }
-            Button { savedMode = .frequent } label: {
-                Label("Frequent", systemImage: "repeat")
-            }
-            Button { savedMode = .recent } label: {
-                Label("Recent", systemImage: "clock.fill")
-            }
-        } label: {
+        FlashMenu(title: Text("Add Ingredient"), items: {
+            [
+                FlashMenuItem(Text("Camera"), icon: "camera.fill") { showCamera = true },
+                FlashMenuItem(Text("Photos"), icon: "photo.on.rectangle") { showPhotoPicker = true },
+                FlashMenuItem(Text("Barcode"), icon: "barcode.viewfinder") { showBarcode = true },
+                FlashMenuItem(Text("Text"), icon: "character.cursor.ibeam") {
+                    textDraft = ""
+                    showText = true
+                },
+                FlashMenuItem(Text("Voice"), icon: "mic.fill") { showVoice = true },
+                FlashMenuItem(Text("Manual"), icon: "square.and.pencil", action: onManual),
+                FlashMenuItem(Text("Favorites"), icon: "heart.fill") { savedMode = .favorites },
+                FlashMenuItem(Text("Frequent"), icon: "repeat") { savedMode = .frequent },
+                FlashMenuItem(Text("Recent"), icon: "clock.fill") { savedMode = .recent }
+            ]
+        }) {
             Label("Add Ingredient", systemImage: "plus.circle.fill")
                 .font(.system(.body, design: .rounded, weight: .semibold))
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .contentShape(Rectangle())
         }
-        .tint(AppColors.calorie)
+        .foregroundStyle(AppColors.accentText)
         .disabled(isBusy)
         .overlay {
             if isBusy { ProgressView() }
@@ -88,7 +72,7 @@ struct IngredientAddMenuButton: View {
         } message: {
             Text(errorMessage ?? "")
         }
-        .sheet(isPresented: $showText) {
+        .flashSheet(isPresented: $showText) {
             NavigationStack {
                 Form {
                     TextField("Describe the food", text: $textDraft, axis: .vertical)
@@ -114,7 +98,7 @@ struct IngredientAddMenuButton: View {
             }
             .presentationDetents([.medium])
         }
-        .sheet(isPresented: $showVoice) {
+        .flashSheet(isPresented: $showVoice) {
             VoiceInputView(
                 onCancel: { showVoice = false },
                 onSubmit: { text in
@@ -173,7 +157,7 @@ struct IngredientAddMenuButton: View {
                 }
             }
         }
-        .sheet(item: $savedMode) { mode in
+        .flashSheet(item: $savedMode) { mode in
             RecentsView(mode: mode, logDate: Date()) { entry in
                 onIngredient(entry.asMealIngredient())
             }

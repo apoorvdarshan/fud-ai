@@ -156,9 +156,7 @@ private fun ExerciseImagePlaceholder(
     fallbackLabel: String?
 ) {
     Box(
-        modifier.background(
-            Brush.linearGradient(listOf(colors.panel, colors.card, colors.accent.copy(alpha = 0.12f)))
-        ),
+        modifier.background(colors.panel),
         contentAlignment = Alignment.Center
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(10.dp)) {

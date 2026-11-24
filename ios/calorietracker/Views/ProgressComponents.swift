@@ -107,15 +107,13 @@ struct ProgressPeriodNavigator: View {
     let onNext: () -> Void
     var previousLabel: LocalizedStringKey = "Previous period"
     var nextLabel: LocalizedStringKey = "Next period"
-    /// Inside another card: a tinted fill instead of a second card frame.
+    /// Inside another card: an inset strip with a fine rule.
     var isEmbedded = false
 
     var body: some View {
         if isEmbedded {
-            arrows.background(
-                AppColors.calorie.opacity(0.055),
-                in: RoundedRectangle(cornerRadius: 12, style: .continuous)
-            )
+            arrows.background(AppColors.flashInset)
+                .pinkNeoRule(AppColors.flashRule.opacity(0.32))
         } else {
             arrows.progressCardStyle(cornerRadius: 14)
         }
@@ -126,22 +124,22 @@ struct ProgressPeriodNavigator: View {
             Button(action: onPrevious) {
                 Image(systemName: "chevron.backward")
                     .font(.system(.subheadline, weight: .semibold))
-                    .frame(width: 44, height: 36)
+                    .frame(width: 44, height: 44)
                     .contentShape(Rectangle())
             }
             .accessibilityLabel(Text(previousLabel))
 
             Text(label)
-                .font(.system(.subheadline, design: .rounded, weight: .semibold))
+                .font(.system(.subheadline, weight: .semibold).width(.condensed))
                 .monospacedDigit()
-                .lineLimit(1)
-                .minimumScaleFactor(0.75)
+                .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
                 .frame(maxWidth: .infinity)
 
             Button(action: onNext) {
                 Image(systemName: "chevron.forward")
                     .font(.system(.subheadline, weight: .semibold))
-                    .frame(width: 44, height: 36)
+                    .frame(width: 44, height: 44)
                     .contentShape(Rectangle())
             }
             .disabled(!canGoForward)
@@ -246,24 +244,9 @@ private struct TrendXAxis {
     }
 }
 
-private struct ProgressCardStyle: ViewModifier {
-    let cornerRadius: CGFloat
-
-    func body(content: Content) -> some View {
-        let shape = RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-        content
-            .background(AppColors.appCard)
-            .overlay {
-                shape.stroke(AppColors.calorie.opacity(0.09), lineWidth: 0.75)
-            }
-            .compositingGroup()
-            .clipShape(shape)
-    }
-}
-
 extension View {
     func progressCardStyle(cornerRadius: CGFloat = 20) -> some View {
-        modifier(ProgressCardStyle(cornerRadius: cornerRadius))
+        flashPanel()
     }
 }
 
@@ -510,7 +493,7 @@ struct WeightChartSection: View {
         }
         .padding(.horizontal, 10)
         .padding(.vertical, 6)
-        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+        .flashPanel()
         .overlay {
             RoundedRectangle(cornerRadius: 10, style: .continuous)
                 .stroke(AppColors.calorie.opacity(0.22), lineWidth: 0.75)
@@ -703,7 +686,7 @@ struct CalorieChartSection: View {
         }
         .padding(.horizontal, 10)
         .padding(.vertical, 6)
-        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+        .flashPanel()
         .overlay {
             RoundedRectangle(cornerRadius: 10, style: .continuous)
                 .stroke(AppColors.calorie.opacity(0.22), lineWidth: 0.75)
@@ -783,14 +766,14 @@ struct ProgressFoodRangeStats {
         calendar: Calendar = .current
     ) -> ProgressFoodRangeStats {
         let lastDay = calendar.startOfDay(for: endDay)
-        guard let rangeStart = calendar.date(byAdding: .day, value: -(dayCount - 1), to: lastDay) else {
+        guard let rangeStart = calendar.date(byAdding: .day, value: -(dayCount - 1), to: lastDay),
+              let rangeEnd = calendar.date(byAdding: .day, value: 1, to: lastDay) else {
             return .empty
         }
 
         var buckets: [Date: [FoodEntry]] = [:]
-        for entry in entries {
+        for entry in entries where entry.timestamp >= rangeStart && entry.timestamp < rangeEnd {
             let day = calendar.startOfDay(for: entry.timestamp)
-            guard day >= rangeStart, day <= lastDay else { continue }
             buckets[day, default: []].append(entry)
         }
 
@@ -1237,9 +1220,11 @@ struct AllWeightHistoryView: View {
                     HStack {
                         VStack(alignment: .leading, spacing: 2) {
                             Text(displayWeight(entry.weightKg, useMetric: useMetric))
-                                .font(.system(.body, design: .rounded, weight: .medium))
+                                .font(.system(.body, weight: .bold).width(.condensed))
+                                .foregroundStyle(AppColors.accentText)
+                                .monospacedDigit()
                             Text(weightHistoryFormatter.string(from: entry.date))
-                                .font(.system(.caption, design: .rounded))
+                                .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
                         Spacer()
@@ -1250,12 +1235,13 @@ struct AllWeightHistoryView: View {
                             Image(systemName: "trash")
                                 .font(.system(size: 15, weight: .medium))
                                 .foregroundStyle(.secondary)
-                                .frame(width: 32, height: 32)
+                                .frame(width: 44, height: 44)
                                 .contentShape(Rectangle())
                         }
                         .buttonStyle(.borderless)
                         .accessibilityLabel(Text("Delete"))
                     }
+                    .flashSectionRows()
                     .swipeActions(edge: .trailing) {
                         Button(role: .destructive) {
                             pendingDeletion = entry
@@ -1265,7 +1251,7 @@ struct AllWeightHistoryView: View {
                     }
                 }
             }
-            .listStyle(.insetGrouped)
+            .flashEditorSurface()
             .navigationTitle("Weight History")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -1360,13 +1346,16 @@ struct AllBodyFatHistoryView: View {
                     HStack {
                         VStack(alignment: .leading, spacing: 2) {
                             Text(displayBodyFat(entry.bodyFatFraction))
-                                .font(.system(.body, design: .rounded, weight: .medium))
+                                .font(.system(.body, weight: .bold).width(.condensed))
+                                .foregroundStyle(AppColors.accentText)
+                                .monospacedDigit()
                             Text(weightHistoryFormatter.string(from: entry.date))
-                                .font(.system(.caption, design: .rounded))
+                                .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
                         Spacer()
                     }
+                    .flashSectionRows()
                     .swipeActions(edge: .trailing) {
                         Button(role: .destructive) {
                             pendingDeletion = entry
@@ -1376,7 +1365,7 @@ struct AllBodyFatHistoryView: View {
                     }
                 }
             }
-            .listStyle(.insetGrouped)
+            .flashEditorSurface()
             .navigationTitle("Body Fat History")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -1742,7 +1731,7 @@ struct BodyFatChartSection: View {
         }
         .padding(.horizontal, 10)
         .padding(.vertical, 6)
-        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+        .flashPanel()
         .overlay {
             RoundedRectangle(cornerRadius: 10, style: .continuous)
                 .stroke(AppColors.calorie.opacity(0.22), lineWidth: 0.75)
@@ -1963,7 +1952,7 @@ struct BodyMeasurementsDetailView: View {
         .background(AppColors.appBackground)
         .navigationTitle("Body Measurements")
         .navigationBarTitleDisplayMode(.inline)
-        .sheet(item: $editingSite) { site in
+        .flashSheet(item: $editingSite) { site in
             MeasurementEditSheet(
                 site: site,
                 currentCm: latest?.value(for: site),
@@ -1971,7 +1960,7 @@ struct BodyMeasurementsDetailView: View {
                 onClear: { store.setValue(site, cm: nil) }
             )
         }
-        .sheet(isPresented: $showHistory) {
+        .flashSheet(isPresented: $showHistory) {
             AllBodyMeasurementsHistoryView(
                 entries: store.sortedEntries,
                 gender: gender,
@@ -2076,11 +2065,12 @@ struct AllBodyMeasurementsHistoryView: View {
                 ForEach(visibleEntries) { entry in
                     VStack(alignment: .leading, spacing: 4) {
                         Text(weightHistoryFormatter.string(from: entry.date))
-                            .font(.system(.subheadline, design: .rounded, weight: .semibold))
+                            .font(.system(.subheadline, weight: .bold).width(.condensed))
                         Text(summary(entry))
-                            .font(.system(.caption, design: .rounded))
+                            .font(.caption)
                             .foregroundStyle(.secondary)
                     }
+                    .flashSectionRows()
                     .swipeActions(edge: .trailing) {
                         Button(role: .destructive) {
                             pendingDeletion = entry
@@ -2090,7 +2080,7 @@ struct AllBodyMeasurementsHistoryView: View {
                     }
                 }
             }
-            .listStyle(.insetGrouped)
+            .flashEditorSurface()
             .navigationTitle("Measurement History")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

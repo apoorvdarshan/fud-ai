@@ -63,7 +63,7 @@ struct AddMenuSettingsView: View {
         .onChange(of: config) { _, newValue in
             AddMenuSettings.save(newValue)
         }
-        .sheet(item: $methodPickerTarget) { target in
+        .flashSheet(item: $methodPickerTarget) { target in
             MethodAssignmentSheet(
                 methods: hiddenMethods,
                 onSelect: { method in

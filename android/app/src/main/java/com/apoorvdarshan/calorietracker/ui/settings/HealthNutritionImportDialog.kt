@@ -13,6 +13,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.apoorvdarshan.calorietracker.AppContainer
 import com.apoorvdarshan.calorietracker.R
+import com.apoorvdarshan.calorietracker.ui.components.FlashAlertDialog
 import com.apoorvdarshan.calorietracker.ui.components.LocalEnergyUnit
 import com.apoorvdarshan.calorietracker.data.nutritionImportCandidates
 import com.apoorvdarshan.calorietracker.data.healthNutritionDateRange
@@ -106,7 +107,7 @@ internal fun HealthNutritionImportDialog(container: AppContainer, onDismiss: () 
             }
         }
     }
-    AlertDialog(
+    FlashAlertDialog(
         onDismissRequest = { if (!busy) onDismiss() },
         title = { Text(stringResource(R.string.health_import_title)) },
         text = {
@@ -115,10 +116,12 @@ internal fun HealthNutritionImportDialog(container: AppContainer, onDismiss: () 
                     Text(stringResource(R.string.health_import_description))
                     OutlinedTextField(fromText, {
                         fromText = it; records = null; selectedSource = null; message = null; rangeSummary = null
-                    }, label = { Text(stringResource(R.string.health_import_from)) }, singleLine = true, enabled = !busy)
+                    }, modifier = Modifier.fillMaxWidth(),
+                        label = { Text(stringResource(R.string.health_import_from)) }, singleLine = true, enabled = !busy)
                     OutlinedTextField(toText, {
                         toText = it; records = null; selectedSource = null; message = null; rangeSummary = null
-                    }, label = { Text(stringResource(R.string.health_import_to)) }, singleLine = true, enabled = !busy)
+                    }, modifier = Modifier.fillMaxWidth(),
+                        label = { Text(stringResource(R.string.health_import_to)) }, singleLine = true, enabled = !busy)
                     Text(stringResource(R.string.health_import_history_hint), style = MaterialTheme.typography.bodySmall)
                     TextButton(enabled = !busy && container.health.isAvailable(), onClick = {
                         runCatching { permissionLauncher.launch(container.health.nutritionImportPermissions) }

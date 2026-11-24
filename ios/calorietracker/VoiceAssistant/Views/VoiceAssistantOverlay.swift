@@ -43,7 +43,7 @@ struct VoiceAssistantOverlay: View {
             .onChange(of: controller.photoPickerPresented) { _, presented in
                 if !presented { controller.photoPickerDismissed() }
             }
-            .sheet(item: $controller.sheet) { sheet in
+            .flashSheet(item: $controller.sheet) { sheet in
                 switch sheet {
                 case .paywall: HostedPaywallView()
                 case .credits: HostedCreditsSheet()
@@ -99,8 +99,7 @@ private struct VoiceAssistantExpandedView: View {
 
     var body: some View {
         ZStack {
-            Color(red: 0.006, green: 0.008, blue: 0.014)
-                .opacity(0.94)
+            Color(hex: PinkNeoFlash.paperDark)
                 .ignoresSafeArea()
                 .accessibilityHidden(true)
 
@@ -329,8 +328,7 @@ private struct VoiceAssistantCompactView: View {
         .padding(.trailing, 8)
         .padding(.vertical, 8)
         .frame(minHeight: 44)
-        .background(.regularMaterial, in: Capsule())
-        .shadow(color: .black.opacity(0.15), radius: 10, y: 4)
+        .flashPanel()
     }
 }
 
@@ -389,8 +387,7 @@ private struct VoiceAssistantCardView: View {
         }
         .padding(14)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
-        .shadow(color: .black.opacity(0.12), radius: 8, y: 3)
+        .flashPanel()
     }
 
     private func draftCard(_ draft: VoiceAssistantCard.Draft) -> some View {

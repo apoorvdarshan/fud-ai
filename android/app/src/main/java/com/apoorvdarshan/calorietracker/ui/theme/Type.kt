@@ -9,13 +9,13 @@ import androidx.compose.ui.unit.sp
 private val AppFont = FontFamily.Default
 
 val Typography = Typography(
-    displayLarge = TextStyle(fontFamily = AppFont, fontWeight = FontWeight.Bold, fontSize = 40.sp, lineHeight = 48.sp),
-    displayMedium = TextStyle(fontFamily = AppFont, fontWeight = FontWeight.Bold, fontSize = 34.sp, lineHeight = 40.sp),
-    displaySmall = TextStyle(fontFamily = AppFont, fontWeight = FontWeight.Bold, fontSize = 28.sp, lineHeight = 34.sp),
-    headlineLarge = TextStyle(fontFamily = AppFont, fontWeight = FontWeight.SemiBold, fontSize = 24.sp, lineHeight = 30.sp),
-    headlineMedium = TextStyle(fontFamily = AppFont, fontWeight = FontWeight.SemiBold, fontSize = 22.sp, lineHeight = 28.sp),
-    headlineSmall = TextStyle(fontFamily = AppFont, fontWeight = FontWeight.SemiBold, fontSize = 20.sp, lineHeight = 26.sp),
-    titleLarge = TextStyle(fontFamily = AppFont, fontWeight = FontWeight.SemiBold, fontSize = 18.sp, lineHeight = 24.sp),
+    displayLarge = PinkNeoCondensed.copy(fontFamily = AppFont, fontWeight = FontWeight.Black, fontSize = 40.sp, lineHeight = 48.sp),
+    displayMedium = PinkNeoCondensed.copy(fontFamily = AppFont, fontWeight = FontWeight.Black, fontSize = 34.sp, lineHeight = 40.sp),
+    displaySmall = PinkNeoCondensed.copy(fontFamily = AppFont, fontWeight = FontWeight.Black, fontSize = 28.sp, lineHeight = 34.sp),
+    headlineLarge = PinkNeoCondensed.copy(fontFamily = AppFont, fontWeight = FontWeight.Black, fontSize = 24.sp, lineHeight = 30.sp),
+    headlineMedium = PinkNeoCondensed.copy(fontFamily = AppFont, fontWeight = FontWeight.Black, fontSize = 22.sp, lineHeight = 28.sp),
+    headlineSmall = PinkNeoCondensed.copy(fontFamily = AppFont, fontWeight = FontWeight.Black, fontSize = 20.sp, lineHeight = 26.sp),
+    titleLarge = PinkNeoCondensed.copy(fontFamily = AppFont, fontWeight = FontWeight.Black, fontSize = 18.sp, lineHeight = 24.sp),
     titleMedium = TextStyle(fontFamily = AppFont, fontWeight = FontWeight.SemiBold, fontSize = 16.sp, lineHeight = 22.sp),
     titleSmall = TextStyle(fontFamily = AppFont, fontWeight = FontWeight.Medium, fontSize = 14.sp, lineHeight = 20.sp),
     bodyLarge = TextStyle(fontFamily = AppFont, fontWeight = FontWeight.Medium, fontSize = 16.sp, lineHeight = 24.sp),

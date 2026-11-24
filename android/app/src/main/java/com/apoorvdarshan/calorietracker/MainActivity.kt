@@ -12,12 +12,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
+import com.apoorvdarshan.calorietracker.data.StartupPreferences
 import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.QuickActionRequest
 import com.apoorvdarshan.calorietracker.services.MealShare
@@ -34,10 +37,10 @@ import com.google.android.play.core.ktx.launchReview
 import com.google.android.play.core.ktx.requestReview
 import com.google.android.play.core.review.ReviewManagerFactory
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 
 // AppCompatActivity so AppCompatDelegate.setApplicationLocales applies on API 26–32 (#372).
 open class MainActivity : AppCompatActivity() {
@@ -142,13 +145,10 @@ open class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Support --reset-onboarding launch flag (parallel to iOS CLAUDE.md convention).
-        if (intent?.getBooleanExtra("reset_onboarding", false) == true) {
-            runBlocking { (application as FudAIApp).container.prefs.setOnboardingCompleted(false) }
-            intent.removeExtra("reset_onboarding")
-        }
-
         val container = (application as FudAIApp).container
+        // Consume the explicit developer flag before starting the async read.
+        val resetOnboarding = intent?.getBooleanExtra("reset_onboarding", false) == true
+        if (resetOnboarding) intent?.removeExtra("reset_onboarding")
         // A fudai://add-meal link may have cold-launched us.
         handleShareIntent(intent)
         handleQuickActionIntent(intent)
@@ -167,35 +167,39 @@ open class MainActivity : AppCompatActivity() {
                 .collect { QuickActionShortcutManager.update(this@MainActivity, it) }
         }
 
-        val startOnboarding = runBlocking { !container.prefs.hasCompletedOnboarding.first() }
-        val initialAppearance = runBlocking { container.prefs.appearanceMode.first() }
-        val initialThemeColorKey = runBlocking { container.prefs.appThemeColor.first() }
-        val initialEnergyUnit = runBlocking { container.prefs.energyUnit.first() }
-
-        // Hold the splash on screen until the saved profile has loaded from
-        // DataStore so Home doesn't briefly render its 2000/150/220/70 fallback
-        // goal numbers before snapping to the user's real targets. Onboarding
-        // doesn't show those numbers, so we let the splash dismiss immediately
-        // in that case.
-        var contentReady = startOnboarding
+        // Keep the splash while the first-frame inputs load without blocking
+        // the main thread. A missing profile can no longer hold it forever.
+        var contentReady = false
         splashScreen.setKeepOnScreenCondition { !contentReady }
-        if (!startOnboarding) {
-            lifecycleScope.launch {
-                container.profileRepository.profile.first { it != null }
-                contentReady = true
+        lifecycleScope.launch {
+            val startup = withContext(Dispatchers.Default) {
+                if (resetOnboarding) container.prefs.setOnboardingCompleted(false)
+                container.prefs.startupPreferences()
             }
+            showContent(container, startup)
+            contentReady = true
         }
+    }
 
+    private fun showContent(container: AppContainer, startup: StartupPreferences) {
         setContent {
-            val appearance by container.prefs.appearanceMode.collectAsState(initial = initialAppearance)
-            val themeColorKey by container.prefs.appThemeColor.collectAsState(initial = initialThemeColorKey)
+            val appearance by container.prefs.appearanceMode.collectAsState(initial = startup.appearanceMode)
+            val themeColorKey by container.prefs.appThemeColor.collectAsState(initial = startup.themeColorKey)
             val themeColor = AppThemeColor.fromKey(themeColorKey)
-            val energyUnit by container.prefs.energyUnit.collectAsState(initial = initialEnergyUnit)
+            val energyUnit by container.prefs.energyUnit.collectAsState(initial = startup.energyUnit)
             val systemDark = isSystemInDarkTheme()
             val darkTheme = when (appearance) {
                 "light" -> false
                 "dark", "darkGray" -> true
                 else -> systemDark
+            }
+            SideEffect {
+                // Edge-to-edge defaults follow the device, but the app can
+                // select an independent background behind the system bars.
+                WindowCompat.getInsetsController(window, window.decorView).apply {
+                    isAppearanceLightStatusBars = !darkTheme
+                    isAppearanceLightNavigationBars = !darkTheme
+                }
             }
             FudAITheme(darkTheme = darkTheme, themeColor = themeColor, grayDarkTheme = appearance == "darkGray") {
                 // Above the NavHost and the shared-meal sheet so both show the chosen unit.
@@ -206,7 +210,8 @@ open class MainActivity : AppCompatActivity() {
                     ) {
                         FudAINavHost(
                             container = container,
-                            startOnboarding = startOnboarding,
+                            startOnboarding = startup.startOnboarding,
+                            initialHomeProfile = startup.profile,
                             quickActionRequest = pendingQuickAction,
                             onQuickActionHandled = { requestID ->
                                 if (pendingQuickAction?.id == requestID) pendingQuickAction = null

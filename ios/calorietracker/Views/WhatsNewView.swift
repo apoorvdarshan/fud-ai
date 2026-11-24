@@ -170,7 +170,7 @@ struct WhatsNewSheet: View {
         .background(AppColors.appBackground.ignoresSafeArea())
         .presentationDetents([.large])
         .interactiveDismissDisabled()
-        .sheet(isPresented: $showPlans) {
+        .flashSheet(isPresented: $showPlans) {
             HostedPaywallView()
         }
         .onAppear { WhatsNewAudio.apply(.followingSilentSwitch) }

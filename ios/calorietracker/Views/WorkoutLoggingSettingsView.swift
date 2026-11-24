@@ -13,6 +13,7 @@ struct WorkoutLoggingSettingsSection: View {
             HStack {
                 Label {
                     Text("Walk & Run")
+                        .font(.system(.body, weight: .semibold).width(.condensed))
                 } icon: {
                     Image(systemName: "figure.walk")
                         .foregroundStyle(AppColors.calorie)
@@ -49,17 +50,17 @@ struct WorkoutLoggingSettingsSection: View {
             )
 
             Text("Counts down after you log a set today. With notifications on, Fud AI alerts you when rest ends in the background.")
-                .font(.system(.footnote, design: .rounded))
+                .font(.footnote)
                 .foregroundStyle(.secondary)
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.leading, 32)
                 .padding(.vertical, 4)
         } header: {
-            Text("Workout")
+            Text("Workout").flashSectionHeading()
         } footer: {
             Text("Off by default. When enabled, Walking and Running appear in the Workouts + menu for quick outdoor logging.")
         }
-        .listRowBackground(AppColors.appCard)
+        .flashSectionRows()
         .onAppear(perform: loadPreferences)
         .onChange(of: draft) { _, newValue in
             guard hasLoaded else { return }
@@ -79,7 +80,7 @@ struct WorkoutLoggingSettingsSection: View {
             Text("**CR10 0–10:** General effort from rest to maximum.")
             Text("**Borg 6–20:** Endurance effort linked to breathing and heart rate.")
         }
-        .font(.system(.footnote, design: .rounded))
+        .font(.footnote)
         .foregroundStyle(.secondary)
         .lineSpacing(1)
         .fixedSize(horizontal: false, vertical: true)

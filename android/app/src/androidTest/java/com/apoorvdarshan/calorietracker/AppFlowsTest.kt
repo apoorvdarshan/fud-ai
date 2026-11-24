@@ -6,6 +6,8 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.closeSoftKeyboard
 import androidx.test.espresso.Espresso.pressBack
@@ -14,6 +16,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.apoorvdarshan.calorietracker.models.EnergyUnit
 import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.FoodSource
+import com.apoorvdarshan.calorietracker.models.HomeTopNutrient
 import com.apoorvdarshan.calorietracker.models.WaterUnit
 import com.apoorvdarshan.calorietracker.services.MealShare
 import com.apoorvdarshan.calorietracker.services.voice.VoiceEntryPoints
@@ -155,16 +158,58 @@ class AppFlowsTest {
         assertEquals(addBounds.top, voiceBounds.top, 1f)
         assertEquals(addBounds.bottom, voiceBounds.bottom, 1f)
         assertTrue("Voice sits beside the add button", voiceBounds.right < addBounds.left)
-        assertTrue("The diary keeps its full viewport behind the floating controls",
-            compose.onNodeWithTag("home.diary").fetchSemanticsNode().boundsInRoot.bottom > addBounds.bottom)
-        assertTrue("The action row stays above the tabs", addBounds.bottom <=
-            compose.onNodeWithTag("nav.home").fetchSemanticsNode().boundsInRoot.top)
+        assertTrue("The diary cannot scroll behind the pinned controls",
+            compose.onNodeWithTag("home.diary").fetchSemanticsNode().boundsInRoot.bottom <= addBounds.top)
+        assertTrue("The right rail stays beside the action row", addBounds.right <=
+            compose.onNodeWithTag("nav.home").fetchSemanticsNode().boundsInRoot.left)
+        compose.onNodeWithTag("nav.camera").assertIsDisplayed()
+        compose.onNodeWithTag("home.calendar").assertIsDisplayed()
+        compose.onNodeWithTag("home.calorieSegments").assertIsDisplayed()
         for (tab in listOf("progress", "coach", "settings", "workouts", "home")) {
             openTab(tab)
             compose.onNodeWithTag("nav.$tab").assertIsSelected()
+            if (tab == "workouts") {
+                val workoutAdd = compose.onNodeWithTag("workouts.add")
+                    .assertIsDisplayed().fetchSemanticsNode().boundsInWindow
+                activity!!.onActivity { main ->
+                    val decor = main.window.decorView
+                    val navigation = checkNotNull(ViewCompat.getRootWindowInsets(decor))
+                        .getInsets(WindowInsetsCompat.Type.navigationBars())
+                    assertTrue("The workout dock stays above the system navigation bar",
+                        workoutAdd.bottom <= decor.height - navigation.bottom)
+                }
+            }
         }
         compose.onNodeWithTag("home.add").assertIsDisplayed()
         compose.onNodeWithTag("onboarding.WELCOME").assertDoesNotExist()
+    }
+
+    @Test
+    fun startupUsesPersistedEnergyUnitAndGoal() {
+        FudAITestState.reset()
+        val target = 2_137
+        runBlocking {
+            prefs.setEnergyUnit(EnergyUnit.KJ)
+            prefs.updateUserProfile { it.copy(customCalories = target) }
+        }
+        val goal = hasText(string(EnergyUnit.KJ.valueFormatRes, EnergyUnit.KJ.displayValue(target)))
+        launchActivity()
+        waitForHome()
+        waitFor(goal)
+        compose.onNode(goal).assertIsDisplayed()
+        activity!!.recreate()
+        waitForHome()
+        compose.onNode(goal).assertIsDisplayed()
+    }
+
+    @Test
+    fun completedOnboardingWithoutSavedProfileDoesNotTrapTheSplash() {
+        FudAITestState.reset(onboarded = false)
+        runBlocking { prefs.setOnboardingCompleted(true) }
+
+        launchActivity()
+        waitForHome()
+        compose.onNodeWithTag("home.add").assertIsDisplayed()
     }
 
     @Test
@@ -289,9 +334,9 @@ class AppFlowsTest {
         compose.onNodeWithTag("voiceSettings.confirmSaves").performScrollTo().assertIsOn().performClick()
         awaitPreference(prefs.voiceAssistantPreferences) { !it.confirmSaves }
         val saveToCoach = compose.onNodeWithTag("voiceSettings.saveToCoach").performScrollTo().assertIsOn()
-        assertTrue("The switch must be above the floating tabs",
-            saveToCoach.fetchSemanticsNode().boundsInRoot.bottom <=
-                compose.onNodeWithTag("nav.workouts").fetchSemanticsNode().boundsInRoot.top)
+        assertTrue("The switch must stay to the left of the rail",
+            saveToCoach.fetchSemanticsNode().boundsInRoot.right <=
+                compose.onNodeWithTag("nav.workouts").fetchSemanticsNode().boundsInRoot.left)
         saveToCoach.performClick()
         awaitPreference(prefs.voiceAssistantPreferences) { !it.saveToCoach }
         compose.onNodeWithTag("voiceSettings.autoCapture").performScrollTo().assertIsOn().performClick()
@@ -336,7 +381,7 @@ class AppFlowsTest {
         val totalsBounds = compose.onNodeWithTag("home.mealHeader.${saved.mealType.name}.totals").fetchSemanticsNode().boundsInRoot
         assertEquals("Meal totals align with the leading edge of the header", iconBounds.left, totalsBounds.left, 1f)
         assertTrue("Meal totals sit below the title", totalsBounds.top >= titleBounds.bottom)
-        assertTrue("Meal totals avoid the floating buttons' trailing area", totalsBounds.right < voiceBounds.left)
+        assertTrue("Meal totals stay clear of the pinned dock", totalsBounds.bottom <= voiceBounds.top)
 
         activity!!.recreate()
         waitForHome()
@@ -432,6 +477,43 @@ class AppFlowsTest {
     }
 
     @Test
+    fun nutritionPickerSavesTheEditedCardsAndKeepsFixedWater() {
+        FudAITestState.reset()
+        runBlocking { prefs.setWaterTrackingEnabled(true) }
+        launchActivity()
+        waitForHome()
+
+        val viewMore = string(R.string.home_view_more)
+        waitFor(hasText(viewMore) and hasClickAction())
+        compose.onNode(hasText(viewMore) and hasClickAction()).performClick()
+        val cards = "nutrition.homeCards"
+        waitFor(hasTestTag(cards))
+        compose.onNodeWithTag(cards).performClick()
+        waitFor(hasText(string(R.string.home_nutrients_water_fixed_short)))
+
+        val fiber = compose.onNodeWithTag("nutrition.picker.FIBER")
+        compose.onNodeWithTag("nutrition.picker.options").performScrollToKey("FIBER")
+        fiber.assertIsOn().performClick()
+        fiber.assertIsOff()
+        compose.onNode(
+            hasText(string(R.string.action_done)) and hasClickAction() and
+                hasAnyAncestor(hasTestTag("nutrition.picker.actions"))
+        ).performClick()
+        waitForAbsent(hasTestTag("nutrition.picker.options"))
+
+        val expected = HomeTopNutrient.DefaultSelection - HomeTopNutrient.FIBER
+        awaitPreference(prefs.homeTopNutrients) { HomeTopNutrient.fromStorage(it) == expected }
+        val summary = "nutrition.homeCards.summary"
+        val expectedSummary = (expected.map { string(it.displayNameRes) } + string(R.string.water))
+            .joinToString(", ")
+        val updatedSummary = hasTestTag(summary) and hasText(expectedSummary)
+        // Picker dismissal, disk persistence and the ViewModel's next UI
+        // frame are separate events. Match the new text, not the old Water row.
+        waitFor(updatedSummary, useUnmergedTree = true)
+        compose.onNode(updatedSummary, useUnmergedTree = true).assertIsDisplayed()
+    }
+
+    @Test
     fun sharedMealLinkSheetShowsTheChosenEnergyUnit() {
         FudAITestState.reset()
         runBlocking { prefs.setEnergyUnit(EnergyUnit.KJ) }
@@ -475,6 +557,28 @@ class AppFlowsTest {
     }
 
     @Test
+    fun workoutRestTimerSelectsFromAnAnchoredPopup() {
+        launchFresh()
+        openTab("settings")
+        val category = "settings.category.WORKOUT"
+        waitFor(hasTestTag(category))
+        compose.onNodeWithTag(category).performScrollTo().performClick()
+
+        val timer = "settings.workout.restTimer"
+        waitFor(hasTestTag(timer))
+        compose.onNodeWithTag(timer).performScrollTo().performClick()
+        val off = string(R.string.workout_rest_off)
+        val popupOption = hasText(off) and hasAnyAncestor(isPopup())
+        waitFor(popupOption)
+        compose.onNode(popupOption).assertIsDisplayed().performClick()
+
+        waitFor(hasTestTag(timer) and hasText(off))
+        compose.onNode(isPopup()).assertDoesNotExist()
+        val workouts = (context.applicationContext as FudAIApp).container.workoutRepository
+        awaitPreference(workouts.preferences) { it.restTimerSeconds == 0 }
+    }
+
+    @Test
     fun workoutLibrarySearchOpensRealExerciseDetails() {
         launchFresh()
         openTab("workouts")
@@ -515,6 +619,7 @@ class AppFlowsTest {
 
     private fun waitForHome() {
         waitFor(hasTestTag("home.add"))
+        waitFor(hasTestTag("nav.home") and isSelected())
         compose.onNodeWithTag("nav.home").assertIsSelected()
     }
 
@@ -609,9 +714,10 @@ class AppFlowsTest {
 
     private fun string(resource: Int, vararg args: Any): String = context.getString(resource, *args)
 
-    private fun waitFor(matcher: SemanticsMatcher) {
+    private fun waitFor(matcher: SemanticsMatcher, useUnmergedTree: Boolean = false) {
         compose.waitUntil(timeoutMillis = 15_000) {
-            compose.onAllNodes(matcher).fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
+            compose.onAllNodes(matcher, useUnmergedTree = useUnmergedTree)
+                .fetchSemanticsNodes(atLeastOneRootRequired = false).isNotEmpty()
         }
     }
 

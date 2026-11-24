@@ -284,7 +284,7 @@ struct ReturningUserView: View {
 
             VStack(spacing: 8) {
                 Text("Welcome back")
-                    .font(.system(.largeTitle, design: .rounded, weight: .bold))
+                    .font(.system(.largeTitle, weight: .black).width(.condensed))
                     .multilineTextAlignment(.center)
                     .accessibilityAddTraits(.isHeader)
                 Text(subtitle)
@@ -328,11 +328,11 @@ struct ReturningUserView: View {
                     .font(.system(size: 22, weight: .semibold))
                     .foregroundStyle(.white)
                     .frame(width: 52, height: 52)
-                    .background(source.gradient, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+                    .background(source.color)
 
                 VStack(alignment: .leading, spacing: 5) {
                     Text(source.title)
-                        .font(.system(.headline, design: .rounded, weight: .semibold))
+                        .font(.system(.headline, weight: .semibold).width(.condensed))
                         .foregroundStyle(.primary)
                     Text(source.detail)
                         .font(.system(.subheadline, design: .rounded))
@@ -350,14 +350,9 @@ struct ReturningUserView: View {
                     .frame(width: 28, height: 28)
             }
             .padding(16)
-            .background(AppColors.appCard, in: RoundedRectangle(cornerRadius: 16))
-            .overlay {
-                RoundedRectangle(cornerRadius: 16)
-                    .strokeBorder(
-                        isSelected ? AppColors.calorie : Color.primary.opacity(0.06),
-                        lineWidth: isSelected ? 2 : 1
-                    )
-            }
+            .background(AppColors.appCard)
+            .pinkNeoRule(isSelected ? AppColors.accentText : AppColors.flashRule.opacity(0.36),
+                         width: isSelected ? 2 : 1)
             .opacity(phase != .choosing && !isSelected && steps[source] == nil ? 0.4 : 1)
         }
         .buttonStyle(PressableCardStyle(reduceMotion: reduceMotion))
@@ -488,19 +483,15 @@ struct ReturningUserView: View {
             Button(action: primaryAction) {
                 ZStack {
                     if phase == .running {
-                        ProgressView().tint(.white)
+                        ProgressView().tint(.secondary)
                     } else {
                         Text(primaryTitle)
                     }
                 }
-                .font(.system(.headline, design: .rounded, weight: .semibold))
                 .frame(maxWidth: .infinity, minHeight: 22)
-                .padding(.vertical, 16)
-                .background(LinearGradient(colors: AppColors.calorieGradient, startPoint: .leading, endPoint: .trailing))
-                .foregroundStyle(.white)
-                .clipShape(RoundedRectangle(cornerRadius: 14))
-                .opacity(phase == .choosing && !canContinue ? 0.4 : 1)
+                .padding(.vertical, 4)
             }
+            .buttonStyle(FlashActionButtonStyle())
             .disabled(phase == .running || (phase == .choosing && !canContinue))
             .accessibilityLabel(Text(phase == .running ? String(localized: "Bringing your data back…") : primaryTitle))
 
@@ -785,15 +776,11 @@ private extension ReturningUserView.Source {
     }
 
     /// iCloud blue and Health pink, the colors people know these services by.
-    var colors: [Color] {
+    var color: Color {
         switch self {
-        case .iCloud: [Color(red: 0.38, green: 0.70, blue: 1.0), Color(red: 0.10, green: 0.45, blue: 0.96)]
-        case .health: [Color(red: 1.0, green: 0.45, blue: 0.52), Color(red: 0.96, green: 0.16, blue: 0.33)]
+        case .iCloud: Color(red: 0.10, green: 0.38, blue: 0.82)
+        case .health: Color(red: 0.78, green: 0.05, blue: 0.27)
         }
-    }
-
-    var gradient: LinearGradient {
-        LinearGradient(colors: colors, startPoint: .topLeading, endPoint: .bottomTrailing)
     }
 }
 

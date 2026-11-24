@@ -35,12 +35,13 @@ import androidx.compose.material.icons.filled.IosShare
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.UnfoldMore
-import androidx.compose.material3.AlertDialog
+import com.apoorvdarshan.calorietracker.ui.components.FlashAlertDialog as AlertDialog
+import com.apoorvdarshan.calorietracker.ui.components.FlashLoadingDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
+import com.apoorvdarshan.calorietracker.ui.components.FlashBottomSheet as ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
@@ -534,22 +535,7 @@ fun EditFoodEntrySheet(
 
             item { SheetSectionHeader(stringResource(R.string.sheet_food_details)) }
             item {
-                SheetPillRow {
-                    Text(stringResource(R.string.sheet_name), fontSize = 17.sp, modifier = Modifier.padding(end = 8.dp))
-                    Spacer(Modifier.weight(1f))
-                    androidx.compose.foundation.text.BasicTextField(
-                        value = name,
-                        onValueChange = { name = it },
-                        singleLine = true,
-                        textStyle = androidx.compose.ui.text.TextStyle(
-                            color = MaterialTheme.colorScheme.onSurface,
-                            fontSize = 17.sp,
-                            textAlign = androidx.compose.ui.text.style.TextAlign.End
-                        ),
-                        cursorBrush = androidx.compose.ui.graphics.SolidColor(AppColors.Calorie),
-                        modifier = Modifier.weight(2f)
-                    )
-                }
+                SheetFoodNameField(name = name, onNameChange = { name = it })
             }
 
             // Allergen safety stays near the top for configured sensitivities;
@@ -930,23 +916,7 @@ fun EditFoodEntrySheet(
     previewPhotoIndex?.let { index ->
         val images = viewerBitmaps
         if (images == null) {
-            androidx.compose.ui.window.Dialog(
-                onDismissRequest = { previewPhotoIndex = null },
-                properties = androidx.compose.ui.window.DialogProperties(
-                    dismissOnBackPress = true,
-                    dismissOnClickOutside = false
-                )
-            ) {
-                Box(
-                    Modifier
-                        .size(96.dp)
-                        .clip(RoundedCornerShape(16.dp))
-                        .background(Color.Black.copy(alpha = 0.72f)),
-                    contentAlignment = Alignment.Center
-                ) {
-                    CircularProgressIndicator(color = Color.White, modifier = Modifier.size(36.dp))
-                }
-            }
+            FlashLoadingDialog(onDismissRequest = { previewPhotoIndex = null })
         } else if (images.isNotEmpty()) {
             FullScreenImageViewer(
                 bitmaps = images,
@@ -958,4 +928,3 @@ fun EditFoodEntrySheet(
 }
 
 private const val GALLERY_MAX_DIMENSION = 720
-

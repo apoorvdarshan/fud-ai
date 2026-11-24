@@ -15,7 +15,7 @@ struct AminoAcidDailySection: View {
                 )
             }
         } header: {
-            Text("Amino acids")
+            Text("Amino acids").flashSectionHeading()
         } footer: {
             Text("AI estimates from foods analyzed while Amino acids is on. Reference values use the WHO/FAO/UNU 2007 adult requirement for your body weight. They are a reference, not a target.")
         }
@@ -28,31 +28,17 @@ private struct AminoAcidDetailRow: View {
     let referenceGrams: Double?
 
     var body: some View {
-        HStack(spacing: 12) {
-            Image(systemName: "atom")
-                .font(.system(size: 15, weight: .semibold))
-                .foregroundStyle(
-                    LinearGradient(colors: AppColors.calorieGradient, startPoint: .topLeading, endPoint: .bottomTrailing)
-                )
-                .frame(width: 24)
-            VStack(alignment: .leading, spacing: 2) {
-                Text(aminoAcid.displayName)
-                    .font(.system(.body, design: .rounded))
-                if let referenceGrams {
-                    Text(aminoAcid.referenceLabel(grams: referenceGrams))
-                        .font(.system(.caption, design: .rounded))
-                        .foregroundStyle(.secondary)
-                }
-            }
-            Spacer()
-            HStack(alignment: .firstTextBaseline, spacing: 3) {
-                Text(grams.map(AminoAcidEstimates.formattedGrams) ?? "—")
-                    .font(.system(.body, design: .rounded, weight: .semibold))
-                    .foregroundStyle(AppColors.calorie)
-                    .contentTransition(.numericText())
-                Text("g")
-                    .font(.system(.footnote, design: .rounded))
+        VStack(alignment: .leading, spacing: 0) {
+            NutritionDetailRow(
+                icon: "atom", label: aminoAcid.displayName,
+                value: grams.map(AminoAcidEstimates.formattedGrams) ?? "—", unit: "g"
+            )
+            if let referenceGrams {
+                Text(aminoAcid.referenceLabel(grams: referenceGrams))
+                    .font(.caption)
                     .foregroundStyle(.secondary)
+                    .padding(.leading, 32)
+                    .padding(.bottom, 6)
             }
         }
         .accessibilityElement(children: .combine)

@@ -325,7 +325,7 @@ struct EditFoodEntryView: View {
                             ScrollView(.horizontal, showsIndicators: false) {
                                 LazyHStack(spacing: 12) {
                                     ForEach(Array(photos.enumerated()), id: \.element.id) { index, photo in
-                                        Group {
+                                        FlashFoodPhoto(count: photos.count) {
                                             if let image = photo.data.flatMap(UIImage.init(data:)) {
                                                 Image(uiImage: image)
                                                     .resizable()
@@ -336,9 +336,6 @@ struct EditFoodEntryView: View {
                                                     .foregroundStyle(.secondary)
                                             }
                                         }
-                                        .frame(width: 220, height: 200)
-                                        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                                        .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                                         .onTapGesture {
                                             let previewItems = photos.compactMap { photo -> (FoodEntryPhoto.ID, UIImage)? in
                                                 guard let image = photo.data.flatMap(UIImage.init(data:)) else { return nil }
@@ -375,7 +372,7 @@ struct EditFoodEntryView: View {
                                                     .font(.caption2.weight(.semibold))
                                                     .padding(.horizontal, 8)
                                                     .padding(.vertical, 5)
-                                                    .background(.ultraThinMaterial, in: Capsule())
+                                                    .flashPanel()
                                                     .padding(8)
                                             }
                                         }
@@ -399,13 +396,9 @@ struct EditFoodEntryView: View {
                     }
 
                     Section("Food Details") {
-                        HStack {
-                            Text("Name")
-                            Spacer()
-                            TextField("Food name", text: $name)
-                                .multilineTextAlignment(.trailing)
-                        }
+                        FlashFoodNameField(name: $name)
                     }
+                    .flashListRows()
 
                     // Allergen safety stays near the top for configured sensitivities;
                     // the longer product details sit at the end of the form (#426).
@@ -421,12 +414,11 @@ struct EditFoodEntryView: View {
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
+                        .flashListRows()
                     }
 
                     Section("Serving") {
-                        HStack {
-                            Text("Quantity")
-                            Spacer()
+                        FlashQuantityRow {
                             ServingUnitEditor(
                                 quantityText: $servingSizeText,
                                 servingSizeGrams: $servingSizeGrams,
@@ -453,6 +445,7 @@ struct EditFoodEntryView: View {
                             }
                         }
                     }
+                    .flashListRows()
 
                     Section("Nutrition") {
                         NutritionDisplayRow(label: "Calories", value: "\(energyUnit.displayValue(kcal: scaledCalories))", unit: energyUnit.symbol)
@@ -460,6 +453,7 @@ struct EditFoodEntryView: View {
                         NutritionDisplayRow(label: "Carbs", value: MacroValueFormatter.string(scaledCarbs), unit: "g")
                         NutritionDisplayRow(label: "Fat", value: MacroValueFormatter.string(scaledFat), unit: "g")
                     }
+                    .flashListRows()
 
                     MealIngredientsSection(
                         ingredients: scaledIngredients,
@@ -526,21 +520,18 @@ struct EditFoodEntryView: View {
                                 }
                             }
                         }
-                        .tint(AppColors.calorie)
+                            .tint(AppColors.calorie)
                     }
+                    .flashListRows()
 
                     Section("Reprocess with AI") {
-                        ZStack(alignment: .topLeading) {
-                            if customNote.isEmpty {
-                                Text("Add a note to refine this entry — e.g. “large bowl, extra olive oil” — then tap Reprocess.")
-                                    .foregroundStyle(.tertiary)
-                                    .padding(.top, 8)
-                                    .padding(.leading, 5)
-                                    .allowsHitTesting(false)
-                            }
-                            TextEditor(text: $customNote)
-                                .frame(minHeight: 80)
-                        }
+                        TextField(
+                            "Add a note to refine this entry — e.g. “large bowl, extra olive oil” — then tap Reprocess.",
+                            text: $customNote,
+                            axis: .vertical
+                        )
+                        .lineLimit(3...6)
+                        .accessibilityIdentifier("food.edit.note")
 
                         if let errorMsg = reprocessingError {
                             Text(errorMsg)
@@ -548,17 +539,15 @@ struct EditFoodEntryView: View {
                                 .foregroundStyle(.red)
                         }
                     }
+                    .flashListRows()
 
                     Section("Meal") {
-                        Picker("Meal Type", selection: $mealType) {
-                            ForEach(MealType.allCases, id: \.self) { meal in
-                                Label(meal.displayName, systemImage: meal.icon)
-                                    .tag(meal)
-                            }
+                        FlashChoicePicker(title: Text("Meal Type"), selection: $mealType,
+                                          options: MealType.allCases, icon: { $0.icon }) {
+                            Text($0.displayName)
                         }
-                        .pickerStyle(.menu)
-                        .tint(AppColors.calorie)
                     }
+                    .flashListRows()
 
                     Section("Date & Time") {
                         DatePicker("Date", selection: $loggedAt, displayedComponents: .date)
@@ -566,6 +555,7 @@ struct EditFoodEntryView: View {
                         DatePicker("Time", selection: $loggedAt, displayedComponents: .hourAndMinute)
                             .tint(AppColors.calorie)
                     }
+                    .flashListRows()
 
                     if let productMetadata = entry.productMetadata,
                        productMetadata.hasDisplayDetails {
@@ -594,6 +584,7 @@ struct EditFoodEntryView: View {
                             Label("Delete Food Log", systemImage: "trash.fill")
                         }
                     }
+                    .flashListRows()
 
                     // Share this meal as it's shown, unsaved serving and note edits included (issue #107)
                     Section {
@@ -607,10 +598,10 @@ struct EditFoodEntryView: View {
                     } footer: {
                         Text("Send this meal to a friend — they can add it to their Fud AI in one tap.")
                     }
+                    .flashListRows()
 
                 }
-                .scrollContentBackground(.hidden)
-                .background(AppColors.appBackground)
+                .flashEditorSurface()
                 .background(KeyboardDismissTapInstaller())
                 .safeAreaInset(edge: .bottom) {
                     if isQuantityEditing {
@@ -624,6 +615,24 @@ struct EditFoodEntryView: View {
                 .disabled(isReprocessing)
                 .navigationTitle("Edit Food")
                 .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button("Cancel") { dismiss() }
+                    }
+                    // Let iOS own this surface. Flash fills belong in view content,
+                    // not inside the system's Liquid Glass toolbar grouping.
+                    ToolbarItem(placement: .confirmationAction) {
+                        if isReprocessing {
+                            ProgressView()
+                        } else if noteChanged {
+                            Button("Reprocess", action: reprocess)
+                                .tint(AppColors.accentText)
+                        } else {
+                            Button("Save", action: saveChanges)
+                                .tint(AppColors.accentText)
+                        }
+                    }
+                }
                 .alert("Delete Food Log?", isPresented: $isDeleteConfirmationPresented) {
                     Button("Delete", role: .destructive) {
                         foodStore.deleteEntry(entry)
@@ -633,25 +642,7 @@ struct EditFoodEntryView: View {
                 } message: {
                     Text("This removes the food from your diary. Saved favorites are kept.")
                 }
-                .toolbar {
-                    ToolbarItem(placement: .cancellationAction) {
-                        Button("Cancel") { dismiss() }
-                    }
-                    ToolbarItem(placement: .confirmationAction) {
-                        if isReprocessing {
-                            ProgressView()
-                        } else if noteChanged {
-                            Button("Reprocess", action: reprocess)
-                                .font(.system(.body, design: .rounded, weight: .semibold))
-                                .tint(AppColors.calorie)
-                        } else {
-                            Button("Save", action: saveChanges)
-                                .font(.system(.body, design: .rounded, weight: .semibold))
-                                .tint(AppColors.calorie)
-                        }
-                    }
-                }
-                .sheet(item: $ingredientEditor) { target in
+                .flashSheet(item: $ingredientEditor) { target in
                     IngredientEditorSheet(
                         target: target,
                         onSave: { ingredient in

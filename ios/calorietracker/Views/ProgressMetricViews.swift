@@ -51,52 +51,40 @@ struct ProgressOverviewModeSelector: View {
     @Binding var selection: ProgressOverviewMode
 
     var body: some View {
-        ScrollViewReader { proxy in
-            ScrollView(.horizontal) {
-                HStack(spacing: 6) {
-                    ForEach(ProgressOverviewMode.allCases) { mode in
-                        Button {
-                            withAnimation(.snappy) { selection = mode }
-                        } label: {
-                            Label(mode.title, systemImage: mode.icon)
-                                .font(.system(.subheadline, design: .rounded, weight: .semibold))
-                                .foregroundStyle(selection == mode ? Color.white : Color.secondary)
-                                .lineLimit(1)
-                                .padding(.horizontal, 14)
-                                .frame(minHeight: 44)
-                                .background {
-                                    if selection == mode {
-                                        Capsule().fill(
-                                            LinearGradient(
-                                                colors: AppColors.calorieGradient,
-                                                startPoint: .leading,
-                                                endPoint: .trailing
-                                            )
-                                        )
-                                    } else {
-                                        Capsule().fill(Color.clear)
-                                    }
-                                }
-                        }
-                        .buttonStyle(.plain)
-                        .accessibilityAddTraits(selection == mode ? .isSelected : [])
-                        .id(mode)
-                    }
+        ViewThatFits(in: .horizontal) {
+            HStack(spacing: 6) {
+                modeButtons(expands: false)
+            }
+            .fixedSize(horizontal: true, vertical: false)
+            VStack(alignment: .leading, spacing: 6) {
+                modeButtons(expands: true)
+            }
+        }
+        .padding(4)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .flashPanel()
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel(WeeklyChallengeL10n.text("Progress view"))
+    }
+
+    private func modeButtons(expands: Bool) -> some View {
+        ForEach(ProgressOverviewMode.allCases) { mode in
+            Button {
+                withAnimation(.snappy) { selection = mode }
+            } label: {
+                Label(mode.title, systemImage: mode.icon)
+                    .font(.system(.subheadline, weight: .bold).width(.condensed))
+                    .foregroundStyle(selection == mode ? AppColors.onAccent : Color.primary)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 4)
+                    .frame(maxWidth: expands ? .infinity : nil, minHeight: 44, alignment: .leading)
+                    .background(selection == mode ? AppColors.calorie : AppColors.appCard)
+                    .pinkNeoRule(AppColors.flashRule)
+                    .contentShape(Rectangle())
                 }
-                .padding(4)
-            }
-            .scrollIndicators(.hidden)
-            .background(AppColors.appCard, in: Capsule())
-            .overlay {
-                Capsule().stroke(AppColors.calorie.opacity(0.12), lineWidth: 0.75)
-            }
-            .accessibilityElement(children: .contain)
-            .accessibilityLabel(WeeklyChallengeL10n.text("Progress view"))
-            .onChange(of: selection) { _, selected in
-                withAnimation(.snappy) {
-                    proxy.scrollTo(selected, anchor: .center)
-                }
-            }
+            .buttonStyle(.plain)
+            .accessibilityAddTraits(selection == mode ? .isSelected : [])
         }
     }
 }
@@ -106,14 +94,11 @@ struct ProgressMetricSelector: View {
     @Binding var selection: ProgressMetric
 
     var body: some View {
-        Picker("Progress metric", selection: $selection) {
-            ForEach(metrics) { metric in
-                Text(metric.title).tag(metric)
-            }
+        FlashChoicePicker(title: Text("Progress metric"), selection: $selection, options: metrics) {
+            Text($0.title)
         }
-        .pickerStyle(.segmented)
-        .tint(AppColors.calorie)
-        .accessibilityLabel("Progress metric")
+        .padding(.horizontal, 10)
+        .flashPanel()
         .onChange(of: metrics) { _, available in
             if !available.contains(selection), let first = available.first {
                 selection = first

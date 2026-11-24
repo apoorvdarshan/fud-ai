@@ -131,6 +131,9 @@ struct ContentView: View {
     @AppStorage(TabBarSettings.hiddenTabsKey) private var hiddenTabsRaw = ""
     @State private var appUpdateState: AppUpdateState = .idle
     @State private var selectedTab: AppTab = .home
+    @State private var keyboardVisible = false
+    @Environment(\.layoutDirection) private var layoutDirection
+    private var neoAppearance = PinkNeoAppearance()
     @State private var quickActionRequest: QuickActionRequest?
     @State private var foodLogMethodRequest: FoodLogMethodRequest?
     // One-time post-update prompts for existing users (see PostUpdatePrompts).
@@ -152,9 +155,29 @@ struct ContentView: View {
     }
 
     var body: some View {
-        standardTabView
-            .tint(AppThemeColor.color(for: appThemeColorRaw).color)
+        HStack(spacing: 0) {
+            standardTabView
+                .environment(\.layoutDirection, layoutDirection)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            if !keyboardVisible {
+                PinkNeoRail(items: railItems) {
+                    selectedTab = .home
+                    quickActionRequest = QuickActionRequest(action: .camera)
+                }
+                .environment(\.layoutDirection, layoutDirection)
+                .padding(.trailing, 7)
+            }
+        }
+            .environment(\.layoutDirection, .leftToRight)
+            .background(neoAppearance.palette.paper)
+            .tint(AppColors.accentText)
             .background(VoiceAssistantWindowInstaller(controller: voiceAssistant))
+            .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
+                keyboardVisible = true
+            }
+            .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
+                keyboardVisible = false
+            }
             .task {
                 attachVoiceAssistant()
                 consumePendingLaunchRoutes()
@@ -182,10 +205,10 @@ struct ContentView: View {
             } message: {
                 Text("Try Plus or Pro yearly without API keys. Trial limits apply. See prices and terms, or keep BYOK free.")
             }
-            .sheet(isPresented: $showHostedUpsellPaywall, onDismiss: { continueToMeetDeveloperPrompt() }) {
+            .flashSheet(isPresented: $showHostedUpsellPaywall, onDismiss: { continueToMeetDeveloperPrompt() }) {
                 HostedPaywallView()
             }
-            .sheet(isPresented: $showMeetDeveloperPrompt, onDismiss: {
+            .flashSheet(isPresented: $showMeetDeveloperPrompt, onDismiss: {
                 // Done marks the prompt seen before dismiss. Anything else (system
                 // tear-down after opening Instagram, etc.) must bring it back.
                 if PostUpdatePrompts.hasSeenMeetDeveloper {
@@ -201,7 +224,7 @@ struct ContentView: View {
                     showMeetDeveloperPrompt = false
                 }
             }
-            .sheet(isPresented: $showWhatsNew, onDismiss: {
+            .flashSheet(isPresented: $showWhatsNew, onDismiss: {
                 if PostUpdatePrompts.hasSeenWhatsNew {
                     continueToProductHuntLaunchPrompt()
                 } else {
@@ -225,7 +248,7 @@ struct ContentView: View {
                     }
                 )
             }
-            .sheet(isPresented: $showProductHuntLaunchPrompt) {
+            .flashSheet(isPresented: $showProductHuntLaunchPrompt) {
                 ProductHuntLaunchSheet(
                     onVote: {
                         PostUpdatePrompts.hasSeenProductHuntLaunchPrompt = true
@@ -311,6 +334,26 @@ struct ContentView: View {
         }
     }
 
+    private var railItems: [PinkNeoRailItem] {
+        AppTab.allCases.filter { tab in
+            tab.hideableTab.map { !hiddenTabs.contains($0) } ?? true
+        }.map { tab in
+            PinkNeoRailItem(
+                id: "nav.\(tab.rawValue)",
+                title: tab.title,
+                icon: tab == .workouts ? workoutsTabIcon : tab.icon,
+                selected: tab == selectedTab,
+                badge: tab == .settings && appUpdateState.isUpdateAvailable
+            ) {
+                if tab == .settings && selectedTab == .settings {
+                    assistantNavigator.show(.settings)
+                } else {
+                    selectedTab = tab
+                }
+            }
+        }
+    }
+
     private var standardTabView: some View {
         TabView(selection: $selectedTab) {
             HomeView(
@@ -323,28 +366,19 @@ struct ContentView: View {
                     if foodLogMethodRequest?.id == requestID { foodLogMethodRequest = nil }
                 }
             )
+                .rightRailDestination()
                 .tag(AppTab.home)
-                .tabItem {
-                    Image(systemName: "house.fill")
-                    Text("Home")
-                }
 
             if !hiddenTabs.contains(.progress) {
                 ProgressTabView()
+                    .rightRailDestination()
                     .tag(AppTab.progress)
-                    .tabItem {
-                        Image(systemName: "chart.bar.fill")
-                        Text("Progress")
-                    }
             }
 
             if !hiddenTabs.contains(.coach) {
                 ChatView()
+                    .rightRailDestination()
                     .tag(AppTab.coach)
-                    .tabItem {
-                        Image(systemName: "bubble.left.and.bubble.right.fill")
-                        Text("Coach")
-                    }
             }
 
             ProfileView(
@@ -353,25 +387,18 @@ struct ContentView: View {
                     await refreshAppUpdateState(force: true)
                 }
             )
+                .rightRailDestination()
                 .tag(AppTab.settings)
-                .tabItem {
-                    Image(systemName: "gearshape.fill")
-                    Text("Settings")
-                }
-                .badge(appUpdateState.isUpdateAvailable ? "!" : nil)
 
             if !hiddenTabs.contains(.workouts) {
                 WorkoutsView()
+                    .rightRailDestination()
                     .tag(AppTab.workouts)
-                    .tabItem {
-                        Image(systemName: workoutsTabIcon)
-                        Text("Workouts")
-                    }
             }
         }
     }
 
-    private enum AppTab: String, Hashable {
+    private enum AppTab: String, Hashable, CaseIterable {
         case home
         case progress
         case coach
@@ -380,6 +407,26 @@ struct ContentView: View {
 
         /// Nil for Home and Settings, which can't be hidden.
         var hideableTab: HideableTab? { HideableTab(rawValue: rawValue) }
+
+        var title: LocalizedStringKey {
+            switch self {
+            case .home: "Home"
+            case .progress: "Progress"
+            case .coach: "Coach"
+            case .settings: "Settings"
+            case .workouts: "Workouts"
+            }
+        }
+
+        var icon: String {
+            switch self {
+            case .home: "house"
+            case .progress: "chart.xyaxis.line"
+            case .coach: "sparkles"
+            case .settings: "gearshape"
+            case .workouts: "dumbbell"
+            }
+        }
     }
 
     private func consumePendingLaunchRoutes() {
@@ -1037,6 +1084,8 @@ private struct SafariView: UIViewControllerRepresentable {
 
 // MARK: - Home View (Main Dashboard)
 struct HomeView: View {
+    private var neoAppearance = PinkNeoAppearance()
+    @Environment(\.dynamicTypeSize) private var neoTypeSize
     let quickActionRequest: QuickActionRequest?
     let onQuickActionHandled: (UUID) -> Void
     var foodLogMethodRequest: FoodLogMethodRequest?
@@ -1112,6 +1161,13 @@ struct HomeView: View {
         var isLoading: Bool { self != .result }
     }
     @State private var activeSheet: ActiveSheet?
+    #if DEBUG && targetEnvironment(simulator)
+    @State private var didOpenScreenshotEditor = false
+    private var screenshotEditorEntry: FoodEntry? {
+        guard ScreenshotMode.scene == .food else { return nil }
+        return foodStore.entries.first { $0.id == ScreenshotMode.yogurtID }
+    }
+    #endif
     @State private var foodLogPhase: FoodLogPhase = .result
     /// Bumped to drop a delayed log handoff if another destination starts in the 0.4s gap.
     @State private var loggingHandoffGeneration = 0
@@ -1403,12 +1459,19 @@ private var dailyStepsTaskKey: String {
         return calendar.date(from: components) ?? day
     }
 
-    /// ScreenshotMode's nutrition scene: the View More sheet, once Home has loaded.
-    private func openScreenshotNutritionIfRequested() async {
+    /// Open the requested demo sheet after Home is attached to its presenter.
+    private func openScreenshotHomeSheetIfRequested() async {
         #if DEBUG && targetEnvironment(simulator)
-        guard ScreenshotMode.scene == .nutrition else { return }
-        try? await Task.sleep(for: .seconds(1.2))
-        showNutritionDetail = true
+        switch ScreenshotMode.scene {
+        case .nutrition, .homeNutrients:
+            try? await Task.sleep(for: .seconds(1.2))
+            if !Task.isCancelled { showNutritionDetail = true }
+        case .hostedQuota:
+            try? await Task.sleep(for: .seconds(1.2))
+            if !Task.isCancelled { showHostedQuotaPaywall = true }
+        default:
+            break
+        }
         #endif
     }
 
@@ -1447,7 +1510,6 @@ private var dailyStepsTaskKey: String {
         return true
     }
 
-    /// Lets the native menu finish its selection before presenting the chosen destination.
     /// The first presentation skips animation so cold setup cannot stretch the handoff;
     /// later selections retain the short transition that already feels responsive.
     private func presentFoodDestination(_ updates: @escaping () -> Void) {
@@ -1465,15 +1527,11 @@ private var dailyStepsTaskKey: String {
         }
     }
 
-    /// Loads the native menu and media authorization code paths while Home is idle.
+    /// Loads the media authorization code paths while Home is idle.
     /// Reading authorization status never prompts the user or starts camera/microphone capture.
     private func prewarmFoodDestinations() {
         guard !didPrewarmFoodDestinations else { return }
         didPrewarmFoodDestinations = true
-
-        let placeholderAction = UIAction(title: "") { _ in }
-        let placeholderSubmenu = UIMenu(title: "", children: [placeholderAction])
-        _ = UIMenu(title: "", children: [placeholderSubmenu])
 
         Task.detached(priority: .utility) {
             _ = PHPhotoLibrary.authorizationStatus(for: .readWrite)
@@ -1482,29 +1540,56 @@ private var dailyStepsTaskKey: String {
         }
     }
 
-    @ViewBuilder
-    private var waterQuickMenuItems: some View {
-        Button {
+    private var waterQuickMenuItems: [FlashMenuItem] {
+        let custom = FlashMenuItem(Text("Custom"), icon: "slider.horizontal.3") {
             presentFoodDestination {
                 showCustomWaterLog = true
             }
-        } label: {
-            Label("Custom", systemImage: "slider.horizontal.3")
         }
         // Largest first, as the fixed 3/2/1 glass presets were.
         let presets = WaterQuickAddPresets.decode(waterQuickAddPresetsRaw).reversed()
-        ForEach(Array(presets.enumerated()), id: \.offset) { _, milliliters in
-            Button {
+        return [custom] + presets.map { milliliters in
+            FlashMenuItem(Text(waterUnit.formatted(milliliters: milliliters)), icon: "drop.fill") {
                 logWater(milliliters)
-            } label: {
-                Label(waterUnit.formatted(milliliters: milliliters), systemImage: "drop.fill")
             }
         }
     }
 
+    private var foodLogMenuItems: [FlashMenuItem] {
+        var items: [FlashMenuItem] = []
+        if fastingTrackingEnabled {
+            if fastingStore.activeSession != nil {
+                items.append(FlashMenuItem(Text("Fasting"), icon: "timer", children: [
+                    FlashMenuItem(Text("End Fast"), icon: "stop.fill") { endFast() },
+                    FlashMenuItem(Text("Cancel Fast"), icon: "trash", role: .destructive) {
+                        fastingStore.cancelActive()
+                        notificationManager.cancelFastingGoal()
+                    }
+                ]))
+            } else {
+                items.append(FlashMenuItem(Text("Start Fast"), icon: "timer") {
+                    presentFoodDestination { showFastingStart = true }
+                })
+            }
+        }
+        if waterTrackingEnabled {
+            items.append(FlashMenuItem(Text("Water"), icon: "drop.fill", children: waterQuickMenuItems))
+        }
+        if fastingStore.activeSession == nil {
+            let config = AddMenuSettings.decode(addMenuConfigData)
+            items += config.groups.filter { !$0.methods.isEmpty }.map { group in
+                FlashMenuItem(Text(group.name), icon: group.methods.first?.systemImageName ?? "folder.fill",
+                              children: group.methods.map(addMenuItem))
+            }
+            items += config.flatMethods.map(addMenuItem)
+        }
+        return items
+    }
+
     /// The diary scrolls behind these floating controls and can scroll fully above them.
     private var homeActionBar: some View {
-        HStack(spacing: 12) {
+        let neo = neoAppearance.palette
+        return HStack(spacing: 12) {
             if !foodStore.favorites.isEmpty, fastingStore.activeSession == nil,
                AddMenuSettings.decode(addMenuConfigData).visibleMethods.contains(.favorites) {
                 Button {
@@ -1512,9 +1597,10 @@ private var dailyStepsTaskKey: String {
                 } label: {
                     Image(systemName: FoodLogMethod.favorites.systemImageName)
                         .font(.system(size: 20, weight: .semibold))
-                        .foregroundStyle(AppColors.calorie)
+                        .foregroundStyle(neo.ink)
                         .frame(width: 48, height: 48)
-                        .background(.regularMaterial, in: Circle())
+                        .background(neo.panel)
+                        .pinkNeoRule(neo.rule)
                 }
                 .buttonStyle(.plain)
                 .accessibilityLabel("Favorites")
@@ -1522,60 +1608,21 @@ private var dailyStepsTaskKey: String {
             }
             // The live session uses its own floating controls.
             if !voiceAssistant.isActive, !hideVoiceShortcut {
-                VoiceAssistantHomeButton(controller: voiceAssistant)
+                VoiceAssistantHomeButton(controller: voiceAssistant, pinkNeoPalette: neo)
             }
-            Menu {
-                if fastingTrackingEnabled {
-                    Section {
-                        if fastingStore.activeSession != nil {
-                            Menu {
-                                Button {
-                                    endFast()
-                                } label: {
-                                    Label("End Fast", systemImage: "stop.fill")
-                                }
-                                Button(role: .destructive) {
-                                    fastingStore.cancelActive()
-                                    notificationManager.cancelFastingGoal()
-                                } label: {
-                                    Label("Cancel Fast", systemImage: "trash")
-                                }
-                            } label: {
-                                Label("Fasting", systemImage: "timer")
-                            }
-                        } else {
-                            Button {
-                                presentFoodDestination {
-                                    showFastingStart = true
-                                }
-                            } label: {
-                                Label("Start Fast", systemImage: "timer")
-                            }
-                        }
-                    }
-                }
-                if waterTrackingEnabled {
-                    Section {
-                        Menu {
-                            waterQuickMenuItems
-                        } label: {
-                            Label("Water", systemImage: "drop.fill")
-                        }
-                    }
-                }
-                if fastingStore.activeSession == nil {
-                    configuredFoodAddMenuContent
-                }
-            } label: {
-                Image(systemName: "plus")
-                    .font(.system(size: 26, weight: .semibold))
-                    .foregroundStyle(.white)
-                    .frame(width: 60, height: 60)
-                    .background(AppColors.calorie, in: Circle())
+            FlashMenu(title: Text("Log Food"), items: { foodLogMenuItems }) {
+                Label("Log Food", systemImage: "plus")
+                    .font(.system(.headline, weight: .black).width(.condensed))
+                    .textCase(.uppercase)
+                    .lineLimit(2)
+                    .minimumScaleFactor(0.72)
+                    .foregroundStyle(neo.onAction)
+                    .frame(maxWidth: .infinity, minHeight: 60)
+                    .background(neo.action)
+                    .pinkNeoRule(neo.rule, width: 1.5)
             }
-            .menuOrder(.fixed)
             .accessibilityIdentifier("home.add")
-            .popover(isPresented: $showTextPopover) {
+            .flashPopover(isPresented: $showTextPopover) {
                 TextFoodInputView(
                     onCancel: {
                         showTextPopover = false
@@ -1593,7 +1640,7 @@ private var dailyStepsTaskKey: String {
                 )
                 .presentationCompactAdaptation(.popover)
             }
-            .popover(isPresented: $showVoicePopover) {
+            .flashPopover(isPresented: $showVoicePopover) {
                 VoiceInputView(
                     onCancel: {
                         showVoicePopover = false
@@ -1611,7 +1658,7 @@ private var dailyStepsTaskKey: String {
                 )
                 .presentationCompactAdaptation(.popover)
             }
-            .popover(isPresented: $showManualPopover) {
+            .flashPopover(isPresented: $showManualPopover) {
                 ManualEntryView(
                     logDate: logDateForSelectedDay,
                     onCancel: { showManualPopover = false },
@@ -1623,7 +1670,9 @@ private var dailyStepsTaskKey: String {
                 .presentationCompactAdaptation(.popover)
             }
         }
-        .padding(24)
+        .padding(.horizontal, 10)
+        .padding(.vertical, 7)
+        .background(neoAppearance.palette.paper)
     }
 
     var body: some View {
@@ -1658,6 +1707,14 @@ private var dailyStepsTaskKey: String {
             .onAppear {
                 handleAssistantRequests()
             }
+            #if DEBUG && targetEnvironment(simulator)
+            .onChange(of: screenshotEditorEntry?.id, initial: true) { _, _ in
+                guard !didOpenScreenshotEditor, let entry = screenshotEditorEntry else { return }
+                didOpenScreenshotEditor = true
+                editingEntry = entry
+                activeSheet = .editFood
+            }
+            #endif
     }
 
     /// The voice assistant shows a diary day or opens a logged food for editing.
@@ -1681,36 +1738,39 @@ private var dailyStepsTaskKey: String {
         // Explicit observation tracking — reads profileStore.profile at body root
         // so SwiftUI invalidates this view on every profile mutation.
         let _ = profileStore.profile
+        let neo = neoAppearance.palette
         return NavigationStack {
             List {
-                // Week energy strip
+                // Keep the calendar and nutrition summary together without a
+                // system section gutter between the calendar and energy.
                 Section {
+                    PinkNeoDateHeader(date: $selectedDate)
+                        .listRowBackground(Color.clear)
+                        .listRowSeparator(.hidden)
+                        .listRowInsets(EdgeInsets(top: 4, leading: 10, bottom: 4, trailing: 10))
                     WeekEnergyStrip(
                         selectedDate: $selectedDate,
                         caloriesForDate: { foodStore.calories(for: $0) },
                         calorieGoal: calorieGoal
                     )
+                    .padding(.vertical, 4)
+                    .background(neo.panel)
+                    .pinkNeoRule(neo.rule)
                     .listRowBackground(Color.clear)
                     .listRowSeparator(.hidden)
-                    .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-                }
-
-                // Nutrition summary. Keeping the dome, macros, water and detail affordance in
-                // one section removes an unhelpful List section gap and matches Android's
-                // compact top-region hierarchy.
-                Section {
-                    CalorieGauge(
+                    .listRowInsets(EdgeInsets(top: 4, leading: 10, bottom: 4, trailing: 10))
+                    PinkNeoCalorieSummary(
                         eaten: selectedCalories,
                         goal: calorieGoal,
                         burnLine: homeBurnLine,
                         launchFillEpoch: launchFillEpoch
                     )
                         .frame(maxWidth: .infinity)
-                        .padding(.top, -8)
                         .contentShape(Rectangle())
                         .simultaneousGesture(daySwipeGesture)
                         .listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)
+                        .listRowInsets(EdgeInsets(top: 4, leading: 10, bottom: 4, trailing: 10))
                         .task(id: homeBurnRefreshToken) {
                             await refreshHomeBurnLine()
                         }
@@ -1721,49 +1781,57 @@ private var dailyStepsTaskKey: String {
                             .listRowSeparator(.hidden)
                     }
 
-                    HStack(alignment: .top, spacing: 4) {
+                    LazyVGrid(columns: Array(repeating: GridItem(.flexible(minimum: 0), spacing: 0),
+                                            count: neoTypeSize.isAccessibilitySize ? 2 : max(1, displayedHomeNutrients.count)),
+                              spacing: 0) {
                         ForEach(displayedHomeNutrients) { nutrient in
-                            MacroVerticalBar(
+                            PinkNeoNutrient(
                                 label: nutrient.displayName,
                                 current: nutrient.value(from: foodStore, on: selectedDate),
                                 goal: nutrient.goal(for: userProfile, optionalGoals: optionalNutrientGoals),
                                 unit: nutrient.unit,
-                                gradient: nutrient.gradientColors,
-                                launchFillEpoch: launchFillEpoch
-                            )
-                        }
-                        if waterTrackingEnabled {
-                            MacroVerticalBar(
-                                label: "Water",
-                                current: waterUnit.displayAmount(
-                                    forMilliliters: waterStore.total(on: selectedDate)
-                                ),
-                                goal: waterUnit.displayAmount(forMilliliters: waterDailyGoal),
-                                unit: waterPillarUnit,
-                                gradient: AppColors.calorieGradient,
-                                launchFillEpoch: launchFillEpoch
+                                palette: neo
                             )
                         }
                     }
-                    .padding(.vertical, 4)
+                    .listRowInsets(EdgeInsets(top: 3, leading: 10, bottom: 3, trailing: 10))
                     .contentShape(Rectangle())
                     .simultaneousGesture(daySwipeGesture)
                     .listRowBackground(Color.clear)
                     .listRowSeparator(.hidden)
 
+                    if waterTrackingEnabled {
+                        PinkNeoNutrient(
+                            label: "Water",
+                            current: waterUnit.displayAmount(forMilliliters: waterStore.total(on: selectedDate)),
+                            goal: waterUnit.displayAmount(forMilliliters: waterDailyGoal),
+                            unit: waterPillarUnit,
+                            palette: neo,
+                            compact: true
+                        )
+                        .listRowInsets(EdgeInsets(top: 3, leading: 10, bottom: 3, trailing: 10))
+                        .listRowBackground(Color.clear)
+                        .listRowSeparator(.hidden)
+                    }
+
                     Button {
                         showNutritionDetail = true
                     } label: {
                         HStack {
-                            Spacer()
                             Text("View More")
-                                .font(.system(.subheadline, design: .rounded, weight: .medium))
-                            Image(systemName: "chevron.right")
-                                .font(.caption2)
+                                .font(.system(.subheadline, weight: .black).width(.condensed))
                             Spacer()
+                            Image(systemName: "chevron.forward").font(.caption2.weight(.bold))
                         }
-                        .foregroundStyle(AppColors.calorie.opacity(0.6))
+                        .foregroundStyle(neo.ink)
+                        .padding(.horizontal, 10)
+                        .frame(minHeight: 44)
+                        .background(neo.panel)
+                        .pinkNeoRule(neo.rule)
+                        .contentShape(Rectangle())
                     }
+                    .buttonStyle(.plain)
+                    .listRowInsets(EdgeInsets(top: 3, leading: 10, bottom: 3, trailing: 10))
                     .listRowBackground(Color.clear)
                     .listRowSeparator(.hidden)
                 }
@@ -1785,7 +1853,7 @@ private var dailyStepsTaskKey: String {
                     Section(isToday ? "Today's Diary" : "Diary") {
                         Text("No diary entries")
                             .foregroundStyle(.secondary)
-                            .listRowBackground(AppColors.appCard)
+                            .listRowBackground(neo.panel)
                     }
                 } else {
                     ForEach(mealGroups) { group in
@@ -1800,7 +1868,7 @@ private var dailyStepsTaskKey: String {
                                                     .font(.title2)
                                                     .foregroundStyle(selectedFoodIDs.contains(entry.id) ? AppColors.calorie : .secondary)
                                             }
-                                            FoodRow(entry: entry)
+                                            FoodRow(entry: entry, usesPinkNeoStyle: true)
                                         }
                                         .contentShape(Rectangle())
                                         .onTapGesture {
@@ -1880,7 +1948,8 @@ private var dailyStepsTaskKey: String {
                                         }
                                     }
                                 }
-                                .listRowBackground(AppColors.appCard)
+                                .listRowInsets(EdgeInsets(top: 4, leading: 12, bottom: 4, trailing: 12))
+                                .listRowBackground(neo.panel)
                             }
                         } header: {
                             VStack(alignment: .leading, spacing: 4) {
@@ -1888,13 +1957,14 @@ private var dailyStepsTaskKey: String {
                                     Label(group.meal.displayName, systemImage: group.meal.icon)
                                         .accessibilityIdentifier("home.meal.title")
                                     if group.id == mealGroups.first?.id {
-                                        Menu {
-                                            Picker("Food Log Order", selection: $foodLogSortOrderRaw) {
-                                                ForEach(FoodLogSortOrder.allCases) { order in
-                                                    Text(order.displayName).tag(order.rawValue)
-                                                }
+                                        FlashMenu(title: Text("Food Log Order"), items: {
+                                            FoodLogSortOrder.allCases.map { order in
+                                                FlashMenuItem(
+                                                    Text(order.displayName),
+                                                    isSelected: foodLogSortOrderRaw == order.rawValue
+                                                ) { foodLogSortOrderRaw = order.rawValue }
                                             }
-                                        } label: {
+                                        }) {
                                             HStack(spacing: 6) {
                                                 Image(systemName: "arrow.up.arrow.down")
                                                     .font(.system(.caption2, design: .rounded, weight: .semibold))
@@ -1902,7 +1972,7 @@ private var dailyStepsTaskKey: String {
                                                     .font(.system(.subheadline, design: .rounded, weight: .semibold))
                                             }
                                         }
-                                        .tint(AppColors.calorie)
+                                        .foregroundStyle(AppColors.accentText)
                                         .textCase(nil)
                                         .padding(.leading, 8)
                                     }
@@ -1921,7 +1991,7 @@ private var dailyStepsTaskKey: String {
                                     Spacer(minLength: 0)
                                 }
                                 if !group.foodEntries.isEmpty {
-                                    // Keep food totals on the leading side, clear of the floating controls.
+                                    // Keep food totals below the meal title and controls.
                                     VStack(alignment: .leading, spacing: 1) {
                                         Text(energyUnit.format(kcal: group.totalCalories))
                                             .font(.system(.subheadline, design: .rounded, weight: .semibold))
@@ -1934,23 +2004,31 @@ private var dailyStepsTaskKey: String {
                                     }
                                     .fixedSize(horizontal: false, vertical: true)
                                     .frame(maxWidth: .infinity, alignment: .leading)
-                                    .padding(.trailing, isFoodSelectionMode ? 0 : (voiceAssistant.isActive ? 72 : 144))
                                     .textCase(nil)
                                 }
                             }
+                            .font(.system(.subheadline, weight: .black).width(.condensed))
+                            .foregroundStyle(neo.ink)
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 4)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(neo.wash)
+                            .pinkNeoRule(neo.rule)
                         }
                     }
                 }
             }
+            .listStyle(.plain)
+            .listSectionSpacing(8)
             .scrollContentBackground(.hidden)
-            .background(AppColors.appBackground)
+            .background(neo.paper)
             .readableWidth()
-            .background(AppColors.appBackground)
+            .background(neo.paper)
             .animation(.snappy, value: selectedDate)
             .task(id: dailyStepsTaskKey) {
                 await refreshDailySteps()
             }
-            .contentMargins(.bottom, isFoodSelectionMode ? 8 : 96, for: .scrollContent)
+            .contentMargins(.bottom, 8, for: .scrollContent)
             .sensoryFeedback(.selection, trigger: selectedFoodIDs) { _, selection in
                 !selection.isEmpty
             }
@@ -1976,7 +2054,8 @@ private var dailyStepsTaskKey: String {
             }
             .navigationTitle("")
             .navigationBarTitleDisplayMode(.inline)
-            .overlay(alignment: .bottomTrailing) {
+            .toolbar(.hidden, for: .navigationBar)
+            .safeAreaInset(edge: .bottom, spacing: 0) {
                 if !isFoodSelectionMode {
                     homeActionBar
                 }
@@ -2033,7 +2112,7 @@ private var dailyStepsTaskKey: String {
                     showMultiPhotoCaptureSheet = true
                 }
             }
-            .sheet(isPresented: $showMultiPhotoCaptureSheet, onDismiss: {
+            .flashSheet(isPresented: $showMultiPhotoCaptureSheet, onDismiss: {
                 // Removing the last photo or swiping the sheet down leaves the
                 // label scan, so its barcode must not reach a later photo log (#485).
                 labelScanBarcode.captureSheetDismissed()
@@ -2087,7 +2166,7 @@ private var dailyStepsTaskKey: String {
                 .presentationDetents([.large])
                 .presentationDragIndicator(.visible)
             }
-            .sheet(isPresented: $showContextSheet) {
+            .flashSheet(isPresented: $showContextSheet) {
                 ContextDescriptionSheet(
                     image: pendingContextImage,
                     description: $contextDescription,
@@ -2115,7 +2194,7 @@ private var dailyStepsTaskKey: String {
                     }
                 )
             }
-            .sheet(item: $activeSheet) { sheet in
+            .flashSheet(item: $activeSheet) { sheet in
                 switch sheet {
                 case .analyzing, .analyzingText, .lookingUpBarcode, .foodResult:
                     // Drive content from foodLogPhase, not the captured `sheet`
@@ -2205,7 +2284,7 @@ private var dailyStepsTaskKey: String {
                     }
                 }
             }
-            .sheet(item: $savedMealsMode, content: { mode in
+            .flashSheet(item: $savedMealsMode, content: { mode in
                 RecentsView(mode: mode, logDate: logDateForSelectedDay, onReview: { entry in
                     afterLoggingPresentationDismisses {
                         labelScanBarcode.clear()
@@ -2221,15 +2300,15 @@ private var dailyStepsTaskKey: String {
                     }
                 })
             })
-            .sheet(isPresented: $showCopyFromDaySheet) {
+            .flashSheet(isPresented: $showCopyFromDaySheet) {
                 CopyFromDaySheet(targetDate: selectedDate)
             }
-            .sheet(isPresented: $showFastingStart) {
+            .flashSheet(isPresented: $showFastingStart) {
                 FastingStartSheet(defaultGoalMinutes: fastingDefaultGoalMinutes) { goalMinutes in
                     startFast(goalMinutes: goalMinutes)
                 }
             }
-            .sheet(item: $editingFastingSession) { session in
+            .flashSheet(item: $editingFastingSession) { session in
                 FastingSessionEditorView(
                     session: session,
                     onSave: { updated in
@@ -2247,7 +2326,7 @@ private var dailyStepsTaskKey: String {
                     }
                 )
             }
-            .sheet(isPresented: $showSiriPhrases) {
+            .flashSheet(isPresented: $showSiriPhrases) {
                 NavigationStack {
                     SiriPhrasesSettingsView()
                         .toolbar {
@@ -2299,7 +2378,7 @@ private var dailyStepsTaskKey: String {
             } message: {
                 Text(errorMessage)
             }
-            .sheet(isPresented: $showHostedQuotaPaywall) {
+            .flashSheet(isPresented: $showHostedQuotaPaywall) {
                 HostedQuotaSoftPaywall(
                     onBuyCreditsOrUpgrade: {
                         if RevenueCatManager.shared.hasHostedEntitlement {
@@ -2311,10 +2390,10 @@ private var dailyStepsTaskKey: String {
                     onSwitchBYOK: {}
                 )
             }
-            .sheet(isPresented: $showHostedPaywall) {
+            .flashSheet(isPresented: $showHostedPaywall) {
                 HostedPaywallView()
             }
-            .sheet(isPresented: $showHostedCredits) {
+            .flashSheet(isPresented: $showHostedCredits) {
                 HostedCreditsSheet()
             }
             .alert("Food logging paused", isPresented: $showFoodLoggingBlocked) {
@@ -2327,11 +2406,11 @@ private var dailyStepsTaskKey: String {
             } message: {
                 Text("Enable Fasting Tracking in Settings to use this shortcut.")
             }
-            .sheet(isPresented: $showNutritionDetail) {
+            .flashSheet(isPresented: $showNutritionDetail) {
                 NutritionDetailView(date: selectedDate, homeTopNutrientsRaw: $homeTopNutrientsRaw)
             }
-            .task { await openScreenshotNutritionIfRequested() }
-            .sheet(isPresented: $showCustomWaterLog) {
+            .task { await openScreenshotHomeSheetIfRequested() }
+            .flashSheet(isPresented: $showCustomWaterLog) {
                 WaterCustomAmountSheet(unit: waterUnit, onAdd: logWater)
             }
             .onOpenURL { url in
@@ -2925,38 +3004,11 @@ private var dailyStepsTaskKey: String {
 
 // Configurable + menu helpers (same file as HomeView so private state is accessible).
 extension HomeView {
-    @ViewBuilder
-    var configuredFoodAddMenuContent: some View {
-        let config = AddMenuSettings.decode(addMenuConfigData)
-        ForEach(config.groups.filter { !$0.methods.isEmpty }) { group in
-            Section {
-                Menu {
-                    ForEach(group.methods) { method in
-                        addMenuButton(for: method)
-                    }
-                } label: {
-                    Label(group.name, systemImage: addMenuGroupIcon(for: group))
-                }
-                .menuOrder(.fixed)
-            }
-        }
-        if !config.flatMethods.isEmpty {
-            Section {
-                ForEach(config.flatMethods) { method in
-                    addMenuButton(for: method)
-                }
-            }
-        }
-    }
-
-    @ViewBuilder
-    func addMenuButton(for method: FoodLogMethod) -> some View {
-        Button {
+    private func addMenuItem(for method: FoodLogMethod) -> FlashMenuItem {
+        FlashMenuItem(Text(method.title), icon: method.systemImageName) {
             presentFoodDestination {
                 performFoodLogMethod(method)
             }
-        } label: {
-            Label(method.title, systemImage: method.systemImageName)
         }
     }
 
@@ -2997,9 +3049,6 @@ extension HomeView {
         }
     }
 
-    private func addMenuGroupIcon(for group: AddMenuGroupConfig) -> String {
-        group.methods.first?.systemImageName ?? "folder.fill"
-    }
 }
 
 private extension Notification.Name {
@@ -3291,8 +3340,8 @@ struct NutritionDetailView: View {
     private var waterUnit: WaterUnit { WaterUnit(rawValue: waterUnitRaw) ?? .defaultUnit }
     private var homeTopNutrientNames: String {
         let nutrientNames = homeTopNutrients.map(\.displayName)
-        return (waterTrackingEnabled ? nutrientNames + ["Water"] : nutrientNames)
-            .joined(separator: ", ")
+        return (waterTrackingEnabled ? nutrientNames + [String(localized: "Water")] : nutrientNames)
+            .formatted(.list(type: .and))
     }
 
     var body: some View {
@@ -3304,21 +3353,33 @@ struct NutritionDetailView: View {
                         showHomeNutrientPicker = true
                     } label: {
                         HStack(spacing: 12) {
-                            Label("Home Nutrient Cards", systemImage: "square.grid.3x1.fill")
-                                .foregroundStyle(.primary)
-                            Spacer()
-                            Text(homeTopNutrientNames)
-                                .font(.system(.footnote, design: .rounded))
-                                .foregroundStyle(.secondary)
-                                .lineLimit(1)
-                            Image(systemName: "chevron.right")
-                                .font(.caption2)
-                                .foregroundStyle(.tertiary)
+                            Image(systemName: "square.grid.3x1.fill")
+                                .foregroundStyle(AppColors.accentText)
+                                .accessibilityHidden(true)
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("Home Nutrient Cards")
+                                    .font(.system(.headline, weight: .black).width(.condensed))
+                                Text(homeTopNutrientNames)
+                                    .font(.subheadline)
+                                    .foregroundStyle(.secondary)
+                            }
+                            .fixedSize(horizontal: false, vertical: true)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            Image(systemName: "chevron.forward")
+                                .font(.caption.weight(.bold))
+                                .accessibilityHidden(true)
                         }
+                        .padding(.vertical, 6)
+                        .padding(.trailing, 12)
+                        .frame(minHeight: 44)
+                        .contentShape(Rectangle())
                     }
                     .buttonStyle(.plain)
+                    .accessibilityLabel("Home Nutrient Cards")
+                    .accessibilityValue(homeTopNutrientNames)
+                    .accessibilityIdentifier("nutrition.homeCards")
                 }
-                .listRowBackground(AppColors.appCard)
+                .flashSectionRows()
 
                 if waterTrackingEnabled {
                     Section {
@@ -3330,22 +3391,24 @@ struct NutritionDetailView: View {
                             goal: waterUnit.displayValue(forMilliliters: waterDailyGoal)
                         )
                     } header: {
-                        Text("Water")
+                        Text("Water").flashSectionHeading()
                     } footer: {
                         Text("Water is shown after your selected nutrients while Water Tracking is enabled.")
                     }
-                    .listRowBackground(AppColors.appCard)
+                    .flashSectionRows()
                 }
 
-                Section("Macros") {
+                Section {
                     NutritionDetailRow(icon: "flame.fill", label: "Calories", value: "\(energyUnit.displayValue(kcal: foodStore.calories(for: date)))", unit: energyUnit.symbol, goal: "\(energyUnit.displayValue(kcal: userProfile.effectiveCalories))")
                     NutritionDetailRow(icon: "p.circle.fill", label: "Protein", value: MacroValueFormatter.string(foodStore.protein(for: date)), unit: "g", goal: "\(userProfile.effectiveProtein)")
                     NutritionDetailRow(icon: "c.circle.fill", label: "Carbs", value: MacroValueFormatter.string(foodStore.carbs(for: date)), unit: "g", goal: "\(userProfile.effectiveCarbs)")
                     NutritionDetailRow(icon: "f.circle.fill", label: "Fat", value: MacroValueFormatter.string(foodStore.fat(for: date)), unit: "g", goal: "\(userProfile.effectiveFat)")
+                } header: {
+                    Text("Macros").flashSectionHeading()
                 }
-                .listRowBackground(AppColors.appCard)
+                .flashSectionRows()
 
-                Section("Detailed Nutrition") {
+                Section {
                     optionalNutritionRow(.sugar, value: foodStore.sugar(for: date))
                     optionalNutritionRow(.addedSugar, value: foodStore.addedSugar(for: date))
                     optionalNutritionRow(.fiber, value: foodStore.fiber(for: date))
@@ -3375,27 +3438,35 @@ struct NutritionDetailView: View {
                             value: foodStore.supplementalNutrient(nutrient, for: date)
                         )
                     }
+                } header: {
+                    Text("Detailed Nutrition").flashSectionHeading()
                 }
-                .listRowBackground(AppColors.appCard)
+                .flashSectionRows()
 
                 if aminoAcidsEnabled {
                     AminoAcidDailySection(
                         totals: foodStore.aminoAcidTotals(for: date),
                         bodyWeightKg: userProfile.weightKg
                     )
-                    .listRowBackground(AppColors.appCard)
+                    .flashSectionRows()
                 }
             }
-            .scrollContentBackground(.hidden)
-            .background(AppColors.appBackground)
+            .flashEditorSurface()
             .navigationTitle("Nutrition Details")
             .navigationBarTitleDisplayMode(.inline)
-            .sheet(isPresented: $showHomeNutrientPicker) {
+            .flashSheet(isPresented: $showHomeNutrientPicker) {
                 HomeNutrientPickerSheet(
                     selectionRawValue: $homeTopNutrientsRaw,
                     waterTrackingEnabled: waterTrackingEnabled
                 )
             }
+            #if DEBUG && targetEnvironment(simulator)
+            .task {
+                guard ScreenshotMode.scene == .homeNutrients else { return }
+                try? await Task.sleep(for: .seconds(0.8))
+                if !Task.isCancelled { showHomeNutrientPicker = true }
+            }
+            #endif
             .onChange(of: homeTopNutrientsRaw) { _, _ in
                 refreshWidgetSnapshot()
             }
@@ -3405,7 +3476,7 @@ struct NutritionDetailView: View {
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Done") { dismiss() }
-                        .tint(AppColors.calorie)
+                        .tint(AppColors.accentText)
                 }
             }
         }
@@ -3437,34 +3508,66 @@ struct NutritionDetailRow: View {
     let unit: String
     var goal: String? = nil
 
-    var body: some View {
-        HStack(spacing: 12) {
+    private var title: some View {
+        HStack(spacing: 8) {
             if let icon {
                 Image(systemName: icon)
                     .font(.system(size: 15, weight: .semibold))
-                    .foregroundStyle(
-                        LinearGradient(colors: AppColors.calorieGradient, startPoint: .topLeading, endPoint: .bottomTrailing)
-                    )
+                    .foregroundStyle(AppColors.accentText)
                     .frame(width: 24)
+                    .accessibilityHidden(true)
             }
             Text(LocalizedDisplayText.text(label))
-                .font(.system(.body, design: .rounded))
-            Spacer()
-            HStack(alignment: .firstTextBaseline, spacing: 3) {
-                Text(value)
-                    .font(.system(.body, design: .rounded, weight: .semibold))
-                    .foregroundStyle(AppColors.calorie)
-                    .contentTransition(.numericText())
-                Text(unit)
-                    .font(.system(.footnote, design: .rounded))
-                    .foregroundStyle(.secondary)
+                .font(.system(.body, weight: .semibold).width(.condensed))
+        }
+    }
+
+    private var reading: some View {
+        ViewThatFits(in: .horizontal) {
+            HStack(alignment: .firstTextBaseline, spacing: 8) {
+                amount
+                target
             }
-            if let goal {
-                Text("/ \(goal)")
-                    .font(.system(.caption, design: .rounded))
-                    .foregroundStyle(.tertiary)
+            .fixedSize(horizontal: true, vertical: false)
+            VStack(alignment: .leading, spacing: 3) {
+                amount
+                target
             }
         }
+    }
+
+    private var amount: some View {
+        Text("\(value) \(unit)")
+            .font(.system(.body, weight: .bold).width(.condensed))
+            .foregroundStyle(AppColors.accentText)
+            .monospacedDigit()
+            .contentTransition(.numericText())
+    }
+
+    @ViewBuilder private var target: some View {
+        if let goal {
+            Text("/ \(goal)")
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+        }
+    }
+
+    var body: some View {
+        ViewThatFits(in: .horizontal) {
+            HStack(spacing: 12) {
+                title.fixedSize()
+                Spacer(minLength: 0)
+                reading.fixedSize()
+            }
+            VStack(alignment: .leading, spacing: 4) {
+                title
+                reading
+            }
+        }
+        .padding(.trailing, 12)
+        .frame(maxWidth: .infinity, minHeight: 40, alignment: .leading)
+        .padding(.vertical, 4)
+        .accessibilityElement(children: .combine)
     }
 }
 
@@ -3528,7 +3631,8 @@ struct MultiPhotoCaptureSheet: View {
                                     .resizable()
                                     .scaledToFill()
                                     .frame(width: 240, height: 260)
-                                    .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+                                    .clipped()
+                                    .pinkNeoRule(AppColors.flashRule)
                                     .overlay(alignment: .topTrailing) {
                                         Button {
                                             onRemove(index)
@@ -3579,8 +3683,8 @@ struct MultiPhotoCaptureSheet: View {
                     HStack(spacing: 12) {
                         VStack(alignment: .leading, spacing: 5) {
                             HStack(spacing: 6) {
-                                Text("Progressive Meal")
-                                    .font(.system(.body, design: .rounded, weight: .semibold))
+                                 Text("Progressive Meal")
+                                     .font(.system(.body, weight: .bold).width(.condensed))
                                 Button {
                                     showProgressiveInfo = true
                                 } label: {
@@ -3600,30 +3704,27 @@ struct MultiPhotoCaptureSheet: View {
                             .labelsHidden()
                             .tint(AppColors.calorie)
                             .disabled(images.count < 2)
-                    }
-                    .padding(14)
-                    .background(
-                        Color(.secondarySystemGroupedBackground),
-                        in: RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    )
+                     }
+                     .padding(14)
+                     .flashPanel()
 
                     VStack(alignment: .leading, spacing: 8) {
-                        Text("Note for food analysis (optional)")
-                            .font(.system(.subheadline, design: .rounded, weight: .semibold))
-                            .foregroundStyle(.secondary)
+                         Text("Note for food analysis (optional)")
+                             .flashSectionHeading()
                         TextField(
                             "e.g. chicken is 180g, rice is 220g, use half the sauce",
                             text: $description,
                             axis: .vertical
                         )
-                        .lineLimit(3...6)
-                        .padding(14)
-                        .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 14))
+                         .lineLimit(3...6)
+                         .textFieldStyle(.plain)
+                         .padding(14)
+                         .flashPanel()
                     }
                 }
                 .padding()
             }
-            .background(Color(.systemGroupedBackground))
+             .background(AppColors.appBackground)
             .navigationTitle("Meal Photos")
             .navigationBarTitleDisplayMode(.inline)
             .photosPicker(
@@ -3675,20 +3776,15 @@ struct ContextDescriptionSheet: View {
                 VStack(spacing: 20) {
                     if let image {
                         Image(uiImage: image)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(maxHeight: 240)
-                            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                                    .strokeBorder(AppColors.calorie.opacity(0.15), lineWidth: 1)
-                            )
+                             .resizable()
+                             .scaledToFit()
+                             .frame(maxHeight: 240)
+                             .pinkNeoRule(AppColors.flashRule)
                     }
 
                     VStack(alignment: .leading, spacing: 8) {
-                        Text("Note for food analysis (optional)")
-                            .font(.system(.subheadline, design: .rounded, weight: .semibold))
-                            .foregroundStyle(.secondary)
+                         Text("Note for food analysis (optional)")
+                             .flashSectionHeading()
 
                         ZStack(alignment: .topLeading) {
                             if description.isEmpty {
@@ -3706,18 +3802,15 @@ struct ContextDescriptionSheet: View {
                                 .focused($isFocused)
                                 .padding(.horizontal, 6)
                                 .padding(.vertical, 10)
-                        }
-                        .padding(12)
-                        .background(
-                            RoundedRectangle(cornerRadius: 12, style: .continuous)
-                                .fill(Color(.secondarySystemGroupedBackground))
-                        )
+                         }
+                         .padding(12)
+                         .flashPanel()
                     }
 
                 }
                 .padding()
             }
-            .background(Color(.systemGroupedBackground))
+             .background(AppColors.appBackground)
             .navigationTitle("Add Description")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -4063,6 +4156,7 @@ final class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOut
 // MARK: - Food Row
 struct FoodRow: View {
     let entry: FoodEntry
+    var usesPinkNeoStyle = false
     @Environment(FoodStore.self) private var foodStore
     @AppStorage(EnergyUnit.storageKey) private var energyUnit = EnergyUnit.defaultUnit
     @State private var imagePreview: FullScreenImagePreview?
@@ -4112,13 +4206,13 @@ struct FoodRow: View {
                 Text(emoji)
                     .font(.system(size: 28))
                     .frame(width: 56, height: 56)
-                    .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                    .flashPanel()
             } else {
                 Image(systemName: "fork.knife")
                     .font(.title3)
                     .foregroundStyle(AppColors.calorie)
                     .frame(width: 56, height: 56)
-                    .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                    .flashPanel()
             }
 
             // Info
@@ -4126,7 +4220,9 @@ struct FoodRow: View {
                 HStack {
                     HStack(spacing: 4) {
                         Text(entry.name)
-                            .font(.system(.body, design: .rounded, weight: .medium))
+                            .font(usesPinkNeoStyle
+                                  ? .system(.body, weight: .black).width(.condensed)
+                                  : .system(.body, design: .rounded, weight: .medium))
                             .fixedSize(horizontal: false, vertical: true)
                         if foodStore.isFavorite(entry) {
                             Image(systemName: "heart.fill")
@@ -4142,8 +4238,10 @@ struct FoodRow: View {
 
                 HStack(spacing: 6) {
                     Text(energyUnit.format(kcal: entry.calories))
-                        .font(.system(.subheadline, design: .rounded, weight: .semibold))
-                        .foregroundStyle(AppColors.calorie)
+                        .font(usesPinkNeoStyle
+                              ? .system(.subheadline, weight: .black).width(.condensed)
+                              : .system(.subheadline, design: .rounded, weight: .semibold))
+                        .foregroundStyle(usesPinkNeoStyle ? Color.primary : AppColors.calorie)
 
                     if let serving = servingText {
                         Text("·")
@@ -4154,15 +4252,26 @@ struct FoodRow: View {
                     }
                 }
 
-                HStack(spacing: 8) {
-                    MacroPill(label: String(localized: "P", comment: "Abbreviation for protein."), value: entry.protein)
-                    MacroPill(label: String(localized: "C", comment: "Abbreviation for carbs."), value: entry.carbs)
-                    MacroPill(label: String(localized: "F", comment: "Abbreviation for fat."), value: entry.fat)
+                ViewThatFits(in: .horizontal) {
+                    HStack(spacing: 3) {
+                        macroPills
+                    }
+                    VStack(alignment: .leading, spacing: 3) {
+                        macroPills
+                    }
                 }
             }
         }
         .padding(.vertical, 4)
         .fullScreenImagePreview($imagePreview)
+    }
+
+    private var macroPills: some View {
+        Group {
+            MacroPill(label: String(localized: "P", comment: "Abbreviation for protein."), value: entry.protein)
+            MacroPill(label: String(localized: "C", comment: "Abbreviation for carbs."), value: entry.carbs)
+            MacroPill(label: String(localized: "F", comment: "Abbreviation for fat."), value: entry.fat)
+        }
     }
 }
 
@@ -4193,6 +4302,7 @@ struct ProgressTabView: View {
     @AppStorage("healthKitEnabled") private var healthKitEnabled = false
     /// Off ends the calorie chart and nutrition averages yesterday (#514).
     @AppStorage("progressIncludeToday") private var includeToday = true
+    @AppStorage(OptionalNutrientGoals.storageKey) private var optionalGoalsData = Data()
     @State private var timeRange: TimeRange = .week
     /// Whole windows stepped back from the current one; session-only, reset
     /// whenever the range changes.
@@ -4206,8 +4316,7 @@ struct ProgressTabView: View {
     @State private var showImportedHealthWorkoutHistory = false
     @State private var progressMetric: ProgressMetric = .weight
     @State private var progressOverviewMode: ProgressOverviewMode = .myProgress
-    @State private var foodRangeStats: ProgressFoodRangeStats?
-    @State private var isLoadingFoodRangeStats = false
+    @State private var loadedFoodRange: (key: FoodRangeKey, stats: ProgressFoodRangeStats)?
     /// Daily steps for the selected window; nil while loading.
     @State private var stepDays: [StepDay]?
     /// The window `stepDays` belongs to, so a refresh of the same window keeps
@@ -4221,9 +4330,12 @@ struct ProgressTabView: View {
 
     private var userProfile: UserProfile { profileStore.profile }
 
-    private var foodRangeStatsTaskKey: String {
-        let latest = foodStore.entries.first?.id.uuidString ?? "none"
-        return "\(timeRange.rawValue)|\(periodOffset)|\(includeToday)|\(foodStore.entries.count)|\(latest)"
+    private struct FoodRangeKey: Equatable {
+        let dayCount: Int
+        let lastDay: Date
+        let diaryRevision: Int
+        let profile: UserProfile
+        let optionalGoalsData: Data
     }
 
     /// Switching ranges always lands on the current window, in the same
@@ -4296,7 +4408,14 @@ struct ProgressTabView: View {
     }
 
     var body: some View {
-        let _ = profileStore.profile
+        let rangeKey = FoodRangeKey(
+            dayCount: timeRange.days,
+            lastDay: nutritionDateRange.upperBound,
+            diaryRevision: foodStore.entriesRevision,
+            profile: userProfile,
+            optionalGoalsData: optionalGoalsData
+        )
+        let foodRangeStats = loadedFoodRange?.key == rangeKey ? loadedFoodRange?.stats : nil
         return NavigationStack {
             VStack(spacing: 0) {
                 ProgressOverviewModeSelector(selection: $progressOverviewMode)
@@ -4306,18 +4425,16 @@ struct ProgressTabView: View {
 
                 if progressOverviewMode == .myProgress {
                     ScrollView {
-                        VStack(spacing: 18) {
+                        LazyVStack(spacing: 18) {
                     WeeklyRecapCard()
                         .padding(.horizontal)
 
-                    // Segmented Picker
-                    Picker("Time Range", selection: timeRangeSelection) {
-                        ForEach(TimeRange.allCases, id: \.self) { range in
-                            Text(range.title).tag(range)
-                        }
+                    FlashChoicePicker(title: Text("Time Range"), selection: timeRangeSelection,
+                                      options: TimeRange.allCases, titleIcon: "calendar") {
+                        Text($0.title)
                     }
-                    .pickerStyle(.segmented)
-                    .tint(AppColors.calorie)
+                    .padding(.horizontal, 10)
+                    .flashPanel()
                     .padding(.horizontal)
 
                     if timeRange.supportsPeriodNavigation {
@@ -4415,25 +4532,14 @@ struct ProgressTabView: View {
                     )
                     .padding(.horizontal)
 
-                    // Calorie / macro / nutrient stats load asynchronously so the
-                    // range picker stays instant and interruptible mid-load.
-                    if isLoadingFoodRangeStats && foodRangeStats == nil {
-                        ProgressNutritionLoadingCard()
-                            .padding(.horizontal)
-                    } else if let foodRangeStats {
+                    // Keep a visited range warm, but don't display its numbers
+                    // when the selected range or source data has changed.
+                    if let foodRangeStats {
                         CalorieChartSection(
                             dailyCalories: foodRangeStats.dailyCalories,
                             calorieGoal: userProfile.effectiveCalories
                         )
                         .padding(.horizontal)
-                        .opacity(isLoadingFoodRangeStats ? 0.45 : 1)
-                        .overlay(alignment: .topTrailing) {
-                            if isLoadingFoodRangeStats {
-                                ProgressView()
-                                    .tint(AppColors.calorie)
-                                    .padding(12)
-                            }
-                        }
 
                         MacroAveragesSection(
                             avgProtein: foodRangeStats.avgProtein,
@@ -4444,12 +4550,10 @@ struct ProgressTabView: View {
                             fatGoal: userProfile.effectiveFat
                         )
                         .padding(.horizontal)
-                        .opacity(isLoadingFoodRangeStats ? 0.45 : 1)
 
                         if !foodRangeStats.nutrientItems.isEmpty {
                             NutrientAveragesSection(items: foodRangeStats.nutrientItems)
                                 .padding(.horizontal)
-                                .opacity(isLoadingFoodRangeStats ? 0.45 : 1)
                         }
                     } else {
                         ProgressNutritionLoadingCard()
@@ -4467,24 +4571,20 @@ struct ProgressTabView: View {
             .readableWidth()
             .background(AppColors.appBackground)
             .navigationBarHidden(true)
-            .task(id: foodRangeStatsTaskKey) {
-                isLoadingFoodRangeStats = true
-                // Drop stale nutrition for a different range so charts don't lie
-                // while a longer window is still computing. Switching ranges
-                // cancels this task immediately via task(id:).
-                foodRangeStats = nil
-                // Let the picker / loading card paint before the (now single-pass) work.
+            .task(id: rangeKey) {
+                guard loadedFoodRange?.key != rangeKey else { return }
+                // Defer the aggregate until the tab controls are ready.
                 await Task.yield()
+                guard !Task.isCancelled else { return }
                 let stats = ProgressFoodRangeStats.compute(
                     entries: foodStore.entries,
-                    dayCount: timeRange.days,
-                    endDay: nutritionDateRange.upperBound,
-                    profile: userProfile,
-                    optionalGoals: .current
+                    dayCount: rangeKey.dayCount,
+                    endDay: rangeKey.lastDay,
+                    profile: rangeKey.profile,
+                    optionalGoals: .decoded(from: rangeKey.optionalGoalsData)
                 )
                 guard !Task.isCancelled else { return }
-                foodRangeStats = stats
-                isLoadingFoodRangeStats = false
+                loadedFoodRange = (rangeKey, stats)
             }
             .task(id: stepsTaskKey) {
                 // Steps come from Apple Health on demand, only while the Steps
@@ -4520,14 +4620,14 @@ struct ProgressTabView: View {
                     progressMetric = .weight
                 }
             }
-            .sheet(isPresented: $showLogWeight) {
+            .flashSheet(isPresented: $showLogWeight) {
                 LogWeightSheet(
                     currentWeightKg: weightStore.latestEntry?.weightKg ?? userProfile.weightKg
                 ) { weightKg, date in
                     weightStore.addEntry(WeightEntry(date: date, weightKg: weightKg))
                 }
             }
-            .sheet(isPresented: $showLogBodyFat) {
+            .flashSheet(isPresented: $showLogBodyFat) {
                 // Seed from latest entry → profile current → sane default,
                 // mirroring the LogWeightSheet seeding chain.
                 let seed = bodyFatStore.latestEntry?.bodyFatFraction
@@ -4545,20 +4645,20 @@ struct ProgressTabView: View {
             .onReceive(NotificationCenter.default.publisher(for: .weightGoalReached)) { _ in
                 showGoalReached = true
             }
-            .sheet(isPresented: $showAllWeights) {
+            .flashSheet(isPresented: $showAllWeights) {
                 AllWeightHistoryView(
                     entries: weightStore.entries.sorted { $0.date > $1.date },
                     useMetric: weightUnitRaw == "kg",
                     onDelete: { entry in weightStore.deleteEntry(entry) }
                 )
             }
-            .sheet(isPresented: $showAllBodyFat) {
+            .flashSheet(isPresented: $showAllBodyFat) {
                 AllBodyFatHistoryView(
                     entries: bodyFatStore.entries.sorted { $0.date > $1.date },
                     onDelete: { entry in bodyFatStore.deleteEntry(entry) }
                 )
             }
-            .sheet(isPresented: $showWorkoutHistory) {
+            .flashSheet(isPresented: $showWorkoutHistory) {
                 WorkoutHistoryView(
                     sessions: workoutCalorieSessions,
                     onDelete: { session in
@@ -4566,7 +4666,7 @@ struct ProgressTabView: View {
                     }
                 )
             }
-            .sheet(isPresented: $showImportedHealthWorkoutHistory) {
+            .flashSheet(isPresented: $showImportedHealthWorkoutHistory) {
                 ImportedHealthWorkoutHistoryView(workouts: importedHealthWorkouts)
             }
         }
@@ -4637,18 +4737,22 @@ private struct AISettingsSubsectionHeader: View {
     let infoTopic: AISettingsInfoTopic
 
     @State private var isShowingInfo = false
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     var body: some View {
-        HStack(spacing: 8) {
+        let layout = dynamicTypeSize.isAccessibilitySize
+            ? AnyLayout(VStackLayout(alignment: .leading, spacing: 4))
+            : AnyLayout(HStackLayout(spacing: 8))
+        layout {
             Label {
                 Text(title)
                     .textCase(.uppercase)
             } icon: {
                 Image(systemName: systemImage)
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .fixedSize(horizontal: false, vertical: true)
             .accessibilityAddTraits(.isHeader)
-
-            Spacer(minLength: 8)
 
             Button {
                 isShowingInfo = true
@@ -4775,10 +4879,10 @@ private struct ProfileSettingsCategoryRow: View {
         NavigationLink(value: category) {
             Label {
                 Text(category.title)
-                    .font(.system(.body, design: .rounded, weight: .medium))
+                    .font(.system(.body, weight: .black).width(.condensed))
             } icon: {
                 Image(systemName: category.systemImage)
-                    .foregroundStyle(AppColors.calorie)
+                    .foregroundStyle(AppColors.accentText)
                     .frame(width: 24)
             }
         }
@@ -4787,6 +4891,7 @@ private struct ProfileSettingsCategoryRow: View {
 }
 
 struct ProfileView: View {
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Environment(ProfileStore.self) private var profileStore
     @Environment(ChatStore.self) private var chatStore
     @Environment(WeightStore.self) private var weightStore
@@ -4878,7 +4983,7 @@ struct ProfileView: View {
     @State private var invalidGoalWeightMessage = ""
     @State private var selectedProvider: AIProvider = AIProviderSettings.selectedProvider
     @State private var selectedModel: String = AIProviderSettings.selectedModel
-    @State private var apiKeyText: String = AIProviderSettings.apiKey(for: AIProviderSettings.selectedProvider) ?? ""
+    @State private var apiKeyText = ""
     @State private var customBaseURL: String = AIProviderSettings.customBaseURL(for: AIProviderSettings.selectedProvider) ?? ""
     @AppStorage("openRouterReasoningEffort") private var openRouterReasoningEffort: OpenRouterReasoningEffort = .auto
     @State private var maxResponseTokensText: String = String(AIProviderSettings.maxResponseTokens)
@@ -4888,7 +4993,7 @@ struct ProfileView: View {
     @State private var separateTextProviderEnabled: Bool = AIProviderSettings.separateTextProviderEnabled
     @State private var selectedTextProvider: AIProvider = AIProviderSettings.selectedTextProvider
     @State private var selectedTextModel: String = AIProviderSettings.selectedTextModel
-    @State private var textApiKeyText: String = AIProviderSettings.apiKey(for: AIProviderSettings.selectedTextProvider) ?? ""
+    @State private var textApiKeyText = ""
     @State private var textBaseURL: String = AIProviderSettings.customBaseURL(for: AIProviderSettings.selectedTextProvider) ?? ""
     @State private var showTextAPIKey = false
     @State private var customAIInstructions: String = AIProviderSettings.userContext
@@ -4897,25 +5002,26 @@ struct ProfileView: View {
     @State private var fallbackEnabled: Bool = AIProviderSettings.fallbackEnabled
     @State private var selectedFallbackProvider: AIProvider = AIProviderSettings.selectedFallbackProvider
     @State private var selectedFallbackModel: String = AIProviderSettings.selectedFallbackModel
-    @State private var fallbackApiKeyText: String = AIProviderSettings.apiKey(for: AIProviderSettings.selectedFallbackProvider) ?? ""
+    @State private var fallbackApiKeyText = ""
     @State private var fallbackBaseURL: String = AIProviderSettings.fallbackCustomBaseURL(for: AIProviderSettings.selectedFallbackProvider) ?? ""
     @State private var showFallbackAPIKey = false
     @State private var textFallbackEnabled: Bool = AIProviderSettings.textFallbackEnabled
     @State private var selectedTextFallbackProvider: AIProvider = AIProviderSettings.selectedTextFallbackProvider
     @State private var selectedTextFallbackModel: String = AIProviderSettings.selectedTextFallbackModel
-    @State private var textFallbackApiKeyText: String = AIProviderSettings.apiKey(for: AIProviderSettings.selectedTextFallbackProvider) ?? ""
+    @State private var textFallbackApiKeyText = ""
     @State private var textFallbackBaseURL: String = AIProviderSettings.fallbackCustomBaseURL(for: AIProviderSettings.selectedTextFallbackProvider) ?? ""
     @State private var showTextFallbackAPIKey = false
     @State private var localModelAvailabilityRevision = 0
     @State private var selectedSpeechProvider: SpeechProvider = SpeechSettings.selectedProvider
     @State private var selectedSpeechLanguage: SpeechLanguage = SpeechSettings.selectedLanguage(for: SpeechSettings.selectedProvider)
-    @State private var speechApiKeyText: String = SpeechSettings.apiKey(for: SpeechSettings.selectedProvider) ?? ""
+    @State private var speechApiKeyText = ""
     @State private var showSpeechAPIKey = false
     @State private var speechFallbackEnabled: Bool = SpeechSettings.fallbackEnabled
     @State private var selectedSpeechFallbackProvider: SpeechProvider = SpeechSettings.selectedFallbackProvider
     @State private var selectedSpeechFallbackLanguage: SpeechLanguage = SpeechSettings.selectedLanguage(for: SpeechSettings.selectedFallbackProvider)
-    @State private var speechFallbackApiKeyText: String = SpeechSettings.apiKey(for: SpeechSettings.selectedFallbackProvider) ?? ""
+    @State private var speechFallbackApiKeyText = ""
     @State private var showSpeechFallbackAPIKey = false
+    @State private var didLoadProviderCredentials = false
 
     private var heightMetric: Bool { heightUnitRaw == "cm" }
     private var weightMetric: Bool { weightUnitRaw == "kg" }
@@ -4974,7 +5080,15 @@ struct ProfileView: View {
     var body: some View {
         Group {
             if let settingsCategory {
-                settingsList
+                Group {
+                    if needsProviderCredentials && !didLoadProviderCredentials {
+                        ProgressView()
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    } else {
+                        settingsList
+                    }
+                }
+                    .task { loadProviderCredentialsIfNeeded() }
                     .readableWidth()
                     .background(AppColors.appBackground)
                     .navigationTitle(Text(settingsCategory.title))
@@ -5016,6 +5130,27 @@ struct ProfileView: View {
         }
     }
 
+    private var needsProviderCredentials: Bool {
+        settingsCategory == .aiProviders || settingsCategory == .speechToText
+    }
+
+    private func loadProviderCredentialsIfNeeded() {
+        guard needsProviderCredentials, !didLoadProviderCredentials else { return }
+        // Constructing the Settings tab or another category must not do
+        // synchronous Keychain I/O. Seed fields before mounting their change
+        // handlers so programmatic reads never save an empty placeholder.
+        if settingsCategory == .aiProviders {
+            apiKeyText = AIProviderSettings.apiKey(for: selectedProvider) ?? ""
+            textApiKeyText = AIProviderSettings.apiKey(for: selectedTextProvider) ?? ""
+            fallbackApiKeyText = AIProviderSettings.apiKey(for: selectedFallbackProvider) ?? ""
+            textFallbackApiKeyText = AIProviderSettings.apiKey(for: selectedTextFallbackProvider) ?? ""
+        } else {
+            speechApiKeyText = SpeechSettings.apiKey(for: selectedSpeechProvider) ?? ""
+            speechFallbackApiKeyText = SpeechSettings.apiKey(for: selectedSpeechFallbackProvider) ?? ""
+        }
+        didLoadProviderCredentials = true
+    }
+
     /// The voice assistant opens a Settings section (or the Settings list).
     private func applyAssistantSettingsRequest() {
         guard let request = assistantNavigator.takeSettingsRequest() else { return }
@@ -5024,19 +5159,30 @@ struct ProfileView: View {
 
     private var settingsHub: some View {
         List {
+            Text("Settings")
+                .font(.system(.largeTitle, weight: .black).width(.condensed))
+                .textCase(.uppercase)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(10)
+                .flashPanel()
+                .accessibilityAddTraits(.isHeader)
+                .listRowInsets(EdgeInsets(top: 4, leading: 10, bottom: 4, trailing: 10))
+                .listRowBackground(Color.clear)
+                .listRowSeparator(.hidden)
+
             Section {
                 ForEach(ProfileSettingsCategory.preferenceCases) { category in
                     ProfileSettingsCategoryRow(category: category)
                 }
             }
-            .listRowBackground(AppColors.appCard)
+            .flashListRows()
 
             Section {
                 ForEach(ProfileSettingsCategory.appInfoCases) { category in
                     ProfileSettingsCategoryRow(category: category)
                 }
             }
-            .listRowBackground(AppColors.appCard)
+            .flashListRows()
 
             AboutFooterSection()
 
@@ -5045,6 +5191,8 @@ struct ProfileView: View {
                 .listRowBackground(Color.clear)
                 .listRowSeparator(.hidden)
         }
+        .listStyle(.plain)
+        .listSectionSpacing(8)
         .scrollContentBackground(.hidden)
         .background(AppColors.appBackground)
         .toolbar(.hidden, for: .navigationBar)
@@ -5378,41 +5526,29 @@ struct ProfileView: View {
                 if settingsCategory == .appPreferences {
                 Section {
                     HomeShortcutVisibilitySettings()
-                    Picker(selection: $appearanceMode) {
-                        Text("System").tag("system")
-                        Text("Light").tag("light")
-                        Text("Dark").tag("dark")
-                        Text("Dark gray").tag("darkGray")
-                    } label: {
-                        Label {
-                            Text("Appearance")
-                        } icon: {
-                            Image(systemName: "circle.lefthalf.filled")
-                                .foregroundStyle(AppColors.calorie)
+                    FlashChoicePicker(
+                        title: Text("Appearance"),
+                        selection: $appearanceMode,
+                        options: ["system", "light", "dark", "darkGray"],
+                        titleIcon: "circle.lefthalf.filled"
+                    ) { appearance in
+                        switch appearance {
+                        case "light": return Text("Light")
+                        case "dark": return Text("Dark")
+                        case "darkGray": return Text("Dark gray")
+                        default: return Text("System")
                         }
                     }
-                    .pickerStyle(.menu)
-                    .tint(.secondary)
 
-                    Picker(selection: $appThemeColorRaw) {
-                        ForEach(AppThemeColor.allCases) { themeColor in
-                            Label {
-                                Text(themeColor.displayName)
-                            } icon: {
-                                Image(uiImage: themeColor.menuSwatchImage)
-                            }
-                            .tag(themeColor.rawValue)
-                        }
-                    } label: {
-                        Label {
-                            Text("Theme Color")
-                        } icon: {
-                            Image(systemName: "paintpalette.fill")
-                                .foregroundStyle(AppColors.calorie)
-                        }
+                    FlashChoicePicker(
+                        title: Text("Theme Color"),
+                        selection: $appThemeColorRaw,
+                        options: AppThemeColor.allCases.map(\.rawValue),
+                        titleIcon: "paintpalette.fill",
+                        swatch: { AppThemeColor.color(for: $0).color }
+                    ) {
+                        Text(AppThemeColor.color(for: $0).displayName)
                     }
-                    .pickerStyle(.menu)
-                    .tint(.secondary)
 
                     HStack {
                         Label {
@@ -5456,34 +5592,15 @@ struct ProfileView: View {
                             .padding(.leading, 32)
                     }
 
-                    Picker(selection: $weekStartsOnMonday) {
-                        Text("Sunday").tag(false)
-                        Text("Monday").tag(true)
-                    } label: {
-                        Label {
-                            Text("Week Starts On")
-                        } icon: {
-                            Image(systemName: "calendar")
-                                .foregroundStyle(AppColors.calorie)
-                        }
+                    FlashChoicePicker(title: Text("Week Starts On"), selection: $weekStartsOnMonday,
+                                      options: [false, true], titleIcon: "calendar") { isMonday in
+                        isMonday ? Text("Monday") : Text("Sunday")
                     }
-                    .pickerStyle(.menu)
-                    .tint(.secondary)
 
-                    Picker(selection: $energyUnit) {
-                        ForEach(EnergyUnit.allCases) { unit in
-                            Text(unit.title).tag(unit)
-                        }
-                    } label: {
-                        Label {
-                            Text("Energy Unit")
-                        } icon: {
-                            Image(systemName: "flame")
-                                .foregroundStyle(AppColors.calorie)
-                        }
+                    FlashChoicePicker(title: Text("Energy Unit"), selection: $energyUnit,
+                                      options: EnergyUnit.allCases, titleIcon: "flame") {
+                        Text($0.title)
                     }
-                    .pickerStyle(.menu)
-                    .tint(.secondary)
                     .accessibilityIdentifier("settings.energyUnit")
                     .onChange(of: energyUnit) { _, _ in
                         // Widgets, the Watch and the scheduled daily summary render
@@ -5497,23 +5614,17 @@ struct ProfileView: View {
                     }
 
                     VStack(alignment: .leading, spacing: 4) {
-                        Picker(selection: Binding(
-                            get: { mealShareLinkStyle ?? .defaultStyle },
-                            set: { mealShareLinkStyle = $0 }
-                        )) {
-                            ForEach(MealShareLinkStyle.allCases) { style in
-                                Text(style.title).tag(style)
-                            }
-                        } label: {
-                            Label {
-                                Text("Share Links")
-                            } icon: {
-                                Image(systemName: "link")
-                                    .foregroundStyle(AppColors.calorie)
-                            }
+                        FlashChoicePicker(
+                            title: Text("Share Links"),
+                            selection: Binding(
+                                get: { mealShareLinkStyle ?? .defaultStyle },
+                                set: { mealShareLinkStyle = $0 }
+                            ),
+                            options: MealShareLinkStyle.allCases,
+                            titleIcon: "link"
+                        ) {
+                            Text($0.title)
                         }
-                        .pickerStyle(.menu)
-                        .tint(.secondary)
                         .accessibilityIdentifier("settings.mealShareLinkStyle")
                         Text((mealShareLinkStyle ?? .defaultStyle).detail)
                             .font(.footnote)
@@ -5657,20 +5768,11 @@ struct ProfileView: View {
                         }
                         .buttonStyle(.plain)
 
-                        Picker(selection: $waterUnitRaw) {
-                            ForEach(WaterUnit.allCases) { unit in
-                                Text("\(unit.title) (\(unit.symbol))").tag(unit.rawValue)
-                            }
-                        } label: {
-                            Label {
-                                Text("Water Unit")
-                            } icon: {
-                                Image(systemName: "ruler")
-                                    .foregroundStyle(AppColors.calorie)
-                            }
+                        FlashChoicePicker(title: Text("Water Unit"), selection: $waterUnitRaw,
+                                          options: WaterUnit.allCases.map(\.rawValue), titleIcon: "ruler") {
+                            let unit = WaterUnit(rawValue: $0) ?? .defaultUnit
+                            return Text("\(unit.title) (\(unit.symbol))")
                         }
-                        .pickerStyle(.menu)
-                        .tint(.secondary)
                         .onChange(of: waterUnitRaw) { _, _ in
                             WidgetSnapshotWriter.publish(foods: foodStore.entries, profile: profile)
                         }
@@ -5756,24 +5858,13 @@ struct ProfileView: View {
                             infoTopic: .primaryAI
                         )
 
-                        Picker(selection: $selectedProvider) {
-                            ForEach(AIProvider.visionProviders) { provider in
-                                Label {
-                                    Text(provider.displayName)
-                                } icon: {
-                                    AIProviderBrandIcon(provider: provider)
-                                }
-                                .tag(provider)
-                            }
-                        } label: {
-                            Label {
-                                Text("Provider")
-                            } icon: {
-                                AIProviderBrandIcon(provider: selectedProvider)
-                            }
+                        FlashChoicePicker(
+                            title: Text("Provider"), selection: $selectedProvider,
+                            options: AIProvider.visionProviders, titleIcon: "sparkles"
+                        ) {
+                            Text($0.displayName)
                         }
-                        .pickerStyle(.menu)
-                        .tint(.secondary)
+                        .accessibilityIdentifier("settings.ai.primaryProvider")
                         .id("primary-provider-\(localModelAvailabilityRevision)")
                         .onChange(of: selectedProvider) { _, newProvider in
                             selectedModel = AIProviderSettings.switchPrimaryProvider(to: newProvider)
@@ -5822,20 +5913,10 @@ struct ProfileView: View {
                                 }
                             }
                         } else {
-                            Picker(selection: $selectedModel) {
-                                ForEach(selectedProvider.models, id: \.self) { model in
-                                    Text(model).tag(model)
-                                }
-                            } label: {
-                                Label {
-                                    Text("Model")
-                                } icon: {
-                                    Image(systemName: "brain")
-                                        .foregroundStyle(AppColors.calorie)
-                                }
+                            FlashChoicePicker(title: Text("Model"), selection: $selectedModel,
+                                              options: selectedProvider.models, titleIcon: "brain") {
+                                Text($0)
                             }
-                            .pickerStyle(.menu)
-                            .tint(.secondary)
                             .onAppear {
                                 if !selectedProvider.models.contains(selectedModel) {
                                     selectedModel = selectedProvider.defaultModel
@@ -5848,37 +5929,43 @@ struct ProfileView: View {
                         }
 
                         if selectedProvider.requiresAPIKey {
-                            HStack {
+                            let fieldLayout = dynamicTypeSize.isAccessibilitySize
+                                ? AnyLayout(VStackLayout(alignment: .leading, spacing: 6))
+                                : AnyLayout(HStackLayout(spacing: 8))
+                            fieldLayout {
                                 Label {
                                     Text("API Key")
                                 } icon: {
                                     Image(systemName: "key.fill")
                                         .foregroundStyle(AppColors.calorie)
                                 }
-                                Spacer()
-                                Group {
-                                    if showAPIKey {
-                                        TextField(selectedProvider.apiKeyPlaceholder, text: $apiKeyText)
-                                    } else {
-                                        SecureField(selectedProvider.apiKeyPlaceholder, text: $apiKeyText)
+                                HStack(spacing: 6) {
+                                    Group {
+                                        if showAPIKey {
+                                            TextField(selectedProvider.apiKeyPlaceholder, text: $apiKeyText)
+                                        } else {
+                                            SecureField(selectedProvider.apiKeyPlaceholder, text: $apiKeyText)
+                                        }
                                     }
+                                    .textFieldStyle(.plain)
+                                    .multilineTextAlignment(dynamicTypeSize.isAccessibilitySize ? .leading : .trailing)
+                                    .autocorrectionDisabled()
+                                    .textInputAutocapitalization(.never)
+                                    .onChange(of: apiKeyText) { _, newValue in
+                                        let t = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
+                                        AIProviderSettings.setAPIKey(t.isEmpty ? nil : t, for: selectedProvider)
+                                    }
+                                    Button {
+                                        showAPIKey.toggle()
+                                    } label: {
+                                        Image(systemName: showAPIKey ? "eye.fill" : "eye.slash.fill")
+                                            .foregroundStyle(.secondary)
+                                            .font(.system(size: 14))
+                                            .frame(minWidth: 44, minHeight: 44)
+                                            .contentShape(Rectangle())
+                                    }
+                                    .buttonStyle(.plain)
                                 }
-                                .textFieldStyle(.plain)
-                                .multilineTextAlignment(.trailing)
-                                .autocorrectionDisabled()
-                                .textInputAutocapitalization(.never)
-                                .onChange(of: apiKeyText) { _, newValue in
-                                    let t = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
-                                    AIProviderSettings.setAPIKey(t.isEmpty ? nil : t, for: selectedProvider)
-                                }
-                                Button {
-                                    showAPIKey.toggle()
-                                } label: {
-                                    Image(systemName: showAPIKey ? "eye.fill" : "eye.slash.fill")
-                                        .foregroundStyle(.secondary)
-                                        .font(.system(size: 14))
-                                }
-                                .buttonStyle(.plain)
                             }
                         }
 
@@ -6008,29 +6095,21 @@ struct ProfileView: View {
                         }
                     }
                     .tint(AppColors.calorie)
+                    .accessibilityIdentifier("settings.ai.useSeparateText")
                     .onChange(of: separateTextProviderEnabled) { _, isEnabled in
                         AIProviderSettings.separateTextProviderEnabled = isEnabled
                     }
 
                     if separateTextProviderEnabled {
-                        Picker(selection: $selectedTextProvider) {
-                            ForEach(AIProvider.textProviders) { provider in
-                                Label {
-                                    Text(provider.displayName)
-                                } icon: {
-                                    AIProviderBrandIcon(provider: provider)
-                                }
-                                .tag(provider)
-                            }
-                        } label: {
-                            Label {
-                                Text("Provider")
-                            } icon: {
-                                AIProviderBrandIcon(provider: selectedTextProvider)
-                            }
+                        FlashChoicePicker(
+                            title: Text("Provider"), selection: $selectedTextProvider,
+                            options: AIProvider.textProviders, titleIcon: "text.bubble.fill",
+                            icon: { $0.logoAssetName == nil ? $0.fallbackSystemImage : nil },
+                            iconAsset: { $0.logoAssetName }
+                        ) {
+                            Text($0.displayName)
                         }
-                        .pickerStyle(.menu)
-                        .tint(.secondary)
+                        .accessibilityIdentifier("settings.ai.textProvider")
                         .id("text-provider-\(localModelAvailabilityRevision)")
                         .onChange(of: selectedTextProvider) { _, newProvider in
                             AIProviderSettings.selectedTextProvider = newProvider
@@ -6046,6 +6125,7 @@ struct ProfileView: View {
                                 Spacer()
                                 Text(selectedTextProvider.defaultTextModel)
                                     .foregroundStyle(.secondary)
+                                    .accessibilityIdentifier("settings.ai.systemTextModel")
                             }
 
                             appleIntelligenceAvailabilityRow
@@ -6076,15 +6156,11 @@ struct ProfileView: View {
                                 }
                             }
                         } else {
-                            Picker(selection: $selectedTextModel) {
-                                ForEach(selectedTextProvider.textModels, id: \.self) { model in
-                                    Text(model).tag(model)
-                                }
-                            } label: {
-                                Label("Model", systemImage: "brain")
+                            FlashChoicePicker(title: Text("Model"), selection: $selectedTextModel,
+                                              options: selectedTextProvider.textModels, titleIcon: "brain") {
+                                Text($0)
                             }
-                            .pickerStyle(.menu)
-                            .tint(.secondary)
+                            .accessibilityIdentifier("settings.ai.textModel")
                             .onAppear {
                                 if !selectedTextProvider.textModels.contains(selectedTextModel) {
                                     selectedTextModel = selectedTextProvider.defaultTextModel
@@ -6626,19 +6702,18 @@ struct ProfileView: View {
                     )
                 }
             }
-            .scrollContentBackground(.hidden)
+            .flashEditorSurface()
             .modifier(SettingsKeyboardDismissalModifier())
-            .background(AppColors.appBackground)
-            .sheet(isPresented: $showExportDiary) {
+            .flashSheet(isPresented: $showExportDiary) {
                 ExportDiaryView()
             }
-            .sheet(isPresented: $showImportDiary) {
+            .flashSheet(isPresented: $showImportDiary) {
                 ImportDiaryView()
             }
-            .sheet(isPresented: $showDeleteFoodRange) {
+            .flashSheet(isPresented: $showDeleteFoodRange) {
                 DeleteFoodRangeView()
             }
-            .sheet(item: $activeSheet) { sheet in
+            .flashSheet(item: $activeSheet) { sheet in
                 switch sheet {
                 case .editBirthday:
                     NavigationStack {
@@ -6812,16 +6887,16 @@ struct ProfileView: View {
             } message: {
                 Text(adaptiveGoalAlertMessage)
             }
-            .sheet(isPresented: $showCalculationMethods) {
+            .flashSheet(isPresented: $showCalculationMethods) {
                 CalculationMethodsView()
             }
-            .sheet(isPresented: $showWaterGoalPicker) {
+            .flashSheet(isPresented: $showWaterGoalPicker) {
                 WaterGoalPickerSheet(currentGoal: waterDailyGoal, unit: waterUnit) {
                     waterDailyGoal = $0
                     WidgetSnapshotWriter.publish(foods: foodStore.entries, profile: profile)
                 }
             }
-            .sheet(isPresented: $showFastingGoalPicker) {
+            .flashSheet(isPresented: $showFastingGoalPicker) {
                 FastingGoalPickerSheet(currentGoalMinutes: fastingDefaultGoalMinutes) {
                     fastingDefaultGoalMinutes = $0
                 }
@@ -7824,7 +7899,7 @@ private struct AllergenSensitivitiesDetailView: View {
                     Color.black.opacity(0.28).ignoresSafeArea()
                     ProgressView("Reading lab report…")
                         .padding(20)
-                        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                        .flashPanel()
                 }
             }
         }
@@ -7849,7 +7924,7 @@ private struct AllergenSensitivitiesDetailView: View {
                 Task { await importLabReport(from: result) }
             }
         )
-        .sheet(isPresented: Binding(
+        .flashSheet(isPresented: Binding(
             get: { pendingImportCandidates != nil },
             set: { if !$0 { clearPendingImport() } }
         )) {

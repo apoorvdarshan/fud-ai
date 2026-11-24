@@ -12,6 +12,8 @@ import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -44,7 +46,7 @@ import androidx.compose.material.icons.automirrored.filled.ListAlt
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material3.AlertDialog
+import com.apoorvdarshan.calorietracker.ui.components.FlashAlertDialog as AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -52,7 +54,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
+import com.apoorvdarshan.calorietracker.ui.components.FlashBottomSheet as ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
@@ -97,6 +99,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.platform.LocalDensity
+import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
@@ -666,9 +669,7 @@ private fun MyProgressContent(container: AppContainer) {
 
 @Composable
 private fun TimeRangePicker(selected: TimeRange, onSelect: (TimeRange) -> Unit) {
-    // Match iOS `.pickerStyle(.segmented)` for 1W / 1M / … — elevated selected
-    // pill on a muted track, not the brand gradient chips.
-    IosStyleSegmentedControl(
+    FlashProgressSegments(
         options = TimeRange.values().toList(),
         selected = selected,
         label = { stringResource(it.labelRes) },
@@ -676,87 +677,47 @@ private fun TimeRangePicker(selected: TimeRange, onSelect: (TimeRange) -> Unit) 
     )
 }
 
-/**
- * Plain iOS-style segmented control used for time range and progress metrics.
- */
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun <T> IosStyleSegmentedControl(
+private fun <T> FlashProgressSegments(
     options: List<T>,
     selected: T,
     label: @Composable (T) -> String,
     onSelect: (T) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val shape = RoundedCornerShape(16.dp)
-    val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
-    val trackFill = if (isDark) {
-        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.34f)
-    } else {
-        Color(0xFFE5DAD3).copy(alpha = 0.88f)
-    }
-    val selectedFill = if (isDark) {
-        Color.White.copy(alpha = 0.18f)
-    } else {
-        Color.White
-    }
-    val shadowAlpha = if (isDark) 0.16f else 0.06f
-    Row(
-        modifier
+    val neo = pinkNeoPalette()
+    val large = LocalDensity.current.fontScale >= 1.3f
+    FlowRow(
+        modifier = modifier
             .fillMaxWidth()
-            .shadow(
-                elevation = if (isDark) 10.dp else 4.dp,
-                shape = shape,
-                ambientColor = Color.Black.copy(alpha = shadowAlpha),
-                spotColor = Color.Black.copy(alpha = shadowAlpha)
-            )
-            .clip(shape)
-            .background(trackFill)
-            .border(
-                0.7.dp,
-                Color.White.copy(alpha = if (isDark) 0.10f else 0.45f),
-                shape
-            )
-            .padding(3.dp)
-            .selectableGroup()
+            .selectableGroup(),
+        maxItemsInEachRow = if (large) 2 else 3,
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
+        verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         options.forEach { option ->
             val isSel = option == selected
             Box(
                 Modifier
                     .weight(1f)
-                    .clip(RoundedCornerShape(13.dp))
-                    .then(
-                        if (isSel) {
-                            Modifier
-                                .shadow(
-                                    elevation = if (isDark) 2.dp else 3.dp,
-                                    shape = RoundedCornerShape(13.dp),
-                                    ambientColor = Color.Black.copy(alpha = if (isDark) 0.25f else 0.08f),
-                                    spotColor = Color.Black.copy(alpha = if (isDark) 0.25f else 0.08f)
-                                )
-                                .background(selectedFill)
-                        } else {
-                            Modifier.background(Color.Transparent)
-                        }
-                    )
+                    .background(if (isSel) neo.action else neo.panel)
+                    .border(1.dp, neo.rule)
                     .selectable(
                         selected = isSel,
                         role = Role.Tab,
                         onClick = { onSelect(option) }
                     )
-                    .padding(vertical = 8.dp, horizontal = 4.dp),
+                    .heightIn(min = 48.dp)
+                    .padding(vertical = 6.dp, horizontal = 4.dp),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
                     label(option),
                     fontSize = 13.sp,
                     fontWeight = if (isSel) FontWeight.SemiBold else FontWeight.Medium,
-                    maxLines = 1,
-                    color = if (isSel) {
-                        MaterialTheme.colorScheme.onSurface
-                    } else {
-                        MaterialTheme.colorScheme.onSurface.copy(alpha = 0.72f)
-                    }
+                    textAlign = TextAlign.Center,
+                    color = if (isSel) neo.onAction else neo.ink
                 )
             }
         }
@@ -783,11 +744,12 @@ internal fun PeriodNavigator(
     val context = LocalContext.current
     val label = remember(start, end) { formatProgressPeriod(context, start, end) }
     if (embedded) {
+        val neo = pinkNeoPalette()
         Box(
             Modifier
                 .fillMaxWidth()
-                .clip(RoundedCornerShape(12.dp))
-                .background(AppColors.Calorie.copy(alpha = 0.055f))
+                .background(neo.inset)
+                .border(1.dp, neo.rule.copy(alpha = 0.32f))
         ) {
             PeriodNavigatorRow(label, canGoForward, onPrevious, onNext, previousDescription, nextDescription)
         }
@@ -824,9 +786,7 @@ private fun PeriodNavigatorRow(
             modifier = Modifier.weight(1f),
             fontSize = 15.sp,
             fontWeight = FontWeight.SemiBold,
-            textAlign = TextAlign.Center,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis
+            textAlign = TextAlign.Center
         )
         IconButton(onClick = onNext, enabled = canGoForward) {
             Icon(
@@ -2285,14 +2245,13 @@ private fun ProgressMetricSelector(
     selected: ProgressMetric,
     onSelect: (ProgressMetric) -> Unit
 ) {
-    // Match iOS `ProgressMetricSelector` segmented pill (text only, equal weight).
     val labels = mapOf(
         ProgressMetric.WEIGHT to stringResource(R.string.progress_metric_weight),
         ProgressMetric.BODY_FAT to stringResource(R.string.progress_metric_body_fat),
         ProgressMetric.WORKOUTS to stringResource(R.string.progress_metric_workouts),
         ProgressMetric.STEPS to stringResource(R.string.progress_metric_steps)
     )
-    IosStyleSegmentedControl(
+    FlashProgressSegments(
         options = metrics,
         selected = selected,
         label = { labels.getValue(it) },

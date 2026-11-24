@@ -59,27 +59,17 @@ struct ManualEntryView: View {
                         focus: .fiber
                     )
 
-                    // Meal Type — same .menu picker style used by FoodResultView /
-                    // EditFoodEntryView so manual logging assigns to a specific meal
-                    // (defaults to whatever currentMeal returns for the time of day).
+                    // Assign to a specific meal, defaulting to the current meal.
                     VStack(alignment: .leading, spacing: 4) {
                         Text("Meal")
                             .font(.caption)
                             .foregroundStyle(.secondary)
-                        HStack {
-                            Text("Meal Type")
-                            Spacer()
-                            Picker("Meal Type", selection: $mealType) {
-                                ForEach(MealType.allCases, id: \.self) { meal in
-                                    Label(meal.displayName, systemImage: meal.icon).tag(meal)
-                                }
-                            }
-                            .pickerStyle(.menu)
-                            .tint(AppColors.calorie)
-                            .labelsHidden()
+                        FlashChoicePicker(title: Text("Meal Type"), selection: $mealType,
+                                          options: MealType.allCases, icon: { $0.icon }) {
+                            Text($0.displayName)
                         }
                         .padding(10)
-                        .background(RoundedRectangle(cornerRadius: 10).fill(Color(.quaternarySystemFill)))
+                        .flashPanel()
                     }
 
                     Button {
@@ -101,7 +91,7 @@ struct ManualEntryView: View {
                             .font(.headline)
                             .frame(maxWidth: .infinity)
                     }
-                    .buttonStyle(.borderedProminent)
+                    .buttonStyle(FlashActionButtonStyle())
                     .tint(AppColors.calorie)
                     .controlSize(.large)
                     .disabled(!canSave || submissionGate.isSubmitting)
@@ -143,7 +133,7 @@ struct ManualEntryView: View {
                 .autocorrectionDisabled()
                 .focused($focused, equals: focus)
                 .padding(10)
-                .background(RoundedRectangle(cornerRadius: 10).fill(Color(.quaternarySystemFill)))
+                .flashPanel()
         }
     }
 
@@ -159,7 +149,7 @@ struct ManualEntryView: View {
                 .textFieldStyle(.plain)
                 .focused($focused, equals: focus)
                 .padding(10)
-                .background(RoundedRectangle(cornerRadius: 10).fill(Color(.quaternarySystemFill)))
+                .flashPanel()
         }
     }
 }

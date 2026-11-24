@@ -2,10 +2,9 @@ package com.apoorvdarshan.calorietracker.ui.settings
 
 import android.content.Intent
 import androidx.core.content.FileProvider
-import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
@@ -13,14 +12,16 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
+import com.apoorvdarshan.calorietracker.ui.components.FlashSheetAction
+import com.apoorvdarshan.calorietracker.ui.components.FlashBottomSheet as ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDatePickerState
@@ -31,9 +32,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -49,6 +48,7 @@ import com.apoorvdarshan.calorietracker.export.DiaryRange
 import com.apoorvdarshan.calorietracker.models.MealType
 import com.apoorvdarshan.calorietracker.models.UserProfile
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.io.File
@@ -70,7 +70,7 @@ fun ExportDiarySheet(
     val exportFailedMessage = stringResource(R.string.export_failed)
     val scope = rememberCoroutineScope()
     val state = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-    val isDark = MaterialTheme.colorScheme.background.let { (it.red + it.green + it.blue) / 3f < 0.5f }
+    val neo = pinkNeoPalette()
 
     var range by remember { mutableStateOf(DiaryRange.THIS_WEEK) }
     var format by remember { mutableStateOf(DiaryFormat.JSON) }
@@ -84,15 +84,13 @@ fun ExportDiarySheet(
 
     ModalBottomSheet(
         onDismissRequest = onDismiss,
-        sheetState = state,
-        shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
-        containerColor = if (isDark) Color(0xF2141416) else Color(0xFFFAF3EE),
+        sheetState = state
     ) {
         Column(
-            Modifier.fillMaxWidth().padding(horizontal = 24.dp).padding(bottom = 28.dp),
+            Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            Text(stringResource(R.string.export_diary_title), fontSize = 22.sp, fontWeight = FontWeight.Bold)
+            Text(stringResource(R.string.export_diary_title), fontSize = 22.sp, fontWeight = FontWeight.Black)
 
             Text(stringResource(R.string.export_range), fontSize = 13.sp, fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f))
@@ -103,8 +101,8 @@ fun ExportDiarySheet(
                         onClick = { range = r },
                         label = { Text(stringResource(r.labelRes)) },
                         colors = FilterChipDefaults.filterChipColors(
-                            selectedContainerColor = AppColors.Calorie.copy(alpha = 0.18f),
-                            selectedLabelColor = AppColors.Calorie,
+                            selectedContainerColor = neo.action,
+                            selectedLabelColor = neo.onAction,
                         ),
                     )
                 }
@@ -124,8 +122,8 @@ fun ExportDiarySheet(
                         onClick = { format = f },
                         label = { Text(f.label) },
                         colors = FilterChipDefaults.filterChipColors(
-                            selectedContainerColor = AppColors.Calorie.copy(alpha = 0.18f),
-                            selectedLabelColor = AppColors.Calorie,
+                            selectedContainerColor = neo.action,
+                            selectedLabelColor = neo.onAction,
                         ),
                     )
                 }
@@ -135,12 +133,9 @@ fun ExportDiarySheet(
                 Text(it, color = Color(0xFFFF3B30), fontSize = 13.sp)
             }
 
-            Box(
-                Modifier
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(16.dp))
-                    .background(AppColors.CalorieGradient)
-                    .clickable {
+            FlashSheetAction(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = {
                         status = null
                         scope.launch {
                             val entries = container.foodRepository.entries.first()
@@ -172,11 +167,9 @@ fun ExportDiarySheet(
                                 status = e.localizedMessage ?: exportFailedMessage
                             }
                         }
-                    }
-                    .padding(vertical = 14.dp),
-                contentAlignment = Alignment.Center,
+                }
             ) {
-                Text(stringResource(R.string.export_action), color = Color.White, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                Text(stringResource(R.string.export_action))
             }
         }
     }
@@ -209,12 +202,11 @@ private fun DateRow(label: String, value: String, onClick: () -> Unit) {
     Row(
         Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(14.dp))
+            .border(1.dp, pinkNeoPalette().rule)
             .clickable(onClick = onClick)
-            .padding(vertical = 10.dp),
+            .padding(horizontal = 12.dp, vertical = 10.dp),
     ) {
-        Text(label, fontSize = 15.sp, modifier = Modifier.padding(end = 8.dp))
-        Spacer(Modifier.weight(1f))
+        Text(label, fontSize = 15.sp, modifier = Modifier.weight(1f).padding(end = 8.dp))
         Text(value, fontSize = 15.sp, fontWeight = FontWeight.SemiBold, color = AppColors.Calorie)
     }
 }

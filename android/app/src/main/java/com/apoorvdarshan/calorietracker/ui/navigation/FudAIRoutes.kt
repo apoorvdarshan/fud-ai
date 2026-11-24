@@ -35,4 +35,11 @@ object FudAIRoutes {
         route.startsWith("settings/") -> SETTINGS
         else -> null
     }
+
+    /** Peer tabs switch in place; transitions inside a tab are still directional. */
+    internal fun isTabSwitch(from: String?, to: String?): Boolean {
+        val fromTab = selectedBottomTab(from)
+        val toTab = selectedBottomTab(to)
+        return fromTab != null && toTab != null && fromTab != toTab
+    }
 }

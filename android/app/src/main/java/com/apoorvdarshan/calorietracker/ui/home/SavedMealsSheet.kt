@@ -45,7 +45,7 @@ import com.apoorvdarshan.calorietracker.ui.util.gramsText
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
+import com.apoorvdarshan.calorietracker.ui.components.FlashBottomSheet as ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -86,6 +86,7 @@ import com.apoorvdarshan.calorietracker.services.FoodImageStore
 import com.apoorvdarshan.calorietracker.ui.components.energyText
 import com.apoorvdarshan.calorietracker.ui.components.rememberFoodThumbnail
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
@@ -545,37 +546,12 @@ private fun SavedMealRow(
     onClick: () -> Unit,
     trailing: (@Composable () -> Unit)? = null
 ) {
-    val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
-    val rowFill = if (isDark) {
-        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.50f)
-    } else {
-        Color(0xFFF0E1DB).copy(alpha = 0.98f)
-    }
-    val rowSheen = Brush.verticalGradient(
-        listOf(
-            Color.White.copy(alpha = if (isDark) 0.13f else 0.18f),
-            Color.White.copy(alpha = if (isDark) 0.035f else 0.04f),
-            AppColors.Calorie.copy(alpha = if (isDark) 0.06f else 0.060f)
-        )
-    )
-    val rowBorder = Brush.linearGradient(
-        listOf(
-            Color.White.copy(alpha = if (isDark) 0.13f else 0.46f),
-            Color.White.copy(alpha = if (isDark) 0.035f else 0.12f),
-            AppColors.Calorie.copy(alpha = if (isDark) 0.06f else 0.18f)
-        )
-    )
+    val neo = pinkNeoPalette()
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(18.dp))
-            .background(rowFill)
-            .background(rowSheen)
-            .border(
-                0.6.dp,
-                rowBorder,
-                RoundedCornerShape(18.dp)
-            )
+            .background(neo.panel)
+            .border(1.dp, neo.rule)
             .clickable(onClick = onClick)
             .padding(horizontal = 12.dp, vertical = 10.dp),
         verticalAlignment = Alignment.CenterVertically,

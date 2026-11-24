@@ -11,29 +11,8 @@ struct WorkoutPreferenceMenuRow<Option: Hashable>: View {
     let label: (Option) -> String
 
     var body: some View {
-        WorkoutPreferenceFieldRow(title: title, systemImage: systemImage) {
-            Menu {
-                ForEach(options, id: \.self) { option in
-                    Button {
-                        selection = option
-                    } label: {
-                        if option == selection {
-                            Label {
-                                WorkoutPreferenceMenuOptionText(text: label(option))
-                            } icon: {
-                                Image(systemName: "checkmark")
-                            }
-                        } else {
-                            WorkoutPreferenceMenuOptionText(text: label(option))
-                        }
-                    }
-                }
-            } label: {
-                WorkoutPreferenceMenuValueLabel(text: label(selection))
-            }
-            .workoutPressable()
-            .accessibilityLabel(title)
-            .accessibilityValue(label(selection))
+        FlashChoicePicker(title: Text(title), selection: $selection, options: options, titleIcon: systemImage) {
+            Text(label($0))
         }
     }
 }
@@ -163,24 +142,6 @@ private struct WorkoutPreferenceFieldRow<Content: View>: View {
     }
 }
 
-private struct WorkoutPreferenceMenuOptionText: View {
-    let text: String
-
-    private var nonWrappingText: String {
-        text
-            .replacingOccurrences(of: " ", with: "\u{00A0}")
-            .map(String.init)
-            .joined(separator: "\u{2060}")
-    }
-
-    var body: some View {
-        Text(nonWrappingText)
-            .lineLimit(1)
-            .fixedSize(horizontal: true, vertical: false)
-            .accessibilityLabel(text)
-    }
-}
-
 private struct WorkoutPreferenceMenuValueLabel: View {
     let text: String
 
@@ -285,7 +246,7 @@ struct WorkoutEquipmentImagePickerRow: View {
             .workoutPressable()
             .accessibilityLabel(title)
             .accessibilityValue(summary)
-            .sheet(isPresented: $isPickerPresented) {
+            .flashSheet(isPresented: $isPickerPresented) {
                 WorkoutEquipmentImagePickerSheet(
                     title: title,
                     options: imageOptions,

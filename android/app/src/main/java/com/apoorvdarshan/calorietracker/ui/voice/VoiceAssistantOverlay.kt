@@ -56,7 +56,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
@@ -92,8 +91,7 @@ import com.apoorvdarshan.calorietracker.services.voice.VoiceUiState
 import com.apoorvdarshan.calorietracker.ui.hosted.findActivity
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
 
-private val ScrimTop = Color(0xF2050608)
-private val ScrimBottom = Color(0xF70A0B10)
+private val SessionPaper = Color(0xFF131114)
 private val Muted = Color.White.copy(alpha = 0.6f)
 private val EndRed = Color(0xFFFF453A)
 
@@ -229,7 +227,7 @@ private fun ExpandedOverlay(
     Box(
         Modifier
             .fillMaxSize()
-            .background(Brush.verticalGradient(listOf(ScrimTop, ScrimBottom)))
+            .background(SessionPaper)
             .pointerInput(Unit) { detectTapGestures { } }
             .testTag("voiceAssistantOverlay")
     ) {

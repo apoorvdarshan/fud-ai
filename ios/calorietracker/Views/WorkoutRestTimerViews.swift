@@ -65,7 +65,7 @@ struct WorkoutRestTimerBar: View {
                         .lineLimit(1)
                         .frame(minWidth: 44, minHeight: 36)
                 }
-                .buttonStyle(.borderedProminent)
+                .buttonStyle(FlashActionButtonStyle())
                 .buttonBorderShape(.capsule)
                 .tint(Color.workoutAccent)
                 .accessibilityLabel("Skip rest")

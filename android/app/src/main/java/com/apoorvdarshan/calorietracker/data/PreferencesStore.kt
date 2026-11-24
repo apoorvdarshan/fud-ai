@@ -46,6 +46,7 @@ import com.apoorvdarshan.calorietracker.ui.theme.AppThemeColor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.sync.Mutex
@@ -148,6 +149,14 @@ internal fun applyHydrationSync(enabled: Boolean, prefs: androidx.datastore.pref
     if (!enabled) prefs.remove(hydrationPendingKey)
 }
 
+internal data class StartupPreferences(
+    val startOnboarding: Boolean,
+    val appearanceMode: String,
+    val themeColorKey: String,
+    val energyUnit: EnergyUnit,
+    val profile: UserProfile?
+)
+
 class PreferencesStore(
     private val context: Context,
     private val isLocalGemmaExecutable: () -> Boolean = { false },
@@ -175,7 +184,9 @@ class PreferencesStore(
     // is copied aside before it is replaced.
 
     private fun <T> jsonListFlow(key: Preferences.Key<String>, serializer: KSerializer<T>): Flow<List<T>> =
-        ds.data.map { prefs -> decodeList(prefs[key], serializer, key.name).itemsOrEmpty }
+        ds.data.map { prefs -> prefs[key] }.distinctUntilChanged().map { raw ->
+            decodeList(raw, serializer, key.name).itemsOrEmpty
+        }.flowOn(Dispatchers.Default)
 
     private fun <T> decodeList(raw: String?, serializer: KSerializer<T>, name: String): PersistedListDecode<T> {
         val decoded = LenientJsonList.decode(json, serializer, raw)
@@ -244,8 +255,23 @@ class PreferencesStore(
     @Volatile private var fallbackBaseUrlMigrationCompleted = false
 
     // -- User profile -----------------------------------------------------
-    val userProfile: Flow<UserProfile?> = ds.data.map { prefs ->
-        prefs[Keys.USER_PROFILE]?.let { runCatching { json.decodeFromString<UserProfile>(it) }.getOrNull() }
+    private fun decodeProfile(raw: String?): UserProfile? =
+        raw?.let { runCatching { json.decodeFromString<UserProfile>(it) }.getOrNull() }
+
+    val userProfile: Flow<UserProfile?> = ds.data.map { it[Keys.USER_PROFILE] }
+        .distinctUntilChanged().map(::decodeProfile).flowOn(Dispatchers.Default)
+
+    /** Read the inputs to the first frame together, not in separate blocking calls. */
+    internal suspend fun startupPreferences(): StartupPreferences {
+        val prefs = ds.data.first()
+        val startOnboarding = prefs[Keys.ONBOARDING_COMPLETED] != true
+        return StartupPreferences(
+            startOnboarding = startOnboarding,
+            appearanceMode = prefs[Keys.APPEARANCE_MODE] ?: "system",
+            themeColorKey = prefs[Keys.APP_THEME_COLOR] ?: AppThemeColor.DEFAULT_KEY,
+            energyUnit = EnergyUnit.fromStorage(prefs[Keys.ENERGY_UNIT]),
+            profile = if (startOnboarding) null else decodeProfile(prefs[Keys.USER_PROFILE])
+        )
     }
 
     suspend fun setUserProfile(profile: UserProfile) {
@@ -1487,7 +1513,7 @@ class PreferencesStore(
 
     // -- Food entries -----------------------------------------------------
     override val foodEntries: Flow<List<FoodEntry>> =
-        jsonListFlow(Keys.FOOD_ENTRIES, FoodEntry.serializer()).flowOn(Dispatchers.Default)
+        jsonListFlow(Keys.FOOD_ENTRIES, FoodEntry.serializer())
 
     /**
      * Whether the stored food log is currently unreadable. A `true` here means

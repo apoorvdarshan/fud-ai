@@ -24,6 +24,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.automirrored.outlined.AddToHomeScreen
 import androidx.compose.material.icons.outlined.CameraAlt
+import androidx.compose.material.icons.outlined.Face
 import androidx.compose.material.icons.outlined.Forum
 import androidx.compose.material.icons.outlined.GraphicEq
 import androidx.compose.material.icons.outlined.Key
@@ -84,6 +85,7 @@ import com.apoorvdarshan.calorietracker.services.voice.shownAppLanguage
 import com.apoorvdarshan.calorietracker.services.voice.VoiceProviderChoice
 import com.apoorvdarshan.calorietracker.services.voice.VoiceProviderResolver
 import com.apoorvdarshan.calorietracker.services.voice.VoicePhase
+import com.apoorvdarshan.calorietracker.services.voice.VoiceMascotPreferences
 import com.apoorvdarshan.calorietracker.services.voice.VoicePreviewError
 import com.apoorvdarshan.calorietracker.services.voice.VoicePreviewPhase
 import com.apoorvdarshan.calorietracker.services.voice.VoicePreviewState
@@ -96,7 +98,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-private enum class VoiceSheet { PROVIDER, MODEL, VOICE, LANGUAGE }
+private enum class VoiceSheet { MASCOT, PROVIDER, MODEL, VOICE, LANGUAGE }
 
 /** Languages offered for replies: the app's languages. */
 private val REPLY_LANGUAGES: List<String> = AppLanguage.supportedTags
@@ -110,6 +112,7 @@ private val REPLY_LANGUAGES: List<String> = AppLanguage.supportedTags
 @Composable
 internal fun VoiceAssistantSettings(container: AppContainer, onOpenAiProviders: () -> Unit) {
     val prefs by container.prefs.voiceAssistantPreferences.collectAsState(initial = VoiceAssistantPreferences())
+    val mascot by container.prefs.voiceMascotPreferences.collectAsState(initial = VoiceMascotPreferences())
     val selectedAi by container.prefs.selectedAIProvider.collectAsState(initial = AIProvider.GEMINI)
     val entitlement by container.billing.entitlement.collectAsState()
     val context = LocalContext.current
@@ -167,6 +170,11 @@ internal fun VoiceAssistantSettings(container: AppContainer, onOpenAiProviders: 
     LaunchedEffect(assistantActive) { if (assistantActive) preview.stop() }
 
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        SectionCard {
+            SettingRow(
+                stringResource(R.string.voice_mascot), mascot.profile.name, icon = Icons.Outlined.Face
+            ) { sheet = VoiceSheet.MASCOT }
+        }
         SectionCard {
             SettingRow(
                 stringResource(R.string.voice_settings_provider),
@@ -283,6 +291,11 @@ internal fun VoiceAssistantSettings(container: AppContainer, onOpenAiProviders: 
         ) {
             Column(Modifier.fillMaxWidth().navigationBarsPadding().padding(horizontal = 20.dp).padding(bottom = 20.dp)) {
                 when (current) {
+                    VoiceSheet.MASCOT -> VoiceMascotSettingsContent(
+                        preferences = mascot,
+                        onSelect = { selection -> scope.launch { container.prefs.selectVoiceMascot(selection) } },
+                        onEdit = { selection, change -> scope.launch { container.prefs.editVoiceMascot(selection, change) } }
+                    )
                     VoiceSheet.PROVIDER -> VoiceListSheet(
                         title = stringResource(R.string.voice_settings_provider),
                         items = VoiceProviderChoice.entries,

@@ -12,6 +12,7 @@ struct VoiceAssistantOverlay: View {
 
     @AppStorage(AppThemeColor.storageKey) private var appThemeColorRaw = AppThemeColor.defaultColor.rawValue
     @AppStorage("appearanceMode") private var appearanceMode = "system"
+    @AppStorage(VoiceMascotPreferences.storageKey) private var mascotRaw = ""
 
     private var coversApp: Bool {
         switch controller.presentation {
@@ -77,15 +78,15 @@ struct VoiceAssistantOverlay: View {
                     .transition(.opacity)
             }
         case .access(let reason):
-            VoiceAssistantPanel(controller: controller) {
+            VoiceAssistantPanel(controller: controller, mascot: VoiceMascotPreferences.decode(mascotRaw).profile) {
                 VoiceAssistantAccessContent(controller: controller, reason: reason)
             }
         case .outOfMinutes:
-            VoiceAssistantPanel(controller: controller) {
+            VoiceAssistantPanel(controller: controller, mascot: VoiceMascotPreferences.decode(mascotRaw).profile) {
                 VoiceAssistantOutOfMinutesContent(controller: controller)
             }
         case .failed(let failure):
-            VoiceAssistantPanel(controller: controller) {
+            VoiceAssistantPanel(controller: controller, mascot: VoiceMascotPreferences.decode(mascotRaw).profile) {
                 VoiceAssistantFailureContent(controller: controller, failure: failure)
             }
         }
@@ -179,7 +180,7 @@ private struct VoiceAssistantExpandedView: View {
     }
 
     private func mascot(size: CGFloat) -> some View {
-        VoiceMascotView(mode: controller.orbMode, level: controller.currentLevel)
+        VoiceMascotView(mode: controller.orbMode, profile: controller.sessionMascot, level: controller.currentLevel)
             .frame(maxWidth: size, maxHeight: size)
     }
 }
@@ -334,7 +335,7 @@ private struct VoiceAssistantMascotBubble: View {
     var size: CGFloat = 60
 
     var body: some View {
-        VoiceMascotView(mode: controller.orbMode, level: controller.currentLevel)
+        VoiceMascotView(mode: controller.orbMode, profile: controller.sessionMascot, level: controller.currentLevel)
         .frame(width: size, height: size)
         .contentShape(Rectangle())
     }
@@ -654,6 +655,7 @@ private struct VoiceAssistantCameraPanel: View {
 /// A dimmed backdrop with a centered card; tapping outside closes it.
 private struct VoiceAssistantPanel<Content: View>: View {
     let controller: VoiceAssistantController
+    let mascot: VoiceMascotProfile
     @ViewBuilder let content: Content
 
     var body: some View {
@@ -663,7 +665,7 @@ private struct VoiceAssistantPanel<Content: View>: View {
                 .onTapGesture { controller.dismiss() }
                 .accessibilityHidden(true)
             VStack(spacing: 18) {
-                VoiceMascotView(mode: .idle)
+                VoiceMascotView(mode: .idle, profile: mascot)
                     .frame(width: 96, height: 96)
                 content
             }

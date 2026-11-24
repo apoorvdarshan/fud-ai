@@ -1,0 +1,12 @@
+<resources>
+    <string name="voice_mascot">Mascotte</string>
+    <string name="voice_mascot_color">Kleur</string>
+    <string name="voice_mascot_personality">Persoonlijkheid</string>
+    <string name="voice_mascot_original">Oorspronkelijke kleuren</string>
+    <string name="voice_mascot_pink">Roze</string>
+    <string name="voice_mascot_friendly">Vriendelijk</string>
+    <string name="voice_mascot_playful">Speels</string>
+    <string name="voice_mascot_calm">Rustig</string>
+    <string name="voice_mascot_direct">Direct</string>
+    <string name="voice_mascot_next_session">Wijzigingen gelden vanaf het volgende gesprek.</string>
+</resources>

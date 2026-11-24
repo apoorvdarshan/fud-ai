@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
@@ -24,8 +25,8 @@ import androidx.compose.ui.unit.IntSize
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.currentStateAsState
-import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.services.voice.OrbMode
+import com.apoorvdarshan.calorietracker.services.voice.VoiceMascotProfile
 import kotlin.math.abs
 import kotlin.math.sin
 
@@ -52,13 +53,23 @@ internal data class VoiceMascotPose(val bob: Float, val tilt: Float, val blink: 
 }
 
 @Composable
-internal fun VoiceMascot(mode: OrbMode, modifier: Modifier = Modifier, level: () -> Float = { 0f }) {
-    val body = ImageBitmap.imageResource(R.drawable.voice_mascot)
-    val eyelids = ImageBitmap.imageResource(R.drawable.voice_mascot_blink)
+internal fun VoiceMascot(
+    mode: OrbMode,
+    modifier: Modifier = Modifier,
+    profile: VoiceMascotProfile = VoiceMascotProfile(),
+    motionEnabled: Boolean = true,
+    level: () -> Float = { 0f }
+) {
+    val mascot = profile.mascot
+    val body = ImageBitmap.imageResource(mascot.body)
+    val eyelids = ImageBitmap.imageResource(mascot.blink)
+    val tint = profile.options.color.rgb?.let { ColorFilter.tint(Color(0xFF000000L or it.toLong())) }
+    val colorLayer = if (tint != null) ImageBitmap.imageResource(mascot.colorLayer) else null
+    val blinkTint = if (tint != null) mascot.blinkColor?.let { ImageBitmap.imageResource(it) } else null
     val currentMode by rememberUpdatedState(mode)
     val currentLevel by rememberUpdatedState(level)
     val lifecycle by LocalLifecycleOwner.current.lifecycle.currentStateAsState()
-    val animated = lifecycle.isAtLeast(Lifecycle.State.STARTED) && ValueAnimator.areAnimatorsEnabled()
+    val animated = motionEnabled && lifecycle.isAtLeast(Lifecycle.State.STARTED) && ValueAnimator.areAnimatorsEnabled()
     var pose by remember { mutableStateOf(VoiceMascotPose.Still) }
     LaunchedEffect(animated) {
         if (!animated) {
@@ -85,9 +96,13 @@ internal fun VoiceMascot(mode: OrbMode, modifier: Modifier = Modifier, level: ()
             rotate(frame.tilt, Offset(side / 2f, side / 2f))
         }) {
             drawImage(body, dstSize = spriteSize)
-            if (frame.blink > 0f) drawImage(eyelids, dstSize = spriteSize, alpha = frame.blink)
-            val x = side * 0.477f
-            val y = side * 0.787f
+            if (colorLayer != null) drawImage(colorLayer, dstSize = spriteSize, colorFilter = tint)
+            if (frame.blink > 0f) {
+                drawImage(eyelids, dstSize = spriteSize, alpha = frame.blink)
+                if (blinkTint != null) drawImage(blinkTint, dstSize = spriteSize, alpha = frame.blink, colorFilter = tint)
+            }
+            val x = side * mascot.mouthX
+            val y = side * mascot.mouthY
             val ink = Color(0xFF3B0426)
             val halfWidth = side * (0.031f + frame.mouth * 0.022f)
             val path = Path().apply { moveTo(x - halfWidth, y) }

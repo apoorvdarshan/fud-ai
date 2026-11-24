@@ -26,11 +26,13 @@ enum VoiceAssistantInstructions {
         waterTracking: Bool,
         waterGoalMl: Int,
         fastingTracking: Bool,
+        mascot: VoiceMascotProfile = VoiceMascotProfile(),
         now: Date = .now
     ) -> String {
         let profile = stores.profile()
         var lines: [String] = []
-        lines.append("You are Fud AI's voice assistant and coach, inside the Fud AI calorie tracking app. You talk with the user out loud. Be warm, encouraging and brief: usually one or two short sentences, unless the user asks for detail. \(languageRule(session))")
+        lines.append("You are Fud AI's voice assistant and coach, inside the Fud AI calorie tracking app. You talk with the user out loud. Usually reply in one or two short sentences unless asked for detail. \(languageRule(session))")
+        lines.append(mascot.instruction)
         lines.append("")
         lines.append("## How to work")
         lines += [

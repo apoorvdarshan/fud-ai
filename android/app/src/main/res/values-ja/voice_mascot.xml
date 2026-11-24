@@ -1,0 +1,12 @@
+<resources>
+    <string name="voice_mascot">マスコット</string>
+    <string name="voice_mascot_color">色</string>
+    <string name="voice_mascot_personality">話し方</string>
+    <string name="voice_mascot_original">元の配色</string>
+    <string name="voice_mascot_pink">ピンク</string>
+    <string name="voice_mascot_friendly">親しみやすい</string>
+    <string name="voice_mascot_playful">陽気</string>
+    <string name="voice_mascot_calm">落ち着いた</string>
+    <string name="voice_mascot_direct">率直</string>
+    <string name="voice_mascot_next_session">変更は次回の会話から適用されます。</string>
+</resources>

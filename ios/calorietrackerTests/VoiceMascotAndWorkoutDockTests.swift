@@ -2,6 +2,32 @@ import Testing
 @testable import calorietracker
 
 struct VoiceMascotAndWorkoutDockTests {
+    @Test func savesNamesColorsAndPersonalitiesSeparatelyPerCharacter() {
+        var preferences = VoiceMascotPreferences()
+        #expect(preferences.profile.name == "Brulee")
+        #expect(preferences.profile.options.color == .original)
+        #expect(VoiceMascot.allCases.count == 8)
+        preferences.selected = .alien
+        preferences.edit {
+            $0.name = "  Nova\n\t星  "
+            $0.color = .purple
+            $0.personality = .playful
+        }
+        preferences.selected = .teddy
+        #expect(preferences.profile.name == "Teddy")
+        #expect(preferences.profile.options.color == .original)
+        preferences.edit { $0.name = "Waffles" }
+
+        var reloaded = VoiceMascotPreferences.decode(preferences.encoded)
+        #expect(reloaded.profile.name == "Waffles")
+        reloaded.selected = .alien
+        #expect(reloaded.profile.name == "Nova 星")
+        #expect(reloaded.profile.options.color == .purple)
+        #expect(reloaded.profile.options.personality == .playful)
+        #expect(!reloaded.profile.instruction.contains("\n"))
+        #expect(VoiceMascotPreferences.decode("invalid").profile.name == "Brulee")
+    }
+
     @Test func mascotSpeaksOnlyWithAssistantPlaybackAndRespectsReducedMotion() {
         for mode in [LiveOrbMode.idle, .listening, .thinking] {
             #expect(VoiceMascotPose.sample(mode: mode, time: 4.3, level: 1, animated: true).mouth == 0)

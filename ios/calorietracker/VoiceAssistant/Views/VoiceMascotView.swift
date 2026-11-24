@@ -32,24 +32,42 @@ struct VoiceMascotPose {
 /// Transparent sprite with separately animated eyelids and an audio-driven mouth.
 struct VoiceMascotView: View {
     var mode: LiveOrbMode
+    var profile = VoiceMascotProfile()
     var level: () -> Double = { 0 }
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.voiceAssistantAnimationActive) private var animationActive
+    @State private var time = 0.0
+
+    private var animated: Bool { !reduceMotion && animationActive }
 
     var body: some View {
         GeometryReader { geometry in
             let side = min(geometry.size.width, geometry.size.height)
-            let animated = !reduceMotion && animationActive
-            TimelineView(.animation(minimumInterval: 1.0 / 30, paused: !animated)) { context in
-                let pose = VoiceMascotPose.sample(mode: mode, time: context.date.timeIntervalSinceReferenceDate,
-                                                  level: animated ? level() : 0, animated: animated)
+            let pose = VoiceMascotPose.sample(mode: mode, time: time,
+                                              level: animated ? level() : 0, animated: animated)
+            let mascot = profile.mascot
+            let color = profile.options.color.rgb.map { Color(hex: UInt($0)) }
                 ZStack {
-                    Image("VoiceMascot").resizable()
-                    Image("VoiceMascotBlink").resizable().opacity(pose.blink)
+                    Image(mascot.asset).resizable()
+                    if let color {
+                        Image(mascot.asset + "Color").resizable().renderingMode(.template)
+                            .foregroundStyle(color)
+                    }
+                    if pose.blink > 0 {
+                        ZStack {
+                            Image(mascot.asset + "Blink").resizable()
+                            if let color, mascot != .brulee {
+                                Image(mascot.asset + "BlinkColor").resizable().renderingMode(.template)
+                                    .foregroundStyle(color)
+                            }
+                        }
+                        .compositingGroup()
+                        .opacity(pose.blink)
+                    }
                     Canvas { canvas, size in
                         let side = size.width
-                        let x = side * 0.477
-                        let y = side * 0.787
+                        let x = side * mascot.mouth.x
+                        let y = side * mascot.mouth.y
                         let ink = Color(red: 0.23, green: 0.015, blue: 0.15)
                         let halfWidth = side * (0.031 + pose.mouth * 0.022)
                         if pose.mouth < 0.06 {
@@ -84,6 +102,16 @@ struct VoiceMascotView: View {
                 .rotationEffect(.degrees(pose.tilt))
                 .offset(y: side * pose.bob)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+        .task(id: animated) {
+            guard animated else { return }
+            // The secondary, non-key window can suspend a SwiftUI animation timeline.
+            // Tick only this view from a cancellable clock while its owner is active.
+            let start = ProcessInfo.processInfo.systemUptime
+            while !Task.isCancelled {
+                time = ProcessInfo.processInfo.systemUptime - start
+                do { try await Task.sleep(for: .milliseconds(33)) }
+                catch { return }
             }
         }
         .accessibilityHidden(true)

@@ -82,6 +82,8 @@ import com.apoorvdarshan.calorietracker.models.WaterUnit
 import com.apoorvdarshan.calorietracker.services.hosted.HostedPrompt
 import com.apoorvdarshan.calorietracker.services.voice.LiveProvider
 import com.apoorvdarshan.calorietracker.services.voice.OrbMode
+import com.apoorvdarshan.calorietracker.services.voice.VoiceMascotPreferences
+import com.apoorvdarshan.calorietracker.services.voice.VoiceMascotProfile
 import com.apoorvdarshan.calorietracker.services.voice.VoiceAssistantController
 import com.apoorvdarshan.calorietracker.services.voice.VoiceCard
 import com.apoorvdarshan.calorietracker.services.voice.VoiceNotice
@@ -206,10 +208,12 @@ fun VoiceAssistantHost(container: AppContainer) {
         if (controller.isActive) controller.collapse() else controller.close()
     }
 
+    val preferences by container.prefs.voiceMascotPreferences.collectAsState(initial = VoiceMascotPreferences())
+    val mascot = ui.mascot ?: preferences.profile
     if (ui.expanded) {
-        ExpandedOverlay(ui, cards, controller, actions, units, noticeActions)
+        ExpandedOverlay(ui, cards, controller, actions, units, noticeActions, mascot)
     } else {
-        CompactOverlay(ui, cards, controller, actions, units)
+        CompactOverlay(ui, cards, controller, actions, units, mascot)
     }
 }
 
@@ -222,7 +226,8 @@ private fun ExpandedOverlay(
     controller: VoiceAssistantController,
     actions: CardActions,
     units: CardUnits,
-    noticeActions: NoticeActions
+    noticeActions: NoticeActions,
+    mascot: VoiceMascotProfile
 ) {
     Box(
         Modifier
@@ -243,7 +248,7 @@ private fun ExpandedOverlay(
             BoxWithConstraints(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
                 val notice = ui.notice
                 when {
-                    notice != null -> NoticeView(notice, noticeActions)
+                    notice != null -> NoticeView(notice, noticeActions, mascot)
                     ui.camera != null -> {
                         val panelWidth = min(maxWidth, maxHeight * 0.75f)
                         Box(Modifier.width(panelWidth)) {
@@ -256,6 +261,7 @@ private fun ExpandedOverlay(
                             )
                             VoiceMascot(
                                 mode = ui.orb,
+                                profile = mascot,
                                 level = controller::orbLevel,
                                 modifier = Modifier
                                     .align(Alignment.TopStart)
@@ -268,6 +274,7 @@ private fun ExpandedOverlay(
                         val side = min(min(maxWidth, maxHeight) * 0.92f, 360.dp)
                         VoiceMascot(
                             mode = ui.orb,
+                            profile = mascot,
                             level = controller::orbLevel,
                             modifier = Modifier
                                 .size(side)
@@ -434,7 +441,8 @@ private fun CompactOverlay(
     cards: List<VoiceCard>,
     controller: VoiceAssistantController,
     actions: CardActions,
-    units: CardUnits
+    units: CardUnits,
+    mascot: VoiceMascotProfile
 ) {
     Box(Modifier.fillMaxSize()) {
         Column(
@@ -460,7 +468,7 @@ private fun CompactOverlay(
                         .semantics { contentDescription = expandLabel }
                         .testTag("voiceAssistantBubble")
                 ) {
-                    VoiceMascot(mode = ui.orb, level = controller::orbLevel, modifier = Modifier.fillMaxSize())
+                    VoiceMascot(mode = ui.orb, profile = mascot, level = controller::orbLevel, modifier = Modifier.fillMaxSize())
                 }
                 Spacer(Modifier.width(8.dp))
                 val caption = ui.assistantCaption.ifBlank { ui.userCaption }.ifBlank { statusText(ui) }
@@ -509,7 +517,7 @@ private class NoticeActions(
 private class NoticeButton(val label: String, val primary: Boolean, val onClick: () -> Unit)
 
 @Composable
-private fun NoticeView(notice: VoiceNotice, actions: NoticeActions) {
+private fun NoticeView(notice: VoiceNotice, actions: NoticeActions, mascot: VoiceMascotProfile) {
     val retry = NoticeButton(stringResource(R.string.voice_action_try_again), true, actions.retry)
     val close = NoticeButton(stringResource(R.string.voice_close), false, actions.close)
     val voiceSettings = NoticeButton(stringResource(R.string.voice_action_voice_settings), false) {
@@ -610,7 +618,7 @@ private fun NoticeView(notice: VoiceNotice, actions: NoticeActions) {
                     Icon(Icons.Filled.MicOff, contentDescription = null, tint = AppColors.Calorie, modifier = Modifier.size(34.dp))
                 }
             } else {
-                VoiceMascot(mode = OrbMode.IDLE, modifier = Modifier.fillMaxSize())
+                VoiceMascot(mode = OrbMode.IDLE, profile = mascot, modifier = Modifier.fillMaxSize())
             }
         }
         Spacer(Modifier.height(14.dp))

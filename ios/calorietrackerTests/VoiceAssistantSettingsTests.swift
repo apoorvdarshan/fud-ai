@@ -276,6 +276,7 @@ struct VoiceAssistantInstructionsTests {
             fastingTracking: true
         )
         #expect(text.count <= VoiceAssistantInstructions.maximumLength)
+        #expect(text.contains("Your name for this session is \"Brulee\""))
         #expect(text.contains("user_confirmed: true unless the user agreed"))
         #expect(text.contains("read back the main items and the total calories"))
         #expect(text.contains("camera_frames: continuous"))
@@ -285,6 +286,25 @@ struct VoiceAssistantInstructionsTests {
         #expect(text.contains("## User profile"))
         #expect(text.contains("## Current date"))
         #expect(text.contains("when unsure, use German"))
+    }
+
+    @Test func selectedNameAndPersonalityReachTheSessionInstructions() {
+        let harness = VoiceAssistantHarness(confirmSaves: true)
+        var preferences = VoiceMascotPreferences()
+        preferences.selected = .jam
+        preferences.edit { $0.name = "Toastie"; $0.personality = .calm }
+        let text = VoiceAssistantInstructions.build(
+            session: session(.continuous),
+            stores: harness.executor.stores,
+            bodyMeasurements: [],
+            waterTracking: false,
+            waterGoalMl: 2000,
+            fastingTracking: false,
+            mascot: preferences.profile
+        )
+        #expect(text.contains("Your name for this session is \"Toastie\""))
+        #expect(text.contains("patient, gentle and reassuring"))
+        #expect(text.contains("Never call a tool with user_confirmed: true unless the user agreed"))
     }
 
     @Test func cameraAndLanguageRulesFollowTheSession() {

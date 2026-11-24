@@ -16,7 +16,8 @@ data class VoiceInstructionInput(
     /** Coach's profile, goal and forecast summary; empty before onboarding finishes. */
     val coachSummary: List<String>,
     val todayLine: String?,
-    val userContext: String
+    val userContext: String,
+    val mascot: VoiceMascotProfile = VoiceMascotProfile()
 )
 
 /**
@@ -31,9 +32,10 @@ object VoiceInstructions {
     fun build(input: VoiceInstructionInput): String {
         val lines = mutableListOf<String>()
         lines += "You are Fud AI's voice assistant and coach, inside the Fud AI calorie tracking app. " +
-            "You talk with the user in real time by voice. Be warm, encouraging and brief: usually one or two short sentences. " +
+            "You talk with the user in real time by voice. Usually reply in one or two short sentences unless asked for detail. " +
             (input.replyLanguage?.let { "Reply in $it unless the user asks for another language." }
                 ?: "Reply in the language the user speaks.")
+        lines += input.mascot.instruction
         lines += ""
         lines += "## How to act"
         lines += "- Say what you are about to do in a few words, then do it."

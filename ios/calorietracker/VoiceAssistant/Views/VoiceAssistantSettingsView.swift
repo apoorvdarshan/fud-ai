@@ -7,6 +7,7 @@ struct VoiceAssistantSettingsView: View {
     private let settings = VoiceAssistantSettings()
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.locale) private var locale
+    @AppStorage(VoiceMascotPreferences.storageKey) private var mascotRaw = ""
     @State private var preview = VoicePreviewController.shared
     @State private var assistant = VoiceAssistantController.shared
 
@@ -37,6 +38,24 @@ struct VoiceAssistantSettingsView: View {
 
     var body: some View {
         List {
+            Section {
+                NavigationLink {
+                    VoiceMascotSettingsView()
+                } label: {
+                    Label {
+                        HStack {
+                            Text("Mascot", tableName: "VoiceMascot")
+                            Spacer()
+                            Text(verbatim: VoiceMascotPreferences.decode(mascotRaw).profile.name)
+                                .foregroundStyle(.secondary)
+                        }
+                    } icon: {
+                        Image(systemName: "face.smiling").foregroundStyle(AppColors.calorie)
+                    }
+                }
+                .accessibilityIdentifier("settings.voiceAssistant.mascot")
+            }
+            .listRowBackground(AppColors.appCard)
             providerSection
             if let provider = configuredProvider {
                 modelAndVoiceSection(provider)

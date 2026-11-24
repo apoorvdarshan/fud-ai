@@ -16,6 +16,9 @@ import com.apoorvdarshan.calorietracker.models.FoodLogMethod
 import com.apoorvdarshan.calorietracker.models.HomeFoodShortcuts
 import com.apoorvdarshan.calorietracker.models.WorkoutDockAction
 import com.apoorvdarshan.calorietracker.models.WorkoutDockShortcuts
+import com.apoorvdarshan.calorietracker.services.voice.VoiceMascot
+import com.apoorvdarshan.calorietracker.services.voice.VoiceMascotOptions
+import com.apoorvdarshan.calorietracker.services.voice.VoiceMascotPreferences
 import com.apoorvdarshan.calorietracker.models.ImportedHealthWorkout
 import com.apoorvdarshan.calorietracker.models.TabBarSettings
 import com.apoorvdarshan.calorietracker.models.AIProvider
@@ -1791,6 +1794,20 @@ class PreferencesStore(
     /** Settings → Voice Assistant, read together so a session starts from one snapshot. */
     val voiceAssistantPreferences: Flow<VoiceAssistantPreferences> = ds.data.map { readVoiceAssistantPreferences(it) }
 
+    val voiceMascotPreferences: Flow<VoiceMascotPreferences> = ds.data.map {
+        VoiceMascotPreferences.decode(it[Keys.VOICE_MASCOTS])
+    }
+
+    suspend fun selectVoiceMascot(mascot: VoiceMascot) {
+        ds.edit { it[Keys.VOICE_MASCOTS] = VoiceMascotPreferences.decode(it[Keys.VOICE_MASCOTS])
+            .copy(selected = mascot).encode() }
+    }
+
+    suspend fun editVoiceMascot(mascot: VoiceMascot, update: (VoiceMascotOptions) -> VoiceMascotOptions) {
+        ds.edit { it[Keys.VOICE_MASCOTS] = VoiceMascotPreferences.decode(it[Keys.VOICE_MASCOTS])
+            .editing(mascot, update).encode() }
+    }
+
     suspend fun setVoiceAssistantProvider(choice: VoiceProviderChoice) {
         ds.edit { it[Keys.VOICE_PROVIDER] = choice.storageValue }
     }
@@ -1841,6 +1858,7 @@ class PreferencesStore(
     }
 
     private object Keys {
+        val VOICE_MASCOTS = stringPreferencesKey(VoiceMascotPreferences.STORAGE_KEY)
         val USER_PROFILE = stringPreferencesKey("userProfile")
         val LAST_RECALC_GOAL_SIGNATURE = stringPreferencesKey("lastRecalcGoalSignature")
         val ONBOARDING_COMPLETED = booleanPreferencesKey("hasCompletedOnboarding")

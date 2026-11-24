@@ -1,0 +1,12 @@
+<resources>
+    <string name="voice_mascot">마스코트</string>
+    <string name="voice_mascot_color">색상</string>
+    <string name="voice_mascot_personality">대화 스타일</string>
+    <string name="voice_mascot_original">기본 색상</string>
+    <string name="voice_mascot_pink">분홍색</string>
+    <string name="voice_mascot_friendly">친근하게</string>
+    <string name="voice_mascot_playful">유쾌하게</string>
+    <string name="voice_mascot_calm">차분하게</string>
+    <string name="voice_mascot_direct">간결하게</string>
+    <string name="voice_mascot_next_session">변경 사항은 다음 대화부터 적용됩니다.</string>
+</resources>

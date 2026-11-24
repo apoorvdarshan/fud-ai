@@ -1,0 +1,12 @@
+<resources>
+    <string name="voice_mascot">Maskottchen</string>
+    <string name="voice_mascot_color">Farbe</string>
+    <string name="voice_mascot_personality">Persönlichkeit</string>
+    <string name="voice_mascot_original">Originalfarben</string>
+    <string name="voice_mascot_pink">Rosa</string>
+    <string name="voice_mascot_friendly">Freundlich</string>
+    <string name="voice_mascot_playful">Verspielt</string>
+    <string name="voice_mascot_calm">Ruhig</string>
+    <string name="voice_mascot_direct">Direkt</string>
+    <string name="voice_mascot_next_session">Änderungen gelten ab dem nächsten Gespräch.</string>
+</resources>

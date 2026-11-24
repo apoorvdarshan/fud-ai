@@ -88,6 +88,7 @@ final class VoiceAssistantController {
     }
     private(set) var phase: Phase = .idle
     private(set) var provider: LiveProvider?
+    private(set) var sessionMascot = VoiceMascotProfile()
     private(set) var isAssistantSpeaking = false
     private(set) var isAwaitingReply = false
     private(set) var runningTools = 0
@@ -252,6 +253,7 @@ final class VoiceAssistantController {
     private func begin(provider: LiveProvider, data: AppData) async {
         sessionNumber += 1
         let number = sessionNumber
+        sessionMascot = VoiceMascotPreferences.load().profile
         presentation = .session
         isExpanded = true
         phase = .connecting
@@ -304,7 +306,8 @@ final class VoiceAssistantController {
             bodyMeasurements: data.bodyMeasurements.entries,
             waterTracking: UserDefaults.standard.bool(forKey: WaterSettings.enabledKey),
             waterGoalMl: UserDefaults.standard.object(forKey: WaterSettings.dailyGoalKey) as? Int ?? WaterSettings.defaultDailyGoalMl,
-            fastingTracking: UserDefaults.standard.bool(forKey: FastingSettings.enabledKey)
+            fastingTracking: UserDefaults.standard.bool(forKey: FastingSettings.enabledKey),
+            mascot: sessionMascot
         )
         let config = LiveSessionConfig(
             provider: provider,
@@ -1169,6 +1172,7 @@ extension VoiceAssistantController {
     /// A finished turn for the README and website screenshots (ScreenshotMode), shown
     /// without connecting: the meal is logged and its Undo card is up.
     func showScreenshotConversation() {
+        sessionMascot = VoiceMascotPreferences.load().profile
         provider = .gemini
         phase = .live
         presentation = .session

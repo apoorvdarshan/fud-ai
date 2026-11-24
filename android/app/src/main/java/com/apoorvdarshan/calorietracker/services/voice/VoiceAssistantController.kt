@@ -83,7 +83,8 @@ data class VoiceUiState(
     val startRequest: Long = 0,
     /** Bumped when pick_photos wants the photo picker. */
     val photoPickRequest: Long = 0,
-    val photoPickMax: Int = 4
+    val photoPickMax: Int = 4,
+    val mascot: VoiceMascotProfile? = null
 )
 
 /**
@@ -252,6 +253,7 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
 
     private suspend fun start(number: Int) {
         val prefs = container.prefs.voiceAssistantPreferences.first()
+        val mascot = container.prefs.voiceMascotPreferences.first().profile
         val selectedAi = container.prefs.selectedAIProvider.first()
         val entitlement = withTimeoutOrNull(ENTITLEMENT_WAIT_MS) {
             container.billing.entitlement.first { it.loaded }
@@ -277,7 +279,7 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
 
         val catalog = withContext(Dispatchers.IO) { VoiceToolCatalog.bundled(container.appContext) }
         val context = VoiceSessionContext(provider, prefs.confirmSaves, prefs.autoCapture, workoutDiaryEnabled = true)
-        val instructions = withContext(Dispatchers.Default) { buildInstructions(context, prefs) }
+        val instructions = withContext(Dispatchers.Default) { buildInstructions(context, prefs, mascot) }
         if (number != sessionNumber) return
 
         val config = LiveSessionConfig(
@@ -329,6 +331,7 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
         _ui.update {
             it.copy(
                 phase = VoicePhase.CONNECTING,
+                mascot = mascot,
                 provider = provider,
                 notice = null,
                 orb = OrbMode.THINKING,
@@ -965,7 +968,9 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
 
     // MARK: - Instructions
 
-    private suspend fun buildInstructions(context: VoiceSessionContext, prefs: VoiceAssistantPreferences): String {
+    private suspend fun buildInstructions(
+        context: VoiceSessionContext, prefs: VoiceAssistantPreferences, mascot: VoiceMascotProfile
+    ): String {
         val profile = container.profileRepository.current()
         val foods = container.foodRepository.entries.first()
         val weightMetric = container.prefs.weightUnit.first() == "kg"
@@ -1016,7 +1021,8 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
                 metric = weightMetric,
                 coachSummary = summary,
                 todayLine = todayLine,
-                userContext = container.prefs.userContext.first()
+                userContext = container.prefs.userContext.first(),
+                mascot = mascot
             )
         )
     }

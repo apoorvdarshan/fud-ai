@@ -39,17 +39,28 @@ class FudAIRoutesTest {
     fun hiddenTabsLeaveHomeAndSettingsInTheBar() {
         assertEquals(FudAIRoutes.bottomTabs, FudAIRoutes.visibleBottomTabs(emptySet()))
         assertEquals(
-            listOf(FudAIRoutes.HOME, FudAIRoutes.PROGRESS, FudAIRoutes.WEEKLY_CHALLENGE, FudAIRoutes.SETTINGS),
+            listOf(FudAIRoutes.HOME, FudAIRoutes.PROGRESS, FudAIRoutes.WEEKLY_CHALLENGE, FudAIRoutes.SETTINGS, FudAIRoutes.ABOUT, FudAIRoutes.SUPPORT),
             FudAIRoutes.visibleBottomTabs(setOf(FudAIRoutes.COACH, FudAIRoutes.WORKOUTS))
         )
         val everything = FudAIRoutes.bottomTabs.toSet()
-        assertEquals(listOf(FudAIRoutes.HOME, FudAIRoutes.SETTINGS), FudAIRoutes.visibleBottomTabs(everything))
+        assertEquals(
+            listOf(FudAIRoutes.HOME, FudAIRoutes.SETTINGS, FudAIRoutes.ABOUT, FudAIRoutes.SUPPORT),
+            FudAIRoutes.visibleBottomTabs(everything)
+        )
         assertFalse(FudAIRoutes.isHiddenTab(FudAIRoutes.HOME, everything))
         assertFalse(FudAIRoutes.isHiddenTab(FudAIRoutes.SETTINGS, everything))
         assertFalse(FudAIRoutes.isHiddenTab(null, everything))
         assertTrue(FudAIRoutes.isHiddenTab(FudAIRoutes.COACH, setOf(FudAIRoutes.COACH)))
         assertTrue(FudAIRoutes.isHiddenTab(FudAIRoutes.WEEKLY_CHALLENGE, setOf(FudAIRoutes.PROGRESS)))
         assertTrue(FudAIRoutes.isHiddenTab(FudAIRoutes.EXERCISE_LIBRARY, setOf(FudAIRoutes.WORKOUTS)))
+    }
+
+    @Test
+    fun aboutSectionsKeepTheAboutTabSelected() {
+        assertEquals(FudAIRoutes.ABOUT, FudAIRoutes.selectedBottomTab(FudAIRoutes.ABOUT_SECTION))
+        assertEquals(FudAIRoutes.ABOUT, FudAIRoutes.selectedBottomTab(FudAIRoutes.aboutSection("LEGAL")))
+        assertFalse(FudAIRoutes.isTabSwitch(FudAIRoutes.ABOUT, FudAIRoutes.ABOUT_SECTION))
+        assertTrue(FudAIRoutes.isTabSwitch(FudAIRoutes.ABOUT_SECTION, FudAIRoutes.SUPPORT))
     }
 
     @Test

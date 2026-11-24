@@ -7,7 +7,7 @@ import Foundation
 
 /// Central gate for BYOK vs Hosted AI mode.
 enum AIModeSettings {
-    private static let modeKey = "aiAccessMode"
+    static let modeKey = "aiAccessMode"
 
     static var mode: AIMode {
         get {

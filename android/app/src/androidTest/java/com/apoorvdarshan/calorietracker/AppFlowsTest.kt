@@ -153,6 +153,27 @@ class AppFlowsTest {
     }
 
     @Test
+    fun aboutAndSupportHaveSeparateRailDestinations() {
+        launchFresh()
+        openTab("settings")
+        compose.onNodeWithTag("settings.category.APP_UPDATES").assertDoesNotExist()
+        compose.onNodeWithTag("settings.category.SUPPORT").assertDoesNotExist()
+
+        openTab("about")
+        for (category in listOf("APP_UPDATES", "HELP_FEEDBACK", "COMMUNITY", "LEGAL")) {
+            compose.onNodeWithTag("settings.category.$category").performScrollTo().assertIsDisplayed()
+        }
+        compose.onNodeWithTag("settings.category.LEGAL").performClick()
+        compose.onNodeWithTag("nav.about").assertIsSelected()
+        openTab("about")
+        compose.onNodeWithTag("settings.category.LEGAL").assertExists()
+
+        openTab("support")
+        compose.onNodeWithText(string(R.string.about_rate)).performScrollTo().assertIsDisplayed()
+        compose.onNodeWithTag("nav.camera").assertIsDisplayed()
+    }
+
+    @Test
     fun coachOpensAtTheNewestMessageAndKeepsHistoryReadable() {
         FudAITestState.reset(onboarded = true)
         val messages = (1..40).map { index ->

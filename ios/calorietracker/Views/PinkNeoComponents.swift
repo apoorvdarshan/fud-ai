@@ -75,6 +75,7 @@ struct PinkNeoRailItem: Identifiable {
     let icon: String
     var selected = false
     var badge = false
+    var outlined = false
     let action: () -> Void
 }
 
@@ -103,7 +104,7 @@ struct PinkNeoRail: View {
                     Rectangle().fill(palette.rule).frame(height: 1).padding(.vertical, 4)
                         .accessibilityHidden(true)
                     ForEach(items) { item in
-                        railButton(item, palette: palette)
+                        railButton(item, palette: palette, outlined: item.outlined)
                     }
                 }
             }

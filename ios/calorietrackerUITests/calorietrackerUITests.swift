@@ -355,14 +355,13 @@ final class calorietrackerUITests: XCTestCase {
     }
 
     @MainActor
-    func testSettingsHubShowsFiveFocusedAppInfoCategories() throws {
+    func testAboutAndSupportAreSeparateFromSettings() throws {
         let app = makeApp()
         app.launchArguments += ["-AppleLanguages", "(en)"]
         app.launch()
 
         let categories = [
             ("appUpdates", "App & Updates", "Open Source (MIT)"),
-            ("support", "Support Fud AI", "Rate the App"),
             ("helpFeedback", "Help & Feedback", "Report an Issue on GitHub"),
             ("community", "Community", "Join Discord"),
             ("legal", "Legal", "Privacy Policy"),
@@ -371,6 +370,19 @@ final class calorietrackerUITests: XCTestCase {
         let settings = app.buttons["nav.settings"]
         XCTAssertTrue(settings.waitForExistence(timeout: 8))
         settings.tap()
+        XCTAssertFalse(app.buttons["settings.category.appUpdates"].exists)
+        XCTAssertFalse(app.buttons["settings.category.support"].exists)
+
+        let rail = app.descendants(matching: .any)["nav.rail"].firstMatch
+        XCTAssertTrue(rail.exists)
+        let about = app.buttons["nav.about"]
+        for _ in 0..<3 where !about.isHittable {
+            let from = rail.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.72))
+            let to = rail.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.26))
+            from.press(forDuration: 0.05, thenDragTo: to)
+        }
+        XCTAssertTrue(about.isHittable)
+        about.tap()
 
         for (identifier, title, expectedAction) in categories {
             let category = app.buttons["settings.category.\(identifier)"]
@@ -397,7 +409,7 @@ final class calorietrackerUITests: XCTestCase {
             if identifier == "legal" {
                 XCTAssertFalse(
                     app.staticTexts["Made by Apoorv Darshan"].isHittable,
-                    "Creator footer should live on the main Settings page"
+                    "Creator footer should live on the About hub"
                 )
             }
 
@@ -407,6 +419,17 @@ final class calorietrackerUITests: XCTestCase {
             XCTAssertTrue(app.buttons["settings.category.\(identifier)"].waitForExistence(timeout: 3))
         }
         reveal(app.staticTexts["Made by Apoorv Darshan"], in: app)
+        let support = app.buttons["nav.support"]
+        for _ in 0..<3 where !support.isHittable {
+            let from = rail.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.72))
+            let to = rail.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.26))
+            from.press(forDuration: 0.05, thenDragTo: to)
+        }
+        XCTAssertTrue(support.isHittable)
+        support.tap()
+        XCTAssertTrue(app.navigationBars["Support Fud AI"].waitForExistence(timeout: 5))
+        reveal(app.staticTexts["Rate the App"], in: app)
+        XCTAssertTrue(app.buttons["nav.camera"].isHittable)
     }
 
     @MainActor

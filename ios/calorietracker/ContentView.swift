@@ -132,6 +132,12 @@ struct ContentView: View {
     @State private var selectedTab: AppTab = .home
     @State private var progressDestination: AppTab = .progress
     @State private var workoutDestination: AppTab = .workouts
+    @State private var settingsDestination: AppTab = .settings
+    @State private var settingsPath: [ProfileSettingsCategory] = []
+    @State private var aboutPath: [ProfileSettingsCategory] = []
+    @AppStorage(AIModeSettings.modeKey) private var aiMode = AIMode.byok
+    @State private var billing = RevenueCatManager.shared
+    @State private var showRailPaywall = false
     @Environment(\.layoutDirection) private var layoutDirection
     private var neoAppearance = PinkNeoAppearance()
     @State private var quickActionRequest: QuickActionRequest?
@@ -196,6 +202,9 @@ struct ContentView: View {
                 Text("Try Plus or Pro yearly without API keys. Trial limits apply. See prices and terms, or keep BYOK free.")
             }
             .flashSheet(isPresented: $showHostedUpsellPaywall, onDismiss: { continueToMeetDeveloperPrompt() }) {
+                HostedPaywallView()
+            }
+            .flashSheet(isPresented: $showRailPaywall) {
                 HostedPaywallView()
             }
             .flashSheet(isPresented: $showMeetDeveloperPrompt, onDismiss: {
@@ -273,6 +282,9 @@ struct ContentView: View {
             .onChange(of: selectedTab, initial: true) { _, tab in
                 assistantNavigator.currentScreen = Self.screen(for: tab)
             }
+            .onChange(of: activeSettingsSection, initial: true) { _, section in
+                assistantNavigator.settingsSection = section
+            }
             .onChange(of: hiddenTabsRaw, initial: true) { _, _ in
                 // A tab hidden while it is selected falls back to Home.
                 if let tab = selectedTab.hideableTab, hiddenTabs.contains(tab) {
@@ -305,12 +317,25 @@ struct ContentView: View {
         guard let screen = assistantNavigator.takeScreenRequest(),
               TabBarSettings.hiddenTab(for: screen, in: hiddenTabs) == nil
         else { return }
+        if screen == .settings {
+            let request = assistantNavigator.takeSettingsRequest() ?? nil
+            if request == .support {
+                selectTab(.support)
+            } else if let request, request.aboutCategory != nil {
+                aboutPath = [request]
+                selectTab(.about)
+            } else {
+                settingsPath = request.map { [$0] } ?? []
+                selectTab(.settings)
+            }
+            return
+        }
         let tab: AppTab = switch screen {
         case .home: .home
         case .progress: .progress
         case .coach: .coach
         case .workouts: .workouts
-        case .settings: .settings
+        case .settings: .settings // handled above
         }
         selectTab(tab)
     }
@@ -320,13 +345,22 @@ struct ContentView: View {
         case .home: .home
         case .progress, .weeklyChallenge: .progress
         case .coach: .coach
-        case .settings: .settings
+        case .settings, .about, .support: .settings
         case .workouts, .exerciseLibrary: .workouts
         }
     }
 
+    private var activeSettingsSection: ProfileSettingsCategory? {
+        switch selectedTab {
+        case .settings: settingsPath.last
+        case .about: aboutPath.last ?? .appUpdates
+        case .support: .support
+        default: nil
+        }
+    }
+
     private var railItems: [PinkNeoRailItem] {
-        AppTab.allCases.filter { tab in
+        var items = AppTab.allCases.filter { tab in
             tab.hideableTab.map { !hiddenTabs.contains($0) } ?? true
         }.map { tab in
             PinkNeoRailItem(
@@ -334,21 +368,33 @@ struct ContentView: View {
                 title: tab.title,
                 icon: tab.icon,
                 selected: tab == selectedTab,
-                badge: tab == .settings && appUpdateState.isUpdateAvailable
+                badge: tab == .about && appUpdateState.isUpdateAvailable
             ) {
                 if tab != selectedTab { AppHaptics.selection() }
                 if tab == .settings && selectedTab == .settings {
-                    assistantNavigator.show(.settings)
+                    settingsPath = []
+                } else if tab == .about && selectedTab == .about {
+                    aboutPath = []
                 } else {
                     selectTab(tab)
                 }
             }
         }
+        if aiMode == .byok, billing.hasLoadedCustomerInfo, !billing.hasHostedEntitlement {
+            items.append(PinkNeoRailItem(
+                id: "nav.upgrade", title: Text(verbatim: "Plus / Pro"), icon: "sparkle", outlined: true
+            ) {
+                AppHaptics.selection()
+                showRailPaywall = true
+            })
+        }
+        return items
     }
 
     private func selectTab(_ tab: AppTab) {
         if tab.group == .progress { progressDestination = tab }
         if tab.group == .workouts { workoutDestination = tab }
+        if tab.group == .settings { settingsDestination = tab }
         selectedTab = tab
     }
 
@@ -360,6 +406,7 @@ struct ContentView: View {
                 switch tab {
                 case .progress: selectTab(progressDestination)
                 case .workouts: selectTab(workoutDestination)
+                case .settings: selectTab(settingsDestination)
                 default: selectTab(tab)
                 }
             }
@@ -368,7 +415,7 @@ struct ContentView: View {
 
     private var standardTabView: some View {
         // A phone's native TabView adds a More stack after five entries,
-        // even when its tab bar is hidden. Group the two pairs internally
+        // even when its tab bar is hidden. Group related destinations internally
         // so each page keeps its own navigation stack without a More button.
         TabView(selection: shellTabSelection) {
             HomeView(
@@ -405,12 +452,41 @@ struct ContentView: View {
                     .tag(AppTab.coach)
             }
 
-            ProfileView(
-                updateState: $appUpdateState,
-                refreshUpdateState: {
-                    await refreshAppUpdateState(force: true)
+            TabView(selection: $settingsDestination) {
+                ProfileView(settingsPath: $settingsPath)
+                    .rightRailDestination()
+                    .tag(AppTab.settings)
+
+                NavigationStack(path: $aboutPath) {
+                    List {
+                        AboutAppHeaderSection()
+                        Section {
+                            ForEach(ProfileSettingsCategory.aboutCases) { category in
+                                ProfileSettingsCategoryRow(category: category)
+                            }
+                        }
+                        .flashListRows()
+                        AboutFooterSection()
+                    }
+                    .flashEditorSurface()
+                    .readableWidth()
+                    .navigationTitle("About")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .navigationDestination(for: ProfileSettingsCategory.self) { category in
+                        if let about = category.aboutCategory {
+                            aboutPage(about, title: category.title)
+                        }
+                    }
                 }
-            )
+                .rightRailDestination()
+                .tag(AppTab.about)
+
+                NavigationStack {
+                    aboutPage(.support, title: ProfileSettingsCategory.support.title)
+                }
+                .rightRailDestination()
+                .tag(AppTab.support)
+            }
                 .rightRailDestination()
                 .tag(AppTab.settings)
 
@@ -430,6 +506,21 @@ struct ContentView: View {
         }
     }
 
+    private func aboutPage(_ category: AboutSettingsCategory, title: LocalizedStringResource) -> some View {
+        List {
+            if category == .support {
+                TipJarSettingsSection()
+            }
+            AboutSettingsSections(category: category, updateState: $appUpdateState) {
+                await refreshAppUpdateState(force: true)
+            }
+        }
+        .flashEditorSurface()
+        .readableWidth()
+        .navigationTitle(Text(title))
+        .navigationBarTitleDisplayMode(.inline)
+    }
+
     private enum AppTab: String, Hashable, CaseIterable {
         case home
         case progress
@@ -438,11 +529,14 @@ struct ContentView: View {
         case settings
         case workouts
         case exerciseLibrary
+        case about
+        case support
 
         var group: AppTab {
             switch self {
             case .weeklyChallenge: .progress
             case .exerciseLibrary: .workouts
+            case .about, .support: .settings
             default: self
             }
         }
@@ -459,6 +553,8 @@ struct ContentView: View {
             case .settings: Text("Settings")
             case .workouts: Text("Workout log")
             case .exerciseLibrary: Text("Exercise library")
+            case .about: Text("About")
+            case .support: Text("Support Fud AI")
             }
         }
 
@@ -471,6 +567,8 @@ struct ContentView: View {
             case .settings: "gearshape"
             case .workouts: WorkoutTabMode.log.tabIcon
             case .exerciseLibrary: WorkoutTabMode.library.tabIcon
+            case .about: "info.circle"
+            case .support: "heart"
             }
         }
     }
@@ -603,7 +701,7 @@ struct ContentView: View {
     }
 }
 
-// MARK: - About (embedded as the last Settings section)
+// MARK: - About and Support
 enum AboutSettingsCategory: String, CaseIterable, Identifiable, Hashable {
     case appUpdates
     case support
@@ -4824,9 +4922,8 @@ enum ProfileSettingsCategory: String, CaseIterable, Identifiable, Hashable {
         .dataManagement
     ]
 
-    static let appInfoCases: [Self] = [
+    static let aboutCases: [Self] = [
         .appUpdates,
-        .support,
         .helpFeedback,
         .community,
         .legal
@@ -4953,20 +5050,14 @@ struct ProfileView: View {
 
     private var waterUnit: WaterUnit { WaterUnit(rawValue: waterUnitRaw) ?? .defaultUnit }
 
-    // App-update state is owned by ContentView (it also drives the one-shot update
-    // notification). It's forwarded here so the About section — now the last section
-    // of Settings — can show the update row and the manual re-check.
-    @Binding private var updateState: AppUpdateState
-    private let refreshUpdateState: () async -> Void
+    @Binding private var settingsPath: [ProfileSettingsCategory]
     private let settingsCategory: ProfileSettingsCategory?
 
     fileprivate init(
-        updateState: Binding<AppUpdateState>,
-        refreshUpdateState: @escaping () async -> Void,
+        settingsPath: Binding<[ProfileSettingsCategory]> = .constant([]),
         settingsCategory: ProfileSettingsCategory? = nil
     ) {
-        self._updateState = updateState
-        self.refreshUpdateState = refreshUpdateState
+        self._settingsPath = settingsPath
         self.settingsCategory = settingsCategory
     }
 
@@ -4975,8 +5066,6 @@ struct ProfileView: View {
         var id: String { rawValue }
     }
     @State private var activeSheet: ActiveSheet?
-    @State private var settingsPath: [ProfileSettingsCategory] = []
-    @State private var assistantNavigator = VoiceAssistantNavigator.shared
     @State private var showExportDiary = false
     @State private var showImportDiary = false
     @State private var showDeleteConfirmation = false
@@ -5126,22 +5215,9 @@ struct ProfileView: View {
                                     .readableWidth()
                                     .background(AppColors.appBackground)
                             } else {
-                                ProfileView(
-                                    updateState: $updateState,
-                                    refreshUpdateState: refreshUpdateState,
-                                    settingsCategory: category
-                                )
+                                ProfileView(settingsCategory: category)
                             }
                         }
-                }
-                .onChange(of: assistantNavigator.settingsRequest?.id) { _, _ in
-                    applyAssistantSettingsRequest()
-                }
-                .onChange(of: settingsPath) { _, path in
-                    assistantNavigator.settingsSection = path.last
-                }
-                .onAppear {
-                    applyAssistantSettingsRequest()
                 }
             }
         }
@@ -5168,12 +5244,6 @@ struct ProfileView: View {
         didLoadProviderCredentials = true
     }
 
-    /// The voice assistant opens a Settings section (or the Settings list).
-    private func applyAssistantSettingsRequest() {
-        guard let request = assistantNavigator.takeSettingsRequest() else { return }
-        settingsPath = request.map { [$0] } ?? []
-    }
-
     private var settingsHub: some View {
         List {
             Text("Settings")
@@ -5193,15 +5263,6 @@ struct ProfileView: View {
                 }
             }
             .flashListRows()
-
-            Section {
-                ForEach(ProfileSettingsCategory.appInfoCases) { category in
-                    ProfileSettingsCategoryRow(category: category)
-                }
-            }
-            .flashListRows()
-
-            AboutFooterSection()
 
             Color.clear
                 .frame(height: 72)
@@ -6712,21 +6773,6 @@ struct ProfileView: View {
                 StorageSettingsSection()
                 }
 
-                if let aboutCategory = settingsCategory?.aboutCategory {
-                    if aboutCategory == .appUpdates {
-                        AboutAppHeaderSection()
-                    }
-
-                    if aboutCategory == .support {
-                        TipJarSettingsSection()
-                    }
-
-                    AboutSettingsSections(
-                        category: aboutCategory,
-                        updateState: $updateState,
-                        refreshUpdateState: refreshUpdateState
-                    )
-                }
             }
             .flashEditorSurface()
             .modifier(SettingsKeyboardDismissalModifier())

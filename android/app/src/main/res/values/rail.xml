@@ -2,4 +2,5 @@
 <resources>
     <string name="nav_workout_log">Workout Log</string>
     <string name="nav_exercise_library">Exercise Library</string>
+    <string name="nav_upgrade_plans" translatable="false">Plus / Pro</string>
 </resources>

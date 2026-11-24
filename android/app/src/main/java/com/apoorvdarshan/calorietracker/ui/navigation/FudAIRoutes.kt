@@ -19,8 +19,15 @@ object FudAIRoutes {
     const val ALLERGEN_SENSITIVITIES = "settings/allergen-sensitivities"
     const val WORKOUTS = "workouts"
     const val EXERCISE_LIBRARY = "exerciseLibrary"
+    const val ABOUT = "about"
+    const val ABOUT_SECTION = "about/{section}"
+    const val SUPPORT = "support"
 
-    val bottomTabs = listOf(HOME, PROGRESS, WEEKLY_CHALLENGE, COACH, SETTINGS, WORKOUTS, EXERCISE_LIBRARY)
+    val bottomTabs = listOf(
+        HOME, PROGRESS, WEEKLY_CHALLENGE, COACH, SETTINGS, WORKOUTS, EXERCISE_LIBRARY, ABOUT, SUPPORT
+    )
+
+    fun aboutSection(section: String) = "$ABOUT/$section"
 
     /** The two split groups keep their existing visibility preferences. */
     fun isHiddenTab(route: String?, hidden: Set<String>): Boolean {
@@ -41,6 +48,7 @@ object FudAIRoutes {
         route == null -> null
         route in bottomTabs -> route
         route.startsWith("settings/") -> SETTINGS
+        route.startsWith("$ABOUT/") -> ABOUT
         else -> null
     }
 

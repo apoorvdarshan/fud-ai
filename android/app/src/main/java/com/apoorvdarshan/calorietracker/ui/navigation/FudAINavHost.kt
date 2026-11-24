@@ -45,8 +45,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.apoorvdarshan.calorietracker.AppContainer
+import com.apoorvdarshan.calorietracker.services.hosted.AiAccessMode
+import com.apoorvdarshan.calorietracker.services.hosted.HostedPrompt
 import com.apoorvdarshan.calorietracker.services.update.AndroidUpdateChecker
 import com.apoorvdarshan.calorietracker.services.update.AndroidUpdateState
+import com.apoorvdarshan.calorietracker.services.voice.VoiceSettingsSection
+import com.apoorvdarshan.calorietracker.ui.about.AboutSettingsCategory
 import com.apoorvdarshan.calorietracker.ui.coach.CoachScreen
 import com.apoorvdarshan.calorietracker.ui.components.PostUpdatePromptsHost
 import com.apoorvdarshan.calorietracker.ui.hosted.HostedUiHost
@@ -56,6 +60,7 @@ import com.apoorvdarshan.calorietracker.ui.progress.BodyMeasurementsScreen
 import com.apoorvdarshan.calorietracker.ui.progress.ProgressScreen
 import com.apoorvdarshan.calorietracker.ui.progress.WeeklyChallengeScreen
 import com.apoorvdarshan.calorietracker.ui.settings.AllergenSensitivitiesScreen
+import com.apoorvdarshan.calorietracker.ui.settings.AboutRailScreen
 import com.apoorvdarshan.calorietracker.ui.settings.CalculationMethodsScreen
 import com.apoorvdarshan.calorietracker.ui.settings.OptionalNutrientGoalsScreen
 import com.apoorvdarshan.calorietracker.ui.settings.SettingsScreen
@@ -99,6 +104,8 @@ fun FudAINavHost(
     )
     val backStack by nav.currentBackStackEntryAsState()
     val currentRoute = backStack?.destination?.route
+    val accessMode by container.prefs.aiAccessMode.collectAsState(initial = null)
+    val entitlement by container.billing.entitlement.collectAsState()
     val context = LocalContext.current
     val focus = LocalFocusManager.current
     val keyboard = LocalSoftwareKeyboardController.current
@@ -208,7 +215,12 @@ fun FudAINavHost(
                 return
             }
         }
-        if (target == FudAIRoutes.selectedBottomTab(route)) return
+        if (target == FudAIRoutes.selectedBottomTab(route)) {
+            if (target == FudAIRoutes.ABOUT && route != FudAIRoutes.ABOUT) {
+                nav.popBackStack(FudAIRoutes.ABOUT, inclusive = false)
+            }
+            return
+        }
         // Tapping HOME (the start destination) needs popBackStack
         // — `navigate(HOME) { popUpTo(HOME); launchSingleTop = true }`
         // is a no-op because NavController sees HOME at the top of
@@ -247,6 +259,15 @@ fun FudAINavHost(
             when (request) {
                 is NavRequest.Tab -> selectTab(request.route)
                 is NavRequest.Settings -> {
+                    if (request.section == VoiceSettingsSection.ABOUT) {
+                        container.navigator.pendingSettingsSection.value = null
+                        selectTab(FudAIRoutes.ABOUT)
+                        nav.navigate(FudAIRoutes.aboutSection(AboutSettingsCategory.APP_UPDATES.name)) {
+                            popUpTo(FudAIRoutes.ABOUT)
+                            launchSingleTop = true
+                        }
+                        return@collect
+                    }
                     when {
                         route.startsWith("settings/") -> nav.popBackStack(FudAIRoutes.SETTINGS, inclusive = false)
                         route != FudAIRoutes.SETTINGS -> nav.navigate(FudAIRoutes.SETTINGS) {
@@ -323,6 +344,25 @@ fun FudAINavHost(
                         )
                     }
                 }
+                composable(FudAIRoutes.ABOUT) {
+                    TabInset {
+                        AboutRailScreen(
+                            container = container,
+                            onSelect = { nav.navigate(FudAIRoutes.aboutSection(it.name)) }
+                        )
+                    }
+                }
+                composable(FudAIRoutes.ABOUT_SECTION) { entry ->
+                    val category = AboutSettingsCategory.entries.firstOrNull {
+                        it.name == entry.arguments?.getString("section") && it != AboutSettingsCategory.SUPPORT
+                    } ?: AboutSettingsCategory.APP_UPDATES
+                    TabInset {
+                        AboutRailScreen(container = container, category = category, onBack = { nav.popBackStack() })
+                    }
+                }
+                composable(FudAIRoutes.SUPPORT) {
+                    TabInset { AboutRailScreen(container = container, category = AboutSettingsCategory.SUPPORT) }
+                }
                 composable(FudAIRoutes.OPTIONAL_NUTRIENT_GOALS) {
                     OptionalNutrientGoalsScreen(container = container, onBack = { nav.popBackStack() })
                 }
@@ -375,6 +415,14 @@ fun FudAINavHost(
                                 showAboutBadge = updateAvailable,
                                 hiddenRoutes = hiddenTabs.orEmpty(),
                                 navigationEnabled = !analyzing && !voiceExpanded,
+                                onUpgrade = if (accessMode == AiAccessMode.BYOK && entitlement.loaded && !entitlement.isEntitled) {
+                                    {
+                                        focus.clearFocus()
+                                        keyboard?.hide()
+                                        haptic.performHapticFeedback(HapticFeedbackType.SegmentTick)
+                                        container.hostedUi.show(HostedPrompt.Paywall)
+                                    }
+                                } else null,
                                 onTap = {
                                     if (it != selectedTabRoute) haptic.performHapticFeedback(HapticFeedbackType.SegmentTick)
                                     focus.clearFocus()

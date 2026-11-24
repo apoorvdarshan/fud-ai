@@ -14,7 +14,7 @@ struct AIRequestConfigurationTests {
         #expect(ProfileSettingsCategory.preferenceCases.contains(.trackingNotifications))
         #expect(ProfileSettingsCategory(rawValue: "notifications") == nil)
         #expect(ProfileSettingsCategory(rawValue: "trackingReminders") == nil)
-        #expect(ProfileSettingsCategory.appInfoCases.count == 5)
+        #expect(ProfileSettingsCategory.aboutCases == [.appUpdates, .helpFeedback, .community, .legal])
         #expect(ProfileSettingsCategory.allCases.compactMap(\.aboutCategory).count == 5)
     }
 

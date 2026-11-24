@@ -79,10 +79,14 @@ class AndroidVoiceAppPorts(
             FudAIRoutes.PROGRESS, FudAIRoutes.WEEKLY_CHALLENGE -> VoiceScreen.PROGRESS
             FudAIRoutes.COACH -> VoiceScreen.COACH
             FudAIRoutes.WORKOUTS, FudAIRoutes.EXERCISE_LIBRARY -> VoiceScreen.WORKOUTS
-            FudAIRoutes.SETTINGS -> VoiceScreen.SETTINGS
+            FudAIRoutes.SETTINGS, FudAIRoutes.ABOUT, FudAIRoutes.SUPPORT -> VoiceScreen.SETTINGS
             else -> null
         }
-        val section = if (screen == VoiceScreen.SETTINGS) navigator.settingsSection.value else null
+        val section = when (FudAIRoutes.selectedBottomTab(route)) {
+            FudAIRoutes.ABOUT, FudAIRoutes.SUPPORT -> VoiceSettingsSection.ABOUT
+            FudAIRoutes.SETTINGS -> navigator.settingsSection.value
+            else -> null
+        }
         return ScreenState(screen, section)
     }
 

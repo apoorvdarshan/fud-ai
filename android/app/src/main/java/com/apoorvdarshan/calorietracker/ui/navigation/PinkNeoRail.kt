@@ -29,9 +29,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.CameraAlt
 import androidx.compose.material.icons.filled.EmojiEvents
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FitnessCenter
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.ShowChart
 import androidx.compose.material.icons.filled.SportsGymnastics
+import androidx.compose.material.icons.filled.WorkspacePremium
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.HorizontalDivider
@@ -68,7 +71,9 @@ val BottomTabs = listOf(
     BottomTab(FudAIRoutes.COACH, Icons.Filled.AutoAwesome, R.string.nav_coach),
     BottomTab(FudAIRoutes.SETTINGS, Icons.Outlined.Settings, R.string.nav_settings),
     BottomTab(FudAIRoutes.WORKOUTS, Icons.Filled.SportsGymnastics, R.string.nav_workout_log),
-    BottomTab(FudAIRoutes.EXERCISE_LIBRARY, Icons.Filled.FitnessCenter, R.string.nav_exercise_library)
+    BottomTab(FudAIRoutes.EXERCISE_LIBRARY, Icons.Filled.FitnessCenter, R.string.nav_exercise_library),
+    BottomTab(FudAIRoutes.ABOUT, Icons.Filled.Info, R.string.nav_about),
+    BottomTab(FudAIRoutes.SUPPORT, Icons.Filled.Favorite, R.string.about_category_support)
 )
 
 // Vertical clearances are no longer sized for an overlaid bottom navigation bar.
@@ -83,7 +88,8 @@ internal fun PinkNeoRail(
     modifier: Modifier = Modifier,
     showAboutBadge: Boolean = false,
     hiddenRoutes: Set<String> = emptySet(),
-    navigationEnabled: Boolean = true
+    navigationEnabled: Boolean = true,
+    onUpgrade: (() -> Unit)? = null
 ) {
     val palette = pinkNeoPalette()
     val scale = LocalDensity.current.fontScale
@@ -124,7 +130,7 @@ internal fun PinkNeoRail(
                 BottomTabs.filterNot { FudAIRoutes.isHiddenTab(it.route, hiddenRoutes) }.forEach { tab ->
                     val label = stringResource(tab.labelRes)
                     val selected = currentRoute == tab.route
-                    val badge = showAboutBadge && tab.route == FudAIRoutes.SETTINGS
+                    val badge = showAboutBadge && tab.route == FudAIRoutes.ABOUT
                     val update = stringResource(R.string.settings_tap_to_update)
                     RailControl(
                         title = label,
@@ -143,6 +149,21 @@ internal fun PinkNeoRail(
                             }
                     )
                 }
+            }
+            if (onUpgrade != null) {
+                val label = stringResource(R.string.nav_upgrade_plans)
+                RailControl(
+                    title = label,
+                    icon = Icons.Filled.WorkspacePremium,
+                    color = palette.ink,
+                    showText = showText,
+                    modifier = Modifier
+                        .testTag("nav.upgrade")
+                        .clip(itemShape)
+                        .border(1.dp, palette.rule, itemShape)
+                        .clickable(enabled = navigationEnabled, role = Role.Button, onClick = onUpgrade)
+                        .semantics { contentDescription = label }
+                )
             }
         }
         HorizontalDivider(color = palette.rule)

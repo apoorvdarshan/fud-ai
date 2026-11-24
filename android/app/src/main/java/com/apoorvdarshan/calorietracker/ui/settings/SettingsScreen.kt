@@ -365,10 +365,10 @@ internal enum class SettingsCategory(
 
     companion object {
         val preferenceEntries = entries.filter { it.aboutCategory == null }
-        val appInfoEntries = entries.filter { it.aboutCategory != null }
+        val aboutEntries = entries.filter { it.aboutCategory != null && it != SUPPORT }
 
         /** Where the voice assistant's settings section opens; About lands on App Updates. */
-        fun forVoiceSection(section: VoiceSettingsSection): SettingsCategory = when (section) {
+        fun forVoiceSection(section: VoiceSettingsSection): SettingsCategory? = when (section) {
             VoiceSettingsSection.PROFILE -> PERSONAL_INFO
             VoiceSettingsSection.GOALS -> GOALS_NUTRITION
             // Tracking and notifications share one page (#432); REMINDERS still opens it.
@@ -380,7 +380,7 @@ internal enum class SettingsCategory(
             VoiceSettingsSection.HEALTH -> HEALTH_DATA
             VoiceSettingsSection.DATA -> DATA_MANAGEMENT
             VoiceSettingsSection.VOICE_ASSISTANT -> VOICE_ASSISTANT
-            VoiceSettingsSection.ABOUT -> APP_UPDATES
+            VoiceSettingsSection.ABOUT -> null
         }
     }
 }
@@ -434,7 +434,7 @@ fun SettingsScreen(
     // one is on screen.
     val pendingVoiceSection by container.navigator.pendingSettingsSection.collectAsState()
     LaunchedEffect(pendingVoiceSection) {
-        pendingVoiceSection?.let { section ->
+        pendingVoiceSection?.takeUnless { it == VoiceSettingsSection.ABOUT }?.let { section ->
             selectedCategory = SettingsCategory.forVoiceSection(section)
             container.navigator.pendingSettingsSection.value = null
         }
@@ -1915,17 +1915,6 @@ fun SettingsScreen(
             StorageSettingsCard(container.storageMaintenance)
             }
 
-            // App information and support actions are first-class Settings destinations.
-            selectedCategory?.aboutCategory?.let { aboutCategory ->
-                if (aboutCategory == AboutSettingsCategory.APP_UPDATES) {
-                    SectionCard { AboutAppHeader() }
-                }
-
-                SectionCard {
-                    AboutSettingsRows(aboutCategory, billing = container.billing)
-                }
-            }
-
             Spacer(Modifier.height(if (selectedCategory == SettingsCategory.VOICE_ASSISTANT) 0.dp else BottomNavScrollPadding))
         }
     }
@@ -2325,10 +2314,43 @@ private fun SettingsCategoryHub(onSelect: (SettingsCategory) -> Unit) {
         SectionCard {
             SettingsCategoryRows(SettingsCategory.preferenceEntries, onSelect)
         }
-        SectionCard {
-            SettingsCategoryRows(SettingsCategory.appInfoEntries, onSelect)
+    }
+}
+
+@Composable
+internal fun AboutRailScreen(
+    container: AppContainer,
+    category: AboutSettingsCategory? = null,
+    onSelect: (AboutSettingsCategory) -> Unit = {},
+    onBack: () -> Unit = {}
+) {
+    val neo = pinkNeoPalette()
+    Scaffold(containerColor = MaterialTheme.colorScheme.background) { padding ->
+        Column(
+            Modifier.fillMaxSize().padding(padding).verticalScroll(rememberScrollState())
+                .padding(FlashSpacing.PageInset),
+            verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap)
+        ) {
+            val title = stringResource(category?.titleRes ?: R.string.nav_about)
+            if (category != null && category != AboutSettingsCategory.SUPPORT) {
+                SettingsDetailHeader(backLabel = stringResource(R.string.nav_about), title = title, onBack = onBack)
+            } else {
+                Text(
+                    title,
+                    modifier = Modifier.fillMaxWidth().background(neo.panel).border(1.dp, neo.rule).padding(12.dp),
+                    fontSize = 30.sp, fontWeight = FontWeight.Black, style = PinkNeoCondensed
+                )
+            }
+
+            if (category == null) {
+                SectionCard { AboutAppHeader() }
+                SectionCard { SettingsCategoryRows(SettingsCategory.aboutEntries) { onSelect(checkNotNull(it.aboutCategory)) } }
+                AboutFooter()
+            } else {
+                SectionCard { AboutSettingsRows(category, billing = container.billing) }
+            }
+            Spacer(Modifier.height(BottomNavScrollPadding))
         }
-        AboutFooter()
     }
 }
 

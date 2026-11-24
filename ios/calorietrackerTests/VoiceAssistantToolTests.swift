@@ -804,6 +804,8 @@ struct VoiceAssistantToolTests {
         let coach = await harness.executor.execute(name: "open_screen", arguments: ["screen": "coach"])
         #expect(coach["ok"] as? Bool == false)
         #expect(coach["error"] as? String == "unsupported")
+        #expect(await harness.executor.execute(name: "open_screen", arguments: ["screen": "exercise_library"])["error"] as? String == "unsupported")
+        #expect(await harness.executor.execute(name: "set_diary_date", arguments: ["date": "yesterday", "diary": "workouts"])["error"] as? String == "unsupported")
         #expect(harness.host.opened.isEmpty)
 
         let progress = await harness.executor.execute(name: "open_screen", arguments: ["screen": "progress"])
@@ -811,7 +813,29 @@ struct VoiceAssistantToolTests {
         #expect(harness.host.opened.last?.screen == .progress)
 
         let state = await harness.executor.execute(name: "get_app_state", arguments: [:])
-        #expect(state["hidden_screens"] as? [String] == ["coach", "workouts"])
+        #expect(state["hidden_screens"] as? [String] == ["coach", "workouts", "exercise_library"])
+    }
+
+    @Test func navigationDistinguishesRailDestinationsAndWorkoutDates() async {
+        let harness = VoiceAssistantHarness(confirmSaves: false)
+        for screen in ["weekly_challenge", "exercise_library", "about", "support"] {
+            let result = await harness.executor.execute(name: "open_screen", arguments: ["screen": screen])
+            #expect(result["screen"] as? String == screen)
+            let state = await harness.executor.execute(name: "get_app_state", arguments: [:])
+            #expect(state["screen"] as? String == screen)
+        }
+        let legal = await harness.executor.execute(name: "open_screen", arguments: ["screen": "about", "settings_section": "legal"])
+        #expect(legal["settings_section"] as? String == "legal")
+        #expect(await harness.executor.execute(name: "get_app_state", arguments: [:])["settings_section"] as? String == "legal")
+        let legacy = await harness.executor.execute(name: "open_screen", arguments: ["screen": "settings", "settings_section": "about"])
+        #expect(legacy["screen"] as? String == "about")
+        #expect(legacy["settings_section"] as? String == "app_updates")
+        let workout = await harness.executor.execute(name: "set_diary_date", arguments: ["date": "yesterday", "diary": "workouts"])
+        #expect(workout["ok"] as? Bool == true)
+        #expect(harness.host.shownDays.isEmpty)
+        #expect(harness.host.currentScreen == .workouts)
+        let state = await harness.executor.execute(name: "get_app_state", arguments: [:])
+        #expect(state["workout_diary_date"] as? String == workout["date"] as? String)
     }
 
     @Test func everyOpenScreenSectionMapsToASettingsSection() throws {
@@ -824,8 +848,8 @@ struct VoiceAssistantToolTests {
         for section in sections {
             let category = try #require(ProfileSettingsCategory(voiceAssistantSection: section), "\(section)")
             let reported = try #require(category.voiceAssistantSection, "\(section)")
-            // "reminders" is kept for compatibility and opens the page reported as "notifications".
-            #expect(reported == (section == "reminders" ? "notifications" : section))
+            let canonical = ["reminders": "notifications", "about": "app_updates"][section] ?? section
+            #expect(reported == canonical)
             #expect(ProfileSettingsCategory(voiceAssistantSection: reported) == category)
         }
         #expect(ProfileSettingsCategory(voiceAssistantSection: "reminders") == .trackingNotifications)
@@ -935,11 +959,18 @@ final class StubVoiceAssistantHost: VoiceAssistantToolHost {
     func open(_ screen: VoiceAssistantScreen, settingsSection: ProfileSettingsCategory?) {
         opened.append((screen, settingsSection))
         currentScreen = screen
+        currentSettingsSection = settingsSection
     }
 
     func showDiary(on day: Date) {
         shownDays.append(day)
         homeDiaryDate = day
+    }
+
+    func showWorkoutDiary(on day: Date) {
+        currentScreen = .workouts
+        currentSettingsSection = nil
+        workoutDiaryDate = day
     }
 
     func openFoodEntry(_ entry: FoodEntry) {

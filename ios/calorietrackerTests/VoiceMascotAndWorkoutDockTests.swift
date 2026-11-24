@@ -38,8 +38,17 @@ struct VoiceMascotAndWorkoutDockTests {
         #expect(loud.mouth > quiet.mouth)
         #expect(VoiceMascotPose.sample(mode: .speaking, time: 1, level: 0, animated: true).mouth == 0)
         let still = VoiceMascotPose.sample(mode: .speaking, time: 4.3, level: 1, animated: false)
-        #expect(still.mouth == 0 && still.blink == 0 && still.bob == 0)
+        #expect(still.mouth == 0 && still.blink == 0 && still.bob == 0 && still.stretch == 0 && still.tilt == 0)
         #expect(VoiceMascotPose.sample(mode: .listening, time: 4.3, level: 0, animated: true).blink > 0.9)
+    }
+
+    @Test func mascotSquashesBeforeHoppingAndCanDoubleBlink() {
+        let crouch = VoiceMascotPose.sample(mode: .idle, time: 0.32, level: 0, animated: true)
+        let hop = VoiceMascotPose.sample(mode: .idle, time: 0.78, level: 0, animated: true)
+        #expect(crouch.stretch < -0.03)
+        #expect(hop.stretch > 0.04 && hop.bob < -0.025)
+        #expect(VoiceMascotPose.sample(mode: .idle, time: 4.445, level: 0, animated: true).blink == 0)
+        #expect(VoiceMascotPose.sample(mode: .idle, time: 4.55, level: 0, animated: true).blink > 0.8)
     }
 
     @Test func workoutDockPreservesFourUniqueSlots() {

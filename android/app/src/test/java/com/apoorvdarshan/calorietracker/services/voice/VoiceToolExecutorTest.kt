@@ -667,18 +667,40 @@ class VoiceToolExecutorTest {
     }
 
     @Test
+    fun navigationDistinguishesRailDestinationsAndWorkoutDates() {
+        val executor = executor()
+        for (screen in listOf("weekly_challenge", "exercise_library", "about", "support")) {
+            assertEquals(screen, executor.call("open_screen", args("screen" to screen))["screen"]?.jsonPrimitive?.content)
+            assertEquals(screen, executor.call("get_app_state")["screen"]?.jsonPrimitive?.content)
+        }
+        val legal = executor.call("open_screen", args("screen" to "about", "settings_section" to "legal"))
+        assertEquals("legal", legal["settings_section"]?.jsonPrimitive?.content)
+        assertEquals("legal", executor.call("get_app_state")["settings_section"]?.jsonPrimitive?.content)
+        val legacy = executor.call("open_screen", args("screen" to "settings", "settings_section" to "about"))
+        assertEquals("about", legacy["screen"]?.jsonPrimitive?.content)
+        assertEquals("app_updates", legacy["settings_section"]?.jsonPrimitive?.content)
+        val home = ports.diary
+        val workout = executor.call("set_diary_date", args("date" to "yesterday", "diary" to "workouts"))
+        assertTrue(workout.ok())
+        assertEquals(home, ports.diary)
+        assertEquals(workout["date"], executor.call("get_app_state")["workout_diary_date"])
+    }
+
+    @Test
     fun hiddenTabsCannotBeOpenedAndAreReported() {
         val executor = executor()
-        ports.hiddenScreens = setOf(VoiceScreen.COACH, VoiceScreen.WORKOUTS)
+        ports.hiddenScreens = setOf(VoiceScreen.COACH, VoiceScreen.WORKOUTS, VoiceScreen.EXERCISE_LIBRARY)
 
         assertEquals("unsupported", executor.call("open_screen", args("screen" to "coach")).error())
+        assertEquals("unsupported", executor.call("open_screen", args("screen" to "exercise_library")).error())
+        assertEquals("unsupported", executor.call("set_diary_date", args("date" to "yesterday", "diary" to "workouts")).error())
         assertTrue(ports.shownScreens.isEmpty())
         assertTrue(executor.call("open_screen", args("screen" to "progress")).ok())
         assertEquals(VoiceScreen.PROGRESS to null, ports.shownScreens.single())
 
         val state = executor.call("get_app_state")
         assertEquals(
-            listOf("coach", "workouts"),
+            listOf("coach", "workouts", "exercise_library"),
             state["hidden_screens"]!!.jsonArray.map { it.jsonPrimitive.content }
         )
     }

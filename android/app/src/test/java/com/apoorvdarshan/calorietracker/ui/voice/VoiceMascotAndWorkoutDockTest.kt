@@ -22,6 +22,16 @@ class VoiceMascotAndWorkoutDockTest {
     }
 
     @Test
+    fun mascotSquashesBeforeHoppingAndCanDoubleBlink() {
+        val crouch = VoiceMascotPose.sample(OrbMode.IDLE, 0.32, 0f, animated = true)
+        val hop = VoiceMascotPose.sample(OrbMode.IDLE, 0.78, 0f, animated = true)
+        assertTrue(crouch.stretch < -0.03f)
+        assertTrue(hop.stretch > 0.04f && hop.bob < -0.025f)
+        assertEquals(0f, VoiceMascotPose.sample(OrbMode.IDLE, 4.445, 0f, animated = true).blink, 0f)
+        assertTrue(VoiceMascotPose.sample(OrbMode.IDLE, 4.55, 0f, animated = true).blink > 0.8f)
+    }
+
+    @Test
     fun workoutDockPreservesFourUniqueSlots() {
         val dock = WorkoutDockShortcuts.decode(null)
         assertEquals(listOf(WorkoutDockAction.VOICE, WorkoutDockAction.SAVED, WorkoutDockAction.WALKING, WorkoutDockAction.RUNNING),

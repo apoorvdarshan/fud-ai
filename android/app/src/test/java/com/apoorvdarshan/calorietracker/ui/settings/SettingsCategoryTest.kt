@@ -31,9 +31,11 @@ class SettingsCategoryTest {
     @Test
     fun everyVoiceSectionOpensACategoryThatReportsItBack() {
         for (section in VoiceSettingsSection.entries) {
-            if (section == VoiceSettingsSection.ABOUT) {
+            if (section.isAboutSection) {
                 // About opens from the root navigator, not the Settings hub.
                 assertEquals(null, SettingsCategory.forVoiceSection(section))
+                val canonical = if (section == VoiceSettingsSection.ABOUT) VoiceSettingsSection.APP_UPDATES else section
+                assertEquals(canonical, AboutSettingsCategory.entries.single { it.voiceSection == canonical }.voiceSection)
                 continue
             }
             // REMINDERS is kept for compatibility and opens the page reported as NOTIFICATIONS.
@@ -43,7 +45,7 @@ class SettingsCategoryTest {
         assertEquals(SettingsCategory.TRACKING_NOTIFICATIONS, SettingsCategory.forVoiceSection(VoiceSettingsSection.REMINDERS))
         assertEquals(SettingsCategory.TRACKING_NOTIFICATIONS, SettingsCategory.forVoiceSection(VoiceSettingsSection.NOTIFICATIONS))
         assertEquals(SettingsCategory.VOICE_ASSISTANT, SettingsCategory.forVoiceSection(VoiceSettingsSection.VOICE_ASSISTANT))
-        assertEquals(VoiceSettingsSection.ABOUT, SettingsCategory.LEGAL.voiceSection)
+        assertEquals(VoiceSettingsSection.LEGAL, SettingsCategory.LEGAL.voiceSection)
         assertEquals(VoiceSettingsSection.AI_PROVIDERS, SettingsCategory.AI_ACCESS.voiceSection)
     }
 }

@@ -339,12 +339,12 @@ struct ContentView: View {
         guard let screen = assistantNavigator.takeScreenRequest(),
               TabBarSettings.hiddenTab(for: screen, in: hiddenTabs) == nil
         else { return }
-        if screen == .settings {
-            let request = assistantNavigator.takeSettingsRequest() ?? nil
+        let request = assistantNavigator.takeSettingsRequest() ?? nil
+        if screen == .settings || screen == .about {
             if request == .support {
                 selectTab(.support)
-            } else if let request, request.aboutCategory != nil {
-                aboutPath = [request]
+            } else if screen == .about || request?.aboutCategory != nil {
+                aboutPath = request.map { [$0] } ?? []
                 selectTab(.about)
             } else {
                 settingsPath = request.map { [$0] } ?? []
@@ -355,9 +355,13 @@ struct ContentView: View {
         let tab: AppTab = switch screen {
         case .home: .home
         case .progress: .progress
+        case .weeklyChallenge: .weeklyChallenge
         case .coach: .coach
         case .workouts: .workouts
-        case .settings: .settings // handled above
+        case .exerciseLibrary: .exerciseLibrary
+        case .settings: .settings
+        case .about: .about
+        case .support: .support
         }
         selectTab(tab)
     }
@@ -365,18 +369,21 @@ struct ContentView: View {
     private static func screen(for tab: AppTab) -> VoiceAssistantScreen {
         switch tab {
         case .home: .home
-        case .progress, .weeklyChallenge: .progress
+        case .progress: .progress
+        case .weeklyChallenge: .weeklyChallenge
         case .coach: .coach
-        case .settings, .about, .support: .settings
-        case .workouts, .exerciseLibrary: .workouts
+        case .settings: .settings
+        case .about: .about
+        case .support: .support
+        case .workouts: .workouts
+        case .exerciseLibrary: .exerciseLibrary
         }
     }
 
     private var activeSettingsSection: ProfileSettingsCategory? {
         switch selectedTab {
         case .settings: settingsPath.last
-        case .about: aboutPath.last ?? .appUpdates
-        case .support: .support
+        case .about: aboutPath.last
         default: nil
         }
     }

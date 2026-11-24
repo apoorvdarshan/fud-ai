@@ -246,6 +246,13 @@ internal fun WorkoutDiaryScreen(
     }
 
     // The voice assistant logs workouts to the day shown here while the diary is open.
+    val pendingVoiceDate by container.navigator.pendingWorkoutDiaryDate.collectAsState()
+    LaunchedEffect(pendingVoiceDate) {
+        val day = pendingVoiceDate ?: return@LaunchedEffect
+        if (container.navigator.pendingWorkoutDiaryDate.compareAndSet(day, null)) {
+            viewModel.selectDate(day)
+        }
+    }
     LaunchedEffect(state.selectedDate) {
         container.navigator.workoutDiaryDate.value = state.selectedDate
     }

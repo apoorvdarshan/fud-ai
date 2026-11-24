@@ -74,15 +74,23 @@ class FakeVoiceAppPorts : VoiceAppPorts {
         else -> MealType.DINNER
     }
 
-    override fun screenState() = ScreenState(VoiceScreen.HOME, null)
+    private var screen = ScreenState(VoiceScreen.HOME, null)
+    private var workoutDate: LocalDate? = null
+    override fun screenState() = screen
     override fun diaryDate(): LocalDate = diary
-    override fun workoutDiaryDate(): LocalDate? = null
+    override fun workoutDiaryDate(): LocalDate? = workoutDate.takeIf { screen.screen == VoiceScreen.WORKOUTS }
     override fun showScreen(screen: VoiceScreen, section: VoiceSettingsSection?) {
         shownScreens += screen to section
+        this.screen = ScreenState(screen, section)
     }
     override fun hiddenScreens(): Set<VoiceScreen> = hiddenScreens
     override fun showDiaryDate(date: LocalDate) {
         diary = date
+        screen = ScreenState(VoiceScreen.HOME, null)
+    }
+    override fun showWorkoutDiaryDate(date: LocalDate) {
+        workoutDate = date
+        screen = ScreenState(VoiceScreen.WORKOUTS, null)
     }
     override fun showFoodEntry(entry: FoodEntry) {
         shownEntry = entry

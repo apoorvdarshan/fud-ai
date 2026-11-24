@@ -6,22 +6,22 @@
       "name": "get_app_state",
       "effect": "read",
       "confirm": "never",
-      "description": "What the app is showing right now: current screen, the Home diary date, whether the camera is open (and in which mode), today's calorie and macro totals against goals, unit system, and what this session can do (camera_frames: continuous, per_turn, or none). Call this when you need context before acting.",
+      "description": "The current app screen and section, Home and Workout Log dates, hidden destinations, camera state and capabilities, and today's calorie and macro totals against goals. Call this when you need context before acting.",
       "parameters": { "type": "object", "properties": {} }
     },
     {
       "name": "open_screen",
       "effect": "navigate",
       "confirm": "never",
-      "description": "Show a screen of the app so the user can see it. Use settings_section to open a specific part of Settings.",
+      "description": "Show a screen of the app so the user can see it. Workouts opens Workout Log. Use settings_section to open a section of Settings or About.",
       "parameters": {
         "type": "object",
         "properties": {
-          "screen": { "type": "string", "enum": ["home", "progress", "coach", "workouts", "settings"] },
+          "screen": { "type": "string", "enum": ["home", "progress", "weekly_challenge", "coach", "workouts", "exercise_library", "settings", "about", "support"] },
           "settings_section": {
             "type": "string",
-            "enum": ["profile", "goals", "reminders", "notifications", "ai_providers", "speech", "appearance", "workouts", "health", "data", "voice_assistant", "about"],
-            "description": "Only with screen=settings."
+            "enum": ["profile", "goals", "reminders", "notifications", "ai_providers", "speech", "appearance", "workouts", "health", "data", "voice_assistant", "about", "app_updates", "help_feedback", "community", "legal"],
+            "description": "For screen=about, use app_updates, help_feedback, community or legal. For screen=settings use the other sections; the legacy value about opens App & Updates."
           }
         },
         "required": ["screen"]
@@ -31,11 +31,12 @@
       "name": "set_diary_date",
       "effect": "navigate",
       "confirm": "never",
-      "description": "Switch the Home diary to a day (and show Home).",
+      "description": "Show a day in the Home diary or Workout Log. If diary is omitted, show Home.",
       "parameters": {
         "type": "object",
         "properties": {
-          "date": { "type": "string", "description": "yyyy-MM-dd, or 'today' / 'yesterday'." }
+          "date": { "type": "string", "description": "yyyy-MM-dd, or 'today' / 'yesterday'." },
+          "diary": { "type": "string", "enum": ["home", "workouts"] }
         },
         "required": ["date"]
       }

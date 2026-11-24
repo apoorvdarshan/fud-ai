@@ -137,35 +137,38 @@ draft, read back the main items and total calories; never call a tool with
   and reopen only when another camera task needs it.
 - Applying a food save also dismisses an open food camera, covering logs made
   without a capture draft. Awaiting save confirmation does not dismiss it.
-- Navigation is real: `open_screen` switches tabs and pushes the settings
-  section; the assistant shrinks to a floating bubble so the screen is visible.
+- `open_screen` switches between all nine rail destinations and can open a
+  section of Settings or About. `get_app_state` reports the actual destination,
+  not its old parent tab. `set_diary_date` opens a day in Home or Workout Log.
+  The assistant minimizes so the destination is visible.
   Tabs the user hid in Settings > App Settings > Tab Bar (Progress, Coach,
   Workouts) return `unsupported` and are listed in `get_app_state` as
-  `hidden_screens`.
+  `hidden_screens`. Progress also hides Weekly Challenge; Workouts also hides
+  Exercise Library.
 - Food analysis, barcode lookup and workout parsing use the app's existing
   pipelines and AI settings (hosted analysis spends hosted actions as today).
 - Dates are the user's local calendar; `today`/`yesterday` accepted where noted.
 
 ## UI
 
-- Entry points: a floating orb beside Home's + button; iOS App Shortcut / Siri phrase
+- Entry points: the pinned mascot on the right rail; iOS App Shortcut / Siri phrase
   ("Talk to Fud AI"), usable from the Action Button, plus a Control Center
   control; Android Quick Settings tile, launcher shortcut and a home-screen
   widget. All open the app straight into a listening session.
-- The Home and compact conversation orbs render their glowing filaments over a
-  transparent background, without an outer border or dark disc. Their accessible
-  touch targets stay the same.
+- The pinned shortcut shows the selected mascot with no visible label, box,
+  or background. The accessible button name and touch target remain in place.
 - Home keeps meal calories and macros beneath the meal title on the leading
   side, away from the floating controls. The diary remains visible behind the
   buttons and can scroll its final entry above them.
-- Overlay states: **expanded** (dimmed background, large orb, live captions,
-  camera panel when open, cards) and **compact** (a floating orb bubble with a
+- Overlay states: **expanded** (dimmed background, large mascot, live captions,
+  camera panel when open, cards) and **compact** (a floating mascot with a
   caption pill above the tab bar, used while the app navigates or the user is
   looking at a screen). Tapping the bubble expands; an X ends the session.
-- The orb is `LiveOrbView` (iOS Metal) / its AGSL port (Android 13+; animated
-  Canvas fallback below), tinted with the app theme colour, driven by the
-  loudness of whoever is talking: idle, listening, thinking (waiting on the
-  model or a tool), speaking.
+- Mascots breathe, hop and double-blink at idle, nod while listening, tilt
+  while thinking, and bounce and move their mouths with assistant playback.
+  This is audio-level animation, not phoneme timing. Reduced Motion keeps
+  the character still. Settings → Voice Assistant shows eight static
+  illustrations and lets users customize the selected character.
 - Settings → Voice Assistant: provider, model (own key), voice, response
   language (app language by default / automatic / a chosen one), auto-capture
   photos (default on), confirm before saving, save conversations to Coach, voice minutes left

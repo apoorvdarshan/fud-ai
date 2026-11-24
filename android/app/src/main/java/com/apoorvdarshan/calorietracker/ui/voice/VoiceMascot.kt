@@ -27,27 +27,51 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.currentStateAsState
 import com.apoorvdarshan.calorietracker.services.voice.OrbMode
 import com.apoorvdarshan.calorietracker.services.voice.VoiceMascotProfile
-import kotlin.math.abs
+import kotlin.math.PI
 import kotlin.math.sin
 
-internal data class VoiceMascotPose(val bob: Float, val tilt: Float, val blink: Float, val mouth: Float) {
+internal data class VoiceMascotPose(val bob: Float, val tilt: Float, val blink: Float, val mouth: Float, val stretch: Float) {
     companion object {
-        val Still = VoiceMascotPose(0f, 0f, 0f, 0f)
+        val Still = VoiceMascotPose(0f, 0f, 0f, 0f, 0f)
 
-        fun sample(mode: OrbMode, time: Double, level: Float, animated: Boolean): VoiceMascotPose {
+        fun sample(mode: OrbMode, elapsed: Double, level: Float, animated: Boolean, phase: Double = 0.0): VoiceMascotPose {
             if (!animated) return Still
             val meter = if (level.isFinite()) level.coerceIn(0f, 1f) else 0f
-            val blink = (1 - abs(time % 4.7 - 4.3) / 0.105).coerceAtLeast(0.0).toFloat()
+            val time = elapsed + phase
+            val cycle = time % 4.7
+            val blink = maxOf(pulse(cycle, 4.16, 0.28), 0.85f * pulse(cycle, 4.45, 0.20))
             val sway = sin(time * 2.1).toFloat()
+            val breath = 0.016f * sway
             return when (mode) {
-                OrbMode.IDLE -> VoiceMascotPose(0.014f * sway, sway, blink, 0f)
-                OrbMode.LISTENING -> VoiceMascotPose(0.012f * sway - 0.022f * meter, sway - 2.5f * meter, blink, 0f)
-                OrbMode.THINKING -> VoiceMascotPose(0.020f * sway, 3f * sin(time * 2.7).toFloat(), blink, 0f)
+                OrbMode.IDLE -> {
+                    val beat = time % 5.2
+                    val hop = pulse(beat, 0.44, 0.68)
+                    val squash = pulse(beat, 0.20, 0.24) + pulse(beat, 1.07, 0.26)
+                    VoiceMascotPose(0.012f * sway - 0.042f * hop, 1.8f * sway + 2f * hop,
+                        blink, 0f, breath + 0.044f * hop - 0.046f * squash)
+                }
+                OrbMode.LISTENING -> {
+                    val nod = pulse(time % 3.4, 0.3, 0.55)
+                    VoiceMascotPose(0.008f * sway - 0.014f - 0.022f * meter + 0.017f * nod,
+                        -3.6f + sway - 2.1f * meter + 2.4f * nod, blink, 0f, breath + 0.025f * meter - 0.021f * nod)
+                }
+                OrbMode.THINKING -> {
+                    val ponder = sin(time * 2.4).toFloat()
+                    VoiceMascotPose(-0.008f - 0.014f * ponder, 5.5f * ponder, blink, 0f, -0.012f - breath)
+                }
                 OrbMode.SPEAKING -> {
                     val mouth = ((meter - 0.16f) / 0.84f).coerceAtLeast(0f)
-                    VoiceMascotPose(0.010f * sway - 0.020f * mouth, 1.7f * sway, blink, mouth)
+                    VoiceMascotPose(0.009f * sway - 0.034f * mouth, (2f + mouth) * sway,
+                        blink, mouth, breath + 0.052f * mouth)
                 }
             }
+        }
+
+        private fun pulse(time: Double, start: Double, duration: Double): Float {
+            val fraction = (time - start) / duration
+            if (fraction <= 0 || fraction >= 1) return 0f
+            val wave = sin(PI * fraction)
+            return (wave * wave).toFloat()
         }
     }
 }
@@ -69,6 +93,7 @@ internal fun VoiceMascot(
     val blinkTint = if (tint != null) mascot.blinkColor?.let { ImageBitmap.imageResource(it) } else null
     val currentMode by rememberUpdatedState(mode)
     val currentLevel by rememberUpdatedState(level)
+    val phase by rememberUpdatedState(mascot.ordinal * 0.17)
     val lifecycle by LocalLifecycleOwner.current.lifecycle.currentStateAsState()
     val animated = motionEnabled && lifecycle.isAtLeast(Lifecycle.State.STARTED) && ValueAnimator.areAnimatorsEnabled()
     var pose by remember { mutableStateOf(VoiceMascotPose.Still) }
@@ -78,26 +103,30 @@ internal fun VoiceMascot(
             return@LaunchedEffect
         }
         var last = Long.MIN_VALUE
+        var start = Long.MIN_VALUE
         while (true) {
             withInfiniteAnimationFrameNanos { now ->
                 val interval = if (compact && currentMode == OrbMode.IDLE) 56_000_000L else 30_000_000L
                 if (last == Long.MIN_VALUE || now - last >= interval) {
-                    pose = VoiceMascotPose.sample(currentMode, now / 1e9, currentLevel(), animated = true)
+                    if (start == Long.MIN_VALUE) start = now
+                    pose = VoiceMascotPose.sample(currentMode, (now - start) / 1e9, currentLevel(),
+                        animated = true, phase = phase)
                     last = now
                 }
             }
         }
     }
     Canvas(modifier) {
-        val frame = pose
+        val frame = if (animated) pose else VoiceMascotPose.Still
         val side = size.minDimension.toInt()
         if (side <= 0) return@Canvas
         val spriteSize = IntSize(side, side)
-        val bob = frame.bob * (if (compact) 1.85f else 1f)
+        val bob = frame.bob * (if (compact) 1.3f else 1f)
         val tilt = frame.tilt * (if (compact) 1.45f else 1f)
         withTransform({
             translate((size.width - side) / 2, (size.height - side) / 2 + side * bob)
             rotate(tilt, Offset(side / 2f, side / 2f))
+            scale(1 - 0.65f * frame.stretch, 1 + frame.stretch, Offset(side / 2f, side.toFloat()))
         }) {
             drawImage(body, dstSize = spriteSize)
             if (colorLayer != null) drawImage(colorLayer, dstSize = spriteSize, colorFilter = tint)

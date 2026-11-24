@@ -391,6 +391,7 @@ class VoiceToolExecutor(
                 }
             }
             put("diary_date", VoiceArguments.formatDate(diaryDate))
+            put("workout_diary_date", VoiceArguments.formatDate(ports.workoutDiaryDate() ?: today))
             put("today", VoiceArguments.formatDate(today))
             put("time", VoiceArguments.formatTime(localTime(ports.now())))
             putJsonObject("camera") {
@@ -430,13 +431,16 @@ class VoiceToolExecutor(
 
     private fun openScreen(args: ToolArgs): JsonObject {
         val screen = VoiceScreen.fromWire(args.requireString("screen"))
-            ?: fail(ToolError.INVALID_ARGUMENTS, "screen must be one of home, progress, coach, workouts, settings.")
+            ?: fail(ToolError.INVALID_ARGUMENTS, "Unknown screen. Use a destination listed in open_screen.")
         val section = args.string("settings_section")?.let { raw ->
             VoiceSettingsSection.fromWire(raw)
                 ?: fail(ToolError.INVALID_ARGUMENTS, "Unknown settings_section: $raw.")
         }
-        if (section != null && screen != VoiceScreen.SETTINGS) {
-            fail(ToolError.INVALID_ARGUMENTS, "settings_section only works with screen=settings.")
+        if (section != null && !(
+                (screen == VoiceScreen.SETTINGS && (!section.isAboutSection || section == VoiceSettingsSection.ABOUT)) ||
+                    (screen == VoiceScreen.ABOUT && section.isAboutSection && section != VoiceSettingsSection.ABOUT)
+                )) {
+            fail(ToolError.INVALID_ARGUMENTS, "This section does not belong to the requested screen.")
         }
         if (screen in ports.hiddenScreens()) {
             fail(
@@ -444,17 +448,33 @@ class VoiceToolExecutor(
                 "The user hid the ${screen.wireValue} tab. It can be shown again in Settings > App Settings > Tab Bar."
             )
         }
-        ports.showScreen(screen, section)
+        val destination = if (section?.isAboutSection == true) VoiceScreen.ABOUT else screen
+        val targetSection = if (section == VoiceSettingsSection.ABOUT) VoiceSettingsSection.APP_UPDATES else section
+        ports.showScreen(destination, targetSection)
         return ToolResults.ok {
-            put("screen", screen.wireValue)
-            section?.let { put("settings_section", it.wireValue) }
+            put("screen", destination.wireValue)
+            targetSection?.let { put("settings_section", it.wireValue) }
         }
     }
 
     private fun setDiaryDate(args: ToolArgs): JsonObject {
         val date = parseDateArg(args.requireString("date"))
-        ports.showDiaryDate(date)
-        return ToolResults.ok { put("diary_date", VoiceArguments.formatDate(date)) }
+        val diary = args.string("diary") ?: "home"
+        when (diary) {
+            "home" -> ports.showDiaryDate(date)
+            "workouts" -> {
+                if (!context.workoutDiaryEnabled || !ports.workoutDiaryEnabled() || VoiceScreen.WORKOUTS in ports.hiddenScreens()) {
+                    fail(ToolError.UNSUPPORTED, "Workout Log is not available. Check Settings > App Settings > Tab Bar.")
+                }
+                ports.showWorkoutDiaryDate(date)
+            }
+            else -> fail(ToolError.INVALID_ARGUMENTS, "diary must be home or workouts.")
+        }
+        return ToolResults.ok {
+            put("diary", diary)
+            put("date", VoiceArguments.formatDate(date))
+            if (diary == "home") put("diary_date", VoiceArguments.formatDate(date))
+        }
     }
 
     private suspend fun openFoodEntry(args: ToolArgs): JsonObject {

@@ -1018,7 +1018,7 @@ extension VoiceAssistantController: VoiceAssistantToolHost {
     var currentScreen: VoiceAssistantScreen { navigator.currentScreen }
     var currentSettingsSection: ProfileSettingsCategory? { navigator.settingsSection }
     var homeDiaryDate: Date { navigator.homeDiaryDate }
-    var workoutDiaryDate: Date { navigator.workoutDiaryDate }
+    var workoutDiaryDate: Date { navigator.currentScreen == .workouts ? navigator.workoutDiaryDate : .now }
 
     func open(_ screen: VoiceAssistantScreen, settingsSection: ProfileSettingsCategory?) {
         closeCamera()
@@ -1029,6 +1029,12 @@ extension VoiceAssistantController: VoiceAssistantToolHost {
     func showDiary(on day: Date) {
         closeCamera()
         navigator.showDiary(on: day)
+        isExpanded = false
+    }
+
+    func showWorkoutDiary(on day: Date) {
+        closeCamera()
+        navigator.showWorkoutDiary(on: day)
         isExpanded = false
     }
 

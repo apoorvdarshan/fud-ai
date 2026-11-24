@@ -5,9 +5,13 @@ import Observation
 enum VoiceAssistantScreen: String, CaseIterable {
     case home
     case progress
+    case weeklyChallenge = "weekly_challenge"
     case coach
     case workouts
+    case exerciseLibrary = "exercise_library"
     case settings
+    case about
+    case support
 }
 
 /// One navigation the assistant asked for. The id lets the same destination be
@@ -39,23 +43,32 @@ final class VoiceAssistantNavigator {
     /// Settings section to push; a nil value shows the Settings list itself.
     private(set) var settingsRequest: VoiceAssistantNavigationRequest<ProfileSettingsCategory?>?
     private(set) var diaryDateRequest: VoiceAssistantNavigationRequest<Date>?
+    private(set) var workoutDateRequest: VoiceAssistantNavigationRequest<Date>?
     private(set) var foodEntryRequest: VoiceAssistantNavigationRequest<UUID>?
 
     func show(_ screen: VoiceAssistantScreen, settingsSection: ProfileSettingsCategory? = nil) {
         screenRequest = VoiceAssistantNavigationRequest(value: screen)
-        if screen == .settings {
-            settingsRequest = VoiceAssistantNavigationRequest(value: settingsSection)
-        }
+        settingsRequest = VoiceAssistantNavigationRequest(value: settingsSection)
     }
 
     func showDiary(on day: Date) {
-        screenRequest = VoiceAssistantNavigationRequest(value: .home)
+        show(.home)
         diaryDateRequest = VoiceAssistantNavigationRequest(value: day)
     }
 
     func openFoodEntry(_ entry: FoodEntry) {
         showDiary(on: entry.timestamp)
         foodEntryRequest = VoiceAssistantNavigationRequest(value: entry.id)
+    }
+
+    func showWorkoutDiary(on day: Date) {
+        show(.workouts)
+        workoutDateRequest = VoiceAssistantNavigationRequest(value: day)
+    }
+
+    func takeWorkoutDateRequest() -> Date? {
+        defer { workoutDateRequest = nil }
+        return workoutDateRequest?.value
     }
 
     func takeScreenRequest() -> VoiceAssistantScreen? {
@@ -95,7 +108,10 @@ extension ProfileSettingsCategory {
         case "health": self = .healthData
         case "data": self = .dataManagement
         case "voice_assistant": self = .voiceAssistant
-        case "about": self = .appUpdates
+        case "about", "app_updates": self = .appUpdates
+        case "help_feedback": self = .helpFeedback
+        case "community": self = .community
+        case "legal": self = .legal
         default: return nil
         }
     }
@@ -113,7 +129,11 @@ extension ProfileSettingsCategory {
         case .healthData: "health"
         case .dataManagement: "data"
         case .voiceAssistant: "voice_assistant"
-        case .appUpdates, .support, .helpFeedback, .community, .legal: "about"
+        case .appUpdates: "app_updates"
+        case .helpFeedback: "help_feedback"
+        case .community: "community"
+        case .legal: "legal"
+        case .support: nil
         }
     }
 }

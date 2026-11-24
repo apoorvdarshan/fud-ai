@@ -21,7 +21,8 @@ import java.util.UUID
 
 /** Tabs `open_screen` can show. */
 enum class VoiceScreen(val wireValue: String) {
-    HOME("home"), PROGRESS("progress"), COACH("coach"), WORKOUTS("workouts"), SETTINGS("settings");
+    HOME("home"), PROGRESS("progress"), WEEKLY_CHALLENGE("weekly_challenge"), COACH("coach"),
+    WORKOUTS("workouts"), EXERCISE_LIBRARY("exercise_library"), SETTINGS("settings"), ABOUT("about"), SUPPORT("support");
 
     companion object {
         fun fromWire(raw: String?): VoiceScreen? = entries.firstOrNull { it.wireValue == raw?.trim()?.lowercase() }
@@ -29,7 +30,7 @@ enum class VoiceScreen(val wireValue: String) {
 }
 
 /** `open_screen`'s settings_section values. */
-enum class VoiceSettingsSection(val wireValue: String) {
+enum class VoiceSettingsSection(val wireValue: String, val isAboutSection: Boolean = false) {
     PROFILE("profile"),
     GOALS("goals"),
     REMINDERS("reminders"),
@@ -41,7 +42,11 @@ enum class VoiceSettingsSection(val wireValue: String) {
     HEALTH("health"),
     DATA("data"),
     VOICE_ASSISTANT("voice_assistant"),
-    ABOUT("about");
+    ABOUT("about", true),
+    APP_UPDATES("app_updates", true),
+    HELP_FEEDBACK("help_feedback", true),
+    COMMUNITY("community", true),
+    LEGAL("legal", true);
 
     companion object {
         fun fromWire(raw: String?): VoiceSettingsSection? = entries.firstOrNull { it.wireValue == raw?.trim()?.lowercase() }
@@ -171,6 +176,7 @@ interface VoiceAppPorts {
     /** Tabs the user hid from the bottom bar; `open_screen` can't show them. */
     fun hiddenScreens(): Set<VoiceScreen> = emptySet()
     fun showDiaryDate(date: LocalDate)
+    fun showWorkoutDiaryDate(date: LocalDate)
     fun showFoodEntry(entry: FoodEntry)
 
     // Camera and photo picker (these may wait for the user)

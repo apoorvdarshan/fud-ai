@@ -362,7 +362,7 @@ internal enum class SettingsCategory(
             WORKOUT -> VoiceSettingsSection.WORKOUTS
             HEALTH_DATA -> VoiceSettingsSection.HEALTH
             DATA_MANAGEMENT -> VoiceSettingsSection.DATA
-            APP_UPDATES, SUPPORT, HELP_FEEDBACK, COMMUNITY, LEGAL -> VoiceSettingsSection.ABOUT
+            APP_UPDATES, SUPPORT, HELP_FEEDBACK, COMMUNITY, LEGAL -> aboutCategory?.voiceSection
         }
 
     companion object {
@@ -382,7 +382,8 @@ internal enum class SettingsCategory(
             VoiceSettingsSection.HEALTH -> HEALTH_DATA
             VoiceSettingsSection.DATA -> DATA_MANAGEMENT
             VoiceSettingsSection.VOICE_ASSISTANT -> VOICE_ASSISTANT
-            VoiceSettingsSection.ABOUT -> null
+            VoiceSettingsSection.ABOUT, VoiceSettingsSection.APP_UPDATES, VoiceSettingsSection.HELP_FEEDBACK,
+            VoiceSettingsSection.COMMUNITY, VoiceSettingsSection.LEGAL -> null
         }
     }
 }

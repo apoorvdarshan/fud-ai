@@ -49,7 +49,6 @@ import com.apoorvdarshan.calorietracker.services.hosted.AiAccessMode
 import com.apoorvdarshan.calorietracker.services.hosted.HostedPrompt
 import com.apoorvdarshan.calorietracker.services.update.AndroidUpdateChecker
 import com.apoorvdarshan.calorietracker.services.update.AndroidUpdateState
-import com.apoorvdarshan.calorietracker.services.voice.VoiceSettingsSection
 import com.apoorvdarshan.calorietracker.services.voice.VoiceMascotPreferences
 import com.apoorvdarshan.calorietracker.ui.about.AboutSettingsCategory
 import com.apoorvdarshan.calorietracker.ui.coach.CoachScreen
@@ -240,8 +239,12 @@ fun FudAINavHost(
     }
 
     // What is on screen, for the voice assistant's get_app_state.
-    LaunchedEffect(currentRoute) {
+    val aboutSection = backStack?.arguments?.getString("section")
+    LaunchedEffect(currentRoute, aboutSection) {
         container.navigator.currentRoute.value = currentRoute
+        container.navigator.aboutSection.value = if (currentRoute == FudAIRoutes.ABOUT_SECTION) {
+            AboutSettingsCategory.entries.firstOrNull { it.name == aboutSection }
+        } else null
     }
 
     // A tab hidden in Settings (or by a restored backup) can't stay on screen.
@@ -260,16 +263,14 @@ fun FudAINavHost(
             if (route == null || route == FudAIRoutes.ONBOARDING) return@collect
             when (request) {
                 is NavRequest.Tab -> selectTab(request.route)
-                is NavRequest.Settings -> {
-                    if (request.section == VoiceSettingsSection.ABOUT) {
-                        container.navigator.pendingSettingsSection.value = null
-                        selectTab(FudAIRoutes.ABOUT)
-                        nav.navigate(FudAIRoutes.aboutSection(AboutSettingsCategory.APP_UPDATES.name)) {
-                            popUpTo(FudAIRoutes.ABOUT)
-                            launchSingleTop = true
-                        }
-                        return@collect
+                is NavRequest.About -> {
+                    selectTab(FudAIRoutes.ABOUT)
+                    nav.navigate(FudAIRoutes.aboutSection(request.section.name)) {
+                        popUpTo(FudAIRoutes.ABOUT)
+                        launchSingleTop = true
                     }
+                }
+                is NavRequest.Settings -> {
                     when {
                         route.startsWith("settings/") -> nav.popBackStack(FudAIRoutes.SETTINGS, inclusive = false)
                         route != FudAIRoutes.SETTINGS -> nav.navigate(FudAIRoutes.SETTINGS) {

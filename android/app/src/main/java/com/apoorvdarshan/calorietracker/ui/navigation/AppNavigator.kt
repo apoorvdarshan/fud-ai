@@ -1,6 +1,7 @@
 package com.apoorvdarshan.calorietracker.ui.navigation
 
 import com.apoorvdarshan.calorietracker.services.voice.VoiceSettingsSection
+import com.apoorvdarshan.calorietracker.ui.about.AboutSettingsCategory
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -15,6 +16,7 @@ sealed interface NavRequest {
 
     /** Show Settings, at its hub or straight in one section. */
     data class Settings(val section: VoiceSettingsSection?) : NavRequest
+    data class About(val section: AboutSettingsCategory) : NavRequest
 }
 
 /**
@@ -37,6 +39,8 @@ class AppNavigator {
 
     /** The Workouts diary's selected day, published by the Workouts screen. */
     val workoutDiaryDate = MutableStateFlow<LocalDate?>(null)
+    val pendingWorkoutDiaryDate = MutableStateFlow<LocalDate?>(null)
+    val aboutSection = MutableStateFlow<AboutSettingsCategory?>(null)
 
     /** A Settings section waiting for the Settings screen to open it. */
     val pendingSettingsSection = MutableStateFlow<VoiceSettingsSection?>(null)
@@ -59,6 +63,16 @@ class AppNavigator {
     fun showHomeDate(date: LocalDate) {
         homeDiaryDate.value = date
         showTab(FudAIRoutes.HOME)
+    }
+
+    fun showWorkoutDate(date: LocalDate) {
+        pendingWorkoutDiaryDate.value = date
+        showTab(FudAIRoutes.WORKOUTS)
+    }
+
+    fun showAbout(section: AboutSettingsCategory?) {
+        if (section == null) showTab(FudAIRoutes.ABOUT)
+        else _requests.tryEmit(NavRequest.About(section))
     }
 
     fun showFoodEntry(id: UUID, date: LocalDate) {

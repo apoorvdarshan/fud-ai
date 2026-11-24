@@ -78,6 +78,7 @@ import com.apoorvdarshan.calorietracker.services.hosted.BillingManager
 import com.apoorvdarshan.calorietracker.services.hosted.PurchaseOutcome
 import com.apoorvdarshan.calorietracker.services.update.AndroidUpdateChecker
 import com.apoorvdarshan.calorietracker.services.update.AndroidUpdateState
+import com.apoorvdarshan.calorietracker.services.voice.VoiceSettingsSection
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialog
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialogActions
 import com.apoorvdarshan.calorietracker.ui.components.TIP_TIERS
@@ -94,7 +95,16 @@ enum class AboutSettingsCategory(val titleRes: Int, val icon: ImageVector) {
     SUPPORT(R.string.about_category_support, Icons.Filled.Favorite),
     HELP_FEEDBACK(R.string.about_category_help_feedback, Icons.Filled.BugReport),
     COMMUNITY(R.string.about_category_community, Icons.Filled.AlternateEmail),
-    LEGAL(R.string.about_category_legal, Icons.Filled.Lock)
+    LEGAL(R.string.about_category_legal, Icons.Filled.Lock);
+
+    val voiceSection: VoiceSettingsSection?
+        get() = when (this) {
+            APP_UPDATES -> VoiceSettingsSection.APP_UPDATES
+            HELP_FEEDBACK -> VoiceSettingsSection.HELP_FEEDBACK
+            COMMUNITY -> VoiceSettingsSection.COMMUNITY
+            LEGAL -> VoiceSettingsSection.LEGAL
+            SUPPORT -> null
+        }
 }
 
 @Composable

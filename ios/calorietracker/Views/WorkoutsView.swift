@@ -33,6 +33,11 @@ struct WorkoutsView: View {
                 VoiceAssistantNavigator.shared.workoutDiaryDate = day
             }
         }
+        .onChange(of: VoiceAssistantNavigator.shared.workoutDateRequest?.id, initial: true) {
+            if mode == .log, let day = VoiceAssistantNavigator.shared.takeWorkoutDateRequest() {
+                workoutLogSession.selectedDate = day
+            }
+        }
     }
 }
 

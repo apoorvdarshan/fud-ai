@@ -393,6 +393,7 @@ struct HomeNutrientPickerSheet: View {
                                 .font(.system(.subheadline, weight: .black).width(.condensed))
                                 .foregroundStyle(AppColors.accentText)
                         }
+                        .padding(.trailing, 12)
                     }
 
                     if waterTrackingEnabled {
@@ -409,7 +410,19 @@ struct HomeNutrientPickerSheet: View {
                         }
                         .accessibilityElement(children: .combine)
                         .accessibilityLabel("Water, shown after selected nutrients")
+                        .padding(.trailing, 12)
                     }
+
+                    Button {
+                        draftSelection = Array(HomeTopNutrient.defaultSelection.prefix(selectionLimit))
+                    } label: {
+                        Text("Reset")
+                            .font(.system(.body, weight: .semibold).width(.condensed))
+                            .foregroundStyle(AppColors.accentText)
+                            .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
+                            .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
                 } header: {
                     Text("Shown on Home").flashSectionHeading()
                 }
@@ -431,6 +444,7 @@ struct HomeNutrientPickerSheet: View {
                                         .accessibilityHidden(true)
                                 }
                             }
+                            .padding(.trailing, 12)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .frame(minHeight: 44)
                             .contentShape(Rectangle())
@@ -456,13 +470,6 @@ struct HomeNutrientPickerSheet: View {
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") { dismiss() }
-                }
-
-                ToolbarItem(placement: .topBarLeading) {
-                    Button("Reset") {
-                        draftSelection = Array(HomeTopNutrient.defaultSelection.prefix(selectionLimit))
-                    }
-                    .tint(AppColors.calorie)
                 }
 
                 ToolbarItem(placement: .confirmationAction) {

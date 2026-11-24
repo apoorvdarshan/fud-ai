@@ -404,13 +404,17 @@ final class calorietrackerUITests: XCTestCase {
         cardPicker.tap()
         let pickerToolbar = app.navigationBars["Home Nutrients"]
         XCTAssertTrue(pickerToolbar.waitForExistence(timeout: 5))
+        let cancel = pickerToolbar.buttons["Cancel"]
+        let done = pickerToolbar.buttons["Done"]
+        XCTAssertTrue(cancel.isHittable && done.isHittable)
+        XCTAssertFalse(cancel.frame.intersects(done.frame))
         XCTAssertTrue(app.descendants(matching: .any)["Water, shown after selected nutrients"].waitForExistence(timeout: 3))
         let fiber = app.buttons["nutrition.picker.fiber"]
         reveal(fiber, in: app)
         XCTAssertTrue(fiber.isSelected)
         fiber.tap()
         XCTAssertFalse(fiber.isSelected)
-        pickerToolbar.buttons["Done"].tap()
+        done.tap()
         XCTAssertTrue(pickerToolbar.waitForNonExistence(timeout: 5))
         let updatedSelection = cardPicker.value as? String ?? ""
         XCTAssertFalse(updatedSelection.contains("Fiber"))

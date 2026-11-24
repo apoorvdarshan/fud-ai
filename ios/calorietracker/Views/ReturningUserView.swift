@@ -284,7 +284,7 @@ struct ReturningUserView: View {
 
             VStack(spacing: 8) {
                 Text("Welcome back")
-                    .font(.system(.largeTitle, design: .rounded, weight: .bold))
+                    .font(.system(.largeTitle, weight: .black).width(.condensed))
                     .multilineTextAlignment(.center)
                     .accessibilityAddTraits(.isHeader)
                 Text(subtitle)
@@ -332,7 +332,7 @@ struct ReturningUserView: View {
 
                 VStack(alignment: .leading, spacing: 5) {
                     Text(source.title)
-                        .font(.system(.headline, design: .rounded, weight: .semibold))
+                        .font(.system(.headline, weight: .semibold).width(.condensed))
                         .foregroundStyle(.primary)
                     Text(source.detail)
                         .font(.system(.subheadline, design: .rounded))
@@ -350,14 +350,9 @@ struct ReturningUserView: View {
                     .frame(width: 28, height: 28)
             }
             .padding(16)
-            .background(AppColors.appCard, in: RoundedRectangle(cornerRadius: 16))
-            .overlay {
-                RoundedRectangle(cornerRadius: 16)
-                    .strokeBorder(
-                        isSelected ? AppColors.calorie : Color.primary.opacity(0.06),
-                        lineWidth: isSelected ? 2 : 1
-                    )
-            }
+            .background(AppColors.appCard)
+            .pinkNeoRule(isSelected ? AppColors.accentText : AppColors.flashRule.opacity(0.36),
+                         width: isSelected ? 2 : 1)
             .opacity(phase != .choosing && !isSelected && steps[source] == nil ? 0.4 : 1)
         }
         .buttonStyle(PressableCardStyle(reduceMotion: reduceMotion))

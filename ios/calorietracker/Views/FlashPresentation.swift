@@ -344,6 +344,7 @@ struct FlashChoicePicker<Value: Hashable>: View {
             }
             title
                 .font(.system(.body, weight: .semibold).width(.condensed))
+                .foregroundStyle(.primary)
         }
     }
 

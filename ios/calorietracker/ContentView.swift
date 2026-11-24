@@ -366,18 +366,18 @@ struct ContentView: View {
                     if foodLogMethodRequest?.id == requestID { foodLogMethodRequest = nil }
                 }
             )
-                .toolbar(.hidden, for: .tabBar)
+                .rightRailDestination()
                 .tag(AppTab.home)
 
             if !hiddenTabs.contains(.progress) {
                 ProgressTabView()
-                    .toolbar(.hidden, for: .tabBar)
+                    .rightRailDestination()
                     .tag(AppTab.progress)
             }
 
             if !hiddenTabs.contains(.coach) {
                 ChatView()
-                    .toolbar(.hidden, for: .tabBar)
+                    .rightRailDestination()
                     .tag(AppTab.coach)
             }
 
@@ -387,12 +387,12 @@ struct ContentView: View {
                     await refreshAppUpdateState(force: true)
                 }
             )
-                .toolbar(.hidden, for: .tabBar)
+                .rightRailDestination()
                 .tag(AppTab.settings)
 
             if !hiddenTabs.contains(.workouts) {
                 WorkoutsView()
-                    .toolbar(.hidden, for: .tabBar)
+                    .rightRailDestination()
                     .tag(AppTab.workouts)
             }
         }

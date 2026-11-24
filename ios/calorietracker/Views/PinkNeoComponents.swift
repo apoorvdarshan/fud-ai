@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 /// Presentation only: energy and nutrition values are still supplied by Home's stores.
 struct PinkNeoPalette {
@@ -32,6 +33,39 @@ struct PinkNeoAppearance: DynamicProperty {
 extension View {
     func pinkNeoRule(_ color: Color, width: CGFloat = 1) -> some View {
         overlay(Rectangle().strokeBorder(color, lineWidth: width).allowsHitTesting(false).accessibilityHidden(true))
+    }
+
+    /// Keep native tab lifecycles and navigation stacks without showing a
+    /// second navigation control. The toolbar preference can arrive after the
+    /// UIKit tab controller draws its first frame when changing destinations.
+    func rightRailDestination() -> some View {
+        background(NativeTabBarSuppressor().frame(width: 0, height: 0).allowsHitTesting(false).accessibilityHidden(true))
+            .toolbar(.hidden, for: .tabBar)
+    }
+}
+
+private struct NativeTabBarSuppressor: UIViewControllerRepresentable {
+    func makeUIViewController(context: Context) -> Controller { Controller() }
+
+    func updateUIViewController(_ controller: Controller, context: Context) {
+        controller.hideTabBar()
+    }
+
+    final class Controller: UIViewController {
+        override func didMove(toParent parent: UIViewController?) {
+            super.didMove(toParent: parent)
+            hideTabBar()
+        }
+
+        override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            hideTabBar()
+        }
+
+        func hideTabBar() {
+            guard #available(iOS 18, *), let tabBarController, !tabBarController.isTabBarHidden else { return }
+            tabBarController.setTabBarHidden(true, animated: false)
+        }
     }
 }
 

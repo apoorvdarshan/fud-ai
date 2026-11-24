@@ -200,6 +200,13 @@ private struct WeeklyRecapStatTile: View {
         isPositiveChange = false
     }
 
+    private var labelText: some View {
+        Text(label)
+            .font(.system(.caption2, weight: .semibold).width(.condensed))
+            .foregroundStyle(.secondary)
+            .multilineTextAlignment(.center)
+    }
+
     var body: some View {
         VStack(spacing: 2) {
             Text(value)
@@ -208,12 +215,12 @@ private struct WeeklyRecapStatTile: View {
                 .lineLimit(1)
                 .minimumScaleFactor(0.7)
             // Two lines reserved in every tile keep the grid's rows even.
-            Text(label)
-                .font(.system(.caption2, weight: .semibold).width(.condensed))
-                .foregroundStyle(.secondary)
-                .multilineTextAlignment(.center)
-                .lineLimit(dynamicTypeSize.isAccessibilitySize ? nil : 2)
-                .minimumScaleFactor(0.8)
+            if dynamicTypeSize.isAccessibilitySize {
+                labelText
+            } else {
+                labelText.lineLimit(2, reservesSpace: true)
+                    .minimumScaleFactor(0.8)
+            }
             Text(detail)
                 .font(.system(.caption2, weight: .semibold).width(.condensed))
                 .foregroundStyle(isPositiveChange ? AppColors.accentText : Color.secondary)

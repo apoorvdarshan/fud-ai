@@ -126,7 +126,7 @@
     <string name="voice_settings_confirm_saves">Bevestigen vóór bewaren</string>
     <string name="voice_settings_confirm_saves_footer">Toon een kaart om elke registratie of wijziging goed te keuren. Als dit uitstaat, worden wijzigingen meteen opgeslagen en kun je ze 8 seconden lang ongedaan maken.</string>
     <string name="voice_settings_save_to_coach">Bewaar gesprekken in Coach</string>
-    <string name="voice_settings_save_to_coach_footer">Voegt toe wat jij en de assistent zeggen aan je Coach-chat.</string>
+    <string name="voice_settings_save_to_coach_footer">Slaat spraakgesprekken op in Coach en deelt zo nodig recente Coach-berichten met je spraakprovider.</string>
     <string name="voice_settings_minutes_left">Resterende abonnementsminuten</string>
     <string name="voice_settings_minutes_with_credits">%1$s + %2$s uit credits</string>
     <string name="voice_settings_minutes_footer">Plus bevat 20 minuten en Pro 100 minuten per maand (UTC). Daarna gebruikt spraak credits: 1 credit per 15 seconden.</string>

@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker.services.voice
 
+import com.apoorvdarshan.calorietracker.models.ChatMessage
 import com.apoorvdarshan.calorietracker.models.FastingSession
 import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.FoodSource
@@ -649,6 +650,28 @@ class VoiceToolExecutorTest {
     // MARK: - Navigation, camera, errors and Coach data
 
     @Test
+    fun coachHistoryIsBoundedTextOnlyAndObeysDisableAndReset() {
+        val executor = executor()
+        repeat(13) { ports.coachMessages += ChatMessage(role = ChatMessage.Role.USER, content = "Message $it") }
+        ports.coachMessages += ChatMessage(role = ChatMessage.Role.USER, content = "", attachmentImageBase64 = "AQ==")
+        ports.coachMessages += ChatMessage(
+            role = ChatMessage.Role.ASSISTANT, content = "🥐".repeat(602), attachmentImageBase64 = "Ag=="
+        )
+        assertEquals("unsupported", executor.call("get_coach_history").error())
+        executor.context = executor.context.copy(coachHistoryEnabled = true)
+        val messages = executor.call("get_coach_history")["messages"]!!.jsonArray
+        assertEquals(11, messages.size)
+        assertEquals("Message 3", messages.first().jsonObject["text"]?.jsonPrimitive?.content)
+        val last = messages.last().jsonObject
+        assertEquals(setOf("role", "date", "text", "truncated"), last.keys)
+        assertEquals("assistant", last["role"]?.jsonPrimitive?.content)
+        assertEquals("🥐".repeat(600), last["text"]?.jsonPrimitive?.content)
+        assertEquals(true, last["truncated"]?.jsonPrimitive?.boolean)
+        ports.coachMessages.clear()
+        assertTrue(executor.call("get_coach_history")["messages"]!!.jsonArray.isEmpty())
+    }
+
+    @Test
     fun navigationToolsMoveTheApp() {
         val executor = executor()
         assertTrue(executor.call("open_screen", args("screen" to "settings", "settings_section" to "voice_assistant")).ok())
@@ -792,7 +815,7 @@ class VoiceToolExecutorTest {
 
     @Test
     fun coachDataToolsAnswerWithOk() {
-        ports.foods += FoodEntry(name = "Toast", calories = 120, protein = 4.0, carbs = 20.0, fat = 2.0, source = FoodSource.MANUAL, timestamp = ports.instant)
+        ports.foods += FoodEntry(name = "Toast", calories = 120, protein = 4.0, carbs = 20.0, fat = 2.0, source = FoodSource.MANUAL, timestamp = ports.instant, imageFilename = "local-photo.jpg")
         val executor = executor()
         val summary = executor.call("get_data_summary")
         assertTrue(summary.ok())
@@ -800,6 +823,8 @@ class VoiceToolExecutorTest {
         val entries = executor.call("get_food_entries", args("from" to "2026-10-16", "to" to "2026-10-16"))
         assertTrue(entries.ok())
         assertEquals("Toast", entries["foods"]!!.jsonArray[0].jsonObject["name"]!!.jsonPrimitive.content)
+        assertEquals(true, entries["foods"]!!.jsonArray[0].jsonObject["has_photo"]!!.jsonPrimitive.boolean)
+        assertTrue(!entries.toString().contains("local-photo.jpg"))
         val entryId = entries["foods"]!!.jsonArray[0].jsonObject["entry_id"]!!.jsonPrimitive.content
         assertEquals(ports.foods.single().id.toString(), entryId)
         assertTrue(executor.call("open_food_entry", args("entry_id" to entryId)).ok())

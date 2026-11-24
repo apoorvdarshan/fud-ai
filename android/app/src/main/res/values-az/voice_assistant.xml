@@ -126,7 +126,7 @@
     <string name="voice_settings_confirm_saves">Saxlamazdan əvvəl təsdiq</string>
     <string name="voice_settings_confirm_saves_footer">Hər qeydi və ya dəyişikliyi təsdiqləmək üçün kart göstərir. Söndürüldükdə dəyişikliklər dərhal yadda saxlanılır və 8 saniyə ərzində geri qaytarıla bilər.</string>
     <string name="voice_settings_save_to_coach">Söhbətləri Məşqçiyə saxla</string>
-    <string name="voice_settings_save_to_coach_footer">Sizin və köməkçinin dediklərini Məşqçi söhbətinizə əlavə edir.</string>
+    <string name="voice_settings_save_to_coach_footer">Səsli söhbətləri Məşqçidə saxlayır və lazım olduqda son Məşqçi mesajlarını səs xidməti provayderinizlə paylaşır.</string>
     <string name="voice_settings_minutes_left">Planda qalan dəqiqələr</string>
     <string name="voice_settings_minutes_with_credits">%1$s + kreditlərdən %2$s</string>
     <string name="voice_settings_minutes_footer">Plus ayda 20 dəqiqə, Pro isə 100 dəqiqə daxil edir (UTC). Bundan sonra səs kredit istifadə edir: hər 15 saniyəyə 1 kredit.</string>

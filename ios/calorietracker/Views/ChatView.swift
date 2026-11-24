@@ -654,6 +654,7 @@ struct ChatView: View {
         errorMessage = nil
         isSending = true
         let historyForCall = chatStore.contextMessages().dropLast()  // exclude the user msg we just appended
+        let resetRevision = chatStore.resetRevision
 
         let proposals = CoachExerciseProposalCollector()
 
@@ -679,12 +680,14 @@ struct ChatView: View {
                     exerciseLibrary: strengthWorkoutStore.exerciseLibrary.exercises,
                     proposals: proposals
                 )
+                guard chatStore.resetRevision == resetRevision else { return }
                 chatStore.append(ChatMessage(
                     role: .assistant,
                     content: reply,
                     exerciseProposals: proposals.proposals.isEmpty ? nil : proposals.proposals
                 ))
             } catch {
+                guard chatStore.resetRevision == resetRevision else { return }
                 if let quotaError = error as? HostedAIQuotaError {
                     switch quotaError {
                     case .quotaExceeded:

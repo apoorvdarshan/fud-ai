@@ -148,6 +148,7 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
     private var audio: LiveAudioIO? = null
     private var executor: VoiceToolExecutor? = null
     private var preferences = VoiceAssistantPreferences()
+    private var coachResetRevision = 0L
     private var startedAt = 0L
     private val lastActivity = AtomicLong(0)
     private val lastUserSound = AtomicLong(0)
@@ -284,7 +285,8 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
 
         val mascot = container.prefs.voiceMascotPreferences.first().profile
         val catalog = withContext(Dispatchers.IO) { VoiceToolCatalog.bundled(container.appContext) }
-        val context = VoiceSessionContext(provider, prefs.confirmSaves, prefs.autoCapture, workoutDiaryEnabled = true)
+        val historyRevision = container.chatRepository.resetRevision.value
+        val context = VoiceSessionContext(provider, prefs.confirmSaves, prefs.autoCapture, coachHistoryEnabled = prefs.saveToCoach)
         val instructions = withContext(Dispatchers.Default) { buildInstructions(context, prefs, mascot) }
         if (number != sessionNumber) return
 
@@ -331,6 +333,7 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
         this.audio = audio
         this.executor = executor
         this.preferences = prefs
+        this.coachResetRevision = historyRevision
         startedAt = SystemClock.elapsedRealtime()
         lastActivity.set(startedAt)
         resetTurn()
@@ -347,6 +350,11 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
         }
         sessionScope.launch { executor.cards.collect { _cards.value = it } }
         sessionScope.launch {
+            container.chatRepository.resetRevision.collect { revision ->
+                if (revision != historyRevision && sessionNumber == number) end(discardTranscript = true)
+            }
+        }
+        sessionScope.launch {
             container.prefs.voiceAssistantPreferences.collect { latest ->
                 // Settings remain reachable from the compact assistant. In particular,
                 // disabling Coach history must take effect in this conversation.
@@ -355,7 +363,8 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
                 preferences = latest
                 executor.context = executor.context.copy(
                     confirmSaves = latest.confirmSaves,
-                    autoCapture = latest.autoCapture
+                    autoCapture = latest.autoCapture,
+                    coachHistoryEnabled = latest.saveToCoach
                 )
                 if (changedControls) session.sendText(
                     "${VoiceToolExecutor.APP_NOTE} Voice settings changed: confirm before saving is " +
@@ -376,13 +385,14 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
             }
         }
         VoiceLog.info(TAG, "Connecting to ${provider.storageValue}; preparation ${startedAt - preparingAt}ms")
+        if (number != sessionNumber) return
         session.connect()
     }
 
     /** Ends the conversation. A [notice] keeps the overlay open to explain what happened. */
-    fun end(notice: VoiceNotice? = null) {
+    fun end(notice: VoiceNotice? = null, discardTranscript: Boolean = false) {
         sessionNumber += 1
-        saveTurn()
+        if (!discardTranscript) saveTurn()
         sessionScope?.cancel()
         sessionScope = null
         session?.close()
@@ -684,10 +694,14 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
         userUtteranceOpen = false
         replyText = ""
         if (!preferences.saveToCoach || (user.isEmpty() && reply.isEmpty())) return
+        val revision = coachResetRevision
         scope.launch {
             runCatching {
-                if (user.isNotEmpty()) container.chatRepository.append(ChatMessage(role = ChatMessage.Role.USER, content = user))
-                if (reply.isNotEmpty()) container.chatRepository.append(ChatMessage(role = ChatMessage.Role.ASSISTANT, content = reply))
+                val messages = buildList {
+                    if (user.isNotEmpty()) add(ChatMessage(role = ChatMessage.Role.USER, content = user))
+                    if (reply.isNotEmpty()) add(ChatMessage(role = ChatMessage.Role.ASSISTANT, content = reply))
+                }
+                container.chatRepository.appendVoiceTurn(revision, messages)
             }.onFailure { VoiceLog.warn(TAG, "Couldn't save the turn to Coach", it) }
         }
     }

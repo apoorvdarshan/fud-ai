@@ -128,7 +128,7 @@
     <string name="voice_settings_confirm_saves">Potwierdzanie przed zapisaniem</string>
     <string name="voice_settings_confirm_saves_footer">Pokaż kartę do zatwierdzenia każdego wpisu lub zmiany. Gdy ta opcja jest wyłączona, zmiany zapisują się od razu i można je cofnąć w ciągu 8 sekund.</string>
     <string name="voice_settings_save_to_coach">Zapisuj rozmowy w Trenerze</string>
-    <string name="voice_settings_save_to_coach_footer">Dodaje to, co mówisz ty i asystent, do twojego czatu z Trenerem.</string>
+    <string name="voice_settings_save_to_coach_footer">Zapisuje rozmowy głosowe w Trenerze i w razie potrzeby udostępnia ostatnie wiadomości z Trenera dostawcy usługi głosowej.</string>
     <string name="voice_settings_minutes_left">Pozostałe minuty planu</string>
     <string name="voice_settings_minutes_with_credits">%1$s + %2$s z kredytów</string>
     <string name="voice_settings_minutes_footer">Plus obejmuje 20 minut, a Pro 100 minut miesięcznie (UTC). Potem głos zużywa kredyty: 1 kredyt za 15 sekund.</string>

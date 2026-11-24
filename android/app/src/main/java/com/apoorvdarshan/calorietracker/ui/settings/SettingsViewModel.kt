@@ -1494,6 +1494,7 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
             // user turns it on again; the Drive file itself is kept for a later restore.
             container.cloudBackup.forgetSession()
             com.apoorvdarshan.calorietracker.data.FailedMealDraftStore(container.appContext.noBackupFilesDir).delete()
+            container.chatRepository.clear()
             container.prefs.clearAll()
             container.keyStore.clearAll(preserveWeeklyChallengeToken = !challengeDeleted)
             container.imageStore.clearAll()

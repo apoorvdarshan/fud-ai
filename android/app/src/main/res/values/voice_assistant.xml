@@ -126,7 +126,7 @@
     <string name="voice_settings_confirm_saves">Confirm Before Saving</string>
     <string name="voice_settings_confirm_saves_footer">Show a card to approve each log or change. When off, changes save right away with an 8-second Undo.</string>
     <string name="voice_settings_save_to_coach">Save Conversations to Coach</string>
-    <string name="voice_settings_save_to_coach_footer">Adds what you and the assistant say to your Coach chat.</string>
+    <string name="voice_settings_save_to_coach_footer">Saves voice conversations to Coach and shares recent Coach messages with your voice provider when needed.</string>
     <string name="voice_settings_minutes_left">Plan Minutes Left</string>
     <string name="voice_settings_minutes_unknown" translatable="false">—</string>
     <string name="voice_settings_minutes_with_credits">%1$s + %2$s from credits</string>

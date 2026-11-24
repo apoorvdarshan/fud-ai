@@ -194,6 +194,7 @@ final class VoiceAssistantController {
 
     func attach(_ data: AppData) {
         appData = data
+        data.chat.onReset = { [weak self] in self?.end(.coachHistoryReset) }
     }
 
     /// The loudness the orb shows: the reply while it plays, the microphone otherwise.
@@ -303,7 +304,8 @@ final class VoiceAssistantController {
                 appLanguageCode: VoiceAssistantLanguage.appLanguageCode,
                 weightMetric: WeightUnit.current == .kg,
                 heightMetric: HeightUnit.current == .cm,
-                waterInOunces: UserDefaults.standard.string(forKey: WaterSettings.unitKey) == WaterUnit.fluidOunces.rawValue
+                waterInOunces: UserDefaults.standard.string(forKey: WaterSettings.unitKey) == WaterUnit.fluidOunces.rawValue,
+                coachHistoryEnabled: settings.saveToCoach
             ),
             stores: data.stores,
             bodyMeasurements: data.bodyMeasurements.entries,
@@ -327,7 +329,8 @@ final class VoiceAssistantController {
             settings: settings,
             cards: cards,
             workoutDiaryEnabled: workoutDiary,
-            host: self
+            host: self,
+            coachHistory: { data.chat.contextMessages() }
         )
 
         let wire = provider.wire
@@ -372,6 +375,7 @@ final class VoiceAssistantController {
         case conversationEnded
         case background
         case interrupted
+        case coachHistoryReset
         case outOfMinutes
         case needsSubscription
         case failure(VoiceAssistantFailure)
@@ -403,7 +407,7 @@ final class VoiceAssistantController {
         observers.removeAll()
         saveTask?.cancel()
         saveTask = nil
-        saveTurn()
+        if case .coachHistoryReset = reason { resetTurnState() } else { saveTurn() }
         executor?.reset()
         executor = nil
         cards.clear()
@@ -426,7 +430,7 @@ final class VoiceAssistantController {
         photoPickerItems = []
 
         switch reason {
-        case .user, .idle, .conversationEnded, .background, .interrupted:
+        case .user, .idle, .conversationEnded, .background, .interrupted, .coachHistoryReset:
             presentation = .hidden
         case .timeLimit:
             presentation = .failed(VoiceAssistantFailure(

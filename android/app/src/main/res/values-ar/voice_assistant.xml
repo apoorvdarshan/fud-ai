@@ -130,7 +130,7 @@
     <string name="voice_settings_confirm_saves">التأكيد قبل الحفظ</string>
     <string name="voice_settings_confirm_saves_footer">عرض بطاقة للموافقة على كل تسجيل أو تغيير. عند إيقاف هذا الخيار، تُحفظ التغييرات فورًا ويمكن التراجع عنها لمدة 8 ثوانٍ.</string>
     <string name="voice_settings_save_to_coach">حفظ المحادثات في المدرب</string>
-    <string name="voice_settings_save_to_coach_footer">يضيف ما تقوله أنت والمساعد إلى محادثتك مع المدرب.</string>
+    <string name="voice_settings_save_to_coach_footer">يحفظ المحادثات الصوتية في دردشة المدرب ويشارك الرسائل الأخيرة فيها مع مزوّد الخدمة الصوتية عند الحاجة.</string>
     <string name="voice_settings_minutes_left">دقائق الخطة المتبقية</string>
     <string name="voice_settings_minutes_with_credits">%1$s + %2$s من الرصيد</string>
     <string name="voice_settings_minutes_footer">يشمل Plus ‏20 دقيقة وPro ‏100 دقيقة شهريًا (بتوقيت UTC). بعد ذلك يستخدم الصوت الأرصدة: رصيد واحد لكل 15 ثانية.</string>

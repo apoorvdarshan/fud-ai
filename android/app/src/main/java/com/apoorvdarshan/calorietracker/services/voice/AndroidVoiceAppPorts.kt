@@ -68,6 +68,9 @@ class AndroidVoiceAppPorts(
     fun clearSessionImages() = freshImages.clear()
 
     override fun now(): Instant = Instant.now()
+    override suspend fun recentCoachMessages() =
+        if (prefs.voiceAssistantPreferences.first().saveToCoach) container.chatRepository.contextMessages(limit = 12)
+        else emptyList()
     override fun zone(): ZoneId = ZoneId.systemDefault()
     override fun mealForTime(time: LocalTime): MealType = CurrentMealSchedule.value.mealTypeAt(time)
 

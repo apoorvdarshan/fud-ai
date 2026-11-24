@@ -1,6 +1,7 @@
 package com.apoorvdarshan.calorietracker.services.voice
 
 import com.apoorvdarshan.calorietracker.models.BodyFatEntry
+import com.apoorvdarshan.calorietracker.models.ChatMessage
 import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.FoodSource
 import com.apoorvdarshan.calorietracker.models.MealType
@@ -96,6 +97,7 @@ class VoiceToolExecutor(
 
     private val handlers: Map<String, suspend (ToolArgs, VoiceToolSpec) -> JsonObject> = mapOf(
         "get_app_state" to { _, _ -> appState() },
+        "get_coach_history" to { _, _ -> coachHistory() },
         "open_screen" to { args, _ -> openScreen(args) },
         "set_diary_date" to { args, _ -> setDiaryDate(args) },
         "open_food_entry" to { args, _ -> openFoodEntry(args) },
@@ -425,6 +427,31 @@ class VoiceToolExecutor(
                 put("workout_diary", context.workoutDiaryEnabled && ports.workoutDiaryEnabled())
                 put("water_tracking", prefs.waterEnabled)
                 put("fasting_tracking", prefs.fastingEnabled)
+            }
+        }
+    }
+
+    private suspend fun coachHistory(): JsonObject {
+        if (!context.coachHistoryEnabled) {
+            return ToolResults.error(ToolError.UNSUPPORTED, "Coach history is off in Voice Assistant settings.")
+        }
+        val messages = ports.recentCoachMessages().takeLast(12)
+        if (!context.coachHistoryEnabled) {
+            return ToolResults.error(ToolError.UNSUPPORTED, "Coach history is off in Voice Assistant settings.")
+        }
+        return ToolResults.ok {
+            putJsonArray("messages") {
+                for (message in messages) {
+                    val text = message.content.trim()
+                    if (text.isEmpty()) continue
+                    val codePoints = text.codePointCount(0, text.length)
+                    add(buildJsonObject {
+                        put("role", if (message.role == ChatMessage.Role.USER) "user" else "assistant")
+                        put("date", VoiceArguments.formatDate(localDate(message.timestamp)))
+                        put("text", text.substring(0, text.offsetByCodePoints(0, minOf(600, codePoints))))
+                        put("truncated", codePoints > 600)
+                    })
+                }
             }
         }
     }

@@ -181,7 +181,15 @@ asked for its name or identity; personality changes delivery, not the answer.
   (hosted), and how to open it from the system (Action Button/Siri/Control
   Center or tile/shortcut/widget).
 - Each finished turn is added to the Coach chat history when **Save
-  conversations to Coach** is on (default on).
+  conversations to Coach** is on (default on). This also lets the active
+  provider read up to 12 recent Coach messages, with text capped at 600
+  characters per message and no attachments, when a follow-up needs it. Chats
+  are not a substitute for the app's logs. The food diary tool indicates
+  whether an entry has a photo without sending the photo itself.
+- Turning off that setting disables new history lookups and saving. Clearing
+  Coach chat ends the current Live Voice session, so a new session can't use
+  the cleared text or write its unfinished turn back. It doesn't erase the
+  app's diary or retract messages already sent to an AI provider.
 - **Preview Voice**, beside the speaking-voice selection, plays a short sample
   using the selected live provider, model and voice. It reuses the saved API key
   for own-key providers or the existing hosted plan; hosted previews use the

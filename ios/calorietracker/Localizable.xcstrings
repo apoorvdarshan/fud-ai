@@ -170293,114 +170293,114 @@
         }
       }
     },
-    "Adds what you and the assistant say to your Coach chat.": {
+    "Saves voice conversations to Coach and shares recent Coach messages with your voice provider when needed.": {
       "localizations": {
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "يضيف ما تقوله أنت والمساعد إلى محادثتك مع المدرب."
+            "value": "يحفظ المحادثات الصوتية في دردشة المدرب ويشارك الرسائل الأخيرة فيها مع مزوّد الخدمة الصوتية عند الحاجة."
           }
         },
         "az": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sizin və köməkçinin dediklərini Məşqçi söhbətinizə əlavə edir."
+            "value": "Səsli söhbətləri Məşqçidə saxlayır və lazım olduqda son Məşqçi mesajlarını səs xidməti provayderinizlə paylaşır."
           }
         },
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Přidá, co ty a asistent řeknete, do tvého chatu s Koučem."
+            "value": "Ukládá hlasové konverzace do Kouče a v případě potřeby sdílí nedávné zprávy z Kouče s poskytovatelem hlasové služby."
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Fügt hinzu, was du und der Assistent sagt, zu deinem Coach-Chat."
+            "value": "Speichert Sprachgespräche im Coach-Chat und teilt bei Bedarf aktuelle Coach-Nachrichten mit deinem Sprachanbieter."
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Añade lo que dices tú y lo que dice el asistente a tu chat de Coach."
+            "value": "Guarda las conversaciones de voz en Coach y comparte mensajes recientes de Coach con tu proveedor de voz cuando es necesario."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ajoute ce que vous et l’assistant dites à votre discussion Coach."
+            "value": "Enregistre les conversations vocales dans Coach et partage au besoin les messages récents de Coach avec votre fournisseur de service vocal."
           }
         },
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "आप और असिस्टेंट जो कहते हैं, उसे आपकी कोच चैट में जोड़ता है।"
+            "value": "वॉइस बातचीत को कोच में सेव करता है और ज़रूरत पड़ने पर कोच के हाल के मैसेज आपके वॉइस सेवा प्रदाता के साथ शेयर करता है।"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Aggiunge quello che dite tu e l’assistente alla tua chat con Coach."
+            "value": "Salva le conversazioni vocali in Coach e condivide, quando serve, i messaggi recenti di Coach con il tuo fornitore del servizio vocale."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "あなたとアシスタントの発言をコーチのチャットに追加します。"
+            "value": "音声会話をコーチに保存し、必要に応じてコーチの最近のメッセージを音声サービス提供元と共有します。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "사용자와 어시스턴트가 한 말을 코치 채팅에 추가합니다."
+            "value": "음성 대화를 코치에 저장하고, 필요할 때 최근 코치 메시지를 음성 서비스 제공업체와 공유합니다."
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Voegt toe wat jij en de assistent zeggen aan je Coach-chat."
+            "value": "Slaat spraakgesprekken op in Coach en deelt zo nodig recente Coach-berichten met je spraakprovider."
           }
         },
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dodaje to, co mówisz ty i asystent, do twojego czatu z Trenerem."
+            "value": "Zapisuje rozmowy głosowe w Trenerze i w razie potrzeby udostępnia ostatnie wiadomości z Trenera dostawcy usługi głosowej."
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Adiciona o que você e o assistente dizem ao seu chat do Coach."
+            "value": "Salva as conversas por voz no Coach e compartilha mensagens recentes do Coach com seu provedor de voz quando necessário."
           }
         },
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Adaugă ce spuneți tu și asistentul în chatul tău cu Antrenorul."
+            "value": "Salvează conversațiile vocale în Antrenor și, la nevoie, partajează mesajele recente din Antrenor cu furnizorul tău de servicii vocale."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Добавляет сказанное вами и ассистентом в ваш чат с «Тренером»."
+            "value": "Сохраняет голосовые разговоры в «Тренере» и при необходимости передаёт недавние сообщения из него поставщику голосового сервиса."
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sizin ve asistanın söylediklerini Koç sohbetinize ekler."
+            "value": "Sesli konuşmaları Koç’a kaydeder ve gerektiğinde son Koç mesajlarını ses hizmeti sağlayıcınızla paylaşır."
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Додає сказане вами й асистентом у ваш чат із «Тренером»."
+            "value": "Зберігає голосові розмови в «Тренері» та за потреби передає нещодавні повідомлення з нього постачальнику голосового сервісу."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "将你和助手说的话添加到教练聊天中。"
+            "value": "将语音对话保存到教练，并在需要时与语音服务提供商共享最近的教练消息。"
           }
         }
       }

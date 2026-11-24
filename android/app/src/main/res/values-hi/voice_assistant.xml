@@ -126,7 +126,7 @@
     <string name="voice_settings_confirm_saves">सहेजने से पहले पुष्टि</string>
     <string name="voice_settings_confirm_saves_footer">हर लॉग या बदलाव की मंज़ूरी के लिए एक कार्ड दिखाएँ। इसे बंद करने पर बदलाव तुरंत सेव होते हैं और 8 सेकंड तक वापस किए जा सकते हैं।</string>
     <string name="voice_settings_save_to_coach">बातचीत कोच में सहेजें</string>
-    <string name="voice_settings_save_to_coach_footer">आप और असिस्टेंट जो कहते हैं, उसे आपकी कोच चैट में जोड़ता है।</string>
+    <string name="voice_settings_save_to_coach_footer">वॉइस बातचीत को कोच में सेव करता है और ज़रूरत पड़ने पर कोच के हाल के मैसेज आपके वॉइस सेवा प्रदाता के साथ शेयर करता है।</string>
     <string name="voice_settings_minutes_left">प्लान के बचे मिनट</string>
     <string name="voice_settings_minutes_with_credits">%1$s + क्रेडिट से %2$s</string>
     <string name="voice_settings_minutes_footer">Plus में हर महीने 20 मिनट और Pro में 100 मिनट शामिल हैं (UTC)। उसके बाद वॉइस क्रेडिट इस्तेमाल करता है: हर 15 सेकंड पर 1 क्रेडिट।</string>

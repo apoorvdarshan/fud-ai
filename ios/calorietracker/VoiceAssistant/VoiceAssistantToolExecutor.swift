@@ -194,6 +194,7 @@ final class VoiceAssistantToolExecutor {
     weak var host: (any VoiceAssistantToolHost)?
     private let now: () -> Date
     private let calendar: Calendar
+    private let coachHistory: () -> [ChatMessage]
 
     private(set) var foodDrafts: [String: FoodDraft] = [:]
     private(set) var workoutDrafts: [String: WorkoutDraft] = [:]
@@ -215,7 +216,8 @@ final class VoiceAssistantToolExecutor {
         workoutDiaryEnabled: Bool,
         host: (any VoiceAssistantToolHost)?,
         now: @escaping () -> Date = Date.init,
-        calendar: Calendar = .current
+        calendar: Calendar = .current,
+        coachHistory: @escaping () -> [ChatMessage] = { [] }
     ) {
         self.specs = specs ?? VoiceAssistantToolCatalog.bundled
         self.stores = stores
@@ -227,6 +229,7 @@ final class VoiceAssistantToolExecutor {
         self.host = host
         self.now = now
         self.calendar = calendar
+        self.coachHistory = coachHistory
         cards.onExpire = { [weak self] id in
             self?.undoActions.removeValue(forKey: id)
         }
@@ -249,6 +252,22 @@ final class VoiceAssistantToolExecutor {
         }
         switch name {
         case "get_app_state": return appState()
+        case "get_coach_history":
+            guard settings.saveToCoach else {
+                return Self.failure(.unsupported, "Coach history is off in Voice Assistant settings.")
+            }
+            let messages = coachHistory().suffix(12).compactMap { message -> [String: Any]? in
+                let text = message.content.trimmingCharacters(in: .whitespacesAndNewlines)
+                guard !text.isEmpty else { return nil }
+                let scalars = text.unicodeScalars.prefix(601)
+                return [
+                    "role": message.role.rawValue,
+                    "date": iso(message.timestamp),
+                    "text": String(scalars.prefix(600)),
+                    "truncated": scalars.count > 600,
+                ]
+            }
+            return ["ok": true, "messages": messages]
         case "open_screen": return openScreen(arguments)
         case "set_diary_date": return setDiaryDate(arguments)
         case "open_food_entry": return openFoodEntry(arguments)

@@ -395,6 +395,7 @@ struct VoiceAssistantToolTests {
         #expect(result["ok"] as? Bool == true)
         let foods = try #require(result["foods"] as? [[String: Any]])
         #expect(foods.first?["entry_id"] as? String == entry.id.uuidString)
+        #expect(foods.first?["has_photo"] as? Bool == false)
     }
 
     @Test(arguments: [false, true], ["log_food", "update_food_entry", "delete_food_entry"])
@@ -767,6 +768,29 @@ struct VoiceAssistantToolTests {
 
     // MARK: Navigation
 
+    @Test func coachHistoryIsBoundedTextOnlyAndObeysDisableAndReset() async throws {
+        let harness = VoiceAssistantHarness(confirmSaves: true)
+        for index in 0..<13 { harness.chat.append(ChatMessage(role: .user, content: "Message \(index)")) }
+        harness.chat.append(ChatMessage(role: .user, content: "", attachmentImageData: Data([1])))
+        harness.chat.append(ChatMessage(role: .assistant, content: String(repeating: "🥐", count: 602), attachmentImageData: Data([2])))
+        let result = await harness.executor.execute(name: "get_coach_history", arguments: [:])
+        let messages = try #require(result["messages"] as? [[String: Any]])
+        #expect(messages.count == 11)
+        #expect(messages.first?["text"] as? String == "Message 3")
+        let last = try #require(messages.last)
+        #expect(Set(last.keys) == ["role", "date", "text", "truncated"])
+        #expect(last["role"] as? String == "assistant")
+        #expect((last["text"] as? String)?.count == 600)
+        #expect(last["truncated"] as? Bool == true)
+
+        harness.settings.saveToCoach = false
+        #expect(await harness.executor.execute(name: "get_coach_history", arguments: [:])["error"] as? String == "unsupported")
+        harness.settings.saveToCoach = true
+        harness.chat.reset()
+        let cleared = await harness.executor.execute(name: "get_coach_history", arguments: [:])
+        #expect((cleared["messages"] as? [[String: Any]])?.isEmpty == true)
+    }
+
     @Test func navigationToolsMoveTheApp() async throws {
         let harness = VoiceAssistantHarness(confirmSaves: false)
         let settings = await harness.executor.execute(name: "open_screen", arguments: ["screen": "settings", "settings_section": "ai_providers"])
@@ -873,6 +897,7 @@ final class VoiceAssistantHarness {
     let bodyFat: BodyFatStore
     let workouts: StrengthWorkoutStore
     let settings: VoiceAssistantSettings
+    let chat: ChatStore
     let cards = VoiceAssistantCardStore()
     let host = StubVoiceAssistantHost()
     let analyzer = StubVoiceAssistantAnalyzer()
@@ -897,6 +922,8 @@ final class VoiceAssistantHarness {
         bodyFat = BodyFatStore()
         workouts = StrengthWorkoutStore(defaults: defaults, storageKey: "voiceAssistantTests.workouts")
         settings = VoiceAssistantSettings(defaults: defaults)
+        let chat = ChatStore(defaults: defaults)
+        self.chat = chat
         settings.confirmSaves = confirmSaves
         // The real time: Undo cards expire against the clock.
         now = .now
@@ -922,7 +949,8 @@ final class VoiceAssistantHarness {
             analyzer: analyzer,
             workoutDiaryEnabled: workoutDiary,
             host: host,
-            now: { now }
+            now: { now },
+            coachHistory: { chat.contextMessages() }
         )
     }
 

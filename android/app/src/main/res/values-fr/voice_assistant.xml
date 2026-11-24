@@ -127,7 +127,7 @@
     <string name="voice_settings_confirm_saves">Confirmation avant enregistrement</string>
     <string name="voice_settings_confirm_saves_footer">Affiche une carte pour approuver chaque ajout ou modification. Si cette option est désactivée, les changements sont enregistrés immédiatement et peuvent être annulés pendant 8 secondes.</string>
     <string name="voice_settings_save_to_coach">Enregistrer les conversations dans Coach</string>
-    <string name="voice_settings_save_to_coach_footer">Ajoute ce que vous et l’assistant dites à votre discussion Coach.</string>
+    <string name="voice_settings_save_to_coach_footer">Enregistre les conversations vocales dans Coach et partage au besoin les messages récents de Coach avec votre fournisseur de service vocal.</string>
     <string name="voice_settings_minutes_left">Minutes du forfait restantes</string>
     <string name="voice_settings_minutes_with_credits">%1$s + %2$s grâce aux crédits</string>
     <string name="voice_settings_minutes_footer">Plus inclut 20 minutes et Pro 100 minutes par mois (UTC). Ensuite, la voix utilise des crédits : 1 crédit par tranche de 15 secondes.</string>

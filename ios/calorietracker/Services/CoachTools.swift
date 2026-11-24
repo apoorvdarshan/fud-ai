@@ -89,7 +89,7 @@ struct CoachTools {
         "get_weight_history": "Fetch weight entries between two dates (inclusive). Returns date + weight (kg + lbs). Use this when the user asks about specific past dates or weight trends older than the last 10 entries.",
         "get_body_fat_history": "Fetch body-fat readings between two dates (inclusive). Returns date + percent. Use when the user asks about body composition trends older than the last 10 readings.",
         "get_calorie_totals": "Daily calorie totals (sum of all logged foods per day) between two dates. Returns date + kcal. Use when the user asks about intake patterns older than the last 14 days.",
-        "get_food_entries": "Individual logged food items (name + calories + macros) between two dates. Use when the user asks about specific meals, what they ate on a given date, or wants macro breakdowns rather than just kcal totals.",
+        "get_food_entries": "Individual logged food items (name, calories, macros and whether a photo is attached) between two dates. Use for specific meals, dates, photos, or macro breakdowns.",
         "get_fasting_history": "Fetch explicitly tracked fasting sessions between two dates, including start/end timestamps, duration, goal, and whether the goal was reached. Never infer fasting from missing food logs.",
         "get_workout_history": "Fetch completed workouts between two dates, including calculated calorie burn, saved exercise durations and intensity, and logged sets with weight, reps, and RPE. A timed exercise can be performed without any reps or sets. For one specific lift across many dates, prefer get_exercise_lift_history.",
         "get_workout_plans": "Fetch dated workout diary plans, set targets, saved exercise durations, and current timer state. Running or paused timer time is unsaved. Optional ISO from/to dates narrow the result; without them it returns recent and upcoming plans around today.",
@@ -384,6 +384,7 @@ struct CoachTools {
                 "fat_g": entry.fat,
                 "meal_type": entry.mealType.rawValue,
                 "source": entry.source.rawValue,
+                "has_photo": !entry.allImageFilenames.isEmpty || entry.imageData != nil || !entry.additionalImageData.isEmpty,
             ]
             func add(_ key: String, _ value: Double?) {
                 if let value {

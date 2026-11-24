@@ -4,6 +4,8 @@ import com.apoorvdarshan.calorietracker.models.ChatMessage
 import com.apoorvdarshan.calorietracker.models.CoachExerciseProposal
 import com.apoorvdarshan.calorietracker.models.resolvingProposal
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -19,8 +21,11 @@ class ChatRepository(private val prefs: PreferencesStore) {
 
     /** Serializes read-modify-write updates so a reply and a card tap cannot overwrite each other. */
     private val mutex = Mutex()
+    private val _resetRevision = MutableStateFlow(0L)
+    val resetRevision = _resetRevision.asStateFlow()
 
-    suspend fun append(message: ChatMessage) = mutex.withLock {
+    suspend fun append(message: ChatMessage, unlessResetSince: Long? = null) = mutex.withLock {
+        if (unlessResetSince != null && _resetRevision.value != unlessResetSince) return@withLock
         val current = prefs.chatHistory.first()
         prefs.setChatHistory(current + message)
     }
@@ -31,6 +36,13 @@ class ChatRepository(private val prefs: PreferencesStore) {
 
     suspend fun clear() = mutex.withLock {
         prefs.setChatHistory(emptyList())
+        _resetRevision.value += 1
+    }
+
+    /** A voice reply queued before reset must never repopulate the cleared chat. */
+    suspend fun appendVoiceTurn(revision: Long, messages: List<ChatMessage>) = mutex.withLock {
+        if (_resetRevision.value != revision || !prefs.voiceAssistantPreferences.first().saveToCoach) return@withLock
+        prefs.setChatHistory(prefs.chatHistory.first() + messages)
     }
 
     /** Last N messages for LLM payload context, trimmed to keep token cost flat. */

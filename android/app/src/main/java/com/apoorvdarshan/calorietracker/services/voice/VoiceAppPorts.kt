@@ -1,6 +1,7 @@
 package com.apoorvdarshan.calorietracker.services.voice
 
 import com.apoorvdarshan.calorietracker.models.BodyFatEntry
+import com.apoorvdarshan.calorietracker.models.ChatMessage
 import com.apoorvdarshan.calorietracker.models.FastingSession
 import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.FoodSource
@@ -151,7 +152,8 @@ data class VoiceSessionContext(
     val provider: LiveProvider,
     val confirmSaves: Boolean,
     val autoCapture: Boolean,
-    val workoutDiaryEnabled: Boolean = true
+    val workoutDiaryEnabled: Boolean = true,
+    val coachHistoryEnabled: Boolean = false
 ) {
     val cameraFrames: CameraFrames get() = provider.cameraFrames
 }
@@ -162,6 +164,8 @@ data class VoiceSessionContext(
  * tests substitute an in-memory fake.
  */
 interface VoiceAppPorts {
+    suspend fun recentCoachMessages(): List<ChatMessage> = emptyList()
+
     // Time and calendar
     fun now(): Instant
     fun zone(): ZoneId

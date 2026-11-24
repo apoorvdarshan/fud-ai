@@ -359,7 +359,7 @@ struct VoiceAssistantSettingsView: View {
 
             toggleRow(
                 title: "Save Conversations to Coach",
-                detail: "Adds what you and the assistant say to your Coach chat.",
+                detail: "Saves voice conversations to Coach and shares recent Coach messages with your voice provider when needed.",
                 systemImage: "bubble.left.and.bubble.right",
                 isOn: $saveToCoach,
                 identifier: "settings.voiceAssistant.saveToCoach"

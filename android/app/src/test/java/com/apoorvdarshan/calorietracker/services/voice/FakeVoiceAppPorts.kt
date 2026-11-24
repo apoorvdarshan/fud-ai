@@ -1,6 +1,7 @@
 package com.apoorvdarshan.calorietracker.services.voice
 
 import com.apoorvdarshan.calorietracker.models.BodyFatEntry
+import com.apoorvdarshan.calorietracker.models.ChatMessage
 import com.apoorvdarshan.calorietracker.models.FastingSession
 import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.MealType
@@ -22,6 +23,9 @@ import java.util.UUID
 
 /** An in-memory app for the voice tools. */
 class FakeVoiceAppPorts : VoiceAppPorts {
+    val coachMessages = mutableListOf<ChatMessage>()
+    override suspend fun recentCoachMessages(): List<ChatMessage> = coachMessages
+
     var instant: Instant = Instant.parse("2026-10-16T12:30:00Z")
     val zoneId: ZoneId = ZoneOffset.UTC
 

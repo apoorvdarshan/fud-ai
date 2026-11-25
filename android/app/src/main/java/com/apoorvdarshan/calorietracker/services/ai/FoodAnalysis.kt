@@ -1,6 +1,7 @@
 package com.apoorvdarshan.calorietracker.services.ai
 
 import com.apoorvdarshan.calorietracker.models.AminoAcidEstimates
+import com.apoorvdarshan.calorietracker.models.CanonicalFoodAllergens
 import com.apoorvdarshan.calorietracker.models.ServingUnitOption
 import com.apoorvdarshan.calorietracker.models.OptionalNutrientGoals
 import com.apoorvdarshan.calorietracker.models.MealIngredient
@@ -63,7 +64,8 @@ data class FoodAnalysis(
     val customNote: String? = null,
     val progressiveMeal: Boolean = false,
     val ingredients: List<MealIngredient> = emptyList(),
-    val productMetadata: FoodProductMetadata? = null
+    val productMetadata: FoodProductMetadata? = null,
+    val aiAllergens: List<String> = emptyList()
 ) {
     /** When the model also returned a breakdown, the header macros are the sum of that list. */
     fun withIngredientMacroTotals(): FoodAnalysis {
@@ -110,7 +112,8 @@ data class NutritionLabelAnalysis(
     val vitaminKPer100g: Double? = null,
     val folatePer100g: Double? = null,
     val omega3Per100g: Double? = null,
-    val servingUnitOptions: List<ServingUnitOption> = emptyList()
+    val servingUnitOptions: List<ServingUnitOption> = emptyList(),
+    val aiAllergens: List<String> = emptyList()
 ) {
     fun scaled(toGrams: Double): FoodAnalysis {
         val scale = toGrams / 100.0
@@ -149,7 +152,8 @@ data class NutritionLabelAnalysis(
             omega3 = s(omega3Per100g),
             servingUnitOptions = servingUnitOptions,
             selectedServingUnit = selectedOption?.unit,
-            selectedServingQuantity = selectedOption?.quantityFor(toGrams)
+            selectedServingQuantity = selectedOption?.quantityFor(toGrams),
+            aiAllergens = aiAllergens
         )
     }
 }
@@ -276,7 +280,8 @@ internal object FoodJsonParser {
             servingUnitOptions = unitOptions,
             selectedServingUnit = if (responseServingSizeGrams == null) "serving" else selectedOption?.unit,
             selectedServingQuantity = if (responseServingSizeGrams == null) 1.0 else selectedOption?.quantityFor(servingSizeGrams),
-            servingSizeIsKnown = responseServingSizeGrams != null
+            servingSizeIsKnown = responseServingSizeGrams != null,
+            aiAllergens = allergenIds(json.optJSONArray("allergens"))
         ).withIngredientMacroTotals()
         return ParsedFoodResponse(
             analysis = analysis,
@@ -301,7 +306,8 @@ internal object FoodJsonParser {
         val calories: Double,
         val protein: Double,
         val carbs: Double,
-        val fat: Double
+        val fat: Double,
+        val allergenIds: List<String>
     )
 
     /**
@@ -337,7 +343,7 @@ internal object FoodJsonParser {
             val grams = listedGrams?.takeIf { it > 0 }
             // Without a weight or calories there is nothing to estimate the weight from.
             if (grams == null && calories <= 0) return emptyList()
-            drafts.add(IngredientDraft(name, grams, calories, protein, carbs, fat))
+            drafts.add(IngredientDraft(name, grams, calories, protein, carbs, fat, allergenIds(item["allergens"] as? JsonArray)))
         }
 
         var gramsPerMissingCalorie = 0.0
@@ -360,7 +366,8 @@ internal object FoodJsonParser {
                 calories = draft.calories.roundToInt(),
                 protein = draft.protein,
                 carbs = draft.carbs,
-                fat = draft.fat
+                fat = draft.fat,
+                aiAllergens = draft.allergenIds
             )
         }
         if (mealCalories > 0) {
@@ -416,7 +423,8 @@ internal object FoodJsonParser {
             vitaminKPer100g = optDouble("vitamin_k_per_100g"),
             folatePer100g = optDouble("folate_per_100g"),
             omega3Per100g = optDouble("omega_3_per_100g"),
-            servingUnitOptions = unitOptionsResult.options
+            servingUnitOptions = unitOptionsResult.options,
+            aiAllergens = allergenIds(json.optJSONArray("allergens"))
         )
         return ParsedNutritionLabelResponse(
             analysis = analysis,
@@ -427,6 +435,12 @@ internal object FoodJsonParser {
     fun parseServingUnitOptions(text: String, servingSizeGrams: Double?): List<ServingUnitOption> {
         return parseServingUnitOptionsResult(text, servingSizeGrams).options
     }
+
+    private fun allergenIds(array: org.json.JSONArray?): List<String> =
+        CanonicalFoodAllergens.clean(array?.let { (0 until it.length()).mapNotNull { i -> it.opt(i) as? String } }.orEmpty())
+
+    private fun allergenIds(array: JsonArray?): List<String> =
+        CanonicalFoodAllergens.clean(array.orEmpty().mapNotNull { (it as? JsonPrimitive)?.takeIf { value -> value.isString }?.content })
 
     fun parseServingUnitOptionsResult(
         text: String,

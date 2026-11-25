@@ -45,6 +45,8 @@ final class Gemma4LocalModelManager {
         case storageCapacityUnavailable
         case invalidDownload(String)
         case emptyResponse
+        case unusableResponse
+        case inferenceFailed
 
         var errorDescription: String? {
             switch self {
@@ -88,6 +90,10 @@ final class Gemma4LocalModelManager {
                     "gemma.error.emptyResponse",
                     defaultValue: "Gemma 4 returned an empty response. Please try again."
                 )
+            case .unusableResponse:
+                "Gemma 4: \(AIErrorKind.invalidResponse.message)"
+            case .inferenceFailed:
+                "Gemma 4: \(AIErrorKind.generic.message)"
             }
         }
 

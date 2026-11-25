@@ -422,7 +422,8 @@ fun FoodResultSheet(
         },
         servingSizeIsKnown = servingSizeIsKnown,
         ingredients = editableIngredients,
-        productMetadata = analysis.productMetadata
+        productMetadata = analysis.productMetadata,
+        aiAllergens = analysis.aiAllergens
     )
     fun previewEntry() = FoodEntry(
         name = name.trim().ifEmpty { analysis.name },
@@ -472,7 +473,8 @@ fun FoodResultSheet(
             selectedServingQuantity
         },
         ingredients = scaledIngredients(),
-        productMetadata = analysis.productMetadata
+        productMetadata = analysis.productMetadata,
+        aiAllergens = analysis.aiAllergens
     )
     var whatIfEntry by rememberSaveable(stateSaver = foodDraftSaver<FoodEntry?>()) { mutableStateOf<FoodEntry?>(null) }
 
@@ -583,19 +585,9 @@ fun FoodResultSheet(
             if (profile?.allergenSensitivities?.isNotEmpty() == true) {
                 item { SheetSectionHeader(stringResource(R.string.product_allergen_check)) }
                 item {
-                    val previewEntry = FoodEntry(
-                        name = name,
-                        calories = analysis.calories,
-                        protein = analysis.protein,
-                        carbs = analysis.carbs,
-                        fat = analysis.fat,
-                        source = source,
-                        ingredients = analysis.ingredients,
-                        productMetadata = analysis.productMetadata
-                    )
                     SheetPillCard {
                         Text(
-                            previewEntry.allergenAnalysis(profile.allergenSensitivities).summary(LocalContext.current),
+                            previewEntry().allergenAnalysis(profile.allergenSensitivities).summary(LocalContext.current),
                             modifier = Modifier.padding(18.dp),
                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.78f)
                         )

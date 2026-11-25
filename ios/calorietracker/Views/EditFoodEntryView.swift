@@ -43,6 +43,7 @@ struct EditFoodEntryView: View {
     @State private var baseFolate: Double?
     @State private var baseOmega3: Double?
     @State private var baseIngredients: [MealIngredient]
+    @State private var aiAllergens: [String]
     @State private var servingUnitOptions: [ServingUnitOption]
     @State private var servingSizeIsKnown: Bool
     @State private var recipeServings = 1
@@ -164,6 +165,7 @@ struct EditFoodEntryView: View {
         self._baseFolate = State(initialValue: entry.folate)
         self._baseOmega3 = State(initialValue: entry.omega3)
         self._baseIngredients = State(initialValue: entry.ingredients)
+        self._aiAllergens = State(initialValue: entry.aiAllergens)
         self._servingUnitOptions = State(initialValue: normalizedServingUnitOptions)
         self._servingSizeIsKnown = State(initialValue: entry.hasKnownServingSize)
         self._emoji = State(initialValue: entry.emoji)
@@ -405,7 +407,7 @@ struct EditFoodEntryView: View {
                     if !profileStore.profile.configuredAllergenSensitivities.isEmpty {
                         Section("Allergen Check") {
                             Text(
-                                entry.allergenAnalysis(
+                                editedEntry.allergenAnalysis(
                                     for: profileStore.profile.configuredAllergenSensitivities
                                 ).summary
                             )
@@ -728,6 +730,7 @@ struct EditFoodEntryView: View {
                 baseFolate = newAnalysis.folate
                 baseOmega3 = newAnalysis.omega3
                 baseIngredients = newAnalysis.ingredients
+                aiAllergens = newAnalysis.aiAllergens
                 emoji = newAnalysis.emoji
 
                 servingUnitOptions = newAnalysis.servingSizeIsKnown
@@ -827,7 +830,8 @@ struct EditFoodEntryView: View {
             customNote: customNote.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? nil : customNote,
             progressiveMeal: entry.progressiveMeal,
             ingredients: scaledIngredients,
-            productMetadata: entry.productMetadata
+            productMetadata: entry.productMetadata,
+            aiAllergens: aiAllergens
         )
     }
 }

@@ -40,6 +40,9 @@ struct AllergenAnalysis: Equatable, Sendable {
             (.declaredAllergenMatch, LocalizedDisplayText.text("Declared product allergens"), entry.productMetadata?.allergens ?? []),
             (.mayContain, LocalizedDisplayText.text("Trace warning"), entry.productMetadata?.traces ?? []),
             (.possibleAllergen, LocalizedDisplayText.text("Ingredient label"), [entry.productMetadata?.ingredientsText].compactMap { $0 }),
+            (.possibleAllergen, LocalizedDisplayText.text("Possible allergen"), CanonicalFoodAllergens.clean(
+                entry.aiAllergens + entry.ingredients.flatMap { $0.aiAllergens ?? [] }
+            )),
             (.possibleAllergen, LocalizedDisplayText.text("Ingredient name"), entry.ingredients.map(\.name)),
             (.possibleAllergen, LocalizedDisplayText.text("Food name"), [entry.name])
         ]
@@ -75,7 +78,7 @@ struct AllergenAnalysis: Equatable, Sendable {
             .contains { Self.matches(sensitivity: $0, candidate: candidate) }
     }
 
-    private static func normalize(_ value: String) -> String {
+    nonisolated static func normalize(_ value: String) -> String {
         let folded = value.folding(options: [.diacriticInsensitive, .caseInsensitive], locale: Locale(identifier: "en_US_POSIX"))
         return folded
             .replacingOccurrences(of: "^[a-z]{2}:", with: "", options: .regularExpression)
@@ -102,8 +105,9 @@ struct AllergenAnalysis: Equatable, Sendable {
         ]
         let key = sensitivityTokens.joined(separator: " ")
         // Exact names only. These reviewed aliases are not used to infer what a food does not contain.
-        if let allergen = canonicalAliases[key], canonicalAliases[normalizedCandidate] == allergen {
-            return true
+        if let allergen = CanonicalFoodAllergens.id(for: key),
+           let candidate = CanonicalFoodAllergens.id(for: normalizedCandidate) {
+            if allergen == candidate || (allergen == "gluten" && candidate == "wheat") { return true }
         }
         let terms = aliases[key] ?? Set(sensitivityTokens)
         if terms.count == 1, let term = terms.first, sensitivityTokens.count == 1 {
@@ -125,17 +129,6 @@ struct AllergenAnalysis: Equatable, Sendable {
             candidateTerms.contains(where: { Self.tokenMatches(term: token, candidate: $0) })
         }
     }
-
-    /// Keys are normalized the same way as sensitivities and candidates, so a
-    /// folded spelling (for example Russian `яйцо` → `яицо`) still resolves.
-    private static let canonicalAliases: [String: String] = Dictionary(
-        [
-            ("milk", "milk"), ("mleko", "milk"), ("mlekem", "milk"), ("молоко", "milk"),
-            ("egg", "egg"), ("eggs", "egg"), ("vejce", "egg"), ("vejci", "egg"), ("яйцо", "egg"),
-            ("peanut", "peanut"), ("peanuts", "peanut"), ("arasidy", "peanut"), ("arasid", "peanut")
-        ].map { (normalize($0.0), $0.1) },
-        uniquingKeysWith: { first, _ in first }
-    )
 
     private static func tokenMatches(term: String, candidate: String) -> Bool {
         term == candidate

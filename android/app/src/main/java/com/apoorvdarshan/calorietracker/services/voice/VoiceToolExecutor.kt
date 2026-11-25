@@ -1484,7 +1484,8 @@ class VoiceToolExecutor(
                 customNote = analysis.customNote,
                 progressiveMeal = analysis.progressiveMeal,
                 ingredients = analysis.ingredients.map { it.scaled(servings) },
-                productMetadata = analysis.productMetadata
+                productMetadata = analysis.productMetadata,
+                aiAllergens = analysis.aiAllergens
             )
         }
     }

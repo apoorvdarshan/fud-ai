@@ -13,7 +13,8 @@ data class MealIngredient(
     val fat: Double,
     val imageFilename: String? = null,
     val additionalImageFilenames: List<String> = emptyList(),
-    val emoji: String? = null
+    val emoji: String? = null,
+    val aiAllergens: List<String> = emptyList()
 ) {
     val allImageFilenames: List<String>
         get() = (listOfNotNull(imageFilename) + additionalImageFilenames).distinct()

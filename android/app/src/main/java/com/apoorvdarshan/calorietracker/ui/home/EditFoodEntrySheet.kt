@@ -345,7 +345,8 @@ fun EditFoodEntrySheet(
                     },
                     customNote = noteText.trim().takeIf { it.isNotEmpty() },
                     emoji = newAnalysis.emoji,
-                    ingredients = newAnalysis.ingredients
+                    ingredients = newAnalysis.ingredients,
+                    aiAllergens = newAnalysis.aiAllergens
                 )
             } catch (e: Exception) {
                 errorText = (e as? com.apoorvdarshan.calorietracker.services.ai.AiError)?.userMessage(context) ?: reprocessingFailed

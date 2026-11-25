@@ -20,6 +20,7 @@ struct FoodResultView: View {
     let source: FoodSource
     let progressiveMeal: Bool
     let productMetadata: FoodProductMetadata?
+    let aiAllergens: [String]
     /// True when a barcode Open Food Facts could not use was prefilled from the
     /// user's own earlier nutrition-label scan (#485).
     let usesSavedBarcodeLabel: Bool
@@ -141,6 +142,7 @@ struct FoodResultView: View {
         ingredients: [MealIngredient] = [],
         progressiveMeal: Bool = false,
         productMetadata: FoodProductMetadata? = nil,
+        aiAllergens: [String] = [],
         usesSavedBarcodeLabel: Bool = false,
         allowsRecipeServings: Bool = true,
         servingSizeGrams: Double = 100,
@@ -210,6 +212,7 @@ struct FoodResultView: View {
         self.source = source
         self.progressiveMeal = progressiveMeal
         self.productMetadata = productMetadata
+        self.aiAllergens = aiAllergens
         self.usesSavedBarcodeLabel = usesSavedBarcodeLabel
         self.allowsRecipeServings = allowsRecipeServings
         self._baseServingSizeGrams = State(initialValue: servingSizeGrams)
@@ -834,7 +837,8 @@ struct FoodResultView: View {
                 : selectedServingQuantity,
             progressiveMeal: progressiveMeal,
             ingredients: scaledIngredients,
-            productMetadata: productMetadata
+            productMetadata: productMetadata,
+            aiAllergens: aiAllergens
         )
     }
 

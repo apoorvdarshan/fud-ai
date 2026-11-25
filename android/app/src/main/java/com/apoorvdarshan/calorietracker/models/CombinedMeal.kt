@@ -13,7 +13,8 @@ fun FoodEntry.toMealIngredient(): MealIngredient = MealIngredient(
     fat = fat,
     imageFilename = allImageFilenames.firstOrNull(),
     additionalImageFilenames = allImageFilenames.drop(1),
-    emoji = emoji
+    emoji = emoji,
+    aiAllergens = CanonicalFoodAllergens.clean(aiAllergens + ingredients.flatMap { it.aiAllergens })
 )
 
 /**
@@ -28,7 +29,8 @@ fun FoodAnalysis.toMealIngredient(): MealIngredient = MealIngredient(
     protein = protein,
     carbs = carbs,
     fat = fat,
-    emoji = emoji
+    emoji = emoji,
+    aiAllergens = CanonicalFoodAllergens.clean(aiAllergens + ingredients.flatMap { it.aiAllergens })
 )
 
 /** Recompute parent macros from an ingredient list. */

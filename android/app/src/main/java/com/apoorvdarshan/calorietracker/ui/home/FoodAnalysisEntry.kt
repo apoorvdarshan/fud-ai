@@ -85,6 +85,7 @@ internal fun FoodAnalysis.toFoodEntry(
         customNote = analysis.customNote,
         progressiveMeal = analysis.progressiveMeal,
         ingredients = analysis.ingredients.map { it.scaled(scale) },
-        productMetadata = analysis.productMetadata
+        productMetadata = analysis.productMetadata,
+        aiAllergens = analysis.aiAllergens
     )
 }

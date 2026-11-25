@@ -14,7 +14,8 @@ extension GeminiService.FoodAnalysis {
             protein: protein,
             carbs: carbs,
             fat: fat,
-            emoji: emoji
+            emoji: emoji,
+            aiAllergens: CanonicalFoodAllergens.clean(aiAllergens + ingredients.flatMap { $0.aiAllergens ?? [] })
         )
     }
 }

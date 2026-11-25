@@ -83,7 +83,8 @@ enum VoiceAssistantFoodBuilder {
             selectedServingQuantity: known ? (options.isEmpty ? nil : quantity * factor) : loggedServings * factor,
             progressiveMeal: base.progressiveMeal,
             ingredients: base.ingredients.map { $0.scaled(by: factor) },
-            productMetadata: base.productMetadata
+            productMetadata: base.productMetadata,
+            aiAllergens: base.aiAllergens
         )
     }
 
@@ -217,7 +218,8 @@ extension FoodEntry {
             customNote: customNote,
             progressiveMeal: progressiveMeal,
             ingredients: factor == 1 ? ingredients : ingredients.map { $0.scaled(by: factor) },
-            productMetadata: productMetadata
+            productMetadata: productMetadata,
+            aiAllergens: aiAllergens
         )
     }
 }

@@ -552,12 +552,22 @@ enum OpenRouterReasoningEffort: String, CaseIterable, Identifiable {
         case .max: String(localized: "Max")
         }
     }
-    func requestOptions(compactRetry: Bool, exclude: Bool) -> [String: Any]? {
+    func requestOptions(compactRetry: Bool, exclude: Bool, structuredModel: String? = nil) -> [String: Any]? {
         var options: [String: Any] = [:]
         if exclude || compactRetry { options["exclude"] = true }
-        if compactRetry { options["effort"] = "low" }
+        // Excluding reasoning only hides it from the response; it still uses output tokens.
+        if let structuredModel, Self.canDisableAnalysisReasoning(structuredModel), compactRetry || self == .auto {
+            options["effort"] = "none"
+        }
+        else if compactRetry { options["effort"] = "low" }
         else if self != .auto { options["effort"] = rawValue }
         return options.isEmpty ? nil : options
+    }
+
+    private static func canDisableAnalysisReasoning(_ model: String) -> Bool {
+        model == "openrouter/free" || [
+            "deepseek/deepseek-v4.1-flash", "deepseek/deepseek-v4.1-flash-1017", "nvidia/nemotron-3-ultra-550b-a55b"
+        ].contains(String(model.prefix(while: { $0 != ":" })))
     }
 }
 

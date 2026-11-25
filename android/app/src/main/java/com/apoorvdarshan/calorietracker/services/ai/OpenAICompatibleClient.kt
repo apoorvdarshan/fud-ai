@@ -42,7 +42,8 @@ object OpenAICompatibleClient {
         imageBytesList: List<ByteArray>,
         provider: AIProvider,
         maxTokens: Int,
-        reasoningEffort: OpenRouterReasoningEffort = OpenRouterReasoningEffort.AUTO
+        reasoningEffort: OpenRouterReasoningEffort = OpenRouterReasoningEffort.AUTO,
+        structuredOutput: Boolean = true
     ): String {
         val url = "$baseUrl/chat/completions"
 
@@ -74,7 +75,7 @@ object OpenAICompatibleClient {
                     if (provider == AIProvider.OPENROUTER) {
                         body.put(
                             "reasoning",
-                            JSONObject(reasoningEffort.requestOptions(compactRetry, exclude = true).orEmpty())
+                            JSONObject(reasoningEffort.requestOptions(compactRetry, exclude = true, structuredModel = model.takeIf { structuredOutput }).orEmpty())
                         )
                     }
 
@@ -97,7 +98,7 @@ object OpenAICompatibleClient {
         var response = request(prompt, compactRetry = false)
         if (response.needsCompactRetry) {
             response = request(compactRetryPrompt(prompt, maxTokens), compactRetry = true)
-            if (response.wasTruncated) {
+            if (response.needsCompactRetry) {
                 throw AiError.Failure(AiErrorKind.TRUNCATED)
             }
         }

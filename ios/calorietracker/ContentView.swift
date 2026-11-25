@@ -2447,6 +2447,7 @@ private var dailyStepsTaskKey: String {
                             ingredients: result.ingredients,
                             progressiveMeal: result.progressiveMeal,
                             productMetadata: result.productMetadata,
+                            aiAllergens: result.aiAllergens,
                             usesSavedBarcodeLabel: currentFoodResultUsesSavedLabel,
                             allowsRecipeServings: !currentFoodResultIsLoggedPortion,
                             servingSizeGrams: result.servingSizeGrams,

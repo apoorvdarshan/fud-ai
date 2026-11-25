@@ -1,10 +1,37 @@
 package com.apoorvdarshan.calorietracker.models
 
+import com.apoorvdarshan.calorietracker.services.ai.FoodJsonParser
+import com.apoorvdarshan.calorietracker.ui.home.toFoodEntry
+import kotlinx.serialization.json.Json
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class AllergenAnalysisTest {
+    @Test
+    fun canonicalAiAllergensSurviveLoggingAndBackupWithoutBecomingDeclarations() {
+        val analysis = FoodJsonParser.parseFood(
+            """{"name":"Pokrm","calories":160,"protein":4,"carbs":27,"fat":4,"serving_size_grams":100,
+               "allergens":["milk","MILK",17,"mléko","not-an-allergen"],
+               "ingredients":[{"name":"Příloha","grams":100,"calories":160,"protein":4,"carbs":27,"fat":4,"allergens":["sesame"]}]}"""
+        )
+        assertEquals(listOf("milk"), analysis.aiAllergens)
+        assertEquals(listOf("sesame"), analysis.ingredients.single().aiAllergens)
+        val entry = analysis.toFoodEntry(source = FoodSource.TEXT_INPUT, mealType = MealType.OTHER)
+        val restored = Json.decodeFromString<FoodEntry>(Json.encodeToString(entry))
+        val result = restored.allergenAnalysis(listOf("mlékem", "芝麻"))
+        assertEquals(AllergenAssessment.POSSIBLE_ALLERGEN, result.assessment)
+        assertEquals(listOf("mlékem", "芝麻"), result.matchedSensitivities)
+        assertEquals(AllergenAssessment.UNABLE_TO_ASSESS, restored.allergenAnalysis(listOf("بيض")).assessment)
+    }
+
+    @Test
+    fun labelAllergenSurvivesServingScale() {
+        val scaled = FoodJsonParser.parseLabel(
+            """{"name":"Product","calories_per_100g":50,"protein_per_100g":3,"carbs_per_100g":4,"fat_per_100g":1,"allergens":["soy"]}"""
+        ).scaled(60.0)
+        assertEquals(listOf("soy"), scaled.aiAllergens)
+    }
     @Test
     fun localizedNamesMatchCanonicalLabelWithoutLosingOriginalSensitivity() {
         val result = entry(FoodProductMetadata("1", allergens = listOf("en:milk")))

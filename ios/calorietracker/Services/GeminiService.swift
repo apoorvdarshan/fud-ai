@@ -45,6 +45,7 @@ struct GeminiService {
         var progressiveMeal = false
         var ingredients: [MealIngredient] = []
         var productMetadata: FoodProductMetadata? = nil
+        var aiAllergens: [String] = []
 
         /// When the model also returned a breakdown, the header macros are the sum of that list.
         func withIngredientMacroTotals() -> FoodAnalysis {
@@ -92,6 +93,7 @@ struct GeminiService {
         var omega3Per100g: Double?
         var servingUnitOptions: [ServingUnitOption] = []
         var requiresServingUnitFallback = false
+        var aiAllergens: [String] = []
 
         func scaled(to grams: Double) -> FoodAnalysis {
             let selectedOption = servingUnitOptions.first
@@ -129,7 +131,8 @@ struct GeminiService {
                 omega3: omega3Per100g.map { round($0 * scale * 10) / 10 },
                 servingUnitOptions: servingUnitOptions,
                 selectedServingUnit: selectedOption?.unit,
-                selectedServingQuantity: selectedOption?.quantity(for: grams)
+                selectedServingQuantity: selectedOption?.quantity(for: grams),
+                aiAllergens: aiAllergens
             )
         }
     }
@@ -348,7 +351,7 @@ struct GeminiService {
         progress?(AnalysisProgressUpdate(stage: .preparing))
         return try await runWithHostedQuota(.textFood, skip: skipHostedMetering) {
             let analysis = try await callTextFoodAnalysis(
-                prompt: prompt,
+                prompt: prompt + "\n\n" + CanonicalFoodAllergens.prompt,
                 description: description,
                 progress: progress
             )
@@ -385,7 +388,7 @@ struct GeminiService {
         """
         progress?(AnalysisProgressUpdate(stage: .preparing))
         return try await runWithHostedQuota(.photoFood) {
-            let text = try await callAI(prompt: prompt, image: image, progress: progress)
+            let text = try await callAI(prompt: prompt + "\n\n" + CanonicalFoodAllergens.prompt, image: image, progress: progress)
             let analysis = try parseFoodAnalysis(from: text)
             let repaired = await addingFallbackServingUnits(
                 to: analysis,
@@ -437,7 +440,7 @@ struct GeminiService {
                 progress?(AnalysisProgressUpdate(stage: .validating))
                 return repaired
             }
-            let text = try await callAI(prompt: prompt, image: image, progress: progress)
+            let text = try await callAI(prompt: prompt + "\n\n" + CanonicalFoodAllergens.prompt, image: image, progress: progress)
             let analysis = try parseFoodAnalysis(from: text)
             let repaired = await addingFallbackServingUnits(
                 to: analysis,
@@ -537,7 +540,7 @@ struct GeminiService {
                 progress?(AnalysisProgressUpdate(stage: .validating))
                 return result
             }
-            let text = try await callAI(prompt: prompt, images: images, labelText: labelText, progress: progress)
+            let text = try await callAI(prompt: prompt + "\n\n" + CanonicalFoodAllergens.prompt, images: images, labelText: labelText, progress: progress)
             let analysis = try parseFoodAnalysis(from: text)
             var result = await addingFallbackServingUnits(
                 to: analysis,
@@ -569,7 +572,7 @@ struct GeminiService {
             ? basePrompt + "\n" + AminoAcidEstimates.labelPromptInstruction
             : basePrompt
         return try await runWithHostedQuota(.photoFood) {
-            let text = try await callAI(prompt: prompt, image: image)
+            let text = try await callAI(prompt: prompt + "\n\n" + CanonicalFoodAllergens.prompt, image: image)
             let analysis = try parseNutritionLabel(from: text)
             return await addingFallbackServingUnits(to: analysis, image: image)
         }
@@ -1303,21 +1306,62 @@ struct GeminiService {
             throw AnalysisError.requestFailed(.unsupportedDevice)
         case .liteRTLocal:
             let manager = await Gemma4LocalModelManager.manager(for: provider)
-            return try await manager.generate(
-                prompt: prompt,
-                images: imageDataList,
-                systemPrompt: AIProviderSettings.currentUserContext,
-                maxOutputTokens: AIProviderSettings.maxResponseTokens
-            )
+            return try await localGemmaResponse(prompt: prompt, expectsJSON: jsonResponse) { attemptPrompt in
+                try await manager.generate(
+                    prompt: attemptPrompt,
+                    images: imageDataList,
+                    systemPrompt: AIProviderSettings.currentUserContext,
+                    maxOutputTokens: AIProviderSettings.maxResponseTokens
+                )
+            }
         case .gemini:
             guard let key = apiKey else { throw AnalysisError.noAPIKey }
             return try await callGemini(baseURL: baseURL, model: model, apiKey: key, prompt: prompt, imageDataList: imageDataList, jsonResponse: jsonResponse)
         case .openaiCompatible:
-            return try await callOpenAICompatible(baseURL: baseURL, model: model, apiKey: apiKey, provider: provider, prompt: prompt, imageDataList: imageDataList)
+            return try await callOpenAICompatible(baseURL: baseURL, model: model, apiKey: apiKey, provider: provider, prompt: prompt, imageDataList: imageDataList, structuredOutput: jsonResponse)
         case .anthropic:
             guard let key = apiKey else { throw AnalysisError.noAPIKey }
             return try await callAnthropic(baseURL: baseURL, model: model, apiKey: key, prompt: prompt, imageDataList: imageDataList)
         }
+    }
+
+    /// A truncated or malformed local response gets one compact, still-offline retry.
+    /// Do not retry device/runtime failures or report them as a network problem.
+    static func localGemmaResponse(
+        prompt: String,
+        expectsJSON: Bool,
+        generate: (String) async throws -> String
+    ) async throws -> String {
+        func attempt(_ prompt: String) async throws -> String {
+            try Task.checkCancellation()
+            do {
+                return try await generate(prompt)
+            } catch let error as Gemma4LocalModelManager.LocalModelError {
+                if case .emptyResponse = error, expectsJSON { return "" }
+                throw error
+            } catch is CancellationError {
+                throw CancellationError()
+            } catch {
+                throw Gemma4LocalModelManager.LocalModelError.inferenceFailed
+            }
+        }
+        func valid(_ text: String) -> Bool {
+            guard let data = extractJSON(from: text).data(using: .utf8),
+                  let value = try? JSONSerialization.jsonObject(with: data) else { return false }
+            if prompt.contains(CanonicalFoodAllergens.prompt), let food = value as? [String: Any] {
+                let keys = food["calories_per_100g"] == nil
+                    ? ["calories", "protein", "carbs", "fat"]
+                    : ["calories_per_100g", "protein_per_100g", "carbs_per_100g", "fat_per_100g"]
+                return (food["name"] as? String)?.isEmpty == false
+                    && keys.allSatisfy { food[$0] is NSNumber }
+            }
+            return value is [String: Any] || value is [Any]
+        }
+        let first = try await attempt(prompt)
+        if !expectsJSON || valid(first) { return first }
+        let second = try await attempt(prompt + "\n\nReturn one compact JSON object only, without Markdown or explanation. Do not invent values. Omit unavailable optional fields.")
+        guard valid(second) else { throw Gemma4LocalModelManager.LocalModelError.unusableResponse }
+        return second
     }
 
     // MARK: - Gemini Format
@@ -1443,7 +1487,7 @@ struct GeminiService {
         """
     }
 
-    private static func callOpenAICompatible(baseURL: String, model: String, apiKey: String?, provider: AIProvider, prompt: String, imageDataList: [Data]) async throws -> String {
+    private static func callOpenAICompatible(baseURL: String, model: String, apiKey: String?, provider: AIProvider, prompt: String, imageDataList: [Data], structuredOutput: Bool) async throws -> String {
         guard let url = URL(string: "\(baseURL)/chat/completions") else {
             throw AnalysisError.requestFailed(.invalidURL)
         }
@@ -1483,7 +1527,7 @@ struct GeminiService {
                 throw AnalysisError.apiError(String(localized: "The AI request is too large. Try fewer or smaller photos."))
             }
             if provider == .openrouter {
-                body["reasoning"] = AIProviderSettings.openRouterReasoningEffort.requestOptions(compactRetry: compactRetry, exclude: true)
+                body["reasoning"] = AIProviderSettings.openRouterReasoningEffort.requestOptions(compactRetry: compactRetry, exclude: true, structuredModel: structuredOutput ? model : nil)
             }
             let data = try await makeRequest(url: url, headers: headers, body: body, provider: provider)
             return try parseOpenAITextResponse(from: data)
@@ -1492,7 +1536,7 @@ struct GeminiService {
         var response = try await request(prompt, compactRetry: false)
         if response.needsCompactRetry {
             response = try await request(compactOpenAIRetryPrompt(prompt), compactRetry: true)
-            if response.wasTruncated {
+            if response.needsCompactRetry {
                 throw AnalysisError.requestFailed(.truncated)
             }
         }
@@ -1761,7 +1805,8 @@ struct GeminiService {
             selectedServingQuantity: responseServingSizeGrams == nil ? 1 : selectedOption?.quantity(for: servingSizeGrams),
             servingSizeIsKnown: responseServingSizeGrams != nil,
             requiresServingUnitFallback: parsedUnitOptions.requiresFallback,
-            ingredients: ingredients
+            ingredients: ingredients,
+            aiAllergens: allergenIDs(from: json["allergens"])
         ).withIngredientMacroTotals()
     }
 
@@ -1794,6 +1839,7 @@ struct GeminiService {
             var protein: Double
             var carbs: Double
             var fat: Double
+            var aiAllergens: [String]
         }
         var drafts: [Draft] = []
         for item in items {
@@ -1812,7 +1858,8 @@ struct GeminiService {
             let grams = listedGrams.flatMap { $0 > 0 ? $0 : nil }
             // Without a weight or calories there is nothing to estimate the weight from.
             if grams == nil && calories <= 0 { return [] }
-            drafts.append(Draft(name: name, grams: grams, calories: calories, protein: protein, carbs: carbs, fat: fat))
+            drafts.append(Draft(name: name, grams: grams, calories: calories, protein: protein, carbs: carbs, fat: fat,
+                                aiAllergens: allergenIDs(from: item["allergens"])))
         }
 
         var gramsPerMissingCalorie = 0.0
@@ -1833,7 +1880,8 @@ struct GeminiService {
                 calories: Int(round(draft.calories)),
                 protein: draft.protein,
                 carbs: draft.carbs,
-                fat: draft.fat
+                fat: draft.fat,
+                aiAllergens: draft.aiAllergens
             )
         }
         if mealCalories > 0 {
@@ -1856,6 +1904,10 @@ struct GeminiService {
         }
         guard let number, number.isFinite else { return nil }
         return number
+    }
+
+    private static func allergenIDs(from value: Any?) -> [String] {
+        CanonicalFoodAllergens.clean((value as? [Any] ?? []).compactMap { $0 as? String })
     }
 
     static func parseAllergensFromLabReport(from text: String) throws -> [String] {
@@ -1934,7 +1986,8 @@ struct GeminiService {
             folatePer100g: double("folate_per_100g"),
             omega3Per100g: double("omega_3_per_100g"),
             servingUnitOptions: parsedUnitOptions.options,
-            requiresServingUnitFallback: parsedUnitOptions.requiresFallback
+            requiresServingUnitFallback: parsedUnitOptions.requiresFallback,
+            aiAllergens: allergenIDs(from: json["allergens"])
         )
     }
 

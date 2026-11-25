@@ -36,6 +36,9 @@ data class AllergenAnalysis(
                 Triple(AllergenAssessment.DECLARED_ALLERGEN_MATCH, "Declared product allergens", entry.productMetadata?.allergens.orEmpty()),
                 Triple(AllergenAssessment.MAY_CONTAIN, "Trace warning", entry.productMetadata?.traces.orEmpty()),
                 Triple(AllergenAssessment.POSSIBLE_ALLERGEN, "Ingredient label", listOfNotNull(entry.productMetadata?.ingredientsText)),
+                Triple(AllergenAssessment.POSSIBLE_ALLERGEN, "Possible allergen", CanonicalFoodAllergens.clean(
+                    entry.aiAllergens + entry.ingredients.flatMap { it.aiAllergens }
+                )),
                 Triple(AllergenAssessment.POSSIBLE_ALLERGEN, "Ingredient name", entry.ingredients.map { it.name }),
                 Triple(AllergenAssessment.POSSIBLE_ALLERGEN, "Food name", listOf(entry.name))
             )
@@ -58,7 +61,7 @@ data class AllergenAnalysis(
         fun mentionsAny(sensitivities: List<String>, candidate: String): Boolean =
             sensitivities.map(::normalize).filter(String::isNotEmpty).any { matches(it, candidate) }
 
-        private fun normalize(value: String): String {
+        internal fun normalize(value: String): String {
             val folded = Normalizer.normalize(value, Normalizer.Form.NFD)
                 .replace("\\p{Mn}+".toRegex(), "")
                 .lowercase(Locale.ROOT)
@@ -86,8 +89,9 @@ data class AllergenAnalysis(
                 "gluten" to setOf("wheat", "gluten", "rye", "barley", "oat")
             )
             val key = sensitivityTokens.joinToString(" ")
-            val canonical = canonicalAliases[key]
-            if (canonical != null && canonicalAliases[normalizedCandidate] == canonical) return true
+            val canonical = CanonicalFoodAllergens.idFor(key)
+            val candidateId = CanonicalFoodAllergens.idFor(normalizedCandidate)
+            if (canonical != null && (candidateId == canonical || (canonical == "gluten" && candidateId == "wheat"))) return true
             val terms = aliases[key] ?: sensitivityTokens.toSet()
             return terms.any { term ->
                 val termTokens = term.split(" ")
@@ -102,15 +106,6 @@ data class AllergenAnalysis(
                 candidateTokens.any { tokenMatches(expected, it) }
             }
         }
-
-        // Exact names only; no missing match is evidence that an allergen is absent.
-        // Keys are normalized like sensitivities and candidates, so a folded spelling
-        // (for example Russian "яйцо" -> "яицо") still resolves.
-        private val canonicalAliases = mapOf(
-            "milk" to "milk", "mleko" to "milk", "mlekem" to "milk", "молоко" to "milk",
-            "egg" to "egg", "eggs" to "egg", "vejce" to "egg", "vejci" to "egg", "яйцо" to "egg",
-            "peanut" to "peanut", "peanuts" to "peanut", "arasidy" to "peanut", "arasid" to "peanut"
-        ).mapKeys { normalize(it.key) }
 
         private fun tokenMatches(term: String, candidate: String): Boolean =
             term == candidate ||

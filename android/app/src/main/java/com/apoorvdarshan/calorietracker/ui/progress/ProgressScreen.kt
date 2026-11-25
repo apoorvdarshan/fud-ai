@@ -911,8 +911,9 @@ private fun WeightChartCanvas(entries: List<WeightEntry>, goalKg: Double?, useMe
     val minW = displayWeights.min()
     val maxW = displayWeights.max()
     val pad = maxOf((maxW - minW) * 0.15, 2.0)
-    val yMin = minW - pad
-    val yMax = maxW + pad
+    val ticks = remember(minW, maxW) { weightAxisTicks(minW - pad, maxW + pad) }
+    val yMin = ticks.first()
+    val yMax = ticks.last()
     val tStart = sortedEntries.first().date.toEpochMilli()
     val tEnd = sortedEntries.last().date.toEpochMilli()
     val singleEntry = sortedEntries.size == 1
@@ -921,7 +922,6 @@ private fun WeightChartCanvas(entries: List<WeightEntry>, goalKg: Double?, useMe
     val gridColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.09f)
     val secondaryColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f)
     val chartSurfaceColor = MaterialTheme.colorScheme.surface
-    val ticks = remember(yMin, yMax) { niceAxisTicks(yMin, yMax, count = 5) }
     val zone = ZoneId.systemDefault()
     // Labels pick up the year once a longer range crosses a calendar-year
     // boundary — "Jul 2024" instead of an ambiguous "Jul 3" (same iOS rule).
@@ -1247,8 +1247,12 @@ private fun smoothTrendAreaPath(points: List<Offset>, bottomY: Float): Path {
     return path
 }
 
-/** Compute "nice" axis tick values across [min, max] with approx [count] divisions. */
-private fun niceAxisTicks(min: Double, max: Double, count: Int): List<Double> {
+/** Use the enclosing labeled ticks as the plotting domain, not just decoration. */
+internal fun weightAxisTicks(min: Double, max: Double): List<Double> =
+    niceAxisTicks(min, max, count = 5, coverBounds = true)
+
+/** Compute evenly spaced ticks across the domain with approximately [count] marks. */
+private fun niceAxisTicks(min: Double, max: Double, count: Int, coverBounds: Boolean = false): List<Double> {
     val range = max - min
     if (range <= 0) return listOf(min)
     val rawStep = range / (count - 1)
@@ -1260,10 +1264,11 @@ private fun niceAxisTicks(min: Double, max: Double, count: Int): List<Double> {
         normalized < 7.0 -> 5.0
         else -> 10.0
     } * mag
-    val firstTick = Math.ceil(min / niceStep) * niceStep
+    val firstTick = (if (coverBounds) Math.floor(min / niceStep) else Math.ceil(min / niceStep)) * niceStep
+    val lastTick = if (coverBounds) Math.ceil(max / niceStep) * niceStep else max
     val out = mutableListOf<Double>()
     var v = firstTick
-    while (v <= max + 1e-9) {
+    while (v <= lastTick + 1e-9) {
         out.add(v)
         v += niceStep
     }

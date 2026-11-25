@@ -129,6 +129,7 @@ apk = "android/app/build/outputs/apk/release/app-release.apk"
 checkout = [
   "/android/",
   "/ios/calorietracker/Resources/FreeExerciseDB/dist/",
+  "/ios/calorietracker/Resources/WaitingFactsData/",
   "/local-models/legal/",
   "/shared/workout-vectors/",
   "!/shared/workout-vectors/*_v2_*.png",

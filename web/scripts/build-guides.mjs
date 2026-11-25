@@ -41,6 +41,8 @@ for (const group of collections) {
 function page({ title, description, path, updated, crumbs, body, article }) {
   const url = `${origin}${path}`;
   const fullTitle = `${title} | Fud AI`;
+  const image = `${origin}/assets/voice-first-preview.jpg`;
+  const imageAlt = "Brulee, Fud AI’s pink voice mascot, beside the words ‘Tell it what you ate.’";
   const graph = [{
     "@type": "WebPage", "@id": `${url}#webpage`, url, name: fullTitle, description,
     inLanguage: "en", dateModified: updated, isPartOf: { "@id": `${origin}/#website` },
@@ -75,8 +77,14 @@ ${marker}
   <meta property="og:title" content="${escapeHtml(fullTitle)}">
   <meta property="og:description" content="${escapeHtml(description)}">
   <meta property="og:url" content="${url}">
-  <meta property="og:image" content="${origin}/assets/flash-preview.jpg">
+  <meta property="og:image" content="${image}">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="${escapeHtml(imageAlt)}">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="${image}">
+  <meta name="twitter:image:alt" content="${escapeHtml(imageAlt)}">
   ${social ? `<meta name="twitter:site" content="${social}">` : ""}
   <script type="application/ld+json">${json({ "@context": "https://schema.org", "@graph": graph })}</script>
 </head>

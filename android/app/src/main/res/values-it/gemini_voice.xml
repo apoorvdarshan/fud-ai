@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="voice_settings_gemini_barge_in">Interrompi la risposta quando parlo</string>
+    <string name="voice_settings_gemini_barge_in_detail">Disattiva questa opzione se il rumore di fondo interrompe le risposte. Aspetta che la risposta finisca prima di parlare.</string>
+</resources>

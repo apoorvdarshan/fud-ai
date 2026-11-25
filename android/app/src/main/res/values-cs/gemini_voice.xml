@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="voice_settings_gemini_barge_in">Přerušit odpověď, když promluvím</string>
+    <string name="voice_settings_gemini_barge_in_detail">Pokud hluk v pozadí přerušuje odpovědi, tuto volbu vypněte. Než promluvíte, počkejte na konec odpovědi.</string>
+</resources>

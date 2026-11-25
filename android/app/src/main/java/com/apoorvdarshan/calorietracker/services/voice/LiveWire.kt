@@ -33,7 +33,8 @@ data class LiveSessionConfig(
     /** Hosted: the RevenueCat anonymous app user id. */
     val hostedUserId: String? = null,
     val hostedUrl: String = HostedLiveWire.DEFAULT_URL,
-    val qwenWorkspace: String = ""
+    val qwenWorkspace: String = "",
+    val geminiBargeIn: Boolean = true
 )
 
 /** A function call from the model. [arguments] is always an object (empty when missing or malformed). */
@@ -183,8 +184,20 @@ open class GeminiLiveWire : LiveWire {
                     }
                 }
             }
+            val instructions = "Speak in one consistent voice throughout the session. Keep the configured voice across replies and languages. " +
+                "Do not imitate the user or other speakers, even when quoting them. Ignore background sounds that do not address you.\n\n" +
+                config.instructions
             putJsonObject("systemInstruction") {
-                putJsonArray("parts") { add(buildJsonObject { put("text", config.instructions) }) }
+                putJsonArray("parts") { add(buildJsonObject { put("text", VoiceInstructions.truncateToLimit(instructions)) }) }
+            }
+            putJsonObject("realtimeInputConfig") {
+                putJsonObject("automaticActivityDetection") {
+                    put("startOfSpeechSensitivity", "START_SENSITIVITY_LOW")
+                    put("endOfSpeechSensitivity", "END_SENSITIVITY_LOW")
+                    put("prefixPaddingMs", 240)
+                    put("silenceDurationMs", 700)
+                }
+                put("activityHandling", if (config.geminiBargeIn) "START_OF_ACTIVITY_INTERRUPTS" else "NO_INTERRUPTION")
             }
             if (config.tools.isNotEmpty()) put("tools", VoiceToolCatalog.geminiTools(config.tools, extendedThinking))
             putJsonObject("inputAudioTranscription") {}

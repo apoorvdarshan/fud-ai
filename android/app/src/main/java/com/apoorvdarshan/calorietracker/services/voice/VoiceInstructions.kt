@@ -87,7 +87,13 @@ object VoiceInstructions {
             lines += "## User-provided context"
             lines += custom
         }
-        return lines.joinToString("\n").take(MAX_CHARS)
+        return truncateToLimit(lines.joinToString("\n"))
+    }
+
+    internal fun truncateToLimit(text: String): String {
+        if (text.length <= MAX_CHARS) return text
+        val end = if (text[MAX_CHARS - 1].isHighSurrogate()) MAX_CHARS - 1 else MAX_CHARS
+        return text.substring(0, end)
     }
 
     private fun cameraLine(context: VoiceSessionContext): String {

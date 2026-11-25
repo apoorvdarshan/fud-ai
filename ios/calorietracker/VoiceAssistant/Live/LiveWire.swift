@@ -124,9 +124,10 @@ nonisolated struct LiveSessionConfig: Sendable, Equatable {
     let instructions: String
     let tools: [LiveToolDeclaration]
     let qwenWorkspace: String
+    let geminiBargeIn: Bool
 
     init(provider: LiveProvider, model: String, voice: String, credential: Credential,
-         instructions: String, tools: [LiveToolDeclaration], qwenWorkspace: String = "") {
+         instructions: String, tools: [LiveToolDeclaration], qwenWorkspace: String = "", geminiBargeIn: Bool = true) {
         self.provider = provider
         self.model = model
         self.voice = voice
@@ -134,6 +135,7 @@ nonisolated struct LiveSessionConfig: Sendable, Equatable {
         self.instructions = instructions
         self.tools = tools
         self.qwenWorkspace = qwenWorkspace
+        self.geminiBargeIn = geminiBargeIn
     }
 
     var apiKey: String {
@@ -306,10 +308,24 @@ nonisolated struct GeminiLiveWire: LiveWire {
         if extendedThinking { generation["thinkingConfig"] = ["thinkingLevel": "LOW"] }
         var resumption: [String: Any] = [:]
         if let resumptionHandle { resumption["handle"] = resumptionHandle }
+        let instructions = """
+        Speak in one consistent voice throughout the session. Keep the configured voice across replies and languages. Do not imitate the user or other speakers, even when quoting them. Ignore background sounds that do not address you.
+
+        \(config.instructions)
+        """
         var setup: [String: Any] = [
             "model": model,
             "generationConfig": generation,
-            "systemInstruction": ["parts": [["text": config.instructions]]],
+            "systemInstruction": ["parts": [["text": VoiceAssistantInstructions.limitedToRelayLength(instructions)]]],
+            "realtimeInputConfig": [
+                "automaticActivityDetection": [
+                    "startOfSpeechSensitivity": "START_SENSITIVITY_LOW",
+                    "endOfSpeechSensitivity": "END_SENSITIVITY_LOW",
+                    "prefixPaddingMs": 240,
+                    "silenceDurationMs": 700,
+                ],
+                "activityHandling": config.geminiBargeIn ? "START_OF_ACTIVITY_INTERRUPTS" : "NO_INTERRUPTION",
+            ],
             "inputAudioTranscription": [String: Any](),
             "outputAudioTranscription": [String: Any](),
             // Without compression an audio session ends after 15 minutes, and one with

@@ -325,6 +325,26 @@ describe("hosted voice relay: setup", () => {
     });
   });
 
+  it("forwards the selected speaker and no-interruption policy without rewriting them", () => {
+    const realtimeInputConfig = {
+      automaticActivityDetection: {
+        startOfSpeechSensitivity: "START_SENSITIVITY_LOW",
+        endOfSpeechSensitivity: "END_SENSITIVITY_LOW",
+        prefixPaddingMs: 240,
+        silenceDurationMs: 700,
+      },
+      activityHandling: "NO_INTERRUPTION",
+    };
+    const speechConfig = { voiceConfig: { prebuiltVoiceConfig: { voiceName: "Leda" } } };
+    const result = sanitizeLiveSetup({ setup: {
+      generationConfig: { responseModalities: ["AUDIO"], speechConfig },
+      realtimeInputConfig,
+    } }, "gemini-3.8-live");
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(JSON.parse(result.message).setup).toMatchObject({ realtimeInputConfig, generationConfig: { speechConfig } });
+  });
+
   const manyDeclarations = Array.from({ length: 65 }, (_, index) => ({ name: `tool_${index}` }));
   const bigDeclarations = Array.from({ length: 20 }, (_, index) => ({ name: `tool_${index}`, description: "x".repeat(3_400) }));
 

@@ -235,6 +235,19 @@ internal fun VoiceAssistantSettings(container: AppContainer, onOpenAiProviders: 
                 LiveProvider.voiceDisplayName(voice),
                 icon = Icons.Outlined.GraphicEq
             ) { sheet = VoiceSheet.VOICE }
+            if (provider == LiveProvider.GEMINI || provider == LiveProvider.HOSTED) {
+                HorizontalDivider()
+                VoiceToggleRow(
+                    label = stringResource(R.string.voice_settings_gemini_barge_in),
+                    subtitle = stringResource(R.string.voice_settings_gemini_barge_in_detail),
+                    checked = prefs.geminiBargeIn,
+                    icon = Icons.Outlined.GraphicEq,
+                    testTag = "voiceSettings.geminiBargeIn"
+                ) { enabled ->
+                    container.voiceAssistant.close()
+                    scope.launch { container.prefs.setGeminiBargeIn(enabled) }
+                }
+            }
             VoicePreviewControls(previewState, access is VoiceAccess.Ready, assistantActive) {
                 if (previewState.active) preview.stop() else preview.start(previewSample, appLanguage)
             }
@@ -338,6 +351,7 @@ internal fun VoiceAssistantSettings(container: AppContainer, onOpenAiProviders: 
                         subtitle = { choice -> choiceSubtitle(choice, keys, entitlement.isEntitled) },
                         selected = { it == prefs.choice }
                     ) { choice ->
+                        if (choice != prefs.choice) container.voiceAssistant.close()
                         scope.launch { container.prefs.setVoiceAssistantProvider(choice) }
                         sheet = null
                     }
@@ -347,6 +361,9 @@ internal fun VoiceAssistantSettings(container: AppContainer, onOpenAiProviders: 
                         label = { it },
                         selected = { it == model }
                     ) { model ->
+                        if (model != provider.supportedModelOrDefault(prefs.model(provider))) {
+                            container.voiceAssistant.close()
+                        }
                         scope.launch { container.prefs.setVoiceAssistantModel(provider, model) }
                         sheet = null
                     }
@@ -356,6 +373,9 @@ internal fun VoiceAssistantSettings(container: AppContainer, onOpenAiProviders: 
                         label = { LiveProvider.voiceDisplayName(it) },
                         selected = { it == voice }
                     ) { voice ->
+                        if (voice != provider.supportedVoiceOrDefault(prefs.voice(provider))) {
+                            container.voiceAssistant.close()
+                        }
                         scope.launch { container.prefs.setVoiceAssistantVoice(provider, voice) }
                         sheet = null
                     }

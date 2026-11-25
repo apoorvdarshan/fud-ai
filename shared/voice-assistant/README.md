@@ -63,6 +63,12 @@ latest frame with each user turn and before capture decisions); xAI and GPT-Live
   GPT-Live: 24 kHz both ways. Echo cancellation on (iOS voice processing, Android
   `VOICE_COMMUNICATION` + `AcousticEchoCanceler`). Speaking over the assistant
   stops its playback (OpenAI also gets `conversation.item.truncate`).
+- Gemini and Hosted use low speech-start and speech-end sensitivity, 240 ms
+  of prefix padding and 700 ms of silence before ending a user turn. Noise can
+  still trigger Gemini. Turning off **Interrupt when I speak** in Voice
+  Assistant settings sends `NO_INTERRUPTION`; wait for the reply to finish
+  before speaking. The selected voice is sent in every initial or resumed
+  setup; the model is instructed to keep one speaker, but it generates the sound.
 - Ends after 45 s with no speech either way (not while a tool is waiting for
   the user), after 15 minutes, when the user closes it, on `end_conversation`,
   or when the app goes to the background.

@@ -133,6 +133,7 @@ nonisolated struct VoiceAssistantSettings {
     static let confirmSavesKey = "voiceAssistant.confirmSaves"
     static let saveToCoachKey = "voiceAssistant.saveToCoach"
     static let qwenWorkspaceKey = "voiceAssistant.qwenWorkspace"
+    static let geminiBargeInKey = "voiceAssistant.geminiBargeIn"
     private static let qwenCredentialKey = "voiceAssistant.qwenWorkspaceCredential"
 
     static func modelKey(for provider: LiveProvider) -> String {
@@ -164,6 +165,11 @@ nonisolated struct VoiceAssistantSettings {
     var qwenWorkspace: String {
         get { defaults.string(forKey: Self.qwenWorkspaceKey) ?? "" }
         nonmutating set { defaults.set(newValue.trimmingCharacters(in: .whitespacesAndNewlines), forKey: Self.qwenWorkspaceKey) }
+    }
+
+    var geminiBargeIn: Bool {
+        get { defaults.object(forKey: Self.geminiBargeInKey) as? Bool ?? true }
+        nonmutating set { defaults.set(newValue, forKey: Self.geminiBargeInKey) }
     }
 
     static var qwenAPIKey: String? { KeychainHelper.load(key: qwenCredentialKey) }

@@ -77,6 +77,30 @@ struct VoiceAssistantWireTests {
         #expect(wire.parse(#"{"toolCallCancellation":{"ids":["call-1"]}}"#) == [.toolCallCancellation(["call-1"])])
     }
 
+    @Test func geminiAndHostedKeepTheSelectedVoiceAndUseConservativeDetection() throws {
+        for provider in [LiveProvider.gemini, .hosted] {
+            for (enabled, mode) in [(true, "START_OF_ACTIVITY_INTERRUPTS"), (false, "NO_INTERRUPTION")] {
+                let config = LiveSessionConfig(provider: provider, model: provider.defaultModel, voice: "Leda",
+                    credential: .apiKey("fake"), instructions: "Be brief.", tools: [], geminiBargeIn: enabled)
+                let message = try #require(provider.wire.setupMessages(for: config, resumptionHandle: "resume").first)
+                let setup = try #require(try Self.json(message)["setup"] as? [String: Any])
+                let input = try #require(setup["realtimeInputConfig"] as? [String: Any])
+                let detection = try #require(input["automaticActivityDetection"] as? [String: Any])
+                #expect(input["activityHandling"] as? String == mode)
+                #expect(detection["startOfSpeechSensitivity"] as? String == "START_SENSITIVITY_LOW")
+                #expect(detection["endOfSpeechSensitivity"] as? String == "END_SENSITIVITY_LOW")
+                #expect(detection["prefixPaddingMs"] as? Int == 240)
+                #expect(detection["silenceDurationMs"] as? Int == 700)
+                let generation = try #require(setup["generationConfig"] as? [String: Any])
+                let speech = try #require(generation["speechConfig"] as? [String: Any])
+                let outer = try #require(speech["voiceConfig"] as? [String: Any])
+                #expect((outer["prebuiltVoiceConfig"] as? [String: Any])?["voiceName"] as? String == "Leda")
+                let instruction = try #require(setup["systemInstruction"] as? [String: Any])
+                #expect((instruction["parts"] as? [[String: String]])?.first?["text"]?.contains("one consistent voice") == true)
+            }
+        }
+    }
+
     @Test func geminiParsesAudioTranscriptsAndTurns() throws {
         let audio = Data([1, 2, 3, 4])
         let message = """

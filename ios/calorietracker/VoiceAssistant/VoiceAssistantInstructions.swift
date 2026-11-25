@@ -18,7 +18,7 @@ enum VoiceAssistantInstructions {
     }
 
     /// The hosted relay accepts up to 60,000 characters of instructions.
-    static let maximumLength = 60_000
+    nonisolated static let maximumLength = 60_000
 
     static func build(
         session: Session,
@@ -104,7 +104,7 @@ enum VoiceAssistantInstructions {
     /// The Worker measures JavaScript string length (UTF-16 code units), while
     /// Swift's prefix counts grapheme clusters. Keep complete characters and
     /// respect the relay's limit for emoji and non-Latin profile/context text.
-    static func limitedToRelayLength(_ text: String) -> String {
+    nonisolated static func limitedToRelayLength(_ text: String) -> String {
         guard text.utf16.count > maximumLength else { return text }
         var end = text.startIndex
         var remaining = maximumLength

@@ -55,10 +55,9 @@ class LiveWireTest {
             generation["speechConfig"]!!.jsonObject["voiceConfig"]!!.jsonObject["prebuiltVoiceConfig"]!!
                 .jsonObject["voiceName"]!!.jsonPrimitive.content
         )
-        assertEquals(
-            "Be brief.",
-            setup["systemInstruction"]!!.jsonObject["parts"]!!.jsonArray[0].jsonObject["text"]!!.jsonPrimitive.content
-        )
+        val instructions = setup["systemInstruction"]!!.jsonObject["parts"]!!.jsonArray[0].jsonObject["text"]!!.jsonPrimitive.content
+        assertTrue(instructions.contains("Keep the configured voice across replies and languages"))
+        assertTrue(instructions.endsWith("Be brief."))
         val declarations = setup["tools"]!!.jsonArray[0].jsonObject["functionDeclarations"]!!.jsonArray
         assertEquals(tools.size, declarations.size)
         assertTrue(setup.containsKey("inputAudioTranscription"))
@@ -71,6 +70,25 @@ class LiveWireTest {
     fun geminiSetupResumesWithAHandle() {
         val setup = json(GeminiLiveWire().setupMessages(config(LiveProvider.GEMINI), "handle-1")[0])["setup"]!!.jsonObject
         assertEquals("handle-1", setup["sessionResumption"]!!.jsonObject["handle"]!!.jsonPrimitive.content)
+    }
+
+    @Test
+    fun geminiAndHostedKeepTheSelectedVoiceAndUseConservativeDetection() {
+        for (provider in listOf(LiveProvider.GEMINI, LiveProvider.HOSTED)) {
+            val wire = if (provider == LiveProvider.GEMINI) GeminiLiveWire() else HostedLiveWire()
+            for ((enabled, mode) in listOf(true to "START_OF_ACTIVITY_INTERRUPTS", false to "NO_INTERRUPTION")) {
+                val config = config(provider).copy(voice = "Leda", geminiBargeIn = enabled)
+                val setup = json(wire.setupMessages(config, "resume").single())["setup"]!!.jsonObject
+                val speech = setup["generationConfig"]!!.jsonObject["speechConfig"]!!.jsonObject
+                assertEquals("Leda", speech["voiceConfig"]!!.jsonObject["prebuiltVoiceConfig"]!!.jsonObject["voiceName"]!!.jsonPrimitive.content)
+                val input = setup["realtimeInputConfig"]!!.jsonObject
+                assertEquals(mode, input["activityHandling"]!!.jsonPrimitive.content)
+                assertEquals(
+                    json("""{"startOfSpeechSensitivity":"START_SENSITIVITY_LOW","endOfSpeechSensitivity":"END_SENSITIVITY_LOW","prefixPaddingMs":240,"silenceDurationMs":700}"""),
+                    input["automaticActivityDetection"]
+                )
+            }
+        }
     }
 
     @Test
@@ -162,7 +180,7 @@ class LiveWireTest {
         assertEquals(
             setOf(
                 "model", "generationConfig", "systemInstruction", "tools", "inputAudioTranscription",
-                "outputAudioTranscription", "contextWindowCompression", "sessionResumption"
+                "outputAudioTranscription", "contextWindowCompression", "sessionResumption", "realtimeInputConfig"
             ),
             setup.keys
         )

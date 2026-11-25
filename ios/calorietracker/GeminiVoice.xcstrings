@@ -1,0 +1,50 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Interrupt when I speak" : {
+      "localizations" : {
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "مقاطعة الرد عندما أتحدث" } },
+        "az" : { "stringUnit" : { "state" : "translated", "value" : "Danışanda cavabı kəs" } },
+        "cs" : { "stringUnit" : { "state" : "translated", "value" : "Přerušit odpověď, když promluvím" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Antwort unterbrechen, wenn ich spreche" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Interrumpir la respuesta cuando hablo" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Interrompre la réponse quand je parle" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "मेरे बोलने पर जवाब रोकें" } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Interrompi la risposta quando parlo" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "話し始めたら応答を中断する" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "내가 말하면 답변 중단" } },
+        "nl" : { "stringUnit" : { "state" : "translated", "value" : "Antwoord onderbreken als ik praat" } },
+        "pl" : { "stringUnit" : { "state" : "translated", "value" : "Przerywaj odpowiedź, gdy zacznę mówić" } },
+        "pt-BR" : { "stringUnit" : { "state" : "translated", "value" : "Interromper a resposta quando eu falar" } },
+        "ro" : { "stringUnit" : { "state" : "translated", "value" : "Întrerupe răspunsul când vorbesc" } },
+        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Прерывать ответ, когда я говорю" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Konuştuğumda yanıtı kes" } },
+        "uk" : { "stringUnit" : { "state" : "translated", "value" : "Переривати відповідь, коли я говорю" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "我说话时打断回复" } }
+      }
+    },
+    "Turn this off if background noise cuts off replies. Wait for the reply to finish before speaking." : {
+      "localizations" : {
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "أوقف هذا الخيار إذا كانت الضوضاء المحيطة تقطع الردود. انتظر حتى ينتهي الرد قبل أن تتحدث." } },
+        "az" : { "stringUnit" : { "state" : "translated", "value" : "Fon səsi cavabları yarımçıq kəsirsə, bu seçimi söndürün. Danışmazdan əvvəl cavabın bitməsini gözləyin." } },
+        "cs" : { "stringUnit" : { "state" : "translated", "value" : "Pokud hluk v pozadí přerušuje odpovědi, tuto volbu vypněte. Než promluvíte, počkejte na konec odpovědi." } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Schalte dies aus, wenn Hintergrundgeräusche Antworten unterbrechen. Warte dann mit dem Sprechen, bis die Antwort zu Ende ist." } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Desactiva esta opción si el ruido de fondo corta las respuestas. Espera a que termine la respuesta antes de hablar." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Désactivez cette option si le bruit ambiant coupe les réponses. Attendez la fin de la réponse avant de parler." } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "अगर आसपास के शोर से जवाब बीच में रुकते हैं, तो इसे बंद करें। बोलने से पहले जवाब पूरा होने दें।" } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Disattiva questa opzione se il rumore di fondo interrompe le risposte. Aspetta che la risposta finisca prima di parlare." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "周囲の音で応答が途切れる場合はオフにしてください。応答が終わってから話してください。" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "주변 소음으로 답변이 끊기면 이 옵션을 끄세요. 답변이 끝난 뒤에 말해 주세요." } },
+        "nl" : { "stringUnit" : { "state" : "translated", "value" : "Zet dit uit als achtergrondgeluid antwoorden onderbreekt. Wacht met praten tot het antwoord klaar is." } },
+        "pl" : { "stringUnit" : { "state" : "translated", "value" : "Wyłącz tę opcję, jeśli hałas w tle przerywa odpowiedzi. Poczekaj na koniec odpowiedzi, zanim zaczniesz mówić." } },
+        "pt-BR" : { "stringUnit" : { "state" : "translated", "value" : "Desative se o ruído de fundo interromper as respostas. Espere a resposta terminar antes de falar." } },
+        "ro" : { "stringUnit" : { "state" : "translated", "value" : "Dezactivează opțiunea dacă zgomotul de fundal întrerupe răspunsurile. Așteaptă să se termine răspunsul înainte de a vorbi." } },
+        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Отключите эту настройку, если фоновый шум прерывает ответы. Дождитесь конца ответа, прежде чем говорить." } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Arka plan gürültüsü yanıtları kesiyorsa bu seçeneği kapatın. Konuşmadan önce yanıtın bitmesini bekleyin." } },
+        "uk" : { "stringUnit" : { "state" : "translated", "value" : "Вимкніть цю опцію, якщо фоновий шум перериває відповіді. Дочекайтеся завершення відповіді, перш ніж говорити." } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "如果背景噪音会打断回复，请关闭此选项。等回复结束后再开口。" } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

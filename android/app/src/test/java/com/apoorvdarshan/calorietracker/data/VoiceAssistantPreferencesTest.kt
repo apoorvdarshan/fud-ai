@@ -41,6 +41,14 @@ class VoiceAssistantPreferencesTest {
     }
 
     @Test
+    fun geminiInterruptionsAreOnByDefaultAndCanBeDisabled() {
+        assertTrue(PreferencesStore.readVoiceAssistantPreferences(emptyPreferences()).geminiBargeIn)
+        assertFalse(PreferencesStore.readVoiceAssistantPreferences(
+            preferencesOf(booleanPreferencesKey("voiceAssistantGeminiBargeIn") to false)
+        ).geminiBargeIn)
+    }
+
+    @Test
     fun savedChoicesAreKept() {
         val automatic = PreferencesStore.readVoiceAssistantPreferences(
             preferencesOf(language to VoiceAssistantPreferences.LANGUAGE_AUTOMATIC, autoCapture to false)

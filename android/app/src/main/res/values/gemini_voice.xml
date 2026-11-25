@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="voice_settings_gemini_barge_in">Interrupt when I speak</string>
+    <string name="voice_settings_gemini_barge_in_detail">Turn this off if background noise cuts off replies. Wait for the reply to finish before speaking.</string>
+</resources>

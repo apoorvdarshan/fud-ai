@@ -89,7 +89,8 @@ data class VoiceAssistantPreferences(
     val autoCapture: Boolean = true,
     val confirmSaves: Boolean = true,
     val saveToCoach: Boolean = true,
-    val qwenWorkspace: String = ""
+    val qwenWorkspace: String = "",
+    val geminiBargeIn: Boolean = true
 ) {
     fun model(provider: LiveProvider): String = models[provider] ?: provider.defaultModel
     fun voice(provider: LiveProvider): String = voices[provider] ?: provider.defaultVoice
@@ -1835,6 +1836,10 @@ class PreferencesStore(
         ds.edit { it[Keys.QWEN_LIVE_WORKSPACE] = workspace.trim() }
     }
 
+    suspend fun setGeminiBargeIn(enabled: Boolean) {
+        ds.edit { it[Keys.GEMINI_BARGE_IN] = enabled }
+    }
+
     suspend fun setVoiceAssistantModel(provider: LiveProvider, model: String) {
         ds.edit { it[Keys.voiceModel(provider)] = provider.supportedModelOrDefault(model) }
     }
@@ -2014,6 +2019,7 @@ class PreferencesStore(
         val VOICE_CONFIRM_SAVES = booleanPreferencesKey("voiceAssistantConfirmSaves")
         val VOICE_SAVE_TO_COACH = booleanPreferencesKey("voiceAssistantSaveToCoach")
         val QWEN_LIVE_WORKSPACE = stringPreferencesKey("voiceAssistantQwenWorkspace")
+        val GEMINI_BARGE_IN = booleanPreferencesKey("voiceAssistantGeminiBargeIn")
         fun voiceModel(provider: LiveProvider) = stringPreferencesKey("voiceAssistantModel_${provider.storageValue}")
         fun voiceVoice(provider: LiveProvider) = stringPreferencesKey("voiceAssistantVoice_${provider.storageValue}")
     }
@@ -2039,7 +2045,8 @@ class PreferencesStore(
             autoCapture = prefs[Keys.VOICE_AUTO_CAPTURE] ?: true,
             confirmSaves = prefs[Keys.VOICE_CONFIRM_SAVES] ?: true,
             saveToCoach = prefs[Keys.VOICE_SAVE_TO_COACH] ?: true,
-            qwenWorkspace = prefs[Keys.QWEN_LIVE_WORKSPACE].orEmpty()
+            qwenWorkspace = prefs[Keys.QWEN_LIVE_WORKSPACE].orEmpty(),
+            geminiBargeIn = prefs[Keys.GEMINI_BARGE_IN] ?: true
         )
 
         private const val TAG = "PreferencesStore"

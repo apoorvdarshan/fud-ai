@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="voice_settings_gemini_barge_in">話し始めたら応答を中断する</string>
+    <string name="voice_settings_gemini_barge_in_detail">周囲の音で応答が途切れる場合はオフにしてください。応答が終わってから話してください。</string>
+</resources>

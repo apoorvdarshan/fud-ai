@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="voice_settings_gemini_barge_in">Antwort unterbrechen, wenn ich spreche</string>
+    <string name="voice_settings_gemini_barge_in_detail">Schalte dies aus, wenn Hintergrundgeräusche Antworten unterbrechen. Warte dann mit dem Sprechen, bis die Antwort zu Ende ist.</string>
+</resources>

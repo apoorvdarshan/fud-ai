@@ -301,7 +301,8 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
             tools = VoiceToolCatalog.declared(catalog, context.workoutDiaryEnabled),
             apiKey = startup.key,
             hostedUserId = hostedUserId,
-            qwenWorkspace = prefs.qwenWorkspace
+            qwenWorkspace = prefs.qwenWorkspace,
+            geminiBargeIn = prefs.geminiBargeIn
         )
         val executor = VoiceToolExecutor(ports, catalog, context).also {
             it.onEndConversation = { endAfterSpeech(number) }

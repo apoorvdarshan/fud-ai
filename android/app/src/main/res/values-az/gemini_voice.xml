@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="voice_settings_gemini_barge_in">Danışanda cavabı kəs</string>
+    <string name="voice_settings_gemini_barge_in_detail">Fon səsi cavabları yarımçıq kəsirsə, bu seçimi söndürün. Danışmazdan əvvəl cavabın bitməsini gözləyin.</string>
+</resources>

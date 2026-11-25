@@ -321,7 +321,8 @@ final class VoiceAssistantController {
             credential: credential,
             instructions: instructions,
             tools: VoiceAssistantToolCatalog.declarations(workoutDiaryEnabled: workoutDiary),
-            qwenWorkspace: settings.qwenWorkspace
+            qwenWorkspace: settings.qwenWorkspace,
+            geminiBargeIn: settings.geminiBargeIn
         )
 
         cards.clear()

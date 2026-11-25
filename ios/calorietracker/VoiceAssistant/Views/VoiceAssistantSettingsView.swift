@@ -24,6 +24,7 @@ struct VoiceAssistantSettingsView: View {
     @State private var sheet: VoiceAssistantSheet?
     @State private var qwenWorkspace = VoiceAssistantSettings().qwenWorkspace
     @State private var qwenKey = ""
+    @State private var geminiBargeIn = VoiceAssistantSettings().geminiBargeIn
 
     private var route: VoiceAssistantRoute {
         _ = revision
@@ -130,6 +131,7 @@ struct VoiceAssistantSettingsView: View {
             .accessibilityIdentifier("settings.voiceAssistant.provider")
             .onChange(of: choice) { _, newValue in
                 preview.stop()
+                if assistant.isBusy { assistant.dismiss() }
                 settings.providerChoice = newValue
                 revision += 1
                 Task { await loadVoiceQuota() }
@@ -269,7 +271,13 @@ struct VoiceAssistantSettingsView: View {
             if provider != .hosted {
                 Picker(selection: Binding(
                     get: { _ = revision; return settings.model(for: provider) },
-                    set: { preview.stop(); settings.setModel($0, for: provider); revision += 1 }
+                    set: { model in
+                        guard model != settings.model(for: provider) else { return }
+                        preview.stop()
+                        if assistant.isBusy { assistant.dismiss() }
+                        settings.setModel(model, for: provider)
+                        revision += 1
+                    }
                 )) {
                     ForEach(provider.models, id: \.self) { model in
                         Text(verbatim: model).tag(model)
@@ -289,7 +297,13 @@ struct VoiceAssistantSettingsView: View {
 
             Picker(selection: Binding(
                 get: { _ = revision; return settings.voice(for: provider) },
-                set: { preview.stop(); settings.setVoice($0, for: provider); revision += 1 }
+                set: { voice in
+                    guard voice != settings.voice(for: provider) else { return }
+                    preview.stop()
+                    if assistant.isBusy { assistant.dismiss() }
+                    settings.setVoice(voice, for: provider)
+                    revision += 1
+                }
             )) {
                 ForEach(provider.voices, id: \.self) { voice in
                     Text(verbatim: voice.prefix(1).uppercased() + voice.dropFirst()).tag(voice)
@@ -305,6 +319,22 @@ struct VoiceAssistantSettingsView: View {
             .pickerStyle(.menu)
             .tint(.secondary)
             .accessibilityIdentifier("settings.voiceAssistant.voice")
+
+            if provider == .gemini || provider == .hosted {
+                Toggle(isOn: $geminiBargeIn) {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Interrupt when I speak", tableName: "GeminiVoice")
+                        Text("Turn this off if background noise cuts off replies. Wait for the reply to finish before speaking.", tableName: "GeminiVoice")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+                .accessibilityIdentifier("settings.voiceAssistant.geminiBargeIn")
+                .onChange(of: geminiBargeIn) { _, enabled in
+                    if assistant.isBusy { assistant.dismiss() }
+                    settings.geminiBargeIn = enabled
+                }
+            }
 
             Button {
                 if preview.isRunning {

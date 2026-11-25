@@ -156,9 +156,11 @@ Free forever = full app + BYOK. Hosted AI is optional on iOS; no free hosted quo
 ```
 Fud AI 9.0 supports iPhone and iPad, with a companion Apple Watch app. This update brings the Flash design to Home, the food diary, Settings, widgets, and Apple Watch.
 
-Core review path: There is no Fud AI account or required purchase. Complete onboarding, then use Home → + → Manual Entry or Barcode to log a meal without an AI key. Open the food diary and Progress to see the result. The app has no ads and does not request tracking.
+Onboarding: There is no Fud AI account or required purchase. At the AI setup step, choose Bring Your Own AI and Google Gemini, keep the default model, and paste the review key from App Review Information into the in-app API Key field before continuing. This is a provider key, not a Fud AI account password. If the app is already set up, find the same options in Settings → AI Access.
 
-AI review path: Open Settings → AI Access (also available in onboarding), choose Google Gemini, keep the default model, and enter a valid Gemini API key. If a review key is supplied in App Review Information, paste it into the in-app API Key field; it is a provider key, not a Fud AI account password. Try photo or text meal analysis, or open the orb on Home to try Brulee Live Voice after granting microphone access. Live Voice uses a separate live model and requires provider access to that model. For example, say “I had a bowl of oatmeal and a banana.”
+Core review path: After onboarding, use Home → + → Manual Entry or Barcode to log a meal. Neither feature sends an AI request. Open the food diary and Progress to see the result. The app has no ads and does not request tracking.
+
+AI review path: Try photo or text meal analysis, or open the orb on Home to try Brulee Live Voice after granting microphone access. Live Voice uses a separate live model and requires provider access to that model. For example, say “I had a bowl of oatmeal and a banana.”
 
 Optional purchases: Plus/Pro Hosted AI subscriptions and credit packs are available from AI Access or the Hosted AI onboarding path; the Tip Jar is optional and unlocks nothing. Core tracking and the bring-your-own-key option do not require a subscription.
 

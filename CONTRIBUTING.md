@@ -198,7 +198,8 @@ Before committing, build both platform resources so malformed translations and f
 If you want to chat before opening a big PR, or you hit a wall and need help:
 
 - **Email:** **apoorv@fud-ai.app** or **ad13dtu@gmail.com**
-- **X (Twitter):** [@apoorvdarshan](https://x.com/apoorvdarshan)
+- **X:** [@fudaiapp](https://x.com/fudaiapp)
+- **Instagram:** [@fudaiapp](https://www.instagram.com/fudaiapp/)
 - **GitHub Issues:** [github.com/apoorvdarshan/fud-ai/issues](https://github.com/apoorvdarshan/fud-ai/issues)
 - **Discord:** [discord.gg/Py4VrFctP3](https://discord.gg/Py4VrFctP3) — in the Fud AI server, use **`/ask`** to question the helper bot
 

@@ -3,8 +3,10 @@ import SwiftUI
 /// Public community links shared by the About section and the one-time
 /// "Meet the developer" prompt so the URLs live in exactly one place.
 enum FudAILinks {
-    static let x = URL(string: "https://x.com/apoorvdarshan")!
-    static let instagram = URL(string: "https://www.instagram.com/apoorvcodes/")!
+    private static let socialUsername = "fudaiapp"
+    static let socialHandle = "@\(socialUsername)"
+    static let x = URL(string: "https://x.com/\(socialUsername)")!
+    static let instagram = URL(string: "https://www.instagram.com/\(socialUsername)/")!
     static let discord = URL(string: "https://discord.gg/Py4VrFctP3")!
     static let productHunt = URL(string: "https://www.producthunt.com/products/fud-ai")!
     static let appStore = URL(string: "https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726")!
@@ -104,8 +106,8 @@ struct MeetDeveloperSheet: View {
                 }
 
                 Section {
-                    linkRow("Follow on X", systemImage: "at", url: FudAILinks.x)
-                    linkRow("Follow on Instagram", systemImage: "camera.fill", url: FudAILinks.instagram)
+                    linkRow("Follow on X", systemImage: "at", url: FudAILinks.x, handle: FudAILinks.socialHandle)
+                    linkRow("Follow on Instagram", systemImage: "camera.fill", url: FudAILinks.instagram, handle: FudAILinks.socialHandle)
                     linkRow("Join Discord", systemImage: "bubble.left.and.bubble.right.fill", url: FudAILinks.discord)
                     linkRow("Vote on Product Hunt", systemImage: "hand.thumbsup.fill", url: FudAILinks.productHunt)
                 }
@@ -124,14 +126,21 @@ struct MeetDeveloperSheet: View {
         .interactiveDismissDisabled()
     }
 
-    private func linkRow(_ title: LocalizedStringKey, systemImage: String, url: URL) -> some View {
+    private func linkRow(_ title: LocalizedStringKey, systemImage: String, url: URL, handle: String? = nil) -> some View {
         // Button + openURL keeps the sheet up when jumping to Instagram/X/etc.
         // (SwiftUI `Link` can dismiss the presenting sheet when leaving the app.)
         Button {
             openURL(url)
         } label: {
             Label {
-                Text(title)
+                VStack(alignment: .leading) {
+                    Text(title)
+                    if let handle {
+                        Text(verbatim: handle)
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                }
             } icon: {
                 Image(systemName: systemImage)
                     .foregroundStyle(AppColors.calorie)

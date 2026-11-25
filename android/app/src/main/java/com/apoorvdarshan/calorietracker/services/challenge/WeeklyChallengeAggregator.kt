@@ -27,6 +27,9 @@ data class WeeklyChallengeAggregationInput(
 object WeeklyChallengeAggregator {
     private const val DAILY_ACTIVITY_KCAL_CAP = 2_000
 
+    fun enabledPeriodScores(periods: Set<ChallengePeriod>, input: WeeklyChallengeAggregationInput): List<ChallengePeriodScore> =
+        ChallengePeriod.entries.filter { it != ChallengePeriod.WEEKLY && it in periods }.map { periodScore(it, input) }
+
     fun periodScore(period: ChallengePeriod, input: WeeklyChallengeAggregationInput): ChallengePeriodScore {
         val start = period.startFor(input.today)
         val days = start..input.today

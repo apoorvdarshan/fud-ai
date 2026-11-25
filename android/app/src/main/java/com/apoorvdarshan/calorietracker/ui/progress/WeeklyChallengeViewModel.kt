@@ -9,9 +9,6 @@ import com.apoorvdarshan.calorietracker.data.WeeklyChallengeRepository
 import com.apoorvdarshan.calorietracker.data.WeeklyChallengeResult
 import com.apoorvdarshan.calorietracker.models.ChallengePeriod
 import com.apoorvdarshan.calorietracker.models.ChallengePeriodScore
-import com.apoorvdarshan.calorietracker.models.FoodEntry
-import com.apoorvdarshan.calorietracker.models.UserProfile
-import com.apoorvdarshan.calorietracker.models.WaterEntry
 import com.apoorvdarshan.calorietracker.models.WeeklyChallengeAggregate
 import com.apoorvdarshan.calorietracker.models.WeeklyChallengeCategory
 import com.apoorvdarshan.calorietracker.models.WeeklyChallengeLeaderboard
@@ -24,9 +21,9 @@ import com.apoorvdarshan.calorietracker.models.WeeklyChallengeReportRequest
 import com.apoorvdarshan.calorietracker.models.WeeklyChallengeReportValidator
 import com.apoorvdarshan.calorietracker.models.WeeklyChallengeSocialPlatform
 import com.apoorvdarshan.calorietracker.models.WeeklyChallengeWeek
-import com.apoorvdarshan.calorietracker.models.WorkoutSession
-import com.apoorvdarshan.calorietracker.services.challenge.WeeklyChallengeAggregationInput
 import com.apoorvdarshan.calorietracker.services.challenge.WeeklyChallengeAggregator
+import com.apoorvdarshan.calorietracker.services.challenge.WeeklyChallengeLocalInputs
+import com.apoorvdarshan.calorietracker.services.challenge.challengeLocalInputs
 import java.time.LocalDate
 import java.time.ZoneId
 import kotlinx.coroutines.Job
@@ -34,8 +31,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
@@ -84,15 +79,6 @@ data class WeeklyChallengeUiState(
     val supportsExtraPeriods get() = leaderboard?.period == ChallengePeriod.WEEKLY
 }
 
-private data class WeeklyChallengeLocalInputs(
-    val profile: UserProfile?,
-    val foods: List<FoodEntry>,
-    val water: List<WaterEntry>,
-    val workoutBurns: List<WorkoutSession>,
-    val waterTrackingEnabled: Boolean,
-    val waterGoalMl: Int
-)
-
 class WeeklyChallengeViewModel(private val container: AppContainer) : ViewModel() {
     private val repository: WeeklyChallengeRepository = container.weeklyChallengeRepository
     private val _ui = MutableStateFlow(WeeklyChallengeUiState())
@@ -140,31 +126,8 @@ class WeeklyChallengeViewModel(private val container: AppContainer) : ViewModel(
             }
         }
 
-        val waterPreferences = combine(
-            container.prefs.waterTrackingEnabled,
-            container.prefs.waterDailyGoalMl
-        ) { enabled, goal -> enabled to goal }
         viewModelScope.launch {
-            combine(
-                container.profileRepository.profile,
-                container.foodRepository.entries,
-                container.waterRepository.entries,
-                container.workoutRepository.burnSessions
-            ) { profile, foods, water, workouts ->
-                WeeklyChallengeLocalInputs(
-                    profile = profile,
-                    foods = foods,
-                    water = water,
-                    workoutBurns = workouts,
-                    waterTrackingEnabled = false,
-                    waterGoalMl = 0
-                )
-            }.combine(waterPreferences) { inputs, waterPrefs ->
-                inputs.copy(
-                    waterTrackingEnabled = waterPrefs.first,
-                    waterGoalMl = waterPrefs.second
-                )
-            }.distinctUntilChanged().collect { inputs ->
+            challengeLocalInputs(container).collect { inputs ->
                 latestInputs = inputs
                 recomputeAndQueueIfNeeded()
             }
@@ -461,19 +424,9 @@ class WeeklyChallengeViewModel(private val container: AppContainer) : ViewModel(
 
     private suspend fun recomputeAndQueueIfNeeded() {
         val inputs = latestInputs ?: return
-        val today = LocalDate.now()
-        val weekStart = WeeklyChallengeWeek.startFor(today)
-        val input = WeeklyChallengeAggregationInput(
-                foods = inputs.foods,
-                water = inputs.water,
-                workoutBurns = inputs.workoutBurns,
-                calorieGoal = inputs.profile?.effectiveCalories ?: 0,
-                waterTrackingEnabled = inputs.waterTrackingEnabled,
-                waterGoalMl = inputs.waterGoalMl,
-                weekStart = weekStart,
-                today = today,
-                zoneId = ZoneId.systemDefault()
-        )
+        val zoneId = ZoneId.systemDefault()
+        val input = inputs.aggregationInput(LocalDate.now(zoneId), zoneId)
+        val weekStart = input.weekStart
         val aggregate = WeeklyChallengeAggregator.aggregate(input)
         val selected = _ui.value.period
         val score = if (selected == ChallengePeriod.WEEKLY) null else WeeklyChallengeAggregator.periodScore(selected, input)
@@ -547,10 +500,7 @@ class WeeklyChallengeViewModel(private val container: AppContainer) : ViewModel(
         fun matches(current: WeeklyChallengeUiState) = current.period == score.period &&
             current.category == state.category && current.currentStart == score.periodStart
         if (force) _ui.update { if (matches(it)) it.copy(isRefreshing = true) else it }
-        val publish = repository.publishPeriodScore(score, accept = false)
-        val result = if (publish is WeeklyChallengeResult.Success) {
-            repository.leaderboardPage(state.category, score.periodStart, 0, force, score.period)
-        } else publish as WeeklyChallengeResult.Failure
+        val result = repository.leaderboardPage(state.category, score.periodStart, 0, force, score.period)
         _ui.update { current ->
             if (!matches(current)) current
             else when (result) {

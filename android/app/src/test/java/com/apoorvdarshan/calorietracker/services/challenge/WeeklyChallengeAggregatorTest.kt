@@ -42,6 +42,22 @@ class WeeklyChallengeAggregatorTest {
     }
 
     @Test
+    fun diaryUpdatesRecalculateAllAndOnlyOptedInExtraPeriods() {
+        val input = WeeklyChallengeAggregationInput(
+            foods = emptyList(), water = emptyList(), workoutBurns = emptyList(),
+            calorieGoal = 2_000, waterTrackingEnabled = true, waterGoalMl = 2_000,
+            weekStart = monday, today = monday, zoneId = utc
+        )
+        val edited = input.copy(foods = listOf(food(monday, 2_000)), water = listOf(water(monday, 2_000)))
+        val both = setOf(ChallengePeriod.DAILY, ChallengePeriod.MONTHLY)
+        fun scores(periods: Set<ChallengePeriod>, snapshot: WeeklyChallengeAggregationInput) =
+            WeeklyChallengeAggregator.enabledPeriodScores(periods, snapshot).associate { it.period to it.points }
+        assertEquals(mapOf(ChallengePeriod.DAILY to 0, ChallengePeriod.MONTHLY to 0), scores(both, input))
+        assertEquals(mapOf(ChallengePeriod.DAILY to 4, ChallengePeriod.MONTHLY to 4), scores(both, edited))
+        assertEquals(mapOf(ChallengePeriod.MONTHLY to 4), scores(setOf(ChallengePeriod.WEEKLY, ChallengePeriod.MONTHLY), edited))
+        assertEquals(emptyMap<ChallengePeriod, Int>(), scores(emptySet(), edited))
+    }
+    @Test
     fun leaderboardCacheSeparatesPeriodsAndPagesAndEvictsOldRows() {
         val start = "2026-11-02"
         val category = WeeklyChallengeCategory.OVERALL

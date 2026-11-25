@@ -445,7 +445,7 @@ struct WeeklyChallengeView: View {
                     if let response = displayedLeaderboard {
                         leaderboardRows(response)
                             .id("challengeRankings")
-                    } else if store.isRefreshing || store.busyPeriod == period {
+                    } else if store.isRefreshing || store.busyPeriod == period || store.refreshingPeriod == period {
                     ProgressView()
                         .padding(.vertical, 32)
                         .accessibilityLabel(WeeklyChallengeL10n.text("Loading leaderboard"))
@@ -536,7 +536,7 @@ struct WeeklyChallengeView: View {
                         .foregroundStyle(store.isOffline ? .orange : .secondary)
                 }
                 Spacer()
-                if (period == .weekly && store.isRefreshing) || store.busyPeriod == period {
+                if (period == .weekly && store.isRefreshing) || store.busyPeriod == period || store.refreshingPeriod == period {
                     ProgressView()
                         .controlSize(.small)
                         .accessibilityLabel(WeeklyChallengeL10n.text("Updating leaderboard"))

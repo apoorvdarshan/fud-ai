@@ -75,6 +75,23 @@ struct WeeklyChallengeTests {
         cache.remove(period: .monthly)
         #expect(cache.entries.count == 4)
     }
+
+    @Test func diaryUpdatesRecalculateAllAndOnlyOptedInExtraPeriods() throws {
+        let now = date("2026-11-25T12:00:00Z")
+        let zone = try #require(TimeZone(secondsFromGMT: 0))
+        func scores(_ periods: Set<ChallengePeriod>, edited: Bool) -> [ChallengePeriod: Int] {
+            Dictionary(uniqueKeysWithValues: ChallengePeriodScore.calculateEnabled(
+                periods, now: now, timeZone: zone,
+                foods: edited ? [.init(date: now, calories: 2_000)] : [],
+                water: edited ? [.init(date: now, milliliters: 2_000)] : [],
+                activities: [], calorieGoal: 2_000, waterGoal: 2_000
+            ).map { ($0.period, $0.points) })
+        }
+        #expect(scores([.daily, .monthly], edited: false) == [.daily: 0, .monthly: 0])
+        #expect(scores([.daily, .monthly], edited: true) == [.daily: 4, .monthly: 4])
+        #expect(scores([.weekly, .monthly], edited: true) == [.monthly: 4])
+        #expect(scores([], edited: true).isEmpty)
+    }
     private var utcCalendar: Calendar {
         var calendar = Calendar(identifier: .gregorian)
         calendar.timeZone = TimeZone(secondsFromGMT: 0)!

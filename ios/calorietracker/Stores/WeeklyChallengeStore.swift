@@ -104,6 +104,7 @@ final class WeeklyChallengeStore {
     private(set) var blockedParticipantIDs: Set<String> = []
     private(set) var enabledPeriods: Set<ChallengePeriod> = []
     private(set) var busyPeriod: ChallengePeriod?
+    private(set) var refreshingPeriod: ChallengePeriod?
 
     private let defaults: UserDefaults
     private let api: WeeklyChallengeAPIClient
@@ -111,6 +112,8 @@ final class WeeklyChallengeStore {
     private var leaderboardCache = WeeklyChallengeLeaderboardCache()
     private var refreshGeneration = 0
     private var publishedPeriodScores: [ChallengePeriod: ChallengePeriodScore] = [:]
+    private var periodRefreshGeneration = 0
+    private var periodMutationTail: Task<Bool, Never>?
 
     init(
         defaults: UserDefaults = .standard,
@@ -226,43 +229,94 @@ final class WeeklyChallengeStore {
     func refreshPeriod(category: WeeklyChallengeCategory, score: ChallengePeriodScore, accept: Bool = false, force: Bool = false) async {
         let period = score.period
         guard period != .weekly, (accept || enabledPeriods.contains(period)),
-              busyPeriod == nil, isJoined, let token = bearerToken else { return }
-        busyPeriod = period
-        defer { busyPeriod = nil }
-        do {
-            if accept || publishedPeriodScores[period] != score {
-                try await api.putPeriodScore(score, token: token)
-                guard isJoined, token == bearerToken else { return }
-                publishedPeriodScores[period] = score
-                if accept { enabledPeriods.insert(period); persistEnabledPeriods() }
-            }
-            let loaded = await loadPage(category: category, weekStart: score.periodStart, offset: 0, period: period, force: force)
-            if !Task.isCancelled {
-                isOffline = !loaded && leaderboardFor(category: category, weekStart: score.periodStart, period: period) != nil
-                if loaded { errorMessage = nil }
-            }
-        } catch is CancellationError {
-            return
-        } catch {
-            if WeeklyChallengeSessionPolicy.shouldClearLocalIdentity(after: error) { clearLocalIdentity() }
-            else { record(error, fallback: WeeklyChallengeL10n.text("The leaderboard could not be updated. Pull down to try again.")) }
+              !Task.isCancelled, isJoined else { return }
+        if accept {
+            guard busyPeriod == nil else { return }
+            busyPeriod = period
+            let joined = await publishPeriodScore(score, accept: true)
+            busyPeriod = nil
+            guard joined else { return }
         }
+        guard !Task.isCancelled else { return }
+        periodRefreshGeneration += 1
+        let generation = periodRefreshGeneration
+        refreshingPeriod = period
+        defer {
+            if generation == periodRefreshGeneration { refreshingPeriod = nil }
+        }
+        let loaded = await loadPage(category: category, weekStart: score.periodStart, offset: 0, period: period, force: force)
+        guard !Task.isCancelled, generation == periodRefreshGeneration else { return }
+        isOffline = !loaded && leaderboardFor(category: category, weekStart: score.periodStart, period: period) != nil
+        if loaded { errorMessage = nil }
+    }
+
+    func syncEnabledPeriodScores(_ scores: [ChallengePeriodScore]) async {
+        for score in scores {
+            guard !Task.isCancelled else { return }
+            _ = await publishPeriodScore(score, accept: false)
+        }
+    }
+
+    private func publishPeriodScore(_ score: ChallengePeriodScore, accept: Bool) async -> Bool {
+        let period = score.period
+        guard period != .weekly, (accept || enabledPeriods.contains(period)),
+              isJoined, let token = bearerToken else { return false }
+        return await serializePeriodMutation {
+            guard self.isJoined, token == self.bearerToken,
+                  accept || self.enabledPeriods.contains(period) else { return false }
+            if !accept, self.publishedPeriodScores[period] == score { return true }
+            do {
+                try await self.api.putPeriodScore(score, token: token)
+                guard self.isJoined, token == self.bearerToken else { return false }
+                self.publishedPeriodScores[period] = score
+                if accept { self.enabledPeriods.insert(period); self.persistEnabledPeriods() }
+                return true
+            } catch {
+                guard token == self.bearerToken else { return false }
+                if WeeklyChallengeSessionPolicy.shouldClearLocalIdentity(after: error) { self.clearLocalIdentity() }
+                else if accept {
+                    self.record(error, fallback: WeeklyChallengeL10n.text("The leaderboard could not be updated. Pull down to try again."))
+                }
+                return false
+            }
+        }
+    }
+
+    /// Writes, including opt-out, cannot pass an in-flight score upload. Page
+    /// reads are independent so changing tabs never discards the latest read.
+    private func serializePeriodMutation(_ operation: @escaping @MainActor () async -> Bool) async -> Bool {
+        let predecessor = periodMutationTail
+        let mutation = Task { @MainActor in
+            _ = await predecessor?.value
+            return await operation()
+        }
+        periodMutationTail = mutation
+        return await mutation.value
     }
 
     func leavePeriod(_ period: ChallengePeriod) async {
         guard busyPeriod == nil, enabledPeriods.contains(period), let token = bearerToken else { return }
         busyPeriod = period
         defer { busyPeriod = nil }
+        _ = await serializePeriodMutation {
+            guard self.isJoined, token == self.bearerToken else { return false }
+            return await self.removePeriod(period, token: token)
+        }
+    }
+
+    private func removePeriod(_ period: ChallengePeriod, token: String) async -> Bool {
         do {
             try await api.deletePeriod(period, token: token)
-            guard isJoined, token == bearerToken else { return }
+            guard isJoined, token == bearerToken else { return false }
             enabledPeriods.remove(period)
             publishedPeriodScores[period] = nil
             leaderboardCache.remove(period: period)
             persist(leaderboardCache, key: Self.cachedLeaderboardKey)
             persistEnabledPeriods()
+            return true
         } catch {
             record(error, fallback: WeeklyChallengeL10n.text("The leaderboard could not be updated. Pull down to try again."))
+            return false
         }
     }
 

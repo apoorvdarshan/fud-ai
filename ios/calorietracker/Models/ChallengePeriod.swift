@@ -34,6 +34,17 @@ struct ChallengePeriodScore: Encodable, Equatable, Hashable {
 
     var points: Int { activityDays + nutritionDays + consistencyDays + hydrationDays + balancedDays + max(0, longestStreak - 1) }
 
+    static func calculateEnabled(
+        _ periods: Set<ChallengePeriod>, now: Date, timeZone: TimeZone = .autoupdatingCurrent,
+        foods: [WeeklyChallengeFoodSample], water: [WeeklyChallengeWaterSample], activities: [WeeklyChallengeActivitySample],
+        calorieGoal: Int, waterGoal: Int?
+    ) -> [Self] {
+        ChallengePeriod.allCases.filter { $0 != .weekly && periods.contains($0) }.map {
+            calculate(period: $0, now: now, timeZone: timeZone, foods: foods, water: water, activities: activities,
+                      calorieGoal: calorieGoal, waterGoal: waterGoal)
+        }
+    }
+
     static func calculate(
         period: ChallengePeriod, now: Date = .now, timeZone: TimeZone = .autoupdatingCurrent,
         foods: [WeeklyChallengeFoodSample], water: [WeeklyChallengeWaterSample], activities: [WeeklyChallengeActivitySample],

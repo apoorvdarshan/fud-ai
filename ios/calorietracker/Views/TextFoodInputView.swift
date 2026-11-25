@@ -41,6 +41,7 @@ struct TextFoodInputView: View {
                     .textFieldStyle(.plain)
                     .autocorrectionDisabled()
                     .focused($isFocused)
+                    .accessibilityIdentifier("food.description")
                     .padding(.horizontal, 6)
                     .padding(.vertical, 10)
             }

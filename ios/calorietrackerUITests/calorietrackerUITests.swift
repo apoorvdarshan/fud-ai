@@ -769,6 +769,41 @@ final class calorietrackerUITests: XCTestCase {
     }
 
     @MainActor
+    func testFoodDescriptionShowsTheFactDuringTheActualAnalysisSheet() {
+        let app = makeApp(defaults: ["--ui-testing-hold-food-analysis"])
+        app.launch()
+
+        let add = app.buttons["home.add"]
+        XCTAssertTrue(add.waitForExistence(timeout: 15))
+        add.tap()
+        let describe = app.buttons["Describe Meal"]
+        XCTAssertTrue(describe.waitForExistence(timeout: 5))
+        describe.tap()
+        let text = app.buttons["Text Input"].firstMatch
+        XCTAssertTrue(text.waitForExistence(timeout: 5))
+        text.tap()
+
+        let description = app.descendants(matching: .any)["food.description"].firstMatch
+        XCTAssertTrue(description.waitForExistence(timeout: 5))
+        description.tap()
+        description.typeText("Oatmeal with blueberries")
+        let analyze = app.buttons["Analyze"]
+        XCTAssertTrue(analyze.isEnabled)
+        analyze.tap()
+
+        let fact = app.descendants(matching: .any)["analysis.waitingFact"].firstMatch
+        XCTAssertTrue(fact.waitForExistence(timeout: 5))
+        XCTAssertTrue(fact.isHittable, "A fact must be visible without scrolling")
+        XCTAssertTrue(fact.label.contains("Did you know?"))
+        let cancel = app.buttons["Cancel"].firstMatch
+        XCTAssertTrue(cancel.isHittable)
+        XCTAssertLessThan(fact.frame.maxY, cancel.frame.minY)
+        cancel.tap()
+        XCTAssertTrue(add.waitForExistence(timeout: 5))
+        XCTAssertFalse(fact.exists)
+    }
+
+    @MainActor
     func testManualFoodEntryValidatesRequiredFieldsAndPersists() throws {
         let app = makeApp(defaults: ["-appearanceMode", "dark"])
         app.launch()

@@ -4,6 +4,37 @@ import Testing
 
 @MainActor
 struct WaitingFactCardTests {
+    @Test func factCardIsNotBlankBeforeTheCatalogLoadsOrAppearanceHooksRun() throws {
+        let view = WaitingFactCard().frame(width: 290)
+        let size = try renderedSize(view)
+        #expect(size.width == 290)
+        #expect(size.height >= 60)
+    }
+
+    @Test func aColdFallbackDoesNotAdvanceOrReplaceTheFullDeck() async throws {
+        let suite = "waiting-facts-cold-test-\(UUID())"
+        let defaults = try #require(UserDefaults(suiteName: suite))
+        defer { defaults.removePersistentDomain(forName: suite) }
+        let feed = WaitingFactFeed(defaults: defaults)
+        let cold = feed.nextReady(language: "en")
+        guard case .editorial = cold else {
+            Issue.record("Expected a readable editorial fact before catalog preparation")
+            return
+        }
+        let key = "analysis.waitingFactDeck.v1.en"
+        #expect(defaults.object(forKey: key) == nil)
+        await feed.prepare()
+        _ = feed.nextReady(language: "en")
+        let saved = try #require(defaults.stringArray(forKey: key))
+        let catalog = await WaitingFactCatalog.loaded.value
+        #expect(saved[0] == catalog.revision)
+        #expect(saved[2] == "1")
+        guard case .measurement = feed.nextReady(language: "en") else {
+            Issue.record("Expected the warmed feed to serve USDA facts as well")
+            return
+        }
+    }
+
     @Test func shipsTheWholeCatalogAndEveryLanguageHasTheSameFacts() async {
         let catalog = await WaitingFactCatalog.loaded.value
         #expect(catalog.foods.count == 140)

@@ -1200,6 +1200,7 @@ private struct WhatIfMealImpactSheet: View {
                                 .foregroundStyle(.secondary)
                         }
                         .padding(.vertical, 4)
+                        WaitingFactCard()
                     } else if let suggestion {
                         Text(suggestion)
                             .font(.body)

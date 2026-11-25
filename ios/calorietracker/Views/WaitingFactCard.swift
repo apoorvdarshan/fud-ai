@@ -4,24 +4,19 @@ import SwiftUI
 struct WaitingFactCard: View {
     @Environment(\.locale) private var locale
     @State private var card: WaitingFactFeed.Card?
-    @State private var selectedLanguage: String?
 
     init(card: WaitingFactFeed.Card? = nil) { _card = State(initialValue: card) }
 
     var body: some View {
         let language = WaitingFactCatalog.language(for: locale)
-        Group {
-            if let card, selectedLanguage == nil || selectedLanguage == language {
-                cardView(card)
+        // Keep the very first frame readable, including when SwiftUI is presenting
+        // the analysis sheet at the same time that the app is warming its catalog.
+        cardView(card ?? .editorial(1))
+            .onAppear {
+                guard card == nil else { return }
+                card = WaitingFactFeed.shared.nextReady(language: language)
             }
-        }
-        .task(id: language) {
-            guard card == nil || (selectedLanguage != nil && selectedLanguage != language) else { return }
-            let catalog = await WaitingFactCatalog.loaded.value
-            guard !Task.isCancelled else { return }
-            card = WaitingFactFeed.shared.next(catalog: catalog, language: language)
-            selectedLanguage = language
-        }
+            .task { await WaitingFactFeed.shared.prepare() }
     }
 
     private func cardView(_ card: WaitingFactFeed.Card) -> some View {

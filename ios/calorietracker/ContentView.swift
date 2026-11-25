@@ -185,6 +185,7 @@ struct ContentView: View {
             .background(neoAppearance.palette.paper)
             .tint(AppColors.accentText)
             .background(VoiceAssistantWindowInstaller(controller: voiceAssistant))
+            .task { await WaitingFactFeed.shared.prepare() }
             .task {
                 attachVoiceAssistant()
                 consumePendingLaunchRoutes()
@@ -3113,6 +3114,11 @@ private var dailyStepsTaskKey: String {
         // shows the stage instead of the old text.
         let progress = startAnalysisProgress(kind: .text)
         presentFoodLogLoading(.analyzingText)
+
+        // The UI test drives the real Log Food presentation without a provider.
+        #if DEBUG && targetEnvironment(simulator)
+        if SimulatorTestEnvironment.holdsFoodAnalysis { return }
+        #endif
 
         analysisTask = Task {
             do {

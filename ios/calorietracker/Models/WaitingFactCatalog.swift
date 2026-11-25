@@ -142,10 +142,25 @@ final class WaitingFactFeed {
     }
 
     private let defaults: UserDefaults
+    private var preparedCatalog: WaitingFactCatalog?
     private var decks: [String: Deck] = [:]
     private var measurementsByLanguage: [String: (revision: String, entries: [WaitingFactCatalog.Measurement])] = [:]
 
     init(defaults: UserDefaults = .standard) { self.defaults = defaults }
+
+    /// Start loading before the first analysis. Never make a loading screen wait for it.
+    func prepare() async {
+        guard preparedCatalog == nil else { return }
+        preparedCatalog = await WaitingFactCatalog.loaded.value
+    }
+
+    func nextReady(language: String) -> Card {
+        guard let preparedCatalog, !preparedCatalog.foods.isEmpty else {
+            // Cold or missing asset: don't reset the saved position of the full deck.
+            return .editorial(Int.random(in: 0..<WaitingFactDeck.editorialCount))
+        }
+        return next(catalog: preparedCatalog, language: language)
+    }
 
     func next(catalog: WaitingFactCatalog, language: String) -> Card {
         if measurementsByLanguage[language]?.revision != catalog.revision {

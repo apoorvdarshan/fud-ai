@@ -16,7 +16,7 @@ Fud AI 9.0 introduces the 04 Flash design for Home, the diary, navigation, and s
 
 ## android-v9.0
 
-Fud AI 9.0 introduces the 04 Flash design for Home, the diary, navigation, and settings. Calorie, Protein, Water, All Metrics, Meal Voice, and Live Voice home-screen widgets now match.
+Fud AI 9.0 introduces the 04 Flash design for Home, the diary, navigation, and settings. Calorie, Protein, Water, All Metrics, and Live Voice home-screen widgets now match.
 
 • Daily and Monthly Challenges are separate opt-ins alongside Weekly.
 • A confirmed update is visible from About → App & Updates. Existing users without an active plan can view optional paid Hosted Plus/Pro plans once after updating; no old launch popups or free-trial claims.

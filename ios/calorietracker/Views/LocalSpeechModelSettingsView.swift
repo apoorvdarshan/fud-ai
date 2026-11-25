@@ -3,7 +3,6 @@ import SwiftUI
 struct LocalSpeechModelSettingsView: View {
     let manager: LocalSpeechModelManager
     let onAvailabilityChange: () -> Void
-    var inUse = false
     @State private var confirmDelete = false
 
     private var model: LocalSpeechModel { manager.model }
@@ -12,7 +11,8 @@ struct LocalSpeechModelSettingsView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             Label(model.name, systemImage: "waveform.badge.mic").font(.body.weight(.medium))
-            description
+            Text(model == .parakeetV3
+                 ? SpeechProvider.parakeetV3.description : SpeechProvider.qwen3ASR.description)
                 .font(.caption)
                 .foregroundStyle(.secondary)
             Text(status).font(.caption).foregroundStyle(.secondary)
@@ -36,7 +36,6 @@ struct LocalSpeechModelSettingsView: View {
                 }
                 if manager.hasFiles, manager.progress == nil {
                     Button("Delete", role: .destructive) { confirmDelete = true }.buttonStyle(.bordered)
-                        .disabled(inUse)
                 }
             }
             FlashAdaptiveStack(spacing: 12) {
@@ -54,24 +53,11 @@ struct LocalSpeechModelSettingsView: View {
             Button("Delete Model", role: .destructive) {
                 manager.delete()
                 if !manager.isInstalled {
-                    switch model {
-                    case .parakeetV3: SpeechSettings.replaceDeletedLocalSelections(.parakeetV3)
-                    case .qwen3ASR: SpeechSettings.replaceDeletedLocalSelections(.qwen3ASR)
-                    case .lfm3Audio: break
-                    }
+                    SpeechSettings.replaceDeletedLocalSelections(model == .parakeetV3 ? .parakeetV3 : .qwen3ASR)
                     onAvailabilityChange()
                 }
             }
             Button("Cancel", role: .cancel) {}
-        }
-    }
-
-    @ViewBuilder private var description: some View {
-        switch model {
-        case .parakeetV3: Text(SpeechProvider.parakeetV3.description)
-        case .qwen3ASR: Text(SpeechProvider.qwen3ASR.description)
-        case .lfm3Audio:
-            Text("English only, one turn at a time. This preview does not use diary tools or the cloud.", tableName: "OfflineVoice")
         }
     }
 

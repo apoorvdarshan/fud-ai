@@ -7,16 +7,11 @@ import android.media.MediaRecorder
 import java.io.File
 import java.io.FileOutputStream
 import java.io.RandomAccessFile
-import java.util.UUID
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicBoolean
 
 /** Records 16 kHz mono PCM WAV, accepted by both local Whisper and every remote STT route. */
-class AudioRecorder(
-    private val context: Context,
-    private val directory: File = File(context.cacheDir, "fudai-stt"),
-    private val maxSeconds: Int? = null
-) {
+class AudioRecorder(private val context: Context) {
     private var recorder: AudioRecord? = null
     private var writer: Thread? = null
     private var output: File? = null
@@ -25,8 +20,8 @@ class AudioRecorder(
     private val discardFiles = ConcurrentHashMap.newKeySet<File>()
 
     fun start(): File? = runCatching {
-        val dir = directory.apply { mkdirs() }
-        val file = File(dir, "rec-${UUID.randomUUID()}.wav")
+        val dir = File(context.cacheDir, "fudai-stt").apply { mkdirs() }
+        val file = File(dir, "rec-${System.currentTimeMillis()}.wav")
         val minimum = AudioRecord.getMinBufferSize(
             SAMPLE_RATE,
             AudioFormat.CHANNEL_IN_MONO,
@@ -42,10 +37,11 @@ class AudioRecorder(
             AudioFormat.ENCODING_PCM_16BIT,
             bufferSize
         )
+        check(audioRecord.state == AudioRecord.STATE_INITIALIZED) { "The microphone could not be initialized." }
+
+        FileOutputStream(file).use { it.write(ByteArray(WAV_HEADER_BYTES)) }
         recorder = audioRecord
         output = file
-        check(audioRecord.state == AudioRecord.STATE_INITIALIZED) { "The microphone could not be initialized." }
-        FileOutputStream(file).use { it.write(ByteArray(WAV_HEADER_BYTES)) }
         audioRecord.startRecording()
         val active = AtomicBoolean(true)
         val failed = AtomicBoolean(false)
@@ -131,12 +127,11 @@ class AudioRecorder(
         try {
             FileOutputStream(file, true).use { stream ->
                 val buffer = ByteArray(bufferSize)
-                var remaining = maxSeconds?.let { it * SAMPLE_RATE * BYTES_PER_SAMPLE }
-                while (active.get() && remaining != 0) {
+                while (active.get()) {
                     when (val count = audioRecord.read(
                         buffer,
                         0,
-                        minOf(buffer.size, remaining ?: buffer.size),
+                        buffer.size,
                         AudioRecord.READ_NON_BLOCKING
                     )) {
                         AudioRecord.ERROR_DEAD_OBJECT,
@@ -147,10 +142,7 @@ class AudioRecorder(
                             break
                         }
                         0 -> Thread.sleep(5)
-                        else -> if (count > 0) {
-                            stream.write(buffer, 0, count)
-                            remaining = remaining?.minus(count)
-                        }
+                        else -> if (count > 0) stream.write(buffer, 0, count)
                     }
                 }
                 stream.fd.sync()

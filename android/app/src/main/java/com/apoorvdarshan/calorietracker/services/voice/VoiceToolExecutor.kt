@@ -420,7 +420,7 @@ class VoiceToolExecutor(
             }
             put("unit_system", if (prefs.weightMetric) "metric" else "imperial")
             putJsonObject("session") {
-                put("provider", if (context.local) "lfm3" else context.provider.storageValue)
+                put("provider", context.provider.storageValue)
                 put("camera_frames", context.cameraFrames.wireValue)
                 put("auto_capture", context.autoCapture)
                 put("confirm_saves", context.confirmSaves)

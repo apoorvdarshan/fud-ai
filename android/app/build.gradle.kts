@@ -52,13 +52,6 @@ val revenueCatTestStoreApiKey = revenueCatKey("revenuecat.test.store.api.key", "
 
 android {
     namespace = "com.apoorvdarshan.calorietracker"
-    ndkVersion = "28.2.13676358"
-    externalNativeBuild {
-        cmake {
-            path = file("src/main/cpp/CMakeLists.txt")
-            version = "3.22.1"
-        }
-    }
     compileSdk {
         // AndroidX Compose / core 1.19+ and OkHttp 5.5 require compileSdk >= 37.
         version = release(37) {
@@ -76,12 +69,6 @@ android {
         manifestPlaceholders["launcherAppName"] = "@string/app_name"
 
         testInstrumentationRunner = "com.apoorvdarshan.calorietracker.testing.FudAITestRunner"
-        externalNativeBuild {
-            cmake {
-                abiFilters.add("arm64-v8a")
-                arguments.add("-DANDROID_STL=c++_static")
-            }
-        }
 
         // Public CDN prefix the app fetches workout frames from on demand.
         buildConfigField("String", "WORKOUT_VECTORS_BASE_URL", "\"$workoutVectorsDefaultBaseUrl\"")

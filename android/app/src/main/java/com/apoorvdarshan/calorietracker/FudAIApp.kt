@@ -54,6 +54,7 @@ import com.apoorvdarshan.calorietracker.services.ondevice.LocalGemmaRuntime
 import com.apoorvdarshan.calorietracker.services.ondevice.LocalSpeechRuntime
 import com.apoorvdarshan.calorietracker.services.ondevice.LocalModelManager
 import com.apoorvdarshan.calorietracker.services.ondevice.LocalWhisperRuntime
+import com.apoorvdarshan.calorietracker.services.ondevice.RetiredOfflineVoiceFiles
 import com.apoorvdarshan.calorietracker.services.speech.SpeechService
 import com.apoorvdarshan.calorietracker.services.voice.VoiceAssistantController
 import com.apoorvdarshan.calorietracker.services.voice.createVoicePreviewController
@@ -159,6 +160,10 @@ open class FudAIApp : Application() {
         appScope.launch { container.imageStore.cleanupLegacyThumbnailDirectory() }
         // A Drive restore the system killed leaves its staged photos behind.
         appScope.launch { container.imageStore.discardAbandonedStaging() }
+        appScope.launch(Dispatchers.IO) {
+            RetiredOfflineVoiceFiles.cleanUp(noBackupFilesDir, cacheDir)
+            container.prefs.removeRetiredOfflineVoicePreferences()
+        }
         appScope.launch { container.foodRepository.pruneOrphanedImages() }
         appScope.launch { container.weeklyChallengeRepository.retryPendingRemoteDeletion() }
         container.prefs.mealSchedule

@@ -61,8 +61,7 @@ final class StorageMaintenance {
             Gemma4LocalModelManager.e4b.storageDirectory,
             WhisperBaseModelManager.shared.storageDirectory,
             LocalSpeechModelManager.parakeet.storageDirectory,
-            LocalSpeechModelManager.qwen.storageDirectory,
-            LocalSpeechModelManager.lfm3.storageDirectory
+            LocalSpeechModelManager.qwen.storageDirectory
         ]
         usage = await Task.detached(priority: .utility) {
             AppStorageUsage(

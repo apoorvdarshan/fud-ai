@@ -47,7 +47,6 @@ import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -79,7 +78,6 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.apoorvdarshan.calorietracker.AppContainer
 import com.apoorvdarshan.calorietracker.R
-import com.apoorvdarshan.calorietracker.data.VoiceAssistantPreferences
 import com.apoorvdarshan.calorietracker.models.WaterUnit
 import com.apoorvdarshan.calorietracker.services.hosted.HostedPrompt
 import com.apoorvdarshan.calorietracker.services.voice.LiveProvider
@@ -122,7 +120,6 @@ fun VoiceAssistantHost(container: AppContainer) {
     }
     LaunchedEffect(ui.startRequest) {
         if (ui.phase != VoicePhase.PREPARING || !controller.claimStartRequest(ui.startRequest)) return@LaunchedEffect
-        if (controller.startLocalIfSelected(ui.startRequest)) return@LaunchedEffect
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
             controller.beginSession()
         } else {
@@ -160,13 +157,9 @@ fun VoiceAssistantHost(container: AppContainer) {
     // While talking: keep the screen on, and let the volume keys set the conversation's volume.
     val view = LocalView.current
     val talking = ui.phase != VoicePhase.IDLE
-    DisposableEffect(talking, ui.local) {
+    DisposableEffect(talking) {
         view.keepScreenOn = talking
-        activity?.volumeControlStream = when {
-            !talking -> AudioManager.USE_DEFAULT_STREAM_TYPE
-            ui.local -> AudioManager.STREAM_MUSIC
-            else -> AudioManager.STREAM_VOICE_CALL
-        }
+        activity?.volumeControlStream = if (talking) AudioManager.STREAM_VOICE_CALL else AudioManager.USE_DEFAULT_STREAM_TYPE
         onDispose {
             view.keepScreenOn = false
             activity?.volumeControlStream = AudioManager.USE_DEFAULT_STREAM_TYPE
@@ -216,10 +209,9 @@ fun VoiceAssistantHost(container: AppContainer) {
     }
 
     val preferences by container.prefs.voiceMascotPreferences.collectAsState(initial = VoiceMascotPreferences())
-    val voicePreferences by container.prefs.voiceAssistantPreferences.collectAsState(initial = VoiceAssistantPreferences())
     val mascot = ui.mascot ?: preferences.profile
     if (ui.expanded) {
-        ExpandedOverlay(ui, cards, controller, actions, units, noticeActions, mascot, voicePreferences.offerLocalCloudFallback)
+        ExpandedOverlay(ui, cards, controller, actions, units, noticeActions, mascot)
     } else {
         CompactOverlay(ui, cards, controller, actions, units, mascot)
     }
@@ -235,8 +227,7 @@ private fun ExpandedOverlay(
     actions: CardActions,
     units: CardUnits,
     noticeActions: NoticeActions,
-    mascot: VoiceMascotProfile,
-    offerFallback: Boolean
+    mascot: VoiceMascotProfile
 ) {
     Box(
         Modifier
@@ -293,15 +284,6 @@ private fun ExpandedOverlay(
                 }
             }
             if (ui.notice == null) Captions(ui)
-            if (ui.local) controller.offlineVoice?.let { local ->
-                com.apoorvdarshan.calorietracker.ui.settings.OfflineVoiceControls(local)
-            }
-            if (offerFallback && (ui.notice == VoiceNotice.NeedsOfflineModel ||
-                    controller.offlineVoice?.error == R.string.offline_voice_reply_error)) {
-                TextButton(onClick = controller::requestCloudFallback) {
-                    Text(stringResource(R.string.offline_voice_start_cloud), color = Color.White)
-                }
-            }
             if (cards.isNotEmpty()) {
                 Column(
                     Modifier
@@ -356,7 +338,7 @@ private fun TopBar(ui: VoiceUiState, controller: VoiceAssistantController) {
 @Composable
 private fun StatusChip(ui: VoiceUiState) {
     if (ui.notice != null) return
-    Chip(Icons.Filled.GraphicEq, if (ui.local) stringResource(R.string.offline_voice) else statusText(ui))
+    Chip(Icons.Filled.GraphicEq, statusText(ui))
 }
 
 @Composable
@@ -545,11 +527,6 @@ private fun NoticeView(notice: VoiceNotice, actions: NoticeActions, mascot: Voic
         actions.openSettings(VoiceSettingsSection.AI_PROVIDERS)
     }
     val (title, body, buttons) = when (notice) {
-        VoiceNotice.NeedsOfflineModel -> Triple(
-            stringResource(R.string.offline_voice),
-            stringResource(R.string.offline_voice_download_required),
-            listOf(voiceSettings, close)
-        )
         VoiceNotice.NeedsSetup -> Triple(
             stringResource(R.string.voice_notice_setup_title),
             stringResource(R.string.voice_notice_setup_body),

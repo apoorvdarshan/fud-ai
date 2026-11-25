@@ -103,7 +103,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-private enum class VoiceSheet { MASCOT, PROVIDER, MODEL, VOICE, LANGUAGE, OFFLINE }
+private enum class VoiceSheet { MASCOT, PROVIDER, MODEL, VOICE, LANGUAGE }
 
 /** Languages offered for replies: the app's languages. */
 private val REPLY_LANGUAGES: List<String> = AppLanguage.supportedTags
@@ -161,8 +161,8 @@ internal fun VoiceAssistantSettings(container: AppContainer, onOpenAiProviders: 
         }
     }
     var voiceQuota by remember { mutableStateOf<HostedVoiceQuota?>(null) }
-    LaunchedEffect(entitlement.isEntitled, previewState.active, prefs.choice) {
-        if (!entitlement.isEntitled || prefs.choice.isLocal) voiceQuota = null
+    LaunchedEffect(entitlement.isEntitled, previewState.active) {
+        if (!entitlement.isEntitled) voiceQuota = null
         else if (!previewState.active) voiceQuota =
             runCatching { withContext(Dispatchers.IO) { container.hostedAiClient.fetchVoiceQuota() } }.getOrNull()
     }
@@ -179,14 +179,6 @@ internal fun VoiceAssistantSettings(container: AppContainer, onOpenAiProviders: 
     LaunchedEffect(assistantActive) { if (assistantActive) preview.stop() }
 
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        SectionCard {
-            SettingRow(
-                stringResource(R.string.offline_voice), "LFM3-Audio-2B", icon = Icons.Outlined.RecordVoiceOver
-            ) {
-                preview.stop()
-                sheet = VoiceSheet.OFFLINE
-            }
-        }
         SectionCard(title = stringResource(R.string.voice_mascot)) {
             VoiceMascotGallery(mascot) { selection ->
                 if (selection != mascot.selected) {
@@ -211,16 +203,6 @@ internal fun VoiceAssistantSettings(container: AppContainer, onOpenAiProviders: 
                 onAddKey = onOpenAiProviders,
                 onSeePlans = { container.hostedUi.show(HostedPrompt.Paywall) }
             )
-            if (prefs.choice.isLocal) {
-                HorizontalDivider()
-                VoiceToggleRow(
-                    label = stringResource(R.string.offline_voice_offer_cloud),
-                    subtitle = stringResource(R.string.offline_voice_fallback_detail),
-                    checked = prefs.offerLocalCloudFallback,
-                    icon = Icons.Outlined.GraphicEq,
-                    testTag = "voiceSettings.localCloudFallback"
-                ) { enabled -> scope.launch { container.prefs.setLocalVoiceCloudFallback(enabled) } }
-            }
             if (prefs.choice == VoiceProviderChoice.QWEN ||
                 (prefs.choice == VoiceProviderChoice.AUTOMATIC && selectedAi == AIProvider.QWEN)
             ) {
@@ -241,13 +223,12 @@ internal fun VoiceAssistantSettings(container: AppContainer, onOpenAiProviders: 
                     }
                 })
             }
-            if (!prefs.choice.isLocal && provider.usesOwnKey) {
+            if (provider.usesOwnKey) {
                 HorizontalDivider()
                 SettingRow(stringResource(R.string.voice_settings_model), model, icon = Icons.Outlined.Tune) {
                     sheet = VoiceSheet.MODEL
                 }
             }
-            if (!prefs.choice.isLocal) {
             HorizontalDivider()
             SettingRow(
                 stringResource(R.string.voice_settings_voice),
@@ -263,7 +244,6 @@ internal fun VoiceAssistantSettings(container: AppContainer, onOpenAiProviders: 
                 languageLabel(prefs.language),
                 icon = Icons.Outlined.Translate
             ) { sheet = VoiceSheet.LANGUAGE }
-            }
         }
         VoiceFooter(stringResource(R.string.voice_settings_automatic_footer))
 
@@ -293,7 +273,7 @@ internal fun VoiceAssistantSettings(container: AppContainer, onOpenAiProviders: 
             ) { on -> scope.launch { container.prefs.setVoiceAssistantSaveToCoach(on) } }
         }
 
-        if (!prefs.choice.isLocal && (entitlement.isEntitled || prefs.choice == VoiceProviderChoice.HOSTED)) {
+        if (entitlement.isEntitled || prefs.choice == VoiceProviderChoice.HOSTED) {
             SectionCard {
                 SettingRow(
                     stringResource(R.string.voice_settings_minutes_left),
@@ -337,7 +317,7 @@ internal fun VoiceAssistantSettings(container: AppContainer, onOpenAiProviders: 
                 }
             }
         }
-        if (!prefs.choice.isLocal) VoiceFooter(stringResource(R.string.voice_settings_privacy_footer))
+        VoiceFooter(stringResource(R.string.voice_settings_privacy_footer))
     }
 
     sheet?.let { current ->
@@ -347,7 +327,6 @@ internal fun VoiceAssistantSettings(container: AppContainer, onOpenAiProviders: 
         ) {
             Column(Modifier.fillMaxWidth().navigationBarsPadding().padding(horizontal = 20.dp).padding(bottom = 20.dp)) {
                 when (current) {
-                    VoiceSheet.OFFLINE -> OfflineVoiceSettings(container.localModels, assistantActive)
                     VoiceSheet.MASCOT -> VoiceMascotSettingsContent(
                         preferences = mascot,
                         onEdit = { selection, change -> scope.launch { container.prefs.editVoiceMascot(selection, change) } }
@@ -359,7 +338,6 @@ internal fun VoiceAssistantSettings(container: AppContainer, onOpenAiProviders: 
                         subtitle = { choice -> choiceSubtitle(choice, keys, entitlement.isEntitled) },
                         selected = { it == prefs.choice }
                     ) { choice ->
-                        if (choice != prefs.choice && assistantActive) container.voiceAssistant.close()
                         scope.launch { container.prefs.setVoiceAssistantProvider(choice) }
                         sheet = null
                     }
@@ -435,10 +413,6 @@ private fun QwenWorkspaceFields(
 @Composable
 private fun AccessRow(access: VoiceAccess, onAddKey: () -> Unit, onSeePlans: () -> Unit) {
     val (text, action, icon) = when (access) {
-        is VoiceAccess.Local -> Triple(
-            stringResource(if (access.connectedTools) R.string.offline_voice_connected_detail else R.string.offline_voice_local_detail),
-            null, Icons.Filled.Check
-        )
         is VoiceAccess.Ready -> Triple(stringResource(R.string.voice_settings_using, providerName(access.provider)), null, Icons.Filled.Check)
         is VoiceAccess.MissingKey -> Triple(
             stringResource(R.string.voice_settings_add_key, providerName(access.provider)),
@@ -598,16 +572,12 @@ private fun VoiceFooter(text: String) {
 @Composable
 private fun choiceLabel(choice: VoiceProviderChoice): String = when (choice) {
     VoiceProviderChoice.AUTOMATIC -> stringResource(R.string.voice_provider_automatic)
-    VoiceProviderChoice.OFFLINE -> stringResource(R.string.offline_voice) + " (LFM3)"
-    VoiceProviderChoice.LOCAL_CONNECTED -> stringResource(R.string.offline_voice_connected) + " (LFM3)"
     else -> providerName(choice.provider!!)
 }
 
 @Composable
 private fun choiceSubtitle(choice: VoiceProviderChoice, keys: Set<LiveProvider>, entitled: Boolean): String? = when (choice) {
     VoiceProviderChoice.AUTOMATIC -> null
-    VoiceProviderChoice.OFFLINE -> stringResource(R.string.offline_voice_local_detail)
-    VoiceProviderChoice.LOCAL_CONNECTED -> stringResource(R.string.offline_voice_connected_detail)
     VoiceProviderChoice.HOSTED -> if (entitled) null else stringResource(R.string.voice_settings_needs_plan)
     else -> if (choice.provider in keys) null else stringResource(R.string.voice_settings_key_missing, providerName(choice.provider!!))
 }

@@ -88,8 +88,6 @@ final class VoiceAssistantController {
     }
     private(set) var phase: Phase = .idle
     private(set) var provider: LiveProvider?
-    private(set) var offlineVoice: OfflineVoiceController?
-    private(set) var needsOfflineModel = false
     private(set) var sessionMascot = VoiceMascotProfile()
     private(set) var isAssistantSpeaking = false
     private(set) var isAwaitingReply = false
@@ -113,20 +111,9 @@ final class VoiceAssistantController {
 
     var isActive: Bool { presentation == .session }
     var isBusy: Bool { isActive || isStarting }
-    var canOfferCloudFallback: Bool {
-        settings.offersLocalCloudFallback && (needsOfflineModel || offlineVoice?.failure == .reply)
-    }
 
     var orbMode: LiveOrbMode {
         guard presentation == .session else { return .idle }
-        if let offlineVoice {
-            switch offlineVoice.phase {
-            case .idle: return .idle
-            case .requesting, .working: return .thinking
-            case .recording: return .listening
-            case .speaking: return .speaking
-            }
-        }
         if phase == .connecting || runningTools > 0 || isCapturingPhoto { return .thinking }
         if isAssistantSpeaking { return .speaking }
         if isAwaitingReply { return .thinking }
@@ -219,15 +206,7 @@ final class VoiceAssistantController {
     // MARK: - Starting and ending
 
     /// Opens the assistant: starts a session, or explains how to get access.
-    func start() { start(choiceOverride: nil) }
-
-    func startCloudFallback() {
-        guard canOfferCloudFallback else { return }
-        end(.user)
-        start(choiceOverride: .automatic)
-    }
-
-    private func start(choiceOverride: VoiceAssistantProviderChoice?) {
+    func start() {
         switch presentation {
         case .session:
             isExpanded = true
@@ -241,18 +220,16 @@ final class VoiceAssistantController {
         let number = sessionNumber
         Task {
             defer { isStarting = false }
-            var route = VoiceAssistantRouting.current(settings: settings, choiceOverride: choiceOverride)
+            var route = VoiceAssistantRouting.current(settings: settings)
             // Right after launch the subscription may not be loaded yet; check once
             // before telling a subscriber to subscribe.
             if case .needsAccess(let reason) = route, reason == .noProvider || reason == .needsSubscription,
                !RevenueCatManager.shared.hasLoadedCustomerInfo, !didRefreshEntitlement, Purchases.isConfigured {
                 didRefreshEntitlement = await RevenueCatManager.shared.refreshCustomerInfo()
-                route = VoiceAssistantRouting.current(settings: settings, choiceOverride: choiceOverride)
+                route = VoiceAssistantRouting.current(settings: settings)
             }
             guard number == sessionNumber, UIApplication.shared.applicationState != .background else { return }
             switch route {
-            case .local(let connected):
-                self.beginLocal(connected: connected, data: appData)
             case .needsAccess(let reason):
                 isExpanded = true
                 presentation = .access(reason)
@@ -260,54 +237,6 @@ final class VoiceAssistantController {
                 await begin(provider: provider, data: appData)
             }
         }
-    }
-
-    private func beginLocal(connected: Bool, data: AppData) {
-        sessionNumber += 1
-        let number = sessionNumber
-        sessionMascot = VoiceMascotPreferences.load().profile
-        isExpanded = true
-        presentation = .session
-        phase = .live
-        provider = nil
-        resetTurnState()
-        hostedSecondsRemaining = nil
-        clearBanner()
-        observeAppLifecycle(session: number)
-        needsOfflineModel = !LocalSpeechModelManager.isSelectable(.lfm3Audio)
-        guard !needsOfflineModel else { return }
-
-        let workouts = settings.workoutDiaryEnabled
-        let policy = LocalVoiceTools(workouts: workouts, connected: connected)
-        cards.clear()
-        let tools = VoiceAssistantToolExecutor(specs: policy.specs, stores: data.stores,
-            settings: settings, cards: cards, workoutDiaryEnabled: workouts, host: self)
-        executor = tools
-        let voice = OfflineVoiceController()
-        voice.agent = { [weak self, weak tools] generate, hasAudio in
-            guard let self, let tools else { return }
-            var context = ""
-            var allowTools = true
-            for step in 0...2 {
-                let text = try await generate(allowTools && step < 2 ? policy.declarations : "", context)
-                guard number == self.sessionNumber, !Task.isCancelled else { return }
-                if allowTools && step < 2, let call = policy.parse(text) {
-                    var result = await tools.execute(call.request)
-                    guard number == self.sessionNumber, !Task.isCancelled else { return }
-                    allowTools = result["error"] as? String != "confirmation_required"
-                    if !allowTools { result["message"] = "Nothing was saved. The user must tap Confirm on the card." }
-                    context += call.continuation(result: result)
-                } else {
-                    if !hasAudio(), step < 2, allowTools {
-                        allowTools = false
-                        continue
-                    }
-                    self.assistantCaption = text.contains("<") ? "" : String(text.prefix(300))
-                    break
-                }
-            }
-        }
-        offlineVoice = voice
     }
 
     /// Closes whatever the assistant shows, ending a session.
@@ -456,10 +385,6 @@ final class VoiceAssistantController {
     private func end(_ reason: EndReason) {
         guard session != nil || audio != nil || presentation == .session else { return }
         sessionNumber += 1
-        let wasLocal = offlineVoice != nil || needsOfflineModel
-        offlineVoice?.stop()
-        offlineVoice = nil
-        needsOfflineModel = false
         watchdog?.cancel()
         watchdog = nil
         frameLoop?.cancel()
@@ -483,9 +408,7 @@ final class VoiceAssistantController {
         observers.removeAll()
         saveTask?.cancel()
         saveTask = nil
-        if wasLocal { resetTurnState() }
-        else if case .coachHistoryReset = reason { resetTurnState() }
-        else { saveTurn() }
+        if case .coachHistoryReset = reason { resetTurnState() } else { saveTurn() }
         executor?.reset()
         executor = nil
         cards.clear()
@@ -546,13 +469,6 @@ final class VoiceAssistantController {
                 MainActor.assumeIsolated {
                     guard self?.sessionNumber == number else { return }
                     self?.end(.background)
-                }
-            },
-            NotificationCenter.default.addObserver(forName: AVAudioSession.interruptionNotification, object: nil, queue: .main) { [weak self] note in
-                guard note.userInfo?[AVAudioSessionInterruptionTypeKey] as? UInt == AVAudioSession.InterruptionType.began.rawValue else { return }
-                MainActor.assumeIsolated {
-                    guard self?.sessionNumber == number else { return }
-                    self?.offlineVoice?.stop()
                 }
             },
         ]
@@ -958,7 +874,6 @@ final class VoiceAssistantController {
     }
 
     func minimize() {
-        if offlineVoice?.phase == .recording { offlineVoice?.stop() }
         if cameraMode != nil { closeCameraTapped() }
         isExpanded = false
     }

@@ -14,8 +14,6 @@
 		F00DAD000000000000000011 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = F00DAD000000000000000013 /* RevenueCat */; };
 		F00D57000000000000000011 /* WhisperKit in Frameworks */ = {isa = PBXBuildFile; productRef = F00D57000000000000000013 /* WhisperKit */; };
 		F00D58000000000000000011 /* LiteRTLM in Frameworks */ = {isa = PBXBuildFile; productRef = F00D58000000000000000013 /* LiteRTLM */; };
-		F00D0FF11CE0000000000011 /* OfflineVoice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F00D0FF11CE0000000000012 /* OfflineVoice.cpp */; };
-		F00D0FF11CE0000000000021 /* THIRD_PARTY_NOTICES_OfflineVoice.txt in Resources */ = {isa = PBXBuildFile; fileRef = F00D0FF11CE0000000000022 /* THIRD_PARTY_NOTICES_OfflineVoice.txt */; };
 		F00D5B000000000000000011 /* sherpa-onnx in Frameworks */ = {isa = PBXBuildFile; productRef = F00D5B000000000000000013 /* sherpa-onnx */; };
 		F00D59000000000000000011 /* THIRD_PARTY_NOTICES_LiteRTLM_v0.16.0.txt in Resources */ = {isa = PBXBuildFile; fileRef = F00D59000000000000000012 /* THIRD_PARTY_NOTICES_LiteRTLM_v0.16.0.txt */; };
 		F00D5A000000000000000011 /* THIRD_PARTY_NOTICES_WhisperBase.txt in Resources */ = {isa = PBXBuildFile; fileRef = F00D5A000000000000000012 /* THIRD_PARTY_NOTICES_WhisperBase.txt */; };
@@ -116,8 +114,6 @@
 		F00D59000000000000000012 /* THIRD_PARTY_NOTICES_LiteRTLM_v0.16.0.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = THIRD_PARTY_NOTICES_LiteRTLM_v0.16.0.txt; path = ../local-models/legal/THIRD_PARTY_NOTICES_LiteRTLM_v0.16.0.txt; sourceTree = "<group>"; };
 		F00D5A000000000000000012 /* THIRD_PARTY_NOTICES_WhisperBase.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = THIRD_PARTY_NOTICES_WhisperBase.txt; path = ../local-models/legal/THIRD_PARTY_NOTICES_WhisperBase.txt; sourceTree = "<group>"; };
 		F00D5C000000000000000012 /* THIRD_PARTY_NOTICES_SherpaONNX.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = THIRD_PARTY_NOTICES_SherpaONNX.txt; path = ../local-models/legal/THIRD_PARTY_NOTICES_SherpaONNX.txt; sourceTree = "<group>"; };
-		F00D0FF11CE0000000000022 /* THIRD_PARTY_NOTICES_OfflineVoice.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = THIRD_PARTY_NOTICES_OfflineVoice.txt; path = ../local-models/legal/THIRD_PARTY_NOTICES_OfflineVoice.txt; sourceTree = "<group>"; };
-		F00D0FF11CE0000000000012 /* OfflineVoice.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = OfflineVoice.cpp; path = ../shared/offline-voice/OfflineVoice.cpp; sourceTree = "<group>"; };
 		F00D1000000000000000001D /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -287,8 +283,6 @@
 				F00D59000000000000000012 /* THIRD_PARTY_NOTICES_LiteRTLM_v0.16.0.txt */,
 				F00D5A000000000000000012 /* THIRD_PARTY_NOTICES_WhisperBase.txt */,
 				F00D5C000000000000000012 /* THIRD_PARTY_NOTICES_SherpaONNX.txt */,
-				F00D0FF11CE0000000000022 /* THIRD_PARTY_NOTICES_OfflineVoice.txt */,
-				F00D0FF11CE0000000000012 /* OfflineVoice.cpp */,
 				BA8E0E252F33F198007DD537 /* FudAIWidgets */,
 				BA8E0E3A2F33F198007DD537 /* calorietrackerShare */,
 				F00D1000000000000000000B /* FudAIWatchApp */,
@@ -320,7 +314,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BA8E0E1A2F33F198007DD537 /* Build configuration list for PBXNativeTarget "calorietracker" */;
 			buildPhases = (
-				F00D0FF11CE0000000000031 /* Prepare Offline Voice Runtime */,
 				BA8E0DEF2F33F197007DD537 /* Sources */,
 				BA8E0DF02F33F197007DD537 /* Frameworks */,
 				BA8E0DF12F33F197007DD537 /* Resources */,
@@ -328,7 +321,6 @@
 				BA8E0E2C2F33F198007DD537 /* Embed Foundation Extensions */,
 				F00D10000000000000000005 /* Embed Watch Content */,
 				F00D60000000000000000014 /* Verify Workout Frames */,
-				F00D0FF11CE0000000000032 /* Embed Offline Voice Runtime */,
 			);
 			buildRules = (
 			);
@@ -579,7 +571,6 @@
 				F00D59000000000000000011 /* THIRD_PARTY_NOTICES_LiteRTLM_v0.16.0.txt in Resources */,
 				F00D5A000000000000000011 /* THIRD_PARTY_NOTICES_WhisperBase.txt in Resources */,
 				F00D5C000000000000000011 /* THIRD_PARTY_NOTICES_SherpaONNX.txt in Resources */,
-				F00D0FF11CE0000000000021 /* THIRD_PARTY_NOTICES_OfflineVoice.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -629,33 +620,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		F00D0FF11CE0000000000031 /* Prepare Offline Voice Runtime */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			name = "Prepare Offline Voice Runtime";
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/bin/sh \"${SRCROOT}/scripts/offline_voice_framework.sh\" prepare\n";
-			showEnvVarsInLog = 0;
-		};
-		F00D0FF11CE0000000000032 /* Embed Offline Voice Runtime */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			name = "Embed Offline Voice Runtime";
-			outputPaths = (
-				"$(OFFLINE_VOICE_FRAMEWORK_OUTPUT)",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/bin/sh \"${SRCROOT}/scripts/offline_voice_framework.sh\" embed\n";
-			showEnvVarsInLog = 0;
-		};
 		F00D60000000000000000013 /* Copy Workout Frames */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -707,7 +671,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F00D0FF11CE0000000000011 /* OfflineVoice.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -806,7 +769,6 @@
 				DEVELOPMENT_TEAM = 23RV7FYH36;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				"FRAMEWORK_SEARCH_PATHS[sdk=iphoneos*]" = "$(inherited) $(DERIVED_FILE_DIR)/OfflineVoice";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = calorietracker/Info.plist;
 				INFOPLIST_KEY_AppGroupIdentifier = "$(APP_GROUP_IDENTIFIER)";
@@ -829,9 +791,6 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 8.1.1;
-				OFFLINE_VOICE_FRAMEWORK_OUTPUT = "$(DERIVED_FILE_DIR)/OfflineVoiceSimulator";
-				"OFFLINE_VOICE_FRAMEWORK_OUTPUT[sdk=iphoneos*]" = "$(TARGET_BUILD_DIR)/$(FRAMEWORKS_FOLDER_PATH)/llama.framework";
-				"OTHER_LDFLAGS[sdk=iphoneos*]" = "$(inherited) -framework llama";
 				PRODUCT_BUNDLE_IDENTIFIER = com.apoorvdarshan.calorietracker.debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -842,7 +801,6 @@
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/../shared/offline-voice/fud_offline_voice.h";
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -865,7 +823,6 @@
 				DEVELOPMENT_TEAM = 23RV7FYH36;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				"FRAMEWORK_SEARCH_PATHS[sdk=iphoneos*]" = "$(inherited) $(DERIVED_FILE_DIR)/OfflineVoice";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = calorietracker/Info.plist;
 				INFOPLIST_KEY_AppGroupIdentifier = "$(APP_GROUP_IDENTIFIER)";
@@ -888,9 +845,6 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 8.1.1;
-				OFFLINE_VOICE_FRAMEWORK_OUTPUT = "$(DERIVED_FILE_DIR)/OfflineVoiceSimulator";
-				"OFFLINE_VOICE_FRAMEWORK_OUTPUT[sdk=iphoneos*]" = "$(TARGET_BUILD_DIR)/$(FRAMEWORKS_FOLDER_PATH)/llama.framework";
-				"OTHER_LDFLAGS[sdk=iphoneos*]" = "$(inherited) -framework llama";
 				PRODUCT_BUNDLE_IDENTIFIER = com.apoorvdarshan.calorietracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -901,7 +855,6 @@
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/../shared/offline-voice/fud_offline_voice.h";
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

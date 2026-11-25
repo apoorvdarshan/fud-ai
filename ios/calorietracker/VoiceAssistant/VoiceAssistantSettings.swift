@@ -11,17 +11,13 @@ nonisolated enum VoiceAssistantProviderChoice: String, CaseIterable, Identifiabl
     case xai
     case qwen
     case gptLive
-    case offline = "lfm3_offline"
-    case localConnected = "lfm3_connected"
-
-    var isLocal: Bool { self == .offline || self == .localConnected }
 
     var id: String { rawValue }
 
     /// The provider a fixed choice always uses; nil for Automatic.
     var fixedProvider: LiveProvider? {
         switch self {
-        case .automatic, .offline, .localConnected: nil
+        case .automatic: nil
         case .hosted: .hosted
         case .gemini: .gemini
         case .openai: .openai
@@ -46,7 +42,6 @@ nonisolated enum VoiceAssistantAccessReason: Equatable, Sendable {
 /// Who a session would talk to right now.
 nonisolated enum VoiceAssistantRoute: Equatable, Sendable {
     case ready(LiveProvider)
-    case local(connectedTools: Bool)
     case needsAccess(VoiceAssistantAccessReason)
 }
 
@@ -64,8 +59,6 @@ nonisolated enum VoiceAssistantRouting {
         qwenWorkspaceConfigured: Bool = false
     ) -> VoiceAssistantRoute {
         switch choice {
-        case .offline: return .local(connectedTools: false)
-        case .localConnected: return .local(connectedTools: true)
         case .automatic:
             if let selected = selectedOwnKeyProvider, selected != .hosted, providersWithKeys.contains(selected),
                selected != .qwen || qwenWorkspaceConfigured {
@@ -140,7 +133,6 @@ nonisolated struct VoiceAssistantSettings {
     static let confirmSavesKey = "voiceAssistant.confirmSaves"
     static let saveToCoachKey = "voiceAssistant.saveToCoach"
     static let qwenWorkspaceKey = "voiceAssistant.qwenWorkspace"
-    static let localFallbackKey = "voiceAssistant.localCloudFallback"
     private static let qwenCredentialKey = "voiceAssistant.qwenWorkspaceCredential"
 
     static func modelKey(for provider: LiveProvider) -> String {
@@ -162,12 +154,17 @@ nonisolated struct VoiceAssistantSettings {
         nonmutating set { defaults.set(newValue.rawValue, forKey: Self.providerKey) }
     }
 
+    func removeRetiredOfflineVoicePreferences() {
+        if let raw = defaults.string(forKey: Self.providerKey), raw == "lfm3_offline" || raw == "lfm3_connected" {
+            defaults.removeObject(forKey: Self.providerKey)
+        }
+        defaults.removeObject(forKey: "voiceAssistant.localCloudFallback")
+    }
+
     var qwenWorkspace: String {
         get { defaults.string(forKey: Self.qwenWorkspaceKey) ?? "" }
         nonmutating set { defaults.set(newValue.trimmingCharacters(in: .whitespacesAndNewlines), forKey: Self.qwenWorkspaceKey) }
     }
-
-    var offersLocalCloudFallback: Bool { defaults.bool(forKey: Self.localFallbackKey) }
 
     static var qwenAPIKey: String? { KeychainHelper.load(key: qwenCredentialKey) }
 
@@ -279,8 +276,6 @@ extension VoiceAssistantProviderChoice {
         case .xai: "xAI"
         case .qwen: "Qwen"
         case .gptLive: "OpenAI GPT-Live"
-        case .offline: String(localized: "Offline Voice", table: "OfflineVoice") + " (LFM3)"
-        case .localConnected: String(localized: "Local voice + connected tools", table: "OfflineVoice") + " (LFM3)"
         }
     }
 }
@@ -288,10 +283,8 @@ extension VoiceAssistantProviderChoice {
 extension VoiceAssistantRouting {
     /// Resolves the route from the app's saved settings, keys and subscription.
     @MainActor
-    static func current(settings: VoiceAssistantSettings = VoiceAssistantSettings(),
-                        choiceOverride: VoiceAssistantProviderChoice? = nil) -> VoiceAssistantRoute {
-        let choice = choiceOverride ?? settings.providerChoice
-        if choice.isLocal { return .local(connectedTools: choice == .localConnected) }
+    static func current(settings: VoiceAssistantSettings = VoiceAssistantSettings()) -> VoiceAssistantRoute {
+        let choice = settings.providerChoice
         let selected = choice == .automatic ? LiveProvider(aiProvider: AIProviderSettings.selectedProvider) : nil
         let candidate = selected ?? choice.fixedProvider
         let providersWithKeys: Set<LiveProvider> = if let candidate, candidate.savedKey != nil { [candidate] } else { [] }

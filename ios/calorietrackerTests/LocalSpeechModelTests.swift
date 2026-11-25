@@ -3,17 +3,6 @@ import Testing
 @testable import calorietracker
 
 struct LocalSpeechModelTests {
-    @Test func offlineVoiceRequiresPhysicalDeviceAndDoesNotJoinDictation() {
-        let model = LocalSpeechModel.lfm3Audio
-        let gib: UInt64 = 1_073_741_824
-        #expect(model.downloadBytes == 1_403_437_856)
-        #expect(model.files.count == 2)
-        #expect(model.isEligible(memory: 8 * gib, physicalDevice: true))
-        #expect(!model.isEligible(memory: 6 * gib, physicalDevice: true))
-        #expect(!model.isEligible(memory: 12 * gib, physicalDevice: false))
-        #expect(SpeechProvider.allCases.allSatisfy { $0.localModel != model })
-    }
-
     @Test func tiersAndDownloadSizesAreSeparate() {
         let gib: UInt64 = 1_073_741_824
         #expect(!LocalSpeechModel.parakeetV3.isEligible(memory: 4 * gib))

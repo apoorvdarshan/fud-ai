@@ -5,16 +5,11 @@ import android.os.SystemClock
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import com.apoorvdarshan.calorietracker.AppContainer
-import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.data.VoiceAssistantPreferences
 import com.apoorvdarshan.calorietracker.models.AppLanguage
 import com.apoorvdarshan.calorietracker.models.ChatMessage
-import com.apoorvdarshan.calorietracker.services.ondevice.LocalModelId
-import com.apoorvdarshan.calorietracker.services.ondevice.OfflineVoiceNative
 import com.apoorvdarshan.calorietracker.services.ai.CoachContext
 import com.apoorvdarshan.calorietracker.ui.home.ContentUriBytes
-import com.apoorvdarshan.calorietracker.ui.settings.OfflineVoicePhase
-import com.apoorvdarshan.calorietracker.ui.settings.OfflineVoiceSession
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -38,7 +33,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import kotlinx.serialization.json.JsonObject
-import kotlinx.serialization.json.JsonPrimitive
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.ZoneId
@@ -55,7 +49,6 @@ sealed interface VoiceNotice {
     data object NeedsSetup : VoiceNotice
     data class MissingKey(val provider: LiveProvider) : VoiceNotice
     data object NeedsQwenSetup : VoiceNotice
-    data object NeedsOfflineModel : VoiceNotice
     data object NeedsSubscription : VoiceNotice
     data object OutOfMinutes : VoiceNotice
     data object SessionLimit : VoiceNotice
@@ -77,7 +70,6 @@ data class VoiceUiState(
     val phase: VoicePhase = VoicePhase.IDLE,
     val orb: OrbMode = OrbMode.IDLE,
     val provider: LiveProvider? = null,
-    val local: Boolean = false,
     val userCaption: String = "",
     val assistantCaption: String = "",
     val camera: VoiceCameraMode? = null,
@@ -156,8 +148,6 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
     private var session: LiveSession? = null
     private var audio: LiveAudioIO? = null
     private var executor: VoiceToolExecutor? = null
-    internal var offlineVoice: OfflineVoiceSession? = null
-        private set
     private var preferences = VoiceAssistantPreferences()
     private var coachResetRevision = 0L
     private var startedAt = 0L
@@ -168,7 +158,6 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
     private var startCounter = 0L
     private var claimedStart = 0L
     private var begunStart = 0L
-    private var fallbackRequest = 0L
     private var pickCounter = 0L
     private var claimedPick = 0L
 
@@ -212,28 +201,13 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
     // MARK: - Starting and ending
 
     /** Opens the assistant (orb button, tile, shortcut, widget). Already running: just expands it. */
-    fun requestStart() = requestStart(cloudFallback = false)
-
-    fun requestCloudFallback() {
-        scope.launch {
-            val request = _ui.value.startRequest
-            if (!container.prefs.voiceAssistantPreferences.first().offerLocalCloudFallback) return@launch
-            if (!_ui.value.visible || _ui.value.startRequest != request ||
-                (_ui.value.notice != VoiceNotice.NeedsOfflineModel && offlineVoice?.error != R.string.offline_voice_reply_error)
-            ) return@launch
-            end(discardTranscript = true)
-            requestStart(cloudFallback = true)
-        }
-    }
-
-    private fun requestStart(cloudFallback: Boolean) {
+    fun requestStart() {
         container.voicePreview.stop()
         if (isActive) {
             expand()
             return
         }
         startCounter += 1
-        fallbackRequest = if (cloudFallback) startCounter else 0L
         _ui.value = VoiceUiState(
             visible = true,
             expanded = true,
@@ -242,15 +216,6 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
             startRequest = startCounter,
             photoPickRequest = pickCounter
         )
-    }
-
-    /** Resolve a local choice before the cloud permission flow asks for a microphone. */
-    suspend fun startLocalIfSelected(request: Long): Boolean {
-        val prefs = container.prefs.voiceAssistantPreferences.first()
-        if (_ui.value.phase != VoicePhase.PREPARING || _ui.value.startRequest != request) return true
-        if (!prefs.choice.isLocal || fallbackRequest == request) return false
-        startLocal(prefs.choice == VoiceProviderChoice.LOCAL_CONNECTED, ++sessionNumber)
-        return true
     }
 
     /** True once per start request, for the overlay that asks for the microphone. */
@@ -292,7 +257,7 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
         val preparingAt = SystemClock.elapsedRealtime()
         val prefs = container.prefs.voiceAssistantPreferences.first()
         val startup = VoiceProviderResolver.resolveStartup(
-            if (fallbackRequest == _ui.value.startRequest) VoiceProviderChoice.AUTOMATIC else prefs.choice,
+            prefs.choice,
             selectedAiProvider = { container.prefs.selectedAIProvider.first() },
             loadKey = { provider ->
                 withContext(Dispatchers.IO) { container.keyStore.liveApiKey(provider) }
@@ -309,7 +274,6 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
         if (number != sessionNumber) return
         val access = startup.access
         val provider = when (access) {
-            is VoiceAccess.Local -> return startLocal(access.connectedTools, number)
             is VoiceAccess.Ready -> access.provider
             is VoiceAccess.MissingKey -> return end(VoiceNotice.MissingKey(access.provider))
             VoiceAccess.NeedsQwenSetup -> return end(VoiceNotice.NeedsQwenSetup)
@@ -429,67 +393,10 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
         session.connect()
     }
 
-    private suspend fun startLocal(connected: Boolean, number: Int) {
-        if (!OfflineVoiceNative.available || !container.localModels.isExecutable(LocalModelId.LFM3_AUDIO)) {
-            if (sessionNumber == number) end(VoiceNotice.NeedsOfflineModel, discardTranscript = true)
-            return
-        }
-        val mascot = container.prefs.voiceMascotPreferences.first().profile
-        val workouts = ports.workoutDiaryEnabled()
-        val policy = withContext(Dispatchers.IO) {
-            LocalVoiceTools(VoiceToolCatalog.bundled(container.appContext), workouts, connected)
-        }
-        if (sessionNumber != number) return
-        val localScope = CoroutineScope(SupervisorJob(scope.coroutineContext[Job]) + Dispatchers.Main.immediate)
-        val toolExecutor = VoiceToolExecutor(ports, policy.executorSpecs, VoiceSessionContext(
-            LiveProvider.GEMINI, confirmSaves = true, autoCapture = false,
-            workoutDiaryEnabled = workouts, coachHistoryEnabled = false, local = true
-        ))
-        sessionScope = localScope
-        executor = toolExecutor
-        offlineVoice = OfflineVoiceSession(container.appContext, container.localModels, localScope) { generate, hasAudio ->
-            var context = ""
-            var allowTools = true
-            for (step in 0..2) {
-                val text = generate(if (allowTools && step < 2) policy.declarations else "", context)
-                if (number != sessionNumber) return@OfflineVoiceSession
-                val call = if (allowTools && step < 2) policy.parse(text) else null
-                if (call != null) {
-                    val result = toolExecutor.execute(call.request)
-                    if (number != sessionNumber) return@OfflineVoiceSession
-                    val pending = (result["error"] as? JsonPrimitive)?.content == "confirmation_required"
-                    context += call.continuation(if (pending) JsonObject(result + (
-                        "message" to JsonPrimitive("Nothing was saved. The user must tap Confirm on the card.")
-                    )) else result)
-                    allowTools = !pending
-                } else {
-                    // A text-only answer may be rendered as speech with tools disabled.
-                    if (!hasAudio() && step < 2 && allowTools) {
-                        allowTools = false
-                        continue
-                    }
-                    val safe = text.takeUnless { '<' in it }.orEmpty().take(300)
-                    _ui.update { it.copy(assistantCaption = safe) }
-                    break
-                }
-            }
-        }
-        _ui.update { it.copy(local = true, phase = VoicePhase.LIVE, orb = OrbMode.IDLE, mascot = mascot) }
-        localScope.launch { toolExecutor.cards.collect { _cards.value = it } }
-        localScope.launch {
-            container.prefs.voiceAssistantPreferences.collect {
-                if (number == sessionNumber && (!it.choice.isLocal ||
-                    connected != (it.choice == VoiceProviderChoice.LOCAL_CONNECTED))) end(discardTranscript = true)
-            }
-        }
-    }
-
     /** Ends the conversation. A [notice] keeps the overlay open to explain what happened. */
     fun end(notice: VoiceNotice? = null, discardTranscript: Boolean = false) {
         sessionNumber += 1
-        if (!discardTranscript && offlineVoice == null) saveTurn()
-        offlineVoice?.stop()
-        offlineVoice = null
+        if (!discardTranscript) saveTurn()
         sessionScope?.cancel()
         sessionScope = null
         session?.close()
@@ -534,7 +441,6 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
     fun expand() = _ui.update { it.copy(expanded = true) }
 
     fun collapse() {
-        offlineVoice?.let { if (it.phase == OfflineVoicePhase.RECORDING) it.stop() }
         closeCamera()
         _ui.update { it.copy(expanded = false) }
     }

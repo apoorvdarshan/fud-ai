@@ -118,11 +118,7 @@ enum class VoiceProviderChoice(val storageValue: String, val provider: LiveProvi
     OPENAI("openai", LiveProvider.OPENAI),
     XAI("xai", LiveProvider.XAI),
     QWEN("qwen", LiveProvider.QWEN),
-    GPT_LIVE("gpt_live", LiveProvider.GPT_LIVE),
-    OFFLINE("lfm3_offline", null),
-    LOCAL_CONNECTED("lfm3_connected", null);
-
-    val isLocal: Boolean get() = this == OFFLINE || this == LOCAL_CONNECTED
+    GPT_LIVE("gpt_live", LiveProvider.GPT_LIVE);
 
     companion object {
         fun fromStorage(raw: String?): VoiceProviderChoice = entries.firstOrNull { it.storageValue == raw } ?: AUTOMATIC
@@ -132,7 +128,6 @@ enum class VoiceProviderChoice(val storageValue: String, val provider: LiveProvi
 /** Whether a session can start, and with what. */
 sealed interface VoiceAccess {
     data class Ready(val provider: LiveProvider) : VoiceAccess
-    data class Local(val connectedTools: Boolean) : VoiceAccess
     /** An own-key provider was chosen explicitly but its key is not saved. */
     data class MissingKey(val provider: LiveProvider) : VoiceAccess
     data object NeedsQwenSetup : VoiceAccess
@@ -155,8 +150,6 @@ object VoiceProviderResolver {
         hostedEntitled: Boolean,
         qwenWorkspaceConfigured: Boolean = false
     ): VoiceAccess = when (choice) {
-        VoiceProviderChoice.OFFLINE -> VoiceAccess.Local(false)
-        VoiceProviderChoice.LOCAL_CONNECTED -> VoiceAccess.Local(true)
         VoiceProviderChoice.HOSTED ->
             if (hostedEntitled) VoiceAccess.Ready(LiveProvider.HOSTED) else VoiceAccess.NeedsSubscription
         VoiceProviderChoice.GEMINI, VoiceProviderChoice.OPENAI, VoiceProviderChoice.XAI, VoiceProviderChoice.QWEN,
@@ -189,7 +182,6 @@ object VoiceProviderResolver {
         hostedEntitled: suspend () -> Boolean,
         qwenWorkspaceConfigured: Boolean = false
     ): StartupAccess {
-        if (choice.isLocal) return StartupAccess(VoiceAccess.Local(choice == VoiceProviderChoice.LOCAL_CONNECTED), null)
         val automaticProvider = if (choice == VoiceProviderChoice.AUTOMATIC) selectedAiProvider() else null
         val candidate = automaticProvider?.let { LiveProvider.forAiProvider(it) } ?: choice.provider
         val key = candidate?.takeIf(LiveProvider::usesOwnKey)?.let { loadKey(it)?.trim()?.takeIf(String::isNotEmpty) }

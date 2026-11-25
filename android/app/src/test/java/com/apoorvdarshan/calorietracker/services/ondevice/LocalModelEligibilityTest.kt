@@ -13,21 +13,6 @@ import org.junit.Test
 
 class LocalModelEligibilityTest {
     @Test
-    fun offlineVoiceHasTwoPinnedArtifactsAndIsNotADictationProvider() {
-        val model = LocalModelCatalog.lfm3Audio
-        val gib = 1_073_741_824L
-        assertEquals(1_403_437_856L, model.totalBytes)
-        assertEquals(listOf(
-            "lfm3_audio/LFM3-Audio-2B-Q4_K_M.gguf",
-            "lfm3_audio/mmproj-LFM3-Audio-2B-Q8_0.gguf"
-        ), model.parts().map { it.fileName })
-        assertFalse(LocalModelEligibility.isEligible(model, 6 * gib, setOf("arm64-v8a")))
-        assertTrue(LocalModelEligibility.isEligible(model, 8 * gib, setOf("arm64-v8a")))
-        assertFalse(LocalModelEligibility.isEligible(model, 12 * gib, setOf("x86_64")))
-        assertFalse(SpeechProvider.entries.any { it.name.contains("LFM3") })
-    }
-
-    @Test
     fun newModelsAreGatedIndependently() {
         val abi = setOf("arm64-v8a")
         val gib = 1_073_741_824L

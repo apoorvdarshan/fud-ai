@@ -128,19 +128,6 @@ private struct VoiceAssistantExpandedView: View {
                 VoiceAssistantCardStack(controller: controller, maximumCards: controller.cameraMode == nil ? 3 : 2)
                     .padding(.horizontal, 16)
 
-                if controller.needsOfflineModel {
-                    Text("Download LFM3 to use local voice.", tableName: "OfflineVoice")
-                    Button { controller.openVoiceSettings() } label: { Text("Voice Assistant Settings") }
-                } else if let local = controller.offlineVoice {
-                    OfflineAgentControls(voice: local)
-                        .buttonStyle(.borderedProminent)
-                }
-                if controller.canOfferCloudFallback {
-                    Button { controller.startCloudFallback() } label: {
-                        Text("Start a new cloud voice session", tableName: "OfflineVoice")
-                    }
-                }
-
                 if let banner = controller.banner {
                     Text(banner)
                         .font(.system(.footnote, design: .rounded, weight: .medium))
@@ -229,9 +216,6 @@ private struct VoiceAssistantStatusLabel: View {
 
 enum VoiceAssistantStatusText {
     static func text(for controller: VoiceAssistantController) -> String {
-        if controller.needsOfflineModel || controller.offlineVoice?.phase == .idle {
-            return String(localized: "Offline Voice", table: "OfflineVoice")
-        }
         if controller.phase == .connecting { return String(localized: "Connecting…") }
         switch controller.orbMode {
         case .idle: return String(localized: "Connecting…")

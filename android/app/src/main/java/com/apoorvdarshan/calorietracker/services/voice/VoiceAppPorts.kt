@@ -153,10 +153,9 @@ data class VoiceSessionContext(
     val confirmSaves: Boolean,
     val autoCapture: Boolean,
     val workoutDiaryEnabled: Boolean = true,
-    val coachHistoryEnabled: Boolean = false,
-    val local: Boolean = false
+    val coachHistoryEnabled: Boolean = false
 ) {
-    val cameraFrames: CameraFrames get() = if (local) CameraFrames.NONE else provider.cameraFrames
+    val cameraFrames: CameraFrames get() = provider.cameraFrames
 }
 
 /**

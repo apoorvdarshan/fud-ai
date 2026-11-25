@@ -25,16 +25,6 @@ Worker (`web/`). Change it here first, then on every platform.
 | xAI (own key) | Grok Voice realtime WebSocket, `Authorization: Bearer` | User |
 | OpenAI GPT-Live (own OpenAI key) | GPT-Live WebSocket (`wss://api.openai.com/v1/live/sessions`), `Authorization: Bearer`; tools run through Responses delegation to `gpt-6-luna` | User |
 | Qwen (own workspace key) | Qwen Omni Realtime WebSocket (`wss://{workspace}.ap-southeast-1.maas.aliyuncs.com/api-ws/v1/realtime`, Singapore), `Authorization: Bearer` | User |
-| Offline Voice (LFM3) | On-device, turn-based speech-to-speech and local diary tools | No voice charges |
-| Local voice + connected tools (LFM3) | Same on-device voice; selected analysis tools use the existing app routes | Any charges from the configured analysis routes |
-
-Explicit local choices bypass cloud credentials and billing for voice, including
-when the model is missing. Optional cloud fallback starts a **new** Automatic
-session only after the user taps to accept. The native model's tool output is
-parsed against a per-mode allowlist. Local voice writes always require an app
-card; model-supplied confirmations are rejected. See the
-[local model contract](../../local-models/README.md#offline-voice-liquid-lfm3-audio-2b)
-for scope, storage, and privacy.
 
 Settings offer **Automatic** (default): the selected own-key provider when its key
 is saved, otherwise Fud AI hosting when subscribed, otherwise an explanation of

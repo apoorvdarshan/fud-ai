@@ -59,7 +59,6 @@ developer_dir = "/Applications/Xcode_27.app/Contents/Developer"
 checkout = [
   "/ios/",
   "/local-models/legal/",
-  "/shared/offline-voice/",
   "/shared/workout-vectors/sample-pack.txt",
   "/shared/workout-vectors/exercise-visual-manifest.json",
 ]
@@ -124,13 +123,11 @@ gate_jobs = [
 [android.build]
 dir = "android"
 tasks = [":app:bundleRelease", ":app:assembleRelease"]
-sdk_packages = ["platform-tools", "ndk;28.2.13676358", "cmake;3.22.1"]
 aab = "android/app/build/outputs/bundle/release/app-release.aab"
 apk = "android/app/build/outputs/apk/release/app-release.apk"
 # Never the 1.2 GB workout-frame corpus.
 checkout = [
   "/android/",
-  "/shared/offline-voice/",
   "/ios/calorietracker/Resources/FreeExerciseDB/dist/",
   "/local-models/legal/",
   "/shared/workout-vectors/",

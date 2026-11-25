@@ -63,31 +63,6 @@ struct VoiceAssistantToolTests {
 
     // MARK: Confirmation and Undo
 
-    @Test func localSpokenWriteRunsOnlyFromItsConfirmationCard() async throws {
-        let harness = VoiceAssistantHarness(confirmSaves: false)
-        let policy = LocalVoiceTools(workouts: true, connected: false)
-        let executor = VoiceAssistantToolExecutor(specs: policy.specs, stores: harness.executor.stores,
-            settings: harness.executor.settings, cards: harness.cards, workoutDiaryEnabled: true, host: harness.host)
-        let call = try #require(policy.parse("""
-            <tool_call>
-            <function=log_water>
-            <parameter=amount>
-            200
-            </parameter>
-            <parameter=unit>
-            ml
-            </parameter>
-            </function>
-            </tool_call>
-            """))
-        let result = await executor.execute(call.request)
-        #expect(result["error"] as? String == "confirmation_required")
-        #expect(harness.water.entries.isEmpty)
-        let card = try #require(harness.cards.cards.first { $0.isConfirmation })
-        _ = await executor.confirm(cardID: card.id)
-        #expect(harness.water.entries.map(\.milliliters) == [200])
-    }
-
     @Test func foodSaveClosesCameraOnlyWhenConfirmedAndKeepsConversation() async {
         let harness = VoiceAssistantHarness(confirmSaves: true)
         harness.host.cameraMode = .food

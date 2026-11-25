@@ -1,59 +1,7 @@
 # Local model artifact contract
 
-Fud AI offers downloadable models for image and text analysis, recorded
-dictation, and a separate experimental Offline Voice mode. They do not add
-offline OCR or change cloud Live Voice.
-
-## Offline Voice: Liquid LFM3-Audio-2B
-
-Download LFM3 in **Settings → Voice Assistant → Offline Voice**, then choose
-**Offline Voice (LFM3)** or **Local voice + connected tools (LFM3)** in the
-**Provider** picker. The mascot and voice shortcuts honor the selected provider.
-Tap **Speak** and **Send recording**. Spoken conversation is English-only and
-turn-based, with up to 10 seconds of recorded input. LFM3 handles both audio
-directions; it does not invoke the separate dictation providers.
-
-- **Offline Voice** can look up diary records and saved foods and prepare food,
-  water, fasting, body measurements and cardio saves, all on-device. Food
-  logging uses real saved-food or draft IDs, not model-invented nutrition.
-- **Local voice + connected tools** adds camera and photo analysis, barcode
-  lookup, food-text analysis and workout parsing through Fud's existing routes.
-  Those routes can send the requested text, photo or barcode to their configured
-  services; they never receive the local voice recording. The voice model does
-  not see live camera frames. Both modes require tapping a card to confirm
-  writes; they do not offer model-driven deletes or settings changes.
-- **Offer cloud voice fallback** defaults to off and is separate from connected
-  tools. If LFM3 is unavailable or generation fails, an enabled offer lets the
-  user tap to start a new cloud speech-to-speech session using Automatic
-  routing. No local recording, prior turn, card, or tool result is replayed.
-  Deleting LFM3 leaves the local provider selected and shows download guidance.
-
-The settings screen also has a tool-free voice preview. Local turns are not
-saved to Coach. Temporary WAV and text files in app-private storage are removed
-after the turn or when reopening local voice after an interrupted process.
-
-The app gates downloads and use to the **8 GB RAM device class**, on physical
-iOS devices or `arm64-v8a` Android. This threshold is provisional. The model
-uses CPU inference on Android and the llama.cpp Metal backend on iOS. Phone
-latency, thermal behavior and memory headroom are not established. The two weights
-total **1,403,437,856 bytes (1.40 GB)** before disk download headroom.
-
-| File | Bytes | SHA-256 |
-| --- | ---: | --- |
-| `LFM3-Audio-2B-Q4_K_M.gguf` | 1,099,626,016 | `9a773289bd321ed879cd3a76545f6aca506e403851a45fb315420aee45625be2` |
-| `mmproj-LFM3-Audio-2B-Q8_0.gguf` | 303,811,840 | `2b6648b1fd48af16aa0877b0592b144d15070783673e038a379fdbc51d40e365` |
-
-[Pinned model files and license](https://huggingface.co/LiquidAI/LFM3-Audio-2B-GGUF/tree/39670cb5c42e9c4bfe046519ba7ffbe47f9552ad)
-use the LFM Open License v1.0, which restricts commercial use based on annual
-revenue. The [bundled notices](legal/THIRD_PARTY_NOTICES_OfflineVoice.txt)
-include its full terms and notices for the pinned llama.cpp b11960 runtime. The
-weights are downloaded directly from Hugging Face, not bundled in the apps.
-The [native Mac smoke test](../scripts/test-offline-voice-native.sh) exercises
-pre-cancellation, then uses a synthetic spoken question to check non-silent
-24 kHz output on both Metal and CPU. It requires the pinned source, published
-Mac arm64 binaries, and verified model files already on disk. Set
-`OFFLINE_VOICE_SMOKE_AGENT=1` to also check a spoken water-log tool call and
-speech after a simulated confirmation-required result. It writes no diary data.
+Fud AI offers downloadable models for image and text analysis and for recorded
+dictation. These downloads do not add offline OCR or Live Voice.
 
 ## Gemma 4
 

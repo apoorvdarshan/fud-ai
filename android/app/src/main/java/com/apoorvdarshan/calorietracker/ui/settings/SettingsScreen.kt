@@ -4603,8 +4603,7 @@ private fun SettingsSubsectionHeader(
 internal fun LocalModelRow(
     state: LocalModelState,
     onDownload: () -> Unit,
-    onDelete: () -> Unit,
-    actionsEnabled: Boolean = true
+    onDelete: () -> Unit
 ) {
     val uriHandler = LocalUriHandler.current
     val ramRequirement = state.descriptor.minimumMemoryClassGb?.let { ram ->
@@ -4703,18 +4702,18 @@ internal fun LocalModelRow(
                             strokeWidth = 2.dp,
                             color = AppColors.Calorie
                         )
-                        TextButton(onClick = onDelete, enabled = actionsEnabled) { Text(stringResource(R.string.action_cancel)) }
+                        TextButton(onClick = onDelete) { Text(stringResource(R.string.action_cancel)) }
                     }
                     LocalModelInstallStatus.Installed ->
-                        TextButton(onClick = onDelete, enabled = actionsEnabled) { Text(stringResource(R.string.action_delete)) }
+                        TextButton(onClick = onDelete) { Text(stringResource(R.string.action_delete)) }
                     LocalModelInstallStatus.NotInstalled,
                     is LocalModelInstallStatus.Failed -> {
-                        TextButton(onClick = onDownload, enabled = state.eligible && actionsEnabled) {
+                        TextButton(onClick = onDownload, enabled = state.eligible) {
                             Text(stringResource(R.string.action_download))
                         }
                         // An interrupted download keeps its bytes for resuming; Delete frees them.
                         if (state.keptBytes > 0L) {
-                            TextButton(onClick = onDelete, enabled = actionsEnabled) { Text(stringResource(R.string.action_delete)) }
+                            TextButton(onClick = onDelete) { Text(stringResource(R.string.action_delete)) }
                         }
                     }
                 }

@@ -77,6 +77,22 @@ struct VoiceAssistantSettingsTests {
         #expect(settings.voice(for: .xai) == "ara")
     }
 
+    @Test func cleanupRetiresOnlyOfflineVoiceChoicesAndItsFallback() throws {
+        let (defaults, suite) = try Self.defaults()
+        defer { defaults.removePersistentDomain(forName: suite) }
+        let settings = VoiceAssistantSettings(defaults: defaults)
+        settings.language = .specific("hi")
+        for old in ["lfm3_offline", "lfm3_connected", "qwen"] {
+            defaults.set(old, forKey: VoiceAssistantSettings.providerKey)
+            defaults.set(true, forKey: "voiceAssistant.localCloudFallback")
+            settings.removeRetiredOfflineVoicePreferences()
+            #expect(settings.providerChoice == (old == "qwen" ? .qwen : .automatic))
+            #expect(defaults.string(forKey: VoiceAssistantSettings.providerKey) == (old == "qwen" ? old : nil))
+            #expect(defaults.object(forKey: "voiceAssistant.localCloudFallback") == nil)
+            #expect(settings.language == .specific("hi"))
+        }
+    }
+
     @Test func preferencesUseTheirKeysAndRejectUnknownValues() throws {
         let (defaults, suite) = try Self.defaults()
         defer { defaults.removePersistentDomain(forName: suite) }

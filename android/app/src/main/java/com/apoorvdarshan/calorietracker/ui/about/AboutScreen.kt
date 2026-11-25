@@ -149,7 +149,6 @@ fun AboutSettingsRows(category: AboutSettingsCategory, billing: BillingManager? 
     var showLiteRtNotices by remember { mutableStateOf(false) }
     var showWhisperNotices by remember { mutableStateOf(false) }
     var showSherpaNotices by remember { mutableStateOf(false) }
-    var showOfflineVoiceNotices by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
 
     fun open(url: String) =
@@ -332,13 +331,6 @@ fun AboutSettingsRows(category: AboutSettingsCategory, billing: BillingManager? 
                 ) {
                     showSherpaNotices = true
                 }
-                Hairline()
-                AboutRow(
-                    Icons.Filled.Description,
-                    stringResource(R.string.offline_voice_notices)
-                ) {
-                    showOfflineVoiceNotices = true
-                }
             }
         }
     }
@@ -365,14 +357,6 @@ fun AboutSettingsRows(category: AboutSettingsCategory, billing: BillingManager? 
             loadErrorRes = R.string.about_sherpa_notices_load_error,
             assetName = SHERPA_NOTICE_ASSET,
             onDismiss = { showSherpaNotices = false }
-        )
-    }
-    if (showOfflineVoiceNotices) {
-        ThirdPartyNoticesDialog(
-            titleRes = R.string.offline_voice_notices,
-            loadErrorRes = R.string.about_litert_notices_load_error,
-            assetName = "THIRD_PARTY_NOTICES_OfflineVoice.txt",
-            onDismiss = { showOfflineVoiceNotices = false }
         )
     }
 }

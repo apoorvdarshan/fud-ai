@@ -29,6 +29,11 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
     /// Groq's Qwen vision models accept at most three images per request (#712).
     static let groqRequestImageLimit = 3
 
+    /// The OpenRouter catalog marks both Nemotron variants as text-only.
+    static func isKnownTextOnlyModel(provider: AIProvider, model: String) -> Bool {
+        provider == .openrouter && model.prefix(while: { $0 != ":" }) == "nvidia/nemotron-3-ultra-550b-a55b"
+    }
+
     /// Photos one request to this model accepts; nil takes the full selection.
     static func requestImageLimit(provider: AIProvider, model: String) -> Int? {
         if provider == .groq { return groqRequestImageLimit }

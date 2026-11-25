@@ -21,6 +21,7 @@ enum AIErrorKind: String, CaseIterable {
     case unsupportedDevice = "ai.error.unsupported_device"
     case truncated = "ai.error.truncated"
     case textOnly = "ai.error.text_only"
+    case modelTextOnly = "ai.error.model_text_only"
 
     var defaultMessage: String {
         switch self {
@@ -43,6 +44,7 @@ enum AIErrorKind: String, CaseIterable {
         case .unsupportedDevice: "Apple Intelligence requires iOS 26 or later on a supported iPhone."
         case .truncated: "The AI response was truncated twice. Try a shorter input or another model."
         case .textOnly: "Apple Intelligence is available for text-only requests."
+        case .modelTextOnly: "This AI model only accepts text. Describe the meal or select a model that accepts photos."
         }
     }
     var message: String {

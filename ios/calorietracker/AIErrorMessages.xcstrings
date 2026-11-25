@@ -1,6 +1,30 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "ai.error.model_text_only": {
+      "extractionState": "manual",
+      "localizations": {
+        "ar": { "stringUnit": { "state": "translated", "value": "يقبل نموذج الذكاء الاصطناعي هذا النص فقط. صف الوجبة أو اختر نموذجًا يقبل الصور." } },
+        "az": { "stringUnit": { "state": "translated", "value": "Bu süni intellekt modeli yalnız mətn qəbul edir. Yeməyi təsvir edin və ya foto qəbul edən model seçin." } },
+        "cs": { "stringUnit": { "state": "translated", "value": "Tento model AI přijímá pouze text. Popište jídlo nebo vyberte model, který přijímá fotografie." } },
+        "de": { "stringUnit": { "state": "translated", "value": "Dieses KI-Modell akzeptiert nur Text. Beschreibe die Mahlzeit oder wähle ein Modell, das Fotos akzeptiert." } },
+        "en": { "stringUnit": { "state": "translated", "value": "This AI model only accepts text. Describe the meal or select a model that accepts photos." } },
+        "es": { "stringUnit": { "state": "translated", "value": "Este modelo de IA solo acepta texto. Describe la comida o elige un modelo que acepte fotos." } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Ce modèle d’IA accepte uniquement du texte. Décrivez le repas ou choisissez un modèle qui accepte les photos." } },
+        "hi": { "stringUnit": { "state": "translated", "value": "यह AI मॉडल केवल टेक्स्ट स्वीकार करता है। भोजन का वर्णन करें या फ़ोटो स्वीकार करने वाला मॉडल चुनें।" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Questo modello di IA accetta solo testo. Descrivi il pasto o scegli un modello che accetta foto." } },
+        "ja": { "stringUnit": { "state": "translated", "value": "このAIモデルはテキスト入力専用です。食事を文章で説明するか、写真に対応したモデルを選んでください。" } },
+        "ko": { "stringUnit": { "state": "translated", "value": "이 AI 모델은 텍스트만 입력할 수 있습니다. 식사를 설명하거나 사진을 지원하는 모델을 선택하세요." } },
+        "nl": { "stringUnit": { "state": "translated", "value": "Dit AI-model accepteert alleen tekst. Beschrijf de maaltijd of kies een model dat foto’s accepteert." } },
+        "pl": { "stringUnit": { "state": "translated", "value": "Ten model AI obsługuje tylko tekst. Opisz posiłek lub wybierz model obsługujący zdjęcia." } },
+        "pt-BR": { "stringUnit": { "state": "translated", "value": "Este modelo de IA aceita apenas texto. Descreva a refeição ou selecione um modelo que aceite fotos." } },
+        "ro": { "stringUnit": { "state": "translated", "value": "Acest model AI acceptă doar text. Descrie masa sau alege un model care acceptă fotografii." } },
+        "ru": { "stringUnit": { "state": "translated", "value": "Эта модель ИИ принимает только текст. Опишите блюдо или выберите модель, которая принимает фотографии." } },
+        "tr": { "stringUnit": { "state": "translated", "value": "Bu yapay zekâ modeli yalnızca metin kabul eder. Öğünü tarif edin veya fotoğraf kabul eden bir model seçin." } },
+        "uk": { "stringUnit": { "state": "translated", "value": "Ця модель ШІ приймає лише текст. Опишіть страву або виберіть модель, яка приймає фотографії." } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "此 AI 模型仅接受文本。请用文字描述餐食，或选择支持照片的模型。" } }
+      }
+    },
     "ai.error.no_key": {
       "extractionState": "manual",
       "localizations": {

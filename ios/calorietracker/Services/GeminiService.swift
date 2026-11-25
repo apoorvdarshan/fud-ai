@@ -1488,6 +1488,9 @@ struct GeminiService {
     }
 
     private static func callOpenAICompatible(baseURL: String, model: String, apiKey: String?, provider: AIProvider, prompt: String, imageDataList: [Data], structuredOutput: Bool) async throws -> String {
+        if !imageDataList.isEmpty, AIProvider.isKnownTextOnlyModel(provider: provider, model: model) {
+            throw AnalysisError.requestFailed(.modelTextOnly)
+        }
         guard let url = URL(string: "\(baseURL)/chat/completions") else {
             throw AnalysisError.requestFailed(.invalidURL)
         }

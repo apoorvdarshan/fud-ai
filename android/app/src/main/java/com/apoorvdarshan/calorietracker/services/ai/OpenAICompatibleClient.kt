@@ -45,6 +45,9 @@ object OpenAICompatibleClient {
         reasoningEffort: OpenRouterReasoningEffort = OpenRouterReasoningEffort.AUTO,
         structuredOutput: Boolean = true
     ): String {
+        if (imageBytesList.isNotEmpty() && AIProvider.isKnownTextOnlyModel(provider, model)) {
+            throw AiError.Failure(AiErrorKind.MODEL_TEXT_ONLY)
+        }
         val url = "$baseUrl/chat/completions"
 
         suspend fun request(requestPrompt: String, compactRetry: Boolean): OpenAITextResponse {

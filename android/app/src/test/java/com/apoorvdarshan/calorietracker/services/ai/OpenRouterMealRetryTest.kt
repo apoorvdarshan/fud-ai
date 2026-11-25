@@ -12,6 +12,20 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class OpenRouterMealRetryTest {
+    @Test fun knownTextOnlyModelRejectsPhotosBeforeMakingARequest() = runBlocking {
+        MockWebServer().use { server ->
+            val model = "nvidia/nemotron-3-ultra-550b-a55b:free"
+            val result = runCatching {
+                OpenAICompatibleClient.analyze(
+                    OkHttpClient(), server.url("/api/v1").toString().trimEnd('/'), model, null,
+                    "Estimate this meal", listOf(byteArrayOf(1)), AIProvider.OPENROUTER, 1024
+                )
+            }
+            assertEquals(AiErrorKind.MODEL_TEXT_ONLY, (result.exceptionOrNull() as? AiError)?.kind)
+            assertEquals(0, server.requestCount)
+        }
+    }
+
     @Test fun truncatedFreeRouteRetriesAtTheSameBudgetWithoutReasoning() = runBlocking {
         MockWebServer().use { server ->
             server.enqueue(MockResponse().setBody("""{"choices":[{"finish_reason":"length","message":{"content":""}}]}"""))

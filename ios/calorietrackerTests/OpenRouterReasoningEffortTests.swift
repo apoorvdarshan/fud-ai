@@ -2,6 +2,12 @@ import Testing
 @testable import calorietracker
 
 struct OpenRouterReasoningEffortTests {
+    @Test func onlyKnownNemotronRoutesRejectImageAnalysis() {
+        #expect(AIProvider.isKnownTextOnlyModel(provider: .openrouter, model: "nvidia/nemotron-3-ultra-550b-a55b:free"))
+        #expect(!AIProvider.isKnownTextOnlyModel(provider: .openrouter, model: "openrouter/free"))
+        #expect(!AIProvider.isKnownTextOnlyModel(provider: .customOpenAI, model: "nvidia/nemotron-3-ultra-550b-a55b"))
+    }
+
     @Test func autoPreservesAnalysisAndCoachDefaults() {
         let analysis = OpenRouterReasoningEffort.auto.requestOptions(compactRetry: false, exclude: true)
         #expect(analysis?["exclude"] as? Bool == true)

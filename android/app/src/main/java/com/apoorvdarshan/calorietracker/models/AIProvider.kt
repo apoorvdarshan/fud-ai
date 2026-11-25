@@ -324,6 +324,10 @@ enum class AIProvider {
         /** Groq's Qwen vision models accept at most three images per request (#712). */
         const val GROQ_REQUEST_IMAGE_LIMIT = 3
 
+        /** The OpenRouter catalog marks both Nemotron variants as text-only. */
+        fun isKnownTextOnlyModel(provider: AIProvider, model: String): Boolean =
+            provider == OPENROUTER && model.substringBefore(':') == "nvidia/nemotron-3-ultra-550b-a55b"
+
         /**
          * Photos one request to this provider/model accepts. Null means the provider
          * takes the app's full ten-photo selection.

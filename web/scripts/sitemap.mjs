@@ -1,20 +1,26 @@
 import { access, readFile, readdir, writeFile } from "node:fs/promises";
 
-const root = new URL("../", import.meta.url);
+const site = new URL("../", import.meta.url);
 const origin = "https://www.fud-ai.app";
-const xmlFile = new URL("sitemap.xml", root);
 const escapeXml = (text) => text.replace(/[&<>"']/g, (char) =>
   ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&apos;" })[char]);
 
 // Index the public HTML pages, not error pages, meal shares, or .html aliases.
 // Source lastmod from the page's WebPage schema rather than the build clock.
-export async function renderSitemap() {
+export async function renderSitemap(root = site) {
   const entries = [];
   const titles = new Set();
   const descriptions = new Set();
   const files = (await readdir(root, { withFileTypes: true }))
     .filter((file) => file.isFile() && file.name.endsWith(".html"))
-    .map((file) => file.name).sort();
+    .map((file) => file.name);
+  const guides = await readdir(new URL("guides/", root)).catch((error) => {
+    if (error.code !== "ENOENT") throw error;
+    return [];
+  });
+  for (const name of guides) {
+    if (name.endsWith(".html")) files.push(`guides/${name}`);
+  }
   for (const name of files) {
     const html = await readFile(new URL(name, root), "utf8");
     if (/<meta name="robots" content="[^"]*\bnoindex\b/.test(html)) continue;
@@ -36,15 +42,14 @@ export async function renderSitemap() {
         return value["@graph"] ?? [value];
       });
     const date = schemas.find((value) => value["@type"] === "WebPage" && value.url === canonical)?.dateModified;
-    if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date) || new Date(date).toISOString().slice(0, 10) !== date) {
+    const parsed = new Date(date);
+    if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date) || !Number.isFinite(+parsed) || parsed.toISOString().slice(0, 10) !== date) {
       throw new Error(`${name}: missing or invalid WebPage dateModified`);
     }
 
     const screenshots = schemas.find((value) => value["@type"] === "SoftwareApplication")?.screenshot ?? [];
-    const images = path === "/" ? [
-      html.match(/<meta property="og:image" content="([^"]+)">/)?.[1],
-      ...screenshots,
-    ] : [];
+    const cover = html.match(/<meta property="og:image" content="([^"]+)">/)?.[1];
+    const images = path === "/" ? [...(cover ? [cover] : []), ...screenshots] : [];
     for (const image of images) {
       const url = new URL(image);
       if (url.origin !== origin) throw new Error(`${name}: noncanonical sitemap image`);
@@ -68,8 +73,8 @@ export async function renderSitemap() {
   ].join("\n");
 }
 
-export async function checkSitemap() {
-  if (await readFile(xmlFile, "utf8") !== await renderSitemap()) {
+export async function checkSitemap(root = site) {
+  if (await readFile(new URL("sitemap.xml", root), "utf8") !== await renderSitemap(root)) {
     throw new Error("Stale sitemap.xml; run npm --prefix web run sitemap");
   }
   const robots = await readFile(new URL("robots.txt", root), "utf8");
@@ -78,4 +83,4 @@ export async function checkSitemap() {
   }
 }
 
-if (process.argv.includes("--write")) await writeFile(xmlFile, await renderSitemap());
+if (process.argv.includes("--write")) await writeFile(new URL("sitemap.xml", site), await renderSitemap());

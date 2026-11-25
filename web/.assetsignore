@@ -16,4 +16,5 @@ node_modules/
 .wrangler/
 tests/
 scripts/
+content/
 migrations/

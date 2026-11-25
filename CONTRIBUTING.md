@@ -201,6 +201,13 @@ when you create or substantially edit an indexable page. Run
 The web build checks that the sitemap and robots.txt agree with the site.
 Pages marked `noindex` (such as meal sharing and 404) are left out.
 
+User-facing how-to pages live in `web/content/guides-*.mjs`. Add a distinct
+topic with concrete steps, a limitation or troubleshooting detail, and useful
+related links. Use official sources when comparing another app. The build
+renders `/guides` and `/guides/<slug>` as static pages; edit the content files,
+not the generated HTML. Supply an updated date on the record when revising a
+guide substantially, then regenerate the sitemap.
+
 ## Contact
 
 If you want to chat before opening a big PR, or you hit a wall and need help:

@@ -290,16 +290,13 @@ internal fun MealIngredientEditorDialog(
         val parsedProtein = number(protein) ?: return@let null
         val parsedCarbs = number(carbs) ?: return@let null
         val parsedFat = number(fat) ?: return@let null
-        MealIngredient(
+        target.ingredient.copy(
             name = validName,
             grams = parsedGrams,
             calories = energyUnit.toKcal(parsedCalories),
             protein = parsedProtein,
             carbs = parsedCarbs,
-            fat = parsedFat,
-            imageFilename = target.ingredient.imageFilename,
-            additionalImageFilenames = target.ingredient.additionalImageFilenames,
-            emoji = target.ingredient.emoji
+            fat = parsedFat
         )
     }
 

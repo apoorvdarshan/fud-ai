@@ -28,6 +28,23 @@ data class AllergenAnalysis(
     }
 
     companion object {
+        private val specificMembers = mapOf(
+            "almond" to "tree nut", "cashew" to "tree nut", "hazelnut" to "tree nut",
+            "macadamia" to "tree nut", "pecan" to "tree nut", "pistachio" to "tree nut", "walnut" to "tree nut",
+            "shrimp" to "shellfish", "prawn" to "shellfish", "crab" to "shellfish", "lobster" to "shellfish"
+        )
+
+        private fun specificMember(normalized: String): String? = when {
+            normalized in specificMembers -> normalized
+            normalized.endsWith("s") -> normalized.dropLast(1).takeIf { it in specificMembers }
+            else -> null
+        }
+
+        private fun isBroadCategory(value: String): Boolean {
+            val id = CanonicalFoodAllergens.idFor(value)
+            return (id == "tree nut" || id == "shellfish") && specificMember(normalize(value)) == null
+        }
+
         fun evaluate(entry: FoodEntry, sensitivities: List<String>): AllergenAnalysis {
             val configured = sensitivities.map { it to normalize(it) }.filter { it.second.isNotEmpty() }
             if (configured.isEmpty()) return AllergenAnalysis(AllergenAssessment.UNABLE_TO_ASSESS)
@@ -35,6 +52,8 @@ data class AllergenAnalysis(
             val sources = listOf(
                 Triple(AllergenAssessment.DECLARED_ALLERGEN_MATCH, "Declared product allergens", entry.productMetadata?.allergens.orEmpty()),
                 Triple(AllergenAssessment.MAY_CONTAIN, "Trace warning", entry.productMetadata?.traces.orEmpty()),
+                Triple(AllergenAssessment.POSSIBLE_ALLERGEN, "Declared product allergens", entry.productMetadata?.allergens.orEmpty().filter(::isBroadCategory)),
+                Triple(AllergenAssessment.POSSIBLE_ALLERGEN, "Trace warning", entry.productMetadata?.traces.orEmpty().filter(::isBroadCategory)),
                 Triple(AllergenAssessment.POSSIBLE_ALLERGEN, "Ingredient label", listOfNotNull(entry.productMetadata?.ingredientsText)),
                 Triple(AllergenAssessment.POSSIBLE_ALLERGEN, "Possible allergen", CanonicalFoodAllergens.clean(
                     entry.aiAllergens + entry.ingredients.flatMap { it.aiAllergens }
@@ -45,7 +64,9 @@ data class AllergenAnalysis(
 
             for ((assessment, source, values) in sources) {
                 val matches = configured.mapNotNull { (original, sensitivity) ->
-                    if (values.any { matches(sensitivity, it) }) original.trim() else null
+                    if (values.any { matches(sensitivity, it, allowBroadCategory = assessment == AllergenAssessment.POSSIBLE_ALLERGEN) }) {
+                        original.trim()
+                    } else null
                 }.distinct()
                 if (matches.isNotEmpty()) {
                     return AllergenAnalysis(assessment, matches, listOf(source))
@@ -71,7 +92,7 @@ data class AllergenAnalysis(
                 .trim()
         }
 
-        private fun matches(sensitivity: String, candidate: String): Boolean {
+        private fun matches(sensitivity: String, candidate: String, allowBroadCategory: Boolean = true): Boolean {
             val normalizedCandidate = normalize(candidate)
             val candidateTokens = normalizedCandidate.split(" ").filter(String::isNotEmpty)
             val sensitivityTokens = normalize(sensitivity).split(" ").filter(String::isNotEmpty)
@@ -89,9 +110,16 @@ data class AllergenAnalysis(
                 "gluten" to setOf("wheat", "gluten", "rye", "barley", "oat")
             )
             val key = sensitivityTokens.joinToString(" ")
-            val canonical = CanonicalFoodAllergens.idFor(key)
-            val candidateId = CanonicalFoodAllergens.idFor(normalizedCandidate)
-            if (canonical != null && (candidateId == canonical || (canonical == "gluten" && candidateId == "wheat"))) return true
+            val specificSensitivity = specificMember(key)
+            val specificCandidate = specificMember(normalizedCandidate)
+            val canonical = specificSensitivity?.let(specificMembers::get) ?: CanonicalFoodAllergens.idFor(key)
+            val candidateId = specificCandidate?.let(specificMembers::get) ?: CanonicalFoodAllergens.idFor(normalizedCandidate)
+            if (canonical != null && canonical == candidateId) {
+                if (specificSensitivity == null) return true
+                // A category alone is possible evidence, not a declaration naming the food.
+                return if (specificCandidate == null) allowBroadCategory else specificSensitivity == specificCandidate
+            }
+            if (canonical == "gluten" && candidateId == "wheat") return true
             val terms = aliases[key] ?: sensitivityTokens.toSet()
             return terms.any { term ->
                 val termTokens = term.split(" ")

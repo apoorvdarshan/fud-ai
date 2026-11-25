@@ -84,6 +84,23 @@ struct AllergenAnalysisTests {
         #expect(makeEntry().allergenAnalysis(for: ["milk"]).assessment == .unableToAssess)
     }
 
+    @Test func relatedFoodsAreNotInterchangeableInManufacturerEvidence() {
+        func entry(allergens: [String], traces: [String]) -> FoodEntry {
+            makeEntry(metadata: FoodProductMetadata(
+                barcode: "1", packageQuantity: nil, ingredientsText: nil, allergens: allergens,
+                traces: traces, nutriScore: nil, novaGroup: nil, ecoScore: nil, labels: [], categories: [], imageURL: nil
+            ))
+        }
+        let declared = entry(allergens: ["en:cashews"], traces: ["en:crab"])
+        #expect(declared.allergenAnalysis(for: ["almond", "shrimp"]).assessment == .unableToAssess)
+        #expect(declared.allergenAnalysis(for: ["cashew"]).assessment == .declaredAllergenMatch)
+        #expect(declared.allergenAnalysis(for: ["tree nuts"]).assessment == .declaredAllergenMatch)
+        #expect(declared.allergenAnalysis(for: ["crabs"]).assessment == .mayContain)
+        let broad = entry(allergens: ["en:tree-nuts"], traces: ["en:crustaceans"])
+        #expect(broad.allergenAnalysis(for: ["almond"]).assessment == .possibleAllergen)
+        #expect(broad.allergenAnalysis(for: ["shrimp"]).assessment == .possibleAllergen)
+    }
+
     @Test
     func profileSensitivitiesRoundTripThroughLocalJson() throws {
         var profile = UserProfile.default

@@ -82,6 +82,18 @@ class AllergenAnalysisTest {
     }
 
     @Test
+    fun relatedFoodsAreNotInterchangeableInManufacturerEvidence() {
+        val declared = entry(FoodProductMetadata("1", allergens = listOf("en:cashews"), traces = listOf("en:crab")))
+        assertEquals(AllergenAssessment.UNABLE_TO_ASSESS, declared.allergenAnalysis(listOf("almond", "shrimp")).assessment)
+        assertEquals(AllergenAssessment.DECLARED_ALLERGEN_MATCH, declared.allergenAnalysis(listOf("cashew")).assessment)
+        assertEquals(AllergenAssessment.DECLARED_ALLERGEN_MATCH, declared.allergenAnalysis(listOf("tree nuts")).assessment)
+        assertEquals(AllergenAssessment.MAY_CONTAIN, declared.allergenAnalysis(listOf("crabs")).assessment)
+        val broad = entry(FoodProductMetadata("1", allergens = listOf("en:tree-nuts"), traces = listOf("en:crustaceans")))
+        assertEquals(AllergenAssessment.POSSIBLE_ALLERGEN, broad.allergenAnalysis(listOf("almond")).assessment)
+        assertEquals(AllergenAssessment.POSSIBLE_ALLERGEN, broad.allergenAnalysis(listOf("shrimp")).assessment)
+    }
+
+    @Test
     fun profileSensitivitiesRoundTripThroughLocalJson() {
         val profile = UserProfile(allergenSensitivities = listOf("milk", "peanuts"))
         val json = kotlinx.serialization.json.Json

@@ -1007,18 +1007,14 @@ struct IngredientEditorSheet: View {
               let carbs = decimal(carbs),
               let fat = decimal(fat)
         else { return nil }
-        return MealIngredient(
-            id: target.ingredient.id,
-            name: trimmedName,
-            grams: grams,
-            calories: energyUnit.kcal(fromDisplayed: calories),
-            protein: protein,
-            carbs: carbs,
-            fat: fat,
-            imageFilename: target.ingredient.imageFilename,
-            additionalImageFilenames: target.ingredient.additionalImageFilenames,
-            emoji: target.ingredient.emoji
-        )
+        var ingredient = target.ingredient
+        ingredient.name = trimmedName
+        ingredient.grams = grams
+        ingredient.calories = energyUnit.kcal(fromDisplayed: calories)
+        ingredient.protein = protein
+        ingredient.carbs = carbs
+        ingredient.fat = fat
+        return ingredient
     }
 
     var body: some View {

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="workout_image_report">Şəkil problemini bildir</string>
+    <string name="workout_image_report_note">Şəkildə nə düzgün görünmür?</string>
+    <string name="workout_image_report_review">Hesabatlar açıq yayımlanır. Şəxsi məlumat əlavə etməyin.</string>
+    <string name="workout_image_report_discord_help">Hesabat kopyalanır. Fud AI Discord serverində /bug yazın və mətni report sahəsinə yapışdırın.</string>
+    <string name="workout_image_report_open_failed">Keçid açıla bilmədi.</string>
+</resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="workout_image_report">Raportează o problemă cu imaginea</string>
+    <string name="workout_image_report_note">Ce pare greșit în imagine?</string>
+    <string name="workout_image_report_review">Rapoartele devin publice. Nu include informații private.</string>
+    <string name="workout_image_report_discord_help">Raportul este copiat. Pe serverul Fud AI de pe Discord, folosește /bug și lipește-l în câmpul report.</string>
+    <string name="workout_image_report_open_failed">Linkul nu s-a putut deschide.</string>
+</resources>

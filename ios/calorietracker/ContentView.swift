@@ -1283,7 +1283,7 @@ struct ActivityShareSheet: UIViewControllerRepresentable {
 }
 
 /// In-app Safari so GitHub issue form URLs keep `?template=` instead of opening the GitHub app chooser.
-private struct SafariView: UIViewControllerRepresentable {
+struct SafariView: UIViewControllerRepresentable {
     let url: URL
 
     func makeUIViewController(context: Context) -> SFSafariViewController {

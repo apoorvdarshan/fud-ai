@@ -293,6 +293,13 @@ final class calorietrackerUITests: XCTestCase {
 
         let visual = app.descendants(matching: .any)["workouts.exercise.visual.Barbell_Full_Squat"]
         XCTAssertTrue(visual.waitForExistence(timeout: 5))
+        let reportImage = app.buttons["workouts.exercise.reportImage"]
+        XCTAssertTrue(reportImage.waitForExistence(timeout: 5))
+        reportImage.tap()
+        XCTAssertTrue(app.buttons["Report an Issue on GitHub"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["Report an Issue on Discord"].exists)
+        XCTAssertFalse(app.buttons["Report an Issue on GitHub"].isEnabled)
+        app.buttons["Cancel"].tap()
 
         let screenshot = XCTAttachment(screenshot: app.screenshot())
         screenshot.name = "Barbell Full Squat Details"

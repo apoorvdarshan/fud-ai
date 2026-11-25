@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="workout_image_report">이미지 문제 신고</string>
+    <string name="workout_image_report_note">이미지의 어떤 부분이 잘못되었나요?</string>
+    <string name="workout_image_report_review">신고는 공개됩니다. 개인정보를 넣지 마세요.</string>
+    <string name="workout_image_report_discord_help">신고 내용이 복사됩니다. Fud AI Discord 서버에서 /bug를 실행하고 report 필드에 붙여넣으세요.</string>
+    <string name="workout_image_report_open_failed">링크를 열 수 없습니다.</string>
+</resources>

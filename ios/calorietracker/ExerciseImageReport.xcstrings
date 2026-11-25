@@ -1,0 +1,94 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Report image issue" : {
+      "localizations" : {
+        "ar" : {"stringUnit": {"state": "translated", "value": "الإبلاغ عن مشكلة في الصورة"}},
+        "az" : {"stringUnit": {"state": "translated", "value": "Şəkil problemini bildir"}},
+        "cs" : {"stringUnit": {"state": "translated", "value": "Nahlásit chybu obrázku"}},
+        "de" : {"stringUnit": {"state": "translated", "value": "Bildfehler melden"}},
+        "es" : {"stringUnit": {"state": "translated", "value": "Reportar un problema en la imagen"}},
+        "fr" : {"stringUnit": {"state": "translated", "value": "Signaler un problème d’image"}},
+        "hi" : {"stringUnit": {"state": "translated", "value": "तस्वीर की समस्या रिपोर्ट करें"}},
+        "it" : {"stringUnit": {"state": "translated", "value": "Segnala un problema nell’immagine"}},
+        "ja" : {"stringUnit": {"state": "translated", "value": "画像の問題を報告"}},
+        "ko" : {"stringUnit": {"state": "translated", "value": "이미지 문제 신고"}},
+        "nl" : {"stringUnit": {"state": "translated", "value": "Probleem met afbeelding melden"}},
+        "pl" : {"stringUnit": {"state": "translated", "value": "Zgłoś problem z ilustracją"}},
+        "pt-BR" : {"stringUnit": {"state": "translated", "value": "Relatar problema na imagem"}},
+        "ro" : {"stringUnit": {"state": "translated", "value": "Raportează o problemă cu imaginea"}},
+        "ru" : {"stringUnit": {"state": "translated", "value": "Сообщить о проблеме с изображением"}},
+        "tr" : {"stringUnit": {"state": "translated", "value": "Görsel sorununu bildir"}},
+        "uk" : {"stringUnit": {"state": "translated", "value": "Повідомити про проблему із зображенням"}},
+        "zh-Hans" : {"stringUnit": {"state": "translated", "value": "报告图片问题"}}
+      }
+    },
+    "What looks wrong in the image?" : {
+      "localizations" : {
+        "ar" : {"stringUnit": {"state": "translated", "value": "ما الخطأ الذي تلاحظه في الصورة؟"}},
+        "az" : {"stringUnit": {"state": "translated", "value": "Şəkildə nə düzgün görünmür?"}},
+        "cs" : {"stringUnit": {"state": "translated", "value": "Co na obrázku vypadá špatně?"}},
+        "de" : {"stringUnit": {"state": "translated", "value": "Was sieht im Bild falsch aus?"}},
+        "es" : {"stringUnit": {"state": "translated", "value": "¿Qué se ve mal en la imagen?"}},
+        "fr" : {"stringUnit": {"state": "translated", "value": "Qu’est-ce qui semble incorrect dans l’image ?"}},
+        "hi" : {"stringUnit": {"state": "translated", "value": "तस्वीर में क्या गलत दिख रहा है?"}},
+        "it" : {"stringUnit": {"state": "translated", "value": "Cosa non va nell’immagine?"}},
+        "ja" : {"stringUnit": {"state": "translated", "value": "画像のどこが不自然ですか？"}},
+        "ko" : {"stringUnit": {"state": "translated", "value": "이미지의 어떤 부분이 잘못되었나요?"}},
+        "nl" : {"stringUnit": {"state": "translated", "value": "Wat klopt er niet aan de afbeelding?"}},
+        "pl" : {"stringUnit": {"state": "translated", "value": "Co jest nie tak z ilustracją?"}},
+        "pt-BR" : {"stringUnit": {"state": "translated", "value": "O que parece errado na imagem?"}},
+        "ro" : {"stringUnit": {"state": "translated", "value": "Ce pare greșit în imagine?"}},
+        "ru" : {"stringUnit": {"state": "translated", "value": "Что не так с изображением?"}},
+        "tr" : {"stringUnit": {"state": "translated", "value": "Görselde ne yanlış görünüyor?"}},
+        "uk" : {"stringUnit": {"state": "translated", "value": "Що не так із зображенням?"}},
+        "zh-Hans" : {"stringUnit": {"state": "translated", "value": "图片哪里看起来不对？"}}
+      }
+    },
+    "Reports become public. Don't include private information." : {
+      "localizations" : {
+        "ar" : {"stringUnit": {"state": "translated", "value": "تُنشر البلاغات علنًا. لا تُدرج معلومات خاصة."}},
+        "az" : {"stringUnit": {"state": "translated", "value": "Hesabatlar açıq yayımlanır. Şəxsi məlumat əlavə etməyin."}},
+        "cs" : {"stringUnit": {"state": "translated", "value": "Hlášení budou veřejná. Neuvádějte soukromé údaje."}},
+        "de" : {"stringUnit": {"state": "translated", "value": "Meldungen werden veröffentlicht. Gib keine privaten Daten an."}},
+        "es" : {"stringUnit": {"state": "translated", "value": "Los informes se hacen públicos. No incluyas información privada."}},
+        "fr" : {"stringUnit": {"state": "translated", "value": "Les signalements sont publics. N’incluez pas d’informations privées."}},
+        "hi" : {"stringUnit": {"state": "translated", "value": "रिपोर्ट सार्वजनिक हो जाती हैं। निजी जानकारी न डालें।"}},
+        "it" : {"stringUnit": {"state": "translated", "value": "Le segnalazioni diventano pubbliche. Non includere informazioni private."}},
+        "ja" : {"stringUnit": {"state": "translated", "value": "報告は公開されます。個人情報は入力しないでください。"}},
+        "ko" : {"stringUnit": {"state": "translated", "value": "신고는 공개됩니다. 개인정보를 넣지 마세요."}},
+        "nl" : {"stringUnit": {"state": "translated", "value": "Meldingen worden openbaar. Deel geen privégegevens."}},
+        "pl" : {"stringUnit": {"state": "translated", "value": "Zgłoszenia są publiczne. Nie podawaj prywatnych informacji."}},
+        "pt-BR" : {"stringUnit": {"state": "translated", "value": "Os relatos se tornam públicos. Não inclua informações privadas."}},
+        "ro" : {"stringUnit": {"state": "translated", "value": "Rapoartele devin publice. Nu include informații private."}},
+        "ru" : {"stringUnit": {"state": "translated", "value": "Сообщения становятся публичными. Не указывайте личные данные."}},
+        "tr" : {"stringUnit": {"state": "translated", "value": "Bildirimler herkese açık olur. Özel bilgi eklemeyin."}},
+        "uk" : {"stringUnit": {"state": "translated", "value": "Звіти стають публічними. Не додавайте приватну інформацію."}},
+        "zh-Hans" : {"stringUnit": {"state": "translated", "value": "报告会公开，请勿填写隐私信息。"}}
+      }
+    },
+    "The app copies the report. In Fud AI’s Discord server, run /bug and paste it in the report field." : {
+      "localizations" : {
+        "ar" : {"stringUnit": {"state": "translated", "value": "يُنسخ البلاغ إلى الحافظة. في خادم Fud AI على Discord، استخدم /bug والصقه في حقل report."}},
+        "az" : {"stringUnit": {"state": "translated", "value": "Hesabat kopyalanır. Fud AI Discord serverində /bug yazın və mətni report sahəsinə yapışdırın."}},
+        "cs" : {"stringUnit": {"state": "translated", "value": "Hlášení se zkopíruje. Na serveru Fud AI na Discordu použijte /bug a vložte ho do pole report."}},
+        "de" : {"stringUnit": {"state": "translated", "value": "Die Meldung wird kopiert. Verwende auf dem Fud-AI-Discord-Server /bug und füge sie ins Feld report ein."}},
+        "es" : {"stringUnit": {"state": "translated", "value": "Se copiará el informe. En el servidor de Fud AI en Discord, usa /bug y pégalo en el campo report."}},
+        "fr" : {"stringUnit": {"state": "translated", "value": "Le signalement est copié. Sur le serveur Discord de Fud AI, utilisez /bug et collez-le dans le champ report."}},
+        "hi" : {"stringUnit": {"state": "translated", "value": "रिपोर्ट कॉपी हो जाएगी। Fud AI के Discord सर्वर पर /bug चलाएँ और उसे report फ़ील्ड में पेस्ट करें।"}},
+        "it" : {"stringUnit": {"state": "translated", "value": "La segnalazione viene copiata. Sul server Discord di Fud AI, usa /bug e incollala nel campo report."}},
+        "ja" : {"stringUnit": {"state": "translated", "value": "報告がコピーされます。Fud AI の Discord サーバーで /bug を実行し、report 欄に貼り付けてください。"}},
+        "ko" : {"stringUnit": {"state": "translated", "value": "신고 내용이 복사됩니다. Fud AI Discord 서버에서 /bug를 실행하고 report 필드에 붙여넣으세요."}},
+        "nl" : {"stringUnit": {"state": "translated", "value": "De melding wordt gekopieerd. Gebruik op de Discord-server van Fud AI /bug en plak de tekst in het veld report."}},
+        "pl" : {"stringUnit": {"state": "translated", "value": "Zgłoszenie zostanie skopiowane. Na serwerze Discord Fud AI użyj /bug i wklej je w pole report."}},
+        "pt-BR" : {"stringUnit": {"state": "translated", "value": "O relato é copiado. No servidor do Fud AI no Discord, use /bug e cole o texto no campo report."}},
+        "ro" : {"stringUnit": {"state": "translated", "value": "Raportul este copiat. Pe serverul Fud AI de pe Discord, folosește /bug și lipește-l în câmpul report."}},
+        "ru" : {"stringUnit": {"state": "translated", "value": "Сообщение копируется. На сервере Fud AI в Discord используйте /bug и вставьте его в поле report."}},
+        "tr" : {"stringUnit": {"state": "translated", "value": "Bildirim kopyalanır. Fud AI Discord sunucusunda /bug komutunu kullanıp report alanına yapıştırın."}},
+        "uk" : {"stringUnit": {"state": "translated", "value": "Звіт копіюється. На сервері Fud AI у Discord виконайте /bug і вставте його в поле report."}},
+        "zh-Hans" : {"stringUnit": {"state": "translated", "value": "报告会复制到剪贴板。在 Fud AI 的 Discord 服务器中运行 /bug，然后把报告粘贴到 report 字段。"}}
+      }
+    }
+  },
+  "version" : "1.0"
+}

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="workout_image_report">Сообщить о проблеме с изображением</string>
+    <string name="workout_image_report_note">Что не так с изображением?</string>
+    <string name="workout_image_report_review">Сообщения становятся публичными. Не указывайте личные данные.</string>
+    <string name="workout_image_report_discord_help">Сообщение копируется. На сервере Fud AI в Discord используйте /bug и вставьте его в поле report.</string>
+    <string name="workout_image_report_open_failed">Не удалось открыть ссылку.</string>
+</resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="workout_image_report">Nahlásit chybu obrázku</string>
+    <string name="workout_image_report_note">Co na obrázku vypadá špatně?</string>
+    <string name="workout_image_report_review">Hlášení budou veřejná. Neuvádějte soukromé údaje.</string>
+    <string name="workout_image_report_discord_help">Hlášení se zkopíruje. Na serveru Fud AI na Discordu použijte /bug a vložte ho do pole report.</string>
+    <string name="workout_image_report_open_failed">Odkaz se nepodařilo otevřít.</string>
+</resources>

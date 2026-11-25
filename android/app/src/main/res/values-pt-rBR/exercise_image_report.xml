@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="workout_image_report">Relatar problema na imagem</string>
+    <string name="workout_image_report_note">O que parece errado na imagem?</string>
+    <string name="workout_image_report_review">Os relatos se tornam públicos. Não inclua informações privadas.</string>
+    <string name="workout_image_report_discord_help">O relato é copiado. No servidor do Fud AI no Discord, use /bug e cole o texto no campo report.</string>
+    <string name="workout_image_report_open_failed">Não foi possível abrir o link.</string>
+</resources>

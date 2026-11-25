@@ -33,6 +33,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.BarChart
 import androidx.compose.material.icons.filled.FormatListNumbered
 import androidx.compose.material.icons.filled.FitnessCenter
+import androidx.compose.material.icons.outlined.Flag
 import androidx.compose.material.icons.filled.GpsFixed
 import androidx.compose.material.icons.automirrored.filled.OpenInNew
 import androidx.compose.material.icons.filled.Info
@@ -41,11 +42,14 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.SwapHoriz
 import androidx.compose.material.icons.filled.Tag
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -62,12 +66,23 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import androidx.browser.customtabs.CustomTabsIntent
 import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.ui.navigation.BottomNavScrollPadding
 import com.apoorvdarshan.calorietracker.data.ExerciseItem
 import com.apoorvdarshan.calorietracker.data.ExerciseVisual
+import com.apoorvdarshan.calorietracker.models.FudAILinks
+import com.apoorvdarshan.calorietracker.models.UserExercise
+import com.apoorvdarshan.calorietracker.services.update.AndroidUpdateChecker
+import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialog
+import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialogActions
+import com.apoorvdarshan.calorietracker.ui.components.FudGlassTextField
+import com.apoorvdarshan.calorietracker.ui.components.FudGlassTextButton
 import com.apoorvdarshan.calorietracker.ui.workouts.AnimatedExerciseImage
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
@@ -82,6 +97,8 @@ fun ExerciseDetailScreen(
 ) {
     val colors = workoutsColors()
     var showMetrics by remember { mutableStateOf(false) }
+    var showReport by rememberSaveable(item.id) { mutableStateOf(false) }
+    val canReport = !UserExercise.isUserExercise(item.id) && !item.id.startsWith("custom_activity_")
 
     Column(modifier.testTag("workouts.detail").fillMaxSize().background(colors.background).statusBarsPadding()) {
         // Top bar: back (start) + centered title
@@ -138,13 +155,24 @@ fun ExerciseDetailScreen(
             }
 
             Hero(item = item, visual = visual, height = heroHeight, showMetrics = showMetrics,
-                onToggle = { showMetrics = !showMetrics })
+                onToggle = { showMetrics = !showMetrics },
+                onReport = if (canReport) ({ showReport = true }) else null)
         }
+    }
+    if (showReport && canReport) {
+        ExerciseImageReportDialog(item = item, visual = visual, onDismiss = { showReport = false })
     }
 }
 
 @Composable
-private fun Hero(item: ExerciseItem, visual: ExerciseVisual, height: Dp, showMetrics: Boolean, onToggle: () -> Unit) {
+private fun Hero(
+    item: ExerciseItem,
+    visual: ExerciseVisual,
+    height: Dp,
+    showMetrics: Boolean,
+    onToggle: () -> Unit,
+    onReport: (() -> Unit)?
+) {
     val colors = workoutsColors()
     // Opaque screen background so transparent PNG cutouts don't let
     // instructions show through when this pinned hero covers the scroll.
@@ -194,6 +222,88 @@ private fun Hero(item: ExerciseItem, visual: ExerciseVisual, height: Dp, showMet
                 .clickable { onToggle() }
                 .padding(14.dp)
         )
+        if (onReport != null) {
+            IconButton(
+                onClick = onReport,
+                modifier = Modifier.align(Alignment.BottomEnd).padding(8.dp)
+                    .size(FlashSpacing.MinTouchTarget)
+                    .background(colors.background.copy(alpha = 0.88f), CircleShape)
+                    .border(0.7.dp, colors.hairline.copy(alpha = 0.55f), CircleShape)
+                    .testTag("workouts.exercise.reportImage")
+            ) {
+                Icon(Icons.Outlined.Flag, stringResource(R.string.workout_image_report), tint = colors.accent)
+            }
+        }
+    }
+}
+
+@Composable
+private fun ExerciseImageReportDialog(item: ExerciseItem, visual: ExerciseVisual, onDismiss: () -> Unit) {
+    val context = LocalContext.current
+    var note by rememberSaveable(item.id) { mutableStateOf("") }
+    var openFailed by remember { mutableStateOf(false) }
+    val copyLabel = stringResource(R.string.workout_image_report)
+    val reference = when {
+        visual.framePaths.isEmpty() -> "unavailable"
+        visual.isAuthored -> visual.framePaths.first().substringAfterLast('/')
+        else -> "catalog-photo"
+    }
+    val version = remember(context) { AndroidUpdateChecker.currentVersion(context) }
+    FudGlassDialog(onDismissRequest = onDismiss) {
+        Column(
+            Modifier.verticalScroll(rememberScrollState()),
+            verticalArrangement = Arrangement.spacedBy(FlashSpacing.ItemGap)
+        ) {
+            Text(stringResource(R.string.workout_image_report), style = MaterialTheme.typography.titleLarge)
+            Text(item.name, style = MaterialTheme.typography.titleSmall)
+            FudGlassTextField(
+                value = note,
+                onValueChange = { note = ExerciseImageReport.trimNote(it) },
+                modifier = Modifier.testTag("workouts.exercise.imageReportNote"),
+                placeholder = stringResource(R.string.workout_image_report_note),
+                singleLine = false,
+                minLines = 3,
+                maxLines = 5
+            )
+            Text(
+                stringResource(R.string.workout_image_report_review),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            if (openFailed) {
+                Text(stringResource(R.string.workout_image_report_open_failed), color = MaterialTheme.colorScheme.error)
+            }
+            FudGlassDialogActions(
+                primaryText = stringResource(R.string.about_report_issue),
+                primaryEnabled = note.isNotBlank(),
+                dismissText = stringResource(R.string.action_cancel),
+                onDismiss = onDismiss,
+                onPrimary = {
+                    val url = ExerciseImageReport.issueUrl(item.name, item.id, reference, version, note)
+                    openFailed = runCatching {
+                        CustomTabsIntent.Builder().build().launchUrl(context, Uri.parse(url))
+                    }.isFailure
+                }
+            )
+            FudGlassTextButton(
+                text = stringResource(R.string.about_report_issue_discord),
+                color = MaterialTheme.colorScheme.onSurface,
+                enabled = note.isNotBlank(),
+                onClick = {
+                    val report = ExerciseImageReport.text(item.name, item.id, reference, version, note)
+                    val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                    clipboard.setPrimaryClip(ClipData.newPlainText(copyLabel, report))
+                    openFailed = runCatching {
+                        context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(FudAILinks.DISCORD)))
+                    }.isFailure
+                }
+            )
+            Text(
+                stringResource(R.string.workout_image_report_discord_help),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
     }
 }
 

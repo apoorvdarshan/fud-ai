@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="workout_image_report">Report image issue</string>
+    <string name="workout_image_report_note">What looks wrong in the image?</string>
+    <string name="workout_image_report_review">Reports become public. Don\'t include private information.</string>
+    <string name="workout_image_report_discord_help">The app copies the report. In Fud AI’s Discord server, run /bug and paste it in the report field.</string>
+    <string name="workout_image_report_open_failed">Couldn\'t open the link.</string>
+</resources>

@@ -57,6 +57,9 @@ struct AnalyzingView: View {
                             .foregroundStyle(.primary)
                     }
 
+                    WaitingFactCard()
+                        .padding(.horizontal, 24)
+
                     if let onCancel {
                         Button("Cancel", action: onCancel)
                             .font(.body.weight(.medium))

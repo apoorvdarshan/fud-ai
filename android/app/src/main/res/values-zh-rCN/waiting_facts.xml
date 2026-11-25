@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="waiting_fact_heading">你知道吗？</string>
+    <string name="waiting_fact_vitamin_c">维生素 C 能帮助身体吸收植物性食物中的铁。</string>
+    <string name="waiting_fact_beans">豆类和扁豆都含有蛋白质和膳食纤维。</string>
+    <string name="waiting_fact_oats">燕麦含有 β-葡聚糖，这是一种可溶性膳食纤维。</string>
+    <string name="waiting_fact_vegetables" formatted="false">按重量计算，黄瓜和番茄的含水量都超过 90%。</string>
+    <string name="waiting_fact_strength">力量训练需要克服阻力。你也可以利用自己的体重作为阻力。</string>
+</resources>

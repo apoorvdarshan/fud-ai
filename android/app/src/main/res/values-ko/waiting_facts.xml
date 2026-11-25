@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="waiting_fact_heading">알고 계셨나요?</string>
+    <string name="waiting_fact_vitamin_c">비타민 C는 몸이 식물성 식품에 들어 있는 철분을 흡수하도록 돕습니다.</string>
+    <string name="waiting_fact_beans">콩과 렌틸콩에는 단백질과 식이섬유가 모두 들어 있습니다.</string>
+    <string name="waiting_fact_oats">귀리에는 수용성 식이섬유의 한 종류인 베타글루칸이 들어 있습니다.</string>
+    <string name="waiting_fact_vegetables" formatted="false">오이와 토마토는 무게의 90% 이상이 수분입니다.</string>
+    <string name="waiting_fact_strength">근력 운동은 저항을 이겨 내는 운동입니다. 자신의 체중도 저항으로 사용할 수 있습니다.</string>
+</resources>

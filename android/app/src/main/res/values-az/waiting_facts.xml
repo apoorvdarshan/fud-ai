@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="waiting_fact_heading">Bilirdinizmi?</string>
+    <string name="waiting_fact_vitamin_c">C vitamini orqanizmin bitki mənşəli qidalardan dəmiri mənimsəməsinə kömək edir.</string>
+    <string name="waiting_fact_beans">Lobya və mərci həm zülal, həm də lif ehtiva edir.</string>
+    <string name="waiting_fact_oats">Yulafda həll olan lif növü olan beta-qlükan var.</string>
+    <string name="waiting_fact_vegetables" formatted="false">Xiyar və pomidorun çəkisinin 90%-dən çoxunu su təşkil edir.</string>
+    <string name="waiting_fact_strength">Güc məşqlərində müqavimətə qarşı hərəkət edirsiniz. Öz bədən çəkiniz də müqavimət yarada bilər.</string>
+</resources>

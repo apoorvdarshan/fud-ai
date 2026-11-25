@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="waiting_fact_heading">¿Sabías que…?</string>
+    <string name="waiting_fact_vitamin_c">La vitamina C ayuda al cuerpo a absorber el hierro de los alimentos de origen vegetal.</string>
+    <string name="waiting_fact_beans">Los frijoles y las lentejas contienen proteínas y fibra.</string>
+    <string name="waiting_fact_oats">La avena contiene betaglucano, un tipo de fibra soluble.</string>
+    <string name="waiting_fact_vegetables" formatted="false">Más del 90 % del peso de los pepinos y los tomates es agua.</string>
+    <string name="waiting_fact_strength">El entrenamiento de fuerza consiste en vencer una resistencia. Tu propio peso corporal también cuenta.</string>
+</resources>

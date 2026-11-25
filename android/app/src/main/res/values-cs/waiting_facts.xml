@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="waiting_fact_heading">Věděli jste?</string>
+    <string name="waiting_fact_vitamin_c">Vitamin C pomáhá tělu vstřebávat železo z rostlinných potravin.</string>
+    <string name="waiting_fact_beans">Fazole a čočka obsahují bílkoviny i vlákninu.</string>
+    <string name="waiting_fact_oats">Oves obsahuje beta-glukan, druh rozpustné vlákniny.</string>
+    <string name="waiting_fact_vegetables" formatted="false">Více než 90 % hmotnosti okurek a rajčat tvoří voda.</string>
+    <string name="waiting_fact_strength">Při silovém tréninku překonáváte odpor. Poslouží i váha vlastního těla.</string>
+</resources>

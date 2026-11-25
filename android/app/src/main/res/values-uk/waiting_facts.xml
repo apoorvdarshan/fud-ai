@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="waiting_fact_heading">Чи знали ви?</string>
+    <string name="waiting_fact_vitamin_c">Вітамін C допомагає організму засвоювати залізо з рослинної їжі.</string>
+    <string name="waiting_fact_beans">Квасоля й сочевиця містять і білок, і клітковину.</string>
+    <string name="waiting_fact_oats">Овес містить бета-глюкан — різновид розчинної клітковини.</string>
+    <string name="waiting_fact_vegetables" formatted="false">Вода становить понад 90% маси огірків і помідорів.</string>
+    <string name="waiting_fact_strength">Силові тренування передбачають роботу з опором. Для цього можна використовувати й вагу власного тіла.</string>
+</resources>

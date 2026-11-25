@@ -5629,6 +5629,10 @@ struct ProfileView: View {
                     .tint(.primary)
                     .disabled(isRecalculatingGoals)
 
+                    if isRecalculatingGoals {
+                        WaitingFactCard()
+                    }
+
                     Button {
                         showCalculationMethods = true
                     } label: {

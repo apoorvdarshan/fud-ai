@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="waiting_fact_heading">Știai că…?</string>
+    <string name="waiting_fact_vitamin_c">Vitamina C ajută organismul să absoarbă fierul din alimentele de origine vegetală.</string>
+    <string name="waiting_fact_beans">Fasolea și lintea conțin atât proteine, cât și fibre.</string>
+    <string name="waiting_fact_oats">Ovăzul conține beta-glucan, un tip de fibră solubilă.</string>
+    <string name="waiting_fact_vegetables" formatted="false">Peste 90% din greutatea castraveților și a roșiilor este apă.</string>
+    <string name="waiting_fact_strength">Antrenamentul de forță presupune să lucrezi împotriva unei rezistențe. Poți folosi și greutatea propriului corp.</string>
+</resources>

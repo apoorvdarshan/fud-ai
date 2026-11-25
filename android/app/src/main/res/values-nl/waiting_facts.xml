@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="waiting_fact_heading">Wist je dat?</string>
+    <string name="waiting_fact_vitamin_c">Vitamine C helpt je lichaam ijzer uit plantaardig voedsel op te nemen.</string>
+    <string name="waiting_fact_beans">Bonen en linzen bevatten zowel eiwitten als vezels.</string>
+    <string name="waiting_fact_oats">Haver bevat bètaglucaan, een soort oplosbare vezel.</string>
+    <string name="waiting_fact_vegetables" formatted="false">Komkommers en tomaten bestaan voor meer dan 90% van hun gewicht uit water.</string>
+    <string name="waiting_fact_strength">Bij krachttraining werk je tegen weerstand. Je eigen lichaamsgewicht telt ook mee.</string>
+</resources>

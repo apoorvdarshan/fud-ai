@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="waiting_fact_heading">Schon gewusst?</string>
+    <string name="waiting_fact_vitamin_c">Vitamin C hilft deinem Körper, Eisen aus pflanzlichen Lebensmitteln aufzunehmen.</string>
+    <string name="waiting_fact_beans">Bohnen und Linsen enthalten sowohl Eiweiß als auch Ballaststoffe.</string>
+    <string name="waiting_fact_oats">Hafer enthält Beta-Glucan, einen löslichen Ballaststoff.</string>
+    <string name="waiting_fact_vegetables" formatted="false">Gurken und Tomaten bestehen zu mehr als 90 Prozent ihres Gewichts aus Wasser.</string>
+    <string name="waiting_fact_strength">Beim Krafttraining arbeitest du gegen einen Widerstand. Auch dein eigenes Körpergewicht zählt.</string>
+</resources>

@@ -206,6 +206,7 @@ import com.apoorvdarshan.calorietracker.ui.components.FudGlassPrimaryButton
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassSurface
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassTextField
 import com.apoorvdarshan.calorietracker.ui.components.WeekEnergyStrip
+import com.apoorvdarshan.calorietracker.ui.components.WaitingFactCard
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
 import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 import com.apoorvdarshan.calorietracker.ui.theme.PinkNeoCondensed
@@ -2851,14 +2852,12 @@ private fun CopyFromDaySheet(
 // ── Dialogs (unchanged styling polish) ──────────────────────────────
 
 @Composable
-private fun AnalyzingOverlay(
+internal fun AnalyzingOverlay(
     imageBytes: ByteArray? = null,
     progress: AnalysisProgressState? = null,
     onCancel: (() -> Unit)? = null
 ) {
-    // Verbatim port of ios/calorietracker/Views/AnalyzingView.swift:
-    //   VStack { (image | text.magnifyingglass) → ProgressView(.large) → "Analyzing your food..." → Cancel }
-    //   filling the screen, opaque background, calorie-pink accents.
+    // Match iOS: an opaque analysis surface with progress, a fact, and Cancel.
     val bitmap by produceState<android.graphics.Bitmap?>(initialValue = null, imageBytes) {
         value = withContext(Dispatchers.IO) {
             // Skip overlay decode for huge cold-start imports so analysis isn't fighting the UI
@@ -2880,9 +2879,8 @@ private fun AnalyzingOverlay(
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(24.dp, Alignment.CenterVertically),
-            // At large font sizes the fixed image and the three text lines no longer
-            // fit; the minimum height keeps the content centred, and the scroll keeps
-            // the cancel button reachable once the content grows past the screen.
+            // Keep the content centred while it fits and Cancel reachable by
+            // scrolling when a photo or large text needs more space.
             modifier = Modifier
                 .verticalScroll(rememberScrollState())
                 .heightIn(min = maxHeight)
@@ -2925,6 +2923,7 @@ private fun AnalyzingOverlay(
                     color = MaterialTheme.colorScheme.onBackground
                 )
             }
+            WaitingFactCard()
             // A slow or stalled provider used to leave this screen up with no way out (#357).
             onCancel?.let { cancel ->
                 TextButton(onClick = cancel) {

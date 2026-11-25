@@ -38,6 +38,16 @@ struct IngredientAddMenuButton: View {
     @State private var errorMessage: String?
 
     var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            ingredientMenu
+            if isBusy {
+                WaitingFactCard()
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+        }
+    }
+
+    private var ingredientMenu: some View {
         FlashMenu(title: Text("Add Ingredient"), items: {
             [
                 FlashMenuItem(Text("Camera"), icon: "camera.fill") { showCamera = true },

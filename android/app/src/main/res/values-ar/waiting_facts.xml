@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="waiting_fact_heading">هل تعلم؟</string>
+    <string name="waiting_fact_vitamin_c">يساعد فيتامين C جسمك على امتصاص الحديد من الأطعمة النباتية.</string>
+    <string name="waiting_fact_beans">تحتوي الفاصوليا والعدس على البروتين والألياف.</string>
+    <string name="waiting_fact_oats">يحتوي الشوفان على بيتا غلوكان، وهو نوع من الألياف القابلة للذوبان.</string>
+    <string name="waiting_fact_vegetables" formatted="false">يشكّل الماء أكثر من ٩٠٪ من وزن الخيار والطماطم.</string>
+    <string name="waiting_fact_strength">تعتمد تمارين القوة على العمل ضد مقاومة، ويمكن استخدام وزن جسمك لهذه الغاية.</string>
+</resources>

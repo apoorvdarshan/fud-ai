@@ -496,11 +496,12 @@ struct WorkoutLogView: View {
                           exerciseID != oldValue?.exerciseID
                     else { return }
 
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                        withAnimation(.snappy(duration: 0.25)) {
-                            proxy.scrollTo(exerciseID, anchor: UnitPoint(x: 0.5, y: 0.8))
-                        }
-                    }
+                    revealFocusedExercise(exerciseID, in: proxy)
+                }
+                .onChange(of: restTimer.timer == nil) { _, _ in
+                    // Filling the first reps starts rest and inserts a pinned bar.
+                    // Reposition the edit row in the newly shortened viewport.
+                    if let id = focusedSetField?.exerciseID { revealFocusedExercise(id, in: proxy) }
                 }
                 .safeAreaInset(edge: .bottom, spacing: 0) {
                     workoutDock
@@ -883,6 +884,15 @@ struct WorkoutLogView: View {
         guard focusedSetField != nil else { return }
         focusedSetField = nil
         dismissKeyboard()
+    }
+
+    private func revealFocusedExercise(_ id: UUID, in proxy: ScrollViewProxy) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            guard focusedSetField?.exerciseID == id else { return }
+            withAnimation(.snappy(duration: 0.25)) {
+                proxy.scrollTo(id, anchor: .center)
+            }
+        }
     }
 
     private func requestWorkoutDeletion(_ exercise: StrengthPlannedExercise) {
@@ -1630,7 +1640,10 @@ private struct WorkoutLogSetValueField: View {
             .overlay {
                 RoundedRectangle(cornerRadius: 11, style: .continuous)
                     .stroke(Color.workoutHairline.opacity(0.4), lineWidth: 0.6)
+                    .allowsHitTesting(false)
             }
+            .contentShape(Rectangle())
+            .simultaneousGesture(TapGesture().onEnded { focusedField.wrappedValue = focus })
     }
 }
 

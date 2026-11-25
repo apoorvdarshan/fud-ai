@@ -479,6 +479,8 @@ struct WeeklyChallengeParticipant: Codable, Identifiable, Equatable {
     let activityKcal: Int
     let updatedAt: String?
     let isViewer: Bool
+    var balancedDays: Int?
+    var longestStreak: Int?
 
     var id: String { participantId }
 }
@@ -489,6 +491,9 @@ struct WeeklyChallengeLeaderboardResponse: Codable, Equatable {
     let updatedAt: String
     let rankings: [WeeklyChallengeParticipant]
     let viewer: WeeklyChallengeParticipant?
+    var offset: Int?
+    var totalCount: Int?
+    var period: ChallengePeriod?
 }
 
 struct WeeklyChallengeCreateProfileResponse: Decodable {

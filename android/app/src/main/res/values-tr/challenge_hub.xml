@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="challenge_hub_title">Meydan okumalar</string>
+    <string name="challenge_hub_daily">Günlük</string>
+    <string name="challenge_hub_weekly">Haftalık</string>
+    <string name="challenge_hub_monthly">Aylık</string>
+    <string name="challenge_hub_your_points">Puanların</string>
+    <string name="challenge_hub_points">Puan: %1$d</string>
+    <string name="challenge_hub_days">Gün: %1$d</string>
+    <string name="challenge_hub_participants">Katılımcılar: %1$d</string>
+    <string name="challenge_hub_join">Katıl ve puanları paylaş</string>
+    <string name="challenge_hub_remove">Ayrıl ve puanları sil</string>
+    <string name="challenge_hub_go_weekly">Haftalık mücadeleye git</string>
+    <string name="challenge_hub_habits">Rakamları değil, alışkanlıkları geliştirin</string>
+    <string name="challenge_hub_profile_first">Profil oluşturmak için önce haftalık mücadeleye katılın.</string>
+    <string name="challenge_hub_service">Bu sıralama için mücadele hizmetinin güncellenmesi gerekiyor.</string>
+    <string name="challenge_hub_consent">Katılınca adınız ve bu dönemin alışkanlık toplamları diğer katılımcılara görünür. Günlük kayıtları, kilo ve kalori miktarları paylaşılmaz.</string>
+    <string name="challenge_hub_rules_base">Hareket, yemek kaydı, beslenme hedefi ve su hedefi için her gün birer puan kazanın.</string>
+    <string name="challenge_hub_rules_bonus">Üç veya daha fazla alışkanlığı tamamladığınız günlerde bir bonus puan kazanın.</string>
+    <string name="challenge_hub_rules_streak">İki veya daha fazla alışkanlık içeren en uzun serinizde, ilk günden sonraki her gün bir puan getirir.</string>
+    <string name="challenge_hub_leave">Bu mücadeleden ayrılmak istiyor musunuz?</string>
+    <string name="challenge_hub_leave_detail">Yalnızca bu dönemin puanları kaldırılır. Diğer mücadeleler ve günlüğünüz değişmez.</string>
+    <string name="challenge_hub_leave_all">Tüm mücadelelerden ayrılmak istiyor musunuz?</string>
+    <string name="challenge_hub_leave_all_detail">Herkese açık profiliniz, tüm puanlarınız ve şikayetleriniz silinir. Özel günlüğünüz cihazda kalır.</string>
+    <string name="challenge_hub_jump_to_rank">Sıralamama git</string>
+    <string name="challenge_hub_week_rank">Önce seçili puan değerlendirilir. Eşitlikte daha çeşitli alışkanlıklar, daha dengeli sonuçlar ve diğer gün sayıları öne çıkar. Bunlar da eşitse önce ulaşan öndedir. Antrenman kalorileri eşitliği bozmaz.</string>
+</resources>

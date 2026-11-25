@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="challenge_hub_title">Challenges</string>
+    <string name="challenge_hub_daily">Täglich</string>
+    <string name="challenge_hub_weekly">Wöchentlich</string>
+    <string name="challenge_hub_monthly">Monatlich</string>
+    <string name="challenge_hub_your_points">Deine Punkte</string>
+    <string name="challenge_hub_points">Punkte: %1$d</string>
+    <string name="challenge_hub_days">Tage: %1$d</string>
+    <string name="challenge_hub_participants">Teilnehmende: %1$d</string>
+    <string name="challenge_hub_join">Teilnehmen und Punkte teilen</string>
+    <string name="challenge_hub_remove">Verlassen und Ergebnisse löschen</string>
+    <string name="challenge_hub_go_weekly">Zur Wochenchallenge</string>
+    <string name="challenge_hub_habits">Gewohnheiten statt Rekorde aufbauen</string>
+    <string name="challenge_hub_profile_first">Tritt zuerst der Wochenchallenge bei, um dein Profil zu erstellen.</string>
+    <string name="challenge_hub_service">Diese Rangliste benötigt einen aktualisierten Challenge-Dienst.</string>
+    <string name="challenge_hub_consent">Bei der Teilnahme sehen andere deinen Namen und die Gewohnheitssummen für diesen Zeitraum. Tagebucheinträge, Gewicht und Kalorienmengen bleiben privat.</string>
+    <string name="challenge_hub_rules_base">Pro Tag gibt es je einen Punkt für Bewegung, Essensprotokoll, Ernährungsziel und Trinkziel.</string>
+    <string name="challenge_hub_rules_bonus">An Tagen mit mindestens drei Gewohnheiten gibt es einen Bonuspunkt.</string>
+    <string name="challenge_hub_rules_streak">Deine längste Serie mit mindestens zwei Gewohnheiten bringt ab dem zweiten Tag jeweils einen Punkt.</string>
+    <string name="challenge_hub_leave">Diese Challenge verlassen?</string>
+    <string name="challenge_hub_leave_detail">Nur deine Ergebnisse für diesen Zeitraum werden gelöscht. Die anderen Challenges und dein Tagebuch bleiben unverändert.</string>
+    <string name="challenge_hub_leave_all">Alle Challenges verlassen?</string>
+    <string name="challenge_hub_leave_all_detail">Dein öffentliches Profil, alle Ergebnisse und Challenge-Meldungen werden gelöscht. Dein privates Tagebuch bleibt auf diesem Gerät.</string>
+    <string name="challenge_hub_jump_to_rank">Zu meinem Platz</string>
+    <string name="challenge_hub_week_rank">Die gewählte Punktzahl zählt zuerst. Bei Gleichstand zählen vielfältigere Gewohnheiten, ausgeglichenere Ergebnisse und die übrigen Tageszahlen. Sind auch diese gleich, liegt vorne, wer sie zuerst erreicht hat. Trainingskalorien entscheiden nicht.</string>
+</resources>

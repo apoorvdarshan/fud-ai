@@ -7,26 +7,41 @@ struct WeeklyChallengeView: View {
     @Environment(StrengthWorkoutStore.self) private var strengthWorkoutStore
     @Environment(WeeklyChallengeStore.self) private var store
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.dynamicTypeSize) private var typeSize
     @AppStorage(WaterSettings.enabledKey) private var waterTrackingEnabled = false
     @AppStorage(WaterSettings.dailyGoalKey) private var waterDailyGoal = WaterSettings.defaultDailyGoalMl
 
     @State private var category: WeeklyChallengeCategory = .overall
+    @State private var period: ChallengePeriod = .weekly
+    @State private var now = Date.now
     @State private var rankingPage = 0
+    @State private var failedRankingPage: RankingPageRequest?
     @State private var profileSheetMode: WeeklyChallengeProfileSheetMode?
     @State private var reportTarget: WeeklyChallengeParticipant?
     @State private var showBlockedParticipants = false
     @State private var showLeaveConfirmation = false
     @State private var showReportConfirmation = false
+    @State private var showLeavePeriod = false
 
     private struct RefreshIdentity: Hashable {
         let category: WeeklyChallengeCategory
         let score: WeeklyChallengeScore
+        let period: ChallengePeriod
+        let periodScore: ChallengePeriodScore?
         let isJoined: Bool
         let hasPendingDeletion: Bool
     }
 
+    private struct RankingPageRequest: Hashable {
+        let category: WeeklyChallengeCategory
+        let weekStart: String
+        let offset: Int
+        let period: ChallengePeriod
+    }
+
     private var localScore: WeeklyChallengeScore {
         WeeklyChallengeAggregator.score(
+            now: now,
             foods: foodStore.entries.map {
                 WeeklyChallengeFoodSample(date: $0.timestamp, calories: $0.calories)
             },
@@ -46,21 +61,69 @@ struct WeeklyChallengeView: View {
     }
 
     private var currentWeek: WeeklyChallengeWeek {
-        WeeklyChallengeWeek.containing(.now)
+        WeeklyChallengeWeek.containing(now)
     }
 
+    private var periodScore: ChallengePeriodScore? {
+        guard period != .weekly else { return nil }
+        return ChallengePeriodScore.calculate(
+            period: period, now: now,
+            foods: foodStore.entries.map { .init(date: $0.timestamp, calories: $0.calories) },
+            water: waterStore.entries.map { .init(date: $0.date, milliliters: $0.milliliters) },
+            activities: strengthWorkoutStore.completedSessions.map { .init(date: $0.calendarDiaryDate, calories: $0.caloriesBurned) },
+            calorieGoal: profileStore.profile.effectiveCalories,
+            waterGoal: waterTrackingEnabled ? waterDailyGoal : nil
+        )
+    }
+
+    private var currentStartKey: String { periodScore?.periodStart ?? localScore.weekStart }
+
     private var displayedLeaderboard: WeeklyChallengeLeaderboardResponse? {
-        store.leaderboardFor(category: category, weekStart: localScore.weekStart)
+        store.leaderboardFor(category: category, weekStart: currentStartKey, period: period)
     }
 
     private var displayedViewer: WeeklyChallengeParticipant? {
-        store.viewerFor(category: category, weekStart: localScore.weekStart)
+        rankingPageResponse?.viewer ?? displayedLeaderboard?.viewer
+    }
+
+    private var rankingPageRequest: RankingPageRequest? {
+        guard rankingPage > 0, displayedLeaderboard?.totalCount != nil else { return nil }
+        return RankingPageRequest(
+            category: category, weekStart: currentStartKey,
+            offset: rankingPage * WeeklyChallengeLeaderboardCache.pageSize, period: period
+        )
+    }
+
+    private var rankingPageResponse: WeeklyChallengeLeaderboardResponse? {
+        guard let request = rankingPageRequest else { return displayedLeaderboard }
+        return store.leaderboardFor(category: request.category, weekStart: request.weekStart, offset: request.offset, period: request.period)
+    }
+
+    private func loadRankingPage(_ request: RankingPageRequest, force: Bool = false) async {
+        let success = await store.loadPage(category: request.category, weekStart: request.weekStart, offset: request.offset,
+                                           period: request.period, force: force)
+        guard !Task.isCancelled, rankingPageRequest == request else { return }
+        failedRankingPage = success ? nil : request
+        if let count = rankingPageResponse?.totalCount, request.offset >= count {
+            rankingPage = max(0, (count - 1) / WeeklyChallengeLeaderboardCache.pageSize)
+        }
+    }
+
+    private func refreshSelected(force: Bool = false) async {
+        if let score = periodScore {
+            await store.refreshPeriod(category: category, score: score, force: force)
+        } else {
+            await store.refresh(category: category, score: localScore)
+        }
     }
 
     var body: some View {
-        Group {
+        VStack(spacing: 0) {
+            periodSelector
             if store.hasPendingDeletion {
                 pendingDeletionView
+            } else if period != .weekly, !store.isJoined || !store.enabledPeriods.contains(period) {
+                periodIntroduction
             } else if store.isJoined {
                 joinedView
             } else {
@@ -72,6 +135,8 @@ struct WeeklyChallengeView: View {
             id: RefreshIdentity(
                 category: category,
                 score: localScore,
+                period: period,
+                periodScore: periodScore,
                 isJoined: store.isJoined,
                 hasPendingDeletion: store.hasPendingDeletion
             )
@@ -79,27 +144,36 @@ struct WeeklyChallengeView: View {
             if store.hasPendingDeletion {
                 await store.retryPendingDeletionIfNeeded()
             } else if store.isJoined {
-                await store.refresh(category: category, score: localScore)
+                await refreshSelected()
                 while !Task.isCancelled {
                     try? await Task.sleep(for: .seconds(60))
                     guard !Task.isCancelled, store.isJoined else { return }
-                    await store.refresh(category: category, score: localScore)
+                    guard scenePhase == .active else { continue }
+                    now = .now
+                    await refreshSelected()
                 }
             }
         }
         .onChange(of: category) { _, _ in
             rankingPage = 0
         }
-        .onChange(of: localScore.weekStart) { _, _ in
+        .onChange(of: currentStartKey) { _, _ in
             rankingPage = 0
+        }
+        .onChange(of: period) { _, _ in rankingPage = 0 }
+        .onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged)) { _ in now = .now }
+        .task(id: rankingPageRequest) {
+            failedRankingPage = nil
+            if let request = rankingPageRequest { await loadRankingPage(request) }
         }
         .onChange(of: scenePhase) { _, phase in
             guard phase == .active else { return }
+            now = .now
             Task {
                 if store.hasPendingDeletion {
                     await store.retryPendingDeletionIfNeeded()
                 } else if store.isJoined {
-                    await store.refresh(category: category, score: localScore)
+                    await refreshSelected()
                 }
             }
         }
@@ -151,7 +225,18 @@ struct WeeklyChallengeView: View {
             )
         }
         .alert(
-            WeeklyChallengeL10n.text("Leave Weekly Challenge?"),
+            Text("Leave this challenge?", tableName: "ChallengeHub"),
+            isPresented: $showLeavePeriod
+        ) {
+            Button("Cancel", role: .cancel) {}
+            Button(role: .destructive) { Task { await store.leavePeriod(period) } } label: {
+                Text("Leave and remove scores", tableName: "ChallengeHub")
+            }
+        } message: {
+            Text("This removes your scores for this time period only. Your other challenges and diary stay unchanged.", tableName: "ChallengeHub")
+        }
+        .alert(
+            Text("Leave all challenges?", tableName: "ChallengeHub"),
             isPresented: $showLeaveConfirmation
         ) {
             Button(WeeklyChallengeL10n.text("Cancel"), role: .cancel) { }
@@ -162,11 +247,7 @@ struct WeeklyChallengeView: View {
                 Task { await store.leaveAndDeleteRemoteData() }
             }
         } message: {
-            Text(
-                WeeklyChallengeL10n.text(
-                    "Your public profile, weekly scores, and challenge reports will be deleted from Fud AI. Your private food, water, and workout history stays on this device."
-                )
-            )
+            Text("Your public profile, all scores, and challenge reports will be deleted. Your private diary stays on this device.", tableName: "ChallengeHub")
         }
         .alert(
             WeeklyChallengeL10n.text("Report Sent"),
@@ -195,6 +276,76 @@ struct WeeklyChallengeView: View {
         }
     }
 
+    private var periodSelector: some View {
+        let selector = Picker(selection: $period) {
+            ForEach(ChallengePeriod.allCases) { candidate in
+                Text(String(localized: candidate.name, table: "ChallengeHub")).tag(candidate)
+            }
+        } label: {
+            Text("Challenges", tableName: "ChallengeHub")
+        }
+        return Group {
+            if typeSize.isAccessibilitySize { selector.pickerStyle(.menu) }
+            else { selector.pickerStyle(.segmented) }
+        }
+        .padding(.horizontal)
+        .padding(.vertical, 8)
+        .accessibilityIdentifier("challenges.period")
+    }
+
+    private var periodIntroduction: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 18) {
+                challengeHeader
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("Build habits, not bigger numbers", tableName: "ChallengeHub")
+                        .font(.system(.title2, design: .rounded, weight: .bold))
+                    periodRules
+                    if !store.isJoined {
+                        Text("Join Weekly to create your challenge profile first.", tableName: "ChallengeHub")
+                            .font(.subheadline)
+                        Button { period = .weekly } label: { Text("Go to Weekly", tableName: "ChallengeHub") }
+                            .buttonStyle(.borderedProminent)
+                    } else if !store.supportsExpandedPeriods {
+                        Text("This board needs an updated challenge service.", tableName: "ChallengeHub")
+                            .font(.subheadline).foregroundStyle(.secondary)
+                    } else if let score = periodScore {
+                        Text("Joining shares your name and habit totals for this period with other participants. No diary entries, weight, or calorie amounts are shared.", tableName: "ChallengeHub")
+                            .font(.subheadline)
+                        Button {
+                            Task { await store.refreshPeriod(category: category, score: score, accept: true, force: true) }
+                        } label: { Text("Join and share scores", tableName: "ChallengeHub") }
+                        .buttonStyle(.borderedProminent)
+                        .disabled(store.busyPeriod != nil)
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(18)
+                .background(AppColors.appCard, in: RoundedRectangle(cornerRadius: 22))
+            }
+            .padding(.horizontal)
+            .padding(.vertical, 12)
+        }
+    }
+
+    private var periodRules: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Label {
+                Text("Earn one point per habit each day: movement, food logging, nutrition goal, and water goal.", tableName: "ChallengeHub")
+            } icon: { Image(systemName: "checkmark.circle") }
+            Label {
+                Text("Earn a bonus point on days with three or more habits.", tableName: "ChallengeHub")
+            } icon: { Image(systemName: "sparkles") }
+            if period == .monthly {
+                Label {
+                    Text("Your longest run of days with two or more habits earns one point for each day after the first.", tableName: "ChallengeHub")
+                } icon: { Image(systemName: "flame") }
+            }
+        }
+        .font(.subheadline)
+        .foregroundStyle(.secondary)
+    }
+
     private var joinIntroduction: some View {
         ScrollView {
             VStack(spacing: 18) {
@@ -203,7 +354,7 @@ struct WeeklyChallengeView: View {
                     .foregroundStyle(AppColors.calorie)
                     .accessibilityHidden(true)
 
-                Text(WeeklyChallengeL10n.text("Weekly Challenge"))
+                Text("Challenges", tableName: "ChallengeHub")
                     .font(.system(.title2, design: .rounded, weight: .bold))
 
                 Text(
@@ -275,10 +426,26 @@ struct WeeklyChallengeView: View {
                     challengeHeader
                     categorySelector
 
+                    if let score = periodScore {
+                        VStack(alignment: .leading, spacing: 10) {
+                            Label {
+                                Text("Your points", tableName: "ChallengeHub")
+                            } icon: { Image(systemName: "star.circle.fill").foregroundStyle(AppColors.accentText) }
+                            .font(.headline)
+                            Text(score.points, format: .number)
+                                .font(.system(.largeTitle, design: .rounded, weight: .black).monospacedDigit())
+                            if let rank = displayedViewer?.rank { Text("#\(rank)").font(.subheadline.weight(.semibold)) }
+                            periodRules
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(16)
+                        .background(AppColors.appCard, in: RoundedRectangle(cornerRadius: 22))
+                    }
+
                     if let response = displayedLeaderboard {
                         leaderboardRows(response)
                             .id("challengeRankings")
-                    } else if store.isRefreshing {
+                    } else if store.isRefreshing || store.busyPeriod == period {
                     ProgressView()
                         .padding(.vertical, 32)
                         .accessibilityLabel(WeeklyChallengeL10n.text("Loading leaderboard"))
@@ -289,7 +456,7 @@ struct WeeklyChallengeView: View {
                         .padding(.vertical, 28)
                 }
 
-                if let viewer = displayedViewer {
+                if period == .weekly, let viewer = displayedViewer {
                     WeeklyChallengeViewerCard(
                         participant: viewer,
                         category: category,
@@ -301,7 +468,14 @@ struct WeeklyChallengeView: View {
                     )
                 }
 
-                WeeklyChallengePointsExplanationView()
+                if period == .weekly {
+                    WeeklyChallengePointsExplanationView()
+                } else {
+                    Button(role: .destructive) { showLeavePeriod = true } label: {
+                        Text("Leave and remove scores", tableName: "ChallengeHub")
+                    }
+                    .disabled(store.busyPeriod != nil)
+                }
 
                 if !store.blockedParticipantIDs.isEmpty {
                     Button(WeeklyChallengeL10n.text("Manage Blocked Participants")) {
@@ -315,7 +489,8 @@ struct WeeklyChallengeView: View {
             .padding(.vertical, 12)
             }
             .refreshable {
-                await store.refresh(category: category, score: localScore)
+                await refreshSelected(force: true)
+                if let request = rankingPageRequest { await loadRankingPage(request, force: true) }
             }
             .onChange(of: rankingPage) { _, _ in
                 withAnimation(.easeOut(duration: 0.2)) {
@@ -354,32 +529,38 @@ struct WeeklyChallengeView: View {
         VStack(alignment: .leading, spacing: 0) {
             HStack(alignment: .firstTextBaseline) {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(weekRangeText)
-                        .font(.system(.headline, design: .rounded, weight: .bold))
+                    Label(weekRangeText, systemImage: "trophy.fill")
+                        .font(.system(.title3, design: .rounded, weight: .bold))
                     Text(statusText)
                         .font(.system(.caption, design: .rounded))
                         .foregroundStyle(store.isOffline ? .orange : .secondary)
                 }
                 Spacer()
-                if store.isRefreshing {
+                if (period == .weekly && store.isRefreshing) || store.busyPeriod == period {
                     ProgressView()
                         .controlSize(.small)
                         .accessibilityLabel(WeeklyChallengeL10n.text("Updating leaderboard"))
                 }
             }
-            WeekCalendarStrip(weekStart: currentWeek.start)
+            if period == .weekly { WeekCalendarStrip(weekStart: currentWeek.start) }
         }
         .padding(14)
-        .background(AppColors.appCard, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .background(AppColors.calorie.opacity(0.10), in: RoundedRectangle(cornerRadius: 20, style: .continuous))
     }
 
     private var weekRangeText: String {
+        if period == .daily { return now.formatted(.dateTime.weekday(.wide).month(.wide).day()) }
+        if period == .monthly { return now.formatted(.dateTime.month(.wide).year()) }
         let start = currentWeek.start.formatted(.dateTime.month(.abbreviated).day())
         let end = currentWeek.end.formatted(.dateTime.month(.abbreviated).day().year())
         return WeeklyChallengeL10n.format("%1$@ – %2$@", start, end)
     }
 
     private var statusText: String {
+        if period != .weekly {
+            return displayedLeaderboard?.totalCount.map { String(localized: "Participants: \($0)", table: "ChallengeHub") }
+                ?? String(localized: "Challenges", table: "ChallengeHub")
+        }
         let categoryUpdated = store.lastUpdatedFor(
             category: category,
             weekStart: localScore.weekStart
@@ -403,26 +584,26 @@ struct WeeklyChallengeView: View {
     }
 
     private func orderedRankings(_ response: WeeklyChallengeLeaderboardResponse) -> [WeeklyChallengeParticipant] {
-        let viewerID = displayedViewer?.participantId ?? store.participantID
-        var rows = response.rankings.filter {
+        let rows = response.rankings.filter {
             !store.isBlocked(participantID: $0.participantId)
         }
-        if let viewer = response.viewer ?? displayedViewer,
-           !rows.contains(where: { $0.participantId == viewer.participantId }),
-           !store.isBlocked(participantID: viewer.participantId) {
-            rows.append(viewer)
-        }
-        rows.sort { lhs, rhs in
+        return rows.sorted { lhs, rhs in
             if lhs.rank != rhs.rank { return lhs.rank < rhs.rank }
             return lhs.participantId < rhs.participantId
         }
-        return rows
     }
 
     @ViewBuilder
     private func leaderboardRows(_ response: WeeklyChallengeLeaderboardResponse) -> some View {
         let viewerID = displayedViewer?.participantId ?? store.participantID
-        let rows = orderedRankings(response)
+        let page = rankingPageResponse
+        let rows = page.map(orderedRankings) ?? []
+        let maxRank = page?.totalCount ?? response.totalCount ?? response.rankings.map(\.rank).max() ?? 0
+        let pageSize = WeeklyChallengeLeaderboardCache.pageSize
+        let pageCount = max(1, (maxRank + pageSize - 1) / pageSize)
+        let currentPage = min(rankingPage, pageCount - 1)
+        let startRank = currentPage * pageSize + 1
+        let endRank = min(startRank + pageSize - 1, maxRank)
 
         VStack(alignment: .leading, spacing: 0) {
             Text(WeeklyChallengeL10n.text("Rankings"))
@@ -431,7 +612,15 @@ struct WeeklyChallengeView: View {
                 .padding(.top, 14)
                 .padding(.bottom, 6)
 
-            if rows.isEmpty {
+            if let request = rankingPageRequest, failedRankingPage == request, page == nil {
+                Button(WeeklyChallengeL10n.text("Retry")) {
+                    failedRankingPage = nil
+                    Task { await loadRankingPage(request, force: true) }
+                }
+                .padding(16)
+            } else if page == nil {
+                ProgressView().padding(16).accessibilityLabel(WeeklyChallengeL10n.text("Loading leaderboard"))
+            } else if rows.isEmpty {
                 Text(WeeklyChallengeL10n.text("No other participants are ranked yet."))
                     .font(.system(.body, design: .rounded))
                     .foregroundStyle(.secondary)
@@ -443,11 +632,6 @@ struct WeeklyChallengeView: View {
                 let showPodium = first != nil && second != nil
                 let podiumIDs = Set([first?.participantId, second?.participantId, third?.participantId].compactMap { $0 })
                 let listRows = showPodium ? rows.filter { !podiumIDs.contains($0.participantId) } : rows
-                let maxRank = rows.map(\.rank).max() ?? 1
-                let pageCount = max(1, (maxRank + 19) / 20)
-                let currentPage = min(rankingPage, pageCount - 1)
-                let startRank = currentPage * 20 + 1
-                let endRank = min(startRank + 19, maxRank)
                 let pageRows = listRows.filter { $0.rank >= startRank && $0.rank <= endRank }
                 let showPodiumNow = showPodium && currentPage == 0
                 if showPodiumNow, let first, let second {
@@ -480,7 +664,15 @@ struct WeeklyChallengeView: View {
                         onBlock: { store.block(participant) }
                     )
                 }
-                if maxRank > 20 {
+            }
+            if page != nil, let request = rankingPageRequest, failedRankingPage == request {
+                Button(WeeklyChallengeL10n.text("Retry")) {
+                    failedRankingPage = nil
+                    Task { await loadRankingPage(request, force: true) }
+                }
+                .padding(12)
+            }
+            if pageCount > 1 {
                     VStack(spacing: 10) {
                         Text("#\(startRank)–#\(endRank)")
                             .font(.system(.subheadline, design: .rounded, weight: .semibold))
@@ -503,11 +695,19 @@ struct WeeklyChallengeView: View {
                                 rankingPage = min(currentPage + 1, pageCount - 1)
                             }
                         }
+                        if let rank = displayedViewer?.rank, rank <= maxRank,
+                           (rank - 1) / pageSize != currentPage {
+                            Button {
+                                rankingPage = (rank - 1) / pageSize
+                            } label: {
+                                Text("Jump to my rank", tableName: "ChallengeHub")
+                            }
+                            .buttonStyle(.bordered)
+                        }
                     }
                     .padding(.horizontal, 12)
                     .padding(.top, 8)
                     .padding(.bottom, 14)
-                }
             }
         }
         .background(AppColors.appCard, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
@@ -626,7 +826,7 @@ private struct WeeklyChallengePointsExplanationView: View {
                 .foregroundStyle(.secondary)
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.top, 10)
-            Text(WeeklyChallengeL10n.text("The category you are viewing comes first. If that matches, the other day counts decide it. Workout calories come next, except in Activity, where calories come before the other days. If the week is still identical, the person who reached those totals first stays ahead. Saving the same totals again does not move that time."))
+            Text("The selected score comes first. Ties favor more different habits, steadier results across habits, and the other day counts. If those match, the person who reached them first ranks higher. Workout calories do not break ties.", tableName: "ChallengeHub")
                 .font(.system(.footnote, design: .rounded))
                 .foregroundStyle(.secondary)
                 .fixedSize(horizontal: false, vertical: true)
@@ -1093,6 +1293,12 @@ private enum WeeklyChallengeParticipantScore {
         category: WeeklyChallengeCategory,
         energyUnit: EnergyUnit
     ) -> String {
+        if participant.balancedDays != nil {
+            if category == .overall {
+                return String(localized: "Points: \(participant.overallPoints)", table: "ChallengeHub")
+            }
+            return String(localized: "Days: \(participant.score)", table: "ChallengeHub")
+        }
         switch category {
         case .overall:
             return WeeklyChallengeL10n.format(

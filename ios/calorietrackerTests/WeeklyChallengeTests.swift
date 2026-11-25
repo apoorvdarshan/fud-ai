@@ -4,6 +4,48 @@ import Testing
 
 @Suite("Weekly Challenge")
 struct WeeklyChallengeTests {
+    @Test func dailyAndMonthlyUseElapsedLocalDaysAndRewardBalancedStreaks() throws {
+        let zone = try #require(TimeZone(identifier: "Asia/Kolkata"))
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = zone
+        func day(_ number: Int) -> Date {
+            calendar.date(from: DateComponents(year: 2026, month: 11, day: number, hour: 10))!
+        }
+        let foods = [1, 2, 4, 5].map { WeeklyChallengeFoodSample(date: day($0), calories: 2_000) }
+        let water = [1, 2, 4].map { WeeklyChallengeWaterSample(date: day($0), milliliters: 2_000) }
+        let workouts = [1, 2, 2, 5].map { WeeklyChallengeActivitySample(date: day($0), calories: 500) }
+        let month = ChallengePeriodScore.calculate(
+            period: .monthly, now: day(4), timeZone: zone, foods: foods, water: water, activities: workouts,
+            calorieGoal: 2_000, waterGoal: 2_000
+        )
+        #expect(month.periodStart == "2026-11-01")
+        #expect(month.activityDays == 2)
+        #expect(month.balancedDays == 3)
+        #expect(month.longestStreak == 2)
+        #expect(month.points == 15)
+        let daily = ChallengePeriodScore.calculate(
+            period: .daily, now: day(4), timeZone: zone, foods: foods, water: water, activities: workouts,
+            calorieGoal: 2_000, waterGoal: nil
+        )
+        #expect(daily.periodStart == "2026-11-04")
+        #expect(daily.points == 2)
+        #expect(daily.hydrationDays == 0)
+    }
+
+    @Test func leaderboardCacheSeparatesPeriodsAndPagesEvenOnTheSameDate() {
+        var cache = WeeklyChallengeLeaderboardCache()
+        let monday = "2026-11-02"
+        for mode in ChallengePeriod.allCases {
+            for offset in [0, 20] {
+                cache.insert(.init(weekStart: monday, category: .overall, updatedAt: "", rankings: [], viewer: nil,
+                                   offset: offset, totalCount: 105, period: mode), savedAt: .now)
+            }
+        }
+        #expect(cache.entries.count == 6)
+        #expect(cache.entry(category: .overall, weekStart: monday, offset: 20, period: .daily)?.response.period == .daily)
+        cache.remove(period: .monthly)
+        #expect(cache.entries.count == 4)
+    }
     private var utcCalendar: Calendar {
         var calendar = Calendar(identifier: .gregorian)
         calendar.timeZone = TimeZone(secondsFromGMT: 0)!

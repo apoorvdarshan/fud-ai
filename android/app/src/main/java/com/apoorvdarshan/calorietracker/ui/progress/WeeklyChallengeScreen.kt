@@ -4,6 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -107,6 +109,7 @@ import com.apoorvdarshan.calorietracker.ui.components.FudGlassSurface
 import com.apoorvdarshan.calorietracker.ui.navigation.BottomNavScrollPadding
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
 import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
+import com.apoorvdarshan.calorietracker.models.ChallengePeriod
 import java.text.DateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -124,6 +127,7 @@ internal fun WeeklyChallengeScreen(container: AppContainer) {
     var showJoin by remember { mutableStateOf(false) }
     var editProfile by remember { mutableStateOf<WeeklyChallengePublicProfile?>(null) }
     var showLeave by remember { mutableStateOf(false) }
+    var showLeavePeriod by remember { mutableStateOf(false) }
     var showBlocked by remember { mutableStateOf(false) }
     var reportTarget by remember { mutableStateOf<WeeklyChallengeLeaderboardRow?>(null) }
     var blockTarget by remember { mutableStateOf<WeeklyChallengeLeaderboardRow?>(null) }
@@ -146,15 +150,10 @@ internal fun WeeklyChallengeScreen(container: AppContainer) {
         }
     }
 
-    val viewer = ui.leaderboard?.viewer
-        ?: ui.leaderboard?.rankings?.firstOrNull { it.isViewer }
-    val rankings = buildList {
-        addAll(ui.leaderboard?.rankings.orEmpty())
-        val viewerRow = ui.leaderboard?.viewer
-        if (viewerRow != null && none { it.participantId == viewerRow.participantId }) {
-            add(viewerRow)
-        }
-    }
+    val board = ui.currentLeaderboard
+    val page = if (ui.rankingPage > 0 && board?.totalCount != null) ui.pageResponse else board
+    val viewer = page?.viewer ?: board?.viewer ?: board?.rankings?.firstOrNull { it.isViewer }
+    val rankings = page?.rankings.orEmpty()
         .distinctBy { it.participantId }
         .filterNot { it.participantId in ui.blockedParticipants }
         .map { row ->
@@ -178,8 +177,11 @@ internal fun WeeklyChallengeScreen(container: AppContainer) {
             verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap)
         ) {
             item {
+                ChallengePeriodPicker(ui.period, vm::selectPeriod)
                 ChallengeHeader(
                     weekStart = ui.weekStart,
+                    period = ui.period,
+                    periodStart = ui.currentStart,
                     lastUpdatedEpochMillis = ui.lastUpdatedEpochMillis,
                     isOffline = ui.isOffline
                 )
@@ -202,6 +204,8 @@ internal fun WeeklyChallengeScreen(container: AppContainer) {
                         onRetry = vm::retryPendingDeletion
                     )
                 }
+            } else if (ui.period != ChallengePeriod.WEEKLY && (!ui.isJoined || ui.period !in ui.enabledPeriods)) {
+                item { ChallengePeriodIntroduction(ui, vm::joinCurrentPeriod) { vm.selectPeriod(ChallengePeriod.WEEKLY) } }
             } else if (!ui.isJoined) {
                 item {
                     ChallengeIntroduction(
@@ -212,6 +216,21 @@ internal fun WeeklyChallengeScreen(container: AppContainer) {
                     )
                 }
             } else {
+                if (ui.period != ChallengePeriod.WEEKLY) {
+                    ui.periodScore?.let { score ->
+                        item {
+                            FudGlassSurface(modifier = Modifier.fillMaxWidth(), cornerRadius = 22.dp, padding = 16.dp) {
+                                Column(verticalArrangement = Arrangement.spacedBy(9.dp)) {
+                                    Text(stringResource(R.string.challenge_hub_your_points), style = MaterialTheme.typography.titleMedium)
+                                    Text(stringResource(R.string.challenge_hub_points, score.points),
+                                        style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.Black)
+                                    viewer?.rank?.let { Text(stringResource(R.string.challenge_rank_format, it)) }
+                                    ChallengePeriodRules(ui.period)
+                                }
+                            }
+                        }
+                    }
+                }
                 item {
                     ChallengeCategorySelector(
                         selected = ui.category,
@@ -223,6 +242,14 @@ internal fun WeeklyChallengeScreen(container: AppContainer) {
                         rankings = rankings,
                         category = ui.category,
                         weekStart = ui.weekStart,
+                        totalCount = page?.totalCount ?: board?.totalCount
+                            ?: board?.rankings?.maxOfOrNull { it.rank ?: 0 } ?: 0,
+                        page = ui.rankingPage,
+                        isLoadingPage = ui.isLoadingPage || (page == null && ui.isRefreshing),
+                        pageFailed = ui.pageFailed,
+                        viewerRank = viewer?.rank,
+                        onSelectPage = vm::selectRankingPage,
+                        onRetryPage = vm::retryRankingPage,
                         onReport = { row ->
                             vm.dismissError()
                             reportTarget = row
@@ -235,7 +262,7 @@ internal fun WeeklyChallengeScreen(container: AppContainer) {
                         }
                     )
                 }
-                item {
+                if (ui.period == ChallengePeriod.WEEKLY) item {
                     ViewerPositionCard(
                         profile = requireNotNull(ui.profile),
                         viewer = viewer,
@@ -249,7 +276,12 @@ internal fun WeeklyChallengeScreen(container: AppContainer) {
                         onLeave = { showLeave = true }
                     )
                 }
-                item { ChallengePointsExplanation() }
+                if (ui.period == ChallengePeriod.WEEKLY) item { ChallengePointsExplanation() }
+                else item {
+                    TextButton(enabled = !ui.isPeriodChanging, onClick = { showLeavePeriod = true }) {
+                        Text(stringResource(R.string.challenge_hub_remove))
+                    }
+                }
             }
         }
     }
@@ -285,6 +317,21 @@ internal fun WeeklyChallengeScreen(container: AppContainer) {
             onLeave = {
                 vm.leaveAndDelete()
                 showLeave = false
+            }
+        )
+    }
+    if (showLeavePeriod) {
+        AlertDialog(
+            onDismissRequest = { showLeavePeriod = false },
+            title = { Text(stringResource(R.string.challenge_hub_leave)) },
+            text = { Text(stringResource(R.string.challenge_hub_leave_detail)) },
+            confirmButton = {
+                TextButton(onClick = { showLeavePeriod = false; vm.leaveCurrentPeriod() }) {
+                    Text(stringResource(R.string.challenge_hub_remove))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showLeavePeriod = false }) { Text(stringResource(R.string.action_cancel)) }
             }
         )
     }
@@ -333,6 +380,8 @@ internal fun WeeklyChallengeScreen(container: AppContainer) {
 @Composable
 private fun ChallengeHeader(
     weekStart: LocalDate,
+    period: ChallengePeriod,
+    periodStart: String,
     lastUpdatedEpochMillis: Long?,
     isOffline: Boolean
 ) {
@@ -340,18 +389,21 @@ private fun ChallengeHeader(
     val formatter = remember(locale) {
         DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(locale)
     }
-    FudGlassSurface(modifier = Modifier.fillMaxWidth(), cornerRadius = 16.dp, padding = 14.dp) {
+    FudGlassSurface(modifier = Modifier.fillMaxWidth(), cornerRadius = 22.dp, padding = 16.dp) {
     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
         Text(
-            text = stringResource(R.string.challenge_title),
+            text = stringResource(R.string.challenge_hub_title),
             style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.Bold
         )
         Text(
-            text = stringResource(
+            text = if (period == ChallengePeriod.WEEKLY) stringResource(
                 R.string.challenge_week_range,
                 weekStart.format(formatter),
                 WeeklyChallengeWeek.endFor(weekStart).format(formatter)
+            ) else LocalDate.parse(periodStart).format(
+                if (period == ChallengePeriod.MONTHLY) DateTimeFormatter.ofPattern("LLLL yyyy", locale)
+                else DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).withLocale(locale)
             ),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -373,8 +425,64 @@ private fun ChallengeHeader(
             color = if (isOffline) MaterialTheme.colorScheme.error
             else MaterialTheme.colorScheme.onSurfaceVariant
         )
-        WeekCalendarStrip(weekStart)
+        if (period == ChallengePeriod.WEEKLY) WeekCalendarStrip(weekStart)
     }
+    }
+}
+
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun ChallengePeriodPicker(selected: ChallengePeriod, onSelect: (ChallengePeriod) -> Unit) {
+    FlowRow(
+        Modifier.fillMaxWidth().padding(bottom = 6.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
+        verticalArrangement = Arrangement.spacedBy(4.dp)
+    ) {
+        for (period in ChallengePeriod.entries) {
+            val label = when (period) {
+                ChallengePeriod.DAILY -> R.string.challenge_hub_daily
+                ChallengePeriod.WEEKLY -> R.string.challenge_hub_weekly
+                ChallengePeriod.MONTHLY -> R.string.challenge_hub_monthly
+            }
+            FilterChip(
+                selected = period == selected, onClick = { onSelect(period) },
+                label = { Text(stringResource(label)) }, modifier = Modifier.heightIn(min = 48.dp)
+            )
+        }
+    }
+}
+
+@Composable
+private fun ChallengePeriodIntroduction(ui: WeeklyChallengeUiState, onJoin: () -> Unit, goToWeekly: () -> Unit) {
+    FudGlassSurface(modifier = Modifier.fillMaxWidth(), cornerRadius = 22.dp, padding = 16.dp) {
+        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            Text(stringResource(R.string.challenge_hub_habits), style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold)
+            ChallengePeriodRules(ui.period)
+            if (!ui.isJoined) {
+                Text(stringResource(R.string.challenge_hub_profile_first))
+                Button(onClick = goToWeekly) { Text(stringResource(R.string.challenge_hub_go_weekly)) }
+            } else if (!ui.supportsExtraPeriods) {
+                Text(stringResource(R.string.challenge_hub_service))
+                TextButton(onClick = goToWeekly) { Text(stringResource(R.string.challenge_hub_go_weekly)) }
+            } else {
+                Text(stringResource(R.string.challenge_hub_consent), style = MaterialTheme.typography.bodyMedium)
+                Button(enabled = !ui.isPeriodChanging && ui.periodScore != null, onClick = onJoin) {
+                    Text(stringResource(R.string.challenge_hub_join))
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun ChallengePeriodRules(period: ChallengePeriod) {
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        IntroFact(Icons.Filled.CheckCircle, stringResource(R.string.challenge_hub_rules_base))
+        IntroFact(Icons.Filled.EmojiEvents, stringResource(R.string.challenge_hub_rules_bonus))
+        if (period == ChallengePeriod.MONTHLY) {
+            IntroFact(Icons.Filled.LocalFireDepartment, stringResource(R.string.challenge_hub_rules_streak))
+        }
     }
 }
 
@@ -511,7 +619,7 @@ private fun ChallengePointsExplanation() {
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Text(
-                    text = stringResource(R.string.challenge_rank_order),
+                    text = stringResource(R.string.challenge_hub_week_rank),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -792,11 +900,17 @@ private fun RankingsBoard(
     rankings: List<WeeklyChallengeLeaderboardRow>,
     category: WeeklyChallengeCategory,
     weekStart: LocalDate,
+    totalCount: Int,
+    page: Int,
+    isLoadingPage: Boolean,
+    pageFailed: Boolean,
+    viewerRank: Int?,
+    onSelectPage: (Int) -> Unit,
+    onRetryPage: () -> Unit,
     onReport: (WeeklyChallengeLeaderboardRow) -> Unit,
     onBlock: (WeeklyChallengeLeaderboardRow) -> Unit,
     onManageBlocked: (() -> Unit)?
 ) {
-    var page by remember(category, weekStart) { mutableStateOf(0) }
     val bringRankingsIntoView = remember { BringIntoViewRequester() }
     var skipFirstPageScroll by remember(category, weekStart) { mutableStateOf(true) }
     LaunchedEffect(page) {
@@ -807,6 +921,10 @@ private fun RankingsBoard(
         bringRankingsIntoView.bringIntoView()
     }
     val podium = podiumSlots(rankings)
+    val pageCount = ((totalCount + RANKING_PAGE_SIZE - 1) / RANKING_PAGE_SIZE).coerceAtLeast(1)
+    val currentPage = page.coerceIn(0, pageCount - 1)
+    val startRank = currentPage * RANKING_PAGE_SIZE + 1
+    val endRank = minOf(startRank + RANKING_PAGE_SIZE - 1, totalCount)
     FudGlassSurface(modifier = Modifier.fillMaxWidth(), cornerRadius = 22.dp, padding = 6.dp) {
         Column {
             Row(
@@ -829,7 +947,9 @@ private fun RankingsBoard(
                     }
                 }
             }
-            if (rankings.isEmpty()) {
+            if (rankings.isEmpty() && isLoadingPage) {
+                CircularProgressIndicator(Modifier.align(Alignment.CenterHorizontally).padding(20.dp))
+            } else if (rankings.isEmpty() && !pageFailed) {
                 Text(
                     text = stringResource(R.string.challenge_leaderboard_empty),
                     modifier = Modifier
@@ -837,16 +957,11 @@ private fun RankingsBoard(
                         .padding(horizontal = 16.dp, vertical = 18.dp),
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
-            } else {
+            } else if (rankings.isNotEmpty()) {
                 val podiumIds = listOfNotNull(podium?.first, podium?.second, podium?.third)
                     .map { it.participantId }
                     .toSet()
                 val listRows = if (podium == null) rankings else rankings.filter { it.participantId !in podiumIds }
-                val maxRank = rankings.maxOf { it.rank ?: 1 }
-                val pageCount = (maxRank + 19) / 20
-                val currentPage = page.coerceIn(0, (pageCount - 1).coerceAtLeast(0))
-                val startRank = currentPage * 20 + 1
-                val endRank = minOf(startRank + 19, maxRank)
                 val showPodiumNow = podium != null && currentPage == 0
                 val pageRows = listRows.filter { (it.rank ?: 0) in startRank..endRank }
                 if (showPodiumNow && podium != null) {
@@ -873,7 +988,13 @@ private fun RankingsBoard(
                         )
                     }
                 }
-                if (maxRank > 20) {
+            }
+            if (pageFailed) {
+                TextButton(onClick = onRetryPage, modifier = Modifier.align(Alignment.CenterHorizontally)) {
+                    Text(stringResource(R.string.action_retry))
+                }
+            }
+            if (pageCount > 1) {
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -892,22 +1013,28 @@ private fun RankingsBoard(
                             horizontalArrangement = Arrangement.spacedBy(10.dp)
                         ) {
                             Button(
-                                onClick = { page = (currentPage - 1).coerceAtLeast(0) },
+                                onClick = { onSelectPage((currentPage - 1).coerceAtLeast(0)) },
                                 enabled = currentPage > 0,
                                 modifier = Modifier.weight(1f).heightIn(min = 48.dp)
                             ) {
                                 Text(stringResource(R.string.challenge_page_previous))
                             }
                             Button(
-                                onClick = { page = (currentPage + 1).coerceAtMost(pageCount - 1) },
+                                onClick = { onSelectPage((currentPage + 1).coerceAtMost(pageCount - 1)) },
                                 enabled = currentPage < pageCount - 1,
                                 modifier = Modifier.weight(1f).heightIn(min = 48.dp)
                             ) {
                                 Text(stringResource(R.string.challenge_page_next))
                             }
                         }
+                        if (viewerRank != null && viewerRank in 1..totalCount &&
+                            (viewerRank - 1) / RANKING_PAGE_SIZE != currentPage) {
+                            TextButton(
+                                onClick = { onSelectPage((viewerRank - 1) / RANKING_PAGE_SIZE) },
+                                modifier = Modifier.align(Alignment.CenterHorizontally)
+                            ) { Text(stringResource(R.string.challenge_hub_jump_to_rank)) }
+                        }
                     }
-                }
             }
         }
     }
@@ -1557,8 +1684,8 @@ private fun LeaveChallengeDialog(
 ) {
     AlertDialog(
         onDismissRequest = { if (!isBusy) onDismiss() },
-        title = { Text(stringResource(R.string.challenge_leave_title)) },
-        text = { Text(stringResource(R.string.challenge_leave_message)) },
+        title = { Text(stringResource(R.string.challenge_hub_leave_all)) },
+        text = { Text(stringResource(R.string.challenge_hub_leave_all_detail)) },
         confirmButton = {
             TextButton(onClick = onLeave, enabled = !isBusy) {
                 Text(
@@ -1748,7 +1875,10 @@ private fun activityDaysText(days: Int, burnKcal: Int): String {
 private fun leaderboardScoreText(
     category: WeeklyChallengeCategory,
     row: WeeklyChallengeLeaderboardRow
-): String = when (category) {
+): String = if (row.balancedDays != null) {
+    if (category == WeeklyChallengeCategory.OVERALL) stringResource(R.string.challenge_hub_points, row.overallPoints)
+    else stringResource(R.string.challenge_hub_days, row.score)
+} else when (category) {
     WeeklyChallengeCategory.OVERALL -> stringResource(R.string.challenge_points_format, row.overallPoints)
     WeeklyChallengeCategory.ACTIVITY -> activityDaysText(row.activityDays, row.activityKcal)
     WeeklyChallengeCategory.NUTRITION -> stringResource(R.string.challenge_days_format, row.nutritionDays)

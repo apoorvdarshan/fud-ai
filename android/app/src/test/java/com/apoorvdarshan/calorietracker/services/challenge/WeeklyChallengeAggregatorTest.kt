@@ -1,5 +1,9 @@
 package com.apoorvdarshan.calorietracker.services.challenge
 
+import com.apoorvdarshan.calorietracker.data.WeeklyChallengeStoredState
+import com.apoorvdarshan.calorietracker.models.ChallengePeriod
+import com.apoorvdarshan.calorietracker.models.WeeklyChallengeCategory
+import com.apoorvdarshan.calorietracker.models.WeeklyChallengeLeaderboard
 import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.FoodSource
 import com.apoorvdarshan.calorietracker.models.WaterEntry
@@ -14,6 +18,45 @@ import org.junit.Test
 class WeeklyChallengeAggregatorTest {
     private val utc: ZoneId = ZoneOffset.UTC
     private val monday = LocalDate.of(2026, 8, 24)
+
+    @Test
+    fun monthlyRewardsBalancedDaysAndLongestStreakWithoutCountingFutureOrDuplicateWorkoutDays() {
+        fun day(n: Int) = LocalDate.of(2026, 11, n)
+        val input = WeeklyChallengeAggregationInput(
+            foods = listOf(1, 2, 4, 5).map { food(day(it), 2_000) },
+            water = listOf(1, 2, 4).map { water(day(it), 2_000) },
+            workoutBurns = listOf(1, 2, 2, 5).map { workout(day(it), 500) },
+            calorieGoal = 2_000, waterTrackingEnabled = true, waterGoalMl = 2_000,
+            weekStart = day(2), today = day(4), zoneId = utc
+        )
+        val monthly = WeeklyChallengeAggregator.periodScore(ChallengePeriod.MONTHLY, input)
+        assertEquals("2026-11-01", monthly.periodStart)
+        assertEquals(2, monthly.activityDays)
+        assertEquals(3, monthly.balancedDays)
+        assertEquals(2, monthly.longestStreak)
+        assertEquals(15, monthly.points)
+        val daily = WeeklyChallengeAggregator.periodScore(ChallengePeriod.DAILY, input.copy(waterTrackingEnabled = false))
+        assertEquals("2026-11-04", daily.periodStart)
+        assertEquals(2, daily.points)
+        assertEquals(0, daily.hydrationDays)
+    }
+
+    @Test
+    fun leaderboardCacheSeparatesPeriodsAndPagesAndEvictsOldRows() {
+        val start = "2026-11-02"
+        val category = WeeklyChallengeCategory.OVERALL
+        var stored = WeeklyChallengeStoredState()
+        for (period in ChallengePeriod.entries) {
+            for (page in 0..10) {
+                stored = stored.caching(WeeklyChallengeLeaderboard(start, category, "", offset = page * 20, period = period),
+                    period.ordinal * 20L + page)
+            }
+        }
+        assertEquals(30, stored.cachedLeaderboards.size)
+        assertEquals(ChallengePeriod.MONTHLY, stored.cached(category, start, 100, ChallengePeriod.MONTHLY)?.period)
+        assertEquals(ChallengePeriod.WEEKLY, stored.cached(category, start, 100)?.period)
+        assertEquals(null, stored.leaving(ChallengePeriod.MONTHLY).cached(category, start, 100, ChallengePeriod.MONTHLY))
+    }
 
     @Test
     fun aggregatesOnlyQualifyingElapsedDaysAndCapsDailyActivity() {

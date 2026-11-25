@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="challenge_hub_title">चुनौतियाँ</string>
+    <string name="challenge_hub_daily">दैनिक</string>
+    <string name="challenge_hub_weekly">साप्ताहिक</string>
+    <string name="challenge_hub_monthly">मासिक</string>
+    <string name="challenge_hub_your_points">आपके अंक</string>
+    <string name="challenge_hub_points">अंक: %1$d</string>
+    <string name="challenge_hub_days">दिन: %1$d</string>
+    <string name="challenge_hub_participants">प्रतिभागी: %1$d</string>
+    <string name="challenge_hub_join">शामिल हों और स्कोर साझा करें</string>
+    <string name="challenge_hub_remove">छोड़ें और स्कोर हटाएँ</string>
+    <string name="challenge_hub_go_weekly">साप्ताहिक चुनौती पर जाएँ</string>
+    <string name="challenge_hub_habits">बड़े आँकड़े नहीं, अच्छी आदतें बनाएँ</string>
+    <string name="challenge_hub_profile_first">प्रोफ़ाइल बनाने के लिए पहले साप्ताहिक चुनौती में शामिल हों।</string>
+    <string name="challenge_hub_service">इस लीडरबोर्ड के लिए चुनौती सेवा का अपडेट ज़रूरी है।</string>
+    <string name="challenge_hub_consent">शामिल होने पर आपका नाम और इस अवधि की आदतों के कुल अंक अन्य प्रतिभागियों को दिखेंगे। डायरी, वज़न या कैलोरी की मात्रा साझा नहीं होगी।</string>
+    <string name="challenge_hub_rules_base">हर दिन हर आदत पर एक अंक पाएँ: सक्रिय रहना, खाना दर्ज करना, पोषण लक्ष्य और पानी का लक्ष्य पूरा करना।</string>
+    <string name="challenge_hub_rules_bonus">तीन या अधिक आदतें पूरी करने वाले दिन एक बोनस अंक पाएँ।</string>
+    <string name="challenge_hub_rules_streak">लगातार दो या अधिक आदतों वाले दिनों की सबसे लंबी शृंखला में पहले दिन के बाद हर दिन एक अंक देता है।</string>
+    <string name="challenge_hub_leave">यह चुनौती छोड़ें?</string>
+    <string name="challenge_hub_leave_detail">केवल इस अवधि के स्कोर हटेंगे। दूसरी चुनौतियाँ और डायरी जैसी हैं वैसी रहेंगी।</string>
+    <string name="challenge_hub_leave_all">सभी चुनौतियाँ छोड़ें?</string>
+    <string name="challenge_hub_leave_all_detail">सार्वजनिक प्रोफ़ाइल, सभी स्कोर और चुनौती रिपोर्ट हट जाएँगी। निजी डायरी इस डिवाइस पर रहेगी।</string>
+    <string name="challenge_hub_jump_to_rank">मेरी रैंक पर जाएँ</string>
+    <string name="challenge_hub_week_rank">चुना गया स्कोर पहले आता है। बराबरी में ज़्यादा अलग आदतें, आदतों में संतुलन और बाकी दिनों की गिनती देखी जाती है। फिर भी बराबरी हो तो जो पहले वहाँ पहुँचा उसकी रैंक ऊपर होगी। वर्कआउट की कैलोरी से बराबरी नहीं टूटती।</string>
+</resources>

@@ -421,7 +421,11 @@ class AppFlowsTest {
         compose.onNode(selector and hasText(month)).assertIsDisplayed()
 
         openTab("weeklyChallenge")
-        waitFor(hasText(string(R.string.challenge_title)))
+        waitFor(hasText(string(R.string.challenge_hub_title)))
+        compose.onNodeWithText(string(R.string.challenge_hub_daily)).performClick()
+        waitFor(hasText(string(R.string.challenge_hub_profile_first)))
+        compose.onNodeWithText(string(R.string.challenge_hub_monthly)).performClick()
+        compose.onNodeWithText(string(R.string.challenge_hub_rules_streak)).assertExists()
         compose.onNodeWithTag("nav.progress").assertIsNotSelected()
         compose.onNodeWithTag("nav.voice").assertIsDisplayed()
         compose.onNodeWithTag("progress.timeRange").assertDoesNotExist()

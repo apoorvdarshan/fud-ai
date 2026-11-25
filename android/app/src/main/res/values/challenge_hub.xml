@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="challenge_hub_title">Challenges</string>
+    <string name="challenge_hub_daily">Daily</string>
+    <string name="challenge_hub_weekly">Weekly</string>
+    <string name="challenge_hub_monthly">Monthly</string>
+    <string name="challenge_hub_your_points">Your points</string>
+    <string name="challenge_hub_points">Points: %1$d</string>
+    <string name="challenge_hub_days">Days: %1$d</string>
+    <string name="challenge_hub_participants">Participants: %1$d</string>
+    <string name="challenge_hub_join">Join and share scores</string>
+    <string name="challenge_hub_remove">Leave and remove scores</string>
+    <string name="challenge_hub_go_weekly">Go to Weekly</string>
+    <string name="challenge_hub_habits">Build habits, not bigger numbers</string>
+    <string name="challenge_hub_profile_first">Join Weekly to create your challenge profile first.</string>
+    <string name="challenge_hub_service">This board needs an updated challenge service.</string>
+    <string name="challenge_hub_consent">Joining shares your name and habit totals for this period with other participants. No diary entries, weight, or calorie amounts are shared.</string>
+    <string name="challenge_hub_rules_base">Earn one point per habit each day: movement, food logging, nutrition goal, and water goal.</string>
+    <string name="challenge_hub_rules_bonus">Earn a bonus point on days with three or more habits.</string>
+    <string name="challenge_hub_rules_streak">Your longest run of days with two or more habits earns one point for each day after the first.</string>
+    <string name="challenge_hub_leave">Leave this challenge?</string>
+    <string name="challenge_hub_leave_detail">This removes your scores for this time period only. Your other challenges and diary stay unchanged.</string>
+    <string name="challenge_hub_leave_all">Leave all challenges?</string>
+    <string name="challenge_hub_leave_all_detail">Your public profile, all scores, and challenge reports will be deleted. Your private diary stays on this device.</string>
+    <string name="challenge_hub_jump_to_rank">Jump to my rank</string>
+    <string name="challenge_hub_week_rank">The selected score comes first. Ties favor more different habits, steadier results across habits, and the other day counts. If those match, the person who reached them first ranks higher. Workout calories do not break ties.</string>
+</resources>

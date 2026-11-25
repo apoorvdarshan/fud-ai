@@ -27,6 +27,35 @@ enum class WeeklyChallengeCategory(val apiValue: String) {
 }
 
 @Serializable
+enum class ChallengePeriod(val wire: String) {
+    @SerialName("daily") DAILY("daily"),
+    @SerialName("weekly") WEEKLY("weekly"),
+    @SerialName("monthly") MONTHLY("monthly");
+
+    fun startFor(today: LocalDate): LocalDate = when (this) {
+        DAILY -> today
+        WEEKLY -> WeeklyChallengeWeek.startFor(today)
+        MONTHLY -> today.withDayOfMonth(1)
+    }
+}
+
+@Serializable
+data class ChallengePeriodScore(
+    val period: ChallengePeriod,
+    val periodStart: String,
+    val activityDays: Int,
+    val nutritionDays: Int,
+    val consistencyDays: Int,
+    val hydrationDays: Int,
+    val balancedDays: Int,
+    val longestStreak: Int,
+    val acceptedRules: Boolean
+) {
+    val points: Int get() = activityDays + nutritionDays + consistencyDays + hydrationDays +
+        balancedDays + (longestStreak - 1).coerceAtLeast(0)
+}
+
+@Serializable
 enum class WeeklyChallengeSocialPlatform(val apiValue: String) {
     @SerialName("x")
     X("x"),
@@ -112,7 +141,9 @@ data class WeeklyChallengeLeaderboardRow(
     val hydrationDays: Int,
     val activityKcal: Int,
     val updatedAt: String = "",
-    val isViewer: Boolean = false
+    val isViewer: Boolean = false,
+    val balancedDays: Int? = null,
+    val longestStreak: Int? = null
 )
 
 @Serializable
@@ -121,8 +152,11 @@ data class WeeklyChallengeLeaderboard(
     val category: WeeklyChallengeCategory,
     val updatedAt: String,
     val rankings: List<WeeklyChallengeLeaderboardRow> = emptyList(),
-    /** Always supplied for an authenticated viewer, including when outside the top 100. */
-    val viewer: WeeklyChallengeLeaderboardRow? = null
+    /** Supplied even when the viewer's rank isn't in this page. */
+    val viewer: WeeklyChallengeLeaderboardRow? = null,
+    val offset: Int? = null,
+    val totalCount: Int? = null,
+    val period: ChallengePeriod? = null
 )
 
 @Serializable

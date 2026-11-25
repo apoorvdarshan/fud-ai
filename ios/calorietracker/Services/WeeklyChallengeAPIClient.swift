@@ -97,7 +97,9 @@ struct WeeklyChallengeAPIClient {
     func leaderboard(
         category: WeeklyChallengeCategory,
         weekStart: String,
-        limit: Int = 100,
+        limit: Int = 20,
+        offset: Int = 0,
+        period: ChallengePeriod = .weekly,
         token: String
     ) async throws -> WeeklyChallengeLeaderboardResponse {
         guard var components = URLComponents(
@@ -108,13 +110,38 @@ struct WeeklyChallengeAPIClient {
         }
         components.queryItems = [
             URLQueryItem(name: "category", value: category.rawValue),
-            URLQueryItem(name: "weekStart", value: weekStart),
+            URLQueryItem(name: period == .weekly ? "weekStart" : "periodStart", value: weekStart),
             URLQueryItem(name: "limit", value: String(min(max(limit, 1), 100))),
         ]
+        if offset > 0 { components.queryItems?.append(URLQueryItem(name: "offset", value: String(offset))) }
+        if period != .weekly { components.queryItems?.append(URLQueryItem(name: "period", value: period.rawValue)) }
         guard let url = components.url else { throw WeeklyChallengeAPIError.invalidRequest }
         var request = request(url: url, method: "GET", token: token)
         request.cachePolicy = .reloadIgnoringLocalCacheData
-        return try await perform(request, response: WeeklyChallengeLeaderboardResponse.self)
+        let response = try await perform(request, response: WeeklyChallengeLeaderboardResponse.self)
+        // Older Workers return a fixed top 100 with no server paging metadata.
+        if period == .weekly, offset == 0, limit < 100, response.totalCount == nil, response.rankings.count == limit {
+            return try await leaderboard(category: category, weekStart: weekStart, limit: 100, token: token)
+        }
+        return response
+    }
+
+    private struct PeriodAcknowledgement: Decodable { let ok: Bool }
+
+    func putPeriodScore(_ score: ChallengePeriodScore, token: String) async throws {
+        let response = try await send(path: "period-score", method: "PUT", token: token, body: score,
+                                      response: PeriodAcknowledgement.self)
+        guard response.ok else { throw WeeklyChallengeAPIError.invalidResponse }
+    }
+
+    func deletePeriod(_ period: ChallengePeriod, token: String) async throws {
+        guard var url = URLComponents(url: baseURL.appendingPathComponent("period-score"), resolvingAgainstBaseURL: false)
+        else { throw WeeklyChallengeAPIError.invalidRequest }
+        url.queryItems = [URLQueryItem(name: "period", value: period.rawValue)]
+        guard let endpoint = url.url else { throw WeeklyChallengeAPIError.invalidRequest }
+        let response = try await perform(request(url: endpoint, method: "DELETE", token: token),
+                                         response: WeeklyChallengeDeleteResponse.self)
+        guard response.deleted else { throw WeeklyChallengeAPIError.invalidResponse }
     }
 
     func report(

@@ -5,6 +5,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.apoorvdarshan.calorietracker.models.ChallengePeriod
 import com.apoorvdarshan.calorietracker.models.WeeklyChallengeAggregate
 import com.apoorvdarshan.calorietracker.models.WeeklyChallengeCategory
 import com.apoorvdarshan.calorietracker.models.WeeklyChallengeLeaderboard
@@ -30,17 +31,40 @@ data class WeeklyChallengeStoredState(
     /** Participant id -> last public display name; blocking never uploads to the server. */
     val blockedParticipants: Map<String, String> = emptyMap(),
     /** Keeps the deletion credential alive across a local Delete Everything while offline. */
-    val pendingRemoteDeletion: Boolean = false
+    val pendingRemoteDeletion: Boolean = false,
+    val enabledPeriods: Set<ChallengePeriod> = emptySet()
 ) {
-    fun cached(category: WeeklyChallengeCategory, weekStart: String): WeeklyChallengeLeaderboard? =
-        cachedLeaderboards[cacheKey(category, weekStart)]
+    fun cached(category: WeeklyChallengeCategory, weekStart: String, offset: Int = 0,
+        period: ChallengePeriod = ChallengePeriod.WEEKLY): WeeklyChallengeLeaderboard? =
+        cachedLeaderboards[cacheKey(category, weekStart, offset, period)]
 
-    fun refreshedAt(category: WeeklyChallengeCategory, weekStart: String): Long? =
-        lastRefreshEpochMillis[cacheKey(category, weekStart)]
+    fun refreshedAt(category: WeeklyChallengeCategory, weekStart: String, offset: Int = 0,
+        period: ChallengePeriod = ChallengePeriod.WEEKLY): Long? =
+        lastRefreshEpochMillis[cacheKey(category, weekStart, offset, period)]
+
+    fun caching(response: WeeklyChallengeLeaderboard, timestamp: Long): WeeklyChallengeStoredState {
+        val key = cacheKey(response.category, response.weekStart, response.offset ?: 0, response.period ?: ChallengePeriod.WEEKLY)
+        val times = (lastRefreshEpochMillis + (key to timestamp))
+            .entries.sortedByDescending { it.value }.take(30).associate { it.key to it.value }
+        return copy(
+            cachedLeaderboards = (cachedLeaderboards + (key to response)).filterKeys { it in times },
+            lastRefreshEpochMillis = times
+        )
+    }
+
+    fun leaving(period: ChallengePeriod): WeeklyChallengeStoredState = copy(
+        enabledPeriods = enabledPeriods - period,
+        cachedLeaderboards = cachedLeaderboards.filterKeys { !it.startsWith("${period.wire}|") },
+        lastRefreshEpochMillis = lastRefreshEpochMillis.filterKeys { !it.startsWith("${period.wire}|") }
+    )
 
     companion object {
-        fun cacheKey(category: WeeklyChallengeCategory, weekStart: String): String =
-            "$weekStart|${category.apiValue}"
+        fun cacheKey(category: WeeklyChallengeCategory, weekStart: String, offset: Int = 0,
+            period: ChallengePeriod = ChallengePeriod.WEEKLY): String {
+            val mode = if (period == ChallengePeriod.WEEKLY) "" else "${period.wire}|"
+            val prefix = "$mode$weekStart|${category.apiValue}"
+            return if (offset == 0) prefix else "$prefix|$offset"
+        }
     }
 }
 

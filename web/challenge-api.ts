@@ -4,8 +4,10 @@ import {
   parseLeaderboardQuery,
   parsePatchProfileInput,
   parseReportInput,
+  parsePeriodScore,
   parseWeeklyScoreInput,
   type ChallengeCategory,
+  type ChallengePeriod,
   type SocialPlatform,
   type WeeklyScoreInput,
 } from "./challenge-validation";
@@ -19,6 +21,7 @@ const ALLOWED_WEB_ORIGINS = new Set([
 const MAX_JSON_BODY_BYTES = 4_096;
 const BEARER_TOKEN = /^[A-Za-z0-9_-]{43}$/;
 const ACCEPTANCE_VERSION = "2026-08-31";
+const PERIOD_RULES_VERSION = "2026-11-25";
 
 type ChallengeDatabase = D1DatabaseSession;
 
@@ -32,6 +35,7 @@ interface ParticipantRecord {
 }
 
 interface RankingDatabaseRow {
+  participant_count: number;
   participant_id: string;
   display_name: string;
   social_platform: SocialPlatform | null;
@@ -46,6 +50,8 @@ interface RankingDatabaseRow {
   score: number;
   rank: number;
   is_viewer: number;
+  balanced_days?: number;
+  longest_streak?: number;
 }
 
 interface ApiErrorBody {
@@ -117,6 +123,11 @@ export async function handleChallengeRequest(request: Request, env: Env): Promis
       if (request.method !== "PUT") throw methodNotAllowed("PUT");
       return await putWeeklyScore(request, database, responseOrigin);
     }
+    if (url.pathname === `${CHALLENGE_API_PREFIX}/period-score`) {
+      if (request.method === "PUT") return await putPeriodScore(request, database, responseOrigin);
+      if (request.method === "DELETE") return await deletePeriodScores(request, url, database, responseOrigin);
+      throw methodNotAllowed("PUT, DELETE");
+    }
 
     if (url.pathname === `${CHALLENGE_API_PREFIX}/leaderboard`) {
       if (request.method !== "GET") throw methodNotAllowed("GET");
@@ -175,6 +186,8 @@ export async function cleanupChallengeData(database: D1Database, now = new Date(
   const oldestRetainedWeek = new Date(currentMonday.getTime() - 12 * 7 * 86_400_000)
     .toISOString()
     .slice(0, 10);
+  const oldestDay = new Date(now.getTime() - 34 * 86_400_000).toISOString().slice(0, 10);
+  const oldestMonth = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 12, 1)).toISOString().slice(0, 10);
 
   await database.batch([
     database
@@ -184,6 +197,10 @@ export async function cleanupChallengeData(database: D1Database, now = new Date(
       .prepare("DELETE FROM challenge_weekly_scores WHERE week_start < ?")
       .bind(oldestRetainedWeek),
     database.prepare("DELETE FROM challenge_reports WHERE created_at < ?").bind(reportCutoff),
+    database.prepare("DELETE FROM challenge_period_scores WHERE period = ? AND period_start < ?")
+      .bind("daily", oldestDay),
+    database.prepare("DELETE FROM challenge_period_scores WHERE period = ? AND period_start < ?")
+      .bind("monthly", oldestMonth),
   ]);
 }
 
@@ -340,6 +357,52 @@ async function putWeeklyScore(
   return jsonResponse({ score: scoreResponse(input, now) }, 200, origin);
 }
 
+async function putPeriodScore(
+  request: Request, database: ChallengeDatabase, origin: string | null,
+): Promise<Response> {
+  const participant = await authenticate(request, database);
+  const input = parsePeriodScore(await readJsonBody(request));
+  const now = new Date().toISOString();
+  await database.batch([
+    database.prepare(`
+      INSERT INTO challenge_period_scores (
+        participant_id, period, period_start, overall_points, activity_days, nutrition_days,
+        consistency_days, hydration_days, balanced_days, longest_streak, rules_version, rules_accepted_at, updated_at
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      ON CONFLICT(participant_id, period, period_start) DO UPDATE SET
+        overall_points = excluded.overall_points, activity_days = excluded.activity_days,
+        nutrition_days = excluded.nutrition_days, consistency_days = excluded.consistency_days,
+        hydration_days = excluded.hydration_days, balanced_days = excluded.balanced_days,
+        longest_streak = excluded.longest_streak, updated_at = excluded.updated_at
+      WHERE challenge_period_scores.activity_days != excluded.activity_days
+         OR challenge_period_scores.nutrition_days != excluded.nutrition_days
+         OR challenge_period_scores.consistency_days != excluded.consistency_days
+         OR challenge_period_scores.hydration_days != excluded.hydration_days
+         OR challenge_period_scores.balanced_days != excluded.balanced_days
+         OR challenge_period_scores.longest_streak != excluded.longest_streak
+    `).bind(participant.participant_id, input.period, input.periodStart, input.overallPoints, input.activityDays,
+      input.nutritionDays, input.consistencyDays, input.hydrationDays, input.balancedDays, input.longestStreak,
+      PERIOD_RULES_VERSION, now, now),
+    database.prepare("UPDATE challenge_participants SET last_active_at = ? WHERE participant_id = ?")
+      .bind(now, participant.participant_id),
+  ]);
+  return jsonResponse({ ok: true, score: input }, 200, origin);
+}
+
+async function deletePeriodScores(
+  request: Request, url: URL, database: ChallengeDatabase, origin: string | null,
+): Promise<Response> {
+  const participant = await authenticate(request, database);
+  const entries = [...url.searchParams.entries()];
+  const period = url.searchParams.get("period");
+  if (entries.length !== 1 || (period !== "daily" && period !== "monthly")) {
+    throw new ChallengeValidationError("Choose one period to leave.", ["period"]);
+  }
+  await database.prepare("DELETE FROM challenge_period_scores WHERE participant_id = ? AND period = ?")
+    .bind(participant.participant_id, period).run();
+  return jsonResponse({ deleted: true }, 200, origin);
+}
+
 async function getLeaderboard(
   request: Request,
   url: URL,
@@ -349,6 +412,8 @@ async function getLeaderboard(
   const participant = await authenticate(request, database);
   const query = parseLeaderboardQuery(url);
   const ranking = rankingSpecification(query.category);
+  const weekly = query.period === "weekly";
+  const range = weekly ? [query.weekStart] : [query.period, query.weekStart];
   const commonCte = `WITH ranked AS (
     SELECT
       p.participant_id,
@@ -360,46 +425,45 @@ async function getLeaderboard(
       COALESCE(s.nutrition_days, 0) AS nutrition_days,
       COALESCE(s.consistency_days, 0) AS consistency_days,
       COALESCE(s.hydration_days, 0) AS hydration_days,
-      COALESCE(s.activity_kcal, 0) AS activity_kcal,
+      ${weekly ? ACTIVITY_KCAL : "0"} AS activity_kcal,
+      ${weekly ? "NULL" : "s.balanced_days"} AS balanced_days,
+      ${weekly ? "NULL" : "s.longest_streak"} AS longest_streak,
       COALESCE(s.updated_at, p.updated_at) AS updated_at,
       ${ranking.scoreExpression} AS score,
-      ${leaderboardRankingSelect(query.category)}
+      ${leaderboardRankingSelect(query.category, query.period)},
+      COUNT(*) OVER () AS participant_count
     FROM challenge_participants p
-    LEFT JOIN challenge_weekly_scores s
-      ON s.participant_id = p.participant_id AND s.week_start = ?
+    ${weekly
+      ? "LEFT JOIN challenge_weekly_scores s ON s.participant_id = p.participant_id AND s.week_start = ?"
+      : "INNER JOIN challenge_period_scores s ON s.participant_id = p.participant_id AND s.period = ? AND s.period_start = ?"}
   )`;
   const rankingsStatement = database
     .prepare(
       `${commonCte}
        SELECT *, participant_id = ? AS is_viewer
        FROM ranked
-       ORDER BY rank ASC, participant_id ASC
-       LIMIT ?`,
+       WHERE rank BETWEEN ? AND ? OR participant_id = ?
+       ORDER BY rank ASC`,
     )
-    .bind(query.weekStart, participant.participant_id, query.limit);
-  const viewerStatement = database
-    .prepare(
-      `${commonCte}
-       SELECT *, 1 AS is_viewer
-       FROM ranked
-       WHERE participant_id = ?`,
-    )
-    .bind(query.weekStart, participant.participant_id);
+    .bind(...range, participant.participant_id, query.offset + 1,
+      query.offset + query.limit, participant.participant_id);
   const now = new Date().toISOString();
-  const [rankingsResult, viewerResult] = await database.batch([
+  const [rankingsResult, , countResult] = await database.batch([
     rankingsStatement,
-    viewerStatement,
     database
       .prepare("UPDATE challenge_participants SET last_active_at = ? WHERE participant_id = ?")
       .bind(now, participant.participant_id),
+    ...(!weekly ? [
+      database.prepare("SELECT COUNT(*) AS total FROM challenge_period_scores WHERE period = ? AND period_start = ?")
+        .bind(...range),
+    ] : []),
   ]);
 
-  const rankings = (rankingsResult.results as unknown as RankingDatabaseRow[]).map(
-    rankingResponse,
-  );
-  const viewerRows = viewerResult.results as unknown as RankingDatabaseRow[];
-  const viewer = viewerRows[0];
-  if (!viewer) {
+  const rows = rankingsResult.results as unknown as RankingDatabaseRow[];
+  const rankings = rows.filter((row) => row.rank > query.offset && row.rank <= query.offset + query.limit)
+    .map(rankingResponse);
+  const viewer = rows.find((row) => row.participant_id === participant.participant_id);
+  if (weekly && !viewer) {
     throw new ChallengeApiError(500, "internal_error", "The challenge service is unavailable.");
   }
 
@@ -408,8 +472,11 @@ async function getLeaderboard(
       weekStart: query.weekStart,
       category: query.category,
       updatedAt: now,
+      offset: query.offset,
+      totalCount: rows[0]?.participant_count ?? Number((countResult?.results[0] as {total?: number} | undefined)?.total ?? 0),
+      period: query.period,
       rankings,
-      viewer: rankingResponse(viewer),
+      viewer: viewer ? rankingResponse(viewer) : null,
     },
     200,
     origin,
@@ -594,6 +661,7 @@ function rankingResponse(row: RankingDatabaseRow): Record<string, unknown> {
     activityKcal: row.activity_kcal,
     updatedAt: row.updated_at,
     isViewer: Boolean(row.is_viewer),
+    ...(row.balanced_days != null && { balancedDays: row.balanced_days, longestStreak: row.longest_streak }),
   };
 }
 
@@ -606,42 +674,47 @@ const ACTIVITY_KCAL = "COALESCE(s.activity_kcal, 0)";
 const REACHED_SCORE_FIRST = "COALESCE(s.updated_at, p.updated_at) ASC";
 const STABLE_PARTICIPANT = "p.participant_id ASC";
 
-/** Keep the time the current totals were first reached. A repeat save does not move it. */
+/** Keep the time the ranked habit counts were first reached, even if calories change. */
 export const REACHED_AT_ASSIGNMENT = `CASE
   WHEN challenge_weekly_scores.overall_points = excluded.overall_points
    AND challenge_weekly_scores.activity_days = excluded.activity_days
    AND challenge_weekly_scores.nutrition_days = excluded.nutrition_days
    AND challenge_weekly_scores.consistency_days = excluded.consistency_days
    AND challenge_weekly_scores.hydration_days = excluded.hydration_days
-   AND challenge_weekly_scores.activity_kcal = excluded.activity_kcal
   THEN challenge_weekly_scores.updated_at
   ELSE excluded.updated_at
 END`;
 
-/** Category score, then the other day counts, calories, then who got there first. */
-export function leaderboardOrder(category: ChallengeCategory): string {
+/** Category score, balanced habits, then who got there first. */
+export function leaderboardOrder(category: ChallengeCategory, period: ChallengePeriod = "weekly"): string {
   const days = {
     activity: `${ACTIVITY_DAYS} DESC`,
     nutrition: `${NUTRITION_DAYS} DESC`,
     consistency: `${CONSISTENCY_DAYS} DESC`,
     hydration: `${HYDRATION_DAYS} DESC`,
   };
-  const primary = category === "overall"
-    ? [`${OVERALL_POINTS} DESC`, days.activity, days.nutrition, days.consistency, days.hydration, `${ACTIVITY_KCAL} DESC`]
-    : category === "activity"
-      ? [days.activity, `${ACTIVITY_KCAL} DESC`, days.nutrition, days.consistency, days.hydration]
-      : [
-          days[category],
-          ...(["activity", "nutrition", "consistency", "hydration"] as const)
-            .filter((name) => name !== category)
-            .map((name) => days[name]),
-          `${ACTIVITY_KCAL} DESC`,
-        ];
+  if (period !== "weekly") {
+    const rest = (Object.keys(days) as Array<keyof typeof days>).filter((name) => name !== category);
+    return [
+      category === "overall" ? `${OVERALL_POINTS} DESC` : days[category],
+      "s.balanced_days DESC", "s.longest_streak DESC",
+      ...rest.map((name) => days[name]), REACHED_SCORE_FIRST, STABLE_PARTICIPANT,
+    ].join(", ");
+  }
+  const metrics = [ACTIVITY_DAYS, NUTRITION_DAYS, CONSISTENCY_DAYS, HYDRATION_DAYS];
+  const coverage = metrics.map((metric) => `(${metric} > 0)`).join(" + ");
+  const primary = [
+    category === "overall" ? `${OVERALL_POINTS} DESC` : days[category],
+    `(${coverage}) DESC`,
+    `MIN(${metrics.join(", ")}) DESC`,
+    ...(category === "overall" ? [] : [`${OVERALL_POINTS} DESC`]),
+    ...(Object.keys(days) as Array<keyof typeof days>).filter((name) => name !== category).map((name) => days[name]),
+  ];
   return [...primary, REACHED_SCORE_FIRST, STABLE_PARTICIPANT].join(", ");
 }
 
-export function leaderboardRankingSelect(category: ChallengeCategory): string {
-  return `ROW_NUMBER() OVER (ORDER BY ${leaderboardOrder(category)}) AS rank`;
+export function leaderboardRankingSelect(category: ChallengeCategory, period: ChallengePeriod = "weekly"): string {
+  return `ROW_NUMBER() OVER (ORDER BY ${leaderboardOrder(category, period)}) AS rank`;
 }
 
 function rankingSpecification(category: ChallengeCategory): {

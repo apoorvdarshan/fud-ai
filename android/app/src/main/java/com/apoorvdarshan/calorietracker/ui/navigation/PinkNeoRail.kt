@@ -69,7 +69,7 @@ data class BottomTab(val route: String, val icon: ImageVector, @get:StringRes va
 val BottomTabs = listOf(
     BottomTab(FudAIRoutes.HOME, Icons.Outlined.Home, R.string.nav_home),
     BottomTab(FudAIRoutes.PROGRESS, Icons.Filled.ShowChart, R.string.nav_progress),
-    BottomTab(FudAIRoutes.WEEKLY_CHALLENGE, Icons.Filled.EmojiEvents, R.string.challenge_destination_weekly),
+    BottomTab(FudAIRoutes.WEEKLY_CHALLENGE, Icons.Filled.EmojiEvents, R.string.challenge_hub_title),
     BottomTab(FudAIRoutes.COACH, Icons.Filled.AutoAwesome, R.string.nav_coach),
     BottomTab(FudAIRoutes.SETTINGS, Icons.Outlined.Settings, R.string.nav_settings),
     BottomTab(FudAIRoutes.WORKOUTS, Icons.Filled.SportsGymnastics, R.string.nav_workout_log),

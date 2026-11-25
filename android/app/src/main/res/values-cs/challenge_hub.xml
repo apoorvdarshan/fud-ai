@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="challenge_hub_title">Výzvy</string>
+    <string name="challenge_hub_daily">Denní</string>
+    <string name="challenge_hub_weekly">Týdenní</string>
+    <string name="challenge_hub_monthly">Měsíční</string>
+    <string name="challenge_hub_your_points">Vaše body</string>
+    <string name="challenge_hub_points">Body: %1$d</string>
+    <string name="challenge_hub_days">Dny: %1$d</string>
+    <string name="challenge_hub_participants">Účastníci: %1$d</string>
+    <string name="challenge_hub_join">Připojit se a sdílet výsledky</string>
+    <string name="challenge_hub_remove">Opustit a smazat výsledky</string>
+    <string name="challenge_hub_go_weekly">Přejít na týdenní výzvu</string>
+    <string name="challenge_hub_habits">Budujte návyky, ne vyšší čísla</string>
+    <string name="challenge_hub_profile_first">Nejprve se připojte k týdenní výzvě a vytvořte si profil.</string>
+    <string name="challenge_hub_service">Tento žebříček vyžaduje aktualizovanou službu výzev.</string>
+    <string name="challenge_hub_consent">Po připojení ostatní vidí vaše jméno a souhrny návyků za dané období. Záznamy z deníku, váha ani množství kalorií se nesdílejí.</string>
+    <string name="challenge_hub_rules_base">Každý den získáte bod za každý návyk: pohyb, záznam jídla, splnění cíle výživy a pitného režimu.</string>
+    <string name="challenge_hub_rules_bonus">Za den se třemi nebo více návyky získáte bod navíc.</string>
+    <string name="challenge_hub_rules_streak">Za každý den po prvním v nejdelší sérii s alespoň dvěma návyky dostanete bod.</string>
+    <string name="challenge_hub_leave">Opustit tuto výzvu?</string>
+    <string name="challenge_hub_leave_detail">Smažou se jen výsledky za toto období. Ostatní výzvy a deník zůstanou beze změny.</string>
+    <string name="challenge_hub_leave_all">Opustit všechny výzvy?</string>
+    <string name="challenge_hub_leave_all_detail">Veřejný profil, všechny výsledky a hlášení budou smazány. Soukromý deník zůstane v zařízení.</string>
+    <string name="challenge_hub_jump_to_rank">Přejít na mé umístění</string>
+    <string name="challenge_hub_week_rank">Nejdříve se hodnotí vybrané skóre. Při shodě rozhoduje pestrost návyků, vyrovnanější výsledky a další počty dnů. Pokud je i to stejné, vede ten, kdo výsledku dosáhl dříve. Kalorie z pohybu shodu nerozhodují.</string>
+</resources>

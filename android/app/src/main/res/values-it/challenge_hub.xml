@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="challenge_hub_title">Sfide</string>
+    <string name="challenge_hub_daily">Giornaliera</string>
+    <string name="challenge_hub_weekly">Settimanale</string>
+    <string name="challenge_hub_monthly">Mensile</string>
+    <string name="challenge_hub_your_points">I tuoi punti</string>
+    <string name="challenge_hub_points">Punti: %1$d</string>
+    <string name="challenge_hub_days">Giorni: %1$d</string>
+    <string name="challenge_hub_participants">Partecipanti: %1$d</string>
+    <string name="challenge_hub_join">Partecipa e condividi i punteggi</string>
+    <string name="challenge_hub_remove">Esci ed elimina i punteggi</string>
+    <string name="challenge_hub_go_weekly">Vai alla sfida settimanale</string>
+    <string name="challenge_hub_habits">Coltiva le abitudini, non i numeri</string>
+    <string name="challenge_hub_profile_first">Partecipa prima alla sfida settimanale per creare il tuo profilo.</string>
+    <string name="challenge_hub_service">Questa classifica richiede un aggiornamento del servizio.</string>
+    <string name="challenge_hub_consent">Partecipando condividi il tuo nome e i totali delle abitudini di questo periodo. Le voci del diario, il peso e le calorie non vengono condivisi.</string>
+    <string name="challenge_hub_rules_base">Ottieni un punto al giorno per abitudine: movimento, registrazione del cibo, obiettivo nutrizionale e obiettivo dell’acqua.</string>
+    <string name="challenge_hub_rules_bonus">Ottieni un punto bonus nei giorni in cui completi almeno tre abitudini.</string>
+    <string name="challenge_hub_rules_streak">Nella serie più lunga di giorni con almeno due abitudini, ogni giorno dopo il primo vale un punto.</string>
+    <string name="challenge_hub_leave">Uscire da questa sfida?</string>
+    <string name="challenge_hub_leave_detail">Vengono rimossi solo i punteggi di questo periodo. Le altre sfide e il diario non cambiano.</string>
+    <string name="challenge_hub_leave_all">Uscire da tutte le sfide?</string>
+    <string name="challenge_hub_leave_all_detail">Il profilo pubblico, tutti i punteggi e le segnalazioni verranno eliminati. Il diario privato resta su questo dispositivo.</string>
+    <string name="challenge_hub_jump_to_rank">Vai alla mia posizione</string>
+    <string name="challenge_hub_week_rank">Il punteggio selezionato ha la precedenza. A parità contano la varietà e l’equilibrio delle abitudini, poi i giorni delle altre categorie. Se sono uguali, precede chi ha raggiunto prima quei risultati. Le calorie dell’allenamento non decidono la parità.</string>
+</resources>

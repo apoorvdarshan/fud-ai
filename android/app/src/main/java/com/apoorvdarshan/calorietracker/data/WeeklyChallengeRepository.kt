@@ -1,6 +1,8 @@
 package com.apoorvdarshan.calorietracker.data
 
 import android.content.Context
+import com.apoorvdarshan.calorietracker.models.ChallengePeriod
+import com.apoorvdarshan.calorietracker.models.ChallengePeriodScore
 import com.apoorvdarshan.calorietracker.models.WeeklyChallengeAggregate
 import com.apoorvdarshan.calorietracker.models.WeeklyChallengeCategory
 import com.apoorvdarshan.calorietracker.models.WeeklyChallengeCreateProfileRequest
@@ -43,6 +45,7 @@ class WeeklyChallengeRepository internal constructor(
     private val store: WeeklyChallengeStore = WeeklyChallengeStore(context)
 ) {
     private val mutationMutex = Mutex()
+    private val publishedPeriodScores = mutableMapOf<ChallengePeriod, ChallengePeriodScore>()
 
     val state: Flow<WeeklyChallengeStoredState> = store.state
 
@@ -209,16 +212,74 @@ class WeeklyChallengeRepository internal constructor(
         try {
             val leaderboard = api.leaderboard(category, weekStart, token)
             val refreshedAt = System.currentTimeMillis()
-            val cacheKey = WeeklyChallengeStoredState.cacheKey(category, weekStart)
-            store.update { current ->
-                current.copy(
-                    cachedLeaderboards = current.cachedLeaderboards
-                        .filterKeys { it.startsWith("$weekStart|") } + (cacheKey to leaderboard),
-                    lastRefreshEpochMillis = current.lastRefreshEpochMillis
-                        .filterKeys { it.startsWith("$weekStart|") } + (cacheKey to refreshedAt)
-                )
-            }
+            store.update { it.caching(leaderboard, refreshedAt) }
             WeeklyChallengeResult.Success(WeeklyChallengeRefresh(leaderboard, refreshedAt))
+        } catch (error: Exception) {
+            if (error.isExpiredSessionResponse()) clearLocalEnrollment()
+            error.asChallengeFailure()
+        }
+    }
+
+    suspend fun leaderboardPage(
+        category: WeeklyChallengeCategory,
+        weekStart: String,
+        offset: Int,
+        force: Boolean,
+        period: ChallengePeriod = ChallengePeriod.WEEKLY
+    ): WeeklyChallengeResult<WeeklyChallengeLeaderboard> = mutationMutex.withLock {
+        val snapshot = store.snapshot()
+        val token = keyStore.weeklyChallengeBearerToken()
+        if (snapshot.pendingRemoteDeletion || token == null ||
+            (period != ChallengePeriod.WEEKLY && period !in snapshot.enabledPeriods)) {
+            return@withLock WeeklyChallengeResult.Failure(WeeklyChallengeFailureKind.AUTH)
+        }
+        val savedAt = snapshot.refreshedAt(category, weekStart, offset, period)
+        val cached = snapshot.cached(category, weekStart, offset, period)
+        if (!force && cached != null && savedAt != null && System.currentTimeMillis() - savedAt in 0L..60_000L) {
+            return@withLock WeeklyChallengeResult.Success(cached)
+        }
+        try {
+            val page = api.leaderboard(category, weekStart, token, offset, period = period)
+            if (page.category != category || page.weekStart != weekStart || page.offset != offset ||
+                (page.period ?: ChallengePeriod.WEEKLY) != period) {
+                return@withLock WeeklyChallengeResult.Failure(WeeklyChallengeFailureKind.SERVER)
+            }
+            store.update { it.caching(page, System.currentTimeMillis()) }
+            WeeklyChallengeResult.Success(page)
+        } catch (error: Exception) {
+            if (error.isExpiredSessionResponse()) clearLocalEnrollment()
+            error.asChallengeFailure()
+        }
+    }
+
+    suspend fun publishPeriodScore(score: ChallengePeriodScore, accept: Boolean): WeeklyChallengeResult<Unit> =
+        mutationMutex.withLock {
+            val snapshot = store.snapshot()
+            val token = keyStore.weeklyChallengeBearerToken()
+            if (token == null || snapshot.pendingRemoteDeletion || score.period == ChallengePeriod.WEEKLY ||
+                (!accept && score.period !in snapshot.enabledPeriods)) {
+                return@withLock WeeklyChallengeResult.Failure(WeeklyChallengeFailureKind.AUTH)
+            }
+            if (!accept && publishedPeriodScores[score.period] == score) return@withLock WeeklyChallengeResult.Success(Unit)
+            try {
+                if (!api.putPeriodScore(token, score)) return@withLock WeeklyChallengeResult.Failure(WeeklyChallengeFailureKind.SERVER)
+                publishedPeriodScores[score.period] = score
+                if (accept) store.update { it.copy(enabledPeriods = it.enabledPeriods + score.period) }
+                WeeklyChallengeResult.Success(Unit)
+            } catch (error: Exception) {
+                if (error.isExpiredSessionResponse()) clearLocalEnrollment()
+                error.asChallengeFailure()
+            }
+        }
+
+    suspend fun leavePeriod(period: ChallengePeriod): WeeklyChallengeResult<Unit> = mutationMutex.withLock {
+        val token = keyStore.weeklyChallengeBearerToken()
+            ?: return@withLock WeeklyChallengeResult.Failure(WeeklyChallengeFailureKind.AUTH)
+        try {
+            if (!api.deletePeriod(token, period)) return@withLock WeeklyChallengeResult.Failure(WeeklyChallengeFailureKind.SERVER)
+            publishedPeriodScores.remove(period)
+            store.update { it.leaving(period) }
+            WeeklyChallengeResult.Success(Unit)
         } catch (error: Exception) {
             if (error.isExpiredSessionResponse()) clearLocalEnrollment()
             error.asChallengeFailure()
@@ -261,7 +322,8 @@ class WeeklyChallengeRepository internal constructor(
                 profile = null,
                 pendingAggregate = null,
                 cachedLeaderboards = emptyMap(),
-                lastRefreshEpochMillis = emptyMap()
+                lastRefreshEpochMillis = emptyMap(),
+                enabledPeriods = emptySet()
             )
         }
     }
@@ -273,6 +335,7 @@ class WeeklyChallengeRepository internal constructor(
     private suspend fun clearLocalEnrollment(preserveBlockedParticipants: Boolean = true) {
         val blocked = if (preserveBlockedParticipants) store.snapshot().blockedParticipants else emptyMap()
         keyStore.clearWeeklyChallengeBearerToken()
+        publishedPeriodScores.clear()
         store.replace(WeeklyChallengeStoredState(blockedParticipants = blocked))
     }
 

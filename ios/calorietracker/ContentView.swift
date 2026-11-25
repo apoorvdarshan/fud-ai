@@ -584,7 +584,7 @@ struct ContentView: View {
             switch self {
             case .home: Text("Home")
             case .progress: Text("Progress")
-            case .weeklyChallenge: Text(WeeklyChallengeL10n.text("Weekly Challenge"))
+            case .weeklyChallenge: Text("Challenges", tableName: "ChallengeHub")
             case .coach: Text("Coach")
             case .settings: Text("Settings")
             case .workouts: Text("Workout log")

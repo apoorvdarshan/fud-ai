@@ -1,6 +1,8 @@
 package com.apoorvdarshan.calorietracker.services.challenge
 
 import com.apoorvdarshan.calorietracker.services.SecureHttpClient
+import com.apoorvdarshan.calorietracker.models.ChallengePeriod
+import com.apoorvdarshan.calorietracker.models.ChallengePeriodScore
 import com.apoorvdarshan.calorietracker.models.WeeklyChallengeAggregate
 import com.apoorvdarshan.calorietracker.models.WeeklyChallengeCategory
 import com.apoorvdarshan.calorietracker.models.WeeklyChallengeCreateProfileRequest
@@ -159,20 +161,45 @@ internal class WeeklyChallengeApi(
     suspend fun leaderboard(
         category: WeeklyChallengeCategory,
         weekStart: String,
-        bearerToken: String
+        bearerToken: String,
+        offset: Int = 0,
+        limit: Int = 20,
+        period: ChallengePeriod = ChallengePeriod.WEEKLY
     ): WeeklyChallengeLeaderboard {
         val url = "$baseUrl/leaderboard".toHttpUrl().newBuilder()
             .addQueryParameter("category", category.apiValue)
-            .addQueryParameter("weekStart", weekStart)
-            .addQueryParameter("limit", "100")
+            .addQueryParameter(if (period == ChallengePeriod.WEEKLY) "weekStart" else "periodStart", weekStart)
+            .addQueryParameter("limit", limit.toString())
+            .apply {
+                if (offset > 0) addQueryParameter("offset", offset.toString())
+                if (period != ChallengePeriod.WEEKLY) addQueryParameter("period", period.wire)
+            }
             .build()
         val builder = Request.Builder()
             .url(url)
             .get()
             .header("Accept", JSON_MEDIA_TYPE.toString())
         builder.header("Authorization", "Bearer $bearerToken")
-        return execute(builder.build(), WeeklyChallengeLeaderboard.serializer())
+        val page = execute(builder.build(), WeeklyChallengeLeaderboard.serializer())
+        return if (period == ChallengePeriod.WEEKLY && offset == 0 && limit < 100 &&
+            page.totalCount == null && page.rankings.size == limit) {
+            leaderboard(category, weekStart, bearerToken, limit = 100)
+        } else page
     }
+
+    @Serializable
+    private data class PeriodAcknowledgement(val ok: Boolean)
+
+    suspend fun putPeriodScore(token: String, score: ChallengePeriodScore): Boolean = execute(
+        jsonRequest("PUT", "/period-score", WeeklyChallengeJson.encode(ChallengePeriodScore.serializer(), score), token),
+        PeriodAcknowledgement.serializer()
+    ).ok
+
+    suspend fun deletePeriod(token: String, period: ChallengePeriod): Boolean = execute(
+        Request.Builder().url("$baseUrl/period-score?period=${period.wire}").delete()
+            .header("Accept", JSON_MEDIA_TYPE.toString()).header("Authorization", "Bearer $token").build(),
+        WeeklyChallengeDeleteResponse.serializer()
+    ).deleted
 
     suspend fun report(
         bearerToken: String,

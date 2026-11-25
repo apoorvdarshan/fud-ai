@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="challenge_hub_title">Uitdagingen</string>
+    <string name="challenge_hub_daily">Dagelijks</string>
+    <string name="challenge_hub_weekly">Wekelijks</string>
+    <string name="challenge_hub_monthly">Maandelijks</string>
+    <string name="challenge_hub_your_points">Je punten</string>
+    <string name="challenge_hub_points">Punten: %1$d</string>
+    <string name="challenge_hub_days">Dagen: %1$d</string>
+    <string name="challenge_hub_participants">Deelnemers: %1$d</string>
+    <string name="challenge_hub_join">Meedoen en scores delen</string>
+    <string name="challenge_hub_remove">Verlaten en scores wissen</string>
+    <string name="challenge_hub_go_weekly">Naar de weekuitdaging</string>
+    <string name="challenge_hub_habits">Bouw gewoonten op, geen hogere cijfers</string>
+    <string name="challenge_hub_profile_first">Doe eerst mee aan de weekuitdaging om een profiel te maken.</string>
+    <string name="challenge_hub_service">Voor dit klassement moet de uitdagingsdienst worden bijgewerkt.</string>
+    <string name="challenge_hub_consent">Als je meedoet, zien andere deelnemers je naam en gewoontetotalen voor deze periode. Dagboekgegevens, gewicht en caloriehoeveelheden blijven privé.</string>
+    <string name="challenge_hub_rules_base">Verdien dagelijks één punt per gewoonte: bewegen, eten registreren en je voedings- en waterdoelen halen.</string>
+    <string name="challenge_hub_rules_bonus">Verdien een bonuspunt op dagen met minstens drie gewoonten.</string>
+    <string name="challenge_hub_rules_streak">In je langste reeks met minstens twee gewoonten krijg je vanaf de tweede dag elke dag één punt.</string>
+    <string name="challenge_hub_leave">Deze uitdaging verlaten?</string>
+    <string name="challenge_hub_leave_detail">Alleen je scores voor deze periode worden verwijderd. Je andere uitdagingen en je dagboek veranderen niet.</string>
+    <string name="challenge_hub_leave_all">Alle uitdagingen verlaten?</string>
+    <string name="challenge_hub_leave_all_detail">Je openbare profiel, alle scores en meldingen worden verwijderd. Je privédagboek blijft op dit apparaat.</string>
+    <string name="challenge_hub_jump_to_rank">Naar mijn positie</string>
+    <string name="challenge_hub_week_rank">De gekozen score telt eerst. Bij een gelijke stand tellen gevarieerdere gewoonten, evenwichtigere resultaten en de overige aantallen dagen. Zijn die ook gelijk, dan staat degene die ze het eerst bereikte hoger. Trainingscalorieën geven niet de doorslag.</string>
+</resources>

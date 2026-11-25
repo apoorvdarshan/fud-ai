@@ -562,7 +562,8 @@ final class calorietrackerUITests: XCTestCase {
 
         let source = app.descendants(matching: .any)["settings.localModel.gemma.source"].firstMatch
         reveal(source, in: app)
-        XCTAssertGreaterThanOrEqual(source.frame.height, 44)
+        // AX frame subtraction can report exactly 44 pt as 43.999999999999986.
+        XCTAssertGreaterThanOrEqual(source.frame.height + 1e-9, 44)
         let modelScreenshot = XCTAttachment(screenshot: app.screenshot())
         modelScreenshot.name = "AI Providers model source"
         modelScreenshot.lifetime = .keepAlways

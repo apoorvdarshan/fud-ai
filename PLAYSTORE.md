@@ -1,9 +1,10 @@
 # Play Store Listing
 
-Google Play Console listing copy for Fud AI Android v8.0.1 / versionCode 45. Each field is in a code block for easy copy-paste. Char counts are tracked because Play Console enforces hard caps and silently truncates anything over. This file is prepared for the 8.0.1 release (8.0's Live Voice, workout rest timer and routines, Health Connect workout import and share links, plus a Health Connect setup crash fix); 8.0.1 replaces 8.0 (versionCode 44), which was still in Play review. Android 7.2 / versionCode 42 is the live Play release; 7.2.1 / versionCode 43 was tagged but never uploaded to Play.
+Google Play Console listing copy prepared for Fud AI Android v9.0 / versionCode 48. Each field is in a code block for easy copy-paste. This file does not indicate that the release or listing has been submitted or published.
 
 **Pending Play Console updates**
 - [x] Health Connect declaration includes **Exercise (READ)** with the §7 `READ_EXERCISE` rationale (submitted with 8.0, 2026-10-24). Play lists a new health permission in the declaration only once a release containing it is uploaded, and a store-release upload that adds one fails until the declaration is updated, so upload such a release through Play Console first.
+- [ ] Verify the Health Connect declaration includes **Hydration (WRITE)** using the rationale below before publishing 9.0.
 
 **Where to paste each field in Play Console:**
 - App name / Short description / Full description → Grow → Store presence → **Main store listing** (default English) and Grow → Store presence → **Custom store listings** → Manage translations (per-language overrides)
@@ -109,16 +110,17 @@ English-only on Play Console — non-English Play Store browsers (ar, az-AZ, cs-
 
 ---
 
-## 4. What's New (v8.1.1 / versionCode 47)
+## 4. What's New (v9.0 / versionCode 48)
 
 **500 char hard cap per language.** English is the fallback for other store locales.
 
 ```
 <en-US>
-Fud AI 8.1.1
-• Plus and Pro subscriptions now start at the displayed subscription price, without a free trial.
-• Trials already started keep their original terms.
-• Using your own API key remains free.
+Fud AI 9.0 brings the 04 Flash redesign to Home, the diary, and settings.
+• Home-screen widgets now match, including nutrition, hydration, and voice shortcuts.
+• Daily and Monthly Challenges are separate opt-ins alongside Weekly.
+• About → App & Updates shows when Google Play has an update.
+• Keep using your own AI key free, or view optional paid Hosted Plus/Pro plans.
 </en-US>
 ```
 
@@ -152,7 +154,7 @@ These are one-time setup in Play Console → Policy → App content. Don't drift
 - **Data safety**: Core tracking has no Fud AI account, analytics, advertising, or behavioral tracking. Do not declare Advertising ID. Most app data, including fasting history, is local, and API keys are stored in EncryptedSharedPreferences. The optional 18+ Weekly Challenge is a first-party collection for app functionality: declare **Personal info → Name** (the chosen display name), **Personal info → User IDs** (the random participant ID and optional X or Instagram handle), and **Health and fitness → Fitness info** (weekly aggregate activity calories and qualifying activity, nutrition, consistency, and hydration day counts). These fields are optional to collect because joining is optional, encrypted in transit, not shared with third parties, and deletable from Leave Challenge or Delete All Data. No date of birth is read or uploaded; the age gate stores only acceptance. Do not declare raw food names, meals, weight, workout details, or Health Connect records as challenge-backend collection because those never leave the device for this feature. User-initiated AI/STT requests send selected photos/text/audio directly to the configured provider; Coach requests may include explicitly logged fasting context when relevant; barcode lookup sends the barcode to Open Food Facts, and only when the user adds their own USDA FoodData Central API key (Settings → Product information, off by default) are barcodes that Open Food Facts and saved labels cannot match sent directly from the device to USDA FoodData Central, with the key only in the X-Api-Key header (a user-initiated lookup like the Open Food Facts one; the key stays in EncryptedSharedPreferences); optional shared-meal links place selected meal data in the URL; optional Health Connect sync reads/writes the declared health types. **Optional Exercise read (`READ_EXERCISE`):** exercise sessions other apps wrote to Health Connect (activity type, start/end time, duration, lap distance, active calories over the session, recording app and device names) are read and kept on the device only, for read-only display in Workouts and Progress. They are never uploaded to Fud AI, a server, an AI provider, or Fud AI's optional Google Drive backup, are not shared, and are not used for advertising; they are removed from the app the next time it opens after Exercise access (or all Health Connect access) is revoked, and by Delete All Data. Because nothing leaves the device, this adds no new Data safety collection or sharing; keep Health Connect exercise data out of the challenge-backend declaration as well. Complete the Play form according to Google's current definitions for these direct user-initiated transfers rather than broadly claiming that no data is processed. **7.2 billing:** declare **Financial info → Purchase history** (RevenueCat processes Google Play purchases for Plus/Pro, credit packs, and tips; collected, not optional for purchasers, app functionality, not shared for advertising) and **Device or other IDs** for the anonymous RevenueCat app user ID (app functionality; Fud AI's Worker stores only its SHA-256 hash in the hosted-AI quota ledger). In Hosted AI mode (optional, Plus/Pro only) food photos, prompt text, voice audio, and Coach messages go to Fud AI's server (fud-ai.app), which forwards them to Gemini/Deepgram and does not store them: declare **Photos**, **Audio → Voice or sound recordings**, and **App activity → Other user-generated content** as collected, optional, processed ephemerally, for app functionality. Network requests use HTTPS except a user-configured local/custom endpoint may use the URL the user supplies. Delete All Data removes local app data and first requests deletion of the remote challenge profile; if offline, the encrypted deletion credential is retained and deletion retries on the next launch. It does not delete Health Connect records.
 - **Government app**: No
 - **Financial features**: No
-- **Health features**: Yes — nutrition, body measurements, energy-based goals, calculated workout calories, optional daily step reads for Home, optional local water/fasting tracking, and an optional 18+ Weekly Challenge. Challenge qualification is calculated locally and uploads only weekly totals: overall points, qualifying activity/nutrition/consistency/hydration day counts, and activity calories capped at 2,000 per day; it never uploads raw logs or ranks weight loss. Health Connect permissions are READ/WRITE nutrition, weight, body fat, and active calories burned, plus READ total calories burned, steps, and exercise. Exercise read is optional: it imports workouts other apps (Garmin Connect, Coros, Strava, Samsung Health, Fitbit, …) wrote to Health Connect as read-only history in Workouts and Progress, and the app works fully without it. Water and fasting history are local and are not written to Health Connect. Explain restore/backfill, Energy Burn Goals, calculated workout-burn sync, daily steps display, imported workouts, and the separate opt-in challenge aggregate in the permissions/declaration material, and keep the in-app rationale/Manage Access flow aligned with the privacy policy.
+- **Health features**: Yes — nutrition, body measurements, energy-based goals, workout calories, optional daily steps, water and fasting tracking, and optional 18+ Challenges. Challenge qualification is calculated locally; only bounded aggregates are uploaded, never raw logs or weight loss. Health Connect permissions cover READ/WRITE nutrition, weight, body fat, and active calories; READ total calories burned, steps, and optional exercise imports; and separately optional WRITE hydration. Water amounts and timestamps can be written only when water sync and the permission are enabled. Fasting history is not written. Match the permission declarations to the in-app Manage Access flow and Privacy Policy.
 
 ### Sign in details (Play Console → App content → Sign in details)
 
@@ -276,6 +278,17 @@ progress views, and AI Coach context for nutrition and weight
 management. Fud AI uses this data only for user-facing food logging,
 nutrition tracking, and goal tracking. It is not used for diagnosis,
 treatment, clinical decisions, or medical advice.
+```
+
+#### Nutrition — Hydration
+`WRITE_HYDRATION`
+```
+Fud AI writes the amount and timestamp of water the user logs to
+Health Connect only after they enable water sync and grant Hydration
+write permission. Fud AI does not read water data from Health Connect.
+Turning water sync off stops future writes. Users can manage or remove
+existing records in Health Connect. This data is not used for ads,
+diagnosis, treatment, or medical advice.
 ```
 
 #### Miscellaneous — Health data history

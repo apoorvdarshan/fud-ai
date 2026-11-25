@@ -87,12 +87,12 @@ Source: https://github.com/apoorvdarshan/fud-ai
 
 ```
 
-## What's New (v8.1.1)
+## What's New (v9.0)
 ```
-Fud AI 8.1.1
-• Plus and Pro subscriptions now start at the displayed subscription price, without a free trial.
-• Trials already started keep their original terms.
-• Using your own API key remains free.
+Fud AI 9.0 introduces 04 Flash, a new look for Home, the food diary, and settings.
+• Home Screen widgets, the Apple Watch dashboard, and watch-face complications now match.
+• Try Daily or Monthly Challenges with a separate opt-in, alongside the Weekly board.
+• Find store updates in About → App & Updates. Use your own AI key for free or view optional paid Hosted Plus/Pro plans.
 ```
 
 ## Privacy URL

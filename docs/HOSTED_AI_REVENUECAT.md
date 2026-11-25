@@ -148,9 +148,12 @@ Credits are reconciled from RevenueCat `non_subscriptions` by transaction id (Ap
 As of November 6, 2026, remove the introductory offers on Apple and deactivate
 `three-day-trial` on both Play yearly base plans. Do not recreate or activate
 these offers during releases. New subscriptions use the regular store price.
-The existing offer-driven UI hides trial copy and the post-update invitation
-when no eligible trial is returned. Keep the entitlement, quota, and reminder
-handling below for customers whose trials already started.
+The offer-driven paywall hides trial copy when no eligible offer is returned.
+The separate 9.0 invitation is shown once to existing BYOK users after
+checking that they have no active subscription and that paid plans are
+available. It does not advertise a trial or replay older launch prompts.
+Keep the entitlement, quota, and reminder handling below for trials that
+were already started.
 
 Historical configuration:
 
@@ -177,10 +180,9 @@ Verification races remain monotonic and credit balances survive conversion.
 
 The paywall shows trial wording only for an eligible three-day yearly offer,
 with localized annual price, automatic renewal, trial quotas, and cancellation
-terms. The versioned post-update invitation is shown once to existing BYOK
-users without an entitlement when an eligible trial is available. Fresh
-installs mark it seen during onboarding. Existing subscribers are skipped;
-failed entitlement checks and unavailable offers leave the invitation pending.
+terms. Fresh installs mark the 9.0 paid-plan invitation seen during onboarding.
+Existing subscribers are skipped; failed entitlement checks and unavailable
+paid offerings leave the invitation pending for a later launch.
 
 Settings displays the trial end date. A local reminder is scheduled roughly
 24 hours before renewal if notification permission already allows delivery.

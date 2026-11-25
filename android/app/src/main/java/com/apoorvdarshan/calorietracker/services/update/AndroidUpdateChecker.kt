@@ -8,7 +8,6 @@ import com.apoorvdarshan.calorietracker.MainActivity
 import com.google.android.gms.tasks.Task
 import com.google.android.play.core.appupdate.AppUpdateInfo
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
-import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -21,6 +20,12 @@ sealed class AndroidUpdateState {
     data class UpToDate(val current: String, val latest: String?) : AndroidUpdateState()
     data class Available(val current: String, val latest: String) : AndroidUpdateState()
     data class Failed(val current: String) : AndroidUpdateState()
+
+    val isUpdateAvailable: Boolean get() = this is Available
+
+    /** A transient failed refresh does not erase an already confirmed update. */
+    fun resolving(result: AndroidUpdateState): AndroidUpdateState =
+        if (this is Available && result is Failed) this else result
 }
 
 object AndroidUpdateChecker {
@@ -77,27 +82,18 @@ object AndroidUpdateChecker {
             val info = AppUpdateManagerFactory.create(context).appUpdateInfo.awaitTask()
             when (info.updateAvailability()) {
                 UpdateAvailability.UPDATE_AVAILABLE,
-                UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS -> {
-                    if (info.isPlayableUpdate()) {
-                        AndroidUpdateState.Available(
-                            current = current,
-                            latest = info.playVersionLabel()
-                        )
-                    } else {
-                        AndroidUpdateState.UpToDate(current = current, latest = current)
-                    }
-                }
-                else -> AndroidUpdateState.UpToDate(current = current, latest = current)
+                UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS ->
+                    // We open the listing, not an in-app flexible/immediate update flow.
+                    AndroidUpdateState.Available(current = current, latest = info.playVersionLabel())
+                UpdateAvailability.UPDATE_NOT_AVAILABLE ->
+                    AndroidUpdateState.UpToDate(current = current, latest = current)
+                else -> AndroidUpdateState.Failed(current)
             }
-        } catch (_: Throwable) {
+        } catch (cancelled: CancellationException) {
+            throw cancelled
+        } catch (_: Exception) {
             AndroidUpdateState.Failed(current)
         }
-    }
-
-    private fun AppUpdateInfo.isPlayableUpdate(): Boolean {
-        return isUpdateTypeAllowed(AppUpdateType.FLEXIBLE) ||
-            isUpdateTypeAllowed(AppUpdateType.IMMEDIATE) ||
-            updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS
     }
 
     private fun AppUpdateInfo.playVersionLabel(): String {

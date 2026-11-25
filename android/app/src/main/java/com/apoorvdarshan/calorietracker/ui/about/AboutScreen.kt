@@ -145,16 +145,19 @@ fun AboutAppHeader() {
 
 /** Rows for one focused About category, embedded in the existing Settings layout. */
 @Composable
-fun AboutSettingsRows(category: AboutSettingsCategory, billing: BillingManager? = null) {
+fun AboutSettingsRows(
+    category: AboutSettingsCategory,
+    billing: BillingManager?,
+    updateState: AndroidUpdateState,
+    onRefreshUpdates: () -> Unit
+) {
     val ctx = LocalContext.current
     val shareText = stringResource(R.string.about_share_message)
     val shareChooser = stringResource(R.string.about_share_chooser)
     val currentVersion = remember(ctx) { AndroidUpdateChecker.currentVersion(ctx) }
-    var updateState by remember { mutableStateOf<AndroidUpdateState>(AndroidUpdateState.Idle) }
     var showLiteRtNotices by remember { mutableStateOf(false) }
     var showWhisperNotices by remember { mutableStateOf(false) }
     var showSherpaNotices by remember { mutableStateOf(false) }
-    val scope = rememberCoroutineScope()
 
     fun open(url: String) =
         ctx.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
@@ -170,20 +173,6 @@ fun AboutSettingsRows(category: AboutSettingsCategory, billing: BillingManager? 
     }
 
     fun openPlayStore() = openPlayStore(ctx)
-
-    fun refreshUpdateState() {
-        scope.launch {
-            updateState = AndroidUpdateState.Checking
-            updateState = AndroidUpdateChecker.check(ctx, currentVersion)
-        }
-    }
-
-    LaunchedEffect(category, currentVersion) {
-        if (category == AboutSettingsCategory.APP_UPDATES) {
-            updateState = AndroidUpdateState.Checking
-            updateState = AndroidUpdateChecker.check(ctx, currentVersion)
-        }
-    }
 
     fun share() {
         ctx.startActivity(Intent.createChooser(
@@ -207,7 +196,7 @@ fun AboutSettingsRows(category: AboutSettingsCategory, billing: BillingManager? 
                 UpdateRow(
                     state = updateState,
                     currentVersion = currentVersion,
-                    onRefresh = ::refreshUpdateState,
+                    onRefresh = onRefreshUpdates,
                     onOpenStore = ::openPlayStore
                 )
                 Hairline()

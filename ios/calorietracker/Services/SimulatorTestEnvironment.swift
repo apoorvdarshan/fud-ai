@@ -3,6 +3,14 @@ import Foundation
 /// Isolates simulator test launches from background account/network work.
 /// These switches cannot reset data or alter startup on a device or Release build.
 enum SimulatorTestEnvironment {
+    static var showsAvailableAppUpdate: Bool {
+        #if DEBUG && targetEnvironment(simulator)
+        return isRunningTests && CommandLine.arguments.contains("--ui-testing-app-update-available")
+        #else
+        return false
+        #endif
+    }
+
     static var holdsFoodAnalysis: Bool {
         #if DEBUG && targetEnvironment(simulator)
         return isRunningTests && CommandLine.arguments.contains("--ui-testing-hold-food-analysis")

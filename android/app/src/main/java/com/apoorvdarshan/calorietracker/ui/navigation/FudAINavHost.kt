@@ -29,9 +29,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.structuralEqualityPolicy
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
@@ -59,7 +61,7 @@ import com.apoorvdarshan.calorietracker.services.update.AndroidUpdateChecker
 import com.apoorvdarshan.calorietracker.services.update.AndroidUpdateState
 import com.apoorvdarshan.calorietracker.ui.about.AboutSettingsCategory
 import com.apoorvdarshan.calorietracker.ui.coach.CoachScreen
-import com.apoorvdarshan.calorietracker.ui.components.PostUpdatePromptsHost
+import com.apoorvdarshan.calorietracker.ui.components.HostedUpdateInviteHost
 import com.apoorvdarshan.calorietracker.ui.hosted.HostedUiHost
 import com.apoorvdarshan.calorietracker.ui.home.HomeScreen
 import com.apoorvdarshan.calorietracker.ui.onboarding.OnboardingScreen
@@ -142,7 +144,9 @@ internal fun FudAINavHost(
     // (matches iOS TabView + NavigationStack reselect → root behavior).
     var settingsPopToRootTick by remember { mutableIntStateOf(0) }
     val currentVersion = remember(context) { AndroidUpdateChecker.currentVersion(context) }
-    var updateAvailable by remember { mutableStateOf(false) }
+    var appUpdateState by remember { mutableStateOf<AndroidUpdateState>(AndroidUpdateState.Idle) }
+    var checkingAppUpdate by remember { mutableStateOf(false) }
+    val updateScope = rememberCoroutineScope()
 
     LaunchedEffect(quickActionRequest?.id, currentRoute) {
         if (quickActionRequest != null &&
@@ -156,19 +160,26 @@ internal fun FudAINavHost(
         }
     }
 
-    LaunchedEffect(currentVersion) {
-        if (!container.backgroundServicesEnabled) return@LaunchedEffect
-        val state = AndroidUpdateChecker.check(context, currentVersion)
-        updateAvailable = state is AndroidUpdateState.Available
-        // A newer version is out — fire a one-shot notification (de-duped per version, gated by the
-        // "App Updates" toggle) so the user finds out even without opening the About section.
-        if (state is AndroidUpdateState.Available &&
-            container.prefs.appUpdateNotificationsEnabled.first() &&
-            container.notifications.canPostNotifications() &&
-            container.prefs.lastNotifiedUpdateVersion.first() != state.latest
-        ) {
-            container.notifications.showUpdateAvailable()
-            container.prefs.setLastNotifiedUpdateVersion(state.latest)
+    fun refreshAppUpdateState() {
+        if (!container.backgroundServicesEnabled || checkingAppUpdate) return
+        checkingAppUpdate = true
+        updateScope.launch {
+            try {
+                if (!appUpdateState.isUpdateAvailable) appUpdateState = AndroidUpdateState.Checking
+                val result = AndroidUpdateChecker.check(context, currentVersion)
+                appUpdateState = appUpdateState.resolving(result)
+                // Notify once per confirmed version, independently of the in-app badges.
+                if (result is AndroidUpdateState.Available &&
+                    container.prefs.appUpdateNotificationsEnabled.first() &&
+                    container.notifications.canPostNotifications() &&
+                    container.prefs.lastNotifiedUpdateVersion.first() != result.latest
+                ) {
+                    container.notifications.showUpdateAvailable()
+                    container.prefs.setLastNotifiedUpdateVersion(result.latest)
+                }
+            } finally {
+                checkingAppUpdate = false
+            }
         }
     }
 
@@ -178,6 +189,9 @@ internal fun FudAINavHost(
     val lifecycleOwner = LocalLifecycleOwner.current
     var launchFillEpoch by remember { mutableIntStateOf(1) }
     var hasStopped by remember { mutableStateOf(false) }
+    LaunchedEffect(currentVersion, launchFillEpoch) {
+        refreshAppUpdateState()
+    }
     DisposableEffect(lifecycleOwner, container.navigator) {
         val observer = LifecycleEventObserver { _, event ->
             when (event) {
@@ -358,6 +372,7 @@ internal fun FudAINavHost(
                     TabInset {
                         AboutRailScreen(
                             container = container,
+                            updateState = appUpdateState,
                             onSelect = { nav.navigate(FudAIRoutes.aboutSection(it.name)) }
                         )
                     }
@@ -367,7 +382,13 @@ internal fun FudAINavHost(
                         it.name == entry.arguments?.getString("section") && it != AboutSettingsCategory.SUPPORT
                     } ?: AboutSettingsCategory.APP_UPDATES
                     TabInset {
-                        AboutRailScreen(container = container, category = category, onBack = { nav.popBackStack() })
+                        AboutRailScreen(
+                            container = container,
+                            category = category,
+                            updateState = appUpdateState,
+                            onRefreshUpdates = ::refreshAppUpdateState,
+                            onBack = { nav.popBackStack() }
+                        )
                     }
                 }
                 composable(FudAIRoutes.SUPPORT) {
@@ -423,7 +444,7 @@ internal fun FudAINavHost(
                         if (showTabs) {
                             PinkNeoRail(
                                 currentRoute = selectedTabRoute,
-                                showAboutBadge = updateAvailable,
+                                showAboutBadge = appUpdateState.isUpdateAvailable,
                                 hiddenRoutes = hiddenTabs,
                                 navigationEnabled = !analyzing && !voiceExpanded,
                                 voiceMascot = sessionMascot ?: voiceMascots.profile,
@@ -458,11 +479,11 @@ internal fun FudAINavHost(
                     }
                 }
             }
-            // One-time post-update prompts for existing users; never during (or right after)
-            // a fresh onboarding — those users are marked as "seen" on completion.
-            PostUpdatePromptsHost(
+            // Never during or right after onboarding; fresh installs are marked seen.
+            HostedUpdateInviteHost(
                 container = container,
-                enabled = !startup.startOnboarding && container.backgroundServicesEnabled
+                enabled = !startup.startOnboarding && container.backgroundServicesEnabled,
+                canPresent = { currentRoute == FudAIRoutes.HOME && quickActionRequest == null && !analyzing }
             )
             // The live voice assistant over every tab (never during onboarding).
             if (currentRoute != null && currentRoute != FudAIRoutes.ONBOARDING) {

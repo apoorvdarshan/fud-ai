@@ -1,6 +1,8 @@
 package com.apoorvdarshan.calorietracker.ui.hosted
 
 import android.graphics.Bitmap
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.edit
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
@@ -12,9 +14,10 @@ import com.android.billingclient.api.ProductDetails
 import com.apoorvdarshan.calorietracker.AppContainer
 import com.apoorvdarshan.calorietracker.FudAIApp
 import com.apoorvdarshan.calorietracker.R
+import com.apoorvdarshan.calorietracker.data.fudaiDataStore
 import com.apoorvdarshan.calorietracker.services.hosted.*
 import com.apoorvdarshan.calorietracker.testing.FudAITestState
-import com.apoorvdarshan.calorietracker.ui.components.PostUpdatePromptsHost
+import com.apoorvdarshan.calorietracker.ui.components.HostedUpdateInviteHost
 import com.apoorvdarshan.calorietracker.ui.onboarding.OnboardingViewModel
 import com.revenuecat.purchases.Package
 import com.revenuecat.purchases.PackageType
@@ -57,7 +60,7 @@ class TrialOfferUiTest {
     private lateinit var entitlement: MutableStateFlow<HostedEntitlement>
     private lateinit var offerings: MutableStateFlow<OfferingsState>
     private val generation = mutableStateOf(0)
-    private val completedPromptFlows = AtomicInteger()
+    private val startedPromptChecks = AtomicInteger()
     private lateinit var billing: BillingManager
     private lateinit var container: AppContainer
     private lateinit var router: HostedUiRouter
@@ -67,9 +70,6 @@ class TrialOfferUiTest {
         runBlocking {
             // Existing upgraded user: onboarding was completed before this campaign.
             prefs.setHasSeenHostedUpsellPrompt(false)
-            prefs.setHasSeenWhatsNewLiveVoice(true)
-            prefs.setHasSeenMeetDeveloperPrompt(true)
-            prefs.setHasSeenProductHuntLaunchPrompt(true)
         }
         router = HostedUiRouter()
         billing = spyk(BillingManager(scope, mockk()))
@@ -90,11 +90,6 @@ class TrialOfferUiTest {
         every { container.hostedUi } returns router
         every { container.keyStore } returns actual.keyStore
         every { container.voiceAssistant.isActive } returns false
-        every { container.notifications.cancelWhatsNew() } returns Unit
-        coEvery { container.notifications.scheduleProductHuntLaunchReminderIfNeeded(any()) } answers {
-            completedPromptFlows.incrementAndGet()
-            false
-        }
         catalog(eligible = true)
         check(billing.hasEligibleYearlyTrial) { "Eligible billing fixture must reach the real computed property" }
     }
@@ -104,11 +99,12 @@ class TrialOfferUiTest {
         scope.cancel()
     }
 
-    @Test fun existingNeverSubscribedUserGetsPopupAndYearlyTrialTerms() {
+    @Test fun existingNeverSubscribedUserGetsPaidPlansInviteAndActualStoreTerms() {
         render()
         waitFor(R.string.hosted_upsell_cta)
-        compose.onNodeWithText(text(R.string.hosted_trial_invite_title)).assertIsDisplayed()
-        screenshot("existing-user-trial-popup")
+        compose.onNodeWithText(text(R.string.hosted_upsell_title)).assertIsDisplayed()
+        compose.onNodeWithText(text(R.string.hosted_trial_invite_title)).assertDoesNotExist()
+        screenshot("existing-user-hosted-plans-popup")
         compose.onNodeWithText(text(R.string.hosted_upsell_cta)).performClick()
         assertTrialPaywall("₹6,800.00", 2)
         screenshot("existing-user-plus-trial-paywall")
@@ -146,16 +142,16 @@ class TrialOfferUiTest {
         assertTrialPaywall("₹6,800.00", 2)
     }
 
-    @Test fun offerUnavailableAtFirstLaunchRemainsEligibleForPopupOnNextLaunch() {
-        catalog(eligible = false)
+    @Test fun plansUnavailableAtFirstLaunchRemainEligibleForPopupOnNextLaunch() {
+        offerings.value = OfferingsState.Failed
         render()
         settlePrompt()
         assertNoInvite()
         assertFalse(runBlocking { prefs.hasSeenHostedUpsellPrompt.first() })
-        catalog(eligible = true)
+        catalog(eligible = false)
         relaunchPrompt()
         waitFor(R.string.hosted_upsell_cta)
-        compose.onNodeWithText(text(R.string.hosted_trial_invite_title)).assertIsDisplayed()
+        compose.onNodeWithText(text(R.string.hosted_upsell_title)).assertIsDisplayed()
     }
 
     @Test fun failedBillingRefreshDoesNotConsumeThePopup() {
@@ -194,10 +190,17 @@ class TrialOfferUiTest {
 
     @Test fun ineligibleAccountSeesPaidTermsWithoutMisleadingTrialText() {
         catalog(eligible = false)
+        // Closing a past campaign must not suppress the separate 9.0 invitation.
+        runBlocking {
+            context.fudaiDataStore.edit {
+                it[booleanPreferencesKey("hasSeenHostedUpsellPrompt.yearly-trial-2026-11")] = true
+            }
+        }
         render()
-        settlePrompt()
-        assertNoInvite()
-        compose.runOnIdle { router.show(HostedPrompt.Paywall) }
+        waitFor(R.string.hosted_upsell_cta)
+        compose.onNodeWithText(text(R.string.hosted_upsell_title)).assertIsDisplayed()
+        compose.onNodeWithText(text(R.string.hosted_trial_invite_title)).assertDoesNotExist()
+        compose.onNodeWithText(text(R.string.hosted_upsell_cta)).performClick()
         waitForText(context.getString(R.string.hosted_cta_subscribe, "Plus"))
         compose.onNodeWithText(text(R.string.hosted_trial_cta)).assertDoesNotExist()
         compose.onNodeWithText(context.getString(R.string.hosted_trial_disclosure, "₹6,800.00")).assertDoesNotExist()
@@ -227,31 +230,33 @@ class TrialOfferUiTest {
         assertTrialPaywall("₹6,800.00", 2)
     }
 
-    @Test fun unseenWhatsNewComesFirstAndTrialPopupAppearsOnNextLaunch() {
-        runBlocking { prefs.setHasSeenWhatsNewLiveVoice(false) }
-        render()
-        waitFor(R.string.whats_new_next)
-        compose.onNodeWithText(text(R.string.hosted_trial_invite_title)).assertDoesNotExist()
-        // Complete the real four-page What's New flow before relaunching the host.
-        repeat(3) {
-            compose.onNodeWithText(text(R.string.whats_new_next)).performClick()
-            compose.mainClock.advanceTimeBy(1_000)
-            compose.waitForIdle()
+    @Test fun directUpgradeSkipsUnseenLegacyPopupsAndShowsOnlyTheHostedInvite() {
+        runBlocking {
+            prefs.setHasSeenWhatsNewLiveVoice(false)
+            prefs.setHasSeenMeetDeveloperPrompt(false)
+            prefs.setHasSeenProductHuntLaunchPrompt(false)
         }
-        waitFor(R.string.cd_close)
-        compose.onNodeWithText(text(R.string.cd_close)).performClick()
-        compose.waitUntil(5_000) { runBlocking { prefs.hasSeenWhatsNewLiveVoice.first() } }
-        assertNoInvite()
-        assertFalse(runBlocking { prefs.hasSeenHostedUpsellPrompt.first() })
-        relaunchPrompt()
+        catalog(eligible = false)
+        render()
         waitFor(R.string.hosted_upsell_cta)
-        compose.onNodeWithText(text(R.string.hosted_trial_invite_title)).assertIsDisplayed()
+        compose.onNodeWithText(text(R.string.hosted_upsell_title)).assertIsDisplayed()
+        compose.onNodeWithText(text(R.string.whats_new_next)).assertDoesNotExist()
+        compose.onNodeWithText(text(R.string.hosted_upsell_keep)).performClick()
+        assertNoInvite()
+        compose.onNodeWithText(text(R.string.post_update_meet_dev_title)).assertDoesNotExist()
+        compose.onNodeWithText(text(R.string.post_update_product_hunt_title)).assertDoesNotExist()
+        assertTrue(runBlocking { prefs.hasSeenHostedUpsellPrompt.first() })
     }
 
     private fun render() {
         compose.setContent {
             MaterialTheme {
-                key(generation.value) { PostUpdatePromptsHost(container, enabled = true) }
+                key(generation.value) {
+                    HostedUpdateInviteHost(container, enabled = true, canPresent = {
+                        startedPromptChecks.incrementAndGet()
+                        true
+                    })
+                }
                 HostedUiHost(container)
             }
         }
@@ -259,7 +264,7 @@ class TrialOfferUiTest {
 
     private fun relaunchPrompt() {
         compose.runOnIdle {
-            completedPromptFlows.set(0)
+            startedPromptChecks.set(0)
             generation.value++
         }
     }
@@ -269,8 +274,8 @@ class TrialOfferUiTest {
         // The production prompt waits 2.5 seconds before reading persisted state.
         compose.mainClock.advanceTimeBy(3_000)
         compose.waitForIdle()
-        // DataStore resumes outside Compose's virtual clock; wait for the end-of-flow hook.
-        compose.waitUntil(5_000) { completedPromptFlows.get() > 0 }
+        compose.waitUntil(5_000) { startedPromptChecks.get() > 0 }
+        compose.waitForIdle()
     }
 
     private fun assertNoInvite() {

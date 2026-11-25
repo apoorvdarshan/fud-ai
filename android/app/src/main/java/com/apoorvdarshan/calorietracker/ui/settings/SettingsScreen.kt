@@ -176,6 +176,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import com.apoorvdarshan.calorietracker.R
@@ -183,6 +185,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.apoorvdarshan.calorietracker.AppContainer
+import com.apoorvdarshan.calorietracker.services.update.AndroidUpdateState
 import com.apoorvdarshan.calorietracker.models.ActivityLevel
 import com.apoorvdarshan.calorietracker.models.AIProvider
 import com.apoorvdarshan.calorietracker.models.AutoBalanceMacro
@@ -2372,7 +2375,7 @@ private fun SettingsCategoryHub(onSelect: (SettingsCategory) -> Unit) {
             style = PinkNeoCondensed
         )
         SectionCard {
-            SettingsCategoryRows(SettingsCategory.preferenceEntries, onSelect)
+            SettingsCategoryRows(SettingsCategory.preferenceEntries, onSelect = onSelect)
         }
     }
 }
@@ -2381,6 +2384,8 @@ private fun SettingsCategoryHub(onSelect: (SettingsCategory) -> Unit) {
 internal fun AboutRailScreen(
     container: AppContainer,
     category: AboutSettingsCategory? = null,
+    updateState: AndroidUpdateState = AndroidUpdateState.Idle,
+    onRefreshUpdates: () -> Unit = {},
     onSelect: (AboutSettingsCategory) -> Unit = {},
     onBack: () -> Unit = {}
 ) {
@@ -2404,10 +2409,16 @@ internal fun AboutRailScreen(
 
             if (category == null) {
                 SectionCard { AboutAppHeader() }
-                SectionCard { SettingsCategoryRows(SettingsCategory.aboutEntries) { onSelect(checkNotNull(it.aboutCategory)) } }
+                SectionCard {
+                    SettingsCategoryRows(SettingsCategory.aboutEntries, showAppUpdatesBadge = updateState.isUpdateAvailable) {
+                        onSelect(checkNotNull(it.aboutCategory))
+                    }
+                }
                 AboutFooter()
             } else {
-                SectionCard { AboutSettingsRows(category, billing = container.billing) }
+                SectionCard {
+                    AboutSettingsRows(category, container.billing, updateState, onRefreshUpdates)
+                }
             }
             Spacer(Modifier.height(BottomNavScrollPadding))
         }
@@ -2417,23 +2428,32 @@ internal fun AboutRailScreen(
 @Composable
 private fun SettingsCategoryRows(
     categories: List<SettingsCategory>,
+    showAppUpdatesBadge: Boolean = false,
     onSelect: (SettingsCategory) -> Unit
 ) {
     categories.forEachIndexed { index, category ->
+        val hasUpdate = showAppUpdatesBadge && category.aboutCategory == AboutSettingsCategory.APP_UPDATES
+        val updateLabel = stringResource(R.string.about_update_available)
         Row(
             modifier = Modifier
                 .testTag("settings.category.${category.name}")
                 .fillMaxWidth()
                 .clickable { onSelect(category) }
+                .semantics { if (hasUpdate) stateDescription = updateLabel }
                 .flashListRow(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            FudIconBubble(
-                icon = category.icon,
-                size = 22.dp,
-                iconSize = 17.dp,
-                tint = AppColors.Calorie
-            )
+            Box {
+                FudIconBubble(
+                    icon = category.icon,
+                    size = 22.dp,
+                    iconSize = 17.dp,
+                    tint = AppColors.Calorie
+                )
+                if (hasUpdate) {
+                    Box(Modifier.align(Alignment.TopEnd).size(8.dp).background(AppColors.Calorie, CircleShape))
+                }
+            }
             Spacer(Modifier.width(10.dp))
             Text(
                 text = stringResource(category.titleRes),

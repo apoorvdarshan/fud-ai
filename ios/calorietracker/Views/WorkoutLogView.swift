@@ -504,7 +504,9 @@ struct WorkoutLogView: View {
                     if let id = focusedSetField?.setID { revealFocusedSet(id, in: proxy) }
                 }
                 .safeAreaInset(edge: .bottom, spacing: 0) {
-                    workoutDock
+                    // The keyboard toolbar handles leaving edit mode. Keep the
+                    // dock out of the shortened list while a set field is active.
+                    if focusedSetField == nil { workoutDock }
                 }
             }
             // Keep the chrome quiet: the date strip and burn calculator lead.

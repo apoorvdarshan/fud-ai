@@ -350,6 +350,9 @@ final class calorietrackerUITests: XCTestCase {
             field.tap()
             field.typeText(value)
             XCTAssertEqual(field.value as? String, value)
+            if placeholder == "Reps" {
+                XCTAssertTrue(app.buttons["Skip rest"].waitForExistence(timeout: 5))
+            }
         }
         XCTAssertEqual(app.state, .runningForeground)
 

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="challenge_hub_title">Provocări</string>
+    <string name="challenge_hub_daily">Zilnică</string>
+    <string name="challenge_hub_weekly">Săptămânală</string>
+    <string name="challenge_hub_monthly">Lunară</string>
+    <string name="challenge_hub_your_points">Punctele tale</string>
+    <string name="challenge_hub_points">Puncte: %1$d</string>
+    <string name="challenge_hub_days">Zile: %1$d</string>
+    <string name="challenge_hub_participants">Participanți: %1$d</string>
+    <string name="challenge_hub_join">Participă și partajează scorurile</string>
+    <string name="challenge_hub_remove">Părăsește și șterge scorurile</string>
+    <string name="challenge_hub_go_weekly">Mergi la provocarea săptămânală</string>
+    <string name="challenge_hub_habits">Construiește obiceiuri, nu urmări cifre mai mari</string>
+    <string name="challenge_hub_profile_first">Participă întâi la provocarea săptămânală pentru a crea un profil.</string>
+    <string name="challenge_hub_service">Acest clasament necesită actualizarea serviciului.</string>
+    <string name="challenge_hub_consent">Participarea partajează numele și totalurile obiceiurilor tale din această perioadă. Jurnalul, greutatea și cantitățile de calorii nu sunt partajate.</string>
+    <string name="challenge_hub_rules_base">Primești zilnic câte un punct pentru mișcare, înregistrarea meselor și atingerea obiectivelor de nutriție și apă.</string>
+    <string name="challenge_hub_rules_bonus">Primești un punct bonus în zilele cu cel puțin trei obiceiuri.</string>
+    <string name="challenge_hub_rules_streak">În cea mai lungă serie de zile cu cel puțin două obiceiuri, fiecare zi după prima valorează un punct.</string>
+    <string name="challenge_hub_leave">Părăsești această provocare?</string>
+    <string name="challenge_hub_leave_detail">Se elimină doar scorurile acestei perioade. Celelalte provocări și jurnalul rămân neschimbate.</string>
+    <string name="challenge_hub_leave_all">Părăsești toate provocările?</string>
+    <string name="challenge_hub_leave_all_detail">Profilul public, toate scorurile și rapoartele vor fi șterse. Jurnalul privat rămâne pe dispozitiv.</string>
+    <string name="challenge_hub_jump_to_rank">Mergi la poziția mea</string>
+    <string name="challenge_hub_week_rank">Scorul selectat contează primul. La egalitate, sunt avantajate obiceiurile mai variate, rezultatele echilibrate și celelalte totaluri de zile. Dacă sunt egale, ocupă locul mai bun persoana care le-a atins prima. Caloriile antrenamentului nu departajează.</string>
+</resources>

@@ -17,21 +17,21 @@ struct AnalyzingView: View {
         // the content is taller, the ScrollView takes over.
         GeometryReader { geometry in
             ScrollView {
-                VStack(spacing: 24) {
-                    Spacer(minLength: 24)
+                VStack(spacing: 16) {
+                    Spacer(minLength: 18)
 
                     if let image {
                         Image(uiImage: image)
                             .resizable()
                             .scaledToFit()
-                            .frame(maxWidth: 250, maxHeight: 250)
+                            .frame(maxWidth: 220, maxHeight: min(200, geometry.size.height * 0.27))
                             .clipShape(RoundedRectangle(cornerRadius: 16))
                             .shadow(radius: 8)
                     } else {
                         Image(systemName: "text.magnifyingglass")
-                            .font(.system(size: 64))
+                            .font(.system(size: 52))
                             .foregroundStyle(AppColors.calorie)
-                            .frame(maxWidth: 250, maxHeight: 250)
+                            .accessibilityHidden(true)
                     }
 
                     // With reduced motion on, a static icon replaces the spinner: the
@@ -57,6 +57,10 @@ struct AnalyzingView: View {
                             .foregroundStyle(.primary)
                     }
 
+                    WaitingFactCard()
+                        .padding(.horizontal, 24)
+                        .id(progressTracker?.runID)
+
                     if let onCancel {
                         Button("Cancel", action: onCancel)
                             .font(.body.weight(.medium))
@@ -64,7 +68,7 @@ struct AnalyzingView: View {
                             .padding(.top, 8)
                     }
 
-                    Spacer(minLength: 24)
+                    Spacer(minLength: 18)
                 }
                 .frame(maxWidth: .infinity)
                 .frame(minHeight: geometry.size.height)

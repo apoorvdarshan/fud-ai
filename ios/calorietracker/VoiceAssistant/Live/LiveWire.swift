@@ -36,11 +36,11 @@ nonisolated enum LiveProvider: String, CaseIterable, Codable, Sendable {
     var models: [String] {
         switch self {
         case .hosted: ["gemini-3.8-live"]
-        case .gemini: ["gemini-3.8-live", "gemini-3.1-flash-live-preview"]
+        case .gemini: ["gemini-3.8-live", "gemini-3.8-live-extended-thinking", "gemini-3.1-flash-live-preview"]
         case .openai: ["gpt-realtime-2.1-mini", "gpt-realtime-2.1"]
         case .xai: ["grok-voice-latest", "grok-voice-3.0"]
         case .qwen: ["qwen3.8-omni-flash-realtime"]
-        case .gptLive: ["gpt-live-1"]
+        case .gptLive: ["gpt-live-1", "gpt-live-1.1"]
         }
     }
 
@@ -123,6 +123,20 @@ nonisolated struct LiveSessionConfig: Sendable, Equatable {
     let credential: Credential
     let instructions: String
     let tools: [LiveToolDeclaration]
+    let qwenWorkspace: String
+    let geminiBargeIn: Bool
+
+    init(provider: LiveProvider, model: String, voice: String, credential: Credential,
+         instructions: String, tools: [LiveToolDeclaration], qwenWorkspace: String = "", geminiBargeIn: Bool = true) {
+        self.provider = provider
+        self.model = model
+        self.voice = voice
+        self.credential = credential
+        self.instructions = instructions
+        self.tools = tools
+        self.qwenWorkspace = qwenWorkspace
+        self.geminiBargeIn = geminiBargeIn
+    }
 
     var apiKey: String {
         if case .apiKey(let key) = credential { return key }
@@ -286,15 +300,32 @@ nonisolated struct GeminiLiveWire: LiveWire {
     /// The `setup` object, shared with the hosted relay (which replaces `model`).
     static func setup(for config: LiveSessionConfig, resumptionHandle: String?) -> [String: Any] {
         let model = config.model.hasPrefix("models/") ? config.model : "models/\(config.model)"
+        let extendedThinking = config.provider == .gemini && model == "models/gemini-3.8-live-extended-thinking"
+        var generation: [String: Any] = [
+            "responseModalities": ["AUDIO"],
+            "speechConfig": ["voiceConfig": ["prebuiltVoiceConfig": ["voiceName": config.voice]]],
+        ]
+        if extendedThinking { generation["thinkingConfig"] = ["thinkingLevel": "LOW"] }
         var resumption: [String: Any] = [:]
         if let resumptionHandle { resumption["handle"] = resumptionHandle }
+        let instructions = """
+        Speak in one consistent voice throughout the session. Keep the configured voice across replies and languages. Do not imitate the user or other speakers, even when quoting them. Ignore background sounds that do not address you.
+
+        \(config.instructions)
+        """
         var setup: [String: Any] = [
             "model": model,
-            "generationConfig": [
-                "responseModalities": ["AUDIO"],
-                "speechConfig": ["voiceConfig": ["prebuiltVoiceConfig": ["voiceName": config.voice]]],
+            "generationConfig": generation,
+            "systemInstruction": ["parts": [["text": VoiceAssistantInstructions.limitedToRelayLength(instructions)]]],
+            "realtimeInputConfig": [
+                "automaticActivityDetection": [
+                    "startOfSpeechSensitivity": "START_SENSITIVITY_LOW",
+                    "endOfSpeechSensitivity": "END_SENSITIVITY_LOW",
+                    "prefixPaddingMs": 240,
+                    "silenceDurationMs": 700,
+                ],
+                "activityHandling": config.geminiBargeIn ? "START_OF_ACTIVITY_INTERRUPTS" : "NO_INTERRUPTION",
             ],
-            "systemInstruction": ["parts": [["text": config.instructions]]],
             "inputAudioTranscription": [String: Any](),
             "outputAudioTranscription": [String: Any](),
             // Without compression an audio session ends after 15 minutes, and one with
@@ -303,7 +334,11 @@ nonisolated struct GeminiLiveWire: LiveWire {
             "sessionResumption": resumption,
         ]
         if !config.tools.isEmpty {
-            setup["tools"] = [["functionDeclarations": config.tools.map(functionDeclaration)]]
+            setup["tools"] = [["functionDeclarations": config.tools.map { tool in
+                var declaration = functionDeclaration(tool)
+                if extendedThinking { declaration["behavior"] = "NON_BLOCKING" }
+                return declaration
+            }]]
         }
         return setup
     }
@@ -712,8 +747,19 @@ nonisolated struct QwenRealtimeWire: LiveWire {
     /// Model Studio fixes this model for Qwen Omni Realtime.
     static let transcriptionModel = "qwen3-asr-flash-realtime"
 
+    static func isValidWorkspace(_ value: String) -> Bool {
+        value.trimmingCharacters(in: .whitespacesAndNewlines)
+            .wholeMatch(of: /[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?/) != nil
+    }
+
     func request(for config: LiveSessionConfig) -> URLRequest {
-        var components = URLComponents(string: "wss://dashscope-intl.aliyuncs.com/api-ws/v1/realtime")!
+        let workspace = config.qwenWorkspace.trimmingCharacters(in: .whitespacesAndNewlines)
+        // Routing rejects an incomplete setup. Never attach a credential to an
+        // unvalidated endpoint even if an internal caller bypasses routing.
+        guard Self.isValidWorkspace(workspace) else {
+            return URLRequest(url: URL(string: "about:blank")!)
+        }
+        var components = URLComponents(string: "wss://\(workspace).ap-southeast-1.maas.aliyuncs.com/api-ws/v1/realtime")!
         components.queryItems = [URLQueryItem(name: "model", value: config.model)]
         var request = URLRequest(url: components.url!)
         request.setValue("Bearer \(config.apiKey)", forHTTPHeaderField: "Authorization")
@@ -723,7 +769,7 @@ nonisolated struct QwenRealtimeWire: LiveWire {
     func setupMessages(for config: LiveSessionConfig, resumptionHandle: String?) -> [String] {
         let session: [String: Any] = [
             "modalities": ["text", "audio"],
-            "voice": config.voice,
+            "audio": ["output": ["voice": config.voice]],
             "instructions": config.instructions,
             "input_audio_format": "pcm",
             "output_audio_format": "pcm",

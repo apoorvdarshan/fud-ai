@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="voice_settings_gemini_barge_in">Interrompre la réponse quand je parle</string>
+    <string name="voice_settings_gemini_barge_in_detail">Désactivez cette option si le bruit ambiant coupe les réponses. Attendez la fin de la réponse avant de parler.</string>
+</resources>

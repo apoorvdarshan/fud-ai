@@ -11,6 +11,8 @@ import com.apoorvdarshan.calorietracker.AppContainer
 import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.models.AIProvider
 import com.apoorvdarshan.calorietracker.models.AddMenuConfig
+import com.apoorvdarshan.calorietracker.models.FoodLogMethod
+import com.apoorvdarshan.calorietracker.models.WorkoutDockAction
 import com.apoorvdarshan.calorietracker.models.AutoBalanceMacro
 import com.apoorvdarshan.calorietracker.models.CurrentMealSchedule
 import com.apoorvdarshan.calorietracker.models.EnergyUnit
@@ -139,21 +141,15 @@ data class SettingsUiState(
     val heightMetric: Boolean get() = heightUnit == "cm"
     val weightMetric: Boolean get() = weightUnit == "kg"
     val availableVisionProviders: List<AIProvider>
-        get() = AIProvider.remoteVisionProviders + listOfNotNull(
-            AIProvider.LOCAL_GEMMA.takeIf { localModelStates[LocalModelId.GEMMA_4_E2B]?.executable == true }
-        )
+        get() = AIProvider.visionProviders.filter { it.localModelId?.let(::isLocalReady) != false }
     val availableTextProviders: List<AIProvider>
-        get() = AIProvider.remoteTextProviders + listOfNotNull(
-            AIProvider.LOCAL_GEMMA.takeIf { localModelStates[LocalModelId.GEMMA_4_E2B]?.executable == true }
-        )
+        get() = AIProvider.textProviders.filter { it.localModelId?.let(::isLocalReady) != false }
     val availableSpeechProviders: List<SpeechProvider>
-        get() = SpeechProvider.values().filter { it != SpeechProvider.LOCAL_WHISPER } + listOfNotNull(
-            SpeechProvider.LOCAL_WHISPER.takeIf { localModelStates[LocalModelId.WHISPER_BASE]?.executable == true }
-        )
+        get() = SpeechProvider.entries.filter { it.localModelId?.let(::isLocalReady) != false }
     val availableSpeechFallbackProviders: List<SpeechProvider>
-        get() = SpeechProvider.remoteProviders + listOfNotNull(
-            SpeechProvider.LOCAL_WHISPER.takeIf { localModelStates[LocalModelId.WHISPER_BASE]?.executable == true }
-        )
+        get() = availableSpeechProviders.filter { it != SpeechProvider.NATIVE }
+
+    private fun isLocalReady(id: LocalModelId): Boolean = localModelStates[id]?.executable == true
 }
 
 internal fun adaptiveCheckDayAfterManualRecalculation(
@@ -698,6 +694,14 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
         }
     }
 
+    fun setHomeFoodShortcut(slot: Int, method: FoodLogMethod) {
+        viewModelScope.launch { container.prefs.setHomeFoodShortcut(slot, method) }
+    }
+
+    fun setWorkoutDockShortcut(slot: Int, action: WorkoutDockAction) {
+        viewModelScope.launch { container.prefs.setWorkoutDockShortcut(slot, action) }
+    }
+
     fun setTabHidden(route: String, hidden: Boolean) {
         if (route !in TabBarSettings.Hideable) return
         // Flip the switch right away; the hiddenTabs collector then shows what was stored.
@@ -884,6 +888,10 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
         }
     }
 
+    fun selectRecordedSpeechModel(provider: SpeechProvider, model: String) {
+        viewModelScope.launch { container.prefs.setRecordedSpeechModel(provider, model) }
+    }
+
     fun setSpeechApiKey(raw: String) {
         viewModelScope.launch {
             val p = _ui.value.selectedSpeech
@@ -942,17 +950,15 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
 
     fun deleteLocalModel(id: LocalModelId) {
         viewModelScope.launch {
-            when (id) {
-                LocalModelId.GEMMA_4_E2B -> resetGemmaSelectionsBeforeDelete()
-                LocalModelId.WHISPER_BASE -> resetWhisperSelectionsBeforeDelete()
-            }
+            resetAISelectionsBeforeDelete(id)
+            resetSpeechSelectionsBeforeDelete(id)
             container.localModels.delete(id)
         }
     }
 
-    private suspend fun resetGemmaSelectionsBeforeDelete() {
+    private suspend fun resetAISelectionsBeforeDelete(id: LocalModelId) {
         var state = _ui.value
-        if (state.selectedAI == AIProvider.LOCAL_GEMMA) {
+        if (state.selectedAI.localModelId == id) {
             container.prefs.setSelectedAIProvider(AIProvider.GEMINI)
             container.prefs.setSelectedAIModel(AIProvider.GEMINI.defaultModel)
             state = state.copy(
@@ -961,7 +967,7 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
                 apiKeyMasked = maskKey(container.keyStore.apiKey(AIProvider.GEMINI))
             )
         }
-        if (state.selectedTextAI == AIProvider.LOCAL_GEMMA) {
+        if (state.selectedTextAI.localModelId == id) {
             container.prefs.setSelectedTextAIProvider(AIProvider.GEMINI)
             container.prefs.setSelectedTextAIModel(AIProvider.GEMINI.defaultTextModel)
             state = state.copy(
@@ -970,7 +976,7 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
                 textApiKeyMasked = maskKey(container.keyStore.apiKey(AIProvider.GEMINI))
             )
         }
-        if (state.fallbackProvider == AIProvider.LOCAL_GEMMA) {
+        if (state.fallbackProvider.localModelId == id) {
             container.prefs.setFallbackEnabled(false)
             container.prefs.setSelectedFallbackProvider(AIProvider.GEMINI)
             container.prefs.setSelectedFallbackModel(AIProvider.GEMINI.defaultModel)
@@ -981,7 +987,7 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
                 fallbackApiKeyMasked = maskKey(container.keyStore.apiKey(AIProvider.GEMINI))
             )
         }
-        if (state.textFallbackProvider == AIProvider.LOCAL_GEMMA) {
+        if (state.textFallbackProvider.localModelId == id) {
             container.prefs.setTextFallbackEnabled(false)
             container.prefs.setSelectedTextFallbackProvider(AIProvider.GEMINI)
             container.prefs.setSelectedTextFallbackModel(AIProvider.GEMINI.defaultTextModel)
@@ -995,9 +1001,9 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
         _ui.value = state
     }
 
-    private suspend fun resetWhisperSelectionsBeforeDelete() {
+    private suspend fun resetSpeechSelectionsBeforeDelete(id: LocalModelId) {
         var state = _ui.value
-        if (state.selectedSpeech == SpeechProvider.LOCAL_WHISPER) {
+        if (state.selectedSpeech.localModelId == id) {
             container.prefs.setSelectedSpeechProvider(SpeechProvider.NATIVE)
             state = state.copy(
                 selectedSpeech = SpeechProvider.NATIVE,
@@ -1005,7 +1011,7 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
                 speechApiKeyMasked = ""
             )
         }
-        if (state.speechFallbackProvider == SpeechProvider.LOCAL_WHISPER) {
+        if (state.speechFallbackProvider.localModelId == id) {
             container.prefs.setSpeechFallbackEnabled(false)
             container.prefs.setSelectedSpeechFallbackProvider(SpeechProvider.GROQ)
             state = state.copy(
@@ -1484,6 +1490,7 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
             // user turns it on again; the Drive file itself is kept for a later restore.
             container.cloudBackup.forgetSession()
             com.apoorvdarshan.calorietracker.data.FailedMealDraftStore(container.appContext.noBackupFilesDir).delete()
+            container.chatRepository.clear()
             container.prefs.clearAll()
             container.keyStore.clearAll(preserveWeeklyChallengeToken = !challengeDeleted)
             container.imageStore.clearAll()

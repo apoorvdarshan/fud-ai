@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="waiting_fact_measure_per_100g">%1$s : %2$s pour 100 g</string>
+    <string name="waiting_fact_prep_raw">Cru</string>
+    <string name="waiting_fact_prep_raw_skin">Cru, avec la peau</string>
+    <string name="waiting_fact_prep_dried">Séché</string>
+    <string name="waiting_fact_prep_boiled_no_salt">Bouilli, sans sel ajouté</string>
+    <string name="waiting_fact_prep_cooked_no_salt">Cuit, sans sel ajouté</string>
+    <string name="waiting_fact_prep_cooked">Cuit</string>
+    <string name="waiting_fact_prep_baked_skin_no_salt">Cuit au four avec la peau, sans sel ajouté</string>
+    <string name="waiting_fact_prep_baked_flesh_no_salt">Chair cuite au four, sans sel ajouté</string>
+    <string name="waiting_fact_prep_roasted_no_salt">Grillé, sans sel ajouté</string>
+    <string name="waiting_fact_prep_hard_boiled">Cuit dur</string>
+    <string name="waiting_fact_prep_plain_whole_milk">Nature, au lait entier</string>
+    <string name="waiting_fact_prep_roasted">Rôti</string>
+    <string name="waiting_fact_prep_no_salt">Sans sel ajouté</string>
+</resources>

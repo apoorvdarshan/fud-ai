@@ -1,6 +1,7 @@
 package com.apoorvdarshan.calorietracker
 
 import android.app.Application
+import android.os.SystemClock
 import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 import com.apoorvdarshan.calorietracker.R
@@ -38,6 +39,8 @@ import com.apoorvdarshan.calorietracker.models.CurrentMealSchedule
 import com.apoorvdarshan.calorietracker.models.WorkoutRestTimer
 import com.apoorvdarshan.calorietracker.models.WorkoutSession
 import com.apoorvdarshan.calorietracker.services.ai.ChatService
+import com.apoorvdarshan.calorietracker.services.ai.AnalysisProgressReporter
+import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysis
 import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysisService
 import com.apoorvdarshan.calorietracker.services.health.HealthCapabilities
 import com.apoorvdarshan.calorietracker.services.health.HealthConnectManager
@@ -50,13 +53,16 @@ import com.apoorvdarshan.calorietracker.services.hosted.HostedQuotaStore
 import com.apoorvdarshan.calorietracker.services.hosted.HostedUiRouter
 import com.apoorvdarshan.calorietracker.services.hosted.SharedPreferencesQuotaPersistence
 import com.apoorvdarshan.calorietracker.services.ondevice.LocalGemmaRuntime
-import com.apoorvdarshan.calorietracker.services.ondevice.LocalModelId
+import com.apoorvdarshan.calorietracker.services.ondevice.LocalSpeechRuntime
 import com.apoorvdarshan.calorietracker.services.ondevice.LocalModelManager
 import com.apoorvdarshan.calorietracker.services.ondevice.LocalWhisperRuntime
+import com.apoorvdarshan.calorietracker.services.ondevice.RetiredOfflineVoiceFiles
 import com.apoorvdarshan.calorietracker.services.speech.SpeechService
 import com.apoorvdarshan.calorietracker.services.voice.VoiceAssistantController
 import com.apoorvdarshan.calorietracker.services.voice.createVoicePreviewController
 import com.apoorvdarshan.calorietracker.ui.navigation.AppNavigator
+import com.apoorvdarshan.calorietracker.ui.components.WaitingFactCatalog
+import com.apoorvdarshan.calorietracker.ui.components.WaitingFactFeed
 import com.apoorvdarshan.calorietracker.widget.WidgetRefreshScheduler
 import kotlin.math.roundToInt
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -65,10 +71,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.time.Duration
 import java.time.Instant
@@ -88,6 +96,9 @@ open class FudAIApp : Application() {
     lateinit var container: AppContainer
         private set
 
+    internal open suspend fun analyzeFoodText(description: String, progress: AnalysisProgressReporter): FoodAnalysis =
+        container.foodAnalysis.analyzeText(description, progress)
+
     // Startup work (migrations, image pruning, reminder re-arming) must never
     // take the process down: an uncaught exception here would otherwise crash
     // on every launch until the user clears app data — and their diary with it.
@@ -98,10 +109,15 @@ open class FudAIApp : Application() {
     )
 
     override fun onCreate() {
+        val processStart = SystemClock.elapsedRealtime()
         super.onCreate()
         // Re-apply the AndroidX per-app locale list on API 32 and below, where
         // AppCompat stores it. Empty list = follow the system language.
         AppCompatDelegate.setApplicationLocales(AppCompatDelegate.getApplicationLocales())
+        appScope.launch(Dispatchers.IO) {
+            val locale = AppCompatDelegate.getApplicationLocales()[0] ?: resources.configuration.locales[0]
+            WaitingFactFeed.prepare(this@FudAIApp, WaitingFactCatalog.language(locale))
+        }
         if (!backgroundServicesEnabled) {
             container = AppContainer(this)
             ExerciseRepository.warm(this)
@@ -155,6 +171,10 @@ open class FudAIApp : Application() {
         appScope.launch { container.imageStore.cleanupLegacyThumbnailDirectory() }
         // A Drive restore the system killed leaves its staged photos behind.
         appScope.launch { container.imageStore.discardAbandonedStaging() }
+        appScope.launch(Dispatchers.IO) {
+            RetiredOfflineVoiceFiles.cleanUp(noBackupFilesDir, cacheDir)
+            container.prefs.removeRetiredOfflineVoicePreferences()
+        }
         appScope.launch { container.foodRepository.pruneOrphanedImages() }
         appScope.launch { container.weeklyChallengeRepository.retryPendingRemoteDeletion() }
         container.prefs.mealSchedule
@@ -165,6 +185,9 @@ open class FudAIApp : Application() {
         // updates — without this, a user who enabled Notifications once would
         // silently stop receiving the reminder after the next reboot.
         appScope.launch { container.rescheduleReminders() }
+        if (BuildConfig.DEBUG) {
+            Log.d("FudStartup", "Application: onCreate=${SystemClock.elapsedRealtime() - processStart}ms")
+        }
     }
 }
 
@@ -249,15 +272,19 @@ data class GoalCalculationEvidenceContext(
 )
 
 class AppContainer(app: FudAIApp) {
+    internal val analyzeFoodText = app::analyzeFoodText
     val backgroundServicesEnabled = app.backgroundServicesEnabled
     val appContext = app.applicationContext
     val localModels = LocalModelManager(app, FoodAnalysisService.defaultClient)
     val prefs = PreferencesStore(
         app,
-        isLocalGemmaExecutable = { localModels.isExecutable(LocalModelId.GEMMA_4_E2B) },
-        isLocalWhisperExecutable = { localModels.isExecutable(LocalModelId.WHISPER_BASE) }
+        isLocalModelExecutable = localModels::isExecutable
     )
-    val keyStore = KeyStore(app)
+    private val interactionScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+    val hapticsEnabled = prefs.hapticsEnabled.stateIn(interactionScope, SharingStarted.Eagerly, true)
+    // Keystore initialization can perform disk I/O and wait for the system
+    // service. Home doesn't need it; existing background warmup still primes it.
+    val keyStore by lazy { KeyStore(app) }
     val imageStore = FoodImageStore(app)
     val notifications = NotificationService(app)
     val health = HealthConnectManager(app)
@@ -327,20 +354,23 @@ class AppContainer(app: FudAIApp) {
     )
     /** The rest countdown after a logged set; main-thread scoped so the UI and its end agree. */
     val workoutRestTimer = WorkoutRestTimerController(
-        scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate),
+        scope = interactionScope,
         alarms = object : WorkoutRestAlarms {
             override fun schedule(timer: WorkoutRestTimer) =
                 notifications.scheduleWorkoutRest(timer.endsAt.toEpochMilli(), timer.exerciseName)
 
             override fun cancel() = notifications.cancelWorkoutRest()
         },
-        store = SharedPreferencesWorkoutRestTimerStore(app)
+        store = SharedPreferencesWorkoutRestTimerStore(app),
+        canPlayForegroundHaptic = { hapticsEnabled.value }
     )
-    val weeklyChallengeRepository = WeeklyChallengeRepository(app, keyStore)
-    val cloudBackup = CloudBackupCoordinator(
-        app, prefs, imageStore, keyStore,
-        pruneUnusedPhotos = { foodRepository.pruneOrphanedImages() },
-    )
+    val weeklyChallengeRepository by lazy { WeeklyChallengeRepository(app, keyStore) }
+    val cloudBackup by lazy {
+        CloudBackupCoordinator(
+            app, prefs, imageStore, keyStore,
+            pruneUnusedPhotos = { foodRepository.pruneOrphanedImages() },
+        )
+    }
     val storageMaintenance by lazy {
         StorageMaintenance(
             photos = imageStore,
@@ -352,6 +382,7 @@ class AppContainer(app: FudAIApp) {
 
     val localGemma = LocalGemmaRuntime(app, localModels)
     val localWhisper = LocalWhisperRuntime(app, localModels)
+    val localSpeech = LocalSpeechRuntime(localModels)
 
     // Hosted AI (Plus/Pro): RevenueCat entitlements + the fud-ai.app Worker ledger.
     private val hostedScope = CoroutineScope(
@@ -367,9 +398,11 @@ class AppContainer(app: FudAIApp) {
     val hostedAccess = HostedAiAccess(hostedAiClient) { billing.entitlement.value }
     val hostedUi = HostedUiRouter()
 
-    val foodAnalysis = FoodAnalysisService(prefs, keyStore, localGemma = localGemma, hosted = hostedAccess)
-    val chatService = ChatService(prefs, keyStore, localGemma = localGemma, hosted = hostedAccess)
-    val speechService = SpeechService(prefs, keyStore, localWhisper = localWhisper, hosted = hostedAccess)
+    val foodAnalysis by lazy { FoodAnalysisService(prefs, keyStore, localGemma = localGemma, hosted = hostedAccess) }
+    val chatService by lazy { ChatService(prefs, keyStore, localGemma = localGemma, hosted = hostedAccess) }
+    val speechService by lazy {
+        SpeechService(prefs, keyStore, localWhisper = localWhisper, hosted = hostedAccess, localSpeech = localSpeech)
+    }
 
     val widgetSnapshotWriter = WidgetSnapshotWriter(app, prefs, foodRepository, profileRepository)
 

@@ -7,6 +7,7 @@ import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.apoorvdarshan.calorietracker.models.AIProvider
 import com.apoorvdarshan.calorietracker.models.SpeechProvider
+import com.apoorvdarshan.calorietracker.services.voice.LiveProvider
 
 /**
  * Encrypted per-provider API key storage — the Android equivalent of iOS Keychain.
@@ -30,6 +31,13 @@ class KeyStore(context: Context) {
     fun setApiKey(provider: AIProvider, key: String?) {
         val storageKey = AI_PREFIX + provider.name
         if (key.isNullOrEmpty()) delete(storageKey) else save(storageKey, key)
+    }
+
+    fun liveApiKey(provider: LiveProvider): String? =
+        if (provider == LiveProvider.QWEN) load(QWEN_LIVE_KEY) else provider.aiProvider?.let(::apiKey)
+
+    fun setQwenLiveApiKey(key: String?) {
+        if (key.isNullOrBlank()) delete(QWEN_LIVE_KEY) else save(QWEN_LIVE_KEY, key.trim())
     }
 
     // Speech providers
@@ -81,6 +89,7 @@ class KeyStore(context: Context) {
         private const val FILE_NAME = "fudai_keychain"
         private const val AI_PREFIX = "apikey_"
         private const val STT_PREFIX = "speechApiKey_"
+        private const val QWEN_LIVE_KEY = "qwen_live_api_key"
         private const val USDA_FDC_API_KEY = "usdaFoodDataCentralApiKey"
         private const val WEEKLY_CHALLENGE_BEARER_TOKEN = "weekly_challenge_bearer_token_v1"
         private const val CLOUD_BACKUP_ACCESS_TOKEN = "cloud_backup_access_token_v1"

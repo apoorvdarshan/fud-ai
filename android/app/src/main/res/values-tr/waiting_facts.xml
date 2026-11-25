@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="waiting_fact_heading">Biliyor muydunuz?</string>
+    <string name="waiting_fact_vitamin_c">C vitamini, vücudunuzun bitkisel besinlerdeki demiri emmesine yardımcı olur.</string>
+    <string name="waiting_fact_beans">Fasulye ve mercimek hem protein hem de lif içerir.</string>
+    <string name="waiting_fact_oats">Yulaf, çözünür bir lif türü olan beta glukan içerir.</string>
+    <string name="waiting_fact_vegetables" formatted="false">Salatalık ve domatesin ağırlığının %90’ından fazlası sudur.</string>
+    <string name="waiting_fact_strength">Kuvvet antrenmanında bir dirence karşı çalışırsınız. Kendi vücut ağırlığınız da direnç oluşturabilir.</string>
+</resources>

@@ -1,0 +1,12 @@
+<resources>
+    <string name="voice_mascot">吉祥物</string>
+    <string name="voice_mascot_color">颜色</string>
+    <string name="voice_mascot_personality">性格</string>
+    <string name="voice_mascot_original">原始配色</string>
+    <string name="voice_mascot_pink">粉色</string>
+    <string name="voice_mascot_friendly">友善</string>
+    <string name="voice_mascot_playful">俏皮</string>
+    <string name="voice_mascot_calm">沉稳</string>
+    <string name="voice_mascot_direct">直接</string>
+    <string name="voice_mascot_next_session">更改将在下一次对话中生效。</string>
+</resources>

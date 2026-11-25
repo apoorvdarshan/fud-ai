@@ -126,7 +126,7 @@
     <string name="voice_settings_confirm_saves">Kaydetmeden önce onay</string>
     <string name="voice_settings_confirm_saves_footer">Her kaydı veya değişikliği onaylamanız için bir kart gösterir. Kapalıyken değişiklikler hemen kaydedilir ve 8 saniye boyunca geri alınabilir.</string>
     <string name="voice_settings_save_to_coach">Konuşmaları Koç’a kaydet</string>
-    <string name="voice_settings_save_to_coach_footer">Sizin ve asistanın söylediklerini Koç sohbetinize ekler.</string>
+    <string name="voice_settings_save_to_coach_footer">Sesli konuşmaları Koç’a kaydeder ve gerektiğinde son Koç mesajlarını ses hizmeti sağlayıcınızla paylaşır.</string>
     <string name="voice_settings_minutes_left">Kalan plan dakikaları</string>
     <string name="voice_settings_minutes_with_credits">%1$s + kredilerle %2$s</string>
     <string name="voice_settings_minutes_footer">Plus ayda 20 dakika, Pro ise 100 dakika içerir (UTC). Sonrasında ses kredi kullanır: her 15 saniye için 1 kredi.</string>

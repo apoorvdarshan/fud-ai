@@ -1,6 +1,7 @@
 package com.apoorvdarshan.calorietracker.ui.navigation
 
 import com.apoorvdarshan.calorietracker.services.voice.VoiceSettingsSection
+import com.apoorvdarshan.calorietracker.ui.about.AboutSettingsCategory
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -15,6 +16,7 @@ sealed interface NavRequest {
 
     /** Show Settings, at its hub or straight in one section. */
     data class Settings(val section: VoiceSettingsSection?) : NavRequest
+    data class About(val section: AboutSettingsCategory) : NavRequest
 }
 
 /**
@@ -22,7 +24,7 @@ sealed interface NavRequest {
  * publish what they show; the assistant requests tabs, settings sections, Home's diary
  * day and food entries, and the screens perform them like the user's own taps.
  */
-class AppNavigator {
+class AppNavigator(private val today: () -> LocalDate = { LocalDate.now() }) {
     /** The NavHost route on screen, published by [FudAINavHost]. */
     val currentRoute = MutableStateFlow<String?>(null)
 
@@ -33,10 +35,13 @@ class AppNavigator {
     val settingsSection = MutableStateFlow<VoiceSettingsSection?>(null)
 
     /** Home's diary day. Home reads and writes it, so the assistant sees and sets the same day. */
-    val homeDiaryDate = MutableStateFlow(LocalDate.now())
+    private var lastObservedToday = today()
+    val homeDiaryDate = MutableStateFlow(lastObservedToday)
 
     /** The Workouts diary's selected day, published by the Workouts screen. */
     val workoutDiaryDate = MutableStateFlow<LocalDate?>(null)
+    val pendingWorkoutDiaryDate = MutableStateFlow<LocalDate?>(null)
+    val aboutSection = MutableStateFlow<AboutSettingsCategory?>(null)
 
     /** A Settings section waiting for the Settings screen to open it. */
     val pendingSettingsSection = MutableStateFlow<VoiceSettingsSection?>(null)
@@ -46,6 +51,30 @@ class AppNavigator {
 
     private val _requests = MutableSharedFlow<NavRequest>(extraBufferCapacity = 8)
     val requests: SharedFlow<NavRequest> = _requests.asSharedFlow()
+
+    /** Follow the new local day only if the diary was following today's date. */
+    fun refreshDiaryDates() {
+        val day = today()
+        val previous = lastObservedToday
+        if (previous == day) return
+        lastObservedToday = day
+        homeDiaryDate.compareAndSet(previous, day)
+        val workout = pendingWorkoutDiaryDate.value ?: workoutDiaryDate.value
+        if (workout == previous) {
+            workoutDiaryDate.value = day
+            pendingWorkoutDiaryDate.value = day
+        }
+    }
+
+    fun currentHomeDiaryDate(): LocalDate {
+        refreshDiaryDates()
+        return homeDiaryDate.value
+    }
+
+    fun currentWorkoutDiaryDate(): LocalDate? {
+        refreshDiaryDates()
+        return pendingWorkoutDiaryDate.value ?: workoutDiaryDate.value.takeIf { currentRoute.value == FudAIRoutes.WORKOUTS }
+    }
 
     fun showTab(route: String) {
         _requests.tryEmit(NavRequest.Tab(route))
@@ -57,11 +86,24 @@ class AppNavigator {
     }
 
     fun showHomeDate(date: LocalDate) {
+        refreshDiaryDates()
         homeDiaryDate.value = date
         showTab(FudAIRoutes.HOME)
     }
 
+    fun showWorkoutDate(date: LocalDate) {
+        refreshDiaryDates()
+        pendingWorkoutDiaryDate.value = date
+        showTab(FudAIRoutes.WORKOUTS)
+    }
+
+    fun showAbout(section: AboutSettingsCategory?) {
+        if (section == null) showTab(FudAIRoutes.ABOUT)
+        else _requests.tryEmit(NavRequest.About(section))
+    }
+
     fun showFoodEntry(id: UUID, date: LocalDate) {
+        refreshDiaryDates()
         homeDiaryDate.value = date
         pendingFoodEntry.value = id
         showTab(FudAIRoutes.HOME)

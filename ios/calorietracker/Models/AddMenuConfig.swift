@@ -33,7 +33,8 @@ struct AddMenuGroupConfig: Codable, Equatable, Identifiable, Sendable {
 
 struct AddMenuConfig: Codable, Equatable, Sendable {
     /// Version 2 shows `flatMethods` next to `groups`; version 1 ignored them whenever a group existed.
-    static let currentVersion = 2
+    /// Version 3 distinguishes explicitly saved orders from the old iOS default.
+    static let currentVersion = 3
     static let storageKey = "addMenu.config"
 
     var version: Int
@@ -66,23 +67,41 @@ struct AddMenuConfig: Codable, Equatable, Sendable {
         try container.encode(flatMethods.map(\.rawValue), forKey: .flatMethods)
     }
 
-    /// Matches the pre-customization iOS Home + food menu.
+    /// Matches the Android default order, with Siri Phrases as an extra iOS entry.
     static let iOSDefault = AddMenuConfig(
         groups: [
             AddMenuGroupConfig(
-                name: String(localized: "Reuse Meal", comment: "Default add menu group"),
-                methods: [.copyFromDay, .favorites, .frequent, .recent]
+                name: String(localized: "Photo & Scan", comment: "Default add menu group"),
+                methods: [.camera, .photos, .barcode]
             ),
             AddMenuGroupConfig(
                 name: String(localized: "Describe Meal", comment: "Default add menu group"),
-                methods: [.manual, .siriPhrases, .voice, .text]
+                methods: [.text, .voice, .manual, .siriPhrases]
             ),
             AddMenuGroupConfig(
-                name: String(localized: "Photo & Scan", comment: "Default add menu group"),
-                methods: [.barcode, .photos, .camera]
+                name: String(localized: "Reuse Meal", comment: "Default add menu group"),
+                methods: [.recent, .frequent, .favorites, .copyFromDay]
             ),
         ]
     )
+
+    fileprivate func updatingLegacyDefaultOrder() -> AddMenuConfig {
+        let ordered = Self.iOSDefault.groups
+        let legacyMethods: [[FoodLogMethod]] = [
+            [.copyFromDay, .favorites, .frequent, .recent],
+            [.manual, .siriPhrases, .voice, .text],
+            [.barcode, .photos, .camera],
+        ]
+        guard version < 3, flatMethods.isEmpty, groups.map(\.methods) == legacyMethods,
+              groups.map(\.name) == ordered.reversed().map(\.name) else { return self }
+
+        var updated = self
+        updated.groups.reverse()
+        for (index, group) in ordered.enumerated() {
+            updated.groups[index].methods = group.methods
+        }
+        return updated
+    }
 
     var usesFlatLayout: Bool { groups.isEmpty }
 
@@ -169,7 +188,7 @@ enum AddMenuSettings {
         else {
             return .iOSDefault
         }
-        let sanitized = decoded.sanitized()
+        let sanitized = decoded.updatingLegacyDefaultOrder().sanitized()
         if sanitized.groups.isEmpty, sanitized.flatMethods.isEmpty {
             // Decoding drops unknown method IDs. Inspect the persisted IDs to
             // distinguish an unavailable configuration from an intentional empty menu.

@@ -1,15 +1,123 @@
 import Foundation
+import SwiftUI
 import Testing
 @testable import calorietracker
 
 @Suite("Weekly Challenge")
 struct WeeklyChallengeTests {
+    @MainActor
+    @Test func longRankingNamesAndHandlesMakeNarrowCardsGrowRatherThanTruncate() throws {
+        func render(name: String, handle: String, width: CGFloat, type: DynamicTypeSize) throws -> CGSize {
+            let participant = WeeklyChallengeParticipant(
+                rank: 1, participantId: "fixture", displayName: name,
+                socialPlatform: .instagram, socialHandle: handle, score: 5, overallPoints: 5,
+                activityDays: 1, nutritionDays: 1, consistencyDays: 2, hydrationDays: 1,
+                activityKcal: 0, updatedAt: nil, isViewer: true
+            )
+            let row = WeeklyChallengeParticipantRow(
+                participant: participant, category: .overall, isViewer: true, onReport: {}, onBlock: {}
+            )
+            let renderer = ImageRenderer(content: row.dynamicTypeSize(type).frame(width: width))
+            return try #require(renderer.uiImage).size
+        }
+
+        let longName = "Alexandria Isabella Montgomery"
+        let longHandle = "alexandria.isabella.montgomery"
+        let short = try render(name: "Alex", handle: "alex", width: 196, type: .large)
+        let name = try render(name: longName, handle: "alex", width: 196, type: .large)
+        let both = try render(name: longName, handle: longHandle, width: 196, type: .accessibility2)
+        let largeName = try render(name: longName, handle: "alex", width: 196, type: .accessibility2)
+        #expect(name.width == 196)
+        #expect(name.height > short.height)
+        #expect(both.height > largeName.height)
+        #expect(both.width == 196)
+    }
+
+    @Test func dailyAndMonthlyUseElapsedLocalDaysAndRewardBalancedStreaks() throws {
+        let zone = try #require(TimeZone(identifier: "Asia/Kolkata"))
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = zone
+        func day(_ number: Int) -> Date {
+            calendar.date(from: DateComponents(year: 2026, month: 11, day: number, hour: 10))!
+        }
+        let foods = [1, 2, 4, 5].map { WeeklyChallengeFoodSample(date: day($0), calories: 2_000) }
+        let water = [1, 2, 4].map { WeeklyChallengeWaterSample(date: day($0), milliliters: 2_000) }
+        let workouts = [1, 2, 2, 5].map { WeeklyChallengeActivitySample(date: day($0), calories: 500) }
+        let month = ChallengePeriodScore.calculate(
+            period: .monthly, now: day(4), timeZone: zone, foods: foods, water: water, activities: workouts,
+            calorieGoal: 2_000, waterGoal: 2_000
+        )
+        #expect(month.periodStart == "2026-11-01")
+        #expect(month.activityDays == 2)
+        #expect(month.balancedDays == 3)
+        #expect(month.longestStreak == 2)
+        #expect(month.points == 15)
+        let daily = ChallengePeriodScore.calculate(
+            period: .daily, now: day(4), timeZone: zone, foods: foods, water: water, activities: workouts,
+            calorieGoal: 2_000, waterGoal: nil
+        )
+        #expect(daily.periodStart == "2026-11-04")
+        #expect(daily.points == 2)
+        #expect(daily.hydrationDays == 0)
+    }
+
+    @Test func leaderboardCacheSeparatesPeriodsAndPagesEvenOnTheSameDate() {
+        var cache = WeeklyChallengeLeaderboardCache()
+        let monday = "2026-11-02"
+        for mode in ChallengePeriod.allCases {
+            for offset in [0, 20] {
+                cache.insert(.init(weekStart: monday, category: .overall, updatedAt: "", rankings: [], viewer: nil,
+                                   offset: offset, totalCount: 105, period: mode), savedAt: .now)
+            }
+        }
+        #expect(cache.entries.count == 6)
+        #expect(cache.entry(category: .overall, weekStart: monday, offset: 20, period: .daily)?.response.period == .daily)
+        cache.remove(period: .monthly)
+        #expect(cache.entries.count == 4)
+    }
+
+    @Test func diaryUpdatesRecalculateAllAndOnlyOptedInExtraPeriods() throws {
+        let now = date("2026-11-25T12:00:00Z")
+        let zone = try #require(TimeZone(secondsFromGMT: 0))
+        func scores(_ periods: Set<ChallengePeriod>, edited: Bool) -> [ChallengePeriod: Int] {
+            Dictionary(uniqueKeysWithValues: ChallengePeriodScore.calculateEnabled(
+                periods, now: now, timeZone: zone,
+                foods: edited ? [.init(date: now, calories: 2_000)] : [],
+                water: edited ? [.init(date: now, milliliters: 2_000)] : [],
+                activities: [], calorieGoal: 2_000, waterGoal: 2_000
+            ).map { ($0.period, $0.points) })
+        }
+        #expect(scores([.daily, .monthly], edited: false) == [.daily: 0, .monthly: 0])
+        #expect(scores([.daily, .monthly], edited: true) == [.daily: 4, .monthly: 4])
+        #expect(scores([.weekly, .monthly], edited: true) == [.monthly: 4])
+        #expect(scores([], edited: true).isEmpty)
+    }
     private var utcCalendar: Calendar {
         var calendar = Calendar(identifier: .gregorian)
         calendar.timeZone = TimeZone(secondsFromGMT: 0)!
         calendar.locale = Locale(identifier: "en_US_POSIX")
         calendar.firstWeekday = 2
         return calendar
+    }
+
+    @Test func scoreUploadMarksOnlyMatchingBoardPagesStaleWithoutDiscardingThem() {
+        var cache = WeeklyChallengeLeaderboardCache()
+        let now = Date.now
+        let start = "2026-11-01"
+        let otherDay = "2026-11-02"
+        for (period, day, offset) in [
+            (ChallengePeriod.daily, start, 0), (.daily, start, 20),
+            (.monthly, start, 0), (.daily, otherDay, 0)
+        ] {
+            cache.insert(.init(weekStart: day, category: .overall, updatedAt: "", rankings: [], viewer: nil,
+                               offset: offset, totalCount: 40, period: period), savedAt: now)
+        }
+        cache.markStale(period: .daily, start: start)
+        #expect(cache.entries.count == 4)
+        #expect(cache.entry(category: .overall, weekStart: start, period: .daily)?.savedAt == .distantPast)
+        #expect(cache.entry(category: .overall, weekStart: start, offset: 20, period: .daily)?.savedAt == .distantPast)
+        #expect(cache.entry(category: .overall, weekStart: start, period: .monthly)?.savedAt == now)
+        #expect(cache.entry(category: .overall, weekStart: otherDay, period: .daily)?.savedAt == now)
     }
 
     private func date(_ value: String) -> Date {

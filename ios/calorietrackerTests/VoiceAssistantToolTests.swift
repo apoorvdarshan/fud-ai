@@ -16,7 +16,9 @@ struct VoiceAssistantToolTests {
 
     @Test func everyBundledToolHasAHandler() async throws {
         let specs = try VoiceAssistantToolCatalog.load()
-        #expect(specs.count == 25)
+        #expect(specs.count == 26)
+        let history = try #require(specs.first { $0.name == "get_coach_history" })
+        #expect(history.effect == .read && history.confirm == .never)
         #expect(Set(specs.map(\.name)) == VoiceAssistantToolExecutor.handledToolNames)
 
         let harness = VoiceAssistantHarness(confirmSaves: false)
@@ -332,6 +334,48 @@ struct VoiceAssistantToolTests {
         #expect(Calendar.current.isDate(entry.timestamp, inSameDayAs: yesterday))
     }
 
+    @Test func actionButtonAfterMidnightLogsOnTheNewDayButExplicitYesterdayStillWorks() async throws {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = try #require(TimeZone(identifier: "Asia/Kolkata"))
+        let elevenPm = try #require(calendar.date(from: DateComponents(year: 2026, month: 11, day: 25, hour: 23)))
+        let oneAm = elevenPm.addingTimeInterval(2 * 3600)
+        var now = elevenPm
+        let navigator = VoiceAssistantNavigator(clock: { now }, calendar: calendar)
+        navigator.currentScreen = .coach // The Home view does not have to be visible to refresh.
+        let controller = VoiceAssistantController(navigator: navigator)
+        let harness = VoiceAssistantHarness(confirmSaves: false, navigationHost: controller, clock: { now }, calendar: calendar)
+
+        now = oneAm
+        controller.start() // Same path used by Talk to Fud AI, without attaching a live provider in this test.
+        #expect(navigator.homeDiaryDate == oneAm)
+        let current = await harness.executor.execute(name: "log_food", arguments: ["item": ["name": "Apple", "calories": 95]])
+        #expect(current["ok"] as? Bool == true)
+        #expect(harness.food.entries.first { $0.name == "Apple" }?.timestamp == oneAm)
+
+        let past = await harness.executor.execute(name: "log_food", arguments: ["item": ["name": "Pear", "calories": 100], "date": "yesterday"])
+        #expect(past["ok"] as? Bool == true)
+        let pear = try #require(harness.food.entries.first { $0.name == "Pear" })
+        #expect(calendar.isDate(pear.timestamp, inSameDayAs: elevenPm))
+        #expect(calendar.isDate(navigator.homeDiaryDate, inSameDayAs: oneAm))
+    }
+
+    @Test func rolloverPreservesAnExplicitPastDiaryAndUsesPendingWorkoutDatesImmediately() throws {
+        let calendar = Calendar.current
+        let start = Date.now
+        var clock = start
+        let navigator = VoiceAssistantNavigator(clock: { clock }, calendar: calendar)
+        let past = try #require(calendar.date(byAdding: .day, value: -2, to: start))
+        navigator.homeDiaryDate = past
+        clock = try #require(calendar.date(byAdding: .day, value: 1, to: start))
+        navigator.refreshDiaryDates()
+        #expect(navigator.homeDiaryDate == past)
+        #expect(navigator.workoutDiaryDate == clock)
+
+        navigator.showWorkoutDiary(on: past)
+        #expect(navigator.currentWorkoutDiaryDate() == past)
+        #expect(navigator.takeWorkoutDateRequest() == past)
+    }
+
     @Test func foodCannotBeLoggedWhileFasting() async {
         let harness = VoiceAssistantHarness(confirmSaves: false)
         _ = harness.fasting.start(goalMinutes: 16 * 60, at: harness.now.addingTimeInterval(-3600))
@@ -395,6 +439,7 @@ struct VoiceAssistantToolTests {
         #expect(result["ok"] as? Bool == true)
         let foods = try #require(result["foods"] as? [[String: Any]])
         #expect(foods.first?["entry_id"] as? String == entry.id.uuidString)
+        #expect(foods.first?["has_photo"] as? Bool == false)
     }
 
     @Test(arguments: [false, true], ["log_food", "update_food_entry", "delete_food_entry"])
@@ -767,6 +812,29 @@ struct VoiceAssistantToolTests {
 
     // MARK: Navigation
 
+    @Test func coachHistoryIsBoundedTextOnlyAndObeysDisableAndReset() async throws {
+        let harness = VoiceAssistantHarness(confirmSaves: true)
+        for index in 0..<13 { harness.chat.append(ChatMessage(role: .user, content: "Message \(index)")) }
+        harness.chat.append(ChatMessage(role: .user, content: "", attachmentImageData: Data([1])))
+        harness.chat.append(ChatMessage(role: .assistant, content: String(repeating: "🥐", count: 602), attachmentImageData: Data([2])))
+        let result = await harness.executor.execute(name: "get_coach_history", arguments: [:])
+        let messages = try #require(result["messages"] as? [[String: Any]])
+        #expect(messages.count == 11)
+        #expect(messages.first?["text"] as? String == "Message 3")
+        let last = try #require(messages.last)
+        #expect(Set(last.keys) == ["role", "date", "text", "truncated"])
+        #expect(last["role"] as? String == "assistant")
+        #expect((last["text"] as? String)?.count == 600)
+        #expect(last["truncated"] as? Bool == true)
+
+        harness.settings.saveToCoach = false
+        #expect(await harness.executor.execute(name: "get_coach_history", arguments: [:])["error"] as? String == "unsupported")
+        harness.settings.saveToCoach = true
+        harness.chat.reset()
+        let cleared = await harness.executor.execute(name: "get_coach_history", arguments: [:])
+        #expect((cleared["messages"] as? [[String: Any]])?.isEmpty == true)
+    }
+
     @Test func navigationToolsMoveTheApp() async throws {
         let harness = VoiceAssistantHarness(confirmSaves: false)
         let settings = await harness.executor.execute(name: "open_screen", arguments: ["screen": "settings", "settings_section": "ai_providers"])
@@ -804,6 +872,8 @@ struct VoiceAssistantToolTests {
         let coach = await harness.executor.execute(name: "open_screen", arguments: ["screen": "coach"])
         #expect(coach["ok"] as? Bool == false)
         #expect(coach["error"] as? String == "unsupported")
+        #expect(await harness.executor.execute(name: "open_screen", arguments: ["screen": "exercise_library"])["error"] as? String == "unsupported")
+        #expect(await harness.executor.execute(name: "set_diary_date", arguments: ["date": "yesterday", "diary": "workouts"])["error"] as? String == "unsupported")
         #expect(harness.host.opened.isEmpty)
 
         let progress = await harness.executor.execute(name: "open_screen", arguments: ["screen": "progress"])
@@ -811,7 +881,29 @@ struct VoiceAssistantToolTests {
         #expect(harness.host.opened.last?.screen == .progress)
 
         let state = await harness.executor.execute(name: "get_app_state", arguments: [:])
-        #expect(state["hidden_screens"] as? [String] == ["coach", "workouts"])
+        #expect(state["hidden_screens"] as? [String] == ["coach", "workouts", "exercise_library"])
+    }
+
+    @Test func navigationDistinguishesRailDestinationsAndWorkoutDates() async {
+        let harness = VoiceAssistantHarness(confirmSaves: false)
+        for screen in ["weekly_challenge", "exercise_library", "about", "support"] {
+            let result = await harness.executor.execute(name: "open_screen", arguments: ["screen": screen])
+            #expect(result["screen"] as? String == screen)
+            let state = await harness.executor.execute(name: "get_app_state", arguments: [:])
+            #expect(state["screen"] as? String == screen)
+        }
+        let legal = await harness.executor.execute(name: "open_screen", arguments: ["screen": "about", "settings_section": "legal"])
+        #expect(legal["settings_section"] as? String == "legal")
+        #expect(await harness.executor.execute(name: "get_app_state", arguments: [:])["settings_section"] as? String == "legal")
+        let legacy = await harness.executor.execute(name: "open_screen", arguments: ["screen": "settings", "settings_section": "about"])
+        #expect(legacy["screen"] as? String == "about")
+        #expect(legacy["settings_section"] as? String == "app_updates")
+        let workout = await harness.executor.execute(name: "set_diary_date", arguments: ["date": "yesterday", "diary": "workouts"])
+        #expect(workout["ok"] as? Bool == true)
+        #expect(harness.host.shownDays.isEmpty)
+        #expect(harness.host.currentScreen == .workouts)
+        let state = await harness.executor.execute(name: "get_app_state", arguments: [:])
+        #expect(state["workout_diary_date"] as? String == workout["date"] as? String)
     }
 
     @Test func everyOpenScreenSectionMapsToASettingsSection() throws {
@@ -824,8 +916,8 @@ struct VoiceAssistantToolTests {
         for section in sections {
             let category = try #require(ProfileSettingsCategory(voiceAssistantSection: section), "\(section)")
             let reported = try #require(category.voiceAssistantSection, "\(section)")
-            // "reminders" is kept for compatibility and opens the page reported as "notifications".
-            #expect(reported == (section == "reminders" ? "notifications" : section))
+            let canonical = ["reminders": "notifications", "about": "app_updates"][section] ?? section
+            #expect(reported == canonical)
             #expect(ProfileSettingsCategory(voiceAssistantSection: reported) == category)
         }
         #expect(ProfileSettingsCategory(voiceAssistantSection: "reminders") == .trackingNotifications)
@@ -849,6 +941,7 @@ final class VoiceAssistantHarness {
     let bodyFat: BodyFatStore
     let workouts: StrengthWorkoutStore
     let settings: VoiceAssistantSettings
+    let chat: ChatStore
     let cards = VoiceAssistantCardStore()
     let host = StubVoiceAssistantHost()
     let analyzer = StubVoiceAssistantAnalyzer()
@@ -864,7 +957,11 @@ final class VoiceAssistantHarness {
         var profile = UserProfile.default
     }
 
-    init(confirmSaves: Bool, workoutDiary: Bool = true, corruptBackupDirectory: URL? = nil) {
+    init(
+        confirmSaves: Bool, workoutDiary: Bool = true, corruptBackupDirectory: URL? = nil,
+        navigationHost: (any VoiceAssistantToolHost)? = nil, clock: (() -> Date)? = nil,
+        calendar: Calendar = .current
+    ) {
         defaults = UserDefaults(suiteName: suite)!
         food = FoodStore(observesExternalChanges: false, defaults: defaults, corruptBackupDirectory: corruptBackupDirectory)
         water = WaterStore(defaults: defaults)
@@ -873,9 +970,11 @@ final class VoiceAssistantHarness {
         bodyFat = BodyFatStore()
         workouts = StrengthWorkoutStore(defaults: defaults, storageKey: "voiceAssistantTests.workouts")
         settings = VoiceAssistantSettings(defaults: defaults)
+        let chat = ChatStore(defaults: defaults)
+        self.chat = chat
         settings.confirmSaves = confirmSaves
         // The real time: Undo cards expire against the clock.
-        now = .now
+        now = clock?() ?? .now
         host.homeDiaryDate = now
         host.workoutDiaryDate = now
         let now = now
@@ -897,8 +996,10 @@ final class VoiceAssistantHarness {
             cards: cards,
             analyzer: analyzer,
             workoutDiaryEnabled: workoutDiary,
-            host: host,
-            now: { now }
+            host: navigationHost ?? host,
+            now: clock ?? { now },
+            calendar: calendar,
+            coachHistory: { chat.contextMessages() }
         )
     }
 
@@ -935,11 +1036,18 @@ final class StubVoiceAssistantHost: VoiceAssistantToolHost {
     func open(_ screen: VoiceAssistantScreen, settingsSection: ProfileSettingsCategory?) {
         opened.append((screen, settingsSection))
         currentScreen = screen
+        currentSettingsSection = settingsSection
     }
 
     func showDiary(on day: Date) {
         shownDays.append(day)
         homeDiaryDate = day
+    }
+
+    func showWorkoutDiary(on day: Date) {
+        currentScreen = .workouts
+        currentSettingsSection = nil
+        workoutDiaryDate = day
     }
 
     func openFoodEntry(_ entry: FoodEntry) {

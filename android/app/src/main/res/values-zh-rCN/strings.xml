@@ -216,7 +216,7 @@
     <string name="ai_key_placeholder_custom">API 密钥（如端点不需要可填任意内容）</string>
 
     <!-- Speech Provider -->
-    <string name="speech_provider_native">原生（设备端）</string>
+    <string name="speech_provider_native">系统语音识别</string>
     <string name="speech_provider_openai">OpenAI GPT-Transcribe</string>
     <string name="speech_provider_groq">Groq（Whisper）</string>
     <string name="speech_provider_mistral">Mistral Voxtral</string>
@@ -230,12 +230,12 @@
     <string name="speech_key_placeholder_deepgram">Token your-deepgram-key</string>
     <string name="speech_key_placeholder_assemblyai">你的 AssemblyAI 密钥</string>
 
-    <string name="speech_description_native">Android 设备端语音识别。免费，多数手机可离线使用，支持实时部分结果。推荐默认。</string>
+    <string name="speech_description_native">Android 语音识别会在说话时显示部分结果。根据设备和语言，可能需要联网。</string>
     <string name="speech_description_openai">OpenAI GPT-Transcribe API。准确度高，支持 99 种以上语言，按分钟计费。</string>
     <string name="speech_description_groq">Groq 托管的 Whisper Large v3。推理速度极快，提供免费套餐。</string>
-    <string name="speech_description_mistral">Voxtral Mini Transcribe 2，可准确进行多语言批量转写。</string>
-    <string name="speech_description_deepgram">Deepgram Nova。支持实时与批量模式，快速且准确。</string>
-    <string name="speech_description_assemblyai">AssemblyAI Universal 模型。准确度高，提供免费套餐。</string>
+    <string name="speech_description_mistral">Voxtral Mini Transcribe 3，可在录音后转写多种语言。</string>
+    <string name="speech_description_deepgram">用 Deepgram Nova-3 在录音后转写。</string>
+    <string name="speech_description_assemblyai">使用 AssemblyAI STT 3.7，并以 Universal-2 作为备用模型以覆盖更多语言。</string>
 
     <!-- Bottom navigation -->
     <string name="nav_home">主页</string>

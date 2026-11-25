@@ -1,30 +1,28 @@
 # Local model artifact contract
 
-Fud AI intentionally offers only two downloadable model families:
+Fud AI offers downloadable models for image and text analysis and for recorded
+dictation. These downloads do not add offline OCR or Live Voice.
 
-- **Whisper Base** for speech-to-text on supported phones in every RAM tier.
-- **Gemma 4 E2B** for text and image requests on phones in the 8 GB RAM tier.
-
-Qwen, SmolVLM, GGUF/llama.cpp chat models, and Gemma E4B are not part of this release.
-
-## Gemma 4 E2B
+## Gemma 4
 
 Both apps use LiteRT-LM `0.16.0` with the same immutable
-`gemma-4-E2B-it.litertlm` artifact in [`catalog.v1.json`](catalog.v1.json).
-The Hugging Face revision is public and ungated, so the apps download it
-anonymously and never ask for a Hugging Face token.
+E2B and E4B artifacts in [`catalog.v1.json`](catalog.v1.json).
+The pinned Hugging Face revisions are public and ungated, so the apps download
+them anonymously without a Hugging Face token.
 
 | Artifact | Exact size | SHA-256 | Model license | RAM gate |
 | --- | ---: | --- | --- | ---: |
 | Gemma 4 E2B LiteRT-LM | 2,588,147,712 bytes (2.59 GB / 2.41 GiB) | `181938105e0eefd105961417e8da75903eacda102c4fce9ce90f50b97139a63c` | Apache-2.0 | 8 GB device class |
+| Gemma 4 E4B LiteRT-LM | 3,659,530,240 bytes (3.66 GB / 3.41 GiB) | `0b2a8980ce155fd97673d8e820b4d29d9c7d99b8fa6806f425d969b145bd52e0` | Apache-2.0 | 12 GB device class |
 
 Android determines the marketed memory class from
 `ActivityManager.MemoryInfo.totalMem` because the OS reserves part of physical
 RAM before reporting it. iOS similarly rounds the GiB value reported by
 `ProcessInfo.physicalMemory` upward to the marketed memory class.
-The model remains visible with an 8 GB requirement on smaller phones, but it
-does not appear in provider selectors until the artifact is verified and
-executable.
+Both models remain visible in download settings on smaller phones, but cannot
+be downloaded there or selected until verified and executable. These are app
+eligibility thresholds, not guarantees of latency or available memory during
+inference.
 
 Before downloading, check free capacity on the app-private install volume.
 Android reserves the larger of 256 MiB or 10% of the artifact; iOS reserves
@@ -35,6 +33,24 @@ unverified, unsupported, or deleted model must never be selectable.
 Deleting an active model first replaces every primary and fallback selection
 that references it, closes the runtime, and removes only model files. It must
 not remove meals, settings, or other user data.
+
+## Parakeet v3 and Qwen3-ASR 0.6B
+
+Both apps use Sherpa-ONNX `2.0.3` with ONNX Runtime `1.28.2`. Android enables
+these models on `arm64-v8a` and `x86_64`. Each file is pinned and individually
+verified before the complete model becomes selectable. The app processes audio
+after recording, detects the language automatically, and does not stream partial
+results. Long recordings are divided into chunks of up to 20 seconds.
+
+| Model / pinned export | Download | RAM gate | Language coverage |
+| --- | ---: | ---: | --- |
+| [NVIDIA Parakeet TDT 0.6B v3, Sherpa INT8 export](https://huggingface.co/csukuangfj/sherpa-onnx-nemo-parakeet-tdt-0.6b-v3-int8/tree/ed5d745623472f97cfc2e6c2916ee248798fc5a8) | 670,576,784 bytes (671 MB) | 6 GB device class | 25 European languages; no Hindi |
+| [Qwen3-ASR 0.6B, Sherpa INT8 export](https://huggingface.co/csukuangfj2/sherpa-onnx-qwen3-asr-0.6B-int8-2026-03-25/tree/68818b2313fe77bd06f6a7c5068ff3ef59d02b8a) | 987,015,347 bytes (987 MB) | 8 GB device class | 30 languages, including Hindi |
+
+These providers do not send audio to a server when local recognition succeeds.
+An explicitly enabled cloud transcription fallback may send the recording to that
+provider after a local failure. Hosted transcription is a separate route; using
+a local transcription provider does not make subsequent AI analysis local.
 
 ## Whisper Base
 
@@ -69,6 +85,12 @@ whisper.cpp/miniaudio code and NDK libc++, and Argmax's required
 swift-transformers notice. Its SHA-256 is
 `d414ae53d7797aeaf420cf17b4f905e0833578a700746ffce5a7018ba1fbd715`.
 Bundle this file in both apps and expose it offline from Settings → Legal.
+
+[`legal/THIRD_PARTY_NOTICES_SherpaONNX.txt`](legal/THIRD_PARTY_NOTICES_SherpaONNX.txt)
+contains runtime notices and speech model attribution. Parakeet is by NVIDIA
+and is licensed CC BY 4.0; the downloaded version was converted to ONNX and
+quantized by the Sherpa-ONNX project. Qwen3-ASR is licensed Apache-2.0 and
+also uses a Sherpa ONNX export.
 
 The upstream notice contains GPLv2 and MPL2 text under an ambiguous
 `Google Runtime Environment` entry without SBOM relationships. Obtain upstream

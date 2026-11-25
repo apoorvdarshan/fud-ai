@@ -32,6 +32,7 @@ class VoiceInstructionsTest {
     fun instructionsCarryPersonaRulesDataAndDate() {
         val text = VoiceInstructions.build(input())
         assertTrue(text.startsWith("You are Fud AI's voice assistant and coach"))
+        assertTrue(text.contains("Your name for this session is \"Brulee\""))
         assertTrue(text.contains("Reply in the language the user speaks."))
         assertTrue(text.contains("Never invent numbers"))
         assertTrue(text.contains("user_confirmed: true unless the user agreed"))
@@ -42,6 +43,33 @@ class VoiceInstructionsTest {
         assertTrue(text.contains("## User profile"))
         assertTrue(text.contains(VoiceToolExecutor.APP_NOTE))
         assertFalse(text.contains("User-provided context"))
+    }
+
+    @Test
+    fun mascotSettingsRoundTripAndReachTheSessionWithoutChangingConfirmation() {
+        val defaults = VoiceMascotPreferences()
+        assertEquals("Brulee", defaults.profile.name)
+        assertEquals(VoiceMascotColor.ORIGINAL, defaults.profile.options.color)
+        assertEquals(8, VoiceMascot.entries.size)
+
+        val changed = defaults.editing(VoiceMascot.ALIEN) {
+            it.copy(name = "  Nova\n\t星  ", color = VoiceMascotColor.PURPLE, personality = VoiceMascotPersonality.PLAYFUL)
+        }.editing(VoiceMascot.JAM) { it.copy(name = "Toastie") }.copy(selected = VoiceMascot.ALIEN)
+        val reloaded = VoiceMascotPreferences.decode(changed.encode())
+        assertEquals("Nova 星", reloaded.profile.name)
+        assertEquals(VoiceMascotColor.PURPLE, reloaded.profile.options.color)
+        assertEquals("Toastie", reloaded.copy(selected = VoiceMascot.JAM).profile.name)
+        assertEquals(VoiceMascotColor.ORIGINAL, reloaded.copy(selected = VoiceMascot.JAM).profile.options.color)
+        assertEquals(defaults, VoiceMascotPreferences.decode("invalid"))
+
+        val text = VoiceInstructions.build(input().copy(mascot = reloaded.profile))
+        assertTrue(text.contains("Your name for this session is \"Nova 星\""))
+        assertTrue(text.contains("lighthearted and energetic"))
+        assertTrue(text.contains("“How am I doing?”"))
+        assertTrue(text.contains("call get_app_state and wait for its result before answering"))
+        assertTrue(text.contains("do not treat an empty diary as proof the user consumed nothing"))
+        assertTrue(text.contains("Say it only when the user explicitly asks your name or who you are"))
+        assertTrue(text.contains("Never call a tool with user_confirmed: true unless the user agreed"))
     }
 
     @Test

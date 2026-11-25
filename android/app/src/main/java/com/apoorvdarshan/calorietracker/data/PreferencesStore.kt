@@ -1,5 +1,7 @@
 package com.apoorvdarshan.calorietracker.data
 
+import com.apoorvdarshan.calorietracker.services.ondevice.LocalModelId
+
 import com.apoorvdarshan.calorietracker.services.hosted.AiAccessMode
 import com.apoorvdarshan.calorietracker.models.OpenRouterReasoningEffort
 import android.content.Context
@@ -12,6 +14,13 @@ import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
 import com.apoorvdarshan.calorietracker.models.AddMenuConfig
+import com.apoorvdarshan.calorietracker.models.FoodLogMethod
+import com.apoorvdarshan.calorietracker.models.HomeFoodShortcuts
+import com.apoorvdarshan.calorietracker.models.WorkoutDockAction
+import com.apoorvdarshan.calorietracker.models.WorkoutDockShortcuts
+import com.apoorvdarshan.calorietracker.services.voice.VoiceMascot
+import com.apoorvdarshan.calorietracker.services.voice.VoiceMascotOptions
+import com.apoorvdarshan.calorietracker.services.voice.VoiceMascotPreferences
 import com.apoorvdarshan.calorietracker.models.ImportedHealthWorkout
 import com.apoorvdarshan.calorietracker.models.TabBarSettings
 import com.apoorvdarshan.calorietracker.models.AIProvider
@@ -79,7 +88,9 @@ data class VoiceAssistantPreferences(
     /** On by default: the model takes the photo as soon as it sees the food. */
     val autoCapture: Boolean = true,
     val confirmSaves: Boolean = true,
-    val saveToCoach: Boolean = true
+    val saveToCoach: Boolean = true,
+    val qwenWorkspace: String = "",
+    val geminiBargeIn: Boolean = true
 ) {
     fun model(provider: LiveProvider): String = models[provider] ?: provider.defaultModel
     fun voice(provider: LiveProvider): String = voices[provider] ?: provider.defaultVoice
@@ -109,18 +120,18 @@ data class FoodAiCallSettings(
 
 internal fun executableAIProviderOrDefault(
     provider: AIProvider?,
-    localGemmaExecutable: Boolean,
+    isExecutable: (LocalModelId) -> Boolean,
     default: AIProvider = AIProvider.GEMINI
 ): AIProvider = provider?.takeUnless {
-    it == AIProvider.LOCAL_GEMMA && !localGemmaExecutable
+    it.localModelId?.let { id -> !isExecutable(id) } == true
 } ?: default
 
 internal fun executableAIModelOrDefault(
     provider: AIProvider?,
     model: String?,
-    localGemmaExecutable: Boolean,
+    isExecutable: (LocalModelId) -> Boolean,
     defaultModel: String
-): String? = if (provider == AIProvider.LOCAL_GEMMA && !localGemmaExecutable) {
+): String? = if (provider?.localModelId?.let { !isExecutable(it) } == true) {
     defaultModel
 } else {
     model
@@ -128,10 +139,10 @@ internal fun executableAIModelOrDefault(
 
 internal fun executableSpeechProviderOrDefault(
     provider: SpeechProvider?,
-    localWhisperExecutable: Boolean,
+    isExecutable: (LocalModelId) -> Boolean,
     default: SpeechProvider
 ): SpeechProvider = provider?.takeUnless {
-    it == SpeechProvider.LOCAL_WHISPER && !localWhisperExecutable
+    it.localModelId?.let { id -> !isExecutable(id) } == true
 } ?: default
 
 /**
@@ -154,13 +165,16 @@ internal data class StartupPreferences(
     val appearanceMode: String,
     val themeColorKey: String,
     val energyUnit: EnergyUnit,
-    val profile: UserProfile?
+    val profile: UserProfile?,
+    val hiddenTabs: Set<String>,
+    val hideVoiceShortcut: Boolean,
+    val voiceMascots: VoiceMascotPreferences,
+    val aiAccessMode: AiAccessMode
 )
 
 class PreferencesStore(
     private val context: Context,
-    private val isLocalGemmaExecutable: () -> Boolean = { false },
-    private val isLocalWhisperExecutable: () -> Boolean = { false }
+    private val isLocalModelExecutable: (LocalModelId) -> Boolean = { false }
 ) : WorkoutStateStore, NutritionSyncStore, ImportedHealthWorkoutStore {
 
     // coerceInputValues: an enum value this build does not know (e.g. a meal
@@ -270,7 +284,11 @@ class PreferencesStore(
             appearanceMode = prefs[Keys.APPEARANCE_MODE] ?: "system",
             themeColorKey = prefs[Keys.APP_THEME_COLOR] ?: AppThemeColor.DEFAULT_KEY,
             energyUnit = EnergyUnit.fromStorage(prefs[Keys.ENERGY_UNIT]),
-            profile = if (startOnboarding) null else decodeProfile(prefs[Keys.USER_PROFILE])
+            profile = if (startOnboarding) null else decodeProfile(prefs[Keys.USER_PROFILE]),
+            hiddenTabs = TabBarSettings.decode(prefs[Keys.HIDDEN_TABS]),
+            hideVoiceShortcut = prefs[hideVoiceShortcutKey] ?: false,
+            voiceMascots = VoiceMascotPreferences.decode(prefs[Keys.VOICE_MASCOTS]),
+            aiAccessMode = AiAccessMode.fromStorage(prefs[Keys.AI_ACCESS_MODE])
         )
     }
 
@@ -473,6 +491,17 @@ class PreferencesStore(
 
     val walkRunQuickLogEnabled: Flow<Boolean> = ds.data.map { it[Keys.WALK_RUN_QUICK_LOG_ENABLED] ?: false }
     suspend fun setWalkRunQuickLogEnabled(v: Boolean) { ds.edit { it[Keys.WALK_RUN_QUICK_LOG_ENABLED] = v } }
+
+    val workoutDockShortcuts: Flow<WorkoutDockShortcuts> = ds.data.map {
+        WorkoutDockShortcuts.decode(it[Keys.WORKOUT_DOCK_SHORTCUTS])
+    }
+
+    suspend fun setWorkoutDockShortcut(slot: Int, action: WorkoutDockAction) {
+        ds.edit { prefs ->
+            val current = WorkoutDockShortcuts.decode(prefs[Keys.WORKOUT_DOCK_SHORTCUTS])
+            prefs[Keys.WORKOUT_DOCK_SHORTCUTS] = current.assigning(slot, action).encode()
+        }
+    }
 
     val fastingDefaultGoalMinutes: Flow<Int> = ds.data.map {
         (it[Keys.FASTING_DEFAULT_GOAL_MINUTES] ?: 16 * 60).coerceIn(60, 7 * 24 * 60)
@@ -754,11 +783,6 @@ class PreferencesStore(
     }
     suspend fun setWeightUnit(v: String) { ds.edit { it[Keys.WEIGHT_UNIT] = v } }
 
-    /** Progress calorie chart + nutrition averages include today's still-in-progress log
-     *  (default). Off ends those windows yesterday so a partial day can't drag them down. */
-    val progressIncludeToday: Flow<Boolean> = ds.data.map { it[Keys.PROGRESS_INCLUDE_TODAY] ?: true }
-    suspend fun setProgressIncludeToday(v: Boolean) { ds.edit { it[Keys.PROGRESS_INCLUDE_TODAY] = v } }
-
     val preferGramsByDefault: Flow<Boolean> = ds.data.map { it[Keys.PREFER_GRAMS_BY_DEFAULT] ?: false }
     suspend fun setPreferGramsByDefault(v: Boolean) { ds.edit { it[Keys.PREFER_GRAMS_BY_DEFAULT] = v } }
 
@@ -784,6 +808,8 @@ class PreferencesStore(
 
     /** "system" | "light" | "dark". Mirrors iOS @AppStorage("appearanceMode"). */
     val appearanceMode: Flow<String> = ds.data.map { it[Keys.APPEARANCE_MODE] ?: "system" }
+    val hapticsEnabled: Flow<Boolean> = ds.data.map { it[Keys.HAPTICS_ENABLED] ?: true }
+    suspend fun setHapticsEnabled(enabled: Boolean) { ds.edit { it[Keys.HAPTICS_ENABLED] = enabled } }
     suspend fun setAppearanceMode(v: String) { ds.edit { it[Keys.APPEARANCE_MODE] = v } }
 
     /** Mirrors iOS @AppStorage("appThemeColor"). */
@@ -825,6 +851,17 @@ class PreferencesStore(
 
     suspend fun setAddMenuConfig(config: AddMenuConfig) {
         ds.edit { it[Keys.ADD_MENU_CONFIG] = AddMenuConfig.encode(config) }
+    }
+
+    val homeFoodShortcuts: Flow<HomeFoodShortcuts> = ds.data.map {
+        HomeFoodShortcuts.decode(it[Keys.HOME_FOOD_SHORTCUTS])
+    }
+
+    suspend fun setHomeFoodShortcut(slot: Int, method: FoodLogMethod) {
+        ds.edit { prefs ->
+            val current = HomeFoodShortcuts.decode(prefs[Keys.HOME_FOOD_SHORTCUTS])
+            prefs[Keys.HOME_FOOD_SHORTCUTS] = current.assigning(slot, method).encode()
+        }
     }
 
     val hiddenTabs: Flow<Set<String>> = ds.data.map { TabBarSettings.decode(it[Keys.HIDDEN_TABS]) }
@@ -935,13 +972,13 @@ class PreferencesStore(
         val raw = it[Keys.SELECTED_AI_PROVIDER]
         executableAIProviderOrDefault(
             AIProvider.visionProviders.firstOrNull { p -> p.name == raw },
-            isLocalGemmaExecutable()
+            isLocalModelExecutable
         )
     }
     suspend fun setSelectedAIProvider(p: AIProvider) {
         val resolved = executableAIProviderOrDefault(
             p.takeIf { it.supportsVision },
-            isLocalGemmaExecutable()
+            isLocalModelExecutable
         )
         ds.edit { it[Keys.SELECTED_AI_PROVIDER] = resolved.name }
     }
@@ -950,13 +987,13 @@ class PreferencesStore(
         executableAIModelOrDefault(
             storedAIProvider(it[Keys.SELECTED_AI_PROVIDER]),
             it[Keys.SELECTED_AI_MODEL],
-            isLocalGemmaExecutable(),
+            isLocalModelExecutable,
             AIProvider.GEMINI.defaultModel
         )
     }
     suspend fun setSelectedAIModel(model: String) {
         ds.edit {
-            val normalized = AIProvider.normalizeModelId(model)
+            val normalized = model
             it[Keys.SELECTED_AI_MODEL] = normalized
             if (it[Keys.SELECTED_AI_PROVIDER] == AIProvider.CUSTOM_OPENAI.name) {
                 it[Keys.LAST_PRIMARY_CUSTOM_MODEL] = normalized
@@ -966,7 +1003,7 @@ class PreferencesStore(
 
     /** Settings switches both values together so analysis never sees a mismatched provider/model. */
     suspend fun switchPrimaryAIProvider(provider: AIProvider): String {
-        val resolved = executableAIProviderOrDefault(provider.takeIf { it.supportsVision }, isLocalGemmaExecutable())
+        val resolved = executableAIProviderOrDefault(provider.takeIf { it.supportsVision }, isLocalModelExecutable)
         val updated = ds.edit { prefs ->
             if (prefs[Keys.SELECTED_AI_PROVIDER] == AIProvider.CUSTOM_OPENAI.name) {
                 prefs[Keys.SELECTED_AI_MODEL]?.let { prefs[Keys.LAST_PRIMARY_CUSTOM_MODEL] = it }
@@ -992,13 +1029,13 @@ class PreferencesStore(
         val raw = it[Keys.SELECTED_TEXT_AI_PROVIDER]
         executableAIProviderOrDefault(
             AIProvider.textProviders.firstOrNull { p -> p.name == raw },
-            isLocalGemmaExecutable()
+            isLocalModelExecutable
         )
     }
     suspend fun setSelectedTextAIProvider(provider: AIProvider) {
         val resolved = executableAIProviderOrDefault(
             provider.takeIf { it in AIProvider.textProviders },
-            isLocalGemmaExecutable()
+            isLocalModelExecutable
         )
         ds.edit { it[Keys.SELECTED_TEXT_AI_PROVIDER] = resolved.name }
     }
@@ -1007,12 +1044,12 @@ class PreferencesStore(
         executableAIModelOrDefault(
             storedAIProvider(it[Keys.SELECTED_TEXT_AI_PROVIDER]),
             it[Keys.SELECTED_TEXT_AI_MODEL],
-            isLocalGemmaExecutable(),
+            isLocalModelExecutable,
             AIProvider.GEMINI.defaultTextModel
         )
     }
     suspend fun setSelectedTextAIModel(model: String) {
-        ds.edit { it[Keys.SELECTED_TEXT_AI_MODEL] = AIProvider.normalizeModelId(model) }
+        ds.edit { it[Keys.SELECTED_TEXT_AI_MODEL] = model }
     }
 
     /** Upgrade removed AI model presets exactly once, including the fallback model. */
@@ -1040,23 +1077,22 @@ class PreferencesStore(
                 prefs[Keys.GEMINI_MODEL_MIGRATION_VERSION] = 1
             }
 
-            if ((prefs[Keys.AI_MODEL_REGISTRY_MIGRATION_VERSION] ?: 0) < 2) {
-                val primaryProvider = storedAIProvider(
-                    prefs[Keys.SELECTED_AI_PROVIDER]
-                ) ?: AIProvider.GEMINI
-                AIProvider.upgradedLegacyModel(
-                    primaryProvider,
-                    prefs[Keys.SELECTED_AI_MODEL]
-                )?.let { prefs[Keys.SELECTED_AI_MODEL] = it }
-
-                storedAIProvider(prefs[Keys.FALLBACK_PROVIDER])?.let { fallbackProvider ->
-                    AIProvider.upgradedLegacyModel(
-                        fallbackProvider,
-                        prefs[Keys.FALLBACK_MODEL]
-                    )?.let { prefs[Keys.FALLBACK_MODEL] = it }
+            if ((prefs[Keys.AI_MODEL_REGISTRY_MIGRATION_VERSION] ?: 0) < 3) {
+                for ((providerKey, modelKey, text) in listOf(
+                    Triple(Keys.SELECTED_AI_PROVIDER, Keys.SELECTED_AI_MODEL, false),
+                    Triple(Keys.FALLBACK_PROVIDER, Keys.FALLBACK_MODEL, false),
+                    Triple(Keys.SELECTED_TEXT_AI_PROVIDER, Keys.SELECTED_TEXT_AI_MODEL, true),
+                    Triple(Keys.TEXT_FALLBACK_PROVIDER, Keys.TEXT_FALLBACK_MODEL, true)
+                )) {
+                    val provider = storedAIProvider(prefs[providerKey])
+                        ?: AIProvider.GEMINI.takeIf { providerKey == Keys.SELECTED_AI_PROVIDER }
+                        ?: continue
+                    AIProvider.upgradedLegacyModel(provider, prefs[modelKey], text)?.let {
+                        prefs[modelKey] = it
+                    }
                 }
 
-                prefs[Keys.AI_MODEL_REGISTRY_MIGRATION_VERSION] = 2
+                prefs[Keys.AI_MODEL_REGISTRY_MIGRATION_VERSION] = 3
             }
         }
     }
@@ -1105,37 +1141,35 @@ class PreferencesStore(
      * route while this small DataStore edit is still starting on a cold launch.
      */
     suspend fun reconcileLocalModelSelections() {
-        val gemmaExecutable = isLocalGemmaExecutable()
-        val whisperExecutable = isLocalWhisperExecutable()
+        fun aiUnavailable(raw: String?) =
+            storedAIProvider(raw)?.localModelId?.let { !isLocalModelExecutable(it) } == true
+        fun speechUnavailable(raw: String?) =
+            storedSpeechProvider(raw)?.localModelId?.let { !isLocalModelExecutable(it) } == true
         ds.edit { prefs ->
-            if (!gemmaExecutable) {
-                if (prefs[Keys.SELECTED_AI_PROVIDER] == AIProvider.LOCAL_GEMMA.name) {
-                    prefs[Keys.SELECTED_AI_PROVIDER] = AIProvider.GEMINI.name
-                    prefs[Keys.SELECTED_AI_MODEL] = AIProvider.GEMINI.defaultModel
-                }
-                if (prefs[Keys.SELECTED_TEXT_AI_PROVIDER] == AIProvider.LOCAL_GEMMA.name) {
-                    prefs[Keys.SELECTED_TEXT_AI_PROVIDER] = AIProvider.GEMINI.name
-                    prefs[Keys.SELECTED_TEXT_AI_MODEL] = AIProvider.GEMINI.defaultTextModel
-                }
-                if (prefs[Keys.FALLBACK_PROVIDER] == AIProvider.LOCAL_GEMMA.name) {
-                    prefs[Keys.FALLBACK_ENABLED] = false
-                    prefs[Keys.FALLBACK_PROVIDER] = AIProvider.GEMINI.name
-                    prefs[Keys.FALLBACK_MODEL] = AIProvider.GEMINI.defaultModel
-                }
-                if (prefs[Keys.TEXT_FALLBACK_PROVIDER] == AIProvider.LOCAL_GEMMA.name) {
-                    prefs[Keys.TEXT_FALLBACK_ENABLED] = false
-                    prefs[Keys.TEXT_FALLBACK_PROVIDER] = AIProvider.GEMINI.name
-                    prefs[Keys.TEXT_FALLBACK_MODEL] = AIProvider.GEMINI.defaultTextModel
-                }
+            if (aiUnavailable(prefs[Keys.SELECTED_AI_PROVIDER])) {
+                prefs[Keys.SELECTED_AI_PROVIDER] = AIProvider.GEMINI.name
+                prefs[Keys.SELECTED_AI_MODEL] = AIProvider.GEMINI.defaultModel
             }
-            if (!whisperExecutable) {
-                if (prefs[Keys.SELECTED_SPEECH_PROVIDER] == SpeechProvider.LOCAL_WHISPER.name) {
-                    prefs[Keys.SELECTED_SPEECH_PROVIDER] = SpeechProvider.NATIVE.name
-                }
-                if (prefs[Keys.SPEECH_FALLBACK_PROVIDER] == SpeechProvider.LOCAL_WHISPER.name) {
-                    prefs[Keys.SPEECH_FALLBACK_ENABLED] = false
-                    prefs[Keys.SPEECH_FALLBACK_PROVIDER] = SpeechProvider.GROQ.name
-                }
+            if (aiUnavailable(prefs[Keys.SELECTED_TEXT_AI_PROVIDER])) {
+                prefs[Keys.SELECTED_TEXT_AI_PROVIDER] = AIProvider.GEMINI.name
+                prefs[Keys.SELECTED_TEXT_AI_MODEL] = AIProvider.GEMINI.defaultTextModel
+            }
+            if (aiUnavailable(prefs[Keys.FALLBACK_PROVIDER])) {
+                prefs[Keys.FALLBACK_ENABLED] = false
+                prefs[Keys.FALLBACK_PROVIDER] = AIProvider.GEMINI.name
+                prefs[Keys.FALLBACK_MODEL] = AIProvider.GEMINI.defaultModel
+            }
+            if (aiUnavailable(prefs[Keys.TEXT_FALLBACK_PROVIDER])) {
+                prefs[Keys.TEXT_FALLBACK_ENABLED] = false
+                prefs[Keys.TEXT_FALLBACK_PROVIDER] = AIProvider.GEMINI.name
+                prefs[Keys.TEXT_FALLBACK_MODEL] = AIProvider.GEMINI.defaultTextModel
+            }
+            if (speechUnavailable(prefs[Keys.SELECTED_SPEECH_PROVIDER])) {
+                prefs[Keys.SELECTED_SPEECH_PROVIDER] = SpeechProvider.NATIVE.name
+            }
+            if (speechUnavailable(prefs[Keys.SPEECH_FALLBACK_PROVIDER])) {
+                prefs[Keys.SPEECH_FALLBACK_ENABLED] = false
+                prefs[Keys.SPEECH_FALLBACK_PROVIDER] = SpeechProvider.GROQ.name
             }
         }
     }
@@ -1323,18 +1357,17 @@ class PreferencesStore(
     }
 
     suspend fun foodAiCallSettings(forImages: Boolean): FoodAiCallSettings {
-        val localOk = isLocalGemmaExecutable()
         val prefs = ds.data.first()
         val useSeparateText = !forImages && (prefs[Keys.SEPARATE_TEXT_PROVIDER_ENABLED] ?: false)
         val primary = if (useSeparateText) {
             executableAIProviderOrDefault(
                 storedAIProvider(prefs[Keys.SELECTED_TEXT_AI_PROVIDER]),
-                localOk
+                isLocalModelExecutable
             )
         } else {
             executableAIProviderOrDefault(
                 AIProvider.visionProviders.firstOrNull { it.name == prefs[Keys.SELECTED_AI_PROVIDER] },
-                localOk
+                isLocalModelExecutable
             )
         }
         val storedModel = if (useSeparateText) {
@@ -1344,11 +1377,11 @@ class PreferencesStore(
         }
         val model = if (useSeparateText) {
             primary.supportedTextModelOrDefault(
-                executableAIModelOrDefault(primary, storedModel, localOk, primary.defaultTextModel)
+                executableAIModelOrDefault(primary, storedModel, isLocalModelExecutable, primary.defaultTextModel)
             )
         } else {
             primary.supportedModelOrDefault(
-                executableAIModelOrDefault(primary, storedModel, localOk, primary.defaultModel)
+                executableAIModelOrDefault(primary, storedModel, isLocalModelExecutable, primary.defaultModel)
             )
         }
         val custom = prefs[stringPreferencesKey(CUSTOM_BASE_URL_PREFIX + primary.name)]
@@ -1393,7 +1426,7 @@ class PreferencesStore(
     // Keep the original storage keys so existing users retain their configured fallback.
     val fallbackEnabled: Flow<Boolean> = ds.data.map {
         (it[Keys.FALLBACK_ENABLED] ?: false) &&
-            (it[Keys.FALLBACK_PROVIDER] != AIProvider.LOCAL_GEMMA.name || isLocalGemmaExecutable())
+            (storedAIProvider(it[Keys.FALLBACK_PROVIDER])?.localModelId?.let(isLocalModelExecutable) != false)
     }
     suspend fun setFallbackEnabled(v: Boolean) { ds.edit { it[Keys.FALLBACK_ENABLED] = v } }
 
@@ -1401,13 +1434,13 @@ class PreferencesStore(
         val raw = it[Keys.FALLBACK_PROVIDER]
         executableAIProviderOrDefault(
             AIProvider.visionProviders.firstOrNull { p -> p.name == raw },
-            isLocalGemmaExecutable()
+            isLocalModelExecutable
         )
     }
     suspend fun setSelectedFallbackProvider(p: AIProvider) {
         val resolved = executableAIProviderOrDefault(
             p.takeIf { it.supportsVision },
-            isLocalGemmaExecutable()
+            isLocalModelExecutable
         )
         ds.edit { it[Keys.FALLBACK_PROVIDER] = resolved.name }
     }
@@ -1416,18 +1449,18 @@ class PreferencesStore(
         executableAIModelOrDefault(
             storedAIProvider(it[Keys.FALLBACK_PROVIDER]),
             it[Keys.FALLBACK_MODEL],
-            isLocalGemmaExecutable(),
+            isLocalModelExecutable,
             AIProvider.GEMINI.defaultModel
         )
     }
     suspend fun setSelectedFallbackModel(model: String) {
-        ds.edit { it[Keys.FALLBACK_MODEL] = AIProvider.normalizeModelId(model) }
+        ds.edit { it[Keys.FALLBACK_MODEL] = model }
     }
 
     // -- Text AI fallback -------------------------------------------------
     val textFallbackEnabled: Flow<Boolean> = ds.data.map {
         (it[Keys.TEXT_FALLBACK_ENABLED] ?: false) &&
-            (it[Keys.TEXT_FALLBACK_PROVIDER] != AIProvider.LOCAL_GEMMA.name || isLocalGemmaExecutable())
+            (storedAIProvider(it[Keys.TEXT_FALLBACK_PROVIDER])?.localModelId?.let(isLocalModelExecutable) != false)
     }
     suspend fun setTextFallbackEnabled(v: Boolean) { ds.edit { it[Keys.TEXT_FALLBACK_ENABLED] = v } }
 
@@ -1435,13 +1468,13 @@ class PreferencesStore(
         val raw = it[Keys.TEXT_FALLBACK_PROVIDER]
         executableAIProviderOrDefault(
             AIProvider.textProviders.firstOrNull { provider -> provider.name == raw },
-            isLocalGemmaExecutable()
+            isLocalModelExecutable
         )
     }
     suspend fun setSelectedTextFallbackProvider(provider: AIProvider) {
         val resolved = executableAIProviderOrDefault(
             provider.takeIf { it in AIProvider.textProviders },
-            isLocalGemmaExecutable()
+            isLocalModelExecutable
         )
         ds.edit { it[Keys.TEXT_FALLBACK_PROVIDER] = resolved.name }
     }
@@ -1450,12 +1483,12 @@ class PreferencesStore(
         executableAIModelOrDefault(
             storedAIProvider(it[Keys.TEXT_FALLBACK_PROVIDER]),
             it[Keys.TEXT_FALLBACK_MODEL],
-            isLocalGemmaExecutable(),
+            isLocalModelExecutable,
             AIProvider.GEMINI.defaultTextModel
         )
     }
     suspend fun setSelectedTextFallbackModel(model: String) {
-        ds.edit { it[Keys.TEXT_FALLBACK_MODEL] = AIProvider.normalizeModelId(model) }
+        ds.edit { it[Keys.TEXT_FALLBACK_MODEL] = model }
     }
 
     // -- Speech Provider selection ---------------------------------------
@@ -1463,14 +1496,14 @@ class PreferencesStore(
         val raw = it[Keys.SELECTED_SPEECH_PROVIDER]
         executableSpeechProviderOrDefault(
             SpeechProvider.values().firstOrNull { p -> p.name == raw },
-            isLocalWhisperExecutable(),
+            isLocalModelExecutable,
             SpeechProvider.NATIVE
         )
     }
     suspend fun setSelectedSpeechProvider(p: SpeechProvider) {
         val resolved = executableSpeechProviderOrDefault(
             p,
-            isLocalWhisperExecutable(),
+            isLocalModelExecutable,
             SpeechProvider.NATIVE
         )
         ds.edit { it[Keys.SELECTED_SPEECH_PROVIDER] = resolved.name }
@@ -1479,8 +1512,7 @@ class PreferencesStore(
     // -- Speech-to-text fallback -----------------------------------------
     val speechFallbackEnabled: Flow<Boolean> = ds.data.map {
         (it[Keys.SPEECH_FALLBACK_ENABLED] ?: false) &&
-            (it[Keys.SPEECH_FALLBACK_PROVIDER] != SpeechProvider.LOCAL_WHISPER.name ||
-                isLocalWhisperExecutable())
+            (storedSpeechProvider(it[Keys.SPEECH_FALLBACK_PROVIDER])?.localModelId?.let(isLocalModelExecutable) != false)
     }
     suspend fun setSpeechFallbackEnabled(v: Boolean) { ds.edit { it[Keys.SPEECH_FALLBACK_ENABLED] = v } }
 
@@ -1488,14 +1520,14 @@ class PreferencesStore(
         val raw = it[Keys.SPEECH_FALLBACK_PROVIDER]
         executableSpeechProviderOrDefault(
             SpeechProvider.recordedFallbackProviders.firstOrNull { provider -> provider.name == raw },
-            isLocalWhisperExecutable(),
+            isLocalModelExecutable,
             SpeechProvider.GROQ
         )
     }
     suspend fun setSelectedSpeechFallbackProvider(provider: SpeechProvider) {
         val resolved = executableSpeechProviderOrDefault(
             provider.takeIf { it in SpeechProvider.recordedFallbackProviders },
-            isLocalWhisperExecutable(),
+            isLocalModelExecutable,
             SpeechProvider.GROQ
         )
         ds.edit { it[Keys.SPEECH_FALLBACK_PROVIDER] = resolved.name }
@@ -1503,12 +1535,22 @@ class PreferencesStore(
 
     fun selectedSpeechLanguage(provider: SpeechProvider): Flow<SpeechLanguage> = ds.data.map {
         val raw = it[Keys.selectedSpeechLanguage(provider)]
-        SpeechLanguage.values().firstOrNull { language -> language.name == raw }
+        SpeechLanguage.optionsFor(provider).firstOrNull { language -> language.name == raw }
             ?: SpeechLanguage.defaultFor(provider)
     }
 
+    fun selectedRecordedSpeechModel(provider: SpeechProvider): Flow<String> = ds.data.map {
+        provider.recordedModelOrDefault(it[Keys.recordedSpeechModel(provider)])
+    }
+
+    suspend fun setRecordedSpeechModel(provider: SpeechProvider, model: String) {
+        ds.edit { it[Keys.recordedSpeechModel(provider)] = provider.recordedModelOrDefault(model) }
+    }
+
     suspend fun setSelectedSpeechLanguage(provider: SpeechProvider, language: SpeechLanguage) {
-        ds.edit { it[Keys.selectedSpeechLanguage(provider)] = language.name }
+        val resolved = language.takeIf { it in SpeechLanguage.optionsFor(provider) }
+            ?: SpeechLanguage.defaultFor(provider)
+        ds.edit { it[Keys.selectedSpeechLanguage(provider)] = resolved.name }
     }
 
     // -- Food entries -----------------------------------------------------
@@ -1768,8 +1810,34 @@ class PreferencesStore(
     /** Settings → Voice Assistant, read together so a session starts from one snapshot. */
     val voiceAssistantPreferences: Flow<VoiceAssistantPreferences> = ds.data.map { readVoiceAssistantPreferences(it) }
 
+    val voiceMascotPreferences: Flow<VoiceMascotPreferences> = ds.data.map {
+        VoiceMascotPreferences.decode(it[Keys.VOICE_MASCOTS])
+    }
+
+    suspend fun selectVoiceMascot(mascot: VoiceMascot) {
+        ds.edit { it[Keys.VOICE_MASCOTS] = VoiceMascotPreferences.decode(it[Keys.VOICE_MASCOTS])
+            .copy(selected = mascot).encode() }
+    }
+
+    suspend fun editVoiceMascot(mascot: VoiceMascot, update: (VoiceMascotOptions) -> VoiceMascotOptions) {
+        ds.edit { it[Keys.VOICE_MASCOTS] = VoiceMascotPreferences.decode(it[Keys.VOICE_MASCOTS])
+            .editing(mascot, update).encode() }
+    }
+
     suspend fun setVoiceAssistantProvider(choice: VoiceProviderChoice) {
         ds.edit { it[Keys.VOICE_PROVIDER] = choice.storageValue }
+    }
+
+    suspend fun removeRetiredOfflineVoicePreferences() {
+        ds.edit { clearRetiredOfflineVoicePreferences(it) }
+    }
+
+    suspend fun setQwenLiveWorkspace(workspace: String) {
+        ds.edit { it[Keys.QWEN_LIVE_WORKSPACE] = workspace.trim() }
+    }
+
+    suspend fun setGeminiBargeIn(enabled: Boolean) {
+        ds.edit { it[Keys.GEMINI_BARGE_IN] = enabled }
     }
 
     suspend fun setVoiceAssistantModel(provider: LiveProvider, model: String) {
@@ -1818,6 +1886,7 @@ class PreferencesStore(
     }
 
     private object Keys {
+        val VOICE_MASCOTS = stringPreferencesKey(VoiceMascotPreferences.STORAGE_KEY)
         val USER_PROFILE = stringPreferencesKey("userProfile")
         val LAST_RECALC_GOAL_SIGNATURE = stringPreferencesKey("lastRecalcGoalSignature")
         val ONBOARDING_COMPLETED = booleanPreferencesKey("hasCompletedOnboarding")
@@ -1842,6 +1911,7 @@ class PreferencesStore(
         val WATER_ENTRIES = stringPreferencesKey("waterEntries")
         val FASTING_TRACKING_ENABLED = booleanPreferencesKey("fastingTrackingEnabled")
         val WALK_RUN_QUICK_LOG_ENABLED = booleanPreferencesKey("walkRunQuickLogEnabled")
+        val WORKOUT_DOCK_SHORTCUTS = stringPreferencesKey(WorkoutDockShortcuts.STORAGE_KEY)
         val FASTING_DEFAULT_GOAL_MINUTES = intPreferencesKey("fastingDefaultGoalMinutes")
         val FASTING_GOAL_NOTIFICATION_ENABLED = booleanPreferencesKey("fastingGoalNotificationEnabled")
         val FASTING_SESSIONS = stringPreferencesKey("fastingSessions")
@@ -1879,13 +1949,13 @@ class PreferencesStore(
         val USE_METRIC = booleanPreferencesKey("useMetric")
         val HEIGHT_UNIT = stringPreferencesKey("heightUnit")
         val WEIGHT_UNIT = stringPreferencesKey("weightUnit")
-        val PROGRESS_INCLUDE_TODAY = booleanPreferencesKey("progressIncludeToday")
         val PREFER_GRAMS_BY_DEFAULT = booleanPreferencesKey("foodMeasurementPreferGramsByDefault")
         val AMINO_ACID_ESTIMATES_ENABLED = booleanPreferencesKey("aminoAcidEstimatesEnabled")
         val PRODUCT_INFO_SHOWN = booleanPreferencesKey("productInfoShown")
         val PRODUCT_INFO_HIDDEN_FIELDS = stringPreferencesKey("productInfoHiddenFields")
         val SAVE_MEAL_PHOTOS_TO_GALLERY = booleanPreferencesKey("saveMealPhotosToGallery")
         val APPEARANCE_MODE = stringPreferencesKey("appearanceMode")
+        val HAPTICS_ENABLED = booleanPreferencesKey("hapticsEnabled")
         val APP_THEME_COLOR = stringPreferencesKey("appThemeColor")
         val WEEK_STARTS_MONDAY = booleanPreferencesKey("weekStartsOnMonday")
         val ENERGY_UNIT = stringPreferencesKey("energyUnit")
@@ -1894,6 +1964,7 @@ class PreferencesStore(
         val QUICK_ACTION_2 = stringPreferencesKey("quickAction.slot2")
         val QUICK_ACTION_3 = stringPreferencesKey("quickAction.slot3")
         val ADD_MENU_CONFIG = stringPreferencesKey(AddMenuConfig.STORAGE_KEY)
+        val HOME_FOOD_SHORTCUTS = stringPreferencesKey(HomeFoodShortcuts.STORAGE_KEY)
         val HIDDEN_TABS = stringPreferencesKey(TabBarSettings.STORAGE_KEY)
         val WORKOUT_STATE = stringPreferencesKey("workoutDiaryStateV1")
         val MEAL_BREAKFAST_START = intPreferencesKey("mealBreakfastStartMinutes")
@@ -1931,6 +2002,8 @@ class PreferencesStore(
             intPreferencesKey("matchingSpeechProviderMigrationVersion")
         fun selectedSpeechLanguage(provider: SpeechProvider) =
             stringPreferencesKey("selectedSpeechLanguage_${provider.name}")
+        fun recordedSpeechModel(provider: SpeechProvider) =
+            stringPreferencesKey("recordedSpeechModel_${provider.name}")
         val FOOD_ENTRIES = stringPreferencesKey("foodEntries")
         val FAVORITE_KEYS = stringPreferencesKey("favorites")
         val FAVORITE_ENTRIES = stringPreferencesKey("favoriteFoodEntries")
@@ -1945,11 +2018,20 @@ class PreferencesStore(
         val VOICE_AUTO_CAPTURE = booleanPreferencesKey("voiceAssistantAutoCapture")
         val VOICE_CONFIRM_SAVES = booleanPreferencesKey("voiceAssistantConfirmSaves")
         val VOICE_SAVE_TO_COACH = booleanPreferencesKey("voiceAssistantSaveToCoach")
+        val QWEN_LIVE_WORKSPACE = stringPreferencesKey("voiceAssistantQwenWorkspace")
+        val GEMINI_BARGE_IN = booleanPreferencesKey("voiceAssistantGeminiBargeIn")
         fun voiceModel(provider: LiveProvider) = stringPreferencesKey("voiceAssistantModel_${provider.storageValue}")
         fun voiceVoice(provider: LiveProvider) = stringPreferencesKey("voiceAssistantVoice_${provider.storageValue}")
     }
 
     companion object {
+        internal fun clearRetiredOfflineVoicePreferences(prefs: MutablePreferences) {
+            when (prefs[Keys.VOICE_PROVIDER]) {
+                "lfm3_offline", "lfm3_connected" -> prefs.remove(Keys.VOICE_PROVIDER)
+            }
+            prefs.remove(booleanPreferencesKey("localVoiceCloudFallback"))
+        }
+
         /** Settings → Voice Assistant from saved preferences, with each default for a missing key. */
         internal fun readVoiceAssistantPreferences(prefs: Preferences) = VoiceAssistantPreferences(
             choice = VoiceProviderChoice.fromStorage(prefs[Keys.VOICE_PROVIDER]),
@@ -1962,7 +2044,9 @@ class PreferencesStore(
             language = prefs[Keys.VOICE_LANGUAGE] ?: VoiceAssistantPreferences.LANGUAGE_APP,
             autoCapture = prefs[Keys.VOICE_AUTO_CAPTURE] ?: true,
             confirmSaves = prefs[Keys.VOICE_CONFIRM_SAVES] ?: true,
-            saveToCoach = prefs[Keys.VOICE_SAVE_TO_COACH] ?: true
+            saveToCoach = prefs[Keys.VOICE_SAVE_TO_COACH] ?: true,
+            qwenWorkspace = prefs[Keys.QWEN_LIVE_WORKSPACE].orEmpty(),
+            geminiBargeIn = prefs[Keys.GEMINI_BARGE_IN] ?: true
         )
 
         private const val TAG = "PreferencesStore"

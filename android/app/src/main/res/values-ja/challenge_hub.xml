@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="challenge_hub_title">チャレンジ</string>
+    <string name="challenge_hub_daily">デイリー</string>
+    <string name="challenge_hub_weekly">週間</string>
+    <string name="challenge_hub_monthly">月間</string>
+    <string name="challenge_hub_your_points">あなたのポイント</string>
+    <string name="challenge_hub_points">ポイント：%1$d</string>
+    <string name="challenge_hub_days">日数：%1$d</string>
+    <string name="challenge_hub_participants">参加者：%1$d</string>
+    <string name="challenge_hub_join">参加してスコアを共有</string>
+    <string name="challenge_hub_remove">退出してスコアを削除</string>
+    <string name="challenge_hub_go_weekly">週間チャレンジへ</string>
+    <string name="challenge_hub_habits">数字より習慣を育てよう</string>
+    <string name="challenge_hub_profile_first">まず週間チャレンジに参加してプロフィールを作成してください。</string>
+    <string name="challenge_hub_service">このランキングにはチャレンジサービスの更新が必要です。</string>
+    <string name="challenge_hub_consent">参加すると、この期間の名前と習慣の集計がほかの参加者に表示されます。日記、体重、カロリー量は共有されません。</string>
+    <string name="challenge_hub_rules_base">運動、食事記録、栄養目標、水分目標の各習慣で、1 日に 1 ポイント獲得できます。</string>
+    <string name="challenge_hub_rules_bonus">3 つ以上の習慣を達成した日は、ボーナスを 1 ポイント獲得できます。</string>
+    <string name="challenge_hub_rules_streak">2 つ以上の習慣を達成した最長の連続期間では、2 日目以降に毎日 1 ポイント得られます。</string>
+    <string name="challenge_hub_leave">このチャレンジから退出しますか？</string>
+    <string name="challenge_hub_leave_detail">この期間のスコアのみ削除されます。他のチャレンジや日記には変更がありません。</string>
+    <string name="challenge_hub_leave_all">すべてのチャレンジから退出しますか？</string>
+    <string name="challenge_hub_leave_all_detail">公開プロフィール、すべてのスコア、報告が削除されます。非公開の日記はこの端末に残ります。</string>
+    <string name="challenge_hub_jump_to_rank">自分の順位へ</string>
+    <string name="challenge_hub_week_rank">選択したスコアが最優先です。同点の場合は、習慣の多様さ、各習慣の安定度、他の項目の日数の順で比較します。それでも同じなら、先に達成した人が上位です。運動の消費カロリーでは順位を決めません。</string>
+</resources>

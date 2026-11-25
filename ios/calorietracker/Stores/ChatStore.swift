@@ -6,6 +6,8 @@ import SwiftUI
 @Observable
 class ChatStore {
     private(set) var messages: [ChatMessage] = []
+    @ObservationIgnored var onReset: (() -> Void)?
+    private(set) var resetRevision = 0
 
     private let defaults: UserDefaults
     private let storageKey = "coachChatHistory"
@@ -43,6 +45,8 @@ class ChatStore {
     }
 
     func reset() {
+        resetRevision &+= 1
+        onReset?()
         messages = []
         save()
     }

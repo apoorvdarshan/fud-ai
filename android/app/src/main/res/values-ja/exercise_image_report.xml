@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="workout_image_report">画像の問題を報告</string>
+    <string name="workout_image_report_note">画像のどこが不自然ですか？</string>
+    <string name="workout_image_report_review">報告は公開されます。個人情報は入力しないでください。</string>
+    <string name="workout_image_report_discord_help">報告がコピーされます。Fud AI の Discord サーバーで /bug を実行し、report 欄に貼り付けてください。</string>
+    <string name="workout_image_report_open_failed">リンクを開けませんでした。</string>
+</resources>

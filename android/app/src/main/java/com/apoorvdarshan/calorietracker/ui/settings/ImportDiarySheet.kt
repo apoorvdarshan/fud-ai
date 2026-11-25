@@ -27,6 +27,7 @@ import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.export.DiaryImportMode
 import com.apoorvdarshan.calorietracker.export.DiaryImportPreview
 import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
+import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
@@ -49,8 +50,9 @@ fun ImportDiarySheet(
         sheetState = state
     ) {
         Column(
-            Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
+            Modifier.fillMaxWidth().verticalScroll(rememberScrollState())
+                .padding(horizontal = FlashSpacing.SheetInset, vertical = FlashSpacing.ItemGap),
+            verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap),
         ) {
             Text(stringResource(R.string.import_diary_title), fontSize = 22.sp, fontWeight = FontWeight.Black)
 

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="workout_image_report">Bildfehler melden</string>
+    <string name="workout_image_report_note">Was sieht im Bild falsch aus?</string>
+    <string name="workout_image_report_review">Meldungen werden veröffentlicht. Gib keine privaten Daten an.</string>
+    <string name="workout_image_report_discord_help">Die Meldung wird kopiert. Verwende auf dem Fud-AI-Discord-Server /bug und füge sie ins Feld report ein.</string>
+    <string name="workout_image_report_open_failed">Der Link konnte nicht geöffnet werden.</string>
+</resources>

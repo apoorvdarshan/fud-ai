@@ -7,9 +7,8 @@ import com.apoorvdarshan.calorietracker.AppContainer
 import com.apoorvdarshan.calorietracker.data.WeeklyChallengeFailureKind
 import com.apoorvdarshan.calorietracker.data.WeeklyChallengeRepository
 import com.apoorvdarshan.calorietracker.data.WeeklyChallengeResult
-import com.apoorvdarshan.calorietracker.models.FoodEntry
-import com.apoorvdarshan.calorietracker.models.UserProfile
-import com.apoorvdarshan.calorietracker.models.WaterEntry
+import com.apoorvdarshan.calorietracker.models.ChallengePeriod
+import com.apoorvdarshan.calorietracker.models.ChallengePeriodScore
 import com.apoorvdarshan.calorietracker.models.WeeklyChallengeAggregate
 import com.apoorvdarshan.calorietracker.models.WeeklyChallengeCategory
 import com.apoorvdarshan.calorietracker.models.WeeklyChallengeLeaderboard
@@ -22,9 +21,9 @@ import com.apoorvdarshan.calorietracker.models.WeeklyChallengeReportRequest
 import com.apoorvdarshan.calorietracker.models.WeeklyChallengeReportValidator
 import com.apoorvdarshan.calorietracker.models.WeeklyChallengeSocialPlatform
 import com.apoorvdarshan.calorietracker.models.WeeklyChallengeWeek
-import com.apoorvdarshan.calorietracker.models.WorkoutSession
-import com.apoorvdarshan.calorietracker.services.challenge.WeeklyChallengeAggregationInput
 import com.apoorvdarshan.calorietracker.services.challenge.WeeklyChallengeAggregator
+import com.apoorvdarshan.calorietracker.services.challenge.WeeklyChallengeLocalInputs
+import com.apoorvdarshan.calorietracker.services.challenge.challengeLocalInputs
 import java.time.LocalDate
 import java.time.ZoneId
 import kotlinx.coroutines.Job
@@ -32,8 +31,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
@@ -47,13 +44,24 @@ enum class WeeklyChallengeUiError {
     VALIDATION
 }
 
+internal const val RANKING_PAGE_SIZE = 20
+
 data class WeeklyChallengeUiState(
+    val period: ChallengePeriod = ChallengePeriod.WEEKLY,
     val category: WeeklyChallengeCategory = WeeklyChallengeCategory.OVERALL,
     val weekStart: LocalDate = WeeklyChallengeWeek.startFor(LocalDate.now()),
     val aggregate: WeeklyChallengeAggregate =
         WeeklyChallengeAggregate.empty(WeeklyChallengeWeek.startFor(LocalDate.now())),
     val profile: WeeklyChallengePublicProfile? = null,
     val leaderboard: WeeklyChallengeLeaderboard? = null,
+    val rankingPage: Int = 0,
+    val pageResponse: WeeklyChallengeLeaderboard? = null,
+    val isLoadingPage: Boolean = false,
+    val pageFailed: Boolean = false,
+    val periodScore: ChallengePeriodScore? = null,
+    val periodLeaderboard: WeeklyChallengeLeaderboard? = null,
+    val enabledPeriods: Set<ChallengePeriod> = emptySet(),
+    val isPeriodChanging: Boolean = false,
     val blockedParticipants: Map<String, String> = emptyMap(),
     val lastUpdatedEpochMillis: Long? = null,
     val isRefreshing: Boolean = false,
@@ -64,16 +72,12 @@ data class WeeklyChallengeUiState(
     val reportConfirmationName: String? = null
 ) {
     val isJoined: Boolean get() = profile != null && !pendingRemoteDeletion
+    val currentLeaderboard get() = (if (period == ChallengePeriod.WEEKLY) leaderboard else periodLeaderboard)
+        ?.takeIf { it.category == category }
+    val currentStart get() = if (period == ChallengePeriod.WEEKLY) weekStart.toString()
+        else periodScore?.periodStart ?: period.startFor(LocalDate.now()).toString()
+    val supportsExtraPeriods get() = leaderboard?.period == ChallengePeriod.WEEKLY
 }
-
-private data class WeeklyChallengeLocalInputs(
-    val profile: UserProfile?,
-    val foods: List<FoodEntry>,
-    val water: List<WaterEntry>,
-    val workoutBurns: List<WorkoutSession>,
-    val waterTrackingEnabled: Boolean,
-    val waterGoalMl: Int
-)
 
 class WeeklyChallengeViewModel(private val container: AppContainer) : ViewModel() {
     private val repository: WeeklyChallengeRepository = container.weeklyChallengeRepository
@@ -104,6 +108,10 @@ class WeeklyChallengeViewModel(private val container: AppContainer) : ViewModel(
                             null
                         },
                         blockedParticipants = stored.blockedParticipants,
+                        enabledPeriods = if (joined) stored.enabledPeriods else emptySet(),
+                        periodLeaderboard = if (joined && current.period in stored.enabledPeriods) {
+                            stored.cached(current.category, current.currentStart, period = current.period)
+                        } else null,
                         lastUpdatedEpochMillis = if (joined) {
                             stored.refreshedAt(current.category, current.weekStart.toString())
                         } else {
@@ -118,31 +126,8 @@ class WeeklyChallengeViewModel(private val container: AppContainer) : ViewModel(
             }
         }
 
-        val waterPreferences = combine(
-            container.prefs.waterTrackingEnabled,
-            container.prefs.waterDailyGoalMl
-        ) { enabled, goal -> enabled to goal }
         viewModelScope.launch {
-            combine(
-                container.profileRepository.profile,
-                container.foodRepository.entries,
-                container.waterRepository.entries,
-                container.workoutRepository.burnSessions
-            ) { profile, foods, water, workouts ->
-                WeeklyChallengeLocalInputs(
-                    profile = profile,
-                    foods = foods,
-                    water = water,
-                    workoutBurns = workouts,
-                    waterTrackingEnabled = false,
-                    waterGoalMl = 0
-                )
-            }.combine(waterPreferences) { inputs, waterPrefs ->
-                inputs.copy(
-                    waterTrackingEnabled = waterPrefs.first,
-                    waterGoalMl = waterPrefs.second
-                )
-            }.distinctUntilChanged().collect { inputs ->
+            challengeLocalInputs(container).collect { inputs ->
                 latestInputs = inputs
                 recomputeAndQueueIfNeeded()
             }
@@ -168,15 +153,17 @@ class WeeklyChallengeViewModel(private val container: AppContainer) : ViewModel(
 
     fun selectCategory(category: WeeklyChallengeCategory) {
         if (category == _ui.value.category) return
-        _ui.update { it.copy(category = category, error = null, isOffline = false) }
+        _ui.update { it.copy(category = category, periodLeaderboard = null, rankingPage = 0, pageResponse = null,
+            isLoadingPage = false, pageFailed = false, error = null, isOffline = false) }
         viewModelScope.launch {
             val stored = repository.stateSnapshot()
             val current = _ui.value
             _ui.update {
+                if (it.category != category) return@update it
                 it.copy(
-                    leaderboard = if (current.isJoined) {
-                        stored.cached(category, current.weekStart.toString())
-                    } else null,
+                    leaderboard = if (current.isJoined) stored.cached(category, current.weekStart.toString())
+                        ?: current.leaderboard else null,
+                    periodLeaderboard = if (current.isJoined) stored.cached(category, current.currentStart, period = current.period) else null,
                     lastUpdatedEpochMillis = if (current.isJoined) {
                         stored.refreshedAt(category, current.weekStart.toString())
                     } else null
@@ -186,8 +173,84 @@ class WeeklyChallengeViewModel(private val container: AppContainer) : ViewModel(
         }
     }
 
-    fun refresh() {
+    fun selectPeriod(period: ChallengePeriod) {
+        if (period == _ui.value.period) return
+        _ui.update { it.copy(period = period, rankingPage = 0, pageResponse = null, periodScore = null,
+            periodLeaderboard = null, pageFailed = false, isLoadingPage = false, error = null) }
         viewModelScope.launch { refreshInternal(showSpinner = true) }
+    }
+
+    fun joinCurrentPeriod() {
+        val score = _ui.value.periodScore ?: return
+        if (!_ui.value.supportsExtraPeriods || _ui.value.isPeriodChanging) return
+        viewModelScope.launch {
+            _ui.update { it.copy(isPeriodChanging = true, error = null) }
+            when (val result = repository.publishPeriodScore(score, accept = true)) {
+                is WeeklyChallengeResult.Success -> {
+                    _ui.update { it.copy(enabledPeriods = it.enabledPeriods + score.period) }
+                    refreshInternal(showSpinner = true)
+                }
+                is WeeklyChallengeResult.Failure -> _ui.update { it.copy(error = result.toUiError()) }
+            }
+            _ui.update { it.copy(isPeriodChanging = false) }
+        }
+    }
+
+    fun leaveCurrentPeriod() {
+        val period = _ui.value.period
+        if (period == ChallengePeriod.WEEKLY || _ui.value.isPeriodChanging) return
+        viewModelScope.launch {
+            _ui.update { it.copy(isPeriodChanging = true, error = null) }
+            when (val result = repository.leavePeriod(period)) {
+                is WeeklyChallengeResult.Success -> _ui.update {
+                    if (it.period == period) it.copy(rankingPage = 0, pageResponse = null, periodLeaderboard = null) else it
+                }
+                is WeeklyChallengeResult.Failure -> _ui.update { it.copy(error = result.toUiError()) }
+            }
+            _ui.update { it.copy(isPeriodChanging = false) }
+        }
+    }
+
+    fun refresh() {
+        viewModelScope.launch {
+            refreshInternal(showSpinner = true)
+            loadRankingPage(force = true)
+        }
+    }
+
+    fun selectRankingPage(page: Int) {
+        if (page < 0 || page == _ui.value.rankingPage) return
+        _ui.update { it.copy(rankingPage = page, pageResponse = null, pageFailed = false, isLoadingPage = false) }
+        viewModelScope.launch { loadRankingPage(force = false) }
+    }
+
+    fun retryRankingPage() {
+        viewModelScope.launch { loadRankingPage(force = true) }
+    }
+
+    private suspend fun loadRankingPage(force: Boolean) {
+        val state = _ui.value
+        if (state.rankingPage <= 0 || state.currentLeaderboard?.totalCount == null || !state.isJoined) return
+        val offset = state.rankingPage * RANKING_PAGE_SIZE
+        val week = state.currentStart
+        val period = state.period
+        val category = state.category
+        val cache = repository.stateSnapshot().cached(category, week, offset, period)
+        fun matches(current: WeeklyChallengeUiState) = current.isJoined && current.rankingPage == state.rankingPage &&
+            current.category == category && current.currentStart == week && current.period == period
+        _ui.update { if (matches(it)) it.copy(pageResponse = cache, isLoadingPage = true, pageFailed = false) else it }
+        when (val result = repository.leaderboardPage(category, week, offset, force, period)) {
+            is WeeklyChallengeResult.Success -> {
+                val count = result.value.totalCount
+                if (count != null && offset >= count && matches(_ui.value)) {
+                    selectRankingPage(((count - 1) / RANKING_PAGE_SIZE).coerceAtLeast(0))
+                    return
+                }
+                _ui.update { if (matches(it)) it.copy(pageResponse = result.value, isLoadingPage = false) else it }
+            }
+            is WeeklyChallengeResult.Failure ->
+                _ui.update { if (matches(it)) it.copy(isLoadingPage = false, pageFailed = true) else it }
+        }
     }
 
     fun join(
@@ -361,27 +424,26 @@ class WeeklyChallengeViewModel(private val container: AppContainer) : ViewModel(
 
     private suspend fun recomputeAndQueueIfNeeded() {
         val inputs = latestInputs ?: return
-        val today = LocalDate.now()
-        val weekStart = WeeklyChallengeWeek.startFor(today)
-        val aggregate = WeeklyChallengeAggregator.aggregate(
-            WeeklyChallengeAggregationInput(
-                foods = inputs.foods,
-                water = inputs.water,
-                workoutBurns = inputs.workoutBurns,
-                calorieGoal = inputs.profile?.effectiveCalories ?: 0,
-                waterTrackingEnabled = inputs.waterTrackingEnabled,
-                waterGoalMl = inputs.waterGoalMl,
-                weekStart = weekStart,
-                today = today,
-                zoneId = ZoneId.systemDefault()
-            )
-        )
+        val zoneId = ZoneId.systemDefault()
+        val input = inputs.aggregationInput(LocalDate.now(zoneId), zoneId)
+        val weekStart = input.weekStart
+        val aggregate = WeeklyChallengeAggregator.aggregate(input)
+        val selected = _ui.value.period
+        val score = if (selected == ChallengePeriod.WEEKLY) null else WeeklyChallengeAggregator.periodScore(selected, input)
+        val previousStart = _ui.value.currentStart
+        val newStart = score?.periodStart ?: weekStart.toString()
         val oldWeek = _ui.value.weekStart
         _ui.update {
             it.copy(
                 weekStart = weekStart,
                 aggregate = aggregate,
+                periodScore = score,
+                periodLeaderboard = if (previousStart == newStart) it.periodLeaderboard else null,
                 leaderboard = if (oldWeek == weekStart) it.leaderboard else null,
+                rankingPage = if (previousStart == newStart) it.rankingPage else 0,
+                pageResponse = if (previousStart == newStart) it.pageResponse else null,
+                isLoadingPage = previousStart == newStart && it.isLoadingPage,
+                pageFailed = previousStart == newStart && it.pageFailed,
                 lastUpdatedEpochMillis = if (oldWeek == weekStart) it.lastUpdatedEpochMillis else null
             )
         }
@@ -396,6 +458,10 @@ class WeeklyChallengeViewModel(private val container: AppContainer) : ViewModel(
             recomputeAndQueueIfNeeded()
             val current = _ui.value
             if (!current.isJoined) return
+            if (current.period != ChallengePeriod.WEEKLY) {
+                refreshExtraPeriod(current, showSpinner)
+                return
+            }
             if (showSpinner) _ui.update { it.copy(isRefreshing = true, error = null) }
             when (
                 val result = repository.refresh(
@@ -406,6 +472,7 @@ class WeeklyChallengeViewModel(private val container: AppContainer) : ViewModel(
             ) {
                 is WeeklyChallengeResult.Success ->
                     _ui.update {
+                        if (it.category != current.category || it.weekStart != current.weekStart) return@update it
                         it.copy(
                             leaderboard = result.value.leaderboard,
                             lastUpdatedEpochMillis = result.value.refreshedAtEpochMillis,
@@ -416,12 +483,36 @@ class WeeklyChallengeViewModel(private val container: AppContainer) : ViewModel(
                     }
                 is WeeklyChallengeResult.Failure ->
                     _ui.update {
+                        if (it.category != current.category || it.weekStart != current.weekStart) return@update it
                         it.copy(
                             isRefreshing = false,
                             isOffline = result.kind == WeeklyChallengeFailureKind.NETWORK,
                             error = if (showSpinner) result.toUiError() else it.error
                         )
                     }
+            }
+        }
+    }
+
+    private suspend fun refreshExtraPeriod(state: WeeklyChallengeUiState, force: Boolean) {
+        val score = state.periodScore ?: return
+        if (state.period !in state.enabledPeriods) return
+        fun matches(current: WeeklyChallengeUiState) = current.period == score.period &&
+            current.category == state.category && current.currentStart == score.periodStart
+        if (force) _ui.update { if (matches(it)) it.copy(isRefreshing = true) else it }
+        // Upload the visible board's latest score before using a cached page or fetching ranks.
+        // If the upload fails, still try to show the board's last known ranks.
+        repository.publishPeriodScore(score, accept = false)
+        if (!matches(_ui.value)) return
+        val result = repository.leaderboardPage(state.category, score.periodStart, 0, force, score.period)
+        _ui.update { current ->
+            if (!matches(current)) current
+            else when (result) {
+                is WeeklyChallengeResult.Success -> current.copy(periodLeaderboard = result.value,
+                    isRefreshing = false, isOffline = false, error = null)
+                is WeeklyChallengeResult.Failure -> current.copy(isRefreshing = false,
+                    isOffline = result.kind == WeeklyChallengeFailureKind.NETWORK,
+                    error = if (force) result.toUiError() else current.error)
             }
         }
     }

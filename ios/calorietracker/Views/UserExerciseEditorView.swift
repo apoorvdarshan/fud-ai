@@ -227,6 +227,10 @@ struct UserExerciseEditorView: View {
                     .foregroundStyle(.red)
             }
             Text("Fill with AI sends this photo to your AI provider. Review the suggested details before saving.")
+            if isFillingWithAI {
+                WaitingFactCard()
+                    .padding(.top, 4)
+            }
         }
     }
 

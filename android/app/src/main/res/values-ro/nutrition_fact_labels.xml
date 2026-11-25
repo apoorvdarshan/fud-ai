@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="waiting_fact_measure_per_100g">%1$s: %2$s la 100 g</string>
+    <string name="waiting_fact_prep_raw">Crud</string>
+    <string name="waiting_fact_prep_raw_skin">Crud, cu coajă</string>
+    <string name="waiting_fact_prep_dried">Uscat</string>
+    <string name="waiting_fact_prep_boiled_no_salt">Fiert, fără adaos de sare</string>
+    <string name="waiting_fact_prep_cooked_no_salt">Gătit, fără adaos de sare</string>
+    <string name="waiting_fact_prep_cooked">Gătit</string>
+    <string name="waiting_fact_prep_baked_skin_no_salt">Copt cu coajă, fără adaos de sare</string>
+    <string name="waiting_fact_prep_baked_flesh_no_salt">Pulpă coaptă, fără adaos de sare</string>
+    <string name="waiting_fact_prep_roasted_no_salt">Prăjit, fără adaos de sare</string>
+    <string name="waiting_fact_prep_hard_boiled">Fiert tare</string>
+    <string name="waiting_fact_prep_plain_whole_milk">Simplu, din lapte integral</string>
+    <string name="waiting_fact_prep_roasted">Copt</string>
+    <string name="waiting_fact_prep_no_salt">Fără adaos de sare</string>
+</resources>

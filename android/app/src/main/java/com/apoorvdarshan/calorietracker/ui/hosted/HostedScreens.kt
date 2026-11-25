@@ -81,6 +81,7 @@ import com.apoorvdarshan.calorietracker.ui.components.FudGlassPrimaryButton
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassSurface
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassTextButton
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
 import com.revenuecat.purchases.models.StoreProduct
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
@@ -178,12 +179,14 @@ fun HostedPaywallSheet(
     var restoring by remember { mutableStateOf(false) }
     var message by remember { mutableStateOf<HostedMessage?>(null) }
 
-    LaunchedEffect(Unit) {
+    suspend fun refreshPlans() {
         billing.refreshCustomerInfo()
         billing.loadOfferings()
     }
+    LaunchedEffect(billing) { refreshPlans() }
 
-    val catalog = (offerings as? OfferingsState.Loaded)?.catalog?.takeIf { it.hasPurchasablePlans }
+    val catalog = (offerings as? OfferingsState.Loaded)?.catalog
+        ?.takeIf { entitlement.loaded && it.hasPurchasablePlans }
     // The user's picks, snapped to what the store actually offers (yearly preferred;
     // subscribers start on Pro, so a Plus subscriber sees the upgrade first).
     val selected: PlanOption? = catalog?.let { c ->
@@ -262,8 +265,8 @@ fun HostedPaywallSheet(
                 Modifier
                     .weight(1f)
                     .verticalScroll(rememberScrollState())
-                    .padding(horizontal = 20.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
+                    .padding(horizontal = FlashSpacing.SheetInset),
+                verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap)
             ) {
                 PaywallHero()
                 when {
@@ -289,7 +292,7 @@ fun HostedPaywallSheet(
                         }
                     }
                     offerings is OfferingsState.Failed || (offerings is OfferingsState.Loaded && catalog == null) ->
-                        PlansUnavailable(onRetry = { scope.launch { billing.loadOfferings() } })
+                        PlansUnavailable(onRetry = { scope.launch { refreshPlans() } })
                     else -> PlansLoading()
                 }
                 Spacer(Modifier.height(4.dp))
@@ -491,7 +494,7 @@ private fun PurchaseBar(
         PlanChange.CURRENT -> stringResource(R.string.hosted_cta_current)
     }
     Column(
-        Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 12.dp),
+        Modifier.fillMaxWidth().padding(horizontal = FlashSpacing.SheetInset, vertical = FlashSpacing.ItemGap),
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -633,7 +636,7 @@ fun HostedCreditsSheet(
         containerColor = sheetContainerColor()
     ) {
         Column(
-            Modifier.fillMaxWidth().padding(horizontal = 20.dp).padding(bottom = 24.dp),
+            Modifier.fillMaxWidth().padding(horizontal = FlashSpacing.SheetInset).padding(bottom = FlashSpacing.SectionGap),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             Text(stringResource(R.string.hosted_credits_title), style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)

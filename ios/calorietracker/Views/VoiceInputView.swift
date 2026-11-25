@@ -340,12 +340,13 @@ struct VoiceInputView: View {
 
         guard let fileURL = recordedFileURL else { return }
         recordedFileURL = nil
+        let capturedProvider = provider
 
         isTranscribing = true
         Task {
             defer { isTranscribing = false }
             do {
-                let text = try await SpeechService.transcribe(audioURL: fileURL)
+                let text = try await SpeechService.transcribe(audioURL: fileURL, capturedProvider: capturedProvider)
                 transcription = text
             } catch {
                 permissionError = (error as? LocalizedError)?.errorDescription ?? error.localizedDescription

@@ -127,7 +127,7 @@
     <string name="voice_settings_confirm_saves">Confirmare înainte de salvare</string>
     <string name="voice_settings_confirm_saves_footer">Afișează un card pentru aprobarea fiecărei înregistrări sau modificări. Dacă este dezactivat, modificările se salvează imediat și pot fi anulate timp de 8 secunde.</string>
     <string name="voice_settings_save_to_coach">Salvează conversațiile în Antrenor</string>
-    <string name="voice_settings_save_to_coach_footer">Adaugă ce spuneți tu și asistentul în chatul tău cu Antrenorul.</string>
+    <string name="voice_settings_save_to_coach_footer">Salvează conversațiile vocale în Antrenor și, la nevoie, partajează mesajele recente din Antrenor cu furnizorul tău de servicii vocale.</string>
     <string name="voice_settings_minutes_left">Minute rămase din plan</string>
     <string name="voice_settings_minutes_with_credits">%1$s + %2$s din credite</string>
     <string name="voice_settings_minutes_footer">Plus include 20 de minute, iar Pro 100 de minute pe lună (UTC). După aceea, vocea folosește credite: 1 credit la fiecare 15 secunde.</string>

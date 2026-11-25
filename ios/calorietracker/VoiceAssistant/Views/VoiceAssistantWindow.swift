@@ -33,6 +33,11 @@ final class VoiceAssistantHostingController: UIHostingController<AnyView> {
     override var preferredStatusBarStyle: UIStatusBarStyle { statusBarStyle }
 }
 
+@Observable
+final class VoiceAssistantWindowActivity {
+    var isActive = false
+}
+
 /// Creates the assistant's window once, and shows it only while there is
 /// something to show.
 @MainActor
@@ -41,6 +46,7 @@ final class VoiceAssistantWindowManager {
 
     private var window: VoiceAssistantWindow?
     private var hosting: VoiceAssistantHostingController?
+    private let activity = VoiceAssistantWindowActivity()
 
     func install(in scene: UIWindowScene, controller: VoiceAssistantController) {
         guard window == nil else { return }
@@ -48,7 +54,7 @@ final class VoiceAssistantWindowManager {
         // Above the app's window, below system alerts and the keyboard.
         window.windowLevel = UIWindow.Level(UIWindow.Level.normal.rawValue + 1)
         window.backgroundColor = .clear
-        let overlay = VoiceAssistantOverlay(controller: controller) { [weak window] regions, capturesAll in
+        let overlay = VoiceAssistantOverlay(controller: controller, windowActivity: activity) { [weak window] regions, capturesAll in
             window?.interactiveRegions = regions
             window?.capturesAllTouches = capturesAll
         } onStatusBarStyle: { [weak self] style in
@@ -66,6 +72,13 @@ final class VoiceAssistantWindowManager {
     func setVisible(_ visible: Bool) {
         guard let window, window.isHidden == visible else { return }
         window.isHidden = !visible
+    }
+
+    // The non-key hosting window does not receive SwiftUI's scene phase reliably.
+    // Use the lifecycle of the main scene that owns the overlay.
+    func setSceneActive(_ isActive: Bool) {
+        guard activity.isActive != isActive else { return }
+        activity.isActive = isActive
     }
 }
 

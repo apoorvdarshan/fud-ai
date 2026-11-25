@@ -48,5 +48,6 @@ fun FoodEntry.toReviewAnalysis(): FoodAnalysis = FoodAnalysis(
     customNote = customNote,
     progressiveMeal = progressiveMeal,
     ingredients = ingredients,
-    productMetadata = productMetadata
+    productMetadata = productMetadata,
+    aiAllergens = aiAllergens
 )

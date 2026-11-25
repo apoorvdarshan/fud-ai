@@ -20,7 +20,8 @@ final class calorietrackerUITestsLaunchTests: XCTestCase {
             XCTAssertTrue(app.buttons["nav.\(tab)"].exists, "Missing rail item: \(tab)")
         }
         XCTAssertTrue(app.buttons["nav.home"].isSelected)
-        XCTAssertTrue(app.buttons["nav.camera"].exists)
+        XCTAssertTrue(app.buttons["nav.voice"].isHittable)
+        XCTAssertFalse(app.buttons["nav.camera"].exists)
         XCTAssertTrue(app.buttons["home.calendar"].exists)
         XCTAssertGreaterThan(app.buttons["nav.home"].frame.minX, app.buttons["home.add"].frame.maxX)
         XCTAssertFalse(app.tabBars.firstMatch.exists)

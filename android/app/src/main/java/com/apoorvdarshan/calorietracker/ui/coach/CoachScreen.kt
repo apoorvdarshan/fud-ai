@@ -37,6 +37,8 @@ import androidx.compose.foundation.layout.union
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -44,9 +46,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.interaction.DragInteraction
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -109,6 +111,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -135,6 +138,9 @@ import com.apoorvdarshan.calorietracker.models.SpeechLanguage
 import com.apoorvdarshan.calorietracker.models.SpeechProvider
 import com.apoorvdarshan.calorietracker.ui.navigation.BottomNavDockedControlPadding
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import com.apoorvdarshan.calorietracker.ui.theme.PinkNeoCondensed
 import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 import java.io.ByteArrayOutputStream
@@ -165,7 +171,8 @@ fun CoachScreen(container: AppContainer) {
     var input by remember { mutableStateOf("") }
     var attachedImageBytes by remember { mutableStateOf<ByteArray?>(null) }
     var showCameraCapture by remember { mutableStateOf(false) }
-    val listState = rememberLazyListState()
+    // Always enter at the newest end, not at a saved offset in older history.
+    val listState = remember { LazyListState() }
     var showResetConfirm by remember { mutableStateOf(false) }
     val ctx = LocalContext.current
     val configuration = LocalConfiguration.current
@@ -173,8 +180,7 @@ fun CoachScreen(container: AppContainer) {
     val focusManager = LocalFocusManager.current
     val keyboard = LocalSoftwareKeyboardController.current
 
-    // Dismiss the keyboard when the USER drags the chat (DragInteraction only —
-    // the auto-scroll after sending a message must not steal focus).
+    // Only a user's drag dismisses the keyboard.
     LaunchedEffect(listState) {
         listState.interactionSource.interactions.collect { interaction ->
             if (interaction is DragInteraction.Start) {
@@ -227,6 +233,7 @@ fun CoachScreen(container: AppContainer) {
         scope.launch {
             val imageForAi = image?.let { resizedJpeg(it, maxDimension = 1600, quality = 78) ?: it }
             val thumbnail = image?.let { resizedJpeg(it, maxDimension = 700, quality = 68) ?: it }
+            listState.requestScrollToItem(0)
             vm.send(trimmed, imageBytes = imageForAi, thumbnailBytes = thumbnail)
         }
     }
@@ -242,10 +249,6 @@ fun CoachScreen(container: AppContainer) {
     LaunchedEffect(voiceProvider, voiceLanguage) {
         voice.provider = voiceProvider
         voice.nativeLocale = voiceLanguage.nativeLocaleTag()
-    }
-
-    LaunchedEffect(ui.messages.size, ui.sending) {
-        if (ui.messages.isNotEmpty()) listState.animateScrollToItem(ui.messages.size - 1)
     }
 
     Scaffold(
@@ -309,6 +312,7 @@ fun CoachScreen(container: AppContainer) {
                     setLocale(Locale.ENGLISH)
                 }
                 val englishContext = ctx.createConfigurationContext(englishConfiguration)
+                listState.requestScrollToItem(0)
                 vm.send(englishContext.getString(promptResourceId))
             }
 
@@ -321,14 +325,14 @@ fun CoachScreen(container: AppContainer) {
                         detectTapGestures(onTap = { hideKeyboard() })
                     }
             ) {
-                if (ui.messages.isEmpty()) {
+                if (ui.historyLoaded && ui.messages.isEmpty()) {
                     EmptyState(
                         prompts = resolvedChips,
                         enabled = !ui.sending,
                         onPromptTap = onPromptTap,
                         modifier = Modifier.fillMaxSize()
                     )
-                } else {
+                } else if (ui.messages.isNotEmpty()) {
                     val resolvedError = ui.error ?: ui.errorRes?.let { stringResource(it) }
                     MessageList(
                         messages = ui.messages,
@@ -387,6 +391,7 @@ fun CoachScreen(container: AppContainer) {
             text = { Text(stringResource(R.string.coach_reset_dialog_message)) },
             confirmButton = {
                 TextButton(onClick = {
+                    listState.requestScrollToItem(0)
                     vm.resetConversation()
                     showResetConfirm = false
                 }) { Text(stringResource(R.string.coach_reset_confirm), color = Color(0xFFD32F2F)) }
@@ -410,14 +415,14 @@ private fun EmptyState(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp)
-            .padding(top = 54.dp),
+            .verticalScroll(rememberScrollState())
+            .padding(horizontal = FlashSpacing.PageInset, vertical = FlashSpacing.SectionGap),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
         Box(
             Modifier
-                .size(92.dp)
+                .size(60.dp)
                 .background(neo.panel)
                 .border(1.dp, neo.rule),
             contentAlignment = Alignment.Center
@@ -425,11 +430,11 @@ private fun EmptyState(
             Icon(
                 Icons.Filled.Forum,
                 contentDescription = null,
-                modifier = Modifier.size(38.dp),
+                modifier = Modifier.size(27.dp),
                 tint = AppColors.Calorie
             )
         }
-        Spacer(Modifier.height(18.dp))
+        Spacer(Modifier.height(FlashSpacing.ItemGap))
         Text(
             stringResource(R.string.coach_empty_title),
             fontSize = 22.sp,
@@ -445,14 +450,14 @@ private fun EmptyState(
             lineHeight = 21.sp,
             modifier = Modifier.padding(horizontal = 8.dp)
         )
-        Spacer(Modifier.height(26.dp))
+        Spacer(Modifier.height(FlashSpacing.SectionGap))
         BoxWithConstraints(Modifier.fillMaxWidth()) {
             val columns = if (maxWidth < 246.dp || LocalDensity.current.fontScale >= 1.3f) 1 else 2
-            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            Column(verticalArrangement = Arrangement.spacedBy(FlashSpacing.ItemGap)) {
                 prompts.take(4).chunked(columns).forEach { rowPrompts ->
                     Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(10.dp),
+                        modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min),
+                        horizontalArrangement = Arrangement.spacedBy(FlashSpacing.ItemGap),
                         verticalAlignment = Alignment.Top
                     ) {
                         rowPrompts.forEach { prompt ->
@@ -460,7 +465,7 @@ private fun EmptyState(
                                 text = prompt.label,
                                 enabled = enabled,
                                 onTap = { onPromptTap(prompt.resourceId) },
-                                modifier = Modifier.weight(1f)
+                                modifier = Modifier.weight(1f).fillMaxHeight()
                             )
                         }
                         if (rowPrompts.size < columns) Spacer(Modifier.weight(1f))
@@ -484,14 +489,14 @@ private fun EmptyPromptCard(
     Surface(
         onClick = onTap,
         enabled = enabled,
-        modifier = modifier.heightIn(min = 70.dp),
+        modifier = modifier.heightIn(min = FlashSpacing.MinTouchTarget),
         shape = androidx.compose.ui.graphics.RectangleShape,
         color = neo.panel,
         border = BorderStroke(1.dp, neo.rule)
     ) {
         Row(
             modifier = Modifier
-                .padding(12.dp),
+                .padding(horizontal = 10.dp, vertical = FlashSpacing.ItemGap),
             horizontalArrangement = Arrangement.spacedBy(9.dp),
             verticalAlignment = Alignment.Top
         ) {
@@ -518,7 +523,7 @@ private fun MessageList(
     messages: List<ChatMessage>,
     sending: Boolean,
     error: String?,
-    listState: androidx.compose.foundation.lazy.LazyListState,
+    listState: LazyListState,
     resolvingProposalIds: Set<String>,
     onAddProposal: (ChatMessage, CoachExerciseProposal) -> Unit,
     onDismissProposal: (ChatMessage, CoachExerciseProposal) -> Unit,
@@ -526,17 +531,15 @@ private fun MessageList(
 ) {
     LazyColumn(
         state = listState,
-        modifier = modifier.fillMaxWidth(),
-        contentPadding = PaddingValues(top = 14.dp, bottom = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(14.dp)
+        modifier = modifier.fillMaxWidth().testTag("coach.messages"),
+        reverseLayout = true,
+        contentPadding = PaddingValues(top = FlashSpacing.ItemGap),
+        verticalArrangement = Arrangement.spacedBy(FlashSpacing.ItemGap, Alignment.Bottom)
     ) {
-        items(messages, key = { it.id }) { message ->
-            MessageBubble(
-                msg = message,
-                resolvingProposalIds = resolvingProposalIds,
-                onAddProposal = { onAddProposal(message, it) },
-                onDismissProposal = { onDismissProposal(message, it) }
-            )
+        // Keep the viewport attached to the bottom when content arrives there,
+        // without interrupting someone reading older messages.
+        item("latest") {
+            Spacer(Modifier.height(1.dp))
         }
 
         if (sending) {
@@ -586,6 +589,15 @@ private fun MessageList(
                     Text(error, fontSize = 12.sp, fontWeight = FontWeight.Medium, color = Color(0xFFD32F2F))
                 }
             }
+        }
+
+        items(messages.asReversed(), key = { it.id }) { message ->
+            MessageBubble(
+                msg = message,
+                resolvingProposalIds = resolvingProposalIds,
+                onAddProposal = { onAddProposal(message, it) },
+                onDismissProposal = { onDismissProposal(message, it) }
+            )
         }
     }
 }
@@ -1008,29 +1020,32 @@ private fun InputBar(
                     onCaptureImage = onCaptureImage
                 )
 
-                Box(Modifier.weight(1f).padding(horizontal = 2.dp, vertical = 8.dp)) {
-                    if (value.isEmpty()) {
-                        Text(
-                            stringResource(R.string.coach_input_placeholder),
-                            fontSize = 17.sp,
-                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.45f)
-                        )
+                BasicTextField(
+                    value = value,
+                    onValueChange = onValueChange,
+                    textStyle = LocalTextStyle.current.copy(
+                        color = MaterialTheme.colorScheme.onSurface,
+                        fontSize = 17.sp,
+                        fontWeight = FontWeight.Normal
+                    ),
+                    cursorBrush = SolidColor(AppColors.Calorie),
+                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Send),
+                    keyboardActions = KeyboardActions(onSend = { onSend() }),
+                    maxLines = 5,
+                    modifier = Modifier.weight(1f).testTag("coach.input"),
+                    decorationBox = { innerTextField ->
+                        Box(Modifier.fillMaxWidth().padding(horizontal = 2.dp, vertical = 8.dp)) {
+                            if (value.isEmpty()) {
+                                Text(
+                                    stringResource(R.string.coach_input_placeholder),
+                                    fontSize = 17.sp,
+                                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.45f)
+                                )
+                            }
+                            innerTextField()
+                        }
                     }
-                    BasicTextField(
-                        value = value,
-                        onValueChange = onValueChange,
-                        textStyle = LocalTextStyle.current.copy(
-                            color = MaterialTheme.colorScheme.onSurface,
-                            fontSize = 17.sp,
-                            fontWeight = FontWeight.Normal
-                        ),
-                        cursorBrush = SolidColor(AppColors.Calorie),
-                        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Send),
-                        keyboardActions = KeyboardActions(onSend = { onSend() }),
-                        maxLines = 5,
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                }
+                )
             }
 
             // Trailing control. Keep the mic at a stable call site (the else branch)

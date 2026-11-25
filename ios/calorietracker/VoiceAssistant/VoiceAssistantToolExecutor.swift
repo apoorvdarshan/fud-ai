@@ -40,6 +40,7 @@ protocol VoiceAssistantToolHost: AnyObject {
 
     func open(_ screen: VoiceAssistantScreen, settingsSection: ProfileSettingsCategory?)
     func showDiary(on day: Date)
+    func showWorkoutDiary(on day: Date)
     func openFoodEntry(_ entry: FoodEntry)
     func openCamera(_ mode: VoiceAssistantCamera.Mode) async -> VoiceAssistantCamera.StartResult
     func closeCamera()
@@ -131,7 +132,7 @@ final class VoiceAssistantToolExecutor {
 
     /// Every catalog tool this executor runs; the catalog parity test checks it.
     static let handledToolNames: Set<String> = [
-        "get_app_state", "open_screen", "set_diary_date", "open_food_entry", "open_camera",
+        "get_app_state", "get_coach_history", "open_screen", "set_diary_date", "open_food_entry", "open_camera",
         "capture_photo", "close_camera", "pick_photos", "scan_barcode", "describe_food",
         "search_foods", "log_food", "update_food_entry", "delete_food_entry", "log_water",
         "start_fast", "end_fast", "log_weight", "log_body_fat", "describe_workout",
@@ -193,6 +194,7 @@ final class VoiceAssistantToolExecutor {
     weak var host: (any VoiceAssistantToolHost)?
     private let now: () -> Date
     private let calendar: Calendar
+    private let coachHistory: () -> [ChatMessage]
 
     private(set) var foodDrafts: [String: FoodDraft] = [:]
     private(set) var workoutDrafts: [String: WorkoutDraft] = [:]
@@ -214,7 +216,8 @@ final class VoiceAssistantToolExecutor {
         workoutDiaryEnabled: Bool,
         host: (any VoiceAssistantToolHost)?,
         now: @escaping () -> Date = Date.init,
-        calendar: Calendar = .current
+        calendar: Calendar = .autoupdatingCurrent,
+        coachHistory: @escaping () -> [ChatMessage] = { [] }
     ) {
         self.specs = specs ?? VoiceAssistantToolCatalog.bundled
         self.stores = stores
@@ -226,6 +229,7 @@ final class VoiceAssistantToolExecutor {
         self.host = host
         self.now = now
         self.calendar = calendar
+        self.coachHistory = coachHistory
         cards.onExpire = { [weak self] id in
             self?.undoActions.removeValue(forKey: id)
         }
@@ -248,6 +252,22 @@ final class VoiceAssistantToolExecutor {
         }
         switch name {
         case "get_app_state": return appState()
+        case "get_coach_history":
+            guard settings.saveToCoach else {
+                return Self.failure(.unsupported, "Coach history is off in Voice Assistant settings.")
+            }
+            let messages = coachHistory().suffix(12).compactMap { message -> [String: Any]? in
+                let text = message.content.trimmingCharacters(in: .whitespacesAndNewlines)
+                guard !text.isEmpty else { return nil }
+                let scalars = text.unicodeScalars.prefix(601)
+                return [
+                    "role": message.role.rawValue,
+                    "date": iso(message.timestamp),
+                    "text": String(scalars.prefix(600)),
+                    "truncated": scalars.count > 600,
+                ]
+            }
+            return ["ok": true, "messages": messages]
         case "open_screen": return openScreen(arguments)
         case "set_diary_date": return setDiaryDate(arguments)
         case "open_food_entry": return openFoodEntry(arguments)
@@ -428,13 +448,14 @@ final class VoiceAssistantToolExecutor {
             "workout_diary": workoutDiaryEnabled,
             "workout_diary_date": iso(host?.workoutDiaryDate ?? today),
         ]
-        if let section = host?.currentSettingsSection?.voiceAssistantSection, host?.currentScreen == .settings {
+        if let section = host?.currentSettingsSection?.voiceAssistantSection {
             payload["settings_section"] = section
         }
         let hiddenTabs = TabBarSettings.hiddenTabs(in: appDefaults)
-        if !hiddenTabs.isEmpty {
+        let hiddenScreens = VoiceAssistantScreen.allCases.filter { TabBarSettings.hiddenTab(for: $0, in: hiddenTabs) != nil }
+        if !hiddenScreens.isEmpty {
             // open_screen can't show these until the user turns them back on.
-            payload["hidden_screens"] = HideableTab.allCases.filter(hiddenTabs.contains).map(\.rawValue)
+            payload["hidden_screens"] = hiddenScreens.map(\.rawValue)
         }
         if !calendar.isDate(diaryDay, inSameDayAs: today) {
             payload["diary_totals"] = totals(on: diaryDay)
@@ -447,15 +468,16 @@ final class VoiceAssistantToolExecutor {
 
     private func openScreen(_ arguments: [String: Any]) -> [String: Any] {
         guard let screen = VoiceAssistantParsing.string(arguments["screen"]).flatMap(VoiceAssistantScreen.init(rawValue:)) else {
-            return Self.failure(.invalidArguments, "screen must be home, progress, coach, workouts or settings.")
+            return Self.failure(.invalidArguments, "Unknown screen. Use a destination listed in open_screen.")
         }
         var section: ProfileSettingsCategory?
         if let raw = VoiceAssistantParsing.string(arguments["settings_section"]) {
-            guard screen == .settings else {
-                return Self.failure(.invalidArguments, "settings_section only works with screen=settings.")
-            }
             guard let parsed = ProfileSettingsCategory(voiceAssistantSection: raw) else {
                 return Self.failure(.invalidArguments, "Unknown settings_section \(raw).")
+            }
+            guard (screen == .settings && (parsed.aboutCategory == nil || raw == "about")) ||
+                    (screen == .about && parsed.aboutCategory != nil && raw != "about") else {
+                return Self.failure(.invalidArguments, "This section does not belong to the requested screen.")
             }
             section = parsed
         }
@@ -465,13 +487,18 @@ final class VoiceAssistantToolExecutor {
                 "The user hid the \(screen.rawValue) tab. It can be shown again in Settings > App Settings > Tab Bar."
             )
         }
-        host?.open(screen, settingsSection: section)
-        var payload: [String: Any] = ["ok": true, "screen": screen.rawValue]
+        let destination: VoiceAssistantScreen = section?.aboutCategory != nil ? .about : screen
+        host?.open(destination, settingsSection: section)
+        var payload: [String: Any] = ["ok": true, "screen": destination.rawValue]
         if let section { payload["settings_section"] = section.voiceAssistantSection ?? "" }
         return payload
     }
 
     private func setDiaryDate(_ arguments: [String: Any]) -> [String: Any] {
+        let diary = VoiceAssistantParsing.string(arguments["diary"]) ?? "home"
+        guard diary == "home" || diary == "workouts" else {
+            return Self.failure(.invalidArguments, "diary must be home or workouts.")
+        }
         let day: Date
         do {
             guard let parsed = try VoiceAssistantParsing.day(arguments["date"], now: now(), calendar: calendar) else {
@@ -484,8 +511,16 @@ final class VoiceAssistantToolExecutor {
         guard day <= calendar.startOfDay(for: now()) else {
             return Self.failure(.invalidArguments, "The diary can't show a future day.")
         }
+        if diary == "workouts" {
+            guard workoutDiaryEnabled,
+                  TabBarSettings.hiddenTab(for: .workouts, in: TabBarSettings.hiddenTabs(in: appDefaults)) == nil else {
+                return Self.failure(.unsupported, "Workout Log is not available. Check Settings > App Settings > Tab Bar.")
+            }
+            host?.showWorkoutDiary(on: day)
+            return ["ok": true, "diary": diary, "date": iso(day)]
+        }
         host?.showDiary(on: day)
-        return ["ok": true, "date": iso(day), "totals": totals(on: day)]
+        return ["ok": true, "diary": diary, "date": iso(day), "totals": totals(on: day)]
     }
 
     private func openFoodEntry(_ arguments: [String: Any]) -> [String: Any] {

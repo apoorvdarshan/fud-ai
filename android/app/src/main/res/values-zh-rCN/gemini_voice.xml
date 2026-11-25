@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="voice_settings_gemini_barge_in">我说话时打断回复</string>
+    <string name="voice_settings_gemini_barge_in_detail">如果背景噪音会打断回复，请关闭此选项。等回复结束后再开口。</string>
+</resources>

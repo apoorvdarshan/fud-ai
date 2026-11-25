@@ -42,6 +42,8 @@ enum class SpeechLanguage(
             SpeechProvider.NATIVE -> DEVICE
             SpeechProvider.DEEPGRAM -> DEVICE
             SpeechProvider.LOCAL_WHISPER,
+            SpeechProvider.LOCAL_PARAKEET,
+            SpeechProvider.LOCAL_QWEN3_ASR,
             SpeechProvider.GEMINI,
             SpeechProvider.OPENAI,
             SpeechProvider.GROQ,
@@ -50,6 +52,7 @@ enum class SpeechLanguage(
         }
 
         fun optionsFor(provider: SpeechProvider): List<SpeechLanguage> {
+            if (provider.detectsLanguageAutomatically) return listOf(PROVIDER_AUTO)
             val explicitLanguages = listOf(
                 ENGLISH,
                 GERMAN,

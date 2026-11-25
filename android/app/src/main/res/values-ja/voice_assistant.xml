@@ -125,7 +125,7 @@
     <string name="voice_settings_confirm_saves">保存前の確認</string>
     <string name="voice_settings_confirm_saves_footer">記録や変更のたびに承認用のカードを表示します。オフの場合はすぐに保存され、8秒間は取り消せます。</string>
     <string name="voice_settings_save_to_coach">会話をコーチに保存</string>
-    <string name="voice_settings_save_to_coach_footer">あなたとアシスタントの発言をコーチのチャットに追加します。</string>
+    <string name="voice_settings_save_to_coach_footer">音声会話をコーチに保存し、必要に応じてコーチの最近のメッセージを音声サービス提供元と共有します。</string>
     <string name="voice_settings_minutes_left">プランの残り時間</string>
     <string name="voice_settings_minutes_with_credits">%1$s + クレジットで%2$s</string>
     <string name="voice_settings_minutes_footer">Plusには月20分、Proには月100分が含まれます（UTC）。それを超えると音声はクレジットを使用します（15秒ごとに1クレジット）。</string>

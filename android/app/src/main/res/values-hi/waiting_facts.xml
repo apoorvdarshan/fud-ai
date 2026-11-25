@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="waiting_fact_heading">क्या आप जानते हैं?</string>
+    <string name="waiting_fact_vitamin_c">विटामिन C आपके शरीर को पौधों से मिलने वाले खाद्य पदार्थों का आयरन सोखने में मदद करता है।</string>
+    <string name="waiting_fact_beans">बीन्स और दालों में प्रोटीन और फ़ाइबर दोनों होते हैं।</string>
+    <string name="waiting_fact_oats">ओट्स में बीटा-ग्लूकैन होता है, जो एक तरह का घुलनशील फ़ाइबर है।</string>
+    <string name="waiting_fact_vegetables" formatted="false">खीरे और टमाटर के वज़न का 90% से ज़्यादा हिस्सा पानी होता है।</string>
+    <string name="waiting_fact_strength">ताकत बढ़ाने वाले व्यायामों में शरीर किसी प्रतिरोध के ख़िलाफ़ काम करता है। अपने शरीर का वज़न भी प्रतिरोध बन सकता है।</string>
+</resources>

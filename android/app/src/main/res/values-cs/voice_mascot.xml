@@ -1,0 +1,12 @@
+<resources>
+    <string name="voice_mascot">Maskot</string>
+    <string name="voice_mascot_color">Barva</string>
+    <string name="voice_mascot_personality">Osobnost</string>
+    <string name="voice_mascot_original">Původní barvy</string>
+    <string name="voice_mascot_pink">Růžová</string>
+    <string name="voice_mascot_friendly">Přátelská</string>
+    <string name="voice_mascot_playful">Hravá</string>
+    <string name="voice_mascot_calm">Klidná</string>
+    <string name="voice_mascot_direct">Přímá</string>
+    <string name="voice_mascot_next_session">Změny se projeví při příští konverzaci.</string>
+</resources>

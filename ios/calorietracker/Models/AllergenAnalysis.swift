@@ -39,14 +39,21 @@ struct AllergenAnalysis: Equatable, Sendable {
         let sources: [(AllergenAssessment, String, [String])] = [
             (.declaredAllergenMatch, LocalizedDisplayText.text("Declared product allergens"), entry.productMetadata?.allergens ?? []),
             (.mayContain, LocalizedDisplayText.text("Trace warning"), entry.productMetadata?.traces ?? []),
+            (.possibleAllergen, LocalizedDisplayText.text("Declared product allergens"), (entry.productMetadata?.allergens ?? []).filter(Self.isBroadCategory)),
+            (.possibleAllergen, LocalizedDisplayText.text("Trace warning"), (entry.productMetadata?.traces ?? []).filter(Self.isBroadCategory)),
             (.possibleAllergen, LocalizedDisplayText.text("Ingredient label"), [entry.productMetadata?.ingredientsText].compactMap { $0 }),
+            (.possibleAllergen, LocalizedDisplayText.text("Possible allergen"), CanonicalFoodAllergens.clean(
+                entry.aiAllergens + entry.ingredients.flatMap { $0.aiAllergens ?? [] }
+            )),
             (.possibleAllergen, LocalizedDisplayText.text("Ingredient name"), entry.ingredients.map(\.name)),
             (.possibleAllergen, LocalizedDisplayText.text("Food name"), [entry.name])
         ]
 
         for (assessment, source, values) in sources {
             let matches = configured.compactMap { original, sensitivity in
-                values.contains(where: { Self.matches(sensitivity: sensitivity, candidate: $0) })
+                values.contains(where: {
+                    Self.matches(sensitivity: sensitivity, candidate: $0, allowBroadCategory: assessment == .possibleAllergen)
+                })
                     ? original.trimmingCharacters(in: .whitespacesAndNewlines)
                     : nil
             }
@@ -75,7 +82,7 @@ struct AllergenAnalysis: Equatable, Sendable {
             .contains { Self.matches(sensitivity: $0, candidate: candidate) }
     }
 
-    private static func normalize(_ value: String) -> String {
+    nonisolated static func normalize(_ value: String) -> String {
         let folded = value.folding(options: [.diacriticInsensitive, .caseInsensitive], locale: Locale(identifier: "en_US_POSIX"))
         return folded
             .replacingOccurrences(of: "^[a-z]{2}:", with: "", options: .regularExpression)
@@ -83,7 +90,25 @@ struct AllergenAnalysis: Equatable, Sendable {
             .trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
-    private static func matches(sensitivity: String, candidate: String) -> Bool {
+    private static let specificMembers: [String: String] = [
+        "almond": "tree nut", "cashew": "tree nut", "hazelnut": "tree nut", "macadamia": "tree nut",
+        "pecan": "tree nut", "pistachio": "tree nut", "walnut": "tree nut",
+        "shrimp": "shellfish", "prawn": "shellfish", "crab": "shellfish", "lobster": "shellfish"
+    ]
+
+    private static func specificMember(_ normalized: String) -> String? {
+        if specificMembers[normalized] != nil { return normalized }
+        guard normalized.hasSuffix("s") else { return nil }
+        let singular = String(normalized.dropLast())
+        return specificMembers[singular] == nil ? nil : singular
+    }
+
+    private static func isBroadCategory(_ value: String) -> Bool {
+        let id = CanonicalFoodAllergens.id(for: value)
+        return (id == "tree nut" || id == "shellfish") && specificMember(normalize(value)) == nil
+    }
+
+    private static func matches(sensitivity: String, candidate: String, allowBroadCategory: Bool = true) -> Bool {
         let normalizedCandidate = normalize(candidate)
         let candidateTerms = Set(normalizedCandidate.split(separator: " ").map(String.init))
         let sensitivityTokens = normalize(sensitivity).split(separator: " ").map(String.init)
@@ -101,9 +126,19 @@ struct AllergenAnalysis: Equatable, Sendable {
             "gluten": ["wheat", "gluten", "rye", "barley", "oat"]
         ]
         let key = sensitivityTokens.joined(separator: " ")
-        // Exact names only. These reviewed aliases are not used to infer what a food does not contain.
-        if let allergen = canonicalAliases[key], canonicalAliases[normalizedCandidate] == allergen {
-            return true
+        let specificSensitivity = specificMember(key)
+        let specificCandidate = specificMember(normalizedCandidate)
+        if let allergen = specificSensitivity.flatMap({ specificMembers[$0] }) ?? CanonicalFoodAllergens.id(for: key),
+           let candidateID = specificCandidate.flatMap({ specificMembers[$0] }) ?? CanonicalFoodAllergens.id(for: normalizedCandidate) {
+            if allergen == candidateID {
+                if let specificSensitivity {
+                    if let specificCandidate { return specificCandidate == specificSensitivity }
+                    // A category alone is possible evidence, not a declaration naming the food.
+                    return allowBroadCategory
+                }
+                return true
+            }
+            if allergen == "gluten" && candidateID == "wheat" { return true }
         }
         let terms = aliases[key] ?? Set(sensitivityTokens)
         if terms.count == 1, let term = terms.first, sensitivityTokens.count == 1 {
@@ -125,17 +160,6 @@ struct AllergenAnalysis: Equatable, Sendable {
             candidateTerms.contains(where: { Self.tokenMatches(term: token, candidate: $0) })
         }
     }
-
-    /// Keys are normalized the same way as sensitivities and candidates, so a
-    /// folded spelling (for example Russian `яйцо` → `яицо`) still resolves.
-    private static let canonicalAliases: [String: String] = Dictionary(
-        [
-            ("milk", "milk"), ("mleko", "milk"), ("mlekem", "milk"), ("молоко", "milk"),
-            ("egg", "egg"), ("eggs", "egg"), ("vejce", "egg"), ("vejci", "egg"), ("яйцо", "egg"),
-            ("peanut", "peanut"), ("peanuts", "peanut"), ("arasidy", "peanut"), ("arasid", "peanut")
-        ].map { (normalize($0.0), $0.1) },
-        uniquingKeysWith: { first, _ in first }
-    )
 
     private static func tokenMatches(term: String, candidate: String) -> Bool {
         term == candidate

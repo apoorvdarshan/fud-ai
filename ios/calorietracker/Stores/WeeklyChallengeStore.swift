@@ -17,6 +17,8 @@ enum WeeklyChallengeSessionPolicy {
 }
 
 struct WeeklyChallengeLeaderboardCache: Codable, Equatable {
+    static let pageSize = 20
+    static let freshFor: TimeInterval = 60
     struct Entry: Codable, Equatable {
         let response: WeeklyChallengeLeaderboardResponse
         let savedAt: Date
@@ -24,16 +26,17 @@ struct WeeklyChallengeLeaderboardCache: Codable, Equatable {
 
     private(set) var entries: [String: Entry] = [:]
 
-    static func key(category: WeeklyChallengeCategory, weekStart: String) -> String {
-        "\(weekStart)|\(category.rawValue)"
+    static func key(category: WeeklyChallengeCategory, weekStart: String, offset: Int = 0, period: ChallengePeriod = .weekly) -> String {
+        let prefix = (period == .weekly ? "" : "\(period.rawValue)|") + "\(weekStart)|\(category.rawValue)"
+        return offset == 0 ? prefix : "\(prefix)|\(offset)"
     }
 
-    func entry(category: WeeklyChallengeCategory, weekStart: String) -> Entry? {
-        entries[Self.key(category: category, weekStart: weekStart)]
+    func entry(category: WeeklyChallengeCategory, weekStart: String, offset: Int = 0, period: ChallengePeriod = .weekly) -> Entry? {
+        entries[Self.key(category: category, weekStart: weekStart, offset: offset, period: period)]
     }
 
     mutating func insert(_ response: WeeklyChallengeLeaderboardResponse, savedAt: Date) {
-        entries[Self.key(category: response.category, weekStart: response.weekStart)] = Entry(
+        entries[Self.key(category: response.category, weekStart: response.weekStart, offset: response.offset ?? 0, period: response.period ?? .weekly)] = Entry(
             response: response,
             savedAt: savedAt
         )
@@ -48,7 +51,22 @@ struct WeeklyChallengeLeaderboardCache: Codable, Equatable {
     }
 
     var newestEntry: Entry? {
-        entries.values.max { $0.savedAt < $1.savedAt }
+        entries.values.filter {
+            ($0.response.offset ?? 0) == 0 && ($0.response.period ?? .weekly) == .weekly
+        }.max { $0.savedAt < $1.savedAt }
+    }
+
+    mutating func remove(period: ChallengePeriod) {
+        entries = entries.filter { $0.value.response.period != period }
+    }
+
+    /// Keep the last visible rankings for offline use, but don't serve them as fresh after a score write.
+    mutating func markStale(period: ChallengePeriod, start: String) {
+        for key in Array(entries.keys) {
+            guard let entry = entries[key], entry.response.period == period,
+                  entry.response.weekStart == start else { continue }
+            entries[key] = Entry(response: entry.response, savedAt: .distantPast)
+        }
     }
 
     var knownParticipants: [WeeklyChallengeParticipant] {
@@ -80,6 +98,7 @@ final class WeeklyChallengeStore {
     private static let pendingScoreKey = "weeklyChallenge.pendingScore.v1"
     private static let pendingDeletionKey = "weeklyChallenge.pendingDeletion.v1"
     private static let blockedParticipantIDsKey = "weeklyChallenge.blockedParticipantIDs.v1"
+    private static let enabledPeriodsKey = "challenge.periodConsent.v1"
 
     private(set) var leaderboard: WeeklyChallengeLeaderboardResponse?
     private(set) var publicProfile: WeeklyChallengePublicProfile?
@@ -92,12 +111,18 @@ final class WeeklyChallengeStore {
     private(set) var errorMessage: String?
     private(set) var hasPendingDeletion = false
     private(set) var blockedParticipantIDs: Set<String> = []
+    private(set) var enabledPeriods: Set<ChallengePeriod> = []
+    private(set) var busyPeriod: ChallengePeriod?
+    private(set) var refreshingPeriod: ChallengePeriod?
 
     private let defaults: UserDefaults
     private let api: WeeklyChallengeAPIClient
     private var pendingScore: WeeklyChallengeScore?
     private var leaderboardCache = WeeklyChallengeLeaderboardCache()
     private var refreshGeneration = 0
+    private var publishedPeriodScores: [ChallengePeriod: ChallengePeriodScore] = [:]
+    private var periodRefreshGeneration = 0
+    private var periodMutationTails: [ChallengePeriod: Task<Bool, Never>] = [:]
 
     init(
         defaults: UserDefaults = .standard,
@@ -118,6 +143,7 @@ final class WeeklyChallengeStore {
         blockedParticipantIDs = Set(
             defaults.stringArray(forKey: Self.blockedParticipantIDsKey) ?? []
         )
+        enabledPeriods = Set((defaults.stringArray(forKey: Self.enabledPeriodsKey) ?? []).compactMap(ChallengePeriod.init(rawValue:)))
         if let cache = Self.decode(
             WeeklyChallengeLeaderboardCache.self,
             from: defaults.data(forKey: Self.cachedLeaderboardKey)
@@ -168,17 +194,149 @@ final class WeeklyChallengeStore {
     var knownParticipants: [WeeklyChallengeParticipant] {
         leaderboardCache.knownParticipants
     }
+    var supportsExpandedPeriods: Bool { leaderboard?.period == .weekly }
 
     func leaderboardFor(
         category: WeeklyChallengeCategory,
-        weekStart: String
+        weekStart: String,
+        offset: Int = 0,
+        period: ChallengePeriod = .weekly
     ) -> WeeklyChallengeLeaderboardResponse? {
         if let leaderboard,
+           offset == 0,
+           period == .weekly,
            leaderboard.category == category,
            leaderboard.weekStart == weekStart {
             return leaderboard
         }
-        return leaderboardCache.entry(category: category, weekStart: weekStart)?.response
+        return leaderboardCache.entry(category: category, weekStart: weekStart, offset: offset, period: period)?.response
+    }
+
+    /// Paging only reads the public board; it never reuploads a score.
+    @discardableResult
+    func loadPage(category: WeeklyChallengeCategory, weekStart: String, offset: Int,
+                  period: ChallengePeriod = .weekly, force: Bool = false) async -> Bool {
+        guard offset >= 0, isJoined, let token = bearerToken,
+              period == .weekly || enabledPeriods.contains(period) else { return false }
+        if !force, let cached = leaderboardCache.entry(category: category, weekStart: weekStart, offset: offset, period: period),
+           Date.now.timeIntervalSince(cached.savedAt) < WeeklyChallengeLeaderboardCache.freshFor {
+            return true
+        }
+        do {
+            let response = try await api.leaderboard(category: category, weekStart: weekStart, offset: offset, period: period, token: token)
+            guard !Task.isCancelled, isJoined, bearerToken == token,
+                  period == .weekly || enabledPeriods.contains(period),
+                  (response.period ?? .weekly) == period,
+                  response.category == category, response.weekStart == weekStart, response.offset == offset else { return false }
+            persistLeaderboard(response)
+            return true
+        } catch {
+            return false
+        }
+    }
+
+    func refreshPeriod(category: WeeklyChallengeCategory, score: ChallengePeriodScore, accept: Bool = false, force: Bool = false) async {
+        let period = score.period
+        guard period != .weekly, (accept || enabledPeriods.contains(period)),
+              !Task.isCancelled, isJoined else { return }
+        if accept {
+            guard busyPeriod == nil else { return }
+            busyPeriod = period
+            let joined = await publishPeriodScore(score, accept: true)
+            busyPeriod = nil
+            guard joined else { return }
+        }
+        guard !Task.isCancelled else { return }
+        periodRefreshGeneration += 1
+        let generation = periodRefreshGeneration
+        refreshingPeriod = period
+        defer {
+            if generation == periodRefreshGeneration { refreshingPeriod = nil }
+        }
+        if !accept {
+            // Join any in-flight write for this board before using its cache or requesting rankings.
+            _ = await publishPeriodScore(score, accept: false)
+        }
+        guard !Task.isCancelled, generation == periodRefreshGeneration else { return }
+        let loaded = await loadPage(category: category, weekStart: score.periodStart, offset: 0, period: period, force: force)
+        guard !Task.isCancelled, generation == periodRefreshGeneration else { return }
+        isOffline = !loaded && leaderboardFor(category: category, weekStart: score.periodStart, period: period) != nil
+        if loaded { errorMessage = nil }
+    }
+
+    func syncEnabledPeriodScores(_ scores: [ChallengePeriodScore]) async {
+        for score in scores {
+            guard !Task.isCancelled else { return }
+            _ = await publishPeriodScore(score, accept: false)
+        }
+    }
+
+    private func publishPeriodScore(_ score: ChallengePeriodScore, accept: Bool) async -> Bool {
+        let period = score.period
+        guard period != .weekly, (accept || enabledPeriods.contains(period)),
+              isJoined, let token = bearerToken else { return false }
+        return await serializePeriodMutation(period) {
+            guard self.isJoined, token == self.bearerToken,
+                  accept || self.enabledPeriods.contains(period) else { return false }
+            if !accept, self.publishedPeriodScores[period] == score { return true }
+            do {
+                try await self.api.putPeriodScore(score, token: token)
+                guard self.isJoined, token == self.bearerToken else { return false }
+                self.leaderboardCache.markStale(period: period, start: score.periodStart)
+                self.persist(self.leaderboardCache, key: Self.cachedLeaderboardKey)
+                self.publishedPeriodScores[period] = score
+                if accept { self.enabledPeriods.insert(period); self.persistEnabledPeriods() }
+                return true
+            } catch {
+                guard token == self.bearerToken else { return false }
+                if WeeklyChallengeSessionPolicy.shouldClearLocalIdentity(after: error) { self.clearLocalIdentity() }
+                else if accept {
+                    self.record(error, fallback: WeeklyChallengeL10n.text("The leaderboard could not be updated. Pull down to try again."))
+                }
+                return false
+            }
+        }
+    }
+
+    /// Serialize writes within a board (including opt-out), without making another board wait.
+    private func serializePeriodMutation(_ period: ChallengePeriod, _ operation: @escaping @MainActor () async -> Bool) async -> Bool {
+        let predecessor = periodMutationTails[period]
+        let mutation = Task { @MainActor in
+            _ = await predecessor?.value
+            return await operation()
+        }
+        periodMutationTails[period] = mutation
+        return await mutation.value
+    }
+
+    func leavePeriod(_ period: ChallengePeriod) async {
+        guard busyPeriod == nil, enabledPeriods.contains(period), let token = bearerToken else { return }
+        busyPeriod = period
+        defer { busyPeriod = nil }
+        _ = await serializePeriodMutation(period) {
+            guard self.isJoined, token == self.bearerToken else { return false }
+            return await self.removePeriod(period, token: token)
+        }
+    }
+
+    private func removePeriod(_ period: ChallengePeriod, token: String) async -> Bool {
+        do {
+            try await api.deletePeriod(period, token: token)
+            guard isJoined, token == bearerToken else { return false }
+            enabledPeriods.remove(period)
+            publishedPeriodScores[period] = nil
+            leaderboardCache.remove(period: period)
+            persist(leaderboardCache, key: Self.cachedLeaderboardKey)
+            persistEnabledPeriods()
+            return true
+        } catch {
+            record(error, fallback: WeeklyChallengeL10n.text("The leaderboard could not be updated. Pull down to try again."))
+            return false
+        }
+    }
+
+    private func persistEnabledPeriods() {
+        defaults.set(enabledPeriods.map(\.rawValue).sorted(), forKey: Self.enabledPeriodsKey)
     }
 
     func viewerFor(
@@ -529,10 +687,13 @@ final class WeeklyChallengeStore {
         leaderboard = nil
         lastUpdated = nil
         leaderboardCache = WeeklyChallengeLeaderboardCache()
+        enabledPeriods.removeAll()
+        publishedPeriodScores.removeAll()
         defaults.removeObject(forKey: Self.participantIDKey)
         defaults.removeObject(forKey: Self.publicProfileKey)
         defaults.removeObject(forKey: Self.pendingScoreKey)
         defaults.removeObject(forKey: Self.cachedLeaderboardKey)
+        defaults.removeObject(forKey: Self.enabledPeriodsKey)
         if deleteCredential {
             KeychainHelper.delete(key: Self.tokenKey)
             KeychainHelper.delete(key: Self.pendingDeletionKey)

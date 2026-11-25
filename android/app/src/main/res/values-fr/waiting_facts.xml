@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="waiting_fact_heading">Le saviez-vous ?</string>
+    <string name="waiting_fact_vitamin_c">La vitamine C aide votre corps à absorber le fer des aliments d’origine végétale.</string>
+    <string name="waiting_fact_beans">Les haricots et les lentilles contiennent à la fois des protéines et des fibres.</string>
+    <string name="waiting_fact_oats">L’avoine contient du bêta-glucane, un type de fibre soluble.</string>
+    <string name="waiting_fact_vegetables" formatted="false">L’eau représente plus de 90 % du poids des concombres et des tomates.</string>
+    <string name="waiting_fact_strength">Le renforcement musculaire consiste à travailler contre une résistance. Le poids de votre corps peut suffire.</string>
+</resources>

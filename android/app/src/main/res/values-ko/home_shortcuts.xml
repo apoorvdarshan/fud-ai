@@ -1,0 +1,6 @@
+<resources>
+    <string name="settings_workout_shortcuts">운동 바로가기</string>
+    <string name="settings_home_food_shortcuts">홈 바로가기</string>
+    <string name="settings_home_food_shortcut">바로가기 %1$d</string>
+    <string name="settings_home_food_shortcuts_detail">화면이 넓을수록 더 많은 바로가기가 표시됩니다.</string>
+</resources>

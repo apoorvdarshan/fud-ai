@@ -3,12 +3,46 @@ import Testing
 @testable import calorietracker
 
 struct AddMenuConfigTests {
-    @Test func defaultMatchesLegacyThreeGroups() {
+    @Test func homeShortcutsDefaultSwapAndPersistWithoutDuplicates() {
+        var shortcuts = HomeFoodShortcuts(stored: "")
+        #expect(shortcuts.methods == [.camera, .barcode, .voice, .favorites])
+        shortcuts.assign(.favorites, to: 0)
+        shortcuts.assign(.manual, to: 1)
+        #expect(HomeFoodShortcuts(stored: shortcuts.stored).methods == [.favorites, .manual, .voice, .camera])
+        #expect(HomeFoodShortcuts(stored: "camera,camera,voice,favorites").methods == HomeFoodShortcuts.defaults)
+        #expect(HomeFoodShortcuts(stored: "camera,barcode,text,favorites").methods[2] == .text)
+    }
+
+    @Test func defaultMatchesAndroidOrderAndKeepsSiriPhrases() {
         let config = AddMenuConfig.iOSDefault
         #expect(config.groups.count == 3)
-        #expect(config.groups[0].methods == [.copyFromDay, .favorites, .frequent, .recent])
-        #expect(config.groups[1].methods == [.manual, .siriPhrases, .voice, .text])
-        #expect(config.groups[2].methods == [.barcode, .photos, .camera])
+        #expect(config.groups[0].methods == [.camera, .photos, .barcode])
+        #expect(config.groups[1].methods == [.text, .voice, .manual, .siriPhrases])
+        #expect(config.groups[2].methods == [.recent, .frequent, .favorites, .copyFromDay])
+    }
+
+    @Test func onlyTheExactLegacyDefaultGetsReordered() throws {
+        let defaults = AddMenuConfig.iOSDefault.groups
+        var legacy = AddMenuConfig(version: 2, groups: [
+            AddMenuGroupConfig(name: defaults[2].name, methods: [.copyFromDay, .favorites, .frequent, .recent]),
+            AddMenuGroupConfig(name: defaults[1].name, methods: [.manual, .siriPhrases, .voice, .text]),
+            AddMenuGroupConfig(name: defaults[0].name, methods: [.barcode, .photos, .camera]),
+        ])
+        let encoder = JSONEncoder()
+        let migrated = AddMenuSettings.decode(try encoder.encode(legacy))
+        #expect(migrated.groups.map(\.id) == Array(legacy.groups.reversed().map(\.id)))
+        #expect(migrated.groups.map(\.methods) == defaults.map(\.methods))
+        #expect(migrated.version == AddMenuConfig.currentVersion)
+
+        var edited = legacy
+        edited.groups[0].methods.swapAt(0, 1)
+        #expect(AddMenuSettings.decode(try encoder.encode(edited)).groups == edited.groups)
+        edited = legacy
+        edited.groups[0].name = "Saved meals and favorites"
+        #expect(AddMenuSettings.decode(try encoder.encode(edited)).groups == edited.groups)
+
+        legacy.version = AddMenuConfig.currentVersion
+        #expect(AddMenuSettings.decode(try encoder.encode(legacy)).groups == legacy.groups)
     }
 
     @Test func storageRoundTripsAndDedupesMethods() {
@@ -88,7 +122,7 @@ struct AddMenuConfigTests {
         )
         AddMenuSettings.save(mixed, store: store)
         let loaded = AddMenuSettings.load(store: store)
-        #expect(loaded.version == 2)
+        #expect(loaded.version == AddMenuConfig.currentVersion)
         #expect(loaded.groups.map(\.methods) == [[.camera, .barcode]])
         #expect(loaded.flatMethods == [.voice, .text])
         #expect(loaded.visibleMethods == [.camera, .barcode, .voice, .text])

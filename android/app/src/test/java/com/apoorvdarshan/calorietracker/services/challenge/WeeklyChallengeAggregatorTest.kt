@@ -1,5 +1,9 @@
 package com.apoorvdarshan.calorietracker.services.challenge
 
+import com.apoorvdarshan.calorietracker.data.WeeklyChallengeStoredState
+import com.apoorvdarshan.calorietracker.models.ChallengePeriod
+import com.apoorvdarshan.calorietracker.models.WeeklyChallengeCategory
+import com.apoorvdarshan.calorietracker.models.WeeklyChallengeLeaderboard
 import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.FoodSource
 import com.apoorvdarshan.calorietracker.models.WaterEntry
@@ -14,6 +18,82 @@ import org.junit.Test
 class WeeklyChallengeAggregatorTest {
     private val utc: ZoneId = ZoneOffset.UTC
     private val monday = LocalDate.of(2026, 8, 24)
+
+    @Test
+    fun monthlyRewardsBalancedDaysAndLongestStreakWithoutCountingFutureOrDuplicateWorkoutDays() {
+        fun day(n: Int) = LocalDate.of(2026, 11, n)
+        val input = WeeklyChallengeAggregationInput(
+            foods = listOf(1, 2, 4, 5).map { food(day(it), 2_000) },
+            water = listOf(1, 2, 4).map { water(day(it), 2_000) },
+            workoutBurns = listOf(1, 2, 2, 5).map { workout(day(it), 500) },
+            calorieGoal = 2_000, waterTrackingEnabled = true, waterGoalMl = 2_000,
+            weekStart = day(2), today = day(4), zoneId = utc
+        )
+        val monthly = WeeklyChallengeAggregator.periodScore(ChallengePeriod.MONTHLY, input)
+        assertEquals("2026-11-01", monthly.periodStart)
+        assertEquals(2, monthly.activityDays)
+        assertEquals(3, monthly.balancedDays)
+        assertEquals(2, monthly.longestStreak)
+        assertEquals(15, monthly.points)
+        val daily = WeeklyChallengeAggregator.periodScore(ChallengePeriod.DAILY, input.copy(waterTrackingEnabled = false))
+        assertEquals("2026-11-04", daily.periodStart)
+        assertEquals(2, daily.points)
+        assertEquals(0, daily.hydrationDays)
+    }
+
+    @Test
+    fun diaryUpdatesRecalculateAllAndOnlyOptedInExtraPeriods() {
+        val input = WeeklyChallengeAggregationInput(
+            foods = emptyList(), water = emptyList(), workoutBurns = emptyList(),
+            calorieGoal = 2_000, waterTrackingEnabled = true, waterGoalMl = 2_000,
+            weekStart = monday, today = monday, zoneId = utc
+        )
+        val edited = input.copy(foods = listOf(food(monday, 2_000)), water = listOf(water(monday, 2_000)))
+        val both = setOf(ChallengePeriod.DAILY, ChallengePeriod.MONTHLY)
+        fun scores(periods: Set<ChallengePeriod>, snapshot: WeeklyChallengeAggregationInput) =
+            WeeklyChallengeAggregator.enabledPeriodScores(periods, snapshot).associate { it.period to it.points }
+        assertEquals(mapOf(ChallengePeriod.DAILY to 0, ChallengePeriod.MONTHLY to 0), scores(both, input))
+        assertEquals(mapOf(ChallengePeriod.DAILY to 4, ChallengePeriod.MONTHLY to 4), scores(both, edited))
+        assertEquals(mapOf(ChallengePeriod.MONTHLY to 4), scores(setOf(ChallengePeriod.WEEKLY, ChallengePeriod.MONTHLY), edited))
+        assertEquals(emptyMap<ChallengePeriod, Int>(), scores(emptySet(), edited))
+    }
+    @Test
+    fun leaderboardCacheSeparatesPeriodsAndPagesAndEvictsOldRows() {
+        val start = "2026-11-02"
+        val category = WeeklyChallengeCategory.OVERALL
+        var stored = WeeklyChallengeStoredState()
+        for (period in ChallengePeriod.entries) {
+            for (page in 0..10) {
+                stored = stored.caching(WeeklyChallengeLeaderboard(start, category, "", offset = page * 20, period = period),
+                    period.ordinal * 20L + page)
+            }
+        }
+        assertEquals(30, stored.cachedLeaderboards.size)
+        assertEquals(ChallengePeriod.MONTHLY, stored.cached(category, start, 100, ChallengePeriod.MONTHLY)?.period)
+        assertEquals(ChallengePeriod.WEEKLY, stored.cached(category, start, 100)?.period)
+        assertEquals(null, stored.leaving(ChallengePeriod.MONTHLY).cached(category, start, 100, ChallengePeriod.MONTHLY))
+    }
+
+    @Test
+    fun scoreUploadMarksOnlyMatchingBoardPagesStaleWithoutDiscardingThem() {
+        val start = "2026-11-01"
+        val otherDay = "2026-11-02"
+        val category = WeeklyChallengeCategory.OVERALL
+        val now = 123456L
+        fun page(period: ChallengePeriod, day: String, offset: Int) =
+            WeeklyChallengeLeaderboard(day, category, "", offset = offset, period = period)
+        val stored = WeeklyChallengeStoredState()
+            .caching(page(ChallengePeriod.DAILY, start, 0), now)
+            .caching(page(ChallengePeriod.DAILY, start, 20), now)
+            .caching(page(ChallengePeriod.MONTHLY, start, 0), now)
+            .caching(page(ChallengePeriod.DAILY, otherDay, 0), now)
+        val stale = stored.markingStale(ChallengePeriod.DAILY, start)
+        assertEquals(stored.cachedLeaderboards, stale.cachedLeaderboards)
+        assertEquals(0L, stale.refreshedAt(category, start, period = ChallengePeriod.DAILY))
+        assertEquals(0L, stale.refreshedAt(category, start, 20, ChallengePeriod.DAILY))
+        assertEquals(now, stale.refreshedAt(category, start, period = ChallengePeriod.MONTHLY))
+        assertEquals(now, stale.refreshedAt(category, otherDay, period = ChallengePeriod.DAILY))
+    }
 
     @Test
     fun aggregatesOnlyQualifyingElapsedDaysAndCapsDailyActivity() {

@@ -1,0 +1,4 @@
+<resources>
+    <string name="nav_workout_log">Deník tréninků</string>
+    <string name="nav_exercise_library">Knihovna cviků</string>
+</resources>

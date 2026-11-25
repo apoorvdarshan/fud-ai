@@ -92,6 +92,7 @@ import com.apoorvdarshan.calorietracker.ui.components.LocalEnergyUnit
 import com.apoorvdarshan.calorietracker.ui.components.energyText
 import com.apoorvdarshan.calorietracker.ui.components.energyUnitLabel
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
 import kotlin.math.roundToInt
 import java.time.Instant
 import java.time.LocalDate
@@ -421,7 +422,8 @@ fun FoodResultSheet(
         },
         servingSizeIsKnown = servingSizeIsKnown,
         ingredients = editableIngredients,
-        productMetadata = analysis.productMetadata
+        productMetadata = analysis.productMetadata,
+        aiAllergens = analysis.aiAllergens
     )
     fun previewEntry() = FoodEntry(
         name = name.trim().ifEmpty { analysis.name },
@@ -471,7 +473,8 @@ fun FoodResultSheet(
             selectedServingQuantity
         },
         ingredients = scaledIngredients(),
-        productMetadata = analysis.productMetadata
+        productMetadata = analysis.productMetadata,
+        aiAllergens = analysis.aiAllergens
     )
     var whatIfEntry by rememberSaveable(stateSaver = foodDraftSaver<FoodEntry?>()) { mutableStateOf<FoodEntry?>(null) }
 
@@ -509,9 +512,9 @@ fun FoodResultSheet(
                 .pointerInput(Unit) {
                     detectTapGestures(onTap = { dismissKeyboard() })
                 }
-                .padding(horizontal = 20.dp)
+                .padding(horizontal = FlashSpacing.SheetInset)
                 .padding(bottom = 28.dp),
-            verticalArrangement = Arrangement.spacedBy(18.dp)
+            verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap)
         ) {
             // Swipeable original-photo gallery OR 80sp emoji fallback.
             item {
@@ -582,19 +585,9 @@ fun FoodResultSheet(
             if (profile?.allergenSensitivities?.isNotEmpty() == true) {
                 item { SheetSectionHeader(stringResource(R.string.product_allergen_check)) }
                 item {
-                    val previewEntry = FoodEntry(
-                        name = name,
-                        calories = analysis.calories,
-                        protein = analysis.protein,
-                        carbs = analysis.carbs,
-                        fat = analysis.fat,
-                        source = source,
-                        ingredients = analysis.ingredients,
-                        productMetadata = analysis.productMetadata
-                    )
                     SheetPillCard {
                         Text(
-                            previewEntry.allergenAnalysis(profile.allergenSensitivities).summary(LocalContext.current),
+                            previewEntry().allergenAnalysis(profile.allergenSensitivities).summary(LocalContext.current),
                             modifier = Modifier.padding(18.dp),
                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.78f)
                         )

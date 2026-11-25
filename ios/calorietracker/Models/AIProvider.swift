@@ -3,6 +3,7 @@ import Foundation
 enum AIProvider: String, CaseIterable, Codable, Identifiable {
     case appleIntelligence = "Apple Intelligence (On-Device)"
     case gemma4Local = "Gemma 4 E2B (On-Device)"
+    case gemma4E4BLocal = "Gemma 4 E4B (On-Device)"
     case gemini = "Google Gemini"
     case openai = "OpenAI"
     case anthropic = "Anthropic Claude"
@@ -28,9 +29,16 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
     /// Groq's Qwen vision models accept at most three images per request (#712).
     static let groqRequestImageLimit = 3
 
+    /// The OpenRouter catalog marks both Nemotron variants as text-only.
+    static func isKnownTextOnlyModel(provider: AIProvider, model: String) -> Bool {
+        provider == .openrouter && model.prefix(while: { $0 != ":" }) == "nvidia/nemotron-3-ultra-550b-a55b"
+    }
+
     /// Photos one request to this model accepts; nil takes the full selection.
     static func requestImageLimit(provider: AIProvider, model: String) -> Int? {
-        provider == .groq ? Self.groqRequestImageLimit : nil
+        if provider == .groq { return groqRequestImageLimit }
+        if provider == .cerebras, model == "qwen-3.8-27b" { return 2 }
+        return nil
     }
 
     var displayName: String {
@@ -45,7 +53,7 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
 
     var logoAssetName: String? {
         switch self {
-        case .appleIntelligence, .gemma4Local, .customOpenAI: nil
+        case .appleIntelligence, .gemma4Local, .gemma4E4BLocal, .customOpenAI: nil
         case .gemini: "provider_gemini"
         case .openai: "provider_openai"
         case .anthropic: "provider_anthropic"
@@ -67,7 +75,7 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
     var fallbackSystemImage: String {
         switch self {
         case .appleIntelligence: "apple.logo"
-        case .gemma4Local: "cpu"
+        case .gemma4Local, .gemma4E4BLocal: "cpu"
         case .customOpenAI: "wrench.and.screwdriver.fill"
         default: "sparkles"
         }
@@ -75,7 +83,7 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
 
     var baseURL: String {
         switch self {
-        case .appleIntelligence, .gemma4Local: ""
+        case .appleIntelligence, .gemma4Local, .gemma4E4BLocal: ""
         case .gemini: "https://generativelanguage.googleapis.com/v1beta"
         case .openai: "https://api.openai.com/v1"
         case .anthropic: "https://api.anthropic.com/v1"
@@ -104,8 +112,7 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
         textModels.first ?? defaultModel
     }
 
-    /// Providers exposed for photo/label analysis. DeepSeek and Cerebras are
-    /// intentionally text-only here even though the same request transport is used.
+    /// Providers with a photo/label preset or an explicit custom endpoint.
     static var visionProviders: [AIProvider] {
         allCases.filter { $0.supportsVision && $0.isAvailableOnCurrentDevice }
     }
@@ -117,7 +124,15 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
     }
 
     var isAvailableOnCurrentDevice: Bool {
-        self != .gemma4Local || Gemma4LocalModelManager.isCurrentDeviceSelectable
+        localGemmaVariant.map(Gemma4LocalModelManager.isCurrentDeviceSelectable) ?? true
+    }
+
+    var localGemmaVariant: Gemma4LocalModelManager.Variant? {
+        switch self {
+        case .gemma4Local: .e2b
+        case .gemma4E4BLocal: .e4b
+        default: nil
+        }
     }
 
     var supportsVision: Bool {
@@ -128,10 +143,8 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
             } else {
                 false
             }
-        case .deepseek, .cerebras:
-            false
         default:
-            true
+            !models.isEmpty || requiresCustomModelName
         }
     }
 
@@ -150,7 +163,9 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
     static func upgradedLegacyGeminiModel(_ model: String?) -> String? {
         guard let model else { return nil }
         switch normalizedModelID(model) {
-        case "gemini-2.5-flash", "gemini-2.5-pro", "gemini-3.1-flash-lite":
+        case "gemini-2.5-pro":
+            return "gemini-3.8-flash"
+        case "gemini-2.5-flash", "gemini-3.1-flash-lite":
             return "gemini-3.5-flash-lite"
         default:
             return nil
@@ -158,26 +173,43 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
     }
 
     /// Provider-scoped replacements for presets removed from the current registry.
-    /// This also covers providers that permit free-form model IDs: those values would
-    /// otherwise remain valid indefinitely and never reach `supportedModelOrDefault`'s
-    /// fixed-list fallback path.
-    static func upgradedLegacyModel(for provider: AIProvider, model: String?) -> String? {
+    /// Don't rewrite manually entered router or custom endpoint model IDs.
+    static func upgradedLegacyModel(for provider: AIProvider, model: String?, text: Bool = false) -> String? {
         guard let model else { return nil }
         let normalized = normalizedModelID(model)
 
         switch (provider, normalized) {
-        case (.gemini, "gemini-3.1-flash-lite"):
-            return "gemini-3.5-flash-lite"
-        case (.openrouter, "google/gemini-3.1-flash-lite"):
-            return "google/gemini-3.5-flash-lite"
-        case (.huggingface, "Qwen/Qwen2.5-VL-72B-Instruct"):
-            return "Qwen/Qwen3.8-27B"
-        case (.mistral, "mistral-medium-2604"):
-            return "mistral-medium-3-5"
+        case (.gemini, "gemini-3.7-flash"): return "gemini-3.8-flash"
+        case (.gemini, "gemini-3.5-flash"): return "gemini-3.6-flash"
+        case (.gemini, _): return upgradedLegacyGeminiModel(normalized)
+        case (.openai, "gpt-4.1"), (.openai, "gpt-4.1-mini"),
+             (.openai, "gpt-4o-mini"), (.openai, "gpt-5.4-nano"):
+            return "gpt-6-luna"
+        case (.mistral, "mistral-medium-2604"), (.mistral, "mistral-medium-3-5"), (.mistral, "mistral-large-2512"):
+            return "mistral-large-4-0"
         case (.anthropic, "claude-sonnet-4-6"):
             return "claude-sonnet-5"
         case (.anthropic, "claude-opus-4-7"):
             return "claude-opus-5"
+        case (.groq, "qwen/qwen3.6-27b"): return "qwen/qwen3.8-27b"
+        case (.groq, "llama-3.1-8b-instant") where text: return "openai/gpt-oss-20b"
+        case (.groq, "llama-3.3-70b-versatile") where text: return "openai/gpt-oss-120b"
+        case (.togetherai, "MiniMaxAI/MiniMax-M2.7"), (.togetherai, "Qwen/Qwen3.5-397B-A17B"),
+             (.togetherai, "zai-org/GLM-5"), (.togetherai, "zai-org/GLM-5.1"),
+             (.togetherai, "Qwen/Qwen3.8-2.4T-A95B"), (.togetherai, "google/gemma-4-31B-it"),
+             (.togetherai, "MiniMaxAI/MiniMax-M3"):
+            return "Qwen/Qwen3.5-9B"
+        case (.togetherai, "moonshotai/Kimi-K2.6"): return text ? "Qwen/Qwen3.7-Max" : "moonshotai/Kimi-K3"
+        case (.togetherai, "openai/gpt-oss-20b") where text: return "openai/gpt-oss-120b"
+        case (.togetherai, "deepseek-ai/DeepSeek-V4-Pro") where text: return "deepseek-ai/DeepSeek-V4-Pro-0813"
+        case (.fireworks, "accounts/fireworks/models/qwen3p7-plus"),
+             (.fireworks, "accounts/fireworks/models/muse-glimmer-30b"),
+             (.fireworks, "accounts/fireworks/models/kimi-k2p6"):
+            return "accounts/fireworks/models/kimi-k3"
+        case (.fireworks, "accounts/fireworks/models/minimax-m3") where !text:
+            return "accounts/fireworks/models/minimax-m3p1-flash"
+        case (.deepseek, "deepseek-v4-flash"), (.deepseek, "deepseek-v4-flash-vision-exp"): return "deepseek-flash"
+        case (.cerebras, "gemma-4-31b"): return "qwen-3.8-27b"
         default:
             return nil
         }
@@ -185,28 +217,23 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
 
     func supportedModelOrDefault(_ model: String?) -> String {
         guard let model else { return defaultModel }
-        let normalized = Self.normalizedModelID(model)
         if supportsCustomModelName {
-            return normalized
+            return model
         }
+        let normalized = Self.upgradedLegacyModel(for: self, model: model) ?? Self.normalizedModelID(model)
         return models.contains(normalized) ? normalized : defaultModel
     }
 
     func supportedTextModelOrDefault(_ model: String?) -> String {
         guard let model else { return defaultTextModel }
-        if self == .groq, model.trimmingCharacters(in: .whitespacesAndNewlines) == "qwen/qwen3.6-27b" {
-            return "qwen/qwen3.8-27b"
-        }
-        let normalized = Self.normalizedModelID(model)
         if supportsCustomModelName {
-            return normalized
+            return model
         }
+        let normalized = Self.upgradedLegacyModel(for: self, model: model, text: true) ?? Self.normalizedModelID(model)
         return textModels.contains(normalized) ? normalized : defaultTextModel
     }
 
-    /// Only models that are currently in service AND accept image input + return structured text.
-    /// Text-only and deprecated models are excluded since this app needs vision for food photos.
-    /// Lineups verified against provider docs on 2026-09-07.
+    /// Public vision presets for food photos and labels, not dedicated deployments.
     var models: [String] {
         switch self {
         case .appleIntelligence:
@@ -216,43 +243,49 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
                 [String]()
             }
         case .gemma4Local: [Gemma4LocalModelManager.modelID]
+        case .gemma4E4BLocal: [Gemma4LocalModelManager.Variant.e4b.modelID]
         case .gemini: [
             "gemini-3.5-flash-lite",         // vision, cheapest current stable model (default)
             "gemini-3.8-flash",              // vision, latest Flash model (GA 2026-09-02)
-            "gemini-3.7-flash",              // vision, prior Flash model
             "gemini-3.6-flash",              // vision, prior stable Flash model
-            "gemini-3.5-flash",              // vision, stable Flash model
+            "gemini-4-hydrogen",
+            "gemini-4-neon",
+            "gemini-4-argon",
+            "gemini-4-carbon",
             "gemini-flash-latest",           // vision, Google's alias for the newest Flash (#358)
             "gemini-flash-lite-latest",      // vision, Google's alias for the newest Flash-Lite (#358)
-            "gemini-3.1-pro-preview",        // vision, current flagship (preview)
+            "gemini-3.1-pro-preview",
         ]
         case .openai: [
             "gpt-5.4-mini",              // vision, best price/perf
             // GPT-6 presets verified 2026-10-17; Coach uses reasoning_effort=none.
             "gpt-6-luna",                // vision, efficient GPT-6 model
             "gpt-6-sol",                 // vision, capable GPT-6 model
+            "gpt-6.1-terra",
+            "gpt-6.2-sol",
+            "gpt-6.2-astra",
             "gpt-5.6-sol",               // vision, previous Sol model
             "gpt-5.6-terra",             // vision, balanced
             "gpt-5.6-luna",              // vision, lowest-cost 5.6 model
             "gpt-5.5",                   // vision, previous generation
-            "gpt-5.4-nano",              // vision, cheapest
-            "gpt-4.1",                   // vision, legacy
-            "gpt-4.1-mini",              // vision, legacy cheap
-            "gpt-4o-mini",               // vision, legacy cheap
         ]
         case .anthropic: [
             "claude-sonnet-5",             // vision, current Sonnet (default)
+            "claude-sonnet-5-5",
+            "claude-haiku-5-5",
+            "claude-opus-5-5",
             "claude-opus-5",               // vision, latest flagship
-            "claude-fable-5",              // vision, latest efficient model
+            "claude-fable-5",
             "claude-opus-4-8",             // vision, prior flagship
             "claude-haiku-4-5",            // vision, current Haiku, fastest
         ]
         case .xai: [
-            "grok-4.6",                  // vision, latest
-            "grok-4.3",                  // vision, prior (grok-4 and grok-2-vision retired)
+            "grok-4.6",
+            "grok-4.3",
+            "grok-4.7",
         ]
         case .openrouter: [
-            "openrouter/free",           // free tier, vision, no credits required
+            "openrouter/free",           // availability depends on routing and capacity
             "google/gemini-3.5-flash-lite",
             "google/gemini-3.8-flash",
             "google/gemini-3.7-flash",
@@ -261,33 +294,30 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
             "openai/gpt-5-mini",
             "anthropic/claude-sonnet-5",
             "qwen/qwen3-vl-8b-instruct",
+            "deepseek/deepseek-v4.1-flash",
         ]
         case .togetherai: [
             "Qwen/Qwen3.5-9B",                                    // vision
             "moonshotai/Kimi-K3",                                 // vision
-            "Qwen/Qwen3.8-2.4T-A95B",                             // vision
-            "google/gemma-4-31B-it",                              // vision
-            "MiniMaxAI/MiniMax-M3",                               // vision
+            "moonshotai/Kimi-K3.1-Pro",
         ]
         case .groq: [
             "qwen/qwen3.8-27b",                                   // vision
         ]
         case .huggingface: [
-            "google/gemma-4-31B-it",                              // vision, widest provider coverage
+            "google/gemma-4-31B-it",
             "Qwen/Qwen3.8-27B",                                   // vision, tool calling
             "moonshotai/Kimi-K3",                                 // vision, tool calling
             "google/gemma-3-27b-it",                              // vision, open-weight Gemma 3
             "Qwen/Qwen3.5-9B",                                    // vision, open-weight Qwen
         ]
         case .fireworks: [
-            "accounts/fireworks/models/qwen3p7-plus",             // vision, serverless
             "accounts/fireworks/models/kimi-k3",                  // vision, serverless
-            "accounts/fireworks/models/muse-glimmer-30b",         // vision, serverless
-            "accounts/fireworks/models/minimax-m3",               // vision, serverless
-            "accounts/fireworks/models/kimi-k2p6",                // vision, serverless
+            "accounts/fireworks/models/minimax-m3p1-flash",
+            "accounts/fireworks/models/kimi-k3p1-pro",
         ]
         case .deepinfra: [
-            "google/gemma-3-27b-it",                              // vision, cheapest
+            "google/gemma-3-27b-it",
             "Qwen/Qwen3.8-27B",                                   // vision
             "MiniMaxAI/MiniMax-M3",                               // vision
             "google/gemma-4-31B-it",                              // vision
@@ -295,31 +325,35 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
         ]
         case .mistral: [
             "mistral-small-2603",                                 // vision, best value (Pixtral line retired)
-            "mistral-medium-3-5",                                 // vision, frontier
-            "mistral-large-2512",                                 // vision, flagship
+            "mistral-large-4-0",
             "ministral-14b-2512",                                 // vision, small
+            "ministral-8b-2512",
         ]
         case .ollama: [
             "qwen3-vl",
             "qwen3.8",
             "gemma4",
+            "gemma4:e2b",
+            "qwen3-vl:2b",
             "llama3.2-vision",
             "llava",
             "moondream",
         ]
         case .qwen: [
             "qwen3.7-plus",                                       // vision, balanced
+            "qwen3.8-flash",
             "qwen3.8-max",                                        // vision, flagship
             "qwen3-vl-plus",                                      // vision-specific
+            "qwen4-max",
         ]
-        case .deepseek, .cerebras: [] // text-only; never offered for image requests
+        case .deepseek: ["deepseek-flash"]
+        case .cerebras: ["qwen-3.8-27b"]
         case .customOpenAI: []  // user types model name in Settings
         }
     }
 
     /// Text-capable presets. Existing image models remain valid for text, while
     /// providers with broader text catalogs expose those additional choices here.
-    /// Current hosted IDs verified against provider docs on 2026-09-07.
     var textModels: [String] {
         switch self {
         case .appleIntelligence:
@@ -328,32 +362,28 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
             return [
                 "openai/gpt-oss-20b",
                 "openai/gpt-oss-120b",
-                "llama-3.3-70b-versatile",
-                "llama-3.1-8b-instant",
                 "qwen/qwen3.8-27b",
             ]
         case .togetherai:
             return [
-                "MiniMaxAI/MiniMax-M2.7",
-                "Qwen/Qwen3.7-Max",
-                "Qwen/Qwen3.5-397B-A17B",
-                "Qwen/Qwen3.6-Plus",
                 "Qwen/Qwen3.5-9B",
-                "moonshotai/Kimi-K2.6",
-                "zai-org/GLM-5.1",
-                "zai-org/GLM-5",
+                "Qwen/Qwen3.7-Max",
+                "Qwen/Qwen3.6-Plus",
                 "openai/gpt-oss-120b",
-                "openai/gpt-oss-20b",
-                "deepseek-ai/DeepSeek-V4-Pro",
+                "MiniMaxAI/MiniMax-M3.1-Flash",
+                "deepseek-ai/DeepSeek-V4-Pro-0813",
             ]
+        case .fireworks:
+            return models + ["accounts/fireworks/models/minimax-m3"]
         case .deepseek:
-            return ["deepseek-v4-flash", "deepseek-v4-pro"]
+            return ["deepseek-flash", "deepseek-v4-pro"]
         case .qwen:
-            return ["qwen3.8-flash", "qwen3.7-plus", "qwen3.8-max"]
+            return ["qwen3.8-flash", "qwen3.7-plus", "qwen3.8-max", "qwen4-max"]
         case .cerebras:
-            return ["gpt-oss-120b", "gemma-4-31b"]
+            return ["gpt-oss-120b", "qwen-3.8-27b"]
         case .ollama:
-            return ["qwen3.8", "gemma4", "llama3.2", "qwen3", "mistral-small3.2"] + models
+            let preferred = ["qwen3.8", "gemma4", "llama3.2", "qwen3", "mistral-small3.2"]
+            return preferred + models.filter { !preferred.contains($0) }
         case .customOpenAI:
             return []
         default:
@@ -362,7 +392,7 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
     }
 
     var requiresAPIKey: Bool {
-        self != .ollama && self != .appleIntelligence && self != .gemma4Local
+        self != .ollama && self != .appleIntelligence && localGemmaVariant == nil
     }
 
     /// True for providers where the user supplies the base URL and model name themselves.
@@ -399,7 +429,7 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
     var apiFormat: APIFormat {
         switch self {
         case .appleIntelligence: .onDevice
-        case .gemma4Local: .liteRTLocal
+        case .gemma4Local, .gemma4E4BLocal: .liteRTLocal
         case .gemini: .gemini
         case .anthropic: .anthropic
         case .openai, .xai, .openrouter, .togetherai, .groq, .huggingface, .fireworks, .deepinfra, .mistral, .deepseek, .qwen, .cerebras, .ollama, .customOpenAI: .openaiCompatible
@@ -433,13 +463,13 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
         case .qwen: "Qwen"
         case .cerebras: "Cerebras"
         case .customOpenAI: "API"
-        case .appleIntelligence, .gemma4Local, .ollama: "API"
+        case .appleIntelligence, .gemma4Local, .gemma4E4BLocal, .ollama: "API"
         }
     }
 
     var apiKeyPlaceholder: String {
         switch self {
-        case .appleIntelligence, .gemma4Local, .ollama: String(localized: "No key needed")
+        case .appleIntelligence, .gemma4Local, .gemma4E4BLocal, .ollama: String(localized: "No key needed")
         case .customOpenAI: String(localized: "API key (or anything if endpoint doesn't need one)")
         default: String(localized: "Paste \(apiKeyBrandName) API key")
         }
@@ -447,10 +477,31 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
 }
 
 extension AIProvider {
+    func needsResponsesForTools(_ model: String) -> Bool {
+        self == .openai && (model.hasPrefix("gpt-6.1-") || model.hasPrefix("gpt-6.2-"))
+    }
     /// Qwen's hybrid models think by default, which slows replies and is refused
     /// for non-streaming requests, so their requests turn it off.
     var openAICompatibleExtraBody: [String: Any] {
         self == .qwen ? ["enable_thinking": false] : [:]
+    }
+
+    func openAICompatibleExtraBody(model: String) -> [String: Any] {
+        if self == .deepseek { return ["thinking": ["type": "disabled"]] }
+        if (self == .mistral && model == "mistral-large-4-0") || (self == .xai && model == "grok-4.7")
+            || needsResponsesForTools(model) {
+            return ["reasoning_effort": "low"]
+        }
+        if self == .openai, model == "gpt-6-luna" { return ["reasoning_effort": "none"] }
+        return openAICompatibleExtraBody
+    }
+
+    var compatibleRequestByteLimit: Int? {
+        switch self {
+        case .cerebras: 10 * 1024 * 1024
+        case .deepseek: 48 * 1024 * 1024
+        default: nil
+        }
     }
 
     func openAICompatibleTokenLimitKey(for model: String) -> String {
@@ -506,12 +557,22 @@ enum OpenRouterReasoningEffort: String, CaseIterable, Identifiable {
         case .max: String(localized: "Max")
         }
     }
-    func requestOptions(compactRetry: Bool, exclude: Bool) -> [String: Any]? {
+    func requestOptions(compactRetry: Bool, exclude: Bool, structuredModel: String? = nil) -> [String: Any]? {
         var options: [String: Any] = [:]
         if exclude || compactRetry { options["exclude"] = true }
-        if compactRetry { options["effort"] = "low" }
+        // Excluding reasoning only hides it from the response; it still uses output tokens.
+        if let structuredModel, Self.canDisableAnalysisReasoning(structuredModel), compactRetry || self == .auto {
+            options["effort"] = "none"
+        }
+        else if compactRetry { options["effort"] = "low" }
         else if self != .auto { options["effort"] = rawValue }
         return options.isEmpty ? nil : options
+    }
+
+    private static func canDisableAnalysisReasoning(_ model: String) -> Bool {
+        model == "openrouter/free" || [
+            "deepseek/deepseek-v4.1-flash", "deepseek/deepseek-v4.1-flash-1017", "nvidia/nemotron-3-ultra-550b-a55b"
+        ].contains(String(model.prefix(while: { $0 != ":" })))
     }
 }
 
@@ -540,7 +601,7 @@ struct AIProviderSettings {
     private static let fallbackBaseURLMigrationVersionKey = "fallbackBaseURLMigrationVersion"
     private static let geminiModelMigrationVersionKey = "geminiModelMigrationVersion"
     private static let modelRegistryMigrationVersionKey = "aiModelRegistryMigrationVersion"
-    private static let currentModelRegistryMigrationVersion = 2
+    private static let currentModelRegistryMigrationVersion = 3
     private static let maxResponseTokensKey = "aiMaxResponseTokens"
     private static let requestTimeoutSecondsKey = "aiRequestTimeoutSeconds"
     static let geminiTimeoutSecondsKey = "byokGeminiRequestTimeoutSeconds"
@@ -618,7 +679,8 @@ struct AIProviderSettings {
             guard let raw = UserDefaults.standard.string(forKey: textProviderKey),
                   let provider = AIProvider(rawValue: raw),
                   AIProvider.textProviders.contains(provider) else {
-                if UserDefaults.standard.string(forKey: textProviderKey) == AIProvider.gemma4Local.rawValue {
+                if let raw = UserDefaults.standard.string(forKey: textProviderKey),
+                   AIProvider(rawValue: raw)?.localGemmaVariant != nil {
                     UserDefaults.standard.set(false, forKey: separateTextProviderEnabledKey)
                 }
                 UserDefaults.standard.set(AIProvider.gemini.rawValue, forKey: textProviderKey)
@@ -638,12 +700,12 @@ struct AIProviderSettings {
             let provider = selectedTextProvider
             let saved = UserDefaults.standard.string(forKey: textModelKey)
             let resolved = provider.supportedTextModelOrDefault(saved)
-            if let saved, AIProvider.normalizedModelID(saved) != resolved {
+            if let saved, saved != resolved {
                 UserDefaults.standard.set(resolved, forKey: textModelKey)
             }
             return resolved
         }
-        set { UserDefaults.standard.set(AIProvider.normalizedModelID(newValue), forKey: textModelKey) }
+        set { UserDefaults.standard.set(newValue, forKey: textModelKey) }
     }
 
     /// Upgrades legacy Gemini choices exactly once, including the fallback.
@@ -675,20 +737,17 @@ struct AIProviderSettings {
             return
         }
 
-        let primaryProvider = storedProvider(in: defaults, key: providerKey) ?? .gemini
-        if let upgraded = AIProvider.upgradedLegacyModel(
-            for: primaryProvider,
-            model: defaults.string(forKey: modelKey)
-        ) {
-            defaults.set(upgraded, forKey: modelKey)
-        }
-
-        if let fallbackProvider = storedProvider(in: defaults, key: fallbackProviderKey),
-           let upgraded = AIProvider.upgradedLegacyModel(
-               for: fallbackProvider,
-               model: defaults.string(forKey: fallbackModelKey)
-           ) {
-            defaults.set(upgraded, forKey: fallbackModelKey)
+        for (savedProvider, savedModel, text) in [
+            (providerKey, modelKey, false), (fallbackProviderKey, fallbackModelKey, false),
+            (textProviderKey, textModelKey, true), (textFallbackProviderKey, textFallbackModelKey, true)
+        ] {
+            let provider = storedProvider(in: defaults, key: savedProvider)
+                ?? (savedProvider == providerKey ? .gemini : nil)
+            if let provider, let upgraded = AIProvider.upgradedLegacyModel(
+                for: provider, model: defaults.string(forKey: savedModel), text: text
+            ) {
+                defaults.set(upgraded, forKey: savedModel)
+            }
         }
 
         defaults.set(currentModelRegistryMigrationVersion, forKey: modelRegistryMigrationVersionKey)
@@ -730,13 +789,13 @@ struct AIProviderSettings {
             // Validate against the provider's supported list and fall back to default
             // if the saved one was removed (e.g., a deprecated model we no longer expose).
             let resolved = selectedProvider.supportedModelOrDefault(saved)
-            if let saved, AIProvider.normalizedModelID(saved) != resolved {
+            if let saved, saved != resolved {
                 UserDefaults.standard.set(resolved, forKey: modelKey)
             }
             return resolved
         }
         set {
-            UserDefaults.standard.set(AIProvider.normalizedModelID(newValue), forKey: modelKey)
+            UserDefaults.standard.set(newValue, forKey: modelKey)
         }
     }
 
@@ -843,7 +902,8 @@ struct AIProviderSettings {
             guard let raw = UserDefaults.standard.string(forKey: fallbackProviderKey),
                   let provider = AIProvider(rawValue: raw),
                   AIProvider.visionProviders.contains(provider) else {
-                if UserDefaults.standard.string(forKey: fallbackProviderKey) == AIProvider.gemma4Local.rawValue {
+                if let raw = UserDefaults.standard.string(forKey: fallbackProviderKey),
+                   AIProvider(rawValue: raw)?.localGemmaVariant != nil {
                     UserDefaults.standard.set(false, forKey: fallbackEnabledKey)
                 }
                 let resolved = providersWithSavedKeys(excluding: selectedProvider).first ?? .gemini
@@ -864,12 +924,12 @@ struct AIProviderSettings {
             let provider = selectedFallbackProvider
             let saved = UserDefaults.standard.string(forKey: fallbackModelKey)
             let resolved = provider.supportedModelOrDefault(saved)
-            if let saved, AIProvider.normalizedModelID(saved) != resolved {
+            if let saved, saved != resolved {
                 UserDefaults.standard.set(resolved, forKey: fallbackModelKey)
             }
             return resolved
         }
-        set { UserDefaults.standard.set(AIProvider.normalizedModelID(newValue), forKey: fallbackModelKey) }
+        set { UserDefaults.standard.set(newValue, forKey: fallbackModelKey) }
     }
 
     // MARK: - Text AI Fallback
@@ -884,7 +944,8 @@ struct AIProviderSettings {
             guard let raw = UserDefaults.standard.string(forKey: textFallbackProviderKey),
                   let provider = AIProvider(rawValue: raw),
                   AIProvider.textProviders.contains(provider) else {
-                if UserDefaults.standard.string(forKey: textFallbackProviderKey) == AIProvider.gemma4Local.rawValue {
+                if let raw = UserDefaults.standard.string(forKey: textFallbackProviderKey),
+                   AIProvider(rawValue: raw)?.localGemmaVariant != nil {
                     UserDefaults.standard.set(false, forKey: textFallbackEnabledKey)
                 }
                 UserDefaults.standard.set(AIProvider.gemini.rawValue, forKey: textFallbackProviderKey)
@@ -904,12 +965,12 @@ struct AIProviderSettings {
             let provider = selectedTextFallbackProvider
             let saved = UserDefaults.standard.string(forKey: textFallbackModelKey)
             let resolved = provider.supportedTextModelOrDefault(saved)
-            if let saved, AIProvider.normalizedModelID(saved) != resolved {
+            if let saved, saved != resolved {
                 UserDefaults.standard.set(resolved, forKey: textFallbackModelKey)
             }
             return resolved
         }
-        set { UserDefaults.standard.set(AIProvider.normalizedModelID(newValue), forKey: textFallbackModelKey) }
+        set { UserDefaults.standard.set(newValue, forKey: textFallbackModelKey) }
     }
 
     /// Providers that have a saved API key (or don't require one, e.g. Ollama),
@@ -991,6 +1052,9 @@ struct AIProviderSettings {
     }
 
     static func deleteAllData() {
+        let voiceSettings = VoiceAssistantSettings()
+        voiceSettings.setQwenAPIKey(nil)
+        voiceSettings.qwenWorkspace = ""
         for provider in AIProvider.allCases {
             setAPIKey(nil, for: provider)
             setCustomBaseURL(nil, for: provider)
@@ -1014,22 +1078,24 @@ struct AIProviderSettings {
         UserDefaults.standard.removeObject(forKey: geminiTimeoutSecondsKey)
     }
 
-    static func replaceDeletedLocalGemmaSelections(defaults: UserDefaults = .standard) {
-        if defaults.string(forKey: providerKey) == AIProvider.gemma4Local.rawValue {
+    static func replaceDeletedLocalGemmaSelections(
+        provider: AIProvider = .gemma4Local, defaults: UserDefaults = .standard
+    ) {
+        if defaults.string(forKey: providerKey) == provider.rawValue {
             defaults.set(AIProvider.gemini.rawValue, forKey: providerKey)
             defaults.set(AIProvider.gemini.defaultModel, forKey: modelKey)
         }
-        if defaults.string(forKey: textProviderKey) == AIProvider.gemma4Local.rawValue {
+        if defaults.string(forKey: textProviderKey) == provider.rawValue {
             defaults.set(AIProvider.gemini.rawValue, forKey: textProviderKey)
             defaults.set(AIProvider.gemini.defaultTextModel, forKey: textModelKey)
             defaults.set(false, forKey: separateTextProviderEnabledKey)
         }
-        if defaults.string(forKey: fallbackProviderKey) == AIProvider.gemma4Local.rawValue {
+        if defaults.string(forKey: fallbackProviderKey) == provider.rawValue {
             defaults.set(AIProvider.gemini.rawValue, forKey: fallbackProviderKey)
             defaults.set(AIProvider.gemini.defaultModel, forKey: fallbackModelKey)
             defaults.set(false, forKey: fallbackEnabledKey)
         }
-        if defaults.string(forKey: textFallbackProviderKey) == AIProvider.gemma4Local.rawValue {
+        if defaults.string(forKey: textFallbackProviderKey) == provider.rawValue {
             defaults.set(AIProvider.gemini.rawValue, forKey: textFallbackProviderKey)
             defaults.set(AIProvider.gemini.defaultTextModel, forKey: textFallbackModelKey)
             defaults.set(false, forKey: textFallbackEnabledKey)

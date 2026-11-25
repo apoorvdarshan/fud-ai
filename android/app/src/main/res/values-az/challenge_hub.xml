@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="challenge_hub_title">Çağırışlar</string>
+    <string name="challenge_hub_daily">Gündəlik</string>
+    <string name="challenge_hub_weekly">Həftəlik</string>
+    <string name="challenge_hub_monthly">Aylıq</string>
+    <string name="challenge_hub_your_points">Xallarınız</string>
+    <string name="challenge_hub_points">Xallar: %1$d</string>
+    <string name="challenge_hub_days">Günlər: %1$d</string>
+    <string name="challenge_hub_participants">İştirakçılar: %1$d</string>
+    <string name="challenge_hub_join">Qoşul və xalları paylaş</string>
+    <string name="challenge_hub_remove">Çıx və xalları sil</string>
+    <string name="challenge_hub_go_weekly">Həftəliyə keç</string>
+    <string name="challenge_hub_habits">Rəqəmləri deyil, vərdişləri artırın</string>
+    <string name="challenge_hub_profile_first">Əvvəlcə profil yaratmaq üçün həftəlik çağırışa qoşulun.</string>
+    <string name="challenge_hub_service">Bu cədvəl üçün çağırış xidməti yenilənməlidir.</string>
+    <string name="challenge_hub_consent">Qoşulduqda adınız və bu dövrün vərdiş xalları digər iştirakçılara görünür. Gündəlik qeydləri, çəki və kalori miqdarları paylaşılmır.</string>
+    <string name="challenge_hub_rules_base">Hər gün hər vərdişə bir xal: hərəkət, yemək qeydi, qidalanma və su hədəfləri.</string>
+    <string name="challenge_hub_rules_bonus">Üç və ya daha çox vərdiş olan günlərə əlavə bir xal.</string>
+    <string name="challenge_hub_rules_streak">Ən azı iki vərdiş etdiyiniz ən uzun ardıcıl dövrdə ilk gündən sonrakı hər gün bir xal qazandırır.</string>
+    <string name="challenge_hub_leave">Bu çağırışdan çıxmaq istəyirsiniz?</string>
+    <string name="challenge_hub_leave_detail">Yalnız bu müddətin xalları silinir. Digər çağırışlar və gündəlik dəyişmir.</string>
+    <string name="challenge_hub_leave_all">Bütün çağırışlardan çıxmaq istəyirsiniz?</string>
+    <string name="challenge_hub_leave_all_detail">Açıq profiliniz, bütün xallar və çağırış şikayətləri silinəcək. Şəxsi gündəliyiniz cihazda qalacaq.</string>
+    <string name="challenge_hub_jump_to_rank">Sıramı göstər</string>
+    <string name="challenge_hub_week_rank">Seçilən xal birinci gəlir. Bərabərlikdə daha müxtəlif vərdişlər, vərdişlər üzrə sabit nəticələr və digər gün sayları üstünlük qazanır. Onlar da eynidirsə, ilk əldə edən irəlidədir. Məşq kaloriləri bərabərliyi pozmur.</string>
+</resources>

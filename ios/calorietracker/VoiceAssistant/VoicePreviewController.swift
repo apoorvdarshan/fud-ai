@@ -100,6 +100,7 @@ final class VoicePreviewController {
         // cancels this generation, including a pending credential lookup.
         let model = settings.model(for: provider)
         let voice = settings.voice(for: provider)
+        let qwenWorkspace = settings.qwenWorkspace
         let language = Self.languageCode(settings.language, appLanguageCode: appLanguageCode)
         deadline = Task { [weak self, waitForDeadline] in
             do { try await waitForDeadline() } catch { return }
@@ -125,7 +126,7 @@ final class VoicePreviewController {
             }
             let config = LiveSessionConfig(
                 provider: provider, model: model, voice: voice, credential: credential,
-                instructions: Self.instructions(languageCode: language), tools: []
+                instructions: Self.instructions(languageCode: language), tools: [], qwenWorkspace: qwenWorkspace
             )
             self.outputSampleRate = provider.wire.outputSampleRate
             self.reportsTurnEnds = provider.reportsTurnEnds

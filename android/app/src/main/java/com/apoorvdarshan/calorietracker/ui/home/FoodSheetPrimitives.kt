@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker.ui.home
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -82,6 +83,7 @@ import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialog
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialogActions
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassTextField
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
 import com.apoorvdarshan.calorietracker.ui.theme.PinkNeoCondensed
 import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 import com.apoorvdarshan.calorietracker.ui.util.clockTimePattern
@@ -215,9 +217,11 @@ internal fun SheetPillRow(
         .fillMaxWidth()
         .background(neo.panel)
         .border(1.dp, neo.rule)
-    val withClick = if (onClick != null) base.clickable(onClick = onClick) else base
+    val withClick = if (onClick != null) {
+        base.clickable(onClick = onClick).heightIn(min = FlashSpacing.MinTouchTarget)
+    } else base
     Row(
-        withClick.padding(horizontal = 18.dp, vertical = 15.dp),
+        withClick.padding(horizontal = FlashSpacing.SheetInset, vertical = FlashSpacing.ItemGap),
         verticalAlignment = Alignment.CenterVertically,
         content = content
     )
@@ -305,7 +309,7 @@ internal fun ServingQuantityCard(
 
     SheetPillCard {
         Row(
-            Modifier.fillMaxWidth().padding(horizontal = 18.dp, vertical = 12.dp),
+            Modifier.fillMaxWidth().padding(horizontal = FlashSpacing.SheetInset, vertical = FlashSpacing.ItemGap),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
@@ -455,7 +459,7 @@ internal fun ServingQuantityCard(
         if (showGramTotal && !selectedOption.isGramUnit) {
             SheetHairline()
             Row(
-                Modifier.fillMaxWidth().padding(horizontal = 18.dp, vertical = 12.dp),
+                Modifier.fillMaxWidth().padding(horizontal = FlashSpacing.SheetInset, vertical = FlashSpacing.ItemGap),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(stringResource(R.string.label_total), fontSize = 17.sp, modifier = Modifier.weight(1f))
@@ -506,7 +510,7 @@ private fun RowScope.SheetCalculatorKey(
 @Composable
 internal fun SheetNutritionRow(label: String, value: String, unit: String, dim: Boolean = false) {
     Row(
-        Modifier.fillMaxWidth().padding(horizontal = 18.dp, vertical = 12.dp),
+        Modifier.fillMaxWidth().padding(horizontal = FlashSpacing.SheetInset, vertical = FlashSpacing.ItemGap),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
@@ -540,7 +544,7 @@ internal fun SheetAminoAcidHeader() {
         fontSize = 13.sp,
         fontWeight = FontWeight.SemiBold,
         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f),
-        modifier = Modifier.padding(horizontal = 18.dp, vertical = 10.dp)
+        modifier = Modifier.padding(horizontal = FlashSpacing.SheetInset, vertical = FlashSpacing.ItemGap)
     )
 }
 
@@ -574,9 +578,8 @@ internal fun SheetGlassDropdownMenu(
         containerColor = neo.panel,
         tonalElevation = 0.dp,
         shadowElevation = 0.dp,
-        modifier = sizedModifier
-            .border(1.dp, neo.rule, shape)
-            .padding(vertical = 5.dp),
+        modifier = sizedModifier.padding(vertical = 5.dp),
+        border = BorderStroke(1.dp, neo.rule),
         content = content
     )
 }
@@ -596,13 +599,13 @@ internal fun SheetGlassDropdownMenuItem(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 7.dp, vertical = 1.dp)
-            .heightIn(min = 48.dp)
+            .heightIn(min = FlashSpacing.MinTouchTarget)
             .then(if (selected) Modifier.background(neo.wash).border(1.dp, neo.rule) else Modifier)
             .clickable(onClick = onClick)
             .semantics { if (selected) this.selected = true }
             // ~48dp tap target per row (Material menu guidance), matching the
             // roomier iOS add-menu rows instead of the old cramped ~36dp.
-            .padding(horizontal = 10.dp, vertical = 12.dp),
+            .padding(horizontal = 10.dp, vertical = FlashSpacing.ItemGap),
         verticalAlignment = Alignment.CenterVertically
     ) {
         when {
@@ -681,7 +684,8 @@ internal fun SheetDateTimeCard(
             Modifier
                 .fillMaxWidth()
                 .clickable(onClick = onEditDate)
-                .padding(horizontal = 18.dp, vertical = 12.dp),
+                .heightIn(min = FlashSpacing.MinTouchTarget)
+                .padding(horizontal = FlashSpacing.SheetInset, vertical = FlashSpacing.ItemGap),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(stringResource(R.string.label_date), fontSize = 17.sp, modifier = Modifier.weight(1f))
@@ -697,7 +701,8 @@ internal fun SheetDateTimeCard(
             Modifier
                 .fillMaxWidth()
                 .clickable(onClick = onEditTime)
-                .padding(horizontal = 18.dp, vertical = 12.dp),
+                .heightIn(min = FlashSpacing.MinTouchTarget)
+                .padding(horizontal = FlashSpacing.SheetInset, vertical = FlashSpacing.ItemGap),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(stringResource(R.string.label_time), fontSize = 17.sp, modifier = Modifier.weight(1f))

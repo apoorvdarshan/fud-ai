@@ -58,6 +58,8 @@ struct calorietrackerApp: App {
         AIProviderSettings.migrateLegacyGeminiModelsIfNeeded()
         SpeechSettings.migrateMatchingPrimaryProviderIfNeeded()
         AIProviderSettings.migrateFallbackBaseURLsIfNeeded()
+        VoiceAssistantSettings().removeRetiredOfflineVoicePreferences()
+        Task.detached(priority: .utility) { RetiredOfflineVoiceFiles.cleanUp() }
         if CommandLine.arguments.contains("--reset-onboarding") {
             UserDefaults.standard.removeObject(forKey: "hasCompletedOnboarding")
             UserDefaults.standard.removeObject(forKey: "userProfile")
@@ -84,6 +86,10 @@ struct calorietrackerApp: App {
                         .environment(importedHealthWorkoutStore)
                         .environment(weeklyChallengeStore)
                         .environment(cloudBackupService)
+                        .modifier(ChallengePeriodScoreSync(
+                            foodStore: foodStore, waterStore: waterStore, profileStore: profileStore,
+                            workoutStore: strengthWorkoutStore, challengeStore: weeklyChallengeStore
+                        ))
                 } else {
                     OnboardingView(hasCompletedOnboarding: $hasCompletedOnboarding)
                         .environment(notificationManager)

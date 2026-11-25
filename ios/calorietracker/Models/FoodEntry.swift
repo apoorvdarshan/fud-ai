@@ -265,6 +265,7 @@ struct MealIngredient: Identifiable, Codable, Equatable, Sendable {
     var imageFilename: String?
     var additionalImageFilenames: [String]?
     var emoji: String?
+    var aiAllergens: [String]?
 
     nonisolated init(
         id: UUID = UUID(),
@@ -276,7 +277,8 @@ struct MealIngredient: Identifiable, Codable, Equatable, Sendable {
         fat: Double,
         imageFilename: String? = nil,
         additionalImageFilenames: [String]? = nil,
-        emoji: String? = nil
+        emoji: String? = nil,
+        aiAllergens: [String]? = nil
     ) {
         self.id = id
         self.name = name
@@ -288,6 +290,7 @@ struct MealIngredient: Identifiable, Codable, Equatable, Sendable {
         self.imageFilename = imageFilename
         self.additionalImageFilenames = additionalImageFilenames
         self.emoji = emoji
+        self.aiAllergens = aiAllergens.flatMap { $0.isEmpty ? nil : $0 }
     }
 
     nonisolated var allImageFilenames: [String] {
@@ -385,6 +388,8 @@ struct FoodEntry: Identifiable, Codable {
     var progressiveMeal: Bool
     var ingredients: [MealIngredient]
     var productMetadata: FoodProductMetadata?
+    /// Possible allergens inferred by AI, not manufacturer declarations.
+    var aiAllergens: [String]
 
     /// HealthKit/Health Connect can restore nutrition totals without restoring
     /// the food's original mass. Keep that state explicit instead of silently
@@ -463,7 +468,8 @@ struct FoodEntry: Identifiable, Codable {
         customNote: String? = nil,
         progressiveMeal: Bool = false,
         ingredients: [MealIngredient] = [],
-        productMetadata: FoodProductMetadata? = nil
+        productMetadata: FoodProductMetadata? = nil,
+        aiAllergens: [String] = []
     ) {
         self.id = id
         self.name = name
@@ -511,6 +517,7 @@ struct FoodEntry: Identifiable, Codable {
         self.progressiveMeal = progressiveMeal
         self.ingredients = ingredients
         self.productMetadata = productMetadata
+        self.aiAllergens = aiAllergens
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -526,7 +533,7 @@ struct FoodEntry: Identifiable, Codable {
         case vitaminA, vitaminC, vitaminD, vitaminB12, vitaminE, vitaminK, folate, omega3
         case servingSizeGrams
         case servingUnitOptions, selectedServingUnit, selectedServingQuantity, customNote, progressiveMeal, ingredients
-        case productMetadata
+        case productMetadata, aiAllergens
     }
 
     private static func decodeDouble(
@@ -599,6 +606,7 @@ struct FoodEntry: Identifiable, Codable {
         progressiveMeal = try container.decodeIfPresent(Bool.self, forKey: .progressiveMeal) ?? false
         ingredients = try container.decodeIfPresent([MealIngredient].self, forKey: .ingredients) ?? []
         productMetadata = try container.decodeIfPresent(FoodProductMetadata.self, forKey: .productMetadata)
+        aiAllergens = CanonicalFoodAllergens.clean((try? container.decode([String].self, forKey: .aiAllergens)) ?? [])
     }
 
     func encode(to encoder: Encoder) throws {
@@ -659,6 +667,7 @@ struct FoodEntry: Identifiable, Codable {
             try container.encode(ingredients, forKey: .ingredients)
         }
         try container.encodeIfPresent(productMetadata, forKey: .productMetadata)
+        if !aiAllergens.isEmpty { try container.encode(aiAllergens, forKey: .aiAllergens) }
     }
 
     var timeString: String {
@@ -753,7 +762,8 @@ struct FoodEntry: Identifiable, Codable {
             customNote: customNote,
             progressiveMeal: progressiveMeal,
             ingredients: ingredients,
-            productMetadata: productMetadata
+            productMetadata: productMetadata,
+            aiAllergens: aiAllergens
         )
     }
 }
@@ -770,7 +780,8 @@ extension FoodEntry {
             fat: fat,
             imageFilename: allImageFilenames.first,
             additionalImageFilenames: Array(allImageFilenames.dropFirst()),
-            emoji: emoji
+            emoji: emoji,
+            aiAllergens: CanonicalFoodAllergens.clean(aiAllergens + ingredients.flatMap { $0.aiAllergens ?? [] })
         )
     }
 
@@ -823,7 +834,8 @@ extension FoodEntry {
             customNote: customNote,
             progressiveMeal: progressiveMeal,
             ingredients: ingredients,
-            productMetadata: productMetadata
+            productMetadata: productMetadata,
+            aiAllergens: aiAllergens
         )
     }
 }
@@ -871,7 +883,8 @@ extension FoodEntry {
             servingSizeIsKnown: hasKnownServingSize,
             progressiveMeal: progressiveMeal,
             ingredients: ingredients,
-            productMetadata: productMetadata
+            productMetadata: productMetadata,
+            aiAllergens: aiAllergens
         )
     }
 }

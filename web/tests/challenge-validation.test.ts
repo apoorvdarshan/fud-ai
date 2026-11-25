@@ -159,7 +159,7 @@ describe("leaderboard and report validation", () => {
         ),
         NOW,
       ),
-    ).toEqual({ category: "activity", weekStart: "2026-08-31", limit: 100 });
+    ).toEqual({ category: "activity", weekStart: "2026-08-31", limit: 100, offset: 0, period: "weekly" });
     expect(() =>
       parseLeaderboardQuery(
         new URL(
@@ -176,6 +176,19 @@ describe("leaderboard and report validation", () => {
         NOW,
       ),
     ).toThrow(/Unknown query/);
+  });
+
+  it("accepts deep pages and rejects unsafe or repeated offsets", () => {
+    const url = new URL("https://fud-ai.app/api/challenge/v1/leaderboard?category=overall&weekStart=2026-08-31");
+    url.searchParams.set("offset", "940000");
+    expect(parseLeaderboardQuery(url, NOW).offset).toBe(940000);
+    for (const value of ["-1", "0.5", "", "9007199254740991", "1e3"]) {
+      url.searchParams.set("offset", value);
+      expect(() => parseLeaderboardQuery(url, NOW)).toThrow(/offset/);
+    }
+    url.searchParams.set("offset", "20");
+    url.searchParams.append("offset", "40");
+    expect(() => parseLeaderboardQuery(url, NOW)).toThrow(/repeated/);
   });
 
   it("accepts a bounded report and rejects invalid categories or controls", () => {

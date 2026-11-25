@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="workout_image_report">Görsel sorununu bildir</string>
+    <string name="workout_image_report_note">Görselde ne yanlış görünüyor?</string>
+    <string name="workout_image_report_review">Bildirimler herkese açık olur. Özel bilgi eklemeyin.</string>
+    <string name="workout_image_report_discord_help">Bildirim kopyalanır. Fud AI Discord sunucusunda /bug komutunu kullanıp report alanına yapıştırın.</string>
+    <string name="workout_image_report_open_failed">Bağlantı açılamadı.</string>
+</resources>

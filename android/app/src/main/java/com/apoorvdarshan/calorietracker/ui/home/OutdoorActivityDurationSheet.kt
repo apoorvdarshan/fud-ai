@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker.ui.home
 
+import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -90,8 +91,8 @@ fun OutdoorActivityDurationSheet(
             Modifier
                 .fillMaxWidth()
                 .verticalScroll(rememberScrollState())
-                .padding(horizontal = 20.dp, vertical = 8.dp),
-            verticalArrangement = Arrangement.spacedBy(18.dp)
+                .padding(horizontal = FlashSpacing.SheetInset, vertical = FlashSpacing.ItemGap),
+            verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap)
         ) {
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                 TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) }

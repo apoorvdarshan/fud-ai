@@ -147,10 +147,14 @@ suspend fun loadWhatsNewAccess(container: AppContainer): WhatsNewAccess? {
         val selectedAi = container.prefs.selectedAIProvider.first()
         val keys = withContext(Dispatchers.IO) {
             LiveProvider.ownKeyProviders.associateWith { provider ->
-                provider.aiProvider?.let { container.keyStore.apiKey(it) }?.trim()?.takeIf { it.isNotEmpty() }
+                container.keyStore.liveApiKey(provider)?.trim()?.takeIf { it.isNotEmpty() }
             }
         }
-        val access = VoiceProviderResolver.resolve(voicePrefs.choice, selectedAi, { keys[it] != null }, billing.entitlement.value.isEntitled)
+        val access = VoiceProviderResolver.resolve(
+            voicePrefs.choice, selectedAi, { keys[it] != null }, billing.entitlement.value.isEntitled,
+            qwenWorkspaceConfigured = com.apoorvdarshan.calorietracker.services.voice.QwenRealtimeWire
+                .isValidWorkspace(voicePrefs.qwenWorkspace)
+        )
         WhatsNewAccess(
             canBuyPlans = billing.isAvailable && billing.hasPurchasablePlans,
             needsLiveVoiceSetup = access !is VoiceAccess.Ready

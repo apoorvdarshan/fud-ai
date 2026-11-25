@@ -1,0 +1,4 @@
+<resources>
+    <string name="nav_workout_log">训练记录</string>
+    <string name="nav_exercise_library">动作库</string>
+</resources>

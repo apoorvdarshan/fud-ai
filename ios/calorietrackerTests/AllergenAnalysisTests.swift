@@ -1,8 +1,33 @@
 import Foundation
+import Foundation
 import Testing
 @testable import calorietracker
 
 struct AllergenAnalysisTests {
+    @Test func canonicalIDsSurviveParsingAndBackupAsPossibleAllergens() throws {
+        let analysis = try GeminiService.parseFoodAnalysis(from: """
+        {"name":"Pokrm","calories":160,"protein":4,"carbs":27,"fat":4,"serving_size_grams":100,
+         "allergens":["milk","MILK",17,"mléko","not-an-allergen"],
+         "ingredients":[{"name":"Příloha","grams":100,"calories":160,"protein":4,"carbs":27,"fat":4,"allergens":["sesame"]}]}
+        """)
+        #expect(analysis.aiAllergens == ["milk"])
+        #expect(analysis.ingredients.first?.aiAllergens == ["sesame"])
+        let entry = FoodEntry(name: analysis.name, calories: analysis.calories, protein: analysis.protein,
+                              carbs: analysis.carbs, fat: analysis.fat, source: .textInput,
+                              ingredients: analysis.ingredients, aiAllergens: analysis.aiAllergens)
+        let restored = try JSONDecoder().decode(FoodEntry.self, from: JSONEncoder().encode(entry))
+        let result = restored.allergenAnalysis(for: ["mlékem", "芝麻"])
+        #expect(result.assessment == .possibleAllergen)
+        #expect(result.matchedSensitivities == ["mlékem", "芝麻"])
+        #expect(restored.allergenAnalysis(for: ["بيض"]).assessment == .unableToAssess)
+    }
+
+    @Test func labelAllergenSurvivesServingScale() throws {
+        let analysis = try GeminiService.parseNutritionLabel(from: """
+        {"name":"Product","calories_per_100g":50,"protein_per_100g":3,"carbs_per_100g":4,"fat_per_100g":1,"allergens":["soy"]}
+        """)
+        #expect(analysis.scaled(to: 60).aiAllergens == ["soy"])
+    }
     @Test
     func matchesCanonicalAllergensAcrossReviewedLanguages() {
         #expect(AllergenAnalysis.mentionsAny(of: ["mléko"], in: "en:milk"))
@@ -57,6 +82,23 @@ struct AllergenAnalysisTests {
     @Test
     func missingEvidenceIsUnableToAssess() {
         #expect(makeEntry().allergenAnalysis(for: ["milk"]).assessment == .unableToAssess)
+    }
+
+    @Test func relatedFoodsAreNotInterchangeableInManufacturerEvidence() {
+        func entry(allergens: [String], traces: [String]) -> FoodEntry {
+            makeEntry(metadata: FoodProductMetadata(
+                barcode: "1", packageQuantity: nil, ingredientsText: nil, allergens: allergens,
+                traces: traces, nutriScore: nil, novaGroup: nil, ecoScore: nil, labels: [], categories: [], imageURL: nil
+            ))
+        }
+        let declared = entry(allergens: ["en:cashews"], traces: ["en:crab"])
+        #expect(declared.allergenAnalysis(for: ["almond", "shrimp"]).assessment == .unableToAssess)
+        #expect(declared.allergenAnalysis(for: ["cashew"]).assessment == .declaredAllergenMatch)
+        #expect(declared.allergenAnalysis(for: ["tree nuts"]).assessment == .declaredAllergenMatch)
+        #expect(declared.allergenAnalysis(for: ["crabs"]).assessment == .mayContain)
+        let broad = entry(allergens: ["en:tree-nuts"], traces: ["en:crustaceans"])
+        #expect(broad.allergenAnalysis(for: ["almond"]).assessment == .possibleAllergen)
+        #expect(broad.allergenAnalysis(for: ["shrimp"]).assessment == .possibleAllergen)
     }
 
     @Test

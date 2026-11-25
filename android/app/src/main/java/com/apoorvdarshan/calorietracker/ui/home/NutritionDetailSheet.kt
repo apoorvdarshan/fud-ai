@@ -65,6 +65,7 @@ import com.apoorvdarshan.calorietracker.ui.components.LocalEnergyUnit
 import com.apoorvdarshan.calorietracker.ui.components.energyUnitLabel
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialogActions
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
 import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 import com.apoorvdarshan.calorietracker.ui.theme.PinkNeoCondensed
 
@@ -138,8 +139,10 @@ fun NutritionDetailSheet(
         sheetState = state
     ) {
         LazyColumn(
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp).padding(bottom = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(14.dp)
+            modifier = Modifier.fillMaxWidth()
+                .padding(horizontal = FlashSpacing.SheetInset)
+                .padding(bottom = FlashSpacing.SectionGap),
+            verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap)
         ) {
             item {
                 Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {

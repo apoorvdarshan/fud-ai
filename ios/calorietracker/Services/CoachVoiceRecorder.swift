@@ -264,11 +264,12 @@ final class CoachVoiceRecorder {
         try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
         guard let fileURL = recordedFileURL else { reset(); return }
         recordedFileURL = nil
+        let capturedProvider = provider
 
         Task { @MainActor in
             var text = ""
             do {
-                text = try await SpeechService.transcribe(audioURL: fileURL)
+                text = try await SpeechService.transcribe(audioURL: fileURL, capturedProvider: capturedProvider)
             } catch {
                 errorMessage = (error as? LocalizedError)?.errorDescription ?? error.localizedDescription
             }

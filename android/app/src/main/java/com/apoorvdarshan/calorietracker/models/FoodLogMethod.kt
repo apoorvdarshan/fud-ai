@@ -68,5 +68,33 @@ enum class FoodLogMethod(
     }
 }
 
+/** Dock slots in display order. Assigning a method already in use swaps the slots. */
+data class HomeFoodShortcuts private constructor(val methods: List<FoodLogMethod>) {
+    fun assigning(slot: Int, method: FoodLogMethod): HomeFoodShortcuts {
+        if (slot !in methods.indices) return this
+        val updated = methods.toMutableList()
+        val existing = methods.indexOf(method)
+        if (existing >= 0) updated[existing] = methods[slot]
+        updated[slot] = method
+        return HomeFoodShortcuts(updated)
+    }
+
+    fun encode(): String = methods.joinToString(",") { it.storageKey }
+
+    companion object {
+        const val STORAGE_KEY = "home.foodShortcuts"
+        val Default = HomeFoodShortcuts(
+            listOf(FoodLogMethod.CAMERA, FoodLogMethod.BARCODE, FoodLogMethod.VOICE, FoodLogMethod.FAVORITES)
+        )
+
+        fun decode(raw: String?): HomeFoodShortcuts {
+            val decoded = raw?.split(',')?.map(FoodLogMethod::fromStorage) ?: return Default
+            if (decoded.size != Default.methods.size || decoded.any { it == null } ||
+                decoded.distinct().size != Default.methods.size) return Default
+            return HomeFoodShortcuts(decoded.filterNotNull())
+        }
+    }
+}
+
 /** Default group icon when no better match exists. */
 val FoodLogMethodDefaultGroupIcon = Icons.Filled.Bookmark

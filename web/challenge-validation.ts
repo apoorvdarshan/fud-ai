@@ -15,6 +15,7 @@ export const REPORT_REASONS = [
 ] as const;
 
 export type ChallengeCategory = (typeof CHALLENGE_CATEGORIES)[number];
+export type ChallengePeriod = "daily" | "weekly" | "monthly";
 export type ReportReason = (typeof REPORT_REASONS)[number];
 export type SocialPlatform = "x" | "instagram";
 
@@ -50,9 +51,23 @@ export interface ReportInput {
 }
 
 export interface LeaderboardQuery {
-  category: ChallengeCategory;
-  weekStart: string;
-  limit: number;
+    category: ChallengeCategory;
+    weekStart: string;
+    limit: number;
+  offset: number;
+  period: ChallengePeriod;
+}
+
+export interface PeriodScoreInput {
+  period: Exclude<ChallengePeriod, "weekly">;
+  periodStart: string;
+  activityDays: number;
+  nutritionDays: number;
+  consistencyDays: number;
+  hydrationDays: number;
+  balancedDays: number;
+  longestStreak: number;
+  overallPoints: number;
 }
 
 export class ChallengeValidationError extends Error {
@@ -236,7 +251,7 @@ export function parseReportInput(value: unknown): ReportInput {
 }
 
 export function parseLeaderboardQuery(url: URL, now = new Date()): LeaderboardQuery {
-  const knownKeys = new Set(["category", "weekStart", "limit"]);
+  const knownKeys = new Set(["category", "weekStart", "period", "periodStart", "limit", "offset"]);
   const unknownKeys = [...url.searchParams.keys()].filter((key) => !knownKeys.has(key));
   if (unknownKeys.length > 0) {
     throw new ChallengeValidationError("Unknown query parameter.", unknownKeys);
@@ -268,13 +283,83 @@ export function parseLeaderboardQuery(url: URL, now = new Date()): LeaderboardQu
     }
   }
 
-  const weekStart = parseWeekStart(url.searchParams.get("weekStart"));
-  assertCurrentWeekWindow(weekStart, now);
+  const offsetValue = url.searchParams.get("offset");
+  const offset = offsetValue === null ? 0 : Number(offsetValue);
+  if (offsetValue !== null && (!/^\d{1,16}$/.test(offsetValue) ||
+      !Number.isSafeInteger(offset) || offset > Number.MAX_SAFE_INTEGER - limit)) {
+    throw new ChallengeValidationError("offset must be a non-negative integer.", ["offset"]);
+  }
+  const periodValue = url.searchParams.get("period") ?? "weekly";
+  if (periodValue !== "weekly" && periodValue !== "daily" && periodValue !== "monthly") {
+    throw new ChallengeValidationError("Invalid challenge period.", ["period"]);
+  }
+  let weekStart: string;
+  if (periodValue === "weekly") {
+    if (url.searchParams.has("periodStart")) throw new ChallengeValidationError("Use weekStart for the weekly board.", ["periodStart"]);
+    weekStart = parseWeekStart(url.searchParams.get("weekStart"));
+    assertCurrentWeekWindow(weekStart, now);
+  } else {
+    if (url.searchParams.has("weekStart")) throw new ChallengeValidationError("Use periodStart for this board.", ["weekStart"]);
+    weekStart = parsePeriodStart(periodValue, url.searchParams.get("periodStart"), now).key;
+  }
   return {
     category: category as ChallengeCategory,
     weekStart,
     limit,
+    offset,
+    period: periodValue,
   };
+}
+
+// Local calendar boundaries on current civil time zones, without collecting a time zone.
+function parsePeriodStart(period: "daily" | "monthly", value: unknown, now: Date): { key: string; elapsedDays: number } {
+  const keyFor = (date: Date) => {
+    const day = date.toISOString().slice(0, 10);
+    return period === "daily" ? day : `${day.slice(0, 7)}-01`;
+  };
+  const earliest = new Date(now.getTime() - 12 * 3_600_000);
+  const latest = new Date(now.getTime() + 14 * 3_600_000);
+  const latestMatching = [latest, now, earliest].find((date) => value === keyFor(date));
+  if (typeof value !== "string" || !latestMatching) {
+    throw new ChallengeValidationError("periodStart must match the current local challenge period.", ["periodStart"]);
+  }
+  if (period === "daily") return { key: value, elapsedDays: 1 };
+  return { key: value, elapsedDays: latestMatching.getUTCDate() };
+}
+
+export function parsePeriodScore(value: unknown, now = new Date()): PeriodScoreInput {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    throw new ChallengeValidationError("Expected a challenge score object.", []);
+  }
+  const body = value as Record<string, unknown>;
+  const keys = ["activityDays", "nutritionDays", "consistencyDays", "hydrationDays", "balancedDays", "longestStreak"] as const;
+  const allowed = new Set<string>(["period", "periodStart", "acceptedRules", ...keys]);
+  const unknown = Object.keys(body).filter((key) => !allowed.has(key));
+  if (unknown.length) throw new ChallengeValidationError("Unknown score fields.", unknown);
+  if (body.period !== "daily" && body.period !== "monthly") {
+    throw new ChallengeValidationError("Choose daily or monthly.", ["period"]);
+  }
+  if (body.acceptedRules !== true) {
+    throw new ChallengeValidationError("Opt in to sharing scores for this period first.", ["acceptedRules"]);
+  }
+  const { key, elapsedDays } = parsePeriodStart(body.period, body.periodStart, now);
+  const metrics = {} as Record<(typeof keys)[number], number>;
+  for (const field of keys) {
+    const metric = body[field];
+    if (typeof metric !== "number" || !Number.isInteger(metric) || metric < 0 || metric > elapsedDays) {
+      throw new ChallengeValidationError(`${field} must be an integer within elapsed days.`, [field]);
+    }
+    metrics[field] = metric;
+  }
+  const base = metrics.activityDays + metrics.nutritionDays + metrics.consistencyDays + metrics.hydrationDays;
+  if (metrics.nutritionDays > metrics.consistencyDays ||
+      metrics.balancedDays > Math.floor(base / 3) ||
+      metrics.longestStreak > Math.floor(base / 2) ||
+      (metrics.balancedDays > 0 && metrics.longestStreak === 0)) {
+    throw new ChallengeValidationError("Habit totals and bonuses must agree.", ["nutritionDays", "balancedDays", "longestStreak"]);
+  }
+  const overallPoints = base + metrics.balancedDays + Math.max(0, metrics.longestStreak - 1);
+  return { period: body.period, periodStart: key, ...metrics, overallPoints };
 }
 
 export function normalizeDisplayName(value: unknown): string {

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="workout_image_report">Zgłoś problem z ilustracją</string>
+    <string name="workout_image_report_note">Co jest nie tak z ilustracją?</string>
+    <string name="workout_image_report_review">Zgłoszenia są publiczne. Nie podawaj prywatnych informacji.</string>
+    <string name="workout_image_report_discord_help">Zgłoszenie zostanie skopiowane. Na serwerze Discord Fud AI użyj /bug i wklej je w pole report.</string>
+    <string name="workout_image_report_open_failed">Nie udało się otworzyć linku.</string>
+</resources>

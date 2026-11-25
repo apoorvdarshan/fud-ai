@@ -216,7 +216,7 @@
     <string name="ai_key_placeholder_custom">API-Schlüssel (oder beliebig, falls Endpunkt keinen braucht)</string>
 
     <!-- Speech Provider -->
-    <string name="speech_provider_native">Nativ (Auf dem Gerät)</string>
+    <string name="speech_provider_native">System-Spracherkennung</string>
     <string name="speech_provider_openai">OpenAI GPT-Transcribe</string>
     <string name="speech_provider_groq">Groq (Whisper)</string>
     <string name="speech_provider_mistral">Mistral Voxtral</string>
@@ -230,12 +230,12 @@
     <string name="speech_key_placeholder_deepgram">Token dein-deepgram-key</string>
     <string name="speech_key_placeholder_assemblyai">Dein AssemblyAI-Schlüssel</string>
 
-    <string name="speech_description_native">Androids Spracherkennung auf dem Gerät. Kostenlos, funktioniert offline auf den meisten Telefonen, Echtzeit-Teilergebnisse. Empfohlene Standardeinstellung.</string>
+    <string name="speech_description_native">Android-Spracherkennung mit laufenden Teilergebnissen. Je nach Gerät und Sprache kann eine Internetverbindung erforderlich sein.</string>
     <string name="speech_description_openai">OpenAI GPT-Transcribe API. Hohe Genauigkeit, 99+ Sprachen, kostenpflichtig pro Minute.</string>
     <string name="speech_description_groq">Whisper Large v3 von Groq. Sehr schnelle Inferenz, mit kostenloser Stufe.</string>
-    <string name="speech_description_mistral">Voxtral Mini Transcribe 2 für genaue mehrsprachige Transkription in einem Durchgang.</string>
-    <string name="speech_description_deepgram">Deepgram Nova. Echtzeit- und Batch-Modus, schnell und genau.</string>
-    <string name="speech_description_assemblyai">AssemblyAI Universal-Modell. Hohe Genauigkeit, kostenlose Stufe verfügbar.</string>
+    <string name="speech_description_mistral">Voxtral Mini Transcribe 3 für mehrsprachige Transkription nach der Aufnahme.</string>
+    <string name="speech_description_deepgram">Deepgram Nova-3 für die Transkription nach der Aufnahme.</string>
+    <string name="speech_description_assemblyai">AssemblyAI STT 3.7 mit Universal-2 als Ausweichmodell für mehr Sprachen.</string>
 
     <!-- Bottom navigation -->
     <string name="nav_home">Start</string>

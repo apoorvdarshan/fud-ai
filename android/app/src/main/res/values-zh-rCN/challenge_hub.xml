@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="challenge_hub_title">挑战</string>
+    <string name="challenge_hub_daily">每日</string>
+    <string name="challenge_hub_weekly">每周</string>
+    <string name="challenge_hub_monthly">每月</string>
+    <string name="challenge_hub_your_points">你的积分</string>
+    <string name="challenge_hub_points">积分：%1$d</string>
+    <string name="challenge_hub_days">天数：%1$d</string>
+    <string name="challenge_hub_participants">参与者：%1$d</string>
+    <string name="challenge_hub_join">加入并分享成绩</string>
+    <string name="challenge_hub_remove">退出并删除成绩</string>
+    <string name="challenge_hub_go_weekly">前往每周挑战</string>
+    <string name="challenge_hub_habits">培养习惯，而不是追求更高数字</string>
+    <string name="challenge_hub_profile_first">请先加入每周挑战以创建挑战资料。</string>
+    <string name="challenge_hub_service">此排行榜需要更新挑战服务。</string>
+    <string name="challenge_hub_consent">加入后，其他参与者将看到你的名称及本时段的习惯汇总。不会共享日记条目、体重或热量数值。</string>
+    <string name="challenge_hub_rules_base">每天每项习惯获得一分：运动、记录饮食、达到营养目标和饮水目标。</string>
+    <string name="challenge_hub_rules_bonus">完成三项或以上习惯的当天可获得一分奖励。</string>
+    <string name="challenge_hub_rules_streak">在每天至少完成两项习惯的最长连续记录中，从第二天开始每天得一分。</string>
+    <string name="challenge_hub_leave">退出此挑战？</string>
+    <string name="challenge_hub_leave_detail">只会删除本时段的成绩。其他挑战和日记不受影响。</string>
+    <string name="challenge_hub_leave_all">退出所有挑战？</string>
+    <string name="challenge_hub_leave_all_detail">公开资料、所有成绩和挑战举报将被删除。私人日记仍保存在此设备上。</string>
+    <string name="challenge_hub_jump_to_rank">跳到我的排名</string>
+    <string name="challenge_hub_week_rank">优先比较所选积分。同分时，依次比较习惯的多样性、各项习惯的均衡程度及其他天数。如果仍相同，先达到这些成绩的人排名更高。运动消耗的热量不用于打破平局。</string>
+</resources>

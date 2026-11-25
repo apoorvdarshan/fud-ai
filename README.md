@@ -115,39 +115,42 @@ Its Dun & Bradstreet D-U-N-S Number is **311099925**, issued on **28 October 202
 
 ## AI Providers
 
-Pick any of the **16 LLM providers** for food analysis, meal what-if suggestions, optional nutrient-goal estimation, and Coach chat. Free Gemini keys are available at [aistudio.google.com/apikey](https://aistudio.google.com/apikey). Requests go directly from your device to the provider you configure. For text, voice-transcribed, and Siri food descriptions on supported iPhones, Apple Intelligence can run on-device only as the last fallback after BYOK provider/fallback attempts fail.
+Pick a provider for food analysis, meal what-if suggestions, optional nutrient-goal estimation, and Coach chat. BYOK requests go directly to the configured provider. Apple Intelligence on supported iPhones and downloadable Gemma models are separate on-device options. Not every provider model accepts photos or supports Coach's tools.
 
 | Provider | Format | Highlight | Needs API Key |
 |----------|--------|-----------|:---:|
-| Google Gemini | Gemini API | Gemini 3.5 Flash-Lite (default) / 3.6 Flash / 3.5 Flash | Yes |
-| OpenAI | OpenAI | GPT-5.4 Mini (default) / 5.5 / 5.4 Nano | Yes |
-| Anthropic Claude | Messages API | Sonnet 5 (default) / Opus 4.8 / Haiku 4.5 | Yes |
-| xAI Grok | OpenAI-compatible | Grok 4.3 | Yes |
-| OpenRouter | OpenAI-compatible | Any model, free-form IDs | Yes |
-| Together AI | OpenAI-compatible | Qwen 3.5, Gemma 4, MiniMax M3 | Yes |
-| Groq | OpenAI-compatible | Qwen 3.8 27B (preview; text and images) | Yes |
+| Google Gemini | Gemini API | Gemini 3.5 Flash-Lite (default), Gemini 4 Hydrogen | Yes |
+| OpenAI | Chat Completions and Responses | GPT-5.4 Mini (default), GPT-6 Luna, optional 6.1/6.2 | Yes |
+| Anthropic Claude | Messages API | Sonnet 5 (default), Haiku and Sonnet 5.5 | Yes |
+| xAI Grok | OpenAI-compatible | Grok 4.6, 4.3 and 4.7 | Yes |
+| OpenRouter | OpenAI-compatible | Presets and free-form IDs; free routing depends on capacity and region | Yes |
+| Together AI | OpenAI-compatible | Qwen 3.5 9B, Kimi K3.1 Pro, MiniMax M3.1 Flash (text) | Yes |
+| Groq | OpenAI-compatible | Qwen 3.8 27B (text and images), GPT-OSS (text) | Yes |
 | Hugging Face | OpenAI-compatible | Gemma 4 / 3 and Qwen 3.5 / 2.5 VL (open-weight router, free-form IDs) | Yes |
-| Fireworks AI | OpenAI-compatible | Qwen 3.7 Plus, MiniMax M3, Kimi K2.6 | Yes |
+| Fireworks AI | OpenAI-compatible | Kimi K3, MiniMax M3.1 Flash, Kimi K3.1 Pro | Yes |
 | DeepInfra | OpenAI-compatible | Gemma 4 / 3 vision models | Yes |
-| Mistral | OpenAI-compatible | Mistral Small / Medium, Ministral 14B | Yes |
-| DeepSeek | OpenAI-compatible | DeepSeek V4 Flash / Pro (text only) | Yes |
-| Alibaba Qwen | OpenAI-compatible | Qwen 3.7 Plus / 3.8 Max / 3-VL Plus; also Qwen live voice | Yes |
-| Cerebras | OpenAI-compatible | gpt-oss-120b, Gemma 4 (text only) | Yes |
+| Mistral | OpenAI-compatible | Mistral Small and Large 4, Ministral 14B | Yes |
+| DeepSeek | OpenAI-compatible | DeepSeek Flash (photos and text), V4 Pro (text) | Yes |
+| Alibaba Qwen | OpenAI-compatible | Qwen 3.8 Flash and Qwen4-Max; Qwen Live uses a separate workspace key | Yes |
+| Cerebras | OpenAI-compatible | Qwen 3.8 27B (photos and text), GPT-OSS 120B (text) | Yes |
 | Ollama | OpenAI-compatible (local) | Qwen 3 VL, Gemma 4, Llama 3.2 Vision, LLaVA, Moondream | No |
 | Custom (OpenAI-compatible) | OpenAI-compatible | You set base URL + free-form model name | Optional |
 
 ## Speech-to-Text Providers
 
-Pick how voice input is transcribed. Native iOS / Android is the default — free, on-device where supported, real-time. On Android, native speech first tries the on-device language path, then falls back to Android recognition with network/provider defaults if the phone lacks offline support for that language. Each provider has its own language setting: use Provider Auto, Use Device Language, or an explicit language hint where supported.
+Pick how voice input is transcribed. System Speech Recognition shows live partial results, but may use the network depending on the device and language. Recorded providers show text after you stop. Use Provider Auto, Use Device Language, or an explicit hint where supported.
 
 | Provider | Notes |
 |----------|-------|
-| Native iOS / Android (On-Device) | Free, offline where the phone supports the selected language, real-time partial results |
-| Gemini Audio | Batch audio transcription through Gemini for BYOK users |
-| OpenAI Whisper | Whisper-1 via `/v1/audio/transcriptions` |
-| Groq (Whisper) | Whisper-large-v3, very fast, has a free tier |
-| Deepgram | Nova-3, fast and accurate |
-| AssemblyAI | Universal model, strong accuracy, free tier |
+| System Speech Recognition | Built-in live recognition; not guaranteed offline |
+| Downloadable speech models | Whisper Base, Parakeet v3, Qwen3-ASR; see [model requirements](local-models/README.md) |
+| Apple SpeechAnalyzer | Optional offline recorded transcription on supported iOS devices with the selected language asset installed |
+| Gemini Audio | Gemini 3.5 Transcribe in verbatim mode |
+| OpenAI | GPT-Transcribe via `/v1/audio/transcriptions` |
+| Groq | Whisper Large v3, optional Turbo |
+| Mistral | Voxtral Mini Transcribe 3, optional Small |
+| Deepgram | Nova-3 for BYOK; explicit language detection with Automatic |
+| AssemblyAI | STT 3.7 with Universal-2 for broader language coverage |
 
 For Android phones where native speech is inconsistent, Groq (Whisper) or Deepgram are recommended alternatives; the developer currently uses Groq.
 

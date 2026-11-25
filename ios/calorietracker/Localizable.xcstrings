@@ -41552,6 +41552,94 @@
         }
       }
     },
+    "Workout Shortcuts": {
+      "localizations": {
+        "ar": { "stringUnit": { "state": "translated", "value": "اختصارات التمارين" } },
+        "az": { "stringUnit": { "state": "translated", "value": "Məşq qısayolları" } },
+        "cs": { "stringUnit": { "state": "translated", "value": "Tréninkové zkratky" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Trainingskurzbefehle" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Atajos de entrenamiento" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Raccourcis d’entraînement" } },
+        "hi": { "stringUnit": { "state": "translated", "value": "वर्कआउट शॉर्टकट" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Scorciatoie di allenamento" } },
+        "ja": { "stringUnit": { "state": "translated", "value": "ワークアウトのショートカット" } },
+        "ko": { "stringUnit": { "state": "translated", "value": "운동 바로가기" } },
+        "nl": { "stringUnit": { "state": "translated", "value": "Trainingssnelkoppelingen" } },
+        "pl": { "stringUnit": { "state": "translated", "value": "Skróty treningowe" } },
+        "pt-BR": { "stringUnit": { "state": "translated", "value": "Atalhos de treino" } },
+        "ro": { "stringUnit": { "state": "translated", "value": "Comenzi rapide pentru antrenament" } },
+        "ru": { "stringUnit": { "state": "translated", "value": "Быстрые действия для тренировок" } },
+        "tr": { "stringUnit": { "state": "translated", "value": "Antrenman kısayolları" } },
+        "uk": { "stringUnit": { "state": "translated", "value": "Швидкі дії для тренувань" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "训练快捷操作" } }
+      }
+    },
+    "Home Shortcuts": {
+      "localizations": {
+        "ar": { "stringUnit": { "state": "translated", "value": "اختصارات الشاشة الرئيسية" } },
+        "az": { "stringUnit": { "state": "translated", "value": "Əsas ekran qısayolları" } },
+        "cs": { "stringUnit": { "state": "translated", "value": "Zkratky na hlavní obrazovce" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Kurzbefehle auf der Startseite" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Atajos de inicio" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Raccourcis de l’accueil" } },
+        "hi": { "stringUnit": { "state": "translated", "value": "होम शॉर्टकट" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Scorciatoie della schermata Home" } },
+        "ja": { "stringUnit": { "state": "translated", "value": "ホームのショートカット" } },
+        "ko": { "stringUnit": { "state": "translated", "value": "홈 바로가기" } },
+        "nl": { "stringUnit": { "state": "translated", "value": "Snelkoppelingen op het beginscherm" } },
+        "pl": { "stringUnit": { "state": "translated", "value": "Skróty na ekranie głównym" } },
+        "pt-BR": { "stringUnit": { "state": "translated", "value": "Atalhos da tela inicial" } },
+        "ro": { "stringUnit": { "state": "translated", "value": "Comenzi rapide pe ecranul principal" } },
+        "ru": { "stringUnit": { "state": "translated", "value": "Быстрые действия на главном экране" } },
+        "tr": { "stringUnit": { "state": "translated", "value": "Ana ekran kısayolları" } },
+        "uk": { "stringUnit": { "state": "translated", "value": "Швидкі дії на головному екрані" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "主页快捷操作" } }
+      }
+    },
+    "Shortcut %lld": {
+      "localizations": {
+        "ar": { "stringUnit": { "state": "translated", "value": "الاختصار %lld" } },
+        "az": { "stringUnit": { "state": "translated", "value": "Qısayol %lld" } },
+        "cs": { "stringUnit": { "state": "translated", "value": "Zkratka %lld" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Kurzbefehl %lld" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Atajo %lld" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Raccourci %lld" } },
+        "hi": { "stringUnit": { "state": "translated", "value": "शॉर्टकट %lld" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Scorciatoia %lld" } },
+        "ja": { "stringUnit": { "state": "translated", "value": "ショートカット%lld" } },
+        "ko": { "stringUnit": { "state": "translated", "value": "바로가기 %lld" } },
+        "nl": { "stringUnit": { "state": "translated", "value": "Snelkoppeling %lld" } },
+        "pl": { "stringUnit": { "state": "translated", "value": "Skrót %lld" } },
+        "pt-BR": { "stringUnit": { "state": "translated", "value": "Atalho %lld" } },
+        "ro": { "stringUnit": { "state": "translated", "value": "Comanda rapidă %lld" } },
+        "ru": { "stringUnit": { "state": "translated", "value": "Быстрое действие %lld" } },
+        "tr": { "stringUnit": { "state": "translated", "value": "Kısayol %lld" } },
+        "uk": { "stringUnit": { "state": "translated", "value": "Швидка дія %lld" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "快捷操作 %lld" } }
+      }
+    },
+    "More shortcuts appear on wider screens.": {
+      "localizations": {
+        "ar": { "stringUnit": { "state": "translated", "value": "تظهر اختصارات إضافية على الشاشات الأعرض." } },
+        "az": { "stringUnit": { "state": "translated", "value": "Daha geniş ekranlarda daha çox qısayol görünür." } },
+        "cs": { "stringUnit": { "state": "translated", "value": "Na širších obrazovkách se zobrazí více zkratek." } },
+        "de": { "stringUnit": { "state": "translated", "value": "Auf breiteren Bildschirmen erscheinen mehr Kurzbefehle." } },
+        "es": { "stringUnit": { "state": "translated", "value": "En pantallas más anchas aparecen más atajos." } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Plus de raccourcis s’affichent sur les écrans plus larges." } },
+        "hi": { "stringUnit": { "state": "translated", "value": "चौड़ी स्क्रीन पर ज़्यादा शॉर्टकट दिखते हैं।" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Sui dispositivi con schermi più larghi compaiono più scorciatoie." } },
+        "ja": { "stringUnit": { "state": "translated", "value": "画面が広いほど、表示されるショートカットが増えます。" } },
+        "ko": { "stringUnit": { "state": "translated", "value": "화면이 넓을수록 더 많은 바로가기가 표시됩니다." } },
+        "nl": { "stringUnit": { "state": "translated", "value": "Op bredere schermen verschijnen meer snelkoppelingen." } },
+        "pl": { "stringUnit": { "state": "translated", "value": "Na szerszych ekranach widać więcej skrótów." } },
+        "pt-BR": { "stringUnit": { "state": "translated", "value": "Mais atalhos aparecem em telas mais largas." } },
+        "ro": { "stringUnit": { "state": "translated", "value": "Pe ecranele mai late apar mai multe comenzi rapide." } },
+        "ru": { "stringUnit": { "state": "translated", "value": "На более широких экранах отображается больше быстрых действий." } },
+        "tr": { "stringUnit": { "state": "translated", "value": "Daha geniş ekranlarda daha fazla kısayol görünür." } },
+        "uk": { "stringUnit": { "state": "translated", "value": "На ширших екранах відображається більше швидких дій." } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "屏幕越宽，显示的快捷操作越多。" } }
+      }
+    },
     "Home": {
       "localizations": {
         "ar": {
@@ -170205,114 +170293,114 @@
         }
       }
     },
-    "Adds what you and the assistant say to your Coach chat.": {
+    "Saves voice conversations to Coach and shares recent Coach messages with your voice provider when needed.": {
       "localizations": {
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "يضيف ما تقوله أنت والمساعد إلى محادثتك مع المدرب."
+            "value": "يحفظ المحادثات الصوتية في دردشة المدرب ويشارك الرسائل الأخيرة فيها مع مزوّد الخدمة الصوتية عند الحاجة."
           }
         },
         "az": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sizin və köməkçinin dediklərini Məşqçi söhbətinizə əlavə edir."
+            "value": "Səsli söhbətləri Məşqçidə saxlayır və lazım olduqda son Məşqçi mesajlarını səs xidməti provayderinizlə paylaşır."
           }
         },
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Přidá, co ty a asistent řeknete, do tvého chatu s Koučem."
+            "value": "Ukládá hlasové konverzace do Kouče a v případě potřeby sdílí nedávné zprávy z Kouče s poskytovatelem hlasové služby."
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Fügt hinzu, was du und der Assistent sagt, zu deinem Coach-Chat."
+            "value": "Speichert Sprachgespräche im Coach-Chat und teilt bei Bedarf aktuelle Coach-Nachrichten mit deinem Sprachanbieter."
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Añade lo que dices tú y lo que dice el asistente a tu chat de Coach."
+            "value": "Guarda las conversaciones de voz en Coach y comparte mensajes recientes de Coach con tu proveedor de voz cuando es necesario."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ajoute ce que vous et l’assistant dites à votre discussion Coach."
+            "value": "Enregistre les conversations vocales dans Coach et partage au besoin les messages récents de Coach avec votre fournisseur de service vocal."
           }
         },
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "आप और असिस्टेंट जो कहते हैं, उसे आपकी कोच चैट में जोड़ता है।"
+            "value": "वॉइस बातचीत को कोच में सेव करता है और ज़रूरत पड़ने पर कोच के हाल के मैसेज आपके वॉइस सेवा प्रदाता के साथ शेयर करता है।"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Aggiunge quello che dite tu e l’assistente alla tua chat con Coach."
+            "value": "Salva le conversazioni vocali in Coach e condivide, quando serve, i messaggi recenti di Coach con il tuo fornitore del servizio vocale."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "あなたとアシスタントの発言をコーチのチャットに追加します。"
+            "value": "音声会話をコーチに保存し、必要に応じてコーチの最近のメッセージを音声サービス提供元と共有します。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "사용자와 어시스턴트가 한 말을 코치 채팅에 추가합니다."
+            "value": "음성 대화를 코치에 저장하고, 필요할 때 최근 코치 메시지를 음성 서비스 제공업체와 공유합니다."
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Voegt toe wat jij en de assistent zeggen aan je Coach-chat."
+            "value": "Slaat spraakgesprekken op in Coach en deelt zo nodig recente Coach-berichten met je spraakprovider."
           }
         },
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dodaje to, co mówisz ty i asystent, do twojego czatu z Trenerem."
+            "value": "Zapisuje rozmowy głosowe w Trenerze i w razie potrzeby udostępnia ostatnie wiadomości z Trenera dostawcy usługi głosowej."
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Adiciona o que você e o assistente dizem ao seu chat do Coach."
+            "value": "Salva as conversas por voz no Coach e compartilha mensagens recentes do Coach com seu provedor de voz quando necessário."
           }
         },
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Adaugă ce spuneți tu și asistentul în chatul tău cu Antrenorul."
+            "value": "Salvează conversațiile vocale în Antrenor și, la nevoie, partajează mesajele recente din Antrenor cu furnizorul tău de servicii vocale."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Добавляет сказанное вами и ассистентом в ваш чат с «Тренером»."
+            "value": "Сохраняет голосовые разговоры в «Тренере» и при необходимости передаёт недавние сообщения из него поставщику голосового сервиса."
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sizin ve asistanın söylediklerini Koç sohbetinize ekler."
+            "value": "Sesli konuşmaları Koç’a kaydeder ve gerektiğinde son Koç mesajlarını ses hizmeti sağlayıcınızla paylaşır."
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Додає сказане вами й асистентом у ваш чат із «Тренером»."
+            "value": "Зберігає голосові розмови в «Тренері» та за потреби передає нещодавні повідомлення з нього постачальнику голосового сервісу."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "将你和助手说的话添加到教练聊天中。"
+            "value": "将语音对话保存到教练，并在需要时与语音服务提供商共享最近的教练消息。"
           }
         }
       }

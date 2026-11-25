@@ -4,6 +4,7 @@ import SwiftUI
 struct WorkoutLoggingSettingsSection: View {
     @Environment(StrengthWorkoutStore.self) private var workoutStore
     @AppStorage(OutdoorActivitySettings.enabledKey) private var walkRunQuickLogEnabled = false
+    @AppStorage(WorkoutDockShortcuts.storageKey) private var dockShortcutsRaw = ""
 
     @State private var draft = StrengthWorkoutPreferences()
     @State private var hasLoaded = false
@@ -66,6 +67,29 @@ struct WorkoutLoggingSettingsSection: View {
             guard hasLoaded else { return }
             workoutStore.updatePreferences { $0 = newValue }
         }
+        Section {
+            ForEach(WorkoutDockShortcuts.defaults.indices, id: \.self) { slot in
+                FlashChoicePicker(
+                    title: Text("Shortcut \(slot + 1)"),
+                    selection: Binding(
+                        get: { WorkoutDockShortcuts(stored: dockShortcutsRaw).actions[slot] },
+                        set: { action in
+                            var shortcuts = WorkoutDockShortcuts(stored: dockShortcutsRaw)
+                            shortcuts.assign(action, to: slot)
+                            dockShortcutsRaw = shortcuts.stored
+                        }
+                    ),
+                    options: WorkoutDockAction.allCases,
+                    icon: { $0.icon }
+                ) { Text($0.title) }
+                .accessibilityIdentifier("settings.workoutShortcut.\(slot)")
+            }
+        } header: {
+            Text("Workout Shortcuts").flashSectionHeading()
+        } footer: {
+            Text("More shortcuts appear on wider screens.")
+        }
+        .flashSectionRows()
     }
 
     private func loadPreferences() {

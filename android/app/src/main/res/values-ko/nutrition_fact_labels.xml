@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="waiting_fact_measure_per_100g">%1$s: 100 g당 %2$s</string>
+    <string name="waiting_fact_prep_raw">생것</string>
+    <string name="waiting_fact_prep_raw_skin">생것, 껍질 포함</string>
+    <string name="waiting_fact_prep_dried">말린 것</string>
+    <string name="waiting_fact_prep_boiled_no_salt">소금을 넣지 않고 삶은 것</string>
+    <string name="waiting_fact_prep_cooked_no_salt">소금을 넣지 않고 익힌 것</string>
+    <string name="waiting_fact_prep_cooked">익힌 것</string>
+    <string name="waiting_fact_prep_baked_skin_no_salt">소금을 넣지 않고 껍질째 구운 것</string>
+    <string name="waiting_fact_prep_baked_flesh_no_salt">소금을 넣지 않고 구운 속살</string>
+    <string name="waiting_fact_prep_roasted_no_salt">소금을 넣지 않고 볶은 것</string>
+    <string name="waiting_fact_prep_hard_boiled">완숙</string>
+    <string name="waiting_fact_prep_plain_whole_milk">플레인, 전지유 사용</string>
+    <string name="waiting_fact_prep_roasted">구운 것</string>
+    <string name="waiting_fact_prep_no_salt">소금 무첨가</string>
+</resources>

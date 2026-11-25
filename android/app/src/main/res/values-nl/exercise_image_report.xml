@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="workout_image_report">Probleem met afbeelding melden</string>
+    <string name="workout_image_report_note">Wat klopt er niet aan de afbeelding?</string>
+    <string name="workout_image_report_review">Meldingen worden openbaar. Deel geen privégegevens.</string>
+    <string name="workout_image_report_discord_help">De melding wordt gekopieerd. Gebruik op de Discord-server van Fud AI /bug en plak de tekst in het veld report.</string>
+    <string name="workout_image_report_open_failed">Kan de link niet openen.</string>
+</resources>

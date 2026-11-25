@@ -183,7 +183,7 @@
     <string name="ai_key_placeholder_custom">API anahtarı (uç nokta gerektirmiyorsa herhangi bir şey)</string>
 
     <!-- Speech Provider -->
-    <string name="speech_provider_native">Yerel (Cihaz Üzerinde)</string>
+    <string name="speech_provider_native">Sistem konuşma tanıma</string>
     <string name="speech_provider_local_whisper">Whisper Base (Cihaz Üzerinde)</string>
     <string name="speech_provider_gemini">Gemini Ses</string>
     <string name="speech_provider_openai">OpenAI GPT-Transcribe</string>
@@ -201,14 +201,14 @@
     <string name="speech_key_placeholder_deepgram">Token your-deepgram-key</string>
     <string name="speech_key_placeholder_assemblyai">AssemblyAI anahtarınız</string>
 
-    <string name="speech_description_native">Android\'in cihaz üzerinde konuşma tanıma özelliği. Ücretsizdir, çoğu telefonda çevrimdışı çalışır, gerçek zamanlı kısmi sonuçlar sunar. Önerilen varsayılan.</string>
+    <string name="speech_description_native">Android konuşma tanıma, konuşurken kısmi sonuçlar gösterir. Cihaza ve dile bağlı olarak internet gerekebilir.</string>
     <string name="speech_description_local_whisper">İndirilen çok dilli Whisper Base. Ses bu cihazda kalır, API anahtarı gerekmez.</string>
     <string name="speech_description_gemini">Otomatik dil algılamalı doğru toplu deşifre için Gemini 3.5 Transcribe.</string>
     <string name="speech_description_openai">Kaydedilmiş ses için mevcut yüksek doğruluklu model olan OpenAI GPT-Transcribe.</string>
     <string name="speech_description_groq">Groq üzerinde barındırılan Whisper Large v3. Çok hızlı çıkarım, ücretsiz katmanı var.</string>
-    <string name="speech_description_mistral">Doğru çok dilli toplu deşifre için Voxtral Mini Transcribe 2.</string>
-    <string name="speech_description_deepgram">Deepgram Nova. Gerçek zamanlı ve toplu modlar, hızlı ve doğru.</string>
-    <string name="speech_description_assemblyai">AssemblyAI Universal modeli. Güçlü doğruluk, ücretsiz katman mevcut.</string>
+    <string name="speech_description_mistral">Birden çok dilde ses kayıtlarını yazıya dökmek için Voxtral Mini Transcribe 3.</string>
+    <string name="speech_description_deepgram">Kayıt sonrasında sesi yazıya dökmek için Deepgram Nova-3.</string>
+    <string name="speech_description_assemblyai">Daha fazla dil için yedek Universal-2 modeliyle AssemblyAI STT 3.7.</string>
 
     <!-- Bottom navigation -->
     <string name="nav_home">Ana Sayfa</string>

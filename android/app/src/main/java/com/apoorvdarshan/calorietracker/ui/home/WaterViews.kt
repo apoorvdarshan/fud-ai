@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker.ui.home
 
+import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -47,7 +48,8 @@ fun WaterCustomAmountSheet(unit: WaterUnit, onDismiss: () -> Unit, onAdd: (Int) 
         sheetState = sheetState
     ) {
         Column(
-            Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 8.dp),
+            Modifier.fillMaxWidth().verticalScroll(rememberScrollState())
+                .padding(horizontal = FlashSpacing.SheetInset, vertical = FlashSpacing.ItemGap),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             Text(stringResource(R.string.water_log_title), fontWeight = FontWeight.Black, fontSize = 21.sp)

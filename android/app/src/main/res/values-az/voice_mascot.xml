@@ -1,0 +1,12 @@
+<resources>
+    <string name="voice_mascot">Maskot</string>
+    <string name="voice_mascot_color">Rəng</string>
+    <string name="voice_mascot_personality">Ünsiyyət tərzi</string>
+    <string name="voice_mascot_original">Orijinal rənglər</string>
+    <string name="voice_mascot_pink">Çəhrayı</string>
+    <string name="voice_mascot_friendly">Səmimi</string>
+    <string name="voice_mascot_playful">Şən</string>
+    <string name="voice_mascot_calm">Sakit</string>
+    <string name="voice_mascot_direct">Birbaşa</string>
+    <string name="voice_mascot_next_session">Dəyişikliklər növbəti söhbətdə tətbiq olunur.</string>
+</resources>

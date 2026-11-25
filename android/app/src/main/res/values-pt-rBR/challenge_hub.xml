@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="challenge_hub_title">Desafios</string>
+    <string name="challenge_hub_daily">Diário</string>
+    <string name="challenge_hub_weekly">Semanal</string>
+    <string name="challenge_hub_monthly">Mensal</string>
+    <string name="challenge_hub_your_points">Seus pontos</string>
+    <string name="challenge_hub_points">Pontos: %1$d</string>
+    <string name="challenge_hub_days">Dias: %1$d</string>
+    <string name="challenge_hub_participants">Participantes: %1$d</string>
+    <string name="challenge_hub_join">Participar e compartilhar pontuações</string>
+    <string name="challenge_hub_remove">Sair e remover pontuações</string>
+    <string name="challenge_hub_go_weekly">Ir para o desafio semanal</string>
+    <string name="challenge_hub_habits">Crie hábitos, não persiga números</string>
+    <string name="challenge_hub_profile_first">Entre primeiro no desafio semanal para criar seu perfil.</string>
+    <string name="challenge_hub_service">Este ranking precisa de uma atualização do serviço de desafios.</string>
+    <string name="challenge_hub_consent">Ao participar, seu nome e seus totais de hábitos do período ficam visíveis para outros participantes. Diário, peso e quantidades de calorias não são compartilhados.</string>
+    <string name="challenge_hub_rules_base">Ganhe um ponto por hábito a cada dia: movimento, registro de alimentação, meta de nutrição e meta de água.</string>
+    <string name="challenge_hub_rules_bonus">Ganhe um ponto extra nos dias em que completar pelo menos três hábitos.</string>
+    <string name="challenge_hub_rules_streak">Na sua sequência mais longa de dias com pelo menos dois hábitos, cada dia após o primeiro vale um ponto.</string>
+    <string name="challenge_hub_leave">Sair deste desafio?</string>
+    <string name="challenge_hub_leave_detail">Só suas pontuações deste período serão removidas. Os outros desafios e o diário não mudam.</string>
+    <string name="challenge_hub_leave_all">Sair de todos os desafios?</string>
+    <string name="challenge_hub_leave_all_detail">Seu perfil público, todas as pontuações e os relatos de desafios serão excluídos. Seu diário privado fica neste dispositivo.</string>
+    <string name="challenge_hub_jump_to_rank">Ir para minha posição</string>
+    <string name="challenge_hub_week_rank">A pontuação selecionada vem primeiro. Empates favorecem variedade de hábitos, resultados mais equilibrados e as outras contagens de dias. Persistindo o empate, fica na frente quem chegou primeiro. Calorias de exercícios não desempatarão.</string>
+</resources>

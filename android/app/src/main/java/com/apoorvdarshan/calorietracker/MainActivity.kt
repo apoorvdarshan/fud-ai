@@ -2,6 +2,8 @@ package com.apoorvdarshan.calorietracker
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.SystemClock
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
@@ -16,16 +18,24 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.hapticfeedback.HapticFeedback
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.core.view.WindowCompat
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.apoorvdarshan.calorietracker.data.StartupPreferences
 import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.QuickActionRequest
 import com.apoorvdarshan.calorietracker.services.MealShare
 import com.apoorvdarshan.calorietracker.services.QuickActionShortcutManager
 import com.apoorvdarshan.calorietracker.services.ReviewPrompter
+import com.apoorvdarshan.calorietracker.services.challenge.syncChallengePeriodsWhileForeground
 import com.apoorvdarshan.calorietracker.services.update.AndroidUpdateChecker
 import com.apoorvdarshan.calorietracker.services.voice.VoiceEntryPoints
 import com.apoorvdarshan.calorietracker.ui.components.LocalEnergyUnit
@@ -120,6 +130,7 @@ open class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val activityStart = SystemClock.elapsedRealtime()
         // Must run before super.onCreate so the system swaps the splash theme
         // back to Theme.FudAI before the first frame, preventing a white flash
         // on cold start. The splash uses a transparent foreground mark over
@@ -127,6 +138,15 @@ open class MainActivity : AppCompatActivity() {
         val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        val app = application as FudAIApp
+        if (app.backgroundServicesEnabled) {
+            lifecycleScope.launch {
+                repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    withContext(Dispatchers.Default) { syncChallengePeriodsWhileForeground(app.container) }
+                }
+            }
+        }
 
         // Launch the Play in-app review card once, right after the first
         // successful food log (see ReviewPrompter). Silently no-ops on devices
@@ -172,17 +192,35 @@ open class MainActivity : AppCompatActivity() {
         var contentReady = false
         splashScreen.setKeepOnScreenCondition { !contentReady }
         lifecycleScope.launch {
+            val prefsStart = SystemClock.elapsedRealtime()
             val startup = withContext(Dispatchers.Default) {
                 if (resetOnboarding) container.prefs.setOnboardingCompleted(false)
                 container.prefs.startupPreferences()
             }
-            showContent(container, startup)
-            contentReady = true
+            val prefsEnd = SystemClock.elapsedRealtime()
+            showContent(container, startup) {
+                contentReady = true
+                if (BuildConfig.DEBUG) {
+                    Log.d("FudStartup", "Activity: preferences=${prefsEnd - prefsStart}ms; " +
+                        "composition=${SystemClock.elapsedRealtime() - prefsEnd}ms; " +
+                        "total=${SystemClock.elapsedRealtime() - activityStart}ms")
+                }
+            }
         }
     }
 
-    private fun showContent(container: AppContainer, startup: StartupPreferences) {
+    private fun showContent(container: AppContainer, startup: StartupPreferences, onFirstContentReady: () -> Unit) {
         setContent {
+            val platformHaptics = LocalHapticFeedback.current
+            val hapticsEnabled by container.hapticsEnabled.collectAsState()
+            val enabled = rememberUpdatedState(hapticsEnabled)
+            val appHaptics = remember(platformHaptics) {
+                object : HapticFeedback {
+                    override fun performHapticFeedback(hapticFeedbackType: HapticFeedbackType) {
+                        if (enabled.value) platformHaptics.performHapticFeedback(hapticFeedbackType)
+                    }
+                }
+            }
             val appearance by container.prefs.appearanceMode.collectAsState(initial = startup.appearanceMode)
             val themeColorKey by container.prefs.appThemeColor.collectAsState(initial = startup.themeColorKey)
             val themeColor = AppThemeColor.fromKey(themeColorKey)
@@ -202,16 +240,18 @@ open class MainActivity : AppCompatActivity() {
                 }
             }
             FudAITheme(darkTheme = darkTheme, themeColor = themeColor, grayDarkTheme = appearance == "darkGray") {
-                // Above the NavHost and the shared-meal sheet so both show the chosen unit.
-                CompositionLocalProvider(LocalEnergyUnit provides energyUnit) {
+                CompositionLocalProvider(
+                    LocalEnergyUnit provides energyUnit,
+                    LocalHapticFeedback provides appHaptics
+                ) {
                     Surface(
                         modifier = Modifier.fillMaxSize(),
                         color = MaterialTheme.colorScheme.background
                     ) {
                         FudAINavHost(
                             container = container,
-                            startOnboarding = startup.startOnboarding,
-                            initialHomeProfile = startup.profile,
+                            startup = startup,
+                            onFirstContentReady = onFirstContentReady,
                             quickActionRequest = pendingQuickAction,
                             onQuickActionHandled = { requestID ->
                                 if (pendingQuickAction?.id == requestID) pendingQuickAction = null

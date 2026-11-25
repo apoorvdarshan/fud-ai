@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="waiting_fact_heading">Você sabia?</string>
+    <string name="waiting_fact_vitamin_c">A vitamina C ajuda o corpo a absorver o ferro dos alimentos de origem vegetal.</string>
+    <string name="waiting_fact_beans">Feijões e lentilhas contêm proteínas e fibras.</string>
+    <string name="waiting_fact_oats">A aveia contém beta-glucana, um tipo de fibra solúvel.</string>
+    <string name="waiting_fact_vegetables" formatted="false">A água representa mais de 90% do peso dos pepinos e tomates.</string>
+    <string name="waiting_fact_strength">O treino de força trabalha contra uma resistência. O peso do seu corpo também conta.</string>
+</resources>

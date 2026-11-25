@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="waiting_fact_measure_per_100g">%1$s: प्रति 100 ग्राम %2$s</string>
+    <string name="waiting_fact_prep_raw">कच्चा</string>
+    <string name="waiting_fact_prep_raw_skin">कच्चा, छिलके के साथ</string>
+    <string name="waiting_fact_prep_dried">सूखा</string>
+    <string name="waiting_fact_prep_boiled_no_salt">बिना नमक डाले उबला</string>
+    <string name="waiting_fact_prep_cooked_no_salt">बिना नमक डाले पका</string>
+    <string name="waiting_fact_prep_cooked">पका हुआ</string>
+    <string name="waiting_fact_prep_baked_skin_no_salt">छिलके के साथ बेक किया, बिना नमक डाले</string>
+    <string name="waiting_fact_prep_baked_flesh_no_salt">बेक किया हुआ गूदा, बिना नमक डाले</string>
+    <string name="waiting_fact_prep_roasted_no_salt">बिना नमक डाले भुना</string>
+    <string name="waiting_fact_prep_hard_boiled">पूरी तरह उबला</string>
+    <string name="waiting_fact_prep_plain_whole_milk">सादा, पूर्ण वसा वाले दूध से</string>
+    <string name="waiting_fact_prep_roasted">भुना हुआ</string>
+    <string name="waiting_fact_prep_no_salt">बिना नमक डाले</string>
+</resources>

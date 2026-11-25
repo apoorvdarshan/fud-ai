@@ -45,7 +45,6 @@ import androidx.compose.material.icons.filled.Storage
 import androidx.compose.material.icons.filled.SwapHoriz
 import androidx.compose.material.icons.filled.SwapVert
 import androidx.compose.material.icons.filled.Tag
-import androidx.compose.material.icons.filled.SportsGymnastics
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import com.apoorvdarshan.calorietracker.ui.components.FlashDropdownMenu as DropdownMenu
@@ -77,7 +76,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -91,14 +89,14 @@ import com.apoorvdarshan.calorietracker.data.ExerciseVisual
 import com.apoorvdarshan.calorietracker.models.UserExercise
 import com.apoorvdarshan.calorietracker.models.WorkoutTabMode
 import com.apoorvdarshan.calorietracker.models.WorkoutWeightUnit
-import com.apoorvdarshan.calorietracker.ui.components.FudGlassSurface
 import com.apoorvdarshan.calorietracker.ui.navigation.BottomNavScrollPadding
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 @Composable
-fun WorkoutsScreen(container: AppContainer, modifier: Modifier = Modifier) {
+fun WorkoutsScreen(container: AppContainer, mode: WorkoutTabMode, modifier: Modifier = Modifier) {
     val context = LocalContext.current
     var catalog by remember { mutableStateOf(ExerciseRepository.peek()) }
     LaunchedEffect(Unit) {
@@ -186,13 +184,7 @@ fun WorkoutsScreen(container: AppContainer, modifier: Modifier = Modifier) {
         return
     }
 
-    val toggleMode = {
-        vm.setMode(
-            if (vm.diaryUiState.mode == WorkoutTabMode.LOG) WorkoutTabMode.LIBRARY else WorkoutTabMode.LOG
-        )
-    }
-
-    if (vm.diaryUiState.mode == WorkoutTabMode.LOG) {
+    if (mode == WorkoutTabMode.LOG) {
         WorkoutDiaryScreen(
             container = container,
             bodyWeightKg = bodyWeightKg,
@@ -200,7 +192,6 @@ fun WorkoutsScreen(container: AppContainer, modifier: Modifier = Modifier) {
             exerciseRepository = repo,
             viewModel = vm,
             weekStartsOnMonday = weekStartsOnMonday,
-            onShowLibrary = toggleMode,
             onCreateExercise = { showCreateUserExercise = true },
             onEditUserExercise = { editingUserExerciseId = it },
             modifier = modifier
@@ -209,49 +200,9 @@ fun WorkoutsScreen(container: AppContainer, modifier: Modifier = Modifier) {
         WorkoutLibraryScreen(
             repo = repo,
             vm = vm,
-            onShowLog = toggleMode,
             onCreateExercise = { showCreateUserExercise = true },
             modifier = modifier
         )
-    }
-}
-
-@Composable
-internal fun WorkoutModeToggleButton(
-    mode: WorkoutTabMode,
-    onToggle: () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    FudGlassSurface(
-        modifier = modifier
-            .size(48.dp)
-            .clickable(onClick = onToggle),
-        cornerRadius = 18.dp,
-        padding = 0.dp,
-        contentAlignment = Alignment.Center
-    ) {
-        Icon(
-            imageVector = if (mode == WorkoutTabMode.LOG) Icons.Filled.FitnessCenter else Icons.Filled.SportsGymnastics,
-            contentDescription = if (mode == WorkoutTabMode.LOG) "Show exercise library" else "Show workout log",
-            tint = AppColors.Calorie,
-            modifier = Modifier.size(24.dp)
-        )
-    }
-}
-
-@Composable
-private fun WorkoutLibrarySearchRow(
-    value: String,
-    onValueChange: (String) -> Unit,
-    onShowLog: () -> Unit
-) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(10.dp)
-    ) {
-        SearchPill(value = value, onValueChange = onValueChange, modifier = Modifier.weight(1f))
-        WorkoutModeToggleButton(mode = WorkoutTabMode.LIBRARY, onToggle = onShowLog)
     }
 }
 
@@ -271,7 +222,6 @@ private fun filterByWorkoutSplit(items: List<ExerciseItem>, vm: WorkoutsViewMode
 private fun WorkoutLibraryScreen(
     repo: ExerciseRepository,
     vm: WorkoutsViewModel,
-    onShowLog: () -> Unit,
     onCreateExercise: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -320,13 +270,13 @@ private fun WorkoutLibraryScreen(
             .background(workoutsColors().background)
     ) {
         Column(
-            Modifier.padding(start = 20.dp, end = 20.dp, top = 14.dp, bottom = 18.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+            Modifier.padding(horizontal = FlashSpacing.PageInset, vertical = FlashSpacing.ItemGap),
+            verticalArrangement = Arrangement.spacedBy(FlashSpacing.ItemGap)
         ) {
-            WorkoutLibrarySearchRow(
+            SearchPill(
                 value = vm.searchInput,
                 onValueChange = { vm.searchInput = it },
-                onShowLog = onShowLog
+                modifier = Modifier.fillMaxWidth()
             )
             FilterRow(repo, vm)
         }
@@ -337,7 +287,7 @@ private fun WorkoutLibraryScreen(
             onReset = vm::reset,
             selectedSort = vm.sort,
             onSort = { vm.sort = it },
-            modifier = Modifier.padding(horizontal = 20.dp, vertical = 4.dp)
+            modifier = Modifier.padding(horizontal = FlashSpacing.PageInset, vertical = 4.dp)
         )
         LazyColumn(
             state = listState,
@@ -356,7 +306,7 @@ private fun WorkoutLibraryScreen(
                     HorizontalDivider(
                         color = workoutsColors().hairline.copy(alpha = 0.28f),
                         thickness = 0.5.dp,
-                        modifier = Modifier.padding(start = 144.dp, end = 20.dp)
+                        modifier = Modifier.padding(start = ExerciseRowTextInset, end = FlashSpacing.PageInset)
                     )
                 }
             }
@@ -661,24 +611,25 @@ internal fun ExerciseRow(
         modifier = Modifier
             .fillMaxWidth()
             .clickable { onClick() }
-            .padding(horizontal = 20.dp, vertical = 15.dp),
+            .padding(horizontal = FlashSpacing.PageInset, vertical = FlashSpacing.ItemGap),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
+        horizontalArrangement = Arrangement.spacedBy(FlashSpacing.ItemGap)
     ) {
         Box(
             Modifier
-                .size(104.dp)
-                .clip(RoundedCornerShape(18.dp))
+                .size(ExerciseRowThumbnail)
+                .clip(RoundedCornerShape(10.dp))
                 .background(colors.panel.copy(alpha = 0.32f))
-                .border(0.5.dp, colors.hairline.copy(alpha = 0.38f), RoundedCornerShape(18.dp))
+                .border(0.5.dp, colors.hairline.copy(alpha = 0.38f), RoundedCornerShape(10.dp))
         ) {
             AnimatedExerciseImage(visual, Modifier.fillMaxSize(), animatesFrames = false)
         }
-        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(9.dp)) {
-            Text(item.name, color = colors.charcoal, fontSize = 17.sp, fontWeight = FontWeight.SemiBold, maxLines = 2, overflow = TextOverflow.Ellipsis)
+        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            Text(item.name, color = colors.charcoal, fontSize = 16.sp, lineHeight = 20.sp,
+                fontWeight = FontWeight.Bold)
             FlowRow(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalArrangement = Arrangement.spacedBy(5.dp)
+                horizontalArrangement = Arrangement.spacedBy(5.dp),
+                verticalArrangement = Arrangement.spacedBy(3.dp)
             ) {
                 Tag(item.primaryMusclesTitle, Icons.Filled.GpsFixed)
                 Tag(item.equipment, Icons.Filled.FitnessCenter)
@@ -686,12 +637,16 @@ internal fun ExerciseRow(
             }
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
                 Icon(Icons.Filled.Storage, null, tint = colors.secondaryAccent, modifier = Modifier.size(13.dp))
-                Text(item.databaseMetadataSummary, color = colors.secondaryAccent, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                Text(item.databaseMetadataSummary, color = colors.secondaryAccent, fontSize = 12.sp,
+                    lineHeight = 15.sp, fontWeight = FontWeight.SemiBold)
             }
         }
         trailingContent()
     }
 }
+
+private val ExerciseRowThumbnail = 64.dp
+internal val ExerciseRowTextInset = FlashSpacing.PageInset + ExerciseRowThumbnail + FlashSpacing.ItemGap
 
 @Composable
 private fun Tag(title: String, icon: ImageVector) {
@@ -701,12 +656,12 @@ private fun Tag(title: String, icon: ImageVector) {
             .clip(CircleShape)
             .background(colors.panel.copy(alpha = 0.28f))
             .border(0.5.dp, colors.hairline.copy(alpha = 0.22f), CircleShape)
-            .padding(horizontal = 9.dp, vertical = 4.dp),
+            .padding(horizontal = 5.dp, vertical = 2.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         Icon(icon, null, tint = colors.mutedText, modifier = Modifier.size(11.dp))
-        Text(title, color = colors.mutedText, fontSize = 11.sp, fontWeight = FontWeight.Bold, maxLines = 1, overflow = TextOverflow.Ellipsis)
+        Text(title, color = colors.mutedText, fontSize = 11.sp, lineHeight = 13.sp, fontWeight = FontWeight.SemiBold)
     }
 }
 

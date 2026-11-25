@@ -103,7 +103,7 @@ struct WeekEnergyStrip: View {
         let palette = neoAppearance.palette
 
         return Button {
-            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            AppHaptics.impact(.light)
             withAnimation(.snappy(duration: 0.3)) {
                 selectedDate = date
             }

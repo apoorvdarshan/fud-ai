@@ -127,11 +127,19 @@ struct ContentView: View {
     @State private var voiceAssistant = VoiceAssistantController.shared
     @State private var assistantNavigator = VoiceAssistantNavigator.shared
     @AppStorage(AppThemeColor.storageKey) private var appThemeColorRaw = AppThemeColor.defaultColor.rawValue
-    @AppStorage(WorkoutTabMode.storageKey) private var workoutTabModeRaw = WorkoutTabMode.defaultMode.rawValue
     @AppStorage(TabBarSettings.hiddenTabsKey) private var hiddenTabsRaw = ""
+    @AppStorage("hideVoiceShortcut") private var hideVoiceShortcut = false
+    @AppStorage(VoiceMascotPreferences.storageKey) private var voiceMascotRaw = ""
     @State private var appUpdateState: AppUpdateState = .idle
     @State private var selectedTab: AppTab = .home
-    @State private var keyboardVisible = false
+    @State private var progressDestination: AppTab = .progress
+    @State private var workoutDestination: AppTab = .workouts
+    @State private var settingsDestination: AppTab = .settings
+    @State private var settingsPath: [ProfileSettingsCategory] = []
+    @State private var aboutPath: [ProfileSettingsCategory] = []
+    @AppStorage(AIModeSettings.modeKey) private var aiMode = AIMode.byok
+    @State private var billing = RevenueCatManager.shared
+    @State private var showRailPaywall = false
     @Environment(\.layoutDirection) private var layoutDirection
     private var neoAppearance = PinkNeoAppearance()
     @State private var quickActionRequest: QuickActionRequest?
@@ -146,38 +154,38 @@ struct ContentView: View {
     @State private var whatsNewAccess: WhatsNewAccess?
     @State private var whatsNewPage = 0
 
-    private var workoutsTabIcon: String {
-        WorkoutTabMode.mode(for: workoutTabModeRaw).tabIcon
-    }
-
     private var hiddenTabs: Set<HideableTab> {
         TabBarSettings.decode(hiddenTabsRaw)
     }
 
-    var body: some View {
-        HStack(spacing: 0) {
+    private var appShell: some View {
+        let onVoice: (() -> Void)? = hideVoiceShortcut ? nil : { startRailVoice() }
+        return HStack(spacing: 0) {
             standardTabView
                 .environment(\.layoutDirection, layoutDirection)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-            if !keyboardVisible {
-                PinkNeoRail(items: railItems) {
-                    selectedTab = .home
-                    quickActionRequest = QuickActionRequest(action: .camera)
-                }
+            PinkNeoRail(
+                items: railItems,
+                onVoice: onVoice,
+                voiceMascot: voiceAssistant.isActive
+                    ? voiceAssistant.sessionMascot : VoiceMascotPreferences.decode(voiceMascotRaw).profile,
+                voiceMode: voiceAssistant.orbMode,
+                voiceLevel: voiceAssistant.currentLevel,
+                voiceMotionEnabled: voiceAssistant.presentation == .hidden
+                    || (voiceAssistant.isActive && !voiceAssistant.isExpanded)
+            )
                 .environment(\.layoutDirection, layoutDirection)
                 .padding(.trailing, 7)
-            }
         }
-            .environment(\.layoutDirection, .leftToRight)
+        .environment(\.layoutDirection, .leftToRight)
+    }
+
+    var body: some View {
+        appShell
             .background(neoAppearance.palette.paper)
             .tint(AppColors.accentText)
             .background(VoiceAssistantWindowInstaller(controller: voiceAssistant))
-            .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
-                keyboardVisible = true
-            }
-            .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
-                keyboardVisible = false
-            }
+            .task { await WaitingFactFeed.shared.prepare() }
             .task {
                 attachVoiceAssistant()
                 consumePendingLaunchRoutes()
@@ -188,7 +196,9 @@ struct ContentView: View {
                         fasting: fastingStore, chat: chatStore, strength: strengthWorkoutStore, profile: profileStore
                     )
                     try? await Task.sleep(for: .milliseconds(600))
-                    ScreenshotMode.show(scene, navigator: assistantNavigator, voiceAssistant: voiceAssistant)
+                    ScreenshotMode.show(scene, navigator: assistantNavigator, voiceAssistant: voiceAssistant) { split in
+                        selectTab(split == .weeklyChallenge ? .weeklyChallenge : .exerciseLibrary)
+                    }
                     return
                 }
                 #endif
@@ -206,6 +216,9 @@ struct ContentView: View {
                 Text("Try Plus or Pro yearly without API keys. Trial limits apply. See prices and terms, or keep BYOK free.")
             }
             .flashSheet(isPresented: $showHostedUpsellPaywall, onDismiss: { continueToMeetDeveloperPrompt() }) {
+                HostedPaywallView()
+            }
+            .flashSheet(isPresented: $showRailPaywall) {
                 HostedPaywallView()
             }
             .flashSheet(isPresented: $showMeetDeveloperPrompt, onDismiss: {
@@ -269,10 +282,20 @@ struct ContentView: View {
             .onReceive(NotificationCenter.default.publisher(for: VoiceAssistantLaunchRequest.notification)) { _ in
                 consumePendingLaunchRoutes()
             }
+            .onChange(of: scenePhase, initial: true) { _, newPhase in
+                VoiceAssistantWindowManager.shared.setSceneActive(newPhase == .active)
+            }
             .onChange(of: scenePhase) { _, newPhase in
                 if newPhase == .active {
+                    assistantNavigator.refreshDiaryDates()
                     consumePendingLaunchRoutes()
                 }
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged)) { _ in
+                assistantNavigator.refreshDiaryDates()
+            }
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.significantTimeChangeNotification)) { _ in
+                assistantNavigator.refreshDiaryDates()
             }
             .onChange(of: voiceAssistant.presentation, initial: true) { _, presentation in
                 VoiceAssistantWindowManager.shared.setVisible(presentation != .hidden)
@@ -283,12 +306,21 @@ struct ContentView: View {
             .onChange(of: selectedTab, initial: true) { _, tab in
                 assistantNavigator.currentScreen = Self.screen(for: tab)
             }
+            .onChange(of: activeSettingsSection, initial: true) { _, section in
+                assistantNavigator.settingsSection = section
+            }
             .onChange(of: hiddenTabsRaw, initial: true) { _, _ in
                 // A tab hidden while it is selected falls back to Home.
                 if let tab = selectedTab.hideableTab, hiddenTabs.contains(tab) {
-                    selectedTab = .home
+                    selectTab(.home)
                 }
             }
+    }
+
+    private func startRailVoice() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        AppHaptics.impact(.medium)
+        voiceAssistant.start()
     }
 
     /// Hands the app's stores to the voice assistant.
@@ -315,47 +347,114 @@ struct ContentView: View {
         guard let screen = assistantNavigator.takeScreenRequest(),
               TabBarSettings.hiddenTab(for: screen, in: hiddenTabs) == nil
         else { return }
-        selectedTab = switch screen {
+        let request = assistantNavigator.takeSettingsRequest() ?? nil
+        if screen == .settings || screen == .about {
+            if request == .support {
+                selectTab(.support)
+            } else if screen == .about || request?.aboutCategory != nil {
+                aboutPath = request.map { [$0] } ?? []
+                selectTab(.about)
+            } else {
+                settingsPath = request.map { [$0] } ?? []
+                selectTab(.settings)
+            }
+            return
+        }
+        let tab: AppTab = switch screen {
         case .home: .home
         case .progress: .progress
+        case .weeklyChallenge: .weeklyChallenge
         case .coach: .coach
         case .workouts: .workouts
+        case .exerciseLibrary: .exerciseLibrary
         case .settings: .settings
+        case .about: .about
+        case .support: .support
         }
+        selectTab(tab)
     }
 
     private static func screen(for tab: AppTab) -> VoiceAssistantScreen {
         switch tab {
         case .home: .home
         case .progress: .progress
+        case .weeklyChallenge: .weeklyChallenge
         case .coach: .coach
         case .settings: .settings
+        case .about: .about
+        case .support: .support
         case .workouts: .workouts
+        case .exerciseLibrary: .exerciseLibrary
+        }
+    }
+
+    private var activeSettingsSection: ProfileSettingsCategory? {
+        switch selectedTab {
+        case .settings: settingsPath.last
+        case .about: aboutPath.last
+        default: nil
         }
     }
 
     private var railItems: [PinkNeoRailItem] {
-        AppTab.allCases.filter { tab in
+        var items = AppTab.allCases.filter { tab in
             tab.hideableTab.map { !hiddenTabs.contains($0) } ?? true
         }.map { tab in
             PinkNeoRailItem(
                 id: "nav.\(tab.rawValue)",
                 title: tab.title,
-                icon: tab == .workouts ? workoutsTabIcon : tab.icon,
+                icon: tab.icon,
                 selected: tab == selectedTab,
-                badge: tab == .settings && appUpdateState.isUpdateAvailable
+                badge: tab == .about && appUpdateState.isUpdateAvailable
             ) {
+                if tab != selectedTab { AppHaptics.selection() }
                 if tab == .settings && selectedTab == .settings {
-                    assistantNavigator.show(.settings)
+                    settingsPath = []
+                } else if tab == .about && selectedTab == .about {
+                    aboutPath = []
                 } else {
-                    selectedTab = tab
+                    selectTab(tab)
                 }
             }
         }
+        if aiMode == .byok, billing.hasLoadedCustomerInfo, !billing.hasHostedEntitlement {
+            items.append(PinkNeoRailItem(
+                id: "nav.upgrade", title: Text(verbatim: "Plus / Pro"), icon: "sparkle"
+            ) {
+                AppHaptics.selection()
+                showRailPaywall = true
+            })
+        }
+        return items
+    }
+
+    private func selectTab(_ tab: AppTab) {
+        if tab.group == .progress { progressDestination = tab }
+        if tab.group == .workouts { workoutDestination = tab }
+        if tab.group == .settings { settingsDestination = tab }
+        selectedTab = tab
+    }
+
+    private var shellTabSelection: Binding<AppTab> {
+        Binding(
+            get: { selectedTab.group },
+            set: { tab in
+                guard tab != selectedTab.group else { return }
+                switch tab {
+                case .progress: selectTab(progressDestination)
+                case .workouts: selectTab(workoutDestination)
+                case .settings: selectTab(settingsDestination)
+                default: selectTab(tab)
+                }
+            }
+        )
     }
 
     private var standardTabView: some View {
-        TabView(selection: $selectedTab) {
+        // A phone's native TabView adds a More stack after five entries,
+        // even when its tab bar is hidden. Group related destinations internally
+        // so each page keeps its own navigation stack without a More button.
+        TabView(selection: shellTabSelection) {
             HomeView(
                 quickActionRequest: quickActionRequest,
                 onQuickActionHandled: { requestID in
@@ -370,9 +469,18 @@ struct ContentView: View {
                 .tag(AppTab.home)
 
             if !hiddenTabs.contains(.progress) {
-                ProgressTabView()
-                    .rightRailDestination()
-                    .tag(AppTab.progress)
+                TabView(selection: $progressDestination) {
+                    ProgressTabView()
+                        .rightRailDestination()
+                        .tag(AppTab.progress)
+
+                    WeeklyChallengeView()
+                        .readableWidth()
+                        .rightRailDestination()
+                        .tag(AppTab.weeklyChallenge)
+                }
+                .rightRailDestination()
+                .tag(AppTab.progress)
             }
 
             if !hiddenTabs.contains(.coach) {
@@ -381,40 +489,109 @@ struct ContentView: View {
                     .tag(AppTab.coach)
             }
 
-            ProfileView(
-                updateState: $appUpdateState,
-                refreshUpdateState: {
-                    await refreshAppUpdateState(force: true)
+            TabView(selection: $settingsDestination) {
+                ProfileView(settingsPath: $settingsPath)
+                    .rightRailDestination()
+                    .tag(AppTab.settings)
+
+                NavigationStack(path: $aboutPath) {
+                    List {
+                        AboutAppHeaderSection()
+                        Section {
+                            ForEach(ProfileSettingsCategory.aboutCases) { category in
+                                ProfileSettingsCategoryRow(category: category)
+                            }
+                        }
+                        .flashListRows()
+                        AboutFooterSection()
+                    }
+                    .flashEditorSurface()
+                    .readableWidth()
+                    .navigationTitle("About")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .navigationDestination(for: ProfileSettingsCategory.self) { category in
+                        if let about = category.aboutCategory {
+                            aboutPage(about, title: category.title)
+                        }
+                    }
                 }
-            )
+                .rightRailDestination()
+                .tag(AppTab.about)
+
+                NavigationStack {
+                    aboutPage(.support, title: ProfileSettingsCategory.support.title)
+                }
+                .rightRailDestination()
+                .tag(AppTab.support)
+            }
                 .rightRailDestination()
                 .tag(AppTab.settings)
 
             if !hiddenTabs.contains(.workouts) {
-                WorkoutsView()
-                    .rightRailDestination()
-                    .tag(AppTab.workouts)
+                TabView(selection: $workoutDestination) {
+                    WorkoutsView(mode: .log)
+                        .rightRailDestination()
+                        .tag(AppTab.workouts)
+
+                    WorkoutsView(mode: .library)
+                        .rightRailDestination()
+                        .tag(AppTab.exerciseLibrary)
+                }
+                .rightRailDestination()
+                .tag(AppTab.workouts)
             }
         }
+    }
+
+    private func aboutPage(_ category: AboutSettingsCategory, title: LocalizedStringResource) -> some View {
+        List {
+            if category == .support {
+                TipJarSettingsSection()
+            }
+            AboutSettingsSections(category: category, updateState: $appUpdateState) {
+                await refreshAppUpdateState(force: true)
+            }
+        }
+        .flashEditorSurface()
+        .readableWidth()
+        .navigationTitle(Text(title))
+        .navigationBarTitleDisplayMode(.inline)
     }
 
     private enum AppTab: String, Hashable, CaseIterable {
         case home
         case progress
+        case weeklyChallenge
         case coach
         case settings
         case workouts
+        case exerciseLibrary
+        case about
+        case support
 
-        /// Nil for Home and Settings, which can't be hidden.
-        var hideableTab: HideableTab? { HideableTab(rawValue: rawValue) }
-
-        var title: LocalizedStringKey {
+        var group: AppTab {
             switch self {
-            case .home: "Home"
-            case .progress: "Progress"
-            case .coach: "Coach"
-            case .settings: "Settings"
-            case .workouts: "Workouts"
+            case .weeklyChallenge: .progress
+            case .exerciseLibrary: .workouts
+            case .about, .support: .settings
+            default: self
+            }
+        }
+
+        /// Keep the existing visibility preferences for the two split groups.
+        var hideableTab: HideableTab? { HideableTab(rawValue: group.rawValue) }
+
+        var title: Text {
+            switch self {
+            case .home: Text("Home")
+            case .progress: Text("Progress")
+            case .weeklyChallenge: Text("Challenges", tableName: "ChallengeHub")
+            case .coach: Text("Coach")
+            case .settings: Text("Settings")
+            case .workouts: Text("Workout log")
+            case .exerciseLibrary: Text("Exercise library")
+            case .about: Text("About")
+            case .support: Text("Support Fud AI")
             }
         }
 
@@ -422,16 +599,20 @@ struct ContentView: View {
             switch self {
             case .home: "house"
             case .progress: "chart.xyaxis.line"
+            case .weeklyChallenge: "trophy"
             case .coach: "sparkles"
             case .settings: "gearshape"
-            case .workouts: "dumbbell"
+            case .workouts: WorkoutTabMode.log.tabIcon
+            case .exerciseLibrary: WorkoutTabMode.library.tabIcon
+            case .about: "info.circle"
+            case .support: "heart"
             }
         }
     }
 
     private func consumePendingLaunchRoutes() {
         // Siri, the Action Button and the Control Center control open the assistant.
-        if VoiceAssistantLaunchRequest.consumePending() {
+        if scenePhase == .active, VoiceAssistantLaunchRequest.consumePending() {
             voiceAssistant.start()
         }
         if let action = QuickActionCoordinator.consumePending() {
@@ -557,7 +738,7 @@ struct ContentView: View {
     }
 }
 
-// MARK: - About (embedded as the last Settings section)
+// MARK: - About and Support
 enum AboutSettingsCategory: String, CaseIterable, Identifiable, Hashable {
     case appUpdates
     case support
@@ -631,6 +812,7 @@ private struct AboutFooterSection: View {
 }
 
 private struct AboutSettingsSections: View {
+    @Environment(\.locale) private var locale
     private let category: AboutSettingsCategory
     @Binding private var updateState: AppUpdateState
     private let refreshUpdateState: () async -> Void
@@ -892,6 +1074,29 @@ private struct AboutSettingsSections: View {
                 }
                 .tint(.primary)
 
+                Label {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("D-U-N-S Number", tableName: "Duns")
+                        Text(verbatim: "311099925")
+                            .font(.subheadline.monospacedDigit())
+                            .textSelection(.enabled)
+                        let date = Calendar(identifier: .gregorian).date(from: DateComponents(year: 2026, month: 10, day: 28))
+                        if let date {
+                            let issued = date.formatted(.dateTime.day().month(.wide).year().locale(locale))
+                            Text("Dun & Bradstreet", tableName: "Duns")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                            Text("Issued \(issued)", tableName: "Duns")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                } icon: {
+                    Image(systemName: "number.square.fill")
+                        .foregroundStyle(AppColors.calorie)
+                }
+                .accessibilityIdentifier("about.legal.duns")
+
                 Link(destination: URL(string: "https://credentials.acefitness.org/d23fcb24-899b-4588-be1b-93298a039289")!) {
                     Label {
                         VStack(alignment: .leading, spacing: 2) {
@@ -929,6 +1134,13 @@ private struct AboutSettingsSections: View {
                     WhisperBaseNoticesView()
                 } label: {
                     Label("Whisper Base · MIT", systemImage: "doc.text.magnifyingglass")
+                }
+                .tint(.primary)
+
+                NavigationLink {
+                    SherpaONNXNoticesView()
+                } label: {
+                    Label(SherpaONNXNoticesView.title, systemImage: "doc.text.magnifyingglass")
                 }
                 .tint(.primary)
                 }
@@ -1072,7 +1284,7 @@ struct ActivityShareSheet: UIViewControllerRepresentable {
 }
 
 /// In-app Safari so GitHub issue form URLs keep `?template=` instead of opening the GitHub app chooser.
-private struct SafariView: UIViewControllerRepresentable {
+struct SafariView: UIViewControllerRepresentable {
     let url: URL
 
     func makeUIViewController(context: Context) -> SFSafariViewController {
@@ -1126,7 +1338,10 @@ struct HomeView: View {
     @State private var analysisTask: Task<Void, Never>?
     /// Progress of the running analysis, so the analyzing sheet can show stage and elapsed time.
     @State private var analysisProgressTracker = AnalysisProgressTracker()
-    @State private var selectedDate: Date = .now
+    private var selectedDate: Date {
+        get { assistantNavigator.homeDiaryDate }
+        nonmutating set { assistantNavigator.homeDiaryDate = newValue }
+    }
     @State private var showVoicePopover = false
     @State private var showTextPopover = false
     @State private var showManualPopover = false
@@ -1139,7 +1354,6 @@ struct HomeView: View {
     @State private var showMultiPhotoCaptureSheet = false
     @State private var contextDescription: String = ""
     @State private var showContextSheet = false
-    @State private var voiceAssistant = VoiceAssistantController.shared
     @State private var assistantNavigator = VoiceAssistantNavigator.shared
 
     enum ActiveSheet: String, Identifiable {
@@ -1301,7 +1515,8 @@ struct HomeView: View {
     @AppStorage(FastingSettings.notificationEnabledKey) private var fastingGoalNotificationEnabled = true
     /// Observed so + menu edits in Settings refresh Home right away.
     @AppStorage(AddMenuConfig.storageKey) private var addMenuConfigData: Data?
-    @AppStorage("hideVoiceShortcut") private var hideVoiceShortcut = false
+    @AppStorage(HomeFoodShortcuts.storageKey) private var homeShortcutsRaw = ""
+    @State private var visibleHomeShortcutCount = 2
     @AppStorage("hideBarcodePhoto") private var hideBarcodePhoto = false
     @AppStorage("notificationsEnabled") private var notificationsEnabled = false
     @Environment(ProfileStore.self) private var profileStore
@@ -1331,18 +1546,23 @@ struct HomeView: View {
         return selectedDate.formatted(.dateTime.weekday(.wide).month(.abbreviated).day())
     }
 
-    /// Horizontal swipe → previous/next day. Attached only to the top section (calorie hero +
-    /// macros), not the food log below "View More", so it never competes with the food rows'
-    /// own swipe actions or vertical scrolling there. `.simultaneousGesture` lets the List still
-    /// scroll; we act only on a clearly horizontal flick.
     private var daySwipeGesture: some Gesture {
         DragGesture(minimumDistance: 24)
-            .onEnded { value in
-                let dx = value.translation.width
-                let dy = value.translation.height
-                guard abs(dx) > 60, abs(dx) > abs(dy) * 1.5 else { return }
-                changeDay(by: dx < 0 ? 1 : -1)
-            }
+            .onEnded { finishDaySwipe($0.translation) }
+    }
+
+    private func finishDaySwipe(_ translation: CGSize) {
+        let dx = translation.width
+        guard abs(dx) > 60, abs(dx) > abs(translation.height) * 1.5 else { return }
+        changeDay(by: dx < 0 ? 1 : -1)
+    }
+
+    /// On this control a drag must cancel the tap, even if it is too short
+    /// to change days or starts on today and heads into the future.
+    private var nutritionLinkGesture: some Gesture {
+        DragGesture(minimumDistance: 10)
+            .onEnded { finishDaySwipe($0.translation) }
+            .exclusively(before: TapGesture().onEnded { showNutritionDetail = true })
     }
 
     /// Step the selected day by `delta` (−1 previous, +1 next), from the swipe gesture. Won't move
@@ -1352,7 +1572,7 @@ struct HomeView: View {
         let calendar = Calendar.current
         guard let newDate = calendar.date(byAdding: .day, value: delta, to: selectedDate) else { return }
         if delta > 0 && calendar.startOfDay(for: newDate) > calendar.startOfDay(for: .now) { return }
-        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        AppHaptics.impact(.light)
         selectedDate = newDate
     }
 
@@ -1477,7 +1697,7 @@ private var dailyStepsTaskKey: String {
 
     private func logWater(_ milliliters: Int) {
         _ = waterStore.add(milliliters: milliliters, on: logDateForSelectedDay)
-        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        AppHaptics.impact(.light)
     }
 
     private func refreshFastingGoalNotification() {
@@ -1490,14 +1710,14 @@ private var dailyStepsTaskKey: String {
     private func startFast(goalMinutes: Int) {
         guard fastingStore.start(goalMinutes: goalMinutes) != nil else { return }
         refreshFastingGoalNotification()
-        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        AppHaptics.impact(.medium)
     }
 
     @discardableResult
     private func endFast() -> Bool {
         guard fastingStore.endActive() != nil else { return false }
         notificationManager.cancelFastingGoal()
-        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        AppHaptics.impact(.medium)
         return true
     }
 
@@ -1546,17 +1766,27 @@ private var dailyStepsTaskKey: String {
                 showCustomWaterLog = true
             }
         }
-        // Largest first, as the fixed 3/2/1 glass presets were.
-        let presets = WaterQuickAddPresets.decode(waterQuickAddPresetsRaw).reversed()
-        return [custom] + presets.map { milliliters in
+        let presets = WaterQuickAddPresets.decode(waterQuickAddPresetsRaw)
+        return presets.map { milliliters in
             FlashMenuItem(Text(waterUnit.formatted(milliliters: milliliters)), icon: "drop.fill") {
                 logWater(milliliters)
             }
-        }
+        } + [custom]
     }
 
     private var foodLogMenuItems: [FlashMenuItem] {
         var items: [FlashMenuItem] = []
+        if fastingStore.activeSession == nil {
+            let config = AddMenuSettings.decode(addMenuConfigData)
+            items += config.groups.filter { !$0.methods.isEmpty }.map { group in
+                FlashMenuItem(Text(group.name), icon: group.methods.first?.systemImageName ?? "folder.fill",
+                              children: group.methods.map(addMenuItem))
+            }
+            items += config.flatMethods.map(addMenuItem)
+        }
+        if waterTrackingEnabled {
+            items.append(FlashMenuItem(Text("Water"), icon: "drop.fill", children: waterQuickMenuItems))
+        }
         if fastingTrackingEnabled {
             if fastingStore.activeSession != nil {
                 items.append(FlashMenuItem(Text("Fasting"), icon: "timer", children: [
@@ -1572,43 +1802,37 @@ private var dailyStepsTaskKey: String {
                 })
             }
         }
-        if waterTrackingEnabled {
-            items.append(FlashMenuItem(Text("Water"), icon: "drop.fill", children: waterQuickMenuItems))
-        }
-        if fastingStore.activeSession == nil {
-            let config = AddMenuSettings.decode(addMenuConfigData)
-            items += config.groups.filter { !$0.methods.isEmpty }.map { group in
-                FlashMenuItem(Text(group.name), icon: group.methods.first?.systemImageName ?? "folder.fill",
-                              children: group.methods.map(addMenuItem))
-            }
-            items += config.flatMethods.map(addMenuItem)
-        }
         return items
     }
 
     /// The diary scrolls behind these floating controls and can scroll fully above them.
     private var homeActionBar: some View {
         let neo = neoAppearance.palette
-        return HStack(spacing: 12) {
-            if !foodStore.favorites.isEmpty, fastingStore.activeSession == nil,
-               AddMenuSettings.decode(addMenuConfigData).visibleMethods.contains(.favorites) {
+        let shortcuts = HomeFoodShortcuts(stored: homeShortcutsRaw)
+        let side: CGFloat = 52
+        let gap: CGFloat = 6
+        let logFoodWidth: CGFloat = neoTypeSize >= .xxLarge ? 112 : 84
+        let slotCount = shortcuts.methods.count
+        return HStack(spacing: gap) {
+            ForEach(0..<min(visibleHomeShortcutCount, shortcuts.methods.count), id: \.self) { slot in
+                let method = shortcuts.methods[slot]
                 Button {
-                    presentFoodDestination { performFoodLogMethod(.favorites) }
+                    guard canBeginFoodLogging() else { return }
+                    presentFoodDestination { performFoodLogMethod(method) }
                 } label: {
-                    Image(systemName: FoodLogMethod.favorites.systemImageName)
+                    Image(systemName: method.systemImageName)
                         .font(.system(size: 20, weight: .semibold))
                         .foregroundStyle(neo.ink)
-                        .frame(width: 48, height: 48)
+                        .frame(width: side, height: side)
                         .background(neo.panel)
                         .pinkNeoRule(neo.rule)
+                        .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)
-                .accessibilityLabel("Favorites")
-                .accessibilityIdentifier("home.favorites")
-            }
-            // The live session uses its own floating controls.
-            if !voiceAssistant.isActive, !hideVoiceShortcut {
-                VoiceAssistantHomeButton(controller: voiceAssistant, pinkNeoPalette: neo)
+                .disabled(fastingStore.activeSession != nil)
+                .opacity(fastingStore.activeSession == nil ? 1 : 0.5)
+                .accessibilityLabel(Text(method.title))
+                .accessibilityIdentifier("home.foodShortcut.\(slot)")
             }
             FlashMenu(title: Text("Log Food"), items: { foodLogMenuItems }) {
                 Label("Log Food", systemImage: "plus")
@@ -1670,6 +1894,11 @@ private var dailyStepsTaskKey: String {
                 .presentationCompactAdaptation(.popover)
             }
         }
+        .frame(maxWidth: .infinity)
+        .onGeometryChange(for: Int.self) { proxy in
+            // Keep Log Food readable before allocating any of the remaining width to shortcuts.
+            max(0, min(slotCount, Int((proxy.size.width - logFoodWidth) / (side + gap))))
+        } action: { visibleHomeShortcutCount = $0 }
         .padding(.horizontal, 10)
         .padding(.vertical, 7)
         .background(neoAppearance.palette.paper)
@@ -1695,8 +1924,8 @@ private var dailyStepsTaskKey: String {
                         }
                 }
             }
-            .onChange(of: selectedDate, initial: true) { _, date in
-                assistantNavigator.homeDiaryDate = date
+            .onChange(of: selectedDate) { _, _ in
+                selectedFoodIDs.removeAll()
             }
             .onChange(of: assistantNavigator.diaryDateRequest?.id) { _, _ in
                 handleAssistantRequests()
@@ -1719,9 +1948,8 @@ private var dailyStepsTaskKey: String {
 
     /// The voice assistant shows a diary day or opens a logged food for editing.
     private func handleAssistantRequests() {
-        if let day = assistantNavigator.takeDiaryDateRequest() {
+        if assistantNavigator.takeDiaryDateRequest() != nil {
             selectedFoodIDs.removeAll()
-            selectedDate = day
         }
         guard let entryID = assistantNavigator.takeFoodEntryRequest(),
               let entry = foodStore.entries.first(where: { $0.id == entryID }) else { return }
@@ -1739,17 +1967,18 @@ private var dailyStepsTaskKey: String {
         // so SwiftUI invalidates this view on every profile mutation.
         let _ = profileStore.profile
         let neo = neoAppearance.palette
+        @Bindable var navigator = assistantNavigator
         return NavigationStack {
             List {
                 // Keep the calendar and nutrition summary together without a
                 // system section gutter between the calendar and energy.
                 Section {
-                    PinkNeoDateHeader(date: $selectedDate)
+                    PinkNeoDateHeader(date: $navigator.homeDiaryDate)
                         .listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)
                         .listRowInsets(EdgeInsets(top: 4, leading: 10, bottom: 4, trailing: 10))
                     WeekEnergyStrip(
-                        selectedDate: $selectedDate,
+                        selectedDate: $navigator.homeDiaryDate,
                         caloriesForDate: { foodStore.calories(for: $0) },
                         calorieGoal: calorieGoal
                     )
@@ -1759,64 +1988,54 @@ private var dailyStepsTaskKey: String {
                     .listRowBackground(Color.clear)
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets(top: 4, leading: 10, bottom: 4, trailing: 10))
-                    PinkNeoCalorieSummary(
-                        eaten: selectedCalories,
-                        goal: calorieGoal,
-                        burnLine: homeBurnLine,
-                        launchFillEpoch: launchFillEpoch
-                    )
+                    VStack(spacing: 0) {
+                        VStack(spacing: 6) {
+                            PinkNeoCalorieSummary(
+                                eaten: selectedCalories,
+                                goal: calorieGoal,
+                                burnLine: homeBurnLine,
+                                launchFillEpoch: launchFillEpoch
+                            )
+                            .task(id: homeBurnRefreshToken) {
+                                await refreshHomeBurnLine()
+                            }
+
+                            if let dailySteps {
+                                DailyStepsRow(steps: dailySteps)
+                            }
+
+                            LazyVGrid(columns: Array(repeating: GridItem(.flexible(minimum: 0), spacing: 0),
+                                                    count: neoTypeSize.isAccessibilitySize ? 2 : max(1, displayedHomeNutrients.count)),
+                                      spacing: 0) {
+                                ForEach(displayedHomeNutrients) { nutrient in
+                                    PinkNeoNutrient(
+                                        label: nutrient.displayName,
+                                        current: nutrient.value(from: foodStore, on: selectedDate),
+                                        goal: nutrient.goal(for: userProfile, optionalGoals: optionalNutrientGoals),
+                                        unit: nutrient.unit,
+                                        palette: neo
+                                    )
+                                }
+                            }
+
+                            if waterTrackingEnabled {
+                                PinkNeoNutrient(
+                                    label: "Water",
+                                    current: waterUnit.displayAmount(forMilliliters: waterStore.total(on: selectedDate)),
+                                    goal: waterUnit.displayAmount(forMilliliters: waterDailyGoal),
+                                    unit: waterPillarUnit,
+                                    palette: neo,
+                                    compact: true
+                                )
+                            }
+                        }
                         .frame(maxWidth: .infinity)
+                        .padding(.horizontal, 10)
+                        .padding(.top, 4)
+                        .padding(.bottom, 6)
                         .contentShape(Rectangle())
                         .simultaneousGesture(daySwipeGesture)
-                        .listRowBackground(Color.clear)
-                        .listRowSeparator(.hidden)
-                        .listRowInsets(EdgeInsets(top: 4, leading: 10, bottom: 4, trailing: 10))
-                        .task(id: homeBurnRefreshToken) {
-                            await refreshHomeBurnLine()
-                        }
 
-                    if let dailySteps {
-                        DailyStepsRow(steps: dailySteps)
-                            .listRowBackground(Color.clear)
-                            .listRowSeparator(.hidden)
-                    }
-
-                    LazyVGrid(columns: Array(repeating: GridItem(.flexible(minimum: 0), spacing: 0),
-                                            count: neoTypeSize.isAccessibilitySize ? 2 : max(1, displayedHomeNutrients.count)),
-                              spacing: 0) {
-                        ForEach(displayedHomeNutrients) { nutrient in
-                            PinkNeoNutrient(
-                                label: nutrient.displayName,
-                                current: nutrient.value(from: foodStore, on: selectedDate),
-                                goal: nutrient.goal(for: userProfile, optionalGoals: optionalNutrientGoals),
-                                unit: nutrient.unit,
-                                palette: neo
-                            )
-                        }
-                    }
-                    .listRowInsets(EdgeInsets(top: 3, leading: 10, bottom: 3, trailing: 10))
-                    .contentShape(Rectangle())
-                    .simultaneousGesture(daySwipeGesture)
-                    .listRowBackground(Color.clear)
-                    .listRowSeparator(.hidden)
-
-                    if waterTrackingEnabled {
-                        PinkNeoNutrient(
-                            label: "Water",
-                            current: waterUnit.displayAmount(forMilliliters: waterStore.total(on: selectedDate)),
-                            goal: waterUnit.displayAmount(forMilliliters: waterDailyGoal),
-                            unit: waterPillarUnit,
-                            palette: neo,
-                            compact: true
-                        )
-                        .listRowInsets(EdgeInsets(top: 3, leading: 10, bottom: 3, trailing: 10))
-                        .listRowBackground(Color.clear)
-                        .listRowSeparator(.hidden)
-                    }
-
-                    Button {
-                        showNutritionDetail = true
-                    } label: {
                         HStack {
                             Text("View More")
                                 .font(.system(.subheadline, weight: .black).width(.condensed))
@@ -1828,10 +2047,16 @@ private var dailyStepsTaskKey: String {
                         .frame(minHeight: 44)
                         .background(neo.panel)
                         .pinkNeoRule(neo.rule)
+                        .padding(.horizontal, 10)
+                        .padding(.bottom, 4)
                         .contentShape(Rectangle())
+                        .simultaneousGesture(nutritionLinkGesture)
+                        .accessibilityRepresentation {
+                            Button("View More") { showNutritionDetail = true }
+                        }
+                        .accessibilityIdentifier("home.viewMore")
                     }
-                    .buttonStyle(.plain)
-                    .listRowInsets(EdgeInsets(top: 3, leading: 10, bottom: 3, trailing: 10))
+                    .listRowInsets(EdgeInsets())
                     .listRowBackground(Color.clear)
                     .listRowSeparator(.hidden)
                 }
@@ -2030,7 +2255,7 @@ private var dailyStepsTaskKey: String {
             }
             .contentMargins(.bottom, 8, for: .scrollContent)
             .sensoryFeedback(.selection, trigger: selectedFoodIDs) { _, selection in
-                !selection.isEmpty
+                AppHaptics.isEnabled() && !selection.isEmpty
             }
             .safeAreaInset(edge: .bottom, spacing: 0) {
                 if isFoodSelectionMode {
@@ -2222,6 +2447,7 @@ private var dailyStepsTaskKey: String {
                             ingredients: result.ingredients,
                             progressiveMeal: result.progressiveMeal,
                             productMetadata: result.productMetadata,
+                            aiAllergens: result.aiAllergens,
                             usesSavedBarcodeLabel: currentFoodResultUsesSavedLabel,
                             allowsRecipeServings: !currentFoodResultIsLoggedPortion,
                             servingSizeGrams: result.servingSizeGrams,
@@ -2889,6 +3115,11 @@ private var dailyStepsTaskKey: String {
         // shows the stage instead of the old text.
         let progress = startAnalysisProgress(kind: .text)
         presentFoodLogLoading(.analyzingText)
+
+        // The UI test drives the real Log Food presentation without a provider.
+        #if DEBUG && targetEnvironment(simulator)
+        if SimulatorTestEnvironment.holdsFoodAnalysis { return }
+        #endif
 
         analysisTask = Task {
             do {
@@ -4144,7 +4375,7 @@ final class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOut
               !code.isEmpty else { return }
 
         didScan = true
-        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        AppHaptics.impact(.medium)
         let session = session
         DispatchQueue.global(qos: .userInitiated).async {
             session?.stopRunning()
@@ -4300,8 +4531,6 @@ struct ProgressTabView: View {
     @Environment(HealthKitManager.self) private var healthKitManager
     @AppStorage("weightUnit") private var weightUnitRaw = "lbs"
     @AppStorage("healthKitEnabled") private var healthKitEnabled = false
-    /// Off ends the calorie chart and nutrition averages yesterday (#514).
-    @AppStorage("progressIncludeToday") private var includeToday = true
     @AppStorage(OptionalNutrientGoals.storageKey) private var optionalGoalsData = Data()
     @State private var timeRange: TimeRange = .week
     /// Whole windows stepped back from the current one; session-only, reset
@@ -4315,7 +4544,6 @@ struct ProgressTabView: View {
     @State private var showWorkoutHistory = false
     @State private var showImportedHealthWorkoutHistory = false
     @State private var progressMetric: ProgressMetric = .weight
-    @State private var progressOverviewMode: ProgressOverviewMode = .myProgress
     @State private var loadedFoodRange: (key: FoodRangeKey, stats: ProgressFoodRangeStats)?
     /// Daily steps for the selected window; nil while loading.
     @State private var stepDays: [StepDay]?
@@ -4355,11 +4583,6 @@ struct ProgressTabView: View {
 
     /// Selected window through the last instant of its final day (for timestamped readings).
     private var timestampRange: ClosedRange<Date> { timeRange.timestampRange(offset: periodOffset) }
-
-    /// Window for the calorie chart and nutrition averages.
-    private var nutritionDateRange: ClosedRange<Date> {
-        timeRange.nutritionDayRange(offset: periodOffset, includeToday: includeToday)
-    }
 
     private var filteredWeightEntries: [WeightEntry] {
         weightStore.entries(in: timestampRange)
@@ -4410,25 +4633,15 @@ struct ProgressTabView: View {
     var body: some View {
         let rangeKey = FoodRangeKey(
             dayCount: timeRange.days,
-            lastDay: nutritionDateRange.upperBound,
+            lastDay: dateRange.upperBound,
             diaryRevision: foodStore.entriesRevision,
             profile: userProfile,
             optionalGoalsData: optionalGoalsData
         )
         let foodRangeStats = loadedFoodRange?.key == rangeKey ? loadedFoodRange?.stats : nil
         return NavigationStack {
-            VStack(spacing: 0) {
-                ProgressOverviewModeSelector(selection: $progressOverviewMode)
-                .padding(.horizontal)
-                .padding(.top, 10)
-                .padding(.bottom, 4)
-
-                if progressOverviewMode == .myProgress {
-                    ScrollView {
-                        LazyVStack(spacing: 18) {
-                    WeeklyRecapCard()
-                        .padding(.horizontal)
-
+            ScrollView {
+                LazyVStack(spacing: 18) {
                     FlashChoicePicker(title: Text("Time Range"), selection: timeRangeSelection,
                                       options: TimeRange.allCases, titleIcon: "calendar") {
                         Text($0.title)
@@ -4524,14 +4737,6 @@ struct ProgressTabView: View {
                     }
                     .padding(.horizontal)
 
-                    ProgressIncludeTodayToggle(
-                        isOn: $includeToday,
-                        rangeLabel: includeToday || !timeRange.supportsPeriodNavigation
-                            ? nil
-                            : TimeRange.periodLabel(for: nutritionDateRange)
-                    )
-                    .padding(.horizontal)
-
                     // Keep a visited range warm, but don't display its numbers
                     // when the selected range or source data has changed.
                     if let foodRangeStats {
@@ -4560,13 +4765,8 @@ struct ProgressTabView: View {
                             .padding(.horizontal)
                     }
 
-                        }
-                        .padding(.vertical)
-                    }
-                    .background(AppColors.appBackground)
-                } else {
-                    WeeklyChallengeView()
                 }
+                .padding(.vertical)
             }
             .readableWidth()
             .background(AppColors.appBackground)
@@ -4808,9 +5008,8 @@ enum ProfileSettingsCategory: String, CaseIterable, Identifiable, Hashable {
         .dataManagement
     ]
 
-    static let appInfoCases: [Self] = [
+    static let aboutCases: [Self] = [
         .appUpdates,
-        .support,
         .helpFeedback,
         .community,
         .legal
@@ -4914,6 +5113,7 @@ struct ProfileView: View {
         Binding(get: { profileStore.profile }, set: { profileStore.profile = $0 })
     }
     @AppStorage("appearanceMode") private var appearanceMode = "system"
+    @AppStorage(AppHaptics.storageKey) private var hapticsEnabled = true
     @AppStorage("heightUnit") private var heightUnitRaw = "ftin"
     @AppStorage("weightUnit") private var weightUnitRaw = "lbs"
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = true
@@ -4936,20 +5136,14 @@ struct ProfileView: View {
 
     private var waterUnit: WaterUnit { WaterUnit(rawValue: waterUnitRaw) ?? .defaultUnit }
 
-    // App-update state is owned by ContentView (it also drives the one-shot update
-    // notification). It's forwarded here so the About section — now the last section
-    // of Settings — can show the update row and the manual re-check.
-    @Binding private var updateState: AppUpdateState
-    private let refreshUpdateState: () async -> Void
+    @Binding private var settingsPath: [ProfileSettingsCategory]
     private let settingsCategory: ProfileSettingsCategory?
 
     fileprivate init(
-        updateState: Binding<AppUpdateState>,
-        refreshUpdateState: @escaping () async -> Void,
+        settingsPath: Binding<[ProfileSettingsCategory]> = .constant([]),
         settingsCategory: ProfileSettingsCategory? = nil
     ) {
-        self._updateState = updateState
-        self.refreshUpdateState = refreshUpdateState
+        self._settingsPath = settingsPath
         self.settingsCategory = settingsCategory
     }
 
@@ -4958,8 +5152,6 @@ struct ProfileView: View {
         var id: String { rawValue }
     }
     @State private var activeSheet: ActiveSheet?
-    @State private var settingsPath: [ProfileSettingsCategory] = []
-    @State private var assistantNavigator = VoiceAssistantNavigator.shared
     @State private var showExportDiary = false
     @State private var showImportDiary = false
     @State private var showDeleteConfirmation = false
@@ -5109,22 +5301,9 @@ struct ProfileView: View {
                                     .readableWidth()
                                     .background(AppColors.appBackground)
                             } else {
-                                ProfileView(
-                                    updateState: $updateState,
-                                    refreshUpdateState: refreshUpdateState,
-                                    settingsCategory: category
-                                )
+                                ProfileView(settingsCategory: category)
                             }
                         }
-                }
-                .onChange(of: assistantNavigator.settingsRequest?.id) { _, _ in
-                    applyAssistantSettingsRequest()
-                }
-                .onChange(of: settingsPath) { _, path in
-                    assistantNavigator.settingsSection = path.last
-                }
-                .onAppear {
-                    applyAssistantSettingsRequest()
                 }
             }
         }
@@ -5151,12 +5330,6 @@ struct ProfileView: View {
         didLoadProviderCredentials = true
     }
 
-    /// The voice assistant opens a Settings section (or the Settings list).
-    private func applyAssistantSettingsRequest() {
-        guard let request = assistantNavigator.takeSettingsRequest() else { return }
-        settingsPath = request.map { [$0] } ?? []
-    }
-
     private var settingsHub: some View {
         List {
             Text("Settings")
@@ -5176,15 +5349,6 @@ struct ProfileView: View {
                 }
             }
             .flashListRows()
-
-            Section {
-                ForEach(ProfileSettingsCategory.appInfoCases) { category in
-                    ProfileSettingsCategoryRow(category: category)
-                }
-            }
-            .flashListRows()
-
-            AboutFooterSection()
 
             Color.clear
                 .frame(height: 72)
@@ -5506,6 +5670,10 @@ struct ProfileView: View {
                     .tint(.primary)
                     .disabled(isRecalculatingGoals)
 
+                    if isRecalculatingGoals {
+                        WaitingFactCard()
+                    }
+
                     Button {
                         showCalculationMethods = true
                     } label: {
@@ -5522,10 +5690,20 @@ struct ProfileView: View {
                 }
 
                 // Section 3: Display and input preferences. Tracking features are grouped
-                // separately below so the card does not read as one long control wall.
+            // separately below so the card does not read as one long control wall.
                 if settingsCategory == .appPreferences {
                 Section {
                     HomeShortcutVisibilitySettings()
+                    Toggle(isOn: $hapticsEnabled) {
+                        Label {
+                            Text("Haptics", tableName: "Haptics")
+                        } icon: {
+                            Image(systemName: "waveform")
+                                .foregroundStyle(AppColors.calorie)
+                        }
+                    }
+                    .tint(AppColors.calorie)
+                    .accessibilityIdentifier("settings.haptics")
                     FlashChoicePicker(
                         title: Text("Appearance"),
                         selection: $appearanceMode,
@@ -5665,6 +5843,7 @@ struct ProfileView: View {
                                 .foregroundStyle(AppColors.calorie)
                         }
                     }
+                    .accessibilityIdentifier("settings.addMenu")
 
                     NavigationLink {
                         ProductInfoSettingsView()
@@ -6065,20 +6244,9 @@ struct ProfileView: View {
                             .textCase(.uppercase)
                             .accessibilityAddTraits(.isHeader)
 
-                        Gemma4ModelSettingsView {
-                            selectedProvider = AIProviderSettings.selectedProvider
-                            selectedModel = AIProviderSettings.selectedModel
-                            selectedTextProvider = AIProviderSettings.selectedTextProvider
-                            selectedTextModel = AIProviderSettings.selectedTextModel
-                            separateTextProviderEnabled = AIProviderSettings.separateTextProviderEnabled
-                            selectedFallbackProvider = AIProviderSettings.selectedFallbackProvider
-                            selectedFallbackModel = AIProviderSettings.selectedFallbackModel
-                            fallbackEnabled = AIProviderSettings.fallbackEnabled
-                            selectedTextFallbackProvider = AIProviderSettings.selectedTextFallbackProvider
-                            selectedTextFallbackModel = AIProviderSettings.selectedTextFallbackModel
-                            textFallbackEnabled = AIProviderSettings.textFallbackEnabled
-                            localModelAvailabilityRevision += 1
-                        }
+                        Gemma4ModelSettingsView(onAvailabilityChange: refreshLocalAIModels)
+                        Divider()
+                        Gemma4ModelSettingsView(modelManager: .e4b, onAvailabilityChange: refreshLocalAIModels)
 
                         AISettingsSubsectionHeader(
                             title: "Text AI",
@@ -6120,9 +6288,8 @@ struct ProfileView: View {
                         }
 
                         if selectedTextProvider == .appleIntelligence {
-                            HStack {
+                            FlashAdaptiveStack {
                                 Label("Model", systemImage: "brain")
-                                Spacer()
                                 Text(selectedTextProvider.defaultTextModel)
                                     .foregroundStyle(.secondary)
                                     .accessibilityIdentifier("settings.ai.systemTextModel")
@@ -6488,17 +6655,16 @@ struct ProfileView: View {
                             }
                         }
 
-                        WhisperBaseModelSettingsView(selectedProvider: $selectedSpeechProvider) {
-                            selectedSpeechProvider = SpeechSettings.selectedProvider
-                            selectedSpeechFallbackProvider = SpeechSettings.selectedFallbackProvider
-                            speechFallbackEnabled = SpeechSettings.fallbackEnabled
-                            selectedSpeechLanguage = SpeechSettings.selectedLanguage(for: selectedSpeechProvider)
-                            selectedSpeechFallbackLanguage = SpeechSettings.selectedLanguage(for: selectedSpeechFallbackProvider)
-                            localModelAvailabilityRevision += 1
-                        }
+                        WhisperBaseModelSettingsView(
+                            selectedProvider: $selectedSpeechProvider, onAvailabilityChange: refreshLocalSpeechModels
+                        )
+                        Divider()
+                        LocalSpeechModelSettingsView(manager: .parakeet, onAvailabilityChange: refreshLocalSpeechModels)
+                        Divider()
+                        LocalSpeechModelSettingsView(manager: .qwen, onAvailabilityChange: refreshLocalSpeechModels)
 
                         Picker(selection: $selectedSpeechLanguage) {
-                            ForEach(SpeechLanguage.allCases) { language in
+                            ForEach(selectedSpeechProvider.languageChoices) { language in
                                 Text(language.displayName).tag(language)
                             }
                         } label: {
@@ -6513,6 +6679,13 @@ struct ProfileView: View {
                         .tint(.secondary)
                         .onChange(of: selectedSpeechLanguage) { _, newLanguage in
                             SpeechSettings.setLanguage(newLanguage, for: selectedSpeechProvider)
+                        }
+
+                        if #available(iOS 26.0, *), selectedSpeechProvider == .appleSpeechAnalyzer {
+                            AppleSpeechAnalyzerAssetRow(language: selectedSpeechLanguage)
+                        }
+                        if selectedSpeechProvider.recordedModelChoices.count > 1 {
+                            RecordedSpeechModelPicker(provider: selectedSpeechProvider).id(selectedSpeechProvider)
                         }
 
                         if selectedSpeechProvider.requiresAPIKey {
@@ -6686,21 +6859,6 @@ struct ProfileView: View {
                 StorageSettingsSection()
                 }
 
-                if let aboutCategory = settingsCategory?.aboutCategory {
-                    if aboutCategory == .appUpdates {
-                        AboutAppHeaderSection()
-                    }
-
-                    if aboutCategory == .support {
-                        TipJarSettingsSection()
-                    }
-
-                    AboutSettingsSections(
-                        category: aboutCategory,
-                        updateState: $updateState,
-                        refreshUpdateState: refreshUpdateState
-                    )
-                }
             }
             .flashEditorSurface()
             .modifier(SettingsKeyboardDismissalModifier())
@@ -7176,7 +7334,7 @@ struct ProfileView: View {
                 }
 
                 Picker(selection: $selectedSpeechFallbackLanguage) {
-                    ForEach(SpeechLanguage.allCases) { language in
+                    ForEach(selectedSpeechFallbackProvider.languageChoices) { language in
                         Text(language.displayName).tag(language)
                     }
                 } label: {
@@ -7186,6 +7344,13 @@ struct ProfileView: View {
                 .tint(.secondary)
                 .onChange(of: selectedSpeechFallbackLanguage) { _, newLanguage in
                     SpeechSettings.setLanguage(newLanguage, for: selectedSpeechFallbackProvider)
+                }
+
+                if #available(iOS 26.0, *), selectedSpeechFallbackProvider == .appleSpeechAnalyzer {
+                    AppleSpeechAnalyzerAssetRow(language: selectedSpeechFallbackLanguage)
+                }
+                if selectedSpeechFallbackProvider.recordedModelChoices.count > 1 {
+                    RecordedSpeechModelPicker(provider: selectedSpeechFallbackProvider).id(selectedSpeechFallbackProvider)
                 }
 
                 if selectedSpeechFallbackProvider.requiresAPIKey {
@@ -7338,6 +7503,30 @@ struct ProfileView: View {
 
     private func saveProfile() {
         profile.save()
+    }
+
+    private func refreshLocalAIModels() {
+        selectedProvider = AIProviderSettings.selectedProvider
+        selectedModel = AIProviderSettings.selectedModel
+        selectedTextProvider = AIProviderSettings.selectedTextProvider
+        selectedTextModel = AIProviderSettings.selectedTextModel
+        separateTextProviderEnabled = AIProviderSettings.separateTextProviderEnabled
+        selectedFallbackProvider = AIProviderSettings.selectedFallbackProvider
+        selectedFallbackModel = AIProviderSettings.selectedFallbackModel
+        fallbackEnabled = AIProviderSettings.fallbackEnabled
+        selectedTextFallbackProvider = AIProviderSettings.selectedTextFallbackProvider
+        selectedTextFallbackModel = AIProviderSettings.selectedTextFallbackModel
+        textFallbackEnabled = AIProviderSettings.textFallbackEnabled
+        localModelAvailabilityRevision += 1
+    }
+
+    private func refreshLocalSpeechModels() {
+        selectedSpeechProvider = SpeechSettings.selectedProvider
+        selectedSpeechFallbackProvider = SpeechSettings.selectedFallbackProvider
+        speechFallbackEnabled = SpeechSettings.fallbackEnabled
+        selectedSpeechLanguage = SpeechSettings.selectedLanguage(for: selectedSpeechProvider)
+        selectedSpeechFallbackLanguage = SpeechSettings.selectedLanguage(for: selectedSpeechFallbackProvider)
+        localModelAvailabilityRevision += 1
     }
 
     private func selectFallbackProvider(_ newProvider: AIProvider) {

@@ -48,6 +48,7 @@ sealed interface VoiceNotice {
     /** Automatic found neither a plan nor a key: subscribe, or add a Gemini/OpenAI/xAI key. */
     data object NeedsSetup : VoiceNotice
     data class MissingKey(val provider: LiveProvider) : VoiceNotice
+    data object NeedsQwenSetup : VoiceNotice
     data object NeedsSubscription : VoiceNotice
     data object OutOfMinutes : VoiceNotice
     data object SessionLimit : VoiceNotice
@@ -83,7 +84,8 @@ data class VoiceUiState(
     val startRequest: Long = 0,
     /** Bumped when pick_photos wants the photo picker. */
     val photoPickRequest: Long = 0,
-    val photoPickMax: Int = 4
+    val photoPickMax: Int = 4,
+    val mascot: VoiceMascotProfile? = null
 )
 
 /**
@@ -147,6 +149,7 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
     private var audio: LiveAudioIO? = null
     private var executor: VoiceToolExecutor? = null
     private var preferences = VoiceAssistantPreferences()
+    private var coachResetRevision = 0L
     private var startedAt = 0L
     private val lastActivity = AtomicLong(0)
     private val lastUserSound = AtomicLong(0)
@@ -199,6 +202,7 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
 
     /** Opens the assistant (orb button, tile, shortcut, widget). Already running: just expands it. */
     fun requestStart() {
+        container.navigator.refreshDiaryDates()
         container.voicePreview.stop()
         if (isActive) {
             expand()
@@ -251,21 +255,29 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
     }
 
     private suspend fun start(number: Int) {
+        val preparingAt = SystemClock.elapsedRealtime()
         val prefs = container.prefs.voiceAssistantPreferences.first()
-        val selectedAi = container.prefs.selectedAIProvider.first()
-        val entitlement = withTimeoutOrNull(ENTITLEMENT_WAIT_MS) {
-            container.billing.entitlement.first { it.loaded }
-        } ?: container.billing.entitlement.value
-        val keys = withContext(Dispatchers.IO) {
-            LiveProvider.ownKeyProviders.associateWith { provider ->
-                provider.aiProvider?.let { container.keyStore.apiKey(it) }?.trim()?.takeIf { it.isNotEmpty() }
-            }
-        }
+        val startup = VoiceProviderResolver.resolveStartup(
+            prefs.choice,
+            selectedAiProvider = { container.prefs.selectedAIProvider.first() },
+            loadKey = { provider ->
+                withContext(Dispatchers.IO) { container.keyStore.liveApiKey(provider) }
+            },
+            hostedEntitled = {
+                val billing = container.billing
+                if (!billing.isAvailable) false
+                else (withTimeoutOrNull(ENTITLEMENT_WAIT_MS) {
+                    billing.entitlement.first { it.loaded }
+                } ?: billing.entitlement.value).isEntitled
+            },
+            qwenWorkspaceConfigured = QwenRealtimeWire.isValidWorkspace(prefs.qwenWorkspace)
+        )
         if (number != sessionNumber) return
-        val access = VoiceProviderResolver.resolve(prefs.choice, selectedAi, { keys[it] != null }, entitlement.isEntitled)
+        val access = startup.access
         val provider = when (access) {
             is VoiceAccess.Ready -> access.provider
             is VoiceAccess.MissingKey -> return end(VoiceNotice.MissingKey(access.provider))
+            VoiceAccess.NeedsQwenSetup -> return end(VoiceNotice.NeedsQwenSetup)
             VoiceAccess.NeedsSubscription -> return end(VoiceNotice.NeedsSubscription)
             VoiceAccess.NeedsSetup -> return end(VoiceNotice.NeedsSetup)
         }
@@ -275,19 +287,23 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
             null
         }
 
+        val mascot = container.prefs.voiceMascotPreferences.first().profile
         val catalog = withContext(Dispatchers.IO) { VoiceToolCatalog.bundled(container.appContext) }
-        val context = VoiceSessionContext(provider, prefs.confirmSaves, prefs.autoCapture, workoutDiaryEnabled = true)
-        val instructions = withContext(Dispatchers.Default) { buildInstructions(context, prefs) }
+        val historyRevision = container.chatRepository.resetRevision.value
+        val context = VoiceSessionContext(provider, prefs.confirmSaves, prefs.autoCapture, coachHistoryEnabled = prefs.saveToCoach)
+        val instructions = withContext(Dispatchers.Default) { buildInstructions(context, prefs, mascot) }
         if (number != sessionNumber) return
 
         val config = LiveSessionConfig(
             provider = provider,
-            model = if (provider == LiveProvider.HOSTED) LiveProvider.HOSTED_MODEL else prefs.model(provider),
-            voice = prefs.voice(provider),
+            model = provider.supportedModelOrDefault(prefs.model(provider)),
+            voice = provider.supportedVoiceOrDefault(prefs.voice(provider)),
             instructions = instructions,
             tools = VoiceToolCatalog.declared(catalog, context.workoutDiaryEnabled),
-            apiKey = keys[provider],
-            hostedUserId = hostedUserId
+            apiKey = startup.key,
+            hostedUserId = hostedUserId,
+            qwenWorkspace = prefs.qwenWorkspace,
+            geminiBargeIn = prefs.geminiBargeIn
         )
         val executor = VoiceToolExecutor(ports, catalog, context).also {
             it.onEndConversation = { endAfterSpeech(number) }
@@ -323,12 +339,14 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
         this.audio = audio
         this.executor = executor
         this.preferences = prefs
+        this.coachResetRevision = historyRevision
         startedAt = SystemClock.elapsedRealtime()
         lastActivity.set(startedAt)
         resetTurn()
         _ui.update {
             it.copy(
                 phase = VoicePhase.CONNECTING,
+                mascot = mascot,
                 provider = provider,
                 notice = null,
                 orb = OrbMode.THINKING,
@@ -338,6 +356,11 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
         }
         sessionScope.launch { executor.cards.collect { _cards.value = it } }
         sessionScope.launch {
+            container.chatRepository.resetRevision.collect { revision ->
+                if (revision != historyRevision && sessionNumber == number) end(discardTranscript = true)
+            }
+        }
+        sessionScope.launch {
             container.prefs.voiceAssistantPreferences.collect { latest ->
                 // Settings remain reachable from the compact assistant. In particular,
                 // disabling Coach history must take effect in this conversation.
@@ -346,7 +369,8 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
                 preferences = latest
                 executor.context = executor.context.copy(
                     confirmSaves = latest.confirmSaves,
-                    autoCapture = latest.autoCapture
+                    autoCapture = latest.autoCapture,
+                    coachHistoryEnabled = latest.saveToCoach
                 )
                 if (changedControls) session.sendText(
                     "${VoiceToolExecutor.APP_NOTE} Voice settings changed: confirm before saving is " +
@@ -366,13 +390,15 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
                 }
             }
         }
+        VoiceLog.info(TAG, "Connecting to ${provider.storageValue}; preparation ${startedAt - preparingAt}ms")
+        if (number != sessionNumber) return
         session.connect()
     }
 
     /** Ends the conversation. A [notice] keeps the overlay open to explain what happened. */
-    fun end(notice: VoiceNotice? = null) {
+    fun end(notice: VoiceNotice? = null, discardTranscript: Boolean = false) {
         sessionNumber += 1
-        saveTurn()
+        if (!discardTranscript) saveTurn()
         sessionScope?.cancel()
         sessionScope = null
         session?.close()
@@ -482,6 +508,9 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
     private fun handle(event: LiveEvent) {
         when (event) {
             LiveEvent.Ready -> {
+                if (_ui.value.phase == VoicePhase.CONNECTING) {
+                    VoiceLog.info(TAG, "Voice ready after ${SystemClock.elapsedRealtime() - startedAt}ms")
+                }
                 _ui.update { it.copy(phase = VoicePhase.LIVE) }
                 noteActivity()
                 updateOrb()
@@ -671,10 +700,14 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
         userUtteranceOpen = false
         replyText = ""
         if (!preferences.saveToCoach || (user.isEmpty() && reply.isEmpty())) return
+        val revision = coachResetRevision
         scope.launch {
             runCatching {
-                if (user.isNotEmpty()) container.chatRepository.append(ChatMessage(role = ChatMessage.Role.USER, content = user))
-                if (reply.isNotEmpty()) container.chatRepository.append(ChatMessage(role = ChatMessage.Role.ASSISTANT, content = reply))
+                val messages = buildList {
+                    if (user.isNotEmpty()) add(ChatMessage(role = ChatMessage.Role.USER, content = user))
+                    if (reply.isNotEmpty()) add(ChatMessage(role = ChatMessage.Role.ASSISTANT, content = reply))
+                }
+                container.chatRepository.appendVoiceTurn(revision, messages)
             }.onFailure { VoiceLog.warn(TAG, "Couldn't save the turn to Coach", it) }
         }
     }
@@ -689,6 +722,7 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
             val now = SystemClock.elapsedRealtime()
             val state = _ui.value
             if (state.phase == VoicePhase.CONNECTING && now - startedAt > CONNECT_TIMEOUT_MS) {
+                VoiceLog.warn(TAG, "Voice setup timed out before provider readiness")
                 end(VoiceNotice.ConnectionFailed)
                 return
             }
@@ -965,7 +999,9 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
 
     // MARK: - Instructions
 
-    private suspend fun buildInstructions(context: VoiceSessionContext, prefs: VoiceAssistantPreferences): String {
+    private suspend fun buildInstructions(
+        context: VoiceSessionContext, prefs: VoiceAssistantPreferences, mascot: VoiceMascotProfile
+    ): String {
         val profile = container.profileRepository.current()
         val foods = container.foodRepository.entries.first()
         val weightMetric = container.prefs.weightUnit.first() == "kg"
@@ -1016,7 +1052,8 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
                 metric = weightMetric,
                 coachSummary = summary,
                 todayLine = todayLine,
-                userContext = container.prefs.userContext.first()
+                userContext = container.prefs.userContext.first(),
+                mascot = mascot
             )
         )
     }

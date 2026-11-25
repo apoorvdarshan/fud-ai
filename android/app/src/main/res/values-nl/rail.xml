@@ -1,0 +1,4 @@
+<resources>
+    <string name="nav_workout_log">Trainingslogboek</string>
+    <string name="nav_exercise_library">Oefeningenbibliotheek</string>
+</resources>

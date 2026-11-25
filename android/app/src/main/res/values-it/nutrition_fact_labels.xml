@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="waiting_fact_measure_per_100g">%1$s: %2$s per 100 g</string>
+    <string name="waiting_fact_prep_raw">Crudo</string>
+    <string name="waiting_fact_prep_raw_skin">Crudo, con buccia</string>
+    <string name="waiting_fact_prep_dried">Essiccato</string>
+    <string name="waiting_fact_prep_boiled_no_salt">Bollito, senza sale aggiunto</string>
+    <string name="waiting_fact_prep_cooked_no_salt">Cotto, senza sale aggiunto</string>
+    <string name="waiting_fact_prep_cooked">Cotto</string>
+    <string name="waiting_fact_prep_baked_skin_no_salt">Al forno, con buccia, senza sale aggiunto</string>
+    <string name="waiting_fact_prep_baked_flesh_no_salt">Polpa al forno, senza sale aggiunto</string>
+    <string name="waiting_fact_prep_roasted_no_salt">Tostato, senza sale aggiunto</string>
+    <string name="waiting_fact_prep_hard_boiled">Sodo</string>
+    <string name="waiting_fact_prep_plain_whole_milk">Al naturale, da latte intero</string>
+    <string name="waiting_fact_prep_roasted">Arrostito</string>
+    <string name="waiting_fact_prep_no_salt">Senza sale aggiunto</string>
+</resources>

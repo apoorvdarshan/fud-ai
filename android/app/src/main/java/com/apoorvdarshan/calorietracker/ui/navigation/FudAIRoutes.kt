@@ -6,6 +6,7 @@ object FudAIRoutes {
     const val ONBOARDING = "onboarding"
     const val HOME = "home"
     const val PROGRESS = "progress"
+    const val WEEKLY_CHALLENGE = "weeklyChallenge"
     const val COACH = "coach"
     const val SETTINGS = "settings"
     const val OPTIONAL_NUTRIENT_GOALS = "settings/optional-nutrient-goals"
@@ -17,12 +18,26 @@ object FudAIRoutes {
     const val BODY_MEASUREMENTS = "settings/body-measurements"
     const val ALLERGEN_SENSITIVITIES = "settings/allergen-sensitivities"
     const val WORKOUTS = "workouts"
+    const val EXERCISE_LIBRARY = "exerciseLibrary"
+    const val ABOUT = "about"
+    const val ABOUT_SECTION = "about/{section}"
+    const val SUPPORT = "support"
 
-    val bottomTabs = listOf(HOME, PROGRESS, COACH, SETTINGS, WORKOUTS)
+    val bottomTabs = listOf(
+        HOME, PROGRESS, WEEKLY_CHALLENGE, COACH, SETTINGS, WORKOUTS, EXERCISE_LIBRARY, ABOUT, SUPPORT
+    )
 
-    /** Whether [route] is a tab the user hid. Home and Settings are never hidden. */
-    fun isHiddenTab(route: String?, hidden: Set<String>): Boolean =
-        route in TabBarSettings.Hideable && route in hidden
+    fun aboutSection(section: String) = "$ABOUT/$section"
+
+    /** The two split groups keep their existing visibility preferences. */
+    fun isHiddenTab(route: String?, hidden: Set<String>): Boolean {
+        val group = when (route) {
+            WEEKLY_CHALLENGE -> PROGRESS
+            EXERCISE_LIBRARY -> WORKOUTS
+            else -> route
+        }
+        return group in TabBarSettings.Hideable && group in hidden
+    }
 
     /** The bottom-bar tabs left after the user's hidden ones. */
     fun visibleBottomTabs(hidden: Set<String>): List<String> =
@@ -33,6 +48,7 @@ object FudAIRoutes {
         route == null -> null
         route in bottomTabs -> route
         route.startsWith("settings/") -> SETTINGS
+        route.startsWith("$ABOUT/") -> ABOUT
         else -> null
     }
 

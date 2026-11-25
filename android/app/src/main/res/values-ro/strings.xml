@@ -216,7 +216,7 @@
     <string name="ai_key_placeholder_custom">Cheie API (sau orice dacă endpoint-ul nu cere)</string>
 
     <!-- Speech Provider -->
-    <string name="speech_provider_native">Nativ (pe dispozitiv)</string>
+    <string name="speech_provider_native">Recunoaștere vocală de sistem</string>
     <string name="speech_provider_openai">OpenAI GPT-Transcribe</string>
     <string name="speech_provider_groq">Groq (Whisper)</string>
     <string name="speech_provider_mistral">Mistral Voxtral</string>
@@ -230,12 +230,12 @@
     <string name="speech_key_placeholder_deepgram">Token cheia-ta-deepgram</string>
     <string name="speech_key_placeholder_assemblyai">Cheia ta AssemblyAI</string>
 
-    <string name="speech_description_native">Recunoașterea vocală pe dispozitiv de la Android. Gratuită, funcționează offline pe majoritatea telefoanelor, cu rezultate parțiale în timp real. Implicit recomandat.</string>
+    <string name="speech_description_native">Recunoaștere vocală Android cu rezultate parțiale în timp real. Poate necesita internet, în funcție de dispozitiv și limbă.</string>
     <string name="speech_description_openai">API OpenAI GPT-Transcribe. Precizie ridicată, peste 99 de limbi, plată pe minut.</string>
     <string name="speech_description_groq">Whisper Large v3 găzduit de Groq. Inferență foarte rapidă, are nivel gratuit.</string>
-    <string name="speech_description_mistral">Voxtral Mini Transcribe 2 pentru transcriere în lot multilingvă precisă.</string>
-    <string name="speech_description_deepgram">Deepgram Nova. Moduri în timp real și pe loturi, rapid și precis.</string>
-    <string name="speech_description_assemblyai">Modelul Universal AssemblyAI. Precizie solidă, nivel gratuit disponibil.</string>
+    <string name="speech_description_mistral">Voxtral Mini Transcribe 3 pentru transcrierea înregistrărilor în mai multe limbi.</string>
+    <string name="speech_description_deepgram">Deepgram Nova-3 pentru transcriere după înregistrare.</string>
+    <string name="speech_description_assemblyai">AssemblyAI STT 3.7 cu Universal-2 ca model de rezervă pentru mai multe limbi.</string>
 
     <!-- Bottom navigation -->
     <string name="nav_home">Acasă</string>

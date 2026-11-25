@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="about_duns">D-U-N-S番号</string>
+    <string name="about_duns_issued">発行日：%1$s</string>
+</resources>

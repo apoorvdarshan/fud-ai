@@ -1,0 +1,4 @@
+<resources>
+    <string name="nav_workout_log">Registro de entrenamientos</string>
+    <string name="nav_exercise_library">Biblioteca de ejercicios</string>
+</resources>

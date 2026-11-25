@@ -125,7 +125,7 @@
     <string name="voice_settings_confirm_saves">保存前确认</string>
     <string name="voice_settings_confirm_saves_footer">显示卡片以确认每次记录或更改。关闭后，更改会立即保存，并可在 8 秒内撤销。</string>
     <string name="voice_settings_save_to_coach">将对话保存到教练</string>
-    <string name="voice_settings_save_to_coach_footer">将你和助手说的话添加到教练聊天中。</string>
+    <string name="voice_settings_save_to_coach_footer">将语音对话保存到教练，并在需要时与语音服务提供商共享最近的教练消息。</string>
     <string name="voice_settings_minutes_left">方案剩余时长</string>
     <string name="voice_settings_minutes_with_credits">%1$s + 积分可用 %2$s</string>
     <string name="voice_settings_minutes_footer">Plus 每月包含 20 分钟，Pro 每月包含 100 分钟（UTC）。超出后，语音将使用点数：每 15 秒 1 点。</string>

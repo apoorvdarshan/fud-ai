@@ -35,44 +35,56 @@ def read_catalog(path: Path) -> dict[str, Any]:
     return value
 
 
-def validate_catalog(catalog: dict[str, Any]) -> dict[str, Any]:
+def validate_catalog(catalog: dict[str, Any]) -> list[dict[str, Any]]:
     require(catalog.get("schemaVersion") == 1, "schemaVersion must be 1")
     models = catalog.get("models")
-    require(isinstance(models, list) and len(models) == 1, "catalog must contain exactly one model")
-    model = models[0]
-    require(model.get("id") == "gemma-4-e2b-it-litertlm", "unexpected model id")
+    require(isinstance(models, list) and len(models) == 2, "catalog must contain the two Gemma variants")
+    for model, variant, ram_gib, size_bytes, sha256 in zip(
+        models,
+        ("E2B", "E4B"),
+        (8, 12),
+        (2588147712, 3659530240),
+        (
+            "181938105e0eefd105961417e8da75903eacda102c4fce9ce90f50b97139a63c",
+            "0b2a8980ce155fd97673d8e820b4d29d9c7d99b8fa6806f425d969b145bd52e0",
+        ),
+    ):
+        validate_model(model, variant, ram_gib, size_bytes, sha256)
+    policy = catalog.get("downloadPolicy")
+    require(isinstance(policy, dict), "downloadPolicy is required")
+    require(policy.get("checksumAlgorithm") == "sha256", "checksum algorithm must be sha256")
+    require(policy.get("minimumHeadroomBytes") == 256 * 1024**2, "minimum headroom must be 256 MiB")
+    require(policy.get("headroomPercent") == 10, "headroom must be 10 percent")
+    return models
+
+
+def validate_model(model: dict[str, Any], variant: str, ram_gib: int, size_bytes: int, expected_sha256: str) -> None:
+    require(model.get("id") == f"gemma-4-{variant.lower()}-it-litertlm", "unexpected model id")
     require(model.get("platforms") == ["android", "ios"], "Gemma download must be shared by Android and iOS")
     require(model.get("runtime") == {"family": "LiteRT-LM", "version": "0.16.0"}, "unexpected runtime")
     require(model.get("format") == "litertlm", "unexpected model format")
 
     memory = model.get("memoryPolicy")
     require(isinstance(memory, dict), "memoryPolicy is required")
-    require(memory.get("minimumPhysicalMemoryBytes") == 8 * 1024**3, "RAM gate must be 8 GiB")
+    require(memory.get("minimumPhysicalMemoryBytes") == ram_gib * 1024**3, f"RAM gate must be {ram_gib} GiB")
 
     artifact = model.get("artifact")
     require(isinstance(artifact, dict), "artifact is required")
     repository = artifact.get("repository")
     revision = artifact.get("revision")
     filename = artifact.get("filename")
-    require(repository == "litert-community/gemma-4-E2B-it-litert-lm", "unexpected repository")
+    require(repository == f"litert-community/gemma-4-{variant}-it-litert-lm", "unexpected repository")
     require(isinstance(revision, str) and REVISION_RE.fullmatch(revision) is not None, "revision must be a full commit SHA")
-    require(filename == "gemma-4-E2B-it.litertlm", "unexpected filename")
+    require(filename == f"gemma-4-{variant}-it.litertlm", "unexpected filename")
     require(isinstance(filename, str) and filename == Path(filename).name and ".." not in filename, "unsafe filename")
     expected_url = f"https://huggingface.co/{repository}/resolve/{revision}/{urllib.parse.quote(filename)}"
     require(artifact.get("url") == expected_url, "artifact URL must be pinned to its revision")
-    require(artifact.get("sizeBytes") == 2588147712, "unexpected artifact size")
+    require(artifact.get("sizeBytes") == size_bytes, "unexpected artifact size")
     sha256 = artifact.get("sha256")
     require(isinstance(sha256, str) and SHA256_RE.fullmatch(sha256) is not None, "invalid SHA-256")
-    require(sha256 == "181938105e0eefd105961417e8da75903eacda102c4fce9ce90f50b97139a63c", "unexpected SHA-256")
+    require(sha256 == expected_sha256, "unexpected SHA-256")
     require(artifact.get("access") == {"anonymous": True, "gated": False, "supportsByteRanges": True}, "unexpected access policy")
     require(model.get("license", {}).get("spdx") == "Apache-2.0", "unexpected license")
-
-    policy = catalog.get("downloadPolicy")
-    require(isinstance(policy, dict), "downloadPolicy is required")
-    require(policy.get("checksumAlgorithm") == "sha256", "checksum algorithm must be sha256")
-    require(policy.get("minimumHeadroomBytes") == 256 * 1024**2, "minimum headroom must be 256 MiB")
-    require(policy.get("headroomPercent") == 10, "headroom must be 10 percent")
-    return model
 
 
 def fetch_json(url: str) -> dict[str, Any]:
@@ -118,13 +130,14 @@ def main() -> int:
     parser.add_argument("--online", action="store_true")
     args = parser.parse_args()
     try:
-        model = validate_catalog(read_catalog(args.catalog))
+        models = validate_catalog(read_catalog(args.catalog))
         if args.online:
-            validate_online(model)
+            for model in models:
+                validate_online(model)
     except ValidationError as error:
         print(f"catalog invalid: {error}", file=sys.stderr)
         return 1
-    print("catalog valid: 1 model, 1 pinned artifact")
+    print("catalog valid: 2 models, 2 pinned artifacts")
     return 0
 
 

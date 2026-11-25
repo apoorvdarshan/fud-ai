@@ -28,7 +28,7 @@ struct VoiceAssistantSettingsTests {
 
     @Test func fixedChoicesNeedTheirKeyOrPlan() {
         func route(_ choice: VoiceAssistantProviderChoice, keys: Set<LiveProvider>, hosted: Bool) -> VoiceAssistantRoute {
-            VoiceAssistantRouting.resolve(choice: choice, selectedOwnKeyProvider: .gemini, providersWithKeys: keys, hasHostedEntitlement: hosted)
+            VoiceAssistantRouting.resolve(choice: choice, selectedOwnKeyProvider: .gemini, providersWithKeys: keys, hasHostedEntitlement: hosted, qwenWorkspaceConfigured: true)
         }
         #expect(route(.hosted, keys: [.gemini], hosted: true) == .ready(.hosted))
         #expect(route(.hosted, keys: [.gemini], hosted: false) == .needsAccess(.needsSubscription))
@@ -36,7 +36,9 @@ struct VoiceAssistantSettingsTests {
         #expect(route(.openai, keys: [.gemini], hosted: true) == .needsAccess(.missingKey(.openai)))
         #expect(route(.xai, keys: [.xai], hosted: true) == .ready(.xai))
         #expect(route(.qwen, keys: [.qwen], hosted: false) == .ready(.qwen))
-        #expect(route(.qwen, keys: [.gemini], hosted: true) == .needsAccess(.missingKey(.qwen)))
+        #expect(route(.qwen, keys: [.gemini], hosted: true) == .needsAccess(.needsQwenSetup))
+        #expect(VoiceAssistantRouting.resolve(choice: .qwen, selectedOwnKeyProvider: nil,
+            providersWithKeys: [.qwen], hasHostedEntitlement: false) == .needsAccess(.needsQwenSetup))
         #expect(LiveProvider(aiProvider: .qwen) == .qwen)
         #expect(LiveProvider.qwen.keyProvider == .qwen)
         // GPT-Live uses the OpenAI key; Automatic keeps OpenAI on its realtime models.
@@ -66,6 +68,7 @@ struct VoiceAssistantSettingsTests {
         #expect(settings.confirmSaves)
         #expect(settings.saveToCoach)
         #expect(settings.autoCapture)
+        #expect(settings.geminiBargeIn)
         #expect(settings.language == .app)
         #expect(settings.model(for: .gemini) == "gemini-3.8-live")
         #expect(settings.model(for: .openai) == "gpt-realtime-2.1-mini")
@@ -73,6 +76,22 @@ struct VoiceAssistantSettingsTests {
         #expect(settings.voice(for: .gemini) == "Kore")
         #expect(settings.voice(for: .openai) == "marin")
         #expect(settings.voice(for: .xai) == "ara")
+    }
+
+    @Test func cleanupRetiresOnlyOfflineVoiceChoicesAndItsFallback() throws {
+        let (defaults, suite) = try Self.defaults()
+        defer { defaults.removePersistentDomain(forName: suite) }
+        let settings = VoiceAssistantSettings(defaults: defaults)
+        settings.language = .specific("hi")
+        for old in ["lfm3_offline", "lfm3_connected", "qwen"] {
+            defaults.set(old, forKey: VoiceAssistantSettings.providerKey)
+            defaults.set(true, forKey: "voiceAssistant.localCloudFallback")
+            settings.removeRetiredOfflineVoicePreferences()
+            #expect(settings.providerChoice == (old == "qwen" ? .qwen : .automatic))
+            #expect(defaults.string(forKey: VoiceAssistantSettings.providerKey) == (old == "qwen" ? old : nil))
+            #expect(defaults.object(forKey: "voiceAssistant.localCloudFallback") == nil)
+            #expect(settings.language == .specific("hi"))
+        }
     }
 
     @Test func preferencesUseTheirKeysAndRejectUnknownValues() throws {
@@ -106,14 +125,16 @@ struct VoiceAssistantSettingsTests {
         settings.confirmSaves = false
         settings.saveToCoach = false
         settings.autoCapture = false
+        settings.geminiBargeIn = false
         #expect(defaults.bool(forKey: "voiceAssistant.confirmSaves") == false)
         #expect(defaults.bool(forKey: "voiceAssistant.saveToCoach") == false)
         #expect(defaults.object(forKey: "voiceAssistant.autoCapture") as? Bool == false)
         #expect(!VoiceAssistantSettings(defaults: defaults).autoCapture)
+        #expect(!VoiceAssistantSettings(defaults: defaults).geminiBargeIn)
     }
 
     @Test func builtInModelsAndVoicesMatchTheContract() {
-        #expect(LiveProvider.gemini.models == ["gemini-3.8-live", "gemini-3.1-flash-live-preview"])
+        #expect(LiveProvider.gemini.models == ["gemini-3.8-live", "gemini-3.8-live-extended-thinking", "gemini-3.1-flash-live-preview"])
         #expect(LiveProvider.openai.models == ["gpt-realtime-2.1-mini", "gpt-realtime-2.1"])
         #expect(LiveProvider.xai.models == ["grok-voice-latest", "grok-voice-3.0"])
         #expect(LiveProvider.gemini.voices.count == 12)
@@ -122,7 +143,7 @@ struct VoiceAssistantSettingsTests {
         #expect(LiveProvider.qwen.models == ["qwen3.8-omni-flash-realtime"])
         #expect(LiveProvider.qwen.defaultVoice == "Tina")
         #expect(LiveProvider.qwen.voices.count == 10)
-        #expect(LiveProvider.gptLive.models == ["gpt-live-1"])
+        #expect(LiveProvider.gptLive.models == ["gpt-live-1", "gpt-live-1.1"])
         #expect(LiveProvider.gptLive.defaultVoice == "quartz")
         #expect(LiveProvider.hosted.voices == LiveProvider.gemini.voices)
     }
@@ -276,6 +297,7 @@ struct VoiceAssistantInstructionsTests {
             fastingTracking: true
         )
         #expect(text.count <= VoiceAssistantInstructions.maximumLength)
+        #expect(text.contains("Your name for this session is \"Brulee\""))
         #expect(text.contains("user_confirmed: true unless the user agreed"))
         #expect(text.contains("read back the main items and the total calories"))
         #expect(text.contains("camera_frames: continuous"))
@@ -285,6 +307,29 @@ struct VoiceAssistantInstructionsTests {
         #expect(text.contains("## User profile"))
         #expect(text.contains("## Current date"))
         #expect(text.contains("when unsure, use German"))
+    }
+
+    @Test func selectedNameAndPersonalityReachTheSessionInstructions() {
+        let harness = VoiceAssistantHarness(confirmSaves: true)
+        var preferences = VoiceMascotPreferences()
+        preferences.selected = .jam
+        preferences.edit { $0.name = "Toastie"; $0.personality = .calm }
+        let text = VoiceAssistantInstructions.build(
+            session: session(.continuous),
+            stores: harness.executor.stores,
+            bodyMeasurements: [],
+            waterTracking: false,
+            waterGoalMl: 2000,
+            fastingTracking: false,
+            mascot: preferences.profile
+        )
+        #expect(text.contains("Your name for this session is \"Toastie\""))
+        #expect(text.contains("patient, gentle and reassuring"))
+        #expect(text.contains("“How am I doing?”"))
+        #expect(text.contains("call get_app_state and wait for its result before answering"))
+        #expect(text.contains("do not treat an empty diary as proof the user consumed nothing"))
+        #expect(text.contains("Say it only when the user explicitly asks your name or who you are"))
+        #expect(text.contains("Never call a tool with user_confirmed: true unless the user agreed"))
     }
 
     @Test func cameraAndLanguageRulesFollowTheSession() {

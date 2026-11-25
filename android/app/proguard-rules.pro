@@ -103,3 +103,4 @@
 # exercises. These are the canonical rules Gson 2.11+ ships as consumer rules.
 -keep,allowobfuscation,allowshrinking class com.google.gson.reflect.TypeToken
 -keep,allowobfuscation,allowshrinking class * extends com.google.gson.reflect.TypeToken
+-keep class com.k2fsa.sherpa.onnx.** { *; }

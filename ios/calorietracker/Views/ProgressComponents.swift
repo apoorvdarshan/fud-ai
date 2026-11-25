@@ -51,21 +51,6 @@ enum TimeRange: String, CaseIterable {
         return start...end
     }
 
-    /// The calorie / nutrition window. Excluding today ends it yesterday — and
-    /// shifts past periods by the same day so they stay contiguous — so a
-    /// still-in-progress log doesn't drag the averages down.
-    func nutritionDayRange(
-        offset: Int = 0,
-        includeToday: Bool,
-        today: Date = .now,
-        calendar: Calendar = .current
-    ) -> ClosedRange<Date> {
-        let endDay = includeToday
-            ? today
-            : calendar.date(byAdding: .day, value: -1, to: calendar.startOfDay(for: today)) ?? today
-        return dayRange(offset: offset, endingAt: endDay, calendar: calendar)
-    }
-
     /// The same window as `dayRange`, stretched to the last instant of its final
     /// day for timestamped readings. A range ending at midnight dropped weigh-ins
     /// and body-fat readings logged earlier today from the 1W chart.
@@ -478,7 +463,7 @@ struct WeightChartSection: View {
         guard let nearest, nearest != inspectedPoint else { return }
 
         inspectedPoint = nearest
-        UISelectionFeedbackGenerator().selectionChanged()
+        AppHaptics.selection()
     }
 
     @ViewBuilder
@@ -604,7 +589,7 @@ struct CalorieChartSection: View {
                                                 selectedDay = nil
                                             } else {
                                                 selectedDay = day
-                                                UISelectionFeedbackGenerator().selectionChanged()
+                                                AppHaptics.selection()
                                             }
                                         }
                                 )
@@ -619,7 +604,7 @@ struct CalorieChartSection: View {
                                                   let day = nearestDay(at: value.location.x - plotFrame.minX, proxy: proxy),
                                                   day != selectedDay else { return }
                                             selectedDay = day
-                                            UISelectionFeedbackGenerator().selectionChanged()
+                                            AppHaptics.selection()
                                         }
                                         .onEnded { value in
                                             guard let lock = dragLock, lock.start == value.startLocation else { return }
@@ -701,38 +686,6 @@ struct CalorieChartSection: View {
         if count <= 90 { return 14 }
         if count <= 180 { return 30 }
         return 60
-    }
-}
-
-// MARK: - Include Today Toggle
-
-/// Progress switch for leaving today's still-in-progress log out of the
-/// calorie chart and nutrition averages.
-struct ProgressIncludeTodayToggle: View {
-    @Binding var isOn: Bool
-    /// The shifted nutrition window, shown while it differs from the range label above.
-    let rangeLabel: String?
-
-    var body: some View {
-        Toggle(isOn: $isOn) {
-            VStack(alignment: .leading, spacing: 2) {
-                Text("Include today")
-                    .font(.system(.subheadline, design: .rounded, weight: .semibold))
-                Text(caption)
-                    .font(.system(.caption, design: .rounded))
-                    .foregroundStyle(.secondary)
-            }
-        }
-        .tint(AppColors.calorie)
-        .padding(.horizontal, 16)
-        .padding(.vertical, 10)
-        .progressCardStyle(cornerRadius: 14)
-    }
-
-    private var caption: String {
-        let scope = String(localized: "Calorie chart and nutrition averages")
-        guard let rangeLabel else { return scope }
-        return "\(scope) · \(rangeLabel)"
     }
 }
 
@@ -1716,7 +1669,7 @@ struct BodyFatChartSection: View {
         guard let nearest, nearest != inspectedPoint else { return }
 
         inspectedPoint = nearest
-        UISelectionFeedbackGenerator().selectionChanged()
+        AppHaptics.selection()
     }
 
     @ViewBuilder

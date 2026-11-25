@@ -1,6 +1,7 @@
 package com.apoorvdarshan.calorietracker.services.voice
 
 import com.apoorvdarshan.calorietracker.models.BodyFatEntry
+import com.apoorvdarshan.calorietracker.models.ChatMessage
 import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.FoodSource
 import com.apoorvdarshan.calorietracker.models.MealType
@@ -96,6 +97,7 @@ class VoiceToolExecutor(
 
     private val handlers: Map<String, suspend (ToolArgs, VoiceToolSpec) -> JsonObject> = mapOf(
         "get_app_state" to { _, _ -> appState() },
+        "get_coach_history" to { _, _ -> coachHistory() },
         "open_screen" to { args, _ -> openScreen(args) },
         "set_diary_date" to { args, _ -> setDiaryDate(args) },
         "open_food_entry" to { args, _ -> openFoodEntry(args) },
@@ -391,6 +393,7 @@ class VoiceToolExecutor(
                 }
             }
             put("diary_date", VoiceArguments.formatDate(diaryDate))
+            put("workout_diary_date", VoiceArguments.formatDate(ports.workoutDiaryDate() ?: today))
             put("today", VoiceArguments.formatDate(today))
             put("time", VoiceArguments.formatTime(localTime(ports.now())))
             putJsonObject("camera") {
@@ -428,15 +431,43 @@ class VoiceToolExecutor(
         }
     }
 
+    private suspend fun coachHistory(): JsonObject {
+        if (!context.coachHistoryEnabled) {
+            return ToolResults.error(ToolError.UNSUPPORTED, "Coach history is off in Voice Assistant settings.")
+        }
+        val messages = ports.recentCoachMessages().takeLast(12)
+        if (!context.coachHistoryEnabled) {
+            return ToolResults.error(ToolError.UNSUPPORTED, "Coach history is off in Voice Assistant settings.")
+        }
+        return ToolResults.ok {
+            putJsonArray("messages") {
+                for (message in messages) {
+                    val text = message.content.trim()
+                    if (text.isEmpty()) continue
+                    val codePoints = text.codePointCount(0, text.length)
+                    add(buildJsonObject {
+                        put("role", if (message.role == ChatMessage.Role.USER) "user" else "assistant")
+                        put("date", VoiceArguments.formatDate(localDate(message.timestamp)))
+                        put("text", text.substring(0, text.offsetByCodePoints(0, minOf(600, codePoints))))
+                        put("truncated", codePoints > 600)
+                    })
+                }
+            }
+        }
+    }
+
     private fun openScreen(args: ToolArgs): JsonObject {
         val screen = VoiceScreen.fromWire(args.requireString("screen"))
-            ?: fail(ToolError.INVALID_ARGUMENTS, "screen must be one of home, progress, coach, workouts, settings.")
+            ?: fail(ToolError.INVALID_ARGUMENTS, "Unknown screen. Use a destination listed in open_screen.")
         val section = args.string("settings_section")?.let { raw ->
             VoiceSettingsSection.fromWire(raw)
                 ?: fail(ToolError.INVALID_ARGUMENTS, "Unknown settings_section: $raw.")
         }
-        if (section != null && screen != VoiceScreen.SETTINGS) {
-            fail(ToolError.INVALID_ARGUMENTS, "settings_section only works with screen=settings.")
+        if (section != null && !(
+                (screen == VoiceScreen.SETTINGS && (!section.isAboutSection || section == VoiceSettingsSection.ABOUT)) ||
+                    (screen == VoiceScreen.ABOUT && section.isAboutSection && section != VoiceSettingsSection.ABOUT)
+                )) {
+            fail(ToolError.INVALID_ARGUMENTS, "This section does not belong to the requested screen.")
         }
         if (screen in ports.hiddenScreens()) {
             fail(
@@ -444,17 +475,33 @@ class VoiceToolExecutor(
                 "The user hid the ${screen.wireValue} tab. It can be shown again in Settings > App Settings > Tab Bar."
             )
         }
-        ports.showScreen(screen, section)
+        val destination = if (section?.isAboutSection == true) VoiceScreen.ABOUT else screen
+        val targetSection = if (section == VoiceSettingsSection.ABOUT) VoiceSettingsSection.APP_UPDATES else section
+        ports.showScreen(destination, targetSection)
         return ToolResults.ok {
-            put("screen", screen.wireValue)
-            section?.let { put("settings_section", it.wireValue) }
+            put("screen", destination.wireValue)
+            targetSection?.let { put("settings_section", it.wireValue) }
         }
     }
 
     private fun setDiaryDate(args: ToolArgs): JsonObject {
         val date = parseDateArg(args.requireString("date"))
-        ports.showDiaryDate(date)
-        return ToolResults.ok { put("diary_date", VoiceArguments.formatDate(date)) }
+        val diary = args.string("diary") ?: "home"
+        when (diary) {
+            "home" -> ports.showDiaryDate(date)
+            "workouts" -> {
+                if (!context.workoutDiaryEnabled || !ports.workoutDiaryEnabled() || VoiceScreen.WORKOUTS in ports.hiddenScreens()) {
+                    fail(ToolError.UNSUPPORTED, "Workout Log is not available. Check Settings > App Settings > Tab Bar.")
+                }
+                ports.showWorkoutDiaryDate(date)
+            }
+            else -> fail(ToolError.INVALID_ARGUMENTS, "diary must be home or workouts.")
+        }
+        return ToolResults.ok {
+            put("diary", diary)
+            put("date", VoiceArguments.formatDate(date))
+            if (diary == "home") put("diary_date", VoiceArguments.formatDate(date))
+        }
     }
 
     private suspend fun openFoodEntry(args: ToolArgs): JsonObject {
@@ -1437,7 +1484,8 @@ class VoiceToolExecutor(
                 customNote = analysis.customNote,
                 progressiveMeal = analysis.progressiveMeal,
                 ingredients = analysis.ingredients.map { it.scaled(servings) },
-                productMetadata = analysis.productMetadata
+                productMetadata = analysis.productMetadata,
+                aiAllergens = analysis.aiAllergens
             )
         }
     }

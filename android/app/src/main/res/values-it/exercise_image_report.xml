@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="workout_image_report">Segnala un problema nell’immagine</string>
+    <string name="workout_image_report_note">Cosa non va nell’immagine?</string>
+    <string name="workout_image_report_review">Le segnalazioni diventano pubbliche. Non includere informazioni private.</string>
+    <string name="workout_image_report_discord_help">La segnalazione viene copiata. Sul server Discord di Fud AI, usa /bug e incollala nel campo report.</string>
+    <string name="workout_image_report_open_failed">Impossibile aprire il link.</string>
+</resources>

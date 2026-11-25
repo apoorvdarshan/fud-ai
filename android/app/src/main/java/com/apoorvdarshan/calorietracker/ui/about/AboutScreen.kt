@@ -67,6 +67,8 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -78,22 +80,36 @@ import com.apoorvdarshan.calorietracker.services.hosted.BillingManager
 import com.apoorvdarshan.calorietracker.services.hosted.PurchaseOutcome
 import com.apoorvdarshan.calorietracker.services.update.AndroidUpdateChecker
 import com.apoorvdarshan.calorietracker.services.update.AndroidUpdateState
+import com.apoorvdarshan.calorietracker.services.voice.VoiceSettingsSection
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialog
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialogActions
 import com.apoorvdarshan.calorietracker.ui.components.TIP_TIERS
 import com.apoorvdarshan.calorietracker.ui.hosted.findActivity
 import com.revenuecat.purchases.models.StoreProduct
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import com.apoorvdarshan.calorietracker.ui.theme.flashListRow
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 
 enum class AboutSettingsCategory(val titleRes: Int, val icon: ImageVector) {
     APP_UPDATES(R.string.about_category_app_updates, Icons.Filled.SystemUpdate),
     SUPPORT(R.string.about_category_support, Icons.Filled.Favorite),
     HELP_FEEDBACK(R.string.about_category_help_feedback, Icons.Filled.BugReport),
     COMMUNITY(R.string.about_category_community, Icons.Filled.AlternateEmail),
-    LEGAL(R.string.about_category_legal, Icons.Filled.Lock)
+    LEGAL(R.string.about_category_legal, Icons.Filled.Lock);
+
+    val voiceSection: VoiceSettingsSection?
+        get() = when (this) {
+            APP_UPDATES -> VoiceSettingsSection.APP_UPDATES
+            HELP_FEEDBACK -> VoiceSettingsSection.HELP_FEEDBACK
+            COMMUNITY -> VoiceSettingsSection.COMMUNITY
+            LEGAL -> VoiceSettingsSection.LEGAL
+            SUPPORT -> null
+        }
 }
 
 @Composable
@@ -137,6 +153,7 @@ fun AboutSettingsRows(category: AboutSettingsCategory, billing: BillingManager? 
     var updateState by remember { mutableStateOf<AndroidUpdateState>(AndroidUpdateState.Idle) }
     var showLiteRtNotices by remember { mutableStateOf(false) }
     var showWhisperNotices by remember { mutableStateOf(false) }
+    var showSherpaNotices by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
 
     fun open(url: String) =
@@ -290,6 +307,8 @@ fun AboutSettingsRows(category: AboutSettingsCategory, billing: BillingManager? 
                     open("https://udyamregistration.gov.in/")
                 }
                 Hairline()
+                DunAndBradstreetRow()
+                Hairline()
                 AboutRow(
                     iconRes = R.drawable.ace_cpt_mark,
                     label = stringResource(R.string.about_ace),
@@ -312,6 +331,13 @@ fun AboutSettingsRows(category: AboutSettingsCategory, billing: BillingManager? 
                 ) {
                     showWhisperNotices = true
                 }
+                Hairline()
+                AboutRow(
+                    Icons.Filled.Description,
+                    stringResource(R.string.about_sherpa_notices)
+                ) {
+                    showSherpaNotices = true
+                }
             }
         }
     }
@@ -330,6 +356,14 @@ fun AboutSettingsRows(category: AboutSettingsCategory, billing: BillingManager? 
             loadErrorRes = R.string.about_whisper_notices_load_error,
             assetName = WHISPER_NOTICE_ASSET,
             onDismiss = { showWhisperNotices = false }
+        )
+    }
+    if (showSherpaNotices) {
+        ThirdPartyNoticesDialog(
+            titleRes = R.string.about_sherpa_notices,
+            loadErrorRes = R.string.about_sherpa_notices_load_error,
+            assetName = SHERPA_NOTICE_ASSET,
+            onDismiss = { showSherpaNotices = false }
         )
     }
 }
@@ -422,6 +456,7 @@ private fun readNoticeChunks(
 
 private const val LITERT_NOTICE_ASSET = "THIRD_PARTY_NOTICES_LiteRTLM_v0.16.0.txt"
 private const val WHISPER_NOTICE_ASSET = "THIRD_PARTY_NOTICES_WhisperBase.txt"
+private const val SHERPA_NOTICE_ASSET = "THIRD_PARTY_NOTICES_SherpaONNX.txt"
 private const val NOTICE_CHUNK_CHARACTERS = 8 * 1024
 
 @Composable
@@ -510,6 +545,35 @@ private fun UpdateRow(
 }
 
 @Composable
+private fun DunAndBradstreetRow() {
+    val locale = LocalConfiguration.current.locales[0]
+    val date = remember(locale) {
+        LocalDate.of(2026, 10, 28).format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).withLocale(locale))
+    }
+    Row(
+        Modifier.fillMaxWidth().flashListRow().testTag("about.legal.duns"),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Box(Modifier.size(28.dp), contentAlignment = Alignment.Center) {
+            Icon(Icons.Filled.Business, contentDescription = null, tint = AppColors.Calorie, modifier = Modifier.size(22.dp))
+        }
+        Spacer(Modifier.width(10.dp))
+        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+            Text(stringResource(R.string.about_duns), fontSize = 17.sp, color = MaterialTheme.colorScheme.onSurface)
+            SelectionContainer {
+                Text("311099925", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurface)
+            }
+            Text("Dun & Bradstreet", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text(
+                stringResource(R.string.about_duns_issued, date),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
+    }
+}
+
+@Composable
 private fun AboutRow(
     icon: ImageVector,
     label: String,
@@ -572,7 +636,7 @@ private fun AboutRow(
         Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick)
-            .padding(horizontal = 16.dp, vertical = 12.dp),
+            .flashListRow(),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Box(Modifier.size(28.dp), contentAlignment = Alignment.Center) {
@@ -587,7 +651,7 @@ private fun AboutRow(
                 )
             }
         }
-        Spacer(Modifier.width(14.dp))
+        Spacer(Modifier.width(10.dp))
         Column(Modifier.weight(1f)) {
             Text(label, fontSize = 17.sp, color = MaterialTheme.colorScheme.onSurface)
             if (!subtitle.isNullOrBlank()) {

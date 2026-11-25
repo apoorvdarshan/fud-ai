@@ -216,7 +216,7 @@
     <string name="ai_key_placeholder_custom">API कुंजी (या कुछ भी, अगर एंडपॉइंट को ज़रूरत न हो)</string>
 
     <!-- Speech Provider -->
-    <string name="speech_provider_native">नेटिव (ऑन-डिवाइस)</string>
+    <string name="speech_provider_native">सिस्टम की वाक् पहचान</string>
     <string name="speech_provider_openai">OpenAI GPT-Transcribe</string>
     <string name="speech_provider_groq">Groq (Whisper)</string>
     <string name="speech_provider_mistral">Mistral Voxtral</string>
@@ -230,12 +230,12 @@
     <string name="speech_key_placeholder_deepgram">Token your-deepgram-key</string>
     <string name="speech_key_placeholder_assemblyai">आपकी AssemblyAI कुंजी</string>
 
-    <string name="speech_description_native">Android की ऑन-डिवाइस स्पीच रिकग्निशन। मुफ़्त, अधिकांश फ़ोनों पर ऑफ़लाइन काम करती है, रियल-टाइम आंशिक परिणाम। अनुशंसित डिफ़ॉल्ट।</string>
+    <string name="speech_description_native">Android बोलते समय आंशिक नतीजे दिखाता है। डिवाइस और भाषा के हिसाब से इंटरनेट की ज़रूरत पड़ सकती है।</string>
     <string name="speech_description_openai">OpenAI GPT-Transcribe API. उच्च सटीकता, 99+ भाषाएँ, प्रति मिनट भुगतान।</string>
     <string name="speech_description_groq">Groq-होस्टेड Whisper Large v3. बहुत तेज़ इन्फ़रेंस, मुफ़्त टियर उपलब्ध।</string>
-    <string name="speech_description_mistral">सटीक बहुभाषी बैच ट्रांसक्रिप्शन के लिए Voxtral Mini Transcribe 2।</string>
-    <string name="speech_description_deepgram">Deepgram Nova. रियल-टाइम और बैच मोड, तेज़ और सटीक।</string>
-    <string name="speech_description_assemblyai">AssemblyAI Universal मॉडल। मज़बूत सटीकता, मुफ़्त टियर उपलब्ध।</string>
+    <string name="speech_description_mistral">कई भाषाओं की रिकॉर्डिंग को टेक्स्ट में बदलने के लिए Voxtral Mini Transcribe 3।</string>
+    <string name="speech_description_deepgram">रिकॉर्डिंग को टेक्स्ट में बदलने के लिए Deepgram Nova-3।</string>
+    <string name="speech_description_assemblyai">AssemblyAI STT 3.7; अधिक भाषाओं के लिए Universal-2 वैकल्पिक मॉडल है।</string>
 
     <!-- Bottom navigation -->
     <string name="nav_home">होम</string>

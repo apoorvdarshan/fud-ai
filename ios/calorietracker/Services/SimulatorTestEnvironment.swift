@@ -3,6 +3,14 @@ import Foundation
 /// Isolates simulator test launches from background account/network work.
 /// These switches cannot reset data or alter startup on a device or Release build.
 enum SimulatorTestEnvironment {
+    static var holdsFoodAnalysis: Bool {
+        #if DEBUG && targetEnvironment(simulator)
+        return isRunningTests && CommandLine.arguments.contains("--ui-testing-hold-food-analysis")
+        #else
+        return false
+        #endif
+    }
+
     static var isRunningTests: Bool {
         #if DEBUG && targetEnvironment(simulator)
         let environment = ProcessInfo.processInfo.environment
@@ -60,6 +68,12 @@ enum SimulatorTestEnvironment {
                 UserProfile.default.save()
             }
             defaults.set(true, forKey: "hasCompletedOnboarding")
+        }
+        if CommandLine.arguments.contains("--ui-testing-reset"),
+           CommandLine.arguments.contains("--ui-testing-workout-set") {
+            let item = ExerciseLibraryItem(id: "ui-test-bench", name: "Bench press", category: "strength")
+            let store = StrengthWorkoutStore()
+            _ = store.addPlannedExercise(StrengthPlannedExercise(item: item), on: .now)
         }
     }()
     #endif

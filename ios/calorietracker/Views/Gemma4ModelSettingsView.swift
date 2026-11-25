@@ -3,15 +3,23 @@ import SwiftUI
 struct Gemma4ModelSettingsView: View {
     let onAvailabilityChange: () -> Void
 
-    @State private var modelManager = Gemma4LocalModelManager.shared
+    let modelManager: Gemma4LocalModelManager
     @State private var showDeleteConfirmation = false
 
+    init(
+        modelManager: Gemma4LocalModelManager = .shared,
+        onAvailabilityChange: @escaping () -> Void
+    ) {
+        self.modelManager = modelManager
+        self.onAvailabilityChange = onAvailabilityChange
+    }
+
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            HStack(alignment: .firstTextBaseline) {
-                Label(localized("gemma.name", "Gemma 4 E2B"), systemImage: "cpu")
+        VStack(alignment: .leading, spacing: 6) {
+            FlashAdaptiveStack {
+                Label(modelManager.variant.name, systemImage: "cpu")
+                    .labelStyle(.titleAndIcon)
                     .font(.body.weight(.medium))
-                Spacer()
                 Text(statusLabel)
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(statusColor)
@@ -20,6 +28,9 @@ struct Gemma4ModelSettingsView: View {
             Text(statusDescription)
                 .font(.caption)
                 .foregroundStyle(.secondary)
+            if modelManager.isEligible && modelManager.variant == .e4b {
+                Text("Requires a 12 GB RAM device").font(.caption).foregroundStyle(.secondary)
+            }
 
             if let progress = modelManager.downloadProgress {
                 ProgressView(value: progress)
@@ -32,7 +43,7 @@ struct Gemma4ModelSettingsView: View {
                     .accessibilityLabel(localized("gemma.verifyingDownload", "Verifying Gemma 4 download"))
             }
 
-            HStack {
+            FlashAdaptiveStack {
                 if isDownloading {
                     Button(localized("common.cancel", "Cancel"), role: .cancel) {
                         modelManager.cancelDownload()
@@ -66,16 +77,19 @@ struct Gemma4ModelSettingsView: View {
                 }
             }
 
-            HStack(spacing: 12) {
+            FlashAdaptiveStack(spacing: 12) {
                 Link("Apache 2.0", destination: Gemma4LocalModelManager.licenseURL)
-                    .font(.caption2)
 
-                Link(destination: Gemma4LocalModelManager.sourceURL) {
+                Link(destination: modelManager.variant.sourceURL) {
                     Label(localized("gemma.modelSource", "Model source"), systemImage: "arrow.up.right.square")
-                        .font(.caption2)
+                        .labelStyle(.titleAndIcon)
                 }
+                .accessibilityIdentifier(modelManager.variant == .e2b
+                    ? "settings.localModel.gemma.source" : "settings.localModel.gemmaE4B.source")
             }
+            .buttonStyle(FlashModelLinkStyle())
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.vertical, 4)
         .onAppear { modelManager.refresh() }
         .onChange(of: modelManager.isSelectable) { _, _ in
@@ -100,6 +114,7 @@ struct Gemma4ModelSettingsView: View {
 
     private var statusLabel: String {
         guard modelManager.isEligible else {
+            if modelManager.variant == .e4b { return String(localized: "Requires a 12 GB RAM device") }
             return localized("gemma.requires8GB", "Requires an 8 GB RAM device")
         }
         switch modelManager.state {
@@ -136,6 +151,9 @@ struct Gemma4ModelSettingsView: View {
 
     private var statusDescription: String {
         guard modelManager.isEligible else {
+            if modelManager.variant == .e4b {
+                return String(localized: "3.66 GB download. This offline image and text model requires a device with at least 12 GB of RAM.")
+            }
             return localized(
                 "gemma.unsupportedDescription",
                 "This on-device image and text model is available on iPhones with at least 8 GB of physical memory."
@@ -144,6 +162,9 @@ struct Gemma4ModelSettingsView: View {
 
         switch modelManager.state {
         case .notDownloaded:
+            if modelManager.variant == .e4b {
+                return String(localized: "3.66 GB download. Fud AI checks for an additional 1 GB of free installation headroom.")
+            }
             return localized(
                 "gemma.downloadDescription",
                 "2.59 GB download. Fud AI checks for an additional 1 GB of free installation headroom."
@@ -206,7 +227,9 @@ struct Gemma4ModelSettingsView: View {
     private func deleteModel() {
         do {
             try modelManager.delete()
-            AIProviderSettings.replaceDeletedLocalGemmaSelections()
+            AIProviderSettings.replaceDeletedLocalGemmaSelections(
+                provider: modelManager.variant == .e4b ? .gemma4E4BLocal : .gemma4Local
+            )
             onAvailabilityChange()
         } catch {
             modelManager.refresh()

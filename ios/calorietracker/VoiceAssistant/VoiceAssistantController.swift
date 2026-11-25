@@ -88,6 +88,7 @@ final class VoiceAssistantController {
     }
     private(set) var phase: Phase = .idle
     private(set) var provider: LiveProvider?
+    private(set) var sessionMascot = VoiceMascotProfile()
     private(set) var isAssistantSpeaking = false
     private(set) var isAwaitingReply = false
     private(set) var runningTools = 0
@@ -193,6 +194,7 @@ final class VoiceAssistantController {
 
     func attach(_ data: AppData) {
         appData = data
+        data.chat.onReset = { [weak self] in self?.end(.coachHistoryReset) }
     }
 
     /// The loudness the orb shows: the reply while it plays, the microphone otherwise.
@@ -205,6 +207,7 @@ final class VoiceAssistantController {
 
     /// Opens the assistant: starts a session, or explains how to get access.
     func start() {
+        navigator.refreshDiaryDates()
         switch presentation {
         case .session:
             isExpanded = true
@@ -222,7 +225,7 @@ final class VoiceAssistantController {
             // Right after launch the subscription may not be loaded yet; check once
             // before telling a subscriber to subscribe.
             if case .needsAccess(let reason) = route, reason == .noProvider || reason == .needsSubscription,
-               !didRefreshEntitlement, Purchases.isConfigured {
+               !RevenueCatManager.shared.hasLoadedCustomerInfo, !didRefreshEntitlement, Purchases.isConfigured {
                 didRefreshEntitlement = await RevenueCatManager.shared.refreshCustomerInfo()
                 route = VoiceAssistantRouting.current(settings: settings)
             }
@@ -252,6 +255,7 @@ final class VoiceAssistantController {
     private func begin(provider: LiveProvider, data: AppData) async {
         sessionNumber += 1
         let number = sessionNumber
+        sessionMascot = VoiceMascotPreferences.load().profile
         presentation = .session
         isExpanded = true
         phase = .connecting
@@ -276,7 +280,10 @@ final class VoiceAssistantController {
                 fail(VoiceAssistantFailure(message: String(localized: "Fud AI couldn't check your subscription. Try again in a moment."), action: .retry), session: number)
                 return
             }
-            credential = .hostedUser(await RevenueCatManager.shared.appUserID())
+            // The relay still rechecks entitlement. Reuse the same identity from
+            // the local SDK cache instead of waiting for a second billing request.
+            let purchases = Purchases.shared
+            credential = .hostedUser(purchases.cachedCustomerInfo?.originalAppUserId ?? purchases.appUserID)
         } else {
             guard let key = provider.savedKey else {
                 presentation = .access(.missingKey(provider))
@@ -298,13 +305,15 @@ final class VoiceAssistantController {
                 appLanguageCode: VoiceAssistantLanguage.appLanguageCode,
                 weightMetric: WeightUnit.current == .kg,
                 heightMetric: HeightUnit.current == .cm,
-                waterInOunces: UserDefaults.standard.string(forKey: WaterSettings.unitKey) == WaterUnit.fluidOunces.rawValue
+                waterInOunces: UserDefaults.standard.string(forKey: WaterSettings.unitKey) == WaterUnit.fluidOunces.rawValue,
+                coachHistoryEnabled: settings.saveToCoach
             ),
             stores: data.stores,
             bodyMeasurements: data.bodyMeasurements.entries,
             waterTracking: UserDefaults.standard.bool(forKey: WaterSettings.enabledKey),
             waterGoalMl: UserDefaults.standard.object(forKey: WaterSettings.dailyGoalKey) as? Int ?? WaterSettings.defaultDailyGoalMl,
-            fastingTracking: UserDefaults.standard.bool(forKey: FastingSettings.enabledKey)
+            fastingTracking: UserDefaults.standard.bool(forKey: FastingSettings.enabledKey),
+            mascot: sessionMascot
         )
         let config = LiveSessionConfig(
             provider: provider,
@@ -312,7 +321,9 @@ final class VoiceAssistantController {
             voice: settings.voice(for: provider),
             credential: credential,
             instructions: instructions,
-            tools: VoiceAssistantToolCatalog.declarations(workoutDiaryEnabled: workoutDiary)
+            tools: VoiceAssistantToolCatalog.declarations(workoutDiaryEnabled: workoutDiary),
+            qwenWorkspace: settings.qwenWorkspace,
+            geminiBargeIn: settings.geminiBargeIn
         )
 
         cards.clear()
@@ -321,7 +332,8 @@ final class VoiceAssistantController {
             settings: settings,
             cards: cards,
             workoutDiaryEnabled: workoutDiary,
-            host: self
+            host: self,
+            coachHistory: { data.chat.contextMessages() }
         )
 
         let wire = provider.wire
@@ -366,6 +378,7 @@ final class VoiceAssistantController {
         case conversationEnded
         case background
         case interrupted
+        case coachHistoryReset
         case outOfMinutes
         case needsSubscription
         case failure(VoiceAssistantFailure)
@@ -397,7 +410,7 @@ final class VoiceAssistantController {
         observers.removeAll()
         saveTask?.cancel()
         saveTask = nil
-        saveTurn()
+        if case .coachHistoryReset = reason { resetTurnState() } else { saveTurn() }
         executor?.reset()
         executor = nil
         cards.clear()
@@ -420,7 +433,7 @@ final class VoiceAssistantController {
         photoPickerItems = []
 
         switch reason {
-        case .user, .idle, .conversationEnded, .background, .interrupted:
+        case .user, .idle, .conversationEnded, .background, .interrupted, .coachHistoryReset:
             presentation = .hidden
         case .timeLimit:
             presentation = .failed(VoiceAssistantFailure(
@@ -537,7 +550,6 @@ final class VoiceAssistantController {
             // The relay closes right after; its close code then belongs to an ended session.
             end(Self.endReason(forHostedError: code))
         case .error(let message, let code):
-            logger.error("[Voice] Provider error \(code ?? "-", privacy: .public): \(message, privacy: .public)")
             // Benign races with the response lifecycle; nothing for the user to do.
             if code == "conversation_already_has_active_response" {
                 // Our response.create lost to one the provider started; ask again once it finishes.
@@ -546,6 +558,14 @@ final class VoiceAssistantController {
                 return
             }
             if code == "response_cancel_not_active" { return }
+            logger.error("[Voice] The provider reported an error")
+            if phase == .connecting {
+                end(.failure(VoiceAssistantFailure(
+                    message: String(localized: "The voice service had a problem. Try again."),
+                    action: .retry
+                )))
+                return
+            }
             showBanner(message)
         case .closed(let reason):
             handleClose(reason)
@@ -868,6 +888,12 @@ final class VoiceAssistantController {
         navigator.show(.settings, settingsSection: .aiProviders)
     }
 
+    func openVoiceSettings() {
+        if isActive { end(.user) }
+        presentation = .hidden
+        navigator.show(.settings, settingsSection: .voiceAssistant)
+    }
+
     func openSystemSettings() {
         presentation = .hidden
         if let url = URL(string: UIApplication.openSettingsURLString) {
@@ -1014,8 +1040,11 @@ extension VoiceAssistantController: VoiceAssistantToolHost {
     var sessionProvider: LiveProvider? { provider }
     var currentScreen: VoiceAssistantScreen { navigator.currentScreen }
     var currentSettingsSection: ProfileSettingsCategory? { navigator.settingsSection }
-    var homeDiaryDate: Date { navigator.homeDiaryDate }
-    var workoutDiaryDate: Date { navigator.workoutDiaryDate }
+    var homeDiaryDate: Date {
+        navigator.refreshDiaryDates()
+        return navigator.homeDiaryDate
+    }
+    var workoutDiaryDate: Date { navigator.currentWorkoutDiaryDate() }
 
     func open(_ screen: VoiceAssistantScreen, settingsSection: ProfileSettingsCategory?) {
         closeCamera()
@@ -1026,6 +1055,12 @@ extension VoiceAssistantController: VoiceAssistantToolHost {
     func showDiary(on day: Date) {
         closeCamera()
         navigator.showDiary(on: day)
+        isExpanded = false
+    }
+
+    func showWorkoutDiary(on day: Date) {
+        closeCamera()
+        navigator.showWorkoutDiary(on: day)
         isExpanded = false
     }
 
@@ -1169,6 +1204,7 @@ extension VoiceAssistantController {
     /// A finished turn for the README and website screenshots (ScreenshotMode), shown
     /// without connecting: the meal is logged and its Undo card is up.
     func showScreenshotConversation() {
+        sessionMascot = VoiceMascotPreferences.load().profile
         provider = .gemini
         phase = .live
         presentation = .session

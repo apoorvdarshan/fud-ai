@@ -41,6 +41,7 @@ sealed class CoachError {
 
 data class CoachUiState(
     val messages: List<ChatMessage> = emptyList(),
+    val historyLoaded: Boolean = false,
     val sending: Boolean = false,
     val error: String? = null,
     val errorRes: Int? = null,
@@ -55,7 +56,7 @@ class CoachViewModel(private val container: AppContainer) : ViewModel() {
 
     init {
         container.chatRepository.messages
-            .onEach { _ui.value = _ui.value.copy(messages = it) }
+            .onEach { _ui.value = _ui.value.copy(messages = it, historyLoaded = true) }
             .launchIn(viewModelScope)
 
         // Keep chips current when either the user's goal or their workout history changes.
@@ -105,12 +106,13 @@ class CoachViewModel(private val container: AppContainer) : ViewModel() {
             AppLocalization.context(container.appContext).getString(R.string.coach_analyze_image_default)
         }
         viewModelScope.launch {
+            val resetRevision = container.chatRepository.resetRevision.value
             val userMsg = ChatMessage(
                 role = ChatMessage.Role.USER,
                 content = text,
                 attachmentImageBase64 = thumbnailBytes?.let { Base64.getEncoder().encodeToString(it) }
             )
-            container.chatRepository.append(userMsg)
+            container.chatRepository.append(userMsg, unlessResetSince = resetRevision)
             _ui.value = _ui.value.copy(sending = true, error = null, errorRes = null)
             try {
                 val history = container.chatRepository.contextMessages(limit = 20).dropLast(1) // exclude the just-appended user msg — it's passed separately
@@ -152,7 +154,8 @@ class CoachViewModel(private val container: AppContainer) : ViewModel() {
                     proposals = proposals
                 )
                 container.chatRepository.append(
-                    ChatMessage(role = ChatMessage.Role.ASSISTANT, content = reply.trim(), proposals = proposals.proposals)
+                    ChatMessage(role = ChatMessage.Role.ASSISTANT, content = reply.trim(), proposals = proposals.proposals),
+                    unlessResetSince = resetRevision
                 )
                 _ui.value = _ui.value.copy(sending = false)
             } catch (e: AiError) {

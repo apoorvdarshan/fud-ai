@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="waiting_fact_heading">Did you know?</string>
+    <string name="waiting_fact_vitamin_c">Vitamin C helps your body absorb iron from plant foods.</string>
+    <string name="waiting_fact_beans">Beans and lentils contain both protein and fiber.</string>
+    <string name="waiting_fact_oats">Oats contain beta-glucan, a type of soluble fiber.</string>
+    <string name="waiting_fact_vegetables" formatted="false">Cucumbers and tomatoes are more than 90% water by weight.</string>
+    <string name="waiting_fact_strength">Strength training works against resistance. Your own body weight counts, too.</string>
+</resources>

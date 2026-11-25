@@ -14,21 +14,26 @@ fun createVoicePreviewController(container: AppContainer): VoicePreviewControlle
     scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate),
     prepare = { appLanguage ->
         val prefs = container.prefs.voiceAssistantPreferences.first()
-        val selectedAi = container.prefs.selectedAIProvider.first()
-        val entitlement = withTimeoutOrNull(2_000) {
-            container.billing.entitlement.first { it.loaded }
-        } ?: container.billing.entitlement.value
-        val keys = withContext(Dispatchers.IO) {
-            LiveProvider.ownKeyProviders.associateWith { provider ->
-                provider.aiProvider?.let { container.keyStore.apiKey(it) }?.trim()?.takeIf { it.isNotEmpty() }
-            }
-        }
-        val access = VoiceProviderResolver.resolve(prefs.choice, selectedAi, { keys[it] != null }, entitlement.isEntitled)
-        val provider = (access as? VoiceAccess.Ready)?.provider ?: error("Voice access unavailable")
+        val startup = VoiceProviderResolver.resolveStartup(
+            prefs.choice,
+            selectedAiProvider = { container.prefs.selectedAIProvider.first() },
+            loadKey = { provider ->
+                withContext(Dispatchers.IO) { container.keyStore.liveApiKey(provider) }
+            },
+            hostedEntitled = {
+                val billing = container.billing
+                if (!billing.isAvailable) false
+                else (withTimeoutOrNull(2_000) {
+                    billing.entitlement.first { it.loaded }
+                } ?: billing.entitlement.value).isEntitled
+            },
+            qwenWorkspaceConfigured = QwenRealtimeWire.isValidWorkspace(prefs.qwenWorkspace)
+        )
+        val provider = (startup.access as? VoiceAccess.Ready)?.provider ?: error("Voice access unavailable")
         val userId = if (provider == LiveProvider.HOSTED) {
             container.billing.appUserId()?.takeIf { it.isNotBlank() } ?: error("Voice access unavailable")
         } else null
-        voicePreviewConfig(provider, prefs, appLanguage, keys[provider], userId)
+        voicePreviewConfig(provider, prefs, appLanguage, startup.key, userId)
     },
     conversationActive = { container.voiceAssistant.isActive },
     createAudio = { LiveAudioEngine(container.appContext) },
@@ -61,6 +66,7 @@ internal fun voicePreviewConfig(
             "Speak only that sample. Do not add an introduction, explanation or follow-up question.",
         tools = emptyList(),
         apiKey = if (provider.usesOwnKey) apiKey else null,
-        hostedUserId = if (provider == LiveProvider.HOSTED) hostedUserId else null
+        hostedUserId = if (provider == LiveProvider.HOSTED) hostedUserId else null,
+        qwenWorkspace = prefs.qwenWorkspace
     )
 }

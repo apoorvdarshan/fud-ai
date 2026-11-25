@@ -31,6 +31,10 @@ import androidx.compose.material.icons.filled.IosShare
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.outlined.Circle
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.foundation.gestures.awaitEachGesture
+import androidx.compose.foundation.gestures.awaitFirstDown
+import androidx.compose.foundation.gestures.awaitHorizontalDragOrCancellation
+import androidx.compose.foundation.gestures.awaitHorizontalTouchSlopOrCancellation
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.rememberScrollState
@@ -59,6 +63,7 @@ import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -123,7 +128,6 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableFloatStateOf
@@ -132,14 +136,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.structuralEqualityPolicy
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.shadow
@@ -150,6 +153,8 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
 import com.apoorvdarshan.calorietracker.ui.util.clockTimePattern
 import com.apoorvdarshan.calorietracker.ui.util.gramsText
 import com.apoorvdarshan.calorietracker.ui.util.localizedDatePattern
@@ -177,6 +182,7 @@ import com.apoorvdarshan.calorietracker.models.CurrentMealSchedule
 import com.apoorvdarshan.calorietracker.models.MealType
 import com.apoorvdarshan.calorietracker.models.FoodLogMethod
 import com.apoorvdarshan.calorietracker.models.FoodLogMethodDefaultGroupIcon
+import com.apoorvdarshan.calorietracker.models.HomeFoodShortcuts
 import com.apoorvdarshan.calorietracker.models.displayName
 import com.apoorvdarshan.calorietracker.models.QuickAction
 import com.apoorvdarshan.calorietracker.models.QuickActionRequest
@@ -200,10 +206,10 @@ import com.apoorvdarshan.calorietracker.ui.components.FudGlassPrimaryButton
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassSurface
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassTextField
 import com.apoorvdarshan.calorietracker.ui.components.WeekEnergyStrip
+import com.apoorvdarshan.calorietracker.ui.components.WaitingFactCard
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
 import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 import com.apoorvdarshan.calorietracker.ui.theme.PinkNeoCondensed
-import com.apoorvdarshan.calorietracker.ui.voice.VoiceAssistantButton
 import java.time.DayOfWeek
 import java.time.Instant
 import java.time.LocalDate
@@ -236,6 +242,7 @@ fun HomeScreen(
 ) {
     val vm: HomeViewModel = viewModel(factory = HomeViewModel.Factory(container, initialProfile))
     val ui by vm.ui.collectAsState()
+    val foodShortcuts by container.prefs.homeFoodShortcuts.collectAsState(initial = HomeFoodShortcuts.Default)
     val lifecycleOwner = LocalLifecycleOwner.current
 DisposableEffect(lifecycleOwner, vm) {
         val observer = LifecycleEventObserver { _, event ->
@@ -435,11 +442,6 @@ DisposableEffect(lifecycleOwner, vm) {
     }
 
     // The voice assistant opens a logged food's edit sheet here (open_food_entry).
-    val voiceUi = container.voiceAssistant.ui.collectAsState()
-    val voiceVisible by remember(voiceUi) {
-        derivedStateOf(structuralEqualityPolicy()) { voiceUi.value.visible }
-    }
-    val hideVoiceShortcut by container.prefs.hideVoiceShortcut.collectAsState(initial = false)
     val pendingVoiceEntry by container.navigator.pendingFoodEntry.collectAsState()
     LaunchedEffect(pendingVoiceEntry, allEntries) {
         val id = pendingVoiceEntry ?: return@LaunchedEffect
@@ -451,6 +453,13 @@ DisposableEffect(lifecycleOwner, vm) {
 
     val today = LocalDate.now()
     val selectedDate = ui.date
+    val haptics = LocalHapticFeedback.current
+    val pickDay: (LocalDate) -> Unit = { day ->
+        if (day != selectedDate && !day.isAfter(today)) {
+            vm.setSelectedDate(day)
+            haptics.performHapticFeedback(HapticFeedbackType.SegmentTick)
+        }
+    }
     val isToday = selectedDate == today
     val completedFasts = remember(ui.fastingSessions, selectedDate) {
         ui.fastingSessions.filter { session ->
@@ -477,7 +486,9 @@ DisposableEffect(lifecycleOwner, vm) {
     }
 
     val actionSize = 60.dp
-    val actionGap = 12.dp
+    val shortcutSize = 52.dp
+    val actionGap = 6.dp
+    val minLogFoodWidth = if (LocalDensity.current.fontScale >= 1.3f) 112.dp else 84.dp
     val neo = pinkNeoPalette()
     val actionBottom = 8.dp
 
@@ -554,38 +565,38 @@ DisposableEffect(lifecycleOwner, vm) {
                     Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    PinkNeoDateHeader(date = selectedDate, onPick = vm::setSelectedDate)
+                    PinkNeoDateHeader(date = selectedDate, onPick = pickDay)
                     WeekEnergyStrip(
                         selectedDate = selectedDate,
-                        onSelect = { vm.setSelectedDate(it) },
+                        onSelect = pickDay,
                         weekStartsOnMonday = weekStartsOnMonday,
                         modifier = Modifier.background(neo.panel).border(1.dp, neo.rule).padding(3.dp)
                     )
                 }
             }
 
-            // Calorie hero + macros + View More — grouped so the day-swipe gesture covers only
-            // this top region, not the food log below "View More". Swipe left/right to change day;
-            // the horizontal-only detector lets the LazyColumn keep scrolling vertically.
+            // The entire summary is a single swipe region, separate from the week
+            // strip and diary. Measure from initial touch to lift, as on iOS.
             item {
                 Column(
-                    modifier = Modifier.pointerInput(selectedDate) {
-                        var accum = 0f
-                        val threshold = 80.dp.toPx()
-                        detectHorizontalDragGestures(
-                            onDragStart = { accum = 0f },
-                            onDragCancel = { accum = 0f },
-                            onHorizontalDrag = { change, amount -> accum += amount; change.consume() },
-                            onDragEnd = {
-                                if (accum > threshold) {
-                                    vm.setSelectedDate(selectedDate.minusDays(1))
-                                } else if (accum < -threshold) {
-                                    val next = selectedDate.plusDays(1)
-                                    if (!next.isAfter(today)) vm.setSelectedDate(next)
-                                }
-                                accum = 0f
+                    modifier = Modifier.fillMaxWidth().pointerInput(selectedDate, today) {
+                        val threshold = 60.dp.toPx()
+                        awaitEachGesture {
+                            val down = awaitFirstDown(requireUnconsumed = false)
+                            var change = awaitHorizontalTouchSlopOrCancellation(down.id) { crossing, _ ->
+                                crossing.consume()
+                            } ?: return@awaitEachGesture
+                            while (change.pressed) {
+                                change = awaitHorizontalDragOrCancellation(change.id) ?: return@awaitEachGesture
+                                // A claimed drag must never finish as a View More tap.
+                                change.consume()
                             }
-                        )
+                            val dx = change.position.x - down.position.x
+                            val dy = change.position.y - down.position.y
+                            if (kotlin.math.abs(dx) > threshold && kotlin.math.abs(dx) > kotlin.math.abs(dy) * 1.5f) {
+                                pickDay(selectedDate.plusDays(if (dx < 0) 1 else -1))
+                            }
+                        }
                     }
                 ) {
                     Spacer(Modifier.height(4.dp))
@@ -635,6 +646,7 @@ DisposableEffect(lifecycleOwner, vm) {
                         Box(
                             modifier = Modifier.fillMaxWidth().padding(horizontal = 10.dp)
                                 .background(neo.panel).border(1.dp, neo.rule)
+                                .testTag("home.viewMore")
                                 .clickable(role = Role.Button) { showNutritionDetail = true }
                         ) {
                             ViewMoreButton()
@@ -695,11 +707,8 @@ DisposableEffect(lifecycleOwner, vm) {
                             }
                         )
                     }
-                    items(group.items, key = { it.stableId }) { item ->
-                        val index = group.items.indexOf(item)
-                        val isLast = index == group.items.lastIndex
-                        val rowShape = RoundedCornerShape(0.dp)
-                        Box(Modifier.fillMaxWidth().padding(horizontal = 10.dp).clipToBounds()) {
+                    itemsIndexed(group.items, key = { _, item -> item.stableId }) { index, item ->
+                        Column(Modifier.fillMaxWidth().background(neo.panel).clipToBounds()) {
                             when (item) {
                                 is HomeDiaryItem.Food -> {
                                     val entry = item.entry
@@ -711,7 +720,6 @@ DisposableEffect(lifecycleOwner, vm) {
                                     SwipeableFoodRow(
                                         entry = entry,
                                         isFavorite = isFav,
-                                        rowShape = rowShape,
                                         selectionMode = selectionMode,
                                         selected = isSelected,
                                         onTap = {
@@ -729,27 +737,28 @@ DisposableEffect(lifecycleOwner, vm) {
                                             selectedFoodIds = selectedFoodIds + entry.id
                                         },
                                         onDelete = { pendingDiaryDeletion = item },
-                                        onToggleFavorite = { vm.toggleFavorite(entry) }
+                                        onToggleFavorite = {
+                                            vm.toggleFavorite(entry)
+                                            haptics.performHapticFeedback(HapticFeedbackType.Confirm)
+                                        }
                                     )
                                 }
                                 is HomeDiaryItem.Water -> {
                                     SwipeableWaterRow(
                                         entry = item.entry,
                                         unit = ui.waterUnit,
-                                        rowShape = rowShape,
                                         onDelete = { pendingDiaryDeletion = item }
                                     )
                                 }
                                 is HomeDiaryItem.Fasting -> {
                                     SwipeableFastingRow(
                                         session = item.session,
-                                        rowShape = rowShape,
                                         onTap = { editingFast = item.session },
                                         onDelete = { pendingDiaryDeletion = item }
                                     )
                                 }
                             }
-                            if (!isLast) Divider()
+                            if (index != group.items.lastIndex) DiaryRowDivider()
                         }
                     }
                 }
@@ -758,35 +767,36 @@ DisposableEffect(lifecycleOwner, vm) {
 
         // Give the pinned dock its own space so it can't intercept a diary swipe.
         if (!selectionMode) {
+        BoxWithConstraints(Modifier.fillMaxWidth().padding(start = 10.dp, end = 10.dp, bottom = actionBottom)) {
+        val shortcutCount = ((maxWidth - minLogFoodWidth) / (shortcutSize + actionGap)).toInt()
+            .coerceIn(0, foodShortcuts.methods.size)
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 10.dp, end = 10.dp, bottom = actionBottom)
                 .background(neo.paper),
             horizontalArrangement = Arrangement.spacedBy(actionGap),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            val favorites by container.foodRepository.favorites.collectAsState(initial = emptyList())
-            if (favorites.isNotEmpty() && ui.activeFast == null &&
-                FoodLogMethod.FAVORITES in ui.addMenuConfig.visibleMethods()) {
+            val foodLoggingEnabled = ui.activeFast == null
+            foodShortcuts.methods.take(shortcutCount).forEachIndexed { slot, method ->
                 Box(
                     modifier = Modifier
-                        .testTag("home.favorites")
-                        .size(48.dp)
+                        .testTag("home.foodShortcut.$slot")
+                        .size(shortcutSize)
+                        .alpha(if (foodLoggingEnabled) 1f else 0.5f)
                         .background(neo.panel)
                         .border(1.dp, neo.rule)
-                        .clickable { performFoodLogMethod(FoodLogMethod.FAVORITES) },
+                        .clickable(enabled = foodLoggingEnabled, role = Role.Button) {
+                            performFoodLogMethod(method)
+                        },
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
-                        FoodLogMethod.FAVORITES.icon,
-                        contentDescription = stringResource(R.string.saved_meals_tab_favorites),
+                        method.icon,
+                        contentDescription = stringResource(method.titleRes),
                         tint = neo.ink
                     )
                 }
-            }
-            if (!voiceVisible && !hideVoiceShortcut) {
-                VoiceAssistantButton(onClick = container.voiceAssistant::requestStart, flat = true)
             }
             Box(Modifier.weight(1f)) {
             Row(
@@ -922,6 +932,7 @@ DisposableEffect(lifecycleOwner, vm) {
         }
         }
         }
+        }
     }
 
     if (showText) {
@@ -975,6 +986,7 @@ DisposableEffect(lifecycleOwner, vm) {
                 primaryText = stringResource(R.string.action_delete),
                 onPrimary = {
                     pendingDiaryDeletion = null
+                    haptics.performHapticFeedback(HapticFeedbackType.Confirm)
                     when (target) {
                         is HomeDiaryItem.Food -> vm.deleteEntry(target.entry.id)
                         is HomeDiaryItem.Water -> vm.deleteWater(target.entry.id)
@@ -1305,7 +1317,6 @@ DisposableEffect(lifecycleOwner, vm) {
 @Composable
 private fun ActiveFastingRow(
     session: FastingSession,
-    rowShape: RoundedCornerShape,
     onClick: () -> Unit
 ) {
     val neo = pinkNeoPalette()
@@ -1326,11 +1337,9 @@ private fun ActiveFastingRow(
     Column(
         Modifier
             .fillMaxWidth()
-            .clip(rowShape)
             .background(neo.panel)
-            .border(0.7.dp, neo.rule, rowShape)
             .clickable(onClick = onClick)
-            .padding(horizontal = 14.dp, vertical = 12.dp)
+            .padding(horizontal = DiaryRowInset, vertical = 8.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             FastingEmojiTile()
@@ -1371,7 +1380,6 @@ private fun ActiveFastingRow(
 @Composable
 private fun CompletedFastingRow(
     session: FastingSession,
-    rowShape: RoundedCornerShape,
     onClick: () -> Unit
 ) {
     val neo = pinkNeoPalette()
@@ -1383,11 +1391,9 @@ private fun CompletedFastingRow(
     Row(
         Modifier
             .fillMaxWidth()
-            .clip(rowShape)
             .background(neo.panel)
-            .border(0.7.dp, neo.rule, rowShape)
             .clickable(onClick = onClick)
-            .padding(horizontal = 14.dp, vertical = 12.dp),
+            .padding(horizontal = DiaryRowInset, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         FastingEmojiTile()
@@ -1419,7 +1425,7 @@ private fun CompletedFastingRow(
 private fun FastingEmojiTile() {
     Box(
         Modifier
-            .size(56.dp)
+            .size(DiaryThumbnailSize)
             .clip(RoundedCornerShape(14.dp))
             .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.06f)),
         contentAlignment = Alignment.Center
@@ -1853,7 +1859,7 @@ private fun MealSectionHeader(
     Column(
         Modifier
             .fillMaxWidth()
-            .padding(start = 10.dp, end = 10.dp, top = 10.dp, bottom = 3.dp)
+            .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp)
             .background(neo.wash)
             .border(1.dp, neo.rule)
             .padding(horizontal = 8.dp, vertical = 4.dp)
@@ -1870,7 +1876,9 @@ private fun MealSectionHeader(
                 Text(
                     stringResource(meal.displayNameRes),
                     fontSize = 15.sp,
+                    lineHeight = 19.sp,
                     fontWeight = FontWeight.Black,
+                    style = PinkNeoCondensed,
                     color = neo.ink,
                     modifier = Modifier.weight(1f, fill = false).testTag("home.mealHeader.${meal.name}.title")
                 )
@@ -1884,7 +1892,7 @@ private fun MealSectionHeader(
                         Row(
                             modifier = Modifier
                                 .clickable(role = Role.Button, onClick = onSortClick)
-                                .sizeIn(minWidth = 48.dp, minHeight = 48.dp),
+                                .sizeIn(minWidth = 48.dp, minHeight = 28.dp),
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.spacedBy(6.dp, Alignment.CenterHorizontally)
                         ) {
@@ -1897,7 +1905,8 @@ private fun MealSectionHeader(
                             if (!compactActions) {
                                 Text(
                                     sortLabel,
-                                    fontSize = 17.sp,
+                                    fontSize = 15.sp,
+                                    lineHeight = 19.sp,
                                     fontWeight = FontWeight.SemiBold,
                                     color = AppColors.Calorie
                                 )
@@ -1923,7 +1932,7 @@ private fun MealSectionHeader(
                     Box(
                         modifier = Modifier
                             .clickable(role = Role.Button, onClick = onShare)
-                            .size(48.dp),
+                            .size(width = 48.dp, height = 28.dp),
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
@@ -1949,7 +1958,7 @@ private fun MealSectionHeader(
         if (totalCalories != null) {
             Column(
                 modifier = Modifier
-                    .padding(top = 4.dp)
+                    .padding(top = 2.dp)
                     .fillMaxWidth()
                     .testTag("home.mealHeader.${meal.name}.totals"),
                 horizontalAlignment = Alignment.Start
@@ -2170,14 +2179,19 @@ private fun SectionCardWrapper(
     ) { content() }
 }
 
+private val DiaryRowInset = 12.dp
+private val DiaryThumbnailSize = 56.dp
+private val DiaryThumbnailGap = 12.dp
+
 @Composable
-private fun Divider() {
+private fun DiaryRowDivider() {
+    val neo = pinkNeoPalette()
     Box(
         Modifier
-            .padding(start = 102.dp, end = 14.dp)
+            .padding(start = DiaryRowInset + DiaryThumbnailSize + DiaryThumbnailGap, end = DiaryRowInset)
             .fillMaxWidth()
             .height(0.5.dp)
-            .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f))
+            .background(neo.ink.copy(alpha = 0.14f))
     )
 }
 
@@ -2198,7 +2212,6 @@ private fun Divider() {
 private fun SwipeableFoodRow(
     entry: FoodEntry,
     isFavorite: Boolean,
-    rowShape: RoundedCornerShape,
     selectionMode: Boolean = false,
     selected: Boolean = false,
     onTap: () -> Unit,
@@ -2254,7 +2267,6 @@ private fun SwipeableFoodRow(
                 FoodRow(
                     entry = entry,
                     isFavorite = isFavorite,
-                    rowShape = rowShape,
                     selectionMode = selectionMode,
                     selected = selected,
                 )
@@ -2268,7 +2280,6 @@ private fun SwipeableFoodRow(
 private fun SwipeableWaterRow(
     entry: WaterEntry,
     unit: WaterUnit,
-    rowShape: RoundedCornerShape,
     onDelete: () -> Unit
 ) {
     val density = LocalDensity.current
@@ -2296,7 +2307,7 @@ private fun SwipeableWaterRow(
                         )
                     }
             ) {
-                WaterLogRow(entry = entry, unit = unit, rowShape = rowShape)
+                WaterLogRow(entry = entry, unit = unit)
             }
         }
     }
@@ -2305,12 +2316,11 @@ private fun SwipeableWaterRow(
 @Composable
 private fun SwipeableFastingRow(
     session: FastingSession,
-    rowShape: RoundedCornerShape,
     onTap: () -> Unit,
     onDelete: () -> Unit
 ) {
     if (session.isActive) {
-        ActiveFastingRow(session = session, rowShape = rowShape, onClick = onTap)
+        ActiveFastingRow(session = session, onClick = onTap)
         return
     }
 
@@ -2339,7 +2349,7 @@ private fun SwipeableFastingRow(
                         )
                     }
             ) {
-                CompletedFastingRow(session = session, rowShape = rowShape, onClick = onTap)
+                CompletedFastingRow(session = session, onClick = onTap)
             }
         }
     }
@@ -2398,8 +2408,7 @@ private fun BoxScope.SwipeBackground(offsetPx: Float, isFavorite: Boolean) {
 @Composable
 private fun WaterLogRow(
     entry: WaterEntry,
-    unit: WaterUnit,
-    rowShape: RoundedCornerShape
+    unit: WaterUnit
 ) {
     val neo = pinkNeoPalette()
     val ctx = LocalContext.current
@@ -2414,16 +2423,14 @@ private fun WaterLogRow(
         Modifier
             .testTag("diary.water.${entry.id}")
             .fillMaxWidth()
-            .clip(rowShape)
             .background(neo.panel)
-            .border(0.7.dp, neo.rule, rowShape)
-            .padding(horizontal = 14.dp, vertical = 12.dp),
+            .padding(horizontal = DiaryRowInset, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         Box(
             Modifier
-                .size(56.dp)
+                .size(DiaryThumbnailSize)
                 .clip(RoundedCornerShape(14.dp))
                 .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.06f)),
             contentAlignment = Alignment.Center
@@ -2459,17 +2466,15 @@ private data class Quad<A, B, C, D>(val a: A, val b: B, val c: C, val d: D)
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun FoodRow(
+internal fun FoodRow(
     entry: FoodEntry,
     isFavorite: Boolean = false,
-    rowShape: RoundedCornerShape = RoundedCornerShape(22.dp),
     selectionMode: Boolean = false,
     selected: Boolean = false
 ) {
     val neo = pinkNeoPalette()
     val ctx = LocalContext.current
-    val compactDetails = LocalDensity.current.fontScale >= 1.3f ||
-        LocalConfiguration.current.screenWidthDp < 360
+    val largeText = LocalDensity.current.fontScale >= 1.3f
     val timeFmt = remember(ctx) {
         DateTimeFormatter.ofPattern(clockTimePattern(ctx), Locale.getDefault()).withZone(ZoneId.systemDefault())
     }
@@ -2478,35 +2483,34 @@ private fun FoodRow(
     val hasPhotos = entry.allImageFilenames.isNotEmpty()
     val thumbnail = rememberFoodThumbnailCandidate(container.imageStore, entry.thumbnailImageFilenames)
     val bitmap = thumbnail?.second
+    val thumbnailShape = RoundedCornerShape(if (bitmap != null) 14.dp else 0.dp)
     var previewPhotos by remember { mutableStateOf<Pair<List<android.graphics.Bitmap>, Int>?>(null) }
     var isLoadingPreview by remember { mutableStateOf(false) }
     Row(
         Modifier
             .testTag("diary.food.${entry.id}")
             .fillMaxWidth()
-            .clip(rowShape)
             .background(neo.panel)
             .background(if (selected) neo.action.copy(alpha = 0.12f) else Color.Transparent)
-            .border(0.7.dp, neo.rule, rowShape)
-            .padding(horizontal = 14.dp, vertical = 12.dp),
-        verticalAlignment = Alignment.Top,
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
+            .padding(horizontal = DiaryRowInset, vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(DiaryThumbnailGap)
     ) {
         if (selectionMode) {
             Icon(
                 imageVector = if (selected) Icons.Filled.CheckCircle else Icons.Outlined.Circle,
                 contentDescription = null,
                 tint = if (selected) AppColors.Calorie else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.35f),
-                modifier = Modifier
-                    .padding(top = 28.dp)
-                    .size(26.dp)
+                modifier = Modifier.size(24.dp)
             )
         }
         Box(
             Modifier
-                .size(if (compactDetails) 44.dp else 76.dp)
-                .clip(RoundedCornerShape(14.dp))
-                .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.06f))
+                .testTag("diary.food.${entry.id}.thumbnail")
+                .size(DiaryThumbnailSize)
+                .clip(thumbnailShape)
+                .background(neo.panel)
+                .then(if (bitmap == null) Modifier.border(0.7.dp, neo.rule) else Modifier)
                 .then(
                     if (hasPhotos && !selectionMode) {
                         Modifier.clickable {
@@ -2538,14 +2542,14 @@ private fun FoodRow(
                     bitmap = bitmap.asImageBitmap(),
                     contentDescription = stringResource(R.string.cd_view_full_photo),
                     contentScale = androidx.compose.ui.layout.ContentScale.Crop,
-                    modifier = Modifier.fillMaxSize().clip(RoundedCornerShape(14.dp))
+                    modifier = Modifier.fillMaxSize()
                 )
-                entry.emoji != null -> Text(entry.emoji ?: "", fontSize = if (compactDetails) 18.sp else 36.sp)
+                entry.emoji != null -> Text(entry.emoji, fontSize = 27.sp, lineHeight = 33.sp)
                 else -> Icon(
                     Icons.Filled.Restaurant,
                     contentDescription = null,
                     tint = AppColors.Calorie,
-                    modifier = Modifier.size(28.dp)
+                    modifier = Modifier.size(22.dp)
                 )
             }
             if (entry.allImageFilenames.size > 1) {
@@ -2564,8 +2568,8 @@ private fun FoodRow(
         }
 
         Column(
-            Modifier.weight(1f).padding(top = 2.dp),
-            verticalArrangement = Arrangement.spacedBy(6.dp)
+            Modifier.weight(1f),
+            verticalArrangement = Arrangement.spacedBy(3.dp)
         ) {
             val nameContent: @Composable (Modifier) -> Unit = { modifier ->
                 Row(
@@ -2576,9 +2580,10 @@ private fun FoodRow(
                     Text(
                         entry.name,
                         fontSize = 16.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        maxLines = if (compactDetails) Int.MAX_VALUE else 2,
-                        overflow = TextOverflow.Ellipsis,
+                        lineHeight = 20.sp,
+                        fontWeight = FontWeight.Black,
+                        style = PinkNeoCondensed,
+                        color = neo.ink,
                         modifier = Modifier.weight(1f, fill = false)
                     )
                     if (isFavorite) {
@@ -2593,18 +2598,19 @@ private fun FoodRow(
             }
             val timestamp: @Composable () -> Unit = {
                 Text(
-                    timeFmt.format(entry.timestamp).lowercase(),
-                    fontSize = 12.sp,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.45f)
+                    timeFmt.format(entry.timestamp),
+                    fontSize = 11.sp,
+                    lineHeight = 14.sp,
+                    color = neo.ink.copy(alpha = 0.58f)
                 )
             }
-            if (compactDetails) {
+            if (largeText) {
                 nameContent(Modifier.fillMaxWidth())
                 timestamp()
             } else {
                 Row(
-                    verticalAlignment = Alignment.Top,
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
                 ) {
                     nameContent(Modifier.weight(1f))
                     timestamp()
@@ -2612,27 +2618,31 @@ private fun FoodRow(
             }
 
             FlowRow(
-                horizontalArrangement = Arrangement.spacedBy(6.dp),
-                verticalArrangement = Arrangement.spacedBy(3.dp)
+                horizontalArrangement = Arrangement.spacedBy(5.dp),
+                verticalArrangement = Arrangement.spacedBy(2.dp),
+                itemVerticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
                     energyText(entry.calories),
                     fontSize = 14.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    color = AppColors.Calorie
+                    lineHeight = 17.sp,
+                    fontWeight = FontWeight.Black,
+                    style = PinkNeoCondensed,
+                    color = neo.ink
                 )
                 val serving = entry.servingSizeGrams?.takeIf { it > 0 }?.let { gramsText(it) }
                     ?: "${ServingUnitOption.formatQuantity(entry.reviewServingReference)} ${stringResource(R.string.sheet_serving)}"
                 Text(
-                    if (compactDetails) serving else "·  $serving",
+                    "·  $serving",
                     fontSize = 12.sp,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
+                    lineHeight = 15.sp,
+                    color = neo.ink.copy(alpha = 0.68f)
                 )
             }
 
             FlowRow(
-                horizontalArrangement = Arrangement.spacedBy(6.dp),
-                verticalArrangement = Arrangement.spacedBy(4.dp)
+                horizontalArrangement = Arrangement.spacedBy(3.dp),
+                verticalArrangement = Arrangement.spacedBy(3.dp)
             ) {
                 MacroChip(stringResource(R.string.macro_abbrev_protein), entry.protein)
                 MacroChip(stringResource(R.string.macro_abbrev_carbs), entry.carbs)
@@ -2657,12 +2667,13 @@ private fun MacroChip(label: String, value: Double) {
     Box(
         Modifier
             .clip(CircleShape)
-            .background(AppColors.Calorie.copy(alpha = 0.10f))
-            .padding(horizontal = 8.dp, vertical = 3.dp)
+            .background(AppColors.Calorie.copy(alpha = 0.08f))
+            .padding(horizontal = 6.dp, vertical = 2.dp)
     ) {
         Text(
             "$label ${gramsText(value)}",
-            fontSize = 11.sp,
+            fontSize = 10.sp,
+            lineHeight = 12.sp,
             fontWeight = FontWeight.Medium,
             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
         )
@@ -2801,10 +2812,12 @@ private fun CopyFromDaySheet(
                         val isFirst = index == 0
                         val isLast = index == group.entries.lastIndex
                         SectionCardWrapper(isFirst = isFirst, isLast = isLast, transparent = true) {
-                            Box(Modifier.clickable { onCopy(listOf(entry)) }) {
-                                FoodRow(entry = entry, rowShape = RoundedCornerShape(0.dp))
+                            Column {
+                                Box(Modifier.clickable { onCopy(listOf(entry)) }) {
+                                    FoodRow(entry = entry)
+                                }
+                                if (!isLast) DiaryRowDivider()
                             }
-                            if (index != group.entries.lastIndex) Divider()
                         }
                     }
                 }
@@ -2839,14 +2852,12 @@ private fun CopyFromDaySheet(
 // ── Dialogs (unchanged styling polish) ──────────────────────────────
 
 @Composable
-private fun AnalyzingOverlay(
+internal fun AnalyzingOverlay(
     imageBytes: ByteArray? = null,
     progress: AnalysisProgressState? = null,
     onCancel: (() -> Unit)? = null
 ) {
-    // Verbatim port of ios/calorietracker/Views/AnalyzingView.swift:
-    //   VStack { (image | text.magnifyingglass) → ProgressView(.large) → "Analyzing your food..." → Cancel }
-    //   filling the screen, opaque background, calorie-pink accents.
+    // Match iOS: an opaque analysis surface with progress, a fact, and Cancel.
     val bitmap by produceState<android.graphics.Bitmap?>(initialValue = null, imageBytes) {
         value = withContext(Dispatchers.IO) {
             // Skip overlay decode for huge cold-start imports so analysis isn't fighting the UI
@@ -2865,17 +2876,17 @@ private fun AnalyzingOverlay(
             // the "+" button behind it and start a second analysis.
             .pointerInput(Unit) { detectTapGestures(onTap = {}) }
     ) {
+        val previewSize = minOf(200.dp, maxHeight * 0.27f, (maxWidth - 48.dp).coerceAtLeast(0.dp))
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(24.dp, Alignment.CenterVertically),
-            // At large font sizes the fixed image and the three text lines no longer
-            // fit; the minimum height keeps the content centred, and the scroll keeps
-            // the cancel button reachable once the content grows past the screen.
+            verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
+            // Keep the content centred while it fits and Cancel reachable by
+            // scrolling when a photo or large text needs more space.
             modifier = Modifier
                 .verticalScroll(rememberScrollState())
                 .heightIn(min = maxHeight)
                 .fillMaxWidth()
-                .padding(horizontal = 32.dp, vertical = 24.dp)
+                .padding(horizontal = 24.dp, vertical = 18.dp)
         ) {
             bitmap?.let { bmp ->
                 androidx.compose.foundation.Image(
@@ -2883,7 +2894,7 @@ private fun AnalyzingOverlay(
                     contentDescription = null,
                     contentScale = androidx.compose.ui.layout.ContentScale.Fit,
                     modifier = Modifier
-                        .size(250.dp)
+                        .size(previewSize)
                         .clip(RoundedCornerShape(16.dp))
                 )
             } ?: run {
@@ -2891,7 +2902,7 @@ private fun AnalyzingOverlay(
                     Icons.Filled.ImageSearch,
                     contentDescription = null,
                     tint = AppColors.Calorie,
-                    modifier = Modifier.size(64.dp)
+                    modifier = Modifier.size(52.dp)
                 )
             }
             // A static icon replaces the spinner when the system turned animations off.
@@ -2913,6 +2924,7 @@ private fun AnalyzingOverlay(
                     color = MaterialTheme.colorScheme.onBackground
                 )
             }
+            WaitingFactCard()
             // A slow or stalled provider used to leave this screen up with no way out (#357).
             onCancel?.let { cancel ->
                 TextButton(onClick = cancel) {
@@ -3062,7 +3074,7 @@ internal fun TextInputDialog(onDismiss: () -> Unit, onSubmit: (String) -> Unit, 
             singleLine = false,
             minLines = 3,
             maxLines = 5,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth().testTag("food.description")
         )
         FudGlassPrimaryButton(
             text = stringResource(R.string.action_analyze),

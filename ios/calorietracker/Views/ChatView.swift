@@ -441,6 +441,7 @@ struct ChatView: View {
     private var composerField: some View {
         TextField("Ask Coach…", text: $draft, axis: .vertical)
             .font(.body)
+            .accessibilityIdentifier("coach.input")
             .lineLimit(1...5)
             .padding(.horizontal, 8)
             .padding(.vertical, 12)
@@ -653,6 +654,7 @@ struct ChatView: View {
         errorMessage = nil
         isSending = true
         let historyForCall = chatStore.contextMessages().dropLast()  // exclude the user msg we just appended
+        let resetRevision = chatStore.resetRevision
 
         let proposals = CoachExerciseProposalCollector()
 
@@ -678,12 +680,14 @@ struct ChatView: View {
                     exerciseLibrary: strengthWorkoutStore.exerciseLibrary.exercises,
                     proposals: proposals
                 )
+                guard chatStore.resetRevision == resetRevision else { return }
                 chatStore.append(ChatMessage(
                     role: .assistant,
                     content: reply,
                     exerciseProposals: proposals.proposals.isEmpty ? nil : proposals.proposals
                 ))
             } catch {
+                guard chatStore.resetRevision == resetRevision else { return }
                 if let quotaError = error as? HostedAIQuotaError {
                     switch quotaError {
                     case .quotaExceeded:

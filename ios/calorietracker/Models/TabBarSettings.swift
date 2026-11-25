@@ -32,6 +32,12 @@ enum TabBarSettings {
 
     /// The hidden tab behind an assistant screen; nil for screens that are never hidden.
     static func hiddenTab(for screen: VoiceAssistantScreen, in hidden: Set<HideableTab>) -> HideableTab? {
-        HideableTab(rawValue: screen.rawValue).flatMap { hidden.contains($0) ? $0 : nil }
+        let group: HideableTab? = switch screen {
+        case .progress, .weeklyChallenge: .progress
+        case .coach: .coach
+        case .workouts, .exerciseLibrary: .workouts
+        default: nil
+        }
+        return group.flatMap { hidden.contains($0) ? $0 : nil }
     }
 }

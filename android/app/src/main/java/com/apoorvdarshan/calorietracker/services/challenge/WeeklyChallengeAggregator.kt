@@ -1,5 +1,7 @@
 package com.apoorvdarshan.calorietracker.services.challenge
 
+import com.apoorvdarshan.calorietracker.models.ChallengePeriod
+import com.apoorvdarshan.calorietracker.models.ChallengePeriodScore
 import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.WaterEntry
 import com.apoorvdarshan.calorietracker.models.WeeklyChallengeAggregate
@@ -24,6 +26,44 @@ data class WeeklyChallengeAggregationInput(
 /** Pure, deterministic conversion from local diary data to the public aggregate contract. */
 object WeeklyChallengeAggregator {
     private const val DAILY_ACTIVITY_KCAL_CAP = 2_000
+
+    fun enabledPeriodScores(periods: Set<ChallengePeriod>, input: WeeklyChallengeAggregationInput): List<ChallengePeriodScore> =
+        ChallengePeriod.entries.filter { it != ChallengePeriod.WEEKLY && it in periods }.map { periodScore(it, input) }
+
+    fun periodScore(period: ChallengePeriod, input: WeeklyChallengeAggregationInput): ChallengePeriodScore {
+        val start = period.startFor(input.today)
+        val days = start..input.today
+        val foods = input.foods.groupBy { it.timestamp.atZone(input.zoneId).toLocalDate() }
+        val water = input.water.groupBy { it.date.atZone(input.zoneId).toLocalDate() }
+        val moved = input.workoutBurns.asSequence().filter { (it.caloriesBurned ?: 0) > 0 }
+            .mapNotNull { runCatching { LocalDate.parse(it.diaryDateKey) }.getOrNull() }.toSet()
+        var activity = 0
+        var nutrition = 0
+        var consistency = 0
+        var hydration = 0
+        var balanced = 0
+        var streak = 0
+        var longest = 0
+        var day = start
+        while (day in days) {
+            val entries = foods[day]
+            val withinGoal = input.calorieGoal > 0 && entries != null &&
+                entries.sumOf { it.calories.toLong().coerceAtLeast(0) }.toDouble() in
+                (input.calorieGoal * 0.85)..(input.calorieGoal * 1.15)
+            val hydrated = input.waterTrackingEnabled && input.waterGoalMl > 0 &&
+                (water[day]?.sumOf { it.milliliters.toLong().coerceAtLeast(0) } ?: 0L) >= input.waterGoalMl
+            val habits = listOf(day in moved, withinGoal, entries != null, hydrated).count { it }
+            if (day in moved) activity++
+            if (withinGoal) nutrition++
+            if (entries != null) consistency++
+            if (hydrated) hydration++
+            if (habits >= 3) balanced++
+            streak = if (habits >= 2) streak + 1 else 0
+            longest = maxOf(longest, streak)
+            day = day.plusDays(1)
+        }
+        return ChallengePeriodScore(period, start.toString(), activity, nutrition, consistency, hydration, balanced, longest, acceptedRules = true)
+    }
 
     fun aggregate(input: WeeklyChallengeAggregationInput): WeeklyChallengeAggregate {
         val weekEnd = WeeklyChallengeWeek.endFor(input.weekStart)

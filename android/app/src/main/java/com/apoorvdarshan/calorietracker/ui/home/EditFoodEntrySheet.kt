@@ -90,6 +90,7 @@ import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialog
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialogActions
 import com.apoorvdarshan.calorietracker.ui.components.FullScreenImageViewer
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
 import android.graphics.Bitmap
 import java.time.Instant
 import java.time.LocalDate
@@ -344,7 +345,8 @@ fun EditFoodEntrySheet(
                     },
                     customNote = noteText.trim().takeIf { it.isNotEmpty() },
                     emoji = newAnalysis.emoji,
-                    ingredients = newAnalysis.ingredients
+                    ingredients = newAnalysis.ingredients,
+                    aiAllergens = newAnalysis.aiAllergens
                 )
             } catch (e: Exception) {
                 errorText = (e as? com.apoorvdarshan.calorietracker.services.ai.AiError)?.userMessage(context) ?: reprocessingFailed
@@ -435,9 +437,9 @@ fun EditFoodEntrySheet(
                     .pointerInput(Unit) {
                         detectTapGestures(onTap = { dismissKeyboard() })
                     }
-                    .padding(horizontal = 20.dp)
+                    .padding(horizontal = FlashSpacing.SheetInset)
                     .padding(bottom = 28.dp),
-                verticalArrangement = Arrangement.spacedBy(18.dp)
+                verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap)
             ) {
             // Swipeable originals gallery OR 80sp emoji fallback — centered.
             item {
@@ -844,10 +846,9 @@ fun EditFoodEntrySheet(
             Box(
                 modifier = Modifier
                     .matchParentSize()
-                    .pointerInput(Unit) {
-                        detectTapGestures { /* Consume touches to disable UI interaction during reprocessing */ }
-                    }
-            )
+            ) {
+                AnalyzingOverlay()
+            }
         }
     }
     }

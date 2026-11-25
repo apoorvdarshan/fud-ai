@@ -31,6 +31,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
@@ -197,6 +201,8 @@ import com.apoorvdarshan.calorietracker.models.WaterQuickAddPresets
 import com.apoorvdarshan.calorietracker.models.EnergyUnit
 import com.apoorvdarshan.calorietracker.models.WaterUnit
 import com.apoorvdarshan.calorietracker.models.WorkoutRestTimerSetting
+import com.apoorvdarshan.calorietracker.models.WorkoutDockAction
+import com.apoorvdarshan.calorietracker.models.WorkoutDockShortcuts
 import com.apoorvdarshan.calorietracker.models.WorkoutRpeScale
 import com.apoorvdarshan.calorietracker.models.WorkoutSplit
 import com.apoorvdarshan.calorietracker.export.DiaryImportMode
@@ -236,8 +242,11 @@ import com.apoorvdarshan.calorietracker.ui.about.AboutSettingsCategory
 import com.apoorvdarshan.calorietracker.ui.about.AboutSettingsRows
 import com.apoorvdarshan.calorietracker.ui.components.SplitDecimalWheelPicker
 import com.apoorvdarshan.calorietracker.ui.components.UnitToggle
+import com.apoorvdarshan.calorietracker.ui.components.WaitingFactCard
 import com.apoorvdarshan.calorietracker.ui.navigation.BottomNavScrollPadding
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
+import com.apoorvdarshan.calorietracker.ui.theme.flashListRow
 import com.apoorvdarshan.calorietracker.ui.theme.PinkNeoCondensed
 import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 import com.apoorvdarshan.calorietracker.ui.theme.AppThemeColor
@@ -258,7 +267,7 @@ private enum class SettingsSheet {
     TEXT_PROVIDER, TEXT_MODEL, TEXT_KEY, TEXT_BASE_URL,
     TEXT_FALLBACK_PROVIDER, TEXT_FALLBACK_MODEL, TEXT_FALLBACK_KEY, TEXT_FALLBACK_BASE_URL,
     FALLBACK_PROVIDER, FALLBACK_MODEL, FALLBACK_KEY, FALLBACK_BASE_URL,
-    SPEECH_FALLBACK_PROVIDER, SPEECH_FALLBACK_LANGUAGE, SPEECH_FALLBACK_KEY,
+    SPEECH_FALLBACK_PROVIDER, SPEECH_FALLBACK_LANGUAGE, SPEECH_FALLBACK_KEY, SPEECH_MODEL, SPEECH_FALLBACK_MODEL,
     GENDER, BIRTHDAY, HEIGHT, WEIGHT, BODY_FAT, GOAL_BODY_FAT, ACTIVITY, GOAL, GOAL_WEIGHT, GOAL_SPEED,
     CALORIES, PROTEIN, CARBS, FAT, OPTIONAL_NUTRIENTS,
     APP_LANGUAGE, MEAL_TIMES, WATER_GOAL, WATER_UNIT, WATER_QUICK_ADD, FASTING_GOAL
@@ -354,15 +363,15 @@ internal enum class SettingsCategory(
             WORKOUT -> VoiceSettingsSection.WORKOUTS
             HEALTH_DATA -> VoiceSettingsSection.HEALTH
             DATA_MANAGEMENT -> VoiceSettingsSection.DATA
-            APP_UPDATES, SUPPORT, HELP_FEEDBACK, COMMUNITY, LEGAL -> VoiceSettingsSection.ABOUT
+            APP_UPDATES, SUPPORT, HELP_FEEDBACK, COMMUNITY, LEGAL -> aboutCategory?.voiceSection
         }
 
     companion object {
         val preferenceEntries = entries.filter { it.aboutCategory == null }
-        val appInfoEntries = entries.filter { it.aboutCategory != null }
+        val aboutEntries = entries.filter { it.aboutCategory != null && it != SUPPORT }
 
         /** Where the voice assistant's settings section opens; About lands on App Updates. */
-        fun forVoiceSection(section: VoiceSettingsSection): SettingsCategory = when (section) {
+        fun forVoiceSection(section: VoiceSettingsSection): SettingsCategory? = when (section) {
             VoiceSettingsSection.PROFILE -> PERSONAL_INFO
             VoiceSettingsSection.GOALS -> GOALS_NUTRITION
             // Tracking and notifications share one page (#432); REMINDERS still opens it.
@@ -374,7 +383,8 @@ internal enum class SettingsCategory(
             VoiceSettingsSection.HEALTH -> HEALTH_DATA
             VoiceSettingsSection.DATA -> DATA_MANAGEMENT
             VoiceSettingsSection.VOICE_ASSISTANT -> VOICE_ASSISTANT
-            VoiceSettingsSection.ABOUT -> APP_UPDATES
+            VoiceSettingsSection.ABOUT, VoiceSettingsSection.APP_UPDATES, VoiceSettingsSection.HELP_FEEDBACK,
+            VoiceSettingsSection.COMMUNITY, VoiceSettingsSection.LEGAL -> null
         }
     }
 }
@@ -428,7 +438,7 @@ fun SettingsScreen(
     // one is on screen.
     val pendingVoiceSection by container.navigator.pendingSettingsSection.collectAsState()
     LaunchedEffect(pendingVoiceSection) {
-        pendingVoiceSection?.let { section ->
+        pendingVoiceSection?.takeUnless { it == VoiceSettingsSection.ABOUT }?.let { section ->
             selectedCategory = SettingsCategory.forVoiceSection(section)
             container.navigator.pendingSettingsSection.value = null
         }
@@ -450,6 +460,7 @@ fun SettingsScreen(
     val hydrationSync by container.prefs.hydrationSyncEnabled.collectAsState(initial = false)
     val geminiTimeout by container.prefs.geminiTimeoutSeconds.collectAsState(initial = 0)
     val hideVoiceShortcut by container.prefs.hideVoiceShortcut.collectAsState(initial = false)
+    val hapticsEnabled by container.hapticsEnabled.collectAsState()
     val hideBarcodePhoto by container.prefs.hideBarcodePhoto.collectAsState(initial = false)
     val importReadFailedMessage = stringResource(R.string.import_read_failed)
     val importTooLargeMessage = stringResource(R.string.import_file_too_large)
@@ -759,8 +770,8 @@ fun SettingsScreen(
                     if (selectedCategory == null) settingsHomeScrollState
                     else settingsDetailScrollState
                 )
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(18.dp)
+                .padding(FlashSpacing.PageInset),
+            verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap)
         ) {
             if (selectedCategory == null) {
                 SettingsCategoryHub(onSelect = { selectedCategory = it })
@@ -978,6 +989,9 @@ fun SettingsScreen(
                             )
                         }
                     }
+                    if (ui.recalculatingGoals) {
+                        WaitingFactCard(Modifier.padding(horizontal = 16.dp, vertical = 8.dp))
+                    }
                     HorizontalDivider()
                     SettingRow(
                         stringResource(R.string.settings_calc_methods),
@@ -995,6 +1009,13 @@ fun SettingsScreen(
                     icon = Icons.Outlined.Mic, onChange = { settingsScope.launch { container.prefs.setHideVoiceShortcut(it) } })
                 ToggleRow(stringResource(R.string.settings_hide_barcode_photo), hideBarcodePhoto,
                     icon = Icons.Outlined.Tune, onChange = { settingsScope.launch { container.prefs.setHideBarcodePhoto(it) } })
+                HorizontalDivider()
+                ToggleRow(
+                    stringResource(R.string.settings_haptics),
+                    hapticsEnabled,
+                    switchModifier = Modifier.testTag("settings.haptics"),
+                    onChange = { settingsScope.launch { container.prefs.setHapticsEnabled(it) } }
+                )
                 HorizontalDivider()
                 SettingChoiceRow(
                     label = stringResource(R.string.settings_appearance),
@@ -1275,6 +1296,34 @@ fun SettingsScreen(
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)
                 )
             }
+            val dockShortcuts by container.prefs.workoutDockShortcuts.collectAsState(initial = WorkoutDockShortcuts.Default)
+            Text(
+                stringResource(R.string.settings_workout_shortcuts),
+                style = MaterialTheme.typography.titleSmall,
+                fontWeight = FontWeight.SemiBold,
+                modifier = Modifier.padding(horizontal = 4.dp)
+            )
+            SectionCard {
+                dockShortcuts.actions.forEachIndexed { slot, action ->
+                    if (slot > 0) HorizontalDivider()
+                    SettingChoiceRow(
+                        label = stringResource(R.string.settings_home_food_shortcut, slot + 1),
+                        selection = action,
+                        options = WorkoutDockAction.entries,
+                        icon = action.icon,
+                        modifier = Modifier.testTag("settings.workoutShortcut.$slot"),
+                        optionLabel = { stringResource(it.titleRes) },
+                        optionIcon = { it.icon },
+                        onSelect = { vm.setWorkoutDockShortcut(slot, it) }
+                    )
+                }
+                Text(
+                    stringResource(R.string.settings_home_food_shortcuts_detail),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)
+                )
+            }
             }
 
             if (selectedCategory == SettingsCategory.AI_ACCESS) {
@@ -1285,18 +1334,22 @@ fun SettingsScreen(
             // independent provider, model, key, and routing preferences.
             if (selectedCategory == SettingsCategory.AI_PROVIDERS) {
             SectionCard {
-                ui.localModelStates[LocalModelId.GEMMA_4_E2B]?.let { localModel ->
+                val localAI = listOf(LocalModelId.GEMMA_4_E2B, LocalModelId.GEMMA_4_E4B)
+                    .mapNotNull(ui.localModelStates::get)
+                if (localAI.isNotEmpty()) {
                     SettingsSubsectionHeader(
                         title = stringResource(R.string.settings_on_device_models),
                         icon = Icons.Outlined.Download,
                         infoText = stringResource(R.string.settings_on_device_models_info)
                     )
-                    LocalModelRow(
-                        state = localModel,
-                        onDownload = { vm.downloadLocalModel(localModel.descriptor.id) },
-                        onDelete = { vm.deleteLocalModel(localModel.descriptor.id) }
-                    )
-                    HorizontalDivider()
+                    for (localModel in localAI) {
+                        LocalModelRow(
+                            state = localModel,
+                            onDownload = { vm.downloadLocalModel(localModel.descriptor.id) },
+                            onDelete = { vm.deleteLocalModel(localModel.descriptor.id) }
+                        )
+                        HorizontalDivider()
+                    }
                 }
                 SettingsSubsectionHeader(
                     title = stringResource(R.string.settings_section_ai),
@@ -1510,18 +1563,22 @@ fun SettingsScreen(
 
             if (selectedCategory == SettingsCategory.SPEECH_TO_TEXT) {
             SectionCard {
-                ui.localModelStates[LocalModelId.WHISPER_BASE]?.let { localModel ->
+                val localSpeech = listOf(LocalModelId.WHISPER_BASE, LocalModelId.PARAKEET_V3, LocalModelId.QWEN3_ASR)
+                    .mapNotNull(ui.localModelStates::get)
+                if (localSpeech.isNotEmpty()) {
                     SettingsSubsectionHeader(
                         title = stringResource(R.string.settings_on_device_models),
                         icon = Icons.Outlined.Download,
                         infoText = stringResource(R.string.settings_on_device_models_info)
                     )
-                    LocalModelRow(
-                        state = localModel,
-                        onDownload = { vm.downloadLocalModel(localModel.descriptor.id) },
-                        onDelete = { vm.deleteLocalModel(localModel.descriptor.id) }
-                    )
-                    HorizontalDivider()
+                    for (localModel in localSpeech) {
+                        LocalModelRow(
+                            state = localModel,
+                            onDownload = { vm.downloadLocalModel(localModel.descriptor.id) },
+                            onDelete = { vm.deleteLocalModel(localModel.descriptor.id) }
+                        )
+                        HorizontalDivider()
+                    }
                 }
                 SettingsSubsectionHeader(
                     title = stringResource(R.string.settings_section_speech),
@@ -1539,6 +1596,14 @@ fun SettingsScreen(
                     stringResource(ui.selectedSpeechLanguage.displayNameRes),
                     icon = Icons.Outlined.Language
                 ) { sheet = SettingsSheet.SPEECH_LANGUAGE }
+                if (ui.selectedSpeech.recordedModelChoices.size > 1) {
+                    val model by remember(ui.selectedSpeech) { container.prefs.selectedRecordedSpeechModel(ui.selectedSpeech) }
+                        .collectAsState(initial = ui.selectedSpeech.defaultModel)
+                    HorizontalDivider()
+                    SettingRow(stringResource(R.string.settings_speech_model), model, icon = Icons.Outlined.Tune) {
+                        sheet = SettingsSheet.SPEECH_MODEL
+                    }
+                }
                 if (ui.selectedSpeech.requiresApiKey) {
                     HorizontalDivider()
                     SettingRow(
@@ -1573,6 +1638,15 @@ fun SettingsScreen(
                             stringResource(ui.speechFallbackLanguage.displayNameRes),
                             icon = Icons.Outlined.Language
                         ) { sheet = SettingsSheet.SPEECH_FALLBACK_LANGUAGE }
+                        if (ui.speechFallbackProvider.recordedModelChoices.size > 1) {
+                            val model by remember(ui.speechFallbackProvider) {
+                                container.prefs.selectedRecordedSpeechModel(ui.speechFallbackProvider)
+                            }.collectAsState(initial = ui.speechFallbackProvider.defaultModel)
+                            HorizontalDivider()
+                            SettingRow(stringResource(R.string.settings_speech_model), model, icon = Icons.Outlined.Tune) {
+                                sheet = SettingsSheet.SPEECH_FALLBACK_MODEL
+                            }
+                        }
                         if (ui.speechFallbackProvider.requiresApiKey) {
                             HorizontalDivider()
                             SettingRow(
@@ -1899,17 +1973,6 @@ fun SettingsScreen(
                 }
             }
             StorageSettingsCard(container.storageMaintenance)
-            }
-
-            // App information and support actions are first-class Settings destinations.
-            selectedCategory?.aboutCategory?.let { aboutCategory ->
-                if (aboutCategory == AboutSettingsCategory.APP_UPDATES) {
-                    SectionCard { AboutAppHeader() }
-                }
-
-                SectionCard {
-                    AboutSettingsRows(aboutCategory, billing = container.billing)
-                }
             }
 
             Spacer(Modifier.height(if (selectedCategory == SettingsCategory.VOICE_ASSISTANT) 0.dp else BottomNavScrollPadding))
@@ -2300,7 +2363,7 @@ fun SettingsScreen(
 @Composable
 private fun SettingsCategoryHub(onSelect: (SettingsCategory) -> Unit) {
     val neo = pinkNeoPalette()
-    Column(verticalArrangement = Arrangement.spacedBy(18.dp)) {
+    Column(verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap)) {
         Text(
             stringResource(R.string.nav_settings),
             modifier = Modifier.fillMaxWidth().background(neo.panel).border(1.dp, neo.rule).padding(12.dp),
@@ -2311,10 +2374,43 @@ private fun SettingsCategoryHub(onSelect: (SettingsCategory) -> Unit) {
         SectionCard {
             SettingsCategoryRows(SettingsCategory.preferenceEntries, onSelect)
         }
-        SectionCard {
-            SettingsCategoryRows(SettingsCategory.appInfoEntries, onSelect)
+    }
+}
+
+@Composable
+internal fun AboutRailScreen(
+    container: AppContainer,
+    category: AboutSettingsCategory? = null,
+    onSelect: (AboutSettingsCategory) -> Unit = {},
+    onBack: () -> Unit = {}
+) {
+    val neo = pinkNeoPalette()
+    Scaffold(containerColor = MaterialTheme.colorScheme.background) { padding ->
+        Column(
+            Modifier.fillMaxSize().padding(padding).verticalScroll(rememberScrollState())
+                .padding(FlashSpacing.PageInset),
+            verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap)
+        ) {
+            val title = stringResource(category?.titleRes ?: R.string.nav_about)
+            if (category != null && category != AboutSettingsCategory.SUPPORT) {
+                SettingsDetailHeader(backLabel = stringResource(R.string.nav_about), title = title, onBack = onBack)
+            } else {
+                Text(
+                    title,
+                    modifier = Modifier.fillMaxWidth().background(neo.panel).border(1.dp, neo.rule).padding(12.dp),
+                    fontSize = 30.sp, fontWeight = FontWeight.Black, style = PinkNeoCondensed
+                )
+            }
+
+            if (category == null) {
+                SectionCard { AboutAppHeader() }
+                SectionCard { SettingsCategoryRows(SettingsCategory.aboutEntries) { onSelect(checkNotNull(it.aboutCategory)) } }
+                AboutFooter()
+            } else {
+                SectionCard { AboutSettingsRows(category, billing = container.billing) }
+            }
+            Spacer(Modifier.height(BottomNavScrollPadding))
         }
-        AboutFooter()
     }
 }
 
@@ -2329,16 +2425,16 @@ private fun SettingsCategoryRows(
                 .testTag("settings.category.${category.name}")
                 .fillMaxWidth()
                 .clickable { onSelect(category) }
-                .padding(horizontal = 16.dp, vertical = 14.dp),
+                .flashListRow(),
             verticalAlignment = Alignment.CenterVertically
         ) {
             FudIconBubble(
                 icon = category.icon,
-                size = 28.dp,
+                size = 22.dp,
                 iconSize = 17.dp,
                 tint = AppColors.Calorie
             )
-            Spacer(Modifier.width(14.dp))
+            Spacer(Modifier.width(10.dp))
             Text(
                 text = stringResource(category.titleRes),
                 style = MaterialTheme.typography.bodyLarge,
@@ -2372,7 +2468,8 @@ private fun SettingsDetailHeader(backLabel: String, title: String, onBack: () ->
             modifier = Modifier
                 .clip(RoundedCornerShape(16.dp))
                 .clickable(onClick = onBack)
-                .padding(horizontal = 2.dp, vertical = 8.dp),
+                .heightIn(min = FlashSpacing.MinTouchTarget)
+                .padding(horizontal = 2.dp, vertical = 4.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
@@ -2390,8 +2487,7 @@ private fun SettingsDetailHeader(backLabel: String, title: String, onBack: () ->
         }
         Text(
             text = title,
-            fontSize = 28.sp,
-            fontWeight = FontWeight.Bold,
+            style = MaterialTheme.typography.headlineLarge,
             color = MaterialTheme.colorScheme.onBackground
         )
     }
@@ -3171,6 +3267,18 @@ private fun SettingsSheets(
                         }
                     }
                 )
+                SettingsSheet.SPEECH_MODEL, SettingsSheet.SPEECH_FALLBACK_MODEL -> {
+                    val provider = if (sheet == SettingsSheet.SPEECH_MODEL) ui.selectedSpeech else ui.speechFallbackProvider
+                    val model by remember(provider) { vm.container.prefs.selectedRecordedSpeechModel(provider) }
+                        .collectAsState(initial = provider.defaultModel)
+                    ListSheet(
+                        title = stringResource(R.string.settings_speech_model),
+                        items = provider.recordedModelChoices,
+                        label = { it },
+                        selected = { it == model },
+                        onSelect = { vm.selectRecordedSpeechModel(provider, it); onDismiss() }
+                    )
+                }
                 SettingsSheet.SPEECH_KEY -> ApiKeySheet(
                     title = stringResource(R.string.sheet_speech_api_key_format, stringResource(ui.selectedSpeech.displayNameRes)),
                     placeholder = stringResource(ui.selectedSpeech.apiKeyPlaceholderRes),
@@ -4494,16 +4602,20 @@ private fun SettingsSubsectionHeader(
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun LocalModelRow(
+internal fun LocalModelRow(
     state: LocalModelState,
     onDownload: () -> Unit,
     onDelete: () -> Unit
 ) {
     val uriHandler = LocalUriHandler.current
+    val ramRequirement = state.descriptor.minimumMemoryClassGb?.let { ram ->
+        if (ram == 8) stringResource(R.string.settings_model_requires_8gb)
+        else stringResource(R.string.settings_model_requires_ram, ram)
+    }
     val unavailableText = when (state.ineligibility) {
-        LocalModelIneligibility.INSUFFICIENT_MEMORY ->
-            stringResource(R.string.settings_model_requires_8gb)
+        LocalModelIneligibility.INSUFFICIENT_MEMORY -> ramRequirement
         LocalModelIneligibility.LOW_RAM_DEVICE ->
             stringResource(R.string.settings_model_low_ram_unsupported)
         LocalModelIneligibility.UNSUPPORTED_ABI ->
@@ -4513,7 +4625,7 @@ private fun LocalModelRow(
     val statusText = unavailableText ?: when (val status = state.status) {
         LocalModelInstallStatus.NotInstalled -> stringResource(
             R.string.settings_local_model_not_downloaded_format,
-            formatModelBytes(state.descriptor.expectedBytes)
+            formatModelBytes(state.descriptor.totalBytes)
         )
         is LocalModelInstallStatus.Downloading -> stringResource(
             R.string.settings_local_model_downloading_format,
@@ -4522,32 +4634,41 @@ private fun LocalModelRow(
         LocalModelInstallStatus.Installed -> stringResource(R.string.settings_local_model_installed)
         is LocalModelInstallStatus.Failed -> status.message
     }
-    Row(
+    Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 11.dp),
-        verticalAlignment = Alignment.CenterVertically
+            .padding(horizontal = FlashSpacing.PageInset, vertical = FlashSpacing.ItemGap),
+        verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
-        Column(Modifier.weight(1f).padding(end = 8.dp)) {
+        Column {
             Text(
                 state.descriptor.displayName,
                 style = MaterialTheme.typography.bodyLarge,
                 fontWeight = FontWeight.Medium
             )
             Text(
-                statusText,
+                if (unavailableText == null) statusText
+                else "$unavailableText · ${formatModelBytes(state.descriptor.totalBytes)}",
                 style = MaterialTheme.typography.bodySmall,
                 color = if (state.status is LocalModelInstallStatus.Failed) {
                     MaterialTheme.colorScheme.error
                 } else {
                     MaterialTheme.colorScheme.onSurface.copy(alpha = 0.58f)
-                },
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis
+                }
             )
-            Row(
-                modifier = Modifier.padding(top = 3.dp),
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            if (ramRequirement != null && ramRequirement != unavailableText) {
+                Text(ramRequirement, style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.58f))
+            }
+        }
+        FlowRow(
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            itemVerticalAlignment = Alignment.CenterVertically
+        ) {
+            TextButton(
+                onClick = { uriHandler.openUri(state.descriptor.licenseUrl) },
+                contentPadding = PaddingValues(0.dp),
+                modifier = Modifier.width(IntrinsicSize.Max).heightIn(min = FlashSpacing.MinTouchTarget)
             ) {
                 Text(
                     stringResource(
@@ -4555,43 +4676,50 @@ private fun LocalModelRow(
                         state.descriptor.licenseName
                     ),
                     color = AppColors.Calorie,
-                    style = MaterialTheme.typography.labelMedium,
-                    modifier = Modifier.clickable {
-                        uriHandler.openUri(state.descriptor.licenseUrl)
-                    }
+                    style = MaterialTheme.typography.labelMedium
                 )
+            }
+            TextButton(
+                onClick = { uriHandler.openUri(state.descriptor.sourceUrl) },
+                contentPadding = PaddingValues(0.dp),
+                modifier = Modifier.width(IntrinsicSize.Max).heightIn(min = FlashSpacing.MinTouchTarget)
+            ) {
                 Text(
                     stringResource(R.string.settings_model_source),
                     color = AppColors.Calorie,
-                    style = MaterialTheme.typography.labelMedium,
-                    modifier = Modifier.clickable {
-                        uriHandler.openUri(state.descriptor.sourceUrl)
-                    }
+                    style = MaterialTheme.typography.labelMedium
                 )
             }
         }
-        when (val status = state.status) {
-            is LocalModelInstallStatus.Downloading -> {
-                CircularProgressIndicator(
-                    progress = {
-                        status.downloadedBytes.toFloat() / status.totalBytes.coerceAtLeast(1L).toFloat()
-                    },
-                    modifier = Modifier.size(24.dp),
-                    strokeWidth = 2.dp,
-                    color = AppColors.Calorie
-                )
-                TextButton(onClick = onDelete) { Text(stringResource(R.string.action_cancel)) }
-            }
-            LocalModelInstallStatus.Installed ->
-                TextButton(onClick = onDelete) { Text(stringResource(R.string.action_delete)) }
-            LocalModelInstallStatus.NotInstalled,
-            is LocalModelInstallStatus.Failed -> {
-                TextButton(onClick = onDownload, enabled = state.eligible) {
-                    Text(stringResource(R.string.action_download))
-                }
-                // An interrupted download keeps its bytes for resuming; Delete frees them.
-                if (state.keptBytes > 0L) {
-                    TextButton(onClick = onDelete) { Text(stringResource(R.string.action_delete)) }
+        if (state.eligible || state.status != LocalModelInstallStatus.NotInstalled || state.keptBytes > 0L) {
+            FlowRow(
+                horizontalArrangement = Arrangement.spacedBy(FlashSpacing.ItemGap),
+                itemVerticalAlignment = Alignment.CenterVertically
+            ) {
+                when (val status = state.status) {
+                    is LocalModelInstallStatus.Downloading -> {
+                        CircularProgressIndicator(
+                            progress = {
+                                status.downloadedBytes.toFloat() / status.totalBytes.coerceAtLeast(1L).toFloat()
+                            },
+                            modifier = Modifier.size(24.dp),
+                            strokeWidth = 2.dp,
+                            color = AppColors.Calorie
+                        )
+                        TextButton(onClick = onDelete) { Text(stringResource(R.string.action_cancel)) }
+                    }
+                    LocalModelInstallStatus.Installed ->
+                        TextButton(onClick = onDelete) { Text(stringResource(R.string.action_delete)) }
+                    LocalModelInstallStatus.NotInstalled,
+                    is LocalModelInstallStatus.Failed -> {
+                        TextButton(onClick = onDownload, enabled = state.eligible) {
+                            Text(stringResource(R.string.action_download))
+                        }
+                        // An interrupted download keeps its bytes for resuming; Delete frees them.
+                        if (state.keptBytes > 0L) {
+                            TextButton(onClick = onDelete) { Text(stringResource(R.string.action_delete)) }
+                        }
+                    }
                 }
             }
         }
@@ -4605,7 +4733,7 @@ private fun formatModelBytes(bytes: Long): String = if (bytes >= 1_000_000_000L)
 }
 
 @Composable
-private fun <T> SettingChoiceRow(
+internal fun <T> SettingChoiceRow(
     label: String,
     selection: T,
     options: List<T>,
@@ -4622,8 +4750,7 @@ private fun <T> SettingChoiceRow(
         Row(
             modifier = modifier.fillMaxWidth()
                 .clickable { expanded = true }
-                .heightIn(min = 48.dp)
-                .padding(horizontal = 16.dp, vertical = 10.dp),
+                .flashListRow(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
@@ -4669,6 +4796,7 @@ private fun <T> SettingChoiceRow(
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun SettingRow(
     label: String,
@@ -4685,38 +4813,37 @@ internal fun SettingRow(
         Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick)
-            .padding(horizontal = 16.dp, vertical = 13.dp),
+            .flashListRow(),
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (leadingContent != null) {
             Box(Modifier.size(22.dp), contentAlignment = Alignment.Center) {
                 leadingContent()
             }
-            Spacer(Modifier.width(14.dp))
+            Spacer(Modifier.width(10.dp))
         } else if (icon != null) {
             FudIconBubble(icon = icon, size = 22.dp, iconSize = 14.dp)
-            Spacer(Modifier.width(14.dp))
+            Spacer(Modifier.width(10.dp))
         }
-        Text(
-            label,
+        FlowRow(
             modifier = Modifier.weight(1f),
-            style = MaterialTheme.typography.bodyLarge
-        )
-        if (value.isNotEmpty()) {
-            Text(
-                value,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.58f),
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                modifier = Modifier.padding(start = 12.dp)
-            )
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalArrangement = Arrangement.spacedBy(2.dp),
+            itemVerticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(label, modifier = Modifier.padding(end = if (value.isEmpty()) 0.dp else 8.dp),
+                style = MaterialTheme.typography.bodyLarge)
+            if (value.isNotEmpty()) {
+                Text(value, style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.65f))
+            }
         }
+        Spacer(Modifier.width(6.dp))
         Icon(
             if (inlineMenu) Icons.Filled.UnfoldMore else Icons.Filled.ChevronRight,
             contentDescription = null,
             tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f),
-            modifier = if (inlineMenu) Modifier.size(18.dp) else Modifier
+            modifier = Modifier.size(18.dp)
         )
     }
 }
@@ -4730,11 +4857,11 @@ private fun ActivityLevelSettingRow(
         Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick)
-            .padding(horizontal = 16.dp, vertical = 11.dp),
+            .flashListRow(),
         verticalAlignment = Alignment.CenterVertically
     ) {
         FudIconBubble(icon = Icons.AutoMirrored.Outlined.DirectionsRun, size = 22.dp, iconSize = 14.dp)
-        Spacer(Modifier.width(14.dp))
+        Spacer(Modifier.width(10.dp))
         Column(
             modifier = Modifier
                 .weight(1f)
@@ -4781,11 +4908,11 @@ private fun LockableGoalRow(
         Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick)
-            .padding(horizontal = 16.dp, vertical = 13.dp),
+            .flashListRow(),
         verticalAlignment = Alignment.CenterVertically
     ) {
         FudIconBubble(icon = icon, size = 22.dp, iconSize = 14.dp)
-        Spacer(Modifier.width(14.dp))
+        Spacer(Modifier.width(10.dp))
         Text(
             label,
             modifier = Modifier.weight(1f),
@@ -4838,11 +4965,11 @@ private fun MaintenanceEstimateRow(
         Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick)
-            .padding(horizontal = 16.dp, vertical = 11.dp),
+            .flashListRow(),
         verticalAlignment = Alignment.CenterVertically
     ) {
         FudIconBubble(icon = Icons.Outlined.Speed, size = 22.dp, iconSize = 14.dp)
-        Spacer(Modifier.width(14.dp))
+        Spacer(Modifier.width(10.dp))
         Column(Modifier.weight(1f)) {
             Text(
                 stringResource(R.string.settings_estimated_maintenance),
@@ -4930,12 +5057,12 @@ internal fun ToggleRow(
     onChange: (Boolean) -> Unit
 ) {
     Row(
-        Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
+        Modifier.fillMaxWidth().padding(horizontal = FlashSpacing.PageInset, vertical = 2.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (icon != null) {
             FudIconBubble(icon = icon, size = 22.dp, iconSize = 14.dp)
-            Spacer(Modifier.width(14.dp))
+            Spacer(Modifier.width(10.dp))
         }
         Column(modifier = Modifier.weight(1f)) {
             Text(label, style = MaterialTheme.typography.bodyLarge)
@@ -4961,7 +5088,7 @@ private fun ToggleRowWithInfo(
     enabled: Boolean = true
 ) {
     Row(
-        Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
+        Modifier.fillMaxWidth().padding(horizontal = FlashSpacing.PageInset, vertical = 2.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (icon != null) {
@@ -4973,7 +5100,7 @@ private fun ToggleRowWithInfo(
             modifier = Modifier.weight(1f),
             style = MaterialTheme.typography.bodyLarge
         )
-        IconButton(onClick = onInfo, modifier = Modifier.size(36.dp)) {
+        IconButton(onClick = onInfo, modifier = Modifier.size(FlashSpacing.MinTouchTarget)) {
             Icon(
                 Icons.Outlined.Info,
                 contentDescription = stringResource(R.string.action_info),

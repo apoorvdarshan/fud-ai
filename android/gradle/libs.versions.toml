@@ -3,6 +3,7 @@ agp = "9.5.2"
 kotlin = "2.4.10"
 coreKtx = "1.19.1"
 junit = "4.13.2"
+jsonJava = "20260814"
 junitVersion = "1.3.0"
 espressoCore = "3.7.0"
 lifecycle = "2.8.7"
@@ -38,6 +39,7 @@ coil-svg = { group = "io.coil-kt", name = "coil-svg", version.ref = "coil" }
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
+json-java = { group = "org.json", name = "json", version.ref = "jsonJava" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }

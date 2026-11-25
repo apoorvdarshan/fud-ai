@@ -88,28 +88,7 @@ struct ProgressRangeTests {
         #expect(stats.avgProtein == 75)
     }
 
-    @Test func nutritionWindowEndsYesterdayWhenTodayIsExcluded() throws {
-        let calendar = utcCalendar
-        let now = try date(2026, 10, 17, hour: 15, calendar: calendar)
-
-        let included = TimeRange.week.nutritionDayRange(includeToday: true, today: now, calendar: calendar)
-        let excluded = TimeRange.week.nutritionDayRange(includeToday: false, today: now, calendar: calendar)
-        let excludedPrevious = TimeRange.week.nutritionDayRange(
-            offset: 1,
-            includeToday: false,
-            today: now,
-            calendar: calendar
-        )
-
-        let expectedIncluded = try date(2026, 10, 11, calendar: calendar)...date(2026, 10, 17, calendar: calendar)
-        let expectedExcluded = try date(2026, 10, 10, calendar: calendar)...date(2026, 10, 16, calendar: calendar)
-        let expectedPrevious = try date(2026, 10, 3, calendar: calendar)...date(2026, 10, 9, calendar: calendar)
-        #expect(included == expectedIncluded)
-        #expect(excluded == expectedExcluded)
-        #expect(excludedPrevious == expectedPrevious)
-    }
-
-    @Test func excludingTodayKeepsAPartialDayOutOfTheAverages() throws {
+    @Test func nutritionIncludesTodayOnlyInTheCurrentWindow() throws {
         let calendar = utcCalendar
         let now = try date(2026, 10, 17, hour: 9, calendar: calendar)
         let entries = try [
@@ -117,26 +96,27 @@ struct ProgressRangeTests {
             food(calories: 2_200, protein: 140, at: date(2026, 10, 16, hour: 19, calendar: calendar)),
             // Breakfast only so far today.
             food(calories: 400, protein: 20, at: date(2026, 10, 17, hour: 8, calendar: calendar)),
+            food(calories: 1_800, protein: 100, at: date(2026, 10, 10, hour: 20, calendar: calendar)),
         ]
 
-        func stats(includeToday: Bool) -> ProgressFoodRangeStats {
+        func stats(offset: Int) -> ProgressFoodRangeStats {
             ProgressFoodRangeStats.compute(
                 entries: entries,
                 dayCount: TimeRange.week.days,
-                endDay: TimeRange.week.nutritionDayRange(includeToday: includeToday, today: now, calendar: calendar).upperBound,
+                endDay: TimeRange.week.dayRange(offset: offset, endingAt: now, calendar: calendar).upperBound,
                 profile: .default,
                 optionalGoals: OptionalNutrientGoals(),
                 calendar: calendar
             )
         }
 
-        let withToday = stats(includeToday: true)
-        let withoutToday = stats(includeToday: false)
+        let current = stats(offset: 0)
+        let previous = stats(offset: 1)
 
-        #expect(withToday.dailyCalories.map(\.calories) == [2_000, 2_200, 400])
-        #expect(withToday.avgProtein == 280.0 / 3)
-        #expect(withoutToday.dailyCalories.map(\.calories) == [2_000, 2_200])
-        #expect(withoutToday.avgProtein == 130)
+        #expect(current.dailyCalories.map(\.calories) == [2_000, 2_200, 400])
+        #expect(current.avgProtein == 280.0 / 3)
+        #expect(previous.dailyCalories.map(\.calories) == [1_800])
+        #expect(previous.avgProtein == 100)
     }
 
     @Test func onlyClearlyHorizontalDragsScrubTheCalorieChart() {

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="voice_settings_gemini_barge_in">मेरे बोलने पर जवाब रोकें</string>
+    <string name="voice_settings_gemini_barge_in_detail">अगर आसपास के शोर से जवाब बीच में रुकते हैं, तो इसे बंद करें। बोलने से पहले जवाब पूरा होने दें।</string>
+</resources>

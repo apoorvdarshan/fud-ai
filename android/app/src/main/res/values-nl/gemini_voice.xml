@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="voice_settings_gemini_barge_in">Antwoord onderbreken als ik praat</string>
+    <string name="voice_settings_gemini_barge_in_detail">Zet dit uit als achtergrondgeluid antwoorden onderbreekt. Wacht met praten tot het antwoord klaar is.</string>
+</resources>

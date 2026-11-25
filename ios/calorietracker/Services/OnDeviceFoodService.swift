@@ -151,6 +151,9 @@ struct OnDeviceFoodService {
 
         @Guide(description: "Grams per one servingUnit (e.g. 50 if one egg weighs 50 g). Use 0 when servingUnit is empty.")
         var gramsPerUnit: Double
+
+        @Guide(description: "Possible allergens supported by the input. Use only: milk, egg, peanut, tree nut, wheat, gluten, soy, fish, shellfish, sesame, celery, mustard, lupin, sulphite, mollusc. Do not translate these IDs; use an empty array if unknown.")
+        var allergens: [String]
     }
 
     // MARK: - Availability
@@ -364,7 +367,8 @@ struct OnDeviceFoodService {
             omega3: nil,
             servingUnitOptions: unitOptions,
             selectedServingUnit: selectedOption?.unit,
-            selectedServingQuantity: selectedOption.map { $0.quantity(for: r.servingSizeGrams) }
+            selectedServingQuantity: selectedOption.map { $0.quantity(for: r.servingSizeGrams) },
+            aiAllergens: CanonicalFoodAllergens.clean(r.allergens)
         )
     }
 }

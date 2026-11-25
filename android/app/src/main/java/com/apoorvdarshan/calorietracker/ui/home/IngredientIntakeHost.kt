@@ -8,7 +8,9 @@ import android.content.pm.PackageManager
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -53,6 +55,7 @@ import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialog
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassPrimaryButton
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassTextField
 import com.apoorvdarshan.calorietracker.ui.components.InAppCameraCaptureDialog
+import com.apoorvdarshan.calorietracker.ui.components.WaitingFactCard
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
 import java.util.UUID
 
@@ -224,13 +227,15 @@ internal fun IngredientIntakeSection(
     }
 
     if (intakeState.busy) {
-        Box(
+        Column(
             Modifier
                 .fillMaxWidth()
                 .padding(vertical = 8.dp),
-            contentAlignment = Alignment.Center
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             CircularProgressIndicator(color = AppColors.Calorie)
+            WaitingFactCard()
         }
     }
 

@@ -14,6 +14,7 @@ final class RevenueCatManager: NSObject {
     static let shared = RevenueCatManager()
 
     private(set) var activePlan: HostedPlan = .none
+    private(set) var hasLoadedCustomerInfo = false
     private(set) var hasPlusEntitlement = false
     private(set) var hasProEntitlement = false
     private(set) var isLoadingOfferings = false
@@ -169,6 +170,7 @@ final class RevenueCatManager: NSObject {
     }
 
     private func applyCustomerInfo(_ info: CustomerInfo) {
+        hasLoadedCustomerInfo = true
         let active = info.entitlements[HostedAIConstants.proEntitlementID].flatMap { $0.isActive ? $0 : nil }
             ?? info.entitlements[HostedAIConstants.plusEntitlementID].flatMap { $0.isActive ? $0 : nil }
         trialEndsAt = active?.periodType == .trial ? active?.expirationDate : nil

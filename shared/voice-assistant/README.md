@@ -24,18 +24,25 @@ Worker (`web/`). Change it here first, then on every platform.
 | OpenAI (own key) | Realtime WebSocket, `Authorization: Bearer` | User |
 | xAI (own key) | Grok Voice realtime WebSocket, `Authorization: Bearer` | User |
 | OpenAI GPT-Live (own OpenAI key) | GPT-Live WebSocket (`wss://api.openai.com/v1/live/sessions`), `Authorization: Bearer`; tools run through Responses delegation to `gpt-6-luna` | User |
-| Qwen (own key) | Qwen Omni Realtime WebSocket (`wss://dashscope-intl.aliyuncs.com/api-ws/v1/realtime`, international region), `Authorization: Bearer` | User |
+| Qwen (own workspace key) | Qwen Omni Realtime WebSocket (`wss://{workspace}.ap-southeast-1.maas.aliyuncs.com/api-ws/v1/realtime`, Singapore), `Authorization: Bearer` | User |
 
 Settings offer **Automatic** (default): the selected own-key provider when its key
 is saved, otherwise Fud AI hosting when subscribed, otherwise an explanation of
-both options (subscribe, or add a Gemini/OpenAI/xAI/Qwen key). Own keys reuse the
-keys already saved in AI provider settings; nothing new is stored.
+both options. Gemini, OpenAI and xAI reuse keys in AI Providers. For Qwen,
+enter the Singapore workspace ID and its matching key in Voice Assistant
+settings. The workspace ID must be one DNS label. The key is stored separately
+in the platform credential store and sent only in the Authorization header.
+Qwen chat uses its own key; it does not configure Qwen Live. An explicitly
+chosen but incomplete Qwen setup never starts a Hosted session.
 
 Built-in models (first is the default): Gemini `gemini-3.8-live`,
-`gemini-3.1-flash-live-preview`; OpenAI `gpt-realtime-2.1-mini`,
+`gemini-3.8-live-extended-thinking`, `gemini-3.1-flash-live-preview`;
+OpenAI `gpt-realtime-2.1-mini`,
 `gpt-realtime-2.1`; xAI `grok-voice-latest`, `grok-voice-3.0`; Qwen
-`qwen3.8-omni-flash-realtime`; GPT-Live `gpt-live-1`. Hosted sessions
-always use the Worker's model.
+`qwen3.8-omni-flash-realtime`; GPT-Live `gpt-live-1`, `gpt-live-1.1`. Extended
+Thinking sends low thinking and non-blocking tools on the BYOK route only.
+Hosted sessions always use the Worker's model. GPT-Live 1.1 is opt-in and does
+not add camera or change the delegated tool model.
 
 Voices: Gemini Kore (default), Puck, Charon, Fenrir, Aoede, Leda, Orus, Zephyr,
 Sulafat, Achird, Despina, Gacrux; OpenAI marin (default), cedar, coral, sage,
@@ -56,6 +63,12 @@ latest frame with each user turn and before capture decisions); xAI and GPT-Live
   GPT-Live: 24 kHz both ways. Echo cancellation on (iOS voice processing, Android
   `VOICE_COMMUNICATION` + `AcousticEchoCanceler`). Speaking over the assistant
   stops its playback (OpenAI also gets `conversation.item.truncate`).
+- Gemini and Hosted use low speech-start and speech-end sensitivity, 240 ms
+  of prefix padding and 700 ms of silence before ending a user turn. Noise can
+  still trigger Gemini. Turning off **Interrupt when I speak** in Voice
+  Assistant settings sends `NO_INTERRUPTION`; wait for the reply to finish
+  before speaking. The selected voice is sent in every initial or resumed
+  setup; the model is instructed to keep one speaker, but it generates the sound.
 - Ends after 45 s with no speech either way (not while a tool is waiting for
   the user), after 15 minutes, when the user closes it, on `end_conversation`,
   or when the app goes to the background.
@@ -97,11 +110,17 @@ brief, speaks the user's language), the same profile/goal/forecast summary
 Coach uses, today's totals, the rules below, and the capabilities of this
 session (camera frames, auto-capture, confirm-before-saving).
 
-Rules given to the model: say what it is about to do in a few words, then do
-it; use tools for anything in the app instead of telling the user to tap;
+Rules given to the model: briefly announce visible app actions, then do
+them; perform read-only lookups without a preamble; use tools for anything
+in the app instead of telling the user to tap;
 never invent numbers (use the data tools); one question at a time; after a
 draft, read back the main items and total calories; never call a tool with
 `user_confirmed: true` unless the user agreed to that exact change.
+
+“How am I doing?” is a check on the user's progress, not the assistant's
+identity. Look up today's diary with `get_app_state` before answering and say
+when nothing was logged. The mascot's name is only spoken when explicitly
+asked for its name or identity; personality changes delivery, not the answer.
 
 ## Tool conventions
 
@@ -137,42 +156,53 @@ draft, read back the main items and total calories; never call a tool with
   and reopen only when another camera task needs it.
 - Applying a food save also dismisses an open food camera, covering logs made
   without a capture draft. Awaiting save confirmation does not dismiss it.
-- Navigation is real: `open_screen` switches tabs and pushes the settings
-  section; the assistant shrinks to a floating bubble so the screen is visible.
+- `open_screen` switches between all nine rail destinations and can open a
+  section of Settings or About. `get_app_state` reports the actual destination,
+  not its old parent tab. `set_diary_date` opens a day in Home or Workout Log.
+  The assistant minimizes so the destination is visible.
   Tabs the user hid in Settings > App Settings > Tab Bar (Progress, Coach,
   Workouts) return `unsupported` and are listed in `get_app_state` as
-  `hidden_screens`.
+  `hidden_screens`. Progress also hides Weekly Challenge; Workouts also hides
+  Exercise Library.
 - Food analysis, barcode lookup and workout parsing use the app's existing
   pipelines and AI settings (hosted analysis spends hosted actions as today).
 - Dates are the user's local calendar; `today`/`yesterday` accepted where noted.
 
 ## UI
 
-- Entry points: a floating orb beside Home's + button; iOS App Shortcut / Siri phrase
+- Entry points: the pinned mascot on the right rail; iOS App Shortcut / Siri phrase
   ("Talk to Fud AI"), usable from the Action Button, plus a Control Center
   control; Android Quick Settings tile, launcher shortcut and a home-screen
   widget. All open the app straight into a listening session.
-- The Home and compact conversation orbs render their glowing filaments over a
-  transparent background, without an outer border or dark disc. Their accessible
-  touch targets stay the same.
+- The pinned shortcut shows the selected mascot with no visible label, box,
+  or background. The accessible button name and touch target remain in place.
 - Home keeps meal calories and macros beneath the meal title on the leading
   side, away from the floating controls. The diary remains visible behind the
   buttons and can scroll its final entry above them.
-- Overlay states: **expanded** (dimmed background, large orb, live captions,
-  camera panel when open, cards) and **compact** (a floating orb bubble with a
+- Overlay states: **expanded** (dimmed background, large mascot, live captions,
+  camera panel when open, cards) and **compact** (a floating mascot with a
   caption pill above the tab bar, used while the app navigates or the user is
   looking at a screen). Tapping the bubble expands; an X ends the session.
-- The orb is `LiveOrbView` (iOS Metal) / its AGSL port (Android 13+; animated
-  Canvas fallback below), tinted with the app theme colour, driven by the
-  loudness of whoever is talking: idle, listening, thinking (waiting on the
-  model or a tool), speaking.
+- Mascots breathe, hop and double-blink at idle, nod while listening, tilt
+  while thinking, and bounce and move their mouths with assistant playback.
+  This is audio-level animation, not phoneme timing. Reduced Motion keeps
+  the character still. Settings → Voice Assistant shows eight static
+  illustrations and lets users customize the selected character.
 - Settings → Voice Assistant: provider, model (own key), voice, response
   language (app language by default / automatic / a chosen one), auto-capture
   photos (default on), confirm before saving, save conversations to Coach, voice minutes left
   (hosted), and how to open it from the system (Action Button/Siri/Control
   Center or tile/shortcut/widget).
 - Each finished turn is added to the Coach chat history when **Save
-  conversations to Coach** is on (default on).
+  conversations to Coach** is on (default on). This also lets the active
+  provider read up to 12 recent Coach messages, with text capped at 600
+  characters per message and no attachments, when a follow-up needs it. Chats
+  are not a substitute for the app's logs. The food diary tool indicates
+  whether an entry has a photo without sending the photo itself.
+- Turning off that setting disables new history lookups and saving. Clearing
+  Coach chat ends the current Live Voice session, so a new session can't use
+  the cleared text or write its unfinished turn back. It doesn't erase the
+  app's diary or retract messages already sent to an AI provider.
 - **Preview Voice**, beside the speaking-voice selection, plays a short sample
   using the selected live provider, model and voice. It reuses the saved API key
   for own-key providers or the existing hosted plan; hosted previews use the

@@ -8,7 +8,10 @@ import androidx.core.os.LocaleListCompat
 import androidx.test.runner.AndroidJUnitRunner
 import com.apoorvdarshan.calorietracker.BuildConfig
 import com.apoorvdarshan.calorietracker.FudAIApp
+import com.apoorvdarshan.calorietracker.services.ai.AnalysisProgressReporter
+import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysis
 import java.util.Locale
+import kotlinx.coroutines.awaitCancellation
 
 /** Lives in the test APK only; normal Debug and Release launches never use it. */
 class FudAITestRunner : AndroidJUnitRunner() {
@@ -24,6 +27,12 @@ class FudAITestRunner : AndroidJUnitRunner() {
 
 class FudAITestApplication : FudAIApp() {
     override val backgroundServicesEnabled = false
+    @Volatile var holdFoodTextAnalysis = false
+
+    override suspend fun analyzeFoodText(description: String, progress: AnalysisProgressReporter): FoodAnalysis {
+        if (holdFoodTextAnalysis) awaitCancellation()
+        return super.analyzeFoodText(description, progress)
+    }
 
     override fun onCreate() {
         requireTestTarget(this)

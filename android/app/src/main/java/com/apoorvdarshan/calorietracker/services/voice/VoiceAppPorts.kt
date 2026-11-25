@@ -1,6 +1,7 @@
 package com.apoorvdarshan.calorietracker.services.voice
 
 import com.apoorvdarshan.calorietracker.models.BodyFatEntry
+import com.apoorvdarshan.calorietracker.models.ChatMessage
 import com.apoorvdarshan.calorietracker.models.FastingSession
 import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.FoodSource
@@ -21,7 +22,8 @@ import java.util.UUID
 
 /** Tabs `open_screen` can show. */
 enum class VoiceScreen(val wireValue: String) {
-    HOME("home"), PROGRESS("progress"), COACH("coach"), WORKOUTS("workouts"), SETTINGS("settings");
+    HOME("home"), PROGRESS("progress"), WEEKLY_CHALLENGE("weekly_challenge"), COACH("coach"),
+    WORKOUTS("workouts"), EXERCISE_LIBRARY("exercise_library"), SETTINGS("settings"), ABOUT("about"), SUPPORT("support");
 
     companion object {
         fun fromWire(raw: String?): VoiceScreen? = entries.firstOrNull { it.wireValue == raw?.trim()?.lowercase() }
@@ -29,7 +31,7 @@ enum class VoiceScreen(val wireValue: String) {
 }
 
 /** `open_screen`'s settings_section values. */
-enum class VoiceSettingsSection(val wireValue: String) {
+enum class VoiceSettingsSection(val wireValue: String, val isAboutSection: Boolean = false) {
     PROFILE("profile"),
     GOALS("goals"),
     REMINDERS("reminders"),
@@ -41,7 +43,11 @@ enum class VoiceSettingsSection(val wireValue: String) {
     HEALTH("health"),
     DATA("data"),
     VOICE_ASSISTANT("voice_assistant"),
-    ABOUT("about");
+    ABOUT("about", true),
+    APP_UPDATES("app_updates", true),
+    HELP_FEEDBACK("help_feedback", true),
+    COMMUNITY("community", true),
+    LEGAL("legal", true);
 
     companion object {
         fun fromWire(raw: String?): VoiceSettingsSection? = entries.firstOrNull { it.wireValue == raw?.trim()?.lowercase() }
@@ -146,7 +152,8 @@ data class VoiceSessionContext(
     val provider: LiveProvider,
     val confirmSaves: Boolean,
     val autoCapture: Boolean,
-    val workoutDiaryEnabled: Boolean = true
+    val workoutDiaryEnabled: Boolean = true,
+    val coachHistoryEnabled: Boolean = false
 ) {
     val cameraFrames: CameraFrames get() = provider.cameraFrames
 }
@@ -157,6 +164,8 @@ data class VoiceSessionContext(
  * tests substitute an in-memory fake.
  */
 interface VoiceAppPorts {
+    suspend fun recentCoachMessages(): List<ChatMessage> = emptyList()
+
     // Time and calendar
     fun now(): Instant
     fun zone(): ZoneId
@@ -171,6 +180,7 @@ interface VoiceAppPorts {
     /** Tabs the user hid from the bottom bar; `open_screen` can't show them. */
     fun hiddenScreens(): Set<VoiceScreen> = emptySet()
     fun showDiaryDate(date: LocalDate)
+    fun showWorkoutDiaryDate(date: LocalDate)
     fun showFoodEntry(entry: FoodEntry)
 
     // Camera and photo picker (these may wait for the user)

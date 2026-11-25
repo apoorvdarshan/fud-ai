@@ -20,6 +20,7 @@ interface Env {
    * override under `[vars]` in wrangler.toml.
    */
   HOSTED_AI_LIVE_MODEL?: string;
+  HOSTED_AI_TRANSCRIBE_MODEL?: string;
   /** Deepgram key for hosted voice STT. Set at production time. */
   DEEPGRAM_API_KEY?: string;
   /**

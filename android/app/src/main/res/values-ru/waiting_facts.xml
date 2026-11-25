@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="waiting_fact_heading">Знаете ли вы?</string>
+    <string name="waiting_fact_vitamin_c">Витамин C помогает организму усваивать железо из растительной пищи.</string>
+    <string name="waiting_fact_beans">Фасоль и чечевица содержат и белок, и клетчатку.</string>
+    <string name="waiting_fact_oats">Овёс содержит бета-глюкан — разновидность растворимой клетчатки.</string>
+    <string name="waiting_fact_vegetables" formatted="false">Вода составляет более 90% массы огурцов и помидоров.</string>
+    <string name="waiting_fact_strength">Силовые тренировки предполагают работу с сопротивлением. Им может служить и вес собственного тела.</string>
+</resources>

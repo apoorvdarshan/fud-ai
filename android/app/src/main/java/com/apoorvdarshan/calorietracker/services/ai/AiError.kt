@@ -26,6 +26,7 @@ enum class AiErrorKind(val messageRes: Int, val defaultMessage: String) {
     GENERIC(R.string.ai_error_generic, "The AI request failed. Try again, or switch provider in Settings → AI Provider."),
     LOCAL_UNAVAILABLE(R.string.ai_error_local_unavailable, "The on-device AI runtime is unavailable. Check the downloaded model in Settings → AI Provider."),
     TRUNCATED(R.string.ai_error_truncated, "The AI response was truncated twice. Try a shorter input or another model."),
+    MODEL_TEXT_ONLY(R.string.ai_error_model_text_only, "This AI model only accepts text. Describe the meal or select a model that accepts photos."),
     PHOTO_LIMIT(R.string.ai_error_photo_limit, "The selected AI provider accepts at most 3 photos per request. Keep your selection to that many photos."),
 
     // Hosted AI (Plus/Pro). The Worker meters and verifies; these map its error codes.

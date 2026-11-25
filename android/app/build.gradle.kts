@@ -153,6 +153,7 @@ android {
             assets.srcDirs(
                 "src/main/assets",
                 "../../ios/calorietracker/Resources/FreeExerciseDB/dist",
+                "../../ios/calorietracker/Resources/WaitingFactsData",
                 "../../local-models/legal"
             )
         }
@@ -422,10 +423,13 @@ dependencies {
     implementation(libs.play.services.auth)
     implementation(libs.vico.compose.m3)
     implementation(libs.litert.lm.android)
+    implementation("com.k2fsa.sherpa:sherpa-onnx-static-link-onnxruntime:2.0.3@aar")
     implementation(libs.whisper.android)
     implementation(libs.revenuecat.purchases)
 
     testImplementation(libs.junit)
+    // android.jar supplies only stubs for org.json in local JVM tests.
+    testImplementation(libs.json.java)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation("com.squareup.okhttp3:mockwebserver:${libs.versions.okhttp.get()}")
     testImplementation("com.squareup.okhttp3:okhttp-tls:${libs.versions.okhttp.get()}")

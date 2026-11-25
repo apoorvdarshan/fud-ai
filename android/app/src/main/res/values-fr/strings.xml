@@ -216,7 +216,7 @@
     <string name="ai_key_placeholder_custom">Clé API (ou n\'importe quoi si l\'endpoint n\'en a pas besoin)</string>
 
     <!-- Speech Provider -->
-    <string name="speech_provider_native">Natif (sur l\'appareil)</string>
+    <string name="speech_provider_native">Reconnaissance vocale du système</string>
     <string name="speech_provider_openai">OpenAI GPT-Transcribe</string>
     <string name="speech_provider_groq">Groq (Whisper)</string>
     <string name="speech_provider_mistral">Mistral Voxtral</string>
@@ -230,12 +230,12 @@
     <string name="speech_key_placeholder_deepgram">Token votre-cle-deepgram</string>
     <string name="speech_key_placeholder_assemblyai">Votre clé AssemblyAI</string>
 
-    <string name="speech_description_native">Reconnaissance vocale sur l\'appareil d\'Android. Gratuit, fonctionne hors ligne sur la plupart des téléphones, résultats partiels en temps réel. Recommandé par défaut.</string>
+    <string name="speech_description_native">Reconnaissance vocale Android avec résultats partiels en direct. Une connexion Internet peut être nécessaire selon l’appareil et la langue.</string>
     <string name="speech_description_openai">API OpenAI GPT-Transcribe. Haute précision, plus de 99 langues, payant à la minute.</string>
     <string name="speech_description_groq">Whisper Large v3 hébergé par Groq. Inférence très rapide, offre gratuite disponible.</string>
-    <string name="speech_description_mistral">Voxtral Mini Transcribe 2 pour une transcription par lot multilingue précise.</string>
-    <string name="speech_description_deepgram">Deepgram Nova. Modes temps réel et batch, rapide et précis.</string>
-    <string name="speech_description_assemblyai">Modèle Universal d\'AssemblyAI. Bonne précision, offre gratuite disponible.</string>
+    <string name="speech_description_mistral">Voxtral Mini Transcribe 3 pour transcrire les enregistrements en plusieurs langues.</string>
+    <string name="speech_description_deepgram">Deepgram Nova-3 pour la transcription après enregistrement.</string>
+    <string name="speech_description_assemblyai">AssemblyAI STT 3.7 avec Universal-2 en secours pour couvrir plus de langues.</string>
 
     <!-- Bottom navigation -->
     <string name="nav_home">Accueil</string>

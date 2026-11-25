@@ -1,7 +1,9 @@
 package com.apoorvdarshan.calorietracker.services.voice
 
 import com.apoorvdarshan.calorietracker.models.AIProvider
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Test
 
 class VoiceProviderResolverTest {
@@ -59,9 +61,49 @@ class VoiceProviderResolverTest {
     }
 
     @Test
+    fun startupWithAnOwnKeyDoesNotWaitForBilling() = runTest {
+        val explicit = VoiceProviderResolver.resolveStartup(
+            VoiceProviderChoice.XAI,
+            selectedAiProvider = { error("Explicit choice must not look up the selected AI provider") },
+            loadKey = { provider -> assertEquals(LiveProvider.XAI, provider); " demo-key " },
+            hostedEntitled = { error("Explicit own-key choice must not wait for billing") }
+        )
+        assertEquals(VoiceAccess.Ready(LiveProvider.XAI), explicit.access)
+        assertEquals("demo-key", explicit.key)
+
+        val automatic = VoiceProviderResolver.resolveStartup(
+            VoiceProviderChoice.AUTOMATIC,
+            selectedAiProvider = { AIProvider.GEMINI },
+            loadKey = { provider -> assertEquals(LiveProvider.GEMINI, provider); "demo-key" },
+            hostedEntitled = { error("Automatic with the selected provider's key must not wait for billing") }
+        )
+        assertEquals(VoiceAccess.Ready(LiveProvider.GEMINI), automatic.access)
+    }
+
+    @Test
+    fun startupUsesHostedOnlyWhenTheChoiceAllowsIt() = runTest {
+        val hosted = VoiceProviderResolver.resolveStartup(
+            VoiceProviderChoice.AUTOMATIC,
+            selectedAiProvider = { AIProvider.GEMINI },
+            loadKey = { " " },
+            hostedEntitled = { true }
+        )
+        assertEquals(VoiceAccess.Ready(LiveProvider.HOSTED), hosted.access)
+        assertNull(hosted.key)
+
+        val missing = VoiceProviderResolver.resolveStartup(
+            VoiceProviderChoice.GEMINI,
+            selectedAiProvider = { error("Explicit choice must not look up the selected AI provider") },
+            loadKey = { null },
+            hostedEntitled = { error("Missing an explicitly selected key must not check billing") }
+        )
+        assertEquals(VoiceAccess.MissingKey(LiveProvider.GEMINI), missing.access)
+    }
+
+    @Test
     fun providersCarryTheContractModelsVoicesAndCameraPolicy() {
         assertEquals("gemini-3.8-live", LiveProvider.GEMINI.defaultModel)
-        assertEquals(listOf("gemini-3.8-live", "gemini-3.1-flash-live-preview"), LiveProvider.GEMINI.models)
+        assertEquals(listOf("gemini-3.8-live", "gemini-3.8-live-extended-thinking", "gemini-3.1-flash-live-preview"), LiveProvider.GEMINI.models)
         assertEquals(listOf("gpt-realtime-2.1-mini", "gpt-realtime-2.1"), LiveProvider.OPENAI.models)
         assertEquals(listOf("grok-voice-latest", "grok-voice-3.0"), LiveProvider.XAI.models)
         assertEquals("Kore", LiveProvider.GEMINI.defaultVoice)
@@ -82,7 +124,7 @@ class VoiceProviderResolverTest {
         assertEquals(AIProvider.QWEN, LiveProvider.QWEN.aiProvider)
         assertEquals(LiveProvider.QWEN, LiveProvider.forAiProvider(AIProvider.QWEN))
         assertEquals(VoiceProviderChoice.QWEN, VoiceProviderChoice.fromStorage("qwen"))
-        assertEquals(listOf("gpt-live-1"), LiveProvider.GPT_LIVE.models)
+        assertEquals(listOf("gpt-live-1", "gpt-live-1.1"), LiveProvider.GPT_LIVE.models)
         assertEquals("quartz", LiveProvider.GPT_LIVE.defaultVoice)
         assertEquals(CameraFrames.NONE, LiveProvider.GPT_LIVE.cameraFrames)
         assertEquals(AIProvider.OPENAI, LiveProvider.GPT_LIVE.aiProvider)
@@ -91,11 +133,15 @@ class VoiceProviderResolverTest {
         assertEquals(VoiceProviderChoice.GPT_LIVE, VoiceProviderChoice.fromStorage("gpt_live"))
         assertEquals(
             VoiceAccess.Ready(LiveProvider.QWEN),
-            VoiceProviderResolver.resolve(VoiceProviderChoice.QWEN, AIProvider.GEMINI, { it == LiveProvider.QWEN }, false)
+            VoiceProviderResolver.resolve(VoiceProviderChoice.QWEN, AIProvider.GEMINI, { it == LiveProvider.QWEN }, false, true)
         )
         assertEquals(
-            VoiceAccess.MissingKey(LiveProvider.QWEN),
+            VoiceAccess.NeedsQwenSetup,
             VoiceProviderResolver.resolve(VoiceProviderChoice.QWEN, AIProvider.GEMINI, { it == LiveProvider.GEMINI }, true)
+        )
+        assertEquals(
+            VoiceAccess.Ready(LiveProvider.HOSTED),
+            VoiceProviderResolver.resolve(VoiceProviderChoice.AUTOMATIC, AIProvider.QWEN, { it == LiveProvider.QWEN }, true)
         )
     }
 

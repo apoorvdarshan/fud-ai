@@ -1,0 +1,12 @@
+<resources>
+    <string name="voice_mascot">الشخصية</string>
+    <string name="voice_mascot_color">اللون</string>
+    <string name="voice_mascot_personality">أسلوب الحديث</string>
+    <string name="voice_mascot_original">الألوان الأصلية</string>
+    <string name="voice_mascot_pink">وردي</string>
+    <string name="voice_mascot_friendly">ودود</string>
+    <string name="voice_mascot_playful">مرح</string>
+    <string name="voice_mascot_calm">هادئ</string>
+    <string name="voice_mascot_direct">مباشر</string>
+    <string name="voice_mascot_next_session">تُطبّق التغييرات على المحادثة التالية.</string>
+</resources>

@@ -14,8 +14,10 @@
 		F00DAD000000000000000011 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = F00DAD000000000000000013 /* RevenueCat */; };
 		F00D57000000000000000011 /* WhisperKit in Frameworks */ = {isa = PBXBuildFile; productRef = F00D57000000000000000013 /* WhisperKit */; };
 		F00D58000000000000000011 /* LiteRTLM in Frameworks */ = {isa = PBXBuildFile; productRef = F00D58000000000000000013 /* LiteRTLM */; };
+		F00D5B000000000000000011 /* sherpa-onnx in Frameworks */ = {isa = PBXBuildFile; productRef = F00D5B000000000000000013 /* sherpa-onnx */; };
 		F00D59000000000000000011 /* THIRD_PARTY_NOTICES_LiteRTLM_v0.16.0.txt in Resources */ = {isa = PBXBuildFile; fileRef = F00D59000000000000000012 /* THIRD_PARTY_NOTICES_LiteRTLM_v0.16.0.txt */; };
 		F00D5A000000000000000011 /* THIRD_PARTY_NOTICES_WhisperBase.txt in Resources */ = {isa = PBXBuildFile; fileRef = F00D5A000000000000000012 /* THIRD_PARTY_NOTICES_WhisperBase.txt */; };
+		F00D5C000000000000000011 /* THIRD_PARTY_NOTICES_SherpaONNX.txt in Resources */ = {isa = PBXBuildFile; fileRef = F00D5C000000000000000012 /* THIRD_PARTY_NOTICES_SherpaONNX.txt */; };
 		F00D1000000000000000001E /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = F00D1000000000000000001D /* Localizable.xcstrings */; };
 /* End PBXBuildFile section */
 
@@ -111,6 +113,7 @@
 		F00D10000000000000000008 /* FudAIWatchWidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FudAIWatchWidgetsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F00D59000000000000000012 /* THIRD_PARTY_NOTICES_LiteRTLM_v0.16.0.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = THIRD_PARTY_NOTICES_LiteRTLM_v0.16.0.txt; path = ../local-models/legal/THIRD_PARTY_NOTICES_LiteRTLM_v0.16.0.txt; sourceTree = "<group>"; };
 		F00D5A000000000000000012 /* THIRD_PARTY_NOTICES_WhisperBase.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = THIRD_PARTY_NOTICES_WhisperBase.txt; path = ../local-models/legal/THIRD_PARTY_NOTICES_WhisperBase.txt; sourceTree = "<group>"; };
+		F00D5C000000000000000012 /* THIRD_PARTY_NOTICES_SherpaONNX.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = THIRD_PARTY_NOTICES_SherpaONNX.txt; path = ../local-models/legal/THIRD_PARTY_NOTICES_SherpaONNX.txt; sourceTree = "<group>"; };
 		F00D1000000000000000001D /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -224,6 +227,7 @@
 				F00DAD000000000000000011 /* RevenueCat in Frameworks */,
 				F00D57000000000000000011 /* WhisperKit in Frameworks */,
 				F00D58000000000000000011 /* LiteRTLM in Frameworks */,
+				F00D5B000000000000000011 /* sherpa-onnx in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,6 +282,7 @@
 				BA8E0DF52F33F197007DD537 /* calorietracker */,
 				F00D59000000000000000012 /* THIRD_PARTY_NOTICES_LiteRTLM_v0.16.0.txt */,
 				F00D5A000000000000000012 /* THIRD_PARTY_NOTICES_WhisperBase.txt */,
+				F00D5C000000000000000012 /* THIRD_PARTY_NOTICES_SherpaONNX.txt */,
 				BA8E0E252F33F198007DD537 /* FudAIWidgets */,
 				BA8E0E3A2F33F198007DD537 /* calorietrackerShare */,
 				F00D1000000000000000000B /* FudAIWatchApp */,
@@ -332,6 +337,7 @@
 				F00DAD000000000000000013 /* RevenueCat */,
 				F00D57000000000000000013 /* WhisperKit */,
 				F00D58000000000000000013 /* LiteRTLM */,
+				F00D5B000000000000000013 /* sherpa-onnx */,
 			);
 			productName = calorietracker;
 			productReference = BA8E0DF32F33F197007DD537 /* calorietracker.app */;
@@ -539,6 +545,7 @@
 				F00DAD000000000000000012 /* XCRemoteSwiftPackageReference "purchases-ios" */,
 				F00D57000000000000000012 /* XCRemoteSwiftPackageReference "argmax-oss-swift" */,
 				F00D58000000000000000012 /* XCLocalSwiftPackageReference "LiteRTLM" */,
+				F00D5B000000000000000012 /* XCRemoteSwiftPackageReference "sherpa-onnx" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = BA8E0DF42F33F197007DD537 /* Products */;
@@ -563,6 +570,7 @@
 			files = (
 				F00D59000000000000000011 /* THIRD_PARTY_NOTICES_LiteRTLM_v0.16.0.txt in Resources */,
 				F00D5A000000000000000011 /* THIRD_PARTY_NOTICES_WhisperBase.txt in Resources */,
+				F00D5C000000000000000011 /* THIRD_PARTY_NOTICES_SherpaONNX.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1454,6 +1462,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		F00D5B000000000000000012 /* XCRemoteSwiftPackageReference "sherpa-onnx" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/k2-fsa/sherpa-onnx.git";
+			requirement = {
+				kind = exactVersion;
+				version = 2.0.3;
+			};
+		};
 		F00DAD000000000000000012 /* XCRemoteSwiftPackageReference "purchases-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/RevenueCat/purchases-ios.git";
@@ -1480,6 +1496,11 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		F00D5B000000000000000013 /* sherpa-onnx */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F00D5B000000000000000012 /* XCRemoteSwiftPackageReference "sherpa-onnx" */;
+			productName = "sherpa-onnx";
+		};
 		F00DAD000000000000000013 /* RevenueCat */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F00DAD000000000000000012 /* XCRemoteSwiftPackageReference "purchases-ios" */;

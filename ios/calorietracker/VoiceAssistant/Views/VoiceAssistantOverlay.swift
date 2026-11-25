@@ -5,12 +5,14 @@ import SwiftUI
 /// or the screens shown when it can't run.
 struct VoiceAssistantOverlay: View {
     @Bindable var controller: VoiceAssistantController
+    let windowActivity: VoiceAssistantWindowActivity
     /// Reports where the assistant's controls are, and whether it covers the app.
     let reportRegions: ([CGRect], Bool) -> Void
     let onStatusBarStyle: (UIStatusBarStyle) -> Void
 
     @AppStorage(AppThemeColor.storageKey) private var appThemeColorRaw = AppThemeColor.defaultColor.rawValue
     @AppStorage("appearanceMode") private var appearanceMode = "system"
+    @AppStorage(VoiceMascotPreferences.storageKey) private var mascotRaw = ""
 
     private var coversApp: Bool {
         switch controller.presentation {
@@ -56,6 +58,7 @@ struct VoiceAssistantOverlay: View {
                 onStatusBarStyle(covers ? .lightContent : .default)
             }
             .tint(AppThemeColor.color(for: appThemeColorRaw).color)
+            .environment(\.voiceAssistantAnimationActive, windowActivity.isActive)
             .preferredColorScheme(colorScheme)
             .animation(.spring(response: 0.42, dampingFraction: 0.86), value: controller.isExpanded)
             .animation(.easeInOut(duration: 0.25), value: controller.presentation)
@@ -75,15 +78,15 @@ struct VoiceAssistantOverlay: View {
                     .transition(.opacity)
             }
         case .access(let reason):
-            VoiceAssistantPanel(controller: controller) {
+            VoiceAssistantPanel(controller: controller, mascot: VoiceMascotPreferences.decode(mascotRaw).profile) {
                 VoiceAssistantAccessContent(controller: controller, reason: reason)
             }
         case .outOfMinutes:
-            VoiceAssistantPanel(controller: controller) {
+            VoiceAssistantPanel(controller: controller, mascot: VoiceMascotPreferences.decode(mascotRaw).profile) {
                 VoiceAssistantOutOfMinutesContent(controller: controller)
             }
         case .failed(let failure):
-            VoiceAssistantPanel(controller: controller) {
+            VoiceAssistantPanel(controller: controller, mascot: VoiceMascotPreferences.decode(mascotRaw).profile) {
                 VoiceAssistantFailureContent(controller: controller, failure: failure)
             }
         }
@@ -92,7 +95,7 @@ struct VoiceAssistantOverlay: View {
 
 // MARK: - Expanded
 
-/// The full-screen assistant: a large orb, live captions, the camera when open,
+/// The full-screen assistant: the animated mascot, live captions, the camera when open,
 /// and cards.
 private struct VoiceAssistantExpandedView: View {
     @Bindable var controller: VoiceAssistantController
@@ -110,13 +113,13 @@ private struct VoiceAssistantExpandedView: View {
                     VoiceAssistantCameraPanel(controller: controller)
                         .padding(.horizontal, 20)
                     HStack(spacing: 14) {
-                        orb(size: 72)
+                        mascot(size: 72)
                         VoiceAssistantCaptions(controller: controller, compact: true)
                     }
                     .padding(.horizontal, 20)
                 } else {
                     Spacer(minLength: 0)
-                    orb(size: 280)
+                    mascot(size: 280)
                     VoiceAssistantCaptions(controller: controller, compact: false)
                         .padding(.horizontal, 28)
                     Spacer(minLength: 0)
@@ -176,15 +179,9 @@ private struct VoiceAssistantExpandedView: View {
         .padding(.top, 4)
     }
 
-    private func orb(size: CGFloat) -> some View {
-        LiveOrbView(
-            mode: controller.orbMode,
-            levelSource: { controller.currentLevel() },
-            tint: AppColors.calorie
-        )
-        .frame(width: size, height: size)
-        .mask(RadialGradient(colors: [.black, .black, .clear], center: .center, startRadius: 0, endRadius: size / 2))
-        .accessibilityHidden(true)
+    private func mascot(size: CGFloat) -> some View {
+        VoiceMascotView(mode: controller.orbMode, profile: controller.sessionMascot, level: controller.currentLevel)
+            .frame(maxWidth: size, maxHeight: size)
     }
 }
 
@@ -276,7 +273,7 @@ private struct VoiceAssistantCompactView: View {
                 Button {
                     controller.isExpanded = true
                 } label: {
-                    VoiceAssistantOrbBubble(controller: controller)
+                    VoiceAssistantMascotBubble(controller: controller)
                 }
                 .buttonStyle(.plain)
                 .accessibilityLabel(Text("Voice assistant"))
@@ -332,20 +329,15 @@ private struct VoiceAssistantCompactView: View {
     }
 }
 
-/// The floating orb in the compact assistant, without a surrounding disc.
-struct VoiceAssistantOrbBubble: View {
+/// The mascot is also the button that expands a minimized session.
+private struct VoiceAssistantMascotBubble: View {
     let controller: VoiceAssistantController
     var size: CGFloat = 60
 
     var body: some View {
-        LiveOrbView(
-            mode: controller.orbMode,
-            levelSource: { controller.currentLevel() },
-            tint: AppColors.calorie,
-            clearBackground: true
-        )
+        VoiceMascotView(mode: controller.orbMode, profile: controller.sessionMascot, level: controller.currentLevel)
         .frame(width: size, height: size)
-        .contentShape(Circle())
+        .contentShape(Rectangle())
     }
 }
 
@@ -663,6 +655,7 @@ private struct VoiceAssistantCameraPanel: View {
 /// A dimmed backdrop with a centered card; tapping outside closes it.
 private struct VoiceAssistantPanel<Content: View>: View {
     let controller: VoiceAssistantController
+    let mascot: VoiceMascotProfile
     @ViewBuilder let content: Content
 
     var body: some View {
@@ -672,10 +665,8 @@ private struct VoiceAssistantPanel<Content: View>: View {
                 .onTapGesture { controller.dismiss() }
                 .accessibilityHidden(true)
             VStack(spacing: 18) {
-                LiveOrbView(mode: .idle, tint: AppColors.calorie, minimumFrameInterval: 1.0 / 30)
+                VoiceMascotView(mode: .idle, profile: mascot)
                     .frame(width: 96, height: 96)
-                    .clipShape(Circle())
-                    .accessibilityHidden(true)
                 content
             }
             .padding(24)
@@ -723,7 +714,11 @@ private struct VoiceAssistantAccessContent: View {
                     .fixedSize(horizontal: false, vertical: true)
             }
             VStack(spacing: 10) {
-                if case .missingKey = reason {
+                if reason == .needsQwenSetup {
+                    VoiceAssistantPanelButton(title: String(localized: "Set up Qwen Live"), prominent: true, identifier: "voiceAssistant.access.qwenSetup") {
+                        controller.openVoiceSettings()
+                    }
+                } else if case .missingKey = reason {
                     VoiceAssistantPanelButton(title: String(localized: "Add an API Key"), prominent: true, identifier: "voiceAssistant.access.addKey") {
                         controller.openAISettings()
                     }
@@ -759,6 +754,8 @@ private struct VoiceAssistantAccessContent: View {
             String(localized: "Fud AI voice is included with Plus and Pro. Subscribe, or add your own Gemini, OpenAI, xAI or Qwen API key and choose it in Settings → Voice Assistant.")
         case .missingKey(let provider):
             String(localized: "Add your \(provider.displayName) API key in AI settings to talk through \(provider.displayName), or subscribe to Plus or Pro to use Fud AI voice.")
+        case .needsQwenSetup:
+            String(localized: "Add your Singapore workspace ID and workspace API key in Settings → Voice Assistant.")
         }
     }
 }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="challenge_hub_title">Défis</string>
+    <string name="challenge_hub_daily">Quotidien</string>
+    <string name="challenge_hub_weekly">Hebdomadaire</string>
+    <string name="challenge_hub_monthly">Mensuel</string>
+    <string name="challenge_hub_your_points">Vos points</string>
+    <string name="challenge_hub_points">Points : %1$d</string>
+    <string name="challenge_hub_days">Jours : %1$d</string>
+    <string name="challenge_hub_participants">Participants : %1$d</string>
+    <string name="challenge_hub_join">Participer et partager les scores</string>
+    <string name="challenge_hub_remove">Quitter et supprimer les scores</string>
+    <string name="challenge_hub_go_weekly">Aller au défi hebdomadaire</string>
+    <string name="challenge_hub_habits">Privilégiez les habitudes, pas les chiffres</string>
+    <string name="challenge_hub_profile_first">Participez d’abord au défi hebdomadaire pour créer votre profil.</string>
+    <string name="challenge_hub_service">Ce classement nécessite une mise à jour du service des défis.</string>
+    <string name="challenge_hub_consent">En participant, vous partagez votre nom et vos totaux d’habitudes pour cette période avec les autres participants. Ni le journal, ni le poids, ni les quantités de calories ne sont partagés.</string>
+    <string name="challenge_hub_rules_base">Gagnez un point par habitude chaque jour : bouger, noter les repas, atteindre l’objectif nutritionnel et l’objectif d’hydratation.</string>
+    <string name="challenge_hub_rules_bonus">Gagnez un point bonus les jours où vous remplissez au moins trois habitudes.</string>
+    <string name="challenge_hub_rules_streak">Dans votre plus longue série de jours avec au moins deux habitudes, chaque jour après le premier rapporte un point.</string>
+    <string name="challenge_hub_leave">Quitter ce défi ?</string>
+    <string name="challenge_hub_leave_detail">Seuls vos scores pour cette période seront supprimés. Vos autres défis et votre journal restent inchangés.</string>
+    <string name="challenge_hub_leave_all">Quitter tous les défis ?</string>
+    <string name="challenge_hub_leave_all_detail">Votre profil public, tous vos scores et les signalements seront supprimés. Votre journal privé reste sur cet appareil.</string>
+    <string name="challenge_hub_jump_to_rank">Aller à mon classement</string>
+    <string name="challenge_hub_week_rank">Le score sélectionné prime. En cas d’égalité, la diversité et la régularité des habitudes puis les autres nombres de jours départagent. Si l’égalité persiste, la première personne à atteindre ces résultats est devant. Les calories d’exercice ne départagent pas.</string>
+</resources>

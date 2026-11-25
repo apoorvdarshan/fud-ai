@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="workout_image_report">الإبلاغ عن مشكلة في الصورة</string>
+    <string name="workout_image_report_note">ما الخطأ الذي تلاحظه في الصورة؟</string>
+    <string name="workout_image_report_review">تُنشر البلاغات علنًا. لا تُدرج معلومات خاصة.</string>
+    <string name="workout_image_report_discord_help">يُنسخ البلاغ إلى الحافظة. في خادم Fud AI على Discord، استخدم /bug والصقه في حقل report.</string>
+    <string name="workout_image_report_open_failed">تعذّر فتح الرابط.</string>
+</resources>

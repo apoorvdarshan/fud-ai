@@ -1,0 +1,12 @@
+<resources>
+    <string name="voice_mascot">मैस्कॉट</string>
+    <string name="voice_mascot_color">रंग</string>
+    <string name="voice_mascot_personality">बात करने का अंदाज़</string>
+    <string name="voice_mascot_original">मूल रंग</string>
+    <string name="voice_mascot_pink">गुलाबी</string>
+    <string name="voice_mascot_friendly">दोस्ताना</string>
+    <string name="voice_mascot_playful">मज़ाकिया</string>
+    <string name="voice_mascot_calm">शांत</string>
+    <string name="voice_mascot_direct">सीधा</string>
+    <string name="voice_mascot_next_session">बदलाव अगली बातचीत से लागू होंगे।</string>
+</resources>

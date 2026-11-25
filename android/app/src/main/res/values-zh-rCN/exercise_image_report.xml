@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="workout_image_report">报告图片问题</string>
+    <string name="workout_image_report_note">图片哪里看起来不对？</string>
+    <string name="workout_image_report_review">报告会公开，请勿填写隐私信息。</string>
+    <string name="workout_image_report_discord_help">报告会复制到剪贴板。在 Fud AI 的 Discord 服务器中运行 /bug，然后把报告粘贴到 report 字段。</string>
+    <string name="workout_image_report_open_failed">无法打开链接。</string>
+</resources>

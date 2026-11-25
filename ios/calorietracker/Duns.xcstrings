@@ -1,0 +1,51 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "D-U-N-S Number" : {
+      "localizations" : {
+        "ar" : {"stringUnit": {"state": "translated", "value": "رقم D-U-N-S"}},
+        "az" : {"stringUnit": {"state": "translated", "value": "D-U-N-S nömrəsi"}},
+        "cs" : {"stringUnit": {"state": "translated", "value": "Číslo D-U-N-S"}},
+        "de" : {"stringUnit": {"state": "translated", "value": "D-U-N-S-Nummer"}},
+        "es" : {"stringUnit": {"state": "translated", "value": "Número D-U-N-S"}},
+        "fr" : {"stringUnit": {"state": "translated", "value": "Numéro D-U-N-S"}},
+        "hi" : {"stringUnit": {"state": "translated", "value": "D-U-N-S नंबर"}},
+        "it" : {"stringUnit": {"state": "translated", "value": "Numero D-U-N-S"}},
+        "ja" : {"stringUnit": {"state": "translated", "value": "D-U-N-S番号"}},
+        "ko" : {"stringUnit": {"state": "translated", "value": "D-U-N-S 번호"}},
+        "nl" : {"stringUnit": {"state": "translated", "value": "D-U-N-S-nummer"}},
+        "pl" : {"stringUnit": {"state": "translated", "value": "Numer D-U-N-S"}},
+        "pt-BR" : {"stringUnit": {"state": "translated", "value": "Número D-U-N-S"}},
+        "ro" : {"stringUnit": {"state": "translated", "value": "Număr D-U-N-S"}},
+        "ru" : {"stringUnit": {"state": "translated", "value": "Номер D-U-N-S"}},
+        "tr" : {"stringUnit": {"state": "translated", "value": "D-U-N-S numarası"}},
+        "uk" : {"stringUnit": {"state": "translated", "value": "Номер D-U-N-S"}},
+        "zh-Hans" : {"stringUnit": {"state": "translated", "value": "D-U-N-S 编号"}}
+      }
+    },
+    "Issued %@" : {
+      "localizations" : {
+        "ar" : {"stringUnit": {"state": "translated", "value": "تاريخ الإصدار: %@"}},
+        "az" : {"stringUnit": {"state": "translated", "value": "Verilmə tarixi: %@"}},
+        "cs" : {"stringUnit": {"state": "translated", "value": "Vydáno %@"}},
+        "de" : {"stringUnit": {"state": "translated", "value": "Ausgestellt am %@"}},
+        "es" : {"stringUnit": {"state": "translated", "value": "Emitido el %@"}},
+        "fr" : {"stringUnit": {"state": "translated", "value": "Délivré le %@"}},
+        "hi" : {"stringUnit": {"state": "translated", "value": "जारी करने की तारीख: %@"}},
+        "it" : {"stringUnit": {"state": "translated", "value": "Rilasciato il %@"}},
+        "ja" : {"stringUnit": {"state": "translated", "value": "発行日：%@"}},
+        "ko" : {"stringUnit": {"state": "translated", "value": "발급일: %@"}},
+        "nl" : {"stringUnit": {"state": "translated", "value": "Uitgegeven op %@"}},
+        "pl" : {"stringUnit": {"state": "translated", "value": "Data wydania: %@"}},
+        "pt-BR" : {"stringUnit": {"state": "translated", "value": "Emitido em %@"}},
+        "ro" : {"stringUnit": {"state": "translated", "value": "Emis la %@"}},
+        "ru" : {"stringUnit": {"state": "translated", "value": "Выдан %@"}},
+        "tr" : {"stringUnit": {"state": "translated", "value": "Veriliş tarihi: %@"}},
+        "uk" : {"stringUnit": {"state": "translated", "value": "Дата видачі: %@"}},
+        "zh-Hans" : {"stringUnit": {"state": "translated", "value": "签发日期：%@"}}
+      }
+    },
+    "Dun & Bradstreet" : { "shouldTranslate" : false }
+  },
+  "version" : "1.0"
+}

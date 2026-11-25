@@ -47,48 +47,6 @@ enum ProgressMetric: String, CaseIterable, Identifiable, Equatable {
     }
 }
 
-struct ProgressOverviewModeSelector: View {
-    @Binding var selection: ProgressOverviewMode
-
-    var body: some View {
-        ViewThatFits(in: .horizontal) {
-            HStack(spacing: 6) {
-                modeButtons(expands: false)
-            }
-            .fixedSize(horizontal: true, vertical: false)
-            VStack(alignment: .leading, spacing: 6) {
-                modeButtons(expands: true)
-            }
-        }
-        .padding(4)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .flashPanel()
-        .accessibilityElement(children: .contain)
-        .accessibilityLabel(WeeklyChallengeL10n.text("Progress view"))
-    }
-
-    private func modeButtons(expands: Bool) -> some View {
-        ForEach(ProgressOverviewMode.allCases) { mode in
-            Button {
-                withAnimation(.snappy) { selection = mode }
-            } label: {
-                Label(mode.title, systemImage: mode.icon)
-                    .font(.system(.subheadline, weight: .bold).width(.condensed))
-                    .foregroundStyle(selection == mode ? AppColors.onAccent : Color.primary)
-                    .fixedSize(horizontal: false, vertical: true)
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 4)
-                    .frame(maxWidth: expands ? .infinity : nil, minHeight: 44, alignment: .leading)
-                    .background(selection == mode ? AppColors.calorie : AppColors.appCard)
-                    .pinkNeoRule(AppColors.flashRule)
-                    .contentShape(Rectangle())
-                }
-            .buttonStyle(.plain)
-            .accessibilityAddTraits(selection == mode ? .isSelected : [])
-        }
-    }
-}
-
 struct ProgressMetricSelector: View {
     let metrics: [ProgressMetric]
     @Binding var selection: ProgressMetric

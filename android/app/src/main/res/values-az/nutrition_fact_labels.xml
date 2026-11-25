@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="waiting_fact_measure_per_100g">%1$s: hər 100 q-da %2$s</string>
+    <string name="waiting_fact_prep_raw">Çiy</string>
+    <string name="waiting_fact_prep_raw_skin">Çiy, qabıqlı</string>
+    <string name="waiting_fact_prep_dried">Qurudulmuş</string>
+    <string name="waiting_fact_prep_boiled_no_salt">Qaynadılmış, duz əlavə edilmədən</string>
+    <string name="waiting_fact_prep_cooked_no_salt">Bişirilmiş, duz əlavə edilmədən</string>
+    <string name="waiting_fact_prep_cooked">Bişirilmiş</string>
+    <string name="waiting_fact_prep_baked_skin_no_salt">Sobada qabıqlı, duz əlavə edilmədən</string>
+    <string name="waiting_fact_prep_baked_flesh_no_salt">Sobada bişmiş iç hissə, duz əlavə edilmədən</string>
+    <string name="waiting_fact_prep_roasted_no_salt">Qovrulmuş, duz əlavə edilmədən</string>
+    <string name="waiting_fact_prep_hard_boiled">Bərk qaynadılmış</string>
+    <string name="waiting_fact_prep_plain_whole_milk">Sadə, tam yağlı süddən</string>
+    <string name="waiting_fact_prep_roasted">Qovrulmuş</string>
+    <string name="waiting_fact_prep_no_salt">Duz əlavə edilmədən</string>
+</resources>

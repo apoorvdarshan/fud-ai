@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="challenge_hub_title">التحديات</string>
+    <string name="challenge_hub_daily">يومي</string>
+    <string name="challenge_hub_weekly">أسبوعي</string>
+    <string name="challenge_hub_monthly">شهري</string>
+    <string name="challenge_hub_your_points">نقاطك</string>
+    <string name="challenge_hub_points">النقاط: %1$d</string>
+    <string name="challenge_hub_days">الأيام: %1$d</string>
+    <string name="challenge_hub_participants">المشاركون: %1$d</string>
+    <string name="challenge_hub_join">الانضمام ومشاركة النقاط</string>
+    <string name="challenge_hub_remove">المغادرة وحذف النتائج</string>
+    <string name="challenge_hub_go_weekly">الانتقال إلى الأسبوعي</string>
+    <string name="challenge_hub_habits">ابنِ عاداتك، لا تلاحق الأرقام</string>
+    <string name="challenge_hub_profile_first">انضم إلى التحدي الأسبوعي لإنشاء ملفك أولًا.</string>
+    <string name="challenge_hub_service">تتطلب هذه اللوحة تحديث خدمة التحديات.</string>
+    <string name="challenge_hub_consent">عند الانضمام، يرى المشاركون اسمك ومجموع عاداتك لهذه الفترة. لا تُشارك سجلاتك أو وزنك أو كميات السعرات.</string>
+    <string name="challenge_hub_rules_base">احصل على نقطة لكل عادة يوميًا: الحركة وتسجيل الطعام وهدف التغذية وهدف الماء.</string>
+    <string name="challenge_hub_rules_bonus">احصل على نقطة إضافية في الأيام التي تحقق فيها ثلاث عادات أو أكثر.</string>
+    <string name="challenge_hub_rules_streak">أطول سلسلة تحقق فيها عادتين أو أكثر تكسبك نقطة عن كل يوم بعد اليوم الأول.</string>
+    <string name="challenge_hub_leave">هل تريد مغادرة هذا التحدي؟</string>
+    <string name="challenge_hub_leave_detail">يُحذف رصيد هذه الفترة فقط. تبقى تحدياتك الأخرى وسجلك كما هما.</string>
+    <string name="challenge_hub_leave_all">هل تريد مغادرة جميع التحديات؟</string>
+    <string name="challenge_hub_leave_all_detail">سيُحذف ملفك العام وجميع نقاطك وبلاغات التحديات. يبقى سجلك الخاص على هذا الجهاز.</string>
+    <string name="challenge_hub_jump_to_rank">انتقل إلى ترتيبي</string>
+    <string name="challenge_hub_week_rank">تأتي نتيجة الفئة المختارة أولًا. عند التعادل، تُفضَّل العادات الأكثر تنوعًا والنتائج الأكثر ثباتًا عبر العادات، ثم بقية أعداد الأيام. عند استمرار التعادل، يتقدم من حققها أولًا. سعرات التمرين لا تفصل في التعادل.</string>
+</resources>

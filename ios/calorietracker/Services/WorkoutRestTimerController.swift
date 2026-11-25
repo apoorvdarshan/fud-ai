@@ -7,8 +7,8 @@ import UserNotifications
 /// the running rest is saved, so a relaunch brings it back.
 ///
 /// Every rest is announced exactly once. One that ends while Fud AI is open is
-/// marked with a haptic and its notification is withdrawn. Any other rest, one
-/// that ended in the background or while the app was not running, is announced
+/// marked with a haptic and its notification is withdrawn when haptics are enabled.
+/// Any other rest is announced
 /// by its local notification (only when the app's notifications are on), which
 /// AppDelegate also presents if it arrives once the app is open again
 /// (`presentsNotificationInForeground`).
@@ -82,10 +82,13 @@ final class WorkoutRestTimerController {
     /// one just skipped or extended, gets the haptic or nothing.
     func presentsNotificationInForeground(userInfo: [AnyHashable: Any]) -> Bool {
         let value = userInfo[Self.endsAtUserInfoKey]
-        guard let unannouncedEnd,
-              let endsAt = (value as? Double) ?? (value as? NSNumber)?.doubleValue
-        else { return false }
-        return abs(endsAt - unannouncedEnd.timeIntervalSince1970) < 0.001
+        guard let endsAt = (value as? Double) ?? (value as? NSNumber)?.doubleValue else { return false }
+        if let unannouncedEnd, abs(endsAt - unannouncedEnd.timeIntervalSince1970) < 0.001 {
+            return true
+        }
+        // The notification can arrive just before the countdown task finishes.
+        return !AppHaptics.isEnabled(in: defaults)
+            && timer.map { abs(endsAt - $0.endsAt.timeIntervalSince1970) < 0.001 } == true
     }
 
     /// Brings back a rest saved by an earlier run of the app.
@@ -132,13 +135,12 @@ final class WorkoutRestTimerController {
     /// resumes after it did.
     private func finish(expected: WorkoutRestTimer, now: Date = .now) {
         guard timer == expected, expected.isFinished(at: now) else { return }
-        if isAppActive(), expected.shouldAlertInApp(at: now) {
+        if isAppActive(), expected.shouldAlertInApp(at: now), AppHaptics.isEnabled(in: defaults) {
             // Ended in front of the user: the haptic is the alert.
             PendingNotificationRequests.remove([Self.notificationID])
             UINotificationFeedbackGenerator().notificationOccurred(.success)
         } else {
-            // Ended out of sight: its notification is the alert, even if it
-            // arrives once the app is open again.
+            // When no haptic will play, leave the scheduled notification intact.
             unannouncedEnd = expected.endsAt
         }
         setTimer(nil)

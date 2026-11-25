@@ -7,6 +7,7 @@ struct VoiceAssistantSettingsView: View {
     private let settings = VoiceAssistantSettings()
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.locale) private var locale
+    @AppStorage(VoiceMascotPreferences.storageKey) private var mascotRaw = ""
     @State private var preview = VoicePreviewController.shared
     @State private var assistant = VoiceAssistantController.shared
 
@@ -21,6 +22,9 @@ struct VoiceAssistantSettingsView: View {
     @State private var voiceQuota: HostedVoiceQuota?
     @State private var quotaLoaded = false
     @State private var sheet: VoiceAssistantSheet?
+    @State private var qwenWorkspace = VoiceAssistantSettings().qwenWorkspace
+    @State private var qwenKey = ""
+    @State private var geminiBargeIn = VoiceAssistantSettings().geminiBargeIn
 
     private var route: VoiceAssistantRoute {
         _ = revision
@@ -36,7 +40,35 @@ struct VoiceAssistantSettingsView: View {
     }
 
     var body: some View {
+        let mascots = VoiceMascotPreferences.decode(mascotRaw)
         List {
+            Section {
+                VoiceMascotGallery(preferences: mascots) { selection in
+                    guard selection != mascots.selected else { return }
+                    var updated = VoiceMascotPreferences.decode(mascotRaw)
+                    updated.selected = selection
+                    mascotRaw = updated.encoded
+                    AppHaptics.selection()
+                }
+                NavigationLink {
+                    VoiceMascotSettingsView()
+                } label: {
+                    Label {
+                        HStack {
+                            Text("Customize")
+                            Spacer()
+                            Text(verbatim: mascots.profile.name)
+                                .foregroundStyle(.secondary)
+                        }
+                    } icon: {
+                        Image(systemName: "face.smiling").foregroundStyle(AppColors.calorie)
+                    }
+                }
+                .accessibilityIdentifier("settings.voiceAssistant.mascot")
+            } header: {
+                Text("Mascot", tableName: "VoiceMascot")
+            }
+            .listRowBackground(AppColors.appCard)
             providerSection
             if let provider = configuredProvider {
                 modelAndVoiceSection(provider)
@@ -99,16 +131,20 @@ struct VoiceAssistantSettingsView: View {
             .accessibilityIdentifier("settings.voiceAssistant.provider")
             .onChange(of: choice) { _, newValue in
                 preview.stop()
+                if assistant.isBusy { assistant.dismiss() }
                 settings.providerChoice = newValue
                 revision += 1
                 Task { await loadVoiceQuota() }
             }
 
             routeStatus
+            if choice == .qwen || (choice == .automatic && AIProviderSettings.selectedProvider == .qwen) {
+                qwenWorkspaceFields
+            }
         } header: {
             Text("Provider")
         } footer: {
-            Text("Automatic uses the provider selected in AI Providers when it's Gemini, OpenAI, xAI or Qwen and its key is saved; otherwise Fud AI with a Plus or Pro plan. Own keys are the ones saved in AI Providers.")
+            Text("Automatic uses the selected voice-capable AI provider when configured. Otherwise, it uses Fud AI with a Plus or Pro plan. Qwen Live requires its own workspace setup.")
         }
         .listRowBackground(AppColors.appCard)
     }
@@ -137,6 +173,9 @@ struct VoiceAssistantSettingsView: View {
                 }
                 .foregroundStyle(.secondary)
                 addKeyLink
+            case .needsQwenSetup:
+                Label("Set up Qwen Live", systemImage: "key.slash")
+                    .foregroundStyle(.secondary)
             case .needsSubscription:
                 Label {
                     Text("Fud AI voice needs a Plus or Pro plan")
@@ -156,6 +195,45 @@ struct VoiceAssistantSettingsView: View {
                 .foregroundStyle(.secondary)
                 subscribeButton
                 addKeyLink
+            }
+        }
+    }
+
+    private var qwenWorkspaceFields: some View {
+        let workspace = qwenWorkspace.trimmingCharacters(in: .whitespacesAndNewlines)
+        let key = qwenKey.trimmingCharacters(in: .whitespacesAndNewlines)
+        let hasKey = VoiceAssistantSettings.qwenAPIKey?.isEmpty == false
+        return VStack(alignment: .leading, spacing: 8) {
+            Text("Qwen Live uses a workspace and API key from Alibaba Model Studio’s Singapore region.")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+            TextField("Qwen Live workspace ID", text: $qwenWorkspace)
+                .textInputAutocapitalization(.never)
+                .autocorrectionDisabled()
+            SecureField("Workspace API key", text: $qwenKey)
+                .textInputAutocapitalization(.never)
+                .autocorrectionDisabled()
+            if hasKey { Text("A workspace key is saved.").font(.caption) }
+            Button("Save workspace") {
+                preview.stop()
+                if !key.isEmpty { settings.setQwenAPIKey(key) }
+                settings.qwenWorkspace = workspace
+                qwenKey = ""
+                revision += 1
+            }
+            .buttonStyle(.borderless)
+            .disabled(!QwenRealtimeWire.isValidWorkspace(workspace) ||
+                      (key.isEmpty && (!hasKey || workspace != settings.qwenWorkspace)))
+            if hasKey || !settings.qwenWorkspace.isEmpty {
+                Button("Clear workspace", role: .destructive) {
+                    preview.stop()
+                    settings.setQwenAPIKey(nil)
+                    settings.qwenWorkspace = ""
+                    qwenWorkspace = ""
+                    qwenKey = ""
+                    revision += 1
+                }
+                .buttonStyle(.borderless)
             }
         }
     }
@@ -193,7 +271,13 @@ struct VoiceAssistantSettingsView: View {
             if provider != .hosted {
                 Picker(selection: Binding(
                     get: { _ = revision; return settings.model(for: provider) },
-                    set: { preview.stop(); settings.setModel($0, for: provider); revision += 1 }
+                    set: { model in
+                        guard model != settings.model(for: provider) else { return }
+                        preview.stop()
+                        if assistant.isBusy { assistant.dismiss() }
+                        settings.setModel(model, for: provider)
+                        revision += 1
+                    }
                 )) {
                     ForEach(provider.models, id: \.self) { model in
                         Text(verbatim: model).tag(model)
@@ -213,7 +297,13 @@ struct VoiceAssistantSettingsView: View {
 
             Picker(selection: Binding(
                 get: { _ = revision; return settings.voice(for: provider) },
-                set: { preview.stop(); settings.setVoice($0, for: provider); revision += 1 }
+                set: { voice in
+                    guard voice != settings.voice(for: provider) else { return }
+                    preview.stop()
+                    if assistant.isBusy { assistant.dismiss() }
+                    settings.setVoice(voice, for: provider)
+                    revision += 1
+                }
             )) {
                 ForEach(provider.voices, id: \.self) { voice in
                     Text(verbatim: voice.prefix(1).uppercased() + voice.dropFirst()).tag(voice)
@@ -229,6 +319,22 @@ struct VoiceAssistantSettingsView: View {
             .pickerStyle(.menu)
             .tint(.secondary)
             .accessibilityIdentifier("settings.voiceAssistant.voice")
+
+            if provider == .gemini || provider == .hosted {
+                Toggle(isOn: $geminiBargeIn) {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Interrupt when I speak", tableName: "GeminiVoice")
+                        Text("Turn this off if background noise cuts off replies. Wait for the reply to finish before speaking.", tableName: "GeminiVoice")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+                .accessibilityIdentifier("settings.voiceAssistant.geminiBargeIn")
+                .onChange(of: geminiBargeIn) { _, enabled in
+                    if assistant.isBusy { assistant.dismiss() }
+                    settings.geminiBargeIn = enabled
+                }
+            }
 
             Button {
                 if preview.isRunning {
@@ -330,7 +436,7 @@ struct VoiceAssistantSettingsView: View {
 
             toggleRow(
                 title: "Save Conversations to Coach",
-                detail: "Adds what you and the assistant say to your Coach chat.",
+                detail: "Saves voice conversations to Coach and shares recent Coach messages with your voice provider when needed.",
                 systemImage: "bubble.left.and.bubble.right",
                 isOn: $saveToCoach,
                 identifier: "settings.voiceAssistant.saveToCoach"

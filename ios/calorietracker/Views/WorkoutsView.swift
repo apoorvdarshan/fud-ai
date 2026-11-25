@@ -2,29 +2,22 @@ import SwiftUI
 import UIKit
 
 struct WorkoutsView: View {
-    @AppStorage(WorkoutTabMode.storageKey) private var selectedModeRaw = WorkoutTabMode.defaultMode.rawValue
+    let mode: WorkoutTabMode
     @AppStorage(AppThemeColor.storageKey) private var appThemeColorRaw = AppThemeColor.defaultColor.rawValue
     @State private var workoutLogSession = WorkoutLogSessionState()
-
-    private var selectedMode: WorkoutTabMode {
-        WorkoutTabMode.mode(for: selectedModeRaw)
-    }
 
     var body: some View {
         NavigationStack {
             Group {
-                if selectedMode == .log {
+                if mode == .log {
                     WorkoutLogView(
                         session: workoutLogSession,
-                        embedsInNavigationStack: false,
-                        onShowLibrary: { showMode(.library) }
+                        embedsInNavigationStack: false
                     )
                 } else {
-                    ExerciseLibraryBrowserView(
-                        onShowWorkoutLog: { showMode(.log) }
-                    )
+                    ExerciseLibraryBrowserView()
                     .background(WorkoutsScreenBackground())
-                    .navigationTitle("Workouts")
+                    .navigationTitle("Exercise library")
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar(.hidden, for: .navigationBar)
                 }
@@ -36,18 +29,20 @@ struct WorkoutsView: View {
         // discarding its route and session-only timer state.
         .animation(.easeInOut(duration: 0.2), value: appThemeColorRaw)
         .onChange(of: workoutLogSession.selectedDate, initial: true) { _, day in
-            VoiceAssistantNavigator.shared.workoutDiaryDate = day
+            if mode == .log {
+                VoiceAssistantNavigator.shared.workoutDiaryDate = day
+            }
         }
-    }
-
-    private func showMode(_ mode: WorkoutTabMode) {
-        selectedModeRaw = mode.rawValue
+        .onChange(of: VoiceAssistantNavigator.shared.workoutDateRequest?.id, initial: true) {
+            if mode == .log, let day = VoiceAssistantNavigator.shared.takeWorkoutDateRequest() {
+                workoutLogSession.selectedDate = day
+            }
+        }
     }
 }
 
 private struct ExerciseLibraryBrowserView: View {
     @Environment(StrengthWorkoutStore.self) private var workoutStore
-    var onShowWorkoutLog: (() -> Void)?
 
     @State private var searchText = ""
     @State private var debouncedSearchText = ""
@@ -303,24 +298,7 @@ private struct ExerciseLibraryBrowserView: View {
 
     private var filters: some View {
         VStack(alignment: .leading, spacing: 12) {
-            HStack(spacing: 10) {
-                WorkoutsSearchPill(searchText: $searchText)
-
-                if let onShowWorkoutLog {
-                    Button(action: onShowWorkoutLog) {
-                        Image(systemName: "figure.strengthtraining.traditional")
-                            .font(.system(size: 18, weight: .bold))
-                            .foregroundStyle(Color.workoutAccent)
-                            .frame(width: 50, height: 50)
-                            .contentShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
-                    }
-                    .buttonStyle(.plain)
-                    .workoutPressable()
-                    .workoutLiquidBarSurface(cornerRadius: 22)
-                    .accessibilityLabel("Workout log")
-                    .accessibilityHint("Opens your workout diary")
-                }
-            }
+            WorkoutsSearchPill(searchText: $searchText)
 
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 9) {
@@ -922,6 +900,8 @@ struct ExerciseLibraryDetailView: View {
     let item: ExerciseLibraryItem
     var onEdit: (() -> Void)?
     @State private var isMetricsPresented = false
+    @State private var isImageReportPresented = false
+    @Environment(ProfileStore.self) private var profileStore
 
     var body: some View {
         GeometryReader { geometry in
@@ -956,6 +936,7 @@ struct ExerciseLibraryDetailView: View {
         .workoutScreen()
         .navigationTitle(item.name)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar(.visible, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .toolbarBackground(Color.workoutBackground, for: .navigationBar)
         .toolbar {
@@ -966,6 +947,16 @@ struct ExerciseLibraryDetailView: View {
                         .foregroundStyle(Color.workoutAccent)
                 }
             }
+        }
+        .flashSheet(isPresented: $isImageReportPresented) {
+            let asset = FreeExerciseDBAssetResolver.preferredVisualAsset(for: item.imagePaths, gender: profileStore.profile.gender)
+            let visual = asset.frames.first.map {
+                switch $0 {
+                case .authored(let frame): frame.name
+                case .file: "catalog-photo"
+                }
+            } ?? "unavailable"
+            ExerciseImageReportSheet(item: item, visual: visual)
         }
     }
 
@@ -1022,15 +1013,100 @@ struct ExerciseLibraryDetailView: View {
             .padding(.top, 14)
             .padding(.trailing, 16)
             .accessibilityLabel(isMetricsPresented ? String(localized: "Hide exercise details") : String(localized: "Show exercise details"))
+
+            if !UserExercise.isUserExercise(item.id), !item.id.hasPrefix("custom_activity_") {
+                Button {
+                    isImageReportPresented = true
+                } label: {
+                    Image(systemName: "flag")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundStyle(Color.workoutAccent)
+                        .frame(width: 44, height: 44)
+                        .background(Color.workoutBackground.opacity(0.88), in: Circle())
+                        .overlay { Circle().stroke(Color.workoutHairline.opacity(0.55), lineWidth: 0.7) }
+                }
+                .buttonStyle(.plain)
+                .padding(.trailing, 16)
+                .padding(.bottom, 14)
+                .frame(width: width, height: 294, alignment: .bottomTrailing)
+                .accessibilityLabel(Text("Report image issue", tableName: "ExerciseImageReport"))
+                .accessibilityIdentifier("workouts.exercise.reportImage")
+            }
         }
         .frame(width: width, height: 294)
         .animation(.snappy(duration: 0.28), value: isMetricsPresented)
         .clipped()
-        .accessibilityElement(children: .combine)
+        .accessibilityElement(children: .contain)
         .accessibilityIdentifier("workouts.exercise.visual.\(item.id)")
         .accessibilityLabel(Text("\(item.name) exercise visual"))
     }
+}
 
+private struct ExerciseImageReportSheet: View {
+    let item: ExerciseLibraryItem
+    let visual: String
+    @Environment(\.dismiss) private var dismiss
+    @Environment(\.openURL) private var openURL
+    @State private var note = ""
+    @State private var githubURL: URL?
+
+    private var version: String {
+        Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "unknown"
+    }
+
+    var body: some View {
+        NavigationStack {
+            Form {
+                Section {
+                    Text(verbatim: item.name).font(.headline)
+                    TextField(
+                        text: $note,
+                        prompt: Text("What looks wrong in the image?", tableName: "ExerciseImageReport"),
+                        axis: .vertical
+                    ) {
+                        Text("What looks wrong in the image?", tableName: "ExerciseImageReport")
+                    }
+                    .lineLimit(3...6)
+                    .onChange(of: note) { _, current in
+                        if current.unicodeScalars.count > ExerciseImageReport.noteLimit {
+                            note = ExerciseImageReport.cleanNote(current)
+                        }
+                    }
+                    .accessibilityIdentifier("workouts.exercise.imageReportNote")
+                } footer: {
+                    Text("Reports become public. Don't include private information.", tableName: "ExerciseImageReport")
+                }
+                Section {
+                    Button {
+                        githubURL = ExerciseImageReport.issueURL(
+                            exercise: item.name, id: item.id, visual: visual, version: version, note: note
+                        )
+                    } label: {
+                        Label("Report an Issue on GitHub", systemImage: "arrow.up.right.square")
+                    }
+                    Button {
+                        UIPasteboard.general.string = ExerciseImageReport.text(
+                            exercise: item.name, id: item.id, visual: visual, version: version, note: note
+                        )
+                        openURL(FudAILinks.discord)
+                    } label: {
+                        Label("Report an Issue on Discord", systemImage: "bubble.left.and.bubble.right")
+                    }
+                } footer: {
+                    Text("The app copies the report. In Fud AI’s Discord server, run /bug and paste it in the report field.", tableName: "ExerciseImageReport")
+                }
+                .disabled(ExerciseImageReport.cleanNote(note).isEmpty)
+            }
+            .navigationTitle(Text("Report image issue", tableName: "ExerciseImageReport"))
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() } }
+            }
+        }
+        .sheet(isPresented: Binding(get: { githubURL != nil }, set: { if !$0 { githubURL = nil } })) {
+            if let githubURL { SafariView(url: githubURL).ignoresSafeArea() }
+        }
+    }
 }
 
 private struct ExerciseHeroMetricOverlay: View {

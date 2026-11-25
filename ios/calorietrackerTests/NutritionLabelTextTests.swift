@@ -399,7 +399,7 @@ struct NutritionLabelTextTests {
         #expect(onDevice == base + "\n\n" + section)
         #expect(NutritionLabelText.prompt(base, adding: nil) == base)
 
-        #expect(Set(AIProvider.allCases.filter(\.runsOnDevice)) == [.appleIntelligence, .gemma4Local])
+        #expect(Set(AIProvider.allCases.filter(\.runsOnDevice)) == [.appleIntelligence, .gemma4Local, .gemma4E4BLocal])
         var reads = 0
         let labelText = OnDeviceLabelText {
             reads += 1

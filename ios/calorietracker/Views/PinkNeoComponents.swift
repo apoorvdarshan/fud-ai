@@ -71,7 +71,7 @@ private struct NativeTabBarSuppressor: UIViewControllerRepresentable {
 
 struct PinkNeoRailItem: Identifiable {
     let id: String
-    let title: LocalizedStringKey
+    let title: Text
     let icon: String
     var selected = false
     var badge = false
@@ -80,9 +80,14 @@ struct PinkNeoRailItem: Identifiable {
 
 struct PinkNeoRail: View {
     let items: [PinkNeoRailItem]
-    let onCamera: () -> Void
+    let onVoice: (() -> Void)?
+    let voiceMascot: VoiceMascotProfile
+    let voiceMode: LiveOrbMode
+    let voiceLevel: () -> Double
+    let voiceMotionEnabled: Bool
     private var appearance = PinkNeoAppearance()
     @Environment(\.dynamicTypeSize) private var typeSize
+    @Environment(\.scenePhase) private var scenePhase
     @ScaledMetric(relativeTo: .caption2) private var railWidth = 64.0
 
     var body: some View {
@@ -108,12 +113,19 @@ struct PinkNeoRail: View {
                 }
             }
             .scrollIndicators(.hidden)
-            Rectangle().fill(palette.rule).frame(height: 1).accessibilityHidden(true)
-            railButton(
-                PinkNeoRailItem(id: "nav.camera", title: "Camera", icon: "camera", action: onCamera),
-                palette: palette,
-                outlined: true
-            )
+            if let onVoice {
+                Button(action: onVoice) {
+                    VoiceMascotView(mode: voiceMode, profile: voiceMascot, level: voiceLevel, compact: true)
+                        .environment(\.voiceAssistantAnimationActive, scenePhase == .active && voiceMotionEnabled)
+                        .frame(width: 44, height: 44)
+                        .frame(maxWidth: .infinity, minHeight: 48)
+                        .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel("Talk to Fud AI")
+                .accessibilityValue(Text(verbatim: voiceMascot.name))
+                .accessibilityIdentifier("nav.voice")
+            }
         }
         .padding(4)
         .frame(width: min(railWidth, 76))
@@ -125,7 +137,7 @@ struct PinkNeoRail: View {
         .accessibilityIdentifier("nav.rail")
     }
 
-    private func railButton(_ item: PinkNeoRailItem, palette: PinkNeoPalette, outlined: Bool = false) -> some View {
+    private func railButton(_ item: PinkNeoRailItem, palette: PinkNeoPalette) -> some View {
         Button(action: item.action) {
             VStack(spacing: 3) {
                 Image(systemName: item.icon)
@@ -139,7 +151,7 @@ struct PinkNeoRail: View {
                         }
                     }
                 if !typeSize.isAccessibilitySize {
-                    Text(item.title)
+                    item.title
                         .font(.caption2.weight(.semibold))
                         .lineLimit(2)
                         .minimumScaleFactor(0.75)
@@ -149,18 +161,12 @@ struct PinkNeoRail: View {
             .padding(.vertical, 5)
             .frame(maxWidth: .infinity, minHeight: 48)
             .foregroundStyle(item.selected ? palette.onAction : palette.ink)
-            .background(item.selected ? palette.action : (outlined ? palette.panel : Color.clear),
+            .background(item.selected ? palette.action : Color.clear,
                          in: RoundedRectangle(cornerRadius: 5))
-            .overlay {
-                if outlined {
-                    RoundedRectangle(cornerRadius: 5).strokeBorder(palette.rule, lineWidth: 1)
-                        .allowsHitTesting(false)
-                }
-            }
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
-        .accessibilityLabel(Text(item.title))
+        .accessibilityLabel(item.title)
         .accessibilityValue(item.badge ? Text("Update Available") : Text(verbatim: ""))
         .accessibilityAddTraits(item.selected ? .isSelected : [])
         .accessibilityIdentifier(item.id)
@@ -176,18 +182,14 @@ struct PinkNeoDateHeader: View {
     var body: some View {
         let palette = appearance.palette
         HStack(spacing: 8) {
-            VStack(alignment: .leading, spacing: 1) {
-                Group {
-                    if Calendar.current.isDateInToday(date) { Text("Today") }
-                    else { Text(date, format: .dateTime.weekday(.wide)) }
-                }
-                .textCase(.uppercase)
-                .font(.system(.largeTitle, weight: .black).width(.condensed))
-                .accessibilityAddTraits(.isHeader)
-
-                Text(date, format: .dateTime.weekday(.wide).month(.wide).day())
-                    .font(.system(.subheadline, weight: .semibold).width(.condensed))
+            Group {
+                if Calendar.current.isDateInToday(date) { Text("Today") }
+                else { Text(date, format: .dateTime.weekday(.abbreviated).month(.abbreviated).day()) }
             }
+            .font(.system(.headline, weight: .black).width(.condensed))
+            .fixedSize(horizontal: false, vertical: true)
+            .accessibilityAddTraits(.isHeader)
+            .accessibilityIdentifier("home.dateHeading")
             Spacer(minLength: 0)
             Button {
                 calendarDate = min(date, .now)
@@ -196,8 +198,7 @@ struct PinkNeoDateHeader: View {
                 Image(systemName: "calendar")
                     .font(.body.weight(.semibold))
                     .frame(width: 44, height: 44)
-                    .background(palette.wash)
-                    .pinkNeoRule(palette.rule)
+                    .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
             .accessibilityLabel("Date")
@@ -206,17 +207,20 @@ struct PinkNeoDateHeader: View {
             .flashPopover(isPresented: $showCalendar) {
                 DatePicker("Date", selection: $calendarDate, in: ...Date.now, displayedComponents: .date)
                     .datePickerStyle(.graphical)
-                    .padding()
+                    .frame(idealWidth: 304)
+                    .padding(6)
+                    .accessibilityIdentifier("home.calendarPopup")
+                    .presentationCompactAdaptation(.popover)
                     .onChange(of: calendarDate) { _, day in
+                        guard !Calendar.current.isDate(date, inSameDayAs: day) else { return }
+                        AppHaptics.selection()
                         date = day
                         showCalendar = false
                     }
             }
         }
-        .padding(10)
+        .padding(.leading, 2)
         .foregroundStyle(palette.ink)
-        .background(palette.panel)
-        .pinkNeoRule(palette.rule, width: 1.5)
     }
 }
 

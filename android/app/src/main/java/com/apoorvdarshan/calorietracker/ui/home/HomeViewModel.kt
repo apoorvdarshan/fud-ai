@@ -184,10 +184,9 @@ class HomeViewModel(
 ) : ViewModel() {
     private val _ui = MutableStateFlow(HomeUiState(profile = initialProfile))
     val ui: StateFlow<HomeUiState> = _ui.asStateFlow()
-    // App-wide, so the voice assistant sees and sets the same diary day. A new Home still
-    // opens on today, even when the process (and the navigator) outlived the last one.
-    private val _selectedDate = container.navigator.homeDiaryDate.apply { value = LocalDate.now() }
-private val _stepsRefreshEpoch = MutableStateFlow(0)
+    // App-wide, so mounting Home never overwrites a day the assistant just requested.
+    private val _selectedDate = container.navigator.homeDiaryDate
+    private val _stepsRefreshEpoch = MutableStateFlow(0)
     private val _burnRefreshTick = MutableStateFlow(0)
     private var retryAction: (() -> Unit)? = null
     private val failedDraftStore by lazy { FailedMealDraftStore(container.appContext.noBackupFilesDir) }
@@ -428,6 +427,7 @@ viewModelScope.launch {
     }
 
     fun setSelectedDate(date: LocalDate) {
+        container.navigator.refreshDiaryDates()
         _selectedDate.value = date
     }
 
@@ -558,7 +558,7 @@ viewModelScope.launch {
             )
             discardPendingDraftSafely(previousDraftImages)
             try {
-                val analysis = container.foodAnalysis.analyzeText(description, progress = reporter)
+                val analysis = container.analyzeFoodText(description, reporter)
                 finishAnalysisProgress(AnalysisOutcome.COMPLETE, run)
                 savePendingDraft(analysis, imageBytes = null, source = FoodSource.TEXT_INPUT)
             } catch (e: CancellationException) {
@@ -1264,7 +1264,7 @@ viewModelScope.launch {
      * Also seeds the review sheet's editable Date & Time default.
      */
     fun timestampForSelectedDay(): Instant {
-        val day = _selectedDate.value
+        val day = container.navigator.currentHomeDiaryDate()
         val today = LocalDate.now()
         if (day == today) return Instant.now()
         val zone = ZoneId.systemDefault()

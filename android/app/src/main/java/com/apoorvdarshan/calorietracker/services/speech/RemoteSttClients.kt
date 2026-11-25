@@ -17,6 +17,7 @@ import kotlinx.serialization.json.put
 import kotlinx.serialization.json.putJsonArray
 import kotlinx.serialization.json.putJsonObject
 import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -35,6 +36,7 @@ sealed class SttApiError(message: String) : Exception(message) {
     object InvalidResponse : SttApiError("Could not understand the transcription response.")
     object Timeout : SttApiError("Transcription timed out.")
     object LocalUnavailable : SttApiError("The on-device Whisper runtime is unavailable.")
+    object LocalModelUnavailable : SttApiError("The selected on-device speech model is unavailable.")
     object EmptyTranscript : SttApiError("The recording contained no recognizable speech.")
 
     fun userMessage(context: Context): String = when (this) {
@@ -45,6 +47,7 @@ sealed class SttApiError(message: String) : Exception(message) {
         InvalidResponse -> context.getString(R.string.stt_api_error_invalid_response)
         Timeout -> context.getString(R.string.stt_api_error_timeout)
         LocalUnavailable -> context.getString(R.string.stt_api_error_local_unavailable)
+        LocalModelUnavailable -> context.getString(R.string.stt_api_error_local_model_unavailable)
         EmptyTranscript -> context.getString(R.string.stt_error_no_match)
     }
 }
@@ -59,14 +62,15 @@ object WhisperClient {
         apiKey: String,
         model: String,
         audio: File,
-        languageCode: String? = null
+        languageCode: String? = null,
+        languageField: String = "language"
     ): String = withContext(Dispatchers.IO) {
         val bodyBuilder = MultipartBody.Builder()
             .setType(MultipartBody.FORM)
             .addFormDataPart("model", model)
             .addFormDataPart("file", audio.name, audio.asRequestBody(audio.mimeType().toMediaType()))
         if (!languageCode.isNullOrBlank()) {
-            bodyBuilder.addFormDataPart("language", languageCode)
+            bodyBuilder.addFormDataPart(languageField, languageCode)
         }
         val body = bodyBuilder.build()
         val req = Request.Builder()
@@ -122,6 +126,7 @@ object GeminiAudioClient {
         }
         return buildJsonObject {
             put("model", model)
+            put("store", false)
             putJsonArray("input") {
                 add(buildJsonObject {
                     put("type", "audio")
@@ -132,7 +137,7 @@ object GeminiAudioClient {
             putJsonObject("generation_config") {
                 putJsonObject("transcription_config") {
                     put("language_codes", languageCodes)
-                    putJsonObject("mode") { put("type", "smart") }
+                    putJsonObject("mode") { put("type", "verbatim") }
                 }
             }
         }.toString()
@@ -217,6 +222,17 @@ object GeminiAudioClient {
  * Deepgram: raw audio body, Token auth.
  */
 object DeepgramClient {
+    internal fun listenUrl(model: String, languageCode: String?) =
+        "https://api.deepgram.com/v1/listen".toHttpUrl().newBuilder()
+            .addQueryParameter("model", model)
+            .addQueryParameter("punctuate", "true")
+            .addQueryParameter("smart_format", "true")
+            .apply {
+                if (languageCode.isNullOrBlank()) addQueryParameter("detect_language", "true")
+                else addQueryParameter("language", languageCode)
+            }
+            .build()
+
     suspend fun transcribe(
         client: OkHttpClient,
         apiKey: String,
@@ -224,9 +240,8 @@ object DeepgramClient {
         audio: File,
         languageCode: String? = null
     ): String = withContext(Dispatchers.IO) {
-        val languageQuery = if (!languageCode.isNullOrBlank()) "&language=$languageCode" else ""
         val req = Request.Builder()
-            .url("https://api.deepgram.com/v1/listen?model=$model&punctuate=true&smart_format=true$languageQuery")
+            .url(listenUrl(model, languageCode))
             .addHeader("Authorization", "Token $apiKey")
             .addHeader("Content-Type", audio.mimeType())
             .post(audio.asRequestBody(audio.mimeType().toMediaType()))
@@ -269,6 +284,7 @@ object AssemblyAIClient {
         val submitPayload = JSONObject()
             .put("audio_url", audioUrl)
             .put("speech_models", JSONArray(speechModels))
+            .put("disfluencies", false)
         if (!languageCode.isNullOrBlank()) {
             submitPayload.put("language_code", languageCode)
         } else {

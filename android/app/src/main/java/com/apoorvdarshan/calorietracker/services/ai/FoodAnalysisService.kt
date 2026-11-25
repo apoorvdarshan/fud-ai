@@ -25,6 +25,7 @@ import okhttp3.OkHttpClient
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 import com.apoorvdarshan.calorietracker.models.OpenRouterReasoningEffort
+import com.apoorvdarshan.calorietracker.models.CanonicalFoodAllergens
 
 internal fun multiPhotoAnalysisPrompt(
     progressiveMeal: Boolean,
@@ -388,7 +389,7 @@ class FoodAnalysisService(
         progress?.onProgress(AnalysisProgressUpdate(AnalysisStage.PREPARING))
         val parsed = FoodJsonParser.parseFoodResponse(
             callAi(
-                prompt,
+                "$prompt\n\n${CanonicalFoodAllergens.prompt}",
                 null,
                 aminoAcidInstruction = AminoAcidEstimates.foodPromptInstruction,
                 progress = progress,
@@ -434,7 +435,7 @@ class FoodAnalysisService(
         progress?.onProgress(AnalysisProgressUpdate(AnalysisStage.PREPARING))
         val parsed = FoodJsonParser.parseFoodResponse(
             callAi(
-                prompt,
+                "$prompt\n\n${CanonicalFoodAllergens.prompt}",
                 imageBytes,
                 aminoAcidInstruction = AminoAcidEstimates.foodPromptInstruction,
                 progress = progress,
@@ -478,7 +479,7 @@ class FoodAnalysisService(
         progress?.onProgress(AnalysisProgressUpdate(AnalysisStage.PREPARING))
         val parsed = FoodJsonParser.parseFoodResponse(
             callAi(
-                prompt,
+                "$prompt\n\n${CanonicalFoodAllergens.prompt}",
                 imageBytes,
                 aminoAcidInstruction = AminoAcidEstimates.foodPromptInstruction,
                 progress = progress,
@@ -509,7 +510,7 @@ class FoodAnalysisService(
         progress?.onProgress(AnalysisProgressUpdate(AnalysisStage.PREPARING))
         val parsed = FoodJsonParser.parseFoodResponse(
             callAi(
-                prompt,
+                "$prompt\n\n${CanonicalFoodAllergens.prompt}",
                 images,
                 aminoAcidInstruction = AminoAcidEstimates.foodPromptInstruction,
                 progress = progress,
@@ -541,7 +542,7 @@ class FoodAnalysisService(
             Use [] when no reliable non-gram label unit is visible. Do not include g/gram/grams in unit_options.
         """.trimIndent()
         val parsed = FoodJsonParser.parseLabelResponse(
-            callAi(prompt, imageBytes, aminoAcidInstruction = AminoAcidEstimates.labelPromptInstruction)
+            callAi("$prompt\n\n${CanonicalFoodAllergens.prompt}", imageBytes, aminoAcidInstruction = AminoAcidEstimates.labelPromptInstruction)
         )
         return addingFallbackServingUnits(
             analysis = parsed.analysis,
@@ -871,8 +872,9 @@ class FoodAnalysisService(
         jsonResponse: Boolean,
         openRouterReasoningEffort: OpenRouterReasoningEffort = OpenRouterReasoningEffort.AUTO
     ): String {
-        if (provider == AIProvider.LOCAL_GEMMA) {
+        provider.localModelId?.let { id ->
             return localGemma?.generate(
+                id = id,
                 prompt = prompt,
                 images = imageBytesList,
                 maxOutputTokens = maxTokens
@@ -893,7 +895,7 @@ class FoodAnalysisService(
             AIProvider.ApiFormat.OPENAI_COMPATIBLE ->
                 OpenAICompatibleClient.analyze(
                     requestClient, baseUrl, model, apiKey, prompt, imageBytesList, provider, maxTokens,
-                    openRouterReasoningEffort
+                    openRouterReasoningEffort, structuredOutput = jsonResponse
                 )
             AIProvider.ApiFormat.LOCAL -> error("Local inference must be dispatched before network setup.")
         }
@@ -914,7 +916,7 @@ class FoodAnalysisService(
         if (provider == primary && model == primaryModel && baseUrl == primaryBaseUrl) return null
         val key = keyStore.apiKey(provider)
         if (provider.requiresApiKey && key.isNullOrEmpty()) return null
-        if (provider != AIProvider.LOCAL_GEMMA && baseUrl.isEmpty()) return null
+        if (provider.localModelId == null && baseUrl.isEmpty()) return null
         return FallbackConfig(provider, model, baseUrl, key)
     }
 
@@ -931,7 +933,7 @@ class FoodAnalysisService(
         if (provider == primary && model == primaryModel && baseUrl == primaryBaseUrl) return null
         val key = keyStore.apiKey(provider)
         if (provider.requiresApiKey && key.isNullOrEmpty()) return null
-        if (provider != AIProvider.LOCAL_GEMMA && baseUrl.isEmpty()) return null
+        if (provider.localModelId == null && baseUrl.isEmpty()) return null
         return FallbackConfig(provider, model, baseUrl, key)
     }
 

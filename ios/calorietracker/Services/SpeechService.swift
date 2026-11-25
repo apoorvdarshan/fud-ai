@@ -44,8 +44,9 @@ struct SpeechService {
 
     /// Transcribe an audio file using the selected batch provider, with an optional
     /// independently configured remote STT fallback.
-    static func transcribe(audioURL: URL) async throws -> String {
-        if AIModeSettings.isHosted {
+    static func transcribe(audioURL: URL, capturedProvider: SpeechProvider? = nil) async throws -> String {
+        let provider = capturedProvider ?? SpeechSettings.selectedProvider
+        if AIModeSettings.isHosted && !provider.isLocalBatch {
             guard let audioData = try? Data(contentsOf: audioURL) else {
                 throw SpeechError.fileReadFailed
             }
@@ -59,13 +60,8 @@ struct SpeechService {
             }
         }
 
-        let provider: SpeechProvider = SpeechSettings.selectedProvider
-        guard let audioData = try? Data(contentsOf: audioURL) else {
-            throw SpeechError.fileReadFailed
-        }
-
         do {
-            return try await transcribe(audioURL: audioURL, audioData: audioData, provider: provider)
+            return try await transcribe(audioURL: audioURL, provider: provider)
         } catch {
             if error is CancellationError { throw error }
             guard SpeechSettings.fallbackEnabled else { throw error }
@@ -74,11 +70,20 @@ struct SpeechService {
                   !fallback.requiresAPIKey || SpeechSettings.apiKey(for: fallback)?.isEmpty == false else {
                 throw error
             }
-            return try await transcribe(audioURL: audioURL, audioData: audioData, provider: fallback)
+            return try await transcribe(audioURL: audioURL, provider: fallback)
         }
     }
 
-    private static func transcribe(audioURL: URL, audioData: Data, provider: SpeechProvider) async throws -> String {
+    private static func transcribe(audioURL: URL, provider: SpeechProvider) async throws -> String {
+        if provider == .appleSpeechAnalyzer, #available(iOS 26.0, *) {
+            return try await AppleSpeechAnalyzerService.transcribe(
+                audioURL, language: SpeechSettings.selectedLanguage(for: provider)
+            )
+        }
+        if let model = provider.localModel {
+            let manager = await LocalSpeechModelManager.forModel(model)
+            return try await manager.transcribe(audioURL)
+        }
         let selectedLanguage = SpeechSettings.selectedLanguage(for: provider)
         let languageCode = selectedLanguage.apiLanguageCode
         if provider == .whisperBase {
@@ -90,6 +95,7 @@ struct SpeechService {
         guard provider.requiresAPIKey else {
             throw SpeechError.apiError("Native iOS transcription is handled in-view, not via SpeechService.")
         }
+        guard let audioData = try? Data(contentsOf: audioURL) else { throw SpeechError.fileReadFailed }
         let apiKey = SpeechSettings.apiKey(for: provider)
         if apiKey == nil || apiKey?.isEmpty == true {
             throw SpeechError.noAPIKey
@@ -98,8 +104,8 @@ struct SpeechService {
         switch provider {
         case .nativeIOS:
             throw SpeechError.apiError("Native iOS transcription is handled in-view.")
-        case .whisperBase:
-            throw SpeechError.apiError("Whisper Base could not be initialized.")
+        case .appleSpeechAnalyzer, .whisperBase, .parakeetV3, .qwen3ASR:
+            throw SpeechError.invalidResponse
         case .gemini:
             return try await callGeminiAudio(
                 model: provider.defaultModel,
@@ -113,12 +119,14 @@ struct SpeechService {
                 model: provider.defaultModel,
                 audioData: audioData,
                 apiKey: resolvedAPIKey,
-                languageCode: languageCode
+                languageCode: languageCode,
+                responseFormat: "json",
+                languageField: "languages[]"
             )
         case .groq:
             return try await callOpenAIWhisper(
                 baseURL: "https://api.groq.com/openai/v1",
-                model: provider.defaultModel,
+                model: SpeechSettings.recordedModel(for: provider),
                 audioData: audioData,
                 apiKey: resolvedAPIKey,
                 languageCode: languageCode
@@ -126,10 +134,10 @@ struct SpeechService {
         case .mistral:
             return try await callOpenAIWhisper(
                 baseURL: "https://api.mistral.ai/v1",
-                model: provider.defaultModel,
+                model: SpeechSettings.recordedModel(for: provider),
                 audioData: audioData,
                 apiKey: resolvedAPIKey,
-                languageCode: languageCode,
+                languageCode: languageCode?.split(separator: "-").first.flatMap { $0.count == 2 ? String($0) : nil },
                 responseFormat: nil
             )
         case .deepgram:
@@ -199,6 +207,7 @@ struct SpeechService {
         let languageCodes = languageCode.map { [$0] } ?? []
         return [
             "model": model,
+            "store": false,
             "input": [
                 [
                     "type": "audio",
@@ -209,7 +218,7 @@ struct SpeechService {
             "generation_config": [
                 "transcription_config": [
                     "language_codes": languageCodes,
-                    "mode": ["type": "smart"],
+                    "mode": ["type": "verbatim"],
                 ]
             ],
         ]
@@ -302,7 +311,8 @@ struct SpeechService {
         audioData: Data,
         apiKey: String,
         languageCode: String?,
-        responseFormat: String? = "text"
+        responseFormat: String? = "text",
+        languageField: String = "language"
     ) async throws -> String {
         guard let url = URL(string: "\(baseURL)/audio/transcriptions") else {
             throw SpeechError.apiError("Invalid URL.")
@@ -317,7 +327,7 @@ struct SpeechService {
             fields["response_format"] = responseFormat
         }
         if let languageCode {
-            fields["language"] = languageCode
+            fields[languageField] = languageCode
         }
         request.httpBody = multipartBody(boundary: boundary, fields: fields, file: (fieldName: "file", filename: "audio.m4a", mimeType: "audio/m4a", data: audioData))
 
@@ -326,17 +336,15 @@ struct SpeechService {
         if http.statusCode != 200 {
             throw SpeechError.apiError(decodeErrorMessage(data) ?? "HTTP \(http.statusCode)")
         }
-        if responseFormat == nil,
-           let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
-           let text = json["text"] as? String,
-           !text.isEmpty {
-            return text.trimmingCharacters(in: .whitespacesAndNewlines)
+        let transcript: String?
+        if responseFormat == "text" {
+            transcript = String(data: data, encoding: .utf8)
+        } else {
+            transcript = (try? JSONSerialization.jsonObject(with: data) as? [String: Any])?["text"] as? String
         }
-        // response_format=text returns plain text, not JSON.
-        if let text = String(data: data, encoding: .utf8), !text.isEmpty {
-            return text.trimmingCharacters(in: .whitespacesAndNewlines)
-        }
-        throw SpeechError.invalidResponse
+        guard let text = transcript?.trimmingCharacters(in: .whitespacesAndNewlines), !text.isEmpty
+        else { throw SpeechError.invalidResponse }
+        return text
     }
 
     // MARK: - Deepgram
@@ -351,6 +359,8 @@ struct SpeechService {
         ]
         if let languageCode {
             queryItems.append(URLQueryItem(name: "language", value: languageCode))
+        } else {
+            queryItems.append(URLQueryItem(name: "detect_language", value: "true"))
         }
         components?.queryItems = queryItems
 
@@ -391,6 +401,7 @@ struct SpeechService {
         var body: [String: Any] = [
             "audio_url": audioURL,
             "speech_models": speechModels,
+            "disfluencies": false,
         ]
         if let languageCode {
             body["language_code"] = languageCode

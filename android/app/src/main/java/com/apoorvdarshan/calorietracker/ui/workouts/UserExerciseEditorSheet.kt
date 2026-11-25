@@ -83,6 +83,7 @@ import com.apoorvdarshan.calorietracker.services.FoodImageStore
 import com.apoorvdarshan.calorietracker.services.ai.AiError
 import com.apoorvdarshan.calorietracker.services.ai.UserExerciseAiFill
 import com.apoorvdarshan.calorietracker.ui.components.InAppCameraCaptureDialog
+import com.apoorvdarshan.calorietracker.ui.components.WaitingFactCard
 import com.apoorvdarshan.calorietracker.ui.hosted.findActivity
 import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 import kotlinx.coroutines.CancellationException
@@ -439,6 +440,9 @@ fun UserExerciseEditorSheet(
                         fontSize = 12.sp,
                         modifier = Modifier.padding(horizontal = 12.dp)
                     )
+                    if (isFillingWithAi) {
+                        WaitingFactCard(Modifier.padding(horizontal = 12.dp, vertical = 4.dp))
+                    }
                 }
             }
 

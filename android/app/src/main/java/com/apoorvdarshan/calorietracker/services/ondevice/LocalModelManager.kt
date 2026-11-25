@@ -20,8 +20,11 @@ import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import okhttp3.Call
 import okhttp3.OkHttpClient
@@ -54,12 +57,15 @@ class LocalModelManager(
     private val modelDir = File(appContext.noBackupFilesDir, "local-models").apply { mkdirs() }
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private val jobs = ConcurrentHashMap<LocalModelId, Job>()
+    private val downloads = Mutex()
     private val activeCalls = ConcurrentHashMap<LocalModelId, Call>()
     private val deleting = ConcurrentHashMap.newKeySet<LocalModelId>()
     private val releaseHooks = ConcurrentHashMap<LocalModelId, suspend () -> Unit>()
-    private val totalMemoryBytes: Long =
+    private val memoryInfo: ActivityManager.MemoryInfo =
         (appContext.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager)
-            .let { manager -> ActivityManager.MemoryInfo().also(manager::getMemoryInfo).totalMem }
+            .let { manager -> ActivityManager.MemoryInfo().also(manager::getMemoryInfo) }
+    private val advertisedMemoryBytes =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) memoryInfo.advertisedMem else 0L
     private val isLowRamDevice: Boolean =
         (appContext.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager).isLowRamDevice
     private val supportedAbis = Build.SUPPORTED_ABIS.toSet()
@@ -68,9 +74,10 @@ class LocalModelManager(
         LocalModelCatalog.all.associate { descriptor ->
             val ineligibility = LocalModelEligibility.ineligibility(
                 descriptor,
-                totalMemoryBytes,
+                memoryInfo.totalMem,
                 supportedAbis,
-                isLowRamDevice
+                isLowRamDevice,
+                advertisedMemoryBytes
             )
             val status = installedStatus(descriptor)
             descriptor.id to LocalModelState(
@@ -79,7 +86,7 @@ class LocalModelManager(
                 status = status,
                 ineligibility = ineligibility,
                 keptBytes = if (status == LocalModelInstallStatus.Installed) 0L else {
-                    ModelDownloader.keptBytes(partialFile(descriptor), descriptor)
+                    keptBytes(descriptor)
                 }
             )
         }
@@ -91,20 +98,21 @@ class LocalModelManager(
         // after a restart; every other partial left in the directory is stale.
         val resumable = LocalModelCatalog.all
             .filter { state(it.id).status != LocalModelInstallStatus.Installed }
-            .map { descriptor -> partialFile(descriptor) to descriptor }
+            .flatMap { it.parts() }
+            .map { part -> partialFile(part) to part }
             .filter { (part, descriptor) -> ModelDownloader.isResumable(part, descriptor) }
-            .flatMap { (part, _) -> listOf(part.name, ModelDownloader.sourceFile(part).name) }
+            .flatMap { (part, _) -> listOf(part, ModelDownloader.sourceFile(part)) }
             .toSet()
-        modelDir.listFiles { file ->
-            (file.name.endsWith(".part") || file.name.endsWith(".part.source")) && file.name !in resumable
-        }?.forEach { it.delete() }
+        modelDir.walkTopDown().filter { file ->
+            file.isFile && (file.name.endsWith(".part") || file.name.endsWith(".part.source")) && file !in resumable
+        }.forEach { it.delete() }
     }
 
     fun state(id: LocalModelId): LocalModelState = checkNotNull(_states.value[id])
 
-    fun isExecutable(id: LocalModelId): Boolean = state(id).executable
+    fun isExecutable(id: LocalModelId): Boolean = id !in deleting && state(id).executable
 
-    fun modelFile(id: LocalModelId): File = File(modelDir, LocalModelCatalog.descriptor(id).fileName)
+    fun modelFile(id: LocalModelId): File = artifactFile(LocalModelCatalog.descriptor(id).parts().first())
 
     /** Disk space used by downloaded (or partially downloaded) models (Settings → Storage). */
     fun storedBytes(): Long = modelDir.walkTopDown().filter { it.isFile }.sumOf { it.length() }
@@ -118,8 +126,11 @@ class LocalModelManager(
             if (id in deleting) return
             val current = state(id)
             if (!current.eligible || current.status is LocalModelInstallStatus.Downloading || current.executable) return
-            update(id, LocalModelInstallStatus.Downloading(0L, current.descriptor.expectedBytes))
-            val job = scope.launch(start = CoroutineStart.LAZY) { downloadVerified(current.descriptor) }
+            update(id, LocalModelInstallStatus.Downloading(current.keptBytes, current.descriptor.totalBytes))
+            val job = scope.launch(start = CoroutineStart.LAZY) {
+                // Only one job checks and consumes free space at a time.
+                downloads.withLock { downloadVerified(current.descriptor) }
+            }
             jobs[id] = job
             job.start()
         }
@@ -137,9 +148,11 @@ class LocalModelManager(
             releaseHooks[id]?.invoke()
             withContext(Dispatchers.IO) {
                 val descriptor = LocalModelCatalog.descriptor(id)
-                modelFile(id).delete()
-                ModelDownloader.discardPartial(partialFile(descriptor))
-                markerFile(descriptor).delete()
+                for (part in descriptor.parts()) {
+                    artifactFile(part).delete()
+                    ModelDownloader.discardPartial(partialFile(part))
+                    markerFile(part).delete()
+                }
             }
             update(id, LocalModelInstallStatus.NotInstalled)
         } finally {
@@ -149,50 +162,35 @@ class LocalModelManager(
 
     private suspend fun downloadVerified(descriptor: LocalModelDescriptor) {
         val id = descriptor.id
-        val part = partialFile(descriptor)
         try {
             val available = StatFs(modelDir.absolutePath).availableBytes
-            val reserve = maxOf(256L * 1024L * 1024L, descriptor.expectedBytes / 10L)
+            val reserve = maxOf(256L * 1024L * 1024L, descriptor.totalBytes / 10L)
             // Bytes kept from an interrupted attempt already occupy their share of the space.
-            val kept = ModelDownloader.keptBytes(part, descriptor)
-            if (available < descriptor.expectedBytes - kept + reserve) {
+            if (available < descriptor.totalBytes - keptBytes(descriptor) + reserve) {
                 throw LocalModelInstallError(
                     "Not enough free storage for ${descriptor.displayName}.",
                     R.string.local_model_error_storage,
                     descriptor.displayName
                 )
             }
-            downloader.download(
-                descriptor = descriptor,
-                part = part,
-                onCall = { call -> activeCalls[id] = call },
-                onProgress = { bytes ->
-                    update(id, LocalModelInstallStatus.Downloading(bytes, descriptor.expectedBytes))
+            var finishedBytes = 0L
+            for (part in descriptor.parts()) {
+                if (!isVerified(part)) {
+                    downloadPart(part) { bytes ->
+                        update(id, LocalModelInstallStatus.Downloading(finishedBytes + bytes, descriptor.totalBytes))
+                    }
                 }
-            )
-
-            val destination = modelFile(id)
-            destination.delete()
-            if (!part.renameTo(destination)) {
-                throw LocalModelInstallError("The verified model could not be installed.", R.string.local_model_error_install)
-            }
-            ModelDownloader.sourceFile(part).delete()
-            val marker = markerFile(descriptor)
-            val markerPart = File(marker.parentFile, "${marker.name}.part")
-            markerPart.writeText(descriptor.sha256)
-            marker.delete()
-            if (!markerPart.renameTo(marker)) {
-                throw LocalModelInstallError("The verification marker could not be installed.", R.string.local_model_error_install)
+                finishedBytes += part.expectedBytes
             }
             update(id, LocalModelInstallStatus.Installed)
         } catch (cancelled: CancellationException) {
             // Only the user's Cancel/Delete cancels a download, so its partial goes too.
-            ModelDownloader.discardPartial(part)
+            descriptor.parts().forEach { ModelDownloader.discardPartial(partialFile(it)) }
             update(id, LocalModelInstallStatus.NotInstalled)
             throw cancelled
         } catch (error: Throwable) {
             if (!currentCoroutineContext().isActive) {
-                ModelDownloader.discardPartial(part)
+                descriptor.parts().forEach { ModelDownloader.discardPartial(partialFile(it)) }
                 update(id, LocalModelInstallStatus.NotInstalled)
                 throw CancellationException("Model download cancelled.").also { it.initCause(error) }
             }
@@ -201,12 +199,36 @@ class LocalModelManager(
             update(
                 id,
                 LocalModelInstallStatus.Failed(installFailureMessage(error)),
-                keptBytes = ModelDownloader.keptBytes(part, descriptor)
+                keptBytes = keptBytes(descriptor)
             )
         } finally {
             activeCalls.remove(id)
             jobs.remove(id)
         }
+    }
+
+    private suspend fun downloadPart(descriptor: LocalModelDescriptor, onProgress: (Long) -> Unit) {
+        val part = partialFile(descriptor)
+        part.parentFile?.mkdirs()
+        downloader.download(descriptor, part, { call -> activeCalls[descriptor.id] = call }, onProgress)
+
+        val destination = artifactFile(descriptor)
+        destination.delete()
+        if (!part.renameTo(destination)) {
+            throw LocalModelInstallError("The verified model could not be installed.", R.string.local_model_error_install)
+        }
+        ModelDownloader.sourceFile(part).delete()
+        val marker = markerFile(descriptor)
+        val markerPart = File(marker.parentFile, "${marker.name}.part")
+        markerPart.writeText(descriptor.sha256)
+        marker.delete()
+        if (!markerPart.renameTo(marker)) {
+            throw LocalModelInstallError("The verification marker could not be installed.", R.string.local_model_error_install)
+        }
+    }
+
+    private fun keptBytes(descriptor: LocalModelDescriptor): Long = descriptor.parts().sumOf { part ->
+        if (isVerified(part)) part.expectedBytes else ModelDownloader.keptBytes(partialFile(part), part)
     }
 
     /** What the Settings screen shows for a failed install, in the user's language. */
@@ -228,14 +250,18 @@ class LocalModelManager(
         }
     }
 
-    private fun installedStatus(descriptor: LocalModelDescriptor): LocalModelInstallStatus {
-        val file = modelFile(descriptor.id)
+    private fun installedStatus(descriptor: LocalModelDescriptor): LocalModelInstallStatus =
+        if (descriptor.parts().all(::isVerified)) LocalModelInstallStatus.Installed else LocalModelInstallStatus.NotInstalled
+
+    private fun isVerified(descriptor: LocalModelDescriptor): Boolean {
+        val file = artifactFile(descriptor)
         val marker = markerFile(descriptor)
-        val installed = file.isFile && file.length() == descriptor.expectedBytes &&
+        return file.isFile && file.length() == descriptor.expectedBytes &&
             marker.isFile && runCatching { marker.readText().trim() }.getOrNull()
                 .equals(descriptor.sha256, ignoreCase = true)
-        return if (installed) LocalModelInstallStatus.Installed else LocalModelInstallStatus.NotInstalled
     }
+
+    private fun artifactFile(descriptor: LocalModelDescriptor) = File(modelDir, descriptor.fileName)
 
     private fun partialFile(descriptor: LocalModelDescriptor) =
         File(modelDir, "${descriptor.fileName}.part")
@@ -244,9 +270,8 @@ class LocalModelManager(
         File(modelDir, "${descriptor.fileName}.sha256")
 
     private fun update(id: LocalModelId, status: LocalModelInstallStatus, keptBytes: Long = 0L) {
-        _states.value = _states.value.toMutableMap().apply {
-            val old = checkNotNull(this[id])
-            this[id] = old.copy(status = status, keptBytes = keptBytes)
+        _states.update { states ->
+            states + (id to states.getValue(id).copy(status = status, keptBytes = keptBytes))
         }
     }
 }

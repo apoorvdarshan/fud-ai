@@ -128,7 +128,7 @@
     <string name="voice_settings_confirm_saves">Подтверждение перед сохранением</string>
     <string name="voice_settings_confirm_saves_footer">Показывать карточку для подтверждения каждой записи или изменения. Если выключено, изменения сохраняются сразу, и их можно отменить в течение 8 секунд.</string>
     <string name="voice_settings_save_to_coach">Сохранять разговоры в «Тренере»</string>
-    <string name="voice_settings_save_to_coach_footer">Добавляет сказанное вами и ассистентом в ваш чат с «Тренером».</string>
+    <string name="voice_settings_save_to_coach_footer">Сохраняет голосовые разговоры в «Тренере» и при необходимости передаёт недавние сообщения из него поставщику голосового сервиса.</string>
     <string name="voice_settings_minutes_left">Осталось минут по плану</string>
     <string name="voice_settings_minutes_with_credits">%1$s + %2$s за кредиты</string>
     <string name="voice_settings_minutes_footer">В Plus входит 20 минут, в Pro — 100 минут в месяц (UTC). Дальше голосовой режим расходует кредиты: 1 кредит за 15 секунд.</string>

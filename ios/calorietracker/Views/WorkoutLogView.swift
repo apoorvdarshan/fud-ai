@@ -77,7 +77,6 @@ private struct WorkoutLogCardFramePreferenceKey: PreferenceKey {
 /// Fud AI's existing workout theme tokens.
 struct WorkoutLogView: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-    @AppStorage("hideVoiceShortcut") private var hideVoiceShortcut = false
     @Environment(StrengthWorkoutStore.self) private var workoutStore
     @Environment(ImportedHealthWorkoutStore.self) private var importedHealthWorkoutStore
     @Environment(WeightStore.self) private var weightStore
@@ -85,6 +84,7 @@ struct WorkoutLogView: View {
     @AppStorage(WeightUnit.storageKey) private var weightUnitRaw = WeightUnit.lbs.rawValue
     @AppStorage(AppThemeColor.storageKey) private var appThemeColorRaw = AppThemeColor.defaultColor.rawValue
     @AppStorage(OutdoorActivitySettings.enabledKey) private var walkRunQuickLogEnabled = false
+    @AppStorage(WorkoutDockShortcuts.storageKey) private var dockShortcutsRaw = ""
 
     @State private var pickerRequest: WorkoutLogPickerRequest?
     @State private var outdoorActivitySheet: OutdoorActivityDurationSheet.ActivityKind?
@@ -92,7 +92,7 @@ struct WorkoutLogView: View {
     @State private var isCopySheetPresented = false
     @State private var isTextSheetPresented = false
     @State private var workoutInputUsesVoice = false
-    @State private var voiceAssistant = VoiceAssistantController.shared
+    @State private var visibleDockShortcutCount = 3
     @State private var restTimer = WorkoutRestTimerController.shared
     @State private var isRoutinesSheetPresented = false
     @State private var isSaveRoutinePresented = false
@@ -121,16 +121,13 @@ struct WorkoutLogView: View {
     private var library: ExerciseLibraryService { workoutStore.exerciseLibrary }
     private let session: WorkoutLogSessionState
     private let embedsInNavigationStack: Bool
-    private let onShowLibrary: (() -> Void)?
 
     init(
         session: WorkoutLogSessionState = WorkoutLogSessionState(),
-        embedsInNavigationStack: Bool = true,
-        onShowLibrary: (() -> Void)? = nil
+        embedsInNavigationStack: Bool = true
     ) {
         self.session = session
         self.embedsInNavigationStack = embedsInNavigationStack
-        self.onShowLibrary = onShowLibrary
     }
 
     private var selectedDate: Date {
@@ -460,8 +457,8 @@ struct WorkoutLogView: View {
                 .background(Color.workoutBackground.ignoresSafeArea())
                 .listSectionSpacing(8)
                 .scrollDismissesKeyboard(.interactively)
-                // Pinned below the navigation bar so it stays visible above the
-                // keyboard while the next set is being typed.
+                // Pinned at the top so it stays visible above the keyboard
+                // while the next set is being typed.
                 .safeAreaInset(edge: .top, spacing: 0) {
                     if let timer = restTimer.timer {
                         WorkoutRestTimerBar(
@@ -495,64 +492,39 @@ struct WorkoutLogView: View {
                 .onChange(of: selectedDateKey) { _, _ in endReorderingIfNeeded() }
                 .onChange(of: selectedExercises.count) { _, _ in endReorderingIfNeeded() }
                 .onChange(of: focusedSetField) { oldValue, newValue in
-                    guard let exerciseID = newValue?.exerciseID,
-                          exerciseID != oldValue?.exerciseID
+                    guard let setID = newValue?.setID,
+                          setID != oldValue?.setID
                     else { return }
 
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                        withAnimation(.snappy(duration: 0.25)) {
-                            proxy.scrollTo(exerciseID, anchor: UnitPoint(x: 0.5, y: 0.8))
-                        }
-                    }
+                    revealFocusedSet(setID, in: proxy)
+                }
+                .onChange(of: restTimer.timer == nil) { _, _ in
+                    // Filling the first reps starts rest and inserts a pinned bar.
+                    // Reposition the edit row in the newly shortened viewport.
+                    if let id = focusedSetField?.setID { revealFocusedSet(id, in: proxy) }
                 }
                 .safeAreaInset(edge: .bottom, spacing: 0) {
-                    HStack(spacing: 12) {
-                        Spacer(minLength: 0)
-                        if !voiceAssistant.isActive, !hideVoiceShortcut {
-                            VoiceAssistantHomeButton(controller: voiceAssistant)
+                    if focusedSetField == nil {
+                        workoutDock
+                    } else {
+                        // Reserve space in the list viewport instead of relying
+                        // on a keyboard accessory that can overlay the last set.
+                        HStack {
+                            Spacer()
+                            Button("Done", action: dismissSetKeyboard)
+                                .padding(.horizontal, 12)
+                                .frame(minHeight: 44)
+                                .accessibilityIdentifier("workouts.keyboard.done")
                         }
-                        addExerciseMenu
+                        .padding(.horizontal, 10)
+                        .background(Color.workoutBackground)
                     }
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 6)
-                    .background(Color.workoutBackground)
-                    .simultaneousGesture(
-                        TapGesture().onEnded(dismissSetKeyboard)
-                    )
                 }
             }
             // Keep the chrome quiet: the date strip and burn calculator lead.
             .navigationTitle("")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar(.visible, for: .navigationBar)
-            .toolbar {
-                if let onShowLibrary {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button {
-                            guard focusedSetField == nil else {
-                                dismissSetKeyboard()
-                                return
-                            }
-                            onShowLibrary()
-                        } label: {
-                            Image(systemName: "dumbbell.fill")
-                                .font(.system(size: 18, weight: .bold))
-                        }
-                        .tint(Color.workoutAccent)
-                        .accessibilityLabel("Exercise library")
-                        .accessibilityHint("Switches back to the workout library")
-                    }
-                }
-
-                if focusedSetField != nil {
-                    ToolbarItemGroup(placement: .keyboard) {
-                        Spacer()
-                        Button("Done") {
-                            dismissSetKeyboard()
-                        }
-                    }
-                }
-            }
+            .toolbar(.hidden, for: .navigationBar)
             .navigationDestination(item: $selectedDetailItem) { item in
                 ExerciseLibraryDetailView(item: item)
             }
@@ -629,29 +601,69 @@ struct WorkoutLogView: View {
             }
         }
 
-    private var addExerciseMenu: some View {
+    private var workoutDock: some View {
+        let shortcuts = WorkoutDockShortcuts(stored: dockShortcutsRaw).actions
+        let count = min(visibleDockShortcutCount, shortcuts.count)
+        let side = WorkoutDockShortcuts.side
+        let gap = WorkoutDockShortcuts.gap
+        let addSide = WorkoutDockShortcuts.addSide
+        let slotCount = shortcuts.count
+        return HStack(spacing: gap) {
+            ForEach(0..<count, id: \.self) { slot in
+                let action = shortcuts[slot]
+                Button { openWorkoutShortcut(action) } label: {
+                    Image(systemName: action.icon)
+                        .font(.system(size: 20, weight: .semibold))
+                        .foregroundStyle(Color.workoutCharcoal)
+                        .frame(width: side, height: side)
+                        .flashPanel()
+                        .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel(Text(action.title))
+                .accessibilityIdentifier("workouts.shortcut.\(slot)")
+            }
+            addExerciseMenu(overflow: Set(shortcuts.dropFirst(count)))
+        }
+        .frame(maxWidth: .infinity, alignment: .trailing)
+        .onGeometryChange(for: Int.self) { geometry in
+            max(0, min(slotCount, Int((geometry.size.width - addSide) / (side + gap))))
+        } action: { visibleDockShortcutCount = $0 }
+        .padding(.horizontal, 10)
+        .padding(.vertical, 6)
+        .background(Color.workoutBackground)
+        .simultaneousGesture(TapGesture().onEnded(dismissSetKeyboard))
+    }
+
+    private func openWorkoutShortcut(_ action: WorkoutDockAction) {
+        dismissSetKeyboard()
+        switch action {
+        case .voice, .text:
+            workoutInputUsesVoice = action == .voice
+            isTextSheetPresented = true
+        case .saved: pickerRequest = WorkoutLogPickerRequest(context: .saved, initialSource: .saved)
+        case .walking: outdoorActivitySheet = .walking
+        case .running: outdoorActivitySheet = .running
+        case .routine: isRoutinesSheetPresented = true
+        case .copy: isCopySheetPresented = true
+        }
+    }
+
+    private func workoutMenuItem(_ action: WorkoutDockAction) -> FlashMenuItem {
+        FlashMenuItem(Text(action.title), icon: action.icon) { openWorkoutShortcut(action) }
+    }
+
+    private func addExerciseMenu(overflow: Set<WorkoutDockAction>) -> some View {
         FlashMenu(title: Text("Add workout"), items: {
             var items = [
-                FlashMenuItem(Text("Text"), icon: "text.bubble") {
-                    workoutInputUsesVoice = false
-                    isTextSheetPresented = true
-                },
-                FlashMenuItem(Text("Voice"), icon: "mic") {
-                    workoutInputUsesVoice = true
-                    isTextSheetPresented = true
-                },
-                FlashMenuItem(Text(WorkoutLogPickerContext.saved.title), icon: "bookmark.fill") {
-                    pickerRequest = WorkoutLogPickerRequest(context: .saved, initialSource: .saved)
-                },
+                workoutMenuItem(.text),
+                workoutMenuItem(.voice),
+                workoutMenuItem(.saved),
                 FlashMenuItem(Text("Create exercise"), icon: "plus.circle") {
                     isCreateExercisePresented = true
                 },
-                FlashMenuItem(Text("Copy from day"), icon: "calendar.badge.plus") {
-                    isCopySheetPresented = true
-                },
-                FlashMenuItem(Text("Start from routine"), icon: "list.bullet.rectangle.portrait") {
-                    isRoutinesSheetPresented = true
-                }
+                workoutMenuItem(.copy),
+                workoutMenuItem(.routine),
             ]
             if !selectedExercises.isEmpty {
                 items.append(FlashMenuItem(Text("Save as routine"), icon: "square.and.arrow.down") {
@@ -659,9 +671,8 @@ struct WorkoutLogView: View {
                     isSaveRoutinePresented = true
                 })
             }
-            if walkRunQuickLogEnabled {
-                items.append(FlashMenuItem(Text("Walking"), icon: "figure.walk") { outdoorActivitySheet = .walking })
-                items.append(FlashMenuItem(Text("Running"), icon: "figure.run") { outdoorActivitySheet = .running })
+            for action in [WorkoutDockAction.walking, .running] where walkRunQuickLogEnabled || overflow.contains(action) {
+                items.append(workoutMenuItem(action))
             }
             let contexts = splitGroups.isEmpty ? [.all] : splitGroups.map {
                 WorkoutLogPickerContext(title: $0.title, muscles: $0.muscles)
@@ -675,7 +686,7 @@ struct WorkoutLogView: View {
         }) {
             Image(systemName: "plus")
                 .font(.system(size: 26, weight: .semibold))
-                .frame(width: 60, height: 60)
+                .frame(width: WorkoutDockShortcuts.addSide, height: WorkoutDockShortcuts.addSide)
                 .flashActionFill()
         }
         .tint(Color.workoutAccent)
@@ -720,7 +731,7 @@ struct WorkoutLogView: View {
         withAnimation(.snappy(duration: 0.25)) {
             workoutStore.moveExercise(exercise.id, by: offset, on: selectedDate)
         }
-        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        AppHaptics.impact(.light)
     }
 
     private var selectedDateTitle: String {
@@ -785,7 +796,7 @@ struct WorkoutLogView: View {
         guard focusedSetField == nil,
               session.moveSelectedDay(by: delta)
         else { return }
-        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        AppHaptics.impact(.light)
     }
 
     private func logQuickOutdoorActivity(
@@ -812,7 +823,7 @@ struct WorkoutLogView: View {
                 weightUnit: weightUnit
             )
         }
-        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        AppHaptics.impact(.medium)
     }
 
     private func calculateBurn() {
@@ -833,7 +844,7 @@ struct WorkoutLogView: View {
         let calculationDate = selectedDate
         let calculationWeightUnit = weightUnit
         isCalculatingBurn = true
-        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        AppHaptics.impact(.medium)
 
         Task { @MainActor in
             // Keep the local calculation state visible long enough to read rather
@@ -877,6 +888,15 @@ struct WorkoutLogView: View {
         guard focusedSetField != nil else { return }
         focusedSetField = nil
         dismissKeyboard()
+    }
+
+    private func revealFocusedSet(_ id: UUID, in proxy: ScrollViewProxy) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            guard focusedSetField?.setID == id else { return }
+            withAnimation(.snappy(duration: 0.25)) {
+                proxy.scrollTo(id, anchor: .center)
+            }
+        }
     }
 
     private func requestWorkoutDeletion(_ exercise: StrengthPlannedExercise) {
@@ -955,7 +975,7 @@ private struct WorkoutLogWeekStrip: View {
         let workoutCount = workoutCountForDate(date)
 
         return Button {
-            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            AppHaptics.impact(.light)
             withAnimation(.snappy(duration: 0.3)) {
                 selectedDate = date
             }
@@ -1361,6 +1381,7 @@ private struct WorkoutLogExerciseCard: View {
                                 isResting: restingSetID == set.id,
                                 startRest: startRest.map { start -> () -> Void in { start(set.id) } }
                             )
+                            .id(set.id)
 
                             if index < exercise.sets.count - 1 {
                                 Divider()
@@ -1609,29 +1630,8 @@ private struct WorkoutLogSetValueField: View {
     let focusedField: FocusState<WorkoutLogSetFocus?>.Binding
 
     var body: some View {
-        Group {
-            if #available(iOS 18.0, *) {
-                WorkoutLogSetSelectionTextField(
-                    placeholder: placeholder,
-                    text: $text,
-                    keyboardType: keyboardType,
-                    focus: focus,
-                    focusedField: focusedField
-                )
-            } else {
-                baseTextField
-            }
-        }
-        .padding(.horizontal, 10)
-        .frame(height: 36)
-        .background(Color.workoutCard.opacity(0.74), in: RoundedRectangle(cornerRadius: 11, style: .continuous))
-        .overlay {
-            RoundedRectangle(cornerRadius: 11, style: .continuous)
-                .stroke(Color.workoutHairline.opacity(0.4), lineWidth: 0.6)
-        }
-    }
-
-    private var baseTextField: some View {
+        // Store bindings normalize text as it changes. Let UIKit keep the caret
+        // instead of applying a deferred String.Index from a different value.
         TextField(placeholder, text: $text)
             .keyboardType(keyboardType)
             .textFieldStyle(.plain)
@@ -1639,43 +1639,15 @@ private struct WorkoutLogSetValueField: View {
             .foregroundStyle(Color.workoutCharcoal)
             .multilineTextAlignment(.center)
             .focused(focusedField, equals: focus)
-    }
-}
-
-@available(iOS 18.0, *)
-private struct WorkoutLogSetSelectionTextField: View {
-    let placeholder: String
-    @Binding var text: String
-    let keyboardType: UIKeyboardType
-    let focus: WorkoutLogSetFocus
-    let focusedField: FocusState<WorkoutLogSetFocus?>.Binding
-    @State private var selection: TextSelection?
-
-    var body: some View {
-        TextField(placeholder, text: $text, selection: $selection)
-            .keyboardType(keyboardType)
-            .textFieldStyle(.plain)
-            .font(.system(.subheadline, design: .rounded, weight: .bold).monospacedDigit())
-            .foregroundStyle(Color.workoutCharcoal)
-            .multilineTextAlignment(.center)
-            .focused(focusedField, equals: focus)
-            .onTapGesture {
-                if focusedField.wrappedValue == focus {
-                    moveCursorToEnd()
-                } else {
-                    focusedField.wrappedValue = focus
-                }
+            .padding(.horizontal, 10)
+            .frame(height: 36)
+            .background(Color.workoutCard.opacity(0.74), in: RoundedRectangle(cornerRadius: 11, style: .continuous))
+            .overlay {
+                RoundedRectangle(cornerRadius: 11, style: .continuous)
+                    .stroke(Color.workoutHairline.opacity(0.4), lineWidth: 0.6)
+                    .allowsHitTesting(false)
             }
-            .onChange(of: focusedField.wrappedValue) { _, value in
-                guard value == focus else { return }
-                moveCursorToEnd()
-            }
-    }
-
-    private func moveCursorToEnd() {
-        DispatchQueue.main.async {
-            selection = TextSelection(insertionPoint: text.endIndex)
-        }
+            .contentShape(Rectangle())
     }
 }
 

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="voice_settings_gemini_barge_in">Întrerupe răspunsul când vorbesc</string>
+    <string name="voice_settings_gemini_barge_in_detail">Dezactivează opțiunea dacă zgomotul de fundal întrerupe răspunsurile. Așteaptă să se termine răspunsul înainte de a vorbi.</string>
+</resources>

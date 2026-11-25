@@ -218,7 +218,7 @@
     <string name="ai_key_placeholder_custom">Klucz API (lub cokolwiek, jeśli endpoint go nie wymaga)</string>
 
     <!-- Speech Provider -->
-    <string name="speech_provider_native">Natywne (na urządzeniu)</string>
+    <string name="speech_provider_native">Systemowe rozpoznawanie mowy</string>
     <string name="speech_provider_openai">OpenAI GPT-Transcribe</string>
     <string name="speech_provider_groq">Groq (Whisper)</string>
     <string name="speech_provider_mistral">Mistral Voxtral</string>
@@ -232,12 +232,12 @@
     <string name="speech_key_placeholder_deepgram">Token your-deepgram-key</string>
     <string name="speech_key_placeholder_assemblyai">Twój klucz AssemblyAI</string>
 
-    <string name="speech_description_native">Rozpoznawanie mowy Androida na urządzeniu. Darmowe, działa offline na większości telefonów, wyniki częściowe w czasie rzeczywistym. Zalecane domyślne.</string>
+    <string name="speech_description_native">Rozpoznawanie mowy Androida z częściowymi wynikami na żywo. W zależności od urządzenia i języka może wymagać internetu.</string>
     <string name="speech_description_openai">OpenAI GPT-Transcribe — aktualny, dokładny model do nagranego audio.</string>
     <string name="speech_description_groq">Whisper Large v3 na Groq. Bardzo szybka inferencja, ma darmowy plan.</string>
-    <string name="speech_description_mistral">Voxtral Mini Transcribe 2 do dokładnej wielojęzycznej transkrypcji wsadowej.</string>
-    <string name="speech_description_deepgram">Deepgram Nova. Tryby czasu rzeczywistego i wsadowe — szybki i dokładny.</string>
-    <string name="speech_description_assemblyai">Model Universal AssemblyAI. Wysoka dokładność, dostępny darmowy plan.</string>
+    <string name="speech_description_mistral">Voxtral Mini Transcribe 3 do wielojęzycznej transkrypcji nagrań.</string>
+    <string name="speech_description_deepgram">Deepgram Nova-3 do transkrypcji po zakończeniu nagrywania.</string>
+    <string name="speech_description_assemblyai">AssemblyAI STT 3.7 z modelem rezerwowym Universal-2 dla większej liczby języków.</string>
 
     <!-- Bottom navigation -->
     <string name="nav_home">Ekran główny</string>

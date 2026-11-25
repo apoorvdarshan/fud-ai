@@ -127,7 +127,7 @@
     <string name="voice_settings_confirm_saves">Confirmar antes de guardar</string>
     <string name="voice_settings_confirm_saves_footer">Muestra una tarjeta para aprobar cada registro o cambio. Si se desactiva, los cambios se guardan al instante y puedes deshacerlos durante 8 segundos.</string>
     <string name="voice_settings_save_to_coach">Guardar conversaciones en Coach</string>
-    <string name="voice_settings_save_to_coach_footer">Añade lo que dices tú y lo que dice el asistente a tu chat de Coach.</string>
+    <string name="voice_settings_save_to_coach_footer">Guarda las conversaciones de voz en Coach y comparte mensajes recientes de Coach con tu proveedor de voz cuando es necesario.</string>
     <string name="voice_settings_minutes_left">Minutos del plan restantes</string>
     <string name="voice_settings_minutes_with_credits">%1$s + %2$s de créditos</string>
     <string name="voice_settings_minutes_footer">Plus incluye 20 minutos y Pro 100 minutos al mes (UTC). Después, la voz usa créditos: 1 crédito cada 15 segundos.</string>

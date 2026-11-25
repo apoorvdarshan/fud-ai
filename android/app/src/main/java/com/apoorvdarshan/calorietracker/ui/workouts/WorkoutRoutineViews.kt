@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker.ui.workouts
 
+import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -252,8 +253,8 @@ internal fun WorkoutRoutinesSheet(
         containerColor = MaterialTheme.colorScheme.background
     ) {
         Column(
-            modifier = Modifier.fillMaxWidth().navigationBarsPadding().padding(horizontal = 18.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+            modifier = Modifier.fillMaxWidth().navigationBarsPadding().padding(horizontal = FlashSpacing.SheetInset),
+            verticalArrangement = Arrangement.spacedBy(FlashSpacing.ItemGap)
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(

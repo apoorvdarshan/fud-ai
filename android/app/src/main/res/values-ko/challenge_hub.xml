@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="challenge_hub_title">챌린지</string>
+    <string name="challenge_hub_daily">일간</string>
+    <string name="challenge_hub_weekly">주간</string>
+    <string name="challenge_hub_monthly">월간</string>
+    <string name="challenge_hub_your_points">내 점수</string>
+    <string name="challenge_hub_points">점수: %1$d</string>
+    <string name="challenge_hub_days">일수: %1$d</string>
+    <string name="challenge_hub_participants">참가자: %1$d</string>
+    <string name="challenge_hub_join">참가하고 점수 공유</string>
+    <string name="challenge_hub_remove">나가기 및 점수 삭제</string>
+    <string name="challenge_hub_go_weekly">주간 챌린지로 이동</string>
+    <string name="challenge_hub_habits">기록보다 습관을 쌓으세요</string>
+    <string name="challenge_hub_profile_first">먼저 주간 챌린지에 참여해 프로필을 만드세요.</string>
+    <string name="challenge_hub_service">이 순위표를 사용하려면 챌린지 서비스 업데이트가 필요합니다.</string>
+    <string name="challenge_hub_consent">참여하면 다른 참가자에게 이름과 이 기간의 습관 집계가 공개됩니다. 일지, 체중, 칼로리 양은 공유되지 않습니다.</string>
+    <string name="challenge_hub_rules_base">움직임, 식단 기록, 영양 목표, 물 목표에 대해 매일 습관당 1점을 얻습니다.</string>
+    <string name="challenge_hub_rules_bonus">습관을 세 가지 이상 실천한 날엔 보너스 1점을 얻습니다.</string>
+    <string name="challenge_hub_rules_streak">습관을 두 가지 이상 실천한 가장 긴 연속 기간에는 첫날 이후 매일 1점을 얻습니다.</string>
+    <string name="challenge_hub_leave">이 챌린지에서 나갈까요?</string>
+    <string name="challenge_hub_leave_detail">이 기간의 점수만 삭제됩니다. 다른 챌린지와 일지는 그대로 유지됩니다.</string>
+    <string name="challenge_hub_leave_all">모든 챌린지에서 나갈까요?</string>
+    <string name="challenge_hub_leave_all_detail">공개 프로필, 모든 점수와 신고가 삭제됩니다. 비공개 일지는 기기에 남습니다.</string>
+    <string name="challenge_hub_jump_to_rank">내 순위로 이동</string>
+    <string name="challenge_hub_week_rank">선택한 점수가 우선입니다. 동점이면 습관의 다양성, 습관별 꾸준함, 다른 항목의 일수를 비교합니다. 여전히 같으면 먼저 달성한 사람이 앞섭니다. 운동 칼로리는 동점을 가르지 않습니다.</string>
+</resources>

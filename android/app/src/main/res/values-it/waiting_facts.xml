@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="waiting_fact_heading">Lo sapevi?</string>
+    <string name="waiting_fact_vitamin_c">La vitamina C aiuta l’organismo ad assorbire il ferro degli alimenti di origine vegetale.</string>
+    <string name="waiting_fact_beans">Fagioli e lenticchie contengono sia proteine sia fibre.</string>
+    <string name="waiting_fact_oats">L’avena contiene beta-glucano, un tipo di fibra solubile.</string>
+    <string name="waiting_fact_vegetables" formatted="false">Oltre il 90% del peso di cetrioli e pomodori è costituito da acqua.</string>
+    <string name="waiting_fact_strength">L’allenamento di forza si svolge contro una resistenza. Anche il peso del tuo corpo conta.</string>
+</resources>

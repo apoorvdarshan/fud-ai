@@ -1,7 +1,6 @@
-# Weekly Challenge API
+# Challenges API
 
-The opt-in Weekly Challenge is the only Fud AI-operated sync service. It stores a
-pseudonymous challenge profile, weekly aggregate scores, and moderation reports;
+The opt-in Challenges service stores a pseudonymous challenge profile, aggregate scores, and moderation reports;
 it never receives food/workout logs, photos, body measurements, date of birth, API
 keys, or camera frames.
 
@@ -84,16 +83,25 @@ through 28 and must equal the four day metrics' sum. Returns
 
 ### `GET /leaderboard`
 
-Authenticated. Query parameters are `category`, `weekStart`, and optional `limit`
-(default 50, maximum 100). Categories are `overall`, `activity`, `nutrition`,
+Authenticated. Query parameters are `category`, `weekStart`, optional `limit`
+(default 50, maximum 100 per request), and `offset` (default 0). The mobile clients
+request 20 rows and keep a bounded cache of viewed pages, not an entire board.
+Ranks may shift between page requests as scores change. Categories are `overall`, `activity`, `nutrition`,
 `consistency`, or `hydration`; the same week window applies. Overall ranks by
-`overallPoints`; activity ranks by `activityDays` then `activityKcal`; the other
-categories rank by their corresponding day metric. Overall then uses activity, nutrition, consistency, hydration, and workout calories. Activity uses workout calories before the other day counts. Nutrition, consistency, and hydration use the other day counts, then workout calories. If everything still matches, the person who first reached that exact result places higher. Saving the same totals again does not change that time. `ROW_NUMBER()` gives every participant a distinct place.
+`overallPoints`; other categories rank by their corresponding day metric.
+Ties favor more different habits, then the lowest day count across the four
+habits, overall points, and the other habit counts. Workout calories are
+displayed for legacy compatibility but no longer decide place. If everything
+still matches, the person who first reached the same day counts places higher.
+`ROW_NUMBER()` gives every participant a distinct place.
 
 ```json
 {
   "weekStart": "2026-08-31",
   "category": "activity",
+  "period": "weekly",
+  "offset": 0,
+  "totalCount": 137,
   "updatedAt": "ISO-8601",
   "rankings": [
     {
@@ -117,9 +125,37 @@ categories rank by their corresponding day metric. Overall then uses activity, n
 }
 ```
 
-`viewer` is always the authenticated participant's full ranked row, including
-when it falls outside `limit`. It can also appear in `rankings`; clients should
-deduplicate by stable `participantId` when combining the two.
+`viewer` is the authenticated participant's full ranked row, including
+when outside the requested range, or `null` if not ranked on Daily or Monthly.
+`totalCount` is not limited to the requested page. The clients don't inject the
+viewer into a page they're not on.
+
+### `PUT /period-score` and `DELETE /period-score`
+
+For Daily and Monthly only. Both require an existing opted-in 18+ challenge
+profile. Joining a new board requires a separate explicit confirmation in the
+app. `PUT` accepts `period` (`daily` or `monthly`), the local `periodStart`
+date (first of the month for Monthly), `acceptedRules: true`, and six integer
+habit aggregates: `activityDays`, `nutritionDays`, `consistencyDays`,
+`hydrationDays`, `balancedDays`, and `longestStreak`. No calorie quantities,
+day-by-day diary entries, logs, or timezone are sent.
+
+A day earns one point for each qualifying habit. Movement is a recorded workout
+with positive estimated burn; nutrition is within 85–115% of the configured
+calorie goal; consistency is a logged food; hydration meets the enabled water
+goal. A day with at least three habits earns a balance point. The longest run of
+days with at least two habits earns one point per day after its first. On Daily,
+this caps overall at five. Stored overall points are derived server-side from
+the bounded client-reported aggregates; they are not independently verified
+health data. Weekly point totals are unchanged; the improved tie-breaks do not
+need a client update or a resubmission of past data.
+
+For rankings, pass `period=daily` or `period=monthly` and `periodStart` instead
+of `weekStart`. Rank by the selected score, then balanced days, longest streak,
+other habit counts, who reached those totals first, and stable participant ID.
+Only people opted into the requested board appear on it. `DELETE
+/period-score?period=daily` (or `monthly`) removes every score for that period
+type without removing the participant's other boards.
 
 ### `POST /reports`
 
@@ -153,7 +189,8 @@ Success is `201` with
   raw IP address or bearer token is written to D1 or application logs. Edge WAF
   rules remain advisable for distributed invalid-token attacks.
 - The hourly scheduled handler deletes inactive profiles after 90 days, keeps the
-  current plus previous 12 challenge weeks (13 total), and deletes reports after
+  current plus previous 12 challenge weeks (13 total), 35 date keys for Daily
+  and 13 calendar months for Monthly, and deletes reports after
   180 days. Profile deletion cascades to scores and reports sooner.
 
 ## Deployment

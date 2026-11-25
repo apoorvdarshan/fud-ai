@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker.ui.workouts
 
+import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -47,9 +48,9 @@ fun WorkoutExerciseHistorySheet(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 20.dp)
+                .padding(horizontal = FlashSpacing.SheetInset)
                 .padding(bottom = 24.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+            verticalArrangement = Arrangement.spacedBy(FlashSpacing.ItemGap)
         ) {
             Text(
                 request.name,

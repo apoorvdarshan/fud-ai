@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="waiting_fact_heading">知っていましたか？</string>
+    <string name="waiting_fact_vitamin_c">ビタミンCは、植物性食品に含まれる鉄の吸収を助けます。</string>
+    <string name="waiting_fact_beans">豆やレンズ豆には、たんぱく質と食物繊維の両方が含まれます。</string>
+    <string name="waiting_fact_oats">オーツ麦には、水溶性食物繊維の一種であるβ-グルカンが含まれます。</string>
+    <string name="waiting_fact_vegetables" formatted="false">キュウリとトマトは、重さの90%以上が水分です。</string>
+    <string name="waiting_fact_strength">筋力トレーニングでは負荷に逆らって体を動かします。自分の体重も負荷になります。</string>
+</resources>

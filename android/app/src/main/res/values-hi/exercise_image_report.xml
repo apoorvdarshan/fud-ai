@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="workout_image_report">तस्वीर की समस्या रिपोर्ट करें</string>
+    <string name="workout_image_report_note">तस्वीर में क्या गलत दिख रहा है?</string>
+    <string name="workout_image_report_review">रिपोर्ट सार्वजनिक हो जाती हैं। निजी जानकारी न डालें।</string>
+    <string name="workout_image_report_discord_help">रिपोर्ट कॉपी हो जाएगी। Fud AI के Discord सर्वर पर /bug चलाएँ और उसे report फ़ील्ड में पेस्ट करें।</string>
+    <string name="workout_image_report_open_failed">लिंक नहीं खुल सका।</string>
+</resources>

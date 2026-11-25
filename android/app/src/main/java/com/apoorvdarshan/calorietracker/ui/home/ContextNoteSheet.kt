@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker.ui.home
 
+import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -99,10 +100,10 @@ fun MultiPhotoCaptureSheet(
                 .verticalScroll(rememberScrollState())
                 .imePadding()
                 .padding(bottom = 28.dp),
-            verticalArrangement = Arrangement.spacedBy(18.dp)
+            verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap)
         ) {
             Row(
-                Modifier.fillMaxWidth().padding(horizontal = 20.dp),
+                Modifier.fillMaxWidth().padding(horizontal = FlashSpacing.SheetInset),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start
             ) {
@@ -114,7 +115,7 @@ fun MultiPhotoCaptureSheet(
 
             if (photoLimit < AIProvider.DEFAULT_MEAL_PHOTO_LIMIT) {
                 Row(
-                    Modifier.fillMaxWidth().padding(horizontal = 20.dp),
+                    Modifier.fillMaxWidth().padding(horizontal = FlashSpacing.SheetInset),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Start
                 ) {
@@ -180,7 +181,7 @@ fun MultiPhotoCaptureSheet(
 
             if (imageBytesList.size < photoLimit) {
                 Row(
-                    modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = FlashSpacing.SheetInset),
                     horizontalArrangement = Arrangement.End
                 ) {
                     Button(onClick = onAddPhoto, enabled = !isBusy) {
@@ -200,7 +201,7 @@ fun MultiPhotoCaptureSheet(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 20.dp)
+                    .padding(horizontal = FlashSpacing.SheetInset)
                     .background(
                         MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.55f),
                         RoundedCornerShape(20.dp)
@@ -243,7 +244,7 @@ fun MultiPhotoCaptureSheet(
             }
 
             Column(
-                Modifier.fillMaxWidth().padding(horizontal = 20.dp),
+                Modifier.fillMaxWidth().padding(horizontal = FlashSpacing.SheetInset),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 SheetSectionHeader(stringResource(R.string.context_note_analysis_section))

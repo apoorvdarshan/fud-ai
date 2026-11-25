@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="challenge_hub_title">Виклики</string>
+    <string name="challenge_hub_daily">Щоденний</string>
+    <string name="challenge_hub_weekly">Щотижневий</string>
+    <string name="challenge_hub_monthly">Щомісячний</string>
+    <string name="challenge_hub_your_points">Ваші бали</string>
+    <string name="challenge_hub_points">Бали: %1$d</string>
+    <string name="challenge_hub_days">Дні: %1$d</string>
+    <string name="challenge_hub_participants">Учасники: %1$d</string>
+    <string name="challenge_hub_join">Долучитися й ділитися результатами</string>
+    <string name="challenge_hub_remove">Вийти й видалити результати</string>
+    <string name="challenge_hub_go_weekly">До щотижневого виклику</string>
+    <string name="challenge_hub_habits">Розвивайте звички, а не ганяйтеся за цифрами</string>
+    <string name="challenge_hub_profile_first">Спочатку долучіться до щотижневого виклику, щоб створити профіль.</string>
+    <string name="challenge_hub_service">Цей рейтинг потребує оновлення сервісу викликів.</string>
+    <string name="challenge_hub_consent">Інші учасники побачать ваше ім’я та підсумки звичок за цей період. Записи щоденника, вага й кількість калорій не передаються.</string>
+    <string name="challenge_hub_rules_base">Щодня отримуйте по балу за звичку: рух, запис їжі, досягнення цілі харчування й води.</string>
+    <string name="challenge_hub_rules_bonus">У дні з трьома або більше звичками нараховується бонусний бал.</string>
+    <string name="challenge_hub_rules_streak">У найдовшій серії днів із двома або більше звичками кожен день після першого приносить бал.</string>
+    <string name="challenge_hub_leave">Вийти з цього виклику?</string>
+    <string name="challenge_hub_leave_detail">Видаляються лише результати за цей період. Інші виклики та щоденник не змінюються.</string>
+    <string name="challenge_hub_leave_all">Вийти з усіх викликів?</string>
+    <string name="challenge_hub_leave_all_detail">Публічний профіль, усі результати й скарги буде видалено. Приватний щоденник залишиться на пристрої.</string>
+    <string name="challenge_hub_jump_to_rank">До мого місця</string>
+    <string name="challenge_hub_week_rank">Спочатку враховується вибраний результат. За рівності перевагу дають різноманітні звички, рівномірніші результати й решта лічильників днів. Якщо вони теж рівні, вище той, хто досяг результату раніше. Калорії тренувань не розв’язують нічию.</string>
+</resources>

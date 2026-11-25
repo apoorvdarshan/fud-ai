@@ -45,17 +45,38 @@ class WorkoutRestTimerControllerTest {
     /** Moves the phone's wall clock without moving the scheduler's (uptime) clock. */
     private var clockShiftMillis = 0L
 
-    private fun TestScope.controller(alarms: FakeAlarms, store: FakeStore? = null) = WorkoutRestTimerController(
+    private fun TestScope.controller(
+        alarms: FakeAlarms, store: FakeStore? = null, hapticsEnabled: Boolean = true
+    ) = WorkoutRestTimerController(
         scope = backgroundScope,
         alarms = alarms,
         store = store,
-        clock = { base.plusMillis(testScheduler.currentTime + clockShiftMillis) }
+        clock = { base.plusMillis(testScheduler.currentTime + clockShiftMillis) },
+        canPlayForegroundHaptic = { hapticsEnabled }
     )
 
     private fun TestScope.collectCompletions(rest: WorkoutRestTimerController): MutableList<Unit> {
         val completions = mutableListOf<Unit>()
         backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { rest.completions.toList(completions) }
         return completions
+    }
+
+    @Test
+    fun turningOffHapticsLeavesTheForegroundRestNotificationArmed() = runTest {
+        val alarms = FakeAlarms()
+        val rest = controller(alarms, hapticsEnabled = false)
+        val completions = collectCompletions(rest)
+        rest.setAppInForeground(true)
+        rest.start(exerciseId, setId, "Bench Press", 10)
+        val end = base.plusSeconds(10)
+
+        advanceTimeBy(10_000)
+        runCurrent()
+
+        assertNull(rest.timer.value)
+        assertEquals(0, alarms.cancels)
+        assertTrue(completions.isEmpty())
+        assertTrue(rest.shouldNotify(end.toEpochMilli()))
     }
 
     @Test

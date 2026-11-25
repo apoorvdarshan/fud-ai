@@ -79,7 +79,8 @@ class WorkoutRestTimerController(
     private val scope: CoroutineScope,
     private val alarms: WorkoutRestAlarms,
     private val store: WorkoutRestTimerStore? = null,
-    private val clock: () -> Instant = Instant::now
+    private val clock: () -> Instant = Instant::now,
+    private val canPlayForegroundHaptic: () -> Boolean = { true }
 ) {
     private val _timer = MutableStateFlow<WorkoutRestTimer?>(null)
     val timer: StateFlow<WorkoutRestTimer?> = _timer.asStateFlow()
@@ -150,7 +151,8 @@ class WorkoutRestTimerController(
      * in-app alert or none.
      */
     fun shouldNotify(endsAtMillis: Long): Boolean =
-        !isAppInForeground || unannouncedEndMillis == endsAtMillis
+        !isAppInForeground || unannouncedEndMillis == endsAtMillis ||
+            (!canPlayForegroundHaptic() && timer.value?.endsAt?.toEpochMilli() == endsAtMillis)
 
     private fun replace(next: WorkoutRestTimer) {
         setTimer(next)
@@ -173,12 +175,12 @@ class WorkoutRestTimerController(
         if (_timer.value != expected) return
         val now = clock()
         if (!expected.isFinished(now)) return
-        if (isAppInForeground && expected.shouldAlertInApp(now)) {
+        if (isAppInForeground && expected.shouldAlertInApp(now) && canPlayForegroundHaptic()) {
             // Ended in front of the user: the haptic is the alert, so no notification follows.
             alarms.cancel()
             _completions.tryEmit(Unit)
         } else {
-            // Ended out of sight: its alarm's notification is the alert, even if it arrives late.
+            // When no haptic will play, leave the alarm's notification intact.
             unannouncedEndMillis = expected.endsAt.toEpochMilli()
         }
         completionJob?.cancel()

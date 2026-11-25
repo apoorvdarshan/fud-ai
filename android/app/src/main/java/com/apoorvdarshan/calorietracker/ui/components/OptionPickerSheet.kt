@@ -39,6 +39,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
 import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 
 /**
@@ -71,7 +72,7 @@ fun <T> OptionPickerSheet(
         shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
         containerColor = if (isDark) Color(0xF2141416) else Color(0xFFFAF3EE)
     ) {
-        Column(Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 8.dp)) {
+        Column(Modifier.fillMaxWidth().padding(horizontal = FlashSpacing.SheetInset, vertical = FlashSpacing.ItemGap)) {
             Text(title, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
             Spacer(Modifier.height(12.dp))
             LazyColumn(

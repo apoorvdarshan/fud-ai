@@ -1,6 +1,6 @@
 package com.apoorvdarshan.calorietracker.ui.home
 
-import android.app.DatePickerDialog
+import android.text.format.DateFormat
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -19,16 +19,26 @@ import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material.icons.filled.GpsFixed
+import androidx.compose.material3.DatePicker
+import androidx.compose.material3.DatePickerDialog
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.SelectableDates
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
@@ -45,50 +55,84 @@ import com.apoorvdarshan.calorietracker.ui.theme.PinkNeoCondensed
 import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 import com.apoorvdarshan.calorietracker.ui.util.valueWithUnit
 import java.time.LocalDate
-import java.time.ZoneId
+import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
-import java.time.format.TextStyle
 
 @Composable
 internal fun PinkNeoDateHeader(date: LocalDate, onPick: (LocalDate) -> Unit) {
     val palette = pinkNeoPalette()
-    val context = LocalContext.current
     val locale = LocalConfiguration.current.locales[0]
     val today = LocalDate.now()
+    var showCalendar by rememberSaveable { mutableStateOf(false) }
     Row(
-        Modifier.fillMaxWidth().background(palette.panel).border(1.5.dp, palette.rule).padding(10.dp),
+        Modifier.fillMaxWidth().padding(start = 2.dp),
         horizontalArrangement = Arrangement.spacedBy(6.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Column(Modifier.weight(1f)) {
-            val heading = if (date == today) stringResource(R.string.widget_today)
-                else date.dayOfWeek.getDisplayName(TextStyle.FULL, locale)
-            Text(
-                heading.uppercase(locale), color = palette.ink, fontWeight = FontWeight.Black,
-                fontSize = 30.sp, style = PinkNeoCondensed, modifier = Modifier.semantics { heading() }
-            )
-            Text(
-                date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL).withLocale(locale)),
-                color = palette.ink, fontWeight = FontWeight.SemiBold, fontSize = 12.sp
-            )
+        val dateFormatter = remember(locale) {
+            DateTimeFormatter.ofPattern(DateFormat.getBestDateTimePattern(locale, "EEEMMMd"), locale)
         }
+        Text(
+            if (date == today) stringResource(R.string.widget_today) else date.format(dateFormatter),
+            color = palette.ink, fontWeight = FontWeight.Black, fontSize = 18.sp,
+            lineHeight = 22.sp, style = PinkNeoCondensed,
+            modifier = Modifier.weight(1f).testTag("home.dateHeading").semantics { heading() }
+        )
         IconButton(
-            onClick = {
-                val initial = minOf(date, today)
-                val dialog = DatePickerDialog(
-                    context, { _, year, month, day -> onPick(LocalDate.of(year, month + 1, day)) },
-                    initial.year, initial.monthValue - 1, initial.dayOfMonth
-                )
-                dialog.datePicker.maxDate = today.plusDays(1).atStartOfDay(ZoneId.systemDefault())
-                    .toInstant().toEpochMilli() - 1
-                dialog.show()
-            },
-            modifier = Modifier.testTag("home.calendar").size(48.dp).background(palette.wash).border(1.dp, palette.rule)
+            onClick = { showCalendar = true },
+            modifier = Modifier.testTag("home.calendar").size(48.dp)
         ) {
             Icon(Icons.Filled.CalendarToday, stringResource(R.string.label_date), tint = palette.ink,
                 modifier = Modifier.size(18.dp))
         }
+    }
+    if (showCalendar) {
+        HomeCalendarPopup(
+            initialDate = minOf(date, today),
+            today = today,
+            onDismiss = { showCalendar = false },
+            onPick = {
+                onPick(it)
+                showCalendar = false
+            }
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun HomeCalendarPopup(
+    initialDate: LocalDate,
+    today: LocalDate,
+    onDismiss: () -> Unit,
+    onPick: (LocalDate) -> Unit
+) {
+    // Material date-picker values represent calendar days at UTC midnight.
+    val state = rememberDatePickerState(
+        initialSelectedDateMillis = initialDate.atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli(),
+        yearRange = minOf(1900, initialDate.year)..today.year,
+        selectableDates = remember(today) {
+            val max = today.atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli()
+            object : SelectableDates {
+                override fun isSelectableDate(utcTimeMillis: Long) = utcTimeMillis <= max
+            }
+        }
+    )
+    DatePickerDialog(
+        onDismissRequest = onDismiss,
+        modifier = Modifier.testTag("home.calendarPopup"),
+        dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) } },
+        confirmButton = {
+            TextButton(onClick = {
+                state.selectedDateMillis?.let { millis ->
+                    onPick(java.time.Instant.ofEpochMilli(millis).atOffset(ZoneOffset.UTC).toLocalDate())
+                }
+            }, enabled = state.selectedDateMillis != null) {
+                Text(stringResource(R.string.action_done))
+            }
+        }
+    ) {
+        DatePicker(state, title = null, headline = null, showModeToggle = false)
     }
 }
 

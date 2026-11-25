@@ -58,7 +58,9 @@ data class FoodEntry(
     /** Origin of a Health Connect import; never export these entries back to Health Connect. */
     val healthConnectOrigin: String? = null,
     val healthConnectRecordId: String? = null,
-    val productMetadata: FoodProductMetadata? = null
+    val productMetadata: FoodProductMetadata? = null,
+    /** Possible allergens inferred by AI, not manufacturer declarations. */
+    val aiAllergens: List<String> = emptyList()
 ) {
     /** Unique key for favorite deduplication (name + calorie combo). */
     val favoriteKey: String get() = "${name.lowercase()}|$calories"
@@ -134,7 +136,8 @@ data class FoodEntry(
         customNote = customNote,
         progressiveMeal = progressiveMeal,
         ingredients = ingredients,
-        productMetadata = productMetadata
+        productMetadata = productMetadata,
+        aiAllergens = aiAllergens
     )
 
     val allImageFilenames: List<String>

@@ -128,7 +128,7 @@
     <string name="voice_settings_confirm_saves">Potvrzení před uložením</string>
     <string name="voice_settings_confirm_saves_footer">Zobrazí kartu pro schválení každého záznamu nebo změny. Když je tato volba vypnutá, změny se uloží ihned a po dobu 8 sekund je můžeš vrátit zpět.</string>
     <string name="voice_settings_save_to_coach">Ukládat konverzace do Kouče</string>
-    <string name="voice_settings_save_to_coach_footer">Přidá, co ty a asistent řeknete, do tvého chatu s Koučem.</string>
+    <string name="voice_settings_save_to_coach_footer">Ukládá hlasové konverzace do Kouče a v případě potřeby sdílí nedávné zprávy z Kouče s poskytovatelem hlasové služby.</string>
     <string name="voice_settings_minutes_left">Zbývající minuty plánu</string>
     <string name="voice_settings_minutes_with_credits">%1$s + %2$s z kreditů</string>
     <string name="voice_settings_minutes_footer">Plus obsahuje 20 minut a Pro 100 minut měsíčně (UTC). Potom hlas čerpá kredity: 1 kredit za 15 sekund.</string>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="challenge_hub_title">Челленджи</string>
+    <string name="challenge_hub_daily">На день</string>
+    <string name="challenge_hub_weekly">На неделю</string>
+    <string name="challenge_hub_monthly">На месяц</string>
+    <string name="challenge_hub_your_points">Ваши баллы</string>
+    <string name="challenge_hub_points">Баллы: %1$d</string>
+    <string name="challenge_hub_days">Дни: %1$d</string>
+    <string name="challenge_hub_participants">Участники: %1$d</string>
+    <string name="challenge_hub_join">Участвовать и делиться результатами</string>
+    <string name="challenge_hub_remove">Выйти и удалить результаты</string>
+    <string name="challenge_hub_go_weekly">К недельному челленджу</string>
+    <string name="challenge_hub_habits">Формируйте привычки, а не гонитесь за цифрами</string>
+    <string name="challenge_hub_profile_first">Сначала вступите в недельный челлендж, чтобы создать профиль.</string>
+    <string name="challenge_hub_service">Для этого рейтинга нужно обновление сервиса челленджей.</string>
+    <string name="challenge_hub_consent">Участники увидят ваше имя и суммарные результаты за период. Записи дневника, вес и количество калорий не передаются.</string>
+    <string name="challenge_hub_rules_base">Каждый день получайте балл за каждую привычку: активность, запись еды и выполнение целей питания и воды.</string>
+    <string name="challenge_hub_rules_bonus">За день с тремя или более привычками начисляется бонусный балл.</string>
+    <string name="challenge_hub_rules_streak">В самой длинной серии дней с двумя или более привычками каждый день после первого приносит балл.</string>
+    <string name="challenge_hub_leave">Выйти из этого челленджа?</string>
+    <string name="challenge_hub_leave_detail">Удалятся только результаты за этот период. Другие челленджи и дневник не изменятся.</string>
+    <string name="challenge_hub_leave_all">Выйти из всех челленджей?</string>
+    <string name="challenge_hub_leave_all_detail">Публичный профиль, все результаты и жалобы будут удалены. Личный дневник останется на устройстве.</string>
+    <string name="challenge_hub_jump_to_rank">К моему месту</string>
+    <string name="challenge_hub_week_rank">Сначала учитывается выбранный результат. При равенстве важны разнообразие привычек, равномерность результатов и другие счётчики дней. Если и они равны, выше тот, кто достиг их раньше. Калории тренировки не влияют на ничью.</string>
+</resources>

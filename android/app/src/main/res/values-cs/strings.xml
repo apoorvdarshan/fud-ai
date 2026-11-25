@@ -192,7 +192,7 @@
     <string name="ai_key_placeholder_custom">API klíč (nebo cokoli, pokud ho endpoint nevyžaduje)</string>
 
     <!-- Speech Provider -->
-    <string name="speech_provider_native">Nativní (v zařízení)</string>
+    <string name="speech_provider_native">Systémové rozpoznávání řeči</string>
     <string name="speech_provider_local_whisper">Whisper Base (v zařízení)</string>
     <string name="speech_provider_gemini">Gemini Audio</string>
     <string name="speech_provider_openai">OpenAI GPT-Transcribe</string>
@@ -210,14 +210,14 @@
     <string name="speech_key_placeholder_deepgram">Tvůj API klíč Deepgram</string>
     <string name="speech_key_placeholder_assemblyai">Tvůj API klíč AssemblyAI</string>
 
-    <string name="speech_description_native">Rozpoznávání řeči Androidu přímo v zařízení. Zdarma, na většině telefonů funguje offline, průběžné výsledky v reálném čase. Doporučená výchozí volba.</string>
+    <string name="speech_description_native">Rozpoznávání řeči Androidu s průběžnými výsledky. Podle zařízení a jazyka může vyžadovat připojení k internetu.</string>
     <string name="speech_description_local_whisper">Stažený vícejazyčný Whisper Base. Zvuk zůstává v tomto zařízení a není potřeba žádný API klíč.</string>
     <string name="speech_description_gemini">Gemini 3.5 Transcribe pro přesný dávkový přepis s automatickou detekcí jazyka.</string>
     <string name="speech_description_openai">OpenAI GPT-Transcribe, aktuální vysoce přesný model pro nahraný zvuk.</string>
     <string name="speech_description_groq">Whisper Large v3 hostovaný u Groq. Velmi rychlá inference, má bezplatnou úroveň.</string>
-    <string name="speech_description_mistral">Voxtral Mini Transcribe 2 pro přesný vícejazyčný dávkový přepis.</string>
-    <string name="speech_description_deepgram">Deepgram Nova. Režim v reálném čase i dávkový, rychlý a přesný.</string>
-    <string name="speech_description_assemblyai">Model AssemblyAI Universal. Vysoká přesnost, k dispozici bezplatná úroveň.</string>
+    <string name="speech_description_mistral">Voxtral Mini Transcribe 3 pro přepis nahrávek ve více jazycích.</string>
+    <string name="speech_description_deepgram">Deepgram Nova-3 pro přepis po nahrání.</string>
+    <string name="speech_description_assemblyai">AssemblyAI STT 3.7 se záložním modelem Universal-2 pro více jazyků.</string>
 
     <!-- Bottom navigation -->
     <string name="nav_home">Domů</string>

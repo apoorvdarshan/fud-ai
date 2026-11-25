@@ -126,7 +126,7 @@
     <string name="voice_settings_confirm_saves">Vor dem Speichern bestätigen</string>
     <string name="voice_settings_confirm_saves_footer">Zeigt eine Karte zur Bestätigung jedes Eintrags und jeder Änderung. Wenn deaktiviert, werden Änderungen sofort gespeichert und können 8 Sekunden lang rückgängig gemacht werden.</string>
     <string name="voice_settings_save_to_coach">Gespräche im Coach speichern</string>
-    <string name="voice_settings_save_to_coach_footer">Fügt hinzu, was du und der Assistent sagt, zu deinem Coach-Chat.</string>
+    <string name="voice_settings_save_to_coach_footer">Speichert Sprachgespräche im Coach-Chat und teilt bei Bedarf aktuelle Coach-Nachrichten mit deinem Sprachanbieter.</string>
     <string name="voice_settings_minutes_left">Verbleibende Abo-Minuten</string>
     <string name="voice_settings_minutes_with_credits">%1$s + %2$s aus Guthaben</string>
     <string name="voice_settings_minutes_footer">Plus enthält 20 Minuten und Pro 100 Minuten pro Monat (UTC). Danach nutzt die Sprachfunktion Credits: 1 Credit pro 15 Sekunden.</string>

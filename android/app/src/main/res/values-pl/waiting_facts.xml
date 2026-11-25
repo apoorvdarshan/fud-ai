@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="waiting_fact_heading">Czy wiesz, że…?</string>
+    <string name="waiting_fact_vitamin_c">Witamina C pomaga organizmowi przyswajać żelazo z produktów roślinnych.</string>
+    <string name="waiting_fact_beans">Fasola i soczewica zawierają zarówno białko, jak i błonnik.</string>
+    <string name="waiting_fact_oats">Owies zawiera beta-glukan, rodzaj błonnika rozpuszczalnego.</string>
+    <string name="waiting_fact_vegetables" formatted="false">Woda stanowi ponad 90% masy ogórków i pomidorów.</string>
+    <string name="waiting_fact_strength">Trening siłowy polega na pokonywaniu oporu. Może nim być także ciężar własnego ciała.</string>
+</resources>

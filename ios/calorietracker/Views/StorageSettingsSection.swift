@@ -58,7 +58,10 @@ final class StorageMaintenance {
         let frameFolder = WorkoutFrameStore.defaultCacheDirectory()
         let modelFolders = [
             Gemma4LocalModelManager.shared.storageDirectory,
-            WhisperBaseModelManager.shared.storageDirectory
+            Gemma4LocalModelManager.e4b.storageDirectory,
+            WhisperBaseModelManager.shared.storageDirectory,
+            LocalSpeechModelManager.parakeet.storageDirectory,
+            LocalSpeechModelManager.qwen.storageDirectory
         ]
         usage = await Task.detached(priority: .utility) {
             AppStorageUsage(

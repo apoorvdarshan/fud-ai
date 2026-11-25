@@ -99,6 +99,46 @@ extension View {
     }
 }
 
+/// Use each item's ideal width to decide whether the entire row needs to stack.
+/// Keep a single set of controls so fitting doesn't duplicate their state.
+struct FlashAdaptiveStack: Layout {
+    var spacing: CGFloat = 8
+
+    private func arrangement(width: CGFloat?, subviews: Subviews) -> AnyLayout {
+        let ideal = subviews.reduce(CGFloat.zero) { $0 + $1.sizeThatFits(.unspecified).width }
+            + spacing * CGFloat(max(0, subviews.count - 1))
+        if let width, ideal > width {
+            return AnyLayout(VStackLayout(alignment: .leading, spacing: 4))
+        }
+        return AnyLayout(HStackLayout(alignment: .center, spacing: spacing))
+    }
+
+    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
+        let layout = arrangement(width: proposal.width, subviews: subviews)
+        var cache = layout.makeCache(subviews: subviews)
+        return layout.sizeThatFits(proposal: ProposedViewSize(width: proposal.width, height: nil),
+                                   subviews: subviews, cache: &cache)
+    }
+
+    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+        let layout = arrangement(width: proposal.width, subviews: subviews)
+        var cache = layout.makeCache(subviews: subviews)
+        layout.placeSubviews(in: bounds, proposal: ProposedViewSize(width: proposal.width, height: nil),
+                             subviews: subviews, cache: &cache)
+    }
+}
+
+struct FlashModelLinkStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .font(.caption)
+            .foregroundStyle(AppColors.accentText)
+            .frame(minWidth: 44, minHeight: 44)
+            .contentShape(Rectangle())
+            .opacity(configuration.isPressed ? 0.7 : 1)
+    }
+}
+
 struct FlashActionButtonStyle: ButtonStyle {
     @Environment(\.isEnabled) private var isEnabled
 

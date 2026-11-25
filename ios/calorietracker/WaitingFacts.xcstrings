@@ -1,0 +1,138 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Did you know?" : {
+      "localizations" : {
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "هل تعلم؟" } },
+        "az" : { "stringUnit" : { "state" : "translated", "value" : "Bilirdinizmi?" } },
+        "cs" : { "stringUnit" : { "state" : "translated", "value" : "Věděli jste?" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Schon gewusst?" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "¿Sabías que…?" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Le saviez-vous ?" } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "क्या आप जानते हैं?" } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Lo sapevi?" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "知っていましたか？" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "알고 계셨나요?" } },
+        "nl" : { "stringUnit" : { "state" : "translated", "value" : "Wist je dat?" } },
+        "pl" : { "stringUnit" : { "state" : "translated", "value" : "Czy wiesz, że…?" } },
+        "pt-BR" : { "stringUnit" : { "state" : "translated", "value" : "Você sabia?" } },
+        "ro" : { "stringUnit" : { "state" : "translated", "value" : "Știai că…?" } },
+        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Знаете ли вы?" } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Biliyor muydunuz?" } },
+        "uk" : { "stringUnit" : { "state" : "translated", "value" : "Чи знали ви?" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "你知道吗？" } }
+      }
+    },
+    "Vitamin C helps your body absorb iron from plant foods." : {
+      "localizations" : {
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "يساعد فيتامين C جسمك على امتصاص الحديد من الأطعمة النباتية." } },
+        "az" : { "stringUnit" : { "state" : "translated", "value" : "C vitamini orqanizmin bitki mənşəli qidalardan dəmiri mənimsəməsinə kömək edir." } },
+        "cs" : { "stringUnit" : { "state" : "translated", "value" : "Vitamin C pomáhá tělu vstřebávat železo z rostlinných potravin." } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Vitamin C hilft deinem Körper, Eisen aus pflanzlichen Lebensmitteln aufzunehmen." } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "La vitamina C ayuda al cuerpo a absorber el hierro de los alimentos de origen vegetal." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "La vitamine C aide votre corps à absorber le fer des aliments d’origine végétale." } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "विटामिन C आपके शरीर को पौधों से मिलने वाले खाद्य पदार्थों का आयरन सोखने में मदद करता है।" } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "La vitamina C aiuta l’organismo ad assorbire il ferro degli alimenti di origine vegetale." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ビタミンCは、植物性食品に含まれる鉄の吸収を助けます。" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "비타민 C는 몸이 식물성 식품에 들어 있는 철분을 흡수하도록 돕습니다." } },
+        "nl" : { "stringUnit" : { "state" : "translated", "value" : "Vitamine C helpt je lichaam ijzer uit plantaardig voedsel op te nemen." } },
+        "pl" : { "stringUnit" : { "state" : "translated", "value" : "Witamina C pomaga organizmowi przyswajać żelazo z produktów roślinnych." } },
+        "pt-BR" : { "stringUnit" : { "state" : "translated", "value" : "A vitamina C ajuda o corpo a absorver o ferro dos alimentos de origem vegetal." } },
+        "ro" : { "stringUnit" : { "state" : "translated", "value" : "Vitamina C ajută organismul să absoarbă fierul din alimentele de origine vegetală." } },
+        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Витамин C помогает организму усваивать железо из растительной пищи." } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "C vitamini, vücudunuzun bitkisel besinlerdeki demiri emmesine yardımcı olur." } },
+        "uk" : { "stringUnit" : { "state" : "translated", "value" : "Вітамін C допомагає організму засвоювати залізо з рослинної їжі." } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "维生素 C 能帮助身体吸收植物性食物中的铁。" } }
+      }
+    },
+    "Beans and lentils contain both protein and fiber." : {
+      "localizations" : {
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "تحتوي الفاصوليا والعدس على البروتين والألياف." } },
+        "az" : { "stringUnit" : { "state" : "translated", "value" : "Lobya və mərci həm zülal, həm də lif ehtiva edir." } },
+        "cs" : { "stringUnit" : { "state" : "translated", "value" : "Fazole a čočka obsahují bílkoviny i vlákninu." } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Bohnen und Linsen enthalten sowohl Eiweiß als auch Ballaststoffe." } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Los frijoles y las lentejas contienen proteínas y fibra." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Les haricots et les lentilles contiennent à la fois des protéines et des fibres." } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "बीन्स और दालों में प्रोटीन और फ़ाइबर दोनों होते हैं।" } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Fagioli e lenticchie contengono sia proteine sia fibre." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "豆やレンズ豆には、たんぱく質と食物繊維の両方が含まれます。" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "콩과 렌틸콩에는 단백질과 식이섬유가 모두 들어 있습니다." } },
+        "nl" : { "stringUnit" : { "state" : "translated", "value" : "Bonen en linzen bevatten zowel eiwitten als vezels." } },
+        "pl" : { "stringUnit" : { "state" : "translated", "value" : "Fasola i soczewica zawierają zarówno białko, jak i błonnik." } },
+        "pt-BR" : { "stringUnit" : { "state" : "translated", "value" : "Feijões e lentilhas contêm proteínas e fibras." } },
+        "ro" : { "stringUnit" : { "state" : "translated", "value" : "Fasolea și lintea conțin atât proteine, cât și fibre." } },
+        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Фасоль и чечевица содержат и белок, и клетчатку." } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Fasulye ve mercimek hem protein hem de lif içerir." } },
+        "uk" : { "stringUnit" : { "state" : "translated", "value" : "Квасоля й сочевиця містять і білок, і клітковину." } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "豆类和扁豆都含有蛋白质和膳食纤维。" } }
+      }
+    },
+    "Oats contain beta-glucan, a type of soluble fiber." : {
+      "localizations" : {
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "يحتوي الشوفان على بيتا غلوكان، وهو نوع من الألياف القابلة للذوبان." } },
+        "az" : { "stringUnit" : { "state" : "translated", "value" : "Yulafda həll olan lif növü olan beta-qlükan var." } },
+        "cs" : { "stringUnit" : { "state" : "translated", "value" : "Oves obsahuje beta-glukan, druh rozpustné vlákniny." } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Hafer enthält Beta-Glucan, einen löslichen Ballaststoff." } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "La avena contiene betaglucano, un tipo de fibra soluble." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "L’avoine contient du bêta-glucane, un type de fibre soluble." } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "ओट्स में बीटा-ग्लूकैन होता है, जो एक तरह का घुलनशील फ़ाइबर है।" } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "L’avena contiene beta-glucano, un tipo di fibra solubile." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "オーツ麦には、水溶性食物繊維の一種であるβ-グルカンが含まれます。" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "귀리에는 수용성 식이섬유의 한 종류인 베타글루칸이 들어 있습니다." } },
+        "nl" : { "stringUnit" : { "state" : "translated", "value" : "Haver bevat bètaglucaan, een soort oplosbare vezel." } },
+        "pl" : { "stringUnit" : { "state" : "translated", "value" : "Owies zawiera beta-glukan, rodzaj błonnika rozpuszczalnego." } },
+        "pt-BR" : { "stringUnit" : { "state" : "translated", "value" : "A aveia contém beta-glucana, um tipo de fibra solúvel." } },
+        "ro" : { "stringUnit" : { "state" : "translated", "value" : "Ovăzul conține beta-glucan, un tip de fibră solubilă." } },
+        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Овёс содержит бета-глюкан — разновидность растворимой клетчатки." } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Yulaf, çözünür bir lif türü olan beta glukan içerir." } },
+        "uk" : { "stringUnit" : { "state" : "translated", "value" : "Овес містить бета-глюкан — різновид розчинної клітковини." } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "燕麦含有 β-葡聚糖，这是一种可溶性膳食纤维。" } }
+      }
+    },
+    "Cucumbers and tomatoes are more than 90% water by weight." : {
+      "localizations" : {
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "يشكّل الماء أكثر من ٩٠٪ من وزن الخيار والطماطم." } },
+        "az" : { "stringUnit" : { "state" : "translated", "value" : "Xiyar və pomidorun çəkisinin 90%-dən çoxunu su təşkil edir." } },
+        "cs" : { "stringUnit" : { "state" : "translated", "value" : "Více než 90 % hmotnosti okurek a rajčat tvoří voda." } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Gurken und Tomaten bestehen zu mehr als 90 Prozent ihres Gewichts aus Wasser." } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Más del 90 % del peso de los pepinos y los tomates es agua." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "L’eau représente plus de 90 % du poids des concombres et des tomates." } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "खीरे और टमाटर के वज़न का 90% से ज़्यादा हिस्सा पानी होता है।" } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Oltre il 90% del peso di cetrioli e pomodori è costituito da acqua." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "キュウリとトマトは、重さの90%以上が水分です。" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "오이와 토마토는 무게의 90% 이상이 수분입니다." } },
+        "nl" : { "stringUnit" : { "state" : "translated", "value" : "Komkommers en tomaten bestaan voor meer dan 90% van hun gewicht uit water." } },
+        "pl" : { "stringUnit" : { "state" : "translated", "value" : "Woda stanowi ponad 90% masy ogórków i pomidorów." } },
+        "pt-BR" : { "stringUnit" : { "state" : "translated", "value" : "A água representa mais de 90% do peso dos pepinos e tomates." } },
+        "ro" : { "stringUnit" : { "state" : "translated", "value" : "Peste 90% din greutatea castraveților și a roșiilor este apă." } },
+        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Вода составляет более 90% массы огурцов и помидоров." } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Salatalık ve domatesin ağırlığının %90’ından fazlası sudur." } },
+        "uk" : { "stringUnit" : { "state" : "translated", "value" : "Вода становить понад 90% маси огірків і помідорів." } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "按重量计算，黄瓜和番茄的含水量都超过 90%。" } }
+      }
+    },
+    "Strength training works against resistance. Your own body weight counts, too." : {
+      "localizations" : {
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "تعتمد تمارين القوة على العمل ضد مقاومة، ويمكن استخدام وزن جسمك لهذه الغاية." } },
+        "az" : { "stringUnit" : { "state" : "translated", "value" : "Güc məşqlərində müqavimətə qarşı hərəkət edirsiniz. Öz bədən çəkiniz də müqavimət yarada bilər." } },
+        "cs" : { "stringUnit" : { "state" : "translated", "value" : "Při silovém tréninku překonáváte odpor. Poslouží i váha vlastního těla." } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Beim Krafttraining arbeitest du gegen einen Widerstand. Auch dein eigenes Körpergewicht zählt." } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "El entrenamiento de fuerza consiste en vencer una resistencia. Tu propio peso corporal también cuenta." } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Le renforcement musculaire consiste à travailler contre une résistance. Le poids de votre corps peut suffire." } },
+        "hi" : { "stringUnit" : { "state" : "translated", "value" : "ताकत बढ़ाने वाले व्यायामों में शरीर किसी प्रतिरोध के ख़िलाफ़ काम करता है। अपने शरीर का वज़न भी प्रतिरोध बन सकता है।" } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "L’allenamento di forza si svolge contro una resistenza. Anche il peso del tuo corpo conta." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "筋力トレーニングでは負荷に逆らって体を動かします。自分の体重も負荷になります。" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "근력 운동은 저항을 이겨 내는 운동입니다. 자신의 체중도 저항으로 사용할 수 있습니다." } },
+        "nl" : { "stringUnit" : { "state" : "translated", "value" : "Bij krachttraining werk je tegen weerstand. Je eigen lichaamsgewicht telt ook mee." } },
+        "pl" : { "stringUnit" : { "state" : "translated", "value" : "Trening siłowy polega na pokonywaniu oporu. Może nim być także ciężar własnego ciała." } },
+        "pt-BR" : { "stringUnit" : { "state" : "translated", "value" : "O treino de força trabalha contra uma resistência. O peso do seu corpo também conta." } },
+        "ro" : { "stringUnit" : { "state" : "translated", "value" : "Antrenamentul de forță presupune să lucrezi împotriva unei rezistențe. Poți folosi și greutatea propriului corp." } },
+        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Силовые тренировки предполагают работу с сопротивлением. Им может служить и вес собственного тела." } },
+        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Kuvvet antrenmanında bir dirence karşı çalışırsınız. Kendi vücut ağırlığınız da direnç oluşturabilir." } },
+        "uk" : { "stringUnit" : { "state" : "translated", "value" : "Силові тренування передбачають роботу з опором. Для цього можна використовувати й вагу власного тіла." } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "力量训练需要克服阻力。你也可以利用自己的体重作为阻力。" } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

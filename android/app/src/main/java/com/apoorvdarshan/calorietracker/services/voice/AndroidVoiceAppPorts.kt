@@ -26,6 +26,7 @@ import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysis
 import com.apoorvdarshan.calorietracker.services.hosted.AiAccessMode
 import com.apoorvdarshan.calorietracker.services.hosted.HostedAiConstants
 import com.apoorvdarshan.calorietracker.ui.components.autoSaveMealPhotoIfEnabled
+import com.apoorvdarshan.calorietracker.ui.about.AboutSettingsCategory
 import com.apoorvdarshan.calorietracker.ui.navigation.FudAIRoutes
 import com.apoorvdarshan.calorietracker.ui.theme.AppThemeColor
 import kotlinx.coroutines.Dispatchers
@@ -67,41 +68,41 @@ class AndroidVoiceAppPorts(
     fun clearSessionImages() = freshImages.clear()
 
     override fun now(): Instant = Instant.now()
+    override suspend fun recentCoachMessages() =
+        if (prefs.voiceAssistantPreferences.first().saveToCoach) container.chatRepository.contextMessages(limit = 12)
+        else emptyList()
     override fun zone(): ZoneId = ZoneId.systemDefault()
     override fun mealForTime(time: LocalTime): MealType = CurrentMealSchedule.value.mealTypeAt(time)
 
     // MARK: - Navigation
 
     override fun screenState(): ScreenState {
-        val route = navigator.currentRoute.value
-        val screen = when (FudAIRoutes.selectedBottomTab(route)) {
-            FudAIRoutes.HOME -> VoiceScreen.HOME
-            FudAIRoutes.PROGRESS -> VoiceScreen.PROGRESS
-            FudAIRoutes.COACH -> VoiceScreen.COACH
-            FudAIRoutes.WORKOUTS -> VoiceScreen.WORKOUTS
-            FudAIRoutes.SETTINGS -> VoiceScreen.SETTINGS
+        val tab = FudAIRoutes.selectedBottomTab(navigator.currentRoute.value)
+        val screen = VoiceScreen.entries.firstOrNull { it.route == tab }
+        val section = when (screen) {
+            VoiceScreen.ABOUT -> navigator.aboutSection.value?.voiceSection
+            VoiceScreen.SETTINGS -> navigator.settingsSection.value
             else -> null
         }
-        val section = if (screen == VoiceScreen.SETTINGS) navigator.settingsSection.value else null
         return ScreenState(screen, section)
     }
 
-    override fun diaryDate(): LocalDate = navigator.homeDiaryDate.value
-    override fun workoutDiaryDate(): LocalDate? = navigator.workoutDiaryDate.value
+    override fun diaryDate(): LocalDate = navigator.currentHomeDiaryDate()
+    override fun workoutDiaryDate(): LocalDate? = navigator.currentWorkoutDiaryDate()
 
     override fun hiddenScreens(): Set<VoiceScreen> {
         val hidden = navigator.hiddenTabs.value
-        return VoiceScreen.entries.filter { FudAIRoutes.isHiddenTab(it.wireValue, hidden) }.toSet()
+        return VoiceScreen.entries.filter { FudAIRoutes.isHiddenTab(it.route, hidden) }.toSet()
     }
 
     override fun showScreen(screen: VoiceScreen, section: VoiceSettingsSection?) {
         ui.collapseForNavigation()
         when (screen) {
-            VoiceScreen.HOME -> navigator.showTab(FudAIRoutes.HOME)
-            VoiceScreen.PROGRESS -> navigator.showTab(FudAIRoutes.PROGRESS)
-            VoiceScreen.COACH -> navigator.showTab(FudAIRoutes.COACH)
-            VoiceScreen.WORKOUTS -> navigator.showTab(FudAIRoutes.WORKOUTS)
             VoiceScreen.SETTINGS -> navigator.showSettings(section)
+            VoiceScreen.ABOUT -> navigator.showAbout(
+                section?.let { target -> AboutSettingsCategory.entries.firstOrNull { it.voiceSection == target } }
+            )
+            else -> navigator.showTab(screen.route)
         }
     }
 
@@ -109,6 +110,24 @@ class AndroidVoiceAppPorts(
         ui.collapseForNavigation()
         navigator.showHomeDate(date)
     }
+
+    override fun showWorkoutDiaryDate(date: LocalDate) {
+        ui.collapseForNavigation()
+        navigator.showWorkoutDate(date)
+    }
+
+    private val VoiceScreen.route: String
+        get() = when (this) {
+            VoiceScreen.HOME -> FudAIRoutes.HOME
+            VoiceScreen.PROGRESS -> FudAIRoutes.PROGRESS
+            VoiceScreen.WEEKLY_CHALLENGE -> FudAIRoutes.WEEKLY_CHALLENGE
+            VoiceScreen.COACH -> FudAIRoutes.COACH
+            VoiceScreen.WORKOUTS -> FudAIRoutes.WORKOUTS
+            VoiceScreen.EXERCISE_LIBRARY -> FudAIRoutes.EXERCISE_LIBRARY
+            VoiceScreen.SETTINGS -> FudAIRoutes.SETTINGS
+            VoiceScreen.ABOUT -> FudAIRoutes.ABOUT
+            VoiceScreen.SUPPORT -> FudAIRoutes.SUPPORT
+        }
 
     override fun showFoodEntry(entry: FoodEntry) {
         ui.collapseForNavigation()

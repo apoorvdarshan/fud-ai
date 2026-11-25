@@ -178,7 +178,7 @@
     <string name="ai_key_placeholder_custom">Ключ API (или что угодно, если эндпоинт его не требует)</string>
 
     <!-- Speech Provider -->
-    <string name="speech_provider_native">Встроенный (на устройстве)</string>
+    <string name="speech_provider_native">Системное распознавание речи</string>
     <string name="speech_provider_openai">OpenAI GPT-Transcribe</string>
     <string name="speech_provider_groq">Groq (Whisper)</string>
     <string name="speech_provider_mistral">Mistral Voxtral</string>
@@ -192,12 +192,12 @@
     <string name="speech_key_placeholder_deepgram">Token your-deepgram-key</string>
     <string name="speech_key_placeholder_assemblyai">Ваш ключ AssemblyAI</string>
 
-    <string name="speech_description_native">Распознавание речи Android прямо на устройстве. Бесплатно, работает офлайн на большинстве телефонов, в реальном времени с частичными результатами. Рекомендуется по умолчанию.</string>
+    <string name="speech_description_native">Распознавание речи Android с промежуточными результатами. В зависимости от устройства и языка может потребоваться интернет.</string>
     <string name="speech_description_openai">API OpenAI GPT-Transcribe. Высокая точность, более 99 языков, оплата за минуту.</string>
     <string name="speech_description_groq">Whisper Large v3 на серверах Groq. Очень быстрая обработка, есть бесплатный тариф.</string>
-    <string name="speech_description_mistral">Voxtral Mini Transcribe 2 для точной многоязычной пакетной расшифровки.</string>
-    <string name="speech_description_deepgram">Deepgram Nova. Режим реального времени и пакетная обработка, быстро и точно.</string>
-    <string name="speech_description_assemblyai">Универсальная модель AssemblyAI. Высокая точность, доступен бесплатный тариф.</string>
+    <string name="speech_description_mistral">Voxtral Mini Transcribe 3 для расшифровки записей на нескольких языках.</string>
+    <string name="speech_description_deepgram">Deepgram Nova-3 для расшифровки после записи.</string>
+    <string name="speech_description_assemblyai">AssemblyAI STT 3.7 с резервной моделью Universal-2 для большего числа языков.</string>
 
     <!-- Bottom navigation -->
     <string name="nav_home">Главная</string>

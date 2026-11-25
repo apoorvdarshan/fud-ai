@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="challenge_hub_title">Wyzwania</string>
+    <string name="challenge_hub_daily">Dzienne</string>
+    <string name="challenge_hub_weekly">Tygodniowe</string>
+    <string name="challenge_hub_monthly">Miesięczne</string>
+    <string name="challenge_hub_your_points">Twoje punkty</string>
+    <string name="challenge_hub_points">Punkty: %1$d</string>
+    <string name="challenge_hub_days">Dni: %1$d</string>
+    <string name="challenge_hub_participants">Uczestnicy: %1$d</string>
+    <string name="challenge_hub_join">Dołącz i udostępnij wyniki</string>
+    <string name="challenge_hub_remove">Opuść i usuń wyniki</string>
+    <string name="challenge_hub_go_weekly">Przejdź do wyzwania tygodniowego</string>
+    <string name="challenge_hub_habits">Buduj nawyki, nie śrubuj wyników</string>
+    <string name="challenge_hub_profile_first">Najpierw dołącz do wyzwania tygodniowego, aby utworzyć profil.</string>
+    <string name="challenge_hub_service">Ten ranking wymaga aktualizacji usługi wyzwań.</string>
+    <string name="challenge_hub_consent">Po dołączeniu inni uczestnicy zobaczą Twoją nazwę i sumy nawyków z tego okresu. Wpisy dziennika, waga i ilości kalorii nie są udostępniane.</string>
+    <string name="challenge_hub_rules_base">Zdobywaj punkt dziennie za każdy nawyk: ruch, zapis posiłku, cel żywieniowy i cel picia wody.</string>
+    <string name="challenge_hub_rules_bonus">W dni z co najmniej trzema nawykami zdobywasz punkt bonusowy.</string>
+    <string name="challenge_hub_rules_streak">W najdłuższej serii dni z co najmniej dwoma nawykami każdy dzień po pierwszym daje punkt.</string>
+    <string name="challenge_hub_leave">Opuścić to wyzwanie?</string>
+    <string name="challenge_hub_leave_detail">Zostaną usunięte tylko wyniki z tego okresu. Inne wyzwania i dziennik pozostaną bez zmian.</string>
+    <string name="challenge_hub_leave_all">Opuścić wszystkie wyzwania?</string>
+    <string name="challenge_hub_leave_all_detail">Profil publiczny, wszystkie wyniki i zgłoszenia zostaną usunięte. Prywatny dziennik pozostanie na urządzeniu.</string>
+    <string name="challenge_hub_jump_to_rank">Przejdź do mojego miejsca</string>
+    <string name="challenge_hub_week_rank">Najpierw liczy się wybrany wynik. Przy remisie decydują różnorodność i równomierność nawyków oraz pozostałe liczby dni. Jeśli nadal jest remis, wyżej jest osoba, która osiągnęła wynik wcześniej. Kalorie z ćwiczeń nie rozstrzygają remisu.</string>
+</resources>

@@ -2,6 +2,8 @@
 
 Off by default in Settings → Data Management. Sign-in runs only when the user turns the toggle on, or taps Restore on the onboarding Welcome back screen ("Used Fud AI before?"). The app never checks iCloud or Drive by itself at install. On iOS, picking Restore from iCloud there fetches only the `current` record's hash field, never the asset, to show the backup's date; the restore runs when the user taps Continue. Like any restore, this turns backup on. When Apple Health is picked too, the restore runs first and the Health import then adds only what the backup is missing. Delete All Data turns backup off, so the emptied phone never uploads over the cloud copy.
 
+New food and ingredient records can include an optional `aiAllergens` array of canonical IDs. This is an additive food-record field, with no archive-version change. Existing records without it load normally. An empty or absent array means no AI evidence, not that a food is allergen-free. Manufacturer declarations remain separate.
+
 ## iOS
 
 1. Enable the iCloud CloudKit container `iCloud.com.apoorvdarshan.calorietracker` in the Apple Developer portal and Xcode.

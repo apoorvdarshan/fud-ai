@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="voice_settings_gemini_barge_in">مقاطعة الرد عندما أتحدث</string>
+    <string name="voice_settings_gemini_barge_in_detail">أوقف هذا الخيار إذا كانت الضوضاء المحيطة تقطع الردود. انتظر حتى ينتهي الرد قبل أن تتحدث.</string>
+</resources>

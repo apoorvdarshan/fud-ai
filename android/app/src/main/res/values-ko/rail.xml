@@ -1,0 +1,4 @@
+<resources>
+    <string name="nav_workout_log">운동 기록</string>
+    <string name="nav_exercise_library">운동 라이브러리</string>
+</resources>

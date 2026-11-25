@@ -42,7 +42,10 @@ class VoiceToolCatalogTest {
 
     @Test
     fun catalogParsesEveryTool() {
-        assertEquals(25, catalog.size)
+        assertEquals(26, catalog.size)
+        val history = catalog.single { it.name == "get_coach_history" }
+        assertEquals(ToolEffect.READ, history.effect)
+        assertEquals(ToolConfirm.NEVER, history.confirm)
         assertEquals(catalog.size, catalog.map { it.name }.toSet().size)
         catalog.forEach { tool ->
             assertTrue("${tool.name} needs a description", tool.description.isNotBlank())

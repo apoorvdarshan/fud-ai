@@ -1,16 +1,54 @@
 import SwiftUI
 import WidgetKit
 
-/// Match the main app's pink/red theme without importing Theme.swift
-/// (which lives in the main app target).
 enum WidgetPalette {
-    static let calorie = Color(red: 0xFF / 255, green: 0x37 / 255, blue: 0x5F / 255)
-    static let calorieLight = Color(red: 0xFF / 255, green: 0x6B / 255, blue: 0x8A / 255)
-    static var calorieGradient: LinearGradient {
-        LinearGradient(colors: [calorie, calorieLight], startPoint: .topLeading, endPoint: .bottomTrailing)
+    static let calorie = Color(hex: PinkNeoFlash.pink)
+    static let ink = adaptive(light: PinkNeoFlash.inkLight, dark: PinkNeoFlash.inkDark)
+    static let muted = adaptive(light: PinkNeoFlash.mutedLight, dark: PinkNeoFlash.mutedDark)
+    static let paper = adaptive(light: PinkNeoFlash.paperLight, dark: PinkNeoFlash.panelDark)
+
+    private static func adaptive(light: UInt, dark: UInt) -> Color {
+        Color(uiColor: UIColor { traits in
+            let hex = traits.userInterfaceStyle == .dark ? dark : light
+            return UIColor(red: Double((hex >> 16) & 255) / 255, green: Double((hex >> 8) & 255) / 255,
+                           blue: Double(hex & 255) / 255, alpha: 1)
+        })
     }
-    static var background: some ShapeStyle {
-        Color(.systemBackground)
+}
+
+/// Let WidgetKit clip to the native family shape and remove the background in tinted mode.
+private struct FlashWidgetBackground: View {
+    var body: some View {
+        ContainerRelativeShape().fill(WidgetPalette.paper)
+            .overlay { ContainerRelativeShape().stroke(WidgetPalette.ink.opacity(0.64), lineWidth: 2) }
+    }
+}
+
+extension View {
+    func flashWidgetBackground() -> some View {
+        containerBackground(for: .widget) { FlashWidgetBackground() }
+    }
+}
+
+struct FlashWidgetHeading: View {
+    let title: LocalizedStringKey
+    let icon: String
+    let accent: Color
+
+    var body: some View {
+        HStack(spacing: 5) {
+            Image(systemName: icon)
+                .font(.system(size: 11, weight: .black))
+                .foregroundStyle(accent)
+                .widgetAccentable()
+            Text(title)
+                .font(.system(.caption, weight: .black).width(.condensed))
+                .textCase(.uppercase)
+                .tracking(0.6)
+                .foregroundStyle(WidgetPalette.ink)
+                .lineLimit(1)
+                .minimumScaleFactor(0.65)
+        }
     }
 }
 
@@ -24,22 +62,16 @@ extension Color {
     }
 }
 
-/// The user's theme gradient synced from the app; Fud Pink when absent.
+/// The user's accent synced from the app; Flash Pink when absent.
 extension WidgetSnapshot {
-    var themeColors: [Color] {
-        [Color(hex: themeStartHex ?? 0xFF375F), Color(hex: themeEndHex ?? 0xFF6B8A)]
-    }
-    var themeColor: Color { themeColors[0] }
-    var themeGradient: LinearGradient {
-        LinearGradient(colors: themeColors, startPoint: .topLeading, endPoint: .bottomTrailing)
-    }
+    var themeColor: Color { Color(hex: PinkNeoFlash.snapshotAccent(start: themeStartHex)) }
 }
 
 /// Dashed top-semicircle speedometer gauge, same design as the app's Home.
 /// Shared by the Calorie and Protein widget views.
 struct SpeedometerGauge<Center: View>: View {
     let progress: Double
-    let colors: [Color]
+    let accent: Color
     let diameter: CGFloat
     let lineWidth: CGFloat
     @ViewBuilder let center: () -> Center
@@ -52,16 +84,14 @@ struct SpeedometerGauge<Center: View>: View {
         ZStack {
             Circle()
                 .trim(from: 0.5, to: 1.0)
-                .stroke((colors.first ?? WidgetPalette.calorie).opacity(0.14), style: dashedStroke)
+                .stroke(accent.opacity(0.18), style: dashedStroke)
                 .padding(lineWidth / 2)
 
             Circle()
                 .trim(from: 0.5, to: 0.5 + 0.5 * progress)
-                .stroke(
-                    LinearGradient(colors: colors, startPoint: .leading, endPoint: .trailing),
-                    style: dashedStroke
-                )
+                .stroke(accent, style: dashedStroke)
                 .padding(lineWidth / 2)
+                .widgetAccentable()
 
             center()
                 .offset(y: -diameter * 0.13)
@@ -76,7 +106,7 @@ struct SpeedometerGauge<Center: View>: View {
 /// value on top, tube in the middle, name + goal beneath.
 struct VerticalNutrientBar: View {
     let nutrient: WidgetNutrientValue
-    let colors: [Color]
+    let accent: Color
     let barHeight: CGFloat
     var barWidth: CGFloat = 12
     var valueSize: CGFloat = 15
@@ -85,21 +115,20 @@ struct VerticalNutrientBar: View {
         VStack(spacing: 5) {
             Text(nutrient.displayValue)
                 .font(.system(size: valueSize, weight: .bold, design: .rounded).monospacedDigit())
-                .foregroundStyle(
-                    LinearGradient(colors: colors, startPoint: .top, endPoint: .bottom)
-                )
+                .foregroundStyle(WidgetPalette.ink)
                 .lineLimit(1)
                 .minimumScaleFactor(0.6)
 
             ZStack(alignment: .bottom) {
                 Capsule()
-                    .fill((colors.first ?? WidgetPalette.calorie).opacity(0.14))
+                    .fill(accent.opacity(0.16))
                     .frame(width: barWidth, height: barHeight)
 
                 if nutrient.progress > 0 {
                     Capsule()
-                        .fill(LinearGradient(colors: colors, startPoint: .bottom, endPoint: .top))
-                        .frame(width: barWidth, height: max(barWidth, barHeight * nutrient.progress))
+                        .fill(accent)
+                        .frame(width: barWidth, height: min(barHeight, max(2, barHeight * nutrient.progress)))
+                        .widgetAccentable()
                 }
             }
 
@@ -143,28 +172,20 @@ private struct SmallCalorieView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
-            HStack(spacing: 6) {
-                Image(systemName: "flame.fill")
-                    .font(.system(size: 11, weight: .bold))
-                    .foregroundStyle(snapshot.themeGradient)
-                Text("Today")
-                    .font(.system(.caption, design: .rounded, weight: .semibold))
-                    .foregroundStyle(.secondary)
-                Spacer()
-            }
+            FlashWidgetHeading(title: "Today", icon: "flame.fill", accent: snapshot.themeColor)
 
             Spacer(minLength: 2)
 
             SpeedometerGauge(
                 progress: snapshot.calorieProgress,
-                colors: snapshot.themeColors,
+                accent: snapshot.themeColor,
                 diameter: 118,
                 lineWidth: 9
             ) {
                 VStack(spacing: 0) {
                     Text("\(snapshot.displayCalories)")
-                        .font(.system(.title3, design: .rounded, weight: .bold).monospacedDigit())
-                        .foregroundStyle(snapshot.themeGradient)
+                        .font(.system(.title2, weight: .black).width(.condensed).monospacedDigit())
+                        .foregroundStyle(WidgetPalette.ink)
                         .minimumScaleFactor(0.6)
                         .lineLimit(1)
                         .padding(.horizontal, 16)
@@ -185,7 +206,7 @@ private struct SmallCalorieView: View {
                 }
             }
             .font(.system(.caption2, design: .rounded, weight: .semibold))
-            .foregroundStyle(snapshot.themeColor)
+            .foregroundStyle(WidgetPalette.muted)
             .lineLimit(1)
             .minimumScaleFactor(0.75)
         }
@@ -200,13 +221,13 @@ private struct MediumCalorieView: View {
             VStack(spacing: 2) {
                 SpeedometerGauge(
                     progress: snapshot.calorieProgress,
-                    colors: snapshot.themeColors,
+                    accent: snapshot.themeColor,
                     diameter: 126,
                     lineWidth: 10
                 ) {
                     Text("\(snapshot.displayCalories)")
-                        .font(.system(size: 26, weight: .bold, design: .rounded).monospacedDigit())
-                        .foregroundStyle(snapshot.themeGradient)
+                        .font(.system(size: 29, weight: .black).width(.condensed).monospacedDigit())
+                        .foregroundStyle(WidgetPalette.ink)
                         .lineLimit(1)
                         .minimumScaleFactor(0.55)
                         .padding(.horizontal, 18)
@@ -225,7 +246,7 @@ private struct MediumCalorieView: View {
                     }
                     .font(.system(.caption, design: .rounded, weight: .semibold))
                 }
-                .foregroundStyle(snapshot.themeColor)
+                .foregroundStyle(WidgetPalette.muted)
                 .lineLimit(1)
                 .minimumScaleFactor(0.7)
             }
@@ -235,7 +256,7 @@ private struct MediumCalorieView: View {
                 ForEach(snapshot.displayedHomeNutrients) { nutrient in
                     VerticalNutrientBar(
                         nutrient: nutrient,
-                        colors: snapshot.themeColors,
+                        accent: snapshot.themeColor,
                         barHeight: 52,
                         barWidth: 11,
                         valueSize: 14
@@ -280,32 +301,27 @@ private struct LargeCalorieView: View {
                         .font(.system(.caption, design: .rounded, weight: .semibold))
                         .foregroundStyle(.secondary)
                     Text("Nutrition")
-                        .font(.system(.title3, design: .rounded, weight: .bold))
+                        .font(.system(.title3, weight: .black).width(.condensed))
                         .lineLimit(1)
                         .minimumScaleFactor(0.8)
                 }
 
                 Spacer()
 
-                Label("Fud AI", systemImage: "flame.fill")
-                    .font(.system(.caption, design: .rounded, weight: .bold))
-                    .foregroundStyle(snapshot.themeGradient)
-                    .labelStyle(.titleAndIcon)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.8)
+                FlashWidgetHeading(title: "Fud AI", icon: "flame.fill", accent: snapshot.themeColor)
             }
 
             VStack(spacing: 2) {
                 SpeedometerGauge(
                     progress: snapshot.calorieProgress,
-                    colors: snapshot.themeColors,
+                    accent: snapshot.themeColor,
                     diameter: 196,
                     lineWidth: 14
                 ) {
                     VStack(spacing: 1) {
                         Text("\(snapshot.displayCalories)")
-                            .font(.system(size: 38, weight: .bold, design: .rounded).monospacedDigit())
-                            .foregroundStyle(snapshot.themeGradient)
+                            .font(.system(size: 42, weight: .black).width(.condensed).monospacedDigit())
+                            .foregroundStyle(WidgetPalette.ink)
                             .lineLimit(1)
                             .minimumScaleFactor(0.55)
                             .padding(.horizontal, 30)
@@ -322,7 +338,7 @@ private struct LargeCalorieView: View {
                     Text(remainingText)
                         .font(.system(.footnote, design: .rounded, weight: .semibold))
                 }
-                .foregroundStyle(snapshot.themeColor)
+                .foregroundStyle(WidgetPalette.muted)
                 .lineLimit(1)
                 .minimumScaleFactor(0.7)
             }
@@ -332,7 +348,7 @@ private struct LargeCalorieView: View {
                 ForEach(snapshot.displayedHomeNutrients) { nutrient in
                     VerticalNutrientBar(
                         nutrient: nutrient,
-                        colors: snapshot.themeColors,
+                        accent: snapshot.themeColor,
                         barHeight: 84,
                         barWidth: 14,
                         valueSize: 18

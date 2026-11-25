@@ -45,6 +45,7 @@ struct LogFoodWidgetConfigurationIntent: WidgetConfigurationIntent {
 struct LogFoodEntry: TimelineEntry {
     let date: Date
     let method: LogFoodMethodAppEnum
+    var accentHex: UInt = PinkNeoFlash.pink
 }
 
 struct LogFoodWidgetProvider: AppIntentTimelineProvider {
@@ -53,11 +54,12 @@ struct LogFoodWidgetProvider: AppIntentTimelineProvider {
     }
 
     func snapshot(for configuration: LogFoodWidgetConfigurationIntent, in context: Context) async -> LogFoodEntry {
-        LogFoodEntry(date: Date(), method: configuration.method)
+        LogFoodEntry(date: Date(), method: configuration.method,
+                     accentHex: PinkNeoFlash.snapshotAccent(start: WidgetSnapshot.read()?.themeStartHex))
     }
 
     func timeline(for configuration: LogFoodWidgetConfigurationIntent, in context: Context) async -> Timeline<LogFoodEntry> {
-        let entry = LogFoodEntry(date: Date(), method: configuration.method)
+        let entry = await snapshot(for: configuration, in: context)
         return Timeline(entries: [entry], policy: .never)
     }
 }
@@ -67,9 +69,9 @@ struct LogFoodWidget: Widget {
 
     var body: some WidgetConfiguration {
         AppIntentConfiguration(kind: kind, intent: LogFoodWidgetConfigurationIntent.self, provider: LogFoodWidgetProvider()) { entry in
-            LogFoodWidgetView(method: entry.method)
+            LogFoodWidgetView(method: entry.method, accentHex: entry.accentHex)
                 .widgetURL(URL(string: "fudai://log-food?method=\(entry.method.rawValue)"))
-                .containerBackground(WidgetPalette.background, for: .widget)
+                .flashWidgetBackground()
         }
         .configurationDisplayName("Log Food")
         .description("Tap to open Fud AI directly into your chosen logging method.")
@@ -78,24 +80,42 @@ struct LogFoodWidget: Widget {
 }
 
 struct LogFoodWidgetView: View {
+    @Environment(\.widgetRenderingMode) private var renderingMode
     let method: LogFoodMethodAppEnum
+    var accentHex = PinkNeoFlash.pink
 
     var body: some View {
-        VStack(spacing: 10) {
-            Image(systemName: iconName)
-                .font(.system(size: 28, weight: .semibold))
-                .foregroundStyle(WidgetPalette.calorieGradient)
-            Text("Log Food")
-                .font(.headline)
-                .foregroundStyle(.primary)
+        let accent = Color(hex: accentHex)
+        VStack(alignment: .leading, spacing: 6) {
+            FlashWidgetHeading(title: "Log Food", icon: "plus", accent: accent)
+            Spacer(minLength: 0)
+            Group {
+                if renderingMode == .fullColor {
+                    glyph
+                        .foregroundStyle(PinkNeoFlash.prefersDarkInk(on: accentHex) ? Color.black : Color.white)
+                        .background(accent)
+                        .overlay { Rectangle().strokeBorder(WidgetPalette.ink, lineWidth: 1) }
+                } else {
+                    glyph
+                        .overlay { Rectangle().strokeBorder(lineWidth: 1) }
+                        .widgetAccentable()
+                }
+            }
+            .accessibilityHidden(true)
+            Spacer(minLength: 0)
             Text(title)
-                .font(.caption)
-                .foregroundStyle(.secondary)
-                .multilineTextAlignment(.center)
+                .font(.system(.subheadline, weight: .black).width(.condensed))
+                .foregroundStyle(WidgetPalette.ink)
                 .lineLimit(2)
+                .minimumScaleFactor(0.7)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .padding(12)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+    }
+
+    private var glyph: some View {
+        Image(systemName: iconName)
+            .font(.system(size: 23, weight: .bold))
+            .frame(width: 46, height: 46)
     }
 
     private var title: String {

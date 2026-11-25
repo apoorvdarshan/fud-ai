@@ -17,10 +17,8 @@ import androidx.glance.LocalSize
 import androidx.glance.action.actionStartActivity
 import androidx.glance.action.clickable
 import androidx.glance.appwidget.SizeMode
-import androidx.glance.appwidget.cornerRadius
 import androidx.glance.appwidget.provideContent
 import androidx.glance.appwidget.updateAll
-import androidx.glance.background
 import androidx.glance.layout.Alignment
 import androidx.glance.layout.Box
 import androidx.glance.layout.Column
@@ -146,7 +144,7 @@ class MealVoiceWidgetReceiver : FudGlanceAppWidgetReceiver() {
     override val glanceAppWidget = MealVoiceAppWidget()
 }
 
-private const val CORNER_DP = 26f
+private const val CORNER_DP = 22f
 private const val ADDED_VISIBLE_MS = 6_000L
 /** Height the wide layout's calories block needs (big number plus the /goal line). */
 private const val WIDE_TEXT_BLOCK_DP = 52f
@@ -162,8 +160,7 @@ private fun MealVoiceContent(
     val size = LocalSize.current
     val recording = phase == MealVoiceState.Phase.RECORDING
     val processing = phase == MealVoiceState.Phase.PROCESSING
-    val start = WidgetTheme.themeStart(snapshot.themeStartHex)
-    val end = WidgetTheme.themeEnd(snapshot.themeEndHex)
+    val accent = WidgetTheme.accentRgb(snapshot.themeStartHex)
     val density = Resources.getSystem().displayMetrics.density
     val label = context.getString(R.string.meal_voice_widget_label)
     val wide = size.width.value >= MealVoiceAppWidget.WIDE_MIN_WIDTH_DP
@@ -182,8 +179,8 @@ private fun MealVoiceContent(
         progress = snapshot.calorieProgress.toFloat(),
         recording = recording,
         processing = processing,
-        startRgb = start,
-        endRgb = end,
+        startRgb = accent,
+        endRgb = accent,
         addedText = when {
             recording || processing -> null
             added != null -> "+$added"
@@ -196,8 +193,7 @@ private fun MealVoiceContent(
     Box(
         modifier = GlanceModifier
             .fillMaxSize()
-            .background(WidgetTheme.backgroundProvider)
-            .cornerRadius(CORNER_DP.dp)
+            .flashWidgetPanel()
             .clickable(actionStartActivity<MealVoiceToggleActivity>()),
         contentAlignment = Alignment.Center
     ) {
@@ -262,7 +258,7 @@ private fun CaloriesText(snapshot: WidgetSnapshot, widthDp: Float, heightDp: Flo
             text = eaten,
             maxLines = 1,
             style = TextStyle(
-                color = WidgetTheme.themeTextProvider(snapshot.themeStartHex),
+                color = WidgetTheme.primaryTextProvider,
                 fontWeight = FontWeight.Bold,
                 fontSize = bigSp.sp
             )

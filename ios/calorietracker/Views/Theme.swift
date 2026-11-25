@@ -242,20 +242,6 @@ enum AppColors {
     }
 }
 
-/// The selected 04 Flash palette. Shared by the shell and its Home components.
-enum PinkNeoFlash {
-    static let paperLight: UInt = 0xFFFDFC
-    static let paperDark: UInt = 0x121214
-    static let panelLight: UInt = 0xFFFFFF
-    static let panelDark: UInt = 0x19191B
-    static let railDark: UInt = 0x18181A
-    static let insetLight: UInt = 0xF6F4F3
-    static let insetDark: UInt = 0x141416
-    static let inkLight: UInt = 0x171219
-    static let inkDark: UInt = 0xF9F5F7
-    static let pink: UInt = 0xFF006A
-}
-
 extension Color {
     init(hex: UInt, opacity: Double = 1.0) {
         self.init(

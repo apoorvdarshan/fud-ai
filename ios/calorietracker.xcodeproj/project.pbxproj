@@ -163,6 +163,11 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		F00DF1A50000000000000001 /* FlashShared */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = FlashShared;
+			sourceTree = "<group>";
+		};
 		BA8E0DF52F33F197007DD537 /* calorietracker */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -287,6 +292,7 @@
 				BA8E0E3A2F33F198007DD537 /* calorietrackerShare */,
 				F00D1000000000000000000B /* FudAIWatchApp */,
 				F00D1000000000000000000C /* FudAIWatchWidgets */,
+				F00DF1A50000000000000001 /* FlashShared */,
 				BA8E0E0A2F33F198007DD537 /* calorietrackerTests */,
 				BA8E0E142F33F198007DD537 /* calorietrackerUITests */,
 				BA8E0DF42F33F197007DD537 /* Products */,
@@ -331,6 +337,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				BA8E0DF52F33F197007DD537 /* calorietracker */,
+				F00DF1A50000000000000001 /* FlashShared */,
 			);
 			name = calorietracker;
 			packageProductDependencies = (
@@ -403,6 +410,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				BA8E0E252F33F198007DD537 /* FudAIWidgets */,
+				F00DF1A50000000000000001 /* FlashShared */,
 			);
 			name = FudAIWidgetsExtension;
 			packageProductDependencies = (
@@ -449,6 +457,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				F00D1000000000000000000B /* FudAIWatchApp */,
+				F00DF1A50000000000000001 /* FlashShared */,
 			);
 			name = FudAIWatchApp;
 			packageProductDependencies = (
@@ -471,6 +480,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				F00D1000000000000000000C /* FudAIWatchWidgets */,
+				F00DF1A50000000000000001 /* FlashShared */,
 			);
 			name = FudAIWatchWidgetsExtension;
 			packageProductDependencies = (

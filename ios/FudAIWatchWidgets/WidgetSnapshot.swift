@@ -13,6 +13,7 @@ struct WidgetSnapshot: Codable, Equatable {
     let fatGoal: Int
     /// Energy display unit ("kcal" or "kj"); nil in older snapshots (kcal).
     var energyUnitRaw: String? = nil
+    var themeStartHex: UInt? = nil
 
     static var appGroupID: String {
         Bundle.main.object(forInfoDictionaryKey: "AppGroupIdentifier") as? String
@@ -41,7 +42,8 @@ struct WidgetSnapshot: Codable, Equatable {
                 protein: 0, proteinGoal: snapshot.proteinGoal,
                 carbs: 0, carbsGoal: snapshot.carbsGoal,
                 fat: 0, fatGoal: snapshot.fatGoal,
-                energyUnitRaw: snapshot.energyUnitRaw
+                energyUnitRaw: snapshot.energyUnitRaw,
+                themeStartHex: snapshot.themeStartHex
             )
         }
         return snapshot
@@ -103,6 +105,6 @@ struct WidgetSnapshot: Codable, Equatable {
 
     private func progress(value: Double, goal: Int) -> Double {
         guard goal > 0 else { return 0 }
-        return min(1.0, value / Double(goal))
+        return min(1.0, max(0, value / Double(goal)))
     }
 }

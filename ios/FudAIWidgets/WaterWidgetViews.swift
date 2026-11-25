@@ -27,28 +27,20 @@ private struct SmallWaterView: View {
     var body: some View {
         if snapshot.waterIsEnabled {
             VStack(alignment: .leading, spacing: 6) {
-                HStack(spacing: 6) {
-                    Image(systemName: "drop.fill")
-                        .font(.system(size: 11, weight: .bold))
-                        .foregroundStyle(snapshot.themeGradient)
-                    Text("Water")
-                        .font(.system(.caption, design: .rounded, weight: .semibold))
-                        .foregroundStyle(.secondary)
-                    Spacer()
-                }
+                FlashWidgetHeading(title: "Water", icon: "drop.fill", accent: snapshot.themeColor)
 
                 Spacer(minLength: 2)
 
                 SpeedometerGauge(
                     progress: snapshot.waterProgress,
-                    colors: snapshot.themeColors,
+                    accent: snapshot.themeColor,
                     diameter: 118,
                     lineWidth: 9
                 ) {
                     VStack(spacing: 0) {
                         Text("\(snapshot.waterDisplayValue(snapshot.waterCurrent)) \(snapshot.waterUnitSymbol)")
-                            .font(.system(.title3, design: .rounded, weight: .bold).monospacedDigit())
-                            .foregroundStyle(snapshot.themeGradient)
+                            .font(.system(.title2, weight: .black).width(.condensed).monospacedDigit())
+                            .foregroundStyle(WidgetPalette.ink)
                             .minimumScaleFactor(0.5)
                             .lineLimit(1)
                             .padding(.horizontal, 12)
@@ -65,7 +57,7 @@ private struct SmallWaterView: View {
 
                 Text("\(snapshot.waterDisplayValue(snapshot.waterRemaining)) \(snapshot.waterUnitSymbol) left")
                     .font(.system(.caption2, design: .rounded, weight: .semibold))
-                    .foregroundStyle(snapshot.themeColor)
+                    .foregroundStyle(WidgetPalette.muted)
                     .lineLimit(1)
                     .minimumScaleFactor(0.75)
             }
@@ -80,7 +72,7 @@ private struct DisabledWaterView: View {
         VStack(spacing: 10) {
             Image(systemName: "drop.fill")
                 .font(.system(size: 30, weight: .bold))
-                .foregroundStyle(WidgetPalette.calorieGradient)
+                .foregroundStyle(WidgetPalette.calorie)
             Text("Water Tracking")
                 .font(.system(.headline, design: .rounded, weight: .bold))
             Text("Enable in Fud AI")

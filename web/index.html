@@ -4,7 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Fud AI — Open-source calorie and nutrition tracker</title>
-  <meta name="description" content="Log meals by voice, photo, barcode, or text with Fud AI. Track calories, macros, water, and workouts on iPhone, iPad, and Android. Free with your own AI key; optional paid Hosted AI.">
+  <meta name="description" content="Open-source calorie tracker for iPhone and Android. Log meals by photo, voice, or barcode, review the estimate, and track macros, water, and workouts.">
+  <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="https://www.fud-ai.app/">
   <link rel="icon" href="/assets/fud-app-icon-180.png">
   <link rel="apple-touch-icon" href="/assets/fud-app-icon-180.png">
@@ -23,6 +24,28 @@
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@apoorvdarshan">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://www.fud-ai.app/#website",
+        "name": "Fud AI",
+        "url": "https://www.fud-ai.app/"
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://www.fud-ai.app/#webpage",
+        "name": "Fud AI — Open-source calorie and nutrition tracker",
+        "url": "https://www.fud-ai.app/",
+        "dateModified": "2026-11-26",
+        "isPartOf": { "@id": "https://www.fud-ai.app/#website" },
+        "mainEntity": { "@id": "https://www.fud-ai.app/#software" }
+      }
+    ]
+  }
+  </script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -70,9 +93,9 @@
   <main id="main">
     <section class="shell hero" id="hero" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <p class="edition"><span aria-hidden="true"></span> Open-source food diary</p>
+        <p class="edition"><span aria-hidden="true"></span> Open-source calorie tracker</p>
         <h1 id="hero-title">Tell it what<br> you ate.</h1>
-        <p class="lede">Talk through lunch, snap a photo, or scan the package. Fud AI turns it into a nutrition entry you can review before it goes in your diary.</p>
+        <p class="lede">Talk through lunch, snap a photo, or scan the package. Review the calorie and nutrition estimate before it goes in your diary.</p>
         <div class="actions">
           <a class="button primary" href="#get">Get Fud AI</a>
           <a class="button" href="#screens">See the app</a>
@@ -108,18 +131,20 @@
     </div>
 
     <section class="shell section" id="features" aria-labelledby="features-title">
+      <div id="chapters"></div>
       <div class="section-intro">
         <h2 id="features-title">A diary that starts where you are.</h2>
         <p>Use the quickest input for the meal in front of you. Then use your diary to understand the day, not just count it.</p>
       </div>
       <div class="feature-grid">
         <article><span class="marker" aria-hidden="true">↳</span><h3>Log in your own words</h3><p>Start Live Voice from Home and describe your meal. Check the draft, adjust portions, or log it manually.</p><a href="#voice-screen">See Live Voice</a></article>
-        <article><span class="marker" aria-hidden="true">⊕</span><h3>Scan what’s in front of you</h3><p>Analyze food photos with an optional note, or look up a packaged food by barcode. Estimates are editable.</p><a href="/ai-food-scanner">Read the scanner guide</a></article>
+        <article id="process"><span class="marker" aria-hidden="true">⊕</span><h3>Scan what’s in front of you</h3><p>Analyze food photos with an optional note, or look up a packaged food by barcode. Estimates are editable.</p><a href="/ai-food-scanner">How the AI food scanner works</a></article>
         <article><span class="marker" aria-hidden="true">≋</span><h3>Look beyond calories</h3><p>Review nutrients, set water and macro targets, log strength workouts, and follow your progress. Optional health integrations stay permission-controlled.</p><a href="#progress-screen">See Progress</a></article>
       </div>
     </section>
 
     <section class="screen-section" id="screens" aria-labelledby="screens-title">
+      <div id="plates"></div>
       <div class="shell section">
         <div class="section-intro">
           <h2 id="screens-title">Meet 04 Flash.</h2>
@@ -143,7 +168,7 @@
     <section class="shell section" id="plans" aria-labelledby="plans-title">
       <div class="section-intro" id="privacy"><h2 id="plans-title">Your diary. Your choice of AI.</h2><p>Manual logging doesn’t need AI. When you want help estimating or logging a meal, choose the setup that fits you.</p></div>
       <div class="plan-grid">
-        <article><p class="plan-type">Use your own key</p><h3>Bring your provider.</h3><p>Fud AI doesn’t charge for BYOK. Supported requests go to the provider you configure. That provider may charge separately. Supported on-device models are available for specific tasks and devices.</p><a href="/open-source-calorie-tracker">Explore the open-source app</a></article>
+        <article><p class="plan-type">Use your own key</p><h3>Bring your provider.</h3><p>Fud AI doesn’t charge for BYOK. Supported requests go to the provider you configure. That provider may charge separately. Supported on-device models are available for specific tasks and devices.</p><a href="/free-ai-calorie-tracker">What’s free and what needs an AI key</a></article>
         <article><p class="plan-type">Optional paid plans</p><h3>Let us handle the keys.</h3><p>Hosted Plus and Pro use Fud AI’s service. Review local prices, billing periods, and usage limits in the app before subscribing. New subscriptions have no free trial.</p><a href="/terms#hosted-plans">Read the subscription terms</a></article>
       </div>
     </section>
@@ -177,6 +202,7 @@
         <details><summary>How does the fasting timer work?</summary><p>You choose when to start, stop, or edit a fast. Fud AI doesn’t infer fasting from a skipped meal or recommend how long to fast.</p></details>
         <details><summary>Is there an Android APK?</summary><p><a href="https://play.google.com/store/apps/details?id=com.apoorvdarshan.calorietracker">Google Play</a> is the usual install. Signed Android release files and verification instructions are linked from <a href="https://github.com/apoorvdarshan/fud-ai/releases">GitHub Releases</a>.</p></details>
         <details><summary>Is Fud AI the same as the Fud app?</summary><p>No. Fud AI is the open-source nutrition and workout tracker by Apoorv Darshan. Use the App Store and Google Play links on this site to find the correct app.</p></details>
+        <details><summary>How does Fud AI compare with Cal AI?</summary><p>Both can estimate nutrition from meal photos. Fud AI is open source and keeps your diary on your device by default. See the <a href="/vs-cal-ai">Fud AI vs Cal AI comparison</a> for differences in subscriptions, AI setup, and privacy.</p></details>
         <details><summary>Where can I report a bug?</summary><p><a href="https://github.com/apoorvdarshan/fud-ai/issues/new?template=bug_report.yml">Open a GitHub issue</a> or use <code>/bug</code> in the <a href="https://discord.gg/Py4VrFctP3">Fud AI Discord</a>. Reports submitted through the bot become public GitHub issues, so don’t include private information.</p></details>
       </div>
     </section>

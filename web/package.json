@@ -5,6 +5,7 @@
     "build": "node scripts/validate-static.mjs",
     "check": "npm run typecheck && npm test && npm run build",
     "test": "vitest run",
+    "sitemap": "node scripts/sitemap.mjs --write",
     "typecheck": "tsc --noEmit",
     "types": "wrangler types worker-configuration.d.ts --include-runtime false"
   },

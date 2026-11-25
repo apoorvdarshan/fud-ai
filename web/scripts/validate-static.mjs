@@ -1,5 +1,6 @@
 import { access, readFile } from "node:fs/promises";
 import { syncChrome } from "./sync-chrome.mjs";
+import { checkSitemap } from "./sitemap.mjs";
 
 const requiredFiles = [
   "404.html",
@@ -23,6 +24,7 @@ const requiredFiles = [
 
 await Promise.all(requiredFiles.map((file) => access(file)));
 await syncChrome();
+await checkSitemap();
 
 // Check internal assets and anchors on each public HTML page, not just home.
 const documents = new Map(await Promise.all(
@@ -30,6 +32,9 @@ const documents = new Map(await Promise.all(
 ));
 for (const [name, html] of documents) {
   if (!html.includes('href="/flash.css?')) throw new Error(`${name} does not load the Flash theme`);
+  if (/<a\b[^>]*href="(?:https:\/\/(?:www\.)?fud-ai\.app\/|\/)?[\w-]+\.html(?:[?#][^"]*)?"/.test(html)) {
+    throw new Error(`${name}: link to a redirected .html URL; use its canonical path`);
+  }
   for (const [, path] of html.matchAll(/\b(?:href|src)="((?:\/(?!\/)|#)[^"]*)"/g)) {
     const url = new URL(path, `https://www.fud-ai.app/${name}`);
     const pathname = url.pathname.slice(1);

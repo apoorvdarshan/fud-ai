@@ -3,51 +3,32 @@
   <url>
     <loc>https://www.fud-ai.app/</loc>
     <lastmod>2026-11-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-    <image:image>
-      <image:loc>https://www.fud-ai.app/assets/flash-preview.jpg</image:loc>
-      <image:title>Fud AI app preview</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://www.fud-ai.app/assets/screenshots/home.webp</image:loc>
-      <image:title>Fud AI calorie tracker home dashboard</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://www.fud-ai.app/free-ai-calorie-tracker</loc>
-    <lastmod>2026-11-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.fud-ai.app/open-source-calorie-tracker</loc>
-    <lastmod>2026-09-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <image:image><image:loc>https://www.fud-ai.app/assets/flash-preview.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.fud-ai.app/assets/screenshots/home.webp</image:loc></image:image>
+    <image:image><image:loc>https://www.fud-ai.app/assets/screenshots/live-voice.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.fud-ai.app/ai-food-scanner</loc>
-    <lastmod>2026-11-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-11-26</lastmod>
   </url>
   <url>
-    <loc>https://www.fud-ai.app/vs-cal-ai</loc>
-    <lastmod>2026-09-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://www.fud-ai.app/free-ai-calorie-tracker</loc>
+    <lastmod>2026-11-26</lastmod>
+  </url>
+  <url>
+    <loc>https://www.fud-ai.app/open-source-calorie-tracker</loc>
+    <lastmod>2026-11-26</lastmod>
   </url>
   <url>
     <loc>https://www.fud-ai.app/privacy</loc>
     <lastmod>2026-11-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://www.fud-ai.app/terms</loc>
     <lastmod>2026-11-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.fud-ai.app/vs-cal-ai</loc>
+    <lastmod>2026-11-26</lastmod>
   </url>
 </urlset>

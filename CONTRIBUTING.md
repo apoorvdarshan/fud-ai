@@ -193,6 +193,14 @@ iOS ships 17 locale resources; Android ships 17. English is the complete fallbac
 
 Before committing, build both platform resources so malformed translations and format-argument mismatches fail locally, then spot-check any locale files you touched.
 
+## Website sitemap
+
+Set the canonical URL and the `WebPage` structured data's `dateModified`
+when you create or substantially edit an indexable page. Run
+`npm --prefix web run sitemap` and commit the generated XML.
+The web build checks that the sitemap and robots.txt agree with the site.
+Pages marked `noindex` (such as meal sharing and 404) are left out.
+
 ## Contact
 
 If you want to chat before opening a big PR, or you hit a wall and need help:

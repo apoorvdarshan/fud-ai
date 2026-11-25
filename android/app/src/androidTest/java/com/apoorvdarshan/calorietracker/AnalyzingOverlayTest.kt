@@ -25,7 +25,6 @@ import com.apoorvdarshan.calorietracker.services.ai.AnalysisProgressState
 import com.apoorvdarshan.calorietracker.services.ai.AnalysisStage
 import com.apoorvdarshan.calorietracker.ui.home.AnalyzingOverlay
 import com.apoorvdarshan.calorietracker.ui.components.WaitingFactFeed
-import java.util.UUID
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Rule
@@ -39,7 +38,8 @@ class AnalyzingOverlayTest {
     @Test
     fun aColdFactDoesNotAdvanceTheDeckAndStaysStableWhenTheCatalogWarms() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
-        val language = "fixture-${UUID.randomUUID()}"
+        // The test runner only prewarms English. Use a supported but cold language.
+        val language = "az"
         val cold = WaitingFactFeed.pick(language, "")
         assertTrue(cold.token.startsWith("fallback:"))
         val prefs = context.getSharedPreferences("waiting_fact_deck", android.content.Context.MODE_PRIVATE)

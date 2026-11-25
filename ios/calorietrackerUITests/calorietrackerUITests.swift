@@ -111,11 +111,16 @@ final class calorietrackerUITests: XCTestCase {
     }
 
     @MainActor
-    private func waitForValue(_ value: String, in element: XCUIElement) {
+    private func waitForValue(
+        _ value: String, in element: XCUIElement,
+        file: StaticString = #filePath, line: UInt = #line
+    ) {
+        if element.value as? String == value { return }
         let expectation = XCTNSPredicateExpectation(
             predicate: NSPredicate(format: "value == %@", value), object: element
         )
-        XCTAssertEqual(XCTWaiter.wait(for: [expectation], timeout: 5), .completed)
+        if XCTWaiter.wait(for: [expectation], timeout: 5) == .completed { return }
+        XCTAssertEqual(element.value as? String, value, "\(element.identifier) value", file: file, line: line)
     }
 
     override func setUpWithError() throws {
@@ -226,7 +231,9 @@ final class calorietrackerUITests: XCTestCase {
         let toggle = app.switches["settings.haptics"]
         reveal(toggle, in: app)
         waitForValue("1", in: toggle)
-        toggle.tap()
+        // XCTest gives the native switch the whole row as its frame, but on
+        // iOS 27.2 tapping the label area doesn't activate the thumb.
+        toggle.coordinate(withNormalizedOffset: CGVector(dx: 0.9, dy: 0.5)).tap()
         waitForValue("0", in: toggle)
         relaunchPreservingData(app)
         openSettingsCategory("appPreferences", in: app)
@@ -330,23 +337,26 @@ final class calorietrackerUITests: XCTestCase {
 
         let values = [("kg", "25"), ("Reps", "8"), ("RPE", "6")]
         let dock = app.buttons["workouts.shortcut.0"]
+        let done = app.buttons["workouts.keyboard.done"]
         for (placeholder, value) in values {
             let field = app.textFields.matching(NSPredicate(format: "placeholderValue == %@", placeholder)).firstMatch
             XCTAssertTrue(field.waitForExistence(timeout: 8))
             // In the compact rail layout XCTest can report a row as hittable
             // even when the pinned workout dock or keyboard is in front of it.
             func viewportBottom() -> CGFloat {
+                if done.exists, !done.frame.isEmpty { return done.frame.minY }
                 let keyboard = app.keyboards.firstMatch
-                if keyboard.exists, !keyboard.frame.isEmpty { return keyboard.frame.minY - 50 }
+                if keyboard.exists, !keyboard.frame.isEmpty { return keyboard.frame.minY }
                 return dock.exists ? dock.frame.minY - 8 : app.frame.maxY - 100
             }
             for _ in 0..<3 {
                 if field.isHittable && field.frame.maxY < viewportBottom() { break }
-                let start = app.coordinate(withNormalizedOffset: CGVector(dx: 0.30, dy: min(0.70, (viewportBottom() - 8) / app.frame.height)))
-                let end = app.coordinate(withNormalizedOffset: CGVector(dx: 0.30, dy: 0.32))
+                let start = app.coordinate(withNormalizedOffset: CGVector(dx: 0.12, dy: min(0.70, (viewportBottom() - 8) / app.frame.height)))
+                let end = app.coordinate(withNormalizedOffset: CGVector(dx: 0.12, dy: 0.32))
                 start.press(forDuration: 0.05, thenDragTo: end)
             }
-            XCTAssertLessThan(field.frame.maxY, viewportBottom(), "\(placeholder) must be above the dock or keyboard")
+            XCTAssertLessThanOrEqual(field.frame.maxY, viewportBottom(), "\(placeholder) must be above the dock or keyboard")
+            XCTAssertTrue(field.isHittable)
             field.tap()
             field.typeText(value)
             XCTAssertEqual(field.value as? String, value)
@@ -568,7 +578,8 @@ final class calorietrackerUITests: XCTestCase {
         waitForValue("DeepSeek", in: textProvider)
         let textModel = app.buttons["settings.ai.textModel"]
         reveal(textModel, in: app)
-        waitForValue("deepseek-v4-flash", in: textModel)
+        // The saved legacy ID above must migrate to the current DeepSeek preset.
+        waitForValue("deepseek-flash", in: textModel)
     }
 
     @MainActor
@@ -1007,11 +1018,14 @@ final class calorietrackerUITests: XCTestCase {
         app.launch()
         openSettingsCategory("voiceAssistant", in: app)
 
+        let addKey = app.buttons["settings.voiceAssistant.addKey"]
+        reveal(addKey, in: app)
+        XCTAssertTrue(addKey.exists)
         let preview = app.buttons["settings.voiceAssistant.preview"]
+        reveal(preview, in: app)
         XCTAssertTrue(preview.waitForExistence(timeout: 5))
         XCTAssertEqual(preview.label, "Preview Voice")
         XCTAssertFalse(preview.isEnabled, "Preview must not connect without the selected provider's key")
-        XCTAssertTrue(app.buttons["settings.voiceAssistant.addKey"].exists)
         XCTAssertFalse(app.staticTexts["settings.voiceAssistant.preview.preparing"].exists)
 
         let voice = app.buttons["settings.voiceAssistant.voice"]
@@ -1020,6 +1034,7 @@ final class calorietrackerUITests: XCTestCase {
         let option = app.buttons["Puck"]
         XCTAssertTrue(option.waitForExistence(timeout: 5))
         option.tap()
+        reveal(preview, in: app)
         XCTAssertFalse(preview.isEnabled)
         XCTAssertTrue(app.buttons["settings.voiceAssistant.model"].exists)
         XCTAssertFalse(app.alerts.firstMatch.exists, "Choosing a preview voice must not request microphone access")

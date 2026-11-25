@@ -504,25 +504,27 @@ struct WorkoutLogView: View {
                     if let id = focusedSetField?.setID { revealFocusedSet(id, in: proxy) }
                 }
                 .safeAreaInset(edge: .bottom, spacing: 0) {
-                    // The keyboard toolbar handles leaving edit mode. Keep the
-                    // dock out of the shortened list while a set field is active.
-                    if focusedSetField == nil { workoutDock }
+                    if focusedSetField == nil {
+                        workoutDock
+                    } else {
+                        // Reserve space in the list viewport instead of relying
+                        // on a keyboard accessory that can overlay the last set.
+                        HStack {
+                            Spacer()
+                            Button("Done", action: dismissSetKeyboard)
+                                .padding(.horizontal, 12)
+                                .frame(minHeight: 44)
+                                .accessibilityIdentifier("workouts.keyboard.done")
+                        }
+                        .padding(.horizontal, 10)
+                        .background(Color.workoutBackground)
+                    }
                 }
             }
             // Keep the chrome quiet: the date strip and burn calculator lead.
             .navigationTitle("")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(.hidden, for: .navigationBar)
-            .toolbar {
-                if focusedSetField != nil {
-                    ToolbarItemGroup(placement: .keyboard) {
-                        Spacer()
-                        Button("Done") {
-                            dismissSetKeyboard()
-                        }
-                    }
-                }
-            }
             .navigationDestination(item: $selectedDetailItem) { item in
                 ExerciseLibraryDetailView(item: item)
             }

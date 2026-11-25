@@ -35,6 +35,7 @@ import com.apoorvdarshan.calorietracker.services.voice.BarcodeOutcome
 import com.apoorvdarshan.calorietracker.services.voice.PhotoOutcome
 import com.apoorvdarshan.calorietracker.services.voice.CameraOutcome
 import com.apoorvdarshan.calorietracker.testing.FudAITestState
+import com.apoorvdarshan.calorietracker.testing.FudAITestApplication
 import java.io.File
 import java.util.concurrent.FutureTask
 import java.util.concurrent.atomic.AtomicInteger
@@ -203,6 +204,30 @@ class AppFlowsTest {
         compose.onNodeWithText(string(R.string.action_cancel)).performClick()
         compose.onNodeWithTag("home.calendarPopup").assertDoesNotExist()
         compose.onNodeWithTag("home.dateHeading").assertTextEquals(string(R.string.widget_today))
+    }
+
+    @Test
+    fun foodDescriptionShowsAFactDuringAnalysisWithoutScrolling() {
+        val application = instrumentation.targetContext.applicationContext as FudAITestApplication
+        application.holdFoodTextAnalysis = true
+        try {
+            launchFresh()
+            compose.onNodeWithTag("home.add").performClick()
+            clickText(R.string.home_menu_describe_meal)
+            clickText(R.string.home_menu_text_input)
+            waitFor(hasTestTag("food.description"))
+            compose.onNodeWithTag("food.description").performTextInput("Oatmeal with blueberries")
+            clickText(R.string.action_analyze)
+            val tag = "analysis.waitingFact"
+            waitFor(hasTestTag(tag))
+            val fact = compose.onNodeWithTag(tag).assertIsDisplayed()
+            assertTrue(fact.fetchSemanticsNode().config[SemanticsProperties.Text].size >= 2)
+            clickText(R.string.action_cancel)
+            waitForAbsent(hasTestTag(tag))
+            compose.onNodeWithTag("home.add").assertIsDisplayed()
+        } finally {
+            application.holdFoodTextAnalysis = false
+        }
     }
 
     @Test

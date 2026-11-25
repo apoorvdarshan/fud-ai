@@ -21,11 +21,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
@@ -56,14 +53,11 @@ internal fun WaitingFactCard(modifier: Modifier = Modifier) {
     val context = LocalContext.current
     val locale = LocalConfiguration.current.locales[0]
     val language = WaitingFactCatalog.language(locale)
-    var token by rememberSaveable { mutableStateOf("") }
-    var selection by remember(language) { mutableStateOf<WaitingFactFeed.Selection?>(null) }
+    val token = rememberSaveable(language) { WaitingFactFeed.pick(language, "").token }
+    val fact = remember(language, token) { WaitingFactFeed.pick(language, token) }
     LaunchedEffect(language) {
-        val selected = withContext(Dispatchers.IO) { WaitingFactFeed.select(context, language, token) }
-        token = selected.token
-        selection = selected
+        withContext(Dispatchers.IO) { WaitingFactFeed.prepare(context.applicationContext, language) }
     }
-    val fact = selection ?: return
     val accent = AppColors.Calorie
     val shape = RoundedCornerShape(18.dp)
 

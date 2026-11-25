@@ -2876,16 +2876,17 @@ internal fun AnalyzingOverlay(
             // the "+" button behind it and start a second analysis.
             .pointerInput(Unit) { detectTapGestures(onTap = {}) }
     ) {
+        val previewSize = minOf(200.dp, maxHeight * 0.27f, (maxWidth - 48.dp).coerceAtLeast(0.dp))
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(24.dp, Alignment.CenterVertically),
+            verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
             // Keep the content centred while it fits and Cancel reachable by
             // scrolling when a photo or large text needs more space.
             modifier = Modifier
                 .verticalScroll(rememberScrollState())
                 .heightIn(min = maxHeight)
                 .fillMaxWidth()
-                .padding(horizontal = 32.dp, vertical = 24.dp)
+                .padding(horizontal = 24.dp, vertical = 18.dp)
         ) {
             bitmap?.let { bmp ->
                 androidx.compose.foundation.Image(
@@ -2893,7 +2894,7 @@ internal fun AnalyzingOverlay(
                     contentDescription = null,
                     contentScale = androidx.compose.ui.layout.ContentScale.Fit,
                     modifier = Modifier
-                        .size(250.dp)
+                        .size(previewSize)
                         .clip(RoundedCornerShape(16.dp))
                 )
             } ?: run {
@@ -2901,7 +2902,7 @@ internal fun AnalyzingOverlay(
                     Icons.Filled.ImageSearch,
                     contentDescription = null,
                     tint = AppColors.Calorie,
-                    modifier = Modifier.size(64.dp)
+                    modifier = Modifier.size(52.dp)
                 )
             }
             // A static icon replaces the spinner when the system turned animations off.
@@ -3073,7 +3074,7 @@ internal fun TextInputDialog(onDismiss: () -> Unit, onSubmit: (String) -> Unit, 
             singleLine = false,
             minLines = 3,
             maxLines = 5,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth().testTag("food.description")
         )
         FudGlassPrimaryButton(
             text = stringResource(R.string.action_analyze),

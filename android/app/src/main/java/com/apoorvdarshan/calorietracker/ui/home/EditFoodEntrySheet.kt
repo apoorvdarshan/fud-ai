@@ -845,10 +845,9 @@ fun EditFoodEntrySheet(
             Box(
                 modifier = Modifier
                     .matchParentSize()
-                    .pointerInput(Unit) {
-                        detectTapGestures { /* Consume touches to disable UI interaction during reprocessing */ }
-                    }
-            )
+            ) {
+                AnalyzingOverlay()
+            }
         }
     }
     }

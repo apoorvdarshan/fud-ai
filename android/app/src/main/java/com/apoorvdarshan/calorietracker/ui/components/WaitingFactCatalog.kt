@@ -1,10 +1,12 @@
 package com.apoorvdarshan.calorietracker.ui.components
 
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.annotation.StringRes
 import com.apoorvdarshan.calorietracker.R
 import java.util.Locale
 import java.util.Random
+import java.util.concurrent.ConcurrentHashMap
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 
@@ -93,47 +95,72 @@ internal object WaitingFactDeck {
 
 internal object WaitingFactFeed {
     data class Selection(val token: String, val index: Int, val measurement: WaitingFactCatalog.Measurement?)
-    private data class Deck(val seed: Long, val order: List<Int>, var offset: Int)
+    private data class Deck(var seed: Long, var order: List<Int>, var offset: Int)
 
     private var catalog: WaitingFactCatalog? = null
-    private val measurements = mutableMapOf<String, List<WaitingFactCatalog.Measurement>>()
-    private val decks = mutableMapOf<String, Deck>()
+    private val ready = ConcurrentHashMap<String, Prepared>()
 
-    /** Called on the IO dispatcher; neither the asset nor preferences are opened on the UI thread. */
+    /** On the IO dispatcher: parse the asset and load this language's saved deck before publishing it. */
     @Synchronized
-    fun select(context: Context, language: String, savedToken: String): Selection {
+    fun prepare(context: Context, language: String) {
+        if (ready.containsKey(language)) return
         val data = catalog ?: runCatching {
             context.assets.open("analysis_nutrition_facts.json").bufferedReader().use {
                 WaitingFactCatalog.decode(it.readText())
             }
         }.getOrDefault(WaitingFactCatalog.empty).also { catalog = it }
-        val measured = measurements.getOrPut(language) { data.measurements(language) }
-        val prefix = "${data.revision}:$language:"
-        val count = WaitingFactDeck.EDITORIAL_COUNT + measured.size
-        val restored = savedToken.takeIf { it.startsWith(prefix) }
-            ?.removePrefix(prefix)?.toIntOrNull()?.takeIf { it in 0 until count }
-        if (restored != null) return Selection(savedToken, restored, measured.getOrNull(restored - WaitingFactDeck.EDITORIAL_COUNT))
-
+        if (data.foods.isEmpty()) return
+        val measured = data.measurements(language)
         val prefs = context.getSharedPreferences("waiting_fact_deck", Context.MODE_PRIVATE)
         val key = "v1.$language"
-        var deck = decks[language]
-        if (deck == null) {
-            val previous = prefs.getString(key, null)?.split(':')
-            if (previous?.size == 3 && previous[0] == data.revision) {
-                val seed = previous[1].toLongOrNull()
-                val offset = previous[2].toIntOrNull()
-                if (seed != null && offset != null && offset in 0 until count) {
-                    deck = Deck(seed, WaitingFactDeck.order(measured.size, seed), offset)
-                }
+        val previous = prefs.getString(key, null)?.split(':')
+            ?.takeIf { it.size == 3 && it[0] == data.revision }
+        val savedSeed = previous?.get(1)?.toLongOrNull()
+        val savedOffset = previous?.get(2)?.toIntOrNull()
+        val count = WaitingFactDeck.EDITORIAL_COUNT + measured.size
+        val resuming = savedSeed != null && savedOffset != null && savedOffset in 0 until count
+        val seed = if (resuming) checkNotNull(savedSeed) else kotlin.random.Random.nextLong()
+        val deck = Deck(seed, WaitingFactDeck.order(measured.size, seed), if (resuming) checkNotNull(savedOffset) else 0)
+        ready[language] = Prepared(data.revision, language, prefs, measured, deck)
+    }
+
+    /** Returns at once; a cold fallback neither blocks nor advances the full deck. */
+    fun pick(language: String, savedToken: String): Selection {
+        val fallback = savedToken.removePrefix("fallback:")
+            .takeIf { savedToken.startsWith("fallback:") }?.toIntOrNull()
+            ?.takeIf { it in 0 until WaitingFactDeck.EDITORIAL_COUNT }
+        if (fallback != null) return Selection(savedToken, fallback, null)
+        return ready[language]?.pick(savedToken) ?: run {
+            val index = kotlin.random.Random.nextInt(WaitingFactDeck.EDITORIAL_COUNT)
+            Selection("fallback:$index", index, null)
+        }
+    }
+
+    private class Prepared(
+        private val revision: String,
+        private val language: String,
+        private val prefs: SharedPreferences,
+        private val measured: List<WaitingFactCatalog.Measurement>,
+        private val deck: Deck
+    ) {
+        private val prefix = "$revision:$language:"
+
+        @Synchronized
+        fun pick(savedToken: String): Selection {
+            val restored = savedToken.takeIf { it.startsWith(prefix) }
+                ?.removePrefix(prefix)?.toIntOrNull()?.takeIf { it in deck.order.indices }
+            if (restored != null) return selection(restored)
+            if (deck.offset >= deck.order.size) {
+                deck.seed = kotlin.random.Random.nextLong()
+                deck.order = WaitingFactDeck.order(measured.size, deck.seed)
+                deck.offset = 0
             }
+            val index = deck.order[deck.offset++]
+            prefs.edit().putString("v1.$language", "$revision:${deck.seed}:${deck.offset}").apply()
+            return selection(index)
         }
-        val active = deck?.takeIf { it.offset < count } ?: run {
-            val seed = kotlin.random.Random.nextLong()
-            Deck(seed, WaitingFactDeck.order(measured.size, seed), 0)
-        }
-        val index = active.order[active.offset++]
-        decks[language] = active
-        prefs.edit().putString(key, "${data.revision}:${active.seed}:${active.offset}").apply()
-        return Selection("$prefix$index", index, measured.getOrNull(index - WaitingFactDeck.EDITORIAL_COUNT))
+
+        private fun selection(index: Int) =
+            Selection("$prefix$index", index, measured.getOrNull(index - WaitingFactDeck.EDITORIAL_COUNT))
     }
 }

@@ -24,6 +24,8 @@ import com.apoorvdarshan.calorietracker.services.ai.AnalysisKind
 import com.apoorvdarshan.calorietracker.services.ai.AnalysisProgressState
 import com.apoorvdarshan.calorietracker.services.ai.AnalysisStage
 import com.apoorvdarshan.calorietracker.ui.home.AnalyzingOverlay
+import com.apoorvdarshan.calorietracker.ui.components.WaitingFactFeed
+import java.util.UUID
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Rule
@@ -33,6 +35,26 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class AnalyzingOverlayTest {
     @get:Rule val compose = createComposeRule()
+
+    @Test
+    fun aColdFactDoesNotAdvanceTheDeckAndStaysStableWhenTheCatalogWarms() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val language = "fixture-${UUID.randomUUID()}"
+        val cold = WaitingFactFeed.pick(language, "")
+        assertTrue(cold.token.startsWith("fallback:"))
+        val prefs = context.getSharedPreferences("waiting_fact_deck", android.content.Context.MODE_PRIVATE)
+        try {
+            WaitingFactFeed.prepare(context, language)
+            assertEquals(cold, WaitingFactFeed.pick(language, cold.token))
+            assertTrue(!prefs.contains("v1.$language"))
+            WaitingFactFeed.pick(language, "")
+            val next = WaitingFactFeed.pick(language, "")
+            assertTrue(next.measurement != null)
+            assertEquals("2", prefs.getString("v1.$language", null)?.substringAfterLast(':'))
+        } finally {
+            prefs.edit().remove("v1.$language").apply()
+        }
+    }
 
     @Test
     fun factStaysWhileProgressChangesAndCancelRemainsReachableAtLargeTextSize() {

@@ -39,6 +39,8 @@ import com.apoorvdarshan.calorietracker.models.CurrentMealSchedule
 import com.apoorvdarshan.calorietracker.models.WorkoutRestTimer
 import com.apoorvdarshan.calorietracker.models.WorkoutSession
 import com.apoorvdarshan.calorietracker.services.ai.ChatService
+import com.apoorvdarshan.calorietracker.services.ai.AnalysisProgressReporter
+import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysis
 import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysisService
 import com.apoorvdarshan.calorietracker.services.health.HealthCapabilities
 import com.apoorvdarshan.calorietracker.services.health.HealthConnectManager
@@ -59,6 +61,8 @@ import com.apoorvdarshan.calorietracker.services.speech.SpeechService
 import com.apoorvdarshan.calorietracker.services.voice.VoiceAssistantController
 import com.apoorvdarshan.calorietracker.services.voice.createVoicePreviewController
 import com.apoorvdarshan.calorietracker.ui.navigation.AppNavigator
+import com.apoorvdarshan.calorietracker.ui.components.WaitingFactCatalog
+import com.apoorvdarshan.calorietracker.ui.components.WaitingFactFeed
 import com.apoorvdarshan.calorietracker.widget.WidgetRefreshScheduler
 import kotlin.math.roundToInt
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -92,6 +96,9 @@ open class FudAIApp : Application() {
     lateinit var container: AppContainer
         private set
 
+    internal open suspend fun analyzeFoodText(description: String, progress: AnalysisProgressReporter): FoodAnalysis =
+        container.foodAnalysis.analyzeText(description, progress)
+
     // Startup work (migrations, image pruning, reminder re-arming) must never
     // take the process down: an uncaught exception here would otherwise crash
     // on every launch until the user clears app data — and their diary with it.
@@ -107,6 +114,10 @@ open class FudAIApp : Application() {
         // Re-apply the AndroidX per-app locale list on API 32 and below, where
         // AppCompat stores it. Empty list = follow the system language.
         AppCompatDelegate.setApplicationLocales(AppCompatDelegate.getApplicationLocales())
+        appScope.launch(Dispatchers.IO) {
+            val locale = AppCompatDelegate.getApplicationLocales()[0] ?: resources.configuration.locales[0]
+            WaitingFactFeed.prepare(this@FudAIApp, WaitingFactCatalog.language(locale))
+        }
         if (!backgroundServicesEnabled) {
             container = AppContainer(this)
             ExerciseRepository.warm(this)
@@ -261,6 +272,7 @@ data class GoalCalculationEvidenceContext(
 )
 
 class AppContainer(app: FudAIApp) {
+    internal val analyzeFoodText = app::analyzeFoodText
     val backgroundServicesEnabled = app.backgroundServicesEnabled
     val appContext = app.applicationContext
     val localModels = LocalModelManager(app, FoodAnalysisService.defaultClient)

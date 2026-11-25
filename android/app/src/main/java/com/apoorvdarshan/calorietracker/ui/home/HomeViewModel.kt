@@ -558,7 +558,7 @@ viewModelScope.launch {
             )
             discardPendingDraftSafely(previousDraftImages)
             try {
-                val analysis = container.foodAnalysis.analyzeText(description, progress = reporter)
+                val analysis = container.analyzeFoodText(description, reporter)
                 finishAnalysisProgress(AnalysisOutcome.COMPLETE, run)
                 savePendingDraft(analysis, imageBytes = null, source = FoodSource.TEXT_INPUT)
             } catch (e: CancellationException) {

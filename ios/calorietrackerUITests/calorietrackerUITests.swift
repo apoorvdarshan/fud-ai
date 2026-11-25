@@ -415,6 +415,9 @@ final class calorietrackerUITests: XCTestCase {
             }
 
             if identifier == "legal" {
+                reveal(app.staticTexts["311099925"], in: app)
+                XCTAssertTrue(app.staticTexts["D-U-N-S Number"].exists)
+                XCTAssertTrue(app.staticTexts["Dun & Bradstreet"].exists)
                 XCTAssertFalse(
                     app.staticTexts["Made by Apoorv Darshan"].isHittable,
                     "Creator footer should live on the About hub"

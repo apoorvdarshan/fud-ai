@@ -804,6 +804,7 @@ private struct AboutFooterSection: View {
 }
 
 private struct AboutSettingsSections: View {
+    @Environment(\.locale) private var locale
     private let category: AboutSettingsCategory
     @Binding private var updateState: AppUpdateState
     private let refreshUpdateState: () async -> Void
@@ -1064,6 +1065,29 @@ private struct AboutSettingsSections: View {
                     }
                 }
                 .tint(.primary)
+
+                Label {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("D-U-N-S Number", tableName: "Duns")
+                        Text(verbatim: "311099925")
+                            .font(.subheadline.monospacedDigit())
+                            .textSelection(.enabled)
+                        let date = Calendar(identifier: .gregorian).date(from: DateComponents(year: 2026, month: 10, day: 28))
+                        if let date {
+                            let issued = date.formatted(.dateTime.day().month(.wide).year().locale(locale))
+                            Text("Dun & Bradstreet", tableName: "Duns")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                            Text("Issued \(issued)", tableName: "Duns")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                } icon: {
+                    Image(systemName: "number.square.fill")
+                        .foregroundStyle(AppColors.calorie)
+                }
+                .accessibilityIdentifier("about.legal.duns")
 
                 Link(destination: URL(string: "https://credentials.acefitness.org/d23fcb24-899b-4588-be1b-93298a039289")!) {
                     Label {

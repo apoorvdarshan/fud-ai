@@ -67,6 +67,8 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -89,6 +91,9 @@ import com.apoorvdarshan.calorietracker.ui.theme.flashListRow
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 
 enum class AboutSettingsCategory(val titleRes: Int, val icon: ImageVector) {
     APP_UPDATES(R.string.about_category_app_updates, Icons.Filled.SystemUpdate),
@@ -301,6 +306,8 @@ fun AboutSettingsRows(category: AboutSettingsCategory, billing: BillingManager? 
                 ) {
                     open("https://udyamregistration.gov.in/")
                 }
+                Hairline()
+                DunAndBradstreetRow()
                 Hairline()
                 AboutRow(
                     iconRes = R.drawable.ace_cpt_mark,
@@ -534,6 +541,35 @@ private fun UpdateRow(
             subtitle = stringResource(R.string.about_version_format, currentVersion),
             onClick = onRefresh
         )
+    }
+}
+
+@Composable
+private fun DunAndBradstreetRow() {
+    val locale = LocalConfiguration.current.locales[0]
+    val date = remember(locale) {
+        LocalDate.of(2026, 10, 28).format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).withLocale(locale))
+    }
+    Row(
+        Modifier.fillMaxWidth().flashListRow().testTag("about.legal.duns"),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Box(Modifier.size(28.dp), contentAlignment = Alignment.Center) {
+            Icon(Icons.Filled.Business, contentDescription = null, tint = AppColors.Calorie, modifier = Modifier.size(22.dp))
+        }
+        Spacer(Modifier.width(10.dp))
+        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+            Text(stringResource(R.string.about_duns), fontSize = 17.sp, color = MaterialTheme.colorScheme.onSurface)
+            SelectionContainer {
+                Text("311099925", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurface)
+            }
+            Text("Dun & Bradstreet", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text(
+                stringResource(R.string.about_duns_issued, date),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
     }
 }
 

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="about_duns">D-U-N-S नंबर</string>
+    <string name="about_duns_issued">जारी करने की तारीख: %1$s</string>
+</resources>

@@ -257,6 +257,9 @@ class AppFlowsTest {
         }
         compose.onNodeWithTag("settings.category.LEGAL").performClick()
         compose.onNodeWithTag("nav.about").assertIsSelected()
+        compose.onNodeWithTag("about.legal.duns").performScrollTo().assertIsDisplayed()
+        compose.onNodeWithText(string(R.string.about_duns)).assertIsDisplayed()
+        compose.onNodeWithText("311099925").assertIsDisplayed()
         openTab("about")
         compose.onNodeWithTag("settings.category.LEGAL").assertExists()
 

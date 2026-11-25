@@ -1615,29 +1615,8 @@ private struct WorkoutLogSetValueField: View {
     let focusedField: FocusState<WorkoutLogSetFocus?>.Binding
 
     var body: some View {
-        Group {
-            if #available(iOS 18.0, *) {
-                WorkoutLogSetSelectionTextField(
-                    placeholder: placeholder,
-                    text: $text,
-                    keyboardType: keyboardType,
-                    focus: focus,
-                    focusedField: focusedField
-                )
-            } else {
-                baseTextField
-            }
-        }
-        .padding(.horizontal, 10)
-        .frame(height: 36)
-        .background(Color.workoutCard.opacity(0.74), in: RoundedRectangle(cornerRadius: 11, style: .continuous))
-        .overlay {
-            RoundedRectangle(cornerRadius: 11, style: .continuous)
-                .stroke(Color.workoutHairline.opacity(0.4), lineWidth: 0.6)
-        }
-    }
-
-    private var baseTextField: some View {
+        // Store bindings normalize text as it changes. Let UIKit keep the caret
+        // instead of applying a deferred String.Index from a different value.
         TextField(placeholder, text: $text)
             .keyboardType(keyboardType)
             .textFieldStyle(.plain)
@@ -1645,43 +1624,13 @@ private struct WorkoutLogSetValueField: View {
             .foregroundStyle(Color.workoutCharcoal)
             .multilineTextAlignment(.center)
             .focused(focusedField, equals: focus)
-    }
-}
-
-@available(iOS 18.0, *)
-private struct WorkoutLogSetSelectionTextField: View {
-    let placeholder: String
-    @Binding var text: String
-    let keyboardType: UIKeyboardType
-    let focus: WorkoutLogSetFocus
-    let focusedField: FocusState<WorkoutLogSetFocus?>.Binding
-    @State private var selection: TextSelection?
-
-    var body: some View {
-        TextField(placeholder, text: $text, selection: $selection)
-            .keyboardType(keyboardType)
-            .textFieldStyle(.plain)
-            .font(.system(.subheadline, design: .rounded, weight: .bold).monospacedDigit())
-            .foregroundStyle(Color.workoutCharcoal)
-            .multilineTextAlignment(.center)
-            .focused(focusedField, equals: focus)
-            .onTapGesture {
-                if focusedField.wrappedValue == focus {
-                    moveCursorToEnd()
-                } else {
-                    focusedField.wrappedValue = focus
-                }
+            .padding(.horizontal, 10)
+            .frame(height: 36)
+            .background(Color.workoutCard.opacity(0.74), in: RoundedRectangle(cornerRadius: 11, style: .continuous))
+            .overlay {
+                RoundedRectangle(cornerRadius: 11, style: .continuous)
+                    .stroke(Color.workoutHairline.opacity(0.4), lineWidth: 0.6)
             }
-            .onChange(of: focusedField.wrappedValue) { _, value in
-                guard value == focus else { return }
-                moveCursorToEnd()
-            }
-    }
-
-    private func moveCursorToEnd() {
-        DispatchQueue.main.async {
-            selection = TextSelection(insertionPoint: text.endIndex)
-        }
     }
 }
 

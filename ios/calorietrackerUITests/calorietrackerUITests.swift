@@ -320,6 +320,36 @@ final class calorietrackerUITests: XCTestCase {
     }
 
     @MainActor
+    func testCanEditWeightRepsAndEffortInAWorkoutSet() {
+        let app = makeApp(defaults: ["--ui-testing-workout-set", "-weightUnit", "kg"])
+        app.launch()
+        let workouts = app.buttons["nav.workouts"]
+        XCTAssertTrue(workouts.waitForExistence(timeout: 15))
+        reveal(workouts, in: app)
+        workouts.tap()
+
+        let values = [("kg", "25"), ("Reps", "8"), ("RPE", "6")]
+        for (placeholder, value) in values {
+            let field = app.textFields.matching(NSPredicate(format: "placeholderValue == %@", placeholder)).firstMatch
+            XCTAssertTrue(field.waitForExistence(timeout: 8))
+            reveal(field, in: app)
+            field.tap()
+            field.typeText(value)
+            XCTAssertEqual(field.value as? String, value)
+        }
+        XCTAssertEqual(app.state, .runningForeground)
+
+        relaunchPreservingData(app)
+        reveal(workouts, in: app)
+        workouts.tap()
+        for (placeholder, value) in values {
+            let field = app.textFields.matching(NSPredicate(format: "placeholderValue == %@", placeholder)).firstMatch
+            XCTAssertTrue(field.waitForExistence(timeout: 8))
+            XCTAssertEqual(field.value as? String, value)
+        }
+    }
+
+    @MainActor
     func testWorkoutLogReorderButtonStaysCompactAndTappable() {
         let app = makeApp(defaults: [
             "--screenshot-demo", "-screenshotScene", "workouts",

@@ -69,6 +69,12 @@ enum SimulatorTestEnvironment {
             }
             defaults.set(true, forKey: "hasCompletedOnboarding")
         }
+        if CommandLine.arguments.contains("--ui-testing-reset"),
+           CommandLine.arguments.contains("--ui-testing-workout-set") {
+            let item = ExerciseLibraryItem(id: "ui-test-bench", name: "Bench press", category: "strength")
+            let store = StrengthWorkoutStore()
+            _ = store.addPlannedExercise(StrengthPlannedExercise(item: item), on: .now)
+        }
     }()
     #endif
 }

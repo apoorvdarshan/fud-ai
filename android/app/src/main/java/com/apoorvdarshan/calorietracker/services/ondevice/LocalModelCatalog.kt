@@ -161,28 +161,39 @@ object LocalModelCatalog {
 object LocalModelEligibility {
     private const val GIB = 1_073_741_824.0
 
-    fun memoryClassGb(totalMemoryBytes: Long): Int =
-        ceil(totalMemoryBytes.coerceAtLeast(0L) / GIB).toInt()
+    fun memoryClassGb(totalMemoryBytes: Long, advertisedMemoryBytes: Long = 0): Int {
+        val total = totalMemoryBytes.coerceAtLeast(0)
+        val kernelClass = ceil(total / GIB).toInt()
+        // API 34+ can report installed RAM, which includes reserved memory but
+        // not RAM Plus/swap. Ignore implausible values and keep a physical floor.
+        val advertisedClass = ceil(advertisedMemoryBytes.coerceAtLeast(0) / GIB).toInt()
+        return if (advertisedClass > kernelClass && total > (advertisedClass - 1.5) * GIB) {
+            advertisedClass
+        } else kernelClass
+    }
 
     fun isEligible(
         descriptor: LocalModelDescriptor,
         totalMemoryBytes: Long,
         supportedAbis: Collection<String>,
-        isLowRamDevice: Boolean = false
+        isLowRamDevice: Boolean = false,
+        advertisedMemoryBytes: Long = 0
     ): Boolean = ineligibility(
         descriptor,
         totalMemoryBytes,
         supportedAbis,
-        isLowRamDevice
+        isLowRamDevice,
+        advertisedMemoryBytes
     ) == null
 
     fun ineligibility(
         descriptor: LocalModelDescriptor,
         totalMemoryBytes: Long,
         supportedAbis: Collection<String>,
-        isLowRamDevice: Boolean = false
+        isLowRamDevice: Boolean = false,
+        advertisedMemoryBytes: Long = 0
     ): LocalModelIneligibility? = when {
-        descriptor.minimumMemoryClassGb?.let { memoryClassGb(totalMemoryBytes) < it } == true ->
+        descriptor.minimumMemoryClassGb?.let { memoryClassGb(totalMemoryBytes, advertisedMemoryBytes) < it } == true ->
             LocalModelIneligibility.INSUFFICIENT_MEMORY
         isLowRamDevice && descriptor.minimumMemoryClassGb != null ->
             LocalModelIneligibility.LOW_RAM_DEVICE

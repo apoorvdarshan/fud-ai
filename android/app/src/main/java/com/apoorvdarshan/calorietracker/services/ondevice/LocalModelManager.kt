@@ -61,9 +61,11 @@ class LocalModelManager(
     private val activeCalls = ConcurrentHashMap<LocalModelId, Call>()
     private val deleting = ConcurrentHashMap.newKeySet<LocalModelId>()
     private val releaseHooks = ConcurrentHashMap<LocalModelId, suspend () -> Unit>()
-    private val totalMemoryBytes: Long =
+    private val memoryInfo: ActivityManager.MemoryInfo =
         (appContext.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager)
-            .let { manager -> ActivityManager.MemoryInfo().also(manager::getMemoryInfo).totalMem }
+            .let { manager -> ActivityManager.MemoryInfo().also(manager::getMemoryInfo) }
+    private val advertisedMemoryBytes =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) memoryInfo.advertisedMem else 0L
     private val isLowRamDevice: Boolean =
         (appContext.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager).isLowRamDevice
     private val supportedAbis = Build.SUPPORTED_ABIS.toSet()
@@ -72,9 +74,10 @@ class LocalModelManager(
         LocalModelCatalog.all.associate { descriptor ->
             val ineligibility = LocalModelEligibility.ineligibility(
                 descriptor,
-                totalMemoryBytes,
+                memoryInfo.totalMem,
                 supportedAbis,
-                isLowRamDevice
+                isLowRamDevice,
+                advertisedMemoryBytes
             )
             val status = installedStatus(descriptor)
             descriptor.id to LocalModelState(

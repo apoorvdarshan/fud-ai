@@ -12,6 +12,17 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class LocalModelEligibilityTest {
+    @Test fun installedRamCanAccountForSystemReservationsWithoutTrustingSwap() {
+        val gib = 1_073_741_824L
+        val kernel = gib * 69 / 10
+        val abi = listOf("arm64-v8a")
+        val model = LocalModelCatalog.gemma4E2b
+        assertFalse(LocalModelEligibility.isEligible(model, kernel, abi))
+        assertTrue(LocalModelEligibility.isEligible(model, kernel, abi, advertisedMemoryBytes = 8 * gib))
+        assertFalse(LocalModelEligibility.isEligible(model, kernel, abi, isLowRamDevice = true, advertisedMemoryBytes = 8 * gib))
+        assertFalse(LocalModelEligibility.isEligible(model, 6 * gib, abi, advertisedMemoryBytes = 8 * gib))
+        assertFalse(LocalModelEligibility.isEligible(model, kernel, abi, advertisedMemoryBytes = 16 * gib))
+    }
     @Test
     fun newModelsAreGatedIndependently() {
         val abi = setOf("arm64-v8a")

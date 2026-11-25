@@ -4,80 +4,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Add a meal · Fud AI</title>
-  <meta name="theme-color" content="#000000" />
+  <meta name="theme-color" content="#fffdfc" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121214" media="(prefers-color-scheme: dark)">
   <meta name="robots" content="noindex" />
   <meta name="referrer" content="no-referrer" />
 
   <!-- Social preview (WhatsApp/iMessage show this card for the link) -->
   <meta property="og:title" content="Someone shared a meal with you" />
   <meta property="og:description" content="Open in Fud AI to add it to your log in one tap." />
-  <meta property="og:image" content="https://www.fud-ai.app/assets/opengraph.jpg?v=20261020" />
+  <meta property="og:image" content="https://www.fud-ai.app/assets/flash-preview.jpg" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <link rel="icon" href="/assets/fud-app-icon-180.png" type="image/png" />
   <link rel="apple-touch-icon" href="/assets/fud-app-icon-180.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400..700&display=swap" rel="stylesheet" />
-
-  <style>
-    :root {
-      --pink: #ff375f;
-      --surface: #1c1c1e;
-      --surface-2: #2c2c2e;
-      --label: #fff;
-      --label-2: rgba(235, 235, 245, 0.66);
-      --hairline: rgba(255, 255, 255, 0.09);
-      --font: 'Geist', ui-sans-serif, system-ui, sans-serif;
-      color-scheme: dark;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { background: #000; }
-    body {
-      font-family: var(--font);
-      background: radial-gradient(70% 45% at 50% 0%, rgba(255, 55, 95, 0.24), transparent 70%), #000;
-      color: var(--label);
-      min-height: 100svh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 28px 16px calc(28px + env(safe-area-inset-bottom));
-      -webkit-font-smoothing: antialiased;
-    }
-    .card {
-      width: 100%;
-      max-width: 440px;
-      background: var(--surface);
-      border-radius: 28px;
-      padding: 26px 22px 24px;
-      box-shadow: inset 0 0 0 1px var(--hairline), 0 40px 80px -40px rgba(0, 0, 0, 0.9);
-    }
-    .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 18px; letter-spacing: -0.03em; margin-bottom: 22px; }
-    .brand img { width: 32px; height: 32px; padding: 3px; border-radius: 9px; background: var(--label); }
-    h1 { font-weight: 600; font-size: 28px; line-height: 1.08; letter-spacing: -0.035em; margin-bottom: 8px; }
-    .sub { color: var(--label-2); font-size: 15px; line-height: 1.5; margin-bottom: 18px; }
-    .meal { display: flex; align-items: center; gap: 14px; padding: 13px 0; border-top: 1px solid var(--hairline); }
-    .meal:last-of-type { border-bottom: 1px solid var(--hairline); }
-    .emoji { width: 44px; height: 44px; flex: none; display: flex; align-items: center; justify-content: center; font-size: 24px; background: var(--surface-2); border-radius: 14px; }
-    .meal .name { font-weight: 600; font-size: 16px; line-height: 1.3; }
-    .meal .macros { color: var(--label-2); font-size: 13px; margin-top: 2px; font-variant-numeric: tabular-nums; }
-    .meal .kcal { margin-left: auto; color: var(--pink); font-weight: 600; font-size: 16px; white-space: nowrap; font-variant-numeric: tabular-nums; }
-    .total { text-align: right; font-weight: 600; font-size: 14px; margin: 14px 0 0; color: var(--label-2); font-variant-numeric: tabular-nums; }
-    .cta { display: block; width: 100%; margin-top: 22px; background: var(--label); color: #000; font-family: var(--font); font-weight: 600; font-size: 16px; text-align: center; text-decoration: none; padding: 16px; border: none; border-radius: 999px; cursor: pointer; }
-    .cta:hover { box-shadow: 0 16px 44px -14px rgba(255, 55, 95, 0.75); }
-    .cta:active { transform: translateY(1px); }
-    .note { text-align: center; color: var(--label-2); font-size: 13px; margin-top: 14px; line-height: 1.5; }
-    .note a { color: var(--label); text-decoration: underline; text-decoration-color: rgba(255, 55, 95, 0.7); text-underline-offset: 0.2em; }
-    .stores { display: flex; gap: 10px; justify-content: center; margin-top: 14px; }
-    .stores a { color: var(--label); text-decoration: none; font-size: 14px; font-weight: 600; border-radius: 999px; padding: 10px 16px; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.24); }
-    .stores a:hover { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5); }
-    a:focus-visible { outline: 2px solid var(--label); outline-offset: 3px; }
-    .err { color: var(--label-2); font-size: 15px; line-height: 1.55; }
-  </style>
+  <link rel="stylesheet" href="/flash.css?v=10">
 </head>
-<body>
-  <main class="card">
+<body class="utility">
+  <main class="utility-card">
     <div class="brand">
       <img src="/assets/fud-app-icon.webp" alt="" />
       Fud AI
@@ -111,8 +55,8 @@
     function r(n) { return Math.round(Number(n) || 0); }
 
     function storesHtml() {
-      return '<div class="stores"><a rel="noreferrer" href="' + APP_STORE + '">App Store</a>' +
-             '<a rel="noreferrer" href="' + PLAY_STORE + '">Google Play</a></div>';
+      return '<div class="actions"><a class="button" rel="noreferrer" href="' + APP_STORE + '">App Store</a>' +
+             '<a class="button" rel="noreferrer" href="' + PLAY_STORE + '">Google Play</a></div>';
     }
 
     function render() {
@@ -149,10 +93,10 @@
         '<p class="sub">Add it to your Fud AI log — with the exact nutrients, no re-scanning.</p>' +
         rows +
         (meals.length > 1 ? '<div class="total">' + r(total) + ' kcal total</div>' : "") +
-        '<a class="cta" id="open" href="' + esc(fudaiLink) + '">Add to Fud AI</a>' +
+        '<a class="button primary cta" id="open" href="' + esc(fudaiLink) + '">Add to Fud AI</a>' +
         '<p class="note">Opens the app to confirm. Don\'t have Fud AI yet?</p>' +
         storesHtml() +
-        '<p class="note">The meal details shown above are contained in this shared URL. <a href="/privacy.html">Privacy</a></p>';
+        '<p class="note">The meal details shown above are contained in this shared URL. <a href="/privacy">Privacy</a></p>';
 
       // Best-effort auto-open for users who already have the app.
       setTimeout(function () { try { window.location.href = fudaiLink; } catch (e) {} }, 350);

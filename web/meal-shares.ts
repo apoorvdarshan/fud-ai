@@ -8,7 +8,7 @@ const headers = {
   "Referrer-Policy": "no-referrer",
   "X-Content-Type-Options": "nosniff",
   "X-Robots-Tag": "noindex, nofollow, noarchive",
-  "Content-Security-Policy": "default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'",
+  "Content-Security-Policy": "default-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'",
 };
 interface Meal { name: string; calories: number; protein: number; carbs: number; fat: number; }
 interface Payload { v: 1; meals: Meal[]; }
@@ -53,8 +53,8 @@ export async function handleMealShareRequest(request: Request, env: Env): Promis
     const summary = stored.payload.meals.map(meal => `${meal.name} — ${meal.calories} kcal`);
     const title = summary.join(" · ").slice(0, 300);
     const meals = stored.payload.meals.map(meal => `<li><strong>${escapeHtml(meal.name)}</strong><br>${meal.calories} kcal · ${meal.protein}P · ${meal.carbs}C · ${meal.fat}F</li>`).join("");
-    return page(title, `<h2>Shared meals</h2><ul>${meals}</ul>
-      <p><a class="button" href="fudai://add-meal?d=${encoded}">Open in Fud AI</a></p>
+    return page(title, `<ul>${meals}</ul>
+      <p><a class="button primary" href="fudai://add-meal?d=${encoded}">Open in Fud AI</a></p>
       <p><a href="${ORIGIN}/add-meal?d=${encoded}">Try the app link</a></p>
       <p>This link expires after seven days. Importing adds a copy to your diary.</p>
       <p>Need the app? <a href="https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726">App Store</a> · <a href="https://play.google.com/store/apps/details?id=com.apoorvdarshan.calorietracker">Google Play</a></p>`, 200, request.method === "HEAD");
@@ -124,8 +124,10 @@ function page(title: string, body: string, status: number, head: boolean): Respo
     <meta name="viewport" content="width=device-width, initial-scale=1"><meta name="referrer" content="no-referrer">
     <title>${escapeHtml(title)} · Fud AI</title><meta property="og:title" content="${escapeHtml(title)}">
     <meta property="og:description" content="Open in Fud AI to add these shared meals to your diary."><meta property="og:type" content="website">
-    <style>body{font-family:system-ui,sans-serif;background:#0c0b09;color:#f2ede3;margin:0;padding:24px}main{max-width:480px;margin:40px auto;padding:24px;background:#15130e;border-radius:24px;overflow-wrap:anywhere}a{color:#ff6b7a}li{margin-bottom:16px}.button{display:inline-block;padding:14px;border-radius:12px;background:#ff6b7a;color:#0c0b09;font-weight:bold}</style>
-    </head><body><main><h1>Fud AI</h1>${body}<p><a href="/privacy.html">Privacy</a></p></main></body></html>`, {
+    <link rel="stylesheet" href="/flash.css?v=10"><link rel="icon" href="/assets/fud-app-icon-180.png">
+    </head><body class="utility"><main class="utility-card">
+    <a class="brand" href="/" aria-label="Fud AI home"><img src="/assets/fud-app-icon-180.png" alt="" width="34" height="34">Fud AI</a>
+    <h1>${status === 200 ? "Shared meals" : escapeHtml(title)}</h1>${body}<p class="note"><a href="/privacy">Privacy</a></p></main></body></html>`, {
     status, headers: { ...headers, "Content-Type": "text/html; charset=utf-8" },
   });
 }

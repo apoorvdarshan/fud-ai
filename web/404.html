@@ -4,45 +4,62 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex">
-  <meta name="theme-color" content="#000000">
+  <meta name="theme-color" content="#fffdfc" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121214" media="(prefers-color-scheme: dark)">
   <title>Page not found · Fud AI</title>
   <link rel="icon" href="/assets/fud-app-icon-180.png" type="image/png">
 <link rel="apple-touch-icon" href="/assets/fud-app-icon-180.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400..700&display=swap">
-  <style>
-    html { background: #000; color-scheme: dark; }
-    body {
-      margin: 0;
-      min-height: 100svh;
-      display: grid;
-      place-items: center;
-      padding: 24px 16px;
-      box-sizing: border-box;
-      background: radial-gradient(60% 50% at 50% 40%, rgba(255, 55, 95, 0.22), transparent 70%), #000;
-      color: #fff;
-      font-family: "Geist", ui-sans-serif, system-ui, sans-serif;
-      font-size: 1.0625rem;
-      line-height: 1.55;
-      text-align: center;
-      -webkit-font-smoothing: antialiased;
-    }
-    main { width: min(100%, 34rem); }
-    .icon { width: 64px; height: 64px; margin: 0 auto; padding: 10px; border-radius: 18px; background: #fff; box-sizing: border-box; box-shadow: 0 0 60px rgba(255, 55, 95, 0.6); }
-    h1 { margin: 28px 0 12px; font-weight: 600; font-size: clamp(2.75rem, 2rem + 4vw, 4.5rem); line-height: 0.98; letter-spacing: -0.045em; }
-    p { margin: 0 auto; max-width: 26em; color: rgba(235, 235, 245, 0.66); }
-    a.home { display: inline-flex; align-items: center; min-height: 44px; margin-top: 28px; padding: 0 20px; border-radius: 999px; background: #fff; color: #000; font-weight: 600; text-decoration: none; }
-    a.home:hover { box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.14); }
-    a:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
-  </style>
+  <link rel="stylesheet" href="/flash.css?v=10">
 </head>
 <body>
-  <main>
-    <img class="icon" src="/assets/fud-app-icon.webp" alt="Fud AI" width="64" height="64">
-    <h1>Page not found</h1>
-    <p>The link may be old or mistyped. Everything about Fud AI starts from the home page.</p>
-    <a class="home" href="/">Go to the home page</a>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header" id="site-head">
+    <div class="shell masthead">
+      <a class="brand" href="/" aria-label="Fud AI home"><img src="/assets/fud-app-icon-180.png" alt="" width="34" height="34">Fud AI</a>
+      <nav aria-label="Main navigation">
+        <a href="/#features">Features</a>
+        <a href="/#screens">Screens</a>
+        <a href="/#plans">AI options</a>
+        <a href="/#faq">FAQ</a>
+      </nav>
+      <a class="button compact" href="/#get">Get the app</a>
+    </div>
+  </header>
+  <main class="shell doc" id="main">
+    <div class="legal-content">
+      <p class="edition"><span aria-hidden="true"></span> Error 404</p>
+      <h1>Page not found</h1>
+      <p class="lede">The link may be old or mistyped.</p>
+      <a class="button primary" href="/">Go to the home page</a>
+    </div>
   </main>
+  <footer class="shell site-footer">
+    <div><a class="brand" href="/"><img src="/assets/fud-app-icon-180.png" alt="" width="30" height="30">Fud AI</a><p id="ownership">Fud AI is the sole proprietorship of Apoorv Darshan. <a href="https://verceltics.com/#ownership">Verceltics</a> is a software product developed and operated under Fud AI.</p></div>
+    <nav aria-label="App">
+      <span class="footer-heading" aria-hidden="true">App</span>
+      <a href="/#features">Features</a><a href="/#faq">Questions</a>
+      <a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Service</a>
+    </nav>
+    <nav aria-label="Guides">
+      <span class="footer-heading" aria-hidden="true">Guides</span>
+      <a href="/free-ai-calorie-tracker">Free AI calorie tracker</a><a href="/open-source-calorie-tracker">Open-source tracker</a>
+      <a href="/ai-food-scanner">AI food scanner</a><a href="/vs-cal-ai">Fud AI vs Cal AI</a>
+    </nav>
+    <nav aria-label="Project">
+      <span class="footer-heading" aria-hidden="true">Project</span>
+      <a href="https://github.com/apoorvdarshan/fud-ai">GitHub</a><a href="https://github.com/apoorvdarshan/fud-ai/releases">Releases</a>
+      <a href="https://github.com/apoorvdarshan/fud-ai/issues/new?template=bug_report.yml">Report a bug</a>
+      <a href="https://github.com/apoorvdarshan/fud-ai/issues/new?template=feature_request.yml">Request a feature</a>
+      <a href="mailto:apoorv@fud-ai.app">Contact</a>
+    </nav>
+    <nav aria-label="Community">
+      <span class="footer-heading" aria-hidden="true">Community</span>
+      <a href="https://discord.gg/Py4VrFctP3">Discord</a>
+      <a href="https://www.producthunt.com/products/fud-ai">Product Hunt</a>
+      <a href="https://www.linkedin.com/company/fud-ai-app">LinkedIn</a>
+      <a href="https://x.com/apoorvdarshan">X</a><a href="https://ko-fi.com/apoorvdarshan">Ko-fi</a>
+    </nav>
+    <div class="footer-base"><span>© 2026 Apoorv Darshan</span><a href="https://github.com/apoorvdarshan/fud-ai/blob/main/LICENSE">MIT License</a><a href="/sitemap.xml">Sitemap</a></div>
+  </footer>
 </body>
 </html>

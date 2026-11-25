@@ -37,6 +37,8 @@ describe("short meal shares", () => {
     const html = await page.text();
     expect(html).toContain("🥚 Eggs &lt;script&gt;&quot;&amp;");
     expect(html).not.toContain('<script>');
+    expect(html).toContain('href="/flash.css?');
+    expect(html).toContain('class="utility-card"');
     const encoded = html.match(/fudai:\/\/add-meal\?d=([A-Za-z0-9_-]+)/)![1];
     const bytes = Uint8Array.from(atob(encoded.replace(/-/g, "+").replace(/_/g, "/")), char => char.charCodeAt(0));
     expect(JSON.parse(new TextDecoder().decode(bytes))).toEqual(payload);
@@ -45,6 +47,7 @@ describe("short meal shares", () => {
     expect(page.headers.get("Referrer-Policy")).toBe("no-referrer");
     expect(page.headers.get("Cache-Control")).toBe("no-store");
     expect(page.headers.get("Content-Security-Policy")).toContain("default-src 'none'");
+    expect(page.headers.get("Content-Security-Policy")).toContain("style-src 'self'");
     expect(page.headers.get("X-Robots-Tag")).toContain("noindex");
   });
   it.each(["bad", "a/b", "../m/bad"])("rejects invalid IDs without KV access: %s", async value => {

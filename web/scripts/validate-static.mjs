@@ -1,10 +1,12 @@
 import { access, readFile } from "node:fs/promises";
+import { syncChrome } from "./sync-chrome.mjs";
 
 const requiredFiles = [
   "404.html",
   "_headers",
   "add-meal.html",
   "ai-food-scanner.html",
+  "assets/voice-demo/conversation.mp3",
   "free-ai-calorie-tracker.html",
   "flash.css",
   "flash-demo.js",
@@ -20,18 +22,24 @@ const requiredFiles = [
 ];
 
 await Promise.all(requiredFiles.map((file) => access(file)));
+await syncChrome();
 
-// Verify the landing page's local assets and navigation, including legal section links.
-const homepage = await readFile("index.html", "utf8");
-for (const [, path] of homepage.matchAll(/\b(?:href|src)="((?:\/(?!\/)|#)[^"]*)"/g)) {
-  const url = new URL(path, "https://www.fud-ai.app/");
-  const pathname = url.pathname.slice(1);
-  const file = pathname ? pathname.includes(".") ? pathname : `${pathname}.html` : "index.html";
-  if (url.hash) {
-    const document = file === "index.html" ? homepage : await readFile(file, "utf8");
-    if (!document.includes(`id="${url.hash.slice(1)}"`)) throw new Error(`Missing landing page destination ${path}`);
-  } else {
-    await access(file);
+// Check internal assets and anchors on each public HTML page, not just home.
+const documents = new Map(await Promise.all(
+  requiredFiles.filter((name) => name.endsWith(".html")).map(async (name) => [name, await readFile(name, "utf8")]),
+));
+for (const [name, html] of documents) {
+  if (!html.includes('href="/flash.css?')) throw new Error(`${name} does not load the Flash theme`);
+  for (const [, path] of html.matchAll(/\b(?:href|src)="((?:\/(?!\/)|#)[^"]*)"/g)) {
+    const url = new URL(path, `https://www.fud-ai.app/${name}`);
+    const pathname = url.pathname.slice(1);
+    const file = pathname ? pathname.includes(".") ? pathname : `${pathname}.html` : "index.html";
+    if (url.hash) {
+      const target = documents.get(file) ?? await readFile(file, "utf8");
+      if (!target.includes(`id="${url.hash.slice(1)}"`)) throw new Error(`${name}: missing destination ${path}`);
+    } else {
+      await access(file);
+    }
   }
 }
 

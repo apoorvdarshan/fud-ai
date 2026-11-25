@@ -31,8 +31,11 @@ final class VoiceAssistantNavigator {
 
     // What the app shows (reported by the views).
     var currentScreen: VoiceAssistantScreen = .home
-    var homeDiaryDate: Date = .now
-    var workoutDiaryDate: Date = .now
+    var homeDiaryDate: Date
+    var workoutDiaryDate: Date
+    private var lastObservedToday: Date
+    @ObservationIgnored private let clock: () -> Date
+    @ObservationIgnored private let calendar: Calendar
     var settingsSection: ProfileSettingsCategory?
     /// The tab bar's and home indicator's height, so the compact assistant sits
     /// where the Home orb button is, above the tab bar.
@@ -46,12 +49,48 @@ final class VoiceAssistantNavigator {
     private(set) var workoutDateRequest: VoiceAssistantNavigationRequest<Date>?
     private(set) var foodEntryRequest: VoiceAssistantNavigationRequest<UUID>?
 
+    init(clock: @escaping () -> Date = Date.init, calendar: Calendar = .autoupdatingCurrent) {
+        let now = clock()
+        self.clock = clock
+        self.calendar = calendar
+        homeDiaryDate = now
+        workoutDiaryDate = now
+        lastObservedToday = now
+    }
+
+    /// A date that was "today" follows the local clock; browsing a past day does not.
+    /// Call on foreground, system day changes and voice entry, even if Home is hidden.
+    func refreshDiaryDates() {
+        let now = clock()
+        let previous = lastObservedToday
+        guard !calendar.isDate(previous, inSameDayAs: now) else { return }
+        lastObservedToday = now
+        if calendar.isDate(homeDiaryDate, inSameDayAs: previous) {
+            homeDiaryDate = now
+            if diaryDateRequest.map({ calendar.isDate($0.value, inSameDayAs: previous) }) == true {
+                diaryDateRequest = VoiceAssistantNavigationRequest(value: now)
+            }
+        }
+        let workoutDay = workoutDateRequest?.value ?? workoutDiaryDate
+        if calendar.isDate(workoutDay, inSameDayAs: previous) {
+            workoutDiaryDate = now
+            workoutDateRequest = VoiceAssistantNavigationRequest(value: now)
+        }
+    }
+
+    func currentWorkoutDiaryDate() -> Date {
+        refreshDiaryDates()
+        return workoutDateRequest?.value ?? (currentScreen == .workouts ? workoutDiaryDate : clock())
+    }
+
     func show(_ screen: VoiceAssistantScreen, settingsSection: ProfileSettingsCategory? = nil) {
         screenRequest = VoiceAssistantNavigationRequest(value: screen)
         settingsRequest = VoiceAssistantNavigationRequest(value: settingsSection)
     }
 
     func showDiary(on day: Date) {
+        refreshDiaryDates()
+        homeDiaryDate = day
         show(.home)
         diaryDateRequest = VoiceAssistantNavigationRequest(value: day)
     }
@@ -62,13 +101,17 @@ final class VoiceAssistantNavigator {
     }
 
     func showWorkoutDiary(on day: Date) {
+        refreshDiaryDates()
+        workoutDiaryDate = day
         show(.workouts)
         workoutDateRequest = VoiceAssistantNavigationRequest(value: day)
     }
 
     func takeWorkoutDateRequest() -> Date? {
-        defer { workoutDateRequest = nil }
-        return workoutDateRequest?.value
+        guard let day = workoutDateRequest?.value else { return nil }
+        workoutDiaryDate = day
+        workoutDateRequest = nil
+        return day
     }
 
     func takeScreenRequest() -> VoiceAssistantScreen? {

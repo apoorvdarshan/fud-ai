@@ -87,9 +87,8 @@ class AndroidVoiceAppPorts(
         return ScreenState(screen, section)
     }
 
-    override fun diaryDate(): LocalDate = navigator.homeDiaryDate.value
-    override fun workoutDiaryDate(): LocalDate? =
-        navigator.workoutDiaryDate.value.takeIf { navigator.currentRoute.value == FudAIRoutes.WORKOUTS }
+    override fun diaryDate(): LocalDate = navigator.currentHomeDiaryDate()
+    override fun workoutDiaryDate(): LocalDate? = navigator.currentWorkoutDiaryDate()
 
     override fun hiddenScreens(): Set<VoiceScreen> {
         val hidden = navigator.hiddenTabs.value

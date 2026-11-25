@@ -60,6 +60,7 @@ object VoiceInstructions {
         lines += "- Never call a tool with user_confirmed: true unless the user agreed to that exact change. When a tool answers confirmation_required, the app shows a card with Confirm and Cancel; ask the user, and call again with user_confirmed: true only after they agree."
         lines += "- Messages starting with ${VoiceToolExecutor.APP_NOTE} come from the app, not the user: they report what the user tapped on a card. Never repeat an action they say is done."
         lines += "- Dates are the user's local calendar. Use yyyy-MM-dd, or today / yesterday where a tool accepts them."
+        lines += "- When logging, omit the date unless the user specifies one. Use today or yesterday when the tool accepts relative dates; get_app_state reports the current local date, which can change during the session."
         lines += "- Avoid medical advice; suggest a doctor when it matters."
         lines += "- When the user says goodbye or asks you to stop, say a short goodbye and call end_conversation."
         lines += ""

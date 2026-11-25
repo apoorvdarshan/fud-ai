@@ -1,5 +1,9 @@
 package com.apoorvdarshan.calorietracker.ui.navigation
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import androidx.activity.compose.ReportDrawnWhen
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
@@ -36,6 +40,7 @@ import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.LayoutDirection
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
@@ -173,16 +178,32 @@ internal fun FudAINavHost(
     val lifecycleOwner = LocalLifecycleOwner.current
     var launchFillEpoch by remember { mutableIntStateOf(1) }
     var hasStopped by remember { mutableStateOf(false) }
-    DisposableEffect(lifecycleOwner) {
+    DisposableEffect(lifecycleOwner, container.navigator) {
         val observer = LifecycleEventObserver { _, event ->
             when (event) {
                 Lifecycle.Event.ON_STOP -> hasStopped = true
-                Lifecycle.Event.ON_START -> if (hasStopped) { launchFillEpoch++; hasStopped = false }
+                Lifecycle.Event.ON_START -> {
+                    container.navigator.refreshDiaryDates()
+                    if (hasStopped) { launchFillEpoch++; hasStopped = false }
+                }
                 else -> {}
             }
         }
         lifecycleOwner.lifecycle.addObserver(observer)
         onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
+    }
+    DisposableEffect(context, container.navigator) {
+        val receiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context, intent: Intent) {
+                container.navigator.refreshDiaryDates()
+            }
+        }
+        val filter = IntentFilter(Intent.ACTION_DATE_CHANGED).apply {
+            addAction(Intent.ACTION_TIME_CHANGED)
+            addAction(Intent.ACTION_TIMEZONE_CHANGED)
+        }
+        ContextCompat.registerReceiver(context, receiver, filter, ContextCompat.RECEIVER_NOT_EXPORTED)
+        onDispose { context.unregisterReceiver(receiver) }
     }
 
     // Shows a tab like a tap on the bar. It reads the live route, so requests from outside

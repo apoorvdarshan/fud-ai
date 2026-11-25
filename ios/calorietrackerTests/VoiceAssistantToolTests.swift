@@ -334,6 +334,48 @@ struct VoiceAssistantToolTests {
         #expect(Calendar.current.isDate(entry.timestamp, inSameDayAs: yesterday))
     }
 
+    @Test func actionButtonAfterMidnightLogsOnTheNewDayButExplicitYesterdayStillWorks() async throws {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = try #require(TimeZone(identifier: "Asia/Kolkata"))
+        let elevenPm = try #require(calendar.date(from: DateComponents(year: 2026, month: 11, day: 25, hour: 23)))
+        let oneAm = elevenPm.addingTimeInterval(2 * 3600)
+        var now = elevenPm
+        let navigator = VoiceAssistantNavigator(clock: { now }, calendar: calendar)
+        navigator.currentScreen = .coach // The Home view does not have to be visible to refresh.
+        let controller = VoiceAssistantController(navigator: navigator)
+        let harness = VoiceAssistantHarness(confirmSaves: false, navigationHost: controller, clock: { now }, calendar: calendar)
+
+        now = oneAm
+        controller.start() // Same path used by Talk to Fud AI, without attaching a live provider in this test.
+        #expect(navigator.homeDiaryDate == oneAm)
+        let current = await harness.executor.execute(name: "log_food", arguments: ["item": ["name": "Apple", "calories": 95]])
+        #expect(current["ok"] as? Bool == true)
+        #expect(harness.food.entries.first { $0.name == "Apple" }?.timestamp == oneAm)
+
+        let past = await harness.executor.execute(name: "log_food", arguments: ["item": ["name": "Pear", "calories": 100], "date": "yesterday"])
+        #expect(past["ok"] as? Bool == true)
+        let pear = try #require(harness.food.entries.first { $0.name == "Pear" })
+        #expect(calendar.isDate(pear.timestamp, inSameDayAs: elevenPm))
+        #expect(calendar.isDate(navigator.homeDiaryDate, inSameDayAs: oneAm))
+    }
+
+    @Test func rolloverPreservesAnExplicitPastDiaryAndUsesPendingWorkoutDatesImmediately() throws {
+        let calendar = Calendar.current
+        let start = Date.now
+        var clock = start
+        let navigator = VoiceAssistantNavigator(clock: { clock }, calendar: calendar)
+        let past = try #require(calendar.date(byAdding: .day, value: -2, to: start))
+        navigator.homeDiaryDate = past
+        clock = try #require(calendar.date(byAdding: .day, value: 1, to: start))
+        navigator.refreshDiaryDates()
+        #expect(navigator.homeDiaryDate == past)
+        #expect(navigator.workoutDiaryDate == clock)
+
+        navigator.showWorkoutDiary(on: past)
+        #expect(navigator.currentWorkoutDiaryDate() == past)
+        #expect(navigator.takeWorkoutDateRequest() == past)
+    }
+
     @Test func foodCannotBeLoggedWhileFasting() async {
         let harness = VoiceAssistantHarness(confirmSaves: false)
         _ = harness.fasting.start(goalMinutes: 16 * 60, at: harness.now.addingTimeInterval(-3600))
@@ -915,7 +957,11 @@ final class VoiceAssistantHarness {
         var profile = UserProfile.default
     }
 
-    init(confirmSaves: Bool, workoutDiary: Bool = true, corruptBackupDirectory: URL? = nil) {
+    init(
+        confirmSaves: Bool, workoutDiary: Bool = true, corruptBackupDirectory: URL? = nil,
+        navigationHost: (any VoiceAssistantToolHost)? = nil, clock: (() -> Date)? = nil,
+        calendar: Calendar = .current
+    ) {
         defaults = UserDefaults(suiteName: suite)!
         food = FoodStore(observesExternalChanges: false, defaults: defaults, corruptBackupDirectory: corruptBackupDirectory)
         water = WaterStore(defaults: defaults)
@@ -928,7 +974,7 @@ final class VoiceAssistantHarness {
         self.chat = chat
         settings.confirmSaves = confirmSaves
         // The real time: Undo cards expire against the clock.
-        now = .now
+        now = clock?() ?? .now
         host.homeDiaryDate = now
         host.workoutDiaryDate = now
         let now = now
@@ -950,8 +996,9 @@ final class VoiceAssistantHarness {
             cards: cards,
             analyzer: analyzer,
             workoutDiaryEnabled: workoutDiary,
-            host: host,
-            now: { now },
+            host: navigationHost ?? host,
+            now: clock ?? { now },
+            calendar: calendar,
             coachHistory: { chat.contextMessages() }
         )
     }

@@ -207,6 +207,7 @@ final class VoiceAssistantController {
 
     /// Opens the assistant: starts a session, or explains how to get access.
     func start() {
+        navigator.refreshDiaryDates()
         switch presentation {
         case .session:
             isExpanded = true
@@ -1039,8 +1040,11 @@ extension VoiceAssistantController: VoiceAssistantToolHost {
     var sessionProvider: LiveProvider? { provider }
     var currentScreen: VoiceAssistantScreen { navigator.currentScreen }
     var currentSettingsSection: ProfileSettingsCategory? { navigator.settingsSection }
-    var homeDiaryDate: Date { navigator.homeDiaryDate }
-    var workoutDiaryDate: Date { navigator.currentScreen == .workouts ? navigator.workoutDiaryDate : .now }
+    var homeDiaryDate: Date {
+        navigator.refreshDiaryDates()
+        return navigator.homeDiaryDate
+    }
+    var workoutDiaryDate: Date { navigator.currentWorkoutDiaryDate() }
 
     func open(_ screen: VoiceAssistantScreen, settingsSection: ProfileSettingsCategory?) {
         closeCamera()

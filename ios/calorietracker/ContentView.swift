@@ -286,8 +286,15 @@ struct ContentView: View {
             }
             .onChange(of: scenePhase) { _, newPhase in
                 if newPhase == .active {
+                    assistantNavigator.refreshDiaryDates()
                     consumePendingLaunchRoutes()
                 }
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged)) { _ in
+                assistantNavigator.refreshDiaryDates()
+            }
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.significantTimeChangeNotification)) { _ in
+                assistantNavigator.refreshDiaryDates()
             }
             .onChange(of: voiceAssistant.presentation, initial: true) { _, presentation in
                 VoiceAssistantWindowManager.shared.setVisible(presentation != .hidden)
@@ -604,7 +611,7 @@ struct ContentView: View {
 
     private func consumePendingLaunchRoutes() {
         // Siri, the Action Button and the Control Center control open the assistant.
-        if VoiceAssistantLaunchRequest.consumePending() {
+        if UIApplication.shared.applicationState != .background, VoiceAssistantLaunchRequest.consumePending() {
             voiceAssistant.start()
         }
         if let action = QuickActionCoordinator.consumePending() {
@@ -1330,7 +1337,10 @@ struct HomeView: View {
     @State private var analysisTask: Task<Void, Never>?
     /// Progress of the running analysis, so the analyzing sheet can show stage and elapsed time.
     @State private var analysisProgressTracker = AnalysisProgressTracker()
-    @State private var selectedDate: Date = .now
+    private var selectedDate: Date {
+        get { assistantNavigator.homeDiaryDate }
+        nonmutating set { assistantNavigator.homeDiaryDate = newValue }
+    }
     @State private var showVoicePopover = false
     @State private var showTextPopover = false
     @State private var showManualPopover = false
@@ -1913,8 +1923,8 @@ private var dailyStepsTaskKey: String {
                         }
                 }
             }
-            .onChange(of: selectedDate, initial: true) { _, date in
-                assistantNavigator.homeDiaryDate = date
+            .onChange(of: selectedDate) { _, _ in
+                selectedFoodIDs.removeAll()
             }
             .onChange(of: assistantNavigator.diaryDateRequest?.id) { _, _ in
                 handleAssistantRequests()
@@ -1937,9 +1947,8 @@ private var dailyStepsTaskKey: String {
 
     /// The voice assistant shows a diary day or opens a logged food for editing.
     private func handleAssistantRequests() {
-        if let day = assistantNavigator.takeDiaryDateRequest() {
+        if assistantNavigator.takeDiaryDateRequest() != nil {
             selectedFoodIDs.removeAll()
-            selectedDate = day
         }
         guard let entryID = assistantNavigator.takeFoodEntryRequest(),
               let entry = foodStore.entries.first(where: { $0.id == entryID }) else { return }
@@ -1957,17 +1966,18 @@ private var dailyStepsTaskKey: String {
         // so SwiftUI invalidates this view on every profile mutation.
         let _ = profileStore.profile
         let neo = neoAppearance.palette
+        @Bindable var navigator = assistantNavigator
         return NavigationStack {
             List {
                 // Keep the calendar and nutrition summary together without a
                 // system section gutter between the calendar and energy.
                 Section {
-                    PinkNeoDateHeader(date: $selectedDate)
+                    PinkNeoDateHeader(date: $navigator.homeDiaryDate)
                         .listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)
                         .listRowInsets(EdgeInsets(top: 4, leading: 10, bottom: 4, trailing: 10))
                     WeekEnergyStrip(
-                        selectedDate: $selectedDate,
+                        selectedDate: $navigator.homeDiaryDate,
                         caloriesForDate: { foodStore.calories(for: $0) },
                         calorieGoal: calorieGoal
                     )

@@ -202,6 +202,7 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
 
     /** Opens the assistant (orb button, tile, shortcut, widget). Already running: just expands it. */
     fun requestStart() {
+        container.navigator.refreshDiaryDates()
         container.voicePreview.stop()
         if (isActive) {
             expand()

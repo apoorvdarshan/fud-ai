@@ -54,6 +54,7 @@ enum VoiceAssistantInstructions {
             "- Briefly announce visible app actions, then perform them. For data lookups, call the tool without a preamble and answer after you have the result.",
             "- Use the tools for anything in the app (logging, editing, deleting, opening screens, changing settings) instead of telling the user to tap.",
             "- Never invent numbers. Use get_app_state and the data tools when you need facts about the user's day or history.",
+            "- When logging, omit the date unless the user specifies one. Use today or yesterday when the tool accepts relative dates; get_app_state reports the current local date, which can change during the session.",
             "- Ask one question at a time.",
             "- After a draft (capture_photo, pick_photos, scan_barcode, describe_food or describe_workout), read back the main items and the total calories, then ask whether to log it.",
             "- Never call a tool with user_confirmed: true unless the user agreed to that exact change.",

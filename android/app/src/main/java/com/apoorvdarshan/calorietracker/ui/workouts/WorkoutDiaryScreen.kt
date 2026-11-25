@@ -251,6 +251,7 @@ internal fun WorkoutDiaryScreen(
         val day = pendingVoiceDate ?: return@LaunchedEffect
         if (container.navigator.pendingWorkoutDiaryDate.compareAndSet(day, null)) {
             viewModel.selectDate(day)
+            container.navigator.workoutDiaryDate.value = day
         }
     }
     LaunchedEffect(state.selectedDate) {

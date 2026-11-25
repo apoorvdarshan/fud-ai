@@ -216,7 +216,7 @@ final class VoiceAssistantToolExecutor {
         workoutDiaryEnabled: Bool,
         host: (any VoiceAssistantToolHost)?,
         now: @escaping () -> Date = Date.init,
-        calendar: Calendar = .current,
+        calendar: Calendar = .autoupdatingCurrent,
         coachHistory: @escaping () -> [ChatMessage] = { [] }
     ) {
         self.specs = specs ?? VoiceAssistantToolCatalog.bundled

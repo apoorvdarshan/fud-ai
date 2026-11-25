@@ -220,10 +220,11 @@ Store-release matches the staged assets by file name and byte size, so
 `ios.creative.sizes` in [`store-release.toml`](store-release.toml) pins both.
 Update the pin in the same change when replacing either file.
 
-To change an image, commit it under a new file name and update the pin in the same
-change. The next release with `IOS_UPLOAD_CREATIVE_ASSETS` on uploads it, sends it to
-App Review in a submission of its own, and places it on the version once Apple has
-approved it, which is usually by the following release.
+With `IOS_UPLOAD_CREATIVE_ASSETS` and `IOS_SUBMIT_REVIEW` both on, the
+`with-version` review mode adds new artwork to the app version's App Review
+submission. With app review off, the artwork uses its own submission. With artwork
+off, the app can be submitted on its own. Approved artwork is placed while the
+version can be edited.
 
 ## Verifying Android downloads
 

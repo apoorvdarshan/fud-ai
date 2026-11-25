@@ -96,6 +96,7 @@ required = false
 
 [ios.creative]
 dir = "store/creative/ios"
+review_mode = "with-version"
 
 # The approved upload files staged in the Asset Library for 9.0.
 # App Store Connect matches images by file name and byte size, so Store checks and every

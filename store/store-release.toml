@@ -96,13 +96,14 @@ required = false
 
 [ios.creative]
 dir = "store/creative/ios"
+review_mode = "with-version"
 
-# The images the live Asset Library holds (approved and placed on 7.1.2, 2026-10-20).
+# The approved upload files staged in the Asset Library for 9.0.
 # App Store Connect matches images by file name and byte size, so Store checks and every
 # prepare fail when these change, until this list is updated.
 [ios.creative.sizes]
-"header/fud-ai-header-orb-horizon.png" = 1763332
-"search-results/fud-ai-search-voice.png" = 2670930
+"header/01-product-page-header.png" = 5459501
+"search-results/02-search-results.png" = 7637085
 
 [ios.products]
 iap_route = "submission"

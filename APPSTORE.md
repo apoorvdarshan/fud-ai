@@ -154,18 +154,17 @@ Free forever = full app + BYOK. Hosted AI is optional on iOS; no free hosted quo
 
 ## Reviewer Notes
 ```
-1) iPhone only — not optimized for iPad. Please review on iPhone.
-2) There is no conventional user account or sign-in — the app is privacy-first and local-first. AI features use a "bring your own key" (BYOK) provider key. For review, a working Google Gemini API key is provided in App Review Information (entered in the Sign-In password field). To enable all AI features: on the "Set Up Your AI" onboarding step (or Settings → AI Access), Provider = Google Gemini, Model = gemini-3.5-flash-lite (the default), paste the provided key into API Key, then Accept & Continue. The API Key field hint ("Paste Gemini API key") is placeholder text only — it is not a filled key. After accepting Terms, Accept & Continue is tappable; if the key field is still empty it explains that a real key must be pasted.
-3) With the key set, all AI features work immediately — Camera/Photos multi-image analysis, Text/Voice logging, "What if?" preview, and AI Coach chat. Logging any meal fills the food log, Home dashboard, and Progress charts; no account or Fud AI server data is needed. (A free Gemini key can also be created at https://aistudio.google.com/apikey.)
-4) The legacy Fud AI Premium subscription from v4.4 remains discontinued. Core tracking is free forever with Bring Your Own Key — there is no required paywall.
-5) Optional monetization on iOS (StoreKit via RevenueCat; sandbox testing available):
-   Tip Jar (consumables; unlock nothing):
-   • com.apoorvdarshan.calorietracker.tip.snack — $0.99
-   • com.apoorvdarshan.calorietracker.tip.proteinshake — $2.99
-   • com.apoorvdarshan.calorietracker.tip.lunch — $4.99
-   • com.apoorvdarshan.calorietracker.tip.feast — $9.99
-   Optional Plus/Pro hosted AI subscriptions and credit packs (Settings → AI Access / onboarding Hosted path). Free users stay on BYOK with no hosted quota. Product IDs are listed under “v7 Hosted AI products” above.
-6) The app shows no ads and does not request tracking.
-7) To review intermittent fasting: Settings → Fasting Tracking, enable it, choose a goal, then use Home → + → Start Fast. It is local-only, does not modify nutrition totals, and can be ended or cancelled at any time.
-8) To review the optional Weekly Challenge: Progress → Weekly Challenge. Before enrollment, no leaderboard data is fetched. Enrollment requires explicit 18+ and Community Rules confirmations, a 2–40 character public display name, and optionally exactly one X or Instagram handle. The disclosure shows the exact weekly aggregate payload. Joined users can report or locally block every other participant and manage blocked participants. “Leave & Delete Remote Data” deletes the public profile and scores; Settings → Delete All Data also attempts remote deletion first and safely retries after a connection failure. No date of birth or raw health/food/workout records are uploaded.
+Fud AI 9.0 supports iPhone and iPad, with a companion Apple Watch app. This update brings the Flash design to Home, the food diary, Settings, widgets, and Apple Watch.
+
+Onboarding: There is no Fud AI account or required purchase. At the AI setup step, choose Bring Your Own AI and Google Gemini, keep the default model, and paste the review key from App Review Information into the in-app API Key field before continuing. This is a provider key, not a Fud AI account password. If the app is already set up, find the same options in Settings → AI Access.
+
+Core review path: After onboarding, use Home → + → Manual Entry or Barcode to log a meal. Neither feature sends an AI request. Open the food diary and Progress to see the result. The app has no ads and does not request tracking.
+
+AI review path: Try photo or text meal analysis, or open the orb on Home to try Brulee Live Voice after granting microphone access. Live Voice uses a separate live model and requires provider access to that model. For example, say “I had a bowl of oatmeal and a banana.”
+
+Optional purchases: Plus/Pro Hosted AI subscriptions and credit packs are available from AI Access or the Hosted AI onboarding path; the Tip Jar is optional and unlocks nothing. Core tracking and the bring-your-own-key option do not require a subscription.
+
+Optional Challenges: Open the Challenge card in Progress. The Weekly, Daily, and Monthly challenges have separate opt-ins. Participation requires confirming age 18+ and accepting the Community Rules. Leaderboards receive a public display name and aggregate scores, not raw meal, workout, or Apple Health records. Participants can report or block other users and leave to delete their remote challenge data.
+
+Optional Health and fasting: Apple Health is opt-in. Fasting can be enabled in Settings and started from Home → +. Fasting is local-only and can be ended or cancelled.
 ```

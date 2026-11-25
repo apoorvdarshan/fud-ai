@@ -34,7 +34,7 @@ concurrency:
 
 jobs:
   gates:
-    uses: apoorvdarshan/store-release/.github/workflows/android-gates.yml@79d5027d05c07d09ca074989e4eccefb985eb2a0 # v0.5.1
+    uses: apoorvdarshan/store-release/.github/workflows/android-gates.yml@ef647eae9a28a7d190e45f59c6a2114d88f4a55a # v0.6.0
     permissions:
       contents: read
       actions: read
@@ -56,7 +56,7 @@ jobs:
       !cancelled() && needs.gates.result == 'success' && needs.gates.outputs.build == 'true' &&
       (needs.quality.result == 'success' ||
        (needs.gates.outputs.mode == 'validate' && needs.quality.result == 'skipped'))
-    uses: apoorvdarshan/store-release/.github/workflows/android-publish.yml@79d5027d05c07d09ca074989e4eccefb985eb2a0 # v0.5.1
+    uses: apoorvdarshan/store-release/.github/workflows/android-publish.yml@ef647eae9a28a7d190e45f59c6a2114d88f4a55a # v0.6.0
     permissions:
       contents: write
       id-token: write
@@ -85,7 +85,7 @@ jobs:
   store-plan:
     needs: gates
     if: github.event_name == 'workflow_dispatch' && needs.gates.result == 'success'
-    uses: apoorvdarshan/store-release/.github/workflows/android-store-plan.yml@79d5027d05c07d09ca074989e4eccefb985eb2a0 # v0.5.1
+    uses: apoorvdarshan/store-release/.github/workflows/android-store-plan.yml@ef647eae9a28a7d190e45f59c6a2114d88f4a55a # v0.6.0
     permissions:
       contents: read
     with:

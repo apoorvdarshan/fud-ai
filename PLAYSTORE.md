@@ -139,12 +139,10 @@ Console path: **Policy and programs → App content → Actioned → Sign in det
 **Any other information** (≤500 chars — paste as-is):
 
 ```
-No account/login. Password field = Google Gemini API key for review only.
+No Fud AI account is required. The Password field above contains the Gemini review key, not an account password.
 
-1. Finish onboarding with any test values; skip notifications and Health Connect.
-2. On Bring Your Own AI: keep Google Gemini + the preselected model, paste the key into API Key, tap Continue.
-3. Key is reusable; no 2FA or location lock. All features work after that, including AI food log / coach.
-Plus/Pro (Settings → AI Access) is optional; BYOK gives full access.
+1. During onboarding, choose Bring Your Own AI and Google Gemini. Keep the default model and paste the key into API Key before continuing. Notifications and Health Connect are optional.
+2. On Home, use + → Manual Entry, try photo or text logging, or tap the orb for Brulee Live Voice and grant microphone access.
 ```
 
 After Apply → Save, if Publishing overview lists pending changes, **Send for review**.

@@ -4,6 +4,9 @@ compatibility_date = "2026-07-10"
 workers_dev = false
 preview_urls = false
 
+[build]
+command = "npm run build"
+
 # Keep scheduled announcement errors. The dashboard setting alone is wiped
 # by the next deploy if this block is missing.
 [observability]

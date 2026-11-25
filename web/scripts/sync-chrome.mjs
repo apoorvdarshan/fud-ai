@@ -19,10 +19,15 @@ const chrome = [
 // Keep the shell in the HTML (no JavaScript or network needed for navigation).
 // After changing the homepage header, footer, or theme version, run:
 //   node web/scripts/sync-chrome.mjs --write
-export async function syncChrome(write = false) {
+export async function readChrome() {
   const homepage = await readFile(main, "utf8");
   const source = chrome.map((pattern) => homepage.match(pattern)?.[0]);
   if (source.some((part) => !part)) throw new Error("Shared site chrome is missing from index.html");
+  return source;
+}
+
+export async function syncChrome(write = false) {
+  const source = await readChrome();
   for (const name of pages) {
     const url = new URL(`../${name}`, import.meta.url);
     const html = await readFile(url, "utf8");

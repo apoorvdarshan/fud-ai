@@ -2,9 +2,10 @@
   "name": "fud-ai-web",
   "private": true,
   "scripts": {
-    "build": "node scripts/validate-static.mjs",
+    "build": "node scripts/build-guides.mjs && node scripts/validate-static.mjs",
     "check": "npm run typecheck && npm test && npm run build",
     "test": "vitest run",
+    "sitemap": "node scripts/build-guides.mjs && node scripts/sitemap.mjs --write",
     "typecheck": "tsc --noEmit",
     "types": "wrangler types worker-configuration.d.ts --include-runtime false"
   },

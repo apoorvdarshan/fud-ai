@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="waiting_fact_measure_per_100g">%1$s: %2$s لكل ١٠٠ غ</string>
+    <string name="waiting_fact_prep_raw">نيء</string>
+    <string name="waiting_fact_prep_raw_skin">نيء مع القشرة</string>
+    <string name="waiting_fact_prep_dried">مجفف</string>
+    <string name="waiting_fact_prep_boiled_no_salt">مسلوق دون ملح مضاف</string>
+    <string name="waiting_fact_prep_cooked_no_salt">مطهو دون ملح مضاف</string>
+    <string name="waiting_fact_prep_cooked">مطهو</string>
+    <string name="waiting_fact_prep_baked_skin_no_salt">مخبوز مع القشرة دون ملح مضاف</string>
+    <string name="waiting_fact_prep_baked_flesh_no_salt">اللب المخبوز دون ملح مضاف</string>
+    <string name="waiting_fact_prep_roasted_no_salt">محمص دون ملح مضاف</string>
+    <string name="waiting_fact_prep_hard_boiled">مسلوق جيدًا</string>
+    <string name="waiting_fact_prep_plain_whole_milk">طبيعي، من حليب كامل الدسم</string>
+    <string name="waiting_fact_prep_roasted">محمص</string>
+    <string name="waiting_fact_prep_no_salt">دون ملح مضاف</string>
+</resources>

@@ -1,0 +1,141 @@
+# USDA FDC ID	preparation	English display name	English Wikipedia title for Wikidata labels
+171688	raw_skin	Apple	Apple
+171697	raw	Apricot	Apricot
+171705	raw	Avocado	Avocado
+173944	raw	Banana	Banana
+173946	raw	Blackberry	Blackberry
+171711	raw	Blueberry	Blueberry
+171719	raw	Sweet cherry	Prunus avium
+171722	raw	Cranberry	Cranberry
+173021	raw	Fig	Fig
+174683	raw	Grapes	Grape
+173033	raw	Grapefruit	Grapefruit
+173044	raw	Guava	Guava
+168153	raw	Green kiwi	Kiwifruit
+167746	raw	Lemon	Lemon
+168155	raw	Lime	Lime (fruit)
+169910	raw	Mango	Mango
+169092	raw	Cantaloupe	Cantaloupe
+169911	raw	Honeydew melon	Honeydew (melon)
+169914	raw	Nectarine	Nectarine
+169097	raw	Orange	Orange (fruit)
+169926	raw	Papaya	Papaya
+169928	raw	Yellow peach	Peach
+169118	raw	Pear	Pear
+169949	raw	Plum	Plum
+169134	raw	Pomegranate	Pomegranate
+167755	raw	Raspberry	Raspberry
+167762	raw	Strawberry	Strawberry
+169105	raw	Mandarin orange	Mandarin orange
+167765	raw	Watermelon	Watermelon
+169108	raw	Passion fruit	Passiflora edulis
+169941	raw	Japanese persimmon	Diospyros kaki
+169086	raw	Lychee	Lychee
+169913	raw	Mulberry	Mulberry
+168162	dried	Prune	Prune
+168165	dried	Dark seedless raisin	Raisin
+168191	plain	Medjool date	Medjool
+167759	raw	Sapodilla	Manilkara zapota
+167763	raw	Tamarind	Tamarind
+174687	raw	Jackfruit	Jackfruit
+169089	raw	Longan	Longan
+168386	boiled_no_salt	Globe artichoke	Artichoke
+168389	raw	Asparagus	Asparagus
+169145	raw	Beetroot	Beetroot
+170379	raw	Broccoli	Broccoli
+169967	boiled_no_salt	Broccoli	Broccoli
+170383	raw	Brussels sprouts	Brussels sprout
+169975	raw	Cabbage	Cabbage
+169977	raw	Red cabbage	Red cabbage
+170393	raw	Carrot	Carrot
+170394	boiled_no_salt	Carrot	Carrot
+169986	raw	Cauliflower	Cauliflower
+169988	raw	Celery	Celery
+169991	raw	Swiss chard	Chard
+170406	raw	Collard greens	Collard (plant)
+168409	raw_skin	Cucumber	Cucumber
+169229	boiled_no_salt	Eggplant	Eggplant
+169385	raw	Fennel bulb	Fennel
+169230	raw	Garlic	Garlic
+169231	raw	Ginger	Ginger
+168421	raw	Kale	Kale
+169246	raw	Leek	Leek
+169247	raw	Romaine lettuce	Romaine lettuce
+169248	raw	Iceberg lettuce	Iceberg lettuce
+169251	raw	White button mushroom	Agaricus bisporus
+168437	cooked_no_salt	Shiitake mushroom	Shiitake
+168580	raw	Oyster mushroom	Pleurotus ostreatus
+169261	boiled_no_salt	Okra	Okra
+170000	raw	Onion	Onion
+170417	raw	Parsnip	Parsnip
+170420	boiled_no_salt	Green peas	Pea
+170108	raw	Red bell pepper	Bell pepper
+170427	raw	Green bell pepper	Bell pepper
+170093	baked_skin_no_salt	Potato	Potato
+168449	boiled_no_salt	Pumpkin	Pumpkin
+169276	raw	Radish	Radish
+168462	raw	Spinach	Spinach
+168463	boiled_no_salt	Spinach	Spinach
+169291	raw_skin	Zucchini	Zucchini
+169296	baked_flesh_no_salt	Butternut squash	Butternut squash
+168483	baked_flesh_no_salt	Sweet potato	Sweet potato
+170050	cooked	Red tomato	Tomato
+170465	raw	Turnip	Turnip
+170068	raw	Watercress	Watercress
+170072	cooked_no_salt	Yam	Yam (vegetable)
+169999	boiled_no_salt	Yellow sweet corn	Sweet corn
+169387	raw	Arugula	Eruca vesicaria
+170400	raw	Celeriac	Celeriac
+168424	raw	Kohlrabi	Kohlrabi
+168455	boiled_no_salt	Rutabaga	Rutabaga
+168486	cooked_no_salt	Taro	Taro
+170390	raw	Bok choy	Bok choy
+173757	boiled_no_salt	Chickpeas	Chickpea
+172421	boiled_no_salt	Lentils	Lentil
+173735	boiled_no_salt	Black beans	Black turtle bean
+175194	boiled_no_salt	Red kidney beans	Kidney bean
+175200	boiled_no_salt	Pinto beans	Pinto bean
+173746	boiled_no_salt	Navy beans	Navy bean
+170378	boiled_no_salt	Fava beans	Vicia faba
+173759	boiled_no_salt	Cowpeas	Cowpea
+174257	boiled_no_salt	Mung beans	Mung bean
+172429	boiled_no_salt	Split peas	Split pea
+174271	boiled_no_salt	Soybeans	Soybean
+168411	cooked	Edamame	Edamame
+168917	cooked	Quinoa	Quinoa
+169704	cooked	Long-grain brown rice	Brown rice
+170686	cooked	Roasted buckwheat groats	Buckwheat
+170285	cooked	Pearl barley	Pearl barley
+170287	cooked	Bulgur	Bulgur
+168871	cooked	Millet	Millet
+168873	cooked	Oat bran	Oat bran
+170683	cooked	Amaranth grain	Amaranth grain
+168918	cooked	Teff	Teff
+168897	cooked	Wild rice	Wild rice
+169700	cooked	Couscous	Couscous
+170567	plain	Almonds	Almond
+170569	dried	Brazil nuts	Brazil nut
+170162	raw	Cashews	Cashew
+170581	plain	Hazelnuts	Hazelnut
+170178	raw	Macadamia nuts	Macadamia
+170182	plain	Pecans	Pecan
+170591	dried	Pine nuts	Pine nut
+170184	raw	Pistachios	Pistachio
+170187	plain	English walnuts	Juglans regia
+173806	roasted_no_salt	Peanuts	Peanut
+170554	dried	Chia seeds	Salvia hispanica
+169414	plain	Flaxseed	Flax
+170556	dried	Pumpkin seed kernels	Pumpkin seed
+170150	dried	Whole sesame seeds	Sesame
+170562	dried	Sunflower seed kernels	Sunflower seed
+170148	plain	Hulled hemp seeds	Hemp
+172467	cooked	Tempeh	Tempeh
+173424	hard_boiled	Whole egg	Egg as food
+171284	plain_whole_milk	Yogurt	Yogurt
+173414	plain	Cheddar cheese	Cheddar cheese
+173420	plain	Feta	Feta
+171998	cooked	Wild Atlantic salmon	Atlantic salmon
+173718	cooked	Farmed rainbow trout	Rainbow trout
+171477	roasted	Chicken breast, meat only	Chicken as food
+172470	no_salt	Smooth peanut butter	Peanut butter
+173905	cooked_no_salt	Oatmeal	Oatmeal

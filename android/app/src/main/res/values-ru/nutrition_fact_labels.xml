@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="waiting_fact_measure_per_100g">%1$s: %2$s на 100 г</string>
+    <string name="waiting_fact_prep_raw">В сыром виде</string>
+    <string name="waiting_fact_prep_raw_skin">В сыром виде, с кожурой</string>
+    <string name="waiting_fact_prep_dried">В сушёном виде</string>
+    <string name="waiting_fact_prep_boiled_no_salt">Отварено без добавления соли</string>
+    <string name="waiting_fact_prep_cooked_no_salt">Приготовлено без добавления соли</string>
+    <string name="waiting_fact_prep_cooked">В приготовленном виде</string>
+    <string name="waiting_fact_prep_baked_skin_no_salt">Запечено с кожурой, без добавления соли</string>
+    <string name="waiting_fact_prep_baked_flesh_no_salt">Запечённая мякоть без добавления соли</string>
+    <string name="waiting_fact_prep_roasted_no_salt">Обжарено без добавления соли</string>
+    <string name="waiting_fact_prep_hard_boiled">Сварено вкрутую</string>
+    <string name="waiting_fact_prep_plain_whole_milk">Натуральный, из цельного молока</string>
+    <string name="waiting_fact_prep_roasted">В запечённом виде</string>
+    <string name="waiting_fact_prep_no_salt">Без добавления соли</string>
+</resources>

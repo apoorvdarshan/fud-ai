@@ -153,6 +153,7 @@ android {
             assets.srcDirs(
                 "src/main/assets",
                 "../../ios/calorietracker/Resources/FreeExerciseDB/dist",
+                "../../ios/calorietracker/Resources/WaitingFactsData",
                 "../../local-models/legal"
             )
         }

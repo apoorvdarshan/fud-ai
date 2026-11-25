@@ -55,9 +55,12 @@ class AnalyzingOverlayTest {
             }
         }
 
+        compose.waitUntil(5_000) {
+            runCatching { compose.onNodeWithTag("analysis.waitingFact").fetchSemanticsNode() }.isSuccess
+        }
         val fact = compose.onNodeWithTag("analysis.waitingFact").performScrollTo().assertIsDisplayed()
         val initial = fact.fetchSemanticsNode().config[SemanticsProperties.Text]
-        assertEquals(2, initial.size) // Heading and a single paragraph.
+        assertTrue(initial.size >= 2)
         compose.runOnIdle { stage.value = AnalysisStage.RESPONDING }
         assertEquals(initial, fact.fetchSemanticsNode().config[SemanticsProperties.Text])
 

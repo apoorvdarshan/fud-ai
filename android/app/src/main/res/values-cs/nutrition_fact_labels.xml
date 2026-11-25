@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="waiting_fact_measure_per_100g">%1$s: %2$s na 100 g</string>
+    <string name="waiting_fact_prep_raw">Syrové</string>
+    <string name="waiting_fact_prep_raw_skin">Syrové, se slupkou</string>
+    <string name="waiting_fact_prep_dried">Sušené</string>
+    <string name="waiting_fact_prep_boiled_no_salt">Vařené, bez přidané soli</string>
+    <string name="waiting_fact_prep_cooked_no_salt">Tepelně upravené, bez přidané soli</string>
+    <string name="waiting_fact_prep_cooked">Tepelně upravené</string>
+    <string name="waiting_fact_prep_baked_skin_no_salt">Pečené se slupkou, bez přidané soli</string>
+    <string name="waiting_fact_prep_baked_flesh_no_salt">Pečená dužina, bez přidané soli</string>
+    <string name="waiting_fact_prep_roasted_no_salt">Pražené, bez přidané soli</string>
+    <string name="waiting_fact_prep_hard_boiled">Vařené natvrdo</string>
+    <string name="waiting_fact_prep_plain_whole_milk">Bílé, z plnotučného mléka</string>
+    <string name="waiting_fact_prep_roasted">Pečené</string>
+    <string name="waiting_fact_prep_no_salt">Bez přidané soli</string>
+</resources>

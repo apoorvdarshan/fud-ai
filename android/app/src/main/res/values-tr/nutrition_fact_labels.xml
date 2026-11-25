@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="waiting_fact_measure_per_100g">%1$s: 100 g başına %2$s</string>
+    <string name="waiting_fact_prep_raw">Çiğ</string>
+    <string name="waiting_fact_prep_raw_skin">Çiğ, kabuklu</string>
+    <string name="waiting_fact_prep_dried">Kurutulmuş</string>
+    <string name="waiting_fact_prep_boiled_no_salt">Tuz eklenmeden haşlanmış</string>
+    <string name="waiting_fact_prep_cooked_no_salt">Tuz eklenmeden pişirilmiş</string>
+    <string name="waiting_fact_prep_cooked">Pişirilmiş</string>
+    <string name="waiting_fact_prep_baked_skin_no_salt">Tuz eklenmeden kabuğuyla fırınlanmış</string>
+    <string name="waiting_fact_prep_baked_flesh_no_salt">Tuz eklenmeden fırınlanmış iç kısım</string>
+    <string name="waiting_fact_prep_roasted_no_salt">Tuz eklenmeden kavrulmuş</string>
+    <string name="waiting_fact_prep_hard_boiled">Katı haşlanmış</string>
+    <string name="waiting_fact_prep_plain_whole_milk">Sade, tam yağlı sütten</string>
+    <string name="waiting_fact_prep_roasted">Fırınlanmış</string>
+    <string name="waiting_fact_prep_no_salt">Tuz eklenmemiş</string>
+</resources>

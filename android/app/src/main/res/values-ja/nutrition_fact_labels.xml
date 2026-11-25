@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="waiting_fact_measure_per_100g">%1$s：100 gあたり%2$s</string>
+    <string name="waiting_fact_prep_raw">生</string>
+    <string name="waiting_fact_prep_raw_skin">生、皮付き</string>
+    <string name="waiting_fact_prep_dried">乾燥</string>
+    <string name="waiting_fact_prep_boiled_no_salt">ゆで、食塩無添加</string>
+    <string name="waiting_fact_prep_cooked_no_salt">加熱済み、食塩無添加</string>
+    <string name="waiting_fact_prep_cooked">加熱済み</string>
+    <string name="waiting_fact_prep_baked_skin_no_salt">皮付きのまま焼いたもの、食塩無添加</string>
+    <string name="waiting_fact_prep_baked_flesh_no_salt">焼いた果肉、食塩無添加</string>
+    <string name="waiting_fact_prep_roasted_no_salt">ロースト、食塩無添加</string>
+    <string name="waiting_fact_prep_hard_boiled">固ゆで</string>
+    <string name="waiting_fact_prep_plain_whole_milk">プレーン、全乳使用</string>
+    <string name="waiting_fact_prep_roasted">ロースト</string>
+    <string name="waiting_fact_prep_no_salt">食塩無添加</string>
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="waiting_fact_measure_per_100g">%1$s: %2$s per 100 g</string>
+    <string name="waiting_fact_prep_raw">Raw</string>
+    <string name="waiting_fact_prep_raw_skin">Raw, with skin</string>
+    <string name="waiting_fact_prep_dried">Dried</string>
+    <string name="waiting_fact_prep_boiled_no_salt">Boiled, no added salt</string>
+    <string name="waiting_fact_prep_cooked_no_salt">Cooked, no added salt</string>
+    <string name="waiting_fact_prep_cooked">Cooked</string>
+    <string name="waiting_fact_prep_baked_skin_no_salt">Baked, with skin, no added salt</string>
+    <string name="waiting_fact_prep_baked_flesh_no_salt">Baked flesh, no added salt</string>
+    <string name="waiting_fact_prep_roasted_no_salt">Roasted, no added salt</string>
+    <string name="waiting_fact_prep_hard_boiled">Hard-boiled</string>
+    <string name="waiting_fact_prep_plain_whole_milk">Plain, whole milk</string>
+    <string name="waiting_fact_prep_roasted">Roasted</string>
+    <string name="waiting_fact_prep_no_salt">No added salt</string>
+</resources>

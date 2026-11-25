@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="waiting_fact_measure_per_100g">%1$s: %2$s por 100 g</string>
+    <string name="waiting_fact_prep_raw">Cru</string>
+    <string name="waiting_fact_prep_raw_skin">Cru, com casca</string>
+    <string name="waiting_fact_prep_dried">Seco</string>
+    <string name="waiting_fact_prep_boiled_no_salt">Fervido, sem adição de sal</string>
+    <string name="waiting_fact_prep_cooked_no_salt">Cozido, sem adição de sal</string>
+    <string name="waiting_fact_prep_cooked">Cozido</string>
+    <string name="waiting_fact_prep_baked_skin_no_salt">Assado com casca, sem adição de sal</string>
+    <string name="waiting_fact_prep_baked_flesh_no_salt">Polpa assada, sem adição de sal</string>
+    <string name="waiting_fact_prep_roasted_no_salt">Torrado, sem adição de sal</string>
+    <string name="waiting_fact_prep_hard_boiled">Cozido até ficar firme</string>
+    <string name="waiting_fact_prep_plain_whole_milk">Natural, de leite integral</string>
+    <string name="waiting_fact_prep_roasted">Assado</string>
+    <string name="waiting_fact_prep_no_salt">Sem adição de sal</string>
+</resources>

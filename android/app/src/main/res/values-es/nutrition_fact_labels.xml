@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="waiting_fact_measure_per_100g">%1$s: %2$s por cada 100 g</string>
+    <string name="waiting_fact_prep_raw">Crudo</string>
+    <string name="waiting_fact_prep_raw_skin">Crudo, con piel</string>
+    <string name="waiting_fact_prep_dried">Deshidratado</string>
+    <string name="waiting_fact_prep_boiled_no_salt">Hervido, sin sal añadida</string>
+    <string name="waiting_fact_prep_cooked_no_salt">Cocinado, sin sal añadida</string>
+    <string name="waiting_fact_prep_cooked">Cocinado</string>
+    <string name="waiting_fact_prep_baked_skin_no_salt">Horneado con piel, sin sal añadida</string>
+    <string name="waiting_fact_prep_baked_flesh_no_salt">Pulpa horneada, sin sal añadida</string>
+    <string name="waiting_fact_prep_roasted_no_salt">Tostado, sin sal añadida</string>
+    <string name="waiting_fact_prep_hard_boiled">Hervido, con la yema firme</string>
+    <string name="waiting_fact_prep_plain_whole_milk">Natural, de leche entera</string>
+    <string name="waiting_fact_prep_roasted">Asado</string>
+    <string name="waiting_fact_prep_no_salt">Sin sal añadida</string>
+</resources>

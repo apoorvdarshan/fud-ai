@@ -214,13 +214,11 @@ promo, social and launch graphics do not belong in the repository.
 
 ## Header and search results images (iOS)
 
-Fud AI's header (`fud-ai-header-orb-horizon.png`) and search results image
-(`fud-ai-search-voice.png`) were approved and placed on the live 7.1.2 page on
-2026-10-20. App Store Connect matches Asset Library images by file name and byte
-size, so `ios.creative.sizes` in [`store-release.toml`](store-release.toml) pins both:
-Store checks and every iOS release run fail when either changes, until the pin is
-updated. With `IOS_UPLOAD_CREATIVE_ASSETS` on, a release finds both in the Asset
-Library and never uploads them again.
+The 9.0 product-page header (`01-product-page-header.png`) and search-results image
+(`02-search-results.png`) were staged in App Store Connect's Asset Library.
+Store-release matches the staged assets by file name and byte size, so
+`ios.creative.sizes` in [`store-release.toml`](store-release.toml) pins both.
+Update the pin in the same change when replacing either file.
 
 To change an image, commit it under a new file name and update the pin in the same
 change. The next release with `IOS_UPLOAD_CREATIVE_ASSETS` on uploads it, sends it to

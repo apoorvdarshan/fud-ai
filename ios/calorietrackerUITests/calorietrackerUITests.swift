@@ -329,10 +329,24 @@ final class calorietrackerUITests: XCTestCase {
         workouts.tap()
 
         let values = [("kg", "25"), ("Reps", "8"), ("RPE", "6")]
+        let dock = app.buttons["workouts.shortcut.0"]
         for (placeholder, value) in values {
             let field = app.textFields.matching(NSPredicate(format: "placeholderValue == %@", placeholder)).firstMatch
             XCTAssertTrue(field.waitForExistence(timeout: 8))
-            reveal(field, in: app)
+            // In the compact rail layout XCTest can report a row as hittable
+            // even when the pinned workout dock or keyboard is in front of it.
+            func viewportBottom() -> CGFloat {
+                let keyboard = app.keyboards.firstMatch
+                if keyboard.exists, !keyboard.frame.isEmpty { return keyboard.frame.minY - 50 }
+                return dock.exists ? dock.frame.minY - 8 : app.frame.maxY - 100
+            }
+            for _ in 0..<3 {
+                if field.isHittable && field.frame.maxY < viewportBottom() { break }
+                let start = app.coordinate(withNormalizedOffset: CGVector(dx: 0.30, dy: min(0.70, (viewportBottom() - 8) / app.frame.height)))
+                let end = app.coordinate(withNormalizedOffset: CGVector(dx: 0.30, dy: 0.32))
+                start.press(forDuration: 0.05, thenDragTo: end)
+            }
+            XCTAssertLessThan(field.frame.maxY, viewportBottom(), "\(placeholder) must be above the dock or keyboard")
             field.tap()
             field.typeText(value)
             XCTAssertEqual(field.value as? String, value)

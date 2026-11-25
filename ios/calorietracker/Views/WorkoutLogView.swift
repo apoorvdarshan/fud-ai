@@ -1643,7 +1643,6 @@ private struct WorkoutLogSetValueField: View {
                     .allowsHitTesting(false)
             }
             .contentShape(Rectangle())
-            .simultaneousGesture(TapGesture().onEnded { focusedField.wrappedValue = focus })
     }
 }
 

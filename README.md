@@ -404,7 +404,8 @@ MIT License. See [LICENSE](LICENSE).
 - **Developer:** Apoorv Darshan
 - **Email:** apoorv@fud-ai.app or ad13dtu@gmail.com
 - **Discord:** [Join the Fud AI server](https://discord.gg/Py4VrFctP3) — use **`/ask`** in the server to get help from the Fud AI bot
-- **Follow on X:** [@apoorvdarshan](https://x.com/apoorvdarshan)
+- **Follow on X:** [@fudaiapp](https://x.com/fudaiapp)
+- **Follow on Instagram:** [@fudaiapp](https://www.instagram.com/fudaiapp/)
 - **Follow on LinkedIn:** [Fud AI](https://www.linkedin.com/company/fud-ai-app)
 - **Report an Issue:** [github.com/apoorvdarshan/fud-ai/issues/new?template=bug_report.yml](https://github.com/apoorvdarshan/fud-ai/issues/new?template=bug_report.yml)
 - **Request a Feature:** [github.com/apoorvdarshan/fud-ai/issues/new?template=feature_request.yml](https://github.com/apoorvdarshan/fud-ai/issues/new?template=feature_request.yml)

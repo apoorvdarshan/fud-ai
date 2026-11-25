@@ -124,7 +124,7 @@ function page(title: string, body: string, status: number, head: boolean): Respo
     <meta name="viewport" content="width=device-width, initial-scale=1"><meta name="referrer" content="no-referrer">
     <title>${escapeHtml(title)} · Fud AI</title><meta property="og:title" content="${escapeHtml(title)}">
     <meta property="og:description" content="Open in Fud AI to add these shared meals to your diary."><meta property="og:type" content="website">
-    <link rel="stylesheet" href="${ORIGIN}/flash.css?v=10"><link rel="icon" href="${ORIGIN}/assets/fud-app-icon-180.png">
+    <link rel="stylesheet" href="${ORIGIN}/flash.css?v=11"><link rel="icon" href="${ORIGIN}/assets/fud-app-icon-180.png">
     </head><body class="utility"><main class="utility-card">
     <a class="brand" href="/" aria-label="Fud AI home"><img src="${ORIGIN}/assets/fud-app-icon-180.png" alt="" width="34" height="34">Fud AI</a>
     <h1>${status === 200 ? "Shared meals" : escapeHtml(title)}</h1>${body}<p class="note"><a href="/privacy">Privacy</a></p></main></body></html>`, {

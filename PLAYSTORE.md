@@ -25,84 +25,50 @@ Fud AI - Calorie Tracker
 
 ## 2. Short Description
 
-**80 char hard cap per language. Cannot include price/promotion keywords ("free", "discount", "sale", "best", "#1", etc.) — Play Console will block promotion of the listing.** Live Play Store currently has "Snap, speak, or type a meal. AI logs the calories. Free & open source." which triggers the warning; replacement below drops "Free" while keeping the same rhythm. English-only on Play Console — non-English Play Store browsers see the English source as fallback.
+**80 char hard cap per language. Cannot include price/promotion keywords ("free", "discount", "sale", "best", "#1", etc.) — Play Console will block promotion of the listing.** English-only on Play Console — non-English Play Store browsers see the English source as fallback.
 
-### English (en-US) — 63 chars
+### English (en-US) — 65 chars
 ```
-Snap, speak, or type a meal. AI logs the calories. Open source.
+Log meals by photo, voice, or barcode. Track calories and macros.
 ```
 
 ---
 
 ## 3. Full Description
 
-**4000 char hard cap per language.** This is the long-form "About this app" copy. English-only on Play Console — non-English Play Store browsers see the English source as fallback (deliberate decision; the in-app UI is fully translated via per-locale `values-{lang}/strings.xml` so users still get a localized experience once installed).
+**4000 char hard cap per language.** This is the long-form "About this app" copy. Keep it accurate for the current production build as well as the next release; version-specific features belong in What's New. English-only on Play Console — non-English Play Store browsers see the English source as fallback.
 
 ### English (en-US)
 ```
-Fud AI makes calorie tracking effortless with AI-powered food recognition. Snap a photo, scan a barcode, speak it, or type it — get instant nutrition: calories, protein, carbs, fats, vitamins, minerals, and more.
+Fud AI is an open-source food diary, calorie tracker, and workout log. Take a photo, scan a barcode, or say what you ate. Review calories, protein, carbs, fat, and other nutrients before saving the meal.
 
-NEW in v8.0: Live Voice. Talk to Fud AI to log meals, scan barcodes and check progress. Also: workout rest timer and routines, Weekly Recap, Steps, kcal or kJ, share links, and Qwen.
+LOG MEALS YOUR WAY
+• Take or import up to 10 food photos in one analysis and add an optional note about portions or ingredients.
+• Scan a barcode to look up nutrition from Open Food Facts, type a meal description, or enter the details manually.
+• Talk to Brulee in Live Voice to describe a meal or check your progress. Open it from Home, Quick Settings, or a home-screen widget.
+• Reuse saved meals, copy meals from another day, or share a meal link.
 
-Nutrition adds custom goals plus caffeine, creatine, and other performance compounds. Optional fasting adds timers, editable history, goals, alerts, and Coach context. Android includes a daily calorie summary and clearer Health Connect guidance.
+REVIEW BEFORE YOU LOG
+Change the serving size or correct calories and individual nutrients before saving. Use What if? to see how a meal would change your day’s totals. Barcode lookup and manual logging don’t require an AI key.
 
-Open source, privacy-first. Bring your own API key, or pick an optional Plus/Pro plan.
+TRACK WHAT MATTERS TO YOU
+• Set calorie and macro targets, choose nutrient cards, and track fiber, sugar, sodium, vitamins, and other nutrients.
+• Review nutrition, weight, steps, and trends, including a Weekly Recap. Display energy in kcal or kJ.
+• Use optional water tracking and reminders, or keep a private fasting timer with editable history.
+• Add home-screen widgets for calories, protein, water, or other daily totals. Choose an accent that fits your home screen.
 
-WAYS TO LOG A MEAL
-• Camera — take up to 10 photos, add an optional note
-• Photos — import up to 10 images, add an optional note
-• Barcode — Open Food Facts lookup
-• Voice — 6 STT engines
-• Text — describe it, AI parses it
-• Manual Entry
-• Saved Meals — recents, frequent, favorites
-• Copy from Day — copy meals from another date
+PLAN AND LOG WORKOUTS
+Build routines or log a workout as you go. Record sets, reps, weight, and effort, use a rest timer, and browse exercises with photos and filters. Quickly log a walk or run. Optional Health Connect integration lets you choose which supported data to sync or import.
 
-AI PROVIDERS
-Use Gemini, OpenAI, Claude, Grok, Groq, OpenRouter, Together, Hugging Face, Fireworks, DeepInfra, Mistral, Alibaba Qwen, Ollama, or an OpenAI-compatible endpoint.
+CHOOSE HOW AI RUNS
+Bring your own API key for a supported provider, or choose an optional paid Plus or Pro plan for Hosted AI. AI Coach can answer questions about your goals and relevant diary or workout history when you ask. Estimates and coaching are informational, not medical advice.
 
-6 SPEECH-TO-TEXT ENGINES
-Native Android, Gemini, OpenAI Whisper, Groq, Deepgram, or AssemblyAI, with automatic or fixed language handling.
+OPEN SOURCE, NO ADS
+Core tracking has no required Fud AI account. Your diary is stored on your device unless you choose a feature such as backup, sharing, or health sync. AI requests use the provider or Hosted AI service you choose. The optional Weekly Challenge is 18+ and uses aggregate scores, not raw meal or workout logs.
 
-COACH
-Multi-turn chat can access profile, goals, food log, progress, workouts, and logged fasts when requested. It never assumes a missing meal means you fasted. Images supported.
-
-REVIEW BEFORE LOGGING
-Unlock Nutrition to correct calories, macros, and detailed nutrients before saving; serving changes then scale from your edits. What if? previews today's macro impact and can ask AI for a suggestion.
-
-WORKOUTS
-Plan by day; log sets, reps, weight, and RPE. Create custom exercises, autofill sets, and quick-log Walk/Run. Browse 877 exercises with photos, filters, search, sorting, and details.
-
-PERSONALIZED GOALS
-BMR and TDEE calculators, six activity levels, automatic or editable macro targets, and customizable meal-time boundaries.
-
-OPTIONAL NUTRIENT GOALS
-Set expanded nutrient goals separately from the macro calculator — fiber, sugar, fats, sodium, vitamins, minerals, and more. Use AI Estimate or set manually.
-
-WIDGETS
-Separate Calorie, Protein, Today, and Water widgets in the Home speedometer style. They refresh from local snapshots when you log.
-
-OPTIONAL WATER TRACKING
-Off by default. Set a daily goal, quick-log glasses or a custom amount, view progress below calories, schedule a reminder, and use the Water widget. Water stays on-device and is not sent to Health Connect.
-
-OPTIONAL FASTING TRACKING
-Off by default. Choose a 1–168 hour goal, start/end/cancel from Home +, keep the timer across restarts, optional local alerts, and edit completed sessions. Fasting stays on-device and is not sent to Health Connect.
-
-19 LANGUAGES
-Auto-selected by phone language: English, Spanish, French, German, Italian, Portuguese (BR), Dutch, Russian, Japanese, Korean, Chinese, Hindi, Arabic, Romanian, Azerbaijani, Polish, Czech, Ukrainian, Turkish.
-
-PRIVACY FIRST
-Core tracking needs no account; no analytics, behavioral tracking, or ads. The optional 18+ Weekly Challenge uploads only a display name, optional social handle, anonymous ID, and weekly aggregate milestones—never raw food, weight, meals, workouts, or Health Connect records. Keys encrypted; AI/STT requests go to your provider, or to Fud AI’s server on Plus/Pro. MIT licensed.
-
-HEALTH CONNECT
-Optional sync for nutrition, weight, body fat, and calculated workout calories, plus energy and daily step reads for Home and goal estimates. Records can restore after reinstall. Fasting is local-only.
-
-NOTE: Not medical advice. Estimates are AI-generated; consult a healthcare professional before significant diet changes.
-
-Terms: https://fud-ai.app/terms.html
-Privacy: https://fud-ai.app/privacy.html
+Terms: https://www.fud-ai.app/terms
+Privacy: https://www.fud-ai.app/privacy
 Source: https://github.com/apoorvdarshan/fud-ai
-
 ```
 
 ### Other languages

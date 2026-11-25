@@ -266,7 +266,7 @@ fun AboutSettingsRows(
                     open(FudAILinks.DISCORD)
                 }
                 Hairline()
-                AboutRow(Icons.Filled.AlternateEmail, stringResource(R.string.about_follow_x)) {
+                AboutRow(Icons.Filled.AlternateEmail, stringResource(R.string.about_follow_x), FudAILinks.SOCIAL_HANDLE) {
                     open(FudAILinks.X)
                 }
                 Hairline()
@@ -274,7 +274,7 @@ fun AboutSettingsRows(
                     open("https://www.linkedin.com/company/fud-ai-app")
                 }
                 Hairline()
-                AboutRow(Icons.Filled.CameraAlt, stringResource(R.string.about_follow_instagram)) {
+                AboutRow(Icons.Filled.CameraAlt, stringResource(R.string.about_follow_instagram), FudAILinks.SOCIAL_HANDLE) {
                     open(FudAILinks.INSTAGRAM)
                 }
             }

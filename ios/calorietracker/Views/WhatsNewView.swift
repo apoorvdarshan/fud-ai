@@ -590,9 +590,9 @@ private struct WhatsNewDeveloperPage: View {
             .fixedSize(horizontal: false, vertical: true)
 
             VStack(spacing: 0) {
-                socialRow("Follow on X", handle: "@apoorvdarshan", systemImage: "at", url: FudAILinks.x)
+                socialRow("Follow on X", handle: FudAILinks.socialHandle, systemImage: "at", url: FudAILinks.x)
                 Divider().padding(.leading, 52)
-                socialRow("Follow on Instagram", handle: "@apoorvcodes", systemImage: "camera.fill", url: FudAILinks.instagram)
+                socialRow("Follow on Instagram", handle: FudAILinks.socialHandle, systemImage: "camera.fill", url: FudAILinks.instagram)
             }
             .background(AppColors.appCard, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
 

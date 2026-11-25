@@ -11,9 +11,11 @@ function page({ reduceMotion = false, supported = true } = {}) {
     textContent = "";
   }
   const ids = ["#play-demo", "#hear-demo", "#demo-audio", ".voice-demo", "#demo-status",
-    "#demo-caption", "#demo-result", "#demo-note"];
+    "#demo-caption", "#demo-result", "#demo-note", ".voice-mascot", ".mascot-speaking"];
   const elements = Object.fromEntries(ids.map((id) => [id, new Element()]));
-  const [silent, sound, audio, demo, status, caption, result, note] = ids.map((id) => elements[id]);
+  const [silent, sound, audio, demo, status, caption, result, note, mascot, mouth] = ids.map((id) => elements[id]);
+  mouth.setAttribute = vi.fn();
+  let nextFrame;
   Object.assign(audio, {
     canPlayType: () => supported ? "probably" : "",
     play: vi.fn().mockResolvedValue(undefined),
@@ -27,9 +29,11 @@ function page({ reduceMotion = false, supported = true } = {}) {
     matchMedia: () => ({ matches: reduceMotion }),
     setTimeout,
     clearTimeout,
+    requestAnimationFrame(callback) { nextFrame = callback; return 1; },
+    cancelAnimationFrame() { nextFrame = undefined; },
   });
   const press = (el) => el.dispatchEvent(new Event("click"));
-  return { silent, sound, audio, demo, status, caption, result, note, press };
+  return { silent, sound, audio, demo, status, caption, result, note, mascot, mouth, press, frame: () => nextFrame?.() };
 }
 
 it("plays only on request and follows the recording through the draft and replay", () => {
@@ -70,4 +74,32 @@ it("still shows the sample result if playback is blocked", async () => {
   await Promise.resolve();
   expect(result.hidden).toBe(false);
   expect(note.textContent).toContain("Audio couldn’t play");
+});
+
+it("opens the mouth on speech, closes it on pauses and stops when playback stops", () => {
+  const { sound, audio, mascot, mouth, press, frame } = page();
+  press(sound);
+  audio.currentTime = 1.5;
+  frame();
+  expect(mascot.dataset.mouth).toBeUndefined();
+  audio.currentTime = 3.75;
+  frame();
+  expect(mascot.dataset.mouth).toBe("open");
+  expect(mouth.setAttribute).toHaveBeenCalledWith("d", expect.stringMatching(/^M.*Z$/));
+  audio.currentTime = 4.65;
+  frame();
+  expect(mascot.dataset.mouth).toBeUndefined();
+  press(sound);
+  audio.currentTime = 3.75;
+  frame();
+  expect(mascot.dataset.mouth).toBeUndefined();
+});
+
+it("plays audio without lip motion when reduced motion is enabled", () => {
+  const { sound, audio, mouth, press, frame } = page({ reduceMotion: true });
+  press(sound);
+  audio.currentTime = 3.75;
+  frame();
+  expect(audio.play).toHaveBeenCalled();
+  expect(mouth.setAttribute).not.toHaveBeenCalled();
 });

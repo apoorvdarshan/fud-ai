@@ -894,7 +894,12 @@ private struct AboutSettingsSections: View {
 
                 Link(destination: FudAILinks.x) {
                     Label {
-                        Text("Follow on X")
+                        VStack(alignment: .leading) {
+                            Text("Follow on X")
+                            Text(verbatim: FudAILinks.socialHandle)
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
                     } icon: {
                         Image(systemName: "at")
                             .foregroundStyle(AppColors.calorie)
@@ -914,7 +919,12 @@ private struct AboutSettingsSections: View {
 
                 Link(destination: FudAILinks.instagram) {
                     Label {
-                        Text("Follow on Instagram")
+                        VStack(alignment: .leading) {
+                            Text("Follow on Instagram")
+                            Text(verbatim: FudAILinks.socialHandle)
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
                     } icon: {
                         Image(systemName: "camera.fill")
                             .foregroundStyle(AppColors.calorie)

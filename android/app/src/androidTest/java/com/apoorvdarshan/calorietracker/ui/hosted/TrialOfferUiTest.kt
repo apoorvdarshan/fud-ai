@@ -24,6 +24,7 @@ import com.revenuecat.purchases.PackageType
 import com.revenuecat.purchases.PresentedOfferingContext
 import com.revenuecat.purchases.models.*
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.spyk
@@ -60,7 +61,7 @@ class TrialOfferUiTest {
     private lateinit var entitlement: MutableStateFlow<HostedEntitlement>
     private lateinit var offerings: MutableStateFlow<OfferingsState>
     private val generation = mutableStateOf(0)
-    private val startedPromptChecks = AtomicInteger()
+    private val completedPromptChecks = AtomicInteger()
     private lateinit var billing: BillingManager
     private lateinit var container: AppContainer
     private lateinit var router: HostedUiRouter
@@ -146,6 +147,7 @@ class TrialOfferUiTest {
         offerings.value = OfferingsState.Failed
         render()
         settlePrompt()
+        coVerify(exactly = 1) { billing.loadOfferings() }
         assertNoInvite()
         assertFalse(runBlocking { prefs.hasSeenHostedUpsellPrompt.first() })
         catalog(eligible = false)
@@ -158,6 +160,8 @@ class TrialOfferUiTest {
         coEvery { billing.refreshCustomerInfo() } returns false
         render()
         settlePrompt()
+        coVerify(exactly = 1) { billing.refreshCustomerInfo() }
+        coVerify(exactly = 0) { billing.loadOfferings() }
         assertNoInvite()
         assertFalse(runBlocking { prefs.hasSeenHostedUpsellPrompt.first() })
         coEvery { billing.refreshCustomerInfo() } returns true
@@ -257,9 +261,8 @@ class TrialOfferUiTest {
         compose.setContent {
             MaterialTheme {
                 key(generation.value) {
-                    HostedUpdateInviteHost(container, enabled = true, canPresent = {
-                        startedPromptChecks.incrementAndGet()
-                        true
+                    HostedUpdateInviteHost(container, enabled = true, onEligibilityChecked = {
+                        completedPromptChecks.incrementAndGet()
                     })
                 }
                 HostedUiHost(container)
@@ -269,7 +272,7 @@ class TrialOfferUiTest {
 
     private fun relaunchPrompt() {
         compose.runOnIdle {
-            startedPromptChecks.set(0)
+            completedPromptChecks.set(0)
             generation.value++
         }
     }
@@ -279,7 +282,7 @@ class TrialOfferUiTest {
         // The production prompt waits 2.5 seconds before reading persisted state.
         compose.mainClock.advanceTimeBy(3_000)
         compose.waitForIdle()
-        compose.waitUntil(5_000) { startedPromptChecks.get() > 0 }
+        compose.waitUntil(5_000) { completedPromptChecks.get() > 0 }
         compose.waitForIdle()
     }
 

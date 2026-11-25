@@ -17,11 +17,19 @@ import com.apoorvdarshan.calorietracker.services.hosted.HostedPrompt
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 
-/** The only post-update popup in 9.0, even for users skipping earlier versions. */
+/**
+ * The only post-update popup in 9.0, even for users skipping earlier versions.
+ * [onEligibilityChecked] fires after the decision completes, not when a check is cancelled.
+ */
 @Composable
-fun HostedUpdateInviteHost(container: AppContainer, enabled: Boolean, canPresent: () -> Boolean = { true }) {
-    val prefs = container.prefs
+internal fun HostedUpdateInviteHost(
+    container: AppContainer,
+    enabled: Boolean,
+    onEligibilityChecked: () -> Unit = {},
+    canPresent: () -> Boolean = { true },
+) {
     val canPresentNow by rememberUpdatedState(canPresent)
+    val eligibilityChecked by rememberUpdatedState(onEligibilityChecked)
     var showInvite by remember { mutableStateOf(false) }
 
     fun isSafeToPresent() =
@@ -30,24 +38,8 @@ fun HostedUpdateInviteHost(container: AppContainer, enabled: Boolean, canPresent
     LaunchedEffect(enabled) {
         if (!enabled) return@LaunchedEffect
         delay(2_500)
-        if (!isSafeToPresent() || !prefs.hasCompletedOnboarding.first() ||
-            prefs.hasSeenHostedUpsellPrompt.first()
-        ) return@LaunchedEffect
-
-        val billing = container.billing
-        // Check the subscription, not the saved AI mode: an expired subscriber can still have Hosted selected.
-        // Neither a failed entitlement refresh nor an empty catalog consumes the invite.
-        if (!billing.isAvailable || !billing.refreshCustomerInfo()) return@LaunchedEffect
-        if (billing.entitlement.value.isEntitled) {
-            prefs.setHasSeenHostedUpsellPrompt(true)
-            return@LaunchedEffect
-        }
-        billing.loadOfferings()
-        if (!billing.hasPurchasablePlans || billing.entitlement.value.isEntitled || !isSafeToPresent()
-        ) return@LaunchedEffect
-
-        prefs.setHasSeenHostedUpsellPrompt(true)
-        showInvite = true
+        if (shouldShowHostedUpdateInvite(container, ::isSafeToPresent)) showInvite = true
+        eligibilityChecked()
     }
 
     if (showInvite) {
@@ -73,4 +65,25 @@ fun HostedUpdateInviteHost(container: AppContainer, enabled: Boolean, canPresent
             )
         }
     }
+}
+
+private suspend fun shouldShowHostedUpdateInvite(container: AppContainer, isSafeToPresent: () -> Boolean): Boolean {
+    val prefs = container.prefs
+    if (!isSafeToPresent() || !prefs.hasCompletedOnboarding.first() ||
+        prefs.hasSeenHostedUpsellPrompt.first()
+    ) return false
+
+    val billing = container.billing
+    // Check the subscription, not the saved AI mode: an expired subscriber can still have Hosted selected.
+    // Neither a failed entitlement refresh nor an empty catalog consumes the invite.
+    if (!billing.isAvailable || !billing.refreshCustomerInfo()) return false
+    if (billing.entitlement.value.isEntitled) {
+        prefs.setHasSeenHostedUpsellPrompt(true)
+        return false
+    }
+    billing.loadOfferings()
+    if (!billing.hasPurchasablePlans || billing.entitlement.value.isEntitled || !isSafeToPresent()) return false
+
+    prefs.setHasSeenHostedUpsellPrompt(true)
+    return true
 }

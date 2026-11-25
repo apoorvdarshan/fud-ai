@@ -143,9 +143,12 @@ final class LocalSpeechModelManager {
             }
             let available = try root.resourceValues(forKeys: [.volumeAvailableCapacityForImportantUsageKey])
                 .volumeAvailableCapacityForImportantUsage
-            guard let available, available >= needed + 1_024 * 1_024 * 1_024 else {
+            guard let available, let reservation = LocalModelDownloadBudget.shared.reserve(
+                requiredBytes: needed + 1_024 * 1_024 * 1_024, availableBytes: available
+            ) else {
                 throw LocalSpeechError.storage
             }
+            defer { LocalModelDownloadBudget.shared.release(reservation) }
             var completeBytes: Int64 = 0
             for file in model.files {
                 try Task.checkCancellation()

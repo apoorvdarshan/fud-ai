@@ -492,16 +492,16 @@ struct WorkoutLogView: View {
                 .onChange(of: selectedDateKey) { _, _ in endReorderingIfNeeded() }
                 .onChange(of: selectedExercises.count) { _, _ in endReorderingIfNeeded() }
                 .onChange(of: focusedSetField) { oldValue, newValue in
-                    guard let exerciseID = newValue?.exerciseID,
-                          exerciseID != oldValue?.exerciseID
+                    guard let setID = newValue?.setID,
+                          setID != oldValue?.setID
                     else { return }
 
-                    revealFocusedExercise(exerciseID, in: proxy)
+                    revealFocusedSet(setID, in: proxy)
                 }
                 .onChange(of: restTimer.timer == nil) { _, _ in
                     // Filling the first reps starts rest and inserts a pinned bar.
                     // Reposition the edit row in the newly shortened viewport.
-                    if let id = focusedSetField?.exerciseID { revealFocusedExercise(id, in: proxy) }
+                    if let id = focusedSetField?.setID { revealFocusedSet(id, in: proxy) }
                 }
                 .safeAreaInset(edge: .bottom, spacing: 0) {
                     workoutDock
@@ -886,9 +886,9 @@ struct WorkoutLogView: View {
         dismissKeyboard()
     }
 
-    private func revealFocusedExercise(_ id: UUID, in proxy: ScrollViewProxy) {
+    private func revealFocusedSet(_ id: UUID, in proxy: ScrollViewProxy) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            guard focusedSetField?.exerciseID == id else { return }
+            guard focusedSetField?.setID == id else { return }
             withAnimation(.snappy(duration: 0.25)) {
                 proxy.scrollTo(id, anchor: .center)
             }
@@ -1377,6 +1377,7 @@ private struct WorkoutLogExerciseCard: View {
                                 isResting: restingSetID == set.id,
                                 startRest: startRest.map { start -> () -> Void in { start(set.id) } }
                             )
+                            .id(set.id)
 
                             if index < exercise.sets.count - 1 {
                                 Divider()

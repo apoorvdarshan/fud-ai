@@ -266,7 +266,8 @@ final class Gemma4LocalModelManager {
             try prepareRootDirectory()
             try removeUnverifiedArtifacts()
             let keptBytes = partialByteCount
-            try requireDownloadHeadroom(keptBytes: keptBytes)
+            let reservation = try reserveDownloadHeadroom(keptBytes: keptBytes)
+            defer { LocalModelDownloadBudget.shared.release(reservation) }
 
             state = .downloading(Double(keptBytes) / Double(variant.byteCount))
             // The partial file survives failures and relaunches. Every attempt asks the pinned
@@ -638,17 +639,19 @@ final class Gemma4LocalModelManager {
         }
     }
 
-    private func requireDownloadHeadroom(keptBytes: Int64) throws {
+    private func reserveDownloadHeadroom(keptBytes: Int64) throws -> UUID {
         let values = try rootDirectory.resourceValues(forKeys: [.volumeAvailableCapacityForImportantUsageKey])
         guard let available = values.volumeAvailableCapacityForImportantUsage else {
             throw LocalModelError.storageCapacityUnavailable
         }
-        guard Self.hasRequiredStorage(availableBytes: available, keptBytes: keptBytes, artifactBytes: variant.byteCount) else {
+        let required = Self.requiredStorageBytes(keptBytes: keptBytes, artifactBytes: variant.byteCount)
+        let budget = LocalModelDownloadBudget.shared
+        guard let reservation = budget.reserve(requiredBytes: required, availableBytes: available) else {
             throw LocalModelError.insufficientStorage(
-                required: Self.requiredStorageBytes(keptBytes: keptBytes, artifactBytes: variant.byteCount),
-                available: available
+                required: required, available: budget.unreservedBytes(availableBytes: available)
             )
         }
+        return reservation
     }
 
     private var unsupportedDeviceError: LocalModelError {

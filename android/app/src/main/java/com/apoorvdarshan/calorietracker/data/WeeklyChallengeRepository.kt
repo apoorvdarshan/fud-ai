@@ -263,8 +263,11 @@ class WeeklyChallengeRepository internal constructor(
             if (!accept && publishedPeriodScores[score.period] == score) return@withLock WeeklyChallengeResult.Success(Unit)
             try {
                 if (!api.putPeriodScore(token, score)) return@withLock WeeklyChallengeResult.Failure(WeeklyChallengeFailureKind.SERVER)
+                store.update {
+                    val stale = it.markingStale(score.period, score.periodStart)
+                    if (accept) stale.copy(enabledPeriods = stale.enabledPeriods + score.period) else stale
+                }
                 publishedPeriodScores[score.period] = score
-                if (accept) store.update { it.copy(enabledPeriods = it.enabledPeriods + score.period) }
                 WeeklyChallengeResult.Success(Unit)
             } catch (error: Exception) {
                 if (error.isExpiredSessionResponse()) clearLocalEnrollment()

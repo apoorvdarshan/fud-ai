@@ -60,6 +60,15 @@ struct WeeklyChallengeLeaderboardCache: Codable, Equatable {
         entries = entries.filter { $0.value.response.period != period }
     }
 
+    /// Keep the last visible rankings for offline use, but don't serve them as fresh after a score write.
+    mutating func markStale(period: ChallengePeriod, start: String) {
+        for key in Array(entries.keys) {
+            guard let entry = entries[key], entry.response.period == period,
+                  entry.response.weekStart == start else { continue }
+            entries[key] = Entry(response: entry.response, savedAt: .distantPast)
+        }
+    }
+
     var knownParticipants: [WeeklyChallengeParticipant] {
         var participants: [String: WeeklyChallengeParticipant] = [:]
         for entry in entries.values {
@@ -113,7 +122,7 @@ final class WeeklyChallengeStore {
     private var refreshGeneration = 0
     private var publishedPeriodScores: [ChallengePeriod: ChallengePeriodScore] = [:]
     private var periodRefreshGeneration = 0
-    private var periodMutationTail: Task<Bool, Never>?
+    private var periodMutationTails: [ChallengePeriod: Task<Bool, Never>] = [:]
 
     init(
         defaults: UserDefaults = .standard,
@@ -244,6 +253,11 @@ final class WeeklyChallengeStore {
         defer {
             if generation == periodRefreshGeneration { refreshingPeriod = nil }
         }
+        if !accept {
+            // Join any in-flight write for this board before using its cache or requesting rankings.
+            _ = await publishPeriodScore(score, accept: false)
+        }
+        guard !Task.isCancelled, generation == periodRefreshGeneration else { return }
         let loaded = await loadPage(category: category, weekStart: score.periodStart, offset: 0, period: period, force: force)
         guard !Task.isCancelled, generation == periodRefreshGeneration else { return }
         isOffline = !loaded && leaderboardFor(category: category, weekStart: score.periodStart, period: period) != nil
@@ -261,13 +275,15 @@ final class WeeklyChallengeStore {
         let period = score.period
         guard period != .weekly, (accept || enabledPeriods.contains(period)),
               isJoined, let token = bearerToken else { return false }
-        return await serializePeriodMutation {
+        return await serializePeriodMutation(period) {
             guard self.isJoined, token == self.bearerToken,
                   accept || self.enabledPeriods.contains(period) else { return false }
             if !accept, self.publishedPeriodScores[period] == score { return true }
             do {
                 try await self.api.putPeriodScore(score, token: token)
                 guard self.isJoined, token == self.bearerToken else { return false }
+                self.leaderboardCache.markStale(period: period, start: score.periodStart)
+                self.persist(self.leaderboardCache, key: Self.cachedLeaderboardKey)
                 self.publishedPeriodScores[period] = score
                 if accept { self.enabledPeriods.insert(period); self.persistEnabledPeriods() }
                 return true
@@ -282,15 +298,14 @@ final class WeeklyChallengeStore {
         }
     }
 
-    /// Writes, including opt-out, cannot pass an in-flight score upload. Page
-    /// reads are independent so changing tabs never discards the latest read.
-    private func serializePeriodMutation(_ operation: @escaping @MainActor () async -> Bool) async -> Bool {
-        let predecessor = periodMutationTail
+    /// Serialize writes within a board (including opt-out), without making another board wait.
+    private func serializePeriodMutation(_ period: ChallengePeriod, _ operation: @escaping @MainActor () async -> Bool) async -> Bool {
+        let predecessor = periodMutationTails[period]
         let mutation = Task { @MainActor in
             _ = await predecessor?.value
             return await operation()
         }
-        periodMutationTail = mutation
+        periodMutationTails[period] = mutation
         return await mutation.value
     }
 
@@ -298,7 +313,7 @@ final class WeeklyChallengeStore {
         guard busyPeriod == nil, enabledPeriods.contains(period), let token = bearerToken else { return }
         busyPeriod = period
         defer { busyPeriod = nil }
-        _ = await serializePeriodMutation {
+        _ = await serializePeriodMutation(period) {
             guard self.isJoined, token == self.bearerToken else { return false }
             return await self.removePeriod(period, token: token)
         }

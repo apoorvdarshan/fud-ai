@@ -75,6 +75,27 @@ class WeeklyChallengeAggregatorTest {
     }
 
     @Test
+    fun scoreUploadMarksOnlyMatchingBoardPagesStaleWithoutDiscardingThem() {
+        val start = "2026-11-01"
+        val otherDay = "2026-11-02"
+        val category = WeeklyChallengeCategory.OVERALL
+        val now = 123456L
+        fun page(period: ChallengePeriod, day: String, offset: Int) =
+            WeeklyChallengeLeaderboard(day, category, "", offset = offset, period = period)
+        val stored = WeeklyChallengeStoredState()
+            .caching(page(ChallengePeriod.DAILY, start, 0), now)
+            .caching(page(ChallengePeriod.DAILY, start, 20), now)
+            .caching(page(ChallengePeriod.MONTHLY, start, 0), now)
+            .caching(page(ChallengePeriod.DAILY, otherDay, 0), now)
+        val stale = stored.markingStale(ChallengePeriod.DAILY, start)
+        assertEquals(stored.cachedLeaderboards, stale.cachedLeaderboards)
+        assertEquals(0L, stale.refreshedAt(category, start, period = ChallengePeriod.DAILY))
+        assertEquals(0L, stale.refreshedAt(category, start, 20, ChallengePeriod.DAILY))
+        assertEquals(now, stale.refreshedAt(category, start, period = ChallengePeriod.MONTHLY))
+        assertEquals(now, stale.refreshedAt(category, otherDay, period = ChallengePeriod.DAILY))
+    }
+
+    @Test
     fun aggregatesOnlyQualifyingElapsedDaysAndCapsDailyActivity() {
         val result = WeeklyChallengeAggregator.aggregate(
             WeeklyChallengeAggregationInput(

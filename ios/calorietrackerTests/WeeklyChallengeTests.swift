@@ -100,6 +100,26 @@ struct WeeklyChallengeTests {
         return calendar
     }
 
+    @Test func scoreUploadMarksOnlyMatchingBoardPagesStaleWithoutDiscardingThem() {
+        var cache = WeeklyChallengeLeaderboardCache()
+        let now = Date.now
+        let start = "2026-11-01"
+        let otherDay = "2026-11-02"
+        for (period, day, offset) in [
+            (ChallengePeriod.daily, start, 0), (.daily, start, 20),
+            (.monthly, start, 0), (.daily, otherDay, 0)
+        ] {
+            cache.insert(.init(weekStart: day, category: .overall, updatedAt: "", rankings: [], viewer: nil,
+                               offset: offset, totalCount: 40, period: period), savedAt: now)
+        }
+        cache.markStale(period: .daily, start: start)
+        #expect(cache.entries.count == 4)
+        #expect(cache.entry(category: .overall, weekStart: start, period: .daily)?.savedAt == .distantPast)
+        #expect(cache.entry(category: .overall, weekStart: start, offset: 20, period: .daily)?.savedAt == .distantPast)
+        #expect(cache.entry(category: .overall, weekStart: start, period: .monthly)?.savedAt == now)
+        #expect(cache.entry(category: .overall, weekStart: otherDay, period: .daily)?.savedAt == now)
+    }
+
     private func date(_ value: String) -> Date {
         let formatter = ISO8601DateFormatter()
         formatter.formatOptions = [.withInternetDateTime]

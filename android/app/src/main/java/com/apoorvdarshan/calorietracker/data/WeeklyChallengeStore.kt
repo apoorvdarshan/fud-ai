@@ -58,6 +58,14 @@ data class WeeklyChallengeStoredState(
         lastRefreshEpochMillis = lastRefreshEpochMillis.filterKeys { !it.startsWith("${period.wire}|") }
     )
 
+    /** Retain offline rankings while forcing the next read after a score upload to go to the server. */
+    fun markingStale(period: ChallengePeriod, start: String): WeeklyChallengeStoredState {
+        val prefix = "${period.wire}|$start|"
+        return copy(lastRefreshEpochMillis = lastRefreshEpochMillis.mapValues { (key, timestamp) ->
+            if (key.startsWith(prefix)) 0L else timestamp
+        })
+    }
+
     companion object {
         fun cacheKey(category: WeeklyChallengeCategory, weekStart: String, offset: Int = 0,
             period: ChallengePeriod = ChallengePeriod.WEEKLY): String {

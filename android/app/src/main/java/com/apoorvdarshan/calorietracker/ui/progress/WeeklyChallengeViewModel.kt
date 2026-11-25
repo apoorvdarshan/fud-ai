@@ -500,6 +500,10 @@ class WeeklyChallengeViewModel(private val container: AppContainer) : ViewModel(
         fun matches(current: WeeklyChallengeUiState) = current.period == score.period &&
             current.category == state.category && current.currentStart == score.periodStart
         if (force) _ui.update { if (matches(it)) it.copy(isRefreshing = true) else it }
+        // Upload the visible board's latest score before using a cached page or fetching ranks.
+        // If the upload fails, still try to show the board's last known ranks.
+        repository.publishPeriodScore(score, accept = false)
+        if (!matches(_ui.value)) return
         val result = repository.leaderboardPage(state.category, score.periodStart, 0, force, score.period)
         _ui.update { current ->
             if (!matches(current)) current

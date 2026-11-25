@@ -8,7 +8,7 @@
   <link rel="canonical" href="https://www.fud-ai.app/">
   <link rel="icon" href="/assets/fud-app-icon-180.png">
   <link rel="apple-touch-icon" href="/assets/fud-app-icon-180.png">
-  <link rel="stylesheet" href="/flash.css?v=9">
+  <link rel="stylesheet" href="/flash.css?v=10">
   <meta name="theme-color" content="#fffdfc" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#121214" media="(prefers-color-scheme: dark)">
   <meta name="apple-itunes-app" content="app-id=6758935726">
@@ -39,31 +39,36 @@
     "author": { "@type": "Person", "name": "Apoorv Darshan", "url": "https://apoorvdarshan.com/" },
     "screenshot": ["https://www.fud-ai.app/assets/screenshots/home.webp", "https://www.fud-ai.app/assets/screenshots/live-voice.webp"],
     "releaseNotes": "https://github.com/apoorvdarshan/fud-ai/releases",
+    "sameAs": [
+      "https://github.com/apoorvdarshan/fud-ai",
+      "https://www.linkedin.com/company/fud-ai-app",
+      "https://www.producthunt.com/products/fud-ai"
+    ],
     "downloadUrl": [
       "https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726",
       "https://play.google.com/store/apps/details?id=com.apoorvdarshan.calorietracker"
     ]
   }
   </script>
-  <script src="/flash-demo.js?v=9" defer></script>
+  <script src="/flash-demo.js?v=10" defer></script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
-  <header class="site-header">
+  <header class="site-header" id="site-head">
     <div class="shell masthead">
       <a class="brand" href="/" aria-label="Fud AI home"><img src="/assets/fud-app-icon-180.png" alt="" width="34" height="34">Fud AI</a>
       <nav aria-label="Main navigation">
-        <a href="#features">Features</a>
-        <a href="#screens">Screens</a>
-        <a href="#plans">AI options</a>
-        <a href="#faq">FAQ</a>
+        <a href="/#features">Features</a>
+        <a href="/#screens">Screens</a>
+        <a href="/#plans">AI options</a>
+        <a href="/#faq">FAQ</a>
       </nav>
-      <a class="button compact" href="#get">Get the app</a>
+      <a class="button compact" href="/#get">Get the app</a>
     </div>
   </header>
 
   <main id="main">
-    <section class="shell hero" aria-labelledby="hero-title">
+    <section class="shell hero" id="hero" aria-labelledby="hero-title">
       <div class="hero-copy">
         <p class="edition"><span aria-hidden="true"></span> Open-source food diary</p>
         <h1 id="hero-title">Tell it what<br> you ate.</h1>
@@ -76,7 +81,7 @@
       </div>
 
       <figure class="voice-demo" aria-labelledby="demo-title">
-        <figcaption class="demo-head"><strong id="demo-title">Live Voice</strong><span>Interactive example</span></figcaption>
+        <figcaption class="demo-head"><strong id="demo-title">Live Voice</strong><span>Recorded example</span></figcaption>
         <div class="demo-stage">
           <div class="voice-signal">
             <img class="voice-mascot" src="/assets/flash-voice-mascot.webp" width="360" height="360" alt="Brulee, the pink Live Voice mascot">
@@ -88,8 +93,12 @@
           <div class="demo-result" id="demo-result"><strong>Yogurt &amp; granola bowl</strong><span>≈ 375 kcal</span></div>
         </div>
         <div class="demo-foot">
-          <button type="button" class="button compact" id="play-demo" hidden>Run example</button>
-          <small>No microphone. No data sent.</small>
+          <div class="actions">
+            <button type="button" class="button compact primary" id="hear-demo" hidden>Play with sound</button>
+            <button type="button" class="button compact" id="play-demo" hidden>Run silently</button>
+          </div>
+          <audio id="demo-audio" preload="none" src="/assets/voice-demo/conversation.mp3"></audio>
+          <small id="demo-note" role="status">No microphone or AI requests.</small>
         </div>
       </figure>
     </section>
@@ -119,19 +128,42 @@
         <div class="screen-grid">
           <figure><a href="/assets/screenshots/home.webp?v=9"><img src="/assets/screenshots/home.webp?v=9" width="900" height="1310" loading="lazy" decoding="async" alt="Flash Home dashboard with calorie totals, nutrient progress, and diary"></a><figcaption><strong>Home</strong><span>Today’s targets and meals</span></figcaption></figure>
           <figure id="voice-screen"><a href="/assets/screenshots/live-voice.webp?v=9"><img src="/assets/screenshots/live-voice.webp?v=9" width="900" height="1310" loading="lazy" decoding="async" alt="Live Voice session with the Brulee mascot and a sample logged meal"></a><figcaption><strong>Live Voice</strong><span>Talk through a meal</span></figcaption></figure>
+          <figure><a href="/assets/screenshots/food.webp?v=9"><img src="/assets/screenshots/food.webp?v=9" width="900" height="1310" loading="lazy" decoding="async" alt="A Greek yogurt and blueberries food entry with serving size and nutrients"></a><figcaption><strong>Food details</strong><span>Review photos, portions, and estimates</span></figcaption></figure>
+          <figure><a href="/assets/screenshots/nutrition.webp?v=9"><img src="/assets/screenshots/nutrition.webp?v=9" width="900" height="1310" loading="lazy" decoding="async" alt="Nutrition details showing water, macros, and additional nutrients"></a><figcaption><strong>Nutrition</strong><span>Track macros, water, and more</span></figcaption></figure>
           <figure id="progress-screen"><a href="/assets/screenshots/progress.webp?v=9"><img src="/assets/screenshots/progress.webp?v=9" width="900" height="1310" loading="lazy" decoding="async" alt="Progress view with sample nutrition and weight trends"></a><figcaption><strong>Progress</strong><span>Review your trends</span></figcaption></figure>
+          <figure><a href="/assets/screenshots/coach.webp?v=9"><img src="/assets/screenshots/coach.webp?v=9" width="900" height="1310" loading="lazy" decoding="async" alt="Sample AI Coach chat answering a question about food and protein goals"></a><figcaption><strong>AI Coach</strong><span>Ask questions about your log</span></figcaption></figure>
           <figure><a href="/assets/screenshots/workouts.webp?v=9"><img src="/assets/screenshots/workouts.webp?v=9" width="900" height="1310" loading="lazy" decoding="async" alt="Workout log with sample exercises, sets, and reps"></a><figcaption><strong>Workouts</strong><span>Keep your set-by-set log</span></figcaption></figure>
+          <figure><a href="/assets/screenshots/ai-providers.webp?v=9"><img src="/assets/screenshots/ai-providers.webp?v=9" width="900" height="1310" loading="lazy" decoding="async" alt="Fud AI Settings showing cloud and on-device provider options"></a><figcaption><strong>AI providers</strong><span>Choose how your AI runs</span></figcaption></figure>
+          <figure><a href="/assets/screenshots/voice-settings.webp?v=9"><img src="/assets/screenshots/voice-settings.webp?v=9" width="900" height="1310" loading="lazy" decoding="async" alt="Voice Assistant settings with capture options and voice controls"></a><figcaption><strong>Voice settings</strong><span>Choose what Live Voice can do</span></figcaption></figure>
         </div>
         <p class="screen-note">Flash carries through to Home Screen widgets on iOS and Android, plus the Apple Watch dashboard and complications.</p>
       </div>
     </section>
 
     <section class="shell section" id="plans" aria-labelledby="plans-title">
-      <div class="section-intro"><h2 id="plans-title">Your diary. Your choice of AI.</h2><p>Manual logging doesn’t need AI. When you want help estimating or logging a meal, choose the setup that fits you.</p></div>
+      <div class="section-intro" id="privacy"><h2 id="plans-title">Your diary. Your choice of AI.</h2><p>Manual logging doesn’t need AI. When you want help estimating or logging a meal, choose the setup that fits you.</p></div>
       <div class="plan-grid">
         <article><p class="plan-type">Use your own key</p><h3>Bring your provider.</h3><p>Fud AI doesn’t charge for BYOK. Supported requests go to the provider you configure. That provider may charge separately. Supported on-device models are available for specific tasks and devices.</p><a href="/open-source-calorie-tracker">Explore the open-source app</a></article>
         <article><p class="plan-type">Optional paid plans</p><h3>Let us handle the keys.</h3><p>Hosted Plus and Pro use Fud AI’s service. Review local prices, billing periods, and usage limits in the app before subscribing. New subscriptions have no free trial.</p><a href="/terms#hosted-plans">Read the subscription terms</a></article>
       </div>
+    </section>
+
+    <section class="shell section extra-features" aria-labelledby="extra-title">
+      <div class="section-intro">
+        <h2 id="extra-title">Small things that add up.</h2>
+        <p>Use the parts that fit your routine. You can change goals, shortcuts, and health permissions whenever you need to.</p>
+      </div>
+      <dl class="extra-grid">
+        <div><dt>Barcode lookup</dt><dd>Find packaged foods through Open Food Facts when label data is available.</dd></div>
+        <div><dt>Saved meals</dt><dd>Reuse meals and compare how a portion would affect your day before adding it.</dd></div>
+        <div><dt>Water and fasting</dt><dd>Log water against your own goal or start an optional fasting timer with editable history.</dd></div>
+        <div><dt>Widgets and Apple Watch</dt><dd>Check your totals at a glance. Log water from the Watch when water tracking is on.</dd></div>
+        <div><dt>Apple Health and Health Connect</dt><dd>Choose which supported data you want to sync. See the <a href="/privacy">privacy details</a>.</dd></div>
+        <div><dt>Siri and iOS Share</dt><dd>Log a meal with a Siri shortcut or send selected food photos to Fud AI from an iOS share sheet.</dd></div>
+        <div><dt>18 languages</dt><dd>The iOS and Android apps are localized in 18 languages.</dd></div>
+        <div><dt>Make it yours</dt><dd>Choose your accent and the nutrient cards you want to see on Home.</dd></div>
+        <div><dt>Optional challenges</dt><dd>Adults can choose to join community challenges under the <a href="/terms#community-rules">challenge rules</a>.</dd></div>
+      </dl>
     </section>
 
     <section class="shell section faq-layout" id="faq" aria-labelledby="faq-title">
@@ -141,13 +173,17 @@
         <details><summary>Does my whole diary go to an AI provider?</summary><p>No automatic diary upload happens. What is sent depends on the action you choose. Food analysis can send your selected photos or description, and Coach can request relevant history for an answer. See the <a href="/privacy">Privacy Policy</a>.</p></details>
         <details><summary>Can I use it without an internet connection?</summary><p>You can use local features such as manual logging and viewing your diary offline. Remote AI and barcode lookups need a connection. Supported on-device models can handle certain tasks once downloaded.</p></details>
         <details><summary>Can I see my totals without opening the app?</summary><p>Yes. Add a home-screen widget on iOS or Android. The Apple Watch app shows nutrition totals and can log water when enabled; supported watch faces can show nutrition complications.</p></details>
+        <details><summary>What can I use without an AI key?</summary><p>Manual logging, barcode lookup, food and workout history, water, and fasting don't need an AI key. For supported devices and tasks, you can also use an on-device model.</p></details>
+        <details><summary>How does the fasting timer work?</summary><p>You choose when to start, stop, or edit a fast. Fud AI doesn’t infer fasting from a skipped meal or recommend how long to fast.</p></details>
+        <details><summary>Is there an Android APK?</summary><p><a href="https://play.google.com/store/apps/details?id=com.apoorvdarshan.calorietracker">Google Play</a> is the usual install. Signed Android release files and verification instructions are linked from <a href="https://github.com/apoorvdarshan/fud-ai/releases">GitHub Releases</a>.</p></details>
+        <details><summary>Is Fud AI the same as the Fud app?</summary><p>No. Fud AI is the open-source nutrition and workout tracker by Apoorv Darshan. Use the App Store and Google Play links on this site to find the correct app.</p></details>
         <details><summary>Where can I report a bug?</summary><p><a href="https://github.com/apoorvdarshan/fud-ai/issues/new?template=bug_report.yml">Open a GitHub issue</a> or use <code>/bug</code> in the <a href="https://discord.gg/Py4VrFctP3">Fud AI Discord</a>. Reports submitted through the bot become public GitHub issues, so don’t include private information.</p></details>
       </div>
     </section>
 
     <section class="download" id="get" aria-labelledby="get-title">
       <div class="shell download-inner">
-        <div><h2 id="get-title">Start with your next meal.</h2><p>For iPhone and iPad on iOS 17.6 or later, and Android 8.0 or later.</p></div>
+        <div><h2 id="get-title">Start with your next meal.</h2><p>For iPhone and iPad on iOS 17.6 or later, and Android 8.0 or later.</p><p><a href="https://github.com/apoorvdarshan/fud-ai">Star Fud AI on GitHub</a></p></div>
         <div class="actions">
           <a class="button" href="https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726">App Store</a>
           <a class="button" href="https://play.google.com/store/apps/details?id=com.apoorvdarshan.calorietracker">Google Play</a>
@@ -158,8 +194,30 @@
 
   <footer class="shell site-footer">
     <div><a class="brand" href="/"><img src="/assets/fud-app-icon-180.png" alt="" width="30" height="30">Fud AI</a><p id="ownership">Fud AI is the sole proprietorship of Apoorv Darshan. <a href="https://verceltics.com/#ownership">Verceltics</a> is a software product developed and operated under Fud AI.</p></div>
-    <nav aria-label="Guides"><a href="/free-ai-calorie-tracker">Free AI calorie tracker</a><a href="/open-source-calorie-tracker">Open-source tracker</a><a href="/ai-food-scanner">AI food scanner</a><a href="/vs-cal-ai">Fud AI vs Cal AI</a></nav>
-    <nav aria-label="Project and legal"><a href="https://github.com/apoorvdarshan/fud-ai">GitHub</a><a href="https://discord.gg/Py4VrFctP3">Discord</a><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Service</a><a href="mailto:apoorv@fud-ai.app">Contact</a></nav>
+    <nav aria-label="App">
+      <span class="footer-heading" aria-hidden="true">App</span>
+      <a href="/#features">Features</a><a href="/#faq">Questions</a>
+      <a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Service</a>
+    </nav>
+    <nav aria-label="Guides">
+      <span class="footer-heading" aria-hidden="true">Guides</span>
+      <a href="/free-ai-calorie-tracker">Free AI calorie tracker</a><a href="/open-source-calorie-tracker">Open-source tracker</a>
+      <a href="/ai-food-scanner">AI food scanner</a><a href="/vs-cal-ai">Fud AI vs Cal AI</a>
+    </nav>
+    <nav aria-label="Project">
+      <span class="footer-heading" aria-hidden="true">Project</span>
+      <a href="https://github.com/apoorvdarshan/fud-ai">GitHub</a><a href="https://github.com/apoorvdarshan/fud-ai/releases">Releases</a>
+      <a href="https://github.com/apoorvdarshan/fud-ai/issues/new?template=bug_report.yml">Report a bug</a>
+      <a href="https://github.com/apoorvdarshan/fud-ai/issues/new?template=feature_request.yml">Request a feature</a>
+      <a href="mailto:apoorv@fud-ai.app">Contact</a>
+    </nav>
+    <nav aria-label="Community">
+      <span class="footer-heading" aria-hidden="true">Community</span>
+      <a href="https://discord.gg/Py4VrFctP3">Discord</a>
+      <a href="https://www.producthunt.com/products/fud-ai">Product Hunt</a>
+      <a href="https://www.linkedin.com/company/fud-ai-app">LinkedIn</a>
+      <a href="https://x.com/apoorvdarshan">X</a><a href="https://ko-fi.com/apoorvdarshan">Ko-fi</a>
+    </nav>
     <div class="footer-base"><span>© 2026 Apoorv Darshan</span><a href="https://github.com/apoorvdarshan/fud-ai/blob/main/LICENSE">MIT License</a><a href="/sitemap.xml">Sitemap</a></div>
   </footer>
 </body>

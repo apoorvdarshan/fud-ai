@@ -9,7 +9,8 @@
 <link rel="canonical" href="https://www.fud-ai.app/ai-food-scanner">
 <link rel="alternate" href="https://www.fud-ai.app/ai-food-scanner" hreflang="en">
 <link rel="alternate" href="https://www.fud-ai.app/ai-food-scanner" hreflang="x-default">
-<meta name="theme-color" content="#000000">
+  <meta name="theme-color" content="#fffdfc" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121214" media="(prefers-color-scheme: dark)">
 <meta name="apple-itunes-app" content="app-id=6758935726">
 <!-- Open Graph -->
 <meta property="og:type" content="website">
@@ -35,10 +36,6 @@
 <meta name="twitter:image:alt" content="Fud AI: Just say what you ate. A chicken burrito bowl logged at 620 kcal beside the app's glowing pink voice orb.">
 <link rel="icon" href="/assets/fud-app-icon-180.png" type="image/png">
 <link rel="apple-touch-icon" href="/assets/fud-app-icon-180.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&display=swap">
-<link rel="stylesheet" href="styles.css?v=20261019b">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -112,54 +109,37 @@
   ]
 }
 </script>
+  <link rel="stylesheet" href="/flash.css?v=10">
 </head>
 <body>
 
 <a class="skip" href="#main">Skip to content</a>
 
-<header class="site-head" id="site-head">
-  <div class="wrap site-head__row">
-    <a class="brand" href="/" aria-label="Fud AI home">
-      <span class="brand__icon"><img src="/assets/fud-app-icon.webp" alt="" width="34" height="34"></span>
-      <span class="brand__name">Fud AI</span>
-    </a>
-    <nav class="site-nav" aria-label="Main">
-      <a href="/#features">Features</a>
-      <a href="/privacy">Privacy</a>
-      <a href="/#faq">FAQ</a>
-      <a href="https://github.com/apoorvdarshan/fud-ai" rel="noopener">GitHub</a>
-    </nav>
-    <details class="menu">
-      <summary>Menu</summary>
-      <nav aria-label="Main">
+  <header class="site-header" id="site-head">
+    <div class="shell masthead">
+      <a class="brand" href="/" aria-label="Fud AI home"><img src="/assets/fud-app-icon-180.png" alt="" width="34" height="34">Fud AI</a>
+      <nav aria-label="Main navigation">
         <a href="/#features">Features</a>
+        <a href="/#screens">Screens</a>
+        <a href="/#plans">AI options</a>
         <a href="/#faq">FAQ</a>
-        <a href="/privacy">Privacy</a>
-        <a href="/terms">Terms</a>
-        <a href="https://github.com/apoorvdarshan/fud-ai" rel="noopener">GitHub</a>
-        <a class="menu__get" href="#get" data-get-app>Get the app</a>
       </nav>
-    </details>
-    <a class="button get-app" href="#get" data-get-app>Get the app</a>
-  </div>
-</header>
+      <a class="button compact" href="/#get">Get the app</a>
+    </div>
+  </header>
 
 <main id="main" class="doc">
-  <div class="wrap">
+  <div class="shell">
     <div class="legal-content">
       <h1>Free AI Food Scanner</h1>
       <span class="legal-date">Photo · Voice · Barcode · Text · Updated November 25, 2026</span>
 
       <p><strong>Fud AI</strong> is an open-source food scanner for iPhone, iPad, and Android. Start with a photo, barcode, or meal description, then review the nutrition before logging it. Fud AI has no ads or required account. Use your own key without a Fud AI subscription, or choose optional paid Hosted AI.</p>
 
-      <div class="cta-group">
-        <a href="https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726" class="app-store-btn">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-          <span>Download on the App Store</span>
+      <div class="actions">
+        <a href="https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726" class="button primary"><span>Download on the App Store</span>
         </a>
-        <a href="https://play.google.com/store/apps/details?id=com.apoorvdarshan.calorietracker" class="play-store-btn">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.998.998 0 0 1-.61-.92V2.734c0-.39.222-.732.61-.92zM14.91 13.117l2.605 2.605-12.232 6.86 9.627-9.465zm3.978-3.205l2.74 1.535c.733.41.733 1.475 0 1.886l-2.741 1.536-2.969-2.969 2.97-2.988zM5.282 1.349l12.232 6.86-2.605 2.605L5.282 1.35z"/></svg>
-          <span>Download on Google Play</span>
+        <a href="https://play.google.com/store/apps/details?id=com.apoorvdarshan.calorietracker" class="button"><span>Download on Google Play</span>
         </a>
       </div>
 
@@ -208,14 +188,10 @@
 
       <h2>Try the free AI food scanner</h2>
       <p>Install Fud AI, add a free key or start with barcodes and manual entry, and scan your next meal. Comparing options? See <a href="/vs-cal-ai">Fud AI vs Cal AI</a>.</p>
-      <div class="cta-group">
-        <a href="https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726" class="app-store-btn">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-          <span>Download on the App Store</span>
+      <div class="actions">
+        <a href="https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726" class="button primary"><span>Download on the App Store</span>
         </a>
-        <a href="https://play.google.com/store/apps/details?id=com.apoorvdarshan.calorietracker" class="play-store-btn">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.998.998 0 0 1-.61-.92V2.734c0-.39.222-.732.61-.92zM14.91 13.117l2.605 2.605-12.232 6.86 9.627-9.465zm3.978-3.205l2.74 1.535c.733.41.733 1.475 0 1.886l-2.741 1.536-2.969-2.969 2.97-2.988zM5.282 1.349l12.232 6.86-2.605 2.605L5.282 1.35z"/></svg>
-          <span>Download on Google Play</span>
+        <a href="https://play.google.com/store/apps/details?id=com.apoorvdarshan.calorietracker" class="button"><span>Download on Google Play</span>
         </a>
       </div>
 
@@ -229,101 +205,45 @@
       </ul>
     </div>
   </div>
+    <section class="download" id="get" aria-labelledby="get-title">
+      <div class="shell download-inner">
+        <div><h2 id="get-title">Start with your next meal.</h2><p>For iPhone and iPad on iOS 17.6 or later, and Android 8.0 or later.</p></div>
+        <div class="actions">
+          <a class="button" href="https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726">App Store</a>
+          <a class="button" href="https://play.google.com/store/apps/details?id=com.apoorvdarshan.calorietracker">Google Play</a>
+        </div>
+        <p><a href="https://github.com/apoorvdarshan/fud-ai">Star Fud AI on GitHub</a></p>
+      </div>
+    </section>
 </main>
 
-<div class="page-end">
-  <section class="final" id="get" aria-labelledby="get-title">
-  <div class="wrap">
-    <h2 class="display" id="get-title">Start with your next meal.</h2>
-    <p class="lede">Free on iPhone and Android. Add a free Gemini key in about a minute, or start with barcodes and manual entry.</p>
-    <div>
-      <div class="stores">
-        <a class="store store--light" href="https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span class="store__text"><small>Download on the</small>App Store</span></a>
-        <a class="store store--light" href="https://play.google.com/store/apps/details?id=com.apoorvdarshan.calorietracker"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.609 1.814L13.792 12 3.61 22.186a.998.998 0 0 1-.61-.92V2.734c0-.39.222-.732.61-.92zM14.91 13.117l2.605 2.605-12.232 6.86 9.627-9.465zm3.978-3.205l2.74 1.535c.733.41.733 1.475 0 1.886l-2.741 1.536-2.969-2.969 2.97-2.988zM5.282 1.349l12.232 6.86-2.605 2.605L5.282 1.35z"/></svg><span class="store__text"><small>Get it on</small>Google Play</span></a>
-      </div>
-    </div>
-    <p class="final__needs">Needs iOS 17.6 or later, or Android 8.0 or later.</p>
-    <p class="final__star"><a href="https://github.com/apoorvdarshan/fud-ai" rel="noopener">Star Fud AI on GitHub<span class="count" data-stars hidden></span></a></p>
-  </div>
-</section>
-
-  <footer class="site-foot">
-  <div class="wrap">
-    <div class="site-foot__grid">
-      <div class="site-foot__about">
-        <a class="brand" href="/" aria-label="Fud AI home">
-          <span class="brand__icon"><img src="/assets/fud-app-icon.webp" alt="" width="34" height="34"></span>
-          <span class="brand__name">Fud AI</span>
-        </a>
-        <p>A free, open-source calorie tracker for iPhone and Android, designed and built by Apoorv Darshan.</p>
-        <p id="ownership">Fud AI is the sole proprietorship of Apoorv Darshan. <a href="https://verceltics.com/#ownership">Verceltics</a> is a software product developed and operated under Fud AI.</p>
-      </div>
-      <div>
-        <h2>App</h2>
-        <ul>
-          <li><a href="/#features">Features</a></li>
-          <li><a href="/#faq">Questions</a></li>
-          <li><a href="/privacy">Privacy Policy</a></li>
-          <li><a href="/terms">Terms of Service</a></li>
-        </ul>
-      </div>
-      <div>
-        <h2>Guides</h2>
-        <ul>
-          <li><a href="/free-ai-calorie-tracker">Free AI calorie tracker</a></li>
-          <li><a href="/open-source-calorie-tracker">Open-source calorie tracker</a></li>
-          <li><a href="/ai-food-scanner">AI food scanner</a></li>
-          <li><a href="/vs-cal-ai">Fud AI vs Cal AI</a></li>
-        </ul>
-      </div>
-      <div>
-        <h2>Project</h2>
-        <ul>
-          <li><a href="https://github.com/apoorvdarshan/fud-ai" rel="noopener">GitHub</a></li>
-          <li><a href="https://github.com/apoorvdarshan/fud-ai/issues/new?template=bug_report.yml" rel="noopener">Report a bug</a></li>
-          <li><a href="https://github.com/apoorvdarshan/fud-ai/issues/new?template=feature_request.yml" rel="noopener">Request a feature</a></li>
-          <li><a href="mailto:apoorv@fud-ai.app">apoorv@fud-ai.app</a></li>
-        </ul>
-      </div>
-      <div>
-        <h2>Community</h2>
-        <ul>
-          <li><a href="https://discord.gg/Py4VrFctP3" rel="noopener">Discord</a></li>
-          <li><a href="https://x.com/apoorvdarshan" rel="noopener">X</a></li>
-          <li><a href="https://www.linkedin.com/company/fud-ai-app" rel="noopener">LinkedIn</a></li>
-          <li><a href="https://www.producthunt.com/products/fud-ai" rel="noopener">Product Hunt</a></li>
-          <li><a href="https://ko-fi.com/apoorvdarshan" rel="noopener">Ko-fi</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="site-foot__base">
-      <span>© 2026 Apoorv Darshan</span>
-      <span><a href="https://github.com/apoorvdarshan/fud-ai/blob/main/LICENSE" rel="noopener">MIT License</a> &nbsp; <a href="/sitemap.xml">Sitemap</a></span>
-    </div>
-  </div>
-</footer>
-</div>
-
-<script>
-  (function () {
-    var ua = navigator.userAgent;
-    var ios = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-    var store = ios ? "https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726"
-      : /Android/.test(ua) ? "https://play.google.com/store/apps/details?id=com.apoorvdarshan.calorietracker" : null;
-    if (ios) document.documentElement.classList.add("is-ios"); else if (/Android/.test(ua)) document.documentElement.classList.add("is-android");
-    if (store) document.querySelectorAll("[data-get-app]").forEach(function (a) { a.href = store; });
-    var head = document.getElementById("site-head");
-    function paint() { head.classList.toggle("is-stuck", window.scrollY > 4); }
-    paint();
-    window.addEventListener("scroll", paint, { passive: true });
-    // Live star count for the GitHub link (same-origin JSON the worker keeps fresh).
-    fetch("/star-history.json").then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
-      if (!d || !d.total) return;
-      document.querySelectorAll("[data-stars]").forEach(function (el) { el.textContent = new Intl.NumberFormat("en-US").format(d.total); el.hidden = false; });
-    }).catch(function () {});
-    var menu = document.querySelector(".menu");
-    if (menu) menu.addEventListener("click", function (e) { if (e.target.closest("a")) menu.removeAttribute("open"); });
-  })();
-</script>
+  <footer class="shell site-footer">
+    <div><a class="brand" href="/"><img src="/assets/fud-app-icon-180.png" alt="" width="30" height="30">Fud AI</a><p id="ownership">Fud AI is the sole proprietorship of Apoorv Darshan. <a href="https://verceltics.com/#ownership">Verceltics</a> is a software product developed and operated under Fud AI.</p></div>
+    <nav aria-label="App">
+      <span class="footer-heading" aria-hidden="true">App</span>
+      <a href="/#features">Features</a><a href="/#faq">Questions</a>
+      <a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Service</a>
+    </nav>
+    <nav aria-label="Guides">
+      <span class="footer-heading" aria-hidden="true">Guides</span>
+      <a href="/free-ai-calorie-tracker">Free AI calorie tracker</a><a href="/open-source-calorie-tracker">Open-source tracker</a>
+      <a href="/ai-food-scanner">AI food scanner</a><a href="/vs-cal-ai">Fud AI vs Cal AI</a>
+    </nav>
+    <nav aria-label="Project">
+      <span class="footer-heading" aria-hidden="true">Project</span>
+      <a href="https://github.com/apoorvdarshan/fud-ai">GitHub</a><a href="https://github.com/apoorvdarshan/fud-ai/releases">Releases</a>
+      <a href="https://github.com/apoorvdarshan/fud-ai/issues/new?template=bug_report.yml">Report a bug</a>
+      <a href="https://github.com/apoorvdarshan/fud-ai/issues/new?template=feature_request.yml">Request a feature</a>
+      <a href="mailto:apoorv@fud-ai.app">Contact</a>
+    </nav>
+    <nav aria-label="Community">
+      <span class="footer-heading" aria-hidden="true">Community</span>
+      <a href="https://discord.gg/Py4VrFctP3">Discord</a>
+      <a href="https://www.producthunt.com/products/fud-ai">Product Hunt</a>
+      <a href="https://www.linkedin.com/company/fud-ai-app">LinkedIn</a>
+      <a href="https://x.com/apoorvdarshan">X</a><a href="https://ko-fi.com/apoorvdarshan">Ko-fi</a>
+    </nav>
+    <div class="footer-base"><span>© 2026 Apoorv Darshan</span><a href="https://github.com/apoorvdarshan/fud-ai/blob/main/LICENSE">MIT License</a><a href="/sitemap.xml">Sitemap</a></div>
+  </footer>
 </body>
 </html>

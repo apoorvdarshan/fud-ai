@@ -1,48 +1,102 @@
 "use strict";
 
-const control = document.querySelector("#play-demo");
+const silent = document.querySelector("#play-demo");
+const sound = document.querySelector("#hear-demo");
+const audio = document.querySelector("#demo-audio");
 const demo = document.querySelector(".voice-demo");
 const demoStatus = document.querySelector("#demo-status");
 const caption = document.querySelector("#demo-caption");
 const result = document.querySelector("#demo-result");
+const note = document.querySelector("#demo-note");
 
-if (control && demo && demoStatus && caption && result) {
+if (silent && sound && audio && demo && demoStatus && caption && result && note) {
   const example = caption.textContent;
-  const motionPreference = matchMedia("(prefers-reduced-motion: reduce)");
-  let timers = [];
+  const response = "Here’s your draft: a yogurt and granola bowl, about 375 calories. Review it before logging.";
+  const defaultNote = note.textContent;
+  const motion = matchMedia("(prefers-reduced-motion: reduce)");
+  let timer;
+  let mode;
+  let attempt = 0;
 
-  function showResult() {
-    demo.dataset.step = "complete";
-    demoStatus.textContent = "Draft ready";
-    caption.textContent = "Review this sample entry before logging it.";
-    result.hidden = false;
-    control.textContent = "Run example again";
-    timers = [];
+  function show(step, label, text, ready = false) {
+    if (demo.dataset.step === step) return;
+    demo.dataset.step = step;
+    demoStatus.textContent = label;
+    caption.textContent = text;
+    result.hidden = !ready;
   }
 
-  control.hidden = false;
-  control.addEventListener("click", () => {
-    if (timers.length) {
-      timers.forEach(clearTimeout);
-      showResult();
-      return;
-    }
-    if (motionPreference.matches) {
-      showResult();
-      return;
-    }
-    demo.dataset.step = "listening";
-    demoStatus.textContent = "Listening to the example";
-    caption.textContent = example;
-    result.hidden = true;
-    control.textContent = "Show result";
+  function stop() {
+    attempt += 1;
+    mode = undefined;
+    clearTimeout(timer);
+    audio.pause();
+    audio.currentTime = 0;
+    sound.textContent = "Play with sound";
+    silent.textContent = "Run silently";
+  }
 
-    timers = [
-      setTimeout(() => {
-        demo.dataset.step = "estimating";
-        demoStatus.textContent = "Estimating";
-      }, 950),
-      setTimeout(showResult, 1700),
-    ];
+  function showDraft() {
+    show("complete", "Draft ready", response, true);
+  }
+
+  function audioUnavailable() {
+    stop();
+    showDraft();
+    note.textContent = "Audio couldn’t play. The sample result is shown above.";
+  }
+
+  const listen = () => show("listening", "Listening…", example);
+  silent.hidden = false;
+  silent.addEventListener("click", () => {
+    const skip = mode === "silent";
+    stop();
+    note.textContent = defaultNote;
+    if (skip || motion.matches) {
+      showDraft();
+      return;
+    }
+    mode = "silent";
+    listen();
+    silent.textContent = "Show result";
+    timer = setTimeout(() => {
+      stop();
+      showDraft();
+    }, 2800);
   });
+
+  // A single same-origin recording lets one user gesture start both voices.
+  if (audio.canPlayType("audio/mpeg")) {
+    sound.hidden = false;
+    sound.addEventListener("click", () => {
+      const wasPlaying = mode === "audio";
+      stop();
+      note.textContent = defaultNote;
+      if (wasPlaying) {
+        showDraft();
+        return;
+      }
+      mode = "audio";
+      listen();
+      sound.textContent = "Stop sound";
+      const current = attempt;
+      audio.play().catch(() => {
+        if (current === attempt) audioUnavailable();
+      });
+    });
+    audio.addEventListener("timeupdate", () => {
+      if (mode !== "audio") return;
+      // Include the timed pause between the visitor and Brulee's reply.
+      if (audio.currentTime >= 3.55) showDraft();
+      else if (audio.currentTime >= 2.97) show("estimating", "Preparing draft…", example);
+    });
+    audio.addEventListener("ended", () => {
+      if (mode !== "audio") return;
+      stop();
+      showDraft();
+    });
+    audio.addEventListener("error", () => {
+      if (mode === "audio") audioUnavailable();
+    });
+  }
 }

@@ -611,7 +611,7 @@ struct ContentView: View {
 
     private func consumePendingLaunchRoutes() {
         // Siri, the Action Button and the Control Center control open the assistant.
-        if UIApplication.shared.applicationState != .background, VoiceAssistantLaunchRequest.consumePending() {
+        if scenePhase == .active, VoiceAssistantLaunchRequest.consumePending() {
             voiceAssistant.start()
         }
         if let action = QuickActionCoordinator.consumePending() {

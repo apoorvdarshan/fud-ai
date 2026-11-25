@@ -207,7 +207,7 @@ struct ContentView: View {
                 Button("See Plus & Pro plans") {
                     showHostedUpsellPaywall = true
                 }
-                Button("Keep BYOK (free)", role: .cancel) {}
+                Button("Not now", role: .cancel) {}
             } message: {
                 Text("Fud AI is free with your own API keys (BYOK) — and always will be. If juggling keys feels confusing, Plus and Pro plans run the AI for you with no keys to manage. Totally optional, nothing changes unless you switch.")
             }
@@ -603,7 +603,7 @@ struct ContentView: View {
         guard !SimulatorTestEnvironment.isRunningTests, !PostUpdatePrompts.hasSeenHostedUpsell else { return }
         // Let the first frame and any launch route (quick action / deep link) settle first.
         try? await Task.sleep(for: .seconds(2))
-        guard canPresentPostUpdatePrompt, AIModeSettings.mode == .byok else { return }
+        guard canPresentPostUpdatePrompt else { return }
         // A failed refresh is not evidence that someone is unsubscribed.
         guard await billing.refreshCustomerInfo(), canPresentPostUpdatePrompt else { return }
         if billing.hasHostedEntitlement {

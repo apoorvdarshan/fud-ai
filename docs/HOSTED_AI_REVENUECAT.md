@@ -149,9 +149,10 @@ As of November 6, 2026, remove the introductory offers on Apple and deactivate
 `three-day-trial` on both Play yearly base plans. Do not recreate or activate
 these offers during releases. New subscriptions use the regular store price.
 The offer-driven paywall hides trial copy when no eligible offer is returned.
-The separate 9.0 invitation is shown once to existing BYOK users after
-checking that they have no active subscription and that paid plans are
-available. It does not advertise a trial or replay older launch prompts.
+The separate 9.0 invitation is shown once to existing users after checking
+that they have no active subscription and that paid plans are available.
+It includes former subscribers even if Hosted AI is still selected. It
+does not advertise a trial or replay older launch prompts.
 Keep the entitlement, quota, and reminder handling below for trials that
 were already started.
 

@@ -3,11 +3,10 @@ import Testing
 @testable import calorietracker
 
 struct PostUpdateExperienceTests {
-    @Test func hostedOfferRequiresPaidPlansButNotTrialEligibility() {
-        #expect(PostUpdatePrompts.shouldOfferHostedUpgrade(mode: .byok, hasEntitlement: false, hasPurchasablePlans: true))
-        #expect(!PostUpdatePrompts.shouldOfferHostedUpgrade(mode: .byok, hasEntitlement: false, hasPurchasablePlans: false))
-        #expect(!PostUpdatePrompts.shouldOfferHostedUpgrade(mode: .byok, hasEntitlement: true, hasPurchasablePlans: true))
-        #expect(!PostUpdatePrompts.shouldOfferHostedUpgrade(mode: .hosted, hasEntitlement: false, hasPurchasablePlans: true))
+    @Test func hostedOfferDependsOnActiveEntitlementAndPurchasablePlansOnly() {
+        #expect(PostUpdatePrompts.shouldOfferHostedUpgrade(hasEntitlement: false, hasPurchasablePlans: true))
+        #expect(!PostUpdatePrompts.shouldOfferHostedUpgrade(hasEntitlement: false, hasPurchasablePlans: false))
+        #expect(!PostUpdatePrompts.shouldOfferHostedUpgrade(hasEntitlement: true, hasPurchasablePlans: true))
     }
 
     @Test func failedRefreshKeepsKnownUpdateButConfirmedUpToDateClearsIt() throws {

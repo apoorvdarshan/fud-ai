@@ -53,8 +53,8 @@ enum PostUpdatePrompts {
         hasSeenWhatsNew = true
     }
 
-    /// The hosted upsell is only relevant to BYOK users without an active Plus/Pro
-    /// entitlement. Anyone already on hosted has nothing to be upsold.
+    /// An active Plus/Pro entitlement suppresses the invite, regardless of AI mode.
+    /// A saved Hosted selection can outlive a subscription and does not suppress it.
     ///
     /// Also gated on RevenueCat actually resolving purchasable Plus/Pro packages: while the
     /// IAPs are not live the offerings come back empty, and showing the alert would only
@@ -63,14 +63,13 @@ enum PostUpdatePrompts {
     @MainActor
     static var isHostedUpsellEligible: Bool {
         shouldOfferHostedUpgrade(
-            mode: AIModeSettings.mode,
             hasEntitlement: RevenueCatManager.shared.hasHostedEntitlement,
             hasPurchasablePlans: RevenueCatManager.shared.hasPurchasableHostedPlans
         )
     }
 
-    static func shouldOfferHostedUpgrade(mode: AIMode, hasEntitlement: Bool, hasPurchasablePlans: Bool) -> Bool {
-        mode == .byok && !hasEntitlement && hasPurchasablePlans
+    static func shouldOfferHostedUpgrade(hasEntitlement: Bool, hasPurchasablePlans: Bool) -> Bool {
+        !hasEntitlement && hasPurchasablePlans
     }
 }
 

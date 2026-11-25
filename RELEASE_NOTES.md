@@ -12,14 +12,14 @@ same marketing version can share a feature summary while identifying different b
 Fud AI 9.0 introduces the 04 Flash design for Home, the diary, navigation, and settings. Home Screen widgets, the Apple Watch dashboard and water logger, and Calories, Protein, and Macros complications now match.
 
 • Daily and Monthly Challenges are separate opt-ins alongside Weekly.
-• A confirmed update is visible from About → App & Updates. Existing eligible BYOK users can view optional paid Hosted Plus/Pro plans once after updating; no old launch popups or free-trial claims.
+• A confirmed update is visible from About → App & Updates. Existing users without an active plan can view optional paid Hosted Plus/Pro plans once after updating; no old launch popups or free-trial claims.
 
 ## android-v9.0
 
 Fud AI 9.0 introduces the 04 Flash design for Home, the diary, navigation, and settings. Calorie, Protein, Water, All Metrics, Meal Voice, and Live Voice home-screen widgets now match.
 
 • Daily and Monthly Challenges are separate opt-ins alongside Weekly.
-• A confirmed update is visible from About → App & Updates. Existing eligible BYOK users can view optional paid Hosted Plus/Pro plans once after updating; no old launch popups or free-trial claims.
+• A confirmed update is visible from About → App & Updates. Existing users without an active plan can view optional paid Hosted Plus/Pro plans once after updating; no old launch popups or free-trial claims.
 
 ## ios-v8.1.1
 

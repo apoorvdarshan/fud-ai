@@ -168,7 +168,7 @@ class TrialOfferUiTest {
     @Test fun dismissedPopupDoesNotRepeatOnNextLaunch() {
         render()
         waitFor(R.string.hosted_upsell_cta)
-        compose.onNodeWithText(text(R.string.hosted_upsell_keep)).performClick()
+        compose.onNodeWithText(text(R.string.action_cancel)).performClick()
         relaunchPrompt()
         settlePrompt()
         assertNoInvite()
@@ -220,14 +220,19 @@ class TrialOfferUiTest {
         assertTrialPaywall("₹6,800.00", 2)
     }
 
-    @Test fun inactiveHostedModeDoesNotGetByokOnlyAutomaticPopup() {
+    @Test fun expiredSubscriberWithHostedStillSelectedGetsThePaidPlansInviteOnce() {
         runBlocking { prefs.setAiAccessMode(AiAccessMode.HOSTED) }
+        entitlement.value = HostedEntitlement(loaded = true)
+        catalog(eligible = false)
         render()
+        waitFor(R.string.hosted_upsell_cta)
+        compose.onNodeWithText(text(R.string.hosted_trial_invite_title)).assertDoesNotExist()
+        compose.onNodeWithText(text(R.string.action_cancel)).performClick()
+        assertEquals(AiAccessMode.HOSTED, runBlocking { prefs.aiAccessMode.first() })
+        assertTrue(runBlocking { prefs.hasSeenHostedUpsellPrompt.first() })
+        relaunchPrompt()
         settlePrompt()
         assertNoInvite()
-        assertFalse(runBlocking { prefs.hasSeenHostedUpsellPrompt.first() })
-        compose.runOnIdle { router.show(HostedPrompt.Paywall) }
-        assertTrialPaywall("₹6,800.00", 2)
     }
 
     @Test fun directUpgradeSkipsUnseenLegacyPopupsAndShowsOnlyTheHostedInvite() {
@@ -241,7 +246,7 @@ class TrialOfferUiTest {
         waitFor(R.string.hosted_upsell_cta)
         compose.onNodeWithText(text(R.string.hosted_upsell_title)).assertIsDisplayed()
         compose.onNodeWithText(text(R.string.whats_new_next)).assertDoesNotExist()
-        compose.onNodeWithText(text(R.string.hosted_upsell_keep)).performClick()
+        compose.onNodeWithText(text(R.string.action_cancel)).performClick()
         assertNoInvite()
         compose.onNodeWithText(text(R.string.post_update_meet_dev_title)).assertDoesNotExist()
         compose.onNodeWithText(text(R.string.post_update_product_hunt_title)).assertDoesNotExist()

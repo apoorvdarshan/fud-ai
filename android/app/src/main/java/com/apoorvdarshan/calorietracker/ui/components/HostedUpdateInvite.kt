@@ -13,7 +13,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import com.apoorvdarshan.calorietracker.AppContainer
 import com.apoorvdarshan.calorietracker.R
-import com.apoorvdarshan.calorietracker.services.hosted.AiAccessMode
 import com.apoorvdarshan.calorietracker.services.hosted.HostedPrompt
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
@@ -32,10 +31,11 @@ fun HostedUpdateInviteHost(container: AppContainer, enabled: Boolean, canPresent
         if (!enabled) return@LaunchedEffect
         delay(2_500)
         if (!isSafeToPresent() || !prefs.hasCompletedOnboarding.first() ||
-            prefs.hasSeenHostedUpsellPrompt.first() || prefs.aiAccessMode.first() != AiAccessMode.BYOK
+            prefs.hasSeenHostedUpsellPrompt.first()
         ) return@LaunchedEffect
 
         val billing = container.billing
+        // Check the subscription, not the saved AI mode: an expired subscriber can still have Hosted selected.
         // Neither a failed entitlement refresh nor an empty catalog consumes the invite.
         if (!billing.isAvailable || !billing.refreshCustomerInfo()) return@LaunchedEffect
         if (billing.entitlement.value.isEntitled) {
@@ -43,8 +43,7 @@ fun HostedUpdateInviteHost(container: AppContainer, enabled: Boolean, canPresent
             return@LaunchedEffect
         }
         billing.loadOfferings()
-        if (!billing.hasPurchasablePlans || billing.entitlement.value.isEntitled ||
-            prefs.aiAccessMode.first() != AiAccessMode.BYOK || !isSafeToPresent()
+        if (!billing.hasPurchasablePlans || billing.entitlement.value.isEntitled || !isSafeToPresent()
         ) return@LaunchedEffect
 
         prefs.setHasSeenHostedUpsellPrompt(true)
@@ -69,7 +68,7 @@ fun HostedUpdateInviteHost(container: AppContainer, enabled: Boolean, canPresent
                     showInvite = false
                     container.hostedUi.show(HostedPrompt.Paywall)
                 },
-                dismissText = stringResource(R.string.hosted_upsell_keep),
+                dismissText = stringResource(R.string.action_cancel),
                 onDismiss = { showInvite = false }
             )
         }

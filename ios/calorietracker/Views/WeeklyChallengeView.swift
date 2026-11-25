@@ -626,44 +626,23 @@ struct WeeklyChallengeView: View {
                     .foregroundStyle(.secondary)
                     .padding(16)
             } else {
-                let first = rows.first { $0.rank == 1 }
-                let second = rows.first { $0.rank == 2 }
-                let third = rows.first { $0.rank == 3 }
-                let showPodium = first != nil && second != nil
-                let podiumIDs = Set([first?.participantId, second?.participantId, third?.participantId].compactMap { $0 })
-                let listRows = showPodium ? rows.filter { !podiumIDs.contains($0.participantId) } : rows
-                let pageRows = listRows.filter { $0.rank >= startRank && $0.rank <= endRank }
-                let showPodiumNow = showPodium && currentPage == 0
-                if showPodiumNow, let first, let second {
-                    WeeklyChallengePodium(
-                        first: first,
-                        second: second,
-                        third: third,
-                        category: category,
-                        viewerID: viewerID,
-                        onReport: { participant in
-                            store.clearError()
-                            reportTarget = participant
-                        },
-                        onBlock: { store.block($0) }
-                    )
-                }
-                ForEach(Array(pageRows.enumerated()), id: \.element.id) { index, participant in
-                    if index > 0 || showPodiumNow {
-                        Divider().padding(.leading, 62)
+                let pageRows = rows.filter { $0.rank >= startRank && $0.rank <= endRank }
+                VStack(spacing: 8) {
+                    ForEach(pageRows) { participant in
+                        WeeklyChallengeParticipantRow(
+                            participant: participant,
+                            category: category,
+                            isViewer: participant.isViewer || participant.participantId == viewerID,
+                            onReport: {
+                                store.clearError()
+                                reportTarget = participant
+                            },
+                            onBlock: { store.block(participant) }
+                        )
                     }
-                    WeeklyChallengeParticipantRow(
-                        participant: participant,
-                        category: category,
-                        isViewer: participant.isViewer || participant.participantId == viewerID,
-                        striped: index % 2 == 1,
-                        onReport: {
-                            store.clearError()
-                            reportTarget = participant
-                        },
-                        onBlock: { store.block(participant) }
-                    )
                 }
+                .padding(.horizontal, 8)
+                .padding(.vertical, 6)
             }
             if page != nil, let request = rankingPageRequest, failedRankingPage == request {
                 Button(WeeklyChallengeL10n.text("Retry")) {
@@ -859,12 +838,13 @@ private struct WeeklyChallengeViewerCard: View {
                         .font(.system(.subheadline, design: .rounded, weight: .bold))
                         .foregroundStyle(AppColors.calorie)
                     WeeklyChallengeParticipantIdentity(participant: participant)
-                    Text(WeeklyChallengeParticipantScore.text(for: participant, category: category, energyUnit: energyUnit))
-                        .font(.system(.subheadline, design: .rounded, weight: .semibold))
-                        .foregroundStyle(.secondary)
-                        .lineLimit(2)
                 }
             }
+            WeeklyChallengeSocialLink(participant: participant)
+            Text(WeeklyChallengeParticipantScore.text(for: participant, category: category, energyUnit: energyUnit))
+                .font(.system(.subheadline, design: .rounded, weight: .semibold))
+                .foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
 
             WeeklyChallengeWeekTrack(
                 label: WeeklyChallengeL10n.text("Overall"),
@@ -992,98 +972,6 @@ private struct WeeklyChallengeDayTrack: View {
     }
 }
 
-private struct WeeklyChallengePodium: View {
-    let first: WeeklyChallengeParticipant
-    let second: WeeklyChallengeParticipant
-    let third: WeeklyChallengeParticipant?
-    let category: WeeklyChallengeCategory
-    let viewerID: String?
-    let onReport: (WeeklyChallengeParticipant) -> Void
-    @AppStorage(EnergyUnit.storageKey) private var energyUnit = EnergyUnit.defaultUnit
-    let onBlock: (WeeklyChallengeParticipant) -> Void
-
-    var body: some View {
-        HStack(alignment: .bottom, spacing: 6) {
-            podiumColumn(second, height: 64)
-            podiumColumn(first, height: 96)
-            podiumColumn(third, height: 52)
-        }
-        .padding(.horizontal, 8)
-        .padding(.top, 4)
-    }
-
-    @ViewBuilder
-    private func podiumColumn(_ participant: WeeklyChallengeParticipant?, height: CGFloat) -> some View {
-        if let participant {
-            let isViewer = participant.isViewer || participant.participantId == viewerID
-            VStack(spacing: 4) {
-                HStack {
-                    Spacer(minLength: 0)
-                    if !isViewer {
-                        Menu {
-                            Button(WeeklyChallengeL10n.text("Report")) { onReport(participant) }
-                            Button(WeeklyChallengeL10n.text("Block"), role: .destructive) {
-                                onBlock(participant)
-                            }
-                        } label: {
-                            Image(systemName: "ellipsis")
-                                .font(.body.weight(.semibold))
-                                .frame(width: 28, height: 28)
-                        }
-                        .accessibilityLabel(
-                            WeeklyChallengeL10n.format("More actions for %1$@", participant.displayName)
-                        )
-                    } else {
-                        Color.clear.frame(width: 28, height: 28)
-                    }
-                }
-                WeeklyChallengeRankBadge(place: participant.rank)
-                Text(participant.displayName)
-                    .font(.system(.subheadline, design: .rounded, weight: .semibold))
-                    .lineLimit(1)
-                    .multilineTextAlignment(.center)
-                if isViewer {
-                    Text(WeeklyChallengeL10n.text("You"))
-                        .font(.system(.caption2, design: .rounded, weight: .bold))
-                        .foregroundStyle(AppColors.calorie)
-                        .padding(.horizontal, 6)
-                        .padding(.vertical, 2)
-                        .background(AppColors.calorie.opacity(0.16), in: Capsule())
-                }
-                if let platform = participant.socialPlatform,
-                   let handle = participant.socialHandle,
-                   let url = platform.profileURL(handle: handle) {
-                    Link(destination: url) {
-                        Text(WeeklyChallengeL10n.format("@%1$@ · %2$@", handle, platform.title))
-                            .font(.system(.caption2, design: .rounded))
-                            .foregroundStyle(AppColors.calorie)
-                            .lineLimit(1)
-                    }
-                }
-                Text(WeeklyChallengeParticipantScore.text(for: participant, category: category, energyUnit: energyUnit))
-                    .font(.system(.caption, design: .rounded, weight: .bold))
-                    .foregroundStyle(WeeklyChallengeRankBadge.foreground(for: participant.rank))
-                    .multilineTextAlignment(.center)
-                    .lineLimit(2)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: height, alignment: .top)
-                    .padding(.top, 8)
-                    .background(
-                        WeeklyChallengeRankBadge.fill(for: participant.rank),
-                        in: UnevenRoundedRectangle(
-                            topLeadingRadius: 16,
-                            topTrailingRadius: 16
-                        )
-                    )
-                    .padding(.horizontal, 4)
-            }
-            .frame(maxWidth: .infinity, alignment: .bottom)
-        } else {
-            Color.clear.frame(maxWidth: .infinity).frame(height: height)
-        }
-    }
-}
-
 private struct WeekCalendarStrip: View {
     let weekStart: Date
 
@@ -1113,101 +1001,60 @@ private struct WeekCalendarStrip: View {
     }
 }
 
-private struct WeeklyChallengeParticipantRow: View {
+struct WeeklyChallengeParticipantRow: View {
     let participant: WeeklyChallengeParticipant
     let category: WeeklyChallengeCategory
     let isViewer: Bool
-    var striped: Bool = false
     let onReport: () -> Void
     let onBlock: () -> Void
     @AppStorage(EnergyUnit.storageKey) private var energyUnit = EnergyUnit.defaultUnit
 
     var body: some View {
-        HStack(spacing: 12) {
-            if isViewer {
-                Capsule()
-                    .fill(AppColors.calorie)
-                    .frame(width: 4, height: 36)
+        let shape = RoundedRectangle(cornerRadius: 16)
+        let medal = participant.rank <= 3 ? WeeklyChallengeRankBadge.fill(for: participant.rank) : nil
+        VStack(alignment: .leading, spacing: 3) {
+            HStack(spacing: 10) {
+                WeeklyChallengeRankBadge(place: participant.rank)
+                WeeklyChallengeParticipantIdentity(participant: participant)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
-            WeeklyChallengeRankBadge(place: participant.rank)
-
-            WeeklyChallengeNameMark(name: participant.displayName)
-
-            WeeklyChallengeParticipantIdentity(participant: participant, isViewer: isViewer)
-
-            Spacer(minLength: 4)
-
-            Text(WeeklyChallengeParticipantScore.text(for: participant, category: category, energyUnit: energyUnit))
-                .font(.system(.caption, design: .rounded, weight: .bold))
-                .foregroundStyle(AppColors.calorie)
-                .multilineTextAlignment(.trailing)
-                .padding(.horizontal, 8)
-                .padding(.vertical, 4)
-                .frame(maxWidth: 148, alignment: .trailing)
-                .background(AppColors.calorie.opacity(0.12), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
-
-            if !isViewer {
-                Menu {
-                    Button(WeeklyChallengeL10n.text("Report"), action: onReport)
-                    Button(
-                        WeeklyChallengeL10n.text("Block"),
-                        role: .destructive,
-                        action: onBlock
-                    )
-                } label: {
-                    Image(systemName: "ellipsis.circle")
-                        .font(.title3)
-                        .frame(width: 32, height: 44)
+            WeeklyChallengeSocialLink(participant: participant)
+            HStack(spacing: 8) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(WeeklyChallengeParticipantScore.text(for: participant, category: category, energyUnit: energyUnit))
+                        .font(.system(.subheadline, design: .rounded, weight: .semibold))
+                    if isViewer {
+                        Text(WeeklyChallengeL10n.text("You"))
+                            .font(.system(.caption, design: .rounded, weight: .bold))
+                            .foregroundStyle(AppColors.calorie)
+                    }
                 }
-                .accessibilityLabel(
-                    WeeklyChallengeL10n.format("More actions for %1$@", participant.displayName)
-                )
+                .fixedSize(horizontal: false, vertical: true)
+                .foregroundStyle(.secondary)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                if !isViewer {
+                    Menu {
+                        Button(WeeklyChallengeL10n.text("Report"), action: onReport)
+                        Button(WeeklyChallengeL10n.text("Block"), role: .destructive, action: onBlock)
+                    } label: {
+                        Image(systemName: "ellipsis")
+                            .font(.body.weight(.semibold))
+                            .frame(width: 48, height: 48)
+                            .contentShape(Rectangle())
+                    }
+                    .accessibilityLabel(
+                        WeeklyChallengeL10n.format("More actions for %1$@", participant.displayName)
+                    )
+                }
             }
         }
         .padding(.horizontal, 12)
-        .padding(.vertical, 10)
-        .background(
-            isViewer
-                ? AppColors.calorie.opacity(0.12)
-                : (striped ? Color.primary.opacity(0.05) : Color.clear)
-        )
-    }
-}
-
-private struct WeeklyChallengeNameMark: View {
-    let name: String
-
-    private static let colors: [Color] = [
-        Color(red: 0.91, green: 0.36, blue: 0.46),
-        Color(red: 0.36, green: 0.55, blue: 0.94),
-        Color(red: 0.24, green: 0.72, blue: 0.60),
-        Color(red: 0.94, green: 0.64, blue: 0.01),
-        Color(red: 0.61, green: 0.42, blue: 1),
-        Color(red: 0.17, green: 0.69, blue: 0.79)
-    ]
-
-    private var letter: String {
-        let trimmed = name.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard let first = trimmed.first else { return "?" }
-        return String(first).uppercased()
-    }
-
-    private var color: Color {
-        var hash = 0
-        for scalar in name.unicodeScalars {
-            hash = (hash &* 31) &+ Int(scalar.value)
+        .padding(.vertical, 8)
+        .background((isViewer ? AppColors.calorie : medal ?? Color.primary).opacity(isViewer || medal != nil ? 0.10 : 0.035), in: shape)
+        .overlay {
+            shape.strokeBorder((isViewer ? AppColors.calorie : medal ?? Color.primary).opacity(isViewer || medal != nil ? 0.45 : 0.10))
+                .allowsHitTesting(false)
         }
-        let index = abs(hash) % Self.colors.count
-        return Self.colors[index]
-    }
-
-    var body: some View {
-        Text(letter)
-            .font(.system(.subheadline, design: .rounded, weight: .bold))
-            .foregroundStyle(Color.white)
-            .frame(width: 32, height: 32)
-            .background(color, in: Circle())
-            .accessibilityHidden(true)
     }
 }
 
@@ -1216,11 +1063,15 @@ private struct WeeklyChallengeRankBadge: View {
     var diameter: CGFloat = 36
 
     var body: some View {
-        Text("\(place)")
+        Text(place.formatted())
             .font(.system(diameter > 40 ? .title3 : .subheadline, design: .rounded, weight: .bold))
+            .monospacedDigit()
             .foregroundStyle(foreground)
-            .frame(width: diameter, height: diameter)
-            .background(fill, in: Circle())
+            .padding(.horizontal, 7)
+            .padding(.vertical, 5)
+            .frame(minWidth: diameter, minHeight: diameter)
+            .fixedSize()
+            .background(fill, in: Capsule())
     }
 
     private var fill: Color { Self.fill(for: place) }
@@ -1248,41 +1099,39 @@ private struct WeeklyChallengeRankBadge: View {
 
 private struct WeeklyChallengeParticipantIdentity: View {
     let participant: WeeklyChallengeParticipant
-    var isViewer: Bool = false
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 3) {
-            HStack(spacing: 6) {
-                Text(participant.displayName)
-                    .font(.system(.body, design: .rounded, weight: .semibold))
-                    .lineLimit(1)
-                if isViewer {
-                    Text(WeeklyChallengeL10n.text("You"))
-                        .font(.system(.caption2, design: .rounded, weight: .bold))
-                        .foregroundStyle(AppColors.calorie)
-                        .padding(.horizontal, 6)
-                        .padding(.vertical, 2)
-                        .background(AppColors.calorie.opacity(0.16), in: Capsule())
-                }
-            }
+        Text(participant.displayName)
+            .font(.system(.body, design: .rounded, weight: .semibold))
+            .lineLimit(nil)
+            .fixedSize(horizontal: false, vertical: true)
+    }
+}
 
-            if let platform = participant.socialPlatform,
-               let handle = participant.socialHandle,
-               let url = platform.profileURL(handle: handle) {
-                Link(destination: url) {
-                    Text(WeeklyChallengeL10n.format("@%1$@ · %2$@", handle, platform.title))
-                        .font(.system(.caption, design: .rounded))
-                        .foregroundStyle(AppColors.calorie)
-                        .lineLimit(1)
+private struct WeeklyChallengeSocialLink: View {
+    let participant: WeeklyChallengeParticipant
+
+    var body: some View {
+        if let platform = participant.socialPlatform,
+           let handle = participant.socialHandle, !handle.isEmpty,
+           let url = platform.profileURL(handle: handle) {
+            Link(destination: url) {
+                HStack(spacing: 8) {
+                    Image(platform == .x ? "challenge-social-x" : "challenge-social-instagram")
+                        .resizable()
+                        .frame(width: 16, height: 16)
+                        .accessibilityHidden(true)
+                    Text(verbatim: "@\(handle)")
+                        .font(.system(.subheadline, design: .rounded, weight: .medium))
+                        .lineLimit(nil)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .environment(\.layoutDirection, .leftToRight)
                 }
-                .accessibilityLabel(
-                    WeeklyChallengeL10n.format(
-                        "Open @%1$@ on %2$@",
-                        handle,
-                        platform.title
-                    )
-                )
+                .foregroundStyle(AppColors.calorie)
+                .frame(minWidth: 48, minHeight: 48, alignment: .leading)
+                .contentShape(Rectangle())
             }
+            .accessibilityLabel(WeeklyChallengeL10n.format("Open @%1$@ on %2$@", handle, platform.title))
         }
     }
 }

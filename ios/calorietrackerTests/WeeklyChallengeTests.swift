@@ -1,9 +1,38 @@
 import Foundation
+import SwiftUI
 import Testing
 @testable import calorietracker
 
 @Suite("Weekly Challenge")
 struct WeeklyChallengeTests {
+    @MainActor
+    @Test func longRankingNamesAndHandlesMakeNarrowCardsGrowRatherThanTruncate() throws {
+        func render(name: String, handle: String, width: CGFloat, type: DynamicTypeSize) throws -> CGSize {
+            let participant = WeeklyChallengeParticipant(
+                rank: 1, participantId: "fixture", displayName: name,
+                socialPlatform: .instagram, socialHandle: handle, score: 5, overallPoints: 5,
+                activityDays: 1, nutritionDays: 1, consistencyDays: 2, hydrationDays: 1,
+                activityKcal: 0, updatedAt: nil, isViewer: true
+            )
+            let row = WeeklyChallengeParticipantRow(
+                participant: participant, category: .overall, isViewer: true, onReport: {}, onBlock: {}
+            )
+            let renderer = ImageRenderer(content: row.dynamicTypeSize(type).frame(width: width))
+            return try #require(renderer.uiImage).size
+        }
+
+        let longName = "Alexandria Isabella Montgomery"
+        let longHandle = "alexandria.isabella.montgomery"
+        let short = try render(name: "Alex", handle: "alex", width: 196, type: .large)
+        let name = try render(name: longName, handle: "alex", width: 196, type: .large)
+        let both = try render(name: longName, handle: longHandle, width: 196, type: .accessibility2)
+        let largeName = try render(name: longName, handle: "alex", width: 196, type: .accessibility2)
+        #expect(name.width == 196)
+        #expect(name.height > short.height)
+        #expect(both.height > largeName.height)
+        #expect(both.width == 196)
+    }
+
     @Test func dailyAndMonthlyUseElapsedLocalDaysAndRewardBalancedStreaks() throws {
         let zone = try #require(TimeZone(identifier: "Asia/Kolkata"))
         var calendar = Calendar(identifier: .gregorian)

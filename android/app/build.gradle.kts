@@ -428,6 +428,8 @@ dependencies {
     implementation(libs.revenuecat.purchases)
 
     testImplementation(libs.junit)
+    // android.jar supplies only stubs for org.json in local JVM tests.
+    testImplementation(libs.json.java)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation("com.squareup.okhttp3:mockwebserver:${libs.versions.okhttp.get()}")
     testImplementation("com.squareup.okhttp3:okhttp-tls:${libs.versions.okhttp.get()}")

@@ -378,6 +378,18 @@ final class calorietrackerUITests: XCTestCase {
     }
 
     @MainActor
+    func testMascotHonorsLocalProviderWithoutCloudFallback() throws {
+        let app = makeApp(defaults: ["-voiceAssistant.provider", "lfm3_offline"])
+        app.launchArguments += ["-AppleLanguages", "(en)"]
+        app.launch()
+        let mascot = app.buttons["nav.voice"]
+        XCTAssertTrue(mascot.waitForExistence(timeout: 8))
+        mascot.tap()
+        XCTAssertTrue(app.staticTexts["Download LFM3 to use local voice."].waitForExistence(timeout: 8))
+        XCTAssertFalse(app.buttons["Start a new cloud voice session"].exists)
+    }
+
+    @MainActor
     func testAboutAndSupportAreSeparateFromSettings() throws {
         let app = makeApp()
         app.launchArguments += ["-AppleLanguages", "(en)"]

@@ -6,13 +6,31 @@ offline OCR or change cloud Live Voice.
 
 ## Offline Voice: Liquid LFM3-Audio-2B
 
-Open **Settings → Voice Assistant → Offline Voice**. Download the two files
-over the network, then tap **Speak** and **Send recording**. After installation,
-processing and playback need no connection, provider key, or subscription.
-Spoken conversation is English-only, one turn at a time, with up to 10 seconds
-of input. It does not use your diary, run tools, save chat history, or switch to
-the cloud. Brief input and output WAVs in app-private temporary storage are
-removed after the turn or on reopening Offline Voice after an interrupted process.
+Download LFM3 in **Settings → Voice Assistant → Offline Voice**, then choose
+**Offline Voice (LFM3)** or **Local voice + connected tools (LFM3)** in the
+**Provider** picker. The mascot and voice shortcuts honor the selected provider.
+Tap **Speak** and **Send recording**. Spoken conversation is English-only and
+turn-based, with up to 10 seconds of recorded input. LFM3 handles both audio
+directions; it does not invoke the separate dictation providers.
+
+- **Offline Voice** can look up diary records and saved foods and prepare food,
+  water, fasting, body measurements and cardio saves, all on-device. Food
+  logging uses real saved-food or draft IDs, not model-invented nutrition.
+- **Local voice + connected tools** adds camera and photo analysis, barcode
+  lookup, food-text analysis and workout parsing through Fud's existing routes.
+  Those routes can send the requested text, photo or barcode to their configured
+  services; they never receive the local voice recording. The voice model does
+  not see live camera frames. Both modes require tapping a card to confirm
+  writes; they do not offer model-driven deletes or settings changes.
+- **Offer cloud voice fallback** defaults to off and is separate from connected
+  tools. If LFM3 is unavailable or generation fails, an enabled offer lets the
+  user tap to start a new cloud speech-to-speech session using Automatic
+  routing. No local recording, prior turn, card, or tool result is replayed.
+  Deleting LFM3 leaves the local provider selected and shows download guidance.
+
+The settings screen also has a tool-free voice preview. Local turns are not
+saved to Coach. Temporary WAV and text files in app-private storage are removed
+after the turn or when reopening local voice after an interrupted process.
 
 The app gates downloads and use to the **8 GB RAM device class**, on physical
 iOS devices or `arm64-v8a` Android. This threshold is provisional. The model
@@ -33,7 +51,9 @@ weights are downloaded directly from Hugging Face, not bundled in the apps.
 The [native Mac smoke test](../scripts/test-offline-voice-native.sh) exercises
 pre-cancellation, then uses a synthetic spoken question to check non-silent
 24 kHz output on both Metal and CPU. It requires the pinned source, published
-Mac arm64 binaries, and verified model files already on disk.
+Mac arm64 binaries, and verified model files already on disk. Set
+`OFFLINE_VOICE_SMOKE_AGENT=1` to also check a spoken water-log tool call and
+speech after a simulated confirmation-required result. It writes no diary data.
 
 ## Gemma 4
 

@@ -8,6 +8,7 @@ struct VoiceAssistantSettingsView: View {
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.locale) private var locale
     @AppStorage(VoiceMascotPreferences.storageKey) private var mascotRaw = ""
+    @AppStorage(VoiceAssistantSettings.localFallbackKey) private var offerCloudFallback = false
     @State private var preview = VoicePreviewController.shared
     @State private var assistant = VoiceAssistantController.shared
 
@@ -85,9 +86,9 @@ struct VoiceAssistantSettingsView: View {
             if let provider = configuredProvider {
                 modelAndVoiceSection(provider)
             }
-            languageSection
+            if !choice.isLocal { languageSection }
             behaviorSection
-            if rc.hasHostedEntitlement || choice == .hosted {
+            if !choice.isLocal && (rc.hasHostedEntitlement || choice == .hosted) {
                 minutesSection
             }
             shortcutsSection
@@ -104,7 +105,7 @@ struct VoiceAssistantSettingsView: View {
         }
         .task {
             revision += 1
-            await loadVoiceQuota()
+            if !choice.isLocal { await loadVoiceQuota() }
         }
         .onDisappear { preview.stop() }
         .onChange(of: scenePhase) { _, phase in
@@ -143,9 +144,10 @@ struct VoiceAssistantSettingsView: View {
             .accessibilityIdentifier("settings.voiceAssistant.provider")
             .onChange(of: choice) { _, newValue in
                 preview.stop()
+                if assistant.isActive { assistant.dismiss() }
                 settings.providerChoice = newValue
                 revision += 1
-                Task { await loadVoiceQuota() }
+                if !newValue.isLocal { Task { await loadVoiceQuota() } }
             }
 
             routeStatus
@@ -163,6 +165,22 @@ struct VoiceAssistantSettingsView: View {
     @ViewBuilder
     private var routeStatus: some View {
         switch route {
+        case .local(let connected):
+            Text(connected
+                 ? String(localized: "Speech stays on this device. Requested tools can send text, photos or barcodes to your configured services.", table: "OfflineVoice")
+                 : String(localized: "English voice with on-device diary tools. No network tools.", table: "OfflineVoice"))
+            NavigationLink {
+                OfflineVoiceView()
+            } label: {
+                Text("Manage LFM3 download", tableName: "OfflineVoice")
+            }
+            Toggle(isOn: $offerCloudFallback) {
+                VStack(alignment: .leading) {
+                    Text("Offer cloud voice fallback", tableName: "OfflineVoice")
+                    Text("You must tap to start a new cloud session. Previous recordings are never sent.", tableName: "OfflineVoice")
+                        .font(.caption)
+                }
+            }
         case .ready(let provider):
             Label {
                 Text(provider == .hosted

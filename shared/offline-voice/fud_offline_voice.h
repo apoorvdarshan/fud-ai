@@ -19,6 +19,13 @@ void fud_voice_destroy(fud_voice_turn *turn);
 int fud_voice_reply(fud_voice_turn *turn, const char *model, const char *projector,
                     const char *input, const char *output, bool gpu);
 
+// With tool declarations (one JSON function per line), capture the model's text
+// in text_output. A tool-only response (no WAV) still succeeds. continuation is
+// optional, app-rendered assistant/tool turns following the original recording.
+int fud_voice_agent_reply(fud_voice_turn *turn, const char *model, const char *projector,
+                          const char *input, const char *output, bool gpu, const char *tools,
+                          const char *continuation, const char *text_output);
+
 #ifdef __cplusplus
 }
 #endif

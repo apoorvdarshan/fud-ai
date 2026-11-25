@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="offline_voice">Voce offline</string>
-    <string name="offline_voice_description">Doar în engleză, câte o întrebare și un răspuns. Fără acces la jurnal, salvarea conversației sau trecerea la cloud.</string>
     <string name="offline_voice_speak">Vorbește</string>
     <string name="offline_voice_send">Trimite înregistrarea</string>
     <string name="offline_voice_preparing">Se pregătește răspunsul pe acest dispozitiv…</string>
@@ -9,4 +8,12 @@
     <string name="offline_voice_recording_error">Nu s-a putut înregistra sunetul. Încearcă să vorbești cel puțin o secundă.</string>
     <string name="offline_voice_reply_error">Nu s-a putut genera sau reda un răspuns vocal.</string>
     <string name="offline_voice_notices">Notificări de licență pentru Voce offline</string>
+    <string name="offline_voice_connected">Voce locală + instrumente conectate</string>
+    <string name="offline_voice_connected_detail">Vocea rămâne pe dispozitiv. Instrumentele folosite pot trimite text, fotografii sau coduri de bare către serviciile configurate.</string>
+    <string name="offline_voice_local_detail">Voce în engleză cu instrumentele jurnalului pe dispozitiv. Fără instrumente de rețea.</string>
+    <string name="offline_voice_offer_cloud">Oferă voce în cloud ca alternativă</string>
+    <string name="offline_voice_fallback_detail">Atinge pentru a porni o sesiune nouă în cloud. Înregistrările anterioare nu sunt trimise niciodată.</string>
+    <string name="offline_voice_start_cloud">Pornește o sesiune vocală nouă în cloud</string>
+    <string name="offline_voice_download_required">Descarcă LFM3 pentru a folosi vocea locală.</string>
+    <string name="offline_voice_preview_detail">Doar în engleză, câte o întrebare și un răspuns. Această previzualizare nu utilizează instrumentele jurnalului sau cloudul.</string>
 </resources>

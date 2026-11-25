@@ -732,6 +732,17 @@ class AppFlowsTest {
     }
 
     @Test
+    fun mascotHonorsLocalProviderWithoutCloudFallback() {
+        launchFresh()
+        runBlocking { prefs.setVoiceAssistantProvider(com.apoorvdarshan.calorietracker.services.voice.VoiceProviderChoice.OFFLINE) }
+        compose.onNodeWithTag("nav.voice").performClick()
+        val message = "Download LFM3 to use local voice."
+        compose.waitUntil(8_000) { compose.onAllNodesWithText(message).fetchSemanticsNodes().isNotEmpty() }
+        compose.onNodeWithText(message).assertIsDisplayed()
+        compose.onNodeWithText("Start a new cloud voice session").assertDoesNotExist()
+    }
+
+    @Test
     fun manualFoodRequiresNameAndCaloriesAndPersistsAcrossActivityRestarts() {
         launchFresh()
         openManualEntry()

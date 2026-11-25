@@ -52,6 +52,7 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -66,13 +67,6 @@ internal fun OfflineVoiceSettings(models: LocalModelManager, liveActive: Boolean
     val voice = remember(context, models, scope) { OfflineVoiceSession(context, models, scope) }
     val lifecycle = LocalLifecycleOwner.current.lifecycle
     val available = remember(model.eligible) { model.eligible && OfflineVoiceNative.available }
-    val requestPermission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
-        if (voice.acceptPermission && lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
-            if (granted && !liveActive) voice.start()
-            else if (!granted) voice.error = R.string.voice_mic_permission_denied
-        }
-        voice.acceptPermission = false
-    }
     DisposableEffect(lifecycle, voice) {
         val observer = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_STOP) voice.stop()
@@ -84,16 +78,10 @@ internal fun OfflineVoiceSettings(models: LocalModelManager, liveActive: Boolean
         }
     }
     LaunchedEffect(liveActive) { if (liveActive) voice.stop() }
-    LaunchedEffect(voice.phase) {
-        if (voice.phase == OfflineVoicePhase.RECORDING) {
-            delay(10_000)
-            voice.send()
-        }
-    }
 
     Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Text(stringResource(R.string.offline_voice), style = MaterialTheme.typography.titleLarge)
-        Text(stringResource(R.string.offline_voice_description), style = MaterialTheme.typography.bodyMedium)
+        Text(stringResource(R.string.offline_voice_preview_detail), style = MaterialTheme.typography.bodyMedium)
         LocalModelRow(
             state = if (model.eligible && !available) model.copy(
                 eligible = false, ineligibility = LocalModelIneligibility.UNSUPPORTED_ABI
@@ -102,10 +90,31 @@ internal fun OfflineVoiceSettings(models: LocalModelManager, liveActive: Boolean
             onDelete = { if (!voice.busy) scope.launch { models.delete(id) } },
             actionsEnabled = !voice.busy
         )
-        if (available && model.executable) {
+        if (available && model.executable) OfflineVoiceControls(voice, liveActive)
+    }
+}
+
+@Composable
+internal fun OfflineVoiceControls(voice: OfflineVoiceSession, blocked: Boolean = false) {
+    val context = LocalContext.current
+    val lifecycle = LocalLifecycleOwner.current.lifecycle
+    val permission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+        if (voice.acceptPermission && lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
+            if (granted && !blocked) voice.start()
+            else if (!granted) voice.error = R.string.voice_mic_permission_denied
+        }
+        voice.acceptPermission = false
+    }
+    LaunchedEffect(voice.phase) {
+        if (voice.phase == OfflineVoicePhase.RECORDING) {
+            delay(10_000)
+            voice.send()
+        }
+    }
+    Column {
             when (voice.phase) {
                 OfflineVoicePhase.IDLE -> Button(
-                    enabled = !liveActive && !voice.busy,
+                    enabled = !blocked && !voice.busy,
                     modifier = Modifier.testTag("voiceSettings.offline.speak"),
                     onClick = {
                         if (ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) ==
@@ -113,7 +122,7 @@ internal fun OfflineVoiceSettings(models: LocalModelManager, liveActive: Boolean
                         ) voice.start()
                         else {
                             voice.acceptPermission = true
-                            requestPermission.launch(Manifest.permission.RECORD_AUDIO)
+                            permission.launch(Manifest.permission.RECORD_AUDIO)
                         }
                     }
                 ) { Text(stringResource(R.string.offline_voice_speak)) }
@@ -133,17 +142,20 @@ internal fun OfflineVoiceSettings(models: LocalModelManager, liveActive: Boolean
                 }
             }
             voice.error?.let { Text(stringResource(it), color = MaterialTheme.colorScheme.error) }
-        }
     }
 }
 
-private enum class OfflineVoicePhase { IDLE, RECORDING, WORKING, SPEAKING }
+internal enum class OfflineVoicePhase { IDLE, RECORDING, WORKING, SPEAKING }
 
 /** Main-thread UI/audio ownership; inference and native file validation run off main. */
-private class OfflineVoiceSession(
+internal class OfflineVoiceSession(
     private val context: Context,
     private val models: LocalModelManager,
-    private val scope: CoroutineScope
+    private val scope: CoroutineScope,
+    private val agent: (suspend (
+        generate: suspend (tools: String, continuation: String) -> String,
+        hasAudio: () -> Boolean
+    ) -> Unit)? = null
 ) {
     private val directory = OfflineVoiceCache.directory(context)
     private val recorder = AudioRecorder(context, directory, maxSeconds = 10)
@@ -151,6 +163,7 @@ private class OfflineVoiceSession(
     private val audioManager = context.getSystemService(AudioManager::class.java)
     private var focus: AudioFocusRequest? = null
     private var turn by mutableStateOf<OfflineVoiceTurn?>(null)
+    private var work: Job? = null
     private var epoch = 0
     var phase by mutableStateOf(OfflineVoicePhase.IDLE)
         private set
@@ -182,13 +195,33 @@ private class OfflineVoiceSession(
         turn = active
         phase = OfflineVoicePhase.WORKING
         val request = epoch
-        scope.launch(start = CoroutineStart.UNDISPATCHED) {
+        work = scope.launch(start = CoroutineStart.UNDISPATCHED) {
             var output: File? = null
             try {
                 val reply = File.createTempFile("reply-", ".wav", directory)
                 output = reply
-                val code = withContext(Dispatchers.IO) {
+                val code = if (agent == null) withContext(Dispatchers.IO) {
                     models.useOfflineVoiceFiles { files -> active.reply(files, input, reply) }
+                } else {
+                    val transcript = File.createTempFile("text-", ".txt", directory)
+                    try {
+                        agent({ tools, continuation ->
+                            withContext(Dispatchers.IO) {
+                                check(reply.delete() || !reply.exists())
+                                val result = models.useOfflineVoiceFiles { files ->
+                                    active.agentReply(files, input, reply, tools, continuation, transcript)
+                                }
+                                check(result == 0)
+                                transcript.readText()
+                            }
+                        }, { reply.isFile && reply.length() > 44 })
+                        if (reply.isFile && reply.length() > 44) 0 else {
+                            if (request == epoch) phase = OfflineVoicePhase.IDLE
+                            return@launch
+                        }
+                    } finally {
+                        transcript.delete()
+                    }
                 }
                 if (request != epoch) return@launch
                 when (code) {
@@ -244,6 +277,8 @@ private class OfflineVoiceSession(
         epoch++
         acceptPermission = false
         turn?.cancel()
+        work?.cancel()
+        work = null
         recorder.cancel()
         player?.release()
         player = null

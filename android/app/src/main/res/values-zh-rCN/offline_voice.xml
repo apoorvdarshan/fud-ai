@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="offline_voice">离线语音</string>
-    <string name="offline_voice_description">仅支持英语，每次一问一答。不访问日记，不保存对话，也不会切换到云端。</string>
     <string name="offline_voice_speak">说话</string>
     <string name="offline_voice_send">发送录音</string>
     <string name="offline_voice_preparing">正在此设备上准备回复…</string>
@@ -9,4 +8,12 @@
     <string name="offline_voice_recording_error">无法录制音频，请尝试至少说一秒。</string>
     <string name="offline_voice_reply_error">无法生成或播放语音回复。</string>
     <string name="offline_voice_notices">离线语音许可声明</string>
+    <string name="offline_voice_connected">本地语音＋联网工具</string>
+    <string name="offline_voice_connected_detail">语音留在设备上。你要求使用的工具可能会将文本、照片或条形码发送给已配置的服务。</string>
+    <string name="offline_voice_local_detail">英语语音和设备上的日记工具。不使用联网工具。</string>
+    <string name="offline_voice_offer_cloud">提供云端语音作为备选</string>
+    <string name="offline_voice_fallback_detail">点按以开始新的云端会话。之前的录音绝不会被发送。</string>
+    <string name="offline_voice_start_cloud">开始新的云端语音会话</string>
+    <string name="offline_voice_download_required">下载 LFM3 以使用本地语音。</string>
+    <string name="offline_voice_preview_detail">仅支持英语，每次一问一答。此预览不会使用日记工具或云端。</string>
 </resources>

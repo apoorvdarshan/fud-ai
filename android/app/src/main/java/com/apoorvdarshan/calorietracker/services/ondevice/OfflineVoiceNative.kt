@@ -18,6 +18,8 @@ internal object OfflineVoiceNative {
     external fun cancel(turn: Long)
     external fun destroy(turn: Long)
     external fun reply(turn: Long, model: String, projector: String, input: String, output: String): Int
+    external fun agentReply(turn: Long, model: String, projector: String, input: String, output: String,
+                            tools: String, continuation: String, text: String): Int
 }
 
 /** Close after reply returns; cancellation is safe from another thread. */
@@ -38,4 +40,8 @@ internal class OfflineVoiceTurn : AutoCloseable {
 
     fun reply(files: List<File>, input: File, output: File): Int =
         OfflineVoiceNative.reply(turn, files[0].path, files[1].path, input.path, output.path)
+
+    fun agentReply(files: List<File>, input: File, output: File, tools: String, continuation: String, text: File): Int =
+        OfflineVoiceNative.agentReply(turn, files[0].path, files[1].path, input.path, output.path,
+            tools, continuation, text.path)
 }

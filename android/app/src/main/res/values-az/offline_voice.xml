@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="offline_voice">Oflayn səs</string>
-    <string name="offline_voice_description">Yalnız ingiliscə, hər dəfə bir sual və cavab. Gündəliyə giriş, söhbətlərin saxlanması və buluda keçid yoxdur.</string>
     <string name="offline_voice_speak">Danış</string>
     <string name="offline_voice_send">Yazını göndər</string>
     <string name="offline_voice_preparing">Cavab bu cihazda hazırlanır…</string>
@@ -9,4 +8,12 @@
     <string name="offline_voice_recording_error">Səsi yazmaq olmadı. Ən azı bir saniyə danışmağa çalışın.</string>
     <string name="offline_voice_reply_error">Səsli cavabı yaratmaq və ya səsləndirmək olmadı.</string>
     <string name="offline_voice_notices">Oflayn səs bildirişləri</string>
+    <string name="offline_voice_connected">Yerli səs + qoşulmuş alətlər</string>
+    <string name="offline_voice_connected_detail">Səs bu cihazda qalır. İstənən alətlər mətni, fotoları və ya barkodları seçdiyiniz xidmətlərə göndərə bilər.</string>
+    <string name="offline_voice_local_detail">İngilis dilində səs və cihazdakı gündəlik alətləri. Şəbəkə alətləri yoxdur.</string>
+    <string name="offline_voice_offer_cloud">Bulud səsi seçimini təklif et</string>
+    <string name="offline_voice_fallback_detail">Yeni bulud seansını başlatmaq üçün toxunun. Əvvəlki yazılar heç vaxt göndərilmir.</string>
+    <string name="offline_voice_start_cloud">Yeni bulud səs seansı başlat</string>
+    <string name="offline_voice_download_required">Yerli səsdən istifadə etmək üçün LFM3-ü endirin.</string>
+    <string name="offline_voice_preview_detail">Yalnız ingiliscə, bir dəfəyə bir sual və cavab. Bu önizləmə gündəlik alətlərindən və buluddan istifadə etmir.</string>
 </resources>

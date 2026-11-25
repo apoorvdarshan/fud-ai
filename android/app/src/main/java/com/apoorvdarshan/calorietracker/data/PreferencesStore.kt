@@ -89,7 +89,8 @@ data class VoiceAssistantPreferences(
     val autoCapture: Boolean = true,
     val confirmSaves: Boolean = true,
     val saveToCoach: Boolean = true,
-    val qwenWorkspace: String = ""
+    val qwenWorkspace: String = "",
+    val offerLocalCloudFallback: Boolean = false
 ) {
     fun model(provider: LiveProvider): String = models[provider] ?: provider.defaultModel
     fun voice(provider: LiveProvider): String = voices[provider] ?: provider.defaultVoice
@@ -1827,6 +1828,10 @@ class PreferencesStore(
         ds.edit { it[Keys.VOICE_PROVIDER] = choice.storageValue }
     }
 
+    suspend fun setLocalVoiceCloudFallback(enabled: Boolean) {
+        ds.edit { it[Keys.LOCAL_VOICE_CLOUD_FALLBACK] = enabled }
+    }
+
     suspend fun setQwenLiveWorkspace(workspace: String) {
         ds.edit { it[Keys.QWEN_LIVE_WORKSPACE] = workspace.trim() }
     }
@@ -2005,6 +2010,7 @@ class PreferencesStore(
         val CHAT_HISTORY = stringPreferencesKey("coachChatHistory")
         val WIDGET_SNAPSHOT = stringPreferencesKey("widget_snapshot_v1")
         val VOICE_PROVIDER = stringPreferencesKey("voiceAssistantProvider")
+        val LOCAL_VOICE_CLOUD_FALLBACK = booleanPreferencesKey("localVoiceCloudFallback")
         val VOICE_LANGUAGE = stringPreferencesKey("voiceAssistantLanguage")
         val VOICE_AUTO_CAPTURE = booleanPreferencesKey("voiceAssistantAutoCapture")
         val VOICE_CONFIRM_SAVES = booleanPreferencesKey("voiceAssistantConfirmSaves")
@@ -2028,7 +2034,8 @@ class PreferencesStore(
             autoCapture = prefs[Keys.VOICE_AUTO_CAPTURE] ?: true,
             confirmSaves = prefs[Keys.VOICE_CONFIRM_SAVES] ?: true,
             saveToCoach = prefs[Keys.VOICE_SAVE_TO_COACH] ?: true,
-            qwenWorkspace = prefs[Keys.QWEN_LIVE_WORKSPACE].orEmpty()
+            qwenWorkspace = prefs[Keys.QWEN_LIVE_WORKSPACE].orEmpty(),
+            offerLocalCloudFallback = prefs[Keys.LOCAL_VOICE_CLOUD_FALLBACK] ?: false
         )
 
         private const val TAG = "PreferencesStore"

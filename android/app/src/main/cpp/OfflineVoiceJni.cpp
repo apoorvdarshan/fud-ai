@@ -27,3 +27,11 @@ extern "C" JNIEXPORT jint JNICALL FUD_JNI(reply)(JNIEnv *env, jobject, jlong tur
     const utf m(env, model), p(env, projector), i(env, input), o(env, output);
     return fud_voice_reply(reinterpret_cast<fud_voice_turn *>(turn), m.str, p.str, i.str, o.str, false);
 }
+
+extern "C" JNIEXPORT jint JNICALL FUD_JNI(agentReply)(JNIEnv *env, jobject, jlong turn, jstring model,
+    jstring projector, jstring input, jstring output, jstring tools, jstring continuation, jstring text) {
+    const utf m(env, model), p(env, projector), i(env, input), o(env, output), t(env, tools),
+              c(env, continuation), x(env, text);
+    return fud_voice_agent_reply(reinterpret_cast<fud_voice_turn *>(turn), m.str, p.str, i.str, o.str,
+                                 false, t.str, c.str, x.str);
+}

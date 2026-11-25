@@ -70,3 +70,34 @@ struct OfflineVoiceView: View {
         }
     }
 }
+
+struct OfflineAgentControls: View {
+    let voice: OfflineVoiceController
+
+    var body: some View {
+        Group {
+            switch voice.phase {
+            case .idle:
+                Button { voice.start() } label: { Text("Speak", tableName: "OfflineVoice") }
+                    .disabled(voice.isBusy)
+                    .accessibilityIdentifier("voiceAssistant.offline.speak")
+            case .requesting: ProgressView()
+            case .recording:
+                Button { voice.send() } label: { Text("Send recording", tableName: "OfflineVoice") }
+                Button("Cancel") { voice.stop() }
+            case .working:
+                ProgressView { Text("Preparing reply on this device…", tableName: "OfflineVoice") }
+                Button("Cancel") { voice.stop() }
+            case .speaking:
+                Button { voice.stop() } label: { Text("Stop audio", tableName: "OfflineVoice") }
+            }
+            if let failure = voice.failure {
+                switch failure {
+                case .microphone: Text("Allow microphone access in Settings.", tableName: "OfflineVoice")
+                case .recording: Text("Couldn’t capture audio. Try speaking for at least one second.", tableName: "OfflineVoice")
+                case .reply: Text("Couldn’t generate or play a spoken reply.", tableName: "OfflineVoice")
+                }
+            }
+        }
+    }
+}

@@ -15,6 +15,11 @@ private final class OfflineVoiceTurn: @unchecked Sendable {
     nonisolated func reply(model: URL, projector: URL, input: URL, output: URL) -> Int32 {
         fud_voice_reply(handle, model.path, projector.path, input.path, output.path, true)
     }
+    nonisolated func agentReply(model: URL, projector: URL, input: URL, output: URL,
+                                tools: String, continuation: String, text: URL) -> Int32 {
+        fud_voice_agent_reply(handle, model.path, projector.path, input.path, output.path, true,
+                              tools, continuation, text.path)
+    }
 }
 
 @MainActor
@@ -31,6 +36,8 @@ final class OfflineVoiceController: NSObject, AVAudioPlayerDelegate {
     private var recordLimit: Task<Void, Never>?
     private var sessionActive = false
     private var epoch = 0
+    typealias Generate = @MainActor (String, String) async throws -> String
+    var agent: (@MainActor (Generate, () -> Bool) async throws -> Void)?
 
     var isBusy: Bool { phase != .idle || work != nil }
 
@@ -94,17 +101,38 @@ final class OfflineVoiceController: NSObject, AVAudioPlayerDelegate {
             }
             do {
                 guard let turn = OfflineVoiceTurn() else { throw CocoaError(.fileReadUnknown) }
-                let code = try await LocalSpeechModelManager.lfm3.useVerifiedFiles { directory in
-                    let files = LocalSpeechModel.lfm3Audio.files.map { directory.appendingPathComponent($0.path) }
-                    return await withTaskCancellationHandler {
-                        await Task.detached(priority: .userInitiated) {
+                let code = try await withTaskCancellationHandler {
+                    if let agent {
+                        let text = output.appendingPathExtension("txt")
+                        defer { try? FileManager.default.removeItem(at: text) }
+                        try await agent({ tools, continuation in
+                            try Task.checkCancellation()
+                            if FileManager.default.fileExists(atPath: output.path) { try FileManager.default.removeItem(at: output) }
+                            let status = try await LocalSpeechModelManager.lfm3.useVerifiedFiles { directory in
+                                let files = LocalSpeechModel.lfm3Audio.files.map { directory.appendingPathComponent($0.path) }
+                                return await Task.detached(priority: .userInitiated) {
+                                    turn.agentReply(model: files[0], projector: files[1], input: input, output: output,
+                                                    tools: tools, continuation: continuation, text: text)
+                                }.value
+                            }
+                            guard status == 0 else { throw CocoaError(.fileReadUnknown) }
+                            return try String(contentsOf: text, encoding: .utf8)
+                        }, { FileManager.default.fileExists(atPath: output.path) })
+                        if !FileManager.default.fileExists(atPath: output.path) {
+                            if request == epoch { phase = .idle }
+                            return Int32(-1)
+                        }
+                        return Int32(0)
+                    }
+                    return try await LocalSpeechModelManager.lfm3.useVerifiedFiles { directory in
+                        let files = LocalSpeechModel.lfm3Audio.files.map { directory.appendingPathComponent($0.path) }
+                        return await Task.detached(priority: .userInitiated) {
                             turn.reply(model: files[0], projector: files[1], input: input, output: output)
                         }.value
-                    } onCancel: {
-                        turn.cancel()
                     }
-                }
+                } onCancel: { turn.cancel() }
                 guard request == epoch, !Task.isCancelled else { return }
+                if code == -1 { return }
                 guard code == 0 else {
                     phase = .idle
                     failure = code == 4 ? .recording : .reply

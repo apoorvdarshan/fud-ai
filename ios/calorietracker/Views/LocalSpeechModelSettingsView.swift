@@ -71,7 +71,7 @@ struct LocalSpeechModelSettingsView: View {
         case .parakeetV3: Text(SpeechProvider.parakeetV3.description)
         case .qwen3ASR: Text(SpeechProvider.qwen3ASR.description)
         case .lfm3Audio:
-            Text("English only, one turn at a time. No diary access, saved conversation, or cloud fallback.", tableName: "OfflineVoice")
+            Text("English only, one turn at a time. This preview does not use diary tools or the cloud.", tableName: "OfflineVoice")
         }
     }
 

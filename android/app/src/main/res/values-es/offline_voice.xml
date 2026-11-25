@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="offline_voice">Voz sin conexión</string>
-    <string name="offline_voice_description">Solo en inglés, un turno a la vez. Sin acceso al diario, historial ni respaldo en la nube.</string>
     <string name="offline_voice_speak">Hablar</string>
     <string name="offline_voice_send">Enviar grabación</string>
     <string name="offline_voice_preparing">Preparando la respuesta en este dispositivo…</string>
@@ -9,4 +8,12 @@
     <string name="offline_voice_recording_error">No se pudo grabar el audio. Intenta hablar al menos un segundo.</string>
     <string name="offline_voice_reply_error">No se pudo generar o reproducir una respuesta de voz.</string>
     <string name="offline_voice_notices">Avisos de Voz sin conexión</string>
+    <string name="offline_voice_connected">Voz local + herramientas conectadas</string>
+    <string name="offline_voice_connected_detail">La voz se queda en el dispositivo. Las herramientas utilizadas pueden enviar texto, fotos o códigos de barras a los servicios configurados.</string>
+    <string name="offline_voice_local_detail">Voz en inglés con herramientas del diario en el dispositivo. Sin herramientas de red.</string>
+    <string name="offline_voice_offer_cloud">Ofrecer voz en la nube como alternativa</string>
+    <string name="offline_voice_fallback_detail">Toca para iniciar una nueva sesión en la nube. Nunca se envían las grabaciones anteriores.</string>
+    <string name="offline_voice_start_cloud">Iniciar una nueva sesión de voz en la nube</string>
+    <string name="offline_voice_download_required">Descarga LFM3 para usar la voz local.</string>
+    <string name="offline_voice_preview_detail">Solo en inglés, un turno a la vez. Esta vista previa no usa las herramientas del diario ni la nube.</string>
 </resources>

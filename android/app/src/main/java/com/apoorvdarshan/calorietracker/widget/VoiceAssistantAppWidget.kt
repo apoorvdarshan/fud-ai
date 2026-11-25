@@ -14,9 +14,7 @@ import androidx.glance.LocalSize
 import androidx.glance.action.clickable
 import androidx.glance.appwidget.SizeMode
 import androidx.glance.appwidget.action.actionStartActivity
-import androidx.glance.appwidget.cornerRadius
 import androidx.glance.appwidget.provideContent
-import androidx.glance.background
 import androidx.glance.color.ColorProvider
 import androidx.glance.layout.Alignment
 import androidx.glance.layout.Box
@@ -51,16 +49,13 @@ class VoiceAssistantWidgetReceiver : FudGlanceAppWidgetReceiver() {
     override val glanceAppWidget = VoiceAssistantAppWidget()
 }
 
-private val WidgetDark = Color(0xFF101116)
-
 @Composable
 private fun VoiceWidgetContent(context: Context, tint: Color, label: String) {
     val showLabel = LocalSize.current.width >= 120.dp
     Box(
         modifier = GlanceModifier
             .fillMaxSize()
-            .cornerRadius(28.dp)
-            .background(ColorProvider(day = WidgetDark, night = WidgetDark))
+            .flashWidgetPanel()
             .clickable(actionStartActivity(VoiceEntryPoints.launchIntent(context)))
             .padding(horizontal = 14.dp, vertical = 10.dp),
         contentAlignment = Alignment.Center
@@ -78,7 +73,7 @@ private fun VoiceWidgetContent(context: Context, tint: Color, label: String) {
                     text = label,
                     maxLines = 1,
                     style = TextStyle(
-                        color = ColorProvider(day = Color.White, night = Color.White),
+                        color = WidgetTheme.primaryTextProvider,
                         fontWeight = FontWeight.Bold,
                         fontSize = 15.sp
                     )

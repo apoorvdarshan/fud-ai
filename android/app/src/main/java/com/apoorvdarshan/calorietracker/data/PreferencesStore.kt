@@ -322,6 +322,7 @@ class PreferencesStore(
                 // Fresh installs must never see the "existing user" post-update prompts.
                 prefs[Keys.HAS_SEEN_HOSTED_UPSELL_PROMPT] = true
                 prefs[Keys.HAS_SEEN_HOSTED_UPSELL_PROMPT_V2] = true
+                prefs[Keys.HAS_SEEN_HOSTED_UPSELL_PROMPT_V9] = true
                 prefs[Keys.HAS_SEEN_MEET_DEVELOPER_PROMPT] = true
                 prefs[Keys.HAS_SEEN_WHATS_NEW_LIVE_VOICE] = true
             }
@@ -330,10 +331,9 @@ class PreferencesStore(
     }
 
     // -- Post-update prompts (existing users only, one-time) ----------------
-    // 7.1 marked the original key seen for every Android user while billing was
-    // iPhone-only, so the 7.2 Plus/Pro upsell uses a versioned key (iOS #493 pattern).
-    val hasSeenHostedUpsellPrompt: Flow<Boolean> = ds.data.map { it[Keys.HAS_SEEN_HOSTED_UPSELL_PROMPT_V2] ?: false }
-    suspend fun setHasSeenHostedUpsellPrompt(v: Boolean) { ds.edit { it[Keys.HAS_SEEN_HOSTED_UPSELL_PROMPT_V2] = v } }
+    // The 9.0 paid-plan invitation is independent of earlier trial campaigns.
+    val hasSeenHostedUpsellPrompt: Flow<Boolean> = ds.data.map { it[Keys.HAS_SEEN_HOSTED_UPSELL_PROMPT_V9] ?: false }
+    suspend fun setHasSeenHostedUpsellPrompt(v: Boolean) { ds.edit { it[Keys.HAS_SEEN_HOSTED_UPSELL_PROMPT_V9] = v } }
 
     // -- AI access mode (BYOK vs Hosted Plus/Pro) -----------------------------
     val aiAccessMode: Flow<AiAccessMode> = ds.data.map { AiAccessMode.fromStorage(it[Keys.AI_ACCESS_MODE]) }
@@ -1937,6 +1937,7 @@ class PreferencesStore(
         val REVIEW_PROMPTED_AFTER_FIRST_LOG = booleanPreferencesKey("reviewPromptedAfterFirstLog")
         val HAS_SEEN_HOSTED_UPSELL_PROMPT = booleanPreferencesKey("hasSeenHostedUpsellPrompt")
         val HAS_SEEN_HOSTED_UPSELL_PROMPT_V2 = booleanPreferencesKey("hasSeenHostedUpsellPrompt.yearly-trial-2026-11")
+        val HAS_SEEN_HOSTED_UPSELL_PROMPT_V9 = booleanPreferencesKey("hasSeenHostedUpsellPrompt.9.0")
         val AI_ACCESS_MODE = stringPreferencesKey("aiAccessMode")
         val PENDING_HOSTED_SWITCH = booleanPreferencesKey("pendingHostedSwitch")
         val HAS_SEEN_MEET_DEVELOPER_PROMPT = booleanPreferencesKey("hasCompletedMeetDeveloperPrompt")

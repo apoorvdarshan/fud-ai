@@ -433,6 +433,34 @@ final class calorietrackerUITests: XCTestCase {
     }
 
     @MainActor
+    func testAvailableUpdateIsVisibleFromAboutRailToStoreAction() {
+        let app = makeApp()
+        app.launchArguments += ["-AppleLanguages", "(en)", "--ui-testing-app-update-available"]
+        app.launch()
+
+        let rail = app.descendants(matching: .any)["nav.rail"].firstMatch
+        XCTAssertTrue(rail.waitForExistence(timeout: 10))
+        let about = app.buttons["nav.about"]
+        for _ in 0..<3 where !about.isHittable {
+            rail.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.72))
+                .press(forDuration: 0.05, thenDragTo: rail.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.26)))
+        }
+        XCTAssertTrue(about.isHittable)
+        XCTAssertEqual(about.value as? String, "Update Available")
+        about.tap()
+
+        let updates = app.buttons["settings.category.appUpdates"]
+        reveal(updates, in: app)
+        XCTAssertEqual(updates.value as? String, "Update Available")
+        updates.tap()
+
+        let store = app.buttons["about.update.store"]
+        XCTAssertTrue(store.waitForExistence(timeout: 5))
+        XCTAssertTrue(store.label.contains("Update Available"))
+        XCTAssertTrue(store.label.contains("99.0"))
+    }
+
+    @MainActor
     func testAboutAndSupportAreSeparateFromSettings() throws {
         let app = makeApp()
         app.launchArguments += ["-AppleLanguages", "(en)"]

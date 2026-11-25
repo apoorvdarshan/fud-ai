@@ -10,15 +10,13 @@ enum FudAILinks {
     static let appStore = URL(string: "https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726")!
 }
 
-/// One-time prompts shown to *existing* users the first time they open the app
-/// after updating. Fresh installs never see them: onboarding marks every prompt
-/// as seen right before it flips `hasCompletedOnboarding`, so only users whose
-/// defaults predate these keys qualify. Same once-only pattern as ReviewPrompter.
+/// The Hosted Plans invitation is for existing users only. Legacy markers are
+/// kept for onboarding/storage compatibility, not to gate the 9.0 invitation.
 enum PostUpdatePrompts {
     /// Versioned so the Hosted AI upsell is deliberately re-armed once for users who already
     /// dismissed it (the previous unversioned key was consumed the moment the alert was shown).
     /// Bump the suffix only when the upsell should fire again.
-    static let hostedUpsellSeenKey = "hasSeenHostedUpsellPrompt.yearly-trial-2026-11"
+    static let hostedUpsellSeenKey = "hasSeenHostedUpsellPrompt.9.0"
     /// Named "completed" (not "seen") so only Done counts — opening Instagram must not consume it.
     static let meetDeveloperSeenKey = "hasCompletedMeetDeveloperPrompt"
     /// Separate from Meet the developer so people who already tapped Done still get the launch-day sheet.
@@ -47,18 +45,6 @@ enum PostUpdatePrompts {
         set { UserDefaults.standard.set(newValue, forKey: whatsNewSeenKey) }
     }
 
-    /// Ends the What's new pop-up for good. Its last page covers Meet the developer and its
-    /// access page the one-time Plus/Pro upsell, so those older prompts are consumed with it.
-    /// - Parameters:
-    ///   - showedPlans: the access page offered Plus and Pro.
-    ///   - reachedEnd: closed from the last page, rather than leaving early to add a key.
-    @MainActor
-    static func finishWhatsNew(showedPlans: Bool, reachedEnd: Bool) {
-        hasSeenWhatsNew = true
-        if reachedEnd { hasSeenMeetDeveloper = true }
-        if RevenueCatManager.shared.hasHostedEntitlement { hasSeenHostedUpsell = true }
-    }
-
     /// Called when onboarding completes so a brand-new user is never treated as
     /// an "existing user who just updated".
     static func markAllSeenForFreshInstall() {
@@ -67,8 +53,8 @@ enum PostUpdatePrompts {
         hasSeenWhatsNew = true
     }
 
-    /// The hosted upsell is only relevant to BYOK users without an active Plus/Pro
-    /// entitlement. Anyone already on hosted has nothing to be upsold.
+    /// An active Plus/Pro entitlement suppresses the invite, regardless of AI mode.
+    /// A saved Hosted selection can outlive a subscription and does not suppress it.
     ///
     /// Also gated on RevenueCat actually resolving purchasable Plus/Pro packages: while the
     /// IAPs are not live the offerings come back empty, and showing the alert would only
@@ -76,9 +62,14 @@ enum PostUpdatePrompts {
     /// unconsumed so it appears once the plans go live.
     @MainActor
     static var isHostedUpsellEligible: Bool {
-        AIModeSettings.mode == .byok
-            && !RevenueCatManager.shared.hasHostedEntitlement
-            && RevenueCatManager.shared.hasEligibleYearlyTrial
+        shouldOfferHostedUpgrade(
+            hasEntitlement: RevenueCatManager.shared.hasHostedEntitlement,
+            hasPurchasablePlans: RevenueCatManager.shared.hasPurchasableHostedPlans
+        )
+    }
+
+    static func shouldOfferHostedUpgrade(hasEntitlement: Bool, hasPurchasablePlans: Bool) -> Bool {
+        !hasEntitlement && hasPurchasablePlans
     }
 }
 

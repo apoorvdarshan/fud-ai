@@ -148,6 +148,8 @@ open class FudAIApp : Application() {
             }
             .launchIn(appScope)
         container.notifications.createChannels()
+        // A direct upgrade to 9.0 must not leave an old Live Voice announcement visible.
+        container.notifications.cancelWhatsNew()
         WidgetRefreshScheduler.onAppStarted(this)
         container.widgetSnapshotWriter.observe().launchIn(appScope)
         // Warm exercise catalog off the main thread before the first Workouts tab open.

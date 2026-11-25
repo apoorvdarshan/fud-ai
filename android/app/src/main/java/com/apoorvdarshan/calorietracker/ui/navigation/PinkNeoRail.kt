@@ -136,7 +136,7 @@ internal fun PinkNeoRail(
                     val label = stringResource(tab.labelRes)
                     val selected = currentRoute == tab.route
                     val badge = showAboutBadge && tab.route == FudAIRoutes.ABOUT
-                    val update = stringResource(R.string.settings_tap_to_update)
+                    val update = stringResource(R.string.about_update_available)
                     RailControl(
                         title = label,
                         icon = tab.icon,

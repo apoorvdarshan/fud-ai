@@ -30,9 +30,9 @@
 
 ---
 
-Open-source, privacy-first calorie tracker for iOS and Android. Bring your own AI provider — 13 supported including Gemini, OpenAI, Claude, Grok, Groq, Hugging Face, Fireworks AI, DeepInfra, Mistral, and any custom OpenAI-compatible endpoint — or optionally use Plus/Pro hosted AI on iPhone and Android. Capture or import up to 10 food photos with an optional note, scan a barcode, ask your AI coach how to hit your goal, speak your lunch, or use Siri Shortcuts on iOS to log food and weight. On supported iPhones, food-description analysis for text, voice-transcribed, and Siri food logs can use Apple Intelligence on-device as the final fallback after BYOK provider/fallback attempts fail. On iOS 27, Apple Intelligence can also analyze food photos on-device when you select it. The core tracker has no required account, general cloud sync, tracking, or ads. Its sole first-party sync exception for scores and profiles is an optional 18+ Weekly Challenge that shares only a pseudonymous display profile and weekly aggregate scores with other enrolled participants — never raw logs.
+Open-source calorie and nutrition tracker for iPhone, iPad, and Android. Log food by voice, photo, barcode, text, or manual entry; review the estimate before saving; and track macros, water, progress, and workouts. Use your own AI key, choose a supported on-device option, or subscribe to optional Hosted Plus/Pro without managing a key. The core tracker has no required account, general Fud AI-operated cloud sync, analytics, or ads. Optional 18+ Challenges share a display profile and aggregate scores, not your raw diary.
 
-Fud AI 8.0 brings Live Voice to iPhone, iPad and Android: talk to Fud AI to log meals, scan barcodes and check your progress, from the Home orb (and Siri, the Action Button or, on iOS 18, Control Center). It also adds iPad support and AR portion sizing on iOS, a workout rest timer and routines, Weekly Recap and Steps, kcal or kJ, and Short or Direct share links. Android 7.2 brought the optional Plus/Pro hosted AI to Android through Google Play (Settings → AI Access, onboarding, credit packs) and moves the Android tip jar to Google Play. iOS and Android 7.1 add Weekly Challenge places with a podium and 20 places per page, Help & Feedback on GitHub or Discord, an Android in-app language picker, and on-device food-photo analysis with Apple Intelligence on iOS 27. iOS 7.1.2 keeps that update and makes the optional Plus/Pro hosted AI easier to find, shipping alongside the first subscription submission. 7.0 remains the release that added optional Plus/Pro hosted AI on iPhone, daily steps, Walk/Run logging, custom exercises, meal date/time, the Log Food widget, pinch-zoom photos, and Czech and Ukrainian.
+**What's new in 9.0:** The 04 Flash redesign gives Home, the diary, navigation, and settings a new look on iOS and Android. Home Screen widgets and the Apple Watch dashboard and complications match. Daily and Monthly Challenges are separate opt-ins alongside Weekly, and **About → App & Updates** shows when your store has a newer version. Hosted Plus/Pro plans are optional paid subscriptions with no free trial for new sign-ups. [Release notes](RELEASE_NOTES.md)
 
 Normal updates preserve existing local and Health data.
 
@@ -183,19 +183,19 @@ For the Coach chat, every turn builds a slim system prompt from your live profil
 
 ## Screenshots
 
-Nine screens from the current app, from Home and Live Voice to Coach, Workouts and your own AI keys. They are captured on a simulator with demo data by [`scripts/screenshots/capture-ios.sh`](scripts/screenshots/capture-ios.sh).
+Nine screens from Fud AI 9.0 on iOS, from Home and Live Voice to Coach, Workouts, and AI settings. Captured on an iPhone simulator with fictional data using [`scripts/screenshots/capture-ios.sh`](scripts/screenshots/capture-ios.sh).
 
 <table>
   <tr>
     <td align="center" width="33%">
-      <img src="web/assets/screenshots/home.webp" width="230" alt="Home dashboard with calorie ring, macro and water pillars, and the day's diary">
+      <img src="web/assets/screenshots/home.webp" width="230" alt="04 Flash Home dashboard with calorie totals, nutrient progress, and the food diary">
       <br><br>
       <b>01 · Home · Dashboard</b>
       <br>
       <sub>Calorie ring, macro and water pillars, and one diary for meals, water and fasts. The orb next to + starts Live Voice.</sub>
     </td>
     <td align="center" width="33%">
-      <img src="web/assets/screenshots/live-voice.webp" width="230" alt="Live Voice conversation logging breakfast with an Undo card">
+      <img src="web/assets/screenshots/live-voice.webp" width="230" alt="Live Voice with the Brulee mascot and a sample breakfast Undo card">
       <br><br>
       <b>02 · Live Voice · Talk to Log</b>
       <br>
@@ -291,7 +291,7 @@ All values can be manually overridden in Settings, with a **Recalculate Goals** 
 ```
 fud-ai/
 ├── ios/          # SwiftUI iOS app (v8.0 build 40)
-├── android/      # Kotlin + Jetpack Compose app (min SDK 26 / Android 8.0, v8.0.1 / versionCode 45)
+├── android/      # Kotlin + Jetpack Compose app (Android 8.0+, 9.0 / versionCode 48)
 ├── web/          # Marketing site — https://fud-ai.app (static HTML/CSS, Cloudflare Workers)
 ├── APPSTORE.md   # App Store Connect listing copy (iOS)
 ├── PLAYSTORE.md  # Google Play Console listing copy (Android)
@@ -391,7 +391,9 @@ See [SECURITY.md](SECURITY.md). Use [private vulnerability reporting](https://gi
 
 ## Privacy
 
-The core tracker has no required account, general Fud AI-operated cloud sync, or analytics. BYOK API keys are protected by iOS Keychain or Android EncryptedSharedPreferences, and requests go directly to the provider you choose. Food, weight, body-fat, water, fasting, and workout logs, custom meal times, goals, preferences, cached images, and widget/Watch snapshots are local except for OS backup/device transfer and the specific AI/STT, barcode, health-sync, update-check, export, or sharing action you initiate. Workout exercise illustrations are downloaded on demand from Fud AI's static asset CDN (`assets.fud-ai.app`) the first time you open an exercise (a plain image request with no account or device identifier) and cached on the device; if the CDN is unreachable the app shows the exercise icon instead. The sole first-party aggregate-sync exception is the optional 18+ Weekly Challenge: enrolled participants share a chosen display name, optional X/Instagram handle, stable participant ID, and bounded weekly overall/activity/nutrition/consistency/hydration aggregates; raw food/workout logs, body data, and photos never sync to it. Challenge leaderboards require a participant credential, and leaving remotely deletes the profile while inactive profiles auto-delete after 90 days. When Coach is used, it may send explicitly logged fasting context to your selected AI provider, but it never infers fasting from missing meals. Shared meal links carry the selected meal details in the URL, so anyone with the link can read them. Apple Health / Health Connect access is optional and can be reviewed or revoked through Manage Access; fasting is not synced to either health store. **Delete All Data** wipes the current local installation and requests challenge deletion when enrolled and online, but never removes Apple Health, Health Connect, or older OS backups. See the complete [Privacy Policy](https://fud-ai.app/privacy.html).
+The core tracker has no required account, general Fud AI-operated cloud sync, or analytics. BYOK keys are protected by iOS Keychain or Android EncryptedSharedPreferences, and AI requests go directly to the provider you choose. Hosted Plus/Pro requests go through Fud AI's service. Eligible data stays on the device unless you use a feature that sends it elsewhere, such as AI analysis, optional health sync or cloud backup, or sharing. Fud AI also makes service requests such as downloading exercise illustrations and checking for updates.
+
+Optional 18+ Challenges share a display name, optional social handle, participant ID, and bounded aggregates. Daily and Monthly boards require separate opt-ins; no raw food logs, workouts, body measurements, or photos are sent to the challenge service. Share links can be opened by anyone who has them. **Delete All Data** clears the current app installation and requests challenge deletion when applicable; it does not remove Apple Health, Health Connect, or older backups. See the [Privacy Policy](https://fud-ai.app/privacy) and [Terms](https://fud-ai.app/terms).
 
 ## License
 

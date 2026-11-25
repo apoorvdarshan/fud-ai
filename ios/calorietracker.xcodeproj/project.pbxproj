@@ -163,6 +163,11 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		F00DF1A50000000000000001 /* FlashShared */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = FlashShared;
+			sourceTree = "<group>";
+		};
 		BA8E0DF52F33F197007DD537 /* calorietracker */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -287,6 +292,7 @@
 				BA8E0E3A2F33F198007DD537 /* calorietrackerShare */,
 				F00D1000000000000000000B /* FudAIWatchApp */,
 				F00D1000000000000000000C /* FudAIWatchWidgets */,
+				F00DF1A50000000000000001 /* FlashShared */,
 				BA8E0E0A2F33F198007DD537 /* calorietrackerTests */,
 				BA8E0E142F33F198007DD537 /* calorietrackerUITests */,
 				BA8E0DF42F33F197007DD537 /* Products */,
@@ -331,6 +337,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				BA8E0DF52F33F197007DD537 /* calorietracker */,
+				F00DF1A50000000000000001 /* FlashShared */,
 			);
 			name = calorietracker;
 			packageProductDependencies = (
@@ -403,6 +410,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				BA8E0E252F33F198007DD537 /* FudAIWidgets */,
+				F00DF1A50000000000000001 /* FlashShared */,
 			);
 			name = FudAIWidgetsExtension;
 			packageProductDependencies = (
@@ -449,6 +457,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				F00D1000000000000000000B /* FudAIWatchApp */,
+				F00DF1A50000000000000001 /* FlashShared */,
 			);
 			name = FudAIWatchApp;
 			packageProductDependencies = (
@@ -471,6 +480,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				F00D1000000000000000000C /* FudAIWatchWidgets */,
+				F00DF1A50000000000000001 /* FlashShared */,
 			);
 			name = FudAIWatchWidgetsExtension;
 			packageProductDependencies = (
@@ -765,7 +775,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = calorietracker/calorietracker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 42;
+				CURRENT_PROJECT_VERSION = 43;
 				DEVELOPMENT_TEAM = 23RV7FYH36;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -790,7 +800,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 8.1.1;
+				MARKETING_VERSION = 9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apoorvdarshan.calorietracker.debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -819,7 +829,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = calorietracker/calorietracker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 42;
+				CURRENT_PROJECT_VERSION = 43;
 				DEVELOPMENT_TEAM = 23RV7FYH36;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -844,7 +854,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 8.1.1;
+				MARKETING_VERSION = 9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apoorvdarshan.calorietracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -991,11 +1001,11 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 42;
+				CURRENT_PROJECT_VERSION = 43;
 				DEVELOPMENT_TEAM = 23RV7FYH36;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
-				MARKETING_VERSION = 8.1.1;
+				MARKETING_VERSION = 9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apoorvdarshan.calorietrackerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
@@ -1013,11 +1023,11 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 42;
+				CURRENT_PROJECT_VERSION = 43;
 				DEVELOPMENT_TEAM = 23RV7FYH36;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
-				MARKETING_VERSION = 8.1.1;
+				MARKETING_VERSION = 9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apoorvdarshan.calorietrackerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
@@ -1034,10 +1044,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 42;
+				CURRENT_PROJECT_VERSION = 43;
 				DEVELOPMENT_TEAM = 23RV7FYH36;
 				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 8.1.1;
+				MARKETING_VERSION = 9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apoorvdarshan.calorietrackerUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
@@ -1054,10 +1064,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 42;
+				CURRENT_PROJECT_VERSION = 43;
 				DEVELOPMENT_TEAM = 23RV7FYH36;
 				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 8.1.1;
+				MARKETING_VERSION = 9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apoorvdarshan.calorietrackerUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
@@ -1079,7 +1089,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = FudAIWidgets/FudAIWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 42;
+				CURRENT_PROJECT_VERSION = 43;
 				DEVELOPMENT_TEAM = 23RV7FYH36;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FudAIWidgets/Info.plist;
@@ -1092,7 +1102,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 8.1.1;
+				MARKETING_VERSION = 9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apoorvdarshan.calorietracker.debug.FudAIWidgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1118,7 +1128,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = FudAIWidgets/FudAIWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 42;
+				CURRENT_PROJECT_VERSION = 43;
 				DEVELOPMENT_TEAM = 23RV7FYH36;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FudAIWidgets/Info.plist;
@@ -1131,7 +1141,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 8.1.1;
+				MARKETING_VERSION = 9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apoorvdarshan.calorietracker.FudAIWidgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1156,7 +1166,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = calorietrackerShare/calorietrackerShare.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 42;
+				CURRENT_PROJECT_VERSION = 43;
 				DEVELOPMENT_TEAM = 23RV7FYH36;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = calorietrackerShare/Info.plist;
@@ -1169,7 +1179,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 8.1.1;
+				MARKETING_VERSION = 9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apoorvdarshan.calorietracker.debug.calorietrackerShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1194,7 +1204,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = calorietrackerShare/calorietrackerShare.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 42;
+				CURRENT_PROJECT_VERSION = 43;
 				DEVELOPMENT_TEAM = 23RV7FYH36;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = calorietrackerShare/Info.plist;
@@ -1207,7 +1217,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 8.1.1;
+				MARKETING_VERSION = 9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apoorvdarshan.calorietracker.calorietrackerShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1234,7 +1244,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = FudAIWatchApp/FudAIWatchApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 42;
+				CURRENT_PROJECT_VERSION = 43;
 				DEVELOPMENT_TEAM = 23RV7FYH36;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1246,7 +1256,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 8.1.1;
+				MARKETING_VERSION = 9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apoorvdarshan.calorietracker.debug.watch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1274,7 +1284,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = FudAIWatchApp/FudAIWatchApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 42;
+				CURRENT_PROJECT_VERSION = 43;
 				DEVELOPMENT_TEAM = 23RV7FYH36;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1286,7 +1296,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 8.1.1;
+				MARKETING_VERSION = 9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apoorvdarshan.calorietracker.watch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1314,7 +1324,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = FudAIWatchWidgets/FudAIWatchWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 42;
+				CURRENT_PROJECT_VERSION = 43;
 				DEVELOPMENT_TEAM = 23RV7FYH36;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FudAIWatchWidgets/Info.plist;
@@ -1327,7 +1337,7 @@
 					"@executable_path/../../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MARKETING_VERSION = 8.1.1;
+				MARKETING_VERSION = 9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apoorvdarshan.calorietracker.debug.watch.FudAIWatchWidgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1353,7 +1363,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = FudAIWatchWidgets/FudAIWatchWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 42;
+				CURRENT_PROJECT_VERSION = 43;
 				DEVELOPMENT_TEAM = 23RV7FYH36;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FudAIWatchWidgets/Info.plist;
@@ -1366,7 +1376,7 @@
 					"@executable_path/../../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MARKETING_VERSION = 8.1.1;
+				MARKETING_VERSION = 9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apoorvdarshan.calorietracker.watch.FudAIWatchWidgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;

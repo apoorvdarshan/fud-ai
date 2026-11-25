@@ -1165,3 +1165,19 @@ p, h1, h2, h3, figure, dl, dd { margin: 0; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
 }
+.legal-jumps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem .8rem;
+  margin: 1rem 0 1.5rem;
+}
+.legal-jumps a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: .32rem .65rem;
+  border: 1px solid currentColor;
+  border-radius: .2rem;
+  text-underline-offset: .2em;
+}
+.legal-jumps a:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }

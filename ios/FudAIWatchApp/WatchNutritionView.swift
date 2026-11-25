@@ -2,53 +2,68 @@ import SwiftUI
 
 /// Mini iPhone-Home for the wrist: the speedometer calorie gauge on top and the
 /// user's Home nutrient pillars beneath (Water is the locked 4th pillar when
-/// tracking is enabled — same as iPhone), tinted with the theme gradient.
+/// tracking is enabled — same as iPhone), with the Flash paper, ink and accent.
 struct WatchNutritionView: View {
     @EnvironmentObject private var receiver: WatchSnapshotReceiver
     @State private var showsWaterLogger = false
 
-    private var themeGradient: [Color] {
-        [
-            Color(hex: receiver.snapshot.themeStartHex ?? 0xFF375F),
-            Color(hex: receiver.snapshot.themeEndHex ?? 0xFF6B8A),
-        ]
-    }
+    private var accent: Color { Color(hex: PinkNeoFlash.snapshotAccent(start: receiver.snapshot.themeStartHex)) }
+    private let ink = Color(hex: PinkNeoFlash.inkDark)
 
     var body: some View {
-        VStack(spacing: 6) {
-            WatchCalorieGauge(
-                eaten: receiver.snapshot.displayCalories,
-                remaining: receiver.snapshot.displayCaloriesRemaining,
-                usesKilojoules: receiver.snapshot.usesKilojoules,
-                progress: receiver.snapshot.calorieProgress,
-                gradient: themeGradient
-            )
+        ScrollView {
+            VStack(spacing: 6) {
+                Label {
+                    Text("Today")
+                } icon: {
+                    Image(systemName: "flame.fill").foregroundStyle(accent)
+                }
+                .font(.system(size: 12, weight: .black).width(.condensed))
+                .textCase(.uppercase)
+                .tracking(0.8)
+                .foregroundStyle(ink)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .accessibilityAddTraits(.isHeader)
 
-            HStack(alignment: .top, spacing: 6) {
-                ForEach(receiver.snapshot.displayedHomeNutrients) { nutrient in
-                    if nutrient.id == "water" {
-                        Button {
-                            showsWaterLogger = true
-                        } label: {
-                            WatchNutrientBar(nutrient: nutrient, gradient: themeGradient)
+                WatchCalorieGauge(
+                    eaten: receiver.snapshot.displayCalories,
+                    remaining: receiver.snapshot.displayCaloriesRemaining,
+                    usesKilojoules: receiver.snapshot.usesKilojoules,
+                    progress: receiver.snapshot.calorieProgress,
+                    accent: accent
+                )
+
+                HStack(alignment: .top, spacing: 6) {
+                    ForEach(receiver.snapshot.displayedHomeNutrients) { nutrient in
+                        if nutrient.id == "water" {
+                            Button {
+                                showsWaterLogger = true
+                            } label: {
+                                WatchNutrientBar(nutrient: nutrient, accent: accent)
+                                    .contentShape(Rectangle())
+                            }
+                            .buttonStyle(.plain)
+                            .accessibilityLabel("Add water")
+                            .accessibilityValue(String(localized: "\(nutrient.displayValue) of \(nutrient.displayGoal)\(nutrient.unit)"))
+                            .accessibilityHint("Opens quick water amounts")
+                        } else {
+                            WatchNutrientBar(nutrient: nutrient, accent: accent)
                         }
-                        .buttonStyle(.plain)
-                        .accessibilityLabel("Add water")
-                        .accessibilityValue(String(localized: "\(nutrient.displayValue) of \(nutrient.displayGoal)\(nutrient.unit)"))
-                        .accessibilityHint("Opens quick water amounts")
-                    } else {
-                        WatchNutrientBar(nutrient: nutrient, gradient: themeGradient)
                     }
                 }
+                .padding(.vertical, 5)
+                .background(Color(hex: PinkNeoFlash.panelDark))
+                .overlay { Rectangle().strokeBorder(ink.opacity(0.42), lineWidth: 1).allowsHitTesting(false) }
             }
+            .padding(.horizontal, 4)
+            .padding(.bottom, 4)
         }
-        .padding(.horizontal, 4)
-        .frame(maxHeight: .infinity, alignment: .top)
+        .background(Color(hex: PinkNeoFlash.paperDark).ignoresSafeArea())
         .onAppear {
             receiver.refreshFromDisk()
         }
         .sheet(isPresented: $showsWaterLogger) {
-            WatchWaterLogView(gradient: themeGradient)
+            WatchWaterLogView(accent: accent)
                 .environmentObject(receiver)
         }
     }
@@ -63,7 +78,7 @@ private struct WatchWaterLogView: View {
 
     @EnvironmentObject private var receiver: WatchSnapshotReceiver
     @Environment(\.dismiss) private var dismiss
-    let gradient: [Color]
+    let accent: Color
 
     private let presets = [
         Preset(milliliters: 250, label: String(localized: "1 glass")),
@@ -75,7 +90,7 @@ private struct WatchWaterLogView: View {
         ScrollView {
             VStack(spacing: 8) {
                 Text("Add water")
-                    .font(.system(.headline, design: .rounded, weight: .bold))
+                    .font(.system(.headline, weight: .black).width(.condensed))
                     .frame(maxWidth: .infinity, alignment: .leading)
 
                 ForEach(presets) { preset in
@@ -86,9 +101,7 @@ private struct WatchWaterLogView: View {
                         HStack(spacing: 9) {
                             Image(systemName: "drop.fill")
                                 .font(.system(size: 13, weight: .bold))
-                                .foregroundStyle(
-                                    LinearGradient(colors: gradient, startPoint: .top, endPoint: .bottom)
-                                )
+                                .foregroundStyle(accent)
 
                             VStack(alignment: .leading, spacing: 1) {
                                 Text(preset.label)
@@ -102,17 +115,14 @@ private struct WatchWaterLogView: View {
 
                             Image(systemName: "plus")
                                 .font(.system(size: 12, weight: .bold))
-                                .foregroundStyle(gradient.first ?? .pink)
+                                .foregroundStyle(accent)
                         }
                         .padding(.horizontal, 10)
-                        .frame(minHeight: 42)
-                        .background(
-                            RoundedRectangle(cornerRadius: 13, style: .continuous)
-                                .fill((gradient.first ?? .pink).opacity(0.1))
-                        )
+                        .frame(minHeight: 44)
+                        .background(Color(hex: PinkNeoFlash.panelDark))
                         .overlay {
-                            RoundedRectangle(cornerRadius: 13, style: .continuous)
-                                .stroke((gradient.first ?? .pink).opacity(0.16), lineWidth: 0.5)
+                            Rectangle().strokeBorder(Color(hex: PinkNeoFlash.inkDark).opacity(0.5), lineWidth: 1)
+                                .allowsHitTesting(false)
                         }
                     }
                     .buttonStyle(.plain)
@@ -123,6 +133,7 @@ private struct WatchWaterLogView: View {
             .padding(.horizontal, 5)
             .padding(.bottom, 4)
         }
+        .background(Color(hex: PinkNeoFlash.paperDark).ignoresSafeArea())
     }
 }
 
@@ -134,9 +145,9 @@ private struct WatchCalorieGauge: View {
     /// kJ numbers are about 4x the kcal ones, so they always carry their unit.
     let usesKilojoules: Bool
     let progress: Double
-    let gradient: [Color]
+    let accent: Color
 
-    private let diameter: CGFloat = 132
+    private let diameter: CGFloat = 126
     private let lineWidth: CGFloat = 9
 
     private var dashedStroke: StrokeStyle {
@@ -147,24 +158,18 @@ private struct WatchCalorieGauge: View {
         ZStack {
             Circle()
                 .trim(from: 0.5, to: 1.0)
-                .stroke((gradient.first ?? .pink).opacity(0.15), style: dashedStroke)
+                .stroke(accent.opacity(0.20), style: dashedStroke)
                 .padding(lineWidth / 2)
 
             Circle()
                 .trim(from: 0.5, to: 0.5 + 0.5 * progress)
-                .stroke(
-                    LinearGradient(colors: gradient, startPoint: .leading, endPoint: .trailing),
-                    style: dashedStroke
-                )
+                .stroke(accent, style: dashedStroke)
                 .padding(lineWidth / 2)
-                .shadow(color: (gradient.first ?? .pink).opacity(0.35), radius: 4, y: 1)
 
             VStack(spacing: 0) {
                 Text("\(eaten)")
-                    .font(.system(size: 30, weight: .bold, design: .rounded))
-                    .foregroundStyle(
-                        LinearGradient(colors: gradient, startPoint: .topLeading, endPoint: .bottomTrailing)
-                    )
+                    .font(.system(size: 32, weight: .black).width(.condensed).monospacedDigit())
+                    .foregroundStyle(Color(hex: PinkNeoFlash.inkDark))
                     .contentTransition(.numericText())
                     .lineLimit(1)
                     .minimumScaleFactor(0.6)
@@ -181,7 +186,7 @@ private struct WatchCalorieGauge: View {
                     }
                     .font(.system(size: 12, weight: .semibold, design: .rounded))
                 }
-                .foregroundStyle(gradient.first ?? .pink)
+                .foregroundStyle(Color(hex: PinkNeoFlash.mutedDark))
                 .lineLimit(1)
                 .minimumScaleFactor(0.7)
             }
@@ -197,31 +202,28 @@ private struct WatchCalorieGauge: View {
 /// value on top, tube in the middle, name + goal beneath.
 private struct WatchNutrientBar: View {
     let nutrient: WidgetNutrientValue
-    let gradient: [Color]
+    let accent: Color
 
     private let barWidth: CGFloat = 10
-    private let barHeight: CGFloat = 42
+    private let barHeight: CGFloat = 34
 
     var body: some View {
         VStack(spacing: 4) {
             Text(nutrient.displayValue)
-                .font(.system(size: 13, weight: .bold, design: .rounded).monospacedDigit())
-                .foregroundStyle(
-                    LinearGradient(colors: gradient, startPoint: .top, endPoint: .bottom)
-                )
+                .font(.system(size: 14, weight: .black).width(.condensed).monospacedDigit())
+                .foregroundStyle(Color(hex: PinkNeoFlash.inkDark))
                 .lineLimit(1)
                 .minimumScaleFactor(0.6)
 
             ZStack(alignment: .bottom) {
                 Capsule()
-                    .fill((gradient.first ?? .pink).opacity(0.15))
+                    .fill(accent.opacity(0.20))
                     .frame(width: barWidth, height: barHeight)
 
                 if nutrient.progress > 0 {
                     Capsule()
-                        .fill(LinearGradient(colors: gradient, startPoint: .bottom, endPoint: .top))
-                        .frame(width: barWidth, height: max(barWidth, barHeight * nutrient.progress))
-                        .shadow(color: (gradient.first ?? .pink).opacity(0.4), radius: 3)
+                        .fill(accent)
+                        .frame(width: barWidth, height: min(barHeight, max(2, barHeight * nutrient.progress)))
                 }
             }
 

@@ -16,9 +16,7 @@ import androidx.glance.LocalSize
 import androidx.glance.action.actionStartActivity
 import androidx.glance.action.clickable
 import androidx.glance.appwidget.SizeMode
-import androidx.glance.appwidget.cornerRadius
 import androidx.glance.appwidget.provideContent
-import androidx.glance.background
 import androidx.glance.layout.Alignment
 import androidx.glance.layout.Box
 import androidx.glance.layout.Column
@@ -68,8 +66,7 @@ private fun WaterWidgetContent(snapshot: WidgetSnapshot) {
     Box(
         modifier = GlanceModifier
             .fillMaxSize()
-            .background(WidgetTheme.backgroundProvider)
-            .cornerRadius(22.dp)
+            .flashWidgetPanel()
             .padding(14.dp)
             .clickable(actionStartActivity<MainActivity>())
     ) {
@@ -90,7 +87,7 @@ private fun WaterProgressContent(snapshot: WidgetSnapshot) {
     val gaugeW = minOf(contentW, (contentH - 44f) / 0.58f).toInt().coerceAtLeast(80)
 
     Column(modifier = GlanceModifier.fillMaxSize()) {
-        WidgetHeader(iconRes = R.drawable.ic_widget_water, label = AppLocalization.context(context).getString(R.string.widget_water))
+        WidgetHeader(R.drawable.ic_widget_water, AppLocalization.context(context).getString(R.string.widget_water), snapshot.themeStartHex)
         Box(
             modifier = GlanceModifier.fillMaxWidth().defaultWeight(),
             contentAlignment = Alignment.Center
@@ -99,7 +96,6 @@ private fun WaterProgressContent(snapshot: WidgetSnapshot) {
                 progress = snapshot.waterProgress.toFloat(),
                 gaugeWidthDp = gaugeW,
                 startHex = snapshot.themeStartHex,
-                endHex = snapshot.themeEndHex,
                 centerLarge = snapshot.waterUnit.displayValue(snapshot.waterCurrentMl),
                 centerSmall = "/ ${snapshot.waterUnit.format(snapshot.waterGoalMl)}"
             )
@@ -107,7 +103,7 @@ private fun WaterProgressContent(snapshot: WidgetSnapshot) {
         Text(
             text = AppLocalization.context(context).getString(R.string.widget_left_format, snapshot.waterUnit.format(snapshot.waterRemaining)),
             style = TextStyle(
-                color = WidgetTheme.themeTextProvider(snapshot.themeStartHex),
+                color = WidgetTheme.secondaryTextProvider,
                 fontWeight = FontWeight.Medium,
                 fontSize = 12.sp
             )
@@ -128,7 +124,7 @@ private fun WaterDisabledContent() {
             Spacer(modifier = GlanceModifier.height(8.dp))
             Text(
                 text = AppLocalization.context(context).getString(R.string.settings_water_tracking),
-                style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                style = TextStyle(color = WidgetTheme.primaryTextProvider, fontWeight = FontWeight.Bold, fontSize = 16.sp)
             )
             Spacer(modifier = GlanceModifier.height(4.dp))
             Text(

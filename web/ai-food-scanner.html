@@ -48,7 +48,7 @@
   "name": "Free AI Food Scanner: Photo, Voice & Barcode — Fud AI",
   "description": "Fud AI is a free AI food scanner for iPhone and Android. Scan meals from up to 10 photos, a barcode, your voice, or text, review the nutrition, and log it. Open source, your own AI key, no ads.",
   "inLanguage": "en",
-  "dateModified": "2026-09-14",
+  "dateModified": "2026-11-25",
   "isPartOf": {
     "@type": "WebSite",
     "@id": "https://www.fud-ai.app/#website",
@@ -74,7 +74,7 @@
       "name": "Is the Fud AI food scanner free?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. The app is free and open source with no subscription or ads. AI photo scanning uses Bring Your Own Key, which is free forever — a free Google Gemini key, OpenRouter's free routing, or a local Ollama model all work. Barcode scanning does not need an AI key at all."
+        "text": "Barcode lookup does not need an AI key. For AI photo estimates, Fud AI does not charge for Bring Your Own Key, although your provider may. Hosted AI is an optional paid alternative."
       }
     },
     {
@@ -82,7 +82,7 @@
       "name": "Which AI does the food scanner use?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Whichever you choose. Fud AI supports 13 providers, including Google Gemini, OpenAI, Anthropic Claude, xAI Grok, OpenRouter, Together AI, Groq, Hugging Face, Fireworks AI, DeepInfra, Mistral, Ollama running locally, and custom OpenAI-compatible endpoints. You can switch models any time and set a fallback provider."
+        "text": "It uses the image-capable model you choose under AI Access. Options include remote providers, compatible local endpoints, and on-device models on supported devices. You can also configure a fallback."
       }
     },
     {
@@ -148,9 +148,9 @@
   <div class="wrap">
     <div class="legal-content">
       <h1>Free AI Food Scanner</h1>
-      <span class="legal-date">Photo · Voice · Barcode · Text · Updated September 14, 2026</span>
+      <span class="legal-date">Photo · Voice · Barcode · Text · Updated November 25, 2026</span>
 
-      <p><strong>Fud AI</strong> is a free AI food scanner for iPhone and Android. Point the camera at your plate, scan a packaged-food barcode, say what you ate, or type it — the app identifies the food, estimates calories and 30+ nutrients, and lets you review everything before it goes into your log. It is open source, runs on an AI key you own, and has no ads, no subscription, and no required account.</p>
+      <p><strong>Fud AI</strong> is an open-source food scanner for iPhone, iPad, and Android. Start with a photo, barcode, or meal description, then review the nutrition before logging it. Fud AI has no ads or required account. Use your own key without a Fud AI subscription, or choose optional paid Hosted AI.</p>
 
       <div class="cta-group">
         <a href="https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726" class="app-store-btn">
@@ -183,8 +183,8 @@
       <p>Describe your meal out loud with native on-device speech recognition on iPhone or Android, or pick one of six speech-to-text options (Gemini Audio, OpenAI Whisper, Groq, Deepgram, AssemblyAI) with per-provider language selection. Typing works too, and saved meals let you re-log a regular breakfast in two taps. On iPhone, Siri Shortcuts can log food and read today's calories hands-free, and on supported iPhones Apple Intelligence can process eligible text descriptions on-device as the final fallback.</p>
 
       <h2>Choose the AI that does the scanning</h2>
-      <p>Most AI food scanner apps lock you into one hidden model. Fud AI lets you pick from 13 providers and switch any time: Google Gemini, OpenAI, Anthropic Claude, xAI Grok, OpenRouter, Together AI, Groq, Hugging Face, Fireworks AI, DeepInfra, Mistral, Ollama running locally, or any custom OpenAI-compatible endpoint. A free Gemini key covers everyday use; an optional <strong>Fallback Provider</strong> retries automatically when your primary is overloaded or rate-limited; and <strong>Custom AI Instructions</strong> let you tell the model once about your region, brands, or diet.</p>
-      <p>Because the key is yours, the scanner is free forever with <a href="/free-ai-calorie-tracker">Bring Your Own Key</a>. On iPhone there is also an optional Plus/Pro hosted AI plan if you would rather not manage a key.</p>
+      <p>Choose an image-capable model from a provider such as Google Gemini, OpenAI, or Anthropic, or use a compatible on-device model where supported. A configured fallback can retry failed requests. Custom AI instructions can include context such as your region or preferred brands.</p>
+      <p>Use <a href="/free-ai-calorie-tracker">Bring Your Own Key</a> without a Fud AI subscription; provider rates and limits may apply. Optional paid <a href="/#plans">Hosted Plus and Pro</a> are available on iOS and Android for people who prefer not to manage a key.</p>
 
       <h2>Private by design</h2>
       <p>Your photos, food log, and nutrition history are stored locally on your phone. In BYOK mode, a scan goes directly from your device to the AI provider you configured — Fud AI has no server in the middle and never sees your API key, which lives in the iOS Keychain or Android <code>EncryptedSharedPreferences</code>. There is no in-app analytics or tracking, and the whole app is <a href="/open-source-calorie-tracker">open source</a> so you can verify that. The <a href="privacy.html">Privacy Policy</a> lists every request the app can make.</p>
@@ -192,10 +192,10 @@
       <h2>Frequently asked questions</h2>
 
       <h3>Is the Fud AI food scanner free?</h3>
-      <p>Yes. The app is free and open source with no subscription or ads. AI photo scanning uses Bring Your Own Key, which is free forever — a free Google Gemini key, OpenRouter's free routing, or a local Ollama model all work. Barcode scanning does not need an AI key at all.</p>
+      <p>Barcode lookup does not need an AI key. For AI photo estimates, Fud AI does not charge for Bring Your Own Key, although your provider may. Hosted AI is an optional paid alternative.</p>
 
       <h3>Which AI does the food scanner use?</h3>
-      <p>Whichever you choose. Fud AI supports 13 providers, including Google Gemini, OpenAI, Anthropic Claude, xAI Grok, OpenRouter, Together AI, Groq, Hugging Face, Fireworks AI, DeepInfra, Mistral, Ollama running locally, and custom OpenAI-compatible endpoints. You can switch models any time and set a fallback provider.</p>
+      <p>It uses the image-capable model you choose under AI Access. Options include remote providers, compatible local endpoints, and on-device models on supported devices. You can also configure a fallback.</p>
 
       <h3>Can the AI meal scanner handle a whole plate or several dishes?</h3>
       <p>Yes. You can take or import up to 10 photos in one session and add a note such as "shared the fries". The photos are sent together as separate images in a single analysis, and the AI returns a nutrition estimate you can adjust on the Review Food screen before logging.</p>

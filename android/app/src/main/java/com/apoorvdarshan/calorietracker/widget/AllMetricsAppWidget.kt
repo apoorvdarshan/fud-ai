@@ -14,9 +14,7 @@ import androidx.glance.LocalSize
 import androidx.glance.action.actionStartActivity
 import androidx.glance.action.clickable
 import androidx.glance.appwidget.SizeMode
-import androidx.glance.appwidget.cornerRadius
 import androidx.glance.appwidget.provideContent
-import androidx.glance.background
 import androidx.glance.layout.Alignment
 import androidx.glance.layout.Box
 import androidx.glance.layout.Column
@@ -76,8 +74,7 @@ private fun AllMetricsContent(snapshot: WidgetSnapshot) {
     Box(
         modifier = GlanceModifier
             .fillMaxSize()
-            .background(WidgetTheme.backgroundProvider)
-            .cornerRadius(22.dp)
+            .flashWidgetPanel()
             .padding(14.dp)
             .clickable(actionStartActivity<MainActivity>())
     ) {
@@ -105,7 +102,6 @@ private fun AllMetricsWide(snapshot: WidgetSnapshot) {
                 progress = snapshot.calorieProgress.toFloat(),
                 gaugeWidthDp = gaugeW,
                 startHex = snapshot.themeStartHex,
-                endHex = snapshot.themeEndHex,
                 centerLarge = snapshot.displayCalories.toString(),
                 centerSmall = "/ ${snapshot.displayCalorieGoal}"
             )
@@ -114,7 +110,7 @@ private fun AllMetricsWide(snapshot: WidgetSnapshot) {
                 // Same unit-aware text as the tall layout, so kJ numbers name their unit.
                 text = energyLeftText(snapshot),
                 style = TextStyle(
-                    color = WidgetTheme.themeTextProvider(snapshot.themeStartHex),
+                    color = WidgetTheme.secondaryTextProvider,
                     fontWeight = FontWeight.Medium,
                     fontSize = 11.sp
                 )
@@ -141,7 +137,7 @@ private fun AllMetricsTall(snapshot: WidgetSnapshot) {
     val barH = (contentH - 34f - gaugeW * 0.58f - 66f).toInt().coerceAtLeast(40)
 
     Column(modifier = GlanceModifier.fillMaxSize()) {
-        WidgetHeader(iconRes = R.drawable.ic_widget_flame, label = AppLocalization.context(LocalContext.current).getString(R.string.widget_today))
+        WidgetHeader(R.drawable.ic_widget_flame, AppLocalization.context(LocalContext.current).getString(R.string.widget_today), snapshot.themeStartHex)
         Spacer(modifier = GlanceModifier.height(4.dp))
         Box(
             modifier = GlanceModifier.fillMaxWidth(),
@@ -151,7 +147,6 @@ private fun AllMetricsTall(snapshot: WidgetSnapshot) {
                 progress = snapshot.calorieProgress.toFloat(),
                 gaugeWidthDp = gaugeW,
                 startHex = snapshot.themeStartHex,
-                endHex = snapshot.themeEndHex,
                 centerLarge = snapshot.displayCalories.toString(),
                 centerSmall = "/ ${snapshot.displayCalorieGoal}"
             )
@@ -163,7 +158,7 @@ private fun AllMetricsTall(snapshot: WidgetSnapshot) {
             Text(
                 text = energyLeftText(snapshot),
                 style = TextStyle(
-                    color = WidgetTheme.themeTextProvider(snapshot.themeStartHex),
+                    color = WidgetTheme.secondaryTextProvider,
                     fontWeight = FontWeight.Medium,
                     fontSize = 12.sp
                 )

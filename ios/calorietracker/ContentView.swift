@@ -20,7 +20,7 @@ enum CameraMode {
 private let fudAIAppStoreID = "6758935726"
 private let fudAIAppStoreURL = URL(string: "https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726")!
 
-private enum AppUpdateState: Equatable {
+enum AppUpdateState: Equatable {
     case idle
     case checking
     case upToDate(current: String, latest: String?)
@@ -34,11 +34,10 @@ private enum AppUpdateState: Equatable {
         return false
     }
 
-    var hasStartedCheck: Bool {
-        if case .idle = self {
-            return false
-        }
-        return true
+    /// A temporary failure must not erase a previously confirmed store update.
+    func resolving(_ result: Self) -> Self {
+        if isUpdateAvailable, case .failed = result { return self }
+        return result
     }
 }
 
@@ -76,7 +75,7 @@ private enum AppUpdateChecker {
 
             let lookup = try JSONDecoder().decode(AppStoreLookupResponse.self, from: data)
             guard let result = lookup.results.first else {
-                return .upToDate(current: current, latest: nil)
+                return .failed(current: current)
             }
 
             let updateURL = result.trackViewUrl.flatMap(URL.init(string:)) ?? fudAIAppStoreURL
@@ -130,7 +129,11 @@ struct ContentView: View {
     @AppStorage(TabBarSettings.hiddenTabsKey) private var hiddenTabsRaw = ""
     @AppStorage("hideVoiceShortcut") private var hideVoiceShortcut = false
     @AppStorage(VoiceMascotPreferences.storageKey) private var voiceMascotRaw = ""
-    @State private var appUpdateState: AppUpdateState = .idle
+    @State private var appUpdateState: AppUpdateState = SimulatorTestEnvironment.showsAvailableAppUpdate
+        ? .available(current: AppUpdateChecker.currentVersion, latest: "99.0", url: FudAILinks.appStore)
+        : .idle
+    @State private var isCheckingForAppUpdate = false
+    @State private var lastAppUpdateCheck: Date?
     @State private var selectedTab: AppTab = .home
     @State private var progressDestination: AppTab = .progress
     @State private var workoutDestination: AppTab = .workouts
@@ -144,15 +147,9 @@ struct ContentView: View {
     private var neoAppearance = PinkNeoAppearance()
     @State private var quickActionRequest: QuickActionRequest?
     @State private var foodLogMethodRequest: FoodLogMethodRequest?
-    // One-time post-update prompts for existing users (see PostUpdatePrompts).
+    // One-time 9.0 Hosted Plans invitation for existing users.
     @State private var showHostedUpsellPrompt = false
     @State private var showHostedUpsellPaywall = false
-    @State private var showMeetDeveloperPrompt = false
-    @State private var showProductHuntLaunchPrompt = false
-    // The Live Voice "What's new" pop-up (see WhatsNewSheet).
-    @State private var showWhatsNew = false
-    @State private var whatsNewAccess: WhatsNewAccess?
-    @State private var whatsNewPage = 0
 
     private var hiddenTabs: Set<HideableTab> {
         TabBarSettings.decode(hiddenTabsRaw)
@@ -202,76 +199,23 @@ struct ContentView: View {
                     return
                 }
                 #endif
-                await refreshAppUpdateState()
-                await runPostUpdatePromptsIfNeeded()
+                async let updateCheck: Void = refreshAppUpdateState()
+                await presentHostedUpgradeIfNeeded()
+                await updateCheck
             }
-            .alert("Try free for 3 days", isPresented: $showHostedUpsellPrompt) {
+            .alert("Optional: let us handle the AI keys", isPresented: $showHostedUpsellPrompt) {
                 Button("See Plus & Pro plans") {
                     showHostedUpsellPaywall = true
                 }
-                Button("Keep BYOK (free)", role: .cancel) {
-                    continueToMeetDeveloperPrompt()
-                }
+                Button("Not now", role: .cancel) {}
             } message: {
-                Text("Try Plus or Pro yearly without API keys. Trial limits apply. See prices and terms, or keep BYOK free.")
+                Text("Fud AI is free with your own API keys (BYOK) — and always will be. If juggling keys feels confusing, Plus and Pro plans run the AI for you with no keys to manage. Totally optional, nothing changes unless you switch.")
             }
-            .flashSheet(isPresented: $showHostedUpsellPaywall, onDismiss: { continueToMeetDeveloperPrompt() }) {
+            .flashSheet(isPresented: $showHostedUpsellPaywall) {
                 HostedPaywallView()
             }
             .flashSheet(isPresented: $showRailPaywall) {
                 HostedPaywallView()
-            }
-            .flashSheet(isPresented: $showMeetDeveloperPrompt, onDismiss: {
-                // Done marks the prompt seen before dismiss. Anything else (system
-                // tear-down after opening Instagram, etc.) must bring it back.
-                if PostUpdatePrompts.hasSeenMeetDeveloper {
-                    continueToProductHuntLaunchPrompt()
-                } else {
-                    DispatchQueue.main.async {
-                        showMeetDeveloperPrompt = true
-                    }
-                }
-            }) {
-                MeetDeveloperSheet {
-                    PostUpdatePrompts.hasSeenMeetDeveloper = true
-                    showMeetDeveloperPrompt = false
-                }
-            }
-            .flashSheet(isPresented: $showWhatsNew, onDismiss: {
-                if PostUpdatePrompts.hasSeenWhatsNew {
-                    continueToProductHuntLaunchPrompt()
-                } else {
-                    // Only Close (or Add an API Key) finishes it; anything else brings it back.
-                    DispatchQueue.main.async {
-                        showWhatsNew = true
-                    }
-                }
-            }) {
-                WhatsNewSheet(
-                    access: whatsNewAccess,
-                    selection: $whatsNewPage,
-                    onClose: {
-                        PostUpdatePrompts.finishWhatsNew(showedPlans: whatsNewAccess?.canBuyPlans == true, reachedEnd: true)
-                        showWhatsNew = false
-                    },
-                    onAddKey: {
-                        PostUpdatePrompts.finishWhatsNew(showedPlans: whatsNewAccess?.canBuyPlans == true, reachedEnd: false)
-                        showWhatsNew = false
-                        assistantNavigator.show(.settings, settingsSection: .aiProviders)
-                    }
-                )
-            }
-            .flashSheet(isPresented: $showProductHuntLaunchPrompt) {
-                ProductHuntLaunchSheet(
-                    onVote: {
-                        PostUpdatePrompts.hasSeenProductHuntLaunchPrompt = true
-                        showProductHuntLaunchPrompt = false
-                    },
-                    onNotNow: {
-                        PostUpdatePrompts.hasSeenProductHuntLaunchPrompt = true
-                        showProductHuntLaunchPrompt = false
-                    }
-                )
             }
             .onReceive(NotificationCenter.default.publisher(for: .quickActionRequested)) { _ in
                 consumePendingLaunchRoutes()
@@ -289,6 +233,7 @@ struct ContentView: View {
                 if newPhase == .active {
                     assistantNavigator.refreshDiaryDates()
                     consumePendingLaunchRoutes()
+                    Task { await refreshAppUpdateState() }
                 }
             }
             .onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged)) { _ in
@@ -499,7 +444,10 @@ struct ContentView: View {
                         AboutAppHeaderSection()
                         Section {
                             ForEach(ProfileSettingsCategory.aboutCases) { category in
-                                ProfileSettingsCategoryRow(category: category)
+                                ProfileSettingsCategoryRow(
+                                    category: category,
+                                    showsUpdateBadge: category == .appUpdates && appUpdateState.isUpdateAvailable
+                                )
                             }
                         }
                         .flashListRows()
@@ -628,114 +576,53 @@ struct ContentView: View {
 
     @MainActor
     private func refreshAppUpdateState(force: Bool = false) async {
-        guard !SimulatorTestEnvironment.isRunningTests else { return }
-        if !force && appUpdateState.hasStartedCheck {
+        guard !SimulatorTestEnvironment.isRunningTests, !isCheckingForAppUpdate else { return }
+        if !force, let lastAppUpdateCheck, Date.now.timeIntervalSince(lastAppUpdateCheck) < 300 {
             return
         }
 
-        appUpdateState = .checking
-        appUpdateState = await AppUpdateChecker.check()
+        isCheckingForAppUpdate = true
+        defer { isCheckingForAppUpdate = false }
+        lastAppUpdateCheck = .now
+        if !appUpdateState.isUpdateAvailable { appUpdateState = .checking }
+        let result = await AppUpdateChecker.check()
+        appUpdateState = appUpdateState.resolving(result)
 
         // A newer version is out — fire a one-shot notification (de-duped per version, gated by the
         // "App Updates" toggle) so the user finds out even if they don't scroll to the About section.
-        if case let .available(_, latest, url) = appUpdateState {
+        if case let .available(_, latest, url) = result {
             await notificationManager.notifyUpdateAvailable(version: latest, url: url)
         }
     }
 
     // MARK: - Post-update prompts (existing users, one-time)
 
-    /// Sequence: the Live Voice What's new pop-up (once; it includes Plus/Pro and Meet the
-    /// developer) or, after it, hosted upsell (if eligible) → meet the developer → Product Hunt
-    /// launch sheet (only during the launch day) → arm the launch reminder. Never stacks two dialogs.
-    /// Hosted upsell is marked seen when shown; meet-the-developer is marked seen only on Done.
+    /// Direct upgrades from older versions must not replay old launch campaigns.
     @MainActor
-    private func runPostUpdatePromptsIfNeeded() async {
-        guard !SimulatorTestEnvironment.isRunningTests else { return }
+    private func presentHostedUpgradeIfNeeded() async {
+        guard !SimulatorTestEnvironment.isRunningTests, !PostUpdatePrompts.hasSeenHostedUpsell else { return }
         // Let the first frame and any launch route (quick action / deep link) settle first.
         try? await Task.sleep(for: .seconds(2))
-        guard quickActionRequest == nil, foodLogMethodRequest == nil else {
-            scheduleProductHuntLaunchReminder()
+        guard canPresentPostUpdatePrompt else { return }
+        // A failed refresh is not evidence that someone is unsubscribed.
+        guard await billing.refreshCustomerInfo(), canPresentPostUpdatePrompt else { return }
+        if billing.hasHostedEntitlement {
+            PostUpdatePrompts.hasSeenHostedUpsell = true
             return
         }
-
-        if !PostUpdatePrompts.hasSeenWhatsNew {
-            let access = await WhatsNewAccessCheck.current()
-            // A launch route or a conversation that started meanwhile wins; the pop-up waits for the next launch.
-            guard quickActionRequest == nil, foodLogMethodRequest == nil, !voiceAssistant.isActive else {
-                scheduleProductHuntLaunchReminder()
-                return
-            }
-            whatsNewAccess = access
-            whatsNewPage = 0
-            showWhatsNew = true
-            return
-        }
-
-        if !PostUpdatePrompts.hasSeenHostedUpsell {
-            // Don't treat a failed refresh as "no entitlement" — that would upsell a
-            // paid BYOK subscriber and permanently consume the one-time prompt.
-            let refreshed = await RevenueCatManager.shared.refreshCustomerInfo()
-            guard refreshed else {
-                continueToMeetDeveloperPrompt(delay: 0)
-                return
-            }
-            if RevenueCatManager.shared.hasHostedEntitlement {
-                // Already a subscriber — nothing to upsell, so consume it and don't
-                // block the later prompts on an unrelated offerings request.
-                PostUpdatePrompts.hasSeenHostedUpsell = true
-            } else {
-                // Offerings gate the upsell: while the IAPs aren't live (empty offerings) we
-                // skip silently and leave the prompt unconsumed, so a later update that ships
-                // the plans shows it. Load them here since nothing else does at launch.
-                await RevenueCatManager.shared.loadOfferings()
-                // A launch route (quick action / deep link) may have arrived during the
-                // request; if so, let it win instead of stacking a prompt on top.
-                guard quickActionRequest == nil, foodLogMethodRequest == nil else {
-                    scheduleProductHuntLaunchReminder()
-                    return
-                }
-                if PostUpdatePrompts.isHostedUpsellEligible {
-                    PostUpdatePrompts.hasSeenHostedUpsell = true
-                    showHostedUpsellPrompt = true
-                    return
-                }
-                // Otherwise leave it unconsumed: plans aren't purchasable yet.
-            }
-        }
-        continueToMeetDeveloperPrompt(delay: 0)
+        await billing.loadOfferings()
+        guard canPresentPostUpdatePrompt, !PostUpdatePrompts.hasSeenHostedUpsell,
+              PostUpdatePrompts.isHostedUpsellEligible else { return }
+        PostUpdatePrompts.hasSeenHostedUpsell = true
+        showHostedUpsellPrompt = true
     }
 
-    private func continueToMeetDeveloperPrompt() {
-        continueToMeetDeveloperPrompt(delay: 1)
+    private var canPresentPostUpdatePrompt: Bool {
+        !Task.isCancelled && scenePhase == .active && selectedTab == .home
+            && quickActionRequest == nil && foodLogMethodRequest == nil
+            && !voiceAssistant.isActive && !showRailPaywall
     }
 
-    private func continueToMeetDeveloperPrompt(delay: Double) {
-        guard !PostUpdatePrompts.hasSeenMeetDeveloper else {
-            continueToProductHuntLaunchPrompt()
-            return
-        }
-        Task { @MainActor in
-            if delay > 0 { try? await Task.sleep(for: .seconds(delay)) }
-            showMeetDeveloperPrompt = true
-        }
-    }
-
-    private func scheduleProductHuntLaunchReminder() {
-        Task { await notificationManager.scheduleProductHuntLaunchReminderIfNeeded() }
-    }
-
-    /// Shows the vote sheet once during the 24-hour launch window, then arms the notification.
-    /// Before or after that window it only arms the notification.
-    private func continueToProductHuntLaunchPrompt() {
-        scheduleProductHuntLaunchReminder()
-        guard !PostUpdatePrompts.hasSeenProductHuntLaunchPrompt else { return }
-        guard NotificationManager.productHuntLaunchPlan(now: .now) == .fireNow else { return }
-        Task { @MainActor in
-            try? await Task.sleep(for: .milliseconds(400))
-            showProductHuntLaunchPrompt = true
-        }
-    }
 }
 
 // MARK: - About and Support
@@ -1196,9 +1083,7 @@ private struct AboutSettingsSections: View {
                             Image(systemName: "arrow.down.circle.fill")
                                 .foregroundStyle(AppColors.calorie)
 
-                            Circle()
-                                .fill(AppColors.calorie)
-                                .frame(width: 8, height: 8)
+                            AppUpdateBadge()
                                 .offset(x: 3, y: -3)
                         }
                     }
@@ -1211,6 +1096,7 @@ private struct AboutSettingsSections: View {
                 }
             }
             .tint(.primary)
+            .accessibilityIdentifier("about.update.store")
 
         case .failed:
             Button {
@@ -5073,6 +4959,7 @@ enum ProfileSettingsCategory: String, CaseIterable, Identifiable, Hashable {
 
 private struct ProfileSettingsCategoryRow: View {
     let category: ProfileSettingsCategory
+    var showsUpdateBadge = false
 
     var body: some View {
         NavigationLink(value: category) {
@@ -5083,9 +4970,22 @@ private struct ProfileSettingsCategoryRow: View {
                 Image(systemName: category.systemImage)
                     .foregroundStyle(AppColors.accentText)
                     .frame(width: 24)
+                    .overlay(alignment: .topTrailing) {
+                        if showsUpdateBadge { AppUpdateBadge().offset(x: 2, y: -2) }
+                    }
             }
         }
+        .accessibilityValue(showsUpdateBadge ? Text("Update Available") : Text(verbatim: ""))
         .accessibilityIdentifier("settings.category.\(category.rawValue)")
+    }
+}
+
+private struct AppUpdateBadge: View {
+    var body: some View {
+        Circle()
+            .fill(AppColors.calorie)
+            .frame(width: 8, height: 8)
+            .accessibilityHidden(true)
     }
 }
 

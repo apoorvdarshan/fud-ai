@@ -294,7 +294,14 @@ private struct LargeCalorieView: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        GeometryReader { geometry in
+            let compact = geometry.size.height < 315
+            nutritionContent(compact: compact)
+        }
+    }
+
+    private func nutritionContent(compact: Bool) -> some View {
+        VStack(alignment: .leading, spacing: compact ? 8 : 12) {
             HStack(alignment: .firstTextBaseline) {
                 VStack(alignment: .leading, spacing: 3) {
                     Text("Today")
@@ -315,12 +322,12 @@ private struct LargeCalorieView: View {
                 SpeedometerGauge(
                     progress: snapshot.calorieProgress,
                     accent: snapshot.themeColor,
-                    diameter: 196,
-                    lineWidth: 14
+                    diameter: compact ? 158 : 184,
+                    lineWidth: compact ? 11 : 13
                 ) {
                     VStack(spacing: 1) {
                         Text("\(snapshot.displayCalories)")
-                            .font(.system(size: 42, weight: .black).width(.condensed).monospacedDigit())
+                            .font(.system(size: compact ? 36 : 42, weight: .black).width(.condensed).monospacedDigit())
                             .foregroundStyle(WidgetPalette.ink)
                             .lineLimit(1)
                             .minimumScaleFactor(0.55)
@@ -349,14 +356,12 @@ private struct LargeCalorieView: View {
                     VerticalNutrientBar(
                         nutrient: nutrient,
                         accent: snapshot.themeColor,
-                        barHeight: 84,
+                        barHeight: compact ? 54 : 70,
                         barWidth: 14,
                         valueSize: 18
                     )
                 }
             }
-
-            Spacer(minLength: 0)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }

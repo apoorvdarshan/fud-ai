@@ -257,20 +257,23 @@ private struct NutrientRectangularView: View {
 
             VStack(alignment: .leading, spacing: 1) {
                 Text(title)
-                    .font(.caption2.weight(.semibold))
+                    .font(.system(size: 10, weight: .semibold))
                     .foregroundStyle(.secondary)
                     .lineLimit(1)
-                Text(value)
-                    .font(.system(.headline, weight: .black).width(.condensed).monospacedDigit())
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.7)
-                    .widgetAccentable()
-                Text(subtitle)
-                    .font(.caption2)
-                    .foregroundStyle(.secondary)
-                    .lineLimit(1)
+                HStack(alignment: .firstTextBaseline, spacing: 3) {
+                    Text(value)
+                        .font(.system(size: 15, weight: .black).width(.condensed).monospacedDigit())
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.7)
+                        .layoutPriority(1)
+                    Text(subtitle)
+                        .font(.system(size: 9))
+                        .foregroundStyle(.secondary)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.7)
+                }
                 Text(footer)
-                    .font(.caption2.weight(.medium))
+                    .font(.system(size: 9, weight: .medium))
                     .foregroundStyle(.secondary)
                     .lineLimit(1)
                     .minimumScaleFactor(0.7)
@@ -327,7 +330,7 @@ private struct MacrosRectangularView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 3) {
             Text("Macros")
-                .font(.caption2.weight(.semibold))
+                .font(.system(size: 10, weight: .semibold))
                 .foregroundStyle(.secondary)
             MacroBar(label: "P", value: snapshot.protein, goal: snapshot.proteinGoal, progress: snapshot.proteinProgress, color: snapshot.flashAccent)
             MacroBar(label: "C", value: snapshot.carbs, goal: snapshot.carbsGoal, progress: snapshot.carbsProgress, color: snapshot.flashAccent)
@@ -376,7 +379,7 @@ private struct MacroBar: View {
     var body: some View {
         HStack(spacing: 4) {
             Text(label)
-                .font(.caption2.weight(.bold))
+                .font(.system(size: 9, weight: .bold))
                 .frame(width: 10, alignment: .leading)
             GeometryReader { geometry in
                 Capsule()
@@ -390,7 +393,7 @@ private struct MacroBar: View {
             }
             .frame(height: 5)
             Text("\(WatchWidgetFormat.macro(value))/\(goal)")
-                .font(.caption2.monospacedDigit())
+                .font(.system(size: 9).monospacedDigit())
                 .foregroundStyle(.secondary)
                 .lineLimit(1)
                 .minimumScaleFactor(0.65)

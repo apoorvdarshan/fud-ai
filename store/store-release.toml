@@ -98,12 +98,12 @@ required = false
 dir = "store/creative/ios"
 review_mode = "with-version"
 
-# The approved upload files staged in the Asset Library for 9.0.
+# The approved upload files staged in the Asset Library for 9.0.1.
 # App Store Connect matches images by file name and byte size, so Store checks and every
 # prepare fail when these change, until this list is updated.
 [ios.creative.sizes]
-"header/01-product-page-header.png" = 5459501
-"search-results/02-search-results.png" = 7637085
+"header/classic-9-apple-header.png" = 4368758
+"search-results/classic-9-apple-search.png" = 6539473
 
 [ios.products]
 iap_route = "submission"

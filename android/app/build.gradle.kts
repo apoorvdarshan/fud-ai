@@ -2,6 +2,7 @@ import groovy.json.JsonSlurper
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
 import java.util.Properties
+import java.util.zip.ZipFile
 
 plugins {
     alias(libs.plugins.android.application)
@@ -152,7 +153,6 @@ android {
         getByName("main") {
             assets.srcDirs(
                 "src/main/assets",
-                "../../ios/calorietracker/Resources/FreeExerciseDB/dist",
                 "../../ios/calorietracker/Resources/WaitingFactsData",
                 "../../local-models/legal"
             )
@@ -332,8 +332,65 @@ abstract class PrepareWorkoutVectorAssetsTask : DefaultTask() {
         names.take(8).joinToString(", ") + if (names.size > 8) ", ... (+${names.size - 8} more)" else ""
 }
 
+// Gradle silently skips missing asset directories in sparse checkouts. Declare
+// the catalog itself as required so neither APKs nor bundles can build without it.
+abstract class PrepareExerciseCatalog : DefaultTask() {
+    @get:InputFile
+    @get:PathSensitive(PathSensitivity.NAME_ONLY)
+    abstract val catalog: RegularFileProperty
+
+    @get:OutputDirectory
+    abstract val outputDirectory: DirectoryProperty
+
+    @TaskAction
+    fun prepare() {
+        val source = catalog.get().asFile
+        val records = JsonSlurper().parse(source) as? List<*>
+        require(!records.isNullOrEmpty() && records.all { row ->
+            row is Map<*, *> && listOf("id", "name").all { !(row[it] as? String).isNullOrBlank() }
+        }) { "${source.name} must contain exercise records with IDs and names" }
+        val directory = outputDirectory.get().asFile
+        directory.mkdirs()
+        source.copyTo(directory.resolve(source.name), overwrite = true)
+    }
+}
+
+abstract class VerifyBundledExerciseCatalog : DefaultTask() {
+    @get:InputFile
+    abstract val bundle: RegularFileProperty
+
+    @get:InputFile
+    abstract val catalog: RegularFileProperty
+
+    @TaskAction
+    fun verify() {
+        ZipFile(bundle.get().asFile).use { zip ->
+            val entry = requireNotNull(zip.getEntry("base/assets/exercises.json")) {
+                "Android App Bundle is missing base/assets/exercises.json"
+            }
+            require(zip.getInputStream(entry).use { it.readBytes() }.contentEquals(catalog.get().asFile.readBytes())) {
+                "Bundled exercise catalog differs from the validated source"
+            }
+        }
+    }
+}
+
+val exerciseCatalog = rootProject.layout.projectDirectory.file("../ios/calorietracker/Resources/FreeExerciseDB/dist/exercises.json")
+
 androidComponents {
     onVariants { variant ->
+        val variantTitle = variant.name.replaceFirstChar { it.uppercase() }
+        val prepareCatalog = tasks.register<PrepareExerciseCatalog>("prepare${variantTitle}ExerciseCatalog") {
+            catalog.set(exerciseCatalog)
+        }
+        variant.sources.assets!!.addGeneratedSourceDirectory(prepareCatalog, PrepareExerciseCatalog::outputDirectory)
+        if (variant.buildType == "release") {
+            val verifyCatalog = tasks.register<VerifyBundledExerciseCatalog>("verify${variantTitle}BundledExerciseCatalog") {
+                catalog.set(exerciseCatalog)
+            }
+            variant.artifacts.use(verifyCatalog).wiredWith(VerifyBundledExerciseCatalog::bundle)
+                .toListenTo(com.android.build.api.artifact.SingleArtifact.BUNDLE)
+        }
         // res/xml/shortcuts.xml targets this package, so the "Talk to Fud AI" shortcut opens
         // the variant it ships in (debug builds carry a .debug suffix).
         variant.resValues.put(

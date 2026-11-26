@@ -147,8 +147,19 @@ struct ContentView: View {
         TabBarSettings.decode(hiddenTabsRaw)
     }
 
+    @ViewBuilder private var classicTabs: some View {
+        if #available(iOS 27.0, *), UIDevice.current.userInterfaceIdiom == .phone {
+            standardTabView
+                .tabViewStyle(.tabBarOnly)
+                .defaultTabBarPlacement(.tabBar)
+                .environment(\.horizontalSizeClass, .compact)
+        } else {
+            standardTabView
+        }
+    }
+
     private var appTabs: some View {
-        standardTabView
+        classicTabs
             .tint(AppThemeColor.color(for: appThemeColorRaw).color)
             .background(VoiceAssistantWindowInstaller(controller: voiceAssistant))
             .task {

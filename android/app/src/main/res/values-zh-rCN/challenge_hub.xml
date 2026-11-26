@@ -24,4 +24,5 @@
     <string name="challenge_hub_leave_all_detail">公开资料、所有成绩和挑战举报将被删除。私人日记仍保存在此设备上。</string>
     <string name="challenge_hub_jump_to_rank">跳到我的排名</string>
     <string name="challenge_hub_week_rank">优先比较所选积分。同分时，依次比较习惯的多样性、各项习惯的均衡程度及其他天数。如果仍相同，先达到这些成绩的人排名更高。运动消耗的热量不用于打破平局。</string>
+    <string name="challenge_shared_boards_disclosure">加入每周挑战后，你的分数也会显示在每日和每月排行榜上。你可以单独退出任一排行榜。</string>
 </resources>

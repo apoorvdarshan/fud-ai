@@ -481,27 +481,43 @@ struct WorkoutLogView: View {
                 .onChange(of: selectedDateKey) { _, _ in endReorderingIfNeeded() }
                 .onChange(of: selectedExercises.count) { _, _ in endReorderingIfNeeded() }
                 .onChange(of: focusedSetField) { oldValue, newValue in
-                    guard let exerciseID = newValue?.exerciseID,
-                          exerciseID != oldValue?.exerciseID
+                    guard let setID = newValue?.setID,
+                          setID != oldValue?.setID
                     else { return }
 
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                        withAnimation(.snappy(duration: 0.25)) {
-                            proxy.scrollTo(exerciseID, anchor: UnitPoint(x: 0.5, y: 0.8))
-                        }
-                    }
+                    revealFocusedSet(setID, in: proxy)
+                }
+                .onChange(of: restTimer.timer == nil) { _, _ in
+                    // Filling the first reps starts rest and inserts a pinned bar.
+                    // Reposition the edit row in the newly shortened viewport.
+                    if let id = focusedSetField?.setID { revealFocusedSet(id, in: proxy) }
                 }
                 .overlay(alignment: .bottomTrailing) {
-                    HStack(spacing: 12) {
-                        if !voiceAssistant.isActive, !hideVoiceShortcut {
-                            VoiceAssistantHomeButton(controller: voiceAssistant)
+                    if focusedSetField == nil {
+                        HStack(spacing: 12) {
+                            if !voiceAssistant.isActive, !hideVoiceShortcut {
+                                VoiceAssistantHomeButton(controller: voiceAssistant)
+                            }
+                            addExerciseMenu
                         }
-                        addExerciseMenu
+                        .padding(24)
+                        .simultaneousGesture(
+                            TapGesture().onEnded(dismissSetKeyboard)
+                        )
                     }
-                    .padding(24)
-                    .simultaneousGesture(
-                        TapGesture().onEnded(dismissSetKeyboard)
-                    )
+                }
+                .safeAreaInset(edge: .bottom, spacing: 0) {
+                    if focusedSetField != nil {
+                        HStack {
+                            Spacer()
+                            Button("Done", action: dismissSetKeyboard)
+                                .padding(.horizontal, 12)
+                                .frame(minHeight: 44)
+                                .accessibilityIdentifier("workouts.keyboard.done")
+                        }
+                        .padding(.horizontal, 10)
+                        .background(Color.workoutBackground)
+                    }
                 }
             }
             // Keep the chrome quiet: the date strip and burn calculator lead.
@@ -527,14 +543,7 @@ struct WorkoutLogView: View {
                     }
                 }
 
-                if focusedSetField != nil {
-                    ToolbarItemGroup(placement: .keyboard) {
-                        Spacer()
-                        Button("Done") {
-                            dismissSetKeyboard()
-                        }
-                    }
-                }
+
             }
             .navigationDestination(item: $selectedDetailItem) { item in
                 ExerciseLibraryDetailView(item: item)

@@ -39,11 +39,11 @@ import androidx.compose.material.icons.filled.LocalFireDepartment
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Restaurant
 import androidx.compose.material.icons.filled.WaterDrop
-import com.apoorvdarshan.calorietracker.ui.components.FlashAlertDialog as AlertDialog
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
-import com.apoorvdarshan.calorietracker.ui.components.FlashDropdownMenu as DropdownMenu
+import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
@@ -109,7 +109,6 @@ import com.apoorvdarshan.calorietracker.models.WeeklyChallengeWeek
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassSurface
 import com.apoorvdarshan.calorietracker.ui.navigation.BottomNavScrollPadding
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
-import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
 import com.apoorvdarshan.calorietracker.models.ChallengePeriod
 import java.text.DateFormat
 import java.time.LocalDate
@@ -170,12 +169,12 @@ internal fun WeeklyChallengeScreen(container: AppContainer) {
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(
-                start = FlashSpacing.PageInset,
-                top = FlashSpacing.ItemGap,
-                end = FlashSpacing.PageInset,
+                start = 16.dp,
+                top = 12.dp,
+                end = 16.dp,
                 bottom = BottomNavScrollPadding
             ),
-            verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap)
+            verticalArrangement = Arrangement.spacedBy(14.dp)
         ) {
             item {
                 ChallengePeriodPicker(ui.period, vm::selectPeriod)
@@ -531,7 +530,7 @@ private fun WeekCalendarStrip(weekStart: LocalDate) {
 
 @Composable
 private fun ChallengeIntroduction(onJoin: () -> Unit) {
-    Column(verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap)) {
+    Column(verticalArrangement = Arrangement.spacedBy(14.dp)) {
         FudGlassSurface(modifier = Modifier.fillMaxWidth(), cornerRadius = 22.dp, padding = 22.dp) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -1352,6 +1351,7 @@ private fun ChallengeProfileDialog(
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
+                    Text(stringResource(R.string.challenge_shared_boards_disclosure), style = MaterialTheme.typography.bodySmall)
                     ConsentRow(
                         checked = rulesAccepted,
                         onCheckedChange = { rulesAccepted = it },

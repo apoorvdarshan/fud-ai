@@ -24,4 +24,5 @@
     <string name="challenge_hub_leave_all_detail">Dein öffentliches Profil, alle Ergebnisse und Challenge-Meldungen werden gelöscht. Dein privates Tagebuch bleibt auf diesem Gerät.</string>
     <string name="challenge_hub_jump_to_rank">Zu meinem Platz</string>
     <string name="challenge_hub_week_rank">Die gewählte Punktzahl zählt zuerst. Bei Gleichstand zählen vielfältigere Gewohnheiten, ausgeglichenere Ergebnisse und die übrigen Tageszahlen. Sind auch diese gleich, liegt vorne, wer sie zuerst erreicht hat. Trainingskalorien entscheiden nicht.</string>
+    <string name="challenge_shared_boards_disclosure">Wenn du der Wochenwertung beitrittst, werden deine Punkte auch in der Tages- und Monatswertung geteilt. Du kannst jede Wertung einzeln verlassen.</string>
 </resources>

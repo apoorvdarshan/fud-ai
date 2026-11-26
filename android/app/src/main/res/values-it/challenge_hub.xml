@@ -24,4 +24,5 @@
     <string name="challenge_hub_leave_all_detail">Il profilo pubblico, tutti i punteggi e le segnalazioni verranno eliminati. Il diario privato resta su questo dispositivo.</string>
     <string name="challenge_hub_jump_to_rank">Vai alla mia posizione</string>
     <string name="challenge_hub_week_rank">Il punteggio selezionato ha la precedenza. A parità contano la varietà e l’equilibrio delle abitudini, poi i giorni delle altre categorie. Se sono uguali, precede chi ha raggiunto prima quei risultati. Le calorie dell’allenamento non decidono la parità.</string>
+    <string name="challenge_shared_boards_disclosure">Quando partecipi alla sfida settimanale, i tuoi punti vengono condivisi anche nelle classifiche giornaliera e mensile. Puoi lasciare ciascuna classifica separatamente.</string>
 </resources>

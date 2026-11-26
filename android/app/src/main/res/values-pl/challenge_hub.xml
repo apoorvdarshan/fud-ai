@@ -24,4 +24,5 @@
     <string name="challenge_hub_leave_all_detail">Profil publiczny, wszystkie wyniki i zgłoszenia zostaną usunięte. Prywatny dziennik pozostanie na urządzeniu.</string>
     <string name="challenge_hub_jump_to_rank">Przejdź do mojego miejsca</string>
     <string name="challenge_hub_week_rank">Najpierw liczy się wybrany wynik. Przy remisie decydują różnorodność i równomierność nawyków oraz pozostałe liczby dni. Jeśli nadal jest remis, wyżej jest osoba, która osiągnęła wynik wcześniej. Kalorie z ćwiczeń nie rozstrzygają remisu.</string>
+    <string name="challenge_shared_boards_disclosure">Po dołączeniu do wyzwania tygodniowego Twoje punkty są też udostępniane w rankingach dziennym i miesięcznym. Każdy z nich możesz opuścić osobno.</string>
 </resources>

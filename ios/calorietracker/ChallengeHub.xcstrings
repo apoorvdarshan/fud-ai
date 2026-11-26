@@ -1,6 +1,28 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Joining Weekly also shares your scores on the Daily and Monthly boards. You can leave either board separately." : {
+      "localizations" : {
+        "ar": {"stringUnit": {"state": "translated", "value": "عند الانضمام إلى التحدي الأسبوعي، تُشارك نقاطك أيضًا في لوحتي التحدي اليومي والشهري. يمكنك مغادرة أي منهما على حدة."}},
+        "az": {"stringUnit": {"state": "translated", "value": "Həftəlik yarışa qoşulduqda xallarınız gündəlik və aylıq cədvəllərdə də paylaşılır. Hər cədvəldən ayrı çıxmaq olar."}},
+        "cs": {"stringUnit": {"state": "translated", "value": "Po připojení k týdenní výzvě se vaše skóre sdílí také v denním a měsíčním žebříčku. Každý z nich můžete opustit zvlášť."}},
+        "de": {"stringUnit": {"state": "translated", "value": "Wenn du der Wochenwertung beitrittst, werden deine Punkte auch in der Tages- und Monatswertung geteilt. Du kannst jede Wertung einzeln verlassen."}},
+        "es": {"stringUnit": {"state": "translated", "value": "Al unirte al reto semanal, también compartes tus puntos en las clasificaciones diaria y mensual. Puedes salir de cada una por separado."}},
+        "fr": {"stringUnit": {"state": "translated", "value": "En rejoignant le défi hebdomadaire, vous partagez aussi vos points dans les classements quotidien et mensuel. Vous pouvez quitter chacun séparément."}},
+        "hi": {"stringUnit": {"state": "translated", "value": "साप्ताहिक चुनौती में शामिल होने पर आपके अंक दैनिक और मासिक सूची में भी साझा होते हैं। आप दोनों में से किसी भी सूची को अलग से छोड़ सकते हैं।"}},
+        "it": {"stringUnit": {"state": "translated", "value": "Quando partecipi alla sfida settimanale, i tuoi punti vengono condivisi anche nelle classifiche giornaliera e mensile. Puoi lasciare ciascuna classifica separatamente."}},
+        "ja": {"stringUnit": {"state": "translated", "value": "週間チャレンジに参加すると、日間と月間のランキングにもスコアが共有されます。それぞれ個別に退出できます。"}},
+        "ko": {"stringUnit": {"state": "translated", "value": "주간 챌린지에 참여하면 일간 및 월간 순위표에도 점수가 공유됩니다. 각 순위표에서 개별적으로 나갈 수 있습니다."}},
+        "nl": {"stringUnit": {"state": "translated", "value": "Als je meedoet aan de weekranglijst, worden je punten ook gedeeld op de dag- en maandranglijst. Je kunt elke ranglijst afzonderlijk verlaten."}},
+        "pl": {"stringUnit": {"state": "translated", "value": "Po dołączeniu do wyzwania tygodniowego Twoje punkty są też udostępniane w rankingach dziennym i miesięcznym. Każdy z nich możesz opuścić osobno."}},
+        "pt-BR": {"stringUnit": {"state": "translated", "value": "Ao entrar no desafio semanal, sua pontuação também é compartilhada nos rankings diário e mensal. Você pode sair de cada ranking separadamente."}},
+        "ro": {"stringUnit": {"state": "translated", "value": "Când te înscrii la provocarea săptămânală, punctajul tău apare și în clasamentele zilnic și lunar. Poți părăsi fiecare clasament separat."}},
+        "ru": {"stringUnit": {"state": "translated", "value": "При участии в еженедельном испытании ваши баллы также публикуются в дневном и месячном рейтингах. Из каждого рейтинга можно выйти отдельно."}},
+        "tr": {"stringUnit": {"state": "translated", "value": "Haftalık yarışmaya katıldığınızda puanlarınız günlük ve aylık sıralamalarda da paylaşılır. Her sıralamadan ayrı ayrı çıkabilirsiniz."}},
+        "uk": {"stringUnit": {"state": "translated", "value": "Коли ви долучаєтеся до щотижневого змагання, ваші бали також з’являються в денному й місячному рейтингах. Кожен рейтинг можна залишити окремо."}},
+        "zh-Hans": {"stringUnit": {"state": "translated", "value": "加入每周挑战后，你的分数也会显示在每日和每月排行榜上。你可以单独退出任一排行榜。"}}
+      }
+    },
     "Challenges" : {
       "localizations" : {
         "ar" : {"stringUnit": {"state": "translated", "value": "التحديات"}},

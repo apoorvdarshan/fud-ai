@@ -24,4 +24,5 @@
     <string name="challenge_hub_leave_all_detail">공개 프로필, 모든 점수와 신고가 삭제됩니다. 비공개 일지는 기기에 남습니다.</string>
     <string name="challenge_hub_jump_to_rank">내 순위로 이동</string>
     <string name="challenge_hub_week_rank">선택한 점수가 우선입니다. 동점이면 습관의 다양성, 습관별 꾸준함, 다른 항목의 일수를 비교합니다. 여전히 같으면 먼저 달성한 사람이 앞섭니다. 운동 칼로리는 동점을 가르지 않습니다.</string>
+    <string name="challenge_shared_boards_disclosure">주간 챌린지에 참여하면 일간 및 월간 순위표에도 점수가 공유됩니다. 각 순위표에서 개별적으로 나갈 수 있습니다.</string>
 </resources>

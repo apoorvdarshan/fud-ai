@@ -7,6 +7,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
@@ -264,6 +265,7 @@ class AppFlowsTest {
         for (category in listOf("APP_UPDATES", "HELP_FEEDBACK", "COMMUNITY", "LEGAL")) {
             compose.onNodeWithTag("settings.category.$category").performScrollTo().assertIsDisplayed()
         }
+        scrollAboveTabs(hasTestTag("settings.category.LEGAL"))
         compose.onNodeWithTag("settings.category.LEGAL").performClick()
         waitFor(hasTestTag("nav.settings") and isSelected())
         compose.onNodeWithTag("about.legal.duns").performScrollTo().assertIsDisplayed()
@@ -1044,6 +1046,20 @@ class AppFlowsTest {
     private fun showDiaryRow(matcher: SemanticsMatcher) {
         waitFor(hasTestTag("home.diary"))
         compose.onNodeWithTag("home.diary").performScrollToNode(matcher)
+        scrollAboveTabs(matcher)
+    }
+
+    // Compose considers an item underneath the floating tabs visible. Move the entire
+    // target above the dock before sending a real touch or swipe to it.
+    private fun scrollAboveTabs(matcher: SemanticsMatcher) {
+        val target = compose.onNode(matcher)
+        val dockTop = compose.onNodeWithTag("nav.home").fetchSemanticsNode().boundsInRoot.top
+        val overlap = target.fetchSemanticsNode().boundsInRoot.bottom - dockTop
+        if (overlap > 0f) {
+            compose.onNode(hasScrollAction() and hasAnyDescendant(matcher))
+                .performSemanticsAction(SemanticsActions.ScrollBy) { it(0f, overlap + 1f) }
+            compose.waitForIdle()
+        }
     }
 
     private fun clickText(resource: Int) {

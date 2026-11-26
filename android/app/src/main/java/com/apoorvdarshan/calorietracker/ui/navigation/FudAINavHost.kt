@@ -253,7 +253,7 @@ internal fun FudAINavHost(
         // the stack and skips re-emitting currentBackStackEntry, so
         // the bar stays selected on the previous tab.
         if (target == FudAIRoutes.HOME) {
-            nav.popBackStack(FudAIRoutes.HOME, inclusive = false)
+            nav.popBackStack(FudAIRoutes.HOME, inclusive = false, saveState = true)
         } else {
             nav.navigate(target) {
                 popUpTo(FudAIRoutes.HOME) { saveState = true }

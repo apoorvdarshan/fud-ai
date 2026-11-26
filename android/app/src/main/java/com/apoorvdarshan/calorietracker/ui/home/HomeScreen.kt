@@ -2716,7 +2716,7 @@ internal fun FoodRow(
             }
 
             // Macro pills (P / C / F) — tinted dark capsules with gray text.
-            androidx.compose.foundation.layout.FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            androidx.compose.foundation.layout.FlowRow(horizontalArrangement = Arrangement.spacedBy(3.dp)) {
                 MacroChip(stringResource(R.string.macro_abbrev_protein), entry.protein)
                 MacroChip(stringResource(R.string.macro_abbrev_carbs), entry.carbs)
                 MacroChip(stringResource(R.string.macro_abbrev_fat), entry.fat)
@@ -2754,7 +2754,7 @@ private fun MacroChip(label: String, value: Double) {
         Modifier
             .clip(CircleShape)
             .background(AppColors.Calorie.copy(alpha = 0.10f))
-            .padding(horizontal = 8.dp, vertical = 3.dp)
+            .padding(horizontal = 3.dp, vertical = 3.dp)
     ) {
         Text(
             "$label ${gramsText(value)}",

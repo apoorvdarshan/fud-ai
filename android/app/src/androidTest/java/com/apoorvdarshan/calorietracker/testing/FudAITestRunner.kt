@@ -38,7 +38,7 @@ class FudAITestApplication : FudAIApp() {
         requireTestTarget(this)
         Locale.setDefault(Locale.US)
         super.onCreate()
-        getSharedPreferences("welcome", MODE_PRIVATE).edit().putBoolean("seenMascotCafeInvite", true).apply()
+        getSharedPreferences("welcome", MODE_PRIVATE).edit().putBoolean("seenMascotCafePreview", true).apply()
         AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("en-US"))
     }
 }

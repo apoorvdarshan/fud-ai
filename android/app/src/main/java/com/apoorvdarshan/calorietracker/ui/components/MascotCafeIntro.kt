@@ -2,8 +2,19 @@ package com.apoorvdarshan.calorietracker.ui.components
 
 import android.net.Uri
 import android.widget.VideoView
+import android.widget.MediaController
 import androidx.compose.foundation.Image
-import androidx.compose.material3.AlertDialog
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Surface
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.semantics.Role
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
@@ -30,17 +41,29 @@ internal fun MascotCafeIntro(onFinish: () -> Unit) {
     if (playing) {
         Dialog(onDismissRequest = onFinish) { MascotCafePlayer(onFinish) }
     } else {
-        AlertDialog(
-            onDismissRequest = onFinish,
-            icon = { Image(painterResource(R.drawable.voice_mascot_teddy_color), null, Modifier.size(64.dp)) },
-            title = { Text(stringResource(R.string.mascot_cafe_invite)) },
-            confirmButton = {
-                TextButton(onClick = { playing = true }) { Text(stringResource(R.string.mascot_cafe_play)) }
-            },
-            dismissButton = {
-                TextButton(onClick = onFinish) { Text(stringResource(R.string.post_update_product_hunt_not_now)) }
+        Dialog(onDismissRequest = onFinish) {
+            Surface(shape = RoundedCornerShape(24.dp)) {
+                Column(Modifier.verticalScroll(rememberScrollState()), horizontalAlignment = Alignment.CenterHorizontally) {
+                    Box(Modifier.fillMaxWidth().clickable(role = Role.Button) { playing = true }) {
+                        Image(painterResource(R.drawable.mascot_cafe_preview), null,
+                            Modifier.fillMaxWidth().aspectRatio(720f / 468f))
+                        Row(
+                            Modifier.align(Alignment.BottomStart).padding(12.dp)
+                                .clip(RoundedCornerShape(50)).background(Color.Black.copy(alpha = 0.8f))
+                                .padding(horizontal = 12.dp, vertical = 7.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(Icons.Filled.PlayArrow, null, tint = Color.White)
+                            Text(stringResource(R.string.mascot_cafe_play), color = Color.White)
+                        }
+                    }
+                    Text(stringResource(R.string.mascot_cafe_invite),
+                        modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp),
+                        style = MaterialTheme.typography.titleLarge)
+                    TextButton(onClick = onFinish) { Text(stringResource(R.string.post_update_product_hunt_not_now)) }
+                }
             }
-        )
+        }
     }
 }
 
@@ -52,6 +75,8 @@ private fun MascotCafePlayer(onFinish: () -> Unit) {
     val video = remember(context) { VideoView(context) }
     var position by rememberSaveable { mutableIntStateOf(0) }
     DisposableEffect(video, lifecycle) {
+        val controls = MediaController(context)
+        video.setMediaController(controls)
         video.setOnPreparedListener {
             it.setVolume(1f, 1f)
             video.seekTo(position)
@@ -73,6 +98,7 @@ private fun MascotCafePlayer(onFinish: () -> Unit) {
         lifecycle.addObserver(observer)
         onDispose {
             lifecycle.removeObserver(observer)
+            controls.hide()
             video.stopPlayback()
         }
     }

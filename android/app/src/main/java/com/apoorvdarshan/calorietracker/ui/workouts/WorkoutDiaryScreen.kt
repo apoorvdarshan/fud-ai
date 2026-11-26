@@ -440,7 +440,8 @@ internal fun WorkoutDiaryScreen(
 
             // Real scrollable space lets the final set move clear of the IME.
             item(key = "workout-extra-space") {
-                Spacer(Modifier.height(BottomNavScrollPadding + 100.dp))
+                val shortcutHeight = if (!voiceUi.visible && !hideVoiceShortcut) 72.dp else 0.dp
+                Spacer(Modifier.height(BottomNavScrollPadding + 100.dp + shortcutHeight))
             }
         }
 
@@ -473,13 +474,13 @@ internal fun WorkoutDiaryScreen(
                 .padding(top = 8.dp, end = 16.dp)
         )
 
-        Row(
+        Column(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .navigationBarsPadding()
                 .padding(end = 24.dp, bottom = 100.dp),
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
-            verticalAlignment = Alignment.CenterVertically
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             if (!voiceUi.visible && !hideVoiceShortcut) {
                 val mascots by container.prefs.voiceMascotPreferences.collectAsState(initial = com.apoorvdarshan.calorietracker.services.voice.VoiceMascotPreferences())

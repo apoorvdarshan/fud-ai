@@ -10,17 +10,35 @@ struct MascotCafeInvite: View {
             MascotCafeIntro(url: url, finish: finish)
                 .presentationDetents([.large])
         } else {
-            VStack(spacing: 12) {
-                Image("VoiceMascotTeddyColor").resizable().scaledToFit().frame(height: 62)
-                    .accessibilityHidden(true)
-                Text("Meet the voice mascots", tableName: "MascotCafe").font(.headline)
+            ScrollView {
+              VStack(spacing: 14) {
                 Button { playing = true } label: {
-                    Label { Text("Play video", tableName: "MascotCafe") } icon: { Image(systemName: "play.fill") }
+                    Image("MascotCafePreview")
+                        .resizable()
+                        .scaledToFit()
+                        .overlay(alignment: .bottomLeading) {
+                            Label {
+                                Text("Play video", tableName: "MascotCafe")
+                            } icon: { Image(systemName: "play.fill") }
+                                .font(.headline)
+                                .padding(.horizontal, 14).padding(.vertical, 9)
+                                .foregroundStyle(.white)
+                                .background(.black.opacity(0.8), in: Capsule())
+                                .padding(12)
+                        }
+                        .clipShape(RoundedRectangle(cornerRadius: 20))
                 }
-                .buttonStyle(.borderedProminent)
+                .buttonStyle(.plain)
+                .accessibilityLabel(Text("Play video", tableName: "MascotCafe"))
+                Text("Meet the voice mascots", tableName: "MascotCafe").font(.title3.bold())
                 Button("Not now", action: finish)
+              }
+              .frame(maxWidth: 390)
+              .padding(18)
+              .frame(maxWidth: .infinity)
             }
-            .presentationDetents([.height(250), .medium])
+            .presentationDetents([.height(385), .large])
+            .presentationDragIndicator(.visible)
         }
     }
 }

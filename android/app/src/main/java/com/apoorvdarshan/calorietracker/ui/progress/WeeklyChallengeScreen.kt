@@ -558,7 +558,7 @@ private fun PendingDeletionCard(isBusy: Boolean, onRetry: () -> Unit) {
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             TextButton(onClick = onRetry, enabled = !isBusy) {
-                Text(stringResource(R.string.action_retry_deletion))
+                Text(stringResource(R.string.challenge_retry_deletion))
             }
         }
     }

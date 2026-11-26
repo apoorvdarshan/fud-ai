@@ -1509,7 +1509,7 @@
 		F00D5B000000000000000013 /* sherpa-onnx */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F00D5B000000000000000012 /* XCRemoteSwiftPackageReference "sherpa-onnx" */;
-			productName = "sherpa-onnx";
+			productName = "sherpa-onnx-shared";
 		};
 		F00DAD000000000000000013 /* RevenueCat */ = {
 			isa = XCSwiftPackageProductDependency;

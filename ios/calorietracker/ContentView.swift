@@ -5994,23 +5994,26 @@ struct ProfileView: View {
                     }
 
                     if separateTextProviderEnabled {
-                        Picker(selection: $selectedTextProvider) {
+                        Menu {
                             ForEach(AIProvider.textProviders) { provider in
-                                Label {
-                                    Text(provider.displayName)
-                                } icon: {
-                                    AIProviderBrandIcon(provider: provider)
+                                Button {
+                                    selectedTextProvider = provider
+                                } label: {
+                                    if provider == selectedTextProvider {
+                                        Label(provider.displayName, systemImage: "checkmark")
+                                    } else {
+                                        Text(provider.displayName)
+                                    }
                                 }
-                                .tag(provider)
+                                .accessibilityIdentifier("settings.ai.textOption." + provider.rawValue)
                             }
                         } label: {
-                            Label {
-                                Text("Provider")
-                            } icon: {
-                                AIProviderBrandIcon(provider: selectedTextProvider)
+                            LabeledContent {
+                                Text(selectedTextProvider.displayName)
+                            } label: {
+                                Label { Text("Provider") } icon: { AIProviderBrandIcon(provider: selectedTextProvider) }
                             }
                         }
-                        .pickerStyle(.menu)
                         .tint(.secondary)
                         .accessibilityIdentifier("settings.ai.textProvider")
                         .accessibilityValue(Text(selectedTextProvider.rawValue))

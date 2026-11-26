@@ -45,7 +45,7 @@ final class calorietrackerUITests: XCTestCase {
         // Return as soon as the element is already tappable; only diagnose an
         // absent element after checking both scroll directions.
         for attempt in 0...20 {
-            if element.isHittable { return }
+            if element.exists, app.frame.intersects(element.frame), element.isHittable { return }
             if attempt < 10 {
                 app.swipeUp()
             } else if attempt < 20 {
@@ -599,7 +599,7 @@ final class calorietrackerUITests: XCTestCase {
         reveal(provider, in: app)
         waitForValue("Google Gemini", in: provider)
         provider.tap()
-        let appleIntelligence = app.buttons["Apple Intelligence (On-Device)"]
+        let appleIntelligence = app.buttons["settings.ai.textOption.Apple Intelligence (On-Device)"]
         XCTAssertTrue(appleIntelligence.waitForExistence(timeout: 5))
         appleIntelligence.tap()
         waitForValue("Apple Intelligence (On-Device)", in: provider)

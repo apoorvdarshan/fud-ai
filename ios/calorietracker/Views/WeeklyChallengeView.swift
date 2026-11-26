@@ -317,6 +317,11 @@ struct WeeklyChallengeView: View {
             .refreshable {
                 await store.refresh(category: category, score: localScore)
             }
+            .task(id: rankingPage) {
+                guard rankingPage > 0, displayedLeaderboard?.totalCount != nil else { return }
+                await store.loadPage(category: category, weekStart: localScore.weekStart,
+                                     offset: rankingPage * WeeklyChallengeLeaderboardCache.pageSize)
+            }
             .onChange(of: rankingPage) { _, _ in
                 withAnimation(.easeOut(duration: 0.2)) {
                     proxy.scrollTo("challengeRankings", anchor: .top)
@@ -422,7 +427,11 @@ struct WeeklyChallengeView: View {
     @ViewBuilder
     private func leaderboardRows(_ response: WeeklyChallengeLeaderboardResponse) -> some View {
         let viewerID = displayedViewer?.participantId ?? store.participantID
-        let rows = orderedRankings(response)
+        let offset = rankingPage * WeeklyChallengeLeaderboardCache.pageSize
+        let page = response.totalCount != nil && offset > 0
+            ? store.leaderboardFor(category: category, weekStart: response.weekStart, offset: offset)
+            : response
+        let rows = page.map(orderedRankings) ?? []
 
         VStack(alignment: .leading, spacing: 0) {
             Text(WeeklyChallengeL10n.text("Rankings"))
@@ -431,7 +440,12 @@ struct WeeklyChallengeView: View {
                 .padding(.top, 14)
                 .padding(.bottom, 6)
 
-            if rows.isEmpty {
+            if page == nil {
+                Button(WeeklyChallengeL10n.text("Retry")) {
+                    Task { await store.loadPage(category: category, weekStart: response.weekStart, offset: offset, force: true) }
+                }
+                .padding(16)
+            } else if rows.isEmpty {
                 Text(WeeklyChallengeL10n.text("No other participants are ranked yet."))
                     .font(.system(.body, design: .rounded))
                     .foregroundStyle(.secondary)
@@ -443,7 +457,7 @@ struct WeeklyChallengeView: View {
                 let showPodium = first != nil && second != nil
                 let podiumIDs = Set([first?.participantId, second?.participantId, third?.participantId].compactMap { $0 })
                 let listRows = showPodium ? rows.filter { !podiumIDs.contains($0.participantId) } : rows
-                let maxRank = rows.map(\.rank).max() ?? 1
+                let maxRank = page?.totalCount ?? response.totalCount ?? rows.map(\.rank).max() ?? 1
                 let pageCount = max(1, (maxRank + 19) / 20)
                 let currentPage = min(rankingPage, pageCount - 1)
                 let startRank = currentPage * 20 + 1

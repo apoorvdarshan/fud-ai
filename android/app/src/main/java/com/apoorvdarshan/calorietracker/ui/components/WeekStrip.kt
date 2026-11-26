@@ -43,7 +43,8 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.selected
 import java.time.temporal.ChronoUnit
 import java.time.temporal.WeekFields
-import java.util.Locale
+import androidx.compose.ui.platform.LocalConfiguration
+import java.time.format.TextStyle
 
 /**
  * Verbatim port of struct WeekEnergyStrip in
@@ -183,7 +184,7 @@ private fun DayTile(
         // .font(.system(.caption2, design: .rounded, weight: .medium))
         // .foregroundStyle(isSelected ? AppColors.calorie : Color.secondary.opacity(0.6))
         Text(
-            narrowDay(date.dayOfWeek),
+            date.dayOfWeek.getDisplayName(TextStyle.NARROW, LocalConfiguration.current.locales[0]),
             fontSize = 11.sp,
             fontWeight = FontWeight.Medium,
             color = if (isSelected) AppColors.Calorie
@@ -229,15 +230,4 @@ private fun DayTile(
             )
         }
     }
-}
-
-/** SwiftUI's `.dateTime.weekday(.narrow)` — single-letter short day name. */
-private fun narrowDay(dow: DayOfWeek): String = when (dow) {
-    DayOfWeek.MONDAY -> "M"
-    DayOfWeek.TUESDAY -> "T"
-    DayOfWeek.WEDNESDAY -> "W"
-    DayOfWeek.THURSDAY -> "T"
-    DayOfWeek.FRIDAY -> "F"
-    DayOfWeek.SATURDAY -> "S"
-    DayOfWeek.SUNDAY -> "S"
 }

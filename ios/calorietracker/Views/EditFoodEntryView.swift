@@ -405,6 +405,7 @@ struct EditFoodEntryView: View {
                             Text("Name")
                             Spacer()
                             TextField("Food name", text: $name)
+                                .accessibilityIdentifier("food.editor.name")
                                 .multilineTextAlignment(.trailing)
                         }
                     }

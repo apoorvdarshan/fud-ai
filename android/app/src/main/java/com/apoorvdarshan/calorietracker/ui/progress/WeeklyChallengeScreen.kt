@@ -1,5 +1,7 @@
 package com.apoorvdarshan.calorietracker.ui.progress
 
+import com.apoorvdarshan.calorietracker.models.WeeklyChallengeLeaderboard
+import com.apoorvdarshan.calorietracker.data.WeeklyChallengeResult
 import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.border
@@ -151,9 +153,24 @@ internal fun WeeklyChallengeScreen(container: AppContainer) {
 
     val viewer = ui.leaderboard?.viewer
         ?: ui.leaderboard?.rankings?.firstOrNull { it.isViewer }
+    var page by remember(ui.category, ui.weekStart, ui.isJoined) { mutableStateOf(0) }
+    var retry by remember { mutableStateOf(0) }
+    var pageResponse by remember(ui.category, ui.weekStart, ui.isJoined, page) {
+        mutableStateOf<WeeklyChallengeLeaderboard?>(null)
+    }
+    val serverPage = page > 0 && ui.leaderboard?.totalCount != null
+    LaunchedEffect(ui.category, ui.weekStart, ui.isJoined, page, retry) {
+        if (serverPage && ui.isJoined) {
+            val result = container.weeklyChallengeRepository.leaderboardPage(ui.category, ui.weekStart.toString(), page * 20, retry > 0)
+            if (result is WeeklyChallengeResult.Success) {
+                pageResponse = result.value
+            }
+        }
+    }
+    val displayed = if (serverPage) pageResponse else ui.leaderboard
     val rankings = buildList {
-        addAll(ui.leaderboard?.rankings.orEmpty())
-        val viewerRow = ui.leaderboard?.viewer
+        addAll(displayed?.rankings.orEmpty())
+        val viewerRow = displayed?.viewer
         if (viewerRow != null && none { it.participantId == viewerRow.participantId }) {
             add(viewerRow)
         }
@@ -224,6 +241,10 @@ internal fun WeeklyChallengeScreen(container: AppContainer) {
                 item {
                     RankingsBoard(
                         rankings = rankings,
+                        totalCount = displayed?.totalCount ?: ui.leaderboard?.totalCount,
+                        page = page,
+                        onSelectPage = { page = it },
+                        onRetry = if (serverPage && pageResponse == null) { { retry++ } } else null,
                         category = ui.category,
                         weekStart = ui.weekStart,
                         onReport = { row ->
@@ -537,7 +558,7 @@ private fun PendingDeletionCard(isBusy: Boolean, onRetry: () -> Unit) {
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             TextButton(onClick = onRetry, enabled = !isBusy) {
-                Text(stringResource(R.string.challenge_retry_deletion))
+                Text(stringResource(R.string.action_retry_deletion))
             }
         }
     }
@@ -792,6 +813,10 @@ private fun WeekDayTrack(
 
 @Composable
 private fun RankingsBoard(
+    totalCount: Int?,
+    page: Int,
+    onSelectPage: (Int) -> Unit,
+    onRetry: (() -> Unit)?,
     rankings: List<WeeklyChallengeLeaderboardRow>,
     category: WeeklyChallengeCategory,
     weekStart: LocalDate,
@@ -799,7 +824,6 @@ private fun RankingsBoard(
     onBlock: (WeeklyChallengeLeaderboardRow) -> Unit,
     onManageBlocked: (() -> Unit)?
 ) {
-    var page by remember(category, weekStart) { mutableStateOf(0) }
     val bringRankingsIntoView = remember { BringIntoViewRequester() }
     var skipFirstPageScroll by remember(category, weekStart) { mutableStateOf(true) }
     LaunchedEffect(page) {
@@ -832,7 +856,9 @@ private fun RankingsBoard(
                     }
                 }
             }
-            if (rankings.isEmpty()) {
+            if (onRetry != null) {
+                TextButton(onClick = onRetry) { Text(stringResource(R.string.action_retry)) }
+            } else if (rankings.isEmpty()) {
                 Text(
                     text = stringResource(R.string.challenge_leaderboard_empty),
                     modifier = Modifier
@@ -845,7 +871,7 @@ private fun RankingsBoard(
                     .map { it.participantId }
                     .toSet()
                 val listRows = if (podium == null) rankings else rankings.filter { it.participantId !in podiumIds }
-                val maxRank = rankings.maxOf { it.rank ?: 1 }
+                val maxRank = totalCount ?: rankings.maxOf { it.rank ?: 1 }
                 val pageCount = (maxRank + 19) / 20
                 val currentPage = page.coerceIn(0, (pageCount - 1).coerceAtLeast(0))
                 val startRank = currentPage * 20 + 1
@@ -895,14 +921,14 @@ private fun RankingsBoard(
                             horizontalArrangement = Arrangement.spacedBy(10.dp)
                         ) {
                             Button(
-                                onClick = { page = (currentPage - 1).coerceAtLeast(0) },
+                                onClick = { onSelectPage((currentPage - 1).coerceAtLeast(0)) },
                                 enabled = currentPage > 0,
                                 modifier = Modifier.weight(1f).heightIn(min = 48.dp)
                             ) {
                                 Text(stringResource(R.string.challenge_page_previous))
                             }
                             Button(
-                                onClick = { page = (currentPage + 1).coerceAtMost(pageCount - 1) },
+                                onClick = { onSelectPage((currentPage + 1).coerceAtMost(pageCount - 1)) },
                                 enabled = currentPage < pageCount - 1,
                                 modifier = Modifier.weight(1f).heightIn(min = 48.dp)
                             ) {

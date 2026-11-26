@@ -214,8 +214,8 @@ promo, social and launch graphics do not belong in the repository.
 
 ## Header and search results images (iOS)
 
-The 9.0 product-page header (`01-product-page-header.png`) and search-results image
-(`02-search-results.png`) were staged in App Store Connect's Asset Library.
+The 9.0.1 product-page header (`classic-9-apple-header.png`) and search-results image
+(`classic-9-apple-search.png`) were staged in App Store Connect's Asset Library.
 Store-release matches the staged assets by file name and byte size, so
 `ios.creative.sizes` in [`store-release.toml`](store-release.toml) pins both.
 Update the pin in the same change when replacing either file.

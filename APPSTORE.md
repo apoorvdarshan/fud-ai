@@ -1,6 +1,6 @@
 # App Store Listing
 
-App Store listing source for Fud AI 9.0 on iPhone, iPad, and Apple Watch. App Store Connect is the source of truth for submission status.
+App Store listing source for Fud AI 9.0.1 on iPhone, iPad, and Apple Watch. App Store Connect is the source of truth for submission status.
 
 ## App Name
 ```
@@ -89,7 +89,7 @@ Source: https://github.com/apoorvdarshan/fud-ai
 
 ```
 
-## What's New (v9.0)
+## What's New (v9.0.1)
 ```
 Home brings back the classic bottom tabs, calorie gauge, and round + menu.
 • Home Screen widgets, Apple Watch water logging, and watch-face complications use the classic design.
@@ -154,7 +154,7 @@ Free forever = full app + BYOK. Hosted AI is optional on iOS; no free hosted quo
 
 ## Reviewer Notes
 ```
-Fud AI 9.0 supports iPhone and iPad, with a companion Apple Watch app. The app uses bottom tabs and a shared diary date for its week strip and calendar.
+Fud AI 9.0.1 supports iPhone and iPad, with a companion Apple Watch app. The app uses bottom tabs and a shared diary date for its week strip and calendar.
 
 Onboarding: There is no Fud AI account or required purchase. At the AI setup step, choose Bring Your Own AI and Google Gemini, keep the default model, and paste the review key from App Review Information into the in-app API Key field before continuing. This is a provider key, not a Fud AI account password. If the app is already set up, find the same options in Settings → AI Access.
 

@@ -10,4 +10,6 @@
     <string name="voice_mascot_calm">Calm</string>
     <string name="voice_mascot_direct">Direct</string>
     <string name="voice_mascot_next_session">Changes apply to the next conversation.</string>
+    <string name="mascot_cafe_invite">Meet the voice mascots</string>
+    <string name="mascot_cafe_play">Play video</string>
 </resources>

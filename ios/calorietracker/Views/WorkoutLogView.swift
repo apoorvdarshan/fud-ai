@@ -445,7 +445,7 @@ struct WorkoutLogView: View {
                 .background(Color.workoutBackground.ignoresSafeArea())
                 .listSectionSpacing(8)
                 .scrollDismissesKeyboard(.interactively)
-                .contentMargins(.bottom, 96, for: .scrollContent)
+                .contentMargins(.bottom, voiceAssistant.isActive || hideVoiceShortcut ? 96 : 168, for: .scrollContent)
                 // Pinned below the navigation bar so it stays visible above the
                 // keyboard while the next set is being typed.
                 .safeAreaInset(edge: .top, spacing: 0) {
@@ -494,7 +494,7 @@ struct WorkoutLogView: View {
                 }
                 .overlay(alignment: .bottomTrailing) {
                     if focusedSetField == nil {
-                        HStack(spacing: 12) {
+                        VStack(spacing: 12) {
                             if !voiceAssistant.isActive, !hideVoiceShortcut {
                                 VoiceAssistantHomeButton(controller: voiceAssistant)
                             }

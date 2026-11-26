@@ -5,6 +5,14 @@ with early Android summaries reconstructed from the corresponding changes.
 They describe those versions, not necessarily the current product. Tags with the
 same marketing version can share a feature summary while identifying different builds.
 
+## android-v9.0.2
+
+Meet the Live Voice mascots in a short video. Tap the café preview to watch with sound, or choose Not now to skip it. The Live Voice shortcut now sits above the + menu on Home and Workouts. Brulee is the default. Choose Classic Orb or another mascot in Settings → Voice Assistant. The built-in workout library is also restored.
+
+## ios-v9.0.2
+
+Meet the Live Voice mascots in a short video. Tap the café preview to watch with sound, or choose Not now to skip it. The Live Voice shortcut now sits above the + menu on Home and Workouts. Brulee is the default. Choose Classic Orb or another mascot in Settings → Voice Assistant.
+
 ## android-v9.0.1
 
 Restores the 877 built-in exercises to Android workout search and workout text analysis. Custom exercises remain available alongside the built-in library.

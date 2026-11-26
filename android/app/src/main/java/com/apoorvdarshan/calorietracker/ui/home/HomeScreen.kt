@@ -495,7 +495,8 @@ DisposableEffect(lifecycleOwner, vm) {
     val actionSize = 60.dp
     val actionGap = 12.dp
     val actionBottom = 100.dp
-    val diaryBottomClearance = actionBottom + actionSize + actionGap +
+    val shortcutHeight = if (!voiceUi.visible && !hideVoiceShortcut) actionSize + actionGap else 0.dp
+    val diaryBottomClearance = actionBottom + actionSize + actionGap + shortcutHeight +
         WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
 
     // No topBar: the empty TopAppBar used to act as the status-bar spacer, but the
@@ -776,13 +777,13 @@ DisposableEffect(lifecycleOwner, vm) {
 
         // Transparent floating controls preserve the full scrolling diary.
         if (!selectionMode) {
-        Row(
+        Column(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .navigationBarsPadding()
                 .padding(end = 24.dp, bottom = actionBottom),
-            horizontalArrangement = Arrangement.spacedBy(actionGap),
-            verticalAlignment = Alignment.CenterVertically
+            verticalArrangement = Arrangement.spacedBy(actionGap),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             if (!voiceUi.visible && !hideVoiceShortcut) {
                 val mascots by container.prefs.voiceMascotPreferences.collectAsState(initial = com.apoorvdarshan.calorietracker.services.voice.VoiceMascotPreferences())

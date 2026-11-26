@@ -10,4 +10,6 @@
     <string name="voice_mascot_direct">Directă</string>
     <string name="voice_mascot_next_session">Modificările se aplică de la conversația următoare.</string>
     <string name="voice_mascot_classic_orb">Sferă clasică</string>
+    <string name="mascot_cafe_invite">Descoperă mascotele vocale</string>
+    <string name="mascot_cafe_play">Redă videoclipul</string>
 </resources>

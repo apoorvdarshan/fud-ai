@@ -36,6 +36,7 @@ import com.apoorvdarshan.calorietracker.services.ReviewPrompter
 import com.apoorvdarshan.calorietracker.services.update.AndroidUpdateChecker
 import com.apoorvdarshan.calorietracker.services.voice.VoiceEntryPoints
 import com.apoorvdarshan.calorietracker.ui.components.LocalEnergyUnit
+import com.apoorvdarshan.calorietracker.ui.components.MascotCafeIntro
 import com.apoorvdarshan.calorietracker.ui.home.ImportSharedMealSheet
 import com.apoorvdarshan.calorietracker.ui.navigation.FudAINavHost
 import com.apoorvdarshan.calorietracker.ui.theme.AppThemeColor
@@ -229,6 +230,18 @@ open class MainActivity : AppCompatActivity() {
                 }
             }
             FudAITheme(darkTheme = darkTheme, themeColor = themeColor, grayDarkTheme = appearance == "darkGray") {
+                val welcome = remember { getSharedPreferences("welcome", MODE_PRIVATE) }
+                var seenIntro by remember { mutableStateOf(welcome.getBoolean("seenMascotCafeWelcome", false)) }
+                if (!seenIntro && intent.action == Intent.ACTION_MAIN && pendingVoiceLaunch == null &&
+                    pendingQuickAction == null && pendingSharedMeals.isEmpty()
+                ) {
+                    MascotCafeIntro(container.billing, onWatched = {
+                        welcome.edit().putBoolean("seenMascotCafeWelcome", true).apply()
+                    }) {
+                        welcome.edit().putBoolean("seenMascotCafeWelcome", true).apply()
+                        seenIntro = true
+                    }
+                }
                 CompositionLocalProvider(
                     LocalEnergyUnit provides energyUnit,
                     LocalHapticFeedback provides appHaptics

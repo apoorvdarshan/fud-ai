@@ -288,6 +288,23 @@ class AppFlowsTest {
     }
 
     @Test
+    fun dismissingMascotPreviewSkipsFollowUpPagesAndNextLaunch() {
+        FudAITestState.reset()
+        val welcome = context.getSharedPreferences("welcome", android.content.Context.MODE_PRIVATE)
+        welcome.edit().remove("seenMascotCafeWelcome").commit()
+        val launcher = Intent(context, MainActivity::class.java).setAction(Intent.ACTION_MAIN)
+        launchActivity(launcher)
+        compose.onNodeWithText(string(R.string.post_update_product_hunt_not_now)).performClick()
+        waitForHome()
+        compose.onNodeWithText(string(R.string.about_join_discord)).assertDoesNotExist()
+        checkNotNull(activity).close()
+        activity = null
+        launchActivity(launcher)
+        waitForHome()
+        compose.onNodeWithText(string(R.string.mascot_cafe_invite)).assertDoesNotExist()
+    }
+
+    @Test
     fun voiceMascotGallerySelectsThePinnedCharacter() {
         launchFresh()
         openVoiceSettings()
@@ -297,7 +314,8 @@ class AppFlowsTest {
         val brulee = compose.onNodeWithTag("settings.voiceMascot.gallery.BRULEE")
         val jam = compose.onNodeWithTag("settings.voiceMascot.gallery.JAM")
         val shortcut = compose.onNodeWithTag("voiceAssistantButton")
-        compose.onNodeWithTag("settings.voiceMascot.gallery.ORB").assertIsSelected()
+        brulee.assertIsSelected()
+        compose.onNodeWithTag("settings.voiceMascot.gallery.ORB").assertIsNotSelected()
         jam.performClick()
         awaitPreference(prefs.voiceMascotPreferences) { it.selected == VoiceMascot.JAM }
         jam.assertIsSelected()
@@ -467,9 +485,9 @@ class AppFlowsTest {
         compose.onNodeWithTag("home.add").assertIsDisplayed()
         val addBounds = compose.onNodeWithTag("home.add").fetchSemanticsNode().boundsInRoot
         val voiceBounds = compose.onNodeWithTag("voiceAssistantButton").assertIsDisplayed().fetchSemanticsNode().boundsInRoot
-        assertEquals(addBounds.top, voiceBounds.top, 1f)
-        assertEquals(addBounds.bottom, voiceBounds.bottom, 1f)
-        assertTrue("Voice sits beside the add button", voiceBounds.right < addBounds.left)
+        assertEquals(addBounds.left, voiceBounds.left, 1f)
+        assertEquals(addBounds.right, voiceBounds.right, 1f)
+        assertTrue("Voice sits above the add button", voiceBounds.bottom < addBounds.top)
         assertTrue("The diary keeps its full viewport behind the floating controls",
             compose.onNodeWithTag("home.diary").fetchSemanticsNode().boundsInRoot.bottom > addBounds.bottom)
         assertTrue("The action row stays above the tabs", addBounds.bottom <=

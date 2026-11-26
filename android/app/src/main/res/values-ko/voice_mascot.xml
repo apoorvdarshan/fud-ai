@@ -10,4 +10,6 @@
     <string name="voice_mascot_direct">간결하게</string>
     <string name="voice_mascot_next_session">변경 사항은 다음 대화부터 적용됩니다.</string>
     <string name="voice_mascot_classic_orb">클래식 오브</string>
+    <string name="mascot_cafe_invite">음성 마스코트를 만나 보세요</string>
+    <string name="mascot_cafe_play">동영상 재생</string>
 </resources>

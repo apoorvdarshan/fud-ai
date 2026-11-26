@@ -10,4 +10,6 @@
     <string name="voice_mascot_direct">率直</string>
     <string name="voice_mascot_next_session">変更は次回の会話から適用されます。</string>
     <string name="voice_mascot_classic_orb">クラシックなオーブ</string>
+    <string name="mascot_cafe_invite">音声マスコットを紹介</string>
+    <string name="mascot_cafe_play">動画を再生</string>
 </resources>

@@ -106,7 +106,7 @@ struct VoiceMascotOptions: Codable, Equatable {
 }
 
 struct VoiceMascotProfile: Equatable {
-    var mascot = VoiceMascot.orb
+    var mascot = VoiceMascot.brulee
     var options = VoiceMascotOptions()
 
     var name: String {
@@ -125,14 +125,14 @@ struct VoiceMascotProfile: Equatable {
 
 struct VoiceMascotPreferences: Codable, Equatable {
     static let storageKey = "voiceAssistant.mascots"
-    var selected = VoiceMascot.orb
+    var selected = VoiceMascot.brulee
     var profiles: [String: VoiceMascotOptions] = [:]
 
     init() {}
 
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        selected = (try? values.decode(VoiceMascot.self, forKey: .selected)) ?? .orb
+        selected = (try? values.decode(VoiceMascot.self, forKey: .selected)) ?? .brulee
         profiles = (try? values.decode([String: VoiceMascotOptions].self, forKey: .profiles)) ?? [:]
     }
 

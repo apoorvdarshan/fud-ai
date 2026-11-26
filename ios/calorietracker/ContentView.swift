@@ -1456,7 +1456,7 @@ private var dailyStepsTaskKey: String {
 
     /// The diary scrolls behind these floating controls and can scroll fully above them.
     private var homeActionBar: some View {
-        HStack(spacing: 12) {
+        VStack(spacing: 12) {
             // The live session uses its own floating controls.
             if !voiceAssistant.isActive, !hideVoiceShortcut {
                 VoiceAssistantHomeButton(controller: voiceAssistant)
@@ -1898,7 +1898,7 @@ private var dailyStepsTaskKey: String {
                                     }
                                     .fixedSize(horizontal: false, vertical: true)
                                     .frame(maxWidth: .infinity, alignment: .leading)
-                                    .padding(.trailing, isFoodSelectionMode ? 0 : (voiceAssistant.isActive ? 72 : 144))
+                                    .padding(.trailing, isFoodSelectionMode ? 0 : 72)
                                     .textCase(nil)
                                 }
                             }
@@ -1914,7 +1914,7 @@ private var dailyStepsTaskKey: String {
             .task(id: dailyStepsTaskKey) {
                 await refreshDailySteps()
             }
-            .contentMargins(.bottom, isFoodSelectionMode ? 8 : 96, for: .scrollContent)
+            .contentMargins(.bottom, isFoodSelectionMode ? 8 : (voiceAssistant.isActive || hideVoiceShortcut ? 96 : 168), for: .scrollContent)
             .sensoryFeedback(.selection, trigger: selectedFoodIDs) { _, selection in
                 !selection.isEmpty
             }

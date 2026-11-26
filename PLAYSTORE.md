@@ -1,6 +1,6 @@
 # Play Store Listing
 
-Google Play Console listing copy prepared for Fud AI Android v9.0.1 / versionCode 51. Each field is in a code block for easy copy-paste. This file does not indicate that the release or listing has been submitted or published.
+Google Play Console listing copy prepared for Fud AI Android v9.0.2 / versionCode 52. Each field is in a code block for easy copy-paste. This file does not indicate that the release or listing has been submitted or published.
 
 **Pending Play Console updates**
 - [x] Health Connect declaration includes **Exercise (READ)** with the §7 `READ_EXERCISE` rationale (submitted with 8.0, 2026-10-24). Play lists a new health permission in the declaration only once a release containing it is uploaded, and a store-release upload that adds one fails until the declaration is updated, so upload such a release through Play Console first.
@@ -76,13 +76,13 @@ English-only on Play Console — non-English Play Store browsers (ar, az-AZ, cs-
 
 ---
 
-## 4. What's New (v9.0.1 / versionCode 51)
+## 4. What's New (v9.0.2 / versionCode 52)
 
 **500 char hard cap per language.** English is the fallback for other store locales.
 
 ```
 <en-US>
-The built-in library of 877 exercises is back. Search for movements like squats and chest presses in Workouts, or describe your workout in text to match exercises from the library. Your custom exercises stay in your list.
+Meet the Live Voice mascots in a short video. Tap the café preview to watch with sound, or choose Not now to skip it. The Live Voice shortcut now sits above the + menu on Home and Workouts. Brulee is the default. Choose Classic Orb or another mascot in Settings → Voice Assistant. The built-in workout library is also restored.
 </en-US>
 ```
 

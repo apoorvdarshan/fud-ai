@@ -922,13 +922,16 @@ struct WeeklyChallengeParticipantRow: View {
     let onBlock: () -> Void
     @AppStorage(EnergyUnit.storageKey) private var energyUnit = EnergyUnit.defaultUnit
 
+    @Environment(\.dynamicTypeSize) private var typeSize
+
     var body: some View {
         ViewThatFits(in: .horizontal) {
-            HStack(spacing: 12) {
-                badges
-                identity.frame(minWidth: 110, alignment: .leading)
-                Spacer(minLength: 4)
-                scoreAndActions
+            if !typeSize.isAccessibilitySize {
+                HStack(spacing: 8) {
+                    badges
+                    identity.frame(minWidth: 80, idealWidth: 90, maxWidth: .infinity, alignment: .leading)
+                    scoreAndActions
+                }
             }
             VStack(alignment: .leading, spacing: 8) {
                 badges
@@ -936,25 +939,21 @@ struct WeeklyChallengeParticipantRow: View {
                 scoreAndActions
             }
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, 12)
         .padding(.vertical, 10)
-        .background(
-            isViewer
-                ? AppColors.calorie.opacity(0.12)
-                : (striped ? Color.primary.opacity(0.05) : Color.clear)
-        )
-    }
-    private var badges: some View {
-        HStack(spacing: 12) {
+        .background(isViewer ? AppColors.calorie.opacity(0.12) : (striped ? Color.primary.opacity(0.05) : Color.clear))
+        .overlay(alignment: .leading) {
             if isViewer {
-                Capsule()
-                    .fill(AppColors.calorie)
-                    .frame(width: 4, height: 36)
+                Capsule().fill(AppColors.calorie).frame(width: 3, height: 30)
             }
-            WeeklyChallengeRankBadge(place: participant.rank)
+        }
+    }
 
+    private var badges: some View {
+        HStack(spacing: 6) {
+            WeeklyChallengeRankBadge(place: participant.rank, diameter: 30)
             WeeklyChallengeNameMark(name: participant.displayName)
-
         }
     }
 
@@ -970,7 +969,6 @@ struct WeeklyChallengeParticipantRow: View {
                 .multilineTextAlignment(.trailing)
                 .padding(.horizontal, 8)
                 .padding(.vertical, 4)
-                .frame(maxWidth: 148, alignment: .trailing)
                 .background(AppColors.calorie.opacity(0.12), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
 
             if !isViewer {

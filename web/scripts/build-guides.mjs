@@ -41,8 +41,8 @@ for (const group of collections) {
 function page({ title, description, path, updated, crumbs, body, article }) {
   const url = `${origin}${path}`;
   const fullTitle = `${title} | Fud AI`;
-  const image = `${origin}/assets/voice-first-preview.jpg`;
-  const imageAlt = "Brulee, Fud AI’s pink voice mascot, beside the words ‘Tell it what you ate.’";
+  const image = `${origin}/assets/opengraph.jpg?v=20261020`;
+  const imageAlt = "Fud AI: Just say what you ate. A chicken burrito bowl logged at 620 kcal beside the app's glowing pink voice orb.";
   const graph = [{
     "@type": "WebPage", "@id": `${url}#webpage`, url, name: fullTitle, description,
     inLanguage: "en", dateModified: updated, isPartOf: { "@id": `${origin}/#website` },

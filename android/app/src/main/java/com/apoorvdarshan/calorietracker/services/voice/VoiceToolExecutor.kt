@@ -382,7 +382,11 @@ class VoiceToolExecutor(
             }
         }
 
+        val summary = profile?.let { ports.coachSummary(it, entries) }.orEmpty()
         return ToolResults.ok {
+            if (summary.isNotEmpty()) {
+                putJsonArray("coach_summary") { summary.forEach { add(JsonPrimitive(it)) } }
+            }
             put("screen", screen.screen?.wireValue ?: "other")
             screen.section?.let { put("settings_section", it.wireValue) }
             // open_screen can't show these until the user turns them back on.

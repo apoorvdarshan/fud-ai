@@ -65,7 +65,7 @@ export const privacy = {
       [policy, backup], ["restore-on-a-new-phone", "share-a-meal-link", "join-or-leave-challenges"]],
     ["join-or-leave-challenges", "Join or leave an optional Fud AI Challenge", "Understand what other participants can see and how to control or remove your participation.",
       [["Check eligibility and visibility", "Challenges are opt-in and for adults only. When you join, review the rules and choose a display name you are comfortable sharing. A social handle is optional. Challenge views use aggregate scores and not your raw meal, weight, or workout history."],
-       ["Leave from the app", "Use the Challenge controls to leave and request removal of the participant record. Leaving requires reaching the service to complete the remote request; do not assume uninstalling the app performs the same action. On newer versions, separately offered boards require their own opt-in."]],
+       ["Leave from the app", "Use the Challenge controls to leave and request removal of the participant record. Leaving requires reaching the service to complete the remote request; do not assume uninstalling the app performs the same action. The restored app offers the Weekly Challenge only."]],
       [["Challenge rules", "/terms#community-rules"], policy], ["delete-or-export-diary", "food-photo-privacy", "weekly-recap-and-progress"]],
   ],
 };

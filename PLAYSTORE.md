@@ -53,7 +53,7 @@ Change the serving size or correct calories and individual nutrients before savi
 
 TRACK WHAT MATTERS TO YOU
 • Set calorie and macro targets, choose nutrient cards, and track fiber, sugar, sodium, vitamins, and other nutrients.
-• Review nutrition, weight, steps, and trends, including a Weekly Recap. Display energy in kcal or kJ.
+• Review nutrition, weight, steps, and trends. Display energy in kcal or kJ.
 • Use optional water tracking and reminders, or keep a private fasting timer with editable history.
 • Add home-screen widgets for calories, protein, water, or other daily totals. Choose an accent that fits your home screen.
 
@@ -82,10 +82,10 @@ English-only on Play Console — non-English Play Store browsers (ar, az-AZ, cs-
 
 ```
 <en-US>
-Fud AI 9.0 brings the 04 Flash redesign to Home, the diary, and settings.
-• Home-screen widgets now match, including nutrition, hydration, and voice shortcuts.
-• Daily and Monthly Challenges are separate opt-ins alongside Weekly.
-• About → App & Updates shows when Google Play has an update.
+Use the classic bottom tabs, calorie gauge, calendar, and round + menu.
+• Home-screen widgets use the classic design, including nutrition, hydration, and voice shortcuts.
+• Open the optional Weekly Challenge in Progress.
+• Settings → App & Updates shows when Google Play has an update.
 • Keep using your own AI key free, or view optional paid Hosted Plus/Pro plans.
 </en-US>
 ```

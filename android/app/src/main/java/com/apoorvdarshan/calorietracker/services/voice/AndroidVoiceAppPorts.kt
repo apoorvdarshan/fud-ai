@@ -21,6 +21,7 @@ import com.apoorvdarshan.calorietracker.models.WorkoutTextExercise
 import com.apoorvdarshan.calorietracker.models.WorkoutWeightUnit
 import com.apoorvdarshan.calorietracker.services.AndroidAppIconManager
 import com.apoorvdarshan.calorietracker.services.BarcodeProductLookup
+import com.apoorvdarshan.calorietracker.services.ai.CoachContext
 import com.apoorvdarshan.calorietracker.services.ai.CoachTools
 import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysis
 import com.apoorvdarshan.calorietracker.services.hosted.AiAccessMode
@@ -150,6 +151,24 @@ class AndroidVoiceAppPorts(
     override suspend fun pickPhotos(maxCount: Int): PickOutcome = ui.pickPhotos(maxCount)
 
     // MARK: - Food
+
+    override suspend fun coachSummary(profile: UserProfile, foods: List<FoodEntry>): List<String> =
+        withContext(Dispatchers.Default) {
+            val workouts = container.workoutRepository.snapshot()
+            CoachContext.summaryLines(
+                profile = profile,
+                weights = container.weightRepository.entries.first(),
+                bodyFats = container.bodyFatRepository.entries.first(),
+                measurements = container.bodyMeasurementRepository.entries.first(),
+                foods = foods,
+                fastingSessions = container.fastingRepository.sessions.first(),
+                heightMetric = container.prefs.heightUnit.first() == "cm",
+                weightMetric = prefs.weightUnit.first() == "kg",
+                workoutSessions = workouts.completedSessions,
+                workoutPlans = workouts.dayPlans.values.toList(),
+                energyUnit = container.prefs.energyUnit.first()
+            )
+        }
 
     override suspend fun profile(): UserProfile? = container.profileRepository.current()
 

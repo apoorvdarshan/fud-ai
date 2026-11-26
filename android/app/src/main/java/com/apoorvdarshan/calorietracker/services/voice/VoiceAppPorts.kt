@@ -193,6 +193,7 @@ interface VoiceAppPorts {
     suspend fun pickPhotos(maxCount: Int): PickOutcome
 
     // Food
+    suspend fun coachSummary(profile: UserProfile, foods: List<FoodEntry>): List<String> = emptyList()
     suspend fun profile(): UserProfile?
     suspend fun foodEntries(): List<FoodEntry>
     /** False when food logging is paused by a running fast. */

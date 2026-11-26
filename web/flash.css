@@ -8,7 +8,7 @@
   --rule: #858087;
   --flash: #ff006a;
   --accent-text: #a50043;
-  --display: "Impact", "Haettenschweiler", "Arial Narrow", sans-serif;
+  --display: ui-rounded, system-ui, sans-serif;
   --body: system-ui, sans-serif;
 }
 
@@ -44,7 +44,7 @@ a:hover { text-decoration-thickness: .14em; }
 .masthead nav a:hover { text-decoration: underline; }
 .button {
   appearance: none; display: inline-flex; align-items: center; justify-content: center; min-height: 3rem;
-  padding: .63rem 1rem; border: 1px solid currentColor; border-radius: .2rem; background: var(--panel);
+  padding: .63rem 1rem; border: 1px solid currentColor; border-radius: 2rem; background: var(--panel);
   color: var(--ink); font: 800 .94rem/1.2 var(--body); text-decoration: none; cursor: pointer;
 }
 .button:hover { text-decoration: underline; }
@@ -56,12 +56,12 @@ a:hover { text-decoration-thickness: .14em; }
 .edition > span, .demo-status > span:first-child { inline-size: .6rem; block-size: .6rem; flex: 0 0 auto; background: var(--flash); }
 h1, h2, h3, p, figure { margin: 0; }
 h1, h2 { font-family: var(--display); font-weight: 800; letter-spacing: -.025em; }
-h1 { font-size: clamp(4.6rem, 9.2vw, 8.25rem); line-height: .94; }
+h1 { font-size: clamp(3rem, 6.7vw, 6rem); line-height: 1.02; }
 h2 { font-size: clamp(2.4rem, 5.25vw, 4.3rem); line-height: 1; }
 h3 { font-size: 1.33rem; line-height: 1.22; }
 .lede { color: var(--muted); max-width: 36ch; margin: 1.4rem 0 1.35rem; font-size: clamp(1.1rem, 1.7vw, 1.32rem); }
 .fine { margin-top: .85rem; color: var(--muted); font-size: .88rem; }
-.voice-demo { min-width: 0; border: 1px solid var(--rule); box-shadow: .42rem .42rem 0 var(--inset); background: var(--panel); }
+.voice-demo { min-width: 0; border: 1px solid var(--rule); border-radius: 1.25rem; overflow: hidden; box-shadow: 0 .5rem 2rem var(--inset); background: var(--panel); }
 .demo-head, .demo-foot { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .6rem; padding: .72rem 1rem; }
 .demo-head > span, .demo-foot > small { color: var(--muted); font-size: .78rem; }
 .demo-stage {
@@ -106,7 +106,7 @@ h3 { font-size: 1.33rem; line-height: 1.22; }
 .section { padding-block: clamp(3rem, 7vw, 6rem); }
 .section-intro { display: grid; grid-template-columns: 1.25fr 1fr; align-items: end; gap: 1rem 2.5rem; margin-bottom: clamp(1.35rem, 3vw, 2.3rem); }
 .section-intro p, .faq-layout > div:first-child p { color: var(--muted); max-width: 52ch; }
-.feature-grid, .plan-grid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--rule); background: var(--panel); }
+.feature-grid, .plan-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-radius: 1.25rem; overflow: hidden; border: 1px solid var(--rule); background: var(--panel); }
 .feature-grid article, .plan-grid article { padding: clamp(1rem, 2.5vw, 2rem); }
 .feature-grid article + article, .plan-grid article + article { border-left: 1px solid var(--rule); }
 .feature-grid article p, .plan-grid article > p:not(.plan-type) { color: var(--muted); margin: .65rem 0 .95rem; }

@@ -8,7 +8,6 @@ import com.apoorvdarshan.calorietracker.AppContainer
 import com.apoorvdarshan.calorietracker.data.VoiceAssistantPreferences
 import com.apoorvdarshan.calorietracker.models.AppLanguage
 import com.apoorvdarshan.calorietracker.models.ChatMessage
-import com.apoorvdarshan.calorietracker.services.ai.CoachContext
 import com.apoorvdarshan.calorietracker.ui.home.ContentUriBytes
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CompletableDeferred
@@ -1002,56 +1001,18 @@ class VoiceAssistantController(private val container: AppContainer) : VoiceUiBri
     private suspend fun buildInstructions(
         context: VoiceSessionContext, prefs: VoiceAssistantPreferences, mascot: VoiceMascotProfile
     ): String {
-        val profile = container.profileRepository.current()
-        val foods = container.foodRepository.entries.first()
-        val weightMetric = container.prefs.weightUnit.first() == "kg"
-        val summary = profile?.let {
-            val workouts = container.workoutRepository.snapshot()
-            CoachContext.summaryLines(
-                profile = it,
-                weights = container.weightRepository.entries.first(),
-                bodyFats = container.bodyFatRepository.entries.first(),
-                measurements = container.bodyMeasurementRepository.entries.first(),
-                foods = foods,
-                fastingSessions = container.fastingRepository.sessions.first(),
-                heightMetric = container.prefs.heightUnit.first() == "cm",
-                weightMetric = weightMetric,
-                workoutSessions = workouts.completedSessions,
-                workoutPlans = workouts.dayPlans.values.toList(),
-                energyUnit = container.prefs.energyUnit.first()
-            )
-        }.orEmpty()
         val zone = ZoneId.systemDefault()
-        val today = LocalDate.now(zone)
-        val todayFoods = foods.filter { it.timestamp.atZone(zone).toLocalDate() == today }
-        val waterOn = container.prefs.waterTrackingEnabled.first()
-        val water = if (waterOn) {
-            container.waterRepository.entries.first()
-                .filter { it.date.atZone(zone).toLocalDate() == today }
-                .sumOf { it.milliliters }
-        } else null
-        val todayLine = VoiceInstructions.todayLine(
-            calories = todayFoods.sumOf { it.calories },
-            protein = todayFoods.sumOf { it.protein },
-            carbs = todayFoods.sumOf { it.carbs },
-            fat = todayFoods.sumOf { it.fat },
-            calorieGoal = profile?.effectiveCalories,
-            proteinGoal = profile?.effectiveProtein,
-            carbsGoal = profile?.effectiveCarbs,
-            fatGoal = profile?.effectiveFat,
-            waterMl = water,
-            waterGoalMl = if (waterOn) container.prefs.waterDailyGoalMl.first() else null
-        )
+        val weightMetric = container.prefs.weightUnit.first() == "kg"
         return VoiceInstructions.build(
             VoiceInstructionInput(
                 context = context,
-                today = today,
+                today = LocalDate.now(zone),
                 time = LocalTime.now(zone),
                 timeZone = zone.id,
                 replyLanguage = replyLanguage(prefs.language),
                 metric = weightMetric,
-                coachSummary = summary,
-                todayLine = todayLine,
+                coachSummary = emptyList(),
+                todayLine = null,
                 userContext = container.prefs.userContext.first(),
                 mascot = mascot
             )

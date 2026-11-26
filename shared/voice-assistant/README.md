@@ -108,7 +108,9 @@ completion never ends a spoken turn on iOS.
 Built per session from: a short persona (Fud AI's assistant and coach, warm and
 brief, speaks the user's language), the same profile/goal/forecast summary
 Coach uses, today's totals, the rules below, and the capabilities of this
-session (camera frames, auto-capture, confirm-before-saving).
+session (camera frames, auto-capture, confirm-before-saving). On Android, the
+assistant gets totals and the Coach summary through `get_app_state` when needed,
+so opening the microphone does not wait for diary reads or forecast calculations.
 
 Rules given to the model: briefly announce visible app actions, then do
 them; perform read-only lookups without a preamble; use tools for anything

@@ -30,6 +30,7 @@ internal fun MascotCafeIntro(onFinish: () -> Unit) {
     BackHandler { finish() }
     DisposableEffect(video, lifecycle) {
         video.setOnPreparedListener {
+            it.setVolume(1f, 1f)
             video.seekTo(position)
             if (lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) video.start()
         }

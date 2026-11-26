@@ -28,12 +28,24 @@ struct MascotCafeIntro: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.black.ignoresSafeArea())
         .onAppear {
-            player = AVPlayer(url: url)
-            if phase == .active { player?.play() }
+            let introPlayer = AVPlayer(url: url)
+            introPlayer.isMuted = false
+            player = introPlayer
+            if phase == .active { startPlayback() }
         }
         .onChange(of: phase) { _, phase in
-            if phase == .active { player?.play() } else { player?.pause() }
+            if phase == .active { startPlayback() } else { stopPlayback() }
         }
-        .onDisappear { player?.pause() }
+        .onDisappear { stopPlayback() }
+    }
+
+    private func startPlayback() {
+        WhatsNewAudio.apply(.on)
+        player?.play()
+    }
+
+    private func stopPlayback() {
+        player?.pause()
+        WhatsNewAudio.end()
     }
 }

@@ -567,11 +567,10 @@ DisposableEffect(lifecycleOwner, vm) {
             // Week strip — verbatim port of WeekEnergyStrip in HomeComponents.swift,
             // with horizontal pagination across 53 weeks of history.
             item {
-                DiaryDateHeader(selectedDate, onPick = pickDay)
                 Box(Modifier.padding(horizontal = 16.dp, vertical = 4.dp)) {
                     WeekEnergyStrip(
                         selectedDate = selectedDate,
-                        onSelect = pickDay,
+                        onSelect = vm::setSelectedDate,
                         weekStartsOnMonday = weekStartsOnMonday
                     )
                 }

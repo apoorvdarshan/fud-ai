@@ -22,7 +22,7 @@ final class calorietrackerUITestsLaunchTests: XCTestCase {
         XCTAssertTrue(app.tabBars.buttons["Home"].isSelected)
         XCTAssertTrue(app.buttons["voiceAssistantButton"].isHittable)
         XCTAssertFalse(app.buttons["nav.camera"].exists)
-        XCTAssertTrue(app.buttons["home.calendar"].exists)
+        XCTAssertTrue(app.buttons["home.week.today"].exists)
         XCTAssertTrue(app.tabBars.firstMatch.exists)
         XCTAssertFalse(app.buttons["Get Started"].exists)
 

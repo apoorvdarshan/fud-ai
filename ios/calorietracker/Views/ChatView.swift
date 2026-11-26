@@ -193,7 +193,7 @@ struct ChatView: View {
     private var messageList: some View {
         ScrollViewReader { proxy in
             ScrollView {
-                VStack(spacing: 14) {
+                LazyVStack(spacing: 14) {
                     ForEach(messages) { msg in
                         MessageBubble(
                             message: msg,

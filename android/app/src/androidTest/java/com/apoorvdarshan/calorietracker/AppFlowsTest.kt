@@ -108,7 +108,7 @@ class AppFlowsTest {
         launchFresh()
         val diary = compose.onNodeWithTag("home.diary")
         val viewMore = compose.onNodeWithTag("home.viewMore")
-        val todayLabel = hasTestTag("home.dateHeading") and hasText(string(R.string.widget_today))
+        val todayLabel = hasTestTag("home.week.today") and isSelected()
         val details = hasText(string(R.string.nutrition_details_title))
         diary.performScrollToNode(hasTestTag("home.viewMore"))
         viewMore.performTouchInput { swipe(center, center + Offset(30.dp.toPx(), 0f)) }
@@ -119,7 +119,7 @@ class AppFlowsTest {
         viewMore.assertIsDisplayed().performTouchInput { swipeRight() }
         compose.onNode(details).assertDoesNotExist()
         diary.performScrollToIndex(0)
-        waitFor(hasTestTag("home.dateHeading") and !hasText(string(R.string.widget_today)))
+        waitFor(hasTestTag("home.week.day") and isSelected())
         diary.performScrollToNode(hasTestTag("home.viewMore"))
         viewMore.performTouchInput { swipeLeft() }
         compose.onNode(details).assertDoesNotExist()
@@ -200,13 +200,10 @@ class AppFlowsTest {
     }
 
     @Test
-    fun homeCalendarOpensAsAPopup() {
+    fun homeShowsClassicWeekWithoutCalendarButton() {
         launchFresh()
-        compose.onNodeWithTag("home.calendar").performClick()
-        compose.onNodeWithTag("home.calendarPopup").assertIsDisplayed()
-        compose.onNodeWithText(string(R.string.action_cancel)).performClick()
-        compose.onNodeWithTag("home.calendarPopup").assertDoesNotExist()
-        compose.onNodeWithTag("home.dateHeading").assertTextEquals(string(R.string.widget_today))
+        compose.onNodeWithTag("home.week.today").assertIsSelected()
+        compose.onNodeWithTag("home.calendar").assertDoesNotExist()
     }
 
     @Test
@@ -390,11 +387,9 @@ class AppFlowsTest {
         compose.onNodeWithText(string(R.string.weekly_recap_title)).assertDoesNotExist()
         compose.onNodeWithText(month).performClick()
         compose.onNodeWithText(string(R.string.challenge_destination_weekly)).performClick()
-        waitFor(hasText(string(R.string.challenge_hub_title)))
-        compose.onNodeWithText(string(R.string.challenge_hub_daily)).performClick()
-        waitFor(hasText(string(R.string.challenge_hub_profile_first)))
-        compose.onNodeWithText(string(R.string.challenge_hub_monthly)).performClick()
-        compose.onNodeWithText(string(R.string.challenge_hub_rules_streak)).assertExists()
+        waitFor(hasText(string(R.string.challenge_intro_title)))
+        compose.onNodeWithText(string(R.string.challenge_hub_daily)).assertDoesNotExist()
+        compose.onNodeWithText(string(R.string.challenge_hub_monthly)).assertDoesNotExist()
         compose.onNodeWithTag("nav.progress").assertIsSelected()
         compose.onNodeWithText(string(R.string.challenge_destination_progress)).performClick()
         compose.onNodeWithText(month).assertIsDisplayed()

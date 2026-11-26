@@ -1173,13 +1173,6 @@ struct HomeView: View {
     private var waterPillarUnit: String { waterUnit == .fluidOunces ? " fl oz" : "ml" }
     private var logDateForSelectedDay: Date { logDate(on: selectedDate) }
 
-    private var navigationTitle: String {
-        if isToday { return "Today" }
-        return selectedDate.formatted(.dateTime.weekday(.wide).month(.abbreviated).day())
-    }
-
-    @State private var showDiaryCalendar = false
-
     private var daySwipeGesture: some Gesture {
         DragGesture(minimumDistance: 24)
             .onEnded { finishDaySwipe($0.translation) }
@@ -1588,25 +1581,6 @@ private var dailyStepsTaskKey: String {
             List {
                 // Week energy strip
                 Section {
-                    Button {
-                        showDiaryCalendar = true
-                    } label: {
-                        Label(navigationTitle, systemImage: "calendar")
-                            .font(.subheadline.weight(.semibold))
-                    }
-                    .accessibilityIdentifier("home.calendar")
-                    .listRowBackground(Color.clear)
-                    .listRowSeparator(.hidden)
-                    .popover(isPresented: $showDiaryCalendar) {
-                        DatePicker("Date", selection: $navigator.homeDiaryDate, in: ...Date.now, displayedComponents: .date)
-                            .datePickerStyle(.graphical)
-                            .frame(width: 320)
-                            .fixedSize(horizontal: false, vertical: true)
-                            .padding(.vertical, 8)
-                            .onChange(of: selectedDate) { showDiaryCalendar = false }
-                            .presentationCompactAdaptation(.popover)
-                            .accessibilityIdentifier("home.calendarPopup")
-                    }
                     WeekEnergyStrip(
                         selectedDate: $navigator.homeDiaryDate,
                         caloriesForDate: { foodStore.calories(for: $0) },
@@ -3249,6 +3223,8 @@ struct NutritionDetailView: View {
                         }
                     }
                     .buttonStyle(.plain)
+                    .accessibilityIdentifier("nutrition.homeCards")
+                    .accessibilityValue(homeTopNutrientNames)
                 }
                 .listRowBackground(AppColors.appCard)
 

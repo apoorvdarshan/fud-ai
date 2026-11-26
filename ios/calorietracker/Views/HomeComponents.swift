@@ -127,6 +127,9 @@ struct WeekEnergyStrip: View {
                     }
             }
         }
+        .accessibilityLabel(Text(date.formatted(date: .complete, time: .omitted)))
+        .accessibilityAddTraits(isSelected ? .isSelected : [])
+        .accessibilityIdentifier(isToday ? "home.week.today" : "home.week.day")
         .buttonStyle(.plain)
         .frame(maxWidth: .infinity)
     }
@@ -420,6 +423,8 @@ struct HomeNutrientPickerSheet: View {
                             .contentShape(Rectangle())
                         }
                         .buttonStyle(.plain)
+                        .accessibilityIdentifier("nutrition.picker.\(nutrient.rawValue)")
+                        .accessibilityAddTraits(draftSelection.contains(nutrient) ? .isSelected : [])
                     }
                 } header: {
                     Text("Choose 1–4 Nutrients")

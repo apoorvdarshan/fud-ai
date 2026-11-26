@@ -83,10 +83,6 @@ struct calorietrackerApp: App {
             .environment(importedHealthWorkoutStore)
             .environment(weeklyChallengeStore)
             .environment(cloudBackupService)
-            .modifier(ChallengePeriodScoreSync(
-                foodStore: foodStore, waterStore: waterStore, profileStore: profileStore,
-                workoutStore: strengthWorkoutStore, challengeStore: weeklyChallengeStore
-            ))
     }
 
     var body: some Scene {

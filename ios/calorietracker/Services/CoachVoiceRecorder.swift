@@ -33,7 +33,7 @@ final class CoachVoiceRecorder {
     private var speechRecognizer: SFSpeechRecognizer?
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     private var recognitionTask: SFSpeechRecognitionTask?
-    private let audioEngine = AVAudioEngine()
+    @ObservationIgnored private lazy var audioEngine = AVAudioEngine()
 
     // Remote (record to file, upload on stop)
     private var audioRecorder: AVAudioRecorder?

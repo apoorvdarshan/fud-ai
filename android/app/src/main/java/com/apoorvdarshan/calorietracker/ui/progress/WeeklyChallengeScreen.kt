@@ -1,16 +1,17 @@
 package com.apoorvdarshan.calorietracker.ui.progress
 
-import androidx.compose.foundation.background
+import androidx.compose.ui.text.style.TextDirection
+import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.border
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,10 +21,11 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.sizeIn
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.text.KeyboardOptions
@@ -85,7 +87,6 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -109,7 +110,6 @@ import com.apoorvdarshan.calorietracker.models.WeeklyChallengeWeek
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassSurface
 import com.apoorvdarshan.calorietracker.ui.navigation.BottomNavScrollPadding
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
-import com.apoorvdarshan.calorietracker.models.ChallengePeriod
 import java.text.DateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -127,7 +127,6 @@ internal fun WeeklyChallengeScreen(container: AppContainer) {
     var showJoin by remember { mutableStateOf(false) }
     var editProfile by remember { mutableStateOf<WeeklyChallengePublicProfile?>(null) }
     var showLeave by remember { mutableStateOf(false) }
-    var showLeavePeriod by remember { mutableStateOf(false) }
     var showBlocked by remember { mutableStateOf(false) }
     var reportTarget by remember { mutableStateOf<WeeklyChallengeLeaderboardRow?>(null) }
     var blockTarget by remember { mutableStateOf<WeeklyChallengeLeaderboardRow?>(null) }
@@ -150,10 +149,15 @@ internal fun WeeklyChallengeScreen(container: AppContainer) {
         }
     }
 
-    val board = ui.currentLeaderboard
-    val page = if (ui.rankingPage > 0 && board?.totalCount != null) ui.pageResponse else board
-    val viewer = page?.viewer ?: board?.viewer ?: board?.rankings?.firstOrNull { it.isViewer }
-    val rankings = page?.rankings.orEmpty()
+    val viewer = ui.leaderboard?.viewer
+        ?: ui.leaderboard?.rankings?.firstOrNull { it.isViewer }
+    val rankings = buildList {
+        addAll(ui.leaderboard?.rankings.orEmpty())
+        val viewerRow = ui.leaderboard?.viewer
+        if (viewerRow != null && none { it.participantId == viewerRow.participantId }) {
+            add(viewerRow)
+        }
+    }
         .distinctBy { it.participantId }
         .filterNot { it.participantId in ui.blockedParticipants }
         .map { row ->
@@ -177,11 +181,8 @@ internal fun WeeklyChallengeScreen(container: AppContainer) {
             verticalArrangement = Arrangement.spacedBy(14.dp)
         ) {
             item {
-                ChallengePeriodPicker(ui.period, vm::selectPeriod)
                 ChallengeHeader(
                     weekStart = ui.weekStart,
-                    period = ui.period,
-                    periodStart = ui.currentStart,
                     lastUpdatedEpochMillis = ui.lastUpdatedEpochMillis,
                     isOffline = ui.isOffline
                 )
@@ -204,8 +205,6 @@ internal fun WeeklyChallengeScreen(container: AppContainer) {
                         onRetry = vm::retryPendingDeletion
                     )
                 }
-            } else if (ui.period != ChallengePeriod.WEEKLY && (!ui.isJoined || ui.period !in ui.enabledPeriods)) {
-                item { ChallengePeriodIntroduction(ui, vm::joinCurrentPeriod) { vm.selectPeriod(ChallengePeriod.WEEKLY) } }
             } else if (!ui.isJoined) {
                 item {
                     ChallengeIntroduction(
@@ -216,21 +215,6 @@ internal fun WeeklyChallengeScreen(container: AppContainer) {
                     )
                 }
             } else {
-                if (ui.period != ChallengePeriod.WEEKLY) {
-                    ui.periodScore?.let { score ->
-                        item {
-                            FudGlassSurface(modifier = Modifier.fillMaxWidth(), cornerRadius = 22.dp, padding = 16.dp) {
-                                Column(verticalArrangement = Arrangement.spacedBy(9.dp)) {
-                                    Text(stringResource(R.string.challenge_hub_your_points), style = MaterialTheme.typography.titleMedium)
-                                    Text(stringResource(R.string.challenge_hub_points, score.points),
-                                        style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.Black)
-                                    viewer?.rank?.let { Text(stringResource(R.string.challenge_rank_format, it)) }
-                                    ChallengePeriodRules(ui.period)
-                                }
-                            }
-                        }
-                    }
-                }
                 item {
                     ChallengeCategorySelector(
                         selected = ui.category,
@@ -242,14 +226,6 @@ internal fun WeeklyChallengeScreen(container: AppContainer) {
                         rankings = rankings,
                         category = ui.category,
                         weekStart = ui.weekStart,
-                        totalCount = page?.totalCount ?: board?.totalCount
-                            ?: board?.rankings?.maxOfOrNull { it.rank ?: 0 } ?: 0,
-                        page = ui.rankingPage,
-                        isLoadingPage = ui.isLoadingPage || (page == null && ui.isRefreshing),
-                        pageFailed = ui.pageFailed,
-                        viewerRank = viewer?.rank,
-                        onSelectPage = vm::selectRankingPage,
-                        onRetryPage = vm::retryRankingPage,
                         onReport = { row ->
                             vm.dismissError()
                             reportTarget = row
@@ -262,7 +238,7 @@ internal fun WeeklyChallengeScreen(container: AppContainer) {
                         }
                     )
                 }
-                if (ui.period == ChallengePeriod.WEEKLY) item {
+                item {
                     ViewerPositionCard(
                         profile = requireNotNull(ui.profile),
                         viewer = viewer,
@@ -276,12 +252,7 @@ internal fun WeeklyChallengeScreen(container: AppContainer) {
                         onLeave = { showLeave = true }
                     )
                 }
-                if (ui.period == ChallengePeriod.WEEKLY) item { ChallengePointsExplanation() }
-                else item {
-                    TextButton(enabled = !ui.isPeriodChanging, onClick = { showLeavePeriod = true }) {
-                        Text(stringResource(R.string.challenge_hub_remove))
-                    }
-                }
+                item { ChallengePointsExplanation() }
             }
         }
     }
@@ -317,21 +288,6 @@ internal fun WeeklyChallengeScreen(container: AppContainer) {
             onLeave = {
                 vm.leaveAndDelete()
                 showLeave = false
-            }
-        )
-    }
-    if (showLeavePeriod) {
-        AlertDialog(
-            onDismissRequest = { showLeavePeriod = false },
-            title = { Text(stringResource(R.string.challenge_hub_leave)) },
-            text = { Text(stringResource(R.string.challenge_hub_leave_detail)) },
-            confirmButton = {
-                TextButton(onClick = { showLeavePeriod = false; vm.leaveCurrentPeriod() }) {
-                    Text(stringResource(R.string.challenge_hub_remove))
-                }
-            },
-            dismissButton = {
-                TextButton(onClick = { showLeavePeriod = false }) { Text(stringResource(R.string.action_cancel)) }
             }
         )
     }
@@ -380,8 +336,6 @@ internal fun WeeklyChallengeScreen(container: AppContainer) {
 @Composable
 private fun ChallengeHeader(
     weekStart: LocalDate,
-    period: ChallengePeriod,
-    periodStart: String,
     lastUpdatedEpochMillis: Long?,
     isOffline: Boolean
 ) {
@@ -389,21 +343,18 @@ private fun ChallengeHeader(
     val formatter = remember(locale) {
         DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(locale)
     }
-    FudGlassSurface(modifier = Modifier.fillMaxWidth(), cornerRadius = 22.dp, padding = 16.dp) {
+    FudGlassSurface(modifier = Modifier.fillMaxWidth(), cornerRadius = 16.dp, padding = 14.dp) {
     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
         Text(
-            text = stringResource(R.string.challenge_hub_title),
+            text = stringResource(R.string.challenge_title),
             style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.Bold
         )
         Text(
-            text = if (period == ChallengePeriod.WEEKLY) stringResource(
+            text = stringResource(
                 R.string.challenge_week_range,
                 weekStart.format(formatter),
                 WeeklyChallengeWeek.endFor(weekStart).format(formatter)
-            ) else LocalDate.parse(periodStart).format(
-                if (period == ChallengePeriod.MONTHLY) DateTimeFormatter.ofPattern("LLLL yyyy", locale)
-                else DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).withLocale(locale)
             ),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -425,64 +376,8 @@ private fun ChallengeHeader(
             color = if (isOffline) MaterialTheme.colorScheme.error
             else MaterialTheme.colorScheme.onSurfaceVariant
         )
-        if (period == ChallengePeriod.WEEKLY) WeekCalendarStrip(weekStart)
+        WeekCalendarStrip(weekStart)
     }
-    }
-}
-
-@OptIn(ExperimentalLayoutApi::class)
-@Composable
-private fun ChallengePeriodPicker(selected: ChallengePeriod, onSelect: (ChallengePeriod) -> Unit) {
-    FlowRow(
-        Modifier.fillMaxWidth().padding(bottom = 6.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
-        verticalArrangement = Arrangement.spacedBy(4.dp)
-    ) {
-        for (period in ChallengePeriod.entries) {
-            val label = when (period) {
-                ChallengePeriod.DAILY -> R.string.challenge_hub_daily
-                ChallengePeriod.WEEKLY -> R.string.challenge_hub_weekly
-                ChallengePeriod.MONTHLY -> R.string.challenge_hub_monthly
-            }
-            FilterChip(
-                selected = period == selected, onClick = { onSelect(period) },
-                label = { Text(stringResource(label)) }, modifier = Modifier.heightIn(min = 48.dp)
-            )
-        }
-    }
-}
-
-@Composable
-private fun ChallengePeriodIntroduction(ui: WeeklyChallengeUiState, onJoin: () -> Unit, goToWeekly: () -> Unit) {
-    FudGlassSurface(modifier = Modifier.fillMaxWidth(), cornerRadius = 22.dp, padding = 16.dp) {
-        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            Text(stringResource(R.string.challenge_hub_habits), style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold)
-            ChallengePeriodRules(ui.period)
-            if (!ui.isJoined) {
-                Text(stringResource(R.string.challenge_hub_profile_first))
-                Button(onClick = goToWeekly) { Text(stringResource(R.string.challenge_hub_go_weekly)) }
-            } else if (!ui.supportsExtraPeriods) {
-                Text(stringResource(R.string.challenge_hub_service))
-                TextButton(onClick = goToWeekly) { Text(stringResource(R.string.challenge_hub_go_weekly)) }
-            } else {
-                Text(stringResource(R.string.challenge_hub_consent), style = MaterialTheme.typography.bodyMedium)
-                Button(enabled = !ui.isPeriodChanging && ui.periodScore != null, onClick = onJoin) {
-                    Text(stringResource(R.string.challenge_hub_join))
-                }
-            }
-        }
-    }
-}
-
-@Composable
-private fun ChallengePeriodRules(period: ChallengePeriod) {
-    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        IntroFact(Icons.Filled.CheckCircle, stringResource(R.string.challenge_hub_rules_base))
-        IntroFact(Icons.Filled.EmojiEvents, stringResource(R.string.challenge_hub_rules_bonus))
-        if (period == ChallengePeriod.MONTHLY) {
-            IntroFact(Icons.Filled.LocalFireDepartment, stringResource(R.string.challenge_hub_rules_streak))
-        }
     }
 }
 
@@ -619,7 +514,7 @@ private fun ChallengePointsExplanation() {
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Text(
-                    text = stringResource(R.string.challenge_hub_week_rank),
+                    text = stringResource(R.string.challenge_rank_order),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -716,16 +611,20 @@ private fun ViewerPositionCard(
                     Text(
                         text = profile.displayName,
                         style = MaterialTheme.typography.titleLarge,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
                     )
                     Text(
                         text = scoreText(category, viewer, aggregate),
                         style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis
                     )
+                    SocialHandle(profile.socialPlatform, profile.socialHandle)
                 }
             }
-            SocialHandle(profile.socialPlatform, profile.socialHandle)
             HorizontalDivider()
             AggregateBreakdown(viewer = viewer, aggregate = aggregate, selected = category)
             Row(
@@ -896,17 +795,11 @@ private fun RankingsBoard(
     rankings: List<WeeklyChallengeLeaderboardRow>,
     category: WeeklyChallengeCategory,
     weekStart: LocalDate,
-    totalCount: Int,
-    page: Int,
-    isLoadingPage: Boolean,
-    pageFailed: Boolean,
-    viewerRank: Int?,
-    onSelectPage: (Int) -> Unit,
-    onRetryPage: () -> Unit,
     onReport: (WeeklyChallengeLeaderboardRow) -> Unit,
     onBlock: (WeeklyChallengeLeaderboardRow) -> Unit,
     onManageBlocked: (() -> Unit)?
 ) {
+    var page by remember(category, weekStart) { mutableStateOf(0) }
     val bringRankingsIntoView = remember { BringIntoViewRequester() }
     var skipFirstPageScroll by remember(category, weekStart) { mutableStateOf(true) }
     LaunchedEffect(page) {
@@ -916,10 +809,7 @@ private fun RankingsBoard(
         }
         bringRankingsIntoView.bringIntoView()
     }
-    val pageCount = ((totalCount + RANKING_PAGE_SIZE - 1) / RANKING_PAGE_SIZE).coerceAtLeast(1)
-    val currentPage = page.coerceIn(0, pageCount - 1)
-    val startRank = currentPage * RANKING_PAGE_SIZE + 1
-    val endRank = minOf(startRank + RANKING_PAGE_SIZE - 1, totalCount)
+    val podium = podiumSlots(rankings)
     FudGlassSurface(modifier = Modifier.fillMaxWidth(), cornerRadius = 22.dp, padding = 6.dp) {
         Column {
             Row(
@@ -942,9 +832,7 @@ private fun RankingsBoard(
                     }
                 }
             }
-            if (rankings.isEmpty() && isLoadingPage) {
-                CircularProgressIndicator(Modifier.align(Alignment.CenterHorizontally).padding(20.dp))
-            } else if (rankings.isEmpty() && !pageFailed) {
+            if (rankings.isEmpty()) {
                 Text(
                     text = stringResource(R.string.challenge_leaderboard_empty),
                     modifier = Modifier
@@ -952,30 +840,43 @@ private fun RankingsBoard(
                         .padding(horizontal = 16.dp, vertical = 18.dp),
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
-            } else if (rankings.isNotEmpty()) {
-                val pageRows = rankings.filter { (it.rank ?: 0) in startRank..endRank }
-                Column(
-                    Modifier.padding(horizontal = 4.dp, vertical = 6.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    pageRows.forEach { row ->
-                        key(row.participantId) {
-                            RankingRow(
-                                row = row,
-                                category = category,
-                                onReport = { onReport(row) },
-                                onBlock = { onBlock(row) }
-                            )
+            } else {
+                val podiumIds = listOfNotNull(podium?.first, podium?.second, podium?.third)
+                    .map { it.participantId }
+                    .toSet()
+                val listRows = if (podium == null) rankings else rankings.filter { it.participantId !in podiumIds }
+                val maxRank = rankings.maxOf { it.rank ?: 1 }
+                val pageCount = (maxRank + 19) / 20
+                val currentPage = page.coerceIn(0, (pageCount - 1).coerceAtLeast(0))
+                val startRank = currentPage * 20 + 1
+                val endRank = minOf(startRank + 19, maxRank)
+                val showPodiumNow = podium != null && currentPage == 0
+                val pageRows = listRows.filter { (it.rank ?: 0) in startRank..endRank }
+                if (showPodiumNow && podium != null) {
+                    RankingsPodium(
+                        second = podium.second,
+                        first = podium.first,
+                        third = podium.third,
+                        category = category,
+                        onReport = onReport,
+                        onBlock = onBlock
+                    )
+                }
+                pageRows.forEachIndexed { index, row ->
+                    key(row.participantId) {
+                        if (index > 0 || showPodiumNow) {
+                            HorizontalDivider(Modifier.padding(start = 64.dp, end = 12.dp))
                         }
+                        RankingRow(
+                            row = row,
+                            category = category,
+                            striped = index % 2 == 1,
+                            onReport = { onReport(row) },
+                            onBlock = { onBlock(row) }
+                        )
                     }
                 }
-            }
-            if (pageFailed) {
-                TextButton(onClick = onRetryPage, modifier = Modifier.align(Alignment.CenterHorizontally)) {
-                    Text(stringResource(R.string.action_retry))
-                }
-            }
-            if (pageCount > 1) {
+                if (maxRank > 20) {
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -994,29 +895,159 @@ private fun RankingsBoard(
                             horizontalArrangement = Arrangement.spacedBy(10.dp)
                         ) {
                             Button(
-                                onClick = { onSelectPage((currentPage - 1).coerceAtLeast(0)) },
+                                onClick = { page = (currentPage - 1).coerceAtLeast(0) },
                                 enabled = currentPage > 0,
                                 modifier = Modifier.weight(1f).heightIn(min = 48.dp)
                             ) {
                                 Text(stringResource(R.string.challenge_page_previous))
                             }
                             Button(
-                                onClick = { onSelectPage((currentPage + 1).coerceAtMost(pageCount - 1)) },
+                                onClick = { page = (currentPage + 1).coerceAtMost(pageCount - 1) },
                                 enabled = currentPage < pageCount - 1,
                                 modifier = Modifier.weight(1f).heightIn(min = 48.dp)
                             ) {
                                 Text(stringResource(R.string.challenge_page_next))
                             }
                         }
-                        if (viewerRank != null && viewerRank in 1..totalCount &&
-                            (viewerRank - 1) / RANKING_PAGE_SIZE != currentPage) {
-                            TextButton(
-                                onClick = { onSelectPage((viewerRank - 1) / RANKING_PAGE_SIZE) },
-                                modifier = Modifier.align(Alignment.CenterHorizontally)
-                            ) { Text(stringResource(R.string.challenge_hub_jump_to_rank)) }
-                        }
                     }
+                }
             }
+        }
+    }
+}
+
+private data class PodiumSlots(
+    val first: WeeklyChallengeLeaderboardRow,
+    val second: WeeklyChallengeLeaderboardRow,
+    val third: WeeklyChallengeLeaderboardRow?
+)
+
+private fun podiumSlots(rankings: List<WeeklyChallengeLeaderboardRow>): PodiumSlots? {
+    val first = rankings.firstOrNull { it.rank == 1 } ?: return null
+    val second = rankings.firstOrNull { it.rank == 2 } ?: return null
+    return PodiumSlots(first, second, rankings.firstOrNull { it.rank == 3 })
+}
+
+@Composable
+private fun RankingsPodium(
+    second: WeeklyChallengeLeaderboardRow,
+    first: WeeklyChallengeLeaderboardRow,
+    third: WeeklyChallengeLeaderboardRow?,
+    category: WeeklyChallengeCategory,
+    onReport: (WeeklyChallengeLeaderboardRow) -> Unit,
+    onBlock: (WeeklyChallengeLeaderboardRow) -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 8.dp, end = 8.dp, top = 4.dp),
+        verticalAlignment = Alignment.Bottom
+    ) {
+        PodiumColumn(
+            row = second,
+            category = category,
+            pedestalHeight = 64.dp,
+            onReport = onReport,
+            onBlock = onBlock
+        )
+        PodiumColumn(
+            row = first,
+            category = category,
+            pedestalHeight = 96.dp,
+            onReport = onReport,
+            onBlock = onBlock
+        )
+        PodiumColumn(
+            row = third,
+            category = category,
+            pedestalHeight = 52.dp,
+            onReport = onReport,
+            onBlock = onBlock
+        )
+    }
+}
+
+@Composable
+private fun RowScope.PodiumColumn(
+    row: WeeklyChallengeLeaderboardRow?,
+    category: WeeklyChallengeCategory,
+    pedestalHeight: Dp,
+    onReport: (WeeklyChallengeLeaderboardRow) -> Unit,
+    onBlock: (WeeklyChallengeLeaderboardRow) -> Unit
+) {
+    Column(
+        modifier = Modifier.weight(1f),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Bottom
+    ) {
+        if (row == null) {
+            Spacer(Modifier.height(pedestalHeight))
+            return@Column
+        }
+        key(row.participantId) {
+        var menuOpen by remember(row.participantId) { mutableStateOf(false) }
+        val (fill, labelColor) = rankMedalColors(row.rank)
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Bottom
+        ) {
+            Box(Modifier.fillMaxWidth().height(32.dp)) {
+                if (!row.isViewer) {
+                    ParticipantActions(
+                        displayName = row.displayName,
+                        menuOpen = menuOpen,
+                        onOpen = { menuOpen = true },
+                        onDismiss = { menuOpen = false },
+                        onReport = {
+                            menuOpen = false
+                            onReport(row)
+                        },
+                        onBlock = {
+                            menuOpen = false
+                            onBlock(row)
+                        },
+                        modifier = Modifier.align(Alignment.CenterEnd),
+                        compact = true
+                    )
+                }
+            }
+            RankBadge(row.rank)
+            Text(
+                text = row.displayName,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 6.dp, start = 2.dp, end = 2.dp),
+                fontWeight = FontWeight.SemiBold,
+                textAlign = TextAlign.Center,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                style = MaterialTheme.typography.bodyMedium
+            )
+            if (row.isViewer) {
+                YouChip(Modifier.padding(top = 4.dp))
+            }
+            PodiumHandle(row.socialPlatform, row.socialHandle)
+            Box(
+                modifier = Modifier
+                    .padding(top = 8.dp, start = 4.dp, end = 4.dp)
+                    .fillMaxWidth()
+                    .height(pedestalHeight)
+                    .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
+                    .background(fill),
+                contentAlignment = Alignment.TopCenter
+            ) {
+                Text(
+                    text = leaderboardScoreText(category, row),
+                    modifier = Modifier.padding(top = 8.dp, start = 4.dp, end = 4.dp),
+                    color = labelColor,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
+                    style = MaterialTheme.typography.labelMedium
+                )
+            }
+        }
         }
     }
 }
@@ -1036,19 +1067,50 @@ private fun YouChip(modifier: Modifier = Modifier) {
 }
 
 @Composable
+private fun PodiumHandle(
+    platform: WeeklyChallengeSocialPlatform?,
+    handle: String?
+) {
+    if (platform == null || handle.isNullOrBlank()) return
+    val uriHandler = LocalUriHandler.current
+    val platformName = stringResource(platform.labelRes())
+    val description = stringResource(R.string.challenge_open_social, handle, platformName)
+    val url = when (platform) {
+        WeeklyChallengeSocialPlatform.X -> "https://x.com/$handle"
+        WeeklyChallengeSocialPlatform.INSTAGRAM -> "https://www.instagram.com/$handle/"
+    }
+    Text(
+        text = stringResource(R.string.challenge_social_display, handle, platformName),
+        style = MaterialTheme.typography.labelSmall,
+        color = AppColors.Calorie,
+        textAlign = TextAlign.Center,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis,
+        modifier = Modifier
+            .padding(top = 2.dp, start = 2.dp, end = 2.dp)
+            .semantics { contentDescription = description }
+            .clickable(role = Role.Button) { uriHandler.openUri(url) }
+    )
+}
+
+@Composable
 private fun ParticipantActions(
     displayName: String,
     menuOpen: Boolean,
     onOpen: () -> Unit,
     onDismiss: () -> Unit,
     onReport: () -> Unit,
-    onBlock: () -> Unit
+    onBlock: () -> Unit,
+    modifier: Modifier = Modifier,
+    compact: Boolean = false
 ) {
     val description = stringResource(R.string.challenge_more_actions, displayName)
-    Box {
+    Box(modifier) {
         IconButton(
             onClick = onOpen,
-            modifier = Modifier.size(48.dp).semantics { contentDescription = description }
+            modifier = Modifier
+                .then(if (compact) Modifier.size(32.dp) else Modifier)
+                .semantics { contentDescription = description }
         ) {
             Icon(Icons.Filled.MoreVert, contentDescription = null)
         }
@@ -1078,6 +1140,94 @@ private fun rankMedalColors(place: Int?): Pair<Color, Color> {
 
 @Composable
 internal fun RankingRow(
+    row: WeeklyChallengeLeaderboardRow,
+    category: WeeklyChallengeCategory,
+    striped: Boolean = false,
+    onReport: () -> Unit,
+    onBlock: () -> Unit
+) {
+    if (androidx.compose.ui.platform.LocalDensity.current.fontScale > 1.2f) {
+        AccessibleRankingRow(row, category, onReport, onBlock)
+        return
+    }
+    var menuOpen by remember(row.participantId) { mutableStateOf(false) }
+    val place = row.rank
+    val rowColor = when {
+        row.isViewer -> AppColors.Calorie.copy(alpha = 0.12f)
+        striped -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.05f)
+        else -> Color.Transparent
+    }
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(16.dp))
+            .background(rowColor)
+            .padding(horizontal = 8.dp, vertical = 10.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        if (row.isViewer) {
+            Box(
+                Modifier
+                    .width(4.dp)
+                    .height(36.dp)
+                    .clip(RoundedCornerShape(50))
+                    .background(AppColors.Calorie)
+            )
+            Spacer(Modifier.width(8.dp))
+        }
+        RankBadge(place)
+        Spacer(Modifier.width(10.dp))
+        NameMark(row.displayName)
+        Spacer(Modifier.width(10.dp))
+        Column(Modifier.weight(1f)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    text = row.displayName,
+                    fontWeight = FontWeight.SemiBold,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.weight(1f, fill = false)
+                )
+                if (row.isViewer) {
+                    YouChip(Modifier.padding(start = 8.dp))
+                }
+            }
+            SocialHandle(row.socialPlatform, row.socialHandle)
+        }
+        Text(
+            text = leaderboardScoreText(category, row),
+            modifier = Modifier
+                .padding(start = 8.dp)
+                .widthIn(max = 148.dp)
+                .clip(RoundedCornerShape(12.dp))
+                .background(AppColors.Calorie.copy(alpha = 0.12f))
+                .padding(horizontal = 8.dp, vertical = 4.dp),
+            fontWeight = FontWeight.Bold,
+            color = AppColors.Calorie,
+            textAlign = TextAlign.End,
+            style = MaterialTheme.typography.labelLarge
+        )
+        if (!row.isViewer) {
+            ParticipantActions(
+                displayName = row.displayName,
+                menuOpen = menuOpen,
+                onOpen = { menuOpen = true },
+                onDismiss = { menuOpen = false },
+                onReport = {
+                    menuOpen = false
+                    onReport()
+                },
+                onBlock = {
+                    menuOpen = false
+                    onBlock()
+                }
+            )
+        }
+    }
+}
+
+@Composable
+private fun AccessibleRankingRow(
     row: WeeklyChallengeLeaderboardRow,
     category: WeeklyChallengeCategory,
     onReport: () -> Unit,
@@ -1136,22 +1286,48 @@ internal fun RankingRow(
     }
 }
 
+private val nameMarkColors = listOf(
+    Color(0xFFE85D75),
+    Color(0xFF5B8DEF),
+    Color(0xFF3CB89A),
+    Color(0xFFF0A202),
+    Color(0xFF9B6BFF),
+    Color(0xFF2BB0C9)
+)
+
+@Composable
+private fun NameMark(name: String) {
+    val letter = name.trim().firstOrNull()?.uppercaseChar()?.toString() ?: "?"
+    val color = nameMarkColors[name.hashCode().mod(nameMarkColors.size)]
+    Box(
+        modifier = Modifier
+            .size(32.dp)
+            .clip(CircleShape)
+            .background(color),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = letter,
+            color = Color.White,
+            fontWeight = FontWeight.Bold,
+            style = MaterialTheme.typography.labelLarge
+        )
+    }
+}
+
 @Composable
 private fun RankBadge(place: Int?, modifier: Modifier = Modifier, diameter: Dp = 36.dp) {
     val (fill, labelColor) = rankMedalColors(place)
     Box(
         modifier = modifier
-            .sizeIn(minWidth = diameter, minHeight = diameter)
-            .background(fill, RoundedCornerShape(50))
-            .padding(horizontal = 7.dp, vertical = 5.dp),
+            .size(diameter)
+            .clip(CircleShape)
+            .background(fill),
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = place?.let { java.text.NumberFormat.getIntegerInstance(
-                LocalConfiguration.current.locales[0]
-            ).format(it) } ?: "–",
+            text = place?.toString() ?: "–",
             fontWeight = FontWeight.Bold,
-            softWrap = false,
             color = labelColor
         )
     }
@@ -1351,7 +1527,6 @@ private fun ChallengeProfileDialog(
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
-                    Text(stringResource(R.string.challenge_shared_boards_disclosure), style = MaterialTheme.typography.bodySmall)
                     ConsentRow(
                         checked = rulesAccepted,
                         onCheckedChange = { rulesAccepted = it },
@@ -1456,8 +1631,8 @@ private fun LeaveChallengeDialog(
 ) {
     AlertDialog(
         onDismissRequest = { if (!isBusy) onDismiss() },
-        title = { Text(stringResource(R.string.challenge_hub_leave_all)) },
-        text = { Text(stringResource(R.string.challenge_hub_leave_all_detail)) },
+        title = { Text(stringResource(R.string.challenge_leave_title)) },
+        text = { Text(stringResource(R.string.challenge_leave_message)) },
         confirmButton = {
             TextButton(onClick = onLeave, enabled = !isBusy) {
                 Text(
@@ -1647,10 +1822,7 @@ private fun activityDaysText(days: Int, burnKcal: Int): String {
 private fun leaderboardScoreText(
     category: WeeklyChallengeCategory,
     row: WeeklyChallengeLeaderboardRow
-): String = if (row.balancedDays != null) {
-    if (category == WeeklyChallengeCategory.OVERALL) stringResource(R.string.challenge_hub_points, row.overallPoints)
-    else stringResource(R.string.challenge_hub_days, row.score)
-} else when (category) {
+): String = when (category) {
     WeeklyChallengeCategory.OVERALL -> stringResource(R.string.challenge_points_format, row.overallPoints)
     WeeklyChallengeCategory.ACTIVITY -> activityDaysText(row.activityDays, row.activityKcal)
     WeeklyChallengeCategory.NUTRITION -> stringResource(R.string.challenge_days_format, row.nutritionDays)

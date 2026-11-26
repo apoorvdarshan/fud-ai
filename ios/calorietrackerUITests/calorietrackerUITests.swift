@@ -180,10 +180,9 @@ final class calorietrackerUITests: XCTestCase {
         let app = makeApp()
         app.launch()
 
-        let date = app.buttons["home.calendar"]
-        XCTAssertTrue(date.waitForExistence(timeout: 8))
-        let today = date.label
-        XCTAssertEqual(today, "Today")
+        let today = app.buttons["home.week.today"]
+        XCTAssertTrue(today.waitForExistence(timeout: 8))
+        XCTAssertTrue(today.isSelected)
         let viewMore = app.buttons["home.viewMore"]
         let details = app.navigationBars["Nutrition Details"]
         reveal(viewMore, in: app)
@@ -191,38 +190,32 @@ final class calorietrackerUITests: XCTestCase {
         let shortDragEnd = start.withOffset(CGVector(dx: 30, dy: 0))
         start.press(forDuration: 0.05, thenDragTo: shortDragEnd)
         XCTAssertFalse(details.exists)
-        reveal(app.buttons["home.calendar"], in: app)
-        XCTAssertEqual(date.label, today)
+        reveal(today, in: app)
+        XCTAssertTrue(today.isSelected)
         reveal(viewMore, in: app)
         viewMore.swipeRight()
         XCTAssertFalse(details.exists)
-        reveal(app.buttons["home.calendar"], in: app)
-        XCTAssertNotEqual(date.label, today)
+        reveal(today, in: app)
+        XCTAssertFalse(today.isSelected)
         reveal(viewMore, in: app)
         viewMore.swipeLeft()
         XCTAssertFalse(details.exists)
         reveal(viewMore, in: app)
         viewMore.swipeLeft()
         XCTAssertFalse(details.exists)
-        reveal(app.buttons["home.calendar"], in: app)
-        XCTAssertEqual(date.label, today)
+        reveal(today, in: app)
+        XCTAssertTrue(today.isSelected)
         reveal(viewMore, in: app)
         viewMore.tap()
         XCTAssertTrue(details.waitForExistence(timeout: 5))
     }
 
     @MainActor
-    func testHomeCalendarOpensAsAPopup() {
+    func testHomeShowsClassicWeekWithoutCalendarButton() {
         let app = makeApp()
         app.launch()
-        let calendar = app.buttons["home.calendar"]
-        reveal(calendar, in: app)
-        calendar.tap()
-        let popup = app.descendants(matching: .any)["home.calendarPopup"].firstMatch
-        XCTAssertTrue(popup.waitForExistence(timeout: 5))
-        XCTAssertGreaterThanOrEqual(popup.frame.intersection(app.frame).width, 300,
-                                    "The month grid must fit all seven weekday columns")
-        XCTAssertLessThan(popup.frame.height, app.frame.height * 0.8)
+        XCTAssertTrue(app.buttons["home.week.today"].waitForExistence(timeout: 8))
+        XCTAssertFalse(app.buttons["home.calendar"].exists)
     }
 
     @MainActor
@@ -256,13 +249,9 @@ final class calorietrackerUITests: XCTestCase {
         let weekly = app.buttons["Weekly Challenge"]
         reveal(weekly, in: app)
         weekly.tap()
-        XCTAssertTrue(app.staticTexts["Challenges"].waitForExistence(timeout: 5))
-        let daily = app.buttons["Daily"].firstMatch
-        XCTAssertTrue(daily.waitForExistence(timeout: 5))
-        daily.tap()
-        XCTAssertTrue(app.staticTexts["Join Weekly to create your challenge profile first."].waitForExistence(timeout: 5))
-        app.buttons["Monthly"].firstMatch.tap()
-        XCTAssertTrue(app.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "longest run")).firstMatch.exists)
+        XCTAssertTrue(app.staticTexts["Weekly Challenge"].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.buttons["Daily"].exists)
+        XCTAssertFalse(app.buttons["Monthly"].exists)
         XCTAssertTrue(weekly.isSelected)
         XCTAssertTrue(progress.isSelected)
         app.buttons["My Progress"].tap()
@@ -523,7 +512,7 @@ final class calorietrackerUITests: XCTestCase {
         screenshot.lifetime = .keepAlways
         add(screenshot)
         home.tap()
-        XCTAssertTrue(app.buttons["home.calendar"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["home.week.today"].waitForExistence(timeout: 5))
     }
 
     @MainActor

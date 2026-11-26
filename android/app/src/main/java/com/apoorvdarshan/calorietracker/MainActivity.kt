@@ -26,16 +26,13 @@ import androidx.compose.ui.hapticfeedback.HapticFeedback
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.core.view.WindowCompat
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.apoorvdarshan.calorietracker.data.StartupPreferences
 import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.QuickActionRequest
 import com.apoorvdarshan.calorietracker.services.MealShare
 import com.apoorvdarshan.calorietracker.services.QuickActionShortcutManager
 import com.apoorvdarshan.calorietracker.services.ReviewPrompter
-import com.apoorvdarshan.calorietracker.services.challenge.syncChallengePeriodsWhileForeground
 import com.apoorvdarshan.calorietracker.services.update.AndroidUpdateChecker
 import com.apoorvdarshan.calorietracker.services.voice.VoiceEntryPoints
 import com.apoorvdarshan.calorietracker.ui.components.LocalEnergyUnit
@@ -140,14 +137,6 @@ open class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
 
         val app = application as FudAIApp
-        if (app.backgroundServicesEnabled) {
-            lifecycleScope.launch {
-                repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    withContext(Dispatchers.Default) { syncChallengePeriodsWhileForeground(app.container) }
-                }
-            }
-        }
-
         // Launch the Play in-app review card once, right after the first
         // successful food log (see ReviewPrompter). Silently no-ops on devices
         // without Play services or when Play declines to show the card.

@@ -38,6 +38,9 @@ import androidx.compose.ui.unit.sp
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
 import java.time.DayOfWeek
 import java.time.LocalDate
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.selected
 import java.time.temporal.ChronoUnit
 import java.time.temporal.WeekFields
 import java.util.Locale
@@ -167,6 +170,8 @@ private fun DayTile(
 ) {
     Column(
         modifier = modifier
+            .testTag(if (isToday) "home.week.today" else "home.week.day")
+            .semantics { selected = isSelected }
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = null,

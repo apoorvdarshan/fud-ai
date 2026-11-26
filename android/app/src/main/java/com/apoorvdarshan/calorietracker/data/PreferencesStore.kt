@@ -1796,8 +1796,8 @@ class PreferencesStore(
         updateJsonList(Keys.BODY_MEASUREMENTS, BodyMeasurement.serializer(), transform)
 
     // -- Coach chat history ----------------------------------------------
-    val chatHistory: Flow<List<ChatMessage>> = ds.data.map { prefs ->
-        prefs[Keys.CHAT_HISTORY]?.let {
+    val chatHistory: Flow<List<ChatMessage>> = ds.data.map { it[Keys.CHAT_HISTORY] }.distinctUntilChanged().map { encoded ->
+        encoded?.let {
             runCatching { json.decodeFromString(ListSerializer(ChatMessage.serializer()), it) }.getOrNull()
         } ?: emptyList()
     }.flowOn(Dispatchers.Default)

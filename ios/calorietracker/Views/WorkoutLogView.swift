@@ -727,6 +727,7 @@ struct WorkoutLogView: View {
         .buttonStyle(.bordered)
         .buttonBorderShape(.capsule)
         .tint(Color.workoutAccent)
+        .accessibilityIdentifier("workout.log.reorder")
     }
 
     private func moveExercise(_ exercise: StrengthPlannedExercise, by offset: Int) {

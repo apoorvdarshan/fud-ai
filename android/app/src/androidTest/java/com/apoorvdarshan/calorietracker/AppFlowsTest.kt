@@ -200,10 +200,13 @@ class AppFlowsTest {
     }
 
     @Test
-    fun homeShowsClassicWeekWithoutCalendarButton() {
+    fun homeCalendarOpensAsAPopup() {
         launchFresh()
-        compose.onNodeWithTag("home.week.today").assertIsSelected()
-        compose.onNodeWithTag("home.calendar").assertDoesNotExist()
+        compose.onNodeWithTag("home.calendar").performClick()
+        compose.onNodeWithTag("home.calendarPopup").assertIsDisplayed()
+        compose.onNodeWithText(string(R.string.action_cancel)).performClick()
+        compose.onNodeWithTag("home.calendarPopup").assertDoesNotExist()
+        compose.onNodeWithTag("home.dateHeading").assertTextEquals(string(R.string.widget_today))
     }
 
     @Test

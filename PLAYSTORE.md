@@ -1,6 +1,6 @@
 # Play Store Listing
 
-Google Play Console listing copy prepared for Fud AI Android v9.0 / versionCode 50. Each field is in a code block for easy copy-paste. This file does not indicate that the release or listing has been submitted or published.
+Google Play Console listing copy prepared for Fud AI Android v9.0.1 / versionCode 51. Each field is in a code block for easy copy-paste. This file does not indicate that the release or listing has been submitted or published.
 
 **Pending Play Console updates**
 - [x] Health Connect declaration includes **Exercise (READ)** with the §7 `READ_EXERCISE` rationale (submitted with 8.0, 2026-10-24). Play lists a new health permission in the declaration only once a release containing it is uploaded, and a store-release upload that adds one fails until the declaration is updated, so upload such a release through Play Console first.
@@ -76,17 +76,13 @@ English-only on Play Console — non-English Play Store browsers (ar, az-AZ, cs-
 
 ---
 
-## 4. What's New (v9.0 / versionCode 50)
+## 4. What's New (v9.0.1 / versionCode 51)
 
 **500 char hard cap per language.** English is the fallback for other store locales.
 
 ```
 <en-US>
-Use the classic bottom tabs, calorie gauge, calendar, and round + menu.
-• Home-screen widgets use the classic design, including nutrition, hydration, and voice shortcuts.
-• Open the optional Weekly Challenge in Progress.
-• Settings → App & Updates shows when Google Play has an update.
-• Keep using your own AI key free, or view optional paid Hosted Plus/Pro plans.
+The built-in library of 877 exercises is back. Search for movements like squats and chest presses in Workouts, or describe your workout in text to match exercises from the library. Your custom exercises stay in your list.
 </en-US>
 ```
 

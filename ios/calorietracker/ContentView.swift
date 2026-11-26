@@ -134,7 +134,9 @@ struct ContentView: View {
     @AppStorage(AppThemeColor.storageKey) private var appThemeColorRaw = AppThemeColor.defaultColor.rawValue
     @AppStorage(WorkoutTabMode.storageKey) private var workoutTabModeRaw = WorkoutTabMode.defaultMode.rawValue
     @AppStorage(TabBarSettings.hiddenTabsKey) private var hiddenTabsRaw = ""
-    @State private var appUpdateState: AppUpdateState = .idle
+    @State private var appUpdateState: AppUpdateState = SimulatorTestEnvironment.showsAvailableAppUpdate
+        ? .available(current: AppUpdateChecker.currentVersion, latest: "99.0", url: fudAIAppStoreURL)
+        : .idle
     @State private var selectedTab: AppTab = .home
     @State private var progressOverviewMode: ProgressOverviewMode = .myProgress
     @State private var quickActionRequest: QuickActionRequest?
@@ -148,11 +150,8 @@ struct ContentView: View {
     }
 
     @ViewBuilder private var classicTabs: some View {
-        if #available(iOS 27.0, *), UIDevice.current.userInterfaceIdiom == .phone {
-            standardTabView
-                .tabViewStyle(.tabBarOnly)
-                .defaultTabBarPlacement(.tabBar)
-                .environment(\.horizontalSizeClass, .compact)
+        if #available(iOS 27.1, *), UIDevice.current.userInterfaceIdiom == .phone {
+            HorizontalTabHost(content: standardTabView)
         } else {
             standardTabView
         }
@@ -211,8 +210,8 @@ struct ContentView: View {
             .onChange(of: assistantNavigator.screenRequest?.id) { _, _ in
                 applyAssistantScreenRequest()
             }
-            .onChange(of: selectedTab, initial: true) { _, tab in
-                assistantNavigator.currentScreen = Self.screen(for: tab)
+            .onChange(of: visibleAssistantScreen, initial: true) { _, screen in
+                assistantNavigator.currentScreen = screen
             }
             .onChange(of: hiddenTabsRaw, initial: true) { _, _ in
                 // A tab hidden while it is selected falls back to Home.
@@ -262,13 +261,13 @@ struct ContentView: View {
         }
     }
 
-    private static func screen(for tab: AppTab) -> VoiceAssistantScreen {
-        switch tab {
+    private var visibleAssistantScreen: VoiceAssistantScreen {
+        switch selectedTab {
         case .home: .home
-        case .progress: .progress
+        case .progress: progressOverviewMode == .weeklyChallenge ? .weeklyChallenge : .progress
         case .coach: .coach
         case .settings: .settings
-        case .workouts: .workouts
+        case .workouts: WorkoutTabMode.mode(for: workoutTabModeRaw) == .library ? .exerciseLibrary : .workouts
         }
     }
 
@@ -378,6 +377,23 @@ struct ContentView: View {
     }
 
 
+}
+
+@available(iOS 27.1, *)
+private struct HorizontalTabHost<Content: View>: UIViewControllerRepresentable {
+    let content: Content
+
+    final class Controller: UIHostingController<AnyView> {
+        override var preferredVerticalBarBehavior: UIVerticalBarBehavior { .disabled }
+    }
+
+    func makeUIViewController(context: Context) -> Controller {
+        Controller(rootView: AnyView(content.environment(\.self, context.environment)))
+    }
+
+    func updateUIViewController(_ controller: Controller, context: Context) {
+        controller.rootView = AnyView(content.environment(\.self, context.environment))
+    }
 }
 
 // MARK: - About (embedded as the last Settings section)
@@ -853,6 +869,7 @@ private struct AboutSettingsSections: View {
                 }
             }
             .tint(.primary)
+            .accessibilityIdentifier("about.update.store")
 
         case .failed:
             Button {
@@ -4948,7 +4965,13 @@ struct ProfileView: View {
 
             Section {
                 ForEach(ProfileSettingsCategory.appInfoCases) { category in
-                    ProfileSettingsCategoryRow(category: category)
+                    if category == .appUpdates && updateState.isUpdateAvailable {
+                        ProfileSettingsCategoryRow(category: category)
+                            .badge(Text("Update Available"))
+                            .accessibilityValue(Text("Update Available"))
+                    } else {
+                        ProfileSettingsCategoryRow(category: category)
+                    }
                 }
             }
             .listRowBackground(AppColors.appCard)

@@ -133,7 +133,7 @@ class WorkoutRestTimerBarTest {
     @Composable
     private fun Localized(case: Case, content: @Composable () -> Unit) {
         val base = LocalContext.current
-        val configuration = configuration(base.resources.configuration, case)
+        val configuration = configuration(LocalConfiguration.current, case)
         CompositionLocalProvider(
             LocalContext provides base.createConfigurationContext(configuration),
             LocalConfiguration provides configuration,

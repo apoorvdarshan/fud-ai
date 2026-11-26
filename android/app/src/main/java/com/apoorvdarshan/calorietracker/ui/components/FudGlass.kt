@@ -16,6 +16,8 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.padding
@@ -290,6 +292,7 @@ fun FudGlassTextButton(
     }
     Box(
         modifier
+            .heightIn(min = 48.dp)
             .clip(shape)
             .background(fill)
             .border(0.6.dp, border, shape)
@@ -306,6 +309,7 @@ fun FudGlassTextButton(
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun FudGlassDialogActions(
     primaryText: String,
@@ -316,10 +320,11 @@ fun FudGlassDialogActions(
     destructive: Boolean = false,
     primaryEnabled: Boolean = true
 ) {
-    Row(
+    FlowRow(
         modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.End,
-        verticalAlignment = Alignment.CenterVertically
+        horizontalArrangement = Arrangement.spacedBy(6.dp, Alignment.End),
+        verticalArrangement = Arrangement.spacedBy(6.dp),
+        itemVerticalAlignment = Alignment.CenterVertically
     ) {
         if (dismissText != null && onDismiss != null) {
             FudGlassTextButton(
@@ -327,7 +332,6 @@ fun FudGlassDialogActions(
                 onClick = onDismiss,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.68f)
             )
-            Spacer(Modifier.width(6.dp))
         }
         val primaryColor = if (destructive) Color(0xFFFF453A) else AppColors.Calorie
         FudGlassTextButton(

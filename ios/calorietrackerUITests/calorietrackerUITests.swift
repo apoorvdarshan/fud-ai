@@ -896,6 +896,7 @@ final class calorietrackerUITests: XCTestCase {
         for index in 0...2 { XCTAssertFalse(app.buttons["home.foodShortcut.\(index)"].exists) }
         XCTAssertFalse(app.buttons["home.favorites"].exists)
         app.buttons["home.add"].tap()
+        app.buttons["Describe Meal"].tap()
         XCTAssertTrue(app.buttons["Manual Entry"].waitForExistence(timeout: 5))
     }
 

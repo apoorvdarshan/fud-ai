@@ -15,7 +15,7 @@ final class calorietrackerUITestsLaunchTests: XCTestCase {
         ]
         app.launch()
 
-        XCTAssertTrue(app.buttons["home.add"].waitForExistence(timeout: 15))
+        XCTAssertTrue(app.buttons["home.add"].waitForExistence(timeout: 15), app.debugDescription)
         for tab in ["Home", "Progress", "Coach", "Settings", "Workouts"] {
             XCTAssertTrue(app.tabBars.buttons[tab].exists, "Missing tab: \(tab)")
         }

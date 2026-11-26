@@ -10,4 +10,6 @@
     <string name="voice_mascot_direct">Прямой</string>
     <string name="voice_mascot_next_session">Изменения вступят в силу в следующем разговоре.</string>
     <string name="voice_mascot_classic_orb">Классическая сфера</string>
+    <string name="mascot_cafe_invite">Познакомьтесь с голосовыми талисманами</string>
+    <string name="mascot_cafe_play">Воспроизвести видео</string>
 </resources>

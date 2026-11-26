@@ -10,4 +10,6 @@
     <string name="voice_mascot_direct">Bezpośrednia</string>
     <string name="voice_mascot_next_session">Zmiany zostaną zastosowane w następnej rozmowie.</string>
     <string name="voice_mascot_classic_orb">Klasyczna kula</string>
+    <string name="mascot_cafe_invite">Poznaj maskotki głosowe</string>
+    <string name="mascot_cafe_play">Odtwórz film</string>
 </resources>

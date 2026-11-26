@@ -10,4 +10,6 @@
     <string name="voice_mascot_direct">مباشر</string>
     <string name="voice_mascot_next_session">تُطبّق التغييرات على المحادثة التالية.</string>
     <string name="voice_mascot_classic_orb">الكرة الكلاسيكية</string>
+    <string name="mascot_cafe_invite">تعرّف على شخصيات المساعد الصوتي</string>
+    <string name="mascot_cafe_play">تشغيل الفيديو</string>
 </resources>

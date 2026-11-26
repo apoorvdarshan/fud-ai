@@ -10,4 +10,6 @@
     <string name="voice_mascot_direct">Přímá</string>
     <string name="voice_mascot_next_session">Změny se projeví při příští konverzaci.</string>
     <string name="voice_mascot_classic_orb">Klasická koule</string>
+    <string name="mascot_cafe_invite">Seznamte se s hlasovými maskoty</string>
+    <string name="mascot_cafe_play">Přehrát video</string>
 </resources>

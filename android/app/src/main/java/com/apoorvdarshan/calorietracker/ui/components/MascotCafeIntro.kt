@@ -2,7 +2,11 @@ package com.apoorvdarshan.calorietracker.ui.components
 
 import android.net.Uri
 import android.widget.VideoView
-import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.Image
+import androidx.compose.material3.AlertDialog
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text
@@ -22,12 +26,31 @@ import com.apoorvdarshan.calorietracker.R
 
 @Composable
 internal fun MascotCafeIntro(onFinish: () -> Unit) {
+    var playing by rememberSaveable { mutableStateOf(false) }
+    if (playing) {
+        Dialog(onDismissRequest = onFinish) { MascotCafePlayer(onFinish) }
+    } else {
+        AlertDialog(
+            onDismissRequest = onFinish,
+            icon = { Image(painterResource(R.drawable.voice_mascot_teddy_color), null, Modifier.size(64.dp)) },
+            title = { Text(stringResource(R.string.mascot_cafe_invite)) },
+            confirmButton = {
+                TextButton(onClick = { playing = true }) { Text(stringResource(R.string.mascot_cafe_play)) }
+            },
+            dismissButton = {
+                TextButton(onClick = onFinish) { Text(stringResource(R.string.post_update_product_hunt_not_now)) }
+            }
+        )
+    }
+}
+
+@Composable
+private fun MascotCafePlayer(onFinish: () -> Unit) {
     val finish by rememberUpdatedState(onFinish)
     val context = LocalContext.current
     val lifecycle = LocalLifecycleOwner.current.lifecycle
     val video = remember(context) { VideoView(context) }
     var position by rememberSaveable { mutableIntStateOf(0) }
-    BackHandler { finish() }
     DisposableEffect(video, lifecycle) {
         video.setOnPreparedListener {
             it.setVolume(1f, 1f)
@@ -53,11 +76,11 @@ internal fun MascotCafeIntro(onFinish: () -> Unit) {
             video.stopPlayback()
         }
     }
-    Column(Modifier.fillMaxSize().background(Color.Black).safeDrawingPadding()) {
+    Column(Modifier.fillMaxWidth().background(Color.Black)) {
         TextButton(onClick = { finish() }, modifier = Modifier.align(Alignment.End)) {
             Text(stringResource(R.string.workout_rest_skip), color = Color.White)
         }
-        Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        Box(Modifier.fillMaxWidth().aspectRatio(2f / 3f), contentAlignment = Alignment.Center) {
             AndroidView(factory = { video }, modifier = Modifier.aspectRatio(2f / 3f))
         }
     }

@@ -10,4 +10,6 @@
     <string name="voice_mascot_direct">Doğrudan</string>
     <string name="voice_mascot_next_session">Değişiklikler bir sonraki sohbette geçerli olur.</string>
     <string name="voice_mascot_classic_orb">Klasik küre</string>
+    <string name="mascot_cafe_invite">Sesli maskotlarla tanışın</string>
+    <string name="mascot_cafe_play">Videoyu oynat</string>
 </resources>

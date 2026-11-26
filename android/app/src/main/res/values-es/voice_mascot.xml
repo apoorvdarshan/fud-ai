@@ -10,4 +10,6 @@
     <string name="voice_mascot_direct">Directa</string>
     <string name="voice_mascot_next_session">Los cambios se aplican en la próxima conversación.</string>
     <string name="voice_mascot_classic_orb">Esfera clásica</string>
+    <string name="mascot_cafe_invite">Conoce a las mascotas de voz</string>
+    <string name="mascot_cafe_play">Reproducir vídeo</string>
 </resources>

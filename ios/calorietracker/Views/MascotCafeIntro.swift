@@ -1,7 +1,31 @@
 import AVKit
 import SwiftUI
 
-struct MascotCafeIntro: View {
+struct MascotCafeInvite: View {
+    let finish: () -> Void
+    @State private var playing = false
+
+    var body: some View {
+        if playing, let url = Bundle.main.url(forResource: "mascot_cafe", withExtension: "mp4") {
+            MascotCafeIntro(url: url, finish: finish)
+                .presentationDetents([.large])
+        } else {
+            VStack(spacing: 12) {
+                Image("VoiceMascotTeddyColor").resizable().scaledToFit().frame(height: 62)
+                    .accessibilityHidden(true)
+                Text("Meet the voice mascots", tableName: "MascotCafe").font(.headline)
+                Button { playing = true } label: {
+                    Label { Text("Play video", tableName: "MascotCafe") } icon: { Image(systemName: "play.fill") }
+                }
+                .buttonStyle(.borderedProminent)
+                Button("Not now", action: finish)
+            }
+            .presentationDetents([.height(250), .medium])
+        }
+    }
+}
+
+private struct MascotCafeIntro: View {
     let url: URL
     let finish: () -> Void
     @Environment(\.scenePhase) private var phase

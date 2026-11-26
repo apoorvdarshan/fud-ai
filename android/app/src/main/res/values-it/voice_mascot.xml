@@ -10,4 +10,6 @@
     <string name="voice_mascot_direct">Diretta</string>
     <string name="voice_mascot_next_session">Le modifiche si applicano alla prossima conversazione.</string>
     <string name="voice_mascot_classic_orb">Sfera classica</string>
+    <string name="mascot_cafe_invite">Scopri le mascotte vocali</string>
+    <string name="mascot_cafe_play">Riproduci video</string>
 </resources>

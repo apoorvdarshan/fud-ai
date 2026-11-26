@@ -10,4 +10,6 @@
     <string name="voice_mascot_direct">Direct</string>
     <string name="voice_mascot_next_session">Wijzigingen gelden vanaf het volgende gesprek.</string>
     <string name="voice_mascot_classic_orb">Klassieke bol</string>
+    <string name="mascot_cafe_invite">Ontmoet de stemmascottes</string>
+    <string name="mascot_cafe_play">Video afspelen</string>
 </resources>

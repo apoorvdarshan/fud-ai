@@ -15,7 +15,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.SideEffect
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -232,16 +231,14 @@ open class MainActivity : AppCompatActivity() {
             }
             FudAITheme(darkTheme = darkTheme, themeColor = themeColor, grayDarkTheme = appearance == "darkGray") {
                 val welcome = remember { getSharedPreferences("welcome", MODE_PRIVATE) }
-                var seenIntro by remember { mutableStateOf(welcome.getBoolean("seenMascotCafe", false)) }
+                var seenIntro by remember { mutableStateOf(welcome.getBoolean("seenMascotCafeInvite", false)) }
                 if (!seenIntro && intent.action == Intent.ACTION_MAIN && pendingVoiceLaunch == null &&
                     pendingQuickAction == null && pendingSharedMeals.isEmpty()
                 ) {
-                    LaunchedEffect(Unit) { onFirstContentReady() }
                     MascotCafeIntro {
-                        welcome.edit().putBoolean("seenMascotCafe", true).apply()
+                        welcome.edit().putBoolean("seenMascotCafeInvite", true).apply()
                         seenIntro = true
                     }
-                    return@FudAITheme
                 }
                 CompositionLocalProvider(
                     LocalEnergyUnit provides energyUnit,

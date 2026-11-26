@@ -54,7 +54,8 @@ class VoiceInstructionsTest {
         assertEquals(9, VoiceMascot.entries.size)
         assertEquals(VoiceMascot.BRULEE, VoiceMascotPreferences.decode("""{"selected":"brulee"}""").selected)
 
-        assertEquals(VoiceMascot.BRULEE, VoiceMascotPreferences.decode("{}").selected)
+        assertEquals(VoiceMascot.ORB, VoiceMascotPreferences.decode("{}").selected)
+        assertEquals(defaults, VoiceMascotPreferences.decode(defaults.encode()))
         val orb = defaults.copy(selected = VoiceMascot.ORB)
         assertEquals(orb, VoiceMascotPreferences.decode(orb.encode()))
 

@@ -16,7 +16,7 @@ struct calorietrackerApp: App {
     // Keep this before every store/AppStorage initializer so reset launches do
     // not retain values loaded from the previous UI test's defaults.
     private let simulatorTestPreparation: Void = SimulatorTestEnvironment.prepare()
-    @AppStorage("hasSeenMascotCafeWelcome") private var hasSeenMascotCafe = false
+    @State private var showMascotCafe = !UserDefaults.standard.bool(forKey: "hasSeenMascotCafeWelcome") && !SimulatorTestEnvironment.isRunningTests
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @State private var foodStore = FoodStore()
     @State private var weightStore = WeightStore()
@@ -116,11 +116,12 @@ struct calorietrackerApp: App {
                         .environment(cloudBackupService)
                 }
             }
-            .sheet(isPresented: Binding(
-                get: { !hasSeenMascotCafe && !SimulatorTestEnvironment.isRunningTests },
-                set: { if !$0 { hasSeenMascotCafe = true } }
-            )) {
-                MascotCafeInvite { hasSeenMascotCafe = true }
+            .sheet(isPresented: $showMascotCafe, onDismiss: {
+                UserDefaults.standard.set(true, forKey: "hasSeenMascotCafeWelcome")
+            }) {
+                MascotCafeInvite(onWatched: {
+                    UserDefaults.standard.set(true, forKey: "hasSeenMascotCafeWelcome")
+                }, finish: { showMascotCafe = false })
             }
             .tint(AppColors.calorie)
             .preferredColorScheme(colorScheme)

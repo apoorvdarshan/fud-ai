@@ -44,12 +44,17 @@ import com.apoorvdarshan.calorietracker.R
 private enum class CafePage { Preview, Video, Community, Tips, Rating }
 
 @Composable
-internal fun MascotCafeIntro(billing: BillingManager, onFinish: () -> Unit) {
+internal fun MascotCafeIntro(billing: BillingManager, onWatched: () -> Unit, onFinish: () -> Unit) {
     var page by rememberSaveable { mutableStateOf(CafePage.Preview) }
     val links = LocalUriHandler.current
     val context = LocalContext.current
     if (page == CafePage.Video) {
-        Dialog(onDismissRequest = onFinish) { MascotCafePlayer { page = CafePage.Community } }
+        Dialog(onDismissRequest = onFinish) {
+            MascotCafePlayer {
+                onWatched()
+                page = CafePage.Community
+            }
+        }
     } else if (page != CafePage.Preview) {
         Dialog(onDismissRequest = onFinish) {
             Surface(shape = RoundedCornerShape(24.dp)) {
@@ -97,7 +102,7 @@ internal fun MascotCafeIntro(billing: BillingManager, onFinish: () -> Unit) {
                     Text(stringResource(R.string.mascot_cafe_invite),
                         modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp),
                         style = MaterialTheme.typography.titleLarge)
-                    TextButton(onClick = { page = CafePage.Community }) { Text(stringResource(R.string.post_update_product_hunt_not_now)) }
+                    TextButton(onClick = onFinish) { Text(stringResource(R.string.post_update_product_hunt_not_now)) }
                 }
             }
         }

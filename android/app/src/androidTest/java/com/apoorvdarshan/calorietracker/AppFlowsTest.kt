@@ -297,7 +297,8 @@ class AppFlowsTest {
         val brulee = compose.onNodeWithTag("settings.voiceMascot.gallery.BRULEE")
         val jam = compose.onNodeWithTag("settings.voiceMascot.gallery.JAM")
         val shortcut = compose.onNodeWithTag("voiceAssistantButton")
-        compose.onNodeWithTag("settings.voiceMascot.gallery.ORB").assertIsSelected()
+        brulee.assertIsSelected()
+        compose.onNodeWithTag("settings.voiceMascot.gallery.ORB").assertIsNotSelected()
         jam.performClick()
         awaitPreference(prefs.voiceMascotPreferences) { it.selected == VoiceMascot.JAM }
         jam.assertIsSelected()
@@ -467,9 +468,9 @@ class AppFlowsTest {
         compose.onNodeWithTag("home.add").assertIsDisplayed()
         val addBounds = compose.onNodeWithTag("home.add").fetchSemanticsNode().boundsInRoot
         val voiceBounds = compose.onNodeWithTag("voiceAssistantButton").assertIsDisplayed().fetchSemanticsNode().boundsInRoot
-        assertEquals(addBounds.top, voiceBounds.top, 1f)
-        assertEquals(addBounds.bottom, voiceBounds.bottom, 1f)
-        assertTrue("Voice sits beside the add button", voiceBounds.right < addBounds.left)
+        assertEquals(addBounds.left, voiceBounds.left, 1f)
+        assertEquals(addBounds.right, voiceBounds.right, 1f)
+        assertTrue("Voice sits above the add button", voiceBounds.bottom < addBounds.top)
         assertTrue("The diary keeps its full viewport behind the floating controls",
             compose.onNodeWithTag("home.diary").fetchSemanticsNode().boundsInRoot.bottom > addBounds.bottom)
         assertTrue("The action row stays above the tabs", addBounds.bottom <=

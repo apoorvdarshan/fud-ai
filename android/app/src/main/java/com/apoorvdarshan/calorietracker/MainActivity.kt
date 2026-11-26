@@ -235,7 +235,9 @@ open class MainActivity : AppCompatActivity() {
                 if (!seenIntro && intent.action == Intent.ACTION_MAIN && pendingVoiceLaunch == null &&
                     pendingQuickAction == null && pendingSharedMeals.isEmpty()
                 ) {
-                    MascotCafeIntro(container.billing) {
+                    MascotCafeIntro(container.billing, onWatched = {
+                        welcome.edit().putBoolean("seenMascotCafeWelcome", true).apply()
+                    }) {
                         welcome.edit().putBoolean("seenMascotCafeWelcome", true).apply()
                         seenIntro = true
                     }

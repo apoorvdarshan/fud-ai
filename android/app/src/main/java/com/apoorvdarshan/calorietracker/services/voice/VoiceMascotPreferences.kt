@@ -5,6 +5,8 @@ import androidx.annotation.StringRes
 import com.apoorvdarshan.calorietracker.R
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.decodeFromJsonElement
+import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.Json
 
 @Serializable
@@ -102,7 +104,7 @@ data class VoiceMascotPreferences(
 
     companion object {
         const val STORAGE_KEY = "voiceAssistant.mascots"
-        private val json = Json { ignoreUnknownKeys = true; coerceInputValues = true }
+        private val json = Json { encodeDefaults = true; ignoreUnknownKeys = true; coerceInputValues = true }
         private val invalidNameCharacters = Regex("""[^\p{L}\p{M}\p{N} '’\-]+""")
         private val multipleSpaces = Regex(" +")
 
@@ -113,6 +115,11 @@ data class VoiceMascotPreferences(
 
         fun decode(raw: String?): VoiceMascotPreferences =
             if (raw.isNullOrEmpty()) VoiceMascotPreferences()
-            else runCatching { json.decodeFromString(serializer(), raw) }.getOrDefault(VoiceMascotPreferences())
+            else runCatching {
+                val stored = json.parseToJsonElement(raw).jsonObject
+                val settings = json.decodeFromJsonElement(serializer(), stored)
+                // Older releases omitted the selected field when saving Classic Orb.
+                if ("selected" in stored) settings else settings.copy(selected = VoiceMascot.ORB)
+            }.getOrDefault(VoiceMascotPreferences())
     }
 }

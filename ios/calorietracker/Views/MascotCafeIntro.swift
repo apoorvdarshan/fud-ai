@@ -2,6 +2,7 @@ import AVKit
 import SwiftUI
 
 struct MascotCafeInvite: View {
+    let onWatched: () -> Void
     let finish: () -> Void
     private enum Page { case preview, video, community, tips, rating }
     @State private var page: Page = .preview
@@ -9,7 +10,10 @@ struct MascotCafeInvite: View {
 
     var body: some View {
         if page == .video, let url = Bundle.main.url(forResource: "mascot_cafe", withExtension: "mp4") {
-            MascotCafeIntro(url: url) { page = .community }
+            MascotCafeIntro(url: url) {
+                onWatched()
+                page = .community
+            }
                 .presentationDetents([.large])
         } else if page == .community || page == .tips || page == .rating {
             VStack(spacing: 12) {
@@ -66,7 +70,7 @@ struct MascotCafeInvite: View {
                 .buttonStyle(.plain)
                 .accessibilityLabel(Text("Play video", tableName: "MascotCafe"))
                 Text("Meet the voice mascots", tableName: "MascotCafe").font(.title3.bold())
-                Button("Not now") { page = .community }
+                Button("Not now", action: finish)
               }
               .frame(maxWidth: 390)
               .padding(18)

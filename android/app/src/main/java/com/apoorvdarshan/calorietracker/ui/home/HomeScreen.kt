@@ -49,6 +49,8 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -500,6 +502,10 @@ DisposableEffect(lifecycleOwner, vm) {
     // ad strip above this screen (TabWithBanner) now owns that inset.
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
+        // Scroll behind the floating tabs; the list and its controls reserve their own bottom clearance.
+        contentWindowInsets = androidx.compose.material3.ScaffoldDefaults.contentWindowInsets.only(
+            WindowInsetsSides.Horizontal + WindowInsetsSides.Top
+        ),
         bottomBar = {
             if (selectionMode) {
                 Column(

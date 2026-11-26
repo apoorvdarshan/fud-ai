@@ -91,6 +91,8 @@ struct calorietrackerApp: App {
                 if hasCompletedOnboarding {
                     if #available(iOS 27.1, *), UIDevice.current.userInterfaceIdiom == .phone {
                         HorizontalTabHost(content: mainContent)
+                            // The hosted TabView handles its own home-indicator inset.
+                            .ignoresSafeArea(.container, edges: .bottom)
                     } else {
                         mainContent
                     }

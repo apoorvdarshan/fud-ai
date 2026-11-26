@@ -9,4 +9,5 @@
     <string name="voice_mascot_calm">Спокойный</string>
     <string name="voice_mascot_direct">Прямой</string>
     <string name="voice_mascot_next_session">Изменения вступят в силу в следующем разговоре.</string>
+    <string name="voice_mascot_classic_orb">Классическая сфера</string>
 </resources>

@@ -64,12 +64,28 @@ struct VoiceMascotView: View {
     private var animated: Bool { !reduceMotion && animationActive }
 
     var body: some View {
+        if profile.mascot == .orb {
+            LiveOrbView(
+                mode: mode,
+                levelSource: animated ? level : nil,
+                tint: profile.options.color.rgb.map { Color(hex: UInt($0)) } ?? AppColors.calorie,
+                isPaused: !animated,
+                minimumFrameInterval: 1.0 / 30,
+                clearBackground: true
+            )
+            .scaleEffect(1 / 0.56)
+        } else {
+            sprite
+        }
+    }
+
+    private var sprite: some View {
         GeometryReader { geometry in
             let side = min(geometry.size.width, geometry.size.height)
             let mascot = profile.mascot
             let pose = VoiceMascotPose.sample(mode: mode, time: time, level: animated ? level() : 0,
                                               animated: animated,
-                                              phase: Double(VoiceMascot.allCases.firstIndex(of: mascot) ?? 0) * 0.17)
+                                              phase: Double((VoiceMascot.allCases.firstIndex(of: mascot) ?? 1) - 1) * 0.17)
             let color = profile.options.color.rgb.map { Color(hex: UInt($0)) }
                 ZStack {
                     Image(mascot.asset).resizable()

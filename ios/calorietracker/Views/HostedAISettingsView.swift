@@ -77,10 +77,10 @@ struct HostedAISettingsView: View {
                 await quotaManager.refresh()
             }
         }
-        .flashSheet(isPresented: $showPaywall) {
+        .sheet(isPresented: $showPaywall) {
             HostedPaywallView()
         }
-        .flashSheet(isPresented: $showCredits) {
+        .sheet(isPresented: $showCredits) {
             HostedCreditsSheet()
         }
         .alert("Restore Purchases", isPresented: Binding(
@@ -1028,56 +1028,70 @@ struct HostedQuotaSoftPaywall: View {
 
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
+            VStack(spacing: 24) {
+                Spacer(minLength: 0)
+
+                ZStack {
+                    Circle()
+                        .fill(AppColors.calorie.opacity(0.12))
+                        .frame(width: 88, height: 88)
                     Image(systemName: "hourglass")
-                        .font(.title2.weight(.semibold))
-                        .foregroundStyle(AppColors.accentText)
-                        .accessibilityHidden(true)
-
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("Out of Hosted Actions")
-                            .font(.system(.title2, weight: .black).width(.condensed))
-                            .accessibilityAddTraits(.isHeader)
-                        Text("Buy credits, upgrade your plan, or switch to BYOK with your own API key.")
-                            .font(.callout)
-                            .foregroundStyle(.secondary)
-                            .fixedSize(horizontal: false, vertical: true)
-                    }
-
-                    VStack(alignment: .leading, spacing: 10) {
-                        Button {
-                            dismiss()
-                            onBuyCreditsOrUpgrade()
-                        } label: {
-                            Text("Buy Credits or Upgrade")
-                                .multilineTextAlignment(.center)
-                                .frame(maxWidth: .infinity)
-                        }
-                        .buttonStyle(FlashActionButtonStyle())
-
-                        Button {
-                            AIModeSettings.mode = .byok
-                            onSwitchBYOK()
-                            dismiss()
-                        } label: {
-                            Text("Switch to BYOK")
-                                .font(.system(.body, weight: .semibold).width(.condensed))
-                                .foregroundStyle(AppColors.accentText)
-                                .multilineTextAlignment(.center)
-                                .padding(.vertical, 8)
-                                .frame(minHeight: 44)
-                                .frame(maxWidth: .infinity)
-                                .contentShape(Rectangle())
-                        }
-                        .buttonStyle(.plain)
-                    }
+                        .font(.system(size: 36, weight: .semibold))
+                        .foregroundStyle(AppColors.calorie)
                 }
-                .frame(maxWidth: 480)
-                .padding(24)
-                .frame(maxWidth: .infinity)
+                .accessibilityHidden(true)
+
+                VStack(spacing: 8) {
+                    Text("Out of Hosted Actions")
+                        .font(.system(.title2, design: .rounded, weight: .bold))
+                        .multilineTextAlignment(.center)
+                    Text("Buy credits, upgrade your plan, or switch to BYOK with your own API key.")
+                        .font(.system(.callout, design: .rounded))
+                        .multilineTextAlignment(.center)
+                        .foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+
+                Spacer(minLength: 0)
+
+                VStack(spacing: 12) {
+                    Button {
+                        dismiss()
+                        onBuyCreditsOrUpgrade()
+                    } label: {
+                        Text("Buy Credits or Upgrade")
+                            .font(.system(.body, design: .rounded, weight: .semibold))
+                            .foregroundStyle(.white)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 54)
+                            .background(
+                                LinearGradient(colors: AppColors.calorieGradient, startPoint: .leading, endPoint: .trailing),
+                                in: RoundedRectangle(cornerRadius: 16, style: .continuous)
+                            )
+                            .shadow(color: AppColors.calorie.opacity(0.3), radius: 8, y: 4)
+                            .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                    }
+                    .buttonStyle(.plain)
+
+                    Button {
+                        AIModeSettings.mode = .byok
+                        onSwitchBYOK()
+                        dismiss()
+                    } label: {
+                        Text("Switch to BYOK")
+                            .font(.system(.body, design: .rounded, weight: .semibold))
+                            .foregroundStyle(AppColors.calorie)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 48)
+                            .background(AppColors.calorie.opacity(0.12), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                            .contentShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                    }
+                    .buttonStyle(.plain)
+                }
             }
-            .flashScreenSurface()
+            .padding(.horizontal, 24)
+            .padding(.bottom, 24)
+            .background(AppColors.appBackground.ignoresSafeArea())
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Close") { dismiss() }

@@ -24,4 +24,5 @@
     <string name="challenge_hub_leave_all_detail">公開プロフィール、すべてのスコア、報告が削除されます。非公開の日記はこの端末に残ります。</string>
     <string name="challenge_hub_jump_to_rank">自分の順位へ</string>
     <string name="challenge_hub_week_rank">選択したスコアが最優先です。同点の場合は、習慣の多様さ、各習慣の安定度、他の項目の日数の順で比較します。それでも同じなら、先に達成した人が上位です。運動の消費カロリーでは順位を決めません。</string>
+    <string name="challenge_shared_boards_disclosure">週間チャレンジに参加すると、日間と月間のランキングにもスコアが共有されます。それぞれ個別に退出できます。</string>
 </resources>

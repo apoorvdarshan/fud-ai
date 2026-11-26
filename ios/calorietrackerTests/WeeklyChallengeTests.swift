@@ -23,6 +23,8 @@ struct WeeklyChallengeTests {
 
         let longName = "Alexandria Isabella Montgomery"
         let longHandle = "alexandria.isabella.montgomery"
+        let regular = try render(name: "Alex", handle: "alex", width: 360, type: .large)
+        #expect(regular.height < 80, "An ordinary ranking should occupy one compact row on iPhone.")
         let short = try render(name: "Alex", handle: "alex", width: 196, type: .large)
         let name = try render(name: longName, handle: "alex", width: 196, type: .large)
         let both = try render(name: longName, handle: longHandle, width: 196, type: .accessibility2)

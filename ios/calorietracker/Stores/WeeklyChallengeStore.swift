@@ -99,6 +99,7 @@ final class WeeklyChallengeStore {
     private static let pendingDeletionKey = "weeklyChallenge.pendingDeletion.v1"
     private static let blockedParticipantIDsKey = "weeklyChallenge.blockedParticipantIDs.v1"
     private static let enabledPeriodsKey = "challenge.periodConsent.v1"
+    private static let sharedMembershipKey = "challenge.sharedMembershipParticipant.v1"
 
     private(set) var leaderboard: WeeklyChallengeLeaderboardResponse?
     private(set) var publicProfile: WeeklyChallengePublicProfile?
@@ -694,6 +695,7 @@ final class WeeklyChallengeStore {
         defaults.removeObject(forKey: Self.pendingScoreKey)
         defaults.removeObject(forKey: Self.cachedLeaderboardKey)
         defaults.removeObject(forKey: Self.enabledPeriodsKey)
+        defaults.removeObject(forKey: Self.sharedMembershipKey)
         if deleteCredential {
             KeychainHelper.delete(key: Self.tokenKey)
             KeychainHelper.delete(key: Self.pendingDeletionKey)

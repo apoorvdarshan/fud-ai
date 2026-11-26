@@ -17,8 +17,9 @@ import androidx.glance.LocalSize
 import androidx.glance.action.actionStartActivity
 import androidx.glance.action.clickable
 import androidx.glance.appwidget.SizeMode
+import androidx.glance.appwidget.cornerRadius
 import androidx.glance.appwidget.provideContent
-import androidx.glance.ColorFilter
+import androidx.glance.background
 import androidx.glance.layout.Alignment
 import androidx.glance.layout.Box
 import androidx.glance.layout.Column
@@ -79,7 +80,8 @@ private fun CalorieWidgetContent(snapshot: WidgetSnapshot) {
     Box(
         modifier = GlanceModifier
             .fillMaxSize()
-            .flashWidgetPanel()
+            .background(WidgetTheme.backgroundProvider)
+            .cornerRadius(22.dp)
             .padding(14.dp)
             .clickable(actionStartActivity<MainActivity>())
     ) {
@@ -101,7 +103,7 @@ private fun CalorieSmall(snapshot: WidgetSnapshot) {
     val gaugeW = minOf(contentW, (contentH - 44f) / 0.58f).toInt().coerceAtLeast(80)
 
     Column(modifier = GlanceModifier.fillMaxSize()) {
-        WidgetHeader(R.drawable.ic_widget_flame, AppLocalization.context(LocalContext.current).getString(R.string.widget_today), snapshot.themeStartHex)
+        WidgetHeader(iconRes = R.drawable.ic_widget_flame, label = AppLocalization.context(LocalContext.current).getString(R.string.widget_today))
         Box(
             modifier = GlanceModifier.fillMaxWidth().defaultWeight(),
             contentAlignment = Alignment.Center
@@ -110,6 +112,7 @@ private fun CalorieSmall(snapshot: WidgetSnapshot) {
                 progress = snapshot.calorieProgress.toFloat(),
                 gaugeWidthDp = gaugeW,
                 startHex = snapshot.themeStartHex,
+                endHex = snapshot.themeEndHex,
                 centerLarge = snapshot.displayCalories.toString(),
                 centerSmall = "/ ${snapshot.displayCalorieGoal}"
             )
@@ -117,7 +120,7 @@ private fun CalorieSmall(snapshot: WidgetSnapshot) {
         Text(
             text = energyLeftText(snapshot),
             style = TextStyle(
-                color = WidgetTheme.secondaryTextProvider,
+                color = WidgetTheme.themeTextProvider(snapshot.themeStartHex),
                 fontWeight = FontWeight.Medium,
                 fontSize = 12.sp
             )
@@ -141,6 +144,7 @@ private fun CalorieMedium(snapshot: WidgetSnapshot) {
                 progress = snapshot.calorieProgress.toFloat(),
                 gaugeWidthDp = gaugeW,
                 startHex = snapshot.themeStartHex,
+                endHex = snapshot.themeEndHex,
                 centerLarge = snapshot.displayCalories.toString(),
                 centerSmall = "/ ${snapshot.displayCalorieGoal}"
             )
@@ -148,7 +152,7 @@ private fun CalorieMedium(snapshot: WidgetSnapshot) {
             Text(
                 text = energyLeftText(snapshot),
                 style = TextStyle(
-                    color = WidgetTheme.secondaryTextProvider,
+                    color = WidgetTheme.themeTextProvider(snapshot.themeStartHex),
                     fontWeight = FontWeight.Medium,
                     fontSize = 12.sp
                 )
@@ -180,21 +184,19 @@ internal fun energyLeftText(snapshot: WidgetSnapshot): String {
 }
 
 @Composable
-internal fun WidgetHeader(iconRes: Int, label: String, accent: Int?) {
+internal fun WidgetHeader(iconRes: Int, label: String) {
     Row(verticalAlignment = Alignment.CenterVertically) {
         Image(
             provider = ImageProvider(iconRes),
             contentDescription = null,
-            colorFilter = ColorFilter.tint(WidgetTheme.accentProvider(accent)),
             modifier = GlanceModifier.size(12.dp)
         )
         Spacer(modifier = GlanceModifier.width(4.dp))
         Text(
-            text = label.uppercase(AppLocalization.context(LocalContext.current).resources.configuration.locales[0]),
-            maxLines = 1,
+            text = label,
             style = TextStyle(
-                color = WidgetTheme.primaryTextProvider,
-                fontWeight = FontWeight.Bold,
+                color = WidgetTheme.secondaryTextProvider,
+                fontWeight = FontWeight.Medium,
                 fontSize = 12.sp
             )
         )
@@ -210,6 +212,7 @@ internal fun SpeedometerWithCenter(
     progress: Float,
     gaugeWidthDp: Int,
     startHex: Int?,
+    endHex: Int?,
     centerLarge: String,
     centerSmall: String
 ) {
@@ -222,7 +225,8 @@ internal fun SpeedometerWithCenter(
         diameterPx = sizePx,
         progress = progress,
         strokeWidthPx = strokePx,
-        accentRgb = WidgetTheme.accentRgb(startHex)
+        startRgb = WidgetTheme.themeStart(startHex),
+        endRgb = WidgetTheme.themeEnd(endHex)
     )
     val gaugeHeightDp = (gaugeWidthDp * 0.58f).toInt()
     val centerLargeFontSize = gaugeCenterFontSizeSp(gaugeWidthDp, centerLarge).sp
@@ -241,7 +245,7 @@ internal fun SpeedometerWithCenter(
             Text(
                 text = centerLarge,
                 style = TextStyle(
-                    color = WidgetTheme.primaryTextProvider,
+                    color = WidgetTheme.themeTextProvider(startHex),
                     fontWeight = FontWeight.Bold,
                     fontSize = centerLargeFontSize
                 )
@@ -295,6 +299,7 @@ internal fun NutrientBarsRow(
                 VerticalNutrientBarCell(
                     nutrient = nutrient,
                     startHex = snapshot.themeStartHex,
+                    endHex = snapshot.themeEndHex,
                     barHeightDp = barHeightDp,
                     barWidthDp = barWidthDp,
                     valueFontSp = valueFontSp
@@ -308,6 +313,7 @@ internal fun NutrientBarsRow(
 internal fun VerticalNutrientBarCell(
     nutrient: WidgetNutrient,
     startHex: Int?,
+    endHex: Int?,
     barHeightDp: Int,
     barWidthDp: Int,
     valueFontSp: Int
@@ -317,7 +323,8 @@ internal fun VerticalNutrientBarCell(
         widthPx = (barWidthDp * density).toInt().coerceAtLeast(2),
         heightPx = (barHeightDp * density).toInt().coerceAtLeast(2),
         progress = nutrient.progress.toFloat(),
-        accentRgb = WidgetTheme.accentRgb(startHex)
+        startRgb = WidgetTheme.themeStart(startHex),
+        endRgb = WidgetTheme.themeEnd(endHex)
     )
     Column(
         modifier = GlanceModifier.fillMaxWidth(),
@@ -326,7 +333,7 @@ internal fun VerticalNutrientBarCell(
         Text(
             text = MacroValueFormatter.display(nutrient.value),
             style = TextStyle(
-                color = WidgetTheme.primaryTextProvider,
+                color = WidgetTheme.themeTextProvider(startHex),
                 fontWeight = FontWeight.Bold,
                 fontSize = valueFontSp.sp
             ),

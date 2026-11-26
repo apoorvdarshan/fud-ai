@@ -1,6 +1,7 @@
 @file:OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
 
 package com.apoorvdarshan.calorietracker.ui.workouts
+import com.apoorvdarshan.calorietracker.ui.components.WaitingFactCard
 
 import android.Manifest
 import android.content.Intent
@@ -10,7 +11,6 @@ import android.provider.Settings
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -32,7 +32,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.CameraAlt
 import androidx.compose.material.icons.filled.FitnessCenter
-import com.apoorvdarshan.calorietracker.ui.components.FlashAlertDialog as AlertDialog
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenuItem
@@ -44,7 +44,7 @@ import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import com.apoorvdarshan.calorietracker.ui.components.FlashBottomSheet as ModalBottomSheet
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -60,7 +60,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -83,9 +82,7 @@ import com.apoorvdarshan.calorietracker.services.FoodImageStore
 import com.apoorvdarshan.calorietracker.services.ai.AiError
 import com.apoorvdarshan.calorietracker.services.ai.UserExerciseAiFill
 import com.apoorvdarshan.calorietracker.ui.components.InAppCameraCaptureDialog
-import com.apoorvdarshan.calorietracker.ui.components.WaitingFactCard
 import com.apoorvdarshan.calorietracker.ui.hosted.findActivity
-import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -532,7 +529,6 @@ private fun DropdownField(
     onSelect: (String) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
-    val neo = pinkNeoPalette()
     ExposedDropdownMenuBox(expanded = expanded && enabled, onExpandedChange = { expanded = it && enabled }) {
         OutlinedTextField(
             value = value,
@@ -545,15 +541,7 @@ private fun DropdownField(
                 .menuAnchor(type = ExposedDropdownMenuAnchorType.PrimaryNotEditable, enabled = enabled)
                 .fillMaxWidth()
         )
-        ExposedDropdownMenu(
-            expanded = expanded && enabled,
-            onDismissRequest = { expanded = false },
-            shape = RectangleShape,
-            containerColor = neo.panel,
-            tonalElevation = 0.dp,
-            shadowElevation = 0.dp,
-            border = BorderStroke(1.dp, neo.rule)
-        ) {
+        ExposedDropdownMenu(expanded = expanded && enabled, onDismissRequest = { expanded = false }) {
             options.forEach { option ->
                 DropdownMenuItem(
                     text = { Text(option) },

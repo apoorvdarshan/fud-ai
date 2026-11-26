@@ -24,4 +24,5 @@
     <string name="challenge_hub_leave_all_detail">Veřejný profil, všechny výsledky a hlášení budou smazány. Soukromý deník zůstane v zařízení.</string>
     <string name="challenge_hub_jump_to_rank">Přejít na mé umístění</string>
     <string name="challenge_hub_week_rank">Nejdříve se hodnotí vybrané skóre. Při shodě rozhoduje pestrost návyků, vyrovnanější výsledky a další počty dnů. Pokud je i to stejné, vede ten, kdo výsledku dosáhl dříve. Kalorie z pohybu shodu nerozhodují.</string>
+    <string name="challenge_shared_boards_disclosure">Po připojení k týdenní výzvě se vaše skóre sdílí také v denním a měsíčním žebříčku. Každý z nich můžete opustit zvlášť.</string>
 </resources>

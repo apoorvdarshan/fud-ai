@@ -49,12 +49,15 @@ import com.apoorvdarshan.calorietracker.services.voice.VoiceMascotColor
 import com.apoorvdarshan.calorietracker.services.voice.VoiceMascotOptions
 import com.apoorvdarshan.calorietracker.services.voice.VoiceMascotPersonality
 import com.apoorvdarshan.calorietracker.services.voice.VoiceMascotPreferences
-import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import com.apoorvdarshan.calorietracker.ui.voice.VoiceMascot
 
 @Composable
 internal fun VoiceMascotGallery(preferences: VoiceMascotPreferences, onSelect: (Mascot) -> Unit) {
-    val palette = pinkNeoPalette()
+    val palette = MaterialTheme.colorScheme
+    val tileShape = RoundedCornerShape(12.dp)
     val largeText = LocalDensity.current.fontScale >= 1.35f
     BoxWithConstraints(Modifier.fillMaxWidth().padding(horizontal = 10.dp, vertical = 6.dp)) {
         val columns = if (largeText || maxWidth < 228.dp) 2 else 4
@@ -67,10 +70,12 @@ internal fun VoiceMascotGallery(preferences: VoiceMascotPreferences, onSelect: (
                             Modifier
                                 .weight(1f)
                                 .heightIn(min = 48.dp)
-                                .background(if (selected) palette.accent.copy(alpha = 0.12f) else palette.paper)
+                                .clip(tileShape)
+                                .background(if (selected) palette.primary.copy(alpha = 0.12f) else Color.Transparent)
                                 .border(
                                     if (selected) 1.5.dp else 1.dp,
-                                    if (selected) palette.accent else palette.rule.copy(alpha = 0.25f)
+                                    if (selected) palette.primary else palette.outline.copy(alpha = 0.25f),
+                                    tileShape
                                 )
                                 .testTag("settings.voiceMascot.gallery.${mascot.name}")
                                 .selectable(selected = selected, role = Role.RadioButton) { onSelect(mascot) }
@@ -85,8 +90,8 @@ internal fun VoiceMascotGallery(preferences: VoiceMascotPreferences, onSelect: (
                                     preferences.profileFor(mascot), motionEnabled = false
                                 )
                                 Text(
-                                    mascot.displayName,
-                                    color = palette.ink,
+                                    if (mascot == Mascot.ORB) stringResource(R.string.voice_mascot_classic_orb) else mascot.displayName,
+                                    color = palette.onSurface,
                                     style = MaterialTheme.typography.labelSmall,
                                     fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium,
                                     maxLines = 2,
@@ -96,7 +101,7 @@ internal fun VoiceMascotGallery(preferences: VoiceMascotPreferences, onSelect: (
                             }
                             if (selected) {
                                 Icon(
-                                    Icons.Filled.CheckCircle, contentDescription = null, tint = palette.accent,
+                                    Icons.Filled.CheckCircle, contentDescription = null, tint = palette.primary,
                                     modifier = Modifier.align(Alignment.TopEnd).padding(4.dp).size(12.dp)
                                 )
                             }

@@ -1,6 +1,5 @@
 package com.apoorvdarshan.calorietracker.ui.home
 
-import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -22,13 +21,13 @@ import androidx.compose.material.icons.filled.CameraAlt
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.PhotoLibrary
-import com.apoorvdarshan.calorietracker.ui.components.FlashAlertDialog as AlertDialog
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import com.apoorvdarshan.calorietracker.ui.components.FlashBottomSheet as ModalBottomSheet
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -100,10 +99,10 @@ fun MultiPhotoCaptureSheet(
                 .verticalScroll(rememberScrollState())
                 .imePadding()
                 .padding(bottom = 28.dp),
-            verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap)
+            verticalArrangement = Arrangement.spacedBy(18.dp)
         ) {
             Row(
-                Modifier.fillMaxWidth().padding(horizontal = FlashSpacing.SheetInset),
+                Modifier.fillMaxWidth().padding(horizontal = 20.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start
             ) {
@@ -115,7 +114,7 @@ fun MultiPhotoCaptureSheet(
 
             if (photoLimit < AIProvider.DEFAULT_MEAL_PHOTO_LIMIT) {
                 Row(
-                    Modifier.fillMaxWidth().padding(horizontal = FlashSpacing.SheetInset),
+                    Modifier.fillMaxWidth().padding(horizontal = 20.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Start
                 ) {
@@ -181,7 +180,7 @@ fun MultiPhotoCaptureSheet(
 
             if (imageBytesList.size < photoLimit) {
                 Row(
-                    modifier = Modifier.fillMaxWidth().padding(horizontal = FlashSpacing.SheetInset),
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
                     horizontalArrangement = Arrangement.End
                 ) {
                     Button(onClick = onAddPhoto, enabled = !isBusy) {
@@ -201,7 +200,7 @@ fun MultiPhotoCaptureSheet(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = FlashSpacing.SheetInset)
+                    .padding(horizontal = 20.dp)
                     .background(
                         MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.55f),
                         RoundedCornerShape(20.dp)
@@ -244,7 +243,7 @@ fun MultiPhotoCaptureSheet(
             }
 
             Column(
-                Modifier.fillMaxWidth().padding(horizontal = FlashSpacing.SheetInset),
+                Modifier.fillMaxWidth().padding(horizontal = 20.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 SheetSectionHeader(stringResource(R.string.context_note_analysis_section))

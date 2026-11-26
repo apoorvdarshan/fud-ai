@@ -65,9 +65,9 @@ latest frame with each user turn and before capture decisions); xAI and GPT-Live
   stops its playback (OpenAI also gets `conversation.item.truncate`).
 - Gemini and Hosted use low speech-start and speech-end sensitivity, 240 ms
   of prefix padding and 700 ms of silence before ending a user turn. Noise can
-  still trigger Gemini. Turning off **Interrupt when I speak** in Voice
-  Assistant settings sends `NO_INTERRUPTION`; wait for the reply to finish
-  before speaking. The selected voice is sent in every initial or resumed
+  still trigger Gemini when interruptions are enabled. **Interrupt when I speak**
+  defaults to off (`NO_INTERRUPTION`) for Gemini and Hosted. Enable it in Voice
+  Assistant settings to speak over a reply. The selected voice is sent in every initial or resumed
   setup; the model is instructed to keep one speaker, but it generates the sound.
 - Ends after 45 s with no speech either way (not while a tool is waiting for
   the user), after 15 minutes, when the user closes it, on `end_conversation`,
@@ -108,7 +108,9 @@ completion never ends a spoken turn on iOS.
 Built per session from: a short persona (Fud AI's assistant and coach, warm and
 brief, speaks the user's language), the same profile/goal/forecast summary
 Coach uses, today's totals, the rules below, and the capabilities of this
-session (camera frames, auto-capture, confirm-before-saving).
+session (camera frames, auto-capture, confirm-before-saving). On Android, the
+assistant gets totals and the Coach summary through `get_app_state` when needed,
+so opening the microphone does not wait for diary reads or forecast calculations.
 
 Rules given to the model: briefly announce visible app actions, then do
 them; perform read-only lookups without a preamble; use tools for anything
@@ -156,7 +158,7 @@ asked for its name or identity; personality changes delivery, not the answer.
   and reopen only when another camera task needs it.
 - Applying a food save also dismisses an open food camera, covering logs made
   without a capture draft. Awaiting save confirmation does not dismiss it.
-- `open_screen` switches between all nine rail destinations and can open a
+- `open_screen` navigates between tabs and their nested screens and can open a
   section of Settings or About. `get_app_state` reports the actual destination,
   not its old parent tab. `set_diary_date` opens a day in Home or Workout Log.
   The assistant minimizes so the destination is visible.
@@ -170,11 +172,11 @@ asked for its name or identity; personality changes delivery, not the answer.
 
 ## UI
 
-- Entry points: the pinned mascot on the right rail; iOS App Shortcut / Siri phrase
+- Entry points: the orb or selected mascot on Home and the workout diary; iOS App Shortcut / Siri phrase
   ("Talk to Fud AI"), usable from the Action Button, plus a Control Center
   control; Android Quick Settings tile, launcher shortcut and a home-screen
   widget. All open the app straight into a listening session.
-- The pinned shortcut shows the selected mascot with no visible label, box,
+- The in-app shortcut shows the orb by default or the selected mascot with no visible label, box,
   or background. The accessible button name and touch target remain in place.
 - Home keeps meal calories and macros beneath the meal title on the leading
   side, away from the floating controls. The diary remains visible behind the

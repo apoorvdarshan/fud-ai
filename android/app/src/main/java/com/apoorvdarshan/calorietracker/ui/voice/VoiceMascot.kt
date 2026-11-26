@@ -11,6 +11,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
@@ -26,6 +27,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.currentStateAsState
 import com.apoorvdarshan.calorietracker.services.voice.OrbMode
+import com.apoorvdarshan.calorietracker.services.voice.VoiceMascot as Mascot
+import com.apoorvdarshan.calorietracker.ui.theme.AppColors
 import com.apoorvdarshan.calorietracker.services.voice.VoiceMascotProfile
 import kotlin.math.PI
 import kotlin.math.sin
@@ -86,6 +89,17 @@ internal fun VoiceMascot(
     level: () -> Float = { 0f }
 ) {
     val mascot = profile.mascot
+    if (mascot == Mascot.ORB) {
+        LiveOrb(
+            mode = mode,
+            tint = profile.options.color.rgb?.let { Color(0xFF000000L or it.toLong()) } ?: AppColors.Calorie,
+            modifier = modifier.scale(1f / 0.56f),
+            level = level,
+            clearBackground = true,
+            motionEnabled = motionEnabled
+        )
+        return
+    }
     val body = ImageBitmap.imageResource(mascot.body)
     val eyelids = ImageBitmap.imageResource(mascot.blink)
     val tint = profile.options.color.rgb?.let { ColorFilter.tint(Color(0xFF000000L or it.toLong())) }

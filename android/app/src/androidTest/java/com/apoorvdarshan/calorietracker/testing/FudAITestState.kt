@@ -40,7 +40,11 @@ object FudAITestState {
         }
         check(app.getSharedPreferences("fudai_workouts", Context.MODE_PRIVATE)
             .edit().clear().commit())
+        // A previous test can finish with the app-wide paywall still presented.
+        // Closing its Activity does not reset the Application-scoped router.
+        app.container.hostedUi.dismiss()
         ReviewPrompter.consumed()
+        app.container.navigator.homeDiaryDate.value = java.time.LocalDate.now()
         app.container.analyzingFood.value = false
     }
 }

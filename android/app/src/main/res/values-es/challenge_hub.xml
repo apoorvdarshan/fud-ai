@@ -24,4 +24,5 @@
     <string name="challenge_hub_leave_all_detail">Se eliminarán tu perfil público, todos tus resultados y los reportes de retos. Tu diario privado se queda en este dispositivo.</string>
     <string name="challenge_hub_jump_to_rank">Ir a mi posición</string>
     <string name="challenge_hub_week_rank">La puntuación elegida va primero. En caso de empate, cuentan la variedad y la constancia de los hábitos y los demás recuentos de días. Si siguen iguales, gana quien alcanzó antes esos resultados. Las calorías de ejercicio no desempatan.</string>
+    <string name="challenge_shared_boards_disclosure">Al unirte al reto semanal, también compartes tus puntos en las clasificaciones diaria y mensual. Puedes salir de cada una por separado.</string>
 </resources>

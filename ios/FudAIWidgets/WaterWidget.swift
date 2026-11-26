@@ -30,7 +30,7 @@ struct WaterWidget: Widget {
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: WaterProvider()) { entry in
             WaterWidgetView(entry: entry)
-                .flashWidgetBackground()
+                .containerBackground(WidgetPalette.background, for: .widget)
         }
         .configurationDisplayName("Fud AI Water")
         .description("See today's water progress at a glance.")

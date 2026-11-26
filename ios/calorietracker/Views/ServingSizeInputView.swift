@@ -75,7 +75,7 @@ struct ServingSizeInputView: View {
                             .font(.headline)
                             .frame(maxWidth: .infinity)
                     }
-                    .buttonStyle(FlashActionButtonStyle())
+                    .buttonStyle(.borderedProminent)
                     .listRowBackground(Color.clear)
                 }
             }

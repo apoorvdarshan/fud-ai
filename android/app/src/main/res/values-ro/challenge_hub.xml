@@ -24,4 +24,5 @@
     <string name="challenge_hub_leave_all_detail">Profilul public, toate scorurile și rapoartele vor fi șterse. Jurnalul privat rămâne pe dispozitiv.</string>
     <string name="challenge_hub_jump_to_rank">Mergi la poziția mea</string>
     <string name="challenge_hub_week_rank">Scorul selectat contează primul. La egalitate, sunt avantajate obiceiurile mai variate, rezultatele echilibrate și celelalte totaluri de zile. Dacă sunt egale, ocupă locul mai bun persoana care le-a atins prima. Caloriile antrenamentului nu departajează.</string>
+    <string name="challenge_shared_boards_disclosure">Când te înscrii la provocarea săptămânală, punctajul tău apare și în clasamentele zilnic și lunar. Poți părăsi fiecare clasament separat.</string>
 </resources>

@@ -31,7 +31,7 @@ struct ProteinWidget: Widget {
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: ProteinProvider()) { entry in
             ProteinWidgetView(entry: entry)
-                .flashWidgetBackground()
+                .containerBackground(WidgetPalette.background, for: .widget)
         }
         .configurationDisplayName("Fud AI Protein")
         .description("See today's protein progress at a glance.")

@@ -30,9 +30,9 @@
 
 ---
 
-Open-source calorie and nutrition tracker for iPhone, iPad, and Android. Log food by voice, photo, barcode, text, or manual entry; review the estimate before saving; and track macros, water, progress, and workouts. Use your own AI key, choose a supported on-device option, or subscribe to optional Hosted Plus/Pro without managing a key. The core tracker has no required account, general Fud AI-operated cloud sync, analytics, or ads. Optional 18+ Challenges share a display profile and aggregate scores, not your raw diary.
+Open-source calorie and nutrition tracker for iPhone, iPad, and Android. Log food by voice, photo, barcode, text, or manual entry; review the estimate before saving; and track macros, water, progress, and workouts. Use your own AI key, choose a supported on-device option, or subscribe to optional Hosted Plus/Pro without managing a key. The core tracker has no required account, general Fud AI-operated cloud sync, analytics, or ads. The optional 18+ Weekly Challenge shares a display profile and aggregate scores, not your raw diary.
 
-**What's new in 9.0:** The 04 Flash redesign gives Home, the diary, navigation, and settings a new look on iOS and Android. Home Screen widgets and the Apple Watch dashboard and complications match. Daily and Monthly Challenges are separate opt-ins alongside Weekly, and **About → App & Updates** shows when your store has a newer version. Hosted Plus/Pro plans are optional paid subscriptions with no free trial for new sign-ups. [Release notes](RELEASE_NOTES.md)
+**In this build:** Home has the seven-day diary strip, a calendar popup, and a round **+** for logging food or finding Favorites. Open Weekly Challenge inside Progress, or switch between your workout diary and exercise library inside Workouts. Live Voice starts from the orb; you can choose a mascot in Settings. [Release notes](RELEASE_NOTES.md)
 
 Normal updates preserve existing local and Health data.
 
@@ -183,19 +183,19 @@ For the Coach chat, every turn builds a slim system prompt from your live profil
 
 ## Screenshots
 
-Nine screens from Fud AI 9.0 on iOS, from Home and Live Voice to Coach, Workouts, and AI settings. Captured on an iPhone simulator with fictional data using [`scripts/screenshots/capture-ios.sh`](scripts/screenshots/capture-ios.sh).
+Nine screens from the restored iOS interface, from Home and Live Voice to Coach, Workouts, and AI settings. Captured on an iPhone simulator with fictional data using [`scripts/screenshots/capture-ios.sh`](scripts/screenshots/capture-ios.sh).
 
 <table>
   <tr>
     <td align="center" width="33%">
-      <img src="web/assets/screenshots/home.webp" width="230" alt="04 Flash Home dashboard with calorie totals, nutrient progress, and the food diary">
+      <img src="web/assets/screenshots/home.webp" width="230" alt="Home diary with calorie totals, nutrient progress, and the food diary">
       <br><br>
       <b>01 · Home · Dashboard</b>
       <br>
       <sub>Calorie ring, macro and water pillars, and one diary for meals, water and fasts. The orb next to + starts Live Voice.</sub>
     </td>
     <td align="center" width="33%">
-      <img src="web/assets/screenshots/live-voice.webp" width="230" alt="Live Voice with the Brulee mascot and a sample breakfast Undo card">
+      <img src="web/assets/screenshots/live-voice.webp" width="230" alt="Live Voice with a sample breakfast Undo card">
       <br><br>
       <b>02 · Live Voice · Talk to Log</b>
       <br>
@@ -218,11 +218,11 @@ Nine screens from Fud AI 9.0 on iOS, from Home and Live Voice to Coach, Workouts
       <sub>Today's macros against your goals, water, and detailed nutrients from sugar and fiber to vitamins and minerals.</sub>
     </td>
     <td align="center" width="33%">
-      <img src="web/assets/screenshots/progress.webp" width="230" alt="Progress tab with the weekly recap and weight chart">
+      <img src="web/assets/screenshots/progress.webp" width="230" alt="Progress tab with nutrition and weight trends">
       <br><br>
-      <b>05 · Progress · Weekly Recap</b>
+      <b>05 · Progress · Trends</b>
       <br>
-      <sub>Days logged, calories and protein on target, and weight change for the week, above weight and body-fat charts from 1 week to all time.</sub>
+      <sub>Choose a date range to review nutrition, weight, and body-fat trends.</sub>
     </td>
     <td align="center" width="33%">
       <img src="web/assets/screenshots/coach.webp" width="230" alt="AI Coach chat answering from the user's data">
@@ -234,7 +234,7 @@ Nine screens from Fud AI 9.0 on iOS, from Home and Live Voice to Coach, Workouts
   </tr>
   <tr>
     <td align="center" width="33%">
-      <img src="web/assets/screenshots/workouts.webp" width="230" alt="Workout log with sets and reps for today's lifts">
+      <img src="web/assets/screenshots/workouts.webp" width="230" alt="Workout diary with the calendar, calorie estimate, and daily totals">
       <br><br>
       <b>07 · Workouts · Log</b>
       <br>
@@ -248,7 +248,7 @@ Nine screens from Fud AI 9.0 on iOS, from Home and Live Voice to Coach, Workouts
       <sub>Pick any of 16 LLM providers with your own key, or download Gemma 4 to run on device, with separate text and fallback providers.</sub>
     </td>
     <td align="center" width="33%">
-      <img src="web/assets/screenshots/voice-settings.webp" width="230" alt="Voice Assistant settings with provider, plans and capture options">
+      <img src="web/assets/screenshots/voice-settings.webp" width="230" alt="Voice Assistant settings with the Classic Orb and optional mascots">
       <br><br>
       <b>09 · Voice Assistant · Settings</b>
       <br>
@@ -291,7 +291,7 @@ All values can be manually overridden in Settings, with a **Recalculate Goals** 
 ```
 fud-ai/
 ├── ios/          # SwiftUI iOS app (v8.0 build 40)
-├── android/      # Kotlin + Jetpack Compose app (Android 8.0+, 9.0 / versionCode 49)
+├── android/      # Kotlin + Jetpack Compose app (Android 8.0+, 9.0 / versionCode 50)
 ├── web/          # Marketing site — https://fud-ai.app (static HTML/CSS, Cloudflare Workers)
 ├── APPSTORE.md   # App Store Connect listing copy (iOS)
 ├── PLAYSTORE.md  # Google Play Console listing copy (Android)
@@ -393,7 +393,7 @@ See [SECURITY.md](SECURITY.md). Use [private vulnerability reporting](https://gi
 
 The core tracker has no required account, general Fud AI-operated cloud sync, or analytics. BYOK keys are protected by iOS Keychain or Android EncryptedSharedPreferences, and AI requests go directly to the provider you choose. Hosted Plus/Pro requests go through Fud AI's service. Eligible data stays on the device unless you use a feature that sends it elsewhere, such as AI analysis, optional health sync or cloud backup, or sharing. Fud AI also makes service requests such as downloading exercise illustrations and checking for updates.
 
-Optional 18+ Challenges share a display name, optional social handle, participant ID, and bounded aggregates. Daily and Monthly boards require separate opt-ins; no raw food logs, workouts, body measurements, or photos are sent to the challenge service. Share links can be opened by anyone who has them. **Delete All Data** clears the current app installation and requests challenge deletion when applicable; it does not remove Apple Health, Health Connect, or older backups. See the [Privacy Policy](https://fud-ai.app/privacy) and [Terms](https://fud-ai.app/terms).
+The optional 18+ Weekly Challenge shares a display name, optional social handle, participant ID, and bounded weekly totals; no raw food logs, workouts, body measurements, or photos are sent to the challenge service. Share links can be opened by anyone who has them. **Delete All Data** clears the current app installation and requests challenge deletion when applicable; it does not remove Apple Health, Health Connect, or older backups. See the [Privacy Policy](https://fud-ai.app/privacy) and [Terms](https://fud-ai.app/terms).
 
 ## License
 

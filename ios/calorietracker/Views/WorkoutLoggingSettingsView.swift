@@ -4,7 +4,6 @@ import SwiftUI
 struct WorkoutLoggingSettingsSection: View {
     @Environment(StrengthWorkoutStore.self) private var workoutStore
     @AppStorage(OutdoorActivitySettings.enabledKey) private var walkRunQuickLogEnabled = false
-    @AppStorage(WorkoutDockShortcuts.storageKey) private var dockShortcutsRaw = ""
 
     @State private var draft = StrengthWorkoutPreferences()
     @State private var hasLoaded = false
@@ -14,7 +13,6 @@ struct WorkoutLoggingSettingsSection: View {
             HStack {
                 Label {
                     Text("Walk & Run")
-                        .font(.system(.body, weight: .semibold).width(.condensed))
                 } icon: {
                     Image(systemName: "figure.walk")
                         .foregroundStyle(AppColors.calorie)
@@ -51,45 +49,22 @@ struct WorkoutLoggingSettingsSection: View {
             )
 
             Text("Counts down after you log a set today. With notifications on, Fud AI alerts you when rest ends in the background.")
-                .font(.footnote)
+                .font(.system(.footnote, design: .rounded))
                 .foregroundStyle(.secondary)
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.leading, 32)
                 .padding(.vertical, 4)
         } header: {
-            Text("Workout").flashSectionHeading()
+            Text("Workout")
         } footer: {
             Text("Off by default. When enabled, Walking and Running appear in the Workouts + menu for quick outdoor logging.")
         }
-        .flashSectionRows()
+        .listRowBackground(AppColors.appCard)
         .onAppear(perform: loadPreferences)
         .onChange(of: draft) { _, newValue in
             guard hasLoaded else { return }
             workoutStore.updatePreferences { $0 = newValue }
         }
-        Section {
-            ForEach(WorkoutDockShortcuts.defaults.indices, id: \.self) { slot in
-                FlashChoicePicker(
-                    title: Text("Shortcut \(slot + 1)"),
-                    selection: Binding(
-                        get: { WorkoutDockShortcuts(stored: dockShortcutsRaw).actions[slot] },
-                        set: { action in
-                            var shortcuts = WorkoutDockShortcuts(stored: dockShortcutsRaw)
-                            shortcuts.assign(action, to: slot)
-                            dockShortcutsRaw = shortcuts.stored
-                        }
-                    ),
-                    options: WorkoutDockAction.allCases,
-                    icon: { $0.icon }
-                ) { Text($0.title) }
-                .accessibilityIdentifier("settings.workoutShortcut.\(slot)")
-            }
-        } header: {
-            Text("Workout Shortcuts").flashSectionHeading()
-        } footer: {
-            Text("More shortcuts appear on wider screens.")
-        }
-        .flashSectionRows()
     }
 
     private func loadPreferences() {
@@ -104,7 +79,7 @@ struct WorkoutLoggingSettingsSection: View {
             Text("**CR10 0–10:** General effort from rest to maximum.")
             Text("**Borg 6–20:** Endurance effort linked to breathing and heart rate.")
         }
-        .font(.footnote)
+        .font(.system(.footnote, design: .rounded))
         .foregroundStyle(.secondary)
         .lineSpacing(1)
         .fixedSize(horizontal: false, vertical: true)

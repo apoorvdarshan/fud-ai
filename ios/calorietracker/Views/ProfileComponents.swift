@@ -8,14 +8,20 @@ struct ProfileHeaderSection: View {
     var body: some View {
         VStack(spacing: 12) {
             ZStack {
-                Rectangle()
-                    .fill(AppColors.calorie)
+                Circle()
+                    .fill(
+                        LinearGradient(
+                            colors: AppColors.calorieGradient,
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
                     .frame(width: 80, height: 80)
-                    .pinkNeoRule(AppColors.flashRule)
+                    .shadow(color: AppColors.calorie.opacity(0.3), radius: 8, y: 4)
 
                 Text(profile.initials)
                     .font(.system(size: 32, weight: .bold, design: .rounded))
-                    .foregroundStyle(AppColors.onAccent)
+                    .foregroundStyle(.white)
             }
 
             Text(profile.displayName)
@@ -176,7 +182,11 @@ struct HeightPickerSheet: View {
                         .font(.system(.headline, design: .rounded, weight: .semibold))
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 14)
-                        .flashActionFill()
+                        .background(
+                            LinearGradient(colors: AppColors.calorieGradient, startPoint: .leading, endPoint: .trailing)
+                        )
+                        .foregroundStyle(.white)
+                        .clipShape(RoundedRectangle(cornerRadius: 14))
                 }
                 .padding(.horizontal, 24)
 
@@ -285,7 +295,11 @@ struct WeightPickerSheet: View {
                         .font(.system(.headline, design: .rounded, weight: .semibold))
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 14)
-                        .flashActionFill()
+                        .background(
+                            LinearGradient(colors: AppColors.calorieGradient, startPoint: .leading, endPoint: .trailing)
+                        )
+                        .foregroundStyle(.white)
+                        .clipShape(RoundedRectangle(cornerRadius: 14))
                 }
                 .padding(.horizontal, 24)
 
@@ -348,7 +362,11 @@ struct BodyFatPickerSheet: View {
                         .font(.system(.headline, design: .rounded, weight: .semibold))
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 14)
-                        .flashActionFill()
+                        .background(
+                            LinearGradient(colors: AppColors.calorieGradient, startPoint: .leading, endPoint: .trailing)
+                        )
+                        .foregroundStyle(.white)
+                        .clipShape(RoundedRectangle(cornerRadius: 14))
                 }
                 .padding(.horizontal, 24)
 
@@ -434,7 +452,11 @@ struct GoalBodyFatPickerSheet: View {
                         .font(.system(.headline, design: .rounded, weight: .semibold))
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 14)
-                        .flashActionFill()
+                        .background(
+                            LinearGradient(colors: AppColors.calorieGradient, startPoint: .leading, endPoint: .trailing)
+                        )
+                        .foregroundStyle(.white)
+                        .clipShape(RoundedRectangle(cornerRadius: 14))
                 }
                 .padding(.horizontal, 24)
 

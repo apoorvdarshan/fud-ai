@@ -32,7 +32,8 @@ data class WeeklyChallengeStoredState(
     val blockedParticipants: Map<String, String> = emptyMap(),
     /** Keeps the deletion credential alive across a local Delete Everything while offline. */
     val pendingRemoteDeletion: Boolean = false,
-    val enabledPeriods: Set<ChallengePeriod> = emptySet()
+    val enabledPeriods: Set<ChallengePeriod> = emptySet(),
+    val sharedMembershipInitialized: Boolean = false
 ) {
     fun cached(category: WeeklyChallengeCategory, weekStart: String, offset: Int = 0,
         period: ChallengePeriod = ChallengePeriod.WEEKLY): WeeklyChallengeLeaderboard? =

@@ -20,9 +20,11 @@ struct ExportDiaryView: View {
         NavigationStack {
             Form {
                 Section("Range") {
-                    FlashChoicePicker(title: Text("Range"), selection: $range, options: DiaryExportRange.allCases) {
-                        Text($0.label)
+                    Picker("Range", selection: $range) {
+                        ForEach(DiaryExportRange.allCases) { Text($0.label).tag($0) }
                     }
+                    .pickerStyle(.menu)
+                    .tint(AppColors.calorie)
 
                     if range == .custom {
                         DatePicker("From", selection: $customStart, displayedComponents: .date)
@@ -47,7 +49,7 @@ struct ExportDiaryView: View {
                             .frame(maxWidth: .infinity)
                             .font(.system(.body, design: .rounded, weight: .semibold))
                     }
-                    .buttonStyle(FlashActionButtonStyle())
+                    .buttonStyle(.borderedProminent)
                     .tint(AppColors.calorie)
                     .listRowInsets(EdgeInsets())
                     .listRowBackground(Color.clear)

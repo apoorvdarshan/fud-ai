@@ -1,36 +1,12 @@
 import SwiftUI
 
 struct AddMenuSettingsView: View {
-    @AppStorage(HomeFoodShortcuts.storageKey) private var homeShortcutsRaw = ""
     @State private var config = AddMenuSettings.load()
     @State private var editMode: EditMode = .active
     @State private var methodPickerTarget: AddMenuMethodTarget?
 
     var body: some View {
         Form {
-            Section {
-                ForEach(HomeFoodShortcuts.defaults.indices, id: \.self) { slot in
-                    FlashChoicePicker(
-                        title: Text("Shortcut \(slot + 1)"),
-                        selection: Binding(
-                            get: { HomeFoodShortcuts(stored: homeShortcutsRaw).methods[slot] },
-                            set: { method in
-                                var shortcuts = HomeFoodShortcuts(stored: homeShortcutsRaw)
-                                shortcuts.assign(method, to: slot)
-                                homeShortcutsRaw = shortcuts.stored
-                            }
-                        ),
-                        options: FoodLogMethod.addMenuCases,
-                        icon: { $0.systemImageName }
-                    ) { Text($0.title) }
-                    .accessibilityIdentifier("settings.homeShortcut.\(slot)")
-                }
-            } header: {
-                Text("Home Shortcuts")
-            } footer: {
-                Text("More shortcuts appear on wider screens.")
-            }
-
             Section {
                 Stepper(
                     value: Binding(
@@ -87,7 +63,7 @@ struct AddMenuSettingsView: View {
         .onChange(of: config) { _, newValue in
             AddMenuSettings.save(newValue)
         }
-        .flashSheet(item: $methodPickerTarget) { target in
+        .sheet(item: $methodPickerTarget) { target in
             MethodAssignmentSheet(
                 methods: hiddenMethods,
                 onSelect: { method in

@@ -14,7 +14,7 @@ Macros, AI Coach & Workouts
 
 ## Promotional Text (170 chars max)
 ```
-Meet Flash, a new look for Fud AI. Talk to Brulee to log meals, track progress, and make your next meal count.
+Tap the orb to log a meal by voice, use the calendar to revisit a day, or open Progress to follow your nutrition and workouts.
 ```
 
 ## Keywords (100 chars max)
@@ -32,8 +32,8 @@ Secondary: Food & Drink
 ```
 Track calories and macros by taking a photo, scanning a barcode, typing, or talking to Brulee. Review the nutrition estimates before saving a meal.
 
-NEW IN 9.0: FLASH
-A new look for Home, the food diary, settings, Home Screen widgets, and the Apple Watch dashboard and complications. Join optional Daily or Monthly Challenges alongside the Weekly Challenge.
+HOME AND PROGRESS
+Choose a day from the week strip or calendar and tap + to log food. Open Weekly Challenge in Progress to join the optional leaderboard.
 
 LIVE VOICE
 Tap the orb on Home and tell Brulee what you ate or ask how you're tracking against your goals. Start Live Voice from Siri, the Action Button, or Control Center on supported devices. The food camera can use AR to help estimate portion sizes.
@@ -91,10 +91,10 @@ Source: https://github.com/apoorvdarshan/fud-ai
 
 ## What's New (v9.0)
 ```
-Fud AI 9.0 introduces Flash, a new look for Home, the food diary, and settings.
-• Home Screen widgets, Apple Watch water logging, and watch-face complications now match the new design.
-• Join Daily or Monthly Challenges separately, alongside the Weekly Challenge.
-• Find available App Store updates in About → App & Updates.
+Home brings back the classic bottom tabs, calorie gauge, and round + menu.
+• Home Screen widgets, Apple Watch water logging, and watch-face complications use the classic design.
+• Find the optional Weekly Challenge in Progress.
+• Find available App Store updates in Settings → App & Updates.
 ```
 
 ## Privacy URL
@@ -154,7 +154,7 @@ Free forever = full app + BYOK. Hosted AI is optional on iOS; no free hosted quo
 
 ## Reviewer Notes
 ```
-Fud AI 9.0 supports iPhone and iPad, with a companion Apple Watch app. This update brings the Flash design to Home, the food diary, Settings, widgets, and Apple Watch.
+Fud AI 9.0 supports iPhone and iPad, with a companion Apple Watch app. The app uses bottom tabs and a shared diary date for its week strip and calendar.
 
 Onboarding: There is no Fud AI account or required purchase. At the AI setup step, choose Bring Your Own AI and Google Gemini, keep the default model, and paste the review key from App Review Information into the in-app API Key field before continuing. This is a provider key, not a Fud AI account password. If the app is already set up, find the same options in Settings → AI Access.
 
@@ -164,7 +164,7 @@ AI review path: Try photo or text meal analysis, or open the orb on Home to try 
 
 Optional purchases: Plus/Pro Hosted AI subscriptions and credit packs are available from AI Access or the Hosted AI onboarding path; the Tip Jar is optional and unlocks nothing. Core tracking and the bring-your-own-key option do not require a subscription.
 
-Optional Challenges: Open the Challenge card in Progress. The Weekly, Daily, and Monthly challenges have separate opt-ins. Participation requires confirming age 18+ and accepting the Community Rules. Leaderboards receive a public display name and aggregate scores, not raw meal, workout, or Apple Health records. Participants can report or block other users and leave to delete their remote challenge data.
+Optional Weekly Challenge: Open Progress and select Weekly Challenge. Participation requires confirming age 18+ and accepting the Community Rules. Leaderboards receive a public display name and aggregate scores, not raw meal, workout, or Apple Health records. Participants can report or block other users and leave to delete their remote challenge data.
 
 Optional Health and fasting: Apple Health is opt-in. Fasting can be enabled in Settings and started from Home → +. Fasting is local-only and can be ended or cancelled.
 ```

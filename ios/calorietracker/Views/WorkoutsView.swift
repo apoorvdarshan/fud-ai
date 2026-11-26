@@ -2,24 +2,33 @@ import SwiftUI
 import UIKit
 
 struct WorkoutsView: View {
-    let mode: WorkoutTabMode
+    @AppStorage(WorkoutTabMode.storageKey) private var selectedModeRaw = WorkoutTabMode.defaultMode.rawValue
     @AppStorage(AppThemeColor.storageKey) private var appThemeColorRaw = AppThemeColor.defaultColor.rawValue
     @State private var workoutLogSession = WorkoutLogSessionState()
+
+    private var selectedMode: WorkoutTabMode {
+        WorkoutTabMode.mode(for: selectedModeRaw)
+    }
 
     var body: some View {
         NavigationStack {
             Group {
-                if mode == .log {
+                if selectedMode == .log {
                     WorkoutLogView(
                         session: workoutLogSession,
-                        embedsInNavigationStack: false
+                        embedsInNavigationStack: false,
+                        onShowLibrary: { showMode(.library) }
                     )
+                    .transition(.opacity)
                 } else {
-                    ExerciseLibraryBrowserView()
+                    ExerciseLibraryBrowserView(
+                        onShowWorkoutLog: { showMode(.log) }
+                    )
                     .background(WorkoutsScreenBackground())
-                    .navigationTitle("Exercise library")
+                    .navigationTitle("Workouts")
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar(.hidden, for: .navigationBar)
+                    .transition(.opacity)
                 }
             }
             .readableWidth()
@@ -29,25 +38,24 @@ struct WorkoutsView: View {
         // discarding its route and session-only timer state.
         .animation(.easeInOut(duration: 0.2), value: appThemeColorRaw)
         .onChange(of: workoutLogSession.selectedDate, initial: true) { _, day in
-            if mode == .log {
-                VoiceAssistantNavigator.shared.workoutDiaryDate = day
-            }
+            VoiceAssistantNavigator.shared.workoutDiaryDate = day
         }
-        .onChange(of: VoiceAssistantNavigator.shared.workoutDateRequest?.id, initial: true) {
-            if mode == .log, let day = VoiceAssistantNavigator.shared.takeWorkoutDateRequest() {
-                workoutLogSession.selectedDate = day
-            }
+    }
+
+    private func showMode(_ mode: WorkoutTabMode) {
+        withAnimation(.easeInOut(duration: 0.2)) {
+            selectedModeRaw = mode.rawValue
         }
     }
 }
 
 private struct ExerciseLibraryBrowserView: View {
     @Environment(StrengthWorkoutStore.self) private var workoutStore
+    var onShowWorkoutLog: (() -> Void)?
 
     @State private var searchText = ""
     @State private var debouncedSearchText = ""
     @State private var displayItems: [ExerciseLibraryItem] = []
-    @State private var restoredFilters = false
     @State private var filterGeneration = 0
     @State private var searchDebounceTask: Task<Void, Never>?
     @State private var filterPersistTask: Task<Void, Never>?
@@ -171,14 +179,12 @@ private struct ExerciseLibraryBrowserView: View {
         }
         .workoutScreen()
         .onAppear {
-            guard !restoredFilters else { return }
-            restoredFilters = true
             applyFilterState(ExerciseFilterStateStore.load(key: ExerciseFilterStateStore.workoutsKey))
             debouncedSearchText = searchText
+            refreshDisplayItems()
             normalizeSplitGroupSelection()
             normalizePrimaryFilterSelection()
             normalizeEquipmentFilterSelection()
-            refreshDisplayItems()
         }
         .onDisappear {
             filterPersistTask?.cancel()
@@ -221,10 +227,10 @@ private struct ExerciseLibraryBrowserView: View {
                 } : nil
             )
         }
-        .flashSheet(isPresented: $isCreateExercisePresented) {
+        .sheet(isPresented: $isCreateExercisePresented) {
             UserExerciseEditorView()
         }
-        .flashSheet(item: $editingExerciseRequest) { request in
+        .sheet(item: $editingExerciseRequest) { request in
             UserExerciseEditorView(
                 existingItemID: request.id,
                 onSaved: { saved in
@@ -265,7 +271,7 @@ private struct ExerciseLibraryBrowserView: View {
                             Label("Create exercise", systemImage: "plus.circle.fill")
                                 .font(.headline.weight(.semibold))
                         }
-                        .buttonStyle(FlashActionButtonStyle())
+                        .buttonStyle(.borderedProminent)
                         .tint(Color.workoutAccent)
                     }
                     .frame(maxWidth: .infinity, minHeight: 260)
@@ -298,7 +304,24 @@ private struct ExerciseLibraryBrowserView: View {
 
     private var filters: some View {
         VStack(alignment: .leading, spacing: 12) {
-            WorkoutsSearchPill(searchText: $searchText)
+            HStack(spacing: 10) {
+                WorkoutsSearchPill(searchText: $searchText)
+
+                if let onShowWorkoutLog {
+                    Button(action: onShowWorkoutLog) {
+                        Image(systemName: "figure.strengthtraining.traditional")
+                            .font(.system(size: 18, weight: .bold))
+                            .foregroundStyle(Color.workoutAccent)
+                            .frame(width: 50, height: 50)
+                            .contentShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
+                    }
+                    .buttonStyle(.plain)
+                    .workoutPressable()
+                    .workoutLiquidBarSurface(cornerRadius: 22)
+                    .accessibilityLabel("Workout log")
+                    .accessibilityHint("Opens your workout diary")
+                }
+            }
 
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 9) {
@@ -702,13 +725,13 @@ private struct FilterMenuPill: View {
 
             VStack(alignment: .leading, spacing: 1) {
                 Text(title)
-                    .font(.system(.caption2, weight: .bold).width(.condensed))
+                    .font(.caption2.weight(.bold))
                     .foregroundStyle(Color.workoutMutedText)
                     .textCase(.uppercase)
                     .lineLimit(1)
 
                 Text(value)
-                    .font(.system(.subheadline, weight: .bold).width(.condensed))
+                    .font(.subheadline.weight(.bold))
                     .foregroundStyle(Color.workoutCharcoal)
                     .lineLimit(1)
                     .minimumScaleFactor(0.78)
@@ -721,9 +744,18 @@ private struct FilterMenuPill: View {
         }
         .padding(.horizontal, 12)
         .frame(minWidth: 112, minHeight: 46, alignment: .leading)
-        .background(isDefaultValue ? AppColors.flashInset : Color.workoutPanel)
-        .pinkNeoRule(isDefaultValue ? Color.workoutHairline.opacity(0.45) : AppColors.accentText)
-        .contentShape(Rectangle())
+        .background(
+            Color.workoutPanel.opacity(isDefaultValue ? 0.30 : 0.46),
+            in: RoundedRectangle(cornerRadius: 17, style: .continuous)
+        )
+        .overlay {
+            RoundedRectangle(cornerRadius: 17, style: .continuous)
+                .stroke(
+                    (isDefaultValue ? Color.workoutHairline : Color.workoutAccent).opacity(isDefaultValue ? 0.30 : 0.42),
+                    lineWidth: 0.5
+                )
+        }
+        .contentShape(RoundedRectangle(cornerRadius: 17, style: .continuous))
     }
 }
 
@@ -948,7 +980,7 @@ struct ExerciseLibraryDetailView: View {
                 }
             }
         }
-        .flashSheet(isPresented: $isImageReportPresented) {
+        .sheet(isPresented: $isImageReportPresented) {
             let asset = FreeExerciseDBAssetResolver.preferredVisualAsset(for: item.imagePaths, gender: profileStore.profile.gender)
             let visual = asset.frames.first.map {
                 switch $0 {
@@ -1162,7 +1194,7 @@ private struct ExerciseHeroMetricOverlay: View {
             } else {
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
                     .fill(fillColor)
-                    .flashPanel()
+                    .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
             }
         }
         .overlay {

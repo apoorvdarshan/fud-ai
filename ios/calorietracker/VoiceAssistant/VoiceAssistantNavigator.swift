@@ -85,7 +85,12 @@ final class VoiceAssistantNavigator {
 
     func show(_ screen: VoiceAssistantScreen, settingsSection: ProfileSettingsCategory? = nil) {
         screenRequest = VoiceAssistantNavigationRequest(value: screen)
-        settingsRequest = VoiceAssistantNavigationRequest(value: settingsSection)
+        let target: ProfileSettingsCategory? = switch screen {
+        case .support: .support
+        case .about: settingsSection ?? .appUpdates
+        default: settingsSection
+        }
+        settingsRequest = VoiceAssistantNavigationRequest(value: target)
     }
 
     func showDiary(on day: Date) {

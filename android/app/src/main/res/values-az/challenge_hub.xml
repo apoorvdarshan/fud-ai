@@ -24,4 +24,5 @@
     <string name="challenge_hub_leave_all_detail">Açıq profiliniz, bütün xallar və çağırış şikayətləri silinəcək. Şəxsi gündəliyiniz cihazda qalacaq.</string>
     <string name="challenge_hub_jump_to_rank">Sıramı göstər</string>
     <string name="challenge_hub_week_rank">Seçilən xal birinci gəlir. Bərabərlikdə daha müxtəlif vərdişlər, vərdişlər üzrə sabit nəticələr və digər gün sayları üstünlük qazanır. Onlar da eynidirsə, ilk əldə edən irəlidədir. Məşq kaloriləri bərabərliyi pozmur.</string>
+    <string name="challenge_shared_boards_disclosure">Həftəlik yarışa qoşulduqda xallarınız gündəlik və aylıq cədvəllərdə də paylaşılır. Hər cədvəldən ayrı çıxmaq olar.</string>
 </resources>

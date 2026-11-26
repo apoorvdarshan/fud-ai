@@ -31,7 +31,7 @@ struct LocalSpeechModelSettingsView: View {
                     Button("Cancel", role: .cancel) { manager.cancel() }.buttonStyle(.bordered)
                 } else if !manager.isInstalled {
                     Button("Download") { Task { await manager.download() } }
-                        .buttonStyle(FlashActionButtonStyle())
+                        .buttonStyle(.borderedProminent)
                         .disabled(!model.isEligible())
                 }
                 if manager.hasFiles, manager.progress == nil {

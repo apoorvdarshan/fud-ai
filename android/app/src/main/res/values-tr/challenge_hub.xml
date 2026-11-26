@@ -24,4 +24,5 @@
     <string name="challenge_hub_leave_all_detail">Herkese açık profiliniz, tüm puanlarınız ve şikayetleriniz silinir. Özel günlüğünüz cihazda kalır.</string>
     <string name="challenge_hub_jump_to_rank">Sıralamama git</string>
     <string name="challenge_hub_week_rank">Önce seçili puan değerlendirilir. Eşitlikte daha çeşitli alışkanlıklar, daha dengeli sonuçlar ve diğer gün sayıları öne çıkar. Bunlar da eşitse önce ulaşan öndedir. Antrenman kalorileri eşitliği bozmaz.</string>
+    <string name="challenge_shared_boards_disclosure">Haftalık yarışmaya katıldığınızda puanlarınız günlük ve aylık sıralamalarda da paylaşılır. Her sıralamadan ayrı ayrı çıkabilirsiniz.</string>
 </resources>

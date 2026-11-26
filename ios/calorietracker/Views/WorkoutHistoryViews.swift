@@ -34,7 +34,13 @@ struct WorkoutHistoryLink: View {
             }
             .padding(.vertical, 12)
             .padding(.horizontal, 14)
-            .flashPanel()
+            .background(AppColors.appCard)
+            .overlay {
+                RoundedRectangle(cornerRadius: 18, style: .continuous)
+                    .stroke(AppColors.calorie.opacity(0.09), lineWidth: 0.75)
+            }
+            .compositingGroup()
+            .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
         }
         .buttonStyle(.plain)
         .accessibilityHint("Opens workout calorie history")
@@ -58,16 +64,13 @@ struct WorkoutHistoryView: View {
                     HStack {
                         VStack(alignment: .leading, spacing: 2) {
                             Text(energyUnit.format(kcal: session.caloriesBurned ?? 0))
-                                .font(.system(.body, weight: .bold).width(.condensed))
-                                .foregroundStyle(AppColors.accentText)
-                                .monospacedDigit()
+                                .font(.system(.body, design: .rounded, weight: .medium))
                             Text(workoutHistoryFormatter.string(from: session.calendarDiaryDate))
-                                .font(.caption)
+                                .font(.system(.caption, design: .rounded))
                                 .foregroundStyle(.secondary)
                         }
                         Spacer()
                     }
-                    .flashSectionRows()
                     .swipeActions(edge: .trailing) {
                         Button(role: .destructive) {
                             pendingDeletion = session
@@ -77,7 +80,7 @@ struct WorkoutHistoryView: View {
                     }
                 }
             }
-            .flashEditorSurface()
+            .listStyle(.insetGrouped)
             .navigationTitle("Workout History")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -226,7 +229,13 @@ struct ImportedHealthWorkoutHistoryLink: View {
             }
             .padding(.vertical, 12)
             .padding(.horizontal, 14)
-            .flashPanel()
+            .background(AppColors.appCard)
+            .overlay {
+                RoundedRectangle(cornerRadius: 18, style: .continuous)
+                    .stroke(AppColors.calorie.opacity(0.09), lineWidth: 0.75)
+            }
+            .compositingGroup()
+            .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
         }
         .buttonStyle(.plain)
         .accessibilityHint("Opens imported Apple Health workout history")
@@ -246,13 +255,12 @@ struct ImportedHealthWorkoutHistoryView: View {
                     VStack(alignment: .leading, spacing: 4) {
                         ImportedHealthWorkoutRow(workout: workout)
                         Text(workoutHistoryFormatter.string(from: workout.calendarDiaryDate))
-                            .font(.caption)
+                            .font(.system(.caption, design: .rounded))
                             .foregroundStyle(.secondary)
                     }
-                    .flashSectionRows()
                 }
             }
-            .flashEditorSurface()
+            .listStyle(.insetGrouped)
             .navigationTitle("Apple Health Workouts")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

@@ -1,5 +1,8 @@
 package com.apoorvdarshan.calorietracker.ui.workouts
 
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -7,13 +10,12 @@ import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsDraggedAsState
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -22,8 +24,8 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -38,8 +40,11 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material.icons.automirrored.filled.DirectionsRun
+import androidx.compose.material.icons.automirrored.outlined.DirectionsWalk
 import androidx.compose.material.icons.automirrored.outlined.ListAlt
 import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.Add
@@ -85,6 +90,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.geometry.Offset
@@ -97,9 +105,9 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.CustomAccessibilityAction
 import androidx.compose.ui.semantics.contentDescription
@@ -126,22 +134,19 @@ import com.apoorvdarshan.calorietracker.models.WorkoutBurnEstimator
 import com.apoorvdarshan.calorietracker.models.WorkoutSetInput
 import com.apoorvdarshan.calorietracker.models.PlannedSet
 import com.apoorvdarshan.calorietracker.models.WorkoutWeightUnit
-import com.apoorvdarshan.calorietracker.models.WorkoutDockAction
-import com.apoorvdarshan.calorietracker.models.WorkoutDockShortcuts
 import com.apoorvdarshan.calorietracker.models.workoutDiaryBurnCalories
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialog
 import com.apoorvdarshan.calorietracker.ui.components.energyText
 import com.apoorvdarshan.calorietracker.ui.components.energyUnitLabel
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassSurface
-import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassTextButton
 import com.apoorvdarshan.calorietracker.ui.home.OutdoorActivityDurationSheet
 import com.apoorvdarshan.calorietracker.ui.home.OutdoorActivityKind
+import com.apoorvdarshan.calorietracker.ui.voice.VoiceAssistantButton
 import com.apoorvdarshan.calorietracker.ui.home.SheetGlassDropdownMenu
 import com.apoorvdarshan.calorietracker.ui.home.SheetGlassDropdownMenuItem
 import com.apoorvdarshan.calorietracker.ui.navigation.BottomNavScrollPadding
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
-import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
 import com.apoorvdarshan.calorietracker.ui.util.formattedWholeNumber
 import com.apoorvdarshan.calorietracker.ui.util.weekdayMonthDayFormatter
 import coil.compose.AsyncImage
@@ -167,6 +172,7 @@ internal fun WorkoutDiaryScreen(
     viewModel: WorkoutsViewModel,
     modifier: Modifier = Modifier,
     weekStartsOnMonday: Boolean = true,
+    onShowLibrary: () -> Unit,
     onCreateExercise: () -> Unit = {},
     onEditUserExercise: (String) -> Unit = {}
 ) {
@@ -185,12 +191,13 @@ internal fun WorkoutDiaryScreen(
     var addMenuExpanded by remember { mutableStateOf(false) }
     var outdoorActivitySheet by remember { mutableStateOf<OutdoorActivityKind?>(null) }
     val walkRunQuickLogEnabled by container.prefs.walkRunQuickLogEnabled.collectAsState(initial = false)
-    val dockShortcuts by container.prefs.workoutDockShortcuts.collectAsState(initial = WorkoutDockShortcuts.Default)
     val importedWorkouts by container.importedHealthWorkoutRepository.workouts.collectAsState(initial = emptyList())
     val importedWorkoutsForDay = remember(importedWorkouts, state.selectedDate) {
         importedWorkoutsOn(importedWorkouts, state.selectedDate)
     }
     val heightUnit by container.prefs.heightUnit.collectAsState(initial = "cm")
+    val voiceUi by container.voiceAssistant.ui.collectAsState()
+    val hideVoiceShortcut by container.prefs.hideVoiceShortcut.collectAsState(initial = false)
     val listState = rememberLazyListState()
     val focusManager = LocalFocusManager.current
     val keyboard = LocalSoftwareKeyboardController.current
@@ -206,32 +213,10 @@ internal fun WorkoutDiaryScreen(
     }
     val moveUpLabel = stringResource(R.string.workout_move_up)
     val moveDownLabel = stringResource(R.string.workout_move_down)
-    val palette = pinkNeoPalette()
-    val dockHeight = 76.dp
 
     fun dismissKeyboard() {
         focusManager.clearFocus()
         keyboard?.hide()
-    }
-
-    fun openWorkoutShortcut(action: WorkoutDockAction) {
-        dismissKeyboard()
-        addMenuExpanded = false
-        when (action) {
-            WorkoutDockAction.VOICE -> {
-                workoutStartsWithVoice = true
-                workoutVoiceVisible = true
-            }
-            WorkoutDockAction.TEXT -> {
-                workoutStartsWithVoice = false
-                workoutTextInputVisible = true
-            }
-            WorkoutDockAction.SAVED -> pickerRequest = WorkoutPickerRequest.saved()
-            WorkoutDockAction.WALKING -> outdoorActivitySheet = OutdoorActivityKind.WALKING
-            WorkoutDockAction.RUNNING -> outdoorActivitySheet = OutdoorActivityKind.RUNNING
-            WorkoutDockAction.ROUTINE -> routinesSheetVisible = true
-            WorkoutDockAction.COPY -> copySheetVisible = true
-        }
     }
 
     // Focus relocation and IME resizing also scroll the list. Only a user's
@@ -246,9 +231,9 @@ internal fun WorkoutDiaryScreen(
     }
 
     // The voice assistant logs workouts to the day shown here while the diary is open.
-    val pendingVoiceDate by container.navigator.pendingWorkoutDiaryDate.collectAsState()
-    LaunchedEffect(pendingVoiceDate) {
-        val day = pendingVoiceDate ?: return@LaunchedEffect
+    val requestedDiaryDate by container.navigator.pendingWorkoutDiaryDate.collectAsState()
+    LaunchedEffect(requestedDiaryDate) {
+        val day = requestedDiaryDate ?: return@LaunchedEffect
         if (container.navigator.pendingWorkoutDiaryDate.compareAndSet(day, null)) {
             viewModel.selectDate(day)
             container.navigator.workoutDiaryDate.value = day
@@ -265,7 +250,6 @@ internal fun WorkoutDiaryScreen(
         modifier = modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
-            .navigationBarsPadding()
             .onGloballyPositioned { diaryRootOrigin = it.boundsInRoot().topLeft }
             .pointerInput(diaryRootOrigin) {
                 // Observe completed pointers without consuming them, so set
@@ -288,14 +272,14 @@ internal fun WorkoutDiaryScreen(
     ) {
         LazyColumn(
             state = listState,
-            modifier = Modifier.fillMaxSize().imePadding().padding(bottom = dockHeight),
+            modifier = Modifier.fillMaxSize().imePadding().padding(bottom = 8.dp),
             contentPadding = PaddingValues(
-                start = FlashSpacing.PageInset,
+                start = 16.dp,
                 // Room for the pinned rest countdown while it runs.
-                top = FlashSpacing.ItemGap + (if (restTimer != null) 72.dp else 0.dp),
-                end = FlashSpacing.PageInset
+                top = if (restTimer != null) 136.dp else 64.dp,
+                end = 16.dp
             ),
-            verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap)
+            verticalArrangement = Arrangement.spacedBy(14.dp)
         ) {
             item(key = "workout-week-strip") {
                 WorkoutWeekStrip(
@@ -456,7 +440,7 @@ internal fun WorkoutDiaryScreen(
 
             // Real scrollable space lets the final set move clear of the IME.
             item(key = "workout-extra-space") {
-                Spacer(Modifier.height(BottomNavScrollPadding))
+                Spacer(Modifier.height(BottomNavScrollPadding + 100.dp))
             }
         }
 
@@ -466,7 +450,7 @@ internal fun WorkoutDiaryScreen(
                 modifier = Modifier
                     .align(Alignment.TopCenter)
                     .fillMaxWidth()
-                    .padding(top = FlashSpacing.ItemGap)
+                    .padding(top = 60.dp)
                     .background(MaterialTheme.colorScheme.background)
                     .padding(start = 16.dp, end = 16.dp, top = 4.dp, bottom = 8.dp)
             ) {
@@ -478,40 +462,38 @@ internal fun WorkoutDiaryScreen(
             }
         }
 
-        BoxWithConstraints(
+        WorkoutModeToggleButton(
+            mode = com.apoorvdarshan.calorietracker.models.WorkoutTabMode.LOG,
+            onToggle = {
+                dismissKeyboard()
+                onShowLibrary()
+            },
             modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .fillMaxWidth()
-                .imePadding()
-                .background(palette.paper)
-                .padding(horizontal = 10.dp, vertical = 8.dp)
+                .align(Alignment.TopEnd)
+                .padding(top = 8.dp, end = 16.dp)
+        )
+
+        Row(
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .navigationBarsPadding()
+                .padding(end = 24.dp, bottom = 100.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            val dockLayout = WorkoutDockLayout.fit(maxWidth, dockShortcuts.actions.size)
-            val overflow = dockShortcuts.actions.drop(dockLayout.count)
-            Row(
-                Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(dockLayout.gap, Alignment.End),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-            dockShortcuts.actions.take(dockLayout.count).forEachIndexed { slot, action ->
-                Box(
-                    Modifier.size(dockLayout.side)
-                        .testTag("workouts.shortcut.$slot")
-                        .background(palette.panel)
-                        .border(1.dp, palette.rule)
-                        .clickable(role = Role.Button) { openWorkoutShortcut(action) },
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(action.icon, contentDescription = stringResource(action.titleRes), tint = palette.ink)
-                }
+            if (!voiceUi.visible && !hideVoiceShortcut) {
+                val mascots by container.prefs.voiceMascotPreferences.collectAsState(initial = com.apoorvdarshan.calorietracker.services.voice.VoiceMascotPreferences())
+                VoiceAssistantButton(profile = mascots.profile, onClick = {
+                    dismissKeyboard()
+                    container.voiceAssistant.requestStart()
+                })
             }
             Box {
                 Box(
                     modifier = Modifier
-                        .size(WorkoutDockLayout.AddSide)
-                        .testTag("workouts.add")
-                        .background(palette.action)
-                        .border(1.dp, palette.rule)
+                        .size(60.dp)
+                        .clip(CircleShape)
+                        .background(AppColors.Calorie)
                         .clickable(role = Role.Button) {
                             dismissKeyboard()
                             addMenuExpanded = true
@@ -519,7 +501,7 @@ internal fun WorkoutDiaryScreen(
                         .semantics { contentDescription = "Add workout" },
                     contentAlignment = Alignment.Center
                 ) {
-                    Icon(Icons.Filled.Add, contentDescription = null, tint = palette.onAction, modifier = Modifier.size(30.dp))
+                    Icon(Icons.Filled.Add, contentDescription = null, tint = Color.White, modifier = Modifier.size(30.dp))
                 }
 
                 SheetGlassDropdownMenu(
@@ -554,12 +536,18 @@ internal fun WorkoutDiaryScreen(
                     SheetGlassDropdownMenuItem(
                         label = "Copy from day",
                         leadingIcon = Icons.Filled.ContentCopy,
-                        onClick = { openWorkoutShortcut(WorkoutDockAction.COPY) }
+                        onClick = {
+                            addMenuExpanded = false
+                            copySheetVisible = true
+                        }
                     )
                     SheetGlassDropdownMenuItem(
                         label = stringResource(R.string.workout_routine_start),
                         leadingIcon = Icons.AutoMirrored.Outlined.ListAlt,
-                        onClick = { openWorkoutShortcut(WorkoutDockAction.ROUTINE) }
+                        onClick = {
+                            addMenuExpanded = false
+                            routinesSheetVisible = true
+                        }
                     )
                     if (state.exercises.isNotEmpty()) {
                         SheetGlassDropdownMenuItem(
@@ -572,16 +560,29 @@ internal fun WorkoutDiaryScreen(
                         )
                     }
                     SheetGlassDropdownMenuItem(
-                        label = stringResource(WorkoutDockAction.SAVED.titleRes),
+                        label = "Saved",
                         leadingIcon = Icons.Filled.Bookmark,
-                        onClick = { openWorkoutShortcut(WorkoutDockAction.SAVED) }
+                        onClick = {
+                            addMenuExpanded = false
+                            pickerRequest = WorkoutPickerRequest.saved()
+                        }
                     )
-                    for (action in listOf(WorkoutDockAction.WALKING, WorkoutDockAction.RUNNING)) {
-                        if (!walkRunQuickLogEnabled && action !in overflow) continue
+                    if (walkRunQuickLogEnabled) {
                         SheetGlassDropdownMenuItem(
-                            label = stringResource(action.titleRes),
-                            leadingIcon = action.icon,
-                            onClick = { openWorkoutShortcut(action) }
+                            label = stringResource(R.string.outdoor_activity_walking),
+                            leadingIcon = Icons.AutoMirrored.Outlined.DirectionsWalk,
+                            onClick = {
+                                addMenuExpanded = false
+                                outdoorActivitySheet = OutdoorActivityKind.WALKING
+                            }
+                        )
+                        SheetGlassDropdownMenuItem(
+                            label = stringResource(R.string.outdoor_activity_running),
+                            leadingIcon = Icons.AutoMirrored.Filled.DirectionsRun,
+                            onClick = {
+                                addMenuExpanded = false
+                                outdoorActivitySheet = OutdoorActivityKind.RUNNING
+                            }
                         )
                     }
                     SheetGlassDropdownMenuItem(
@@ -594,13 +595,16 @@ internal fun WorkoutDiaryScreen(
                     )
                     HorizontalDivider(color = workoutsColors().hairline.copy(alpha = 0.45f))
                     SheetGlassDropdownMenuItem(label = stringResource(R.string.workout_text_voice), leadingIcon = Icons.Filled.Mic, onClick = {
-                        openWorkoutShortcut(WorkoutDockAction.VOICE)
+                        addMenuExpanded = false
+                        workoutStartsWithVoice = true
+                        workoutVoiceVisible = true
                     })
                     SheetGlassDropdownMenuItem(label = stringResource(R.string.workout_text_menu), leadingIcon = Icons.Filled.Add, onClick = {
-                        openWorkoutShortcut(WorkoutDockAction.TEXT)
+                        addMenuExpanded = false
+                        workoutStartsWithVoice = false
+                        workoutTextInputVisible = true
                     })
                 }
-            }
             }
         }
     }
@@ -771,7 +775,6 @@ private fun workoutMenuGlyphAsset(title: String, muscles: Set<String>): String {
     return "file:///android_asset/muscle/muscle_icon_$key.png"
 }
 
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun WorkoutBurnHero(
     state: WorkoutDiaryUiState,
@@ -780,26 +783,24 @@ private fun WorkoutBurnHero(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier.fillMaxWidth().padding(vertical = 8.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        modifier = modifier.fillMaxWidth().padding(top = 18.dp, bottom = 10.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(22.dp)
     ) {
-        WorkoutLogBurnButton(
-            isCalculating = state.isCalculatingBurn,
-            onCalculate = onCalculate,
-            modifier = Modifier.fillMaxWidth()
-        )
-        val largeText = LocalDensity.current.fontScale >= 1.3f
-        BoxWithConstraints(Modifier.fillMaxWidth()) {
-            FlowRow(
-                modifier = Modifier.fillMaxWidth(),
-                maxItemsInEachRow = when {
-                    LocalDensity.current.fontScale >= 1.8f || maxWidth < 180.dp -> 1
-                    maxWidth < 342.dp || largeText -> 2
-                    else -> 4
-                },
-                horizontalArrangement = Arrangement.spacedBy(5.dp),
-                verticalArrangement = Arrangement.spacedBy(5.dp)
-            ) {
+        Box(modifier = Modifier.fillMaxWidth().height(176.dp)) {
+            WorkoutLogBurnButton(
+                isCalculating = state.isCalculatingBurn,
+                onCalculate = onCalculate,
+                modifier = Modifier.align(Alignment.Center)
+            )
+        }
+
+        FudGlassSurface(
+            modifier = Modifier.fillMaxWidth(),
+            cornerRadius = 26.dp,
+            padding = 10.dp
+        ) {
+            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                 WorkoutMetric(
                     label = "Sets",
                     value = state.performedSetCount.formattedWholeNumber(),
@@ -807,6 +808,7 @@ private fun WorkoutBurnHero(
                     active = state.performedSetCount > 0,
                     modifier = Modifier.weight(1f)
                 )
+                MetricDivider()
                 WorkoutMetric(
                     label = "Workouts",
                     value = state.exercises.size.formattedWholeNumber(),
@@ -814,6 +816,7 @@ private fun WorkoutBurnHero(
                     active = state.exercises.isNotEmpty(),
                     modifier = Modifier.weight(1f)
                 )
+                MetricDivider()
                 WorkoutMetric(
                     label = "Reps",
                     value = state.repCount.formattedWholeNumber(),
@@ -821,6 +824,7 @@ private fun WorkoutBurnHero(
                     active = state.repCount > 0,
                     modifier = Modifier.weight(1f)
                 )
+                MetricDivider()
                 WorkoutMetric(
                     label = "Burn",
                     value = displayedBurnCalories?.let { energyText(it) } ?: "-- ${energyUnitLabel()}",
@@ -839,45 +843,72 @@ private fun WorkoutLogBurnButton(
     onCalculate: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val neo = pinkNeoPalette()
-    val ink = if (isCalculating) neo.ink else neo.onAction
-    Row(
+    val interactionSource = remember { MutableInteractionSource() }
+    val isPressed by interactionSource.collectIsPressedAsState()
+    val scale by animateFloatAsState(
+        targetValue = if (isPressed) 0.88f else 1f,
+        animationSpec = tween(durationMillis = 120),
+        label = "workout-burn-press"
+    )
+    Box(
         modifier = modifier
-            .background(if (isCalculating) neo.panel else neo.action)
-            .border(1.dp, neo.rule)
-            .clickable(enabled = !isCalculating, role = Role.Button, onClick = onCalculate)
+            .size(176.dp)
+            .scale(scale)
+            .clickable(
+                enabled = !isCalculating,
+                interactionSource = interactionSource,
+                indication = null,
+                role = Role.Button,
+                onClick = onCalculate
+            )
             .semantics {
                 contentDescription = if (isCalculating) {
                     "Calculating calorie burn"
                 } else {
                     "Calculate calorie burn"
                 }
-            }
-            .heightIn(min = 48.dp)
-            .padding(horizontal = FlashSpacing.PageInset, vertical = 5.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(10.dp)
+            },
+        contentAlignment = Alignment.Center
     ) {
-        if (isCalculating) {
-            CircularProgressIndicator(modifier = Modifier.size(20.dp), color = ink, strokeWidth = 2.dp)
-        } else {
-            Icon(Icons.Filled.LocalFireDepartment, contentDescription = null, tint = ink, modifier = Modifier.size(20.dp))
-        }
-        Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+        Image(
+            painter = painterResource(R.drawable.timer_button_red),
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize()
+        )
+        Column(
+            modifier = Modifier.size(156.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            if (isCalculating) {
+                CircularProgressIndicator(
+                    modifier = Modifier.size(27.dp),
+                    color = Color.White,
+                    strokeWidth = 2.5.dp
+                )
+            } else {
+                Icon(
+                    Icons.Filled.LocalFireDepartment,
+                    contentDescription = null,
+                    tint = Color.White,
+                    modifier = Modifier.size(27.dp)
+                )
+            }
+            Spacer(Modifier.height(5.dp))
             Text(
                 text = if (isCalculating) "Calculating…" else "Calculate",
-                color = ink,
-                fontSize = 17.sp,
-                lineHeight = 20.sp,
-                fontWeight = FontWeight.Black
+                color = Color.White,
+                fontSize = if (isCalculating) 18.sp else 22.sp,
+                fontWeight = FontWeight.Black,
+                maxLines = 1
             )
             Text(
                 text = "CALORIE BURN",
-                color = ink,
-                fontSize = 11.sp,
-                lineHeight = 14.sp,
+                color = Color.White.copy(alpha = 0.9f),
+                fontSize = 9.sp,
                 fontWeight = FontWeight.Black,
-                letterSpacing = 0.4.sp
+                letterSpacing = 0.4.sp,
+                maxLines = 1
             )
         }
     }
@@ -891,11 +922,10 @@ private fun WorkoutMetric(
     active: Boolean,
     modifier: Modifier = Modifier
 ) {
-    val neo = pinkNeoPalette()
-    val color = if (active) AppColors.Calorie else neo.ink
+    val color = if (active) AppColors.Calorie else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f)
     Column(
-        modifier = modifier.background(neo.panel).border(1.dp, neo.rule).padding(6.dp),
-        verticalArrangement = Arrangement.spacedBy(3.dp)
+        modifier = modifier.padding(horizontal = 7.dp, vertical = 7.dp),
+        verticalArrangement = Arrangement.spacedBy(6.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
             Icon(icon, contentDescription = null, tint = color, modifier = Modifier.size(14.dp))
@@ -903,18 +933,33 @@ private fun WorkoutMetric(
                 text = label,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f),
                 fontSize = 10.sp,
-                lineHeight = 13.sp,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                maxLines = 1
             )
         }
         Text(
             text = value,
             color = color,
-            fontSize = 17.sp,
-            lineHeight = 21.sp,
-            fontWeight = FontWeight.ExtraBold
+            fontSize = 24.sp,
+            fontWeight = FontWeight.ExtraBold,
+            maxLines = 1,
+            autoSize = TextAutoSize.StepBased(
+                minFontSize = 14.sp,
+                maxFontSize = 24.sp,
+                stepSize = 0.5.sp
+            )
         )
     }
+}
+
+@Composable
+private fun MetricDivider() {
+    Box(
+        Modifier
+            .width(1.dp)
+            .height(44.dp)
+            .background(MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.46f))
+    )
 }
 
 @Composable
@@ -1234,8 +1279,8 @@ private fun WorkoutExerciseCard(
         padding = 0.dp
     ) {
         Column(
-            modifier = Modifier.padding(FlashSpacing.PageInset),
-            verticalArrangement = Arrangement.spacedBy(FlashSpacing.ItemGap)
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             Row(
                 modifier = Modifier
@@ -1681,10 +1726,7 @@ private fun WorkoutWeekStrip(
         if (state.firstVisibleItemIndex != targetWeek) state.animateScrollToItem(targetWeek)
     }
 
-    val neo = pinkNeoPalette()
-    BoxWithConstraints(
-        modifier.fillMaxWidth().background(neo.panel).border(1.dp, neo.rule).padding(vertical = 8.dp)
-    ) {
+    BoxWithConstraints(modifier.fillMaxWidth()) {
         val pageWidth = maxWidth
         LazyRow(state = state, flingBehavior = fling, modifier = Modifier.fillMaxWidth()) {
             items((0 until WORKOUT_WEEKS).toList()) { weekIndex ->
@@ -1722,7 +1764,6 @@ private fun WorkoutDayTile(
     modifier: Modifier = Modifier
 ) {
     val locale = LocalConfiguration.current.locales[0]
-    val neo = pinkNeoPalette()
     Column(
         modifier = modifier
             .alpha(if (enabled) 1f else 0.32f)
@@ -1737,20 +1778,20 @@ private fun WorkoutDayTile(
     ) {
         Text(
             date.dayOfWeek.getDisplayName(java.time.format.TextStyle.NARROW, locale),
-            color = neo.ink.copy(alpha = 0.72f),
+            color = if (isSelected) AppColors.Calorie else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.42f),
             fontSize = 11.sp,
-            fontWeight = FontWeight.Bold,
-            maxLines = 1
+            fontWeight = FontWeight.Medium
         )
         Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 2.dp)
-                .heightIn(min = 36.dp)
+                .size(36.dp)
                 .then(
                     when {
-                        isSelected -> Modifier.background(neo.action)
-                        isToday -> Modifier.border(1.dp, neo.accent)
+                        isSelected -> Modifier
+                            .shadow(6.dp, CircleShape, ambientColor = AppColors.Calorie.copy(alpha = 0.3f))
+                            .clip(CircleShape)
+                            .background(Brush.linearGradient(listOf(AppColors.CalorieStart, AppColors.CalorieEnd)))
+                        isToday -> Modifier.border(1.5.dp, AppColors.Calorie.copy(alpha = 0.35f), CircleShape)
                         else -> Modifier
                     }
                 ),
@@ -1759,19 +1800,19 @@ private fun WorkoutDayTile(
             Text(
                 date.dayOfMonth.toString(),
                 color = when {
-                    isSelected -> neo.onAction
-                    isToday -> neo.accent
-                    else -> neo.ink
+                    isSelected -> Color.White
+                    isToday -> AppColors.Calorie
+                    else -> MaterialTheme.colorScheme.onSurface
                 },
                 fontSize = 16.sp,
-                fontWeight = FontWeight.Black,
-                maxLines = 1
+                fontWeight = FontWeight.SemiBold
             )
         }
         Box(
             Modifier
                 .size(4.dp)
-                .background(if (count > 0) neo.action else Color.Transparent)
+                .clip(CircleShape)
+                .background(if (count > 0) AppColors.Calorie else Color.Transparent)
         )
     }
 }

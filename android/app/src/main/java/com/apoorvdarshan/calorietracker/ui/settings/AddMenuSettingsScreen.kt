@@ -38,7 +38,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -47,7 +46,6 @@ import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.models.AddMenuConfig
 import com.apoorvdarshan.calorietracker.models.AddMenuGroupConfig
 import com.apoorvdarshan.calorietracker.models.FoodLogMethod
-import com.apoorvdarshan.calorietracker.models.HomeFoodShortcuts
 import com.apoorvdarshan.calorietracker.models.defaultGroupNameRes
 import com.apoorvdarshan.calorietracker.models.displayName
 import androidx.compose.material3.CircularProgressIndicator
@@ -64,7 +62,6 @@ fun AddMenuSettingsScreen(
     onBack: () -> Unit
 ) {
     val ui by vm.ui.collectAsState()
-    val homeShortcuts by vm.container.prefs.homeFoodShortcuts.collectAsState(initial = HomeFoodShortcuts.Default)
     // The editor keeps empty groups, which the saved menu drops, so it only adopts
     // the saved menu when that changed elsewhere (first load, reset).
     var draft by remember { mutableStateOf(ui.addMenuConfig) }
@@ -159,26 +156,6 @@ fun AddMenuSettingsScreen(
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onBackground
                 )
-            }
-            item {
-                AddMenuSectionCard(
-                    title = stringResource(R.string.settings_home_food_shortcuts),
-                    footer = stringResource(R.string.settings_home_food_shortcuts_detail)
-                ) {
-                    homeShortcuts.methods.forEachIndexed { slot, method ->
-                        if (slot > 0) HorizontalDivider()
-                        SettingChoiceRow(
-                            label = stringResource(R.string.settings_home_food_shortcut, slot + 1),
-                            selection = method,
-                            options = FoodLogMethod.AddMenuCases,
-                            icon = method.icon,
-                            modifier = Modifier.testTag("settings.homeShortcut.$slot"),
-                            optionLabel = { stringResource(it.titleRes) },
-                            optionIcon = { it.icon },
-                            onSelect = { vm.setHomeFoodShortcut(slot, it) }
-                        )
-                    }
-                }
             }
             item {
                 AddMenuSectionCard(title = stringResource(R.string.settings_add_menu_food_section)) {

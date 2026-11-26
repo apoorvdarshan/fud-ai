@@ -9,4 +9,5 @@
     <string name="voice_mascot_calm">Calme</string>
     <string name="voice_mascot_direct">Directe</string>
     <string name="voice_mascot_next_session">Les changements s’appliquent à la prochaine conversation.</string>
+    <string name="voice_mascot_classic_orb">Orbe classique</string>
 </resources>

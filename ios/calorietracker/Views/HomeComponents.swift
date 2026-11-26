@@ -6,7 +6,6 @@ struct WeekEnergyStrip: View {
     @Binding var selectedDate: Date
     let caloriesForDate: (Date) -> Int
     let calorieGoal: Int
-    private var neoAppearance = PinkNeoAppearance()
     @AppStorage("weekStartsOnMonday") private var weekStartsOnMonday = true
     /// Two-way scroll position (the visible week's index). Driven programmatically when the selected
     /// day moves to another week, and updated by the user's own paging.
@@ -100,7 +99,6 @@ struct WeekEnergyStrip: View {
         let cal = Calendar.current
         let isSelected = cal.isDate(date, inSameDayAs: selectedDate)
         let isToday = cal.isDateInToday(date)
-        let palette = neoAppearance.palette
 
         return Button {
             AppHaptics.impact(.light)
@@ -110,36 +108,30 @@ struct WeekEnergyStrip: View {
         } label: {
             VStack(spacing: 6) {
                 Text(date.formatted(.dateTime.weekday(.narrow)))
-                    .font(.system(.caption2, weight: .bold).width(.condensed))
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.6)
-                    .foregroundStyle(palette.ink)
+                    .font(.system(.caption2, design: .rounded, weight: .medium))
+                    .foregroundStyle(isSelected ? AppColors.calorie : Color.secondary.opacity(0.6))
 
                 Text(date.formatted(.dateTime.day()))
-                    .font(.system(.subheadline, weight: .black).width(.condensed))
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.6)
-                    .foregroundStyle(isSelected ? palette.onAction : palette.ink)
-                    .frame(maxWidth: .infinity, minHeight: 27)
+                    .font(.system(.body, design: .rounded, weight: .semibold))
+                    .foregroundStyle(isSelected ? .white : (isToday ? AppColors.calorie : .primary))
+                    .frame(width: 36, height: 36)
                     .background {
                         if isSelected {
-                            Rectangle().fill(palette.action)
+                            Circle()
+                                .fill(LinearGradient(colors: AppColors.calorieGradient, startPoint: .topLeading, endPoint: .bottomTrailing))
+                                .shadow(color: AppColors.calorie.opacity(0.35), radius: 6, y: 3)
                         } else if isToday {
-                            Rectangle().strokeBorder(palette.rule)
+                            Circle()
+                                .strokeBorder(AppColors.calorie.opacity(0.35), lineWidth: 1.5)
                         }
                     }
             }
-            .padding(.horizontal, 2)
-            .frame(minHeight: 44)
-            .contentShape(Rectangle())
         }
-        .buttonStyle(.plain)
-        // Seven numbers must fit without splitting digits. The full-size
-        // selected date remains in the heading and the accessible label.
-        .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
-        .frame(maxWidth: .infinity)
-        .accessibilityLabel(Text(date, style: .date))
+        .accessibilityLabel(Text(date.formatted(date: .complete, time: .omitted)))
         .accessibilityAddTraits(isSelected ? .isSelected : [])
+        .accessibilityIdentifier(isToday ? "home.week.today" : "home.week.day")
+        .buttonStyle(.plain)
+        .frame(maxWidth: .infinity)
     }
 }
 
@@ -383,17 +375,16 @@ struct HomeNutrientPickerSheet: View {
     var body: some View {
         NavigationStack {
             List {
-                Section {
+                Section("Shown on Home") {
                     ForEach(Array(draftSelection.enumerated()), id: \.element.id) { index, nutrient in
                         HStack(spacing: 12) {
                             Label(nutrient.displayName, systemImage: nutrient.iconName)
                                 .foregroundStyle(.primary)
                             Spacer()
                             Text("\(index + 1)")
-                                .font(.system(.subheadline, weight: .black).width(.condensed))
-                                .foregroundStyle(AppColors.accentText)
+                                .font(.system(.caption, design: .rounded, weight: .semibold))
+                                .foregroundStyle(.secondary)
                         }
-                        .padding(.trailing, 12)
                     }
 
                     if waterTrackingEnabled {
@@ -410,23 +401,9 @@ struct HomeNutrientPickerSheet: View {
                         }
                         .accessibilityElement(children: .combine)
                         .accessibilityLabel("Water, shown after selected nutrients")
-                        .padding(.trailing, 12)
                     }
-
-                    Button {
-                        draftSelection = Array(HomeTopNutrient.defaultSelection.prefix(selectionLimit))
-                    } label: {
-                        Text("Reset")
-                            .font(.system(.body, weight: .semibold).width(.condensed))
-                            .foregroundStyle(AppColors.accentText)
-                            .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
-                            .contentShape(Rectangle())
-                    }
-                    .buttonStyle(.plain)
-                } header: {
-                    Text("Shown on Home").flashSectionHeading()
                 }
-                .flashSectionRows()
+                .listRowBackground(AppColors.appCard)
 
                 Section {
                     ForEach(HomeTopNutrient.allCases) { nutrient in
@@ -435,26 +412,22 @@ struct HomeNutrientPickerSheet: View {
                         } label: {
                             HStack(spacing: 12) {
                                 Label(nutrient.displayName, systemImage: nutrient.iconName)
-                                    .font(.system(.body, weight: .semibold).width(.condensed))
                                     .foregroundStyle(.primary)
                                 Spacer()
                                 if draftSelection.contains(nutrient) {
-                                    Image(systemName: "checkmark.square.fill")
-                                        .foregroundStyle(AppColors.accentText)
-                                        .accessibilityHidden(true)
+                                    Image(systemName: "checkmark.circle.fill")
+                                        .foregroundStyle(AppColors.calorie)
                                 }
                             }
-                            .padding(.trailing, 12)
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .frame(minHeight: 44)
                             .contentShape(Rectangle())
                         }
                         .buttonStyle(.plain)
-                        .accessibilityIdentifier("nutrition.picker.\(nutrient.id)")
+                        .accessibilityIdentifier("nutrition.picker.\(nutrient.rawValue)")
                         .accessibilityAddTraits(draftSelection.contains(nutrient) ? .isSelected : [])
                     }
                 } header: {
-                    Text("Choose 1–4 Nutrients").flashSectionHeading()
+                    Text("Choose 1–4 Nutrients")
                 } footer: {
                     if waterTrackingEnabled {
                         Text("Pick one to four nutrients. Water is shown after them while tracking is enabled.")
@@ -462,14 +435,22 @@ struct HomeNutrientPickerSheet: View {
                         Text("Pick one to four nutrients for the Home summary row.")
                     }
                 }
-                .flashSectionRows()
+                .listRowBackground(AppColors.appCard)
             }
-            .flashEditorSurface()
+            .scrollContentBackground(.hidden)
+            .background(AppColors.appBackground)
             .navigationTitle("Home Nutrients")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") { dismiss() }
+                }
+
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("Reset") {
+                        draftSelection = Array(HomeTopNutrient.defaultSelection.prefix(selectionLimit))
+                    }
+                    .tint(AppColors.calorie)
                 }
 
                 ToolbarItem(placement: .confirmationAction) {

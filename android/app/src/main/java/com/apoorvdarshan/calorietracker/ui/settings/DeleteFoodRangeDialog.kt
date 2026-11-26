@@ -2,7 +2,7 @@ package com.apoorvdarshan.calorietracker.ui.settings
 
 import android.app.DatePickerDialog
 import androidx.compose.foundation.layout.Column
-import com.apoorvdarshan.calorietracker.ui.components.FlashAlertDialog as AlertDialog
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton

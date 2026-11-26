@@ -34,7 +34,7 @@ data class LiveSessionConfig(
     val hostedUserId: String? = null,
     val hostedUrl: String = HostedLiveWire.DEFAULT_URL,
     val qwenWorkspace: String = "",
-    val geminiBargeIn: Boolean = true
+    val geminiBargeIn: Boolean = false
 )
 
 /** A function call from the model. [arguments] is always an object (empty when missing or malformed). */

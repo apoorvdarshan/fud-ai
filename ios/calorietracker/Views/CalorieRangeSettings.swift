@@ -36,7 +36,7 @@ struct CalorieRangeSettings: View {
                 }
             }
         }
-        .flashSheet(isPresented: $editing) {
+        .sheet(isPresented: $editing) {
             NavigationStack {
                 Form {
                     Section {

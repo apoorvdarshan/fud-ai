@@ -25,20 +25,28 @@ private struct SmallProteinView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
-            FlashWidgetHeading(title: LocalizedStringKey(nutrient.label), icon: nutrient.iconName, accent: snapshot.themeColor)
+            HStack(spacing: 6) {
+                Image(systemName: nutrient.iconName)
+                    .font(.system(size: 11, weight: .bold))
+                    .foregroundStyle(snapshot.themeGradient)
+                Text(nutrient.label)
+                    .font(.system(.caption, design: .rounded, weight: .semibold))
+                    .foregroundStyle(.secondary)
+                Spacer()
+            }
 
             Spacer(minLength: 2)
 
             SpeedometerGauge(
                 progress: nutrient.progress,
-                accent: snapshot.themeColor,
+                colors: snapshot.themeColors,
                 diameter: 118,
                 lineWidth: 9
             ) {
                 VStack(spacing: 0) {
                     Text(nutrient.displayCurrentWithUnit)
-                        .font(.system(.title2, weight: .black).width(.condensed).monospacedDigit())
-                        .foregroundStyle(WidgetPalette.ink)
+                        .font(.system(.title3, design: .rounded, weight: .bold).monospacedDigit())
+                        .foregroundStyle(snapshot.themeGradient)
                         .minimumScaleFactor(0.6)
                         .lineLimit(1)
                         .padding(.horizontal, 16)
@@ -53,7 +61,7 @@ private struct SmallProteinView: View {
 
             Text(nutrient.displayRemaining)
                 .font(.system(.caption2, design: .rounded, weight: .semibold))
-                .foregroundStyle(WidgetPalette.muted)
+                .foregroundStyle(snapshot.themeColor)
                 .lineLimit(1)
                 .minimumScaleFactor(0.75)
         }
@@ -69,14 +77,14 @@ private struct MediumProteinView: View {
             VStack(spacing: 2) {
                 SpeedometerGauge(
                     progress: nutrient.progress,
-                    accent: snapshot.themeColor,
+                    colors: snapshot.themeColors,
                     diameter: 126,
                     lineWidth: 10
                 ) {
                     VStack(spacing: 0) {
                         Text(nutrient.displayValue)
-                            .font(.system(size: 27, weight: .black).width(.condensed).monospacedDigit())
-                            .foregroundStyle(WidgetPalette.ink)
+                            .font(.system(size: 24, weight: .bold, design: .rounded).monospacedDigit())
+                            .foregroundStyle(snapshot.themeGradient)
                             .lineLimit(1)
                             .minimumScaleFactor(0.55)
                             .padding(.horizontal, 18)
@@ -89,7 +97,7 @@ private struct MediumProteinView: View {
 
                 Text(nutrient.displayRemaining)
                     .font(.system(.caption, design: .rounded, weight: .semibold))
-                    .foregroundStyle(WidgetPalette.muted)
+                    .foregroundStyle(snapshot.themeColor)
                     .lineLimit(1)
                     .minimumScaleFactor(0.7)
             }
@@ -99,7 +107,7 @@ private struct MediumProteinView: View {
                 ForEach(snapshot.displayedHomeNutrients) { nutrient in
                     VerticalNutrientBar(
                         nutrient: nutrient,
-                        accent: snapshot.themeColor,
+                        colors: snapshot.themeColors,
                         barHeight: 52,
                         barWidth: 11,
                         valueSize: 14

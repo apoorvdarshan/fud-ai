@@ -375,7 +375,7 @@ p, h1, h2, h3, figure, dl, dd { margin: 0; }
   aspect-ratio: 1;
   margin: 8px auto 0;
 }
-.orb canvas { position: absolute; left: -25%; top: -25%; width: 150%; height: 150%; max-width: none; }
+.orb canvas { pointer-events: none; position: absolute; left: -25%; top: -25%; width: 150%; height: 150%; max-width: none; }
 .orb__fallback {
   position: absolute;
   inset: 6%;
@@ -1181,3 +1181,15 @@ p, h1, h2, h3, figure, dl, dd { margin: 0; }
   text-underline-offset: .2em;
 }
 .legal-jumps a:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+
+/* Classic homepage: the product illustrations and the recorded mascot demo share one stage. */
+.classic-home .hero { display: block; }
+.classic-home .snap__device .phone { aspect-ratio: 900 / 1310; }
+.voice-choice { display: flex; justify-content: center; gap: .35rem; margin: 1.3rem auto 0; }
+.voice-choice button { border: 1px solid var(--hairline-2); border-radius: 2rem; padding: .55rem 1rem; background: var(--surface); color: var(--label); cursor: pointer; }
+.voice-choice [aria-pressed="true"] { background: var(--label); color: var(--black); }
+.hero-brulee { position: absolute; inset: 12%; width: 76%; height: 76%; object-fit: contain; image-rendering: pixelated; }
+.shows-brulee canvas, .shows-brulee .orb__fallback { visibility: hidden; }
+.mascot-feature { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 6vw, 5rem); align-items: center; padding-block: clamp(3rem, 7vw, 7rem); }
+.mascot-feature .edition { color: var(--pink-hot); letter-spacing: .12em; }
+@media (max-width: 43rem) { .mascot-feature { grid-template-columns: 1fr; } }

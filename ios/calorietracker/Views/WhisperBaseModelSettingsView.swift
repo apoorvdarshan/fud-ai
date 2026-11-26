@@ -47,7 +47,7 @@ struct WhisperBaseModelSettingsView: View {
                     Button(downloadButtonTitle) {
                         Task { await modelManager.download() }
                     }
-                    .buttonStyle(FlashActionButtonStyle())
+                    .buttonStyle(.borderedProminent)
                     .tint(AppColors.calorie)
                     .disabled(modelManager.state.isBusy || modelManager.isDownloaded)
                 }

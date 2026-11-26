@@ -24,4 +24,5 @@
     <string name="challenge_hub_leave_all_detail">Seu perfil público, todas as pontuações e os relatos de desafios serão excluídos. Seu diário privado fica neste dispositivo.</string>
     <string name="challenge_hub_jump_to_rank">Ir para minha posição</string>
     <string name="challenge_hub_week_rank">A pontuação selecionada vem primeiro. Empates favorecem variedade de hábitos, resultados mais equilibrados e as outras contagens de dias. Persistindo o empate, fica na frente quem chegou primeiro. Calorias de exercícios não desempatarão.</string>
+    <string name="challenge_shared_boards_disclosure">Ao entrar no desafio semanal, sua pontuação também é compartilhada nos rankings diário e mensal. Você pode sair de cada ranking separadamente.</string>
 </resources>

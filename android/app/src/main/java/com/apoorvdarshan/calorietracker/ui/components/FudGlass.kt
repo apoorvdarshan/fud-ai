@@ -11,14 +11,17 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -27,8 +30,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -39,27 +45,49 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
-import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
-import com.apoorvdarshan.calorietracker.ui.theme.PinkNeoCondensed
-import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 
 @Composable
 fun FudGlassSurface(
     modifier: Modifier = Modifier,
     cornerRadius: Dp = 24.dp,
-    padding: Dp = FlashSpacing.PageInset,
+    padding: Dp = 16.dp,
     contentAlignment: Alignment = Alignment.TopStart,
     content: @Composable BoxScope.() -> Unit
 ) {
-    val neo = pinkNeoPalette()
-    // Keep the shared API for existing callers, but cap the old soft corners.
-    val shape = RoundedCornerShape(cornerRadius.coerceAtMost(2.dp))
+    val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
+    val shape = RoundedCornerShape(cornerRadius)
+    // The palette's own card color, so Dark gray cards follow the gray palette
+    // instead of the fixed near-black fill. The sheen and border stay.
+    val baseColor = MaterialTheme.colorScheme.surface.copy(alpha = if (isDark) 0.84f else 0.98f)
+    val shadowColor = if (isDark) Color.Black.copy(alpha = 0.28f)
+                      else Color.Black.copy(alpha = 0.11f)
+    val sheen = Brush.verticalGradient(
+        listOf(
+            Color.White.copy(alpha = if (isDark) 0.070f else 0.34f),
+            Color.White.copy(alpha = if (isDark) 0.018f else 0.08f),
+            AppColors.Calorie.copy(alpha = if (isDark) 0.026f else 0.045f)
+        )
+    )
+    val border = Brush.linearGradient(
+        listOf(
+            Color.White.copy(alpha = if (isDark) 0.18f else 0.78f),
+            Color.White.copy(alpha = if (isDark) 0.045f else 0.28f),
+            AppColors.Calorie.copy(alpha = if (isDark) 0.075f else 0.14f)
+        )
+    )
 
     Box(
         modifier = modifier
+            .shadow(
+                elevation = if (isDark) 14.dp else 10.dp,
+                shape = shape,
+                ambientColor = shadowColor,
+                spotColor = shadowColor
+            )
             .clip(shape)
-            .background(neo.panel)
-            .border(1.dp, neo.rule, shape)
+            .background(baseColor)
+            .background(sheen)
+            .border(0.8.dp, border, shape)
             .padding(padding),
         contentAlignment = contentAlignment,
         content = content
@@ -70,7 +98,7 @@ fun FudGlassSurface(
 fun FudGlassColumn(
     modifier: Modifier = Modifier,
     cornerRadius: Dp = 24.dp,
-    padding: Dp = FlashSpacing.PageInset,
+    padding: Dp = 16.dp,
     content: @Composable ColumnScope.() -> Unit
 ) {
     FudGlassSurface(
@@ -122,7 +150,26 @@ fun FudGlassTextField(
         fontWeight = FontWeight.Medium
     )
 ) {
-    val neo = pinkNeoPalette()
+    val shape = RoundedCornerShape(18.dp)
+    val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
+    val fieldFill = if (isDark) {
+        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.38f)
+    } else {
+        Color(0xFFEDE3DD).copy(alpha = 0.72f)
+    }
+    val fieldSheen = Brush.verticalGradient(
+        listOf(
+            Color.White.copy(alpha = if (isDark) 0.09f else 0.24f),
+            Color.White.copy(alpha = if (isDark) 0.02f else 0.06f),
+            AppColors.Calorie.copy(alpha = if (isDark) 0.025f else 0.040f)
+        )
+    )
+    val fieldBorder = Brush.linearGradient(
+        listOf(
+            Color.White.copy(alpha = if (isDark) 0.16f else 0.62f),
+            AppColors.Calorie.copy(alpha = if (isDark) 0.09f else 0.14f)
+        )
+    )
     BasicTextField(
         value = value,
         onValueChange = onValueChange,
@@ -136,10 +183,12 @@ fun FudGlassTextField(
         cursorBrush = SolidColor(AppColors.Calorie),
         modifier = modifier
             .fillMaxWidth()
-            .heightIn(min = if (singleLine) FlashSpacing.MinTouchTarget else 88.dp)
-            .background(neo.paper)
-            .border(1.dp, neo.rule)
-            .padding(horizontal = FlashSpacing.PageInset, vertical = 10.dp),
+            .heightIn(min = if (singleLine) 52.dp else 118.dp)
+            .clip(shape)
+            .background(fieldFill)
+            .background(fieldSheen)
+            .border(0.7.dp, fieldBorder, shape)
+            .padding(horizontal = 16.dp, vertical = 14.dp),
         decorationBox = { inner ->
             Box(
                 modifier = Modifier.fillMaxWidth(),
@@ -148,8 +197,9 @@ fun FudGlassTextField(
                 if (value.isEmpty() && placeholder.isNotBlank()) {
                     Text(
                         placeholder,
-                        color = neo.ink.copy(alpha = 0.64f),
-                        style = textStyle
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f),
+                        fontSize = textStyle.fontSize,
+                        fontWeight = FontWeight.Medium
                     )
                 }
                 inner()
@@ -171,12 +221,12 @@ fun FudGlassDialog(
         FudGlassSurface(
             modifier = modifier
                 .fillMaxWidth()
-                .padding(horizontal = FlashSpacing.SheetInset),
+                .padding(horizontal = 24.dp),
             cornerRadius = 28.dp,
-            padding = FlashSpacing.SheetInset
+            padding = 20.dp
         ) {
             Column(
-                verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
                 content = content
             )
         }
@@ -189,27 +239,33 @@ fun FudGlassPrimaryButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier.fillMaxWidth(),
     enabled: Boolean = true,
-    height: Dp = FlashSpacing.MinTouchTarget,
+    height: Dp = 50.dp,
     content: (@Composable RowScope.() -> Unit)? = null
 ) {
-    val neo = pinkNeoPalette()
+    val brush = if (enabled) {
+        Brush.linearGradient(listOf(AppColors.CalorieStart, AppColors.CalorieEnd))
+    } else {
+        Brush.linearGradient(
+            listOf(
+                AppColors.Calorie.copy(alpha = 0.35f),
+                AppColors.Calorie.copy(alpha = 0.35f)
+            )
+        )
+    }
     Row(
         modifier
-            .heightIn(min = height.coerceAtLeast(FlashSpacing.MinTouchTarget))
-            .background(if (enabled) neo.action else neo.panel)
-            .border(1.dp, neo.rule)
+            .height(height)
+            .clip(RoundedCornerShape(16.dp))
+            .background(brush)
             .clickable(enabled = enabled, onClick = onClick)
-            .padding(horizontal = 14.dp, vertical = 6.dp),
+            .padding(horizontal = 18.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
         if (content != null) {
-            androidx.compose.runtime.CompositionLocalProvider(
-                androidx.compose.material3.LocalContentColor provides if (enabled) neo.onAction else neo.ink
-            ) { content() }
+            content()
         } else {
-            Text(text, color = if (enabled) neo.onAction else neo.ink.copy(alpha = 0.60f),
-                fontWeight = FontWeight.Black, fontSize = 16.sp, style = PinkNeoCondensed)
+            Text(text, color = Color.White, fontWeight = FontWeight.SemiBold, fontSize = 16.sp)
         }
     }
 }
@@ -222,20 +278,31 @@ fun FudGlassTextButton(
     color: Color = AppColors.Calorie,
     enabled: Boolean = true
 ) {
-    val neo = pinkNeoPalette()
-    val ink = if (color == AppColors.Calorie) neo.ink else color
+    val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
+    val shape = RoundedCornerShape(14.dp)
+    val fill = if (isDark) {
+        Color.White.copy(alpha = 0.035f)
+    } else {
+        Color(0xFFEDE3DD).copy(alpha = 0.42f)
+    }
+    val border = if (isDark) {
+        Color.White.copy(alpha = 0.08f)
+    } else {
+        Color.White.copy(alpha = 0.38f)
+    }
     Box(
         modifier
-            .background(neo.panel)
-            .border(1.dp, neo.rule)
+            .heightIn(min = 48.dp)
+            .clip(shape)
+            .background(fill)
+            .border(0.6.dp, border, shape)
             .clickable(enabled = enabled, onClick = onClick)
-            .heightIn(min = FlashSpacing.MinTouchTarget)
-            .padding(horizontal = 12.dp, vertical = 6.dp),
+            .padding(horizontal = 14.dp, vertical = 10.dp),
         contentAlignment = Alignment.Center
     ) {
         Text(
             text,
-            color = ink.copy(alpha = if (enabled) ink.alpha else ink.alpha * 0.55f),
+            color = color.copy(alpha = if (enabled) color.alpha else color.alpha * 0.38f),
             fontSize = 15.sp,
             fontWeight = FontWeight.SemiBold
         )
@@ -266,20 +333,12 @@ fun FudGlassDialogActions(
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.68f)
             )
         }
-        if (destructive) {
-            FudGlassTextButton(
-                text = primaryText,
-                onClick = onPrimary,
-                color = MaterialTheme.colorScheme.error,
-                enabled = primaryEnabled
-            )
-        } else {
-            FudGlassPrimaryButton(
-                text = primaryText,
-                onClick = onPrimary,
-                modifier = Modifier,
-                enabled = primaryEnabled
-            )
-        }
+        val primaryColor = if (destructive) Color(0xFFFF453A) else AppColors.Calorie
+        FudGlassTextButton(
+            text = primaryText,
+            onClick = onPrimary,
+            color = primaryColor,
+            enabled = primaryEnabled
+        )
     }
 }

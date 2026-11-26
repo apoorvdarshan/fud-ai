@@ -1,12 +1,14 @@
+import CoreGraphics
 import Foundation
 
 enum VoiceMascot: String, CaseIterable, Codable, Identifiable {
-    case brulee, alien, star, croissantCat, bomboloni, cherry, teddy, jam
+    case orb, brulee, alien, star, croissantCat, bomboloni, cherry, teddy, jam
 
     var id: Self { self }
 
     var displayName: String {
         switch self {
+        case .orb: "Fud AI"
         case .brulee: "Brulee"
         case .alien: "Alien"
         case .star: "Star"
@@ -25,6 +27,7 @@ enum VoiceMascot: String, CaseIterable, Codable, Identifiable {
     /// Fractional origin for the mouth on the square artwork.
     var mouth: CGPoint {
         switch self {
+        case .orb: .zero
         case .brulee: CGPoint(x: 0.477, y: 0.787)
         case .alien: CGPoint(x: 0.521, y: 0.773)
         case .star: CGPoint(x: 0.514, y: 0.576)
@@ -103,7 +106,7 @@ struct VoiceMascotOptions: Codable, Equatable {
 }
 
 struct VoiceMascotProfile: Equatable {
-    var mascot = VoiceMascot.brulee
+    var mascot = VoiceMascot.orb
     var options = VoiceMascotOptions()
 
     var name: String {
@@ -122,14 +125,14 @@ struct VoiceMascotProfile: Equatable {
 
 struct VoiceMascotPreferences: Codable, Equatable {
     static let storageKey = "voiceAssistant.mascots"
-    var selected = VoiceMascot.brulee
+    var selected = VoiceMascot.orb
     var profiles: [String: VoiceMascotOptions] = [:]
 
     init() {}
 
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        selected = (try? values.decode(VoiceMascot.self, forKey: .selected)) ?? .brulee
+        selected = (try? values.decode(VoiceMascot.self, forKey: .selected)) ?? .orb
         profiles = (try? values.decode([String: VoiceMascotOptions].self, forKey: .profiles)) ?? [:]
     }
 

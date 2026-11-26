@@ -24,4 +24,5 @@
     <string name="challenge_hub_leave_all_detail">Je openbare profiel, alle scores en meldingen worden verwijderd. Je privédagboek blijft op dit apparaat.</string>
     <string name="challenge_hub_jump_to_rank">Naar mijn positie</string>
     <string name="challenge_hub_week_rank">De gekozen score telt eerst. Bij een gelijke stand tellen gevarieerdere gewoonten, evenwichtigere resultaten en de overige aantallen dagen. Zijn die ook gelijk, dan staat degene die ze het eerst bereikte hoger. Trainingscalorieën geven niet de doorslag.</string>
+    <string name="challenge_shared_boards_disclosure">Als je meedoet aan de weekranglijst, worden je punten ook gedeeld op de dag- en maandranglijst. Je kunt elke ranglijst afzonderlijk verlaten.</string>
 </resources>

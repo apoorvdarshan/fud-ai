@@ -1,6 +1,6 @@
 # Play Store Listing
 
-Google Play Console listing copy prepared for Fud AI Android v9.0 / versionCode 49. Each field is in a code block for easy copy-paste. This file does not indicate that the release or listing has been submitted or published.
+Google Play Console listing copy prepared for Fud AI Android v9.0 / versionCode 50. Each field is in a code block for easy copy-paste. This file does not indicate that the release or listing has been submitted or published.
 
 **Pending Play Console updates**
 - [x] Health Connect declaration includes **Exercise (READ)** with the §7 `READ_EXERCISE` rationale (submitted with 8.0, 2026-10-24). Play lists a new health permission in the declaration only once a release containing it is uploaded, and a store-release upload that adds one fails until the declaration is updated, so upload such a release through Play Console first.
@@ -53,7 +53,7 @@ Change the serving size or correct calories and individual nutrients before savi
 
 TRACK WHAT MATTERS TO YOU
 • Set calorie and macro targets, choose nutrient cards, and track fiber, sugar, sodium, vitamins, and other nutrients.
-• Review nutrition, weight, steps, and trends, including a Weekly Recap. Display energy in kcal or kJ.
+• Review nutrition, weight, steps, and trends. Display energy in kcal or kJ.
 • Use optional water tracking and reminders, or keep a private fasting timer with editable history.
 • Add home-screen widgets for calories, protein, water, or other daily totals. Choose an accent that fits your home screen.
 
@@ -76,16 +76,16 @@ English-only on Play Console — non-English Play Store browsers (ar, az-AZ, cs-
 
 ---
 
-## 4. What's New (v9.0 / versionCode 49)
+## 4. What's New (v9.0 / versionCode 50)
 
 **500 char hard cap per language.** English is the fallback for other store locales.
 
 ```
 <en-US>
-Fud AI 9.0 brings the 04 Flash redesign to Home, the diary, and settings.
-• Home-screen widgets now match, including nutrition, hydration, and voice shortcuts.
-• Daily and Monthly Challenges are separate opt-ins alongside Weekly.
-• About → App & Updates shows when Google Play has an update.
+Use the classic bottom tabs, calorie gauge, calendar, and round + menu.
+• Home-screen widgets use the classic design, including nutrition, hydration, and voice shortcuts.
+• Open the optional Weekly Challenge in Progress.
+• Settings → App & Updates shows when Google Play has an update.
 • Keep using your own AI key free, or view optional paid Hosted Plus/Pro plans.
 </en-US>
 ```

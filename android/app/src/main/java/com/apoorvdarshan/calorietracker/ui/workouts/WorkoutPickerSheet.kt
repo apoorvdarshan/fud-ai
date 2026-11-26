@@ -59,7 +59,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import com.apoorvdarshan.calorietracker.ui.components.FlashBottomSheet as ModalBottomSheet
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.ModalBottomSheetProperties
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
@@ -532,7 +532,7 @@ internal fun WorkoutPickerSheet(
                             HorizontalDivider(
                                 color = workoutsColors().hairline.copy(alpha = 0.28f),
                                 thickness = 0.5.dp,
-                                modifier = Modifier.padding(start = ExerciseRowTextInset, end = 12.dp)
+                                modifier = Modifier.padding(start = 144.dp, end = 20.dp)
                             )
                         }
                     }

@@ -34,7 +34,7 @@ struct CalorieWidget: Widget {
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: CalorieProvider()) { entry in
             CalorieWidgetView(entry: entry)
-                .flashWidgetBackground()
+                .containerBackground(WidgetPalette.background, for: .widget)
         }
         .configurationDisplayName("Fud AI")
         .description("See today's calories and macros at a glance.")

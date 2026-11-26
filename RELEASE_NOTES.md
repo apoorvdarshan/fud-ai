@@ -7,6 +7,9 @@ same marketing version can share a feature summary while identifying different b
 
 ## Unreleased
 
+- Home returns to the five-tab layout, seven-day strip, calendar popup, and round **+** menu. Favorites is under **+**, and Live Voice uses the orb or your saved mascot.
+- Progress includes the classic Weekly Challenge. Daily and Monthly boards, Weekly Recap, and Include today are no longer shown. Widgets and Apple Watch use the classic design.
+
 ## ios-v9.0
 
 Fud AI 9.0 introduces the 04 Flash design for Home, the diary, navigation, and settings. Home Screen widgets, the Apple Watch dashboard and water logger, and Calories, Protein, and Macros complications now match.

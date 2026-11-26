@@ -24,4 +24,5 @@
     <string name="challenge_hub_leave_all_detail">Your public profile, all scores, and challenge reports will be deleted. Your private diary stays on this device.</string>
     <string name="challenge_hub_jump_to_rank">Jump to my rank</string>
     <string name="challenge_hub_week_rank">The selected score comes first. Ties favor more different habits, steadier results across habits, and the other day counts. If those match, the person who reached them first ranks higher. Workout calories do not break ties.</string>
+    <string name="challenge_shared_boards_disclosure">Joining Weekly also shares your scores on the Daily and Monthly boards. You can leave either board separately.</string>
 </resources>

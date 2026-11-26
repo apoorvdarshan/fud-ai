@@ -1,6 +1,5 @@
 package com.apoorvdarshan.calorietracker.ui.home
 
-import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,7 +18,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import com.apoorvdarshan.calorietracker.ui.components.FlashBottomSheet as ModalBottomSheet
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SegmentedButton
@@ -91,8 +90,8 @@ fun OutdoorActivityDurationSheet(
             Modifier
                 .fillMaxWidth()
                 .verticalScroll(rememberScrollState())
-                .padding(horizontal = FlashSpacing.SheetInset, vertical = FlashSpacing.ItemGap),
-            verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap)
+                .padding(horizontal = 20.dp, vertical = 8.dp),
+            verticalArrangement = Arrangement.spacedBy(18.dp)
         ) {
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                 TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) }

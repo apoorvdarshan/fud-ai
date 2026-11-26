@@ -1,6 +1,8 @@
 # Fud Pink Neo
 
-The approved direction is **04 Flash**: Fud Pink neo-brutalist Home with a right-side rail. Native SwiftUI and Compose use solid electric pink `#FF006A`, strong frame lines, a split energy display, a pinned food logging action, and the user's own meal photos. The rail stays on the right; text and content layout still follow the current language.
+Historical design notes for the tagged 9.0 release. The restoration uses the classic navigation and screens documented in the [README](../README.md).
+
+The direction for that release was **04 Flash**: Fud Pink neo-brutalist Home with a right-side rail. Native SwiftUI and Compose use solid electric pink `#FF006A`, strong frame lines, a split energy display, a pinned food logging action, and the user's own meal photos. The rail stays on the right; text and content layout still follow the current language.
 
 ## What the first pass changes
 

@@ -41,10 +41,10 @@ class VoiceAssistantPreferencesTest {
     }
 
     @Test
-    fun geminiInterruptionsAreOnByDefaultAndCanBeDisabled() {
-        assertTrue(PreferencesStore.readVoiceAssistantPreferences(emptyPreferences()).geminiBargeIn)
-        assertFalse(PreferencesStore.readVoiceAssistantPreferences(
-            preferencesOf(booleanPreferencesKey("voiceAssistantGeminiBargeIn") to false)
+    fun geminiInterruptionsAreOffByDefaultAndCanBeEnabled() {
+        assertFalse(PreferencesStore.readVoiceAssistantPreferences(emptyPreferences()).geminiBargeIn)
+        assertTrue(PreferencesStore.readVoiceAssistantPreferences(
+            preferencesOf(booleanPreferencesKey("voiceAssistantGeminiBargeIn") to true)
         ).geminiBargeIn)
     }
 

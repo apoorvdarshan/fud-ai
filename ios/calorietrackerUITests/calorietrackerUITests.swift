@@ -45,7 +45,7 @@ final class calorietrackerUITests: XCTestCase {
         // Return as soon as the element is already tappable; only diagnose an
         // absent element after checking both scroll directions.
         for attempt in 0...20 {
-            if element.isHittable { return }
+            if element.exists, app.frame.intersects(element.frame), element.isHittable { return }
             if attempt < 10 {
                 app.swipeUp()
             } else if attempt < 20 {
@@ -76,7 +76,7 @@ final class calorietrackerUITests: XCTestCase {
 
     @MainActor
     private func openSettingsCategory(_ identifier: String, in app: XCUIApplication) {
-        let settings = app.buttons["nav.settings"]
+        let settings = app.tabBars.buttons["Settings"]
         XCTAssertTrue(settings.waitForExistence(timeout: 15))
         settings.tap()
         let category = app.buttons["settings.category.\(identifier)"]
@@ -180,10 +180,9 @@ final class calorietrackerUITests: XCTestCase {
         let app = makeApp()
         app.launch()
 
-        let date = app.staticTexts["home.dateHeading"]
-        XCTAssertTrue(date.waitForExistence(timeout: 8))
-        let today = date.label
-        XCTAssertEqual(today, "Today")
+        let today = app.buttons["home.week.today"]
+        XCTAssertTrue(today.waitForExistence(timeout: 8))
+        XCTAssertTrue(today.isSelected)
         let viewMore = app.buttons["home.viewMore"]
         let details = app.navigationBars["Nutrition Details"]
         reveal(viewMore, in: app)
@@ -191,24 +190,38 @@ final class calorietrackerUITests: XCTestCase {
         let shortDragEnd = start.withOffset(CGVector(dx: 30, dy: 0))
         start.press(forDuration: 0.05, thenDragTo: shortDragEnd)
         XCTAssertFalse(details.exists)
-        reveal(app.buttons["home.calendar"], in: app)
-        XCTAssertEqual(date.label, today)
+        reveal(today, in: app)
+        XCTAssertTrue(today.isSelected)
         reveal(viewMore, in: app)
         viewMore.swipeRight()
         XCTAssertFalse(details.exists)
-        reveal(app.buttons["home.calendar"], in: app)
-        XCTAssertNotEqual(date.label, today)
+        reveal(today, in: app)
+        XCTAssertFalse(today.isSelected)
         reveal(viewMore, in: app)
         viewMore.swipeLeft()
         XCTAssertFalse(details.exists)
         reveal(viewMore, in: app)
         viewMore.swipeLeft()
         XCTAssertFalse(details.exists)
-        reveal(app.buttons["home.calendar"], in: app)
-        XCTAssertEqual(date.label, today)
+        reveal(today, in: app)
+        XCTAssertTrue(today.isSelected)
         reveal(viewMore, in: app)
         viewMore.tap()
         XCTAssertTrue(details.waitForExistence(timeout: 5))
+    }
+
+    @MainActor
+    func testHomeScrollsVerticallyFromViewMore() {
+        let app = makeApp(defaults: ["--screenshot-demo", "-screenshotScene", "home"])
+        app.launch()
+        let link = app.buttons["home.viewMore"]
+        reveal(link, in: app)
+        let initialY = link.frame.midY
+        let start = link.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5))
+        start.press(forDuration: 0.05, thenDragTo: start.withOffset(CGVector(dx: 0, dy: -140)))
+        XCTAssertFalse(app.navigationBars["Nutrition Details"].exists)
+        XCTAssertTrue(!link.isHittable || link.frame.midY < initialY - 40,
+                      "Dragging upward from View More must scroll the diary")
     }
 
     @MainActor
@@ -220,6 +233,8 @@ final class calorietrackerUITests: XCTestCase {
         calendar.tap()
         let popup = app.descendants(matching: .any)["home.calendarPopup"].firstMatch
         XCTAssertTrue(popup.waitForExistence(timeout: 5))
+        XCTAssertGreaterThanOrEqual(popup.frame.intersection(app.frame).width, 300,
+                                    "The month grid must fit all seven weekday columns")
         XCTAssertLessThan(popup.frame.height, app.frame.height * 0.8)
     }
 
@@ -242,31 +257,26 @@ final class calorietrackerUITests: XCTestCase {
     }
 
     @MainActor
-    func testProgressAndWeeklyChallengeHaveSeparateRailDestinations() {
+    func testChallengesShareTheProgressTab() {
         let app = makeApp()
         app.launch()
-        let progress = app.buttons["nav.progress"]
+        let progress = app.tabBars.buttons["Progress"]
         reveal(progress, in: app)
         progress.tap()
-        XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label == %@", "Time Range"))
-            .firstMatch.waitForExistence(timeout: 5))
+        XCTAssertTrue(progress.isSelected)
         XCTAssertFalse(app.staticTexts["Weekly Recap"].exists)
 
-        let weekly = app.buttons["nav.weeklyChallenge"]
+        let weekly = app.buttons["Weekly Challenge"]
         reveal(weekly, in: app)
         weekly.tap()
-        XCTAssertTrue(app.staticTexts["Challenges"].waitForExistence(timeout: 5))
-        let daily = app.buttons["Daily"].firstMatch
-        XCTAssertTrue(daily.waitForExistence(timeout: 5))
-        daily.tap()
-        XCTAssertTrue(app.staticTexts["Join Weekly to create your challenge profile first."].waitForExistence(timeout: 5))
-        app.buttons["Monthly"].firstMatch.tap()
-        XCTAssertTrue(app.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "longest run")).firstMatch.exists)
+        XCTAssertTrue(app.staticTexts["Weekly Challenge"].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.buttons["Daily"].exists)
+        XCTAssertFalse(app.buttons["Monthly"].exists)
         XCTAssertTrue(weekly.isSelected)
-        XCTAssertFalse(progress.isSelected)
-        progress.tap()
         XCTAssertTrue(progress.isSelected)
-        XCTAssertTrue(app.buttons["nav.voice"].isHittable)
+        app.buttons["My Progress"].tap()
+        XCTAssertTrue(progress.isSelected)
+        XCTAssertFalse(app.buttons["nav.voice"].exists)
     }
 
     @MainActor
@@ -274,26 +284,18 @@ final class calorietrackerUITests: XCTestCase {
         let app = makeApp()
         app.launch()
 
-        let workouts = app.buttons["nav.workouts"]
+        let workouts = app.tabBars.buttons["Workouts"]
         reveal(workouts, in: app)
         workouts.tap()
         XCTAssertTrue(app.buttons["Add workout"].waitForExistence(timeout: 5))
-        let voiceEntry = app.buttons["workouts.shortcut.0"]
-        let saved = app.buttons["workouts.shortcut.1"]
-        XCTAssertEqual(voiceEntry.label, "Voice")
-        XCTAssertEqual(saved.label, "Saved")
-        XCTAssertEqual(voiceEntry.frame.width, voiceEntry.frame.height, accuracy: 1)
-        XCTAssertEqual(voiceEntry.frame.width, saved.frame.width, accuracy: 1)
-        XCTAssertFalse(app.buttons["voiceAssistantButton"].exists)
-        XCTAssertTrue(app.buttons["nav.voice"].isHittable)
-        let library = app.buttons["nav.exerciseLibrary"]
+        XCTAssertTrue(app.buttons["voiceAssistantButton"].isHittable)
+        let library = app.buttons["Exercise library"]
         reveal(library, in: app)
         library.tap()
 
         let search = app.textFields["workouts.search"]
         XCTAssertTrue(search.waitForExistence(timeout: 5))
-        XCTAssertTrue(library.isSelected)
-        XCTAssertFalse(workouts.isSelected)
+        XCTAssertTrue(workouts.isSelected)
         let clearSearch = app.buttons["workouts.search.clear"]
         if clearSearch.exists {
             clearSearch.tap()
@@ -319,10 +321,9 @@ final class calorietrackerUITests: XCTestCase {
         screenshot.lifetime = .keepAlways
         add(screenshot)
 
-        app.buttons["nav.home"].tap()
+        app.tabBars.buttons["Home"].tap()
         XCTAssertTrue(app.buttons["home.add"].waitForExistence(timeout: 5))
-        reveal(library, in: app)
-        library.tap()
+        workouts.tap()
         XCTAssertTrue(visual.waitForExistence(timeout: 5), "Switching tabs should preserve the open exercise detail")
     }
 
@@ -330,7 +331,7 @@ final class calorietrackerUITests: XCTestCase {
     func testCanEditWeightRepsAndEffortInAWorkoutSet() {
         let app = makeApp(defaults: ["--ui-testing-workout-set", "-weightUnit", "kg"])
         app.launch()
-        let workouts = app.buttons["nav.workouts"]
+        let workouts = app.tabBars.buttons["Workouts"]
         XCTAssertTrue(workouts.waitForExistence(timeout: 15))
         reveal(workouts, in: app)
         workouts.tap()
@@ -433,22 +434,12 @@ final class calorietrackerUITests: XCTestCase {
     }
 
     @MainActor
-    func testAvailableUpdateIsVisibleFromAboutRailToStoreAction() {
+    func testAvailableUpdateIsVisibleInSettings() {
         let app = makeApp()
         app.launchArguments += ["-AppleLanguages", "(en)", "--ui-testing-app-update-available"]
         app.launch()
 
-        let rail = app.descendants(matching: .any)["nav.rail"].firstMatch
-        XCTAssertTrue(rail.waitForExistence(timeout: 10))
-        let about = app.buttons["nav.about"]
-        for _ in 0..<3 where !about.isHittable {
-            rail.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.72))
-                .press(forDuration: 0.05, thenDragTo: rail.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.26)))
-        }
-        XCTAssertTrue(about.isHittable)
-        XCTAssertEqual(about.value as? String, "Update Available")
-        about.tap()
-
+        app.tabBars.buttons["Settings"].tap()
         let updates = app.buttons["settings.category.appUpdates"]
         reveal(updates, in: app)
         XCTAssertEqual(updates.value as? String, "Update Available")
@@ -458,10 +449,13 @@ final class calorietrackerUITests: XCTestCase {
         XCTAssertTrue(store.waitForExistence(timeout: 5))
         XCTAssertTrue(store.label.contains("Update Available"))
         XCTAssertTrue(store.label.contains("99.0"))
+        app.navigationBars["App & Updates"].buttons.firstMatch.tap()
+        reveal(updates, in: app)
+        XCTAssertNotEqual(updates.value as? String, "Update Available")
     }
 
     @MainActor
-    func testAboutAndSupportAreSeparateFromSettings() throws {
+    func testAboutAndSupportOpenFromSettings() throws {
         let app = makeApp()
         app.launchArguments += ["-AppleLanguages", "(en)"]
         app.launch()
@@ -473,23 +467,9 @@ final class calorietrackerUITests: XCTestCase {
             ("legal", "Legal", "Privacy Policy"),
         ]
 
-        let settings = app.buttons["nav.settings"]
+        let settings = app.tabBars.buttons["Settings"]
         XCTAssertTrue(settings.waitForExistence(timeout: 8))
         settings.tap()
-        XCTAssertFalse(app.buttons["settings.category.appUpdates"].exists)
-        XCTAssertFalse(app.buttons["settings.category.support"].exists)
-
-        let rail = app.descendants(matching: .any)["nav.rail"].firstMatch
-        XCTAssertTrue(rail.exists)
-        let about = app.buttons["nav.about"]
-        for _ in 0..<3 where !about.isHittable {
-            let from = rail.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.72))
-            let to = rail.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.26))
-            from.press(forDuration: 0.05, thenDragTo: to)
-        }
-        XCTAssertTrue(about.isHittable)
-        about.tap()
-
         for (identifier, title, expectedAction) in categories {
             let category = app.buttons["settings.category.\(identifier)"]
             reveal(category, in: app)
@@ -528,45 +508,34 @@ final class calorietrackerUITests: XCTestCase {
             XCTAssertTrue(app.buttons["settings.category.\(identifier)"].waitForExistence(timeout: 3))
         }
         reveal(app.staticTexts["Made by Apoorv Darshan"], in: app)
-        let support = app.buttons["nav.support"]
-        for _ in 0..<3 where !support.isHittable {
-            let from = rail.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.72))
-            let to = rail.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.26))
-            from.press(forDuration: 0.05, thenDragTo: to)
-        }
-        XCTAssertTrue(support.isHittable)
+        let support = app.buttons["settings.category.support"]
+        reveal(support, in: app)
         support.tap()
         XCTAssertTrue(app.navigationBars["Support Fud AI"].waitForExistence(timeout: 5))
         reveal(app.staticTexts["Rate the App"], in: app)
-        XCTAssertTrue(app.buttons["nav.voice"].isHittable)
+        XCTAssertFalse(app.buttons["nav.voice"].exists)
     }
 
     @MainActor
-    func testCoachKeyboardKeepsNavigationRailOnTheRight() {
+    func testCoachComposerRemainsReachableWithKeyboard() {
         let app = makeApp()
         app.launch()
-        let home = app.buttons["nav.home"]
-        let coach = app.buttons["nav.coach"]
+        let home = app.tabBars.buttons["Home"]
+        let coach = app.tabBars.buttons["Coach"]
         XCTAssertTrue(coach.waitForExistence(timeout: 15))
         coach.tap()
-        let railX = home.frame.minX
-        let voice = app.buttons["nav.voice"]
-        let voiceX = voice.frame.minX
         let input = app.descendants(matching: .any)["coach.input"].firstMatch
         XCTAssertTrue(input.waitForExistence(timeout: 5))
         input.tap()
         XCTAssertTrue(app.keyboards.firstMatch.waitForExistence(timeout: 5))
-        XCTAssertTrue(home.isHittable)
-        XCTAssertEqual(home.frame.minX, railX, accuracy: 1)
-        XCTAssertTrue(voice.isHittable)
-        XCTAssertEqual(voice.frame.minX, voiceX, accuracy: 1)
-        XCTAssertLessThanOrEqual(voice.frame.maxY, app.keyboards.firstMatch.frame.minY)
+        XCTAssertFalse(app.buttons["nav.voice"].exists)
+        XCTAssertTrue(input.isHittable)
         let screenshot = XCTAttachment(screenshot: app.screenshot())
-        screenshot.name = "Coach keyboard with the right rail"
+        screenshot.name = "Coach keyboard"
         screenshot.lifetime = .keepAlways
         add(screenshot)
         home.tap()
-        XCTAssertTrue(app.buttons["home.calendar"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["home.week.today"].waitForExistence(timeout: 5))
     }
 
     @MainActor
@@ -630,7 +599,7 @@ final class calorietrackerUITests: XCTestCase {
         reveal(provider, in: app)
         waitForValue("Google Gemini", in: provider)
         provider.tap()
-        let appleIntelligence = app.buttons["Apple Intelligence (On-Device)"]
+        let appleIntelligence = app.buttons["settings.ai.textOption.Apple Intelligence (On-Device)"]
         XCTAssertTrue(appleIntelligence.waitForExistence(timeout: 5))
         appleIntelligence.tap()
         waitForValue("Apple Intelligence (On-Device)", in: provider)
@@ -923,29 +892,10 @@ final class calorietrackerUITests: XCTestCase {
         reveal(meal, in: app)
         XCTAssertTrue(app.staticTexts.matching(identifier: "321 kcal").firstMatch.exists)
 
-        XCTAssertFalse(app.buttons["voiceAssistantButton"].exists, "Home should not duplicate the rail shortcut")
-        let voice = app.buttons["nav.voice"]
+        let voice = app.buttons["voiceAssistantButton"]
         XCTAssertTrue(voice.isHittable)
-        XCTAssertLessThan(addButton.frame.maxX, voice.frame.minX)
-
-        // The last diary row can scroll above the pinned dock. Its meal
-        // summary stays aligned beneath the title.
-        app.swipeUp()
-        let mealCell = app.cells.containing(.staticText, identifier: "CI oat bowl").firstMatch
-        XCTAssertTrue(mealCell.exists)
+        XCTAssertLessThanOrEqual(voice.frame.maxX, addButton.frame.minX)
         XCTAssertTrue(meal.isHittable)
-        XCTAssertLessThan(mealCell.frame.maxY, addButton.frame.minY)
-        let mealTitle = app.descendants(matching: .any).matching(identifier: "home.meal.title").firstMatch
-        let mealCalories = app.staticTexts.matching(identifier: "home.meal.calories").firstMatch
-        let mealMacros = app.staticTexts.matching(identifier: "home.meal.macros").firstMatch
-        XCTAssertTrue(mealTitle.exists)
-        XCTAssertTrue(mealCalories.exists)
-        XCTAssertTrue(mealMacros.exists)
-        XCTAssertGreaterThanOrEqual(mealCalories.frame.minY, mealTitle.frame.maxY)
-        XCTAssertLessThanOrEqual(mealCalories.frame.minX, mealTitle.frame.minX)
-        XCTAssertEqual(mealCalories.frame.minX, mealMacros.frame.minX, accuracy: 1)
-        XCTAssertLessThan(mealCalories.frame.maxY, addButton.frame.minY)
-        XCTAssertLessThan(mealMacros.frame.maxY, addButton.frame.minY)
 
         relaunchPreservingData(app)
         reveal(meal, in: app)
@@ -953,48 +903,23 @@ final class calorietrackerUITests: XCTestCase {
     }
 
     @MainActor
-    func testHomeFoodShortcutsAreSquareAndCustomizable() {
+    func testHomeKeepsFoodMethodsInClassicAddMenu() {
         let app = makeApp()
         app.launch()
-        let first = app.buttons["home.foodShortcut.0"]
-        let second = app.buttons["home.foodShortcut.1"]
-        XCTAssertTrue(second.waitForExistence(timeout: 10))
-        XCTAssertEqual(first.label, "Camera")
-        XCTAssertEqual(second.label, "Barcode")
-        XCTAssertEqual(first.frame.width, first.frame.height, accuracy: 1)
-        XCTAssertEqual(first.frame.width, second.frame.width, accuracy: 1)
-        XCTAssertEqual(first.frame.height, second.frame.height, accuracy: 1)
-        XCTAssertLessThan(second.frame.maxX, app.buttons["home.add"].frame.minX)
-
-        openSettingsCategory("appPreferences", in: app)
-        let addMenu = app.buttons["settings.addMenu"]
-        reveal(addMenu, in: app)
-        addMenu.tap()
-        let picker = app.buttons["settings.homeShortcut.0"]
-        XCTAssertTrue(picker.waitForExistence(timeout: 5))
-        picker.tap()
-        let option = app.buttons["Manual Entry"]
-        XCTAssertTrue(option.waitForExistence(timeout: 5))
-        option.tap()
-
-        relaunchPreservingData(app)
-        XCTAssertTrue(first.waitForExistence(timeout: 10))
-        XCTAssertEqual(first.label, "Manual Entry")
-        XCTAssertEqual(second.label, "Barcode")
-        first.tap()
-        XCTAssertTrue(app.textFields["manual.name"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["home.add"].waitForExistence(timeout: 10))
+        for index in 0...2 { XCTAssertFalse(app.buttons["home.foodShortcut.\(index)"].exists) }
+        XCTAssertFalse(app.buttons["home.favorites"].exists)
+        app.buttons["home.add"].tap()
+        app.buttons["Describe Meal"].tap()
+        XCTAssertTrue(app.buttons["Manual Entry"].waitForExistence(timeout: 5))
     }
 
     @MainActor
-    func testPinnedVoiceExplainsAccessWithoutLeavingTheCurrentTab() {
+    func testHomeVoiceExplainsAccessWithoutLeavingHome() {
         let app = makeApp()
         app.launch()
-        let coach = app.buttons["nav.coach"]
-        reveal(coach, in: app)
-        coach.tap()
-
-        let voice = app.buttons["nav.voice"]
-        XCTAssertTrue(voice.isHittable)
+        let voice = app.buttons["voiceAssistantButton"]
+        XCTAssertTrue(voice.waitForExistence(timeout: 10))
         voice.tap()
 
         // UI tests run without a subscription or a Gemini, OpenAI or xAI key, so the
@@ -1008,7 +933,7 @@ final class calorietrackerUITests: XCTestCase {
         app.buttons["voiceAssistant.access.notNow"].tap()
         XCTAssertTrue(explanation.waitForNonExistence(timeout: 5))
         XCTAssertTrue(voice.isHittable)
-        XCTAssertTrue(coach.isSelected)
+        XCTAssertTrue(app.tabBars.buttons["Home"].isSelected)
     }
 
     @MainActor
@@ -1024,12 +949,10 @@ final class calorietrackerUITests: XCTestCase {
         for id in ["brulee", "alien", "star", "croissantCat", "bomboloni", "cherry", "teddy", "jam"] {
             XCTAssertTrue(app.buttons[gallery + id].isHittable, "Missing gallery tile: \(id)")
         }
-        XCTAssertTrue(brulee.isSelected)
-        XCTAssertEqual(app.buttons["nav.voice"].value as? String, "Brulee")
+        XCTAssertTrue(app.buttons[gallery + "orb"].isSelected)
         jam.tap()
         XCTAssertTrue(jam.isSelected)
         XCTAssertFalse(brulee.isSelected)
-        XCTAssertEqual(app.buttons["nav.voice"].value as? String, "Jam")
 
         let customize = app.buttons["settings.voiceAssistant.mascot"]
         reveal(customize, in: app)
@@ -1038,7 +961,8 @@ final class calorietrackerUITests: XCTestCase {
         XCTAssertTrue(app.buttons["settings.voiceMascot.color"].exists)
         XCTAssertTrue(app.buttons["settings.voiceMascot.personality"].exists)
         relaunchPreservingData(app)
-        XCTAssertEqual(app.buttons["nav.voice"].value as? String, "Jam")
+        openSettingsCategory("voiceAssistant", in: app)
+        XCTAssertTrue(app.buttons[gallery + "jam"].isSelected)
     }
 
     @MainActor
@@ -1106,7 +1030,7 @@ final class calorietrackerUITests: XCTestCase {
         let app = makeApp()
         app.launch()
 
-        let settings = app.buttons["nav.settings"]
+        let settings = app.tabBars.buttons["Settings"]
         XCTAssertTrue(settings.waitForExistence(timeout: 15))
         settings.tap()
         let combined = app.buttons["settings.category.trackingNotifications"]

@@ -653,7 +653,7 @@ private fun DeveloperPage() {
                 .clip(RoundedCornerShape(16.dp))
                 .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.06f))
         ) {
-            SocialRow(Icons.Filled.AlternateEmail, stringResource(R.string.about_follow_x), FudAILinks.SOCIAL_HANDLE) { open(FudAILinks.X) }
+            SocialRow(Icons.Filled.AlternateEmail, stringResource(R.string.about_follow_x), "@apoorvdarshan") { open(FudAILinks.X) }
             Box(
                 Modifier
                     .padding(start = 52.dp)
@@ -661,7 +661,7 @@ private fun DeveloperPage() {
                     .height(0.5.dp)
                     .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f))
             )
-            SocialRow(Icons.Filled.CameraAlt, stringResource(R.string.about_follow_instagram), FudAILinks.SOCIAL_HANDLE) { open(FudAILinks.INSTAGRAM) }
+            SocialRow(Icons.Filled.CameraAlt, stringResource(R.string.about_follow_instagram), "@apoorvcodes") { open(FudAILinks.INSTAGRAM) }
         }
         Column(
             Modifier

@@ -56,7 +56,8 @@ fun LiveOrb(
     tint: Color,
     modifier: Modifier = Modifier,
     level: () -> Float = { 0f },
-    clearBackground: Boolean = false
+    clearBackground: Boolean = false,
+    motionEnabled: Boolean = true
 ) {
     val currentMode by rememberUpdatedState(mode)
     val currentLevel by rememberUpdatedState(level)
@@ -64,7 +65,7 @@ fun LiveOrb(
     var frame by remember { mutableStateOf(motion.still(mode)) }
     val lifecycle by LocalLifecycleOwner.current.lifecycle.currentStateAsState()
     val visible = lifecycle.isAtLeast(Lifecycle.State.STARTED)
-    val animate = visible && ValueAnimator.areAnimatorsEnabled()
+    val animate = motionEnabled && visible && ValueAnimator.areAnimatorsEnabled()
 
     LaunchedEffect(animate) {
         if (!animate) {

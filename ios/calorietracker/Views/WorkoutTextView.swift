@@ -2,7 +2,6 @@ import SwiftUI
 
 struct WorkoutTextView: View {
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Environment(StrengthWorkoutStore.self) private var workoutStore
     @AppStorage(EnergyUnit.storageKey) private var energyUnit = EnergyUnit.defaultUnit
     let selectedDate: Date
@@ -41,8 +40,7 @@ struct WorkoutTextView: View {
                     ])
                 }
             } else {
-                reviewContent
-                    .frame(idealWidth: 340, maxWidth: 340, idealHeight: 480, maxHeight: 480)
+                reviewContent.frame(width: 340, height: 480)
             }
         }
         .onDisappear { request?.cancel() }
@@ -66,10 +64,10 @@ struct WorkoutTextView: View {
                         }
                         Text("Calories are estimates. Use Calculate in the diary after adding your workout.")
                             .font(.footnote).foregroundStyle(.secondary)
-                        actionLayout {
+                        HStack {
                             Button("Edit description") { draft = nil; error = nil; clarification = nil; followUps = [] }
                                 .buttonStyle(.bordered)
-                            Button("Add to diary", action: save).buttonStyle(FlashActionButtonStyle())
+                            Button("Add to diary", action: save).buttonStyle(.borderedProminent)
                                 .disabled(binding.wrappedValue.exercises.isEmpty)
                         }
                     } else if clarification != nil || !followUps.isEmpty {
@@ -81,7 +79,7 @@ struct WorkoutTextView: View {
                             .lineLimit(2...5).textFieldStyle(.plain)
                             .autocorrectionDisabled().focused($inputFocused)
                             .padding(18)
-                            .flashPanel()
+                            .background(Color(.quaternarySystemFill), in: RoundedRectangle(cornerRadius: 12))
                             .accessibilityLabel("Workout description")
                             .onChange(of: description) { _, value in
                                 if value.count > 4000 { description = String(value.prefix(4000)) }
@@ -93,7 +91,7 @@ struct WorkoutTextView: View {
                             Text(busy ? "Finding exercises…" : (error == nil ? "Analyze" : "Retry"))
                                 .font(.headline).frame(maxWidth: .infinity)
                         }
-                        .buttonStyle(FlashActionButtonStyle())
+                        .buttonStyle(.borderedProminent).controlSize(.large)
                         .disabled(description.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                         Button("Cancel") { dismiss() }.foregroundStyle(.secondary)
                         if busy { ProgressView() }
@@ -103,7 +101,6 @@ struct WorkoutTextView: View {
                 .padding(20)
                 .disabled(busy)
             }
-            .flashScreenSurface()
             .navigationTitle(draft == nil ? (startsWithVoice ? "Voice workout" : "Describe workout") : "Review workout")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -111,12 +108,6 @@ struct WorkoutTextView: View {
                 ToolbarItem(placement: .primaryAction) { Button("Start over", action: startOver) }
             }
         }
-    }
-
-    private var actionLayout: AnyLayout {
-        dynamicTypeSize.isAccessibilitySize
-            ? AnyLayout(VStackLayout(alignment: .leading, spacing: 8))
-            : AnyLayout(HStackLayout(spacing: 8))
     }
 
     @ViewBuilder
@@ -138,9 +129,9 @@ struct WorkoutTextView: View {
                 .onChange(of: reply) { _, value in
                     if value.count > 500 { reply = String(value.prefix(500)) }
                 }
-            actionLayout {
+            HStack {
                 Button("Voice reply", systemImage: "mic") { voiceReply = true }.buttonStyle(.bordered)
-                Button("Continue") { answer(reply) }.buttonStyle(FlashActionButtonStyle())
+                Button("Continue") { answer(reply) }.buttonStyle(.borderedProminent)
                     .disabled(reply.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
             }
         } else {
@@ -148,7 +139,7 @@ struct WorkoutTextView: View {
                 Text(busy ? "Finding exercises…" : (error == nil ? "Analyze" : "Retry"))
                     .font(.headline).frame(maxWidth: .infinity)
             }
-            .buttonStyle(FlashActionButtonStyle())
+            .buttonStyle(.borderedProminent).controlSize(.large)
             if busy { ProgressView() }
         }
     }
@@ -219,28 +210,21 @@ struct WorkoutTextView: View {
 
 private struct WorkoutTextReview: View {
     @Binding var draft: WorkoutTextDraft
-    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-
-    private var fieldLayout: AnyLayout {
-        dynamicTypeSize.isAccessibilitySize
-            ? AnyLayout(VStackLayout(alignment: .leading, spacing: 6))
-            : AnyLayout(HStackLayout(spacing: 8))
-    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
+            Text("Review workout").font(.headline)
             TextField("Date (YYYY-MM-DD)", text: $draft.date).textFieldStyle(.roundedBorder)
                 .accessibilityLabel("Date (YYYY-MM-DD)")
             ForEach($draft.exercises) { $exercise in
                 VStack(alignment: .leading, spacing: 10) {
-                    Divider().overlay(AppColors.flashRule.opacity(0.24))
-                    Text(exercise.name).flashSectionHeading()
+                    Text(exercise.name).font(.headline)
                     if exercise.exerciseID == nil {
                         Text("Custom timed activity · calorie estimate uses a general activity rate")
                             .font(.footnote).foregroundStyle(.secondary)
                     }
                     if !exercise.minutes.isEmpty || exercise.sets.isEmpty {
-                        fieldLayout {
+                        HStack {
                             Text("Minutes")
                             TextField("Minutes", text: $exercise.minutes).keyboardType(.decimalPad)
                                 .textFieldStyle(.roundedBorder).accessibilityLabel("Minutes")
@@ -261,7 +245,7 @@ private struct WorkoutTextReview: View {
                             Text("lbs").tag("lbs")
                         }.pickerStyle(.segmented)
                         ForEach($exercise.sets) { $set in
-                            fieldLayout {
+                            HStack {
                                 Text("Set \((exercise.sets.firstIndex { $0.id == set.id } ?? 0) + 1)")
                                     .font(.caption)
                                 TextField("Weight (\(exercise.unit))", text: $set.weight)
@@ -276,6 +260,8 @@ private struct WorkoutTextReview: View {
                         draft.exercises.removeAll { $0.id == id }
                     }
                 }
+                .padding(14)
+                .background(.quaternary, in: RoundedRectangle(cornerRadius: 16))
             }
         }
     }

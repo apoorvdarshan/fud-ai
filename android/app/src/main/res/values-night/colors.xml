@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="app_splash_background">#0C0C0C</color>
-    <color name="widget_fallback_background">#19191B</color>
-    <color name="widget_flash_rule">#868086</color>
+    <color name="widget_fallback_background">#FF0C0C0C</color>
     <color name="widget_fallback_primary">#FFF2F2F7</color>
     <color name="widget_fallback_secondary">#FF8E8E93</color>
 </resources>

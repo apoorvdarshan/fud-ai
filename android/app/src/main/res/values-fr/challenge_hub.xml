@@ -24,4 +24,5 @@
     <string name="challenge_hub_leave_all_detail">Votre profil public, tous vos scores et les signalements seront supprimés. Votre journal privé reste sur cet appareil.</string>
     <string name="challenge_hub_jump_to_rank">Aller à mon classement</string>
     <string name="challenge_hub_week_rank">Le score sélectionné prime. En cas d’égalité, la diversité et la régularité des habitudes puis les autres nombres de jours départagent. Si l’égalité persiste, la première personne à atteindre ces résultats est devant. Les calories d’exercice ne départagent pas.</string>
+    <string name="challenge_shared_boards_disclosure">En rejoignant le défi hebdomadaire, vous partagez aussi vos points dans les classements quotidien et mensuel. Vous pouvez quitter chacun séparément.</string>
 </resources>

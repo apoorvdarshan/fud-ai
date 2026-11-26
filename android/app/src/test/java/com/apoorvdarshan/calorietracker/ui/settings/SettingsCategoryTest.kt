@@ -16,8 +16,8 @@ class SettingsCategoryTest {
         assertTrue(SettingsCategory.TRACKING_NOTIFICATIONS in SettingsCategory.preferenceEntries)
         assertTrue(SettingsCategory.entries.none { it.name == "NOTIFICATIONS" || it.name == "TRACKING_REMINDERS" })
         assertEquals(
-            listOf(SettingsCategory.APP_UPDATES, SettingsCategory.HELP_FEEDBACK, SettingsCategory.COMMUNITY, SettingsCategory.LEGAL),
-            SettingsCategory.aboutEntries
+            listOf(SettingsCategory.APP_UPDATES, SettingsCategory.SUPPORT, SettingsCategory.HELP_FEEDBACK, SettingsCategory.COMMUNITY, SettingsCategory.LEGAL),
+            SettingsCategory.appInfoEntries
         )
         assertEquals(5, SettingsCategory.entries.mapNotNull { it.aboutCategory }.size)
     }
@@ -32,10 +32,7 @@ class SettingsCategoryTest {
     fun everyVoiceSectionOpensACategoryThatReportsItBack() {
         for (section in VoiceSettingsSection.entries) {
             if (section.isAboutSection) {
-                // About opens from the root navigator, not the Settings hub.
-                assertEquals(null, SettingsCategory.forVoiceSection(section))
-                val canonical = if (section == VoiceSettingsSection.ABOUT) VoiceSettingsSection.APP_UPDATES else section
-                assertEquals(canonical, AboutSettingsCategory.entries.single { it.voiceSection == canonical }.voiceSection)
+                assertEquals(section, SettingsCategory.forVoiceSection(section).voiceSection)
                 continue
             }
             // REMINDERS is kept for compatibility and opens the page reported as NOTIFICATIONS.

@@ -90,7 +90,7 @@ data class VoiceAssistantPreferences(
     val confirmSaves: Boolean = true,
     val saveToCoach: Boolean = true,
     val qwenWorkspace: String = "",
-    val geminiBargeIn: Boolean = true
+    val geminiBargeIn: Boolean = false
 ) {
     fun model(provider: LiveProvider): String = models[provider] ?: provider.defaultModel
     fun voice(provider: LiveProvider): String = voices[provider] ?: provider.defaultVoice
@@ -1796,8 +1796,8 @@ class PreferencesStore(
         updateJsonList(Keys.BODY_MEASUREMENTS, BodyMeasurement.serializer(), transform)
 
     // -- Coach chat history ----------------------------------------------
-    val chatHistory: Flow<List<ChatMessage>> = ds.data.map { prefs ->
-        prefs[Keys.CHAT_HISTORY]?.let {
+    val chatHistory: Flow<List<ChatMessage>> = ds.data.map { it[Keys.CHAT_HISTORY] }.distinctUntilChanged().map { encoded ->
+        encoded?.let {
             runCatching { json.decodeFromString(ListSerializer(ChatMessage.serializer()), it) }.getOrNull()
         } ?: emptyList()
     }.flowOn(Dispatchers.Default)
@@ -2047,7 +2047,7 @@ class PreferencesStore(
             confirmSaves = prefs[Keys.VOICE_CONFIRM_SAVES] ?: true,
             saveToCoach = prefs[Keys.VOICE_SAVE_TO_COACH] ?: true,
             qwenWorkspace = prefs[Keys.QWEN_LIVE_WORKSPACE].orEmpty(),
-            geminiBargeIn = prefs[Keys.GEMINI_BARGE_IN] ?: true
+            geminiBargeIn = prefs[Keys.GEMINI_BARGE_IN] ?: false
         )
 
         private const val TAG = "PreferencesStore"

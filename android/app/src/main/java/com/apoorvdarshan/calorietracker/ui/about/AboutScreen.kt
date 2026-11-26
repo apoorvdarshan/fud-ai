@@ -80,14 +80,12 @@ import com.apoorvdarshan.calorietracker.services.hosted.BillingManager
 import com.apoorvdarshan.calorietracker.services.hosted.PurchaseOutcome
 import com.apoorvdarshan.calorietracker.services.update.AndroidUpdateChecker
 import com.apoorvdarshan.calorietracker.services.update.AndroidUpdateState
-import com.apoorvdarshan.calorietracker.services.voice.VoiceSettingsSection
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialog
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialogActions
 import com.apoorvdarshan.calorietracker.ui.components.TIP_TIERS
 import com.apoorvdarshan.calorietracker.ui.hosted.findActivity
 import com.revenuecat.purchases.models.StoreProduct
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
-import com.apoorvdarshan.calorietracker.ui.theme.flashListRow
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -102,13 +100,13 @@ enum class AboutSettingsCategory(val titleRes: Int, val icon: ImageVector) {
     COMMUNITY(R.string.about_category_community, Icons.Filled.AlternateEmail),
     LEGAL(R.string.about_category_legal, Icons.Filled.Lock);
 
-    val voiceSection: VoiceSettingsSection?
+    val voiceSection: com.apoorvdarshan.calorietracker.services.voice.VoiceSettingsSection
         get() = when (this) {
-            APP_UPDATES -> VoiceSettingsSection.APP_UPDATES
-            HELP_FEEDBACK -> VoiceSettingsSection.HELP_FEEDBACK
-            COMMUNITY -> VoiceSettingsSection.COMMUNITY
-            LEGAL -> VoiceSettingsSection.LEGAL
-            SUPPORT -> null
+            APP_UPDATES -> com.apoorvdarshan.calorietracker.services.voice.VoiceSettingsSection.APP_UPDATES
+            SUPPORT -> com.apoorvdarshan.calorietracker.services.voice.VoiceSettingsSection.ABOUT
+            HELP_FEEDBACK -> com.apoorvdarshan.calorietracker.services.voice.VoiceSettingsSection.HELP_FEEDBACK
+            COMMUNITY -> com.apoorvdarshan.calorietracker.services.voice.VoiceSettingsSection.COMMUNITY
+            LEGAL -> com.apoorvdarshan.calorietracker.services.voice.VoiceSettingsSection.LEGAL
         }
 }
 
@@ -145,19 +143,16 @@ fun AboutAppHeader() {
 
 /** Rows for one focused About category, embedded in the existing Settings layout. */
 @Composable
-fun AboutSettingsRows(
-    category: AboutSettingsCategory,
-    billing: BillingManager?,
-    updateState: AndroidUpdateState,
-    onRefreshUpdates: () -> Unit
-) {
+fun AboutSettingsRows(category: AboutSettingsCategory, billing: BillingManager? = null, onUpdateChecked: (AndroidUpdateState) -> Unit = {}) {
     val ctx = LocalContext.current
     val shareText = stringResource(R.string.about_share_message)
     val shareChooser = stringResource(R.string.about_share_chooser)
     val currentVersion = remember(ctx) { AndroidUpdateChecker.currentVersion(ctx) }
+    var updateState by remember { mutableStateOf<AndroidUpdateState>(AndroidUpdateState.Idle) }
     var showLiteRtNotices by remember { mutableStateOf(false) }
     var showWhisperNotices by remember { mutableStateOf(false) }
     var showSherpaNotices by remember { mutableStateOf(false) }
+    val scope = rememberCoroutineScope()
 
     fun open(url: String) =
         ctx.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
@@ -173,6 +168,20 @@ fun AboutSettingsRows(
     }
 
     fun openPlayStore() = openPlayStore(ctx)
+
+    fun refreshUpdateState() {
+        scope.launch {
+            updateState = AndroidUpdateState.Checking
+            updateState = AndroidUpdateChecker.check(ctx, currentVersion).also(onUpdateChecked)
+        }
+    }
+
+    LaunchedEffect(category, currentVersion) {
+        if (category == AboutSettingsCategory.APP_UPDATES) {
+            updateState = AndroidUpdateState.Checking
+            updateState = AndroidUpdateChecker.check(ctx, currentVersion).also(onUpdateChecked)
+        }
+    }
 
     fun share() {
         ctx.startActivity(Intent.createChooser(
@@ -196,7 +205,7 @@ fun AboutSettingsRows(
                 UpdateRow(
                     state = updateState,
                     currentVersion = currentVersion,
-                    onRefresh = onRefreshUpdates,
+                    onRefresh = ::refreshUpdateState,
                     onOpenStore = ::openPlayStore
                 )
                 Hairline()
@@ -266,7 +275,7 @@ fun AboutSettingsRows(
                     open(FudAILinks.DISCORD)
                 }
                 Hairline()
-                AboutRow(Icons.Filled.AlternateEmail, stringResource(R.string.about_follow_x), FudAILinks.SOCIAL_HANDLE) {
+                AboutRow(Icons.Filled.AlternateEmail, stringResource(R.string.about_follow_x)) {
                     open(FudAILinks.X)
                 }
                 Hairline()
@@ -274,7 +283,7 @@ fun AboutSettingsRows(
                     open("https://www.linkedin.com/company/fud-ai-app")
                 }
                 Hairline()
-                AboutRow(Icons.Filled.CameraAlt, stringResource(R.string.about_follow_instagram), FudAILinks.SOCIAL_HANDLE) {
+                AboutRow(Icons.Filled.CameraAlt, stringResource(R.string.about_follow_instagram)) {
                     open(FudAILinks.INSTAGRAM)
                 }
             }
@@ -472,7 +481,7 @@ fun AboutFooter() {
 private fun openPlayStore(context: Context) = AndroidUpdateChecker.openPlayStore(context)
 
 @Composable
-private fun UpdateRow(
+internal fun UpdateRow(
     state: AndroidUpdateState,
     currentVersion: String,
     onRefresh: () -> Unit,
@@ -540,7 +549,7 @@ private fun DunAndBradstreetRow() {
         LocalDate.of(2026, 10, 28).format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).withLocale(locale))
     }
     Row(
-        Modifier.fillMaxWidth().flashListRow().testTag("about.legal.duns"),
+        Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp).testTag("about.legal.duns"),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Box(Modifier.size(28.dp), contentAlignment = Alignment.Center) {
@@ -625,7 +634,7 @@ private fun AboutRow(
         Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick)
-            .flashListRow(),
+            .padding(horizontal = 16.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Box(Modifier.size(28.dp), contentAlignment = Alignment.Center) {
@@ -640,7 +649,7 @@ private fun AboutRow(
                 )
             }
         }
-        Spacer(Modifier.width(10.dp))
+        Spacer(Modifier.width(14.dp))
         Column(Modifier.weight(1f)) {
             Text(label, fontSize = 17.sp, color = MaterialTheme.colorScheme.onSurface)
             if (!subtitle.isNullOrBlank()) {

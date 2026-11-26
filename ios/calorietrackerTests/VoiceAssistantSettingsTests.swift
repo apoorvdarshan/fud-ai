@@ -68,7 +68,7 @@ struct VoiceAssistantSettingsTests {
         #expect(settings.confirmSaves)
         #expect(settings.saveToCoach)
         #expect(settings.autoCapture)
-        #expect(settings.geminiBargeIn)
+        #expect(!settings.geminiBargeIn)
         #expect(settings.language == .app)
         #expect(settings.model(for: .gemini) == "gemini-3.8-live")
         #expect(settings.model(for: .openai) == "gpt-realtime-2.1-mini")
@@ -125,12 +125,12 @@ struct VoiceAssistantSettingsTests {
         settings.confirmSaves = false
         settings.saveToCoach = false
         settings.autoCapture = false
-        settings.geminiBargeIn = false
+        settings.geminiBargeIn = true
         #expect(defaults.bool(forKey: "voiceAssistant.confirmSaves") == false)
         #expect(defaults.bool(forKey: "voiceAssistant.saveToCoach") == false)
         #expect(defaults.object(forKey: "voiceAssistant.autoCapture") as? Bool == false)
         #expect(!VoiceAssistantSettings(defaults: defaults).autoCapture)
-        #expect(!VoiceAssistantSettings(defaults: defaults).geminiBargeIn)
+        #expect(VoiceAssistantSettings(defaults: defaults).geminiBargeIn)
     }
 
     @Test func builtInModelsAndVoicesMatchTheContract() {
@@ -297,7 +297,7 @@ struct VoiceAssistantInstructionsTests {
             fastingTracking: true
         )
         #expect(text.count <= VoiceAssistantInstructions.maximumLength)
-        #expect(text.contains("Your name for this session is \"Brulee\""))
+        #expect(text.contains("Your name for this session is \"Fud AI\""))
         #expect(text.contains("user_confirmed: true unless the user agreed"))
         #expect(text.contains("read back the main items and the total calories"))
         #expect(text.contains("camera_frames: continuous"))

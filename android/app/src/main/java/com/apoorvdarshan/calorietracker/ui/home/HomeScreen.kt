@@ -1,4 +1,5 @@
 package com.apoorvdarshan.calorietracker.ui.home
+import com.apoorvdarshan.calorietracker.ui.components.WaitingFactCard
 
 import android.Manifest
 import android.app.DatePickerDialog
@@ -44,12 +45,23 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.PathEffect
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -59,11 +71,9 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -73,6 +83,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.AddAPhoto
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.Calculate
+import androidx.compose.material.icons.filled.LocalFireDepartment
 import androidx.compose.material.icons.filled.DriveFileRenameOutline
 import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.CameraAlt
@@ -100,8 +111,7 @@ import androidx.compose.material.icons.filled.SwapVert
 import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material.icons.filled.Stop
 import androidx.compose.material.icons.filled.PlayArrow
-import com.apoorvdarshan.calorietracker.ui.components.FlashAlertDialog as AlertDialog
-import com.apoorvdarshan.calorietracker.ui.components.FlashLoadingDialog
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -109,13 +119,13 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
-import com.apoorvdarshan.calorietracker.ui.components.FlashDropdownMenu as DropdownMenu
+import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.LinearProgressIndicator
-import com.apoorvdarshan.calorietracker.ui.components.FlashBottomSheet as ModalBottomSheet
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SheetValue
@@ -137,14 +147,10 @@ import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.Brush
@@ -163,6 +169,7 @@ import com.apoorvdarshan.calorietracker.ui.util.formattedWholeNumber
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -182,12 +189,10 @@ import com.apoorvdarshan.calorietracker.models.CurrentMealSchedule
 import com.apoorvdarshan.calorietracker.models.MealType
 import com.apoorvdarshan.calorietracker.models.FoodLogMethod
 import com.apoorvdarshan.calorietracker.models.FoodLogMethodDefaultGroupIcon
-import com.apoorvdarshan.calorietracker.models.HomeFoodShortcuts
 import com.apoorvdarshan.calorietracker.models.displayName
 import com.apoorvdarshan.calorietracker.models.QuickAction
 import com.apoorvdarshan.calorietracker.models.QuickActionRequest
 import com.apoorvdarshan.calorietracker.models.ServingUnitOption
-import com.apoorvdarshan.calorietracker.models.UserProfile
 import com.apoorvdarshan.calorietracker.models.WaterEntry
 import com.apoorvdarshan.calorietracker.models.WaterUnit
 import com.apoorvdarshan.calorietracker.services.ai.AnalysisProgressState
@@ -199,6 +204,7 @@ import com.apoorvdarshan.calorietracker.models.EnergyUnit
 import com.apoorvdarshan.calorietracker.ui.components.FullScreenImageViewer
 import com.apoorvdarshan.calorietracker.ui.components.rememberFoodThumbnailCandidate
 import com.apoorvdarshan.calorietracker.ui.components.foodPhotoViewerInitialIndex
+import com.apoorvdarshan.calorietracker.ui.components.MacroCard
 import com.apoorvdarshan.calorietracker.ui.components.DateWheelPicker
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialog
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialogActions
@@ -206,10 +212,9 @@ import com.apoorvdarshan.calorietracker.ui.components.FudGlassPrimaryButton
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassSurface
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassTextField
 import com.apoorvdarshan.calorietracker.ui.components.WeekEnergyStrip
-import com.apoorvdarshan.calorietracker.ui.components.WaitingFactCard
+import com.apoorvdarshan.calorietracker.ui.navigation.BottomNavDockedControlPadding
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
-import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
-import com.apoorvdarshan.calorietracker.ui.theme.PinkNeoCondensed
+import com.apoorvdarshan.calorietracker.ui.voice.VoiceAssistantButton
 import java.time.DayOfWeek
 import java.time.Instant
 import java.time.LocalDate
@@ -225,6 +230,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 
 private sealed interface AddMenuDestination {
     data class FoodGroup(val index: Int) : AddMenuDestination
@@ -237,12 +244,10 @@ private sealed interface AddMenuDestination {
 fun HomeScreen(
     container: AppContainer,
     quickActionRequest: QuickActionRequest? = null,
-    onQuickActionHandled: (Long) -> Unit = {},
-    initialProfile: UserProfile? = null
+    onQuickActionHandled: (Long) -> Unit = {}
 ) {
-    val vm: HomeViewModel = viewModel(factory = HomeViewModel.Factory(container, initialProfile))
+    val vm: HomeViewModel = viewModel(factory = HomeViewModel.Factory(container))
     val ui by vm.ui.collectAsState()
-    val foodShortcuts by container.prefs.homeFoodShortcuts.collectAsState(initial = HomeFoodShortcuts.Default)
     val lifecycleOwner = LocalLifecycleOwner.current
 DisposableEffect(lifecycleOwner, vm) {
         val observer = LifecycleEventObserver { _, event ->
@@ -442,6 +447,8 @@ DisposableEffect(lifecycleOwner, vm) {
     }
 
     // The voice assistant opens a logged food's edit sheet here (open_food_entry).
+    val voiceUi by container.voiceAssistant.ui.collectAsState()
+    val hideVoiceShortcut by container.prefs.hideVoiceShortcut.collectAsState(initial = false)
     val pendingVoiceEntry by container.navigator.pendingFoodEntry.collectAsState()
     LaunchedEffect(pendingVoiceEntry, allEntries) {
         val id = pendingVoiceEntry ?: return@LaunchedEffect
@@ -486,15 +493,19 @@ DisposableEffect(lifecycleOwner, vm) {
     }
 
     val actionSize = 60.dp
-    val shortcutSize = 52.dp
-    val actionGap = 6.dp
-    val minLogFoodWidth = if (LocalDensity.current.fontScale >= 1.3f) 112.dp else 84.dp
-    val neo = pinkNeoPalette()
-    val actionBottom = 8.dp
+    val actionGap = 12.dp
+    val actionBottom = 100.dp
+    val diaryBottomClearance = actionBottom + actionSize + actionGap +
+        WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
 
-    // The tab shell owns the status-bar inset.
+    // No topBar: the empty TopAppBar used to act as the status-bar spacer, but the
+    // ad strip above this screen (TabWithBanner) now owns that inset.
     Scaffold(
-        containerColor = neo.paper,
+        containerColor = MaterialTheme.colorScheme.background,
+        // Scroll behind the floating tabs; the list and its controls reserve their own bottom clearance.
+        contentWindowInsets = androidx.compose.material3.ScaffoldDefaults.contentWindowInsets.only(
+            WindowInsetsSides.Horizontal + WindowInsetsSides.Top
+        ),
         bottomBar = {
             if (selectionMode) {
                 Column(
@@ -502,6 +513,7 @@ DisposableEffect(lifecycleOwner, vm) {
                         .fillMaxWidth()
                         .background(MaterialTheme.colorScheme.background)
                         .navigationBarsPadding()
+                        .padding(bottom = BottomNavDockedControlPadding)
                 ) {
                     Row(
                         modifier = Modifier
@@ -549,34 +561,31 @@ DisposableEffect(lifecycleOwner, vm) {
             }
         },
     ) { padding ->
-        Column(Modifier.fillMaxSize().padding(padding)) {
+        Box(Modifier.fillMaxSize().padding(padding)) {
         LazyColumn(
             modifier = Modifier
-                .weight(1f).fillMaxWidth().testTag("home.diary"),
+                .fillMaxSize().testTag("home.diary"),
             contentPadding = androidx.compose.foundation.layout.PaddingValues(
                 top = 8.dp,
-                bottom = 8.dp
+                bottom = if (selectionMode) 8.dp else diaryBottomClearance
             )
         ) {
             // Week strip — verbatim port of WeekEnergyStrip in HomeComponents.swift,
             // with horizontal pagination across 53 weeks of history.
             item {
-                Column(
-                    Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    PinkNeoDateHeader(date = selectedDate, onPick = pickDay)
+                DiaryDateHeader(selectedDate, onPick = pickDay)
+                Box(Modifier.padding(horizontal = 16.dp, vertical = 4.dp)) {
                     WeekEnergyStrip(
                         selectedDate = selectedDate,
-                        onSelect = pickDay,
-                        weekStartsOnMonday = weekStartsOnMonday,
-                        modifier = Modifier.background(neo.panel).border(1.dp, neo.rule).padding(3.dp)
+                        onSelect = vm::setSelectedDate,
+                        weekStartsOnMonday = weekStartsOnMonday
                     )
                 }
             }
 
-            // The entire summary is a single swipe region, separate from the week
-            // strip and diary. Measure from initial touch to lift, as on iOS.
+            // Calorie hero + macros + View More — grouped so the day-swipe gesture covers only
+            // this top region, not the food log below "View More". Swipe left/right to change day;
+            // the horizontal-only detector lets the LazyColumn keep scrolling vertically.
             item {
                 Column(
                     modifier = Modifier.fillMaxWidth().pointerInput(selectedDate, today) {
@@ -599,7 +608,7 @@ DisposableEffect(lifecycleOwner, vm) {
                         }
                     }
                 ) {
-                    Spacer(Modifier.height(4.dp))
+                    Spacer(Modifier.height(32.dp))
                     CalorieHero(
                         current = ui.caloriesToday,
                         goal = ui.profile?.effectiveCalories ?: 2000,
@@ -610,30 +619,28 @@ DisposableEffect(lifecycleOwner, vm) {
                         DailyStepsRow(steps = steps)
                     }
                     Spacer(Modifier.height(12.dp))
-                    Column(Modifier.fillMaxWidth().padding(horizontal = 10.dp)) {
-                        val nutrients = ui.homeTopNutrients.take(4)
-                        nutrients.chunked(if (LocalDensity.current.fontScale >= 1.45f) 2 else 4).forEach { row ->
-                            Row(Modifier.fillMaxWidth()) {
-                                row.forEach { nutrient ->
-                                    PinkNeoNutrient(
-                                        label = stringResource(nutrient.displayNameRes),
-                                        current = nutrient.current(ui.todayEntries),
-                                        goal = nutrient.goal(ui.profile, ui.optionalNutrientGoals).toDouble(),
-                                        unit = nutrient.unit,
-                                        modifier = Modifier.weight(1f)
-                                    )
-                                }
-                            }
+                    Row(
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp),
+                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                    ) {
+                        ui.homeTopNutrients.take(4).forEach { nutrient ->
+                            MacroCard(
+                                label = stringResource(nutrient.displayNameRes),
+                                current = nutrient.current(ui.todayEntries),
+                                goal = nutrient.goal(ui.profile, ui.optionalNutrientGoals).toDouble(),
+                                unit = nutrient.unit,
+                                modifier = Modifier.weight(1f)
+                            )
                         }
                         if (ui.waterTrackingEnabled) {
-                            Spacer(Modifier.height(5.dp))
-                            PinkNeoNutrient(
+                            MacroCard(
                                 label = stringResource(R.string.water),
                                 current = ui.waterUnit.displayAmount(ui.waterTodayMl),
                                 goal = ui.waterUnit.displayAmount(ui.waterDailyGoalMl),
                                 unit = if (ui.waterUnit == WaterUnit.FLUID_OUNCES) " fl oz" else "ml",
-                                modifier = Modifier.fillMaxWidth(),
-                                compact = true
+                                modifier = Modifier.weight(1f)
                             )
                         }
                     }
@@ -643,12 +650,7 @@ DisposableEffect(lifecycleOwner, vm) {
                             .padding(vertical = 8.dp),
                         contentAlignment = Alignment.Center
                     ) {
-                        Box(
-                            modifier = Modifier.fillMaxWidth().padding(horizontal = 10.dp)
-                                .background(neo.panel).border(1.dp, neo.rule)
-                                .testTag("home.viewMore")
-                                .clickable(role = Role.Button) { showNutritionDetail = true }
-                        ) {
+                        Box(modifier = Modifier.testTag("home.viewMore").clickable(role = Role.Button) { showNutritionDetail = true }) {
                             ViewMoreButton()
                         }
                     }
@@ -707,8 +709,12 @@ DisposableEffect(lifecycleOwner, vm) {
                             }
                         )
                     }
-                    itemsIndexed(group.items, key = { _, item -> item.stableId }) { index, item ->
-                        Column(Modifier.fillMaxWidth().background(neo.panel).clipToBounds()) {
+                    items(group.items, key = { it.stableId }) { item ->
+                        val index = group.items.indexOf(item)
+                        val isFirst = index == 0
+                        val isLast = index == group.items.lastIndex
+                        val rowShape = sectionCardShape(isFirst, isLast)
+                        SectionCardWrapper(isFirst = isFirst, isLast = isLast, transparent = true) {
                             when (item) {
                                 is HomeDiaryItem.Food -> {
                                     val entry = item.entry
@@ -720,6 +726,7 @@ DisposableEffect(lifecycleOwner, vm) {
                                     SwipeableFoodRow(
                                         entry = entry,
                                         isFavorite = isFav,
+                                        rowShape = rowShape,
                                         selectionMode = selectionMode,
                                         selected = isSelected,
                                         onTap = {
@@ -747,82 +754,59 @@ DisposableEffect(lifecycleOwner, vm) {
                                     SwipeableWaterRow(
                                         entry = item.entry,
                                         unit = ui.waterUnit,
+                                        rowShape = rowShape,
                                         onDelete = { pendingDiaryDeletion = item }
                                     )
                                 }
                                 is HomeDiaryItem.Fasting -> {
                                     SwipeableFastingRow(
                                         session = item.session,
+                                        rowShape = rowShape,
                                         onTap = { editingFast = item.session },
                                         onDelete = { pendingDiaryDeletion = item }
                                     )
                                 }
                             }
-                            if (index != group.items.lastIndex) DiaryRowDivider()
+                            if (!isLast) Divider()
                         }
                     }
                 }
             }
         }
 
-        // Give the pinned dock its own space so it can't intercept a diary swipe.
+        // Transparent floating controls preserve the full scrolling diary.
         if (!selectionMode) {
-        BoxWithConstraints(Modifier.fillMaxWidth().padding(start = 10.dp, end = 10.dp, bottom = actionBottom)) {
-        val shortcutCount = ((maxWidth - minLogFoodWidth) / (shortcutSize + actionGap)).toInt()
-            .coerceIn(0, foodShortcuts.methods.size)
         Row(
             modifier = Modifier
-                .fillMaxWidth()
-                .background(neo.paper),
+                .align(Alignment.BottomEnd)
+                .navigationBarsPadding()
+                .padding(end = 24.dp, bottom = actionBottom),
             horizontalArrangement = Arrangement.spacedBy(actionGap),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            val foodLoggingEnabled = ui.activeFast == null
-            foodShortcuts.methods.take(shortcutCount).forEachIndexed { slot, method ->
-                Box(
-                    modifier = Modifier
-                        .testTag("home.foodShortcut.$slot")
-                        .size(shortcutSize)
-                        .alpha(if (foodLoggingEnabled) 1f else 0.5f)
-                        .background(neo.panel)
-                        .border(1.dp, neo.rule)
-                        .clickable(enabled = foodLoggingEnabled, role = Role.Button) {
-                            performFoodLogMethod(method)
-                        },
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        method.icon,
-                        contentDescription = stringResource(method.titleRes),
-                        tint = neo.ink
-                    )
-                }
+            if (!voiceUi.visible && !hideVoiceShortcut) {
+                val mascots by container.prefs.voiceMascotPreferences.collectAsState(initial = com.apoorvdarshan.calorietracker.services.voice.VoiceMascotPreferences())
+                VoiceAssistantButton(onClick = container.voiceAssistant::requestStart, profile = mascots.profile)
             }
-            Box(Modifier.weight(1f)) {
-            Row(
+            Box {
+            Box(
                 modifier = Modifier
                     .testTag("home.add")
-                    .fillMaxWidth()
-                    .heightIn(min = actionSize)
-                    .background(neo.action)
-                    .border(1.5.dp, neo.rule)
-                    .clickable(role = Role.Button) {
+                    .size(actionSize)
+                    .clip(CircleShape)
+                    .background(AppColors.Calorie)
+                    .clickable {
                         addMenuDestination = null
                         showAddMenu = true
-                    }
-                    .padding(horizontal = 8.dp, vertical = 5.dp),
-                horizontalArrangement = Arrangement.spacedBy(6.dp, Alignment.CenterHorizontally),
-                verticalAlignment = Alignment.CenterVertically
+                    },
+                contentAlignment = Alignment.Center
             ) {
                 Icon(
                     Icons.Filled.Add,
-                    contentDescription = null,
-                    tint = neo.onAction,
-                    modifier = Modifier.size(19.dp)
+                    contentDescription = stringResource(R.string.cd_add_food),
+                    tint = Color.White,
+                    modifier = Modifier.size(30.dp)
                 )
-                Text(stringResource(R.string.cd_add_food).uppercase(LocalConfiguration.current.locales[0]),
-                    color = neo.onAction, fontWeight = FontWeight.Black, fontSize = 14.sp, maxLines = 2,
-                    style = PinkNeoCondensed)
             }
             // Glass-styled, progressive add menu. Actions read in task order from
             // top to bottom, with the most common choice first.
@@ -928,7 +912,6 @@ DisposableEffect(lifecycleOwner, vm) {
                     }
                 }
             }
-        }
         }
         }
         }
@@ -1317,9 +1300,9 @@ DisposableEffect(lifecycleOwner, vm) {
 @Composable
 private fun ActiveFastingRow(
     session: FastingSession,
+    rowShape: RoundedCornerShape,
     onClick: () -> Unit
 ) {
-    val neo = pinkNeoPalette()
     var now by remember(session.id) { mutableStateOf(Instant.now()) }
     LaunchedEffect(session.id) {
         while (true) {
@@ -1337,9 +1320,17 @@ private fun ActiveFastingRow(
     Column(
         Modifier
             .fillMaxWidth()
-            .background(neo.panel)
+            .clip(rowShape)
+            .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.86f))
+            .border(
+                0.7.dp,
+                Brush.linearGradient(
+                    listOf(Color.White.copy(alpha = 0.14f), Color.White.copy(alpha = 0.035f))
+                ),
+                rowShape
+            )
             .clickable(onClick = onClick)
-            .padding(horizontal = DiaryRowInset, vertical = 8.dp)
+            .padding(horizontal = 14.dp, vertical = 12.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             FastingEmojiTile()
@@ -1380,9 +1371,9 @@ private fun ActiveFastingRow(
 @Composable
 private fun CompletedFastingRow(
     session: FastingSession,
+    rowShape: RoundedCornerShape,
     onClick: () -> Unit
 ) {
-    val neo = pinkNeoPalette()
     val context = LocalContext.current
     val timeFormatter = remember(context) {
         DateTimeFormatter.ofPattern(clockTimePattern(context), Locale.getDefault())
@@ -1391,9 +1382,17 @@ private fun CompletedFastingRow(
     Row(
         Modifier
             .fillMaxWidth()
-            .background(neo.panel)
+            .clip(rowShape)
+            .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.86f))
+            .border(
+                0.7.dp,
+                Brush.linearGradient(
+                    listOf(Color.White.copy(alpha = 0.14f), Color.White.copy(alpha = 0.035f))
+                ),
+                rowShape
+            )
             .clickable(onClick = onClick)
-            .padding(horizontal = DiaryRowInset, vertical = 8.dp),
+            .padding(horizontal = 14.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         FastingEmojiTile()
@@ -1425,7 +1424,7 @@ private fun CompletedFastingRow(
 private fun FastingEmojiTile() {
     Box(
         Modifier
-            .size(DiaryThumbnailSize)
+            .size(56.dp)
             .clip(RoundedCornerShape(14.dp))
             .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.06f)),
         contentAlignment = Alignment.Center
@@ -1733,6 +1732,7 @@ private fun CalorieHero(
     val energyUnit = LocalEnergyUnit.current
     val shownCurrent = energyUnit.displayValue(current)
     val shownGoal = energyUnit.displayValue(goal)
+    val formattedCurrent = shownCurrent.formattedWholeNumber()
     // Fill-from-zero on app open. lastEpoch is saveable so it survives tab switches
     // (where Home leaves/re-enters composition) — only a real app-open (new epoch)
     // replays the sweep; tab returns snap to the current value.
@@ -1758,16 +1758,103 @@ private fun CalorieHero(
         current > goal -> stringResource(R.string.home_macro_over_format, (shownCurrent - shownGoal).formattedWholeNumber())
         else -> stringResource(R.string.home_macro_goal_reached)
     }
-    PinkNeoEnergyPanels(
-        heading = stringResource(
-            if (energyUnit == EnergyUnit.KJ) R.string.home_kilojoules else R.string.widget_calories
-        ).uppercase(LocalConfiguration.current.locales[0]),
-        amount = energyText(current),
-        goal = if (goal > 0) energyText(goal) else "—",
-        status = statusText,
-        progress = { animatedRatio.value },
-        burnLine = if (burnSummary == null) null else homeBurnLineText(burnSummary)
-    )
+    val gradientColors = listOf(AppColors.CalorieStart, AppColors.CalorieEnd)
+    val trackColor = AppColors.Calorie.copy(alpha = 0.12f)
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 4.dp),
+        contentAlignment = Alignment.TopCenter
+    ) {
+        // Segmented (dashed) semicircle speedometer arc. The compact 240dp dome keeps
+        // the calorie readout dominant while returning more of the first meal to the
+        // initial viewport. iOS uses the same 240pt / 14pt geometry.
+        Canvas(
+            modifier = Modifier
+                .width(240.dp)
+                .aspectRatio(2f)
+        ) {
+            val stroke = 14.dp.toPx()
+            val inset = stroke / 2f
+            val arcSize = Size(size.width - stroke, size.width - stroke)
+            val topLeft = Offset(inset, inset)
+            val dash = PathEffect.dashPathEffect(floatArrayOf(4.dp.toPx(), 6.dp.toPx()), 0f)
+            drawArc(
+                color = trackColor,
+                startAngle = 180f,
+                sweepAngle = 180f,
+                useCenter = false,
+                topLeft = topLeft,
+                size = arcSize,
+                style = Stroke(width = stroke, cap = StrokeCap.Butt, pathEffect = dash)
+            )
+            drawArc(
+                brush = Brush.horizontalGradient(gradientColors),
+                startAngle = 180f,
+                sweepAngle = 180f * animatedRatio.value,
+                useCenter = false,
+                topLeft = topLeft,
+                size = arcSize,
+                style = Stroke(width = stroke, cap = StrokeCap.Butt, pathEffect = dash)
+            )
+        }
+
+        // Centered readout, sitting inside the dome
+        Column(
+            modifier = Modifier.padding(top = 39.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(2.dp)
+        ) {
+            // The dome's numbers carry no unit, so its heading names the unit in use.
+            Text(
+                stringResource(
+                    if (energyUnit == EnergyUnit.KJ) R.string.home_kilojoules else R.string.widget_calories
+                ).uppercase(LocalConfiguration.current.locales[0]),
+                fontSize = 12.sp,
+                fontWeight = FontWeight.SemiBold,
+                letterSpacing = 0.5.sp,
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+            )
+            Text(
+                formattedCurrent,
+                style = TextStyle(
+                    brush = Brush.linearGradient(gradientColors),
+                    fontSize = 50.sp,
+                    fontWeight = FontWeight.Bold
+                ),
+                maxLines = 1
+            )
+            // Flame + calorie status, mirroring iOS HStack(spacing: 5) { flame.fill (11pt) ;
+            // Text(statusText) } tinted to AppColors.calorie — a pink monochrome
+            // glyph, not a multicolor emoji.
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(5.dp)
+            ) {
+                Icon(
+                    Icons.Filled.LocalFireDepartment,
+                    contentDescription = null,
+                    tint = AppColors.Calorie,
+                    modifier = Modifier.size(13.dp)
+                )
+                Text(
+                    statusText,
+                    fontSize = 13.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = AppColors.Calorie
+                )
+            }
+            burnSummary?.let { summary ->
+                Text(
+                    text = homeBurnLineText(summary),
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.45f)
+                )
+            }
+        }
+    }
 }
 
 @Composable
@@ -1801,23 +1888,22 @@ private fun homeBurnLineText(summary: HomeBurnSummary): String {
 
 @Composable
 private fun ViewMoreButton() {
-    val neo = pinkNeoPalette()
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
-            .fillMaxWidth().heightIn(min = 44.dp).padding(horizontal = 10.dp, vertical = 8.dp)
+            .padding(horizontal = 10.dp, vertical = 8.dp)
     ) {
         Text(
             stringResource(R.string.home_view_more),
             fontSize = 15.sp,
-            fontWeight = FontWeight.Black,
-            color = neo.ink
+            fontWeight = FontWeight.Medium,
+            color = AppColors.Calorie.copy(alpha = 0.6f)
         )
-        Spacer(Modifier.weight(1f))
+        Spacer(Modifier.width(5.dp))
         Icon(
             Icons.Filled.ChevronRight,
             contentDescription = null,
-            tint = neo.ink,
+            tint = AppColors.Calorie.copy(alpha = 0.6f),
             modifier = Modifier.size(11.dp)
         )
     }
@@ -1853,113 +1939,84 @@ private fun MealSectionHeader(
     onSortDismiss: () -> Unit = {},
     onSortOrderSelected: (FoodLogSortOrder) -> Unit = {}
 ) {
-    val neo = pinkNeoPalette()
-    val compactActions = LocalDensity.current.fontScale >= 1.3f
-    val sortLabel = stringResource(R.string.sort)
     Column(
         Modifier
             .fillMaxWidth()
-            .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp)
-            .background(neo.wash)
-            .border(1.dp, neo.rule)
-            .padding(horizontal = 8.dp, vertical = 4.dp)
+            .padding(start = 22.dp, end = 30.dp, top = 18.dp, bottom = 10.dp)
     ) {
-        val mealTitle: @Composable (Modifier) -> Unit = { modifier ->
-            Row(modifier, verticalAlignment = Alignment.CenterVertically) {
-                Icon(
-                    mealIcon(meal),
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.55f),
-                    modifier = Modifier.size(16.dp).testTag("home.mealHeader.${meal.name}.icon")
-                )
-                Spacer(Modifier.width(8.dp))
-                Text(
-                    stringResource(meal.displayNameRes),
-                    fontSize = 15.sp,
-                    lineHeight = 19.sp,
-                    fontWeight = FontWeight.Black,
-                    style = PinkNeoCondensed,
-                    color = neo.ink,
-                    modifier = Modifier.weight(1f, fill = false).testTag("home.mealHeader.${meal.name}.title")
-                )
-            }
-        }
-        val mealActions: @Composable () -> Unit = {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                if (showSortMenu) {
-                    if (!compactActions) Spacer(Modifier.width(8.dp))
-                    Box {
-                        Row(
-                            modifier = Modifier
-                                .clickable(role = Role.Button, onClick = onSortClick)
-                                .sizeIn(minWidth = 48.dp, minHeight = 28.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(6.dp, Alignment.CenterHorizontally)
-                        ) {
-                            Icon(
-                                Icons.Filled.SwapVert,
-                                contentDescription = if (compactActions) sortLabel else null,
-                                tint = AppColors.Calorie,
-                                modifier = Modifier.size(16.dp)
-                            )
-                            if (!compactActions) {
-                                Text(
-                                    sortLabel,
-                                    fontSize = 15.sp,
-                                    lineHeight = 19.sp,
-                                    fontWeight = FontWeight.SemiBold,
-                                    color = AppColors.Calorie
-                                )
-                            }
-                        }
-                        SheetGlassDropdownMenu(
-                            expanded = sortMenuExpanded,
-                            onDismissRequest = onSortDismiss,
-                            menuWidth = 226.dp
-                        ) {
-                            for (order in FoodLogSortOrder.values()) {
-                                SheetGlassDropdownMenuItem(
-                                    label = stringResource(order.displayNameRes),
-                                    selected = order == sortOrder,
-                                    reserveSelectionSlot = true,
-                                    onClick = { onSortOrderSelected(order) }
-                                )
-                            }
-                        }
-                    }
-                }
-                if (onShare != null) {
-                    Box(
-                        modifier = Modifier
-                            .clickable(role = Role.Button, onClick = onShare)
-                            .size(width = 48.dp, height = 28.dp),
-                        contentAlignment = Alignment.Center
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Icon(
+                mealIcon(meal),
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.55f),
+                modifier = Modifier.size(16.dp).testTag("home.mealHeader.${meal.name}.icon")
+            )
+            Spacer(Modifier.width(8.dp))
+            Text(
+                stringResource(meal.displayNameRes),
+                fontSize = 17.sp,
+                fontWeight = FontWeight.Medium,
+                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.85f),
+                modifier = Modifier.weight(1f, fill = false).testTag("home.mealHeader.${meal.name}.title")
+            )
+            if (showSortMenu) {
+                Spacer(Modifier.width(12.dp))
+                Box {
+                    Row(
+                        modifier = Modifier.clickable { onSortClick() },
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(6.dp)
                     ) {
                         Icon(
-                            Icons.Filled.IosShare,
-                            contentDescription = stringResource(R.string.cd_share_meal),
+                            Icons.Filled.SwapVert,
+                            contentDescription = null,
                             tint = AppColors.Calorie,
-                            modifier = Modifier.size(18.dp)
+                            modifier = Modifier.size(16.dp)
                         )
+                        Text(
+                            stringResource(R.string.sort),
+                            fontSize = 17.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = AppColors.Calorie
+                        )
+                    }
+                    SheetGlassDropdownMenu(
+                        expanded = sortMenuExpanded,
+                        onDismissRequest = onSortDismiss,
+                        menuWidth = 226.dp
+                    ) {
+                        for (order in FoodLogSortOrder.values()) {
+                            SheetGlassDropdownMenuItem(
+                                label = stringResource(order.displayNameRes),
+                                selected = order == sortOrder,
+                                reserveSelectionSlot = true,
+                                onClick = { onSortOrderSelected(order) }
+                            )
+                        }
                     }
                 }
             }
-        }
-        if (compactActions) {
-            mealTitle(Modifier.fillMaxWidth())
-            if (showSortMenu || onShare != null) mealActions()
-        } else {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                mealTitle(Modifier.weight(1f, fill = false))
-                mealActions()
+            // Share remains a separate target next to the title and sort control.
+            if (onShare != null) {
+                Spacer(Modifier.width(8.dp))
+                Icon(
+                    Icons.Filled.IosShare,
+                    contentDescription = stringResource(R.string.cd_share_meal),
+                    tint = AppColors.Calorie,
+                    modifier = Modifier
+                        .clickable(role = Role.Button, onClick = onShare)
+                        .padding(4.dp)
+                        .size(18.dp),
+                )
             }
         }
-        // Keep the combined meal totals below the heading on its leading edge.
+        // Keep the combined meal totals under the title on the leading half, clear
+        // of the floating voice/+ controls even while this header scrolls past them.
         if (totalCalories != null) {
             Column(
                 modifier = Modifier
-                    .padding(top = 2.dp)
-                    .fillMaxWidth()
+                    .padding(top = 4.dp)
+                    .fillMaxWidth(0.5f)
                     .testTag("home.mealHeader.${meal.name}.totals"),
                 horizontalAlignment = Alignment.Start
             ) {
@@ -2179,19 +2236,14 @@ private fun SectionCardWrapper(
     ) { content() }
 }
 
-private val DiaryRowInset = 12.dp
-private val DiaryThumbnailSize = 56.dp
-private val DiaryThumbnailGap = 12.dp
-
 @Composable
-private fun DiaryRowDivider() {
-    val neo = pinkNeoPalette()
+private fun Divider() {
     Box(
         Modifier
-            .padding(start = DiaryRowInset + DiaryThumbnailSize + DiaryThumbnailGap, end = DiaryRowInset)
+            .padding(start = 102.dp, end = 14.dp)
             .fillMaxWidth()
             .height(0.5.dp)
-            .background(neo.ink.copy(alpha = 0.14f))
+            .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f))
     )
 }
 
@@ -2212,6 +2264,7 @@ private fun DiaryRowDivider() {
 private fun SwipeableFoodRow(
     entry: FoodEntry,
     isFavorite: Boolean,
+    rowShape: RoundedCornerShape,
     selectionMode: Boolean = false,
     selected: Boolean = false,
     onTap: () -> Unit,
@@ -2267,8 +2320,9 @@ private fun SwipeableFoodRow(
                 FoodRow(
                     entry = entry,
                     isFavorite = isFavorite,
+                    rowShape = rowShape,
                     selectionMode = selectionMode,
-                    selected = selected,
+                    selected = selected
                 )
             }
         }
@@ -2280,6 +2334,7 @@ private fun SwipeableFoodRow(
 private fun SwipeableWaterRow(
     entry: WaterEntry,
     unit: WaterUnit,
+    rowShape: RoundedCornerShape,
     onDelete: () -> Unit
 ) {
     val density = LocalDensity.current
@@ -2307,7 +2362,7 @@ private fun SwipeableWaterRow(
                         )
                     }
             ) {
-                WaterLogRow(entry = entry, unit = unit)
+                WaterLogRow(entry = entry, unit = unit, rowShape = rowShape)
             }
         }
     }
@@ -2316,11 +2371,12 @@ private fun SwipeableWaterRow(
 @Composable
 private fun SwipeableFastingRow(
     session: FastingSession,
+    rowShape: RoundedCornerShape,
     onTap: () -> Unit,
     onDelete: () -> Unit
 ) {
     if (session.isActive) {
-        ActiveFastingRow(session = session, onClick = onTap)
+        ActiveFastingRow(session = session, rowShape = rowShape, onClick = onTap)
         return
     }
 
@@ -2349,7 +2405,7 @@ private fun SwipeableFastingRow(
                         )
                     }
             ) {
-                CompletedFastingRow(session = session, onClick = onTap)
+                CompletedFastingRow(session = session, rowShape = rowShape, onClick = onTap)
             }
         }
     }
@@ -2408,9 +2464,9 @@ private fun BoxScope.SwipeBackground(offsetPx: Float, isFavorite: Boolean) {
 @Composable
 private fun WaterLogRow(
     entry: WaterEntry,
-    unit: WaterUnit
+    unit: WaterUnit,
+    rowShape: RoundedCornerShape
 ) {
-    val neo = pinkNeoPalette()
     val ctx = LocalContext.current
     val time = remember(entry.date, ctx) {
         DateTimeFormatter
@@ -2423,14 +2479,27 @@ private fun WaterLogRow(
         Modifier
             .testTag("diary.water.${entry.id}")
             .fillMaxWidth()
-            .background(neo.panel)
-            .padding(horizontal = DiaryRowInset, vertical = 8.dp),
+            .clip(rowShape)
+            .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.86f))
+            .background(AppColors.Calorie.copy(alpha = 0.025f))
+            .border(
+                0.7.dp,
+                Brush.linearGradient(
+                    listOf(
+                        Color.White.copy(alpha = 0.14f),
+                        Color.White.copy(alpha = 0.035f),
+                        AppColors.Calorie.copy(alpha = 0.07f)
+                    )
+                ),
+                rowShape
+            )
+            .padding(horizontal = 14.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         Box(
             Modifier
-                .size(DiaryThumbnailSize)
+                .size(56.dp)
                 .clip(RoundedCornerShape(14.dp))
                 .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.06f)),
             contentAlignment = Alignment.Center
@@ -2464,17 +2533,15 @@ private fun WaterLogRow(
 
 private data class Quad<A, B, C, D>(val a: A, val b: B, val c: C, val d: D)
 
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun FoodRow(
     entry: FoodEntry,
     isFavorite: Boolean = false,
+    rowShape: RoundedCornerShape = RoundedCornerShape(22.dp),
     selectionMode: Boolean = false,
     selected: Boolean = false
 ) {
-    val neo = pinkNeoPalette()
     val ctx = LocalContext.current
-    val largeText = LocalDensity.current.fontScale >= 1.3f
     val timeFmt = remember(ctx) {
         DateTimeFormatter.ofPattern(clockTimePattern(ctx), Locale.getDefault()).withZone(ZoneId.systemDefault())
     }
@@ -2483,34 +2550,50 @@ internal fun FoodRow(
     val hasPhotos = entry.allImageFilenames.isNotEmpty()
     val thumbnail = rememberFoodThumbnailCandidate(container.imageStore, entry.thumbnailImageFilenames)
     val bitmap = thumbnail?.second
-    val thumbnailShape = RoundedCornerShape(if (bitmap != null) 14.dp else 0.dp)
     var previewPhotos by remember { mutableStateOf<Pair<List<android.graphics.Bitmap>, Int>?>(null) }
     var isLoadingPreview by remember { mutableStateOf(false) }
+    // iOS layout: large 76dp square thumb · column with (Name + heart on left,
+    // time on right) · pink kcal · serving · macro tag pills row.
     Row(
         Modifier
             .testTag("diary.food.${entry.id}")
             .fillMaxWidth()
-            .background(neo.panel)
-            .background(if (selected) neo.action.copy(alpha = 0.12f) else Color.Transparent)
-            .padding(horizontal = DiaryRowInset, vertical = 8.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(DiaryThumbnailGap)
+            .clip(rowShape)
+            .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.86f))
+            .background(
+                if (selected) AppColors.Calorie.copy(alpha = 0.12f)
+                else AppColors.Calorie.copy(alpha = 0.025f)
+            )
+            .border(
+                0.7.dp,
+                Brush.linearGradient(
+                    listOf(
+                        Color.White.copy(alpha = 0.14f),
+                        Color.White.copy(alpha = 0.035f),
+                        AppColors.Calorie.copy(alpha = 0.07f)
+                    )
+                ),
+                rowShape
+            )
+            .padding(horizontal = 14.dp, vertical = 12.dp),
+        verticalAlignment = Alignment.Top,
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         if (selectionMode) {
             Icon(
                 imageVector = if (selected) Icons.Filled.CheckCircle else Icons.Outlined.Circle,
                 contentDescription = null,
                 tint = if (selected) AppColors.Calorie else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.35f),
-                modifier = Modifier.size(24.dp)
+                modifier = Modifier
+                    .padding(top = 28.dp)
+                    .size(26.dp)
             )
         }
         Box(
             Modifier
-                .testTag("diary.food.${entry.id}.thumbnail")
-                .size(DiaryThumbnailSize)
-                .clip(thumbnailShape)
-                .background(neo.panel)
-                .then(if (bitmap == null) Modifier.border(0.7.dp, neo.rule) else Modifier)
+                .size(76.dp).testTag("diary.food.${entry.id}.thumbnail")
+                .clip(RoundedCornerShape(14.dp))
+                .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.06f))
                 .then(
                     if (hasPhotos && !selectionMode) {
                         Modifier.clickable {
@@ -2542,14 +2625,14 @@ internal fun FoodRow(
                     bitmap = bitmap.asImageBitmap(),
                     contentDescription = stringResource(R.string.cd_view_full_photo),
                     contentScale = androidx.compose.ui.layout.ContentScale.Crop,
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier.fillMaxSize().clip(RoundedCornerShape(14.dp))
                 )
-                entry.emoji != null -> Text(entry.emoji, fontSize = 27.sp, lineHeight = 33.sp)
+                entry.emoji != null -> Text(entry.emoji ?: "", fontSize = 36.sp)
                 else -> Icon(
                     Icons.Filled.Restaurant,
                     contentDescription = null,
                     tint = AppColors.Calorie,
-                    modifier = Modifier.size(22.dp)
+                    modifier = Modifier.size(28.dp)
                 )
             }
             if (entry.allImageFilenames.size > 1) {
@@ -2568,22 +2651,23 @@ internal fun FoodRow(
         }
 
         Column(
-            Modifier.weight(1f),
-            verticalArrangement = Arrangement.spacedBy(3.dp)
+            Modifier.weight(1f).padding(top = 2.dp),
+            verticalArrangement = Arrangement.spacedBy(6.dp)
         ) {
-            val nameContent: @Composable (Modifier) -> Unit = { modifier ->
+            // Name (+ heart) on the left, time on the top-right.
+            Row(
+                verticalAlignment = Alignment.Top,
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
                 Row(
-                    modifier,
+                    Modifier.weight(1f),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     Text(
                         entry.name,
                         fontSize = 16.sp,
-                        lineHeight = 20.sp,
-                        fontWeight = FontWeight.Black,
-                        style = PinkNeoCondensed,
-                        color = neo.ink,
+                        fontWeight = FontWeight.SemiBold,
                         modifier = Modifier.weight(1f, fill = false)
                     )
                     if (isFavorite) {
@@ -2595,55 +2679,44 @@ internal fun FoodRow(
                         )
                     }
                 }
-            }
-            val timestamp: @Composable () -> Unit = {
                 Text(
-                    timeFmt.format(entry.timestamp),
-                    fontSize = 11.sp,
-                    lineHeight = 14.sp,
-                    color = neo.ink.copy(alpha = 0.58f)
+                    timeFmt.format(entry.timestamp).lowercase(),
+                    fontSize = 12.sp,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.45f)
                 )
             }
-            if (largeText) {
-                nameContent(Modifier.fillMaxWidth())
-                timestamp()
-            } else {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(6.dp)
-                ) {
-                    nameContent(Modifier.weight(1f))
-                    timestamp()
-                }
-            }
 
-            FlowRow(
-                horizontalArrangement = Arrangement.spacedBy(5.dp),
-                verticalArrangement = Arrangement.spacedBy(2.dp),
-                itemVerticalAlignment = Alignment.CenterVertically
+            // Pink kcal · gray serving size.
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(6.dp)
             ) {
                 Text(
                     energyText(entry.calories),
                     fontSize = 14.sp,
-                    lineHeight = 17.sp,
-                    fontWeight = FontWeight.Black,
-                    style = PinkNeoCondensed,
-                    color = neo.ink
+                    fontWeight = FontWeight.SemiBold,
+                    color = AppColors.Calorie
                 )
-                val serving = entry.servingSizeGrams?.takeIf { it > 0 }?.let { gramsText(it) }
-                    ?: "${ServingUnitOption.formatQuantity(entry.reviewServingReference)} ${stringResource(R.string.sheet_serving)}"
-                Text(
-                    "·  $serving",
-                    fontSize = 12.sp,
-                    lineHeight = 15.sp,
-                    color = neo.ink.copy(alpha = 0.68f)
-                )
+                entry.servingSizeGrams?.takeIf { it > 0 }?.let { grams ->
+                    Text("·", color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f))
+                    Text(
+                        gramsText(grams),
+                        fontSize = 12.sp,
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+                    )
+                } ?: run {
+                    Text("·", color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f))
+                    val quantity = ServingUnitOption.formatQuantity(entry.reviewServingReference)
+                    Text(
+                        "$quantity ${stringResource(R.string.sheet_serving)}",
+                        fontSize = 12.sp,
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+                    )
+                }
             }
 
-            FlowRow(
-                horizontalArrangement = Arrangement.spacedBy(3.dp),
-                verticalArrangement = Arrangement.spacedBy(3.dp)
-            ) {
+            // Macro pills (P / C / F) — tinted dark capsules with gray text.
+            androidx.compose.foundation.layout.FlowRow(horizontalArrangement = Arrangement.spacedBy(3.dp)) {
                 MacroChip(stringResource(R.string.macro_abbrev_protein), entry.protein)
                 MacroChip(stringResource(R.string.macro_abbrev_carbs), entry.carbs)
                 MacroChip(stringResource(R.string.macro_abbrev_fat), entry.fat)
@@ -2651,7 +2724,20 @@ internal fun FoodRow(
         }
     }
     if (isLoadingPreview) {
-        FlashLoadingDialog(onDismissRequest = {}, dismissOnBackPress = false)
+        Dialog(
+            onDismissRequest = {},
+            properties = DialogProperties(dismissOnBackPress = false, dismissOnClickOutside = false)
+        ) {
+            Box(
+                Modifier
+                    .size(96.dp)
+                    .clip(RoundedCornerShape(16.dp))
+                    .background(Color.Black.copy(alpha = 0.72f)),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator(color = Color.White, modifier = Modifier.size(36.dp))
+            }
+        }
     }
     previewPhotos?.let { (bitmaps, index) ->
         FullScreenImageViewer(
@@ -2667,13 +2753,12 @@ private fun MacroChip(label: String, value: Double) {
     Box(
         Modifier
             .clip(CircleShape)
-            .background(AppColors.Calorie.copy(alpha = 0.08f))
-            .padding(horizontal = 6.dp, vertical = 2.dp)
+            .background(AppColors.Calorie.copy(alpha = 0.10f))
+            .padding(horizontal = 3.dp, vertical = 3.dp)
     ) {
         Text(
             "$label ${gramsText(value)}",
-            fontSize = 10.sp,
-            lineHeight = 12.sp,
+            fontSize = 11.sp,
             fontWeight = FontWeight.Medium,
             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
         )
@@ -2811,13 +2896,12 @@ private fun CopyFromDaySheet(
                         val index = group.entries.indexOf(entry)
                         val isFirst = index == 0
                         val isLast = index == group.entries.lastIndex
+                        val rowShape = sectionCardShape(isFirst, isLast)
                         SectionCardWrapper(isFirst = isFirst, isLast = isLast, transparent = true) {
-                            Column {
-                                Box(Modifier.clickable { onCopy(listOf(entry)) }) {
-                                    FoodRow(entry = entry)
-                                }
-                                if (!isLast) DiaryRowDivider()
+                            Box(Modifier.clickable { onCopy(listOf(entry)) }) {
+                                FoodRow(entry = entry, rowShape = rowShape)
                             }
+                            if (index != group.entries.lastIndex) Divider()
                         }
                     }
                 }
@@ -2942,7 +3026,6 @@ internal fun AnalyzingOverlay(
 
 @Composable
 private fun CameraPairTransitionOverlay() {
-    val neo = pinkNeoPalette()
     var entered by remember { mutableStateOf(false) }
     val scale by animateFloatAsState(
         targetValue = if (entered) 1f else 0.86f,
@@ -2978,13 +3061,14 @@ private fun CameraPairTransitionOverlay() {
                 Box(
                     modifier = Modifier
                         .size(58.dp)
-                        .background(neo.action),
+                        .clip(CircleShape)
+                        .background(AppColors.CalorieGradient),
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
                         Icons.Filled.AddAPhoto,
                         contentDescription = null,
-                        tint = neo.onAction,
+                        tint = Color.White,
                         modifier = Modifier.size(30.dp)
                     )
                 }

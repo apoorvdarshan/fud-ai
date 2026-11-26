@@ -67,29 +67,35 @@ struct calorietrackerApp: App {
         ExerciseCatalogWarmup.startIfNeeded()
     }
 
+    private var mainContent: some View {
+        ContentView()
+            .environment(foodStore)
+            .environment(weightStore)
+            .environment(bodyFatStore)
+            .environment(bodyMeasurementStore)
+            .environment(notificationManager)
+            .environment(healthKitManager)
+            .environment(profileStore)
+            .environment(chatStore)
+            .environment(waterStore)
+            .environment(fastingStore)
+            .environment(strengthWorkoutStore)
+            .environment(importedHealthWorkoutStore)
+            .environment(weeklyChallengeStore)
+            .environment(cloudBackupService)
+    }
+
     var body: some Scene {
         WindowGroup {
             Group {
                 if hasCompletedOnboarding {
-                    ContentView()
-                        .environment(foodStore)
-                        .environment(weightStore)
-                        .environment(bodyFatStore)
-                        .environment(bodyMeasurementStore)
-                        .environment(notificationManager)
-                        .environment(healthKitManager)
-                        .environment(profileStore)
-                        .environment(chatStore)
-                        .environment(waterStore)
-                        .environment(fastingStore)
-                        .environment(strengthWorkoutStore)
-                        .environment(importedHealthWorkoutStore)
-                        .environment(weeklyChallengeStore)
-                        .environment(cloudBackupService)
-                        .modifier(ChallengePeriodScoreSync(
-                            foodStore: foodStore, waterStore: waterStore, profileStore: profileStore,
-                            workoutStore: strengthWorkoutStore, challengeStore: weeklyChallengeStore
-                        ))
+                    if #available(iOS 27.1, *), UIDevice.current.userInterfaceIdiom == .phone {
+                        HorizontalTabHost(content: mainContent)
+                            // The hosted TabView handles its own home-indicator inset.
+                            .ignoresSafeArea(.container, edges: .bottom)
+                    } else {
+                        mainContent
+                    }
                 } else {
                     OnboardingView(hasCompletedOnboarding: $hasCompletedOnboarding)
                         .environment(notificationManager)
@@ -108,8 +114,7 @@ struct calorietrackerApp: App {
                         .environment(cloudBackupService)
                 }
             }
-            .flashScreenSurface()
-            .tint(AppColors.accentText)
+            .tint(AppColors.calorie)
             .preferredColorScheme(colorScheme)
             .onChange(of: appearanceMode, initial: true) { _, mode in
                 AppAppearancePalette.shared.usesGray = mode == "darkGray"
@@ -151,6 +156,9 @@ struct calorietrackerApp: App {
                 await cloudBackupService.runSmokeTestIfRequested()
                 await weeklyChallengeStore.retryPendingDeletionIfNeeded()
             }
+        }
+        .onChange(of: scenePhase, initial: true) { _, phase in
+            VoiceAssistantWindowManager.shared.setSceneActive(phase == .active)
         }
         .onChange(of: scenePhase) { _, newPhase in
             if newPhase == .background && !SimulatorTestEnvironment.isRunningTests {
@@ -568,5 +576,24 @@ struct calorietrackerApp: App {
                 }
             }
         }
+    }
+}
+
+@available(iOS 27.1, *)
+private struct HorizontalTabHost<Content: View>: UIViewControllerRepresentable {
+    let content: Content
+
+    final class Controller: UIHostingController<Content> {
+        #if compiler(>=6.4.1)
+        override var preferredVerticalBarBehavior: UIVerticalBarBehavior { .disabled }
+        #endif
+    }
+
+    func makeUIViewController(context: Context) -> Controller {
+        Controller(rootView: content)
+    }
+
+    func updateUIViewController(_ controller: Controller, context: Context) {
+        controller.rootView = content
     }
 }

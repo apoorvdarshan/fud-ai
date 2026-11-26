@@ -913,7 +913,7 @@ private struct WeekCalendarStrip: View {
     }
 }
 
-private struct WeeklyChallengeParticipantRow: View {
+struct WeeklyChallengeParticipantRow: View {
     let participant: WeeklyChallengeParticipant
     let category: WeeklyChallengeCategory
     let isViewer: Bool
@@ -923,6 +923,28 @@ private struct WeeklyChallengeParticipantRow: View {
     @AppStorage(EnergyUnit.storageKey) private var energyUnit = EnergyUnit.defaultUnit
 
     var body: some View {
+        ViewThatFits(in: .horizontal) {
+            HStack(spacing: 12) {
+                badges
+                identity.frame(minWidth: 110, alignment: .leading)
+                Spacer(minLength: 4)
+                scoreAndActions
+            }
+            VStack(alignment: .leading, spacing: 8) {
+                badges
+                identity
+                scoreAndActions
+            }
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 10)
+        .background(
+            isViewer
+                ? AppColors.calorie.opacity(0.12)
+                : (striped ? Color.primary.opacity(0.05) : Color.clear)
+        )
+    }
+    private var badges: some View {
         HStack(spacing: 12) {
             if isViewer {
                 Capsule()
@@ -933,10 +955,15 @@ private struct WeeklyChallengeParticipantRow: View {
 
             WeeklyChallengeNameMark(name: participant.displayName)
 
-            WeeklyChallengeParticipantIdentity(participant: participant, isViewer: isViewer)
+        }
+    }
 
-            Spacer(minLength: 4)
+    private var identity: some View {
+        WeeklyChallengeParticipantIdentity(participant: participant, isViewer: isViewer)
+    }
 
+    private var scoreAndActions: some View {
+        HStack {
             Text(WeeklyChallengeParticipantScore.text(for: participant, category: category, energyUnit: energyUnit))
                 .font(.system(.caption, design: .rounded, weight: .bold))
                 .foregroundStyle(AppColors.calorie)
@@ -964,13 +991,6 @@ private struct WeeklyChallengeParticipantRow: View {
                 )
             }
         }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 10)
-        .background(
-            isViewer
-                ? AppColors.calorie.opacity(0.12)
-                : (striped ? Color.primary.opacity(0.05) : Color.clear)
-        )
     }
 }
 
@@ -1055,7 +1075,7 @@ private struct WeeklyChallengeParticipantIdentity: View {
             HStack(spacing: 6) {
                 Text(participant.displayName)
                     .font(.system(.body, design: .rounded, weight: .semibold))
-                    .lineLimit(1)
+                    .fixedSize(horizontal: false, vertical: true)
                 if isViewer {
                     Text(WeeklyChallengeL10n.text("You"))
                         .font(.system(.caption2, design: .rounded, weight: .bold))
@@ -1073,7 +1093,7 @@ private struct WeeklyChallengeParticipantIdentity: View {
                     Text(WeeklyChallengeL10n.format("@%1$@ · %2$@", handle, platform.title))
                         .font(.system(.caption, design: .rounded))
                         .foregroundStyle(AppColors.calorie)
-                        .lineLimit(1)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
                 .accessibilityLabel(
                     WeeklyChallengeL10n.format(

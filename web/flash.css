@@ -1,27 +1,16 @@
+/* Shared page surfaces use the classic diary palette; homepage product demos use styles.css. */
 :root {
-  color-scheme: light dark;
-  --paper: #fffdfc;
-  --panel: #fff;
-  --inset: #f6f4f3;
-  --ink: #171219;
-  --muted: #655d65;
-  --rule: #858087;
-  --flash: #ff006a;
-  --accent-text: #a50043;
+  color-scheme: dark;
+  --paper: #000;
+  --panel: #1c1c1e;
+  --inset: #101012;
+  --ink: #fff;
+  --muted: #b7b7bf;
+  --rule: #49494e;
+  --flash: #ff375f;
+  --accent-text: #ff92a6;
   --display: ui-rounded, system-ui, sans-serif;
   --body: system-ui, sans-serif;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper: #121214;
-    --panel: #19191b;
-    --inset: #202024;
-    --ink: #f9f5f7;
-    --muted: #bdb4bd;
-    --rule: #817a82;
-    --accent-text: #ff82b0;
-  }
 }
 
 *, *::before, *::after { box-sizing: border-box; }

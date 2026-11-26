@@ -9,13 +9,14 @@
   <link rel="canonical" href="https://www.fud-ai.app/">
   <link rel="icon" href="/assets/fud-app-icon-180.png">
   <link rel="apple-touch-icon" href="/assets/fud-app-icon-180.png">
-  <link rel="stylesheet" href="/flash.css?v=12">
+  <link rel="stylesheet" href="/flash.css?v=13">
+  <link rel="stylesheet" href="/styles.css?v=13">
   <meta name="theme-color" content="#fffdfc" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#121214" media="(prefers-color-scheme: dark)">
   <meta name="apple-itunes-app" content="app-id=6758935726">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Fud AI">
-  <meta property="og:title" content="Fud AI — Tell it what you ate.">
+  <meta property="og:title" content="Fud AI — Just say what you ate.">
   <meta property="og:description" content="An open-source food diary with voice, photo, barcode, and manual logging for iPhone, iPad, and Android.">
   <meta property="og:url" content="https://www.fud-ai.app/">
   <meta property="og:image" content="https://www.fud-ai.app/assets/opengraph.jpg?v=20261020">
@@ -80,7 +81,7 @@
   </script>
   <script src="/flash-demo.js?v=11" defer></script>
 </head>
-<body>
+<body class="classic-home">
   <a class="skip" href="#main">Skip to content</a>
   <header class="site-header" id="site-head">
     <div class="shell masthead">
@@ -96,18 +97,53 @@
   </header>
 
   <main id="main">
-    <section class="shell hero" id="hero" aria-labelledby="hero-title">
-      <div class="hero-copy">
-        <p class="edition"><span aria-hidden="true"></span> Open-source calorie tracker</p>
-        <h1 id="hero-title">Tell it what<br> you ate.</h1>
-        <p class="lede">Talk through lunch, snap a photo, or scan the package. Review the calorie and nutrition estimate before it goes in your diary.</p>
-        <div class="actions">
-          <a class="button primary" href="#get">Get Fud AI</a>
-          <a class="button" href="#screens">See the app</a>
-        </div>
-        <p class="fine">iPhone, iPad, and Android. No ads or required Fud AI account.</p>
+<section class="hero" id="hero" aria-labelledby="hero-title">
+  <div class="hero__glow" aria-hidden="true"></div>
+  <div class="wrap">
+    <h1 class="display hero__title intro" id="hero-title">Just say what you ate.</h1>
+    <p class="lede hero__sub intro" style="--d:120">Fud AI is the free, open-source AI calorie tracker for iPhone and Android.<br class="hero__br"> Describe a meal, snap a photo, or scan a barcode. Review the estimate before saving it to your diary.</p>
+    <div class="voice-choice" role="group" aria-label="Live Voice appearance" hidden>
+      <button type="button" data-look="orb" aria-pressed="true">Classic Orb</button>
+      <button type="button" data-look="brulee" aria-pressed="false">Brulee</button>
+    </div>
+    <div class="orb intro" id="orb" style="--d:220">
+      <canvas aria-hidden="true"></canvas>
+      <img class="hero-brulee" src="/assets/flash-voice-mascot.webp" alt="Brulee, an optional pink Live Voice mascot" width="360" height="360" hidden>
+      <div class="orb__fallback" aria-hidden="true"></div>
+      <button class="pause pause--orb" type="button" aria-pressed="false" aria-label="Pause the demo" data-pause="hero"><svg class="pause__off" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="7" y="6" width="3.2" height="12" rx="1"/><rect x="13.8" y="6" width="3.2" height="12" rx="1"/></svg><svg class="pause__on" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8.5 6.2v11.6a.8.8 0 0 0 1.2.7l9.2-5.8a.8.8 0 0 0 0-1.4L9.7 5.5a.8.8 0 0 0-1.2.7z"/></svg></button>
+    </div>
+    <div class="live intro" style="--d:420" aria-hidden="true">
+      <p class="live__status" id="live-status"></p>
+      <p class="live__said" id="live-said"><span class="w on">Log</span> <span class="w on">two</span> <span class="w on">eggs</span> <span class="w on">and</span> <span class="w on">a</span> <span class="w on">latte</span> <span class="w on">for</span> <span class="w on">breakfast.</span></p>
+      <p class="live__reply" id="live-reply">Done. Logged to breakfast: 290&nbsp;calories with 20&nbsp;grams of protein.</p>
+      <div class="live__card" id="live-card">
+        <span class="live__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3v8M5 3v5a2 2 0 0 0 4 0V3M7 11v10M17 21v-8h-3V8c0-2.8 1.3-5 3-5z"/></svg></span>
+        <span class="live__meal"><span class="live__name" id="live-name">Eggs &amp; latte</span><br><span class="live__macros" id="live-macros">Breakfast · 20P · 11C · 18F</span></span>
+        <span class="live__kcal"><span id="live-kcal">290&nbsp;kcal</span><small><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8.5 12.3 2.4 2.4 4.6-4.9"/></svg>Logged</small></span>
       </div>
+    </div>
+    <p class="visually-hidden">For example, say “Log two eggs and a latte for breakfast,” and Fud AI logs 290 calories with 20 grams of protein.</p>
+    <div class="hero__ctas intro" style="--d:560">
+      <div class="stores">
+        <a class="store store--light" href="https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg><span class="store__text"><small>Download on the</small>App Store</span></a>
+        <a class="store store--light" href="https://play.google.com/store/apps/details?id=com.apoorvdarshan.calorietracker"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.609 1.814L13.792 12 3.61 22.186a.998.998 0 0 1-.61-.92V2.734c0-.39.222-.732.61-.92zM14.91 13.117l2.605 2.605-12.232 6.86 9.627-9.465zm3.978-3.205l2.74 1.535c.733.41.733 1.475 0 1.886l-2.741 1.536-2.969-2.969 2.97-2.988zM5.282 1.349l12.232 6.86-2.605 2.605L5.282 1.35z"/></svg><span class="store__text"><small>Get it on</small>Google Play</span></a>
+      </div>
+      <ul class="hero__facts">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>No subscription needed</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>No account, no ads</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Open source</li>
+      </ul>
+    </div>
+  </div>
+</section>
 
+<section class="shell mascot-feature" aria-labelledby="mascot-title">
+      <div>
+        <p class="edition">LIVE VOICE</p>
+        <h2 id="mascot-title">Meet Brulee.</h2>
+        <p class="lede">Prefer a little company while you log lunch? Keep the Classic Orb or choose a saved mascot in Voice Assistant settings. Brulee is one of your options.</p>
+        <a class="button" href="#voice-settings-screen">See the mascot settings</a>
+      </div>
       <figure class="voice-demo" aria-labelledby="demo-title">
         <figcaption class="demo-head"><strong id="demo-title">Live Voice</strong><span>Recorded example</span></figcaption>
         <div class="demo-stage">
@@ -137,23 +173,70 @@
         </div>
       </figure>
     </section>
-
-    <div class="shell product-strip" aria-label="Product highlights">
-      <span>Review before logging</span><span>Track what matters to you</span><span>Choose how your AI runs</span>
+<section class="section snap" id="features" aria-labelledby="snap-title">
+  <div class="wrap snap__grid">
+    <div class="snap__device reveal">
+      <div class="phone"><img src="/assets/screenshots/food.webp" alt="Fud AI reviewing a photographed meal of Greek yogurt with blueberries and granola" width="900" height="1310" loading="lazy" decoding="async"></div>
     </div>
+    <div>
+      <h2 class="section-title reveal" id="snap-title">Snap a photo.<br> Get the whole label.</h2>
+      <p class="lede reveal" style="--d:100">Point your camera at a meal, or choose up to 10 photos of it. Fud AI estimates calories, macros, and the nutrients most apps skip, and you check every number before it’s logged.</p>
+      <dl class="readout" data-observe>
+          <div class="readout__row readout__row--big" style="--i:0"><dt>Greek yogurt bowl</dt><dd><span data-to="375">375</span><small>kcal</small></dd></div>
+          <div class="readout__row" style="--i:1"><dt>Protein</dt><dd><span data-to="17">17</span><small>g</small></dd></div>
+          <div class="readout__row" style="--i:2"><dt>Carbs</dt><dd><span data-to="52">52</span><small>g</small></dd></div>
+          <div class="readout__row" style="--i:3"><dt>Fat</dt><dd><span data-to="11">11</span><small>g</small></dd></div>
+          <div class="readout__row" style="--i:4"><dt>Fiber</dt><dd><span data-to="4">4</span><small>g</small></dd></div>
+          <div class="readout__row" style="--i:5"><dt>Sugar</dt><dd><span data-to="31">31</span><small>g</small></dd></div>
+          <div class="readout__row" style="--i:6"><dt>Calcium</dt><dd><span data-to="260">260</span><small>mg</small></dd></div>
+          <div class="readout__row" style="--i:7"><dt>Potassium</dt><dd><span data-to="420">420</span><small>mg</small></dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
 
-    <section class="shell section" id="features" aria-labelledby="features-title">
-      <div id="chapters"></div>
-      <div class="section-intro">
-        <h2 id="features-title">A diary that starts where you are.</h2>
-        <p>Use the quickest input for the meal in front of you. Then use your diary to understand the day, not just count it.</p>
+<section class="section left" aria-labelledby="left-title">
+  <div class="wrap">
+    <div class="section-head section-head--center">
+      <h2 class="section-title reveal" id="left-title">Always know what’s left.</h2>
+      <p class="lede reveal" style="--d:100">The ring counts down today’s calories and the pillars track protein, carbs, fat, fiber, and water. Widgets put the same numbers on your Home Screen, Lock Screen, and Apple Watch.</p>
+    </div>
+    <div class="dash reveal" data-observe>
+      <div class="gauge">
+        <svg viewBox="0 0 320 245" aria-hidden="true"><g class="glow"><line class="tick fill" style="--i:0" x1="47.4" y1="225.0" x2="30.1" y2="235.0"/><line class="tick fill" style="--i:1" x1="42.1" y1="214.7" x2="23.9" y2="223.1"/><line class="tick fill" style="--i:2" x1="37.7" y1="204.0" x2="18.9" y2="210.8"/><line class="tick fill" style="--i:3" x1="34.2" y1="192.9" x2="14.9" y2="198.0"/><line class="tick fill" style="--i:4" x1="31.8" y1="181.6" x2="12.1" y2="184.9"/><line class="tick fill" style="--i:5" x1="30.4" y1="170.1" x2="10.5" y2="171.7"/><line class="tick fill" style="--i:6" x1="30.0" y1="158.6" x2="10.0" y2="158.3"/><line class="tick fill" style="--i:7" x1="30.7" y1="147.0" x2="10.8" y2="145.0"/><line class="tick fill" style="--i:8" x1="32.3" y1="135.5" x2="12.7" y2="131.8"/><line class="tick fill" style="--i:9" x1="35.0" y1="124.3" x2="15.8" y2="118.8"/><line class="tick fill" style="--i:10" x1="38.7" y1="113.3" x2="20.0" y2="106.1"/><line class="tick fill" style="--i:11" x1="43.3" y1="102.7" x2="25.4" y2="93.8"/><line class="tick fill" style="--i:12" x1="48.9" y1="92.5" x2="31.8" y2="82.1"/><line class="tick fill" style="--i:13" x1="55.3" y1="82.9" x2="39.2" y2="71.0"/><line class="tick fill" style="--i:14" x1="62.6" y1="73.9" x2="47.6" y2="60.6"/><line class="tick fill" style="--i:15" x1="70.7" y1="65.6" x2="56.9" y2="51.0"/><line class="tick fill" style="--i:16" x1="79.4" y1="58.0" x2="67.0" y2="42.3"/><line class="tick fill" style="--i:17" x1="88.8" y1="51.2" x2="77.9" y2="34.5"/><line class="tick fill" style="--i:18" x1="98.8" y1="45.3" x2="89.4" y2="27.7"/><line class="tick fill" style="--i:19" x1="109.2" y1="40.3" x2="101.4" y2="21.9"/><line class="tick fill" style="--i:20" x1="120.1" y1="36.3" x2="114.0" y2="17.2"/><line class="tick fill" style="--i:21" x1="131.3" y1="33.2" x2="126.9" y2="13.7"/><line class="tick fill" style="--i:22" x1="142.7" y1="31.2" x2="140.0" y2="11.3"/><line class="tick fill" style="--i:23" x1="154.2" y1="30.1" x2="153.3" y2="10.1"/><line class="tick fill" style="--i:24" x1="165.8" y1="30.1" x2="166.7" y2="10.1"/><line class="tick fill" style="--i:25" x1="177.3" y1="31.2" x2="180.0" y2="11.3"/><line class="tick fill" style="--i:26" x1="188.7" y1="33.2" x2="193.1" y2="13.7"/><line class="tick fill" style="--i:27" x1="199.9" y1="36.3" x2="206.0" y2="17.2"/><line class="tick fill" style="--i:28" x1="210.8" y1="40.3" x2="218.6" y2="21.9"/></g><line class="tick" style="--i:29" x1="221.2" y1="45.3" x2="230.6" y2="27.7"/><line class="tick" style="--i:30" x1="231.2" y1="51.2" x2="242.1" y2="34.5"/><line class="tick" style="--i:31" x1="240.6" y1="58.0" x2="253.0" y2="42.3"/><line class="tick" style="--i:32" x1="249.3" y1="65.6" x2="263.1" y2="51.0"/><line class="tick" style="--i:33" x1="257.4" y1="73.9" x2="272.4" y2="60.6"/><line class="tick" style="--i:34" x1="264.7" y1="82.9" x2="280.8" y2="71.0"/><line class="tick" style="--i:35" x1="271.1" y1="92.5" x2="288.2" y2="82.1"/><line class="tick" style="--i:36" x1="276.7" y1="102.7" x2="294.6" y2="93.8"/><line class="tick" style="--i:37" x1="281.3" y1="113.3" x2="300.0" y2="106.1"/><line class="tick" style="--i:38" x1="285.0" y1="124.3" x2="304.2" y2="118.8"/><line class="tick" style="--i:39" x1="287.7" y1="135.5" x2="307.3" y2="131.8"/><line class="tick" style="--i:40" x1="289.3" y1="147.0" x2="309.2" y2="145.0"/><line class="tick" style="--i:41" x1="290.0" y1="158.6" x2="310.0" y2="158.3"/><line class="tick" style="--i:42" x1="289.6" y1="170.1" x2="309.5" y2="171.7"/><line class="tick" style="--i:43" x1="288.2" y1="181.6" x2="307.9" y2="184.9"/><line class="tick" style="--i:44" x1="285.8" y1="192.9" x2="305.1" y2="198.0"/><line class="tick" style="--i:45" x1="282.3" y1="204.0" x2="301.1" y2="210.8"/><line class="tick" style="--i:46" x1="277.9" y1="214.7" x2="296.1" y2="223.1"/><line class="tick" style="--i:47" x1="272.6" y1="225.0" x2="289.9" y2="235.0"/></svg>
+        <div class="gauge__center">
+          <div class="gauge__label">Calories</div>
+          <div class="gauge__value" data-to="1149">1,149</div>
+          <div class="gauge__left"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5c1.2 3.2 4.8 5 4.8 9.6a4.8 4.8 0 0 1-9.6 0c0-1.9.8-3.3 1.8-4.3.2 1.6 1.1 2.5 2.1 2.5 0-3.4-.3-5.6.9-7.8z"/></svg>775 left</div>
+        </div>
       </div>
-      <div class="feature-grid">
-        <article><span class="marker" aria-hidden="true">↳</span><h3>Log in your own words</h3><p>Start Live Voice from Home and describe your meal. Check the draft, adjust portions, or log it manually.</p><a href="#voice-screen">See Live Voice</a></article>
-        <article id="process"><span class="marker" aria-hidden="true">⊕</span><h3>Scan what’s in front of you</h3><p>Analyze food photos with an optional note, or look up a packaged food by barcode. Estimates are editable.</p><a href="/ai-food-scanner">How the AI food scanner works</a></article>
-        <article><span class="marker" aria-hidden="true">≋</span><h3>Look beyond calories</h3><p>Review nutrients, set water and macro targets, log strength workouts, and follow your progress. Optional health integrations stay permission-controlled.</p><a href="#progress-screen">See Progress</a></article>
+      <div class="pillars">
+        <div class="pillar"><span class="pillar__value" data-to="86">86</span><span class="pillar__track"><span class="pillar__fill" style="--p:61%;--i:0"></span></span><span class="pillar__name">Protein<small>55 g left</small></span></div>
+        <div class="pillar"><span class="pillar__value" data-to="97">97</span><span class="pillar__track"><span class="pillar__fill" style="--p:41%;--i:1"></span></span><span class="pillar__name">Carbs<small>137 g left</small></span></div>
+        <div class="pillar"><span class="pillar__value" data-to="46">46</span><span class="pillar__track"><span class="pillar__fill" style="--p:98%;--i:2"></span></span><span class="pillar__name">Fat<small>1 g left</small></span></div>
+        <div class="pillar"><span class="pillar__value" data-to="11">11</span><span class="pillar__track"><span class="pillar__fill" style="--p:37%;--i:3"></span></span><span class="pillar__name">Fiber<small>19 g left</small></span></div>
+        <div class="pillar"><span class="pillar__value" data-to="1750">1,750</span><span class="pillar__track"><span class="pillar__fill" style="--p:70%;--i:4"></span></span><span class="pillar__name">Water<small>750 ml left</small></span></div>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
+
+<section class="section coach" aria-labelledby="coach-title">
+  <div class="wrap coach__grid">
+    <div class="section-head">
+      <h2 class="section-title reveal" id="coach-title">A coach that has read your log.</h2>
+      <p class="lede reveal" style="--d:100">Ask how your week went or what to eat for dinner. Coach answers from your own meals, weight trend, and workouts, so the advice fits the day you’re actually having.</p>
+    </div>
+    <div class="chat reveal" data-observe data-chat role="group" aria-label="Example conversation with Coach">
+      <div class="bubble bubble--me">How am I doing this week?</div>
+      <div class="typing" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="bubble">Nice week. You averaged 1,926&nbsp;kcal a day, right on your 1,924 target, and you logged every day. Your weight trend is down about 0.3&nbsp;kg.</div>
+      <div class="bubble bubble--me">What should I eat for dinner to hit my protein?</div>
+      <div class="typing" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="bubble">You have 775&nbsp;kcal and 55&nbsp;g of protein left. Options that fit:<ul><li>Grilled salmon with rice and greens: about 560&nbsp;kcal, 44&nbsp;g protein</li><li>Chicken stir-fry with vegetables: about 520&nbsp;kcal, 46&nbsp;g protein</li></ul></div>
+    </div>
+  </div>
+</section>
 
     <section class="screen-section" id="screens" aria-labelledby="screens-title">
       <div id="plates"></div>
@@ -171,7 +254,7 @@
           <figure><a href="/assets/screenshots/coach.webp?v=12"><img src="/assets/screenshots/coach.webp?v=12" width="900" height="1310" loading="lazy" decoding="async" alt="Sample AI Coach chat answering a question about food and protein goals"></a><figcaption><strong>AI Coach</strong><span>Ask questions about your log</span></figcaption></figure>
           <figure><a href="/assets/screenshots/workouts.webp?v=12"><img src="/assets/screenshots/workouts.webp?v=12" width="900" height="1310" loading="lazy" decoding="async" alt="Workout diary with the calendar and daily totals"></a><figcaption><strong>Workouts</strong><span>Keep your set-by-set log</span></figcaption></figure>
           <figure><a href="/assets/screenshots/ai-providers.webp?v=12"><img src="/assets/screenshots/ai-providers.webp?v=12" width="900" height="1310" loading="lazy" decoding="async" alt="Fud AI Settings showing cloud and on-device provider options"></a><figcaption><strong>AI providers</strong><span>Choose how your AI runs</span></figcaption></figure>
-          <figure><a href="/assets/screenshots/voice-settings.webp?v=12"><img src="/assets/screenshots/voice-settings.webp?v=12" width="900" height="1310" loading="lazy" decoding="async" alt="Voice Assistant settings with Classic Orb selected in the mascot gallery"></a><figcaption><strong>Voice settings</strong><span>Choose your orb or mascot</span></figcaption></figure>
+          <figure id="voice-settings-screen"><a href="/assets/screenshots/voice-settings.webp?v=12"><img src="/assets/screenshots/voice-settings.webp?v=12" width="900" height="1310" loading="lazy" decoding="async" alt="Voice Assistant settings with Classic Orb selected in the mascot gallery"></a><figcaption><strong>Voice settings</strong><span>Choose your orb or mascot</span></figcaption></figure>
         </div>
         <p class="screen-note">The same diary feeds the iOS and Android widgets and the Apple Watch dashboard. Open Progress in the app for trends and the optional Weekly Challenge.</p>
       </div>
@@ -261,5 +344,6 @@
     </nav>
     <div class="footer-base"><span>© 2026 Apoorv Darshan</span><a href="https://github.com/apoorvdarshan/fud-ai/blob/main/LICENSE">MIT License</a><a href="/sitemap.xml">Sitemap</a></div>
   </footer>
+<script src="/classic-home.js?v=1" defer></script>
 </body>
 </html>

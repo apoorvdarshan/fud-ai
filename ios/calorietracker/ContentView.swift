@@ -11,6 +11,42 @@ import Speech
 import UniformTypeIdentifiers
 import SafariServices
 
+/// A tap-only recognizer leaves the list pan and horizontal day swipe free to begin.
+private struct DiaryNutritionTapTarget: UIViewRepresentable {
+    var action: () -> Void
+
+    final class TapView: UIView {
+        var action: (() -> Void)?
+        @objc func tapped() { action?() }
+    }
+
+    final class StationaryTap: UITapGestureRecognizer {
+        private var start: CGPoint = .zero
+
+        override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
+            start = touches.first?.location(in: nil) ?? .zero
+            super.touchesBegan(touches, with: event)
+        }
+
+        override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent) {
+            if let point = touches.first?.location(in: nil), hypot(point.x - start.x, point.y - start.y) >= 10 {
+                state = .failed
+            } else {
+                super.touchesMoved(touches, with: event)
+            }
+        }
+    }
+
+    func makeUIView(context: Context) -> TapView {
+        let view = TapView()
+        view.isAccessibilityElement = false
+        view.addGestureRecognizer(StationaryTap(target: view, action: #selector(TapView.tapped)))
+        return view
+    }
+
+    func updateUIView(_ view: TapView, context: Context) { view.action = action }
+}
+
 // MARK: - Camera Mode
 enum CameraMode {
     case snapFood
@@ -1683,7 +1719,7 @@ private var dailyStepsTaskKey: String {
                             .foregroundStyle(AppColors.calorie.opacity(0.6))
                         }
                         .contentShape(Rectangle())
-                        .onTapGesture { showNutritionDetail = true }
+                        .overlay { DiaryNutritionTapTarget { showNutritionDetail = true } }
                         .accessibilityElement(children: .combine)
                         .accessibilityAddTraits(.isButton)
                         .accessibilityAction { showNutritionDetail = true }

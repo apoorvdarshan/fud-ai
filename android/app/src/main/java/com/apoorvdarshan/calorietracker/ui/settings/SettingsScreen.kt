@@ -1012,6 +1012,13 @@ fun SettingsScreen(
                 ToggleRow(stringResource(R.string.settings_hide_barcode_photo), hideBarcodePhoto,
                     icon = Icons.Outlined.Tune, onChange = { settingsScope.launch { container.prefs.setHideBarcodePhoto(it) } })
                 HorizontalDivider()
+                ToggleRow(
+                    stringResource(R.string.settings_haptics),
+                    hapticsEnabled,
+                    switchModifier = Modifier.testTag("settings.haptics"),
+                    onChange = { settingsScope.launch { container.prefs.setHapticsEnabled(it) } }
+                )
+                HorizontalDivider()
                 SettingRow(
                     stringResource(R.string.settings_appearance),
                     when (ui.appearanceMode) {
@@ -1239,12 +1246,15 @@ fun SettingsScreen(
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)
                 )
                 HorizontalDivider()
-                SettingRow(
-                    stringResource(R.string.settings_rest_timer),
-                    restTimerLabel(ui.workoutRestTimerSeconds),
+                SettingChoiceRow(
+                    label = stringResource(R.string.settings_rest_timer),
+                    selection = ui.workoutRestTimerSeconds,
+                    options = WorkoutRestTimerSetting.Options,
                     icon = Icons.Outlined.HourglassEmpty,
-                    inlineMenu = true
-                ) { sheet = SettingsSheet.WORKOUT_REST }
+                    modifier = Modifier.testTag("settings.workout.restTimer"),
+                    optionLabel = { restTimerLabel(it) },
+                    onSelect = vm::selectWorkoutRestTimer
+                )
                 Text(
                     stringResource(R.string.settings_rest_timer_footer),
                     fontSize = 12.sp,

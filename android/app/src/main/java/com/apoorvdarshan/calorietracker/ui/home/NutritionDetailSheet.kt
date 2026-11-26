@@ -1,5 +1,8 @@
 package com.apoorvdarshan.calorietracker.ui.home
 
+import androidx.compose.foundation.selection.toggleable
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.platform.testTag
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -328,6 +331,7 @@ private fun HomeCardsRow(
     Row(
         Modifier
             .fillMaxWidth()
+            .testTag("nutrition.homeCards")
             .clickable(onClick = onClick)
             .padding(horizontal = 14.dp, vertical = 14.dp),
         verticalAlignment = Alignment.CenterVertically,
@@ -346,6 +350,7 @@ private fun HomeCardsRow(
             }
             Text(
                 displayedNames.joinToString(", "),
+                modifier = Modifier.testTag("nutrition.homeCards.summary"),
                 fontSize = 13.sp,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f)
             )
@@ -394,7 +399,7 @@ private fun HomeTopNutrientPickerDialog(
         LazyColumn(
             Modifier
                 .fillMaxWidth()
-                .heightIn(max = 430.dp),
+                .heightIn(max = 430.dp).weight(1f, fill = false).testTag("nutrition.picker.options"),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             if (waterTrackingEnabled) {
@@ -433,7 +438,7 @@ private fun HomeTopNutrientPickerDialog(
                     }
                 }
             }
-            items(HomeTopNutrient.values().toList()) { nutrient ->
+            items(HomeTopNutrient.values().toList(), key = { it.name }) { nutrient ->
                 val checked = nutrient in draft
                 val shape = RoundedCornerShape(16.dp)
                 val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
@@ -465,7 +470,8 @@ private fun HomeTopNutrientPickerDialog(
                             ),
                             shape
                         )
-                        .clickable { toggle(nutrient) }
+                        .testTag("nutrition.picker.${nutrient.name}")
+                        .toggleable(value = checked, role = Role.Checkbox) { toggle(nutrient) }
                         .padding(horizontal = 14.dp, vertical = 12.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -513,6 +519,7 @@ private fun HomeTopNutrientPickerDialog(
         }
         FudGlassDialogActions(
             primaryText = stringResource(R.string.action_done),
+            modifier = Modifier.testTag("nutrition.picker.actions"),
             onPrimary = {
                 onSave(HomeTopNutrient.normalized(draft))
                 onDismiss()

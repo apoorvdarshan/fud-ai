@@ -34,8 +34,8 @@ class DiaryFoodRowLayoutTest {
         val row = compose.onNodeWithTag("diary.food.${entry.id}").getUnclippedBoundsInRoot()
         val thumbnail = compose.onNodeWithTag("diary.food.${entry.id}.thumbnail").getUnclippedBoundsInRoot()
         val macros = macroBounds()
-        assertEquals(56f, (thumbnail.right - thumbnail.left).value, 1f)
-        assertTrue("A one-line food entry should not grow into a card", row.bottom - row.top <= 82.dp)
+        assertEquals(76f, (thumbnail.right - thumbnail.left).value, 1f)
+        assertTrue("The card contains the full classic thumbnail", row.bottom >= thumbnail.bottom)
         assertTrue("All three macro chips fit on one line", macros.all { it.top == macros.first().top })
         assertTrue(macros.all { it.left >= thumbnail.right && it.right <= row.right })
     }

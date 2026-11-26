@@ -41,6 +41,7 @@ object FudAITestState {
         check(app.getSharedPreferences("fudai_workouts", Context.MODE_PRIVATE)
             .edit().clear().commit())
         ReviewPrompter.consumed()
+        app.container.navigator.homeDiaryDate.value = java.time.LocalDate.now()
         app.container.analyzingFood.value = false
     }
 }

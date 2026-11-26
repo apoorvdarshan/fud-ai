@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker
 
+import com.apoorvdarshan.calorietracker.ui.util.formattedWholeNumber
 import android.Manifest
 import android.content.Intent
 import android.graphics.Bitmap
@@ -264,7 +265,7 @@ class AppFlowsTest {
             compose.onNodeWithTag("settings.category.$category").performScrollTo().assertIsDisplayed()
         }
         compose.onNodeWithTag("settings.category.LEGAL").performClick()
-        compose.onNodeWithTag("nav.settings").assertIsSelected()
+        waitFor(hasTestTag("nav.settings") and isSelected())
         compose.onNodeWithTag("about.legal.duns").performScrollTo().assertIsDisplayed()
         compose.onNodeWithText(string(R.string.about_duns)).assertIsDisplayed()
         compose.onNodeWithText("311099925").assertIsDisplayed()
@@ -512,7 +513,7 @@ class AppFlowsTest {
             prefs.setEnergyUnit(EnergyUnit.KJ)
             prefs.updateUserProfile { it.copy(customCalories = target) }
         }
-        val goal = hasText(string(EnergyUnit.KJ.valueFormatRes, EnergyUnit.KJ.displayValue(target)))
+        val goal = hasText(string(R.string.home_kj_left_format, EnergyUnit.KJ.displayValue(target).formattedWholeNumber()))
         launchActivity()
         waitForHome()
         waitFor(goal)
@@ -899,7 +900,7 @@ class AppFlowsTest {
     fun workoutLibrarySearchOpensRealExerciseDetails() {
         launchFresh()
         openTab("workouts")
-        waitFor(hasTestTag("workouts.add"))
+        waitFor(hasContentDescription("Show exercise library"))
         compose.onNodeWithContentDescription("Show exercise library").performClick()
         compose.onNodeWithTag("nav.workouts").assertIsSelected()
         waitFor(hasTestTag("workouts.search"))

@@ -469,6 +469,7 @@ struct ChatView: View {
                     HStack(spacing: 8) {
                         attachMenu
                         TextField("Ask Coach…", text: $draft, axis: .vertical)
+                            .accessibilityIdentifier("coach.input")
                             .font(.system(.body, design: .rounded))
                             .lineLimit(1...5)
                             .padding(.horizontal, 8)

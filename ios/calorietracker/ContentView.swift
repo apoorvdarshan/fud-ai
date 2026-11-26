@@ -1011,6 +1011,13 @@ struct HomeView: View {
     @State private var foodLogPhase: FoodLogPhase = .result
     /// Bumped to drop a delayed log handoff if another destination starts in the 0.4s gap.
     @State private var loggingHandoffGeneration = 0
+    #if DEBUG && targetEnvironment(simulator)
+    @State private var didOpenScreenshotEditor = false
+    private var screenshotEditorEntry: FoodEntry? {
+        guard ScreenshotMode.scene == .food else { return nil }
+        return foodStore.entries.first { $0.id == ScreenshotMode.yogurtID }
+    }
+    #endif
     @State private var editingEntry: FoodEntry?
     @State private var pendingDiaryDeletion: DiaryDeletion?
 
@@ -1537,6 +1544,14 @@ private var dailyStepsTaskKey: String {
             .onChange(of: selectedDate) { _, _ in
                 selectedFoodIDs.removeAll()
             }
+            #if DEBUG && targetEnvironment(simulator)
+            .onChange(of: screenshotEditorEntry?.id, initial: true) { _, _ in
+                guard !didOpenScreenshotEditor, let entry = screenshotEditorEntry else { return }
+                didOpenScreenshotEditor = true
+                editingEntry = entry
+                activeSheet = .editFood
+            }
+            #endif
             .onChange(of: assistantNavigator.diaryDateRequest?.id) { _, _ in
                 handleAssistantRequests()
             }
@@ -5295,6 +5310,16 @@ struct ProfileView: View {
                 if settingsCategory == .appPreferences {
                 Section {
                     HomeShortcutVisibilitySettings()
+                    Toggle(isOn: $hapticsEnabled) {
+                        Label {
+                            Text("Haptics", tableName: "Haptics")
+                        } icon: {
+                            Image(systemName: "waveform")
+                                .foregroundStyle(AppColors.calorie)
+                        }
+                    }
+                    .tint(AppColors.calorie)
+                    .accessibilityIdentifier("settings.haptics")
                     Picker(selection: $appearanceMode) {
                         Text("System").tag("system")
                         Text("Light").tag("light")
@@ -5402,6 +5427,7 @@ struct ProfileView: View {
                     .pickerStyle(.menu)
                     .tint(.secondary)
                     .accessibilityIdentifier("settings.energyUnit")
+                    .accessibilityValue(Text(energyUnit.title))
                     .onChange(of: energyUnit) { _, _ in
                         // Widgets, the Watch and the scheduled daily summary render
                         // calorie text ahead of time, so refresh them in the new unit.
@@ -5691,6 +5717,8 @@ struct ProfileView: View {
                         }
                         .pickerStyle(.menu)
                         .tint(.secondary)
+                        .accessibilityIdentifier("settings.ai.primaryProvider")
+                        .accessibilityValue(Text(selectedProvider.rawValue))
                         .id("primary-provider-\(localModelAvailabilityRevision)")
                         .onChange(of: selectedProvider) { _, newProvider in
                             selectedModel = AIProviderSettings.switchPrimaryProvider(to: newProvider)
@@ -5914,6 +5942,7 @@ struct ProfileView: View {
                         }
                     }
                     .tint(AppColors.calorie)
+                    .accessibilityIdentifier("settings.ai.useSeparateText")
                     .onChange(of: separateTextProviderEnabled) { _, isEnabled in
                         AIProviderSettings.separateTextProviderEnabled = isEnabled
                     }
@@ -5937,6 +5966,8 @@ struct ProfileView: View {
                         }
                         .pickerStyle(.menu)
                         .tint(.secondary)
+                        .accessibilityIdentifier("settings.ai.textProvider")
+                        .accessibilityValue(Text(selectedTextProvider.rawValue))
                         .id("text-provider-\(localModelAvailabilityRevision)")
                         .onChange(of: selectedTextProvider) { _, newProvider in
                             AIProviderSettings.selectedTextProvider = newProvider
@@ -5951,6 +5982,7 @@ struct ProfileView: View {
                                 Label("Model", systemImage: "brain")
                                 Spacer()
                                 Text(selectedTextProvider.defaultTextModel)
+                                    .accessibilityIdentifier("settings.ai.systemTextModel")
                                     .foregroundStyle(.secondary)
                             }
 
@@ -5991,6 +6023,8 @@ struct ProfileView: View {
                             }
                             .pickerStyle(.menu)
                             .tint(.secondary)
+                            .accessibilityIdentifier("settings.ai.textModel")
+                            .accessibilityValue(Text(selectedTextModel))
                             .onAppear {
                                 if !selectedTextProvider.textModels.contains(selectedTextModel) {
                                     selectedTextModel = selectedTextProvider.defaultTextModel

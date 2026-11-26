@@ -2585,7 +2585,7 @@ internal fun FoodRow(
         }
         Box(
             Modifier
-                .size(76.dp)
+                .size(76.dp).testTag("diary.food.${entry.id}.thumbnail")
                 .clip(RoundedCornerShape(14.dp))
                 .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.06f))
                 .then(
@@ -2662,7 +2662,6 @@ internal fun FoodRow(
                         entry.name,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.SemiBold,
-                        maxLines = 2,
                         modifier = Modifier.weight(1f, fill = false)
                     )
                     if (isFavorite) {
@@ -2711,7 +2710,7 @@ internal fun FoodRow(
             }
 
             // Macro pills (P / C / F) — tinted dark capsules with gray text.
-            Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            androidx.compose.foundation.layout.FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                 MacroChip(stringResource(R.string.macro_abbrev_protein), entry.protein)
                 MacroChip(stringResource(R.string.macro_abbrev_carbs), entry.carbs)
                 MacroChip(stringResource(R.string.macro_abbrev_fat), entry.fat)

@@ -583,7 +583,9 @@ private struct HorizontalTabHost<Content: View>: UIViewControllerRepresentable {
     let content: Content
 
     final class Controller: UIHostingController<Content> {
+        #if compiler(>=6.4.1)
         override var preferredVerticalBarBehavior: UIVerticalBarBehavior { .disabled }
+        #endif
     }
 
     func makeUIViewController(context: Context) -> Controller {

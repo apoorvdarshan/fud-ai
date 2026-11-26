@@ -4,6 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -43,6 +45,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
@@ -99,33 +102,48 @@ internal fun SheetReviewToolbar(
     val compact = LocalConfiguration.current.screenWidthDp < 380
     val outerPadding = if (compact) 8.dp else 14.dp
     val itemGap = if (compact) 6.dp else 8.dp
-    Row(
-        Modifier.fillMaxWidth().padding(horizontal = outerPadding, vertical = 6.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        SheetToolbarPill(stringResource(R.string.action_cancel), compact = compact, onClick = onCancel)
-        Spacer(Modifier.width(itemGap))
-        Text(
-            title,
-            fontSize = if (compact) 16.sp else 17.sp,
-            fontWeight = FontWeight.SemiBold,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.weight(1f)
-        )
-        Spacer(Modifier.width(itemGap))
-        if (secondaryLabel != null && onSecondary != null) {
-            SheetToolbarPill(secondaryLabel, compact = compact, onClick = onSecondary)
-            Spacer(Modifier.width(itemGap))
+    BoxWithConstraints(Modifier.fillMaxWidth()) {
+        if (maxWidth < 320.dp || LocalDensity.current.fontScale > 1.2f) {
+            Column(Modifier.fillMaxWidth().padding(horizontal = outerPadding, vertical = 6.dp)) {
+                Text(title, fontSize = 17.sp, fontWeight = FontWeight.SemiBold)
+                FlowRow(horizontalArrangement = Arrangement.spacedBy(itemGap), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    SheetToolbarPill(stringResource(R.string.action_cancel), compact = compact, onClick = onCancel)
+                    if (secondaryLabel != null && onSecondary != null) {
+                        SheetToolbarPill(secondaryLabel, compact = compact, onClick = onSecondary)
+                    }
+                    SheetToolbarPill(primaryLabel, bold = true, compact = compact, enabled = primaryEnabled, onClick = onPrimary)
+                }
+            }
+        } else {
+            Row(
+                Modifier.fillMaxWidth().padding(horizontal = outerPadding, vertical = 6.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                SheetToolbarPill(stringResource(R.string.action_cancel), compact = compact, onClick = onCancel)
+                Spacer(Modifier.width(itemGap))
+                Text(
+                    title,
+                    fontSize = if (compact) 16.sp else 17.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.weight(1f)
+                )
+                Spacer(Modifier.width(itemGap))
+                if (secondaryLabel != null && onSecondary != null) {
+                    SheetToolbarPill(secondaryLabel, compact = compact, onClick = onSecondary)
+                    Spacer(Modifier.width(itemGap))
+                }
+                SheetToolbarPill(
+                    primaryLabel,
+                    bold = true,
+                    compact = compact,
+                    enabled = primaryEnabled,
+                    onClick = onPrimary
+                )
+            }
         }
-        SheetToolbarPill(
-            primaryLabel,
-            bold = true,
-            compact = compact,
-            enabled = primaryEnabled,
-            onClick = onPrimary
-        )
     }
 }
 

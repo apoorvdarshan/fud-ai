@@ -176,7 +176,7 @@ asked for its name or identity; personality changes delivery, not the answer.
   ("Talk to Fud AI"), usable from the Action Button, plus a Control Center
   control; Android Quick Settings tile, launcher shortcut and a home-screen
   widget. All open the app straight into a listening session.
-- The in-app shortcut shows the orb by default or the selected mascot with no visible label, box,
+- The in-app shortcut shows Brulee by default or the selected character (including Classic Orb) with no visible label, box,
   or background. The accessible button name and touch target remain in place.
 - Home keeps meal calories and macros beneath the meal title on the leading
   side, away from the floating controls. The diary remains visible behind the

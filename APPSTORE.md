@@ -91,7 +91,7 @@ Source: https://github.com/apoorvdarshan/fud-ai
 
 ## What's New (v9.0.2)
 ```
-Meet the Live Voice mascots in a short video. Tap the café preview to watch with sound, or choose Not now to skip it. The Live Voice shortcut now sits above the + menu on Home and Workouts. Choose your mascot in Settings → Voice Assistant.
+Meet the Live Voice mascots in a short video. Tap the café preview to watch with sound, or choose Not now to skip it. The Live Voice shortcut now sits above the + menu on Home and Workouts. Brulee is the default. Choose Classic Orb or another mascot in Settings → Voice Assistant.
 ```
 
 ## Privacy URL

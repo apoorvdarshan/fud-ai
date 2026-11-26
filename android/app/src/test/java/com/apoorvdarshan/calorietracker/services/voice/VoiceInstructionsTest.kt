@@ -32,7 +32,7 @@ class VoiceInstructionsTest {
     fun instructionsCarryPersonaRulesDataAndDate() {
         val text = VoiceInstructions.build(input())
         assertTrue(text.startsWith("You are Fud AI's voice assistant and coach"))
-        assertTrue(text.contains("Your name for this session is \"Fud AI\""))
+        assertTrue(text.contains("Your name for this session is \"Brulee\""))
         assertTrue(text.contains("Reply in the language the user speaks."))
         assertTrue(text.contains("Never invent numbers"))
         assertTrue(text.contains("user_confirmed: true unless the user agreed"))
@@ -48,11 +48,15 @@ class VoiceInstructionsTest {
     @Test
     fun mascotSettingsRoundTripAndReachTheSessionWithoutChangingConfirmation() {
         val defaults = VoiceMascotPreferences()
-        assertEquals(VoiceMascot.ORB, defaults.selected)
-        assertEquals("Fud AI", defaults.profile.name)
+        assertEquals(VoiceMascot.BRULEE, defaults.selected)
+        assertEquals("Brulee", defaults.profile.name)
         assertEquals(VoiceMascotColor.ORIGINAL, defaults.profile.options.color)
         assertEquals(9, VoiceMascot.entries.size)
         assertEquals(VoiceMascot.BRULEE, VoiceMascotPreferences.decode("""{"selected":"brulee"}""").selected)
+
+        assertEquals(VoiceMascot.BRULEE, VoiceMascotPreferences.decode("{}").selected)
+        val orb = defaults.copy(selected = VoiceMascot.ORB)
+        assertEquals(orb, VoiceMascotPreferences.decode(orb.encode()))
 
         val changed = defaults.editing(VoiceMascot.ALIEN) {
             it.copy(name = "  Nova\n\t星  ", color = VoiceMascotColor.PURPLE, personality = VoiceMascotPersonality.PLAYFUL)

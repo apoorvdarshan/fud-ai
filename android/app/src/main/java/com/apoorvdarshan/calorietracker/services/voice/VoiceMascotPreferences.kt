@@ -72,7 +72,7 @@ data class VoiceMascotOptions(
 )
 
 data class VoiceMascotProfile(
-    val mascot: VoiceMascot = VoiceMascot.ORB,
+    val mascot: VoiceMascot = VoiceMascot.BRULEE,
     val options: VoiceMascotOptions = VoiceMascotOptions()
 ) {
     val name: String get() = VoiceMascotPreferences.cleanName(options.name).ifBlank { mascot.displayName }
@@ -85,7 +85,7 @@ data class VoiceMascotProfile(
 
 @Serializable
 data class VoiceMascotPreferences(
-    val selected: VoiceMascot = VoiceMascot.ORB,
+    val selected: VoiceMascot = VoiceMascot.BRULEE,
     val profiles: Map<VoiceMascot, VoiceMascotOptions> = emptyMap()
 ) {
     val profile: VoiceMascotProfile get() = profileFor(selected)

@@ -82,7 +82,7 @@ English-only on Play Console — non-English Play Store browsers (ar, az-AZ, cs-
 
 ```
 <en-US>
-Meet the Live Voice mascots in a short video. Tap the café preview to watch with sound, or choose Not now to skip it. The Live Voice shortcut now sits above the + menu on Home and Workouts. Choose your mascot in Settings → Voice Assistant. The built-in workout library is also restored.
+Meet the Live Voice mascots in a short video. Tap the café preview to watch with sound, or choose Not now to skip it. The Live Voice shortcut now sits above the + menu on Home and Workouts. Brulee is the default. Choose Classic Orb or another mascot in Settings → Voice Assistant. The built-in workout library is also restored.
 </en-US>
 ```
 

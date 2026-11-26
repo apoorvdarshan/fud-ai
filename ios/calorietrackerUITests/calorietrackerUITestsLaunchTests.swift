@@ -17,14 +17,15 @@ final class calorietrackerUITestsLaunchTests: XCTestCase {
 
         XCTAssertTrue(app.buttons["home.add"].waitForExistence(timeout: 15))
         for tab in ["Home", "Progress", "Coach", "Settings", "Workouts"] {
-            XCTAssertTrue(app.tabBars.buttons[tab].exists, "Missing bottom tab: \(tab)")
+            XCTAssertTrue(app.buttons["nav.\(tab.lowercased())"].exists, "Missing bottom tab: \(tab)")
         }
-        XCTAssertTrue(app.tabBars.buttons["Home"].isSelected)
+        XCTAssertTrue(app.buttons["nav.home"].isSelected)
         XCTAssertTrue(app.buttons["nav.voice"].isHittable)
         XCTAssertFalse(app.buttons["nav.camera"].exists)
         XCTAssertTrue(app.buttons["home.calendar"].exists)
-        XCTAssertGreaterThanOrEqual(app.tabBars.buttons["Home"].frame.minY, app.buttons["home.add"].frame.maxY)
-        XCTAssertTrue(app.tabBars.firstMatch.exists)
+        XCTAssertGreaterThanOrEqual(app.buttons["nav.home"].frame.minY, app.buttons["home.add"].frame.maxY)
+        XCTAssertTrue(app.descendants(matching: .any)["nav.bottomBar"].firstMatch.exists)
+        XCTAssertFalse(app.tabBars.firstMatch.exists, "Native tabs must not appear at the side")
         XCTAssertFalse(app.buttons["Get Started"].exists)
 
         let attachment = XCTAttachment(screenshot: app.screenshot())
@@ -33,7 +34,7 @@ final class calorietrackerUITestsLaunchTests: XCTestCase {
         add(attachment)
 
         for tab in ["Progress", "Coach", "Settings", "Workouts", "Home"] {
-            let button = app.tabBars.buttons[tab]
+            let button = app.buttons["nav.\(tab.lowercased())"]
             button.tap()
             XCTAssertTrue(button.isSelected, "Did not select \(tab) from the bottom bar")
         }

@@ -76,7 +76,7 @@ final class calorietrackerUITests: XCTestCase {
 
     @MainActor
     private func openSettingsCategory(_ identifier: String, in app: XCUIApplication) {
-        let settings = app.tabBars.buttons["Settings"]
+        let settings = app.buttons["nav.settings"]
         XCTAssertTrue(settings.waitForExistence(timeout: 15))
         settings.tap()
         let category = app.buttons["settings.category.\(identifier)"]
@@ -245,7 +245,7 @@ final class calorietrackerUITests: XCTestCase {
     func testChallengesLiveUnderProgressAndKeepDailyAndMonthly() {
         let app = makeApp()
         app.launch()
-        let progress = app.tabBars.buttons["Progress"]
+        let progress = app.buttons["nav.progress"]
         reveal(progress, in: app)
         progress.tap()
         XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label == %@", "Time Range"))
@@ -271,7 +271,7 @@ final class calorietrackerUITests: XCTestCase {
     func testOptionalCalorieRangeIsVisibleWithoutWeeklyRecap() {
         let app = makeApp(defaults: ["-displayCalorieFloor", "1900", "-displayCalorieCeiling", "2400"])
         app.launch()
-        app.tabBars.buttons["Progress"].tap()
+        app.buttons["nav.progress"].tap()
         reveal(app.buttons["progress.calorieRange"], in: app)
         XCTAssertFalse(app.staticTexts["Weekly Recap"].exists)
         XCTAssertFalse(app.switches["Include today"].exists)
@@ -282,7 +282,7 @@ final class calorietrackerUITests: XCTestCase {
         let app = makeApp()
         app.launch()
 
-        let workouts = app.tabBars.buttons["Workouts"]
+        let workouts = app.buttons["nav.workouts"]
         reveal(workouts, in: app)
         workouts.tap()
         XCTAssertTrue(app.buttons["Add workout"].waitForExistence(timeout: 5))
@@ -326,7 +326,7 @@ final class calorietrackerUITests: XCTestCase {
         screenshot.lifetime = .keepAlways
         add(screenshot)
 
-        app.tabBars.buttons["Home"].tap()
+        app.buttons["nav.home"].tap()
         XCTAssertTrue(app.buttons["home.add"].waitForExistence(timeout: 5))
         reveal(library, in: app)
         library.tap()
@@ -337,7 +337,7 @@ final class calorietrackerUITests: XCTestCase {
     func testCanEditWeightRepsAndEffortInAWorkoutSet() {
         let app = makeApp(defaults: ["--ui-testing-workout-set", "-weightUnit", "kg"])
         app.launch()
-        let workouts = app.tabBars.buttons["Workouts"]
+        let workouts = app.buttons["nav.workouts"]
         XCTAssertTrue(workouts.waitForExistence(timeout: 15))
         reveal(workouts, in: app)
         workouts.tap()
@@ -445,7 +445,7 @@ final class calorietrackerUITests: XCTestCase {
         app.launchArguments += ["-AppleLanguages", "(en)", "--ui-testing-app-update-available"]
         app.launch()
 
-        let settings = app.tabBars.buttons["Settings"]
+        let settings = app.buttons["nav.settings"]
         reveal(settings, in: app)
         settings.tap()
         let about = app.buttons["nav.about"]
@@ -477,7 +477,7 @@ final class calorietrackerUITests: XCTestCase {
             ("legal", "Legal", "Privacy Policy"),
         ]
 
-        let settings = app.tabBars.buttons["Settings"]
+        let settings = app.buttons["nav.settings"]
         XCTAssertTrue(settings.waitForExistence(timeout: 8))
         settings.tap()
         XCTAssertFalse(app.buttons["settings.category.appUpdates"].exists)
@@ -538,8 +538,8 @@ final class calorietrackerUITests: XCTestCase {
     func testBottomTabsReturnAfterCoachKeyboardDismisses() {
         let app = makeApp()
         app.launch()
-        let home = app.tabBars.buttons["Home"]
-        let coach = app.tabBars.buttons["Coach"]
+        let home = app.buttons["nav.home"]
+        let coach = app.buttons["nav.coach"]
         XCTAssertTrue(coach.waitForExistence(timeout: 15))
         coach.tap()
         let input = app.descendants(matching: .any)["coach.input"].firstMatch
@@ -955,7 +955,7 @@ final class calorietrackerUITests: XCTestCase {
     func testHomeOrbExplainsAccessWithoutLeavingHome() {
         let app = makeApp()
         app.launch()
-        let home = app.tabBars.buttons["Home"]
+        let home = app.buttons["nav.home"]
         let voice = app.buttons["nav.voice"]
         XCTAssertTrue(voice.isHittable)
         voice.tap()
@@ -1068,7 +1068,7 @@ final class calorietrackerUITests: XCTestCase {
         let app = makeApp()
         app.launch()
 
-        let settings = app.tabBars.buttons["Settings"]
+        let settings = app.buttons["nav.settings"]
         XCTAssertTrue(settings.waitForExistence(timeout: 15))
         settings.tap()
         let combined = app.buttons["settings.category.trackingNotifications"]

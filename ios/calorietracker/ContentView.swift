@@ -123,6 +123,7 @@ struct ContentView: View {
     @Environment(ChatStore.self) private var chatStore
     @Environment(BodyMeasurementStore.self) private var bodyMeasurementStore
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.dynamicTypeSize) private var tabTypeSize
     @State private var voiceAssistant = VoiceAssistantController.shared
     @State private var assistantNavigator = VoiceAssistantNavigator.shared
     @AppStorage(AppThemeColor.storageKey) private var appThemeColorRaw = AppThemeColor.defaultColor.rawValue
@@ -152,6 +153,9 @@ struct ContentView: View {
 
     var body: some View {
         standardTabView
+            .safeAreaInset(edge: .bottom, spacing: 0) {
+                classicBottomBar
+            }
             .background(AppColors.appBackground)
             .tint(AppColors.accentText)
             .background(VoiceAssistantWindowInstaller(controller: voiceAssistant))
@@ -339,22 +343,22 @@ struct ContentView: View {
                     if foodLogMethodRequest?.id == requestID { foodLogMethodRequest = nil }
                 }
             )
+                .classicTabPage()
                 .tag(AppTab.home)
-                .tabItem { Label("Home", systemImage: "house.fill") }
 
             if !hiddenTabs.contains(.progress) {
                 ProgressTabView(showsChallenges: Binding(
                     get: { progressDestination == .weeklyChallenge },
                     set: { selectTab($0 ? .weeklyChallenge : .progress) }
                 ))
+                .classicTabPage()
                 .tag(AppTab.progress)
-                .tabItem { Label("Progress", systemImage: "chart.bar.fill") }
             }
 
             if !hiddenTabs.contains(.coach) {
                 ChatView()
+                    .classicTabPage()
                     .tag(AppTab.coach)
-                    .tabItem { Label("Coach", systemImage: "bubble.left.and.bubble.right.fill") }
             }
 
             Group {
@@ -407,21 +411,82 @@ struct ContentView: View {
                                 onSupport: { selectTab(.support) })
                 }
             }
+                .classicTabPage()
                 .tag(AppTab.settings)
-                .tabItem { Label("Settings", systemImage: "gearshape.fill") }
-                .badge(appUpdateState.isUpdateAvailable ? "!" : nil)
 
             if !hiddenTabs.contains(.workouts) {
                 WorkoutsView(mode: workoutDestination == .exerciseLibrary ? .library : .log) { mode in
                     workoutModeRaw = mode.rawValue
                     selectTab(mode == .log ? .workouts : .exerciseLibrary)
                 }
+                .classicTabPage()
                 .tag(AppTab.workouts)
-                .tabItem {
-                    Label("Workouts", systemImage: WorkoutTabMode.mode(for: workoutModeRaw).tabIcon)
+            }
+        }
+    }
+
+    /// Keep the five primary tabs at the bottom even on devices whose native
+    /// tab presenter prefers a side bar (e.g. iPhone Duo).
+    private var classicBottomBar: some View {
+        HStack(spacing: 2) {
+            ForEach([AppTab.home, .progress, .coach, .settings, .workouts], id: \.self) { tab in
+                if tab.hideableTab.map({ !hiddenTabs.contains($0) }) ?? true {
+                    classicTabButton(tab)
                 }
             }
         }
+        .padding(4)
+        .classicTabSurface()
+        .frame(maxWidth: 520)
+        .padding(.horizontal, 16)
+        .padding(.vertical, 4)
+        .accessibilityElement(children: .contain)
+        .accessibilityIdentifier("nav.bottomBar")
+    }
+
+    private func classicTabButton(_ tab: AppTab) -> some View {
+        let selected = selectedTab.group == tab
+        let update = tab == .settings && appUpdateState.isUpdateAvailable
+        return Button {
+            if !selected {
+                AppHaptics.selection()
+                shellTabSelection.wrappedValue = tab
+            } else if tab == .settings {
+                if settingsDestination == .about, !aboutPath.isEmpty {
+                    aboutPath = []
+                } else {
+                    settingsPath = []
+                    selectTab(.settings)
+                }
+            }
+        } label: {
+            VStack(spacing: 3) {
+                Image(systemName: tab == .workouts ? WorkoutTabMode.mode(for: workoutModeRaw).tabIcon : tab.icon)
+                    .font(.system(size: 19, weight: .semibold))
+                    .overlay(alignment: .topTrailing) {
+                        if update {
+                            Circle().fill(AppColors.accentText).frame(width: 7, height: 7).offset(x: 4, y: -2)
+                        }
+                    }
+                if !tabTypeSize.isAccessibilitySize {
+                    tab.title
+                        .font(.caption2.weight(selected ? .semibold : .medium))
+                        .lineLimit(2)
+                        .minimumScaleFactor(0.75)
+                        .multilineTextAlignment(.center)
+                }
+            }
+            .padding(.horizontal, 2)
+            .frame(maxWidth: .infinity, minHeight: 48)
+            .foregroundStyle(selected ? AppColors.accentText : Color.primary)
+            .background(selected ? AppColors.calorie.opacity(0.12) : Color.clear, in: Capsule())
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel(tab.title)
+        .accessibilityValue(update ? Text("Update Available") : Text(verbatim: ""))
+        .accessibilityAddTraits(selected ? .isSelected : [])
+        .accessibilityIdentifier("nav.\(tab.rawValue)")
     }
 
     private func aboutPage(_ category: AboutSettingsCategory, title: LocalizedStringResource) -> some View {
@@ -469,7 +534,7 @@ struct ContentView: View {
             case .weeklyChallenge: Text("Challenges", tableName: "ChallengeHub")
             case .coach: Text("Coach")
             case .settings: Text("Settings")
-            case .workouts: Text("Workout log")
+            case .workouts: Text("Workouts")
             case .exerciseLibrary: Text("Exercise library")
             case .about: Text("About")
             case .support: Text("Support Fud AI")
@@ -478,11 +543,11 @@ struct ContentView: View {
 
         var icon: String {
             switch self {
-            case .home: "house"
-            case .progress: "chart.xyaxis.line"
+            case .home: "house.fill"
+            case .progress: "chart.bar.fill"
             case .weeklyChallenge: "trophy"
-            case .coach: "sparkles"
-            case .settings: "gearshape"
+            case .coach: "bubble.left.and.bubble.right.fill"
+            case .settings: "gearshape.fill"
             case .workouts: WorkoutTabMode.log.tabIcon
             case .exerciseLibrary: WorkoutTabMode.library.tabIcon
             case .about: "info.circle"

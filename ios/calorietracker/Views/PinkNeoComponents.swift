@@ -35,6 +35,48 @@ extension View {
             .allowsHitTesting(false).accessibilityHidden(true))
     }
 
+    @ViewBuilder
+    func classicTabSurface() -> some View {
+        if #available(iOS 26.0, *) {
+            glassEffect(.regular, in: Capsule())
+        } else {
+            background(.regularMaterial, in: Capsule())
+                .overlay(Capsule().strokeBorder(AppColors.flashRule.opacity(0.24)).allowsHitTesting(false))
+        }
+    }
+
+    func classicTabPage() -> some View {
+        // Hide UIKit chrome before the first visible frame as well as through
+        // SwiftUI's toolbar preference on older iOS versions.
+        background(ClassicNativeTabBarSuppressor().frame(width: 0, height: 0)
+            .allowsHitTesting(false).accessibilityHidden(true))
+            .toolbar(.hidden, for: .tabBar)
+    }
+}
+
+private struct ClassicNativeTabBarSuppressor: UIViewControllerRepresentable {
+    func makeUIViewController(context: Context) -> Controller { Controller() }
+
+    func updateUIViewController(_ controller: Controller, context: Context) {
+        controller.hideTabBar()
+    }
+
+    final class Controller: UIViewController {
+        override func didMove(toParent parent: UIViewController?) {
+            super.didMove(toParent: parent)
+            hideTabBar()
+        }
+
+        override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            hideTabBar()
+        }
+
+        func hideTabBar() {
+            guard #available(iOS 18.0, *), let tabBarController, !tabBarController.isTabBarHidden else { return }
+            tabBarController.setTabBarHidden(true, animated: false)
+        }
+    }
 }
 
 struct PinkNeoDateHeader: View {

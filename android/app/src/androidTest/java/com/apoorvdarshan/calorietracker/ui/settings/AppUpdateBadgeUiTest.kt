@@ -16,7 +16,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.apoorvdarshan.calorietracker.AppContainer
 import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.services.update.AndroidUpdateState
-import com.apoorvdarshan.calorietracker.ui.about.AboutSettingsCategory
+import com.apoorvdarshan.calorietracker.ui.about.UpdateRow
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.Rule
@@ -26,29 +26,17 @@ class AppUpdateBadgeUiTest {
     @get:Rule val compose = createComposeRule()
 
     @Test fun confirmedUpdateContinuesFromAboutToStoreAction() {
-        val container = mockk<AppContainer> {
-            every { billing } returns mockk()
-        }
         val context = InstrumentationRegistry.getInstrumentation().targetContext
-        var category by mutableStateOf<AboutSettingsCategory?>(null)
+        var storeOpens = 0
         var updateState by mutableStateOf<AndroidUpdateState>(AndroidUpdateState.Available("9.0", "build 49"))
         compose.setContent {
             MaterialTheme {
-                AboutRailScreen(
-                    container = container,
-                    category = category,
-                    updateState = updateState,
-                    onSelect = { category = it }
-                )
+                UpdateRow(updateState, "9.0", onRefresh = {}, onOpenStore = { storeOpens++ })
             }
         }
 
-        compose.onNodeWithTag("settings.category.APP_UPDATES")
-            .assert(SemanticsMatcher.expectValue(
-                SemanticsProperties.StateDescription, context.getString(R.string.about_update_available)
-            ))
-            .performClick()
-        compose.onNodeWithText(context.getString(R.string.about_update_action)).assertHasClickAction()
+        compose.onNodeWithText(context.getString(R.string.about_update_action)).assertHasClickAction().performClick()
+        compose.runOnIdle { org.junit.Assert.assertEquals(1, storeOpens) }
 
         compose.runOnIdle { updateState = AndroidUpdateState.UpToDate("9.0", "9.0") }
         compose.onNodeWithText(context.getString(R.string.about_update_action)).assertDoesNotExist()

@@ -99,6 +99,7 @@ class AndroidVoiceAppPorts(
         ui.collapseForNavigation()
         when (screen) {
             VoiceScreen.SETTINGS -> navigator.showSettings(section)
+            VoiceScreen.SUPPORT -> navigator.showSettings(VoiceSettingsSection.ABOUT)
             VoiceScreen.ABOUT -> navigator.showAbout(
                 section?.let { target -> AboutSettingsCategory.entries.firstOrNull { it.voiceSection == target } }
             )

@@ -39,6 +39,13 @@ struct IngredientAddMenuButton: View {
     @State private var errorMessage: String?
 
     var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            ingredientMenu
+            if isBusy { WaitingFactCard() }
+        }
+    }
+
+    private var ingredientMenu: some View {
         Menu {
             Button { showCamera = true } label: {
                 Label("Camera", systemImage: "camera.fill")

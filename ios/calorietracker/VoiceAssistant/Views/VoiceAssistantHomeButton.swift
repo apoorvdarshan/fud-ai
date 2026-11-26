@@ -11,7 +11,7 @@ struct VoiceAssistantHomeButton: View {
 
     var body: some View {
         Button {
-            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+            AppHaptics.impact(.medium)
             controller.start()
         } label: {
             VoiceMascotView(mode: .idle, profile: VoiceMascotPreferences.decode(mascotRaw).profile)

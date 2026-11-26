@@ -481,7 +481,7 @@ fun AboutFooter() {
 private fun openPlayStore(context: Context) = AndroidUpdateChecker.openPlayStore(context)
 
 @Composable
-private fun UpdateRow(
+internal fun UpdateRow(
     state: AndroidUpdateState,
     currentVersion: String,
     onRefresh: () -> Unit,

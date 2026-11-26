@@ -20,7 +20,7 @@ enum CameraMode {
 private let fudAIAppStoreID = "6758935726"
 private let fudAIAppStoreURL = URL(string: "https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726")!
 
-private enum AppUpdateState: Equatable {
+enum AppUpdateState: Equatable {
     case idle
     case checking
     case upToDate(current: String, latest: String?)
@@ -39,6 +39,11 @@ private enum AppUpdateState: Equatable {
             return false
         }
         return true
+    }
+
+    func resolving(_ result: Self) -> Self {
+        if isUpdateAvailable, case .failed = result { return self }
+        return result
     }
 }
 
@@ -131,6 +136,7 @@ struct ContentView: View {
     @AppStorage(TabBarSettings.hiddenTabsKey) private var hiddenTabsRaw = ""
     @State private var appUpdateState: AppUpdateState = .idle
     @State private var selectedTab: AppTab = .home
+    @State private var progressOverviewMode: ProgressOverviewMode = .myProgress
     @State private var quickActionRequest: QuickActionRequest?
     @State private var foodLogMethodRequest: FoodLogMethodRequest?
     private var workoutsTabIcon: String {
@@ -229,6 +235,13 @@ struct ContentView: View {
         guard let screen = assistantNavigator.takeScreenRequest(),
               TabBarSettings.hiddenTab(for: screen, in: hiddenTabs) == nil
         else { return }
+        switch screen {
+        case .weeklyChallenge: progressOverviewMode = .weeklyChallenge
+        case .progress: progressOverviewMode = .myProgress
+        case .exerciseLibrary: workoutTabModeRaw = WorkoutTabMode.library.rawValue
+        case .workouts: workoutTabModeRaw = WorkoutTabMode.log.rawValue
+        default: break
+        }
         selectedTab = switch screen {
         case .home: .home
         case .progress, .weeklyChallenge: .progress
@@ -267,7 +280,7 @@ struct ContentView: View {
                 }
 
             if !hiddenTabs.contains(.progress) {
-                ProgressTabView()
+                ProgressTabView(progressOverviewMode: $progressOverviewMode)
                     .tag(AppTab.progress)
                     .tabItem {
                         Image(systemName: "chart.bar.fill")
@@ -342,8 +355,9 @@ struct ContentView: View {
             return
         }
 
-        appUpdateState = .checking
-        appUpdateState = await AppUpdateChecker.check()
+        let previous = appUpdateState
+        if !previous.isUpdateAvailable { appUpdateState = .checking }
+        appUpdateState = previous.resolving(await AppUpdateChecker.check())
 
         // A newer version is out — fire a one-shot notification (de-duped per version, gated by the
         // "App Updates" toggle) so the user finds out even if they don't scroll to the About section.
@@ -4080,7 +4094,7 @@ struct ProgressTabView: View {
     @State private var showWorkoutHistory = false
     @State private var showImportedHealthWorkoutHistory = false
     @State private var progressMetric: ProgressMetric = .weight
-    @State private var progressOverviewMode: ProgressOverviewMode = .myProgress
+    @Binding var progressOverviewMode: ProgressOverviewMode
     @State private var foodRangeStats: ProgressFoodRangeStats?
     @State private var isLoadingFoodRangeStats = false
     /// Daily steps for the selected window; nil while loading.

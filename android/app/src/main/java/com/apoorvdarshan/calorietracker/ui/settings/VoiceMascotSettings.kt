@@ -85,7 +85,7 @@ internal fun VoiceMascotGallery(preferences: VoiceMascotPreferences, onSelect: (
                                     preferences.profileFor(mascot), motionEnabled = false
                                 )
                                 Text(
-                                    mascot.displayName,
+                                    if (mascot == Mascot.ORB) stringResource(R.string.voice_mascot_classic_orb) else mascot.displayName,
                                     color = palette.ink,
                                     style = MaterialTheme.typography.labelSmall,
                                     fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium,

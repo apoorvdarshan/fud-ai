@@ -624,6 +624,9 @@ struct EditFoodEntryView: View {
                     scrollQuantityIntoView(scrollProxy)
                 }
                 .disabled(isReprocessing)
+                .overlay {
+                    if isReprocessing { AnalyzingView(image: nil) }
+                }
                 .navigationTitle("Edit Food")
                 .navigationBarTitleDisplayMode(.inline)
                 .alert("Delete Food Log?", isPresented: $isDeleteConfirmationPresented) {

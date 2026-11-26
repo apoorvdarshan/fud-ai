@@ -32,8 +32,7 @@ class SettingsCategoryTest {
     fun everyVoiceSectionOpensACategoryThatReportsItBack() {
         for (section in VoiceSettingsSection.entries) {
             if (section.isAboutSection) {
-                val canonical = if (section == VoiceSettingsSection.ABOUT) VoiceSettingsSection.APP_UPDATES else section
-                assertEquals(canonical, SettingsCategory.forVoiceSection(section).voiceSection)
+                assertEquals(section, SettingsCategory.forVoiceSection(section).voiceSection)
                 continue
             }
             // REMINDERS is kept for compatibility and opens the page reported as NOTIFICATIONS.

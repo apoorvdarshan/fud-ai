@@ -11,11 +11,12 @@ struct VoiceMascotGallery: View {
             ForEach(VoiceMascot.allCases) { mascot in
                 let selected = preferences.selected == mascot
                 let profile = preferences.profile(for: mascot)
+                let title = mascot == .orb ? Text("Classic Orb", tableName: "VoiceMascot") : Text(verbatim: mascot.displayName)
                 Button { select(mascot) } label: {
                     VStack(spacing: 2) {
                         VoiceMascotView(mode: .idle, profile: profile)
                             .frame(height: 55)
-                        Text(verbatim: mascot.displayName)
+                        title
                             .font(.caption2.weight(selected ? .bold : .medium))
                             .multilineTextAlignment(.center)
                             .lineLimit(2, reservesSpace: true)
@@ -42,7 +43,7 @@ struct VoiceMascotGallery: View {
                     .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)
-                .accessibilityLabel(Text(verbatim: mascot.displayName))
+                .accessibilityLabel(title)
                 .accessibilityAddTraits(selected ? .isSelected : [])
                 .accessibilityIdentifier("settings.voiceMascot.gallery.\(mascot.rawValue)")
             }

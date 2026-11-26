@@ -101,7 +101,7 @@ struct WeekEnergyStrip: View {
         let isToday = cal.isDateInToday(date)
 
         return Button {
-            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            AppHaptics.impact(.light)
             withAnimation(.snappy(duration: 0.3)) {
                 selectedDate = date
             }

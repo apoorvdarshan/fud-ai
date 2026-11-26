@@ -9,4 +9,5 @@
     <string name="voice_mascot_calm">Pacata</string>
     <string name="voice_mascot_direct">Diretta</string>
     <string name="voice_mascot_next_session">Le modifiche si applicano alla prossima conversazione.</string>
+    <string name="voice_mascot_classic_orb">Sfera classica</string>
 </resources>

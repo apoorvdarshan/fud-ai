@@ -98,7 +98,7 @@ class AppNavigator(private val today: () -> LocalDate = { LocalDate.now() }) {
     }
 
     fun showAbout(section: AboutSettingsCategory?) {
-        showSettings(section?.voiceSection ?: VoiceSettingsSection.ABOUT)
+        showSettings(section?.voiceSection ?: VoiceSettingsSection.APP_UPDATES)
     }
 
     fun showFoodEntry(id: UUID, date: LocalDate) {

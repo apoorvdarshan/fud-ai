@@ -16,6 +16,17 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class WeeklyChallengeAggregatorTest {
+    @Test
+    fun weeklyMembershipIncludesBothBoardsWithoutUndoingLaterOptOut() {
+        val anonymous = WeeklyChallengeStoredState()
+        assertEquals(anonymous, anonymous.withSharedBoards())
+        val profile = com.apoorvdarshan.calorietracker.models.WeeklyChallengePublicProfile("member", "Runner")
+        val member = anonymous.copy(profile = profile).withSharedBoards()
+        assertEquals(setOf(ChallengePeriod.DAILY, ChallengePeriod.MONTHLY), member.enabledPeriods)
+        assertEquals(setOf(ChallengePeriod.MONTHLY), member.leaving(ChallengePeriod.DAILY).withSharedBoards().enabledPeriods)
+        val deleting = anonymous.copy(profile = profile, pendingRemoteDeletion = true)
+        assertEquals(deleting, deleting.withSharedBoards())
+    }
     private val utc: ZoneId = ZoneOffset.UTC
     private val monday = LocalDate.of(2026, 8, 24)
 

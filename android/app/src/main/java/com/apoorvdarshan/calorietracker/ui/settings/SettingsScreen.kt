@@ -378,7 +378,7 @@ internal enum class SettingsCategory(
             VoiceSettingsSection.HEALTH -> HEALTH_DATA
             VoiceSettingsSection.DATA -> DATA_MANAGEMENT
             VoiceSettingsSection.VOICE_ASSISTANT -> VOICE_ASSISTANT
-            VoiceSettingsSection.ABOUT -> APP_UPDATES
+            VoiceSettingsSection.ABOUT -> SUPPORT
             VoiceSettingsSection.APP_UPDATES -> APP_UPDATES
             VoiceSettingsSection.HELP_FEEDBACK -> HELP_FEEDBACK
             VoiceSettingsSection.COMMUNITY -> COMMUNITY

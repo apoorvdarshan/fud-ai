@@ -9,22 +9,37 @@ import UIKit
 // with Fud AI's default look while keeping their code byte-for-byte close to Delts.
 
 extension Color {
-    /// Screen background following the app's appearance.
+    /// Screen background — Fud AI's warm cream in light, near-black in dark.
     static var workoutBackground: Color { AppColors.appBackground }
 
     /// Card surface behind rows and hero imagery.
     static var workoutCard: Color { AppColors.appCard }
 
     /// Elevated panel behind menus / pills — one step off the card tone.
-    static var workoutPanel: Color { AppColors.appCard }
+    static var workoutPanel: Color {
+        Color(uiColor: UIColor { traits in
+            traits.userInterfaceStyle == .dark
+                ? UIColor(red: 0.165, green: 0.165, blue: 0.180, alpha: 1)
+                : UIColor(red: 0.937, green: 0.906, blue: 0.875, alpha: 1)
+        })
+    }
 
     /// Hairline strokes — matches Fud AI's divider tones.
-    static var workoutHairline: Color { AppColors.flashRule }
+    static var workoutHairline: Color {
+        Color(uiColor: UIColor { traits in
+            traits.userInterfaceStyle == .dark
+                ? UIColor(red: 0.173, green: 0.173, blue: 0.180, alpha: 1)
+                : UIColor(red: 0.780, green: 0.760, blue: 0.740, alpha: 1)
+        })
+    }
 
     /// Primary accent — the user's Fud AI theme color (default Fud Pink).
     static var workoutAccent: Color { AppColors.calorie }
 
-    static var workoutSecondaryAccent: Color { AppColors.calorie }
+    /// Softer companion accent — the gradient end of the theme color.
+    static var workoutSecondaryAccent: Color {
+        AppThemeColor.current.gradientColors.last ?? AppColors.calorie
+    }
 
     /// Delts aliased "inferno" to its secondary accent; keep the alias.
     static var workoutInferno: Color { Color.workoutSecondaryAccent }
@@ -36,7 +51,7 @@ extension Color {
     static var workoutMutedText: Color { Color.secondary }
 
     /// Text/icons rendered on top of the accent color.
-    static var workoutOnAccent: Color { AppColors.onAccent }
+    static var workoutOnAccent: Color { Color.white }
 }
 
 struct WorkoutBackground: View {
@@ -52,12 +67,35 @@ extension View {
             .scrollContentBackground(.hidden)
     }
 
+    @ViewBuilder
     func workoutLiquidBarSurface(cornerRadius: CGFloat = 32) -> some View {
-        flashPanel()
+        modifier(WorkoutLiquidBarSurfaceModifier(cornerRadius: cornerRadius))
     }
 
     func workoutPressable() -> some View {
         buttonStyle(WorkoutPressableButtonStyle())
+    }
+}
+
+private struct WorkoutLiquidBarSurfaceModifier: ViewModifier {
+    let cornerRadius: CGFloat
+    @Environment(\.colorScheme) private var colorScheme
+
+    func body(content: Content) -> some View {
+        let shape = RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+
+        if colorScheme == .light {
+            content
+                .background(Color.workoutPanel.opacity(0.72), in: shape)
+                .overlay(shape.stroke(Color.workoutHairline.opacity(0.58), lineWidth: 0.6))
+        } else if #available(iOS 26.0, *) {
+            content
+                .glassEffect(.regular.interactive(), in: shape)
+        } else {
+            content
+                .background(Color.workoutPanel.opacity(0.62), in: shape)
+                .overlay(shape.stroke(Color.workoutHairline.opacity(0.52), lineWidth: 0.5))
+        }
     }
 }
 

@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -22,7 +23,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
@@ -42,7 +42,7 @@ internal fun FlashSheetAction(
         onClick = onClick,
         modifier = modifier.heightIn(min = 48.dp),
         enabled = enabled,
-        shape = RectangleShape,
+        shape = RoundedCornerShape(16.dp),
         border = BorderStroke(1.dp, neo.rule),
         colors = ButtonDefaults.buttonColors(
             containerColor = if (primary) neo.action else neo.panel,
@@ -58,14 +58,13 @@ internal fun FlashSheetAction(
 // focus and sheet state. Keep the modal sheet modifier unframed: Material
 // applies its vertical offset inside it, so a border here floats over the app.
 @OptIn(ExperimentalMaterial3Api::class)
-@Suppress("UNUSED_PARAMETER") // Old call sites may still supply a surface or shape.
 @Composable
 internal fun FlashBottomSheet(
     onDismissRequest: () -> Unit,
     sheetState: SheetState,
     modifier: Modifier = Modifier,
     sheetGesturesEnabled: Boolean = true,
-    shape: Shape = RectangleShape,
+    shape: Shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
     containerColor: Color = Color.Unspecified,
     dragHandle: @Composable (() -> Unit)? = { CompactSheetHandle() },
     properties: ModalBottomSheetProperties = ModalBottomSheetProperties(),
@@ -77,8 +76,8 @@ internal fun FlashBottomSheet(
         sheetState = sheetState,
         modifier = modifier,
         sheetGesturesEnabled = sheetGesturesEnabled,
-        shape = RectangleShape,
-        containerColor = neo.panel,
+        shape = shape,
+        containerColor = if (containerColor == Color.Unspecified) neo.panel else containerColor,
         contentColor = neo.ink,
         tonalElevation = 0.dp,
         dragHandle = dragHandle,
@@ -95,7 +94,6 @@ private fun CompactSheetHandle() {
     }
 }
 
-@Suppress("UNUSED_PARAMETER")
 @Composable
 internal fun FlashAlertDialog(
     onDismissRequest: () -> Unit,
@@ -104,17 +102,17 @@ internal fun FlashAlertDialog(
     dismissButton: @Composable (() -> Unit)? = null,
     title: @Composable (() -> Unit)? = null,
     text: @Composable (() -> Unit)? = null,
-    shape: Shape = RectangleShape
+    shape: Shape = RoundedCornerShape(24.dp)
 ) {
     val neo = pinkNeoPalette()
     AlertDialog(
         onDismissRequest = onDismissRequest,
         confirmButton = confirmButton,
-        modifier = modifier.border(1.dp, neo.rule),
+        modifier = modifier,
         dismissButton = dismissButton,
         title = title,
         text = text,
-        shape = RectangleShape,
+        shape = shape,
         containerColor = neo.panel,
         titleContentColor = neo.ink,
         textContentColor = neo.ink,
@@ -136,7 +134,7 @@ internal fun FlashLoadingDialog(
         )
     ) {
         Box(
-            modifier = Modifier.size(76.dp).background(neo.panel).border(1.dp, neo.rule),
+            modifier = Modifier.size(76.dp).background(neo.panel, RoundedCornerShape(20.dp)),
             contentAlignment = Alignment.Center
         ) {
             CircularProgressIndicator(color = neo.accent, modifier = Modifier.size(30.dp))
@@ -144,13 +142,12 @@ internal fun FlashLoadingDialog(
     }
 }
 
-@Suppress("UNUSED_PARAMETER")
 @Composable
 internal fun FlashDropdownMenu(
     expanded: Boolean,
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
-    shape: Shape = RectangleShape,
+    shape: Shape = RoundedCornerShape(14.dp),
     containerColor: Color = Color.Unspecified,
     content: @Composable ColumnScope.() -> Unit
 ) {
@@ -159,10 +156,10 @@ internal fun FlashDropdownMenu(
         expanded = expanded,
         onDismissRequest = onDismissRequest,
         modifier = modifier,
-        shape = RectangleShape,
-        containerColor = neo.panel,
+        shape = shape,
+        containerColor = if (containerColor == Color.Unspecified) neo.panel else containerColor,
         tonalElevation = 0.dp,
-        shadowElevation = 0.dp,
+        shadowElevation = 6.dp,
         border = BorderStroke(1.dp, neo.rule),
         content = content
     )

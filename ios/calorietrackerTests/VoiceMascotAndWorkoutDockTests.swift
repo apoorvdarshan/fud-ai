@@ -4,9 +4,11 @@ import Testing
 struct VoiceMascotAndWorkoutDockTests {
     @Test func savesNamesColorsAndPersonalitiesSeparatelyPerCharacter() {
         var preferences = VoiceMascotPreferences()
-        #expect(preferences.profile.name == "Brulee")
+        #expect(preferences.selected == .orb)
+        #expect(preferences.profile.name == "Fud AI")
         #expect(preferences.profile.options.color == .original)
-        #expect(VoiceMascot.allCases.count == 8)
+        #expect(VoiceMascot.allCases.count == 9)
+        #expect(VoiceMascotPreferences.decode(#"{"selected":"brulee"}"#).selected == .brulee)
         preferences.selected = .alien
         preferences.edit {
             $0.name = "  Nova\n\t星  "
@@ -25,7 +27,7 @@ struct VoiceMascotAndWorkoutDockTests {
         #expect(reloaded.profile.options.color == .purple)
         #expect(reloaded.profile.options.personality == .playful)
         #expect(!reloaded.profile.instruction.contains("\n"))
-        #expect(VoiceMascotPreferences.decode("invalid").profile.name == "Brulee")
+        #expect(VoiceMascotPreferences.decode("invalid").selected == .orb)
     }
 
     @Test func mascotSpeaksOnlyWithAssistantPlaybackAndRespectsReducedMotion() {

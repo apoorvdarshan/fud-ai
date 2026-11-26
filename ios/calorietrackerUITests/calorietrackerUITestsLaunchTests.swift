@@ -16,15 +16,15 @@ final class calorietrackerUITestsLaunchTests: XCTestCase {
         app.launch()
 
         XCTAssertTrue(app.buttons["home.add"].waitForExistence(timeout: 15))
-        for tab in ["home", "progress", "coach", "settings", "workouts"] {
-            XCTAssertTrue(app.buttons["nav.\(tab)"].exists, "Missing rail item: \(tab)")
+        for tab in ["Home", "Progress", "Coach", "Settings", "Workouts"] {
+            XCTAssertTrue(app.tabBars.buttons[tab].exists, "Missing bottom tab: \(tab)")
         }
-        XCTAssertTrue(app.buttons["nav.home"].isSelected)
+        XCTAssertTrue(app.tabBars.buttons["Home"].isSelected)
         XCTAssertTrue(app.buttons["nav.voice"].isHittable)
         XCTAssertFalse(app.buttons["nav.camera"].exists)
         XCTAssertTrue(app.buttons["home.calendar"].exists)
-        XCTAssertGreaterThan(app.buttons["nav.home"].frame.minX, app.buttons["home.add"].frame.maxX)
-        XCTAssertFalse(app.tabBars.firstMatch.exists)
+        XCTAssertGreaterThanOrEqual(app.tabBars.buttons["Home"].frame.minY, app.buttons["home.add"].frame.maxY)
+        XCTAssertTrue(app.tabBars.firstMatch.exists)
         XCTAssertFalse(app.buttons["Get Started"].exists)
 
         let attachment = XCTAttachment(screenshot: app.screenshot())
@@ -32,10 +32,10 @@ final class calorietrackerUITestsLaunchTests: XCTestCase {
         attachment.lifetime = .keepAlways
         add(attachment)
 
-        for tab in ["progress", "coach", "settings", "workouts", "home"] {
-            let button = app.buttons["nav.\(tab)"]
+        for tab in ["Progress", "Coach", "Settings", "Workouts", "Home"] {
+            let button = app.tabBars.buttons[tab]
             button.tap()
-            XCTAssertTrue(button.isSelected, "Did not select \(tab) from the right rail")
+            XCTAssertTrue(button.isSelected, "Did not select \(tab) from the bottom bar")
         }
         XCTAssertTrue(app.buttons["home.add"].exists)
     }

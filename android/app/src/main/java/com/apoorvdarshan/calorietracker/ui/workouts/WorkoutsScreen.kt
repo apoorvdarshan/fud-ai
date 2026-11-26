@@ -96,7 +96,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 @Composable
-fun WorkoutsScreen(container: AppContainer, mode: WorkoutTabMode, modifier: Modifier = Modifier) {
+fun WorkoutsScreen(
+    container: AppContainer,
+    mode: WorkoutTabMode,
+    modifier: Modifier = Modifier,
+    onSwitchMode: () -> Unit
+) {
     val context = LocalContext.current
     var catalog by remember { mutableStateOf(ExerciseRepository.peek()) }
     LaunchedEffect(Unit) {
@@ -192,6 +197,7 @@ fun WorkoutsScreen(container: AppContainer, mode: WorkoutTabMode, modifier: Modi
             exerciseRepository = repo,
             viewModel = vm,
             weekStartsOnMonday = weekStartsOnMonday,
+            onShowLibrary = onSwitchMode,
             onCreateExercise = { showCreateUserExercise = true },
             onEditUserExercise = { editingUserExerciseId = it },
             modifier = modifier
@@ -200,6 +206,7 @@ fun WorkoutsScreen(container: AppContainer, mode: WorkoutTabMode, modifier: Modi
         WorkoutLibraryScreen(
             repo = repo,
             vm = vm,
+            onShowLog = onSwitchMode,
             onCreateExercise = { showCreateUserExercise = true },
             modifier = modifier
         )
@@ -222,6 +229,7 @@ private fun filterByWorkoutSplit(items: List<ExerciseItem>, vm: WorkoutsViewMode
 private fun WorkoutLibraryScreen(
     repo: ExerciseRepository,
     vm: WorkoutsViewModel,
+    onShowLog: () -> Unit,
     onCreateExercise: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -259,11 +267,7 @@ private fun WorkoutLibraryScreen(
         if (listState.isScrollInProgress) dismissKeyboard()
     }
 
-    // Fud AI's tab bar floats over content (no Scaffold inset like Delts), so the
-    // screen paints its own background and the list keeps its tail clear of the
-    // floating bar. The status-bar inset is absorbed by the ad strip above this
-    // screen (TabWithBanner). Search, filter chips, and the results header stay
-    // pinned; only the exercise list scrolls (matches iOS).
+    // Search, filters, and the results header stay pinned while the list scrolls.
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -273,11 +277,19 @@ private fun WorkoutLibraryScreen(
             Modifier.padding(horizontal = FlashSpacing.PageInset, vertical = FlashSpacing.ItemGap),
             verticalArrangement = Arrangement.spacedBy(FlashSpacing.ItemGap)
         ) {
-            SearchPill(
-                value = vm.searchInput,
-                onValueChange = { vm.searchInput = it },
-                modifier = Modifier.fillMaxWidth()
-            )
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                SearchPill(
+                    value = vm.searchInput,
+                    onValueChange = { vm.searchInput = it },
+                    modifier = Modifier.weight(1f)
+                )
+                androidx.compose.material3.IconButton(
+                    onClick = onShowLog,
+                    modifier = Modifier.testTag("nav.workoutLog")
+                ) {
+                    Icon(Icons.Filled.FitnessCenter, stringResource(R.string.nav_workout_log))
+                }
+            }
             FilterRow(repo, vm)
         }
         ResultsHeader(

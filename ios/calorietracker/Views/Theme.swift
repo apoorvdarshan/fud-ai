@@ -132,7 +132,7 @@ enum AppThemeColor: String, CaseIterable, Identifiable {
     // the Watch, which has no AppThemeColor and rebuilds Colors from the values.
     var startHex: UInt {
         switch self {
-        case .fudPink: return PinkNeoFlash.pink
+        case .fudPink: return 0xFF375F
         case .red: return 0xFF3B30
         case .orange: return 0xFF9500
         case .green: return 0x34C759
@@ -155,7 +155,7 @@ enum AppThemeColor: String, CaseIterable, Identifiable {
 
     var endHex: UInt {
         switch self {
-        case .fudPink: return PinkNeoFlash.pink
+        case .fudPink: return 0xFF6B8A
         case .red: return 0xFF6961
         case .orange: return 0xFFB340
         case .green: return 0x62D46F
@@ -184,17 +184,16 @@ final class AppAppearancePalette {
 }
 
 enum AppColors {
-    // The duplicate endpoint keeps existing chart/shape APIs on a solid fill.
-    static var calorieGradient: [Color] { [calorie, calorie] }
+    static var calorieGradient: [Color] { AppThemeColor.current.gradientColors }
     static var calorie: Color { AppThemeColor.current.color }
     static var onAccent: Color { contrastInk(on: AppThemeColor.current.startHex) }
     static var accentText: Color { AppThemeColor.current == .fudPink ? flashAccentText : calorie }
-    static let flashRule = dynamicColor(light: PinkNeoFlash.inkLight, dark: PinkNeoFlash.inkDark)
-    private static let flashAccentText = dynamicColor(light: 0xC50051, dark: 0xFF4D91)
+    static let flashRule = dynamicColor(light: 0xB6A6A2, dark: 0x777980)
+    private static let flashAccentText = dynamicColor(light: 0xB71645, dark: 0xFF6B8A)
     /// Inset information areas are neutral; pink is for actions and meaningful values.
     static var flashInset: Color {
         if AppAppearancePalette.shared.usesGray { return Color(hex: 0x26272B) }
-        return AppThemeColor.current == .fudPink ? pinkNeoInset : appBackground
+        return appBackground
     }
 
     // Protein
@@ -209,19 +208,12 @@ enum AppColors {
     static var fatGradient: [Color] { calorieGradient }
     static var fat: Color { calorie }
 
-    // Preserve the user's Dark gray and alternate accents; Fud Pink gets its own paper/ink surfaces.
     static var appBackground: Color {
-        if AppAppearancePalette.shared.usesGray { return Color(hex: 0x202124) }
-        return AppThemeColor.current == .fudPink ? pinkNeoPaper : Color("appBackground")
+        AppAppearancePalette.shared.usesGray ? Color(hex: 0x202124) : Color("appBackground")
     }
     static var appCard: Color {
-        if AppAppearancePalette.shared.usesGray { return Color(hex: 0x303136) }
-        return AppThemeColor.current == .fudPink ? pinkNeoPanel : Color("appCard")
+        AppAppearancePalette.shared.usesGray ? Color(hex: 0x303136) : Color("appCard")
     }
-
-    private static let pinkNeoPaper = dynamicColor(light: PinkNeoFlash.paperLight, dark: PinkNeoFlash.paperDark)
-    private static let pinkNeoPanel = dynamicColor(light: PinkNeoFlash.panelLight, dark: PinkNeoFlash.panelDark)
-    private static let pinkNeoInset = dynamicColor(light: PinkNeoFlash.insetLight, dark: PinkNeoFlash.insetDark)
 
     private static func dynamicColor(light: UInt, dark: UInt) -> Color {
         Color(uiColor: UIColor { traits in

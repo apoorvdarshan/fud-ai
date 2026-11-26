@@ -1,5 +1,8 @@
 package com.apoorvdarshan.calorietracker.ui.components
 
+import androidx.compose.ui.graphics.luminance
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.draw.shadow
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -47,19 +50,44 @@ import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 fun FudGlassSurface(
     modifier: Modifier = Modifier,
     cornerRadius: Dp = 24.dp,
-    padding: Dp = FlashSpacing.PageInset,
+    padding: Dp = 16.dp,
     contentAlignment: Alignment = Alignment.TopStart,
     content: @Composable BoxScope.() -> Unit
 ) {
-    val neo = pinkNeoPalette()
-    // Keep the shared API for existing callers, but cap the old soft corners.
-    val shape = RoundedCornerShape(cornerRadius.coerceAtMost(2.dp))
+    val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
+    val shape = RoundedCornerShape(cornerRadius)
+    // The palette's own card color, so Dark gray cards follow the gray palette
+    // instead of the fixed near-black fill. The sheen and border stay.
+    val baseColor = MaterialTheme.colorScheme.surface.copy(alpha = if (isDark) 0.84f else 0.98f)
+    val shadowColor = if (isDark) Color.Black.copy(alpha = 0.28f)
+                      else Color.Black.copy(alpha = 0.11f)
+    val sheen = Brush.verticalGradient(
+        listOf(
+            Color.White.copy(alpha = if (isDark) 0.070f else 0.34f),
+            Color.White.copy(alpha = if (isDark) 0.018f else 0.08f),
+            AppColors.Calorie.copy(alpha = if (isDark) 0.026f else 0.045f)
+        )
+    )
+    val border = Brush.linearGradient(
+        listOf(
+            Color.White.copy(alpha = if (isDark) 0.18f else 0.78f),
+            Color.White.copy(alpha = if (isDark) 0.045f else 0.28f),
+            AppColors.Calorie.copy(alpha = if (isDark) 0.075f else 0.14f)
+        )
+    )
 
     Box(
         modifier = modifier
+            .shadow(
+                elevation = if (isDark) 14.dp else 10.dp,
+                shape = shape,
+                ambientColor = shadowColor,
+                spotColor = shadowColor
+            )
             .clip(shape)
-            .background(neo.panel)
-            .border(1.dp, neo.rule, shape)
+            .background(baseColor)
+            .background(sheen)
+            .border(0.8.dp, border, shape)
             .padding(padding),
         contentAlignment = contentAlignment,
         content = content

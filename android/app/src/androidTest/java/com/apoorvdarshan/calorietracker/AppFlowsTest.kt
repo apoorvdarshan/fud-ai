@@ -20,13 +20,11 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.apoorvdarshan.calorietracker.models.ChatMessage
 import com.apoorvdarshan.calorietracker.models.EnergyUnit
 import com.apoorvdarshan.calorietracker.models.FoodEntry
-import com.apoorvdarshan.calorietracker.models.FoodLogMethod
 import com.apoorvdarshan.calorietracker.models.FoodSource
 import com.apoorvdarshan.calorietracker.models.HomeTopNutrient
 import com.apoorvdarshan.calorietracker.models.SpeechProvider
 import com.apoorvdarshan.calorietracker.models.WaterUnit
 import com.apoorvdarshan.calorietracker.services.MealShare
-import com.apoorvdarshan.calorietracker.services.hosted.AiAccessMode
 import com.apoorvdarshan.calorietracker.services.voice.VoiceEntryPoints
 import com.apoorvdarshan.calorietracker.services.voice.VoiceMascot
 import com.apoorvdarshan.calorietracker.services.voice.VoiceCameraHandle
@@ -166,7 +164,9 @@ class AppFlowsTest {
         instrumentation.uiAutomation.grantRuntimePermission(context.packageName, Manifest.permission.RECORD_AUDIO)
         launchActivity()
         waitForHome()
-        compose.onNodeWithTag("home.foodShortcut.2").performClick()
+        compose.onNodeWithTag("home.add").performClick()
+        clickText(R.string.home_menu_describe_meal)
+        clickText(R.string.home_menu_voice)
         val provider = hasText(string(SpeechProvider.GEMINI.displayNameRes))
         waitFor(provider)
         assertNoStrandedSheetOutline()
@@ -247,30 +247,21 @@ class AppFlowsTest {
     }
 
     @Test
-    fun byokRailShowsPlansEvenWhenBillingIsUnavailable() {
+    fun byokSettingsShowsPlansEvenWhenBillingIsUnavailable() {
         launchFresh()
-        val plans = compose.onNodeWithTag("nav.upgrade")
-        val voice = compose.onNodeWithTag("nav.voice")
-        plans.assert(hasAnyAncestor(hasScrollAction()))
-        voice.assert(!hasAnyAncestor(hasScrollAction()))
-        assertTrue(plans.performScrollTo().assertIsDisplayed().fetchSemanticsNode().boundsInRoot.bottom <=
-            voice.assertIsDisplayed().fetchSemanticsNode().boundsInRoot.top)
-
-        plans.performClick()
+        openTab("settings")
+        compose.onNodeWithTag("settings.category.AI_ACCESS").performScrollTo().performClick()
+        compose.onNodeWithText(string(R.string.hosted_view_plans)).performScrollTo().performClick()
         val unavailable = hasText(string(R.string.hosted_plans_unavailable_title))
         waitFor(unavailable)
         compose.onNode(unavailable).assertIsDisplayed()
         compose.onNodeWithContentDescription(string(R.string.hosted_close)).performClick()
         waitForAbsent(unavailable)
-        plans.assertIsDisplayed()
-
-        runBlocking { prefs.setAiAccessMode(AiAccessMode.HOSTED) }
-        waitForAbsent(hasTestTag("nav.upgrade"))
-        voice.assertIsDisplayed()
+        compose.onNodeWithText(string(R.string.hosted_view_plans)).assertExists()
     }
 
     @Test
-    fun aboutAndSupportHaveSeparateRailDestinations() {
+    fun aboutAndSupportLiveUnderSettings() {
         launchFresh()
         openTab("settings")
         compose.onNodeWithTag("settings.category.APP_UPDATES").assertDoesNotExist()
@@ -281,66 +272,45 @@ class AppFlowsTest {
             compose.onNodeWithTag("settings.category.$category").performScrollTo().assertIsDisplayed()
         }
         compose.onNodeWithTag("settings.category.LEGAL").performClick()
-        compose.onNodeWithTag("nav.about").assertIsSelected()
+        compose.onNodeWithTag("nav.settings").assertIsSelected()
         compose.onNodeWithTag("about.legal.duns").performScrollTo().assertIsDisplayed()
         compose.onNodeWithText(string(R.string.about_duns)).assertIsDisplayed()
         compose.onNodeWithText("311099925").assertIsDisplayed()
-        openTab("about")
-        compose.onNodeWithTag("settings.category.LEGAL").assertExists()
+        pressBack()
+        waitFor(hasTestTag("settings.category.LEGAL"))
+        openTab("settings")
 
         openTab("support")
         compose.onNodeWithText(string(R.string.about_rate)).performScrollTo().assertIsDisplayed()
-        compose.onNodeWithTag("nav.voice").assertIsDisplayed()
+        compose.onNodeWithTag("nav.settings").assertIsSelected()
     }
 
     @Test
-    fun homeFoodShortcutsAreSquareAndCustomizable() {
+    fun homeUsesClassicDockAndKeepsLoggingInTheAddMenu() {
         launchFresh()
-        val first = compose.onNodeWithTag("home.foodShortcut.0")
-        val second = compose.onNodeWithTag("home.foodShortcut.1")
-        val firstBounds = first.assertContentDescriptionEquals(string(FoodLogMethod.CAMERA.titleRes))
-            .assertIsDisplayed().fetchSemanticsNode().boundsInRoot
-        val secondBounds = second.assertContentDescriptionEquals(string(FoodLogMethod.BARCODE.titleRes))
-            .assertIsDisplayed().fetchSemanticsNode().boundsInRoot
-        assertEquals(firstBounds.width, firstBounds.height, 1f)
-        assertEquals(firstBounds.width, secondBounds.width, 1f)
-        assertEquals(firstBounds.height, secondBounds.height, 1f)
-        assertTrue(secondBounds.right < compose.onNodeWithTag("home.add").fetchSemanticsNode().boundsInRoot.left)
-
-        openTab("settings")
-        compose.onNodeWithTag("settings.category.APP_PREFERENCES").performScrollTo().performClick()
-        compose.onNodeWithText(string(R.string.settings_add_menu_title)).performScrollTo().performClick()
-        val picker = hasTestTag("settings.homeShortcut.0")
-        waitFor(picker)
-        compose.onNode(picker).performClick()
-        val manualOption = hasText(string(R.string.home_menu_manual_entry)) and hasClickAction()
-        waitFor(manualOption)
-        compose.onNode(manualOption).performClick()
-        awaitPreference(prefs.homeFoodShortcuts) { it.methods.first() == FoodLogMethod.MANUAL }
-
-        relaunchActivity()
-        first.assertContentDescriptionEquals(string(FoodLogMethod.MANUAL.titleRes)).performClick()
-        second.assertContentDescriptionEquals(string(FoodLogMethod.BARCODE.titleRes))
-        waitFor(hasTestTag("manual.name"))
+        val add = compose.onNodeWithTag("home.add").assertIsDisplayed().fetchSemanticsNode().boundsInRoot
+        val voice = compose.onNodeWithTag("nav.voice").assertIsDisplayed().fetchSemanticsNode().boundsInRoot
+        assertEquals(add.width, add.height, 1f)
+        assertTrue(voice.right < add.left)
+        for (slot in 0..2) compose.onNodeWithTag("home.foodShortcut.$slot").assertDoesNotExist()
+        openManualEntry()
     }
 
     @Test
-    fun voiceMascotGallerySelectsThePinnedCharacter() {
+    fun voiceAppearanceDefaultsToOrbAndKeepsChosenMascot() {
         launchFresh()
         openVoiceSettings()
         for (mascot in VoiceMascot.entries) {
-            compose.onNodeWithTag("settings.voiceMascot.gallery.${mascot.name}").assertIsDisplayed()
+            compose.onNodeWithTag("settings.voiceMascot.gallery.${mascot.name}").performScrollTo().assertIsDisplayed()
         }
-        val brulee = compose.onNodeWithTag("settings.voiceMascot.gallery.BRULEE")
+        val orb = compose.onNodeWithTag("settings.voiceMascot.gallery.ORB")
         val jam = compose.onNodeWithTag("settings.voiceMascot.gallery.JAM")
         val shortcut = compose.onNodeWithTag("nav.voice")
-        brulee.assertIsSelected()
-        shortcut.assert(SemanticsMatcher.expectValue(SemanticsProperties.StateDescription, "Brulee"))
+        orb.assertIsSelected()
         jam.performClick()
         awaitPreference(prefs.voiceMascotPreferences) { it.selected == VoiceMascot.JAM }
         jam.assertIsSelected()
-        brulee.assertIsNotSelected()
-        shortcut.assert(SemanticsMatcher.expectValue(SemanticsProperties.StateDescription, "Jam"))
+        orb.assertIsNotSelected()
         compose.onNodeWithText(string(R.string.settings_meal_times_customize)).performScrollTo().performClick()
         waitFor(hasTestTag("settings.voiceMascot.name"))
         compose.onNodeWithTag("settings.voiceMascot.color").assertExists()
@@ -350,10 +320,9 @@ class AppFlowsTest {
     }
 
     @Test
-    fun pinnedVoiceExplainsAccessWithoutLeavingTheCurrentTab() {
+    fun homeOrbExplainsAccessWithoutLeavingHome() {
         launchFresh()
         instrumentation.uiAutomation.grantRuntimePermission(context.packageName, Manifest.permission.RECORD_AUDIO)
-        openTab("coach")
         val voice = compose.onNodeWithTag("nav.voice")
         voice.assertIsDisplayed().performClick()
         waitFor(hasText(string(R.string.voice_notice_setup_title)))
@@ -361,7 +330,7 @@ class AppFlowsTest {
         compose.onNodeWithText(string(R.string.voice_action_add_key)).assertIsDisplayed()
         compose.onNodeWithTag("voiceAssistantClose").performClick()
         waitForAbsent(hasTestTag("voiceAssistantOverlay"))
-        compose.onNodeWithTag("nav.coach").assertIsSelected()
+        compose.onNodeWithTag("nav.home").assertIsSelected()
         voice.assertIsDisplayed()
     }
 
@@ -402,15 +371,11 @@ class AppFlowsTest {
     }
 
     @Test
-    fun coachKeyboardKeepsTheRailInPlaceAndAllowsSwitchingTabs() {
+    fun bottomTabsStayUsableAfterCoachKeyboardDismisses() {
         launchFresh()
         openTab("coach")
         val home = compose.onNodeWithTag("nav.home")
         val initialLeft = home.assertIsDisplayed().fetchSemanticsNode().boundsInRoot.left
-        val voice = compose.onNodeWithTag("nav.voice")
-        val initialVoiceLeft = voice.assertIsDisplayed().fetchSemanticsNode().boundsInRoot.left
-        val plans = compose.onNodeWithTag("nav.upgrade")
-        plans.assertExists()
         val imeVisible = AtomicReference(false)
         compose.onNodeWithTag("coach.input").performClick()
         compose.waitUntil(timeoutMillis = 8_000) {
@@ -422,11 +387,8 @@ class AppFlowsTest {
             }
             imeVisible.get()
         }
+        closeSoftKeyboard()
         assertEquals(initialLeft, home.assertIsDisplayed().fetchSemanticsNode().boundsInRoot.left, 1f)
-        assertEquals(initialVoiceLeft, voice.assertIsDisplayed().fetchSemanticsNode().boundsInRoot.left, 1f)
-        plans.performScrollTo().assertIsDisplayed()
-        assertEquals(initialVoiceLeft, voice.assertIsDisplayed().fetchSemanticsNode().boundsInRoot.left, 1f)
-        home.performScrollTo()
         home.performClick()
         waitForHome()
         home.assertIsSelected()
@@ -451,8 +413,7 @@ class AppFlowsTest {
         waitFor(hasText(string(R.string.challenge_hub_profile_first)))
         compose.onNodeWithText(string(R.string.challenge_hub_monthly)).performClick()
         compose.onNodeWithText(string(R.string.challenge_hub_rules_streak)).assertExists()
-        compose.onNodeWithTag("nav.progress").assertIsNotSelected()
-        compose.onNodeWithTag("nav.voice").assertIsDisplayed()
+        compose.onNodeWithTag("nav.progress").assertIsSelected()
         compose.onNodeWithTag("progress.timeRange").assertDoesNotExist()
         openTab("home")
         openTab("progress")
@@ -526,16 +487,16 @@ class AppFlowsTest {
         compose.onNodeWithTag("home.add").assertIsDisplayed()
         val addBounds = compose.onNodeWithTag("home.add").fetchSemanticsNode().boundsInRoot
         val voiceBounds = compose.onNodeWithTag("nav.voice").assertIsDisplayed().fetchSemanticsNode().boundsInRoot
-        assertTrue("Voice stays in the right rail", addBounds.right <= voiceBounds.left)
+        assertTrue("Voice sits beside Add Food", voiceBounds.right <= addBounds.left)
         compose.onNodeWithTag("voiceAssistantButton").assertDoesNotExist()
         compose.onNodeWithTag("nav.camera").assertDoesNotExist()
         assertTrue("The diary cannot scroll behind the pinned controls",
             compose.onNodeWithTag("home.diary").fetchSemanticsNode().boundsInRoot.bottom <= addBounds.top)
-        assertTrue("The right rail stays beside the action row", addBounds.right <=
-            compose.onNodeWithTag("nav.home").fetchSemanticsNode().boundsInRoot.left)
+        assertTrue("The tab bar stays below the action row", addBounds.bottom <=
+            compose.onNodeWithTag("nav.home").fetchSemanticsNode().boundsInRoot.top)
         compose.onNodeWithTag("home.calendar").assertIsDisplayed()
-        compose.onNodeWithTag("home.calorieSegments").assertIsDisplayed()
-        for (tab in listOf("progress", "weeklyChallenge", "coach", "settings", "workouts", "exerciseLibrary", "home")) {
+        compose.onNodeWithTag("home.calorieGauge").assertIsDisplayed()
+        for (tab in listOf("progress", "coach", "settings", "workouts", "home")) {
             openTab(tab)
             compose.onNodeWithTag("nav.$tab").assertIsSelected()
             if (tab == "workouts") {
@@ -549,7 +510,7 @@ class AppFlowsTest {
                 assertEquals(voiceEntry.width, voiceEntry.height, 1f)
                 assertEquals(voiceEntry.width, saved.width, 1f)
                 compose.onNodeWithTag("voiceAssistantButton").assertDoesNotExist()
-                compose.onNodeWithTag("nav.voice").assertIsDisplayed()
+                compose.onNodeWithTag("nav.voice").assertDoesNotExist()
                 val workoutAdd = compose.onNodeWithTag("workouts.add")
                     .assertIsDisplayed().fetchSemanticsNode().boundsInWindow
                 activity!!.onActivity { main ->
@@ -566,7 +527,7 @@ class AppFlowsTest {
     }
 
     @Test
-    fun startupRailUsesPersistedVisibilityAndMascot() {
+    fun startupUsesPersistedTabVisibilityAndMascot() {
         FudAITestState.reset()
         runBlocking {
             prefs.setTabHidden("progress", true)
@@ -987,7 +948,7 @@ class AppFlowsTest {
         openTab("workouts")
         waitFor(hasTestTag("workouts.add"))
         openTab("exerciseLibrary")
-        compose.onNodeWithTag("nav.workouts").assertIsNotSelected()
+        compose.onNodeWithTag("nav.workouts").assertIsSelected()
         waitFor(hasTestTag("workouts.search"))
         compose.onNodeWithTag("workouts.search").performTextReplacement("Barbell Full Squat")
         closeSoftKeyboard()
@@ -1053,8 +1014,16 @@ class AppFlowsTest {
 
     private fun openTab(tab: String) {
         waitFor(hasTestTag("nav.$tab"))
-        compose.onNodeWithTag("nav.$tab").performScrollTo().performClick()
-        waitFor(hasTestTag("nav.$tab") and isSelected())
+        val control = compose.onNodeWithTag("nav.$tab")
+        val parent = when (tab) {
+            "about", "support" -> "settings"
+            "weeklyChallenge" -> "progress"
+            "exerciseLibrary" -> "workouts"
+            else -> tab
+        }
+        if (parent != tab && tab != "exerciseLibrary") control.performScrollTo()
+        control.performClick()
+        waitFor(hasTestTag("nav.$parent") and isSelected())
     }
 
     private fun openManualEntry() {

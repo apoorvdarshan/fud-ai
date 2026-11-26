@@ -7,17 +7,16 @@ struct PinkNeoPalette {
     let gray: Bool
     let theme: AppThemeColor
 
-    private var pink: Bool { theme == .fudPink }
-    var paper: Color { gray || !pink ? AppColors.appBackground : Color(hex: dark ? PinkNeoFlash.paperDark : PinkNeoFlash.paperLight) }
-    var panel: Color { gray || !pink ? AppColors.appCard : Color(hex: dark ? PinkNeoFlash.panelDark : PinkNeoFlash.panelLight) }
+    var paper: Color { AppColors.appBackground }
+    var panel: Color { AppColors.appCard }
     var ink: Color { Color(hex: dark ? PinkNeoFlash.inkDark : PinkNeoFlash.inkLight) }
-    var rule: Color { pink && !gray ? ink : ink.opacity(dark ? 0.75 : 0.82) }
+    var rule: Color { AppColors.flashRule.opacity(0.45) }
     var accent: Color { action }
-    private var actionHex: UInt { pink ? PinkNeoFlash.pink : theme.startHex }
+    private var actionHex: UInt { theme.startHex }
     var action: Color { Color(hex: actionHex) }
     var onAction: Color { AppColors.contrastInk(on: actionHex) }
     var emptyActionSegment: Color { onAction == .white ? .black : .white }
-    var wash: Color { pink && dark && !gray ? Color(hex: PinkNeoFlash.railDark) : panel }
+    var wash: Color { panel }
 }
 
 struct PinkNeoAppearance: DynamicProperty {
@@ -32,145 +31,10 @@ struct PinkNeoAppearance: DynamicProperty {
 
 extension View {
     func pinkNeoRule(_ color: Color, width: CGFloat = 1) -> some View {
-        overlay(Rectangle().strokeBorder(color, lineWidth: width).allowsHitTesting(false).accessibilityHidden(true))
+        overlay(RoundedRectangle(cornerRadius: 10).strokeBorder(color, lineWidth: width)
+            .allowsHitTesting(false).accessibilityHidden(true))
     }
 
-    /// Keep native tab lifecycles and navigation stacks without showing a
-    /// second navigation control. The toolbar preference can arrive after the
-    /// UIKit tab controller draws its first frame when changing destinations.
-    func rightRailDestination() -> some View {
-        background(NativeTabBarSuppressor().frame(width: 0, height: 0).allowsHitTesting(false).accessibilityHidden(true))
-            .toolbar(.hidden, for: .tabBar)
-    }
-}
-
-private struct NativeTabBarSuppressor: UIViewControllerRepresentable {
-    func makeUIViewController(context: Context) -> Controller { Controller() }
-
-    func updateUIViewController(_ controller: Controller, context: Context) {
-        controller.hideTabBar()
-    }
-
-    final class Controller: UIViewController {
-        override func didMove(toParent parent: UIViewController?) {
-            super.didMove(toParent: parent)
-            hideTabBar()
-        }
-
-        override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(animated)
-            hideTabBar()
-        }
-
-        func hideTabBar() {
-            guard #available(iOS 18, *), let tabBarController, !tabBarController.isTabBarHidden else { return }
-            tabBarController.setTabBarHidden(true, animated: false)
-        }
-    }
-}
-
-struct PinkNeoRailItem: Identifiable {
-    let id: String
-    let title: Text
-    let icon: String
-    var selected = false
-    var badge = false
-    let action: () -> Void
-}
-
-struct PinkNeoRail: View {
-    let items: [PinkNeoRailItem]
-    let onVoice: (() -> Void)?
-    let voiceMascot: VoiceMascotProfile
-    let voiceMode: LiveOrbMode
-    let voiceLevel: () -> Double
-    let voiceMotionEnabled: Bool
-    private var appearance = PinkNeoAppearance()
-    @Environment(\.dynamicTypeSize) private var typeSize
-    @Environment(\.scenePhase) private var scenePhase
-    @ScaledMetric(relativeTo: .caption2) private var railWidth = 64.0
-
-    var body: some View {
-        let palette = appearance.palette
-        VStack(spacing: 4) {
-            ScrollView {
-                VStack(spacing: 4) {
-                    Image("onboardingLogo")
-                        .resizable().scaledToFit()
-                        .frame(width: 27, height: 27)
-                        .frame(width: 36, height: 36)
-                        .background(Color.black, in: RoundedRectangle(cornerRadius: 7))
-                        .padding(.top, 5)
-                        .accessibilityHidden(true)
-                    Text(verbatim: "FUD AI")
-                        .font(.system(size: 9, weight: .black))
-                        .accessibilityHidden(true)
-                    Rectangle().fill(palette.rule).frame(height: 1).padding(.vertical, 4)
-                        .accessibilityHidden(true)
-                    ForEach(items) { item in
-                        railButton(item, palette: palette)
-                    }
-                }
-            }
-            .scrollIndicators(.hidden)
-            if let onVoice {
-                Button(action: onVoice) {
-                    VoiceMascotView(mode: voiceMode, profile: voiceMascot, level: voiceLevel, compact: true)
-                        .environment(\.voiceAssistantAnimationActive, scenePhase == .active && voiceMotionEnabled)
-                        .frame(width: 44, height: 44)
-                        .frame(maxWidth: .infinity, minHeight: 48)
-                        .contentShape(Rectangle())
-                }
-                .buttonStyle(.plain)
-                .accessibilityLabel("Talk to Fud AI")
-                .accessibilityValue(Text(verbatim: voiceMascot.name))
-                .accessibilityIdentifier("nav.voice")
-            }
-        }
-        .padding(4)
-        .frame(width: min(railWidth, 76))
-        .foregroundStyle(palette.ink)
-        .background(palette.wash, in: RoundedRectangle(cornerRadius: 9))
-        .overlay(RoundedRectangle(cornerRadius: 9).strokeBorder(palette.rule, lineWidth: 1).allowsHitTesting(false))
-        .padding(.vertical, 7)
-        .accessibilityElement(children: .contain)
-        .accessibilityIdentifier("nav.rail")
-    }
-
-    private func railButton(_ item: PinkNeoRailItem, palette: PinkNeoPalette) -> some View {
-        Button(action: item.action) {
-            VStack(spacing: 3) {
-                Image(systemName: item.icon)
-                    .font(.system(size: 17, weight: .semibold))
-                    .overlay(alignment: .topTrailing) {
-                        if item.badge {
-                            Circle()
-                                .fill(item.selected ? palette.onAction : palette.action)
-                                .frame(width: 7, height: 7)
-                                .offset(x: 5, y: -3)
-                        }
-                    }
-                if !typeSize.isAccessibilitySize {
-                    item.title
-                        .font(.caption2.weight(.semibold))
-                        .lineLimit(2)
-                        .minimumScaleFactor(0.75)
-                        .multilineTextAlignment(.center)
-                }
-            }
-            .padding(.vertical, 5)
-            .frame(maxWidth: .infinity, minHeight: 48)
-            .foregroundStyle(item.selected ? palette.onAction : palette.ink)
-            .background(item.selected ? palette.action : Color.clear,
-                         in: RoundedRectangle(cornerRadius: 5))
-            .contentShape(Rectangle())
-        }
-        .buttonStyle(.plain)
-        .accessibilityLabel(item.title)
-        .accessibilityValue(item.badge ? Text("Update Available") : Text(verbatim: ""))
-        .accessibilityAddTraits(item.selected ? .isSelected : [])
-        .accessibilityIdentifier(item.id)
-    }
 }
 
 struct PinkNeoDateHeader: View {
@@ -186,7 +50,7 @@ struct PinkNeoDateHeader: View {
                 if Calendar.current.isDateInToday(date) { Text("Today") }
                 else { Text(date, format: .dateTime.weekday(.abbreviated).month(.abbreviated).day()) }
             }
-            .font(.system(.headline, weight: .black).width(.condensed))
+            .font(.system(.headline, design: .rounded, weight: .semibold))
             .fixedSize(horizontal: false, vertical: true)
             .accessibilityAddTraits(.isHeader)
             .accessibilityIdentifier("home.dateHeading")

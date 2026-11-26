@@ -17,6 +17,8 @@ enum class VoiceMascot(
     val mouthX: Float,
     val mouthY: Float
 ) {
+    @SerialName("orb")
+    ORB("Fud AI", 0, 0, 0, null, 0f, 0f),
     @SerialName("brulee")
     BRULEE("Brulee", R.drawable.voice_mascot, R.drawable.voice_mascot_color,
         R.drawable.voice_mascot_blink, null, 0.477f, 0.787f),
@@ -70,7 +72,7 @@ data class VoiceMascotOptions(
 )
 
 data class VoiceMascotProfile(
-    val mascot: VoiceMascot = VoiceMascot.BRULEE,
+    val mascot: VoiceMascot = VoiceMascot.ORB,
     val options: VoiceMascotOptions = VoiceMascotOptions()
 ) {
     val name: String get() = VoiceMascotPreferences.cleanName(options.name).ifBlank { mascot.displayName }
@@ -83,7 +85,7 @@ data class VoiceMascotProfile(
 
 @Serializable
 data class VoiceMascotPreferences(
-    val selected: VoiceMascot = VoiceMascot.BRULEE,
+    val selected: VoiceMascot = VoiceMascot.ORB,
     val profiles: Map<VoiceMascot, VoiceMascotOptions> = emptyMap()
 ) {
     val profile: VoiceMascotProfile get() = profileFor(selected)

@@ -9,4 +9,5 @@
     <string name="voice_mascot_calm">落ち着いた</string>
     <string name="voice_mascot_direct">率直</string>
     <string name="voice_mascot_next_session">変更は次回の会話から適用されます。</string>
+    <string name="voice_mascot_classic_orb">クラシックなオーブ</string>
 </resources>

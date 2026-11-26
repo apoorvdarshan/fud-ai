@@ -121,13 +121,16 @@ struct WorkoutLogView: View {
     private var library: ExerciseLibraryService { workoutStore.exerciseLibrary }
     private let session: WorkoutLogSessionState
     private let embedsInNavigationStack: Bool
+    private let onShowLibrary: (() -> Void)?
 
     init(
         session: WorkoutLogSessionState = WorkoutLogSessionState(),
-        embedsInNavigationStack: Bool = true
+        embedsInNavigationStack: Bool = true,
+        onShowLibrary: (() -> Void)? = nil
     ) {
         self.session = session
         self.embedsInNavigationStack = embedsInNavigationStack
+        self.onShowLibrary = onShowLibrary
     }
 
     private var selectedDate: Date {
@@ -609,6 +612,15 @@ struct WorkoutLogView: View {
         let addSide = WorkoutDockShortcuts.addSide
         let slotCount = shortcuts.count
         return HStack(spacing: gap) {
+            if let onShowLibrary {
+                Button(action: onShowLibrary) {
+                    Image(systemName: "dumbbell.fill")
+                        .frame(width: side, height: side)
+                }
+                .buttonStyle(.bordered)
+                .accessibilityLabel("Exercise library")
+                .accessibilityIdentifier("nav.exerciseLibrary")
+            }
             ForEach(0..<count, id: \.self) { slot in
                 let action = shortcuts[slot]
                 Button { openWorkoutShortcut(action) } label: {
@@ -627,7 +639,8 @@ struct WorkoutLogView: View {
         }
         .frame(maxWidth: .infinity, alignment: .trailing)
         .onGeometryChange(for: Int.self) { geometry in
-            max(0, min(slotCount, Int((geometry.size.width - addSide) / (side + gap))))
+            let switcherWidth = onShowLibrary == nil ? 0 : side + gap + 24
+            return max(0, min(slotCount, Int((geometry.size.width - addSide - switcherWidth) / (side + gap))))
         } action: { visibleDockShortcutCount = $0 }
         .padding(.horizontal, 10)
         .padding(.vertical, 6)

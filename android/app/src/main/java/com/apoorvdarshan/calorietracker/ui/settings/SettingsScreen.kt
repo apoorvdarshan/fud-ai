@@ -398,7 +398,8 @@ fun SettingsScreen(
     container: AppContainer,
     nav: NavHostController,
     vm: SettingsViewModel,
-    popToRootTick: Int = 0
+    popToRootTick: Int = 0,
+    updateAvailable: Boolean = false
 ) {
     val ui by vm.ui.collectAsState()
     val profile = ui.profile
@@ -777,7 +778,12 @@ fun SettingsScreen(
             verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap)
         ) {
             if (selectedCategory == null) {
-                SettingsCategoryHub(onSelect = { selectedCategory = it })
+                SettingsCategoryHub(
+                    onSelect = { selectedCategory = it },
+                    onAbout = { nav.navigate(FudAIRoutes.ABOUT) },
+                    onSupport = { nav.navigate(FudAIRoutes.SUPPORT) },
+                    updateAvailable = updateAvailable
+                )
                 Spacer(Modifier.height(BottomNavScrollPadding))
                 return@Column
             }
@@ -2364,7 +2370,12 @@ fun SettingsScreen(
 }
 
 @Composable
-private fun SettingsCategoryHub(onSelect: (SettingsCategory) -> Unit) {
+private fun SettingsCategoryHub(
+    onSelect: (SettingsCategory) -> Unit,
+    onAbout: () -> Unit,
+    onSupport: () -> Unit,
+    updateAvailable: Boolean
+) {
     val neo = pinkNeoPalette()
     Column(verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap)) {
         Text(
@@ -2376,6 +2387,15 @@ private fun SettingsCategoryHub(onSelect: (SettingsCategory) -> Unit) {
         )
         SectionCard {
             SettingsCategoryRows(SettingsCategory.preferenceEntries, onSelect = onSelect)
+        }
+        SectionCard {
+            TextButton(onClick = onAbout, modifier = Modifier.testTag("nav.about")) {
+                Text(stringResource(R.string.nav_about))
+                if (updateAvailable) Text(" !", color = AppColors.Calorie)
+            }
+            TextButton(onClick = onSupport, modifier = Modifier.testTag("nav.support")) {
+                Text(stringResource(R.string.about_category_support))
+            }
         }
     }
 }
@@ -2389,7 +2409,6 @@ internal fun AboutRailScreen(
     onSelect: (AboutSettingsCategory) -> Unit = {},
     onBack: () -> Unit = {}
 ) {
-    val neo = pinkNeoPalette()
     Scaffold(containerColor = MaterialTheme.colorScheme.background) { padding ->
         Column(
             Modifier.fillMaxSize().padding(padding).verticalScroll(rememberScrollState())
@@ -2400,11 +2419,7 @@ internal fun AboutRailScreen(
             if (category != null && category != AboutSettingsCategory.SUPPORT) {
                 SettingsDetailHeader(backLabel = stringResource(R.string.nav_about), title = title, onBack = onBack)
             } else {
-                Text(
-                    title,
-                    modifier = Modifier.fillMaxWidth().background(neo.panel).border(1.dp, neo.rule).padding(12.dp),
-                    fontSize = 30.sp, fontWeight = FontWeight.Black, style = PinkNeoCondensed
-                )
+                SettingsDetailHeader(backLabel = stringResource(R.string.nav_settings), title = title, onBack = onBack)
             }
 
             if (category == null) {

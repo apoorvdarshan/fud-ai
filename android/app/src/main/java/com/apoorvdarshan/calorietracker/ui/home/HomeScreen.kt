@@ -1,5 +1,13 @@
 package com.apoorvdarshan.calorietracker.ui.home
 
+import com.apoorvdarshan.calorietracker.ui.components.MacroCard
+import androidx.compose.material.icons.filled.LocalFireDepartment
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.PathEffect
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.foundation.Canvas
 import android.Manifest
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
@@ -162,7 +170,12 @@ import com.apoorvdarshan.calorietracker.ui.util.monthDayFormatter
 import com.apoorvdarshan.calorietracker.ui.util.formattedWholeNumber
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -182,7 +195,11 @@ import com.apoorvdarshan.calorietracker.models.CurrentMealSchedule
 import com.apoorvdarshan.calorietracker.models.MealType
 import com.apoorvdarshan.calorietracker.models.FoodLogMethod
 import com.apoorvdarshan.calorietracker.models.FoodLogMethodDefaultGroupIcon
-import com.apoorvdarshan.calorietracker.models.HomeFoodShortcuts
+import com.apoorvdarshan.calorietracker.services.voice.OrbMode
+import com.apoorvdarshan.calorietracker.services.voice.VoiceMascotPreferences
+import com.apoorvdarshan.calorietracker.ui.voice.VoiceMascot
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import com.apoorvdarshan.calorietracker.models.displayName
 import com.apoorvdarshan.calorietracker.models.QuickAction
 import com.apoorvdarshan.calorietracker.models.QuickActionRequest
@@ -238,11 +255,18 @@ fun HomeScreen(
     container: AppContainer,
     quickActionRequest: QuickActionRequest? = null,
     onQuickActionHandled: (Long) -> Unit = {},
-    initialProfile: UserProfile? = null
+    initialProfile: UserProfile? = null,
+    initialVoiceMascots: VoiceMascotPreferences = VoiceMascotPreferences(),
+    initialHideVoiceShortcut: Boolean = false
 ) {
     val vm: HomeViewModel = viewModel(factory = HomeViewModel.Factory(container, initialProfile))
     val ui by vm.ui.collectAsState()
-    val foodShortcuts by container.prefs.homeFoodShortcuts.collectAsState(initial = HomeFoodShortcuts.Default)
+    val voiceMascots by container.prefs.voiceMascotPreferences.collectAsState(initial = initialVoiceMascots)
+    val hideVoiceShortcut by container.prefs.hideVoiceShortcut.collectAsState(initial = initialHideVoiceShortcut)
+    val voiceUi = container.voiceAssistant.ui.collectAsState()
+    val voiceVisible by remember(voiceUi) { derivedStateOf { voiceUi.value.visible } }
+    val focus = LocalFocusManager.current
+    val keyboard = LocalSoftwareKeyboardController.current
     val lifecycleOwner = LocalLifecycleOwner.current
 DisposableEffect(lifecycleOwner, vm) {
         val observer = LifecycleEventObserver { _, event ->
@@ -486,9 +510,6 @@ DisposableEffect(lifecycleOwner, vm) {
     }
 
     val actionSize = 60.dp
-    val shortcutSize = 52.dp
-    val actionGap = 6.dp
-    val minLogFoodWidth = if (LocalDensity.current.fontScale >= 1.3f) 112.dp else 84.dp
     val neo = pinkNeoPalette()
     val actionBottom = 8.dp
 
@@ -570,7 +591,7 @@ DisposableEffect(lifecycleOwner, vm) {
                         selectedDate = selectedDate,
                         onSelect = pickDay,
                         weekStartsOnMonday = weekStartsOnMonday,
-                        modifier = Modifier.background(neo.panel).border(1.dp, neo.rule).padding(3.dp)
+                        modifier = Modifier.padding(3.dp)
                     )
                 }
             }
@@ -615,7 +636,7 @@ DisposableEffect(lifecycleOwner, vm) {
                         nutrients.chunked(if (LocalDensity.current.fontScale >= 1.45f) 2 else 4).forEach { row ->
                             Row(Modifier.fillMaxWidth()) {
                                 row.forEach { nutrient ->
-                                    PinkNeoNutrient(
+                                    MacroCard(
                                         label = stringResource(nutrient.displayNameRes),
                                         current = nutrient.current(ui.todayEntries),
                                         goal = nutrient.goal(ui.profile, ui.optionalNutrientGoals).toDouble(),
@@ -627,13 +648,12 @@ DisposableEffect(lifecycleOwner, vm) {
                         }
                         if (ui.waterTrackingEnabled) {
                             Spacer(Modifier.height(5.dp))
-                            PinkNeoNutrient(
+                            MacroCard(
                                 label = stringResource(R.string.water),
                                 current = ui.waterUnit.displayAmount(ui.waterTodayMl),
                                 goal = ui.waterUnit.displayAmount(ui.waterDailyGoalMl),
                                 unit = if (ui.waterUnit == WaterUnit.FLUID_OUNCES) " fl oz" else "ml",
-                                modifier = Modifier.fillMaxWidth(),
-                                compact = true
+                                modifier = Modifier.fillMaxWidth()
                             )
                         }
                     }
@@ -767,65 +787,73 @@ DisposableEffect(lifecycleOwner, vm) {
 
         // Give the pinned dock its own space so it can't intercept a diary swipe.
         if (!selectionMode) {
-        BoxWithConstraints(Modifier.fillMaxWidth().padding(start = 10.dp, end = 10.dp, bottom = actionBottom)) {
-        val shortcutCount = ((maxWidth - minLogFoodWidth) / (shortcutSize + actionGap)).toInt()
-            .coerceIn(0, foodShortcuts.methods.size)
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(neo.paper),
-            horizontalArrangement = Arrangement.spacedBy(actionGap),
+                .padding(horizontal = 24.dp, vertical = actionBottom),
+            horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.End),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            val foodLoggingEnabled = ui.activeFast == null
-            foodShortcuts.methods.take(shortcutCount).forEachIndexed { slot, method ->
+            val favorites by container.foodRepository.favorites.collectAsState(initial = emptyList())
+            if (favorites.isNotEmpty() && ui.activeFast == null &&
+                FoodLogMethod.FAVORITES in ui.addMenuConfig.visibleMethods()
+            ) {
                 Box(
                     modifier = Modifier
-                        .testTag("home.foodShortcut.$slot")
-                        .size(shortcutSize)
-                        .alpha(if (foodLoggingEnabled) 1f else 0.5f)
-                        .background(neo.panel)
-                        .border(1.dp, neo.rule)
-                        .clickable(enabled = foodLoggingEnabled, role = Role.Button) {
-                            performFoodLogMethod(method)
-                        },
+                        .testTag("home.favorites")
+                        .size(48.dp)
+                        .clip(CircleShape)
+                        .background(MaterialTheme.colorScheme.surfaceVariant)
+                        .clickable(role = Role.Button) { performFoodLogMethod(FoodLogMethod.FAVORITES) },
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
-                        method.icon,
-                        contentDescription = stringResource(method.titleRes),
-                        tint = neo.ink
+                        FoodLogMethod.FAVORITES.icon,
+                        contentDescription = stringResource(FoodLogMethod.FAVORITES.titleRes),
+                        tint = AppColors.Calorie
                     )
                 }
             }
-            Box(Modifier.weight(1f)) {
-            Row(
+            if (!hideVoiceShortcut && !voiceVisible) {
+                val label = stringResource(R.string.voice_talk_to_fud_ai)
+                Box(
+                    Modifier.size(actionSize).testTag("nav.voice")
+                        .semantics {
+                            contentDescription = label
+                            stateDescription = voiceMascots.profile.name
+                        }
+                        .clickable(enabled = !ui.analyzing, role = Role.Button) {
+                            focus.clearFocus()
+                            keyboard?.hide()
+                            haptics.performHapticFeedback(HapticFeedbackType.Confirm)
+                            container.voiceAssistant.requestStart()
+                        },
+                    contentAlignment = Alignment.Center
+                ) {
+                    VoiceMascot(OrbMode.IDLE, Modifier.size(actionSize), voiceMascots.profile, compact = true)
+                }
+            }
+            Box {
+            Box(
                 modifier = Modifier
                     .testTag("home.add")
-                    .fillMaxWidth()
-                    .heightIn(min = actionSize)
-                    .background(neo.action)
-                    .border(1.5.dp, neo.rule)
+                    .size(actionSize)
+                    .clip(CircleShape)
+                    .background(AppColors.Calorie)
                     .clickable(role = Role.Button) {
                         addMenuDestination = null
                         showAddMenu = true
-                    }
-                    .padding(horizontal = 8.dp, vertical = 5.dp),
-                horizontalArrangement = Arrangement.spacedBy(6.dp, Alignment.CenterHorizontally),
-                verticalAlignment = Alignment.CenterVertically
+                    },
+                contentAlignment = Alignment.Center
             ) {
                 Icon(
                     Icons.Filled.Add,
-                    contentDescription = null,
-                    tint = neo.onAction,
-                    modifier = Modifier.size(19.dp)
+                    contentDescription = stringResource(R.string.cd_add_food),
+                    tint = Color.White,
+                    modifier = Modifier.size(26.dp)
                 )
-                Text(stringResource(R.string.cd_add_food).uppercase(LocalConfiguration.current.locales[0]),
-                    color = neo.onAction, fontWeight = FontWeight.Black, fontSize = 14.sp, maxLines = 2,
-                    style = PinkNeoCondensed)
             }
-            // Glass-styled, progressive add menu. Actions read in task order from
-            // top to bottom, with the most common choice first.
+            // Actions retain the configured group and item order.
             SheetGlassDropdownMenu(
                 expanded = showAddMenu,
                 onDismissRequest = {
@@ -928,7 +956,6 @@ DisposableEffect(lifecycleOwner, vm) {
                     }
                 }
             }
-        }
         }
         }
         }
@@ -1733,6 +1760,7 @@ private fun CalorieHero(
     val energyUnit = LocalEnergyUnit.current
     val shownCurrent = energyUnit.displayValue(current)
     val shownGoal = energyUnit.displayValue(goal)
+    val formattedCurrent = shownCurrent.formattedWholeNumber()
     // Fill-from-zero on app open. lastEpoch is saveable so it survives tab switches
     // (where Home leaves/re-enters composition) — only a real app-open (new epoch)
     // replays the sweep; tab returns snap to the current value.
@@ -1758,16 +1786,104 @@ private fun CalorieHero(
         current > goal -> stringResource(R.string.home_macro_over_format, (shownCurrent - shownGoal).formattedWholeNumber())
         else -> stringResource(R.string.home_macro_goal_reached)
     }
-    PinkNeoEnergyPanels(
-        heading = stringResource(
-            if (energyUnit == EnergyUnit.KJ) R.string.home_kilojoules else R.string.widget_calories
-        ).uppercase(LocalConfiguration.current.locales[0]),
-        amount = energyText(current),
-        goal = if (goal > 0) energyText(goal) else "—",
-        status = statusText,
-        progress = { animatedRatio.value },
-        burnLine = if (burnSummary == null) null else homeBurnLineText(burnSummary)
-    )
+    val gradientColors = listOf(AppColors.CalorieStart, AppColors.CalorieEnd)
+    val trackColor = AppColors.Calorie.copy(alpha = 0.12f)
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 4.dp),
+        contentAlignment = Alignment.TopCenter
+    ) {
+        // Segmented (dashed) semicircle speedometer arc. The compact 240dp dome keeps
+        // the calorie readout dominant while returning more of the first meal to the
+        // initial viewport. iOS uses the same 240pt / 14pt geometry.
+        Canvas(
+            modifier = Modifier
+            .width(240.dp)
+                .aspectRatio(2f)
+                .testTag("home.calorieGauge")
+        ) {
+            val stroke = 14.dp.toPx()
+            val inset = stroke / 2f
+            val arcSize = Size(size.width - stroke, size.width - stroke)
+            val topLeft = Offset(inset, inset)
+            val dash = PathEffect.dashPathEffect(floatArrayOf(4.dp.toPx(), 6.dp.toPx()), 0f)
+            drawArc(
+                color = trackColor,
+                startAngle = 180f,
+                sweepAngle = 180f,
+                useCenter = false,
+                topLeft = topLeft,
+                size = arcSize,
+                style = Stroke(width = stroke, cap = StrokeCap.Butt, pathEffect = dash)
+            )
+            drawArc(
+                brush = Brush.horizontalGradient(gradientColors),
+                startAngle = 180f,
+                sweepAngle = 180f * animatedRatio.value,
+                useCenter = false,
+                topLeft = topLeft,
+                size = arcSize,
+                style = Stroke(width = stroke, cap = StrokeCap.Butt, pathEffect = dash)
+            )
+        }
+
+        // Centered readout, sitting inside the dome
+        Column(
+            modifier = Modifier.padding(top = 39.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(2.dp)
+        ) {
+            // The dome's numbers carry no unit, so its heading names the unit in use.
+            Text(
+                stringResource(
+                    if (energyUnit == EnergyUnit.KJ) R.string.home_kilojoules else R.string.widget_calories
+                ).uppercase(LocalConfiguration.current.locales[0]),
+                fontSize = 12.sp,
+                fontWeight = FontWeight.SemiBold,
+                letterSpacing = 0.5.sp,
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+            )
+            Text(
+                formattedCurrent,
+                style = TextStyle(
+                    brush = Brush.linearGradient(gradientColors),
+                    fontSize = 50.sp,
+                    fontWeight = FontWeight.Bold
+                ),
+                maxLines = 1
+            )
+            // Flame + calorie status, mirroring iOS HStack(spacing: 5) { flame.fill (11pt) ;
+            // Text(statusText) } tinted to AppColors.calorie — a pink monochrome
+            // glyph, not a multicolor emoji.
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(5.dp)
+            ) {
+                Icon(
+                    Icons.Filled.LocalFireDepartment,
+                    contentDescription = null,
+                    tint = AppColors.Calorie,
+                    modifier = Modifier.size(13.dp)
+                )
+                Text(
+                    statusText,
+                    fontSize = 13.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = AppColors.Calorie
+                )
+            }
+            burnSummary?.let { summary ->
+                Text(
+                    text = homeBurnLineText(summary),
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.45f)
+                )
+            }
+        }
+    }
 }
 
 @Composable

@@ -167,6 +167,7 @@ internal fun WorkoutDiaryScreen(
     viewModel: WorkoutsViewModel,
     modifier: Modifier = Modifier,
     weekStartsOnMonday: Boolean = true,
+    onShowLibrary: (() -> Unit)? = null,
     onCreateExercise: () -> Unit = {},
     onEditUserExercise: (String) -> Unit = {}
 ) {
@@ -486,13 +487,22 @@ internal fun WorkoutDiaryScreen(
                 .background(palette.paper)
                 .padding(horizontal = 10.dp, vertical = 8.dp)
         ) {
-            val dockLayout = WorkoutDockLayout.fit(maxWidth, dockShortcuts.actions.size)
+            val switcherWidth = if (onShowLibrary == null) 0.dp else 56.dp
+            val dockLayout = WorkoutDockLayout.fit(maxWidth - switcherWidth, dockShortcuts.actions.size)
             val overflow = dockShortcuts.actions.drop(dockLayout.count)
             Row(
                 Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(dockLayout.gap, Alignment.End),
                 verticalAlignment = Alignment.CenterVertically
             ) {
+            if (onShowLibrary != null) {
+                androidx.compose.material3.IconButton(
+                    onClick = onShowLibrary,
+                    modifier = Modifier.testTag("nav.exerciseLibrary")
+                ) {
+                    Icon(Icons.Filled.FitnessCenter, stringResource(R.string.nav_exercise_library))
+                }
+            }
             dockShortcuts.actions.take(dockLayout.count).forEachIndexed { slot, action ->
                 Box(
                     Modifier.size(dockLayout.side)

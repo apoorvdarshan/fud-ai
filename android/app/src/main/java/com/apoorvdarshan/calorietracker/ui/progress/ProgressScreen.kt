@@ -196,7 +196,7 @@ enum class TimeRange(@StringRes val labelRes: Int, val days: Int) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProgressScreen(container: AppContainer) {
+fun ProgressScreen(container: AppContainer, onChallenges: () -> Unit = {}) {
     val vm: ProgressViewModel = viewModel(factory = ProgressViewModel.Factory(container))
     val ui by vm.ui.collectAsState()
     val foods by container.foodRepository.entries.collectAsState(initial = emptyList())
@@ -358,6 +358,12 @@ fun ProgressScreen(container: AppContainer) {
             ),
             verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap)
         ) {
+            item {
+                androidx.compose.material3.OutlinedButton(
+                    onClick = onChallenges,
+                    modifier = Modifier.fillMaxWidth().testTag("nav.weeklyChallenge")
+                ) { Text(stringResource(R.string.challenge_hub_title)) }
+            }
             // 1. Time range menu
             item { TimeRangePicker(selected = range, onSelect = { range = it }) }
 

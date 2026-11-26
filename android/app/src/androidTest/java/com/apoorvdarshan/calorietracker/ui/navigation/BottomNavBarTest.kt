@@ -16,7 +16,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import androidx.compose.ui.test.performScrollTo
+import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.performSemanticsAction
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.unit.dp
@@ -29,11 +29,11 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class PinkNeoRailLabelTest {
+class BottomNavBarTest {
     @get:Rule val compose = createComposeRule()
 
     @Test
-    fun frenchWorkoutLogLabelFitsTheNarrowRailWithoutTruncation() {
+    fun frenchWorkoutsLabelFitsInACompactBottomBar() {
         compose.setContent {
             val configuration = Configuration(LocalConfiguration.current).apply { setLocale(Locale.FRENCH) }
             val context = LocalContext.current.createConfigurationContext(configuration)
@@ -43,41 +43,40 @@ class PinkNeoRailLabelTest {
                 LocalResources provides context.resources
             ) {
                 MaterialTheme {
-                    Box(Modifier.width(100.dp).height(650.dp)) {
-                        PinkNeoRail(currentRoute = FudAIRoutes.WORKOUTS, onTap = {}, onVoice = {})
+                    Box(Modifier.width(320.dp).height(160.dp)) {
+                        FudAIBottomNavBar(currentRoute = FudAIRoutes.WORKOUTS, onTap = {})
                     }
                 }
             }
         }
 
         val layouts = mutableListOf<TextLayoutResult>()
-        compose.onNodeWithText("Journal sportif", useUnmergedTree = true)
+        compose.onNodeWithText("Entraînements", useUnmergedTree = true)
             .performSemanticsAction(SemanticsActions.GetTextLayoutResult) { it(layouts) }
         assertTrue(layouts.single().lineCount <= 2)
         assertTrue(!layouts.single().hasVisualOverflow)
     }
 
     @Test
-    fun voiceStaysPinnedWhenTheShortRailScrolls() {
-        var voiceOpens = 0
+    fun hiddenTabsAreOmittedAndTheRemainingTabsAreTappable() {
+        var selectedRoute: String? = null
         compose.setContent {
             MaterialTheme {
-                Box(Modifier.width(100.dp).height(320.dp)) {
-                    PinkNeoRail(
+                Box(Modifier.width(320.dp).height(160.dp)) {
+                    FudAIBottomNavBar(
                         currentRoute = FudAIRoutes.HOME,
-                        onTap = {},
-                        onVoice = { voiceOpens++ },
-                        onUpgrade = {}
+                        hiddenRoutes = setOf(FudAIRoutes.PROGRESS, FudAIRoutes.COACH, FudAIRoutes.WORKOUTS),
+                        onTap = { selectedRoute = it }
                     )
                 }
             }
         }
 
-        val voice = compose.onNodeWithTag("nav.voice")
-        val pinnedBounds = voice.assertIsDisplayed().fetchSemanticsNode().boundsInRoot
-        compose.onNodeWithTag("nav.upgrade").performScrollTo().assertIsDisplayed()
-        assertEquals(pinnedBounds, voice.assertIsDisplayed().fetchSemanticsNode().boundsInRoot)
-        voice.performClick()
-        compose.runOnIdle { assertEquals(1, voiceOpens) }
+        compose.onNodeWithTag("nav.home").assertIsSelected()
+        compose.onNodeWithTag("nav.progress").assertDoesNotExist()
+        compose.onNodeWithTag("nav.coach").assertDoesNotExist()
+        compose.onNodeWithTag("nav.workouts").assertDoesNotExist()
+        compose.onNodeWithTag("nav.settings").assertIsDisplayed().performClick()
+        compose.runOnIdle { assertEquals(FudAIRoutes.SETTINGS, selectedRoute) }
     }
 }

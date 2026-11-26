@@ -120,7 +120,7 @@ import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun WeeklyChallengeScreen(container: AppContainer) {
+internal fun WeeklyChallengeScreen(container: AppContainer, onBack: () -> Unit) {
     val vm: WeeklyChallengeViewModel = viewModel(factory = WeeklyChallengeViewModel.Factory(container))
     val ui by vm.ui.collectAsStateWithLifecycle()
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -177,6 +177,7 @@ internal fun WeeklyChallengeScreen(container: AppContainer) {
             ),
             verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap)
         ) {
+            item { TextButton(onClick = onBack) { Text(stringResource(R.string.nav_progress)) } }
             item {
                 ChallengePeriodPicker(ui.period, vm::selectPeriod)
                 ChallengeHeader(

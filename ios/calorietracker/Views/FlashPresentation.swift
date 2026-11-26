@@ -34,8 +34,12 @@ extension View {
     }
 
     func flashPanel(lineWidth: CGFloat = 1) -> some View {
-        background(AppColors.appCard)
-            .pinkNeoRule(AppColors.flashRule, width: lineWidth)
+        background(AppColors.appCard, in: RoundedRectangle(cornerRadius: 16))
+            .overlay {
+                RoundedRectangle(cornerRadius: 16)
+                    .strokeBorder(AppColors.flashRule.opacity(0.30), lineWidth: lineWidth)
+                    .allowsHitTesting(false)
+            }
     }
 
     func flashScreenSurface() -> some View {
@@ -79,23 +83,21 @@ extension View {
     }
 
     func flashSectionHeading() -> some View {
-        font(.system(.subheadline, weight: .black).width(.condensed))
-            .textCase(.uppercase)
+        font(.system(.subheadline, design: .rounded, weight: .semibold))
+            .textCase(nil)
             .foregroundStyle(Color.primary)
             .accessibilityAddTraits(.isHeader)
     }
 
     func flashActionFill() -> some View {
         foregroundStyle(AppColors.onAccent)
-            .background(AppColors.calorie)
-            .pinkNeoRule(AppColors.flashRule)
+            .background(AppColors.calorie, in: RoundedRectangle(cornerRadius: 16))
     }
 
     private func flashPresentation() -> some View {
         tint(AppColors.accentText)
             .scrollContentBackground(.hidden)
             .presentationBackground(AppColors.appCard)
-            .presentationCornerRadius(0)
     }
 }
 
@@ -144,13 +146,12 @@ struct FlashActionButtonStyle: ButtonStyle {
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .font(.system(.headline, weight: .black).width(.condensed))
+            .font(.system(.headline, design: .rounded, weight: .semibold))
             .padding(.horizontal, 14)
             .padding(.vertical, 8)
             .frame(minHeight: 44)
             .foregroundStyle(isEnabled ? AppColors.onAccent : Color.secondary)
-            .background(isEnabled ? AppColors.calorie : AppColors.appCard)
-            .pinkNeoRule(AppColors.flashRule)
+            .background(isEnabled ? AppColors.calorie : AppColors.appCard, in: RoundedRectangle(cornerRadius: 16))
             .opacity(configuration.isPressed ? 0.8 : 1)
     }
 }

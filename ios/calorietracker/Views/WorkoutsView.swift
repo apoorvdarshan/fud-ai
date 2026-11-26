@@ -3,6 +3,7 @@ import UIKit
 
 struct WorkoutsView: View {
     let mode: WorkoutTabMode
+    var onChangeMode: ((WorkoutTabMode) -> Void)? = nil
     @AppStorage(AppThemeColor.storageKey) private var appThemeColorRaw = AppThemeColor.defaultColor.rawValue
     @State private var workoutLogSession = WorkoutLogSessionState()
 
@@ -12,10 +13,11 @@ struct WorkoutsView: View {
                 if mode == .log {
                     WorkoutLogView(
                         session: workoutLogSession,
-                        embedsInNavigationStack: false
+                        embedsInNavigationStack: false,
+                        onShowLibrary: onChangeMode.map { change in { change(.library) } }
                     )
                 } else {
-                    ExerciseLibraryBrowserView()
+                    ExerciseLibraryBrowserView(onShowWorkoutLog: onChangeMode.map { change in { change(.log) } })
                     .background(WorkoutsScreenBackground())
                     .navigationTitle("Exercise library")
                     .navigationBarTitleDisplayMode(.inline)
@@ -43,6 +45,7 @@ struct WorkoutsView: View {
 
 private struct ExerciseLibraryBrowserView: View {
     @Environment(StrengthWorkoutStore.self) private var workoutStore
+    var onShowWorkoutLog: (() -> Void)? = nil
 
     @State private var searchText = ""
     @State private var debouncedSearchText = ""
@@ -298,7 +301,17 @@ private struct ExerciseLibraryBrowserView: View {
 
     private var filters: some View {
         VStack(alignment: .leading, spacing: 12) {
-            WorkoutsSearchPill(searchText: $searchText)
+            HStack(spacing: 10) {
+                WorkoutsSearchPill(searchText: $searchText)
+                if let onShowWorkoutLog {
+                    Button(action: onShowWorkoutLog) {
+                        Image(systemName: "figure.strengthtraining.traditional")
+                            .frame(width: 48, height: 48)
+                    }
+                    .buttonStyle(.bordered)
+                    .accessibilityLabel("Workout log")
+                }
+            }
 
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 9) {

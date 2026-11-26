@@ -23,13 +23,11 @@ object FudAIRoutes {
     const val ABOUT_SECTION = "about/{section}"
     const val SUPPORT = "support"
 
-    val bottomTabs = listOf(
-        HOME, PROGRESS, WEEKLY_CHALLENGE, COACH, SETTINGS, WORKOUTS, EXERCISE_LIBRARY, ABOUT, SUPPORT
-    )
+    val bottomTabs = listOf(HOME, PROGRESS, COACH, SETTINGS, WORKOUTS)
 
     fun aboutSection(section: String) = "$ABOUT/$section"
 
-    /** The two split groups keep their existing visibility preferences. */
+    /** Nested destinations inherit their parent tab's visibility preference. */
     fun isHiddenTab(route: String?, hidden: Set<String>): Boolean {
         val group = when (route) {
             WEEKLY_CHALLENGE -> PROGRESS
@@ -47,8 +45,11 @@ object FudAIRoutes {
     fun selectedBottomTab(route: String?): String? = when {
         route == null -> null
         route in bottomTabs -> route
+        route == WEEKLY_CHALLENGE -> PROGRESS
+        route == EXERCISE_LIBRARY -> WORKOUTS
+        route == ABOUT || route == SUPPORT -> SETTINGS
         route.startsWith("settings/") -> SETTINGS
-        route.startsWith("$ABOUT/") -> ABOUT
+        route.startsWith("$ABOUT/") -> SETTINGS
         else -> null
     }
 

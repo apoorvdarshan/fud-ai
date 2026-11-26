@@ -76,7 +76,17 @@ class AppNavigator(private val today: () -> LocalDate = { LocalDate.now() }) {
         return pendingWorkoutDiaryDate.value ?: workoutDiaryDate.value.takeIf { currentRoute.value == FudAIRoutes.WORKOUTS }
     }
 
+    val requestedNestedScreen = MutableStateFlow<String?>(null)
+    val progressScreen = MutableStateFlow(FudAIRoutes.PROGRESS)
+    val workoutScreen = MutableStateFlow(FudAIRoutes.WORKOUTS)
+
     fun showTab(route: String) {
+        if (FudAIRoutes.isHiddenTab(route, hiddenTabs.value)) return
+        requestedNestedScreen.value = when (route) {
+            FudAIRoutes.PROGRESS, FudAIRoutes.WEEKLY_CHALLENGE,
+            FudAIRoutes.WORKOUTS, FudAIRoutes.EXERCISE_LIBRARY -> route
+            else -> null
+        }
         _requests.tryEmit(NavRequest.Tab(route))
     }
 

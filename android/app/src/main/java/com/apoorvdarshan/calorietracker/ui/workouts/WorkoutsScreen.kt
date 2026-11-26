@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker.ui.workouts
 
+import com.apoorvdarshan.calorietracker.ui.navigation.FudAIRoutes
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -142,6 +143,23 @@ fun WorkoutsScreen(container: AppContainer, modifier: Modifier = Modifier) {
         )
     }
 
+    val requestedScreen by container.navigator.requestedNestedScreen.collectAsState()
+    LaunchedEffect(requestedScreen) {
+        val mode = when (requestedScreen) {
+            FudAIRoutes.EXERCISE_LIBRARY -> WorkoutTabMode.LIBRARY
+            FudAIRoutes.WORKOUTS -> WorkoutTabMode.LOG
+            else -> return@LaunchedEffect
+        }
+        if (container.navigator.requestedNestedScreen.compareAndSet(requestedScreen, null)) {
+            vm.closeExerciseDetail()
+            vm.setMode(mode)
+        }
+    }
+    LaunchedEffect(vm.diaryUiState.mode) {
+        container.navigator.workoutScreen.value = if (vm.diaryUiState.mode == WorkoutTabMode.LOG) {
+            FudAIRoutes.WORKOUTS
+        } else FudAIRoutes.EXERCISE_LIBRARY
+    }
     val openItem = vm.openExerciseSnapshot
         ?: vm.openExerciseId?.let { id -> repo.exercises.firstOrNull { it.id == id } }
     UserExerciseEditorSheet(

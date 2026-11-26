@@ -67,29 +67,37 @@ struct calorietrackerApp: App {
         ExerciseCatalogWarmup.startIfNeeded()
     }
 
+    private var mainContent: some View {
+        ContentView()
+            .environment(foodStore)
+            .environment(weightStore)
+            .environment(bodyFatStore)
+            .environment(bodyMeasurementStore)
+            .environment(notificationManager)
+            .environment(healthKitManager)
+            .environment(profileStore)
+            .environment(chatStore)
+            .environment(waterStore)
+            .environment(fastingStore)
+            .environment(strengthWorkoutStore)
+            .environment(importedHealthWorkoutStore)
+            .environment(weeklyChallengeStore)
+            .environment(cloudBackupService)
+            .modifier(ChallengePeriodScoreSync(
+                foodStore: foodStore, waterStore: waterStore, profileStore: profileStore,
+                workoutStore: strengthWorkoutStore, challengeStore: weeklyChallengeStore
+            ))
+    }
+
     var body: some Scene {
         WindowGroup {
             Group {
                 if hasCompletedOnboarding {
-                    ContentView()
-                        .environment(foodStore)
-                        .environment(weightStore)
-                        .environment(bodyFatStore)
-                        .environment(bodyMeasurementStore)
-                        .environment(notificationManager)
-                        .environment(healthKitManager)
-                        .environment(profileStore)
-                        .environment(chatStore)
-                        .environment(waterStore)
-                        .environment(fastingStore)
-                        .environment(strengthWorkoutStore)
-                        .environment(importedHealthWorkoutStore)
-                        .environment(weeklyChallengeStore)
-                        .environment(cloudBackupService)
-                        .modifier(ChallengePeriodScoreSync(
-                            foodStore: foodStore, waterStore: waterStore, profileStore: profileStore,
-                            workoutStore: strengthWorkoutStore, challengeStore: weeklyChallengeStore
-                        ))
+                    if #available(iOS 27.1, *), UIDevice.current.userInterfaceIdiom == .phone {
+                        HorizontalTabHost(content: mainContent)
+                    } else {
+                        mainContent
+                    }
                 } else {
                     OnboardingView(hasCompletedOnboarding: $hasCompletedOnboarding)
                         .environment(notificationManager)
@@ -567,5 +575,22 @@ struct calorietrackerApp: App {
                 }
             }
         }
+    }
+}
+
+@available(iOS 27.1, *)
+private struct HorizontalTabHost<Content: View>: UIViewControllerRepresentable {
+    let content: Content
+
+    final class Controller: UIHostingController<Content> {
+        override var preferredVerticalBarBehavior: UIVerticalBarBehavior { .disabled }
+    }
+
+    func makeUIViewController(context: Context) -> Controller {
+        Controller(rootView: content)
+    }
+
+    func updateUIViewController(_ controller: Controller, context: Context) {
+        controller.rootView = content
     }
 }

@@ -149,16 +149,8 @@ struct ContentView: View {
         TabBarSettings.decode(hiddenTabsRaw)
     }
 
-    @ViewBuilder private var classicTabs: some View {
-        if #available(iOS 27.1, *), UIDevice.current.userInterfaceIdiom == .phone {
-            HorizontalTabHost(content: standardTabView)
-        } else {
-            standardTabView
-        }
-    }
-
     private var appTabs: some View {
-        classicTabs
+        standardTabView
             .tint(AppThemeColor.color(for: appThemeColorRaw).color)
             .background(VoiceAssistantWindowInstaller(controller: voiceAssistant))
             .task {
@@ -377,23 +369,6 @@ struct ContentView: View {
     }
 
 
-}
-
-@available(iOS 27.1, *)
-private struct HorizontalTabHost<Content: View>: UIViewControllerRepresentable {
-    let content: Content
-
-    final class Controller: UIHostingController<AnyView> {
-        override var preferredVerticalBarBehavior: UIVerticalBarBehavior { .disabled }
-    }
-
-    func makeUIViewController(context: Context) -> Controller {
-        Controller(rootView: AnyView(content.environment(\.self, context.environment)))
-    }
-
-    func updateUIViewController(_ controller: Controller, context: Context) {
-        controller.rootView = AnyView(content.environment(\.self, context.environment))
-    }
 }
 
 // MARK: - About (embedded as the last Settings section)

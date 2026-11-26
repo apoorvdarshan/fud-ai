@@ -273,7 +273,7 @@ internal fun FudAINavHost(
                 is NavRequest.About -> container.navigator.showSettings(
                     request.section.voiceSection
                 )
-                is NavRequest.Tab -> selectTab(request.route)
+                is NavRequest.Tab -> selectTab(FudAIRoutes.selectedBottomTab(request.route) ?: request.route)
                 is NavRequest.Settings -> {
                     when {
                         route.startsWith("settings/") -> nav.popBackStack(FudAIRoutes.SETTINGS, inclusive = false)

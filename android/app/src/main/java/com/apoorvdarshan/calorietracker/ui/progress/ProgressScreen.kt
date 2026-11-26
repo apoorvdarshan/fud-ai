@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker.ui.progress
 
+import com.apoorvdarshan.calorietracker.ui.navigation.FudAIRoutes
 import android.text.format.DateUtils
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
@@ -192,6 +193,20 @@ enum class TimeRange(@StringRes val labelRes: Int, val days: Int) {
 fun ProgressScreen(container: AppContainer, showChallengesInitially: Boolean = false) {
     var destination by rememberSaveable {
         mutableStateOf(if (showChallengesInitially) ProgressDestination.WEEKLY_CHALLENGE else ProgressDestination.MY_PROGRESS)
+    }
+    val requestedScreen by container.navigator.requestedNestedScreen.collectAsState()
+    LaunchedEffect(requestedScreen) {
+        val requested = when (requestedScreen) {
+            FudAIRoutes.WEEKLY_CHALLENGE -> ProgressDestination.WEEKLY_CHALLENGE
+            FudAIRoutes.PROGRESS -> ProgressDestination.MY_PROGRESS
+            else -> return@LaunchedEffect
+        }
+        if (container.navigator.requestedNestedScreen.compareAndSet(requestedScreen, null)) destination = requested
+    }
+    LaunchedEffect(destination) {
+        container.navigator.progressScreen.value = if (destination == ProgressDestination.WEEKLY_CHALLENGE) {
+            FudAIRoutes.WEEKLY_CHALLENGE
+        } else FudAIRoutes.PROGRESS
     }
     val destinationState = rememberSaveableStateHolder()
     Column(Modifier.fillMaxSize()) {

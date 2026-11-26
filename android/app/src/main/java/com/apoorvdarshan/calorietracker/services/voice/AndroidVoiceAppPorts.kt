@@ -78,7 +78,12 @@ class AndroidVoiceAppPorts(
 
     override fun screenState(): ScreenState {
         val tab = FudAIRoutes.selectedBottomTab(navigator.currentRoute.value)
-        val screen = VoiceScreen.entries.firstOrNull { it.route == tab }
+        val visibleRoute = when (tab) {
+            FudAIRoutes.PROGRESS -> navigator.progressScreen.value
+            FudAIRoutes.WORKOUTS -> navigator.workoutScreen.value
+            else -> tab
+        }
+        val screen = VoiceScreen.entries.firstOrNull { it.route == visibleRoute }
         val section = when (screen) {
             VoiceScreen.ABOUT -> navigator.aboutSection.value?.voiceSection
             VoiceScreen.SETTINGS -> navigator.settingsSection.value

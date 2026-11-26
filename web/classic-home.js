@@ -125,6 +125,8 @@
         });
       }, { threshold: 0.6 });
       chatIO.observe(chat);
+    } else if (chat) {
+      chat.querySelectorAll(".bubble").forEach(function (bubble) { bubble.classList.add("shown"); });
     }
 
     // ---------- Bento: small loops run only while you can see them ----------

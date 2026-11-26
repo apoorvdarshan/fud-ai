@@ -263,11 +263,11 @@ final class calorietrackerUITests: XCTestCase {
         app.buttons["Monthly"].firstMatch.tap()
         XCTAssertTrue(app.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "longest run")).firstMatch.exists)
         XCTAssertTrue(progress.isSelected)
-        // Adaptive devices expose the system Back control outside the navigation bar.
-        let back = app.buttons["Back"].firstMatch
-        XCTAssertTrue(back.waitForExistence(timeout: 5))
-        back.tap()
-        reveal(weekly, in: app)
+        app.buttons["nav.home"].tap()
+        XCTAssertTrue(app.buttons["home.add"].waitForExistence(timeout: 5))
+        progress.tap()
+        XCTAssertTrue(app.buttons["Monthly"].firstMatch.waitForExistence(timeout: 5))
+        XCTAssertTrue(progress.isSelected)
     }
 
     @MainActor

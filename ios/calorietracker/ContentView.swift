@@ -152,10 +152,13 @@ struct ContentView: View {
     }
 
     var body: some View {
-        standardTabView
-            .safeAreaInset(edge: .bottom, spacing: 0) {
-                classicBottomBar
-            }
+        // TabView hosts its pages in UIKit and does not reliably forward a
+        // SwiftUI safe-area inset to their own pinned Home/Workout controls.
+        VStack(spacing: 0) {
+            standardTabView
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            classicBottomBar
+        }
             .background(AppColors.appBackground)
             .tint(AppColors.accentText)
             .background(VoiceAssistantWindowInstaller(controller: voiceAssistant))

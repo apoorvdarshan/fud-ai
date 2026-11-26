@@ -4358,6 +4358,8 @@ struct ProgressTabView: View {
     @AppStorage("weightUnit") private var weightUnitRaw = "lbs"
     @AppStorage("healthKitEnabled") private var healthKitEnabled = false
     @AppStorage(OptionalNutrientGoals.storageKey) private var optionalGoalsData = Data()
+    @AppStorage("displayCalorieFloor") private var calorieFloor = 0
+    @AppStorage("displayCalorieCeiling") private var calorieCeiling = 0
     @State private var timeRange: TimeRange = .week
     /// Whole windows stepped back from the current one; session-only, reset
     /// whenever the range changes.
@@ -4582,6 +4584,15 @@ struct ProgressTabView: View {
                             calorieGoal: userProfile.effectiveCalories
                         )
                         .padding(.horizontal)
+
+                        // The range is a reference, separate from the live calorie goal.
+                        if calorieFloor > 0 || calorieCeiling > 0 {
+                            CalorieRangeSettings()
+                                .padding(12)
+                                .flashPanel()
+                                .padding(.horizontal)
+                                .accessibilityIdentifier("progress.calorieRange")
+                        }
 
                         MacroAveragesSection(
                             avgProtein: foodRangeStats.avgProtein,

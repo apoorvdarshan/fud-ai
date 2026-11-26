@@ -111,6 +111,7 @@ import com.apoorvdarshan.calorietracker.models.Gender
 import com.apoorvdarshan.calorietracker.ui.components.DecimalWheelPicker
 import com.apoorvdarshan.calorietracker.ui.components.LocalEnergyUnit
 import com.apoorvdarshan.calorietracker.ui.components.energyText
+import com.apoorvdarshan.calorietracker.ui.settings.CalorieRangeSettings
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialog
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialogActions
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassPrimaryButton
@@ -201,6 +202,7 @@ fun ProgressScreen(container: AppContainer, onChallenges: () -> Unit = {}) {
     val ui by vm.ui.collectAsState()
     val foods by container.foodRepository.entries.collectAsState(initial = emptyList())
     val weightUnit by container.prefs.weightUnit.collectAsState(initial = "kg")
+    val calorieDisplayRange by container.prefs.calorieDisplayRange.collectAsState(initial = 0 to 0)
     val optionalNutrientGoals by container.prefs.optionalNutrientGoals.collectAsState(
         initial = OptionalNutrientGoals.Default
     )
@@ -477,6 +479,13 @@ fun ProgressScreen(container: AppContainer, onChallenges: () -> Unit = {}) {
                                     )
                                 }
                             }
+                        }
+                    }
+
+                    // This reference range doesn't affect the chart's calorie goal.
+                    if (calorieDisplayRange.first > 0 || calorieDisplayRange.second > 0) {
+                        item {
+                            CardSection { CalorieRangeSettings(container.prefs) }
                         }
                     }
 

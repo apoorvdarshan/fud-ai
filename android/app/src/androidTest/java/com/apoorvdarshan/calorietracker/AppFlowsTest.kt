@@ -422,6 +422,19 @@ class AppFlowsTest {
     }
 
     @Test
+    fun optionalCalorieRangeIsVisibleWithoutWeeklyRecap() {
+        FudAITestState.reset()
+        runBlocking { prefs.setCalorieDisplayRange(1900, 2400) }
+        launchActivity()
+        waitForHome()
+        openTab("progress")
+        val range = hasText(string(R.string.optional_calorie_range), substring = true)
+        compose.onNodeWithTag("progress.content").performScrollToNode(range)
+        compose.onNode(range).assertIsDisplayed()
+        compose.onNodeWithText(string(R.string.progress_include_today)).assertDoesNotExist()
+    }
+
+    @Test
     fun freshInstallShowsOnboardingAndAdvancesThroughProfileSteps() {
         launchFresh(onboarded = false)
         waitFor(hasTestTag("onboarding.WELCOME"))

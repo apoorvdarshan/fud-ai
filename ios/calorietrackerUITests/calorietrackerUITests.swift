@@ -268,6 +268,16 @@ final class calorietrackerUITests: XCTestCase {
     }
 
     @MainActor
+    func testOptionalCalorieRangeIsVisibleWithoutWeeklyRecap() {
+        let app = makeApp(defaults: ["-displayCalorieFloor", "1900", "-displayCalorieCeiling", "2400"])
+        app.launch()
+        app.tabBars.buttons["Progress"].tap()
+        reveal(app.buttons["progress.calorieRange"], in: app)
+        XCTAssertFalse(app.staticTexts["Weekly Recap"].exists)
+        XCTAssertFalse(app.switches["Include today"].exists)
+    }
+
+    @MainActor
     func testWorkoutSearchOpensExerciseDetails() throws {
         let app = makeApp()
         app.launch()

@@ -5,6 +5,10 @@ with early Android summaries reconstructed from the corresponding changes.
 They describe those versions, not necessarily the current product. Tags with the
 same marketing version can share a feature summary while identifying different builds.
 
+## android-v9.0.1
+
+Restores the 877 built-in exercises to Android workout search and workout text analysis. Custom exercises remain available alongside the built-in library.
+
 ## ios-v9.0.1
 
 - Home returns to the five-tab layout, seven-day strip, calendar popup, and round **+** menu. Favorites is under **+**, and Live Voice uses the orb or your saved mascot.

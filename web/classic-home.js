@@ -1,5 +1,6 @@
 (function () {
     var root = document.documentElement;
+    root.classList.add("js");
     var choices = document.querySelector(".voice-choice");
     var orb = document.getElementById("orb");
     var brulee = orb.querySelector(".hero-brulee");
@@ -9,6 +10,7 @@
       if (!selected) return;
       brulee.hidden = selected.dataset.look !== "brulee";
       orb.classList.toggle("shows-brulee", !brulee.hidden);
+      onPause.hero(paused.hero);
       choices.querySelectorAll("button").forEach(function (button) {
         button.setAttribute("aria-pressed", String(button === selected));
       });
@@ -323,7 +325,7 @@
     var finalOrb = makeOrb(document.querySelector(".orb--final"));
     var glow = document.querySelector(".hero__glow");
     onPause.hero = function (on) {
-      if (heroOrb) { heroOrb.paused = on; heroOrb.start(); }
+      if (heroOrb && !calm) { heroOrb.paused = on || !brulee.hidden; heroOrb.start(); }
       var liveBox = document.querySelector(".live");
       if (liveBox) liveBox.classList.toggle("is-paused", on);
     };

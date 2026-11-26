@@ -680,7 +680,7 @@ private fun Hairline() {
 
 /** iOS tip jar parity: four consumable Play products with PixelLab pixel-art icons. */
 @Composable
-private fun TipJarRows(billing: BillingManager) {
+internal fun TipJarRows(billing: BillingManager) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     var products by remember { mutableStateOf<Map<String, StoreProduct>?>(null) }

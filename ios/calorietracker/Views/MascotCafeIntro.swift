@@ -3,16 +3,51 @@ import SwiftUI
 
 struct MascotCafeInvite: View {
     let finish: () -> Void
-    @State private var playing = false
+    private enum Page { case preview, video, community, tips, rating }
+    @State private var page: Page = .preview
+    @Environment(\.openURL) private var openURL
 
     var body: some View {
-        if playing, let url = Bundle.main.url(forResource: "mascot_cafe", withExtension: "mp4") {
-            MascotCafeIntro(url: url, finish: finish)
+        if page == .video, let url = Bundle.main.url(forResource: "mascot_cafe", withExtension: "mp4") {
+            MascotCafeIntro(url: url) { page = .community }
                 .presentationDetents([.large])
+        } else if page == .community || page == .tips || page == .rating {
+            VStack(spacing: 12) {
+                if page == .tips {
+                    List { TipJarSettingsSection() }
+                } else {
+                    ScrollView {
+                        VStack(spacing: 16) {
+                            Image(systemName: page == .community ? "person.3.fill" : "star.fill")
+                                .font(.largeTitle).foregroundStyle(AppColors.calorie).accessibilityHidden(true)
+                            if page == .community {
+                                Text("Community").font(.title2.bold())
+                                Link(destination: FudAILinks.x) { Label("Follow on X", systemImage: "at") }
+                                Link(destination: FudAILinks.instagram) { Label("Follow on Instagram", systemImage: "camera") }
+                                Link(destination: FudAILinks.discord) { Label("Join Discord", systemImage: "bubble.left.and.bubble.right") }
+                            } else {
+                                Button("Rate the App") { AppRating.rate(openURL: openURL) }
+                                    .buttonStyle(.borderedProminent)
+                            }
+                        }
+                        .padding(24)
+                    }
+                }
+                if page == .rating {
+                    Button("Done", action: finish)
+                } else {
+                    Button("Continue") { page = page == .community ? .tips : .rating }
+                        .buttonStyle(.borderedProminent)
+                    Button("Done", action: finish)
+                }
+            }
+            .padding(.vertical, 16)
+            .presentationDetents([.medium, .large])
+            .presentationDragIndicator(.visible)
         } else {
             ScrollView {
               VStack(spacing: 14) {
-                Button { playing = true } label: {
+                Button { page = .video } label: {
                     Image("MascotCafePreview")
                         .resizable()
                         .scaledToFit()
@@ -31,7 +66,7 @@ struct MascotCafeInvite: View {
                 .buttonStyle(.plain)
                 .accessibilityLabel(Text("Play video", tableName: "MascotCafe"))
                 Text("Meet the voice mascots", tableName: "MascotCafe").font(.title3.bold())
-                Button("Not now", action: finish)
+                Button("Not now") { page = .community }
               }
               .frame(maxWidth: 390)
               .padding(18)

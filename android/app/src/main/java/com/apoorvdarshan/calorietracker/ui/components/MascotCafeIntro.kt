@@ -1,5 +1,11 @@
 package com.apoorvdarshan.calorietracker.ui.components
 
+import com.apoorvdarshan.calorietracker.models.FudAILinks
+import com.apoorvdarshan.calorietracker.services.hosted.BillingManager
+import com.apoorvdarshan.calorietracker.services.update.AndroidUpdateChecker
+import com.apoorvdarshan.calorietracker.ui.about.TipJarRows
+import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.material3.Button
 import android.net.Uri
 import android.widget.VideoView
 import android.widget.MediaController
@@ -35,16 +41,47 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.apoorvdarshan.calorietracker.R
 
+private enum class CafePage { Preview, Video, Community, Tips, Rating }
+
 @Composable
-internal fun MascotCafeIntro(onFinish: () -> Unit) {
-    var playing by rememberSaveable { mutableStateOf(false) }
-    if (playing) {
-        Dialog(onDismissRequest = onFinish) { MascotCafePlayer(onFinish) }
+internal fun MascotCafeIntro(billing: BillingManager, onFinish: () -> Unit) {
+    var page by rememberSaveable { mutableStateOf(CafePage.Preview) }
+    val links = LocalUriHandler.current
+    val context = LocalContext.current
+    if (page == CafePage.Video) {
+        Dialog(onDismissRequest = onFinish) { MascotCafePlayer { page = CafePage.Community } }
+    } else if (page != CafePage.Preview) {
+        Dialog(onDismissRequest = onFinish) {
+            Surface(shape = RoundedCornerShape(24.dp)) {
+                Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(20.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    when (page) {
+                        CafePage.Community -> {
+                            Text(stringResource(R.string.about_category_community), style = MaterialTheme.typography.titleLarge)
+                            TextButton(onClick = { links.openUri(FudAILinks.X) }) { Text(stringResource(R.string.about_follow_x)) }
+                            TextButton(onClick = { links.openUri(FudAILinks.INSTAGRAM) }) { Text(stringResource(R.string.about_follow_instagram)) }
+                            TextButton(onClick = { links.openUri(FudAILinks.DISCORD) }) { Text(stringResource(R.string.about_join_discord)) }
+                        }
+                        CafePage.Tips -> TipJarRows(billing)
+                        CafePage.Rating -> Button(onClick = { AndroidUpdateChecker.openPlayStore(context) }) {
+                            Text(stringResource(R.string.about_rate))
+                        }
+                        else -> Unit
+                    }
+                    if (page != CafePage.Rating) {
+                        Button(onClick = { page = if (page == CafePage.Community) CafePage.Tips else CafePage.Rating }) {
+                            Text(stringResource(R.string.action_continue))
+                        }
+                    }
+                    TextButton(onClick = onFinish) { Text(stringResource(R.string.action_done)) }
+                }
+            }
+        }
     } else {
         Dialog(onDismissRequest = onFinish) {
             Surface(shape = RoundedCornerShape(24.dp)) {
                 Column(Modifier.verticalScroll(rememberScrollState()), horizontalAlignment = Alignment.CenterHorizontally) {
-                    Box(Modifier.fillMaxWidth().clickable(role = Role.Button) { playing = true }) {
+                    Box(Modifier.fillMaxWidth().clickable(role = Role.Button) { page = CafePage.Video }) {
                         Image(painterResource(R.drawable.mascot_cafe_preview), null,
                             Modifier.fillMaxWidth().aspectRatio(720f / 468f))
                         Row(
@@ -60,7 +97,7 @@ internal fun MascotCafeIntro(onFinish: () -> Unit) {
                     Text(stringResource(R.string.mascot_cafe_invite),
                         modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp),
                         style = MaterialTheme.typography.titleLarge)
-                    TextButton(onClick = onFinish) { Text(stringResource(R.string.post_update_product_hunt_not_now)) }
+                    TextButton(onClick = { page = CafePage.Community }) { Text(stringResource(R.string.post_update_product_hunt_not_now)) }
                 }
             }
         }

@@ -16,7 +16,7 @@ struct calorietrackerApp: App {
     // Keep this before every store/AppStorage initializer so reset launches do
     // not retain values loaded from the previous UI test's defaults.
     private let simulatorTestPreparation: Void = SimulatorTestEnvironment.prepare()
-    @AppStorage("hasSeenMascotCafePreview") private var hasSeenMascotCafe = false
+    @AppStorage("hasSeenMascotCafeWelcome") private var hasSeenMascotCafe = false
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @State private var foodStore = FoodStore()
     @State private var weightStore = WeightStore()

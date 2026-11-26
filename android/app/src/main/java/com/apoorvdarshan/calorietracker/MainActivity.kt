@@ -231,12 +231,12 @@ open class MainActivity : AppCompatActivity() {
             }
             FudAITheme(darkTheme = darkTheme, themeColor = themeColor, grayDarkTheme = appearance == "darkGray") {
                 val welcome = remember { getSharedPreferences("welcome", MODE_PRIVATE) }
-                var seenIntro by remember { mutableStateOf(welcome.getBoolean("seenMascotCafePreview", false)) }
+                var seenIntro by remember { mutableStateOf(welcome.getBoolean("seenMascotCafeWelcome", false)) }
                 if (!seenIntro && intent.action == Intent.ACTION_MAIN && pendingVoiceLaunch == null &&
                     pendingQuickAction == null && pendingSharedMeals.isEmpty()
                 ) {
-                    MascotCafeIntro {
-                        welcome.edit().putBoolean("seenMascotCafePreview", true).apply()
+                    MascotCafeIntro(container.billing) {
+                        welcome.edit().putBoolean("seenMascotCafeWelcome", true).apply()
                         seenIntro = true
                     }
                 }

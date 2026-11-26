@@ -1168,6 +1168,8 @@ struct HomeView: View {
         return selectedDate.formatted(.dateTime.weekday(.wide).month(.abbreviated).day())
     }
 
+    @State private var showDiaryCalendar = false
+
     private var daySwipeGesture: some Gesture {
         DragGesture(minimumDistance: 24)
             .onEnded { finishDaySwipe($0.translation) }
@@ -1568,6 +1570,23 @@ private var dailyStepsTaskKey: String {
             List {
                 // Week energy strip
                 Section {
+                    Button {
+                        showDiaryCalendar = true
+                    } label: {
+                        Label(navigationTitle, systemImage: "calendar")
+                            .font(.subheadline.weight(.semibold))
+                    }
+                    .accessibilityIdentifier("home.calendar")
+                    .listRowBackground(Color.clear)
+                    .listRowSeparator(.hidden)
+                    .popover(isPresented: $showDiaryCalendar) {
+                        DatePicker("Date", selection: $navigator.homeDiaryDate, in: ...Date.now, displayedComponents: .date)
+                            .datePickerStyle(.graphical)
+                            .padding()
+                            .onChange(of: selectedDate) { showDiaryCalendar = false }
+                            .presentationCompactAdaptation(.popover)
+                            .accessibilityIdentifier("home.calendarPopup")
+                    }
                     WeekEnergyStrip(
                         selectedDate: $navigator.homeDiaryDate,
                         caloriesForDate: { foodStore.calories(for: $0) },
@@ -1634,9 +1653,7 @@ private var dailyStepsTaskKey: String {
                     .listRowBackground(Color.clear)
                     .listRowSeparator(.hidden)
 
-                    Button {
-                        showNutritionDetail = true
-                    } label: {
+                    Group {
                         HStack {
                             Spacer()
                             Text("View More")
@@ -1647,6 +1664,12 @@ private var dailyStepsTaskKey: String {
                         }
                         .foregroundStyle(AppColors.calorie.opacity(0.6))
                     }
+                    .contentShape(Rectangle())
+                    .gesture(nutritionLinkGesture)
+                    .accessibilityElement(children: .combine)
+                    .accessibilityAddTraits(.isButton)
+                    .accessibilityAction { showNutritionDetail = true }
+                    .accessibilityIdentifier("home.viewMore")
                     .listRowBackground(Color.clear)
                     .listRowSeparator(.hidden)
                 }

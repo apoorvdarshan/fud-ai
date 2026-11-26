@@ -932,6 +932,8 @@ struct ExerciseLibraryDetailView: View {
     let item: ExerciseLibraryItem
     var onEdit: (() -> Void)?
     @State private var isMetricsPresented = false
+    @State private var isImageReportPresented = false
+    @Environment(ProfileStore.self) private var profileStore
 
     var body: some View {
         GeometryReader { geometry in
@@ -966,6 +968,7 @@ struct ExerciseLibraryDetailView: View {
         .workoutScreen()
         .navigationTitle(item.name)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar(.visible, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .toolbarBackground(Color.workoutBackground, for: .navigationBar)
         .toolbar {
@@ -976,6 +979,16 @@ struct ExerciseLibraryDetailView: View {
                         .foregroundStyle(Color.workoutAccent)
                 }
             }
+        }
+        .sheet(isPresented: $isImageReportPresented) {
+            let asset = FreeExerciseDBAssetResolver.preferredVisualAsset(for: item.imagePaths, gender: profileStore.profile.gender)
+            let visual = asset.frames.first.map {
+                switch $0 {
+                case .authored(let frame): frame.name
+                case .file: "catalog-photo"
+                }
+            } ?? "unavailable"
+            ExerciseImageReportSheet(item: item, visual: visual)
         }
     }
 
@@ -1032,15 +1045,100 @@ struct ExerciseLibraryDetailView: View {
             .padding(.top, 14)
             .padding(.trailing, 16)
             .accessibilityLabel(isMetricsPresented ? String(localized: "Hide exercise details") : String(localized: "Show exercise details"))
+
+            if !UserExercise.isUserExercise(item.id), !item.id.hasPrefix("custom_activity_") {
+                Button {
+                    isImageReportPresented = true
+                } label: {
+                    Image(systemName: "flag")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundStyle(Color.workoutAccent)
+                        .frame(width: 44, height: 44)
+                        .background(Color.workoutBackground.opacity(0.88), in: Circle())
+                        .overlay { Circle().stroke(Color.workoutHairline.opacity(0.55), lineWidth: 0.7) }
+                }
+                .buttonStyle(.plain)
+                .padding(.trailing, 16)
+                .padding(.bottom, 14)
+                .frame(width: width, height: 294, alignment: .bottomTrailing)
+                .accessibilityLabel(Text("Report image issue", tableName: "ExerciseImageReport"))
+                .accessibilityIdentifier("workouts.exercise.reportImage")
+            }
         }
         .frame(width: width, height: 294)
         .animation(.snappy(duration: 0.28), value: isMetricsPresented)
         .clipped()
-        .accessibilityElement(children: .combine)
+        .accessibilityElement(children: .contain)
         .accessibilityIdentifier("workouts.exercise.visual.\(item.id)")
         .accessibilityLabel(Text("\(item.name) exercise visual"))
     }
+}
 
+private struct ExerciseImageReportSheet: View {
+    let item: ExerciseLibraryItem
+    let visual: String
+    @Environment(\.dismiss) private var dismiss
+    @Environment(\.openURL) private var openURL
+    @State private var note = ""
+    @State private var githubURL: URL?
+
+    private var version: String {
+        Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "unknown"
+    }
+
+    var body: some View {
+        NavigationStack {
+            Form {
+                Section {
+                    Text(verbatim: item.name).font(.headline)
+                    TextField(
+                        text: $note,
+                        prompt: Text("What looks wrong in the image?", tableName: "ExerciseImageReport"),
+                        axis: .vertical
+                    ) {
+                        Text("What looks wrong in the image?", tableName: "ExerciseImageReport")
+                    }
+                    .lineLimit(3...6)
+                    .onChange(of: note) { _, current in
+                        if current.unicodeScalars.count > ExerciseImageReport.noteLimit {
+                            note = ExerciseImageReport.cleanNote(current)
+                        }
+                    }
+                    .accessibilityIdentifier("workouts.exercise.imageReportNote")
+                } footer: {
+                    Text("Reports become public. Don't include private information.", tableName: "ExerciseImageReport")
+                }
+                Section {
+                    Button {
+                        githubURL = ExerciseImageReport.issueURL(
+                            exercise: item.name, id: item.id, visual: visual, version: version, note: note
+                        )
+                    } label: {
+                        Label("Report an Issue on GitHub", systemImage: "arrow.up.right.square")
+                    }
+                    Button {
+                        UIPasteboard.general.string = ExerciseImageReport.text(
+                            exercise: item.name, id: item.id, visual: visual, version: version, note: note
+                        )
+                        openURL(FudAILinks.discord)
+                    } label: {
+                        Label("Report an Issue on Discord", systemImage: "bubble.left.and.bubble.right")
+                    }
+                } footer: {
+                    Text("The app copies the report. In Fud AI’s Discord server, run /bug and paste it in the report field.", tableName: "ExerciseImageReport")
+                }
+                .disabled(ExerciseImageReport.cleanNote(note).isEmpty)
+            }
+            .navigationTitle(Text("Report image issue", tableName: "ExerciseImageReport"))
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() } }
+            }
+        }
+        .sheet(isPresented: Binding(get: { githubURL != nil }, set: { if !$0 { githubURL = nil } })) {
+            if let githubURL { SafariView(url: githubURL).ignoresSafeArea() }
+        }
+    }
 }
 
 private struct ExerciseHeroMetricOverlay: View {

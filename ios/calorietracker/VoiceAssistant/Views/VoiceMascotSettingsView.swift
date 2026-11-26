@@ -26,7 +26,7 @@ struct VoiceMascotGallery: View {
                     .padding(.vertical, 6)
                     .frame(maxWidth: .infinity, minHeight: 44)
                     .foregroundStyle(.primary)
-                    .background(selected ? AppColors.calorie.opacity(0.12) : AppColors.appBackground)
+                    .background(selected ? AppColors.calorie.opacity(0.12) : Color.clear, in: RoundedRectangle(cornerRadius: 12))
                     .overlay {
                         RoundedRectangle(cornerRadius: 12).strokeBorder(selected ? AppColors.calorie : Color.secondary.opacity(0.25),
                                                  lineWidth: selected ? 1.5 : 1)

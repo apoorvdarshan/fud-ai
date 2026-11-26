@@ -5928,7 +5928,6 @@ struct ProfileView: View {
                             .accessibilityAddTraits(.isHeader)
 
                         Gemma4ModelSettingsView(onAvailabilityChange: refreshLocalAIModels)
-                        Divider()
                         Gemma4ModelSettingsView(modelManager: .e4b, onAvailabilityChange: refreshLocalAIModels)
 
                         AISettingsSubsectionHeader(
@@ -6359,9 +6358,7 @@ struct ProfileView: View {
                         WhisperBaseModelSettingsView(
                             selectedProvider: $selectedSpeechProvider, onAvailabilityChange: refreshLocalSpeechModels
                         )
-                        Divider()
                         LocalSpeechModelSettingsView(manager: .parakeet, onAvailabilityChange: refreshLocalSpeechModels)
-                        Divider()
                         LocalSpeechModelSettingsView(manager: .qwen, onAvailabilityChange: refreshLocalSpeechModels)
 
                         Picker(selection: $selectedSpeechLanguage) {

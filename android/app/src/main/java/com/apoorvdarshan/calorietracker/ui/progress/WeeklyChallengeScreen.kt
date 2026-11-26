@@ -856,6 +856,11 @@ private fun RankingsBoard(
                     }
                 }
             }
+            if (page > 0 && (onRetry != null || rankings.isEmpty())) {
+                TextButton(onClick = { onSelectPage(page - 1) }) {
+                    Text(stringResource(R.string.challenge_page_previous))
+                }
+            }
             if (onRetry != null) {
                 TextButton(onClick = onRetry) { Text(stringResource(R.string.action_retry)) }
             } else if (rankings.isEmpty()) {

@@ -440,6 +440,10 @@ struct WeeklyChallengeView: View {
                 .padding(.top, 14)
                 .padding(.bottom, 6)
 
+            if rankingPage > 0 && rows.isEmpty {
+                Button(WeeklyChallengeL10n.text("Previous")) { rankingPage -= 1 }
+                    .padding(.horizontal, 16)
+            }
             if page == nil {
                 Button(WeeklyChallengeL10n.text("Retry")) {
                     Task { await store.loadPage(category: category, weekStart: response.weekStart, offset: offset, force: true) }

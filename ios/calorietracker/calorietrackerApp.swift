@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVKit
 import HealthKit
 import WidgetKit
 import RevenueCat
@@ -15,6 +16,7 @@ struct calorietrackerApp: App {
     // Keep this before every store/AppStorage initializer so reset launches do
     // not retain values loaded from the previous UI test's defaults.
     private let simulatorTestPreparation: Void = SimulatorTestEnvironment.prepare()
+    @AppStorage("hasSeenMascotCafe") private var hasSeenMascotCafe = false
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @State private var foodStore = FoodStore()
     @State private var weightStore = WeightStore()
@@ -88,7 +90,10 @@ struct calorietrackerApp: App {
     var body: some Scene {
         WindowGroup {
             Group {
-                if hasCompletedOnboarding {
+                if !hasSeenMascotCafe, !SimulatorTestEnvironment.isRunningTests,
+                   let url = Bundle.main.url(forResource: "mascot_cafe", withExtension: "mp4") {
+                    MascotCafeIntro(url: url) { hasSeenMascotCafe = true }
+                } else if hasCompletedOnboarding {
                     if #available(iOS 27.1, *), UIDevice.current.userInterfaceIdiom == .phone {
                         HorizontalTabHost(content: mainContent)
                             // The hosted TabView handles its own home-indicator inset.

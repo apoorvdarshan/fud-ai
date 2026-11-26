@@ -15,6 +15,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -36,6 +37,7 @@ import com.apoorvdarshan.calorietracker.services.ReviewPrompter
 import com.apoorvdarshan.calorietracker.services.update.AndroidUpdateChecker
 import com.apoorvdarshan.calorietracker.services.voice.VoiceEntryPoints
 import com.apoorvdarshan.calorietracker.ui.components.LocalEnergyUnit
+import com.apoorvdarshan.calorietracker.ui.components.MascotCafeIntro
 import com.apoorvdarshan.calorietracker.ui.home.ImportSharedMealSheet
 import com.apoorvdarshan.calorietracker.ui.navigation.FudAINavHost
 import com.apoorvdarshan.calorietracker.ui.theme.AppThemeColor
@@ -229,6 +231,18 @@ open class MainActivity : AppCompatActivity() {
                 }
             }
             FudAITheme(darkTheme = darkTheme, themeColor = themeColor, grayDarkTheme = appearance == "darkGray") {
+                val welcome = remember { getSharedPreferences("welcome", MODE_PRIVATE) }
+                var seenIntro by remember { mutableStateOf(welcome.getBoolean("seenMascotCafe", false)) }
+                if (!seenIntro && intent.action == Intent.ACTION_MAIN && pendingVoiceLaunch == null &&
+                    pendingQuickAction == null && pendingSharedMeals.isEmpty()
+                ) {
+                    LaunchedEffect(Unit) { onFirstContentReady() }
+                    MascotCafeIntro {
+                        welcome.edit().putBoolean("seenMascotCafe", true).apply()
+                        seenIntro = true
+                    }
+                    return@FudAITheme
+                }
                 CompositionLocalProvider(
                     LocalEnergyUnit provides energyUnit,
                     LocalHapticFeedback provides appHaptics

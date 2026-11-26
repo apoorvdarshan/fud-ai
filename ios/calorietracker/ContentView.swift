@@ -1205,13 +1205,6 @@ struct HomeView: View {
         changeDay(by: dx < 0 ? 1 : -1)
     }
 
-    /// On this control a drag must cancel the tap, even if it is too short
-    /// to change days or starts on today and heads into the future.
-    private var nutritionLinkGesture: some Gesture {
-        DragGesture(minimumDistance: 10)
-            .exclusively(before: TapGesture().onEnded { showNutritionDetail = true })
-    }
-
     /// Step the selected day by `delta` (−1 previous, +1 next), from the swipe gesture. Won't move
     /// past today, and gives a light haptic on a successful change. Animates with the existing
     /// `.animation(.snappy, value: selectedDate)` on the List.
@@ -1690,7 +1683,7 @@ private var dailyStepsTaskKey: String {
                             .foregroundStyle(AppColors.calorie.opacity(0.6))
                         }
                         .contentShape(Rectangle())
-                        .gesture(nutritionLinkGesture)
+                        .onTapGesture { showNutritionDetail = true }
                         .accessibilityElement(children: .combine)
                         .accessibilityAddTraits(.isButton)
                         .accessibilityAction { showNutritionDetail = true }

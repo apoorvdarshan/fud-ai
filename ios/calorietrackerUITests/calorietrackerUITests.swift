@@ -211,6 +211,20 @@ final class calorietrackerUITests: XCTestCase {
     }
 
     @MainActor
+    func testHomeScrollsVerticallyFromViewMore() {
+        let app = makeApp(defaults: ["--screenshot-demo", "-screenshotScene", "home"])
+        app.launch()
+        let link = app.buttons["home.viewMore"]
+        reveal(link, in: app)
+        let initialY = link.frame.midY
+        let start = link.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5))
+        start.press(forDuration: 0.05, thenDragTo: start.withOffset(CGVector(dx: 0, dy: -140)))
+        XCTAssertFalse(app.navigationBars["Nutrition Details"].exists)
+        XCTAssertTrue(!link.isHittable || link.frame.midY < initialY - 40,
+                      "Dragging upward from View More must scroll the diary")
+    }
+
+    @MainActor
     func testHomeCalendarOpensAsAPopup() {
         let app = makeApp()
         app.launch()

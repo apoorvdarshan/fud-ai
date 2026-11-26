@@ -220,6 +220,8 @@ final class calorietrackerUITests: XCTestCase {
         calendar.tap()
         let popup = app.descendants(matching: .any)["home.calendarPopup"].firstMatch
         XCTAssertTrue(popup.waitForExistence(timeout: 5))
+        XCTAssertGreaterThanOrEqual(popup.frame.intersection(app.frame).width, 300,
+                                    "The month grid must fit all seven weekday columns")
         XCTAssertLessThan(popup.frame.height, app.frame.height * 0.8)
     }
 

@@ -1600,7 +1600,9 @@ private var dailyStepsTaskKey: String {
                     .popover(isPresented: $showDiaryCalendar) {
                         DatePicker("Date", selection: $navigator.homeDiaryDate, in: ...Date.now, displayedComponents: .date)
                             .datePickerStyle(.graphical)
-                            .padding()
+                            .frame(width: 320)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .padding(.vertical, 8)
                             .onChange(of: selectedDate) { showDiaryCalendar = false }
                             .presentationCompactAdaptation(.popover)
                             .accessibilityIdentifier("home.calendarPopup")

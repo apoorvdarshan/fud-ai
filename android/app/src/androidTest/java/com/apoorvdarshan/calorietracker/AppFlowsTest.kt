@@ -288,6 +288,23 @@ class AppFlowsTest {
     }
 
     @Test
+    fun dismissingMascotPreviewSkipsFollowUpPagesAndNextLaunch() {
+        FudAITestState.reset()
+        val welcome = context.getSharedPreferences("welcome", android.content.Context.MODE_PRIVATE)
+        welcome.edit().remove("seenMascotCafeWelcome").commit()
+        val launcher = Intent(context, MainActivity::class.java).setAction(Intent.ACTION_MAIN)
+        launchActivity(launcher)
+        compose.onNodeWithText(string(R.string.post_update_product_hunt_not_now)).performClick()
+        waitForHome()
+        compose.onNodeWithText(string(R.string.about_join_discord)).assertDoesNotExist()
+        checkNotNull(activity).close()
+        activity = null
+        launchActivity(launcher)
+        waitForHome()
+        compose.onNodeWithText(string(R.string.mascot_cafe_invite)).assertDoesNotExist()
+    }
+
+    @Test
     fun voiceMascotGallerySelectsThePinnedCharacter() {
         launchFresh()
         openVoiceSettings()

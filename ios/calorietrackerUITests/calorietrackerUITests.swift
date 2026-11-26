@@ -894,7 +894,8 @@ final class calorietrackerUITests: XCTestCase {
 
         let voice = app.buttons["voiceAssistantButton"]
         XCTAssertTrue(voice.isHittable)
-        XCTAssertLessThanOrEqual(voice.frame.maxX, addButton.frame.minX)
+        XCTAssertEqual(voice.frame.midX, addButton.frame.midX, accuracy: 1)
+        XCTAssertLessThan(voice.frame.maxY, addButton.frame.minY)
         XCTAssertTrue(meal.isHittable)
 
         relaunchPreservingData(app)
@@ -949,7 +950,8 @@ final class calorietrackerUITests: XCTestCase {
         for id in ["brulee", "alien", "star", "croissantCat", "bomboloni", "cherry", "teddy", "jam"] {
             XCTAssertTrue(app.buttons[gallery + id].isHittable, "Missing gallery tile: \(id)")
         }
-        XCTAssertTrue(app.buttons[gallery + "orb"].isSelected)
+        XCTAssertTrue(app.buttons[gallery + "brulee"].isSelected)
+        XCTAssertFalse(app.buttons[gallery + "orb"].isSelected)
         jam.tap()
         XCTAssertTrue(jam.isSelected)
         XCTAssertFalse(brulee.isSelected)

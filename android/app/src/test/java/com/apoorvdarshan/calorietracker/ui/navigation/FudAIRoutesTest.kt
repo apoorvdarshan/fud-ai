@@ -9,13 +9,9 @@ import org.junit.Test
 
 class FudAIRoutesTest {
     @Test
-    fun onlyMovesAcrossTabsSkipTheScreenTransition() {
-        assertTrue(FudAIRoutes.isTabSwitch(FudAIRoutes.HOME, FudAIRoutes.PROGRESS))
-        assertTrue(FudAIRoutes.isTabSwitch(FudAIRoutes.PROGRESS, FudAIRoutes.WEEKLY_CHALLENGE))
-        assertTrue(FudAIRoutes.isTabSwitch(FudAIRoutes.WORKOUTS, FudAIRoutes.EXERCISE_LIBRARY))
-        assertTrue(FudAIRoutes.isTabSwitch(FudAIRoutes.QUICK_ACTIONS, FudAIRoutes.HOME))
-        assertFalse(FudAIRoutes.isTabSwitch(FudAIRoutes.SETTINGS, FudAIRoutes.QUICK_ACTIONS))
-        assertFalse(FudAIRoutes.isTabSwitch(FudAIRoutes.ONBOARDING, FudAIRoutes.HOME))
+    fun challengesAndExerciseLibraryBelongToTheirClassicTabs() {
+        assertEquals(FudAIRoutes.PROGRESS, FudAIRoutes.selectedBottomTab(FudAIRoutes.WEEKLY_CHALLENGE))
+        assertEquals(FudAIRoutes.WORKOUTS, FudAIRoutes.selectedBottomTab(FudAIRoutes.EXERCISE_LIBRARY))
     }
 
     @Test
@@ -39,12 +35,12 @@ class FudAIRoutesTest {
     fun hiddenTabsLeaveHomeAndSettingsInTheBar() {
         assertEquals(FudAIRoutes.bottomTabs, FudAIRoutes.visibleBottomTabs(emptySet()))
         assertEquals(
-            listOf(FudAIRoutes.HOME, FudAIRoutes.PROGRESS, FudAIRoutes.WEEKLY_CHALLENGE, FudAIRoutes.SETTINGS, FudAIRoutes.ABOUT, FudAIRoutes.SUPPORT),
+            listOf(FudAIRoutes.HOME, FudAIRoutes.PROGRESS, FudAIRoutes.SETTINGS),
             FudAIRoutes.visibleBottomTabs(setOf(FudAIRoutes.COACH, FudAIRoutes.WORKOUTS))
         )
         val everything = FudAIRoutes.bottomTabs.toSet()
         assertEquals(
-            listOf(FudAIRoutes.HOME, FudAIRoutes.SETTINGS, FudAIRoutes.ABOUT, FudAIRoutes.SUPPORT),
+            listOf(FudAIRoutes.HOME, FudAIRoutes.SETTINGS),
             FudAIRoutes.visibleBottomTabs(everything)
         )
         assertFalse(FudAIRoutes.isHiddenTab(FudAIRoutes.HOME, everything))
@@ -56,11 +52,9 @@ class FudAIRoutesTest {
     }
 
     @Test
-    fun aboutSectionsKeepTheAboutTabSelected() {
-        assertEquals(FudAIRoutes.ABOUT, FudAIRoutes.selectedBottomTab(FudAIRoutes.ABOUT_SECTION))
-        assertEquals(FudAIRoutes.ABOUT, FudAIRoutes.selectedBottomTab(FudAIRoutes.aboutSection("LEGAL")))
-        assertFalse(FudAIRoutes.isTabSwitch(FudAIRoutes.ABOUT, FudAIRoutes.ABOUT_SECTION))
-        assertTrue(FudAIRoutes.isTabSwitch(FudAIRoutes.ABOUT_SECTION, FudAIRoutes.SUPPORT))
+    fun aboutAndSupportBelongToSettings() {
+        assertEquals(FudAIRoutes.SETTINGS, FudAIRoutes.selectedBottomTab(FudAIRoutes.ABOUT))
+        assertEquals(FudAIRoutes.SETTINGS, FudAIRoutes.selectedBottomTab(FudAIRoutes.SUPPORT))
     }
 
     @Test

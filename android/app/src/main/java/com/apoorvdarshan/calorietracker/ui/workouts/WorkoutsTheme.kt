@@ -3,7 +3,7 @@ package com.apoorvdarshan.calorietracker.ui.workouts
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
+import com.apoorvdarshan.calorietracker.ui.theme.AppColors
 
 /**
  * Workouts theme bridge — the exercise library is ported from Delts
@@ -27,22 +27,24 @@ data class WorkoutsColors(
 
 @Composable
 fun workoutsColors(): WorkoutsColors {
-    // Resolve the current appearance, including the Dark gray override.
+    // Same dark-detection trick as FudAIBottomNavBar: the resolved background
+    // luminance tracks the user's appearance override, not just the system.
+    // Read the selected scheme so Dark gray is not painted back over with the
+    // fixed near-black palette. Non-gray dark still resolves to those colors.
     val scheme = MaterialTheme.colorScheme
-    val neo = pinkNeoPalette()
     val bg = scheme.background
     val isDark = (bg.red + bg.green + bg.blue) / 3f < 0.5f
 
     return WorkoutsColors(
         background = bg,
-        charcoal = neo.ink,
+        charcoal = if (isDark) AppColors.OnDark else AppColors.OnLight,
         card = scheme.surface,
-        panel = neo.wash,
-        hairline = neo.rule,
-        accent = neo.action,
-        secondaryAccent = neo.action,
-        onAccent = neo.onAction,
-        mutedText = neo.ink.copy(alpha = 0.66f),
+        panel = if (isDark) Color(0xFF2A2A2E) else Color(0xFFEFE7DF),
+        hairline = scheme.outline,
+        accent = AppColors.Calorie,
+        secondaryAccent = AppColors.CalorieEnd,
+        onAccent = Color.White,
+        mutedText = if (isDark) AppColors.MutedDark else AppColors.MutedLight,
         isDark = isDark
     )
 }

@@ -108,8 +108,7 @@ struct calorietrackerApp: App {
                         .environment(cloudBackupService)
                 }
             }
-            .flashScreenSurface()
-            .tint(AppColors.accentText)
+            .tint(AppColors.calorie)
             .preferredColorScheme(colorScheme)
             .onChange(of: appearanceMode, initial: true) { _, mode in
                 AppAppearancePalette.shared.usesGray = mode == "darkGray"

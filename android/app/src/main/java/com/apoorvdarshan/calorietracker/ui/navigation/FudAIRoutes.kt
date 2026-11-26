@@ -6,7 +6,6 @@ object FudAIRoutes {
     const val ONBOARDING = "onboarding"
     const val HOME = "home"
     const val PROGRESS = "progress"
-    const val WEEKLY_CHALLENGE = "weeklyChallenge"
     const val COACH = "coach"
     const val SETTINGS = "settings"
     const val OPTIONAL_NUTRIENT_GOALS = "settings/optional-nutrient-goals"
@@ -18,26 +17,16 @@ object FudAIRoutes {
     const val BODY_MEASUREMENTS = "settings/body-measurements"
     const val ALLERGEN_SENSITIVITIES = "settings/allergen-sensitivities"
     const val WORKOUTS = "workouts"
-    const val EXERCISE_LIBRARY = "exerciseLibrary"
-    const val ABOUT = "about"
-    const val ABOUT_SECTION = "about/{section}"
-    const val SUPPORT = "support"
+    const val WEEKLY_CHALLENGE = "progress/challenges"
+    const val EXERCISE_LIBRARY = "workouts/library"
+    const val ABOUT = "settings/about"
+    const val SUPPORT = "settings/support"
 
-    val bottomTabs = listOf(
-        HOME, PROGRESS, WEEKLY_CHALLENGE, COACH, SETTINGS, WORKOUTS, EXERCISE_LIBRARY, ABOUT, SUPPORT
-    )
+    val bottomTabs = listOf(HOME, PROGRESS, COACH, SETTINGS, WORKOUTS)
 
-    fun aboutSection(section: String) = "$ABOUT/$section"
-
-    /** The two split groups keep their existing visibility preferences. */
-    fun isHiddenTab(route: String?, hidden: Set<String>): Boolean {
-        val group = when (route) {
-            WEEKLY_CHALLENGE -> PROGRESS
-            EXERCISE_LIBRARY -> WORKOUTS
-            else -> route
-        }
-        return group in TabBarSettings.Hideable && group in hidden
-    }
+    /** Whether [route] is a tab the user hid. Home and Settings are never hidden. */
+    fun isHiddenTab(route: String?, hidden: Set<String>): Boolean =
+        selectedBottomTab(route) in TabBarSettings.Hideable && selectedBottomTab(route) in hidden
 
     /** The bottom-bar tabs left after the user's hidden ones. */
     fun visibleBottomTabs(hidden: Set<String>): List<String> =
@@ -48,14 +37,8 @@ object FudAIRoutes {
         route == null -> null
         route in bottomTabs -> route
         route.startsWith("settings/") -> SETTINGS
-        route.startsWith("$ABOUT/") -> ABOUT
+        route.startsWith("progress/") -> PROGRESS
+        route.startsWith("workouts/") -> WORKOUTS
         else -> null
-    }
-
-    /** Peer tabs switch in place; transitions inside a tab are still directional. */
-    internal fun isTabSwitch(from: String?, to: String?): Boolean {
-        val fromTab = selectedBottomTab(from)
-        val toTab = selectedBottomTab(to)
-        return fromTab != null && toTab != null && fromTab != toTab
     }
 }

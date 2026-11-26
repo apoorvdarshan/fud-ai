@@ -3,6 +3,7 @@ import SwiftUI
 /// Settings > App Settings > Tab Bar: show or hide Progress, Coach and Workouts.
 struct TabBarSettingsView: View {
     @AppStorage(TabBarSettings.hiddenTabsKey) private var hiddenTabsRaw = ""
+    @AppStorage(WorkoutTabMode.storageKey) private var workoutTabModeRaw = WorkoutTabMode.defaultMode.rawValue
 
     var body: some View {
         Form {
@@ -57,7 +58,7 @@ struct TabBarSettingsView: View {
         switch tab {
         case .progress: "chart.bar.fill"
         case .coach: "bubble.left.and.bubble.right.fill"
-        case .workouts: WorkoutTabMode.log.tabIcon
+        case .workouts: WorkoutTabMode.mode(for: workoutTabModeRaw).tabIcon
         }
     }
 }

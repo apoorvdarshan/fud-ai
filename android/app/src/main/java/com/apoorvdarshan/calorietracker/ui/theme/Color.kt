@@ -3,7 +3,6 @@ package com.apoorvdarshan.calorietracker.ui.theme
 import androidx.annotation.StringRes
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.SolidColor
 import com.apoorvdarshan.calorietracker.R
 
 enum class AppThemeColor(
@@ -12,7 +11,7 @@ enum class AppThemeColor(
     val start: Color,
     val end: Color
 ) {
-    FUD_PINK("fudPink", R.string.theme_color_fud_pink, FlashPink, FlashPink),
+    FUD_PINK("fudPink", R.string.theme_color_fud_pink, Color(0xFFFF375F), Color(0xFFFF6B8A)),
     RED("red", R.string.theme_color_red, Color(0xFFFF3B30), Color(0xFFFF6961)),
     ORANGE("orange", R.string.theme_color_orange, Color(0xFFFF9500), Color(0xFFFFB340)),
     GREEN("green", R.string.theme_color_green, Color(0xFF34C759), Color(0xFF62D46F)),
@@ -68,7 +67,7 @@ object AppColors {
         get() = CalorieStart
 
     val CalorieGradient: Brush
-        get() = SolidColor(Calorie)
+        get() = Brush.linearGradient(listOf(CalorieStart, CalorieEnd))
 
     val AppBackgroundLight = Color(0xFFF3ECE6)
     val AppBackgroundDark = Color(0xFF0C0C0C)

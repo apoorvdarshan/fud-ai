@@ -27,14 +27,14 @@ struct VoiceMascotGallery: View {
                     .foregroundStyle(.primary)
                     .background(selected ? AppColors.calorie.opacity(0.12) : AppColors.appBackground)
                     .overlay {
-                        Rectangle().strokeBorder(selected ? AppColors.accentText : AppColors.flashRule.opacity(0.25),
+                        RoundedRectangle(cornerRadius: 12).strokeBorder(selected ? AppColors.calorie : Color.secondary.opacity(0.25),
                                                  lineWidth: selected ? 1.5 : 1)
                     }
                     .overlay(alignment: .topTrailing) {
                         if selected {
                             Image(systemName: "checkmark.circle.fill")
                                 .font(.caption2.weight(.bold))
-                                .foregroundStyle(AppColors.accentText)
+                                .foregroundStyle(AppColors.calorie)
                                 .padding(4)
                                 .accessibilityHidden(true)
                         }
@@ -79,25 +79,26 @@ struct VoiceMascotSettingsView: View {
                 if nameDraft != profile.options.name {
                     Button("Save", action: saveName)
                 }
-                FlashChoicePicker(
-                    title: Text("Color", tableName: "VoiceMascot"),
-                    selection: option(\.color),
-                    options: VoiceMascotColor.allCases,
-                    swatch: { $0.rgb.map { Color(hex: UInt($0)) } }
-                ) { Text($0.title) }
+                Picker(selection: option(\.color)) {
+                    ForEach(VoiceMascotColor.allCases, id: \.self) { color in
+                        Text(color.title).tag(color)
+                    }
+                } label: {
+                    Text("Color", tableName: "VoiceMascot")
+                }
                 .accessibilityIdentifier("settings.voiceMascot.color")
-                FlashChoicePicker(
-                    title: Text("Personality", tableName: "VoiceMascot"),
-                    selection: option(\.personality),
-                    options: VoiceMascotPersonality.allCases
-                ) { Text($0.title) }
+                Picker(selection: option(\.personality)) {
+                    ForEach(VoiceMascotPersonality.allCases, id: \.self) { personality in
+                        Text(personality.title).tag(personality)
+                    }
+                } label: {
+                    Text("Personality", tableName: "VoiceMascot")
+                }
                 .accessibilityIdentifier("settings.voiceMascot.personality")
             } footer: {
                 Text("Changes apply to the next conversation.", tableName: "VoiceMascot")
             }
-            .flashListRows()
         }
-        .flashEditorSurface()
         .navigationTitle(Text("Mascot", tableName: "VoiceMascot"))
         .navigationBarTitleDisplayMode(.inline)
         .onAppear { nameDraft = preferences.profile.options.name }

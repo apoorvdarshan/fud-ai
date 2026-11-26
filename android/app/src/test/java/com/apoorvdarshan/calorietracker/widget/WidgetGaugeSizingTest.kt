@@ -6,12 +6,11 @@ import org.junit.Test
 
 class WidgetGaugeSizingTest {
     @Test
-    fun flashReplacesOnlyMissingOrLegacyDefaultAccent() {
-        val pink = 0xFF006A
-        assertEquals(pink, flashWidgetAccentRgb(null, pink))
-        assertEquals(pink, flashWidgetAccentRgb(0xFF375F, pink))
-        assertEquals(0x32ADE6, flashWidgetAccentRgb(0x32ADE6, pink))
+    fun defaultGaugeUsesTheClassicPinkGradient() {
+        assertEquals(0xFF375F, DEFAULT_THEME_START)
+        assertEquals(0xFF6B8A, DEFAULT_THEME_END)
     }
+
     @Test
     fun shortValuesKeepTheNormalGaugeFontSize() {
         assertEquals(34, gaugeCenterFontSizeSp(gaugeWidthDp = 210, text = "1500"))

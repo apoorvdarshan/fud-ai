@@ -26,6 +26,25 @@ enum WeeklyChallengeL10n {
     }
 }
 
+enum ProgressOverviewMode: String, CaseIterable, Identifiable {
+    case myProgress
+    case weeklyChallenge
+
+    var id: Self { self }
+    var title: String {
+        switch self {
+        case .myProgress: WeeklyChallengeL10n.text("My Progress")
+        case .weeklyChallenge: WeeklyChallengeL10n.text("Weekly Challenge")
+        }
+    }
+    var icon: String {
+        switch self {
+        case .myProgress: "chart.line.uptrend.xyaxis"
+        case .weeklyChallenge: "trophy.fill"
+        }
+    }
+}
+
 enum WeeklyChallengeCategory: String, Codable, CaseIterable, Identifiable, Hashable {
     case overall
     case activity

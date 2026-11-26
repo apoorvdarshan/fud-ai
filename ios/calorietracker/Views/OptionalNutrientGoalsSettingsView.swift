@@ -68,7 +68,7 @@ struct OptionalNutrientGoalsSettingsView: View {
         .onChange(of: storedGoalsData) { _, newData in
             goals = OptionalNutrientGoals.decoded(from: newData)
         }
-        .flashSheet(item: $editingNutrient) { nutrient in
+        .sheet(item: $editingNutrient) { nutrient in
             NutritionPickerSheet(
                 label: nutrient.displayName,
                 unit: nutrient.unit,

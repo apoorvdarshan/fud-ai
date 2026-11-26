@@ -1,4 +1,5 @@
 package com.apoorvdarshan.calorietracker.ui.settings
+import com.apoorvdarshan.calorietracker.ui.components.WaitingFactCard
 
 import com.apoorvdarshan.calorietracker.backup.driveConsentCompletion
 import com.apoorvdarshan.calorietracker.models.OpenRouterReasoningEffort
@@ -31,10 +32,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
@@ -127,13 +124,13 @@ import androidx.compose.material.icons.outlined.Tune
 import androidx.compose.material.icons.outlined.Warning
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.apoorvdarshan.calorietracker.ui.components.FlashAlertDialog as AlertDialog
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDefaults
-import com.apoorvdarshan.calorietracker.ui.components.FlashDropdownMenu as DropdownMenu
+import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
@@ -141,7 +138,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import com.apoorvdarshan.calorietracker.ui.components.FlashBottomSheet as ModalBottomSheet
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
@@ -176,8 +173,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import com.apoorvdarshan.calorietracker.R
@@ -185,7 +180,6 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.apoorvdarshan.calorietracker.AppContainer
-import com.apoorvdarshan.calorietracker.services.update.AndroidUpdateState
 import com.apoorvdarshan.calorietracker.models.ActivityLevel
 import com.apoorvdarshan.calorietracker.models.AIProvider
 import com.apoorvdarshan.calorietracker.models.AutoBalanceMacro
@@ -204,8 +198,6 @@ import com.apoorvdarshan.calorietracker.models.WaterQuickAddPresets
 import com.apoorvdarshan.calorietracker.models.EnergyUnit
 import com.apoorvdarshan.calorietracker.models.WaterUnit
 import com.apoorvdarshan.calorietracker.models.WorkoutRestTimerSetting
-import com.apoorvdarshan.calorietracker.models.WorkoutDockAction
-import com.apoorvdarshan.calorietracker.models.WorkoutDockShortcuts
 import com.apoorvdarshan.calorietracker.models.WorkoutRpeScale
 import com.apoorvdarshan.calorietracker.models.WorkoutSplit
 import com.apoorvdarshan.calorietracker.export.DiaryImportMode
@@ -245,13 +237,8 @@ import com.apoorvdarshan.calorietracker.ui.about.AboutSettingsCategory
 import com.apoorvdarshan.calorietracker.ui.about.AboutSettingsRows
 import com.apoorvdarshan.calorietracker.ui.components.SplitDecimalWheelPicker
 import com.apoorvdarshan.calorietracker.ui.components.UnitToggle
-import com.apoorvdarshan.calorietracker.ui.components.WaitingFactCard
 import com.apoorvdarshan.calorietracker.ui.navigation.BottomNavScrollPadding
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
-import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
-import com.apoorvdarshan.calorietracker.ui.theme.flashListRow
-import com.apoorvdarshan.calorietracker.ui.theme.PinkNeoCondensed
-import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 import com.apoorvdarshan.calorietracker.ui.theme.AppThemeColor
 import com.apoorvdarshan.calorietracker.ui.navigation.FudAIRoutes
 import com.apoorvdarshan.calorietracker.ui.util.clockTimePattern
@@ -266,14 +253,15 @@ import kotlin.math.abs
 import kotlin.math.roundToInt
 
 private enum class SettingsSheet {
+    SPEECH_MODEL, SPEECH_FALLBACK_MODEL,
     AI_PROVIDER, AI_MODEL, REASONING_EFFORT, MAX_TOKENS, REQUEST_TIMEOUT, GEMINI_TIMEOUT, API_KEY, CUSTOM_BASE_URL, SPEECH_PROVIDER, SPEECH_LANGUAGE, SPEECH_KEY,
     TEXT_PROVIDER, TEXT_MODEL, TEXT_KEY, TEXT_BASE_URL,
     TEXT_FALLBACK_PROVIDER, TEXT_FALLBACK_MODEL, TEXT_FALLBACK_KEY, TEXT_FALLBACK_BASE_URL,
     FALLBACK_PROVIDER, FALLBACK_MODEL, FALLBACK_KEY, FALLBACK_BASE_URL,
-    SPEECH_FALLBACK_PROVIDER, SPEECH_FALLBACK_LANGUAGE, SPEECH_FALLBACK_KEY, SPEECH_MODEL, SPEECH_FALLBACK_MODEL,
+    SPEECH_FALLBACK_PROVIDER, SPEECH_FALLBACK_LANGUAGE, SPEECH_FALLBACK_KEY,
     GENDER, BIRTHDAY, HEIGHT, WEIGHT, BODY_FAT, GOAL_BODY_FAT, ACTIVITY, GOAL, GOAL_WEIGHT, GOAL_SPEED,
     CALORIES, PROTEIN, CARBS, FAT, OPTIONAL_NUTRIENTS,
-    APP_LANGUAGE, MEAL_TIMES, WATER_GOAL, WATER_UNIT, WATER_QUICK_ADD, FASTING_GOAL
+    APPEARANCE, APP_LANGUAGE, WEEK_START, ENERGY_UNIT, SHARE_LINKS, MEAL_TIMES, WATER_GOAL, WATER_UNIT, WATER_QUICK_ADD, FASTING_GOAL, WORKOUT_SPLIT, WORKOUT_RPE, WORKOUT_REST
 }
 
 private fun energyUnitTitleRes(unit: EnergyUnit): Int =
@@ -366,15 +354,19 @@ internal enum class SettingsCategory(
             WORKOUT -> VoiceSettingsSection.WORKOUTS
             HEALTH_DATA -> VoiceSettingsSection.HEALTH
             DATA_MANAGEMENT -> VoiceSettingsSection.DATA
-            APP_UPDATES, SUPPORT, HELP_FEEDBACK, COMMUNITY, LEGAL -> aboutCategory?.voiceSection
+            APP_UPDATES -> VoiceSettingsSection.APP_UPDATES
+            SUPPORT -> VoiceSettingsSection.ABOUT
+            HELP_FEEDBACK -> VoiceSettingsSection.HELP_FEEDBACK
+            COMMUNITY -> VoiceSettingsSection.COMMUNITY
+            LEGAL -> VoiceSettingsSection.LEGAL
         }
 
     companion object {
         val preferenceEntries = entries.filter { it.aboutCategory == null }
-        val aboutEntries = entries.filter { it.aboutCategory != null && it != SUPPORT }
+        val appInfoEntries = entries.filter { it.aboutCategory != null }
 
         /** Where the voice assistant's settings section opens; About lands on App Updates. */
-        fun forVoiceSection(section: VoiceSettingsSection): SettingsCategory? = when (section) {
+        fun forVoiceSection(section: VoiceSettingsSection): SettingsCategory = when (section) {
             VoiceSettingsSection.PROFILE -> PERSONAL_INFO
             VoiceSettingsSection.GOALS -> GOALS_NUTRITION
             // Tracking and notifications share one page (#432); REMINDERS still opens it.
@@ -386,8 +378,11 @@ internal enum class SettingsCategory(
             VoiceSettingsSection.HEALTH -> HEALTH_DATA
             VoiceSettingsSection.DATA -> DATA_MANAGEMENT
             VoiceSettingsSection.VOICE_ASSISTANT -> VOICE_ASSISTANT
-            VoiceSettingsSection.ABOUT, VoiceSettingsSection.APP_UPDATES, VoiceSettingsSection.HELP_FEEDBACK,
-            VoiceSettingsSection.COMMUNITY, VoiceSettingsSection.LEGAL -> null
+            VoiceSettingsSection.ABOUT -> APP_UPDATES
+            VoiceSettingsSection.APP_UPDATES -> APP_UPDATES
+            VoiceSettingsSection.HELP_FEEDBACK -> HELP_FEEDBACK
+            VoiceSettingsSection.COMMUNITY -> COMMUNITY
+            VoiceSettingsSection.LEGAL -> LEGAL
         }
     }
 }
@@ -441,7 +436,7 @@ fun SettingsScreen(
     // one is on screen.
     val pendingVoiceSection by container.navigator.pendingSettingsSection.collectAsState()
     LaunchedEffect(pendingVoiceSection) {
-        pendingVoiceSection?.takeUnless { it == VoiceSettingsSection.ABOUT }?.let { section ->
+        pendingVoiceSection?.let { section ->
             selectedCategory = SettingsCategory.forVoiceSection(section)
             container.navigator.pendingSettingsSection.value = null
         }
@@ -773,8 +768,8 @@ fun SettingsScreen(
                     if (selectedCategory == null) settingsHomeScrollState
                     else settingsDetailScrollState
                 )
-                .padding(FlashSpacing.PageInset),
-            verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap)
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(18.dp)
         ) {
             if (selectedCategory == null) {
                 SettingsCategoryHub(onSelect = { selectedCategory = it })
@@ -1013,29 +1008,16 @@ fun SettingsScreen(
                 ToggleRow(stringResource(R.string.settings_hide_barcode_photo), hideBarcodePhoto,
                     icon = Icons.Outlined.Tune, onChange = { settingsScope.launch { container.prefs.setHideBarcodePhoto(it) } })
                 HorizontalDivider()
-                ToggleRow(
-                    stringResource(R.string.settings_haptics),
-                    hapticsEnabled,
-                    switchModifier = Modifier.testTag("settings.haptics"),
-                    onChange = { settingsScope.launch { container.prefs.setHapticsEnabled(it) } }
-                )
-                HorizontalDivider()
-                SettingChoiceRow(
-                    label = stringResource(R.string.settings_appearance),
-                    selection = ui.appearanceMode,
-                    options = listOf("system", "light", "dark", "darkGray"),
-                    icon = Icons.Outlined.Brightness6,
-                    optionIcon = ::appearanceIcon,
-                    optionLabel = {
-                        when (it) {
-                            "light" -> stringResource(R.string.settings_appearance_light)
-                            "dark" -> stringResource(R.string.settings_appearance_dark)
-                            "darkGray" -> stringResource(R.string.settings_appearance_dark_gray)
-                            else -> stringResource(R.string.settings_appearance_system)
-                        }
+                SettingRow(
+                    stringResource(R.string.settings_appearance),
+                    when (ui.appearanceMode) {
+                        "light" -> stringResource(R.string.settings_appearance_light)
+                        "dark" -> stringResource(R.string.settings_appearance_dark)
+                        "darkGray" -> stringResource(R.string.settings_appearance_dark_gray)
+                        else -> stringResource(R.string.settings_appearance_system)
                     },
-                    onSelect = vm::setAppearanceMode
-                )
+                    icon = Icons.Outlined.Brightness6
+                ) { sheet = SettingsSheet.APPEARANCE }
                 HorizontalDivider()
                 val selectedAppLanguage = currentAppLanguageTag()
                 SettingRow(
@@ -1101,33 +1083,23 @@ fun SettingsScreen(
                     onChange = { onSavePhotosToGalleryChanged(it) }
                 )
                 HorizontalDivider()
-                SettingChoiceRow(
-                    label = stringResource(R.string.settings_week_starts),
-                    selection = ui.weekStartsOnMonday,
-                    options = listOf(false, true),
-                    icon = Icons.Outlined.CalendarToday,
-                    optionLabel = { stringResource(if (it) R.string.settings_week_monday else R.string.settings_week_sunday) },
-                    onSelect = vm::setWeekStartsOnMonday
-                )
+                SettingRow(
+                    stringResource(R.string.settings_week_starts),
+                    if (ui.weekStartsOnMonday) stringResource(R.string.settings_week_monday) else stringResource(R.string.settings_week_sunday),
+                    icon = Icons.Outlined.CalendarToday
+                ) { sheet = SettingsSheet.WEEK_START }
                 HorizontalDivider()
-                SettingChoiceRow(
-                    label = stringResource(R.string.settings_energy_unit),
-                    selection = ui.energyUnit,
-                    options = EnergyUnit.entries,
-                    icon = Icons.Outlined.LocalFireDepartment,
-                    optionLabel = { stringResource(energyUnitTitleRes(it)) },
-                    onSelect = vm::setEnergyUnit
-                )
+                SettingRow(
+                    stringResource(R.string.settings_energy_unit),
+                    stringResource(energyUnitTitleRes(ui.energyUnit)),
+                    icon = Icons.Outlined.LocalFireDepartment
+                ) { sheet = SettingsSheet.ENERGY_UNIT }
                 HorizontalDivider()
-                SettingChoiceRow(
-                    label = stringResource(R.string.share_links_title),
-                    selection = ui.mealShareLinkStyle,
-                    options = MealShareLinkStyle.entries,
-                    icon = Icons.Outlined.Link,
-                    optionLabel = { stringResource(it.titleRes) },
-                    optionDetail = { stringResource(it.detailRes) },
-                    onSelect = vm::setMealShareLinkStyle
-                )
+                SettingRow(
+                    stringResource(R.string.share_links_title),
+                    stringResource(ui.mealShareLinkStyle.titleRes),
+                    icon = Icons.Outlined.Link
+                ) { sheet = SettingsSheet.SHARE_LINKS }
                 HorizontalDivider()
                 SettingRow(
                     stringResource(R.string.settings_quick_actions),
@@ -1241,24 +1213,19 @@ fun SettingsScreen(
             // same compact Fud AI settings card.
             if (selectedCategory == SettingsCategory.WORKOUT) {
             SectionCard {
-                SettingChoiceRow(
-                    label = stringResource(R.string.settings_training_split),
-                    selection = ui.workoutSplit,
-                    options = WorkoutSplit.SelectableValues,
+                SettingRow(
+                    stringResource(R.string.settings_training_split),
+                    ui.workoutSplit.title,
                     icon = Icons.Outlined.FitnessCenter,
-                    optionLabel = { it.title },
-                    onSelect = vm::selectWorkoutSplit
-                )
+                    inlineMenu = true
+                ) { sheet = SettingsSheet.WORKOUT_SPLIT }
                 HorizontalDivider()
-                SettingChoiceRow(
-                    label = stringResource(R.string.settings_rpe_scale),
-                    selection = ui.workoutRpeScale,
-                    options = WorkoutRpeScale.entries,
+                SettingRow(
+                    stringResource(R.string.settings_rpe_scale),
+                    ui.workoutRpeScale.title,
                     icon = Icons.Outlined.Speed,
-                    optionLabel = { it.title },
-                    optionDetail = { it.inputPlaceholder },
-                    onSelect = vm::selectWorkoutRpeScale
-                )
+                    inlineMenu = true
+                ) { sheet = SettingsSheet.WORKOUT_RPE }
                 HorizontalDivider()
                 Text(
                     stringResource(R.string.settings_rpe_guide),
@@ -1268,15 +1235,12 @@ fun SettingsScreen(
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)
                 )
                 HorizontalDivider()
-                SettingChoiceRow(
-                    label = stringResource(R.string.settings_rest_timer),
-                    selection = ui.workoutRestTimerSeconds,
-                    options = WorkoutRestTimerSetting.Options,
+                SettingRow(
+                    stringResource(R.string.settings_rest_timer),
+                    restTimerLabel(ui.workoutRestTimerSeconds),
                     icon = Icons.Outlined.HourglassEmpty,
-                    modifier = Modifier.testTag("settings.workout.restTimer"),
-                    optionLabel = { restTimerLabel(it) },
-                    onSelect = vm::selectWorkoutRestTimer
-                )
+                    inlineMenu = true
+                ) { sheet = SettingsSheet.WORKOUT_REST }
                 Text(
                     stringResource(R.string.settings_rest_timer_footer),
                     fontSize = 12.sp,
@@ -1296,34 +1260,6 @@ fun SettingsScreen(
                     fontSize = 12.sp,
                     lineHeight = 18.sp,
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f),
-                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)
-                )
-            }
-            val dockShortcuts by container.prefs.workoutDockShortcuts.collectAsState(initial = WorkoutDockShortcuts.Default)
-            Text(
-                stringResource(R.string.settings_workout_shortcuts),
-                style = MaterialTheme.typography.titleSmall,
-                fontWeight = FontWeight.SemiBold,
-                modifier = Modifier.padding(horizontal = 4.dp)
-            )
-            SectionCard {
-                dockShortcuts.actions.forEachIndexed { slot, action ->
-                    if (slot > 0) HorizontalDivider()
-                    SettingChoiceRow(
-                        label = stringResource(R.string.settings_home_food_shortcut, slot + 1),
-                        selection = action,
-                        options = WorkoutDockAction.entries,
-                        icon = action.icon,
-                        modifier = Modifier.testTag("settings.workoutShortcut.$slot"),
-                        optionLabel = { stringResource(it.titleRes) },
-                        optionIcon = { it.icon },
-                        onSelect = { vm.setWorkoutDockShortcut(slot, it) }
-                    )
-                }
-                Text(
-                    stringResource(R.string.settings_home_food_shortcuts_detail),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)
                 )
             }
@@ -1978,6 +1914,17 @@ fun SettingsScreen(
             StorageSettingsCard(container.storageMaintenance)
             }
 
+            // App information and support actions are first-class Settings destinations.
+            selectedCategory?.aboutCategory?.let { aboutCategory ->
+                if (aboutCategory == AboutSettingsCategory.APP_UPDATES) {
+                    SectionCard { AboutAppHeader() }
+                }
+
+                SectionCard {
+                    AboutSettingsRows(aboutCategory, billing = container.billing)
+                }
+            }
+
             Spacer(Modifier.height(if (selectedCategory == SettingsCategory.VOICE_ASSISTANT) 0.dp else BottomNavScrollPadding))
         }
     }
@@ -2365,96 +2312,38 @@ fun SettingsScreen(
 
 @Composable
 private fun SettingsCategoryHub(onSelect: (SettingsCategory) -> Unit) {
-    val neo = pinkNeoPalette()
-    Column(verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap)) {
-        Text(
-            stringResource(R.string.nav_settings),
-            modifier = Modifier.fillMaxWidth().background(neo.panel).border(1.dp, neo.rule).padding(12.dp),
-            fontSize = 30.sp,
-            fontWeight = FontWeight.Black,
-            style = PinkNeoCondensed
-        )
+    Column(verticalArrangement = Arrangement.spacedBy(18.dp)) {
         SectionCard {
-            SettingsCategoryRows(SettingsCategory.preferenceEntries, onSelect = onSelect)
+            SettingsCategoryRows(SettingsCategory.preferenceEntries, onSelect)
         }
-    }
-}
-
-@Composable
-internal fun AboutRailScreen(
-    container: AppContainer,
-    category: AboutSettingsCategory? = null,
-    updateState: AndroidUpdateState = AndroidUpdateState.Idle,
-    onRefreshUpdates: () -> Unit = {},
-    onSelect: (AboutSettingsCategory) -> Unit = {},
-    onBack: () -> Unit = {}
-) {
-    val neo = pinkNeoPalette()
-    Scaffold(containerColor = MaterialTheme.colorScheme.background) { padding ->
-        Column(
-            Modifier.fillMaxSize().padding(padding).verticalScroll(rememberScrollState())
-                .padding(FlashSpacing.PageInset),
-            verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap)
-        ) {
-            val title = stringResource(category?.titleRes ?: R.string.nav_about)
-            if (category != null && category != AboutSettingsCategory.SUPPORT) {
-                SettingsDetailHeader(backLabel = stringResource(R.string.nav_about), title = title, onBack = onBack)
-            } else {
-                Text(
-                    title,
-                    modifier = Modifier.fillMaxWidth().background(neo.panel).border(1.dp, neo.rule).padding(12.dp),
-                    fontSize = 30.sp, fontWeight = FontWeight.Black, style = PinkNeoCondensed
-                )
-            }
-
-            if (category == null) {
-                SectionCard { AboutAppHeader() }
-                SectionCard {
-                    SettingsCategoryRows(SettingsCategory.aboutEntries, showAppUpdatesBadge = updateState.isUpdateAvailable) {
-                        onSelect(checkNotNull(it.aboutCategory))
-                    }
-                }
-                AboutFooter()
-            } else {
-                SectionCard {
-                    AboutSettingsRows(category, container.billing, updateState, onRefreshUpdates)
-                }
-            }
-            Spacer(Modifier.height(BottomNavScrollPadding))
+        SectionCard {
+            SettingsCategoryRows(SettingsCategory.appInfoEntries, onSelect)
         }
+        AboutFooter()
     }
 }
 
 @Composable
 private fun SettingsCategoryRows(
     categories: List<SettingsCategory>,
-    showAppUpdatesBadge: Boolean = false,
     onSelect: (SettingsCategory) -> Unit
 ) {
     categories.forEachIndexed { index, category ->
-        val hasUpdate = showAppUpdatesBadge && category.aboutCategory == AboutSettingsCategory.APP_UPDATES
-        val updateLabel = stringResource(R.string.about_update_available)
         Row(
             modifier = Modifier
                 .testTag("settings.category.${category.name}")
                 .fillMaxWidth()
                 .clickable { onSelect(category) }
-                .semantics { if (hasUpdate) stateDescription = updateLabel }
-                .flashListRow(),
+                .padding(horizontal = 16.dp, vertical = 14.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Box {
-                FudIconBubble(
-                    icon = category.icon,
-                    size = 22.dp,
-                    iconSize = 17.dp,
-                    tint = AppColors.Calorie
-                )
-                if (hasUpdate) {
-                    Box(Modifier.align(Alignment.TopEnd).size(8.dp).background(AppColors.Calorie, CircleShape))
-                }
-            }
-            Spacer(Modifier.width(10.dp))
+            FudIconBubble(
+                icon = category.icon,
+                size = 28.dp,
+                iconSize = 17.dp,
+                tint = AppColors.Calorie
+            )
+            Spacer(Modifier.width(14.dp))
             Text(
                 text = stringResource(category.titleRes),
                 style = MaterialTheme.typography.bodyLarge,
@@ -2488,8 +2377,7 @@ private fun SettingsDetailHeader(backLabel: String, title: String, onBack: () ->
             modifier = Modifier
                 .clip(RoundedCornerShape(16.dp))
                 .clickable(onClick = onBack)
-                .heightIn(min = FlashSpacing.MinTouchTarget)
-                .padding(horizontal = 2.dp, vertical = 4.dp),
+                .padding(horizontal = 2.dp, vertical = 8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
@@ -2507,7 +2395,8 @@ private fun SettingsDetailHeader(backLabel: String, title: String, onBack: () ->
         }
         Text(
             text = title,
-            style = MaterialTheme.typography.headlineLarge,
+            fontSize = 28.sp,
+            fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onBackground
         )
     }
@@ -3338,6 +3227,28 @@ private fun SettingsSheets(
                     placeholder = stringResource(ui.speechFallbackProvider.apiKeyPlaceholderRes),
                     onSave = { vm.setSpeechFallbackApiKey(it); onDismiss() }
                 )
+                SettingsSheet.WORKOUT_SPLIT -> ListSheet(
+                    title = stringResource(R.string.settings_training_split),
+                    items = WorkoutSplit.SelectableValues,
+                    label = { it.title },
+                    selected = { it == ui.workoutSplit },
+                    onSelect = { vm.selectWorkoutSplit(it); onDismiss() }
+                )
+                SettingsSheet.WORKOUT_REST -> ListSheet(
+                    title = stringResource(R.string.settings_rest_timer),
+                    items = WorkoutRestTimerSetting.Options,
+                    label = { restTimerLabel(it) },
+                    selected = { it == ui.workoutRestTimerSeconds },
+                    onSelect = { vm.selectWorkoutRestTimer(it); onDismiss() }
+                )
+                SettingsSheet.WORKOUT_RPE -> ListSheet(
+                    title = stringResource(R.string.settings_rpe_scale),
+                    items = WorkoutRpeScale.entries,
+                    label = { it.title },
+                    selected = { it == ui.workoutRpeScale },
+                    onSelect = { vm.selectWorkoutRpeScale(it); onDismiss() },
+                    subtitle = { it.inputPlaceholder }
+                )
                 SettingsSheet.FALLBACK_PROVIDER -> ListSheet(
                     title = stringResource(R.string.sheet_ai_provider),
                     items = ui.availableVisionProviders,
@@ -3535,6 +3446,19 @@ private fun SettingsSheets(
                         onDismiss()
                     }
                 )
+                SettingsSheet.APPEARANCE -> ListSheet(
+                    title = stringResource(R.string.sheet_appearance),
+                    items = listOf(
+                        "system" to stringResource(R.string.settings_appearance_system),
+                        "light" to stringResource(R.string.settings_appearance_light),
+                        "dark" to stringResource(R.string.settings_appearance_dark),
+                        "darkGray" to stringResource(R.string.settings_appearance_dark_gray)
+                    ),
+                    label = { it.second },
+                    selected = { it.first == ui.appearanceMode },
+                    onSelect = { vm.setAppearanceMode(it.first); onDismiss() },
+                    icon = { appearanceIcon(it.first) }
+                )
                 SettingsSheet.APP_LANGUAGE -> {
                     val selectedTag = currentAppLanguageTag()
                     ListSheet(
@@ -3551,6 +3475,31 @@ private fun SettingsSheets(
                         }
                     )
                 }
+                SettingsSheet.WEEK_START -> ListSheet(
+                    title = stringResource(R.string.sheet_week_starts),
+                    items = listOf(
+                        false to stringResource(R.string.settings_week_sunday),
+                        true to stringResource(R.string.settings_week_monday)
+                    ),
+                    label = { it.second },
+                    selected = { it.first == ui.weekStartsOnMonday },
+                    onSelect = { vm.setWeekStartsOnMonday(it.first); onDismiss() }
+                )
+                SettingsSheet.ENERGY_UNIT -> ListSheet(
+                    title = stringResource(R.string.settings_energy_unit),
+                    items = EnergyUnit.entries,
+                    label = { stringResource(energyUnitTitleRes(it)) },
+                    selected = { it == ui.energyUnit },
+                    onSelect = { vm.setEnergyUnit(it); onDismiss() }
+                )
+                SettingsSheet.SHARE_LINKS -> ListSheet(
+                    title = stringResource(R.string.share_links_title),
+                    items = MealShareLinkStyle.entries,
+                    label = { stringResource(it.titleRes) },
+                    subtitle = { stringResource(it.detailRes) },
+                    selected = { it == ui.mealShareLinkStyle },
+                    onSelect = { vm.setMealShareLinkStyle(it); onDismiss() }
+                )
                 SettingsSheet.MEAL_TIMES -> MealTimesSheet(
                     current = ui.mealSchedule,
                     onSave = {
@@ -3803,7 +3752,7 @@ private fun <T> ListSheet(
     footer: String? = null,
     customField: ((String) -> Unit)? = null
 ) {
-    val neo = pinkNeoPalette()
+    val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
     Text(title, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
     Spacer(Modifier.height(12.dp))
     LazyColumn(Modifier.fillMaxWidth().heightIn(max = 420.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -3811,11 +3760,35 @@ private fun <T> ListSheet(
             val isSel = selected(item)
             val rowIcon = icon?.invoke(item)
             val sub = subtitle?.invoke(item)
+            val shape = RoundedCornerShape(16.dp)
             Row(
                 Modifier
                     .fillMaxWidth()
-                    .background(neo.panel)
-                    .border(if (isSel) 2.dp else 1.dp, if (isSel) neo.accent else neo.rule)
+                    .clip(shape)
+                    .background(
+                        if (isSel) AppColors.Calorie.copy(alpha = 0.13f)
+                        else if (isDark) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.38f)
+                        else Color(0xFFEDE3DD).copy(alpha = 0.76f)
+                    )
+                    .background(
+                        Brush.verticalGradient(
+                            listOf(
+                                Color.White.copy(alpha = if (isDark) 0.08f else 0.18f),
+                                Color.White.copy(alpha = if (isDark) 0.02f else 0.04f),
+                                AppColors.Calorie.copy(alpha = if (isSel) 0.065f else if (isDark) 0.025f else 0.050f)
+                            )
+                        )
+                    )
+                    .border(
+                        0.7.dp,
+                        Brush.linearGradient(
+                            listOf(
+                                Color.White.copy(alpha = if (isDark) 0.16f else 0.46f),
+                                AppColors.Calorie.copy(alpha = if (isSel) 0.22f else if (isDark) 0.08f else 0.16f)
+                            )
+                        ),
+                        shape
+                    )
                     .clickable { onSelect(item) }
                     .padding(horizontal = 14.dp, vertical = 14.dp),
                 verticalAlignment = Alignment.CenterVertically
@@ -4622,7 +4595,6 @@ private fun SettingsSubsectionHeader(
     }
 }
 
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun LocalModelRow(
     state: LocalModelState,
@@ -4654,13 +4626,13 @@ internal fun LocalModelRow(
         LocalModelInstallStatus.Installed -> stringResource(R.string.settings_local_model_installed)
         is LocalModelInstallStatus.Failed -> status.message
     }
-    Column(
+    Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = FlashSpacing.PageInset, vertical = FlashSpacing.ItemGap),
-        verticalArrangement = Arrangement.spacedBy(4.dp)
+            .padding(horizontal = 16.dp, vertical = 11.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Column {
+        Column(Modifier.weight(1f).padding(end = 8.dp)) {
             Text(
                 state.descriptor.displayName,
                 style = MaterialTheme.typography.bodyLarge,
@@ -4674,21 +4646,13 @@ internal fun LocalModelRow(
                     MaterialTheme.colorScheme.error
                 } else {
                     MaterialTheme.colorScheme.onSurface.copy(alpha = 0.58f)
-                }
+                },
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis
             )
-            if (ramRequirement != null && ramRequirement != unavailableText) {
-                Text(ramRequirement, style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.58f))
-            }
-        }
-        FlowRow(
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
-            itemVerticalAlignment = Alignment.CenterVertically
-        ) {
-            TextButton(
-                onClick = { uriHandler.openUri(state.descriptor.licenseUrl) },
-                contentPadding = PaddingValues(0.dp),
-                modifier = Modifier.width(IntrinsicSize.Max).heightIn(min = FlashSpacing.MinTouchTarget)
+            Row(
+                modifier = Modifier.padding(top = 3.dp),
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 Text(
                     stringResource(
@@ -4696,50 +4660,43 @@ internal fun LocalModelRow(
                         state.descriptor.licenseName
                     ),
                     color = AppColors.Calorie,
-                    style = MaterialTheme.typography.labelMedium
+                    style = MaterialTheme.typography.labelMedium,
+                    modifier = Modifier.clickable {
+                        uriHandler.openUri(state.descriptor.licenseUrl)
+                    }
                 )
-            }
-            TextButton(
-                onClick = { uriHandler.openUri(state.descriptor.sourceUrl) },
-                contentPadding = PaddingValues(0.dp),
-                modifier = Modifier.width(IntrinsicSize.Max).heightIn(min = FlashSpacing.MinTouchTarget)
-            ) {
                 Text(
                     stringResource(R.string.settings_model_source),
                     color = AppColors.Calorie,
-                    style = MaterialTheme.typography.labelMedium
+                    style = MaterialTheme.typography.labelMedium,
+                    modifier = Modifier.clickable {
+                        uriHandler.openUri(state.descriptor.sourceUrl)
+                    }
                 )
             }
         }
-        if (state.eligible || state.status != LocalModelInstallStatus.NotInstalled || state.keptBytes > 0L) {
-            FlowRow(
-                horizontalArrangement = Arrangement.spacedBy(FlashSpacing.ItemGap),
-                itemVerticalAlignment = Alignment.CenterVertically
-            ) {
-                when (val status = state.status) {
-                    is LocalModelInstallStatus.Downloading -> {
-                        CircularProgressIndicator(
-                            progress = {
-                                status.downloadedBytes.toFloat() / status.totalBytes.coerceAtLeast(1L).toFloat()
-                            },
-                            modifier = Modifier.size(24.dp),
-                            strokeWidth = 2.dp,
-                            color = AppColors.Calorie
-                        )
-                        TextButton(onClick = onDelete) { Text(stringResource(R.string.action_cancel)) }
-                    }
-                    LocalModelInstallStatus.Installed ->
-                        TextButton(onClick = onDelete) { Text(stringResource(R.string.action_delete)) }
-                    LocalModelInstallStatus.NotInstalled,
-                    is LocalModelInstallStatus.Failed -> {
-                        TextButton(onClick = onDownload, enabled = state.eligible) {
-                            Text(stringResource(R.string.action_download))
-                        }
-                        // An interrupted download keeps its bytes for resuming; Delete frees them.
-                        if (state.keptBytes > 0L) {
-                            TextButton(onClick = onDelete) { Text(stringResource(R.string.action_delete)) }
-                        }
-                    }
+        when (val status = state.status) {
+            is LocalModelInstallStatus.Downloading -> {
+                CircularProgressIndicator(
+                    progress = {
+                        status.downloadedBytes.toFloat() / status.totalBytes.coerceAtLeast(1L).toFloat()
+                    },
+                    modifier = Modifier.size(24.dp),
+                    strokeWidth = 2.dp,
+                    color = AppColors.Calorie
+                )
+                TextButton(onClick = onDelete) { Text(stringResource(R.string.action_cancel)) }
+            }
+            LocalModelInstallStatus.Installed ->
+                TextButton(onClick = onDelete) { Text(stringResource(R.string.action_delete)) }
+            LocalModelInstallStatus.NotInstalled,
+            is LocalModelInstallStatus.Failed -> {
+                TextButton(onClick = onDownload, enabled = state.eligible) {
+                    Text(stringResource(R.string.action_download))
+                }
+                // An interrupted download keeps its bytes for resuming; Delete frees them.
+                if (state.keptBytes > 0L) {
+                    TextButton(onClick = onDelete) { Text(stringResource(R.string.action_delete)) }
                 }
             }
         }
@@ -4752,71 +4709,6 @@ private fun formatModelBytes(bytes: Long): String = if (bytes >= 1_000_000_000L)
     String.format(Locale.US, "%.0f MB", bytes / 1_000_000.0)
 }
 
-@Composable
-internal fun <T> SettingChoiceRow(
-    label: String,
-    selection: T,
-    options: List<T>,
-    icon: ImageVector,
-    modifier: Modifier = Modifier,
-    optionLabel: @Composable (T) -> String,
-    optionIcon: ((T) -> ImageVector?)? = null,
-    optionDetail: (@Composable (T) -> String)? = null,
-    onSelect: (T) -> Unit
-) {
-    var expanded by remember { mutableStateOf(false) }
-    val neo = pinkNeoPalette()
-    Box {
-        Row(
-            modifier = modifier.fillMaxWidth()
-                .clickable { expanded = true }
-                .flashListRow(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            FudIconBubble(icon = icon, size = 22.dp, iconSize = 14.dp)
-            Column(Modifier.weight(1f)) {
-                Text(label, style = MaterialTheme.typography.bodyLarge, fontWeight = FontWeight.SemiBold)
-                Text(optionLabel(selection), style = MaterialTheme.typography.bodyMedium, color = neo.accent)
-            }
-            Icon(Icons.Filled.UnfoldMore, contentDescription = null, tint = neo.accent, modifier = Modifier.size(18.dp))
-        }
-        Box(Modifier.align(Alignment.BottomEnd).padding(end = 12.dp)) {
-            DropdownMenu(
-                expanded = expanded,
-                onDismissRequest = { expanded = false },
-                modifier = Modifier.heightIn(max = 320.dp)
-            ) {
-                options.forEach { option ->
-                    val isSelected = option == selection
-                    val glyph = optionIcon?.invoke(option)
-                    DropdownMenuItem(
-                        text = {
-                            Column {
-                                Text(optionLabel(option), fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal)
-                                optionDetail?.invoke(option)?.let {
-                                    Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                                }
-                            }
-                        },
-                        leadingIcon = if (glyph != null) {
-                            { Icon(glyph, contentDescription = null, tint = neo.accent) }
-                        } else null,
-                        trailingIcon = if (isSelected) {
-                            { Icon(Icons.Filled.Check, stringResource(R.string.sheet_selected_a11y), tint = neo.accent) }
-                        } else null,
-                        onClick = {
-                            expanded = false
-                            onSelect(option)
-                        }
-                    )
-                }
-            }
-        }
-    }
-}
-
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun SettingRow(
     label: String,
@@ -4833,37 +4725,38 @@ internal fun SettingRow(
         Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick)
-            .flashListRow(),
+            .padding(horizontal = 16.dp, vertical = 13.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (leadingContent != null) {
             Box(Modifier.size(22.dp), contentAlignment = Alignment.Center) {
                 leadingContent()
             }
-            Spacer(Modifier.width(10.dp))
+            Spacer(Modifier.width(14.dp))
         } else if (icon != null) {
             FudIconBubble(icon = icon, size = 22.dp, iconSize = 14.dp)
-            Spacer(Modifier.width(10.dp))
+            Spacer(Modifier.width(14.dp))
         }
-        FlowRow(
+        Text(
+            label,
             modifier = Modifier.weight(1f),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalArrangement = Arrangement.spacedBy(2.dp),
-            itemVerticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(label, modifier = Modifier.padding(end = if (value.isEmpty()) 0.dp else 8.dp),
-                style = MaterialTheme.typography.bodyLarge)
-            if (value.isNotEmpty()) {
-                Text(value, style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.65f))
-            }
+            style = MaterialTheme.typography.bodyLarge
+        )
+        if (value.isNotEmpty()) {
+            Text(
+                value,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.58f),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.padding(start = 12.dp)
+            )
         }
-        Spacer(Modifier.width(6.dp))
         Icon(
             if (inlineMenu) Icons.Filled.UnfoldMore else Icons.Filled.ChevronRight,
             contentDescription = null,
             tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f),
-            modifier = Modifier.size(18.dp)
+            modifier = if (inlineMenu) Modifier.size(18.dp) else Modifier
         )
     }
 }
@@ -4877,11 +4770,11 @@ private fun ActivityLevelSettingRow(
         Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick)
-            .flashListRow(),
+            .padding(horizontal = 16.dp, vertical = 11.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         FudIconBubble(icon = Icons.AutoMirrored.Outlined.DirectionsRun, size = 22.dp, iconSize = 14.dp)
-        Spacer(Modifier.width(10.dp))
+        Spacer(Modifier.width(14.dp))
         Column(
             modifier = Modifier
                 .weight(1f)
@@ -4928,11 +4821,11 @@ private fun LockableGoalRow(
         Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick)
-            .flashListRow(),
+            .padding(horizontal = 16.dp, vertical = 13.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         FudIconBubble(icon = icon, size = 22.dp, iconSize = 14.dp)
-        Spacer(Modifier.width(10.dp))
+        Spacer(Modifier.width(14.dp))
         Text(
             label,
             modifier = Modifier.weight(1f),
@@ -4985,11 +4878,11 @@ private fun MaintenanceEstimateRow(
         Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick)
-            .flashListRow(),
+            .padding(horizontal = 16.dp, vertical = 11.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         FudIconBubble(icon = Icons.Outlined.Speed, size = 22.dp, iconSize = 14.dp)
-        Spacer(Modifier.width(10.dp))
+        Spacer(Modifier.width(14.dp))
         Column(Modifier.weight(1f)) {
             Text(
                 stringResource(R.string.settings_estimated_maintenance),
@@ -5077,12 +4970,12 @@ internal fun ToggleRow(
     onChange: (Boolean) -> Unit
 ) {
     Row(
-        Modifier.fillMaxWidth().padding(horizontal = FlashSpacing.PageInset, vertical = 2.dp),
+        Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (icon != null) {
             FudIconBubble(icon = icon, size = 22.dp, iconSize = 14.dp)
-            Spacer(Modifier.width(10.dp))
+            Spacer(Modifier.width(14.dp))
         }
         Column(modifier = Modifier.weight(1f)) {
             Text(label, style = MaterialTheme.typography.bodyLarge)
@@ -5108,7 +5001,7 @@ private fun ToggleRowWithInfo(
     enabled: Boolean = true
 ) {
     Row(
-        Modifier.fillMaxWidth().padding(horizontal = FlashSpacing.PageInset, vertical = 2.dp),
+        Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (icon != null) {
@@ -5120,7 +5013,7 @@ private fun ToggleRowWithInfo(
             modifier = Modifier.weight(1f),
             style = MaterialTheme.typography.bodyLarge
         )
-        IconButton(onClick = onInfo, modifier = Modifier.size(FlashSpacing.MinTouchTarget)) {
+        IconButton(onClick = onInfo, modifier = Modifier.size(36.dp)) {
             Icon(
                 Icons.Outlined.Info,
                 contentDescription = stringResource(R.string.action_info),
@@ -5376,6 +5269,11 @@ private fun appearanceIcon(key: String): ImageVector = when (key) {
     else -> Icons.Outlined.SettingsBrightness
 }
 
+/**
+ * Pink-gradient capsule "Save" button matching the iOS picker sheets
+ * (`LinearGradient(colors: AppColors.calorieGradient)` over a 14dp rounded
+ * rectangle, white semibold label).
+ */
 @Composable
 private fun GradientSaveButton(
     text: String? = null,
@@ -5383,10 +5281,26 @@ private fun GradientSaveButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
-    FudGlassPrimaryButton(
-        text = text ?: stringResource(R.string.action_save),
-        enabled = enabled,
-        modifier = modifier.fillMaxWidth(),
-        onClick = onClick
-    )
+    val brush = Brush.linearGradient(listOf(AppColors.CalorieStart, AppColors.CalorieEnd))
+    val shape = RoundedCornerShape(14.dp)
+    Box(
+        modifier
+            .fillMaxWidth()
+            .clip(shape)
+            .background(if (enabled) brush else Brush.linearGradient(listOf(AppColors.Calorie.copy(alpha = 0.4f), AppColors.Calorie.copy(alpha = 0.4f))))
+            .background(
+                Brush.verticalGradient(
+                    listOf(
+                        Color.White.copy(alpha = 0.24f),
+                        Color.White.copy(alpha = 0.04f)
+                    )
+                )
+            )
+            .border(0.7.dp, Color.White.copy(alpha = 0.22f), shape)
+            .clickable(enabled = enabled, onClick = onClick)
+            .padding(vertical = 14.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(text ?: stringResource(R.string.action_save), color = Color.White, fontWeight = FontWeight.SemiBold, fontSize = 16.sp)
+    }
 }

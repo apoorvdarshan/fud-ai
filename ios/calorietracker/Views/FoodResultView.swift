@@ -454,11 +454,12 @@ struct FoodResultView: View {
                             ScrollView(.horizontal, showsIndicators: false) {
                                 LazyHStack(spacing: 12) {
                                     ForEach(Array(images.enumerated()), id: \.offset) { index, image in
-                                        FlashFoodPhoto(count: images.count) {
-                                            Image(uiImage: image)
-                                                .resizable()
-                                                .scaledToFill()
-                                        }
+                                        Image(uiImage: image)
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: 220, height: 200)
+                                            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                                            .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                                             .onTapGesture {
                                                 imagePreview = FullScreenImagePreview(images: images, initialIndex: index)
                                             }
@@ -470,7 +471,7 @@ struct FoodResultView: View {
                                                         .font(.caption2.weight(.semibold))
                                                         .padding(.horizontal, 8)
                                                         .padding(.vertical, 5)
-                                                        .flashPanel()
+                                                        .background(.ultraThinMaterial, in: Capsule())
                                                         .padding(8)
                                                 }
                                             }
@@ -498,9 +499,13 @@ struct FoodResultView: View {
                     }
 
                     Section("Food Details") {
-                        FlashFoodNameField(name: $name)
+                        HStack {
+                            Text("Name")
+                            Spacer()
+                            TextField("Food name", text: $name)
+                                .multilineTextAlignment(.trailing)
+                        }
                     }
-                    .flashListRows()
 
                     // Allergen safety stays near the top for configured sensitivities;
                     // the longer product details sit at the end of the form (#426).
@@ -516,11 +521,12 @@ struct FoodResultView: View {
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
-                        .flashListRows()
                     }
 
                     Section("Serving") {
-                        FlashQuantityRow {
+                        HStack {
+                            Text("Quantity")
+                            Spacer()
                             ServingUnitEditor(
                                 quantityText: $servingSizeText,
                                 servingSizeGrams: $servingSizeGrams,
@@ -547,7 +553,6 @@ struct FoodResultView: View {
                             }
                         }
                     }
-                    .flashListRows()
 
                     Section {
                         ReviewNutritionValueRow(
@@ -595,7 +600,6 @@ struct FoodResultView: View {
                             .accessibilityLabel(nutritionUnlocked ? "Lock nutrition editing" : "Unlock nutrition editing")
                         }
                     }
-                    .flashListRows()
 
                     MealIngredientsSection(
                         ingredients: scaledIngredients,
@@ -689,15 +693,17 @@ struct FoodResultView: View {
                         }
                         .tint(AppColors.calorie)
                     }
-                    .flashListRows()
 
                     Section("Meal") {
-                        FlashChoicePicker(title: Text("Meal Type"), selection: $mealType,
-                                          options: MealType.allCases, icon: { $0.icon }) {
-                            Text($0.displayName)
+                        Picker("Meal Type", selection: $mealType) {
+                            ForEach(MealType.allCases, id: \.self) { meal in
+                                Label(meal.displayName, systemImage: meal.icon)
+                                    .tag(meal)
+                            }
                         }
+                        .pickerStyle(.menu)
+                        .tint(AppColors.calorie)
                     }
-                    .flashListRows()
 
                     Section("Date & Time") {
                         DatePicker("Date", selection: $loggedAt, displayedComponents: .date)
@@ -705,7 +711,6 @@ struct FoodResultView: View {
                         DatePicker("Time", selection: $loggedAt, displayedComponents: .hourAndMinute)
                             .tint(AppColors.calorie)
                     }
-                    .flashListRows()
 
                     if let productMetadata, productMetadata.hasDisplayDetails {
                         FoodProductMetadataSection(
@@ -715,7 +720,8 @@ struct FoodResultView: View {
                     }
 
                 }
-                .flashEditorSurface()
+                .scrollContentBackground(.hidden)
+                .background(AppColors.appBackground)
                 .background(KeyboardDismissTapInstaller())
                 .safeAreaInset(edge: .bottom) {
                     if isQuantityEditing {
@@ -734,13 +740,16 @@ struct FoodResultView: View {
                     }
                     ToolbarItemGroup(placement: .confirmationAction) {
                         Button("What if?") { showWhatIfSheet = true }
+                            .font(.system(.body, design: .rounded, weight: .semibold))
                             .tint(AppColors.protein)
+
                         Button("Log", action: logFood)
-                            .tint(AppColors.accentText)
+                            .font(.system(.body, design: .rounded, weight: .semibold))
+                            .tint(AppColors.calorie)
                             .disabled(submissionGate.isSubmitting)
                     }
                 }
-                .flashSheet(isPresented: $showWhatIfSheet) {
+                .sheet(isPresented: $showWhatIfSheet) {
                     WhatIfMealImpactSheet(
                         entry: makeFoodEntry(includeImage: false),
                         dayEntries: whatIfDayEntries,
@@ -748,7 +757,7 @@ struct FoodResultView: View {
                         weightMetric: weightMetric
                     )
                 }
-                .flashSheet(item: $ingredientEditor) { target in
+                .sheet(item: $ingredientEditor) { target in
                     IngredientEditorSheet(
                         target: target,
                         onSave: { ingredient in
@@ -898,15 +907,13 @@ struct MealIngredientsSection: View {
                                 .frame(width: 44, height: 44)
                                 .clipShape(RoundedRectangle(cornerRadius: 10))
                                 .accessibilityHidden(true)
-                                VStack(alignment: .leading, spacing: 4) {
-                                    Text(ingredient.name)
-                                        .font(.body.weight(.semibold))
-                                        .foregroundStyle(.primary)
-                                    Text("\(MacroValueFormatter.string(ingredient.grams))g · \(energyUnit.format(kcal: ingredient.calories))")
-                                        .font(.subheadline)
-                                        .foregroundStyle(.secondary)
-                                }
-                                .frame(maxWidth: .infinity, alignment: .leading)
+                                Text(ingredient.name)
+                                    .font(.system(.body, design: .rounded, weight: .semibold))
+                                    .foregroundStyle(.primary)
+                                Spacer()
+                                Text("\(MacroValueFormatter.string(ingredient.grams))g · \(energyUnit.format(kcal: ingredient.calories))")
+                                    .font(.subheadline)
+                                    .foregroundStyle(.secondary)
                                 Image(systemName: "chevron.right")
                                     .font(.caption.weight(.semibold))
                                     .foregroundStyle(.tertiary)
@@ -954,7 +961,6 @@ struct MealIngredientsSection: View {
                 }
             }
         }
-        .flashListRows()
     }
 
     private func macro(_ label: String, _ value: Double, _ color: Color) -> some View {
@@ -1021,17 +1027,15 @@ struct IngredientEditorSheet: View {
         NavigationStack {
             Form {
                 Section("Ingredient") {
-                    FlashFoodNameField(name: $name)
+                    TextField("Name", text: $name)
                     valueRow("Weight", text: Binding(get: { grams }, set: changeWeight), unit: "g")
                     valueRow("Calories", text: nutritionBinding($calories), unit: energyUnit.symbol)
                 }
-                .flashListRows()
                 Section("Macros") {
                     valueRow("Protein", text: nutritionBinding($protein), unit: "g")
                     valueRow("Carbs", text: nutritionBinding($carbs), unit: "g")
                     valueRow("Fat", text: nutritionBinding($fat), unit: "g")
                 }
-                .flashListRows()
                 if let onDelete {
                     Section {
                         Button("Remove Ingredient", role: .destructive) {
@@ -1039,10 +1043,10 @@ struct IngredientEditorSheet: View {
                             dismiss()
                         }
                     }
-                    .flashListRows()
                 }
             }
-            .flashEditorSurface()
+            .scrollContentBackground(.hidden)
+            .background(AppColors.appBackground)
             .navigationTitle(target.index == nil ? String(localized: "Add Ingredient") : String(localized: "Edit Ingredient"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -1055,8 +1059,9 @@ struct IngredientEditorSheet: View {
                         onSave(ingredient)
                         dismiss()
                     }
-                    .tint(AppColors.accentText)
                     .disabled(parsedIngredient == nil)
+                    .font(.system(.body, design: .rounded, weight: .semibold))
+                    .tint(AppColors.calorie)
                 }
             }
         }
@@ -1190,7 +1195,6 @@ private struct WhatIfMealImpactSheet: View {
                 } footer: {
                     Text("This does not log the meal. It shows what today would look like if you logged \(entry.name).")
                 }
-                .flashListRows()
 
                 Section("AI Suggestion") {
                     if isLoadingSuggestion {
@@ -1218,9 +1222,9 @@ private struct WhatIfMealImpactSheet: View {
                         }
                     }
                 }
-                .flashListRows()
             }
-            .flashEditorSurface()
+            .scrollContentBackground(.hidden)
+            .background(AppColors.appBackground)
             .navigationTitle("What if?")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

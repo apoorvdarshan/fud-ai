@@ -430,7 +430,7 @@ struct WeeklyChallengeView: View {
                         VStack(alignment: .leading, spacing: 10) {
                             Label {
                                 Text("Your points", tableName: "ChallengeHub")
-                            } icon: { Image(systemName: "star.circle.fill").foregroundStyle(AppColors.accentText) }
+                            } icon: { Image(systemName: "star.circle.fill").foregroundStyle(AppColors.calorie) }
                             .font(.headline)
                             Text(score.points, format: .number)
                                 .font(.system(.largeTitle, design: .rounded, weight: .black).monospacedDigit())

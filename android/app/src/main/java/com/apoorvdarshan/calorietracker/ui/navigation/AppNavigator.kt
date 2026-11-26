@@ -98,8 +98,7 @@ class AppNavigator(private val today: () -> LocalDate = { LocalDate.now() }) {
     }
 
     fun showAbout(section: AboutSettingsCategory?) {
-        if (section == null) showTab(FudAIRoutes.ABOUT)
-        else _requests.tryEmit(NavRequest.About(section))
+        showSettings(section?.voiceSection ?: VoiceSettingsSection.ABOUT)
     }
 
     fun showFoodEntry(id: UUID, date: LocalDate) {

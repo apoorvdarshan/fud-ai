@@ -46,7 +46,10 @@ struct TextFoodInputView: View {
                     .padding(.vertical, 10)
             }
             .padding(12)
-            .flashPanel()
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color(.quaternarySystemFill))
+            )
 
             Button {
                 onSubmit(foodDescription)
@@ -55,7 +58,9 @@ struct TextFoodInputView: View {
                     .font(.headline)
                     .frame(maxWidth: .infinity)
             }
-            .buttonStyle(FlashActionButtonStyle())
+            .buttonStyle(.borderedProminent)
+            .tint(AppColors.calorie)
+            .controlSize(.large)
             .disabled(foodDescription.trimmingCharacters(in: .whitespaces).isEmpty)
 
             Button("Cancel") {

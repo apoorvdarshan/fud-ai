@@ -1,23 +1,17 @@
 package com.apoorvdarshan.calorietracker.ui.home
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -44,17 +38,15 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.heading
-import androidx.compose.ui.semantics.selected
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
@@ -83,9 +75,6 @@ import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialog
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialogActions
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassTextField
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
-import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
-import com.apoorvdarshan.calorietracker.ui.theme.PinkNeoCondensed
-import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 import com.apoorvdarshan.calorietracker.ui.util.clockTimePattern
 import com.apoorvdarshan.calorietracker.ui.util.mediumDateFormatter
 import java.time.LocalDate
@@ -97,7 +86,6 @@ import java.util.Locale
 // `Sheet*`-prefixed so they don't collide with the look-alike privates in
 // HomeScreen.kt and NutritionDetailSheet.kt.
 
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun SheetReviewToolbar(
     title: String,
@@ -108,91 +96,82 @@ internal fun SheetReviewToolbar(
     onPrimary: () -> Unit,
     onSecondary: (() -> Unit)? = null
 ) {
-    val neo = pinkNeoPalette()
-    val cancel = stringResource(R.string.action_cancel)
-    val fontScale = LocalDensity.current.fontScale
-    val titleContent: @Composable (Modifier) -> Unit = { modifier ->
-        Text(
-            text = title,
-            fontSize = 17.sp,
-            fontWeight = FontWeight.Black,
-            style = PinkNeoCondensed,
-            modifier = modifier.semantics { heading() }
-        )
-    }
-    val actions: @Composable () -> Unit = {
-        FlowRow(
-            horizontalArrangement = Arrangement.spacedBy(6.dp, Alignment.End),
-            verticalArrangement = Arrangement.spacedBy(6.dp)
-        ) {
-            SheetToolbarButton(cancel, onClick = onCancel)
-            if (secondaryLabel != null && onSecondary != null) {
-                SheetToolbarButton(secondaryLabel, onClick = onSecondary)
-            }
-            SheetToolbarButton(primaryLabel, primary = true, enabled = primaryEnabled, onClick = onPrimary)
-        }
-    }
-    BoxWithConstraints(
-        Modifier.fillMaxWidth().background(neo.panel).padding(horizontal = 12.dp, vertical = 8.dp)
+    val compact = LocalConfiguration.current.screenWidthDp < 380
+    val outerPadding = if (compact) 8.dp else 14.dp
+    val itemGap = if (compact) 6.dp else 8.dp
+    Row(
+        Modifier.fillMaxWidth().padding(horizontal = outerPadding, vertical = 6.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        if (maxWidth >= 440.dp && fontScale <= 1.2f) {
-            Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
-                titleContent(Modifier.weight(1f))
-                actions()
-            }
-        } else {
-            Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                titleContent(Modifier)
-                Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterEnd) { actions() }
-            }
+        SheetToolbarPill(stringResource(R.string.action_cancel), compact = compact, onClick = onCancel)
+        Spacer(Modifier.width(itemGap))
+        Text(
+            title,
+            fontSize = if (compact) 16.sp else 17.sp,
+            fontWeight = FontWeight.SemiBold,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.weight(1f)
+        )
+        Spacer(Modifier.width(itemGap))
+        if (secondaryLabel != null && onSecondary != null) {
+            SheetToolbarPill(secondaryLabel, compact = compact, onClick = onSecondary)
+            Spacer(Modifier.width(itemGap))
         }
+        SheetToolbarPill(
+            primaryLabel,
+            bold = true,
+            compact = compact,
+            enabled = primaryEnabled,
+            onClick = onPrimary
+        )
     }
 }
 
 @Composable
-private fun SheetToolbarButton(
+private fun SheetToolbarPill(
     label: String,
-    primary: Boolean = false,
+    bold: Boolean = false,
+    compact: Boolean = false,
     enabled: Boolean = true,
     onClick: () -> Unit
 ) {
-    val neo = pinkNeoPalette()
+    val shape = CircleShape
+    val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
+    val horizontalPadding = when {
+        compact && bold -> 12.dp
+        compact -> 10.dp
+        else -> 16.dp
+    }
+    val modifier = Modifier
+        .clip(shape)
+        .background(if (isDark) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.42f) else Color(0xFFEDE3DD).copy(alpha = 0.82f))
+        .background(
+            Brush.verticalGradient(
+                listOf(
+                    Color.White.copy(alpha = if (isDark) 0.08f else 0.24f),
+                    Color.White.copy(alpha = if (isDark) 0.02f else 0.06f)
+                )
+            )
+        )
+        .border(
+            0.7.dp,
+            Color.White.copy(alpha = if (isDark) 0.10f else 0.48f),
+            shape
+        )
     Box(
-        Modifier
-            .background(if (primary && enabled) neo.action else neo.panel)
-            .border(1.dp, neo.rule)
+        modifier
             .alpha(if (enabled) 1f else 0.55f)
             .clickable(enabled = enabled, onClick = onClick)
-            .defaultMinSize(minWidth = 48.dp, minHeight = 48.dp)
-            .padding(horizontal = 10.dp, vertical = 6.dp),
-        contentAlignment = Alignment.Center
+            .padding(horizontal = horizontalPadding, vertical = 8.dp)
     ) {
         Text(
             label,
-            color = if (primary && enabled) neo.onAction else neo.ink,
-            fontSize = 15.sp,
-            style = PinkNeoCondensed,
-            fontWeight = if (primary) FontWeight.Black else FontWeight.SemiBold,
-            textAlign = TextAlign.Center
+            color = AppColors.Calorie,
+            fontSize = if (compact) 15.sp else 16.sp,
+            fontWeight = if (bold) FontWeight.SemiBold else FontWeight.Medium
         )
-    }
-}
-
-@Composable
-internal fun SheetFoodNameField(name: String, onNameChange: (String) -> Unit) {
-    val label = stringResource(R.string.sheet_name)
-    SheetPillCard {
-        Column(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 10.dp)) {
-            Text(label, style = MaterialTheme.typography.labelLarge)
-            BasicTextField(
-                value = name,
-                onValueChange = { onNameChange(it.replace('\n', ' ').replace('\r', ' ')) },
-                maxLines = 3,
-                textStyle = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onSurface),
-                cursorBrush = SolidColor(AppColors.Calorie),
-                modifier = Modifier.fillMaxWidth().padding(top = 4.dp).semantics { contentDescription = label }
-            )
-        }
     }
 }
 
@@ -212,16 +191,35 @@ internal fun SheetPillRow(
     onClick: (() -> Unit)? = null,
     content: @Composable RowScope.() -> Unit
 ) {
-    val neo = pinkNeoPalette()
+    val shape = RoundedCornerShape(24.dp)
+    val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
+    val rowFill = if (isDark) {
+        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.38f)
+    } else {
+        Color(0xFFE9DCD5).copy(alpha = 0.82f)
+    }
+    val rowSheen = Brush.verticalGradient(
+        listOf(
+            Color.White.copy(alpha = if (isDark) 0.075f else 0.18f),
+            Color.White.copy(alpha = if (isDark) 0.018f else 0.04f),
+            AppColors.Calorie.copy(alpha = if (isDark) 0.022f else 0.060f)
+        )
+    )
+    val rowBorder = Brush.linearGradient(
+        listOf(
+            Color.White.copy(alpha = if (isDark) 0.14f else 0.50f),
+            AppColors.Calorie.copy(alpha = if (isDark) 0.07f else 0.18f)
+        )
+    )
     val base = Modifier
         .fillMaxWidth()
-        .background(neo.panel)
-        .border(1.dp, neo.rule)
-    val withClick = if (onClick != null) {
-        base.clickable(onClick = onClick).heightIn(min = FlashSpacing.MinTouchTarget)
-    } else base
+        .clip(shape)
+        .background(rowFill)
+        .background(rowSheen)
+        .border(0.7.dp, rowBorder, shape)
+    val withClick = if (onClick != null) base.clickable(onClick = onClick) else base
     Row(
-        withClick.padding(horizontal = FlashSpacing.SheetInset, vertical = FlashSpacing.ItemGap),
+        withClick.padding(horizontal = 18.dp, vertical = 15.dp),
         verticalAlignment = Alignment.CenterVertically,
         content = content
     )
@@ -229,12 +227,33 @@ internal fun SheetPillRow(
 
 @Composable
 internal fun SheetPillCard(content: @Composable ColumnScope.() -> Unit) {
-    val neo = pinkNeoPalette()
+    val shape = RoundedCornerShape(24.dp)
+    val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
+    val cardFill = if (isDark) {
+        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.38f)
+    } else {
+        Color(0xFFE9DCD5).copy(alpha = 0.82f)
+    }
+    val cardSheen = Brush.verticalGradient(
+        listOf(
+            Color.White.copy(alpha = if (isDark) 0.075f else 0.18f),
+            Color.White.copy(alpha = if (isDark) 0.018f else 0.04f),
+            AppColors.Calorie.copy(alpha = if (isDark) 0.022f else 0.060f)
+        )
+    )
+    val cardBorder = Brush.linearGradient(
+        listOf(
+            Color.White.copy(alpha = if (isDark) 0.14f else 0.50f),
+            AppColors.Calorie.copy(alpha = if (isDark) 0.07f else 0.18f)
+        )
+    )
     Column(
         Modifier
             .fillMaxWidth()
-            .background(neo.panel)
-            .border(1.dp, neo.rule)
+            .clip(shape)
+            .background(cardFill)
+            .background(cardSheen)
+            .border(0.7.dp, cardBorder, shape)
             .padding(vertical = 4.dp),
         content = content
     )
@@ -309,7 +328,7 @@ internal fun ServingQuantityCard(
 
     SheetPillCard {
         Row(
-            Modifier.fillMaxWidth().padding(horizontal = FlashSpacing.SheetInset, vertical = FlashSpacing.ItemGap),
+            Modifier.fillMaxWidth().padding(horizontal = 18.dp, vertical = 12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
@@ -459,7 +478,7 @@ internal fun ServingQuantityCard(
         if (showGramTotal && !selectedOption.isGramUnit) {
             SheetHairline()
             Row(
-                Modifier.fillMaxWidth().padding(horizontal = FlashSpacing.SheetInset, vertical = FlashSpacing.ItemGap),
+                Modifier.fillMaxWidth().padding(horizontal = 18.dp, vertical = 12.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(stringResource(R.string.label_total), fontSize = 17.sp, modifier = Modifier.weight(1f))
@@ -510,7 +529,7 @@ private fun RowScope.SheetCalculatorKey(
 @Composable
 internal fun SheetNutritionRow(label: String, value: String, unit: String, dim: Boolean = false) {
     Row(
-        Modifier.fillMaxWidth().padding(horizontal = FlashSpacing.SheetInset, vertical = FlashSpacing.ItemGap),
+        Modifier.fillMaxWidth().padding(horizontal = 18.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
@@ -544,7 +563,7 @@ internal fun SheetAminoAcidHeader() {
         fontSize = 13.sp,
         fontWeight = FontWeight.SemiBold,
         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f),
-        modifier = Modifier.padding(horizontal = FlashSpacing.SheetInset, vertical = FlashSpacing.ItemGap)
+        modifier = Modifier.padding(horizontal = 18.dp, vertical = 10.dp)
     )
 }
 
@@ -567,19 +586,52 @@ internal fun SheetGlassDropdownMenu(
     menuWidth: Dp? = null,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    val neo = pinkNeoPalette()
-    val shape = androidx.compose.ui.graphics.RectangleShape
+    val shape = RoundedCornerShape(22.dp)
     val sizedModifier = if (menuWidth != null) modifier.width(menuWidth) else modifier
+    val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
+    val menuContainer = if (isDark) Color(0xF2141416) else Color(0xFFFAF3EE).copy(alpha = 0.98f)
+    val menuSheen = Brush.verticalGradient(
+        colors = if (isDark) {
+            listOf(
+                Color.White.copy(alpha = 0.045f),
+                Color.White.copy(alpha = 0.015f),
+                AppColors.Calorie.copy(alpha = 0.025f)
+            )
+        } else {
+            listOf(
+                Color.White.copy(alpha = 0.70f),
+                Color.White.copy(alpha = 0.24f),
+                AppColors.Calorie.copy(alpha = 0.040f)
+            )
+        }
+    )
+    val menuBorder = Brush.linearGradient(
+        colors = if (isDark) {
+            listOf(
+                Color.White.copy(alpha = 0.18f),
+                Color.White.copy(alpha = 0.055f),
+                AppColors.Calorie.copy(alpha = 0.08f)
+            )
+        } else {
+            listOf(
+                Color.White.copy(alpha = 0.95f),
+                Color.White.copy(alpha = 0.40f),
+                AppColors.Calorie.copy(alpha = 0.14f)
+            )
+        }
+    )
 
     DropdownMenu(
         expanded = expanded,
         onDismissRequest = onDismissRequest,
         shape = shape,
-        containerColor = neo.panel,
+        containerColor = menuContainer,
         tonalElevation = 0.dp,
         shadowElevation = 0.dp,
-        modifier = sizedModifier.padding(vertical = 5.dp),
-        border = BorderStroke(1.dp, neo.rule),
+        modifier = sizedModifier
+            .background(menuSheen, shape)
+            .border(0.8.dp, menuBorder, shape)
+            .padding(vertical = 5.dp),
         content = content
     )
 }
@@ -594,18 +646,17 @@ internal fun SheetGlassDropdownMenuItem(
     reserveSelectionSlot: Boolean = false,
     onClick: () -> Unit
 ) {
-    val neo = pinkNeoPalette()
+    val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
+    val checkTint = if (isDark) Color.White else AppColors.Calorie
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 7.dp, vertical = 1.dp)
-            .heightIn(min = FlashSpacing.MinTouchTarget)
-            .then(if (selected) Modifier.background(neo.wash).border(1.dp, neo.rule) else Modifier)
+            .clip(RoundedCornerShape(14.dp))
             .clickable(onClick = onClick)
-            .semantics { if (selected) this.selected = true }
             // ~48dp tap target per row (Material menu guidance), matching the
             // roomier iOS add-menu rows instead of the old cramped ~36dp.
-            .padding(horizontal = 10.dp, vertical = FlashSpacing.ItemGap),
+            .padding(horizontal = 10.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         when {
@@ -619,7 +670,7 @@ internal fun SheetGlassDropdownMenuItem(
                 Icon(
                     leadingIcon,
                     contentDescription = null,
-                    tint = neo.accent,
+                    tint = AppColors.Calorie,
                     modifier = Modifier.size(19.dp)
                 )
                 Spacer(Modifier.width(10.dp))
@@ -630,7 +681,7 @@ internal fun SheetGlassDropdownMenuItem(
                         Icon(
                             Icons.Filled.Check,
                             contentDescription = null,
-                            tint = neo.accent,
+                            tint = checkTint,
                             modifier = Modifier.size(17.dp)
                         )
                     }
@@ -642,9 +693,11 @@ internal fun SheetGlassDropdownMenuItem(
         Text(
             label,
             fontSize = 16.sp,
-            style = PinkNeoCondensed,
-            fontWeight = FontWeight.SemiBold,
-            color = neo.ink,
+            fontWeight = FontWeight.Medium,
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.94f),
+            lineHeight = 19.sp,
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis,
             modifier = Modifier.weight(1f)
         )
 
@@ -653,7 +706,7 @@ internal fun SheetGlassDropdownMenuItem(
             Icon(
                 Icons.Filled.Check,
                 contentDescription = null,
-                tint = neo.accent,
+                tint = checkTint,
                 modifier = Modifier.size(17.dp)
             )
         } else if (trailingIcon != null) {
@@ -684,8 +737,7 @@ internal fun SheetDateTimeCard(
             Modifier
                 .fillMaxWidth()
                 .clickable(onClick = onEditDate)
-                .heightIn(min = FlashSpacing.MinTouchTarget)
-                .padding(horizontal = FlashSpacing.SheetInset, vertical = FlashSpacing.ItemGap),
+                .padding(horizontal = 18.dp, vertical = 12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(stringResource(R.string.label_date), fontSize = 17.sp, modifier = Modifier.weight(1f))
@@ -701,8 +753,7 @@ internal fun SheetDateTimeCard(
             Modifier
                 .fillMaxWidth()
                 .clickable(onClick = onEditTime)
-                .heightIn(min = FlashSpacing.MinTouchTarget)
-                .padding(horizontal = FlashSpacing.SheetInset, vertical = FlashSpacing.ItemGap),
+                .padding(horizontal = 18.dp, vertical = 12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(stringResource(R.string.label_time), fontSize = 17.sp, modifier = Modifier.weight(1f))

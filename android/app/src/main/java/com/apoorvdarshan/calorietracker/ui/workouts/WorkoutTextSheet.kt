@@ -8,19 +8,14 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
+import com.apoorvdarshan.calorietracker.R
+import com.apoorvdarshan.calorietracker.ui.components.LocalEnergyUnit
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.apoorvdarshan.calorietracker.AppContainer
-import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.data.ExerciseItem
 import com.apoorvdarshan.calorietracker.models.*
-import com.apoorvdarshan.calorietracker.ui.components.FlashBottomSheet
-import com.apoorvdarshan.calorietracker.ui.components.FlashSheetAction
-import com.apoorvdarshan.calorietracker.ui.components.LocalEnergyUnit
-import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
 import kotlinx.serialization.encodeToString
@@ -108,13 +103,10 @@ internal fun WorkoutTextSheet(
         if (analyzeOnOpen && !started && draft == null) { started = true; analyze() }
     }
 
-    FlashBottomSheet(onDismissRequest = dismiss, sheetState = sheetState) {
-        val neo = pinkNeoPalette()
-        val setFieldsPerRow = if (LocalDensity.current.fontScale >= 1.3f) 1 else 2
+    ModalBottomSheet(onDismissRequest = dismiss, sheetState = sheetState) {
         Column(Modifier.fillMaxWidth().imePadding().verticalScroll(rememberScrollState())
             .padding(horizontal = 20.dp).padding(bottom = 28.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            Text(stringResource(R.string.workout_text_title), style = MaterialTheme.typography.headlineSmall,
-                fontWeight = FontWeight.Black)
+            Text(stringResource(R.string.workout_text_title), style = MaterialTheme.typography.headlineSmall)
             if (draft == null && (question != null || followUps.isNotEmpty())) {
                 Text(description, style = MaterialTheme.typography.bodyMedium)
                 followUps.forEach { Text(it.answer, color = MaterialTheme.colorScheme.onSurfaceVariant) }
@@ -129,12 +121,12 @@ internal fun WorkoutTextSheet(
                     }
                     OutlinedTextField(value = reply, onValueChange = { reply = it.take(500) },
                         label = { Text("Your answer") }, enabled = !busy, modifier = Modifier.fillMaxWidth())
-                    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        FlashSheetAction(onClick = { voiceReply = true }, enabled = !busy, primary = false) { Text("Voice reply") }
-                        FlashSheetAction(onClick = { answer(reply) }, enabled = !busy && reply.isNotBlank()) { Text("Continue") }
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        OutlinedButton(onClick = { voiceReply = true }, enabled = !busy) { Text("Voice reply") }
+                        Button(onClick = { answer(reply) }, enabled = !busy && reply.isNotBlank()) { Text("Continue") }
                     }
                 } else {
-                    FlashSheetAction(modifier = Modifier.fillMaxWidth(), onClick = { analyze() }, enabled = !busy) {
+                    Button(modifier = Modifier.fillMaxWidth(), onClick = { analyze() }, enabled = !busy) {
                         Text(stringResource(if (busy) R.string.workout_text_preparing else if (error != null) R.string.workout_text_retry else R.string.workout_text_preview))
                     }
                     if (busy) LinearProgressIndicator(Modifier.fillMaxWidth())
@@ -145,75 +137,73 @@ internal fun WorkoutTextSheet(
                     enabled = !busy, modifier = Modifier.fillMaxWidth(), minLines = 2,
                     label = { Text(stringResource(R.string.workout_text_description)) },
                     placeholder = { Text(stringResource(R.string.workout_text_example)) })
-                FlashSheetAction(modifier = Modifier.fillMaxWidth(), onClick = { analyze() }, enabled = description.isNotBlank() && !busy) {
-                    Text(stringResource(if (busy) R.string.workout_text_preparing else if (error != null) R.string.workout_text_retry else R.string.workout_text_preview))
+                Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                    Button(modifier = Modifier.fillMaxWidth(), onClick = {
+                        analyze()
+                    }, enabled = description.isNotBlank() && !busy) { Text(stringResource(if (busy) R.string.workout_text_preparing else if (error != null) R.string.workout_text_retry else R.string.workout_text_preview)) }
                 }
                 if (busy) LinearProgressIndicator(Modifier.fillMaxWidth())
             } else {
                 Text(stringResource(R.string.workout_text_review), style = MaterialTheme.typography.titleMedium)
                 OutlinedTextField(value = draft.date, onValueChange = { update(draft.copy(date = it)) },
-                    modifier = Modifier.fillMaxWidth(), enabled = !saving,
-                    label = { Text(stringResource(R.string.workout_text_date)) }, singleLine = true)
+                    enabled = !saving, label = { Text(stringResource(R.string.workout_text_date)) }, singleLine = true)
                 draft.exercises.forEach { exercise ->
                     key(exercise.id) {
                         fun edit(value: WorkoutTextExercise) = update(draft.copy(exercises = draft.exercises.map {
                             if (it.id == value.id) value else it
                         }))
-                        Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                            HorizontalDivider(color = neo.rule.copy(alpha = 0.35f))
-                            Text(exercise.name, style = MaterialTheme.typography.titleMedium)
-                            if (exercise.exerciseId == null) Text(stringResource(R.string.workout_text_custom),
-                                style = MaterialTheme.typography.bodySmall)
-                            if (exercise.minutes.isNotBlank() || exercise.sets.isEmpty()) {
-                                OutlinedTextField(value = exercise.minutes, onValueChange = { edit(exercise.copy(minutes = it)) },
-                                    label = { Text(stringResource(R.string.workout_text_minutes)) }, enabled = !saving, singleLine = true,
-                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal))
-                            }
-                            if (exercise.minutes.isNotBlank()) {
-                                Text(stringResource(R.string.workout_text_effort))
-                                FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                                    listOf("light" to R.string.workout_text_light, "moderate" to R.string.workout_text_moderate,
-                                        "vigorous" to R.string.workout_text_vigorous).forEach { (value, label) ->
-                                        FilterChip(selected = exercise.intensity == value,
-                                            onClick = { edit(exercise.copy(intensity = value)) }, enabled = !saving,
-                                            label = { Text(stringResource(label)) })
-                                    }
+                        Card(Modifier.fillMaxWidth()) {
+                            Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                                Text(exercise.name, style = MaterialTheme.typography.titleMedium)
+                                if (exercise.exerciseId == null) Text(stringResource(R.string.workout_text_custom),
+                                    style = MaterialTheme.typography.bodySmall)
+                                if (exercise.minutes.isNotBlank() || exercise.sets.isEmpty()) {
+                                    OutlinedTextField(value = exercise.minutes, onValueChange = { edit(exercise.copy(minutes = it)) },
+                                        label = { Text(stringResource(R.string.workout_text_minutes)) }, enabled = !saving, singleLine = true,
+                                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal))
                                 }
-                            }
-                            if (exercise.sets.isNotEmpty()) {
-                                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                                    listOf("kg", "lbs").forEach { option ->
-                                        FilterChip(selected = exercise.unit == option, onClick = { edit(exercise.copy(unit = option)) },
-                                            enabled = !saving, label = { Text(option) })
-                                    }
-                                }
-                                exercise.sets.forEachIndexed { index, set ->
-                                    key(set.id) {
-                                        FlowRow(
-                                            maxItemsInEachRow = setFieldsPerRow,
-                                            horizontalArrangement = Arrangement.spacedBy(8.dp),
-                                            verticalArrangement = Arrangement.spacedBy(8.dp)
-                                        ) {
-                                            OutlinedTextField(value = set.weight, onValueChange = { value ->
-                                                edit(exercise.copy(sets = exercise.sets.map { if (it.id == set.id) it.copy(weight = value) else it }))
-                                            }, label = { Text(stringResource(R.string.workout_text_set_weight, index + 1, exercise.unit)) }, enabled = !saving,
-                                                singleLine = true, modifier = Modifier.weight(1f),
-                                                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal))
-                                            OutlinedTextField(value = set.reps, onValueChange = { value ->
-                                                edit(exercise.copy(sets = exercise.sets.map { if (it.id == set.id) it.copy(reps = value) else it }))
-                                            }, label = { Text(stringResource(R.string.workout_text_reps)) }, enabled = !saving, singleLine = true,
-                                                modifier = Modifier.weight(1f), keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number))
+                                if (exercise.minutes.isNotBlank()) {
+                                    Text(stringResource(R.string.workout_text_effort))
+                                    Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                                        listOf("light" to R.string.workout_text_light, "moderate" to R.string.workout_text_moderate,
+                                            "vigorous" to R.string.workout_text_vigorous).forEach { (value, label) ->
+                                            FilterChip(selected = exercise.intensity == value,
+                                                onClick = { edit(exercise.copy(intensity = value)) }, enabled = !saving,
+                                                label = { Text(stringResource(label)) })
                                         }
-                                        OutlinedTextField(value = set.rpe, onValueChange = { value ->
-                                            edit(exercise.copy(sets = exercise.sets.map { if (it.id == set.id) it.copy(rpe = value) else it }))
-                                        }, label = { Text(stringResource(R.string.workout_text_rpe)) }, enabled = !saving,
-                                            singleLine = true, modifier = Modifier.fillMaxWidth(),
-                                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal))
                                     }
                                 }
+                                if (exercise.sets.isNotEmpty()) {
+                                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                        listOf("kg", "lbs").forEach { option ->
+                                            FilterChip(selected = exercise.unit == option, onClick = { edit(exercise.copy(unit = option)) },
+                                                enabled = !saving, label = { Text(option) })
+                                        }
+                                    }
+                                    exercise.sets.forEachIndexed { index, set ->
+                                        key(set.id) {
+                                            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                                OutlinedTextField(value = set.weight, onValueChange = { value ->
+                                                    edit(exercise.copy(sets = exercise.sets.map { if (it.id == set.id) it.copy(weight = value) else it }))
+                                                }, label = { Text(stringResource(R.string.workout_text_set_weight, index + 1, exercise.unit)) }, enabled = !saving,
+                                                    singleLine = true, modifier = Modifier.weight(1f),
+                                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal))
+                                                OutlinedTextField(value = set.reps, onValueChange = { value ->
+                                                    edit(exercise.copy(sets = exercise.sets.map { if (it.id == set.id) it.copy(reps = value) else it }))
+                                                }, label = { Text(stringResource(R.string.workout_text_reps)) }, enabled = !saving, singleLine = true,
+                                                    modifier = Modifier.weight(1f), keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number))
+                                            }
+                                            OutlinedTextField(value = set.rpe, onValueChange = { value ->
+                                                edit(exercise.copy(sets = exercise.sets.map { if (it.id == set.id) it.copy(rpe = value) else it }))
+                                            }, label = { Text(stringResource(R.string.workout_text_rpe)) }, enabled = !saving,
+                                                singleLine = true, modifier = Modifier.fillMaxWidth(),
+                                                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal))
+                                        }
+                                    }
+                                }
+                                TextButton(onClick = { update(draft.copy(exercises = draft.exercises.filterNot { it.id == exercise.id })) },
+                                    enabled = !saving) { Text(stringResource(R.string.workout_text_remove)) }
                             }
-                            TextButton(onClick = { update(draft.copy(exercises = draft.exercises.filterNot { it.id == exercise.id })) },
-                                enabled = !saving) { Text(stringResource(R.string.workout_text_remove)) }
                         }
                     }
                 }
@@ -231,10 +221,9 @@ internal fun WorkoutTextSheet(
                     )
                 }
                 Text(stringResource(R.string.workout_text_calories_note), style = MaterialTheme.typography.bodySmall)
-                FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    FlashSheetAction(onClick = { draftJson = null; error = null; followUpsJson = "[]"; question = null },
-                        enabled = !saving, primary = false) { Text(stringResource(R.string.workout_text_edit)) }
-                    FlashSheetAction(onClick = {
+                Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                    OutlinedButton(onClick = { draftJson = null; error = null; followUpsJson = "[]"; question = null }, enabled = !saving) { Text(stringResource(R.string.workout_text_edit)) }
+                    Button(onClick = {
                         saving = true; error = null
                         scope.launch {
                             try {

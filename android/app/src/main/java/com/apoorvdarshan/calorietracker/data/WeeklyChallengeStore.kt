@@ -32,8 +32,16 @@ data class WeeklyChallengeStoredState(
     val blockedParticipants: Map<String, String> = emptyMap(),
     /** Keeps the deletion credential alive across a local Delete Everything while offline. */
     val pendingRemoteDeletion: Boolean = false,
-    val enabledPeriods: Set<ChallengePeriod> = emptySet()
+    val enabledPeriods: Set<ChallengePeriod> = emptySet(),
+    val sharedMembershipInitialized: Boolean = false
 ) {
+    fun withSharedBoards(): WeeklyChallengeStoredState {
+        if (profile == null || pendingRemoteDeletion || sharedMembershipInitialized) return this
+        return copy(
+            enabledPeriods = setOf(ChallengePeriod.DAILY, ChallengePeriod.MONTHLY),
+            sharedMembershipInitialized = true
+        )
+    }
     fun cached(category: WeeklyChallengeCategory, weekStart: String, offset: Int = 0,
         period: ChallengePeriod = ChallengePeriod.WEEKLY): WeeklyChallengeLeaderboard? =
         cachedLeaderboards[cacheKey(category, weekStart, offset, period)]
@@ -90,7 +98,7 @@ class WeeklyChallengeStore(private val context: Context) {
 
     suspend fun update(transform: (WeeklyChallengeStoredState) -> WeeklyChallengeStoredState) {
         dataStore.edit { preferences ->
-            val next = transform(decode(preferences))
+            val next = transform(decode(preferences)).withSharedBoards()
             preferences[STATE] = json.encodeToString(WeeklyChallengeStoredState.serializer(), next)
         }
     }
@@ -103,7 +111,7 @@ class WeeklyChallengeStore(private val context: Context) {
 
     private fun decode(preferences: androidx.datastore.preferences.core.Preferences): WeeklyChallengeStoredState =
         preferences[STATE]?.let { raw ->
-            runCatching { json.decodeFromString(WeeklyChallengeStoredState.serializer(), raw) }.getOrNull()
+            runCatching { json.decodeFromString(WeeklyChallengeStoredState.serializer(), raw).withSharedBoards() }.getOrNull()
         } ?: WeeklyChallengeStoredState()
 
     private companion object {

@@ -12,8 +12,6 @@ import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -44,10 +42,8 @@ import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.automirrored.filled.ListAlt
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.ChevronRight
-import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.UnfoldMore
 import androidx.compose.material.icons.filled.Delete
-import com.apoorvdarshan.calorietracker.ui.components.FlashAlertDialog as AlertDialog
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -55,9 +51,10 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import com.apoorvdarshan.calorietracker.ui.components.FlashBottomSheet as ModalBottomSheet
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -76,6 +73,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.runtime.setValue
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
@@ -98,7 +96,6 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.platform.LocalDensity
-import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
@@ -145,10 +142,6 @@ import com.apoorvdarshan.calorietracker.models.WorkoutSession
 import com.apoorvdarshan.calorietracker.ui.home.SheetDatePickerDialog
 import com.apoorvdarshan.calorietracker.ui.navigation.BottomNavScrollPadding
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
-import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
-import com.apoorvdarshan.calorietracker.ui.theme.flashListRow
-import com.apoorvdarshan.calorietracker.ui.home.SheetGlassDropdownMenu
-import com.apoorvdarshan.calorietracker.ui.home.SheetGlassDropdownMenuItem
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
@@ -196,11 +189,36 @@ enum class TimeRange(@StringRes val labelRes: Int, val days: Int) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProgressScreen(container: AppContainer) {
+fun ProgressScreen(container: AppContainer, showChallengesInitially: Boolean = false) {
+    var destination by rememberSaveable {
+        mutableStateOf(if (showChallengesInitially) ProgressDestination.WEEKLY_CHALLENGE else ProgressDestination.MY_PROGRESS)
+    }
+    val destinationState = rememberSaveableStateHolder()
+    Column(Modifier.fillMaxSize()) {
+        ProgressDestinationSelector(
+            selected = destination,
+            onSelect = { destination = it },
+            modifier = Modifier.padding(start = 16.dp, top = 12.dp, end = 16.dp, bottom = 4.dp)
+        )
+        Box(Modifier.weight(1f)) {
+            destinationState.SaveableStateProvider(destination.name) {
+                when (destination) {
+                    ProgressDestination.MY_PROGRESS -> MyProgressContent(container)
+                    ProgressDestination.WEEKLY_CHALLENGE -> WeeklyChallengeScreen(container)
+                }
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun MyProgressContent(container: AppContainer) {
     val vm: ProgressViewModel = viewModel(factory = ProgressViewModel.Factory(container))
     val ui by vm.ui.collectAsState()
     val foods by container.foodRepository.entries.collectAsState(initial = emptyList())
     val weightUnit by container.prefs.weightUnit.collectAsState(initial = "kg")
+    val calorieDisplayRange by container.prefs.calorieDisplayRange.collectAsState(initial = 0 to 0)
     val optionalNutrientGoals by container.prefs.optionalNutrientGoals.collectAsState(
         initial = OptionalNutrientGoals.Default
     )
@@ -349,16 +367,16 @@ fun ProgressScreen(container: AppContainer) {
 
     Scaffold(containerColor = MaterialTheme.colorScheme.background) { padding ->
         LazyColumn(
-            modifier = Modifier.fillMaxSize().padding(padding).testTag("progress.content"),
+            modifier = Modifier.fillMaxSize().padding(padding),
             contentPadding = androidx.compose.foundation.layout.PaddingValues(
-                start = FlashSpacing.PageInset,
-                top = FlashSpacing.ItemGap,
-                end = FlashSpacing.PageInset,
+                start = 16.dp,
+                top = 16.dp,
+                end = 16.dp,
                 bottom = BottomNavScrollPadding
             ),
-            verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap)
+            verticalArrangement = Arrangement.spacedBy(18.dp)
         ) {
-            // 1. Time range menu
+            // 1. Segmented TimeRange picker
             item { TimeRangePicker(selected = range, onSelect = { range = it }) }
 
             if (range.supportsPeriodNavigation) {
@@ -401,7 +419,7 @@ fun ProgressScreen(container: AppContainer) {
                             goalFraction = ui.profile?.goalBodyFatPercentage,
                             onLogBodyFat = { showAddBodyFatDialog = true }
                         )
-                        ProgressMetric.WORKOUTS -> Column(verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap)) {
+                        ProgressMetric.WORKOUTS -> Column(verticalArrangement = Arrangement.spacedBy(18.dp)) {
                             val showsCalculated = reliableWorkoutBurnSessions.isNotEmpty() || importedWorkouts.isEmpty()
                             if (showsCalculated) WorkoutProgressSection(filteredWorkouts)
                             if (importedWorkouts.isNotEmpty()) {
@@ -474,6 +492,9 @@ fun ProgressScreen(container: AppContainer) {
                         }
                     }
 
+                    if (calorieDisplayRange.first > 0 || calorieDisplayRange.second > 0) {
+                        item { CardSection { com.apoorvdarshan.calorietracker.ui.settings.CalorieRangeSettings(container.prefs) } }
+                    }
                     ui.profile?.let { p ->
                         item {
                             CardSection {
@@ -600,88 +621,97 @@ fun ProgressScreen(container: AppContainer) {
 
 @Composable
 private fun TimeRangePicker(selected: TimeRange, onSelect: (TimeRange) -> Unit) {
-    var expanded by remember { mutableStateOf(false) }
-    val neo = pinkNeoPalette()
-    Box {
-        Row(
-            Modifier
-                .testTag("progress.timeRange")
-                .fillMaxWidth()
-                .background(neo.panel)
-                .border(1.dp, neo.rule)
-                .clickable(role = Role.Button) { expanded = true }
-                .flashListRow(),
-            horizontalArrangement = Arrangement.spacedBy(FlashSpacing.ItemGap),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(Icons.Filled.DateRange, contentDescription = null, tint = neo.accent,
-                modifier = Modifier.size(18.dp))
-            Text(stringResource(R.string.import_date_range), modifier = Modifier.weight(1f),
-                style = MaterialTheme.typography.titleSmall)
-            Text(stringResource(selected.labelRes), color = neo.accent,
-                style = MaterialTheme.typography.labelLarge)
-            Icon(Icons.Filled.UnfoldMore, contentDescription = null, tint = neo.accent,
-                modifier = Modifier.size(16.dp))
-        }
-        Box(Modifier.align(Alignment.BottomEnd)) {
-            SheetGlassDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
-                TimeRange.entries.forEach { range ->
-                    SheetGlassDropdownMenuItem(
-                        label = stringResource(range.labelRes),
-                        selected = range == selected,
-                        reserveSelectionSlot = true,
-                        onClick = {
-                            expanded = false
-                            onSelect(range)
-                        }
-                    )
-                }
-            }
-        }
-    }
+    // Match iOS `.pickerStyle(.segmented)` for 1W / 1M / … — elevated selected
+    // pill on a muted track, not the brand gradient chips.
+    IosStyleSegmentedControl(
+        options = TimeRange.values().toList(),
+        selected = selected,
+        label = { stringResource(it.labelRes) },
+        onSelect = onSelect
+    )
 }
 
-@OptIn(ExperimentalLayoutApi::class)
+/**
+ * Plain iOS-style segmented control used for time range and progress metrics.
+ */
 @Composable
-private fun <T> FlashProgressSegments(
+private fun <T> IosStyleSegmentedControl(
     options: List<T>,
     selected: T,
     label: @Composable (T) -> String,
     onSelect: (T) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val neo = pinkNeoPalette()
-    val large = LocalDensity.current.fontScale >= 1.3f
-    FlowRow(
-        modifier = modifier
+    val shape = RoundedCornerShape(16.dp)
+    val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
+    val trackFill = if (isDark) {
+        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.34f)
+    } else {
+        Color(0xFFE5DAD3).copy(alpha = 0.88f)
+    }
+    val selectedFill = if (isDark) {
+        Color.White.copy(alpha = 0.18f)
+    } else {
+        Color.White
+    }
+    val shadowAlpha = if (isDark) 0.16f else 0.06f
+    Row(
+        modifier
             .fillMaxWidth()
-            .selectableGroup(),
-        maxItemsInEachRow = if (large) 2 else 3,
-        horizontalArrangement = Arrangement.spacedBy(4.dp),
-        verticalArrangement = Arrangement.spacedBy(4.dp)
+            .shadow(
+                elevation = if (isDark) 10.dp else 4.dp,
+                shape = shape,
+                ambientColor = Color.Black.copy(alpha = shadowAlpha),
+                spotColor = Color.Black.copy(alpha = shadowAlpha)
+            )
+            .clip(shape)
+            .background(trackFill)
+            .border(
+                0.7.dp,
+                Color.White.copy(alpha = if (isDark) 0.10f else 0.45f),
+                shape
+            )
+            .padding(3.dp)
+            .selectableGroup()
     ) {
         options.forEach { option ->
             val isSel = option == selected
             Box(
                 Modifier
                     .weight(1f)
-                    .background(if (isSel) neo.action else neo.panel)
-                    .border(1.dp, neo.rule)
+                    .clip(RoundedCornerShape(13.dp))
+                    .then(
+                        if (isSel) {
+                            Modifier
+                                .shadow(
+                                    elevation = if (isDark) 2.dp else 3.dp,
+                                    shape = RoundedCornerShape(13.dp),
+                                    ambientColor = Color.Black.copy(alpha = if (isDark) 0.25f else 0.08f),
+                                    spotColor = Color.Black.copy(alpha = if (isDark) 0.25f else 0.08f)
+                                )
+                                .background(selectedFill)
+                        } else {
+                            Modifier.background(Color.Transparent)
+                        }
+                    )
                     .selectable(
                         selected = isSel,
                         role = Role.Tab,
                         onClick = { onSelect(option) }
                     )
-                    .heightIn(min = 48.dp)
-                    .padding(vertical = 6.dp, horizontal = 4.dp),
+                    .padding(vertical = 8.dp, horizontal = 4.dp),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
                     label(option),
                     fontSize = 13.sp,
                     fontWeight = if (isSel) FontWeight.SemiBold else FontWeight.Medium,
-                    textAlign = TextAlign.Center,
-                    color = if (isSel) neo.onAction else neo.ink
+                    maxLines = 1,
+                    color = if (isSel) {
+                        MaterialTheme.colorScheme.onSurface
+                    } else {
+                        MaterialTheme.colorScheme.onSurface.copy(alpha = 0.72f)
+                    }
                 )
             }
         }
@@ -708,12 +738,11 @@ internal fun PeriodNavigator(
     val context = LocalContext.current
     val label = remember(start, end) { formatProgressPeriod(context, start, end) }
     if (embedded) {
-        val neo = pinkNeoPalette()
         Box(
             Modifier
                 .fillMaxWidth()
-                .background(neo.inset)
-                .border(1.dp, neo.rule.copy(alpha = 0.32f))
+                .clip(RoundedCornerShape(12.dp))
+                .background(AppColors.Calorie.copy(alpha = 0.055f))
         ) {
             PeriodNavigatorRow(label, canGoForward, onPrevious, onNext, previousDescription, nextDescription)
         }
@@ -750,7 +779,9 @@ private fun PeriodNavigatorRow(
             modifier = Modifier.weight(1f),
             fontSize = 15.sp,
             fontWeight = FontWeight.SemiBold,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
         )
         IconButton(onClick = onNext, enabled = canGoForward) {
             Icon(
@@ -2171,13 +2202,14 @@ private fun ProgressMetricSelector(
     selected: ProgressMetric,
     onSelect: (ProgressMetric) -> Unit
 ) {
+    // Match iOS `ProgressMetricSelector` segmented pill (text only, equal weight).
     val labels = mapOf(
         ProgressMetric.WEIGHT to stringResource(R.string.progress_metric_weight),
         ProgressMetric.BODY_FAT to stringResource(R.string.progress_metric_body_fat),
         ProgressMetric.WORKOUTS to stringResource(R.string.progress_metric_workouts),
         ProgressMetric.STEPS to stringResource(R.string.progress_metric_steps)
     )
-    FlashProgressSegments(
+    IosStyleSegmentedControl(
         options = metrics,
         selected = selected,
         label = { labels.getValue(it) },

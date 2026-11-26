@@ -365,28 +365,6 @@
         "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "蛋白质" } }
       }
     },
-    "Today" : {
-      "localizations" : {
-        "ar" : { "stringUnit" : { "state" : "translated", "value" : "اليوم" } },
-        "az" : { "stringUnit" : { "state" : "translated", "value" : "Bu gün" } },
-        "cs" : { "stringUnit" : { "state" : "translated", "value" : "Dnes" } },
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Heute" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Hoy" } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Aujourd’hui" } },
-        "hi" : { "stringUnit" : { "state" : "translated", "value" : "आज" } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Oggi" } },
-        "ja" : { "stringUnit" : { "state" : "translated", "value" : "今日" } },
-        "ko" : { "stringUnit" : { "state" : "translated", "value" : "오늘" } },
-        "nl" : { "stringUnit" : { "state" : "translated", "value" : "Vandaag" } },
-        "pl" : { "stringUnit" : { "state" : "translated", "value" : "Dzisiaj" } },
-        "pt-BR" : { "stringUnit" : { "state" : "translated", "value" : "Hoje" } },
-        "ro" : { "stringUnit" : { "state" : "translated", "value" : "Azi" } },
-        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Сегодня" } },
-        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Bugün" } },
-        "uk" : { "stringUnit" : { "state" : "translated", "value" : "Сьогодні" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "今天" } }
-      }
-    },
     "Water" : {
       "localizations" : {
         "ar" : { "stringUnit" : { "state" : "translated", "value" : "الماء" } },

@@ -99,6 +99,7 @@ final class WeeklyChallengeStore {
     private static let pendingDeletionKey = "weeklyChallenge.pendingDeletion.v1"
     private static let blockedParticipantIDsKey = "weeklyChallenge.blockedParticipantIDs.v1"
     private static let enabledPeriodsKey = "challenge.periodConsent.v1"
+    private static let sharedMembershipKey = "challenge.sharedMembershipParticipant.v1"
 
     private(set) var leaderboard: WeeklyChallengeLeaderboardResponse?
     private(set) var publicProfile: WeeklyChallengePublicProfile?
@@ -177,6 +178,16 @@ final class WeeklyChallengeStore {
         } else if participantID == nil, bearerToken != nil {
             KeychainHelper.delete(key: Self.tokenKey)
         }
+        enableSharedBoardsForMember()
+    }
+
+    /// Apply once per membership so subsequently leaving a board is respected.
+    private func enableSharedBoardsForMember() {
+        guard isJoined, let participantID,
+              defaults.string(forKey: Self.sharedMembershipKey) != participantID else { return }
+        enabledPeriods.formUnion([.daily, .monthly])
+        persistEnabledPeriods()
+        defaults.set(participantID, forKey: Self.sharedMembershipKey)
     }
 
     var isJoined: Bool {
@@ -455,6 +466,7 @@ final class WeeklyChallengeStore {
             publicProfile = response.profile
             defaults.set(response.participantId, forKey: Self.participantIDKey)
             KeychainHelper.save(key: Self.tokenKey, value: response.bearerToken)
+            enableSharedBoardsForMember()
             persistPublicProfile(response.profile)
             // `refresh` queues and uploads the latest aggregate before fetching
             // rankings, so joining performs a single idempotent score PUT.
@@ -694,6 +706,7 @@ final class WeeklyChallengeStore {
         defaults.removeObject(forKey: Self.pendingScoreKey)
         defaults.removeObject(forKey: Self.cachedLeaderboardKey)
         defaults.removeObject(forKey: Self.enabledPeriodsKey)
+        defaults.removeObject(forKey: Self.sharedMembershipKey)
         if deleteCredential {
             KeychainHelper.delete(key: Self.tokenKey)
             KeychainHelper.delete(key: Self.pendingDeletionKey)

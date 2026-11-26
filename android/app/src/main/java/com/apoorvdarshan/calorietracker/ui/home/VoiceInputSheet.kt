@@ -1,6 +1,5 @@
 package com.apoorvdarshan.calorietracker.ui.home
 
-import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
 import android.Manifest
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -37,7 +36,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import com.apoorvdarshan.calorietracker.ui.components.FlashBottomSheet as ModalBottomSheet
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -55,6 +54,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -70,8 +70,6 @@ import com.apoorvdarshan.calorietracker.services.speech.AudioRecorder
 import com.apoorvdarshan.calorietracker.services.speech.NativeSpeechRecognizer
 import com.apoorvdarshan.calorietracker.services.speech.SttEvent
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
-import com.apoorvdarshan.calorietracker.ui.theme.contrastingActionInk
-import com.apoorvdarshan.calorietracker.ui.theme.pinkNeoPalette
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -320,7 +318,7 @@ fun VoiceInputSheet(
         Column(
             Modifier
                 .fillMaxWidth()
-                .padding(horizontal = FlashSpacing.SheetInset, vertical = FlashSpacing.SectionGap),
+                .padding(horizontal = 20.dp, vertical = 24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             // Provider pill — pink capsule with a bolt + provider name (mirrors iOS).
@@ -496,7 +494,6 @@ fun VoiceInputSheet(
 @Composable
 private fun MicButton(phase: VoicePhase, onToggle: () -> Unit) {
     val recording = phase == VoicePhase.RECORDING
-    val neo = pinkNeoPalette()
     // iOS has a slow 0.8s ease-in-out pulse to 1.15x while recording.
     val infinite = rememberInfiniteTransition(label = "micPulse")
     val pulse by infinite.animateFloat(
@@ -513,13 +510,16 @@ private fun MicButton(phase: VoicePhase, onToggle: () -> Unit) {
         animationSpec = tween(200),
         label = "micScale"
     )
-    val fill = if (recording) Color(0xFFD92626) else neo.action
+    val bgBrush = if (recording)
+        Brush.linearGradient(listOf(Color(0xFFFF3B30), Color(0xFFFF6B60))) // iOS red.fill
+    else
+        Brush.linearGradient(listOf(AppColors.CalorieStart, AppColors.CalorieEnd))
     val interactionSource = remember { MutableInteractionSource() }
     Box(
         Modifier
             .size((80 * scale).dp)
             .clip(CircleShape)
-            .background(fill)
+            .background(bgBrush)
             .clickable(
                 interactionSource = interactionSource,
                 indication = null,
@@ -530,7 +530,7 @@ private fun MicButton(phase: VoicePhase, onToggle: () -> Unit) {
         Icon(
             imageVector = if (recording) Icons.Filled.Mic else Icons.Filled.MicNone,
             contentDescription = if (recording) stringResource(R.string.voice_stop) else stringResource(R.string.voice_record),
-            tint = contrastingActionInk(fill),
+            tint = Color.White,
             modifier = Modifier.size(32.dp)
         )
     }

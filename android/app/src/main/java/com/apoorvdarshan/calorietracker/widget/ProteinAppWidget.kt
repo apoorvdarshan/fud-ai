@@ -14,7 +14,9 @@ import androidx.glance.LocalSize
 import androidx.glance.action.actionStartActivity
 import androidx.glance.action.clickable
 import androidx.glance.appwidget.SizeMode
+import androidx.glance.appwidget.cornerRadius
 import androidx.glance.appwidget.provideContent
+import androidx.glance.background
 import androidx.glance.layout.Alignment
 import androidx.glance.layout.Box
 import androidx.glance.layout.Column
@@ -72,7 +74,8 @@ private fun ProteinWidgetContent(snapshot: WidgetSnapshot) {
     Box(
         modifier = GlanceModifier
             .fillMaxSize()
-            .flashWidgetPanel()
+            .background(WidgetTheme.backgroundProvider)
+            .cornerRadius(22.dp)
             .padding(14.dp)
             .clickable(actionStartActivity<MainActivity>())
     ) {
@@ -94,7 +97,7 @@ private fun ProteinSmall(snapshot: WidgetSnapshot) {
     val gaugeW = minOf(contentW, (contentH - 44f) / 0.58f).toInt().coerceAtLeast(80)
 
     Column(modifier = GlanceModifier.fillMaxSize()) {
-        WidgetHeader(R.drawable.ic_widget_bolt, nutrient.label, snapshot.themeStartHex)
+        WidgetHeader(iconRes = R.drawable.ic_widget_bolt, label = nutrient.label)
         Box(
             modifier = GlanceModifier.fillMaxWidth().defaultWeight(),
             contentAlignment = Alignment.Center
@@ -103,6 +106,7 @@ private fun ProteinSmall(snapshot: WidgetSnapshot) {
                 progress = nutrient.progress.toFloat(),
                 gaugeWidthDp = gaugeW,
                 startHex = snapshot.themeStartHex,
+                endHex = snapshot.themeEndHex,
                 centerLarge = LocalContext.current.valueWithUnit(MacroValueFormatter.display(nutrient.value), nutrient.unit),
                 centerSmall = "/ " + LocalContext.current.valueWithUnit(MacroValueFormatter.display(nutrient.goal), nutrient.unit)
             )
@@ -110,7 +114,7 @@ private fun ProteinSmall(snapshot: WidgetSnapshot) {
         Text(
             text = AppLocalization.context(LocalContext.current).getString(R.string.widget_left_format, LocalContext.current.valueWithUnit(MacroValueFormatter.display(remaining), nutrient.unit)),
             style = TextStyle(
-                color = WidgetTheme.secondaryTextProvider,
+                color = WidgetTheme.themeTextProvider(snapshot.themeStartHex),
                 fontWeight = FontWeight.Medium,
                 fontSize = 12.sp
             )
@@ -136,6 +140,7 @@ private fun ProteinMedium(snapshot: WidgetSnapshot) {
                 progress = nutrient.progress.toFloat(),
                 gaugeWidthDp = gaugeW,
                 startHex = snapshot.themeStartHex,
+                endHex = snapshot.themeEndHex,
                 centerLarge = LocalContext.current.valueWithUnit(MacroValueFormatter.display(nutrient.value), nutrient.unit),
                 centerSmall = "/ " + LocalContext.current.valueWithUnit(MacroValueFormatter.display(nutrient.goal), nutrient.unit)
             )
@@ -143,7 +148,7 @@ private fun ProteinMedium(snapshot: WidgetSnapshot) {
             Text(
                 text = AppLocalization.context(LocalContext.current).getString(R.string.widget_left_format, LocalContext.current.valueWithUnit(MacroValueFormatter.display(remaining), nutrient.unit)),
                 style = TextStyle(
-                    color = WidgetTheme.secondaryTextProvider,
+                    color = WidgetTheme.themeTextProvider(snapshot.themeStartHex),
                     fontWeight = FontWeight.Medium,
                     fontSize = 12.sp
                 )

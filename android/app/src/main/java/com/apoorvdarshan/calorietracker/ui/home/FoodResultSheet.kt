@@ -25,14 +25,13 @@ import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.LockOpen
 import androidx.compose.material.icons.filled.UnfoldMore
 import androidx.compose.material.icons.outlined.QrCodeScanner
-import com.apoorvdarshan.calorietracker.ui.components.FlashAlertDialog as AlertDialog
-import com.apoorvdarshan.calorietracker.ui.components.FlashLoadingDialog
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import com.apoorvdarshan.calorietracker.ui.components.FlashBottomSheet as ModalBottomSheet
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -44,6 +43,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -92,7 +93,6 @@ import com.apoorvdarshan.calorietracker.ui.components.LocalEnergyUnit
 import com.apoorvdarshan.calorietracker.ui.components.energyText
 import com.apoorvdarshan.calorietracker.ui.components.energyUnitLabel
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
-import com.apoorvdarshan.calorietracker.ui.theme.FlashSpacing
 import kotlin.math.roundToInt
 import java.time.Instant
 import java.time.LocalDate
@@ -512,9 +512,9 @@ fun FoodResultSheet(
                 .pointerInput(Unit) {
                     detectTapGestures(onTap = { dismissKeyboard() })
                 }
-                .padding(horizontal = FlashSpacing.SheetInset)
+                .padding(horizontal = 20.dp)
                 .padding(bottom = 28.dp),
-            verticalArrangement = Arrangement.spacedBy(FlashSpacing.SectionGap)
+            verticalArrangement = Arrangement.spacedBy(18.dp)
         ) {
             // Swipeable original-photo gallery OR 80sp emoji fallback.
             item {
@@ -577,7 +577,22 @@ fun FoodResultSheet(
 
             item { SheetSectionHeader(stringResource(R.string.sheet_food_details)) }
             item {
-                SheetFoodNameField(name = name, onNameChange = { name = it })
+                SheetPillRow {
+                    Text(stringResource(R.string.sheet_name), fontSize = 17.sp, modifier = Modifier.padding(end = 8.dp))
+                    Spacer(Modifier.weight(1f))
+                    androidx.compose.foundation.text.BasicTextField(
+                        value = name,
+                        onValueChange = { name = it },
+                        singleLine = true,
+                        textStyle = androidx.compose.ui.text.TextStyle(
+                            color = MaterialTheme.colorScheme.onSurface,
+                            fontSize = 17.sp,
+                            textAlign = androidx.compose.ui.text.style.TextAlign.End
+                        ),
+                        cursorBrush = androidx.compose.ui.graphics.SolidColor(AppColors.Calorie),
+                        modifier = Modifier.weight(2f)
+                    )
+                }
             }
 
             // Allergen safety stays near the top for configured sensitivities;
@@ -940,7 +955,20 @@ fun FoodResultSheet(
     previewPhotoIndex?.let { index ->
         val images = viewerBitmaps
         if (images == null) {
-            FlashLoadingDialog(onDismissRequest = { previewPhotoIndex = null })
+            Dialog(
+                onDismissRequest = { previewPhotoIndex = null },
+                properties = DialogProperties(dismissOnBackPress = true, dismissOnClickOutside = false)
+            ) {
+                Box(
+                    Modifier
+                        .size(96.dp)
+                        .clip(RoundedCornerShape(16.dp))
+                        .background(Color.Black.copy(alpha = 0.72f)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator(color = Color.White, modifier = Modifier.size(36.dp))
+                }
+            }
         } else if (images.isNotEmpty()) {
             FullScreenImageViewer(
                 bitmaps = images,

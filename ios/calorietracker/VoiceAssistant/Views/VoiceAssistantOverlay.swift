@@ -102,7 +102,7 @@ private struct VoiceAssistantExpandedView: View {
 
     var body: some View {
         ZStack {
-            Color(hex: PinkNeoFlash.paperDark)
+            AppColors.appBackground
                 .ignoresSafeArea()
                 .accessibilityHidden(true)
 

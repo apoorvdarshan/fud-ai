@@ -1,12 +1,11 @@
 import SwiftUI
 import WidgetKit
 
-private extension WidgetSnapshot {
-    var flashAccent: Color {
-        let hex = PinkNeoFlash.snapshotAccent(start: themeStartHex)
-        return Color(red: Double((hex >> 16) & 255) / 255, green: Double((hex >> 8) & 255) / 255,
-                     blue: Double(hex & 255) / 255)
-    }
+private enum WatchWidgetPalette {
+    static let calories = Color.red
+    static let protein = Color.blue
+    static let carbs = Color.green
+    static let fat = Color.orange
 }
 
 private enum WatchWidgetFormat {
@@ -93,7 +92,7 @@ private struct WatchCaloriesWidgetView: View {
                 value: "\(snapshot.displayCalories)",
                 label: snapshot.energyUnitSymbol,
                 progress: snapshot.calorieProgress,
-                color: snapshot.flashAccent,
+                color: WatchWidgetPalette.calories,
                 icon: "flame.fill"
             )
         case .accessoryRectangular:
@@ -105,14 +104,14 @@ private struct WatchCaloriesWidgetView: View {
                 value: "\(snapshot.displayCalories)",
                 unit: snapshot.energyUnitSymbol,
                 progress: snapshot.calorieProgress,
-                color: snapshot.flashAccent
+                color: WatchWidgetPalette.calories
             )
         default:
             NutrientCircularView(
                 value: "\(snapshot.displayCalories)",
                 label: snapshot.energyUnitSymbol,
                 progress: snapshot.calorieProgress,
-                color: snapshot.flashAccent,
+                color: WatchWidgetPalette.calories,
                 icon: "flame.fill"
             )
         }
@@ -130,7 +129,7 @@ private struct WatchProteinWidgetView: View {
                 value: WatchWidgetFormat.macro(snapshot.protein),
                 label: "prot",
                 progress: snapshot.proteinProgress,
-                color: snapshot.flashAccent,
+                color: WatchWidgetPalette.protein,
                 icon: "bolt.fill"
             )
         case .accessoryRectangular:
@@ -140,7 +139,7 @@ private struct WatchProteinWidgetView: View {
                 subtitle: "of \(snapshot.proteinGoal)g",
                 footer: "\(WatchWidgetFormat.macro(snapshot.proteinRemaining))g left",
                 progress: snapshot.proteinProgress,
-                color: snapshot.flashAccent,
+                color: WatchWidgetPalette.protein,
                 icon: "bolt.fill"
             )
         case .accessoryInline:
@@ -150,14 +149,14 @@ private struct WatchProteinWidgetView: View {
                 value: WatchWidgetFormat.macro(snapshot.protein),
                 unit: "g",
                 progress: snapshot.proteinProgress,
-                color: snapshot.flashAccent
+                color: WatchWidgetPalette.protein
             )
         default:
             NutrientCircularView(
                 value: WatchWidgetFormat.macro(snapshot.protein),
                 label: "prot",
                 progress: snapshot.proteinProgress,
-                color: snapshot.flashAccent,
+                color: WatchWidgetPalette.protein,
                 icon: "bolt.fill"
             )
         }
@@ -192,7 +191,7 @@ private struct CaloriesRectangularView: View {
             subtitle: "of \(snapshot.displayCalorieGoal) \(snapshot.energyUnitSymbol)",
             footer: "P\(WatchWidgetFormat.macro(snapshot.protein)) C\(WatchWidgetFormat.macro(snapshot.carbs)) F\(WatchWidgetFormat.macro(snapshot.fat))",
             progress: snapshot.calorieProgress,
-            color: snapshot.flashAccent,
+            color: WatchWidgetPalette.calories,
             icon: "flame.fill"
         )
     }
@@ -216,17 +215,17 @@ private struct NutrientCircularView: View {
                 .stroke(color, style: StrokeStyle(lineWidth: 3.5, lineCap: .round))
                 .rotationEffect(.degrees(-90))
                 .padding(3)
-                .widgetAccentable()
             VStack(spacing: 0) {
                 Image(systemName: icon)
                     .font(.system(size: 9, weight: .bold))
                 Text(value)
-                    .font(.system(size: 13, weight: .black).width(.condensed).monospacedDigit())
+                    .font(.system(size: 13, weight: .bold, design: .rounded))
                     .minimumScaleFactor(0.55)
                     .lineLimit(1)
                 Text(label)
                     .font(.system(size: 7, weight: .semibold, design: .rounded))
             }
+            .widgetAccentable()
         }
     }
 }
@@ -257,23 +256,20 @@ private struct NutrientRectangularView: View {
 
             VStack(alignment: .leading, spacing: 1) {
                 Text(title)
-                    .font(.system(size: 10, weight: .semibold))
+                    .font(.caption2.weight(.semibold))
                     .foregroundStyle(.secondary)
                     .lineLimit(1)
-                HStack(alignment: .firstTextBaseline, spacing: 3) {
-                    Text(value)
-                        .font(.system(size: 15, weight: .black).width(.condensed).monospacedDigit())
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.7)
-                        .layoutPriority(1)
-                    Text(subtitle)
-                        .font(.system(size: 9))
-                        .foregroundStyle(.secondary)
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.7)
-                }
+                Text(value)
+                    .font(.system(.headline, design: .rounded, weight: .bold))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
+                    .widgetAccentable()
+                Text(subtitle)
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+                    .lineLimit(1)
                 Text(footer)
-                    .font(.system(size: 9, weight: .medium))
+                    .font(.caption2.weight(.medium))
                     .foregroundStyle(.secondary)
                     .lineLimit(1)
                     .minimumScaleFactor(0.7)
@@ -297,7 +293,7 @@ private struct CornerValueView: View {
                 .widgetAccentable()
             VStack(spacing: 0) {
                 Text(value)
-                    .font(.system(size: 12, weight: .black).width(.condensed).monospacedDigit())
+                    .font(.system(size: 12, weight: .bold, design: .rounded))
                     .minimumScaleFactor(0.55)
                     .lineLimit(1)
                 Text(unit)
@@ -315,9 +311,9 @@ private struct MacrosCircularView: View {
         ZStack {
             AccessoryWidgetBackground()
             VStack(spacing: 2) {
-                MacroMiniLine(label: "P", value: snapshot.protein, progress: snapshot.proteinProgress, color: snapshot.flashAccent)
-                MacroMiniLine(label: "C", value: snapshot.carbs, progress: snapshot.carbsProgress, color: snapshot.flashAccent)
-                MacroMiniLine(label: "F", value: snapshot.fat, progress: snapshot.fatProgress, color: snapshot.flashAccent)
+                MacroMiniLine(label: "P", value: snapshot.protein, progress: snapshot.proteinProgress, color: WatchWidgetPalette.protein)
+                MacroMiniLine(label: "C", value: snapshot.carbs, progress: snapshot.carbsProgress, color: WatchWidgetPalette.carbs)
+                MacroMiniLine(label: "F", value: snapshot.fat, progress: snapshot.fatProgress, color: WatchWidgetPalette.fat)
             }
             .padding(.horizontal, 7)
         }
@@ -330,11 +326,11 @@ private struct MacrosRectangularView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 3) {
             Text("Macros")
-                .font(.system(size: 10, weight: .semibold))
+                .font(.caption2.weight(.semibold))
                 .foregroundStyle(.secondary)
-            MacroBar(label: "P", value: snapshot.protein, goal: snapshot.proteinGoal, progress: snapshot.proteinProgress, color: snapshot.flashAccent)
-            MacroBar(label: "C", value: snapshot.carbs, goal: snapshot.carbsGoal, progress: snapshot.carbsProgress, color: snapshot.flashAccent)
-            MacroBar(label: "F", value: snapshot.fat, goal: snapshot.fatGoal, progress: snapshot.fatProgress, color: snapshot.flashAccent)
+            MacroBar(label: "P", value: snapshot.protein, goal: snapshot.proteinGoal, progress: snapshot.proteinProgress, color: WatchWidgetPalette.protein)
+            MacroBar(label: "C", value: snapshot.carbs, goal: snapshot.carbsGoal, progress: snapshot.carbsProgress, color: WatchWidgetPalette.carbs)
+            MacroBar(label: "F", value: snapshot.fat, goal: snapshot.fatGoal, progress: snapshot.fatProgress, color: WatchWidgetPalette.fat)
         }
     }
 }
@@ -356,8 +352,7 @@ private struct MacroMiniLine: View {
                     .overlay(alignment: .leading) {
                         Capsule()
                             .fill(color)
-                            .frame(width: geometry.size.width * progress)
-                            .widgetAccentable()
+                            .frame(width: max(3, geometry.size.width * progress))
                     }
             }
             .frame(height: 4)
@@ -379,7 +374,7 @@ private struct MacroBar: View {
     var body: some View {
         HStack(spacing: 4) {
             Text(label)
-                .font(.system(size: 9, weight: .bold))
+                .font(.caption2.weight(.bold))
                 .frame(width: 10, alignment: .leading)
             GeometryReader { geometry in
                 Capsule()
@@ -387,13 +382,12 @@ private struct MacroBar: View {
                     .overlay(alignment: .leading) {
                         Capsule()
                             .fill(color)
-                            .frame(width: geometry.size.width * progress)
-                            .widgetAccentable()
+                            .frame(width: max(4, geometry.size.width * progress))
                     }
             }
             .frame(height: 5)
             Text("\(WatchWidgetFormat.macro(value))/\(goal)")
-                .font(.system(size: 9).monospacedDigit())
+                .font(.caption2.monospacedDigit())
                 .foregroundStyle(.secondary)
                 .lineLimit(1)
                 .minimumScaleFactor(0.65)

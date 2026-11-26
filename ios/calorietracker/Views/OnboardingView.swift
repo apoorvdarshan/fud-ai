@@ -267,10 +267,12 @@ struct OnboardingView: View {
 
                 VStack(spacing: 8) {
                     Text("Eat Smart,")
-                        .font(.system(.largeTitle, weight: .black).width(.condensed))
+                        .font(.system(size: 32, weight: .bold, design: .rounded))
                     Text("Live Better")
-                        .font(.system(.largeTitle, weight: .black).width(.condensed))
-                        .foregroundStyle(AppColors.accentText)
+                        .font(.system(size: 32, weight: .bold, design: .rounded))
+                        .foregroundStyle(
+                            LinearGradient(colors: AppColors.calorieGradient, startPoint: .leading, endPoint: .trailing)
+                        )
                 }
                 Text("Just snap, track, and thrive.\nYour nutrition, simplified.")
                     .font(.system(.callout, design: .rounded))
@@ -293,10 +295,14 @@ struct OnboardingView: View {
                     withAnimation(.snappy) { step += 1 }
                 } label: {
                     Text("Get Started")
-                        .font(.system(.headline, weight: .black).width(.condensed))
+                        .font(.system(.headline, design: .rounded, weight: .semibold))
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 16)
-                        .flashActionFill()
+                        .background(
+                            LinearGradient(colors: AppColors.calorieGradient, startPoint: .leading, endPoint: .trailing)
+                        )
+                        .foregroundStyle(.white)
+                        .clipShape(RoundedRectangle(cornerRadius: 14))
                 }
 
                 Button {
@@ -819,7 +825,9 @@ struct OnboardingView: View {
 
                     Image(systemName: "heart.fill")
                         .font(.system(size: 48))
-                        .foregroundStyle(AppColors.accentText)
+                        .foregroundStyle(
+                            LinearGradient(colors: [.pink, .red], startPoint: .topLeading, endPoint: .bottomTrailing)
+                        )
                 }
 
                 VStack(spacing: 8) {
@@ -936,7 +944,7 @@ struct OnboardingView: View {
             await rc.refreshCustomerInfo()
             await rc.loadOfferings()
         }
-        .flashSheet(isPresented: $showHostedPaywall) {
+        .sheet(isPresented: $showHostedPaywall) {
             HostedPaywallView(onSubscribed: {
                 aiSubstep = .hosted
             })
@@ -947,18 +955,19 @@ struct OnboardingView: View {
         VStack(spacing: 18) {
             ZStack {
                 Circle()
-                    .fill(AppColors.appCard)
+                    .fill(.ultraThinMaterial)
                     .frame(width: 104, height: 104)
-                    .pinkNeoRule(AppColors.flashRule)
 
                 Image(systemName: "sparkles")
                     .font(.system(size: 42))
-                    .foregroundStyle(AppColors.accentText)
+                    .foregroundStyle(
+                        LinearGradient(colors: AppColors.calorieGradient, startPoint: .topLeading, endPoint: .bottomTrailing)
+                    )
             }
 
             VStack(spacing: 8) {
                 Text("Set Up Your AI")
-                    .font(.system(.title, weight: .black).width(.condensed))
+                    .font(.system(size: 28, weight: .bold, design: .rounded))
                     .multilineTextAlignment(.center)
 
                 Text(aiProviderSubtitle)
@@ -1183,10 +1192,15 @@ struct OnboardingView: View {
                 }
             } label: {
                 Text(aiProviderContinueLabel)
-                    .font(.system(.headline, weight: .black).width(.condensed))
+                    .font(.system(.body, design: .rounded, weight: .semibold))
+                    .foregroundStyle(.white)
                     .frame(maxWidth: .infinity)
-                    .frame(minHeight: 54)
-                    .flashActionFill()
+                    .frame(height: 54)
+                    .background(
+                        LinearGradient(colors: AppColors.calorieGradient, startPoint: .leading, endPoint: .trailing),
+                        in: RoundedRectangle(cornerRadius: 16)
+                    )
+                    .shadow(color: AppColors.calorie.opacity(0.3), radius: 8, y: 4)
             }
             .disabled(!hasAcceptedTerms)
             .opacity(hasAcceptedTerms ? 1 : 0.45)
@@ -1431,9 +1445,10 @@ struct OnboardingView: View {
                     } label: {
                         VStack(spacing: 4) {
                             Text("\(planCalories)")
-                                .font(.system(.largeTitle, weight: .black).width(.condensed))
-                                .foregroundStyle(AppColors.accentText)
-                                .monospacedDigit()
+                                .font(.system(size: 64, weight: .bold, design: .rounded))
+                                .foregroundStyle(
+                                    LinearGradient(colors: AppColors.calorieGradient, startPoint: .topLeading, endPoint: .bottomTrailing)
+                                )
                                 .contentTransition(.numericText())
                                 .animation(.snappy, value: planCalories)
                             HStack(spacing: 4) {
@@ -1468,10 +1483,10 @@ struct OnboardingView: View {
                     }
 
                     // Macro cards - tappable
-                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 92), spacing: 8)], spacing: 8) {
-                        editableMacroCard(label: "Protein", value: planProtein, field: .protein)
-                        editableMacroCard(label: "Carbs", value: planCarbs, field: .carbs)
-                        editableMacroCard(label: "Fat", value: planFat, field: .fat)
+                    HStack(spacing: 12) {
+                        editableMacroCard(label: "Protein", value: planProtein, unit: "g", gradientColors: AppColors.proteinGradient, field: .protein)
+                        editableMacroCard(label: "Carbs", value: planCarbs, unit: "g", gradientColors: AppColors.carbsGradient, field: .carbs)
+                        editableMacroCard(label: "Fat", value: planFat, unit: "g", gradientColors: AppColors.fatGradient, field: .fat)
                     }
                     .padding(.horizontal, 24)
 
@@ -1599,12 +1614,12 @@ struct OnboardingView: View {
             .padding(.bottom, 36)
         }
         .onAppear { initPlanValues() }
-        .flashSheet(isPresented: $showCalculationSources) {
+        .sheet(isPresented: $showCalculationSources) {
             CalculationMethodsView()
         }
     }
 
-    private func editableMacroCard(label: String, value: Int, field: EditableField) -> some View {
+    private func editableMacroCard(label: String, value: Int, unit: String, gradientColors: [Color], field: EditableField) -> some View {
         Button {
             withAnimation(.snappy) {
                 editingField = editingField == field ? nil : field
@@ -1614,22 +1629,29 @@ struct OnboardingView: View {
                 Text(LocalizedDisplayText.text(label))
                     .font(.system(.caption, design: .rounded, weight: .medium))
                     .foregroundStyle(.secondary)
-                Text(Measurement(value: Double(value), unit: UnitMass.grams),
-                     format: .measurement(width: .abbreviated, usage: .asProvided))
-                    .font(.system(.title2, weight: .black).width(.condensed))
-                    .foregroundStyle(editingField == field ? AppColors.accentText : Color.primary)
-                    .monospacedDigit()
-                    .contentTransition(.numericText())
-                    .multilineTextAlignment(.center)
+                HStack(spacing: 2) {
+                    Text("\(value)")
+                        .font(.system(.title2, design: .rounded, weight: .bold))
+                        .foregroundStyle(
+                            LinearGradient(colors: gradientColors, startPoint: .topLeading, endPoint: .bottomTrailing)
+                        )
+                        .contentTransition(.numericText())
+                        .animation(.snappy, value: value)
+                    Text(unit)
+                        .font(.system(.caption, design: .rounded, weight: .medium))
+                        .foregroundStyle(.secondary)
+                }
                 Image(systemName: "pencil.circle.fill")
                     .font(.system(size: 12))
                     .foregroundStyle(.tertiary)
             }
             .frame(maxWidth: .infinity)
-            .padding(10)
-            .background(AppColors.appCard)
-            .pinkNeoRule(editingField == field ? AppColors.accentText : AppColors.flashRule,
-                         width: editingField == field ? 2 : 1)
+            .padding(.vertical, 12)
+            .background(AppColors.appCard, in: RoundedRectangle(cornerRadius: 14))
+            .overlay(
+                RoundedRectangle(cornerRadius: 14)
+                    .strokeBorder(editingField == field ? gradientColors.first ?? .clear : .clear, lineWidth: 2)
+            )
         }
         .buttonStyle(.plain)
     }
@@ -1732,9 +1754,16 @@ struct BuildingPlanStepView: View {
             // Progress bar
             GeometryReader { geo in
                 ZStack(alignment: .leading) {
-                    Rectangle().fill(Color.primary.opacity(0.12))
-                    Rectangle()
-                        .fill(AppColors.calorie)
+                    Capsule().fill(Color.primary.opacity(0.08))
+                    Capsule()
+                        .fill(
+                            // Mono-pink to match the rest of the brand surface
+                            // (macro rings, home + button, PlanReady calorie
+                            // number) — earlier 3-stop gradient ended in blue
+                            // and read as off-brand against the otherwise
+                            // pink-only palette.
+                            LinearGradient(colors: AppColors.calorieGradient, startPoint: .leading, endPoint: .trailing)
+                        )
                         .frame(width: geo.size.width * progress)
                         .animation(.easeInOut(duration: 0.4), value: progress)
                 }

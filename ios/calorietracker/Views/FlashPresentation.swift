@@ -34,8 +34,7 @@ extension View {
     }
 
     func flashPanel(lineWidth: CGFloat = 1) -> some View {
-        background(AppColors.appCard)
-            .pinkNeoRule(AppColors.flashRule, width: lineWidth)
+        background(AppColors.appCard, in: RoundedRectangle(cornerRadius: 16))
     }
 
     func flashScreenSurface() -> some View {
@@ -44,58 +43,31 @@ extension View {
     }
 
     func flashListRows() -> some View {
-        listRowBackground(
-            Rectangle()
-                .fill(AppColors.appCard)
-                .overlay(alignment: .bottom) {
-                    Rectangle()
-                        .fill(AppColors.flashRule.opacity(0.32))
-                        .frame(height: 1)
-                }
-        )
-        .listRowSeparator(.hidden)
+        listRowBackground(AppColors.appCard)
     }
 
     func flashEditorSurface() -> some View {
         flashScreenSurface()
-            .listStyle(.plain)
-            .listSectionSpacing(12)
-            .contentMargins(.horizontal, 12, for: .scrollContent)
+            .listStyle(.insetGrouped)
     }
 
     func flashSectionRows() -> some View {
-        listRowBackground(
-            Rectangle()
-                .fill(AppColors.appCard)
-                .overlay(alignment: .leading) {
-                    Rectangle().fill(AppColors.flashRule).frame(width: 1)
-                }
-                .overlay(alignment: .trailing) {
-                    Rectangle().fill(AppColors.flashRule).frame(width: 1)
-                }
-        )
-        .listRowSeparatorTint(AppColors.flashRule.opacity(0.24))
-        .listSectionSeparatorTint(AppColors.flashRule)
+        listRowBackground(AppColors.appCard)
     }
 
     func flashSectionHeading() -> some View {
-        font(.system(.subheadline, weight: .black).width(.condensed))
-            .textCase(.uppercase)
+        font(.headline)
             .foregroundStyle(Color.primary)
             .accessibilityAddTraits(.isHeader)
     }
 
     func flashActionFill() -> some View {
-        foregroundStyle(AppColors.onAccent)
-            .background(AppColors.calorie)
-            .pinkNeoRule(AppColors.flashRule)
+        foregroundStyle(Color.white)
+            .background(AppColors.calorie, in: Capsule())
     }
 
     private func flashPresentation() -> some View {
-        tint(AppColors.accentText)
-            .scrollContentBackground(.hidden)
-            .presentationBackground(AppColors.appCard)
-            .presentationCornerRadius(0)
+        tint(AppColors.calorie)
     }
 }
 
@@ -132,7 +104,7 @@ struct FlashModelLinkStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .font(.caption)
-            .foregroundStyle(AppColors.accentText)
+            .foregroundStyle(AppColors.calorie)
             .frame(minWidth: 44, minHeight: 44)
             .contentShape(Rectangle())
             .opacity(configuration.isPressed ? 0.7 : 1)
@@ -144,13 +116,12 @@ struct FlashActionButtonStyle: ButtonStyle {
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .font(.system(.headline, weight: .black).width(.condensed))
+            .font(.headline)
             .padding(.horizontal, 14)
             .padding(.vertical, 8)
             .frame(minHeight: 44)
-            .foregroundStyle(isEnabled ? AppColors.onAccent : Color.secondary)
-            .background(isEnabled ? AppColors.calorie : AppColors.appCard)
-            .pinkNeoRule(AppColors.flashRule)
+            .foregroundStyle(isEnabled ? Color.white : Color.secondary)
+            .background(isEnabled ? AppColors.calorie : AppColors.appCard, in: Capsule())
             .opacity(configuration.isPressed ? 0.8 : 1)
     }
 }
@@ -380,7 +351,7 @@ struct FlashChoicePicker<Value: Hashable>: View {
         HStack(spacing: 8) {
             if let titleIcon {
                 Image(systemName: titleIcon)
-                    .foregroundStyle(AppColors.accentText)
+                    .foregroundStyle(AppColors.calorie)
                     .frame(width: 24)
                     .accessibilityHidden(true)
             }
@@ -399,7 +370,7 @@ struct FlashChoicePicker<Value: Hashable>: View {
                 .font(.caption.weight(.semibold))
                 .accessibilityHidden(true)
         }
-        .foregroundStyle(AppColors.accentText)
+        .foregroundStyle(AppColors.calorie)
     }
 
     var body: some View {

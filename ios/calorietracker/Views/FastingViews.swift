@@ -10,9 +10,8 @@ struct ActiveFastingRow: View {
             VStack(alignment: .leading, spacing: 8) {
                 HStack(spacing: 12) {
                     ZStack {
-                        Rectangle()
-                            .fill(AppColors.appCard)
-                            .pinkNeoRule(AppColors.flashRule)
+                        RoundedRectangle(cornerRadius: 14)
+                            .fill(.ultraThinMaterial)
                         Text("⏳")
                             .font(.system(size: 28))
                     }
@@ -60,9 +59,8 @@ struct CompletedFastingRow: View {
     var body: some View {
         HStack(spacing: 12) {
             ZStack {
-                Rectangle()
-                    .fill(AppColors.appCard)
-                    .pinkNeoRule(AppColors.flashRule)
+                RoundedRectangle(cornerRadius: 14)
+                    .fill(.ultraThinMaterial)
                 Text("⏳")
                     .font(.system(size: 28))
             }
@@ -102,15 +100,47 @@ struct FastingStartSheet: View {
 
     var body: some View {
         NavigationStack {
-            FlashGoalPickerBody(
-                heading: "Choose a fasting goal", actionTitle: "Start Fast", actionIcon: "play.fill",
-                action: {
+            VStack(spacing: 22) {
+                Image(systemName: "timer")
+                    .font(.system(size: 42, weight: .semibold))
+                    .foregroundStyle(AppColors.calorie)
+
+                Text("Choose a fasting goal")
+                    .font(.system(.title2, design: .rounded, weight: .bold))
+
+                HStack(spacing: 4) {
+                    Picker("Hours", selection: $selectedHours) {
+                        ForEach(1...168, id: \.self) { hours in
+                            Text("\(hours)").tag(hours)
+                        }
+                    }
+                    .pickerStyle(.wheel)
+                    .frame(width: 150, height: 170)
+                    .clipped()
+                    Text("hours")
+                        .font(.system(.title3, design: .rounded))
+                        .foregroundStyle(.secondary)
+                }
+
+                Button {
                     onStart(selectedHours * 60)
                     dismiss()
+                } label: {
+                    Label("Start Fast", systemImage: "play.fill")
+                        .font(.system(.headline, design: .rounded, weight: .semibold))
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 14)
+                        .foregroundStyle(.white)
+                        .background(
+                            LinearGradient(colors: AppColors.calorieGradient, startPoint: .leading, endPoint: .trailing),
+                            in: RoundedRectangle(cornerRadius: 14)
+                        )
                 }
-            ) {
-                FastingHoursWheel(selection: $selectedHours)
+                .padding(.horizontal, 24)
+                Spacer()
             }
+            .padding(.top, 24)
+            .background(AppColors.appBackground)
             .navigationTitle("Start Fast")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -119,6 +149,7 @@ struct FastingStartSheet: View {
                 }
             }
         }
+        .presentationDetents([.medium])
     }
 }
 
@@ -134,41 +165,48 @@ struct FastingGoalPickerSheet: View {
 
     var body: some View {
         NavigationStack {
-            FlashGoalPickerBody(
-                heading: "Default Fasting Goal", actionTitle: "Save",
-                action: {
+            VStack(spacing: 20) {
+                Text("Default Fasting Goal")
+                    .font(.system(.title2, design: .rounded, weight: .bold))
+                HStack(spacing: 4) {
+                    Picker("Hours", selection: $selectedHours) {
+                        ForEach(1...168, id: \.self) { hours in
+                            Text("\(hours)").tag(hours)
+                        }
+                    }
+                    .pickerStyle(.wheel)
+                    .frame(width: 150, height: 190)
+                    .clipped()
+                    Text("hours")
+                        .font(.system(.title3, design: .rounded))
+                        .foregroundStyle(.secondary)
+                }
+                Button {
                     onSave(selectedHours * 60)
                     dismiss()
+                } label: {
+                    Text("Save")
+                        .font(.system(.headline, design: .rounded, weight: .semibold))
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 14)
+                        .background(
+                            LinearGradient(colors: AppColors.calorieGradient, startPoint: .leading, endPoint: .trailing)
+                        )
+                        .foregroundStyle(.white)
+                        .clipShape(RoundedRectangle(cornerRadius: 14))
                 }
-            ) {
-                FastingHoursWheel(selection: $selectedHours)
+                .padding(.horizontal, 24)
+                Spacer()
             }
+            .padding(.top, 24)
+            .background(AppColors.appBackground)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") { dismiss() }
                 }
             }
         }
-    }
-}
-
-private struct FastingHoursWheel: View {
-    @Binding var selection: Int
-
-    var body: some View {
-        VStack(spacing: 0) {
-            Picker("Hours", selection: $selection) {
-                ForEach(1...168, id: \.self) { Text($0.formatted()).tag($0) }
-            }
-            .pickerStyle(.wheel)
-            .frame(height: 156)
-            .clipped()
-            Text("hours")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
-                .padding(.bottom, 8)
-                .accessibilityHidden(true)
-        }
+        .presentationDetents([.medium])
     }
 }
 

@@ -567,10 +567,11 @@ DisposableEffect(lifecycleOwner, vm) {
             // Week strip — verbatim port of WeekEnergyStrip in HomeComponents.swift,
             // with horizontal pagination across 53 weeks of history.
             item {
+                DiaryDateHeader(selectedDate, onPick = pickDay)
                 Box(Modifier.padding(horizontal = 16.dp, vertical = 4.dp)) {
                     WeekEnergyStrip(
                         selectedDate = selectedDate,
-                        onSelect = { vm.setSelectedDate(it) },
+                        onSelect = pickDay,
                         weekStartsOnMonday = weekStartsOnMonday
                     )
                 }
@@ -581,27 +582,28 @@ DisposableEffect(lifecycleOwner, vm) {
             // the horizontal-only detector lets the LazyColumn keep scrolling vertically.
             item {
                 Column(
-                    modifier = Modifier.pointerInput(selectedDate) {
-                        var accum = 0f
-                        val threshold = 80.dp.toPx()
-                        detectHorizontalDragGestures(
-                            onDragStart = { accum = 0f },
-                            onDragCancel = { accum = 0f },
-                            onHorizontalDrag = { change, amount -> accum += amount; change.consume() },
-                            onDragEnd = {
-                                if (accum > threshold) {
-                                    vm.setSelectedDate(selectedDate.minusDays(1))
-                                } else if (accum < -threshold) {
-                                    val next = selectedDate.plusDays(1)
-                                    if (!next.isAfter(today)) vm.setSelectedDate(next)
-                                }
-                                accum = 0f
+                    modifier = Modifier.fillMaxWidth().pointerInput(selectedDate, today) {
+                        val threshold = 60.dp.toPx()
+                        awaitEachGesture {
+                            val down = awaitFirstDown(requireUnconsumed = false)
+                            var change = awaitHorizontalTouchSlopOrCancellation(down.id) { crossing, _ ->
+                                crossing.consume()
+                            } ?: return@awaitEachGesture
+                            while (change.pressed) {
+                                change = awaitHorizontalDragOrCancellation(change.id) ?: return@awaitEachGesture
+                                // A claimed drag must never finish as a View More tap.
+                                change.consume()
                             }
-                        )
+                            val dx = change.position.x - down.position.x
+                            val dy = change.position.y - down.position.y
+                            if (kotlin.math.abs(dx) > threshold && kotlin.math.abs(dx) > kotlin.math.abs(dy) * 1.5f) {
+                                pickDay(selectedDate.plusDays(if (dx < 0) 1 else -1))
+                            }
+                        }
                     }
                 ) {
                     Spacer(Modifier.height(32.dp))
-CalorieHero(
+                    CalorieHero(
                         current = ui.caloriesToday,
                         goal = ui.profile?.effectiveCalories ?: 2000,
                         burnSummary = ui.homeBurnSummary
@@ -642,7 +644,7 @@ CalorieHero(
                             .padding(vertical = 8.dp),
                         contentAlignment = Alignment.Center
                     ) {
-                        Box(modifier = Modifier.clickable { showNutritionDetail = true }) {
+                        Box(modifier = Modifier.testTag("home.viewMore").clickable(role = Role.Button) { showNutritionDetail = true }) {
                             ViewMoreButton()
                         }
                     }

@@ -59,13 +59,12 @@ import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
 @Composable
-internal fun PinkNeoDateHeader(date: LocalDate, onPick: (LocalDate) -> Unit) {
-    val palette = pinkNeoPalette()
+internal fun DiaryDateHeader(date: LocalDate, onPick: (LocalDate) -> Unit) {
     val locale = LocalConfiguration.current.locales[0]
     val today = LocalDate.now()
     var showCalendar by rememberSaveable { mutableStateOf(false) }
     Row(
-        Modifier.fillMaxWidth().padding(start = 2.dp),
+        Modifier.fillMaxWidth().padding(horizontal = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(6.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -74,15 +73,15 @@ internal fun PinkNeoDateHeader(date: LocalDate, onPick: (LocalDate) -> Unit) {
         }
         Text(
             if (date == today) stringResource(R.string.widget_today) else date.format(dateFormatter),
-            color = palette.ink, fontWeight = FontWeight.Black, fontSize = 18.sp,
-            lineHeight = 22.sp, style = PinkNeoCondensed,
+            color = androidx.compose.material3.MaterialTheme.colorScheme.onBackground,
+            style = androidx.compose.material3.MaterialTheme.typography.titleMedium,
             modifier = Modifier.weight(1f).testTag("home.dateHeading").semantics { heading() }
         )
         IconButton(
             onClick = { showCalendar = true },
             modifier = Modifier.testTag("home.calendar").size(48.dp)
         ) {
-            Icon(Icons.Filled.CalendarToday, stringResource(R.string.label_date), tint = palette.ink,
+            Icon(Icons.Filled.CalendarToday, stringResource(R.string.label_date), tint = androidx.compose.material3.MaterialTheme.colorScheme.primary,
                 modifier = Modifier.size(18.dp))
         }
     }

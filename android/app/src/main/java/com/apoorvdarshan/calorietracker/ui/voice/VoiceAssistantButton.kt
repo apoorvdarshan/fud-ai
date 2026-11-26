@@ -12,6 +12,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.apoorvdarshan.calorietracker.R
@@ -28,6 +29,7 @@ fun VoiceAssistantButton(onClick: () -> Unit, modifier: Modifier = Modifier, siz
             .clickable(onClick = onClick)
             .semantics {
                 contentDescription = label
+                stateDescription = profile.name
                 role = Role.Button
             }
             .testTag("voiceAssistantButton")

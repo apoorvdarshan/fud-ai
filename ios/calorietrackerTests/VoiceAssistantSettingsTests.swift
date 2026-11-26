@@ -297,7 +297,7 @@ struct VoiceAssistantInstructionsTests {
             fastingTracking: true
         )
         #expect(text.count <= VoiceAssistantInstructions.maximumLength)
-        #expect(text.contains("Your name for this session is \"Brulee\""))
+        #expect(text.contains("Your name for this session is \"Fud AI\""))
         #expect(text.contains("user_confirmed: true unless the user agreed"))
         #expect(text.contains("read back the main items and the total calories"))
         #expect(text.contains("camera_frames: continuous"))

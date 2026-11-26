@@ -397,6 +397,9 @@ fun SettingsScreen(
     container: AppContainer,
     nav: NavHostController,
     vm: SettingsViewModel,
+    unreadUpdate: String? = null,
+    onUpdateChecked: (com.apoorvdarshan.calorietracker.services.update.AndroidUpdateState) -> Unit = {},
+    onUpdateRead: (String) -> Unit = {},
     popToRootTick: Int = 0
 ) {
     val ui by vm.ui.collectAsState()
@@ -776,7 +779,7 @@ fun SettingsScreen(
             verticalArrangement = Arrangement.spacedBy(18.dp)
         ) {
             if (selectedCategory == null) {
-                SettingsCategoryHub(onSelect = { selectedCategory = it })
+                SettingsCategoryHub(hasUnreadUpdate = unreadUpdate != null, onSelect = { selectedCategory = it })
                 Spacer(Modifier.height(BottomNavScrollPadding))
                 return@Column
             }
@@ -1931,11 +1934,12 @@ fun SettingsScreen(
             // App information and support actions are first-class Settings destinations.
             selectedCategory?.aboutCategory?.let { aboutCategory ->
                 if (aboutCategory == AboutSettingsCategory.APP_UPDATES) {
+                    LaunchedEffect(unreadUpdate) { unreadUpdate?.let(onUpdateRead) }
                     SectionCard { AboutAppHeader() }
                 }
 
                 SectionCard {
-                    AboutSettingsRows(aboutCategory, billing = container.billing)
+                    AboutSettingsRows(aboutCategory, billing = container.billing, onUpdateChecked = onUpdateChecked)
                 }
             }
 
@@ -2325,13 +2329,13 @@ fun SettingsScreen(
 }
 
 @Composable
-private fun SettingsCategoryHub(onSelect: (SettingsCategory) -> Unit) {
+private fun SettingsCategoryHub(hasUnreadUpdate: Boolean, onSelect: (SettingsCategory) -> Unit) {
     Column(verticalArrangement = Arrangement.spacedBy(18.dp)) {
         SectionCard {
             SettingsCategoryRows(SettingsCategory.preferenceEntries, onSelect)
         }
         SectionCard {
-            SettingsCategoryRows(SettingsCategory.appInfoEntries, onSelect)
+            SettingsCategoryRows(SettingsCategory.appInfoEntries, onSelect, hasUnreadUpdate)
         }
         AboutFooter()
     }
@@ -2340,7 +2344,8 @@ private fun SettingsCategoryHub(onSelect: (SettingsCategory) -> Unit) {
 @Composable
 private fun SettingsCategoryRows(
     categories: List<SettingsCategory>,
-    onSelect: (SettingsCategory) -> Unit
+    onSelect: (SettingsCategory) -> Unit,
+    hasUnreadUpdate: Boolean = false
 ) {
     categories.forEachIndexed { index, category ->
         Row(
@@ -2364,6 +2369,12 @@ private fun SettingsCategoryRows(
                 fontWeight = FontWeight.Medium,
                 modifier = Modifier.weight(1f)
             )
+            if (hasUnreadUpdate && category == SettingsCategory.APP_UPDATES) {
+                androidx.compose.foundation.Canvas(Modifier.size(8.dp), contentDescription = stringResource(R.string.about_update_available)) {
+                    drawCircle(AppColors.Calorie)
+                }
+                Spacer(Modifier.width(8.dp))
+            }
             Icon(
                 Icons.Filled.ChevronRight,
                 contentDescription = null,

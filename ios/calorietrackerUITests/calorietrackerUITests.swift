@@ -435,6 +435,9 @@ final class calorietrackerUITests: XCTestCase {
         XCTAssertTrue(store.waitForExistence(timeout: 5))
         XCTAssertTrue(store.label.contains("Update Available"))
         XCTAssertTrue(store.label.contains("99.0"))
+        app.navigationBars["App & Updates"].buttons.firstMatch.tap()
+        reveal(updates, in: app)
+        XCTAssertNotEqual(updates.value as? String, "Update Available")
     }
 
     @MainActor

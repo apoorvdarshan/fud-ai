@@ -132,7 +132,20 @@ internal fun FudAINavHost(
     // (matches iOS TabView + NavigationStack reselect → root behavior).
     var settingsPopToRootTick by remember { mutableIntStateOf(0) }
     val currentVersion = remember(context) { AndroidUpdateChecker.currentVersion(context) }
-    var updateAvailable by remember { mutableStateOf(false) }
+    val updatePrefs = remember(context) { context.getSharedPreferences("storeUpdateBadges", android.content.Context.MODE_PRIVATE) }
+    val confirmedKey = "confirmed.${com.apoorvdarshan.calorietracker.BuildConfig.VERSION_CODE}"
+    var confirmedUpdate by remember { mutableStateOf(updatePrefs.getString(confirmedKey, null)) }
+    var readUpdate by remember { mutableStateOf(updatePrefs.getString("readVersion", null)) }
+    fun recordUpdate(result: AndroidUpdateState) {
+        val latest = when (result) {
+            is AndroidUpdateState.Available -> result.latest
+            is AndroidUpdateState.UpToDate -> null
+            else -> return
+        }
+        confirmedUpdate = latest
+        updatePrefs.edit().putString(confirmedKey, latest).apply()
+    }
+    val unreadUpdate = confirmedUpdate?.takeUnless { it == readUpdate }
 
     // Settings is intentionally warmed before onboarding finishes. Reload the values that
     // onboarding can change outside Settings so the first visit never shows the pre-onboarding
@@ -167,7 +180,7 @@ internal fun FudAINavHost(
     LaunchedEffect(currentVersion) {
         if (!container.backgroundServicesEnabled) return@LaunchedEffect
         val state = AndroidUpdateChecker.check(context, currentVersion)
-        updateAvailable = state is AndroidUpdateState.Available
+        recordUpdate(state)
         // A newer version is out — fire a one-shot notification (de-duped per version, gated by the
         // "App Updates" toggle) so the user finds out even without opening the About section.
         if (state is AndroidUpdateState.Available &&
@@ -304,7 +317,7 @@ internal fun FudAINavHost(
             if (showTabs) {
                 FudAIBottomNavBar(
                     currentRoute = selectedTabRoute,
-                    showAboutBadge = updateAvailable,
+                    showAboutBadge = unreadUpdate != null,
                     workoutMode = workoutMode,
                     hiddenRoutes = hiddenTabs.orEmpty(),
                     onTap = ::selectTab
@@ -352,6 +365,12 @@ internal fun FudAINavHost(
                             container = container,
                             nav = nav,
                             vm = settingsViewModel,
+                            unreadUpdate = unreadUpdate,
+                            onUpdateChecked = ::recordUpdate,
+                            onUpdateRead = { version ->
+                                readUpdate = version
+                                updatePrefs.edit().putString("readVersion", version).apply()
+                            },
                             popToRootTick = settingsPopToRootTick
                         )
                     }

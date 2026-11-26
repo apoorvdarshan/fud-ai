@@ -143,7 +143,7 @@ fun AboutAppHeader() {
 
 /** Rows for one focused About category, embedded in the existing Settings layout. */
 @Composable
-fun AboutSettingsRows(category: AboutSettingsCategory, billing: BillingManager? = null) {
+fun AboutSettingsRows(category: AboutSettingsCategory, billing: BillingManager? = null, onUpdateChecked: (AndroidUpdateState) -> Unit = {}) {
     val ctx = LocalContext.current
     val shareText = stringResource(R.string.about_share_message)
     val shareChooser = stringResource(R.string.about_share_chooser)
@@ -172,14 +172,14 @@ fun AboutSettingsRows(category: AboutSettingsCategory, billing: BillingManager? 
     fun refreshUpdateState() {
         scope.launch {
             updateState = AndroidUpdateState.Checking
-            updateState = AndroidUpdateChecker.check(ctx, currentVersion)
+            updateState = AndroidUpdateChecker.check(ctx, currentVersion).also(onUpdateChecked)
         }
     }
 
     LaunchedEffect(category, currentVersion) {
         if (category == AboutSettingsCategory.APP_UPDATES) {
             updateState = AndroidUpdateState.Checking
-            updateState = AndroidUpdateChecker.check(ctx, currentVersion)
+            updateState = AndroidUpdateChecker.check(ctx, currentVersion).also(onUpdateChecked)
         }
     }
 

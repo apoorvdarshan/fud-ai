@@ -134,6 +134,16 @@ struct ContentView: View {
     @AppStorage(AppThemeColor.storageKey) private var appThemeColorRaw = AppThemeColor.defaultColor.rawValue
     @AppStorage(WorkoutTabMode.storageKey) private var workoutTabModeRaw = WorkoutTabMode.defaultMode.rawValue
     @AppStorage(TabBarSettings.hiddenTabsKey) private var hiddenTabsRaw = ""
+    @AppStorage("confirmedStoreUpdateVersion") private var confirmedStoreUpdateVersion = ""
+    @AppStorage("readStoreUpdateVersion") private var readStoreUpdateVersion = ""
+    private var unreadStoreUpdate: String? {
+        let version: String
+        if case let .available(_, latest, _) = appUpdateState { version = latest }
+        else { version = confirmedStoreUpdateVersion }
+        guard version.compare(AppUpdateChecker.currentVersion, options: .numeric) == .orderedDescending,
+              version != readStoreUpdateVersion else { return nil }
+        return version
+    }
     @State private var appUpdateState: AppUpdateState = SimulatorTestEnvironment.showsAvailableAppUpdate
         ? .available(current: AppUpdateChecker.currentVersion, latest: "99.0", url: fudAIAppStoreURL)
         : .idle
@@ -301,6 +311,7 @@ struct ContentView: View {
 
             ProfileView(
                 updateState: $appUpdateState,
+                unreadUpdate: unreadStoreUpdate,
                 refreshUpdateState: {
                     await refreshAppUpdateState(force: true)
                 }
@@ -310,7 +321,7 @@ struct ContentView: View {
                     Image(systemName: "gearshape.fill")
                     Text("Settings")
                 }
-                .badge(appUpdateState.isUpdateAvailable ? "!" : nil)
+                .badge(unreadStoreUpdate == nil ? nil : Text(verbatim: "•"))
 
             if !hiddenTabs.contains(.workouts) {
                 WorkoutsView()
@@ -364,7 +375,10 @@ struct ContentView: View {
         // A newer version is out — fire a one-shot notification (de-duped per version, gated by the
         // "App Updates" toggle) so the user finds out even if they don't scroll to the About section.
         if case let .available(_, latest, url) = appUpdateState {
+            confirmedStoreUpdateVersion = latest
             await notificationManager.notifyUpdateAvailable(version: latest, url: url)
+        } else if case .upToDate = appUpdateState {
+            confirmedStoreUpdateVersion = ""
         }
     }
 
@@ -1195,7 +1209,6 @@ struct HomeView: View {
     /// to change days or starts on today and heads into the future.
     private var nutritionLinkGesture: some Gesture {
         DragGesture(minimumDistance: 10)
-            .onEnded { finishDaySwipe($0.translation) }
             .exclusively(before: TapGesture().onEnded { showNutritionDetail = true })
     }
 
@@ -1617,79 +1630,75 @@ private var dailyStepsTaskKey: String {
                     .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
                 }
 
-                // Nutrition summary. Keeping the dome, macros, water and detail affordance in
-                // one section removes an unhelpful List section gap and matches Android's
-                // compact top-region hierarchy.
+                // One hit area covers the gauge, steps, nutrients, and the spaces between them.
                 Section {
-                    CalorieGauge(
-                        eaten: selectedCalories,
-                        goal: calorieGoal,
-                        burnLine: homeBurnLine,
-                        launchFillEpoch: launchFillEpoch
-                    )
-                        .frame(maxWidth: .infinity)
-                        .padding(.top, -8)
+                    VStack(spacing: 12) {
+                        CalorieGauge(
+                            eaten: selectedCalories,
+                            goal: calorieGoal,
+                            burnLine: homeBurnLine,
+                            launchFillEpoch: launchFillEpoch
+                        )
+                            .frame(maxWidth: .infinity)
+                            .padding(.top, -8)
+                            .contentShape(Rectangle())
+                            .task(id: homeBurnRefreshToken) {
+                                await refreshHomeBurnLine()
+                            }
+
+                        if let dailySteps {
+                            DailyStepsRow(steps: dailySteps)
+                                .accessibilityIdentifier("home.steps")
+                        }
+
+                        HStack(alignment: .top, spacing: 4) {
+                            ForEach(displayedHomeNutrients) { nutrient in
+                                MacroVerticalBar(
+                                    label: nutrient.displayName,
+                                    current: nutrient.value(from: foodStore, on: selectedDate),
+                                    goal: nutrient.goal(for: userProfile, optionalGoals: optionalNutrientGoals),
+                                    unit: nutrient.unit,
+                                    gradient: nutrient.gradientColors,
+                                    launchFillEpoch: launchFillEpoch
+                                )
+                            }
+                            if waterTrackingEnabled {
+                                MacroVerticalBar(
+                                    label: "Water",
+                                    current: waterUnit.displayAmount(
+                                        forMilliliters: waterStore.total(on: selectedDate)
+                                    ),
+                                    goal: waterUnit.displayAmount(forMilliliters: waterDailyGoal),
+                                    unit: waterPillarUnit,
+                                    gradient: AppColors.calorieGradient,
+                                    launchFillEpoch: launchFillEpoch
+                                )
+                            }
+                        }
+                        .padding(.vertical, 4)
                         .contentShape(Rectangle())
-                        .simultaneousGesture(daySwipeGesture)
-                        .listRowBackground(Color.clear)
-                        .listRowSeparator(.hidden)
-                        .task(id: homeBurnRefreshToken) {
-                            await refreshHomeBurnLine()
-                        }
 
-                    if let dailySteps {
-                        DailyStepsRow(steps: dailySteps)
-                            .listRowBackground(Color.clear)
-                            .listRowSeparator(.hidden)
-                    }
-
-                    HStack(alignment: .top, spacing: 4) {
-                        ForEach(displayedHomeNutrients) { nutrient in
-                            MacroVerticalBar(
-                                label: nutrient.displayName,
-                                current: nutrient.value(from: foodStore, on: selectedDate),
-                                goal: nutrient.goal(for: userProfile, optionalGoals: optionalNutrientGoals),
-                                unit: nutrient.unit,
-                                gradient: nutrient.gradientColors,
-                                launchFillEpoch: launchFillEpoch
-                            )
+                        Group {
+                            HStack {
+                                Spacer()
+                                Text("View More")
+                                    .font(.system(.subheadline, design: .rounded, weight: .medium))
+                                Image(systemName: "chevron.right")
+                                    .font(.caption2)
+                                Spacer()
+                            }
+                            .foregroundStyle(AppColors.calorie.opacity(0.6))
                         }
-                        if waterTrackingEnabled {
-                            MacroVerticalBar(
-                                label: "Water",
-                                current: waterUnit.displayAmount(
-                                    forMilliliters: waterStore.total(on: selectedDate)
-                                ),
-                                goal: waterUnit.displayAmount(forMilliliters: waterDailyGoal),
-                                unit: waterPillarUnit,
-                                gradient: AppColors.calorieGradient,
-                                launchFillEpoch: launchFillEpoch
-                            )
-                        }
+                        .contentShape(Rectangle())
+                        .gesture(nutritionLinkGesture)
+                        .accessibilityElement(children: .combine)
+                        .accessibilityAddTraits(.isButton)
+                        .accessibilityAction { showNutritionDetail = true }
+                        .accessibilityIdentifier("home.viewMore")
                     }
-                    .padding(.vertical, 4)
+                    .frame(maxWidth: .infinity)
                     .contentShape(Rectangle())
                     .simultaneousGesture(daySwipeGesture)
-                    .listRowBackground(Color.clear)
-                    .listRowSeparator(.hidden)
-
-                    Group {
-                        HStack {
-                            Spacer()
-                            Text("View More")
-                                .font(.system(.subheadline, design: .rounded, weight: .medium))
-                            Image(systemName: "chevron.right")
-                                .font(.caption2)
-                            Spacer()
-                        }
-                        .foregroundStyle(AppColors.calorie.opacity(0.6))
-                    }
-                    .contentShape(Rectangle())
-                    .gesture(nutritionLinkGesture)
-                    .accessibilityElement(children: .combine)
-                    .accessibilityAddTraits(.isButton)
-                    .accessibilityAction { showNutritionDetail = true }
-                    .accessibilityIdentifier("home.viewMore")
                     .listRowBackground(Color.clear)
                     .listRowSeparator(.hidden)
                 }
@@ -4760,15 +4769,19 @@ struct ProfileView: View {
     // App-update state is owned by ContentView (it also drives the one-shot update
     // notification). It's forwarded here so the About section — now the last section
     // of Settings — can show the update row and the manual re-check.
+    private let unreadUpdate: String?
+    @AppStorage("readStoreUpdateVersion") private var readStoreUpdateVersion = ""
     @Binding private var updateState: AppUpdateState
     private let refreshUpdateState: () async -> Void
     private let settingsCategory: ProfileSettingsCategory?
 
     fileprivate init(
         updateState: Binding<AppUpdateState>,
+        unreadUpdate: String? = nil,
         refreshUpdateState: @escaping () async -> Void,
         settingsCategory: ProfileSettingsCategory? = nil
     ) {
+        self.unreadUpdate = unreadUpdate
         self._updateState = updateState
         self.refreshUpdateState = refreshUpdateState
         self.settingsCategory = settingsCategory
@@ -4923,6 +4936,7 @@ struct ProfileView: View {
                             } else {
                                 ProfileView(
                                     updateState: $updateState,
+                                    unreadUpdate: unreadUpdate,
                                     refreshUpdateState: refreshUpdateState,
                                     settingsCategory: category
                                 )
@@ -4959,9 +4973,9 @@ struct ProfileView: View {
 
             Section {
                 ForEach(ProfileSettingsCategory.appInfoCases) { category in
-                    if category == .appUpdates && updateState.isUpdateAvailable {
+                    if category == .appUpdates && unreadUpdate != nil {
                         ProfileSettingsCategoryRow(category: category)
-                            .badge(Text("Update Available"))
+                            .badge(Text(verbatim: "●").foregroundColor(AppColors.calorie))
                             .accessibilityValue(Text("Update Available"))
                     } else {
                         ProfileSettingsCategoryRow(category: category)
@@ -6560,6 +6574,9 @@ struct ProfileView: View {
                 if let aboutCategory = settingsCategory?.aboutCategory {
                     if aboutCategory == .appUpdates {
                         AboutAppHeaderSection()
+                            .onChange(of: unreadUpdate, initial: true) { _, version in
+                                if let version { readStoreUpdateVersion = version }
+                            }
                     }
 
                     if aboutCategory == .support {

@@ -168,7 +168,7 @@ nonisolated struct VoiceAssistantSettings {
     }
 
     var geminiBargeIn: Bool {
-        get { defaults.object(forKey: Self.geminiBargeInKey) as? Bool ?? true }
+        get { defaults.object(forKey: Self.geminiBargeInKey) as? Bool ?? false }
         nonmutating set { defaults.set(newValue, forKey: Self.geminiBargeInKey) }
     }
 

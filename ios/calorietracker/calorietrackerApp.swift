@@ -155,6 +155,9 @@ struct calorietrackerApp: App {
                 await weeklyChallengeStore.retryPendingDeletionIfNeeded()
             }
         }
+        .onChange(of: scenePhase, initial: true) { _, phase in
+            VoiceAssistantWindowManager.shared.setSceneActive(phase == .active)
+        }
         .onChange(of: scenePhase) { _, newPhase in
             if newPhase == .background && !SimulatorTestEnvironment.isRunningTests {
                 Task { await cloudBackupService.autoBackupIfNeeded() }

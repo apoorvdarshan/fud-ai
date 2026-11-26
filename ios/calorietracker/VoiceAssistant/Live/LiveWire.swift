@@ -127,7 +127,7 @@ nonisolated struct LiveSessionConfig: Sendable, Equatable {
     let geminiBargeIn: Bool
 
     init(provider: LiveProvider, model: String, voice: String, credential: Credential,
-         instructions: String, tools: [LiveToolDeclaration], qwenWorkspace: String = "", geminiBargeIn: Bool = true) {
+         instructions: String, tools: [LiveToolDeclaration], qwenWorkspace: String = "", geminiBargeIn: Bool = false) {
         self.provider = provider
         self.model = model
         self.voice = voice

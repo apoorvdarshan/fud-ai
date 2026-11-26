@@ -90,7 +90,7 @@ data class VoiceAssistantPreferences(
     val confirmSaves: Boolean = true,
     val saveToCoach: Boolean = true,
     val qwenWorkspace: String = "",
-    val geminiBargeIn: Boolean = true
+    val geminiBargeIn: Boolean = false
 ) {
     fun model(provider: LiveProvider): String = models[provider] ?: provider.defaultModel
     fun voice(provider: LiveProvider): String = voices[provider] ?: provider.defaultVoice
@@ -2047,7 +2047,7 @@ class PreferencesStore(
             confirmSaves = prefs[Keys.VOICE_CONFIRM_SAVES] ?: true,
             saveToCoach = prefs[Keys.VOICE_SAVE_TO_COACH] ?: true,
             qwenWorkspace = prefs[Keys.QWEN_LIVE_WORKSPACE].orEmpty(),
-            geminiBargeIn = prefs[Keys.GEMINI_BARGE_IN] ?: true
+            geminiBargeIn = prefs[Keys.GEMINI_BARGE_IN] ?: false
         )
 
         private const val TAG = "PreferencesStore"
